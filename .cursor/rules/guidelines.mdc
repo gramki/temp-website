@@ -1,0 +1,17 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# Git Commit Message Format
+Always use the following format for git commit messages:
+
+```
+[ticketID] <type>(<scope>): <subject>
+
+<optional body>
+
+<optional footer(s)>
+```
+Example: [SPE-2586] feat(auth): add biometric login option
