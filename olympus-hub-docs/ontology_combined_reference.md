@@ -252,10 +252,10 @@ When the domain is about technical operations of a systems, then the Machine is 
 ### Role
 **Definition:** A functional responsibility played by an [Agent](#agent) in a [Scenario](#scenario).  
 **Role:** Specifies duties and what Procedures are executed.  
-**Relationships:** Has [Goals](#goal); executes [Procedures](#procedure); is played by [Agents](#agent); ties to [Responsibility](#responsibility), [Capability](#capability), [Capacity](#capacity).  
-**Example:** “Security Analyst,” “Controller,” “Reviewer.”
+**Relationships:** Has [Goals](#goal); executes [Procedures](#procedure); is played by [Agents](#agent); composed of [Responsibilities](#responsibility).  
+**Example:** "Security Analyst," "Controller," "Reviewer."
 
-**See also:** [Goal](#goal), [Procedure](#procedure), [Agent](#agent)
+**See also:** [Goal](#goal), [Procedure](#procedure), [Agent](#agent), [Responsibility](#responsibility)
 
 ---
 
@@ -281,28 +281,28 @@ When the domain is about technical operations of a systems, then the Machine is 
 
 ### Responsibility
 **Definition:** Abstract duty bound to a [Role](#role).  
-**Role:** Articulates the “what” a role is accountable for.  
-**Relationships:** Contributes to [Capabilities](#capability); informs [Activities](#activities).
+**Role:** Articulates the "what" a role is accountable for.  
+**Relationships:** Contributes to [Role](#role); fulfilled by [Capabilities](#capability); determines [Procedures](#procedure).
 
-**See also:** [Role](#role), [Capability](#capability)
+**See also:** [Role](#role), [Capability](#capability), [Procedure](#procedure)
 
 ---
 
 ### Capability
 **Definition:** Abstract abilities (skills/functions) available to an [Agent](#agent).  
 **Role:** Enable [Activities](#activities).  
-**Relationships:** Fulfill [Responsibilities](#responsibility); enabled by [Agents](#agent).
+**Relationships:** Fulfills [Responsibilities](#responsibility); enabled by [Agents](#agent).
 
-**See also:** [Capacity](#capacity), [Training](#training)
+**See also:** [Capacity](#capacity), [Training](#training), [Responsibility](#responsibility)
 
 ---
 
 ### Capacity
 **Definition:** Abstract limits (time, throughput, concurrency) of an [Agent](#agent).  
 **Role:** Constrains [Activities](#activities).  
-**Relationships:** Bound to [Agents](#agent).
+**Relationships:** Limits [Agents](#agent).
 
-**See also:** [Activities](#activities)
+**See also:** [Activities](#activities), [Agent](#agent)
 
 ---
 
@@ -349,9 +349,10 @@ When the domain is about technical operations of a systems, then the Machine is 
 ---
 
 ### Procedure
-**Definition:** Deterministic sequence of decisions and activities for a single [Role](#role) to meet its [Goals](#goal) in a [Scenario](#scenario).  
+**Definition:** Sequence of decisions and activities for a single [Role](#role) to meet its [Goals](#goal) in a [Scenario](#scenario).  
 **Role:** Unit playbook, **governed by** [SOP](#sop-standard-operating-procedure).  
 **Relationships:** Prescribes [Activities](#activities); executed by [Role](#role).  
+**Note:** Procedures are not limited to deterministic, rule-based sequences. They can include human judgment, creative decision-making, and adaptive activities that rely on human agency and expertise. The term "procedure" refers to the structured approach to work, not the elimination of human discretion.  
 **Example:** Analyst procedure: check logs → verify user → reset password.
 
 **See also:** [SOP](#sop-standard-operating-procedure), [Workflow](#workflow)
@@ -372,6 +373,7 @@ When the domain is about technical operations of a systems, then the Machine is 
 **Definition:** Non-deterministic, evolving collaboration across [Roles](#role) to resolve a [Scenario](#scenario).  
 **Role:** Supports flexible paths; can incorporate new [Signals](#signal) over time.  
 **Relationships:** Aggregates [Procedures](#procedure); may update with [Signals](#signal); collaboration between [Agents](#agent).  
+**Note:** Cases handle non-deterministic work within **known scenarios**. For completely unknown scenarios that emerge outside the defined ontology, new scenarios and their corresponding operations must be created through human agency and creative problem-solving.  
 **Example:** Security incident response that evolves as new alerts arrive.
 
 **See also:** [Workflow](#workflow), [Signal](#signal)
@@ -399,9 +401,10 @@ When the domain is about technical operations of a systems, then the Machine is 
 ### Agent
 **Definition:** Performer of work—human or AI.  
 **Role:** Plays [Roles](#role), makes [Decisions](#decision), uses [Tools](#tool-abstract), performs [Activities](#activities).  
-**Relationships:** Specialized into [Human](#human) and [AI Agent](#ai-agent).
+**Relationships:** Specialized into [Human](#human) and [AI Agent](#ai-agent); enabled by/has [Capabilities](#capability); limited by [Capacity](#capacity).  
+**Note:** Agent is an abstract concept that encompasses both Human and AI agents. Agents are not merely process executors—they exercise judgment, creativity, and agency. Human agents bring unique capabilities for creative problem-solving, ethical reasoning, and handling novel situations, while AI agents provide computational power, pattern recognition, and automation capabilities. The collaboration between human and AI agents leverages the strengths of both.
 
-**See also:** [Human–AI Team](#humanai-team), [Tool](#tool-abstract)
+**See also:** [Human–AI Team](#humanai-team), [Tool](#tool-abstract), [Capability](#capability), [Capacity](#capacity)
 
 ---
 
@@ -686,10 +689,13 @@ Case --collaboration between--> Agent
 Automation_System --runs/manages--> Automation
 Automation_System --supervises--> Operation
 
-Role --contributes to--> Responsibility
-Responsibility --fulfills--> Capability
-Capability --enabled by--> Agent
-Agent --limited by--> Capacity
+Role --composed of--> Responsibility
+Responsibility --contributes to--> Role
+Responsibility --fulfilled by--> Capability
+Responsibility --determines--> Procedure
+Capability --fulfills--> Responsibility
+Agent --enabled by/has--> Capability
+Capacity --limits--> Agent
 
 Decision --supports--> Goal
 Information_Element --informs--> Decision
@@ -705,5 +711,5 @@ Decide --realizes--> Decision
 Agent --uses--> Tool
 Tool --abstract type--> Prediction_Application
 Tool --abstract type--> Decision_Application
-
+Tool --abstract type--> Information_Application
 ```
