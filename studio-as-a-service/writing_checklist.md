@@ -75,9 +75,9 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
 - [x] **Scope Creep & Goal-as-Feature Traps** *(Caution)*
   - [x] Warning signs and prevention
   - [x] Recovery strategies
-- [x] **Late and Informal Changes**
-  - [x] Impact analysis
-  - [x] Process improvements
+ - [x] **Late and Informal Changes**
+   - [x] Impact analysis
+   - [x] Process improvements
 - [x] **Misaligned Definitions of "Done" & "Acceptance"**
   - [x] Common misalignments
   - [x] Alignment strategies
@@ -97,7 +97,7 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
 ## Phase 3: Core Principles & Values
 
 ### Chapter 4: Principles of Enterprise Delivery
-- [x] **Core Values of a Mature Delivery Team** *(VP Insight for Each Value)*
+ - [x] **Core Values of a Mature Delivery Team** *(VP Insight for Each Value)*
   - [x] Define 5-7 core values
   - [x] Write VP insights for each value
   - [x] Include practical applications
@@ -123,7 +123,7 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
   - [x] Evidence over Opinion *(Caution)*
   - [x] Accountability without Blame *(VP Insight)*
   - [x] Sustainability of Delivery *(From the Field)*
-  - [x] Deliver Measurable Value, Not Activity *(Why This Matters)*
+  - [x] Deliver Outputs, Not Outcomes *(Why This Matters)*
   - [x] Protect the Firm & the Team *(Caution)*
   - [x] Add the guidance block on how to use principles in day-to-day decisions and escalations
 
