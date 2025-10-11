@@ -21,7 +21,14 @@ What transpired (role‑play)
 - DPM: “We’ll produce AC seed now; details will evolve in decomposition.”
 
 Outputs / Artifacts
-- MAR record (fields complete): Intent, Boundaries, Dependencies, Constraints, Initial AC seed.
+- MAR record (fields complete):
+  - Intent: Reduce card‑fraud false‑positives by 20% while maintaining P95 `/authorize` < 150ms and checkout abandonment ≤ baseline + 1%.
+  - Boundaries:
+    - In‑scope subsystems: Payments Authorization (risk signal), Fraud/Risk (exemptions policy), Notifications (step‑up communications).
+    - Out‑of‑scope: Core fraud model re‑training, acquirer/bank rule changes, full checkout UX redesign, data‑warehouse analytics/reporting.
+  - Dependencies:
+    - Card‑network/3DS directory server integration; risk‑scoring/provider API (keys, quotas, mTLS); SMS/email provider (sender IDs, templates); feature‑flag/experimentation platform; metrics/dashboards; change‑window approvals.
+  - Constraints: PCI DSS; no PII to non‑approved processors; P95 `/authorize` < 150ms; abandonment delta ≤ +1%; adhere to bank change‑window policy.
 - Initial AC (seed):
   1) Reduce FPR by ≥ 20% vs baseline over a 4‑week window
   2) P95 `/authorize` latency remains < 150ms
