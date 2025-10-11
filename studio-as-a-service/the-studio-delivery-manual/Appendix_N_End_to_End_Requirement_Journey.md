@@ -36,7 +36,20 @@ Outputs / Artifacts
 - Labels: `new-requirement`
 
 Gate to progress
-- MAR checklist (Section 5.2) passes: testability exists; boundaries/constraints noted.
+- MAR checklist (Section 5.2):
+  - Business intent clearly articulated and measurable — Satisfied
+  - Baselines captured (FPR, abandonment, P95 latency) — Satisfied
+  - Initial AC seed defined (measurable) — Satisfied
+  - Scope boundaries (in/out‑of‑scope) — Satisfied
+  - Subsystems identified — Satisfied
+  - Constraints documented (PCI, latency, abandonment) — Satisfied
+  - High‑level dependencies inventoried — Satisfied
+  - Testability plausible at requirement level — Satisfied
+  - Named owner(s) and reviewers assigned — Pending (assign Customer PM and DPO formally)
+  - Initial Risk Surfaces noted — Pending (draft for model drift, sandbox gaps)
+  - Evidence/measurement approach sketched (cohorts, A/B or pre/post) — Pending
+  - Commercial model/time‑box for decomposition agreed (SFM/TCM) — Pending
+  - Governance path and RfP workshop scheduled — Pending
 
 ---
 
@@ -49,6 +62,16 @@ What transpired (role‑play)
 - DPO: “We’ll scope solution Features at subsystem boundaries.”
 - EM / Tech Lead: “We can compute a risk signal during `/authorize` and move exemptions logic into Fraud/Risk.”
 - Customer PM: “Notifications can handle step‑up flows.”
+
+Work to reach RfP (owning team → output)
+- Assign named owner(s) and reviewers in record (Customer PM, DPO) → updated MAR
+- Draft initial Risk Surfaces (model drift, sandbox fidelity, quota limits) → risk addendum
+- Define evidence/measurement plan (matched cohorts, confidence thresholds, data sources) → AC measurement note
+- Draft subsystem‑scoped Feature definitions with AC/NFR → Feature docs (Auth, Fraud/Risk, Notifications)
+- Produce design/impact addenda (latency budgets, data flows, audit trail, cost) → signed design notes
+- Map and confirm dependencies (mTLS, quotas, templates, feature flags) → dependency register
+- Outline test approach (component/contract/customer‑service paths) → QA strategy note
+- Schedule and circulate RfP workshop agenda and materials → calendar invite + deck
 
 Outputs / Artifacts
 - Features identified:
