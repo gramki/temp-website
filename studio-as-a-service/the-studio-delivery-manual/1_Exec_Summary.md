@@ -7,8 +7,11 @@ Large programs don’t fail because smart people forgot how to code. They fail b
 
 ## Core Tensions to Align (Not Eliminate)
 - Agility × Accountability — adapt, but keep evidence, gates, and traceability.
+  > VP Insight: "Speed without an audit trail becomes folklore. Ship fast, but leave receipts."
 - Empathy × Discipline — listen first; then protect the program with clear guardrails.
+  > VP Insight: "Empathy buys you access; discipline keeps it. Be kind, be clear, be consistent."
 - Change × Stability — evolve with intent; log trade‑offs, fund debt, stabilize routinely.
+  > VP Insight: "Change is not the enemy; unmanaged change is. Stabilize on cadence, not on hope."
 
 > Why This Matters: Unnamed tensions become political fights. Named tensions become design choices.
 

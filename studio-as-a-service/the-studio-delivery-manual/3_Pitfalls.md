@@ -102,6 +102,26 @@
 
 **Survival Guide**: Publish the same dashboards to steering; add milestone mapping to operational views.
 
+### Communication Gaps & Escalation Blindspots
+
+**Smells**: Late asks over chat/email, decision reversals after verbal agreements, “we escalated but nothing moved,” parallel side‑channels.
+
+**Drivers**: Undefined escalation ladders; missing decision logs; forum ownership unclear (EO vs Studio); alerts without owners; evidence not attached.
+
+**Harm**: Slow decisions, contradictory directions, reputation damage, idle teams while leaders debate.
+
+**Countermeasures**:
+- Publish escalation ladders per domain (Operational, Quality, Commercial, Architecture, Behavioral) with role‑to‑role steps and ceilings (see Appendix B.3).
+- Move decisions from chat to records: use the decision log; attach options, impacts, owner/date (Sections 9.9/9.10).
+- Route alerts to a forum with an owner (Appendix B.1); block items with no forum/owner.
+- Label owning org and chair on all forums (EO vs Studio) in invites and docs (Section 9.1).
+
+**Ideal State**: Issues rise through defined ladders with evidence; decisions recorded within SLAs; side‑channels converge on the forum.
+
+**Likely Reality**: Parallel threads and late senior interventions override forum outcomes.
+
+**Survival Guide**: Stop the thread, post one decision page with options/evidence, tag the right forum/owner, and book the decision per SLA; mirror outcome to the log and dashboards.
+
 ### Deadline-Induced Expediency Debt
 
 **Smells**: Skip tests, documentation, or NFRs "just this time"; "we'll fix it later"

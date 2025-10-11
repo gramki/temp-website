@@ -28,7 +28,7 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
   - [x] Current state analysis
   - [x] Pain points and opportunities
 - [x] **Core Tensions: Agility vs Accountability, Empathy vs Discipline** *(VP Insight)*
-  - [ ] Write VP-level insights on each tension
+  - [x] Write VP-level insights on each tension
   - [x] Provide practical resolution strategies
 - [x] **Key Takeaways**
   - [x] Summarize main points
@@ -86,8 +86,8 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
   - [x] Balance strategies
 - [x] **Reporting vs Execution Misalignment**
   - [x] Root causes and solutions
-- [ ] **Communication Gaps & Escalation Blindspots**
-  - [ ] Identification and prevention
+- [x] **Communication Gaps & Escalation Blindspots**
+  - [x] Identification and prevention
  - [x] **Pitfall Catalog Requirements (per blueprint)**
   - [x] For each pitfall: smells/symptoms, systemic drivers, harm if unchecked, and link to countermeasures sections (§5, §6, §7, §8, §9, Appendices)
   - [x] Include a mitigation sequence: Name It → Probe Root → Quantify → Offer Trade-offs → Document Decision → Escalate Proportionally → Embed in Retro
