@@ -93,6 +93,31 @@ Prioritization heuristics:
 - Dependencies blocked across subsystems = accelerate
 - Security/compliance exposure = escalate to Steering
 
+### 6.3.1 Example Portfolio Row (Annotated)
+- Title: Checkout fraud logic in UI layer (migrate policy to Fraud subsystem)
+- Reason Bucket: Constraints (Fraud/Risk subsystem owned by another team; SLA/lead‑time outside current increment)
+- Impact Domains: Security/Privacy; Maintainability/Modularity
+- Subsystem: Checkout UI; Fraud/Risk
+- Origin: 2025‑10‑11; Decision link: ADR‑123 (deadline trade‑off documented);
+  Rationale: prevented go‑live slip while acknowledging policy placement is incorrect
+- Principal: 20 story points (estimate to extract logic to Fraud, add service call, delete UI code)
+- Residual Risk: Medium‑High — inconsistent policy enforcement, audit/trace gaps if left in UI, risk of regression across locales
+- Touch Frequency: High — Checkout UI changes weekly during promos
+- Status: Prioritized (scheduled in next 2 sprints)
+- Catch‑Up Plan:
+  - Milestone 1 (Sprint 1): Add policy decision audit logging in UI + contract tests on Fraud API; guardrails in place
+  - Milestone 2 (Sprint 2): Implement Fraud policy service; route decisions via service; A/B at 25% rollout
+  - Milestone 3 (Sprint 3): Remove UI policy checks; performance hardening; full rollout with kill‑switch
+- Funding Source: Customer‑Induced Debt (Constraints — Fraud team availability); fund via CR (SFM) or reserved capacity (TCM)
+- Labels (Appendix L): `debt/high-risk`, `dependency/internal`, `quality/critical-path`
+- Cross‑refs: Requirement: REQ‑214 (RfP signed); Risk Surface: RS‑05 (policy placement); Appendix C ledger entry: DEBT‑017
+
+Why this classification works
+- Reason = Constraints: The correct policy boundary is outside the immediate team’s control; pushing to UI was a schedule constraint, not a design choice
+- Impact = Security/Privacy + Maintainability: Policy closest to data/controls reduces risk; duplicated logic in UI increases drift and maintenance cost
+- Ownership & forum: Delivery Product Owner + Tech Lead drive sequencing; Operational Review tracks weekly; Steering approves CR funding
+- Success signals: Principal → 0, Residual Risk downgraded to Low, Critical path incidents unchanged/improved, Accumulation vs Paydown trend positive
+
 ---
 
 ## 6.4 Funding Responsibility & Commercial Treatment
