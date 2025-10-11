@@ -91,6 +91,25 @@ Note: This backlog is intentionally scoped to essentials for Phase 2; non‑esse
 
 ---
 
+## New Appendices & Guides
+- Task: Quick Start Guide (role‑based)
+  - Expectations:
+    - Create a concise “Quick Start Guide” with role cards for Engagement Org (Engagement Owner, Commercial Manager, Account Manager) and Studio Org (Studio Owner, Delivery Manager, DPO, DPM, Engineering Manager, Tech Lead, QA/Test Lead).
+    - Each card: first‑week actions, dashboards to open, forums to attend, key SOPs/templates, top 3 signals to watch, common escalations.
+    - Location: new file linked from README and Section 9; cross‑link to Appendix E/G/H and 9.13.
+- Task: Appendix — Example Artifacts
+  - Expectations:
+    - Add a new appendix that aggregates redacted examples: decision paper, exception record, continuity pack, dependency register export, RfP feature spec, evidence pack snapshots.
+    - Each artifact: 1–2 screenshots (or structure), brief “why this exists,” and links to owning sections.
+    - Cross‑link from Sections 5, 8, 9, 10 and Appendix M.
+- Task: Appendix — Studio Council Member Roles & Playbook
+  - Expectations:
+    - Create a dedicated appendix detailing SCM responsibilities across program lifecycle with new sub‑sections: conception, incubation/pre‑flight, infancy (first 90 days), steady‑state, and close‑out.
+    - Include cadence, artifacts (Manual Change Register, audits), versioning process, and example KPIs for adoption.
+    - Cross‑link from Section 11 and Appendix H/T; align with governance forums in Section 9.
+
+---
+
 ## Ownership & sequencing
 - Owner: VP Delivery (content lead) with section owners (5/6/7/8/9) and SCM for cross‑section.
 - Suggested order: 9 quick start → 5 visuals → 7 signals → 8 crib sheet → 6 sample row → L examples → cross‑section templates → 2 TL;DR.
