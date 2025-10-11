@@ -163,6 +163,16 @@ Work to reach Planned (owning team → output)
 Gate to progress
 - RfP gate (Section 5.3) passes: AC complete; dependencies mapped; design/impact signed; Risk Surfaces recorded.
 
+Gate checklist — RfP
+- Feature definitions signed by Customer PM and DPO — Satisfied
+- Design/impact addenda attached and signed — Satisfied
+- AC complete, testable, and include measurement plan — Satisfied
+- Dependencies confirmed with provider commitments (keys, mTLS, quotas, allowlists) — Pending
+- Risk Surfaces recorded and linked — Satisfied
+- QA strategy defined (component/contract/customer‑service paths) — Satisfied
+- Governance recorded (RfP decision date, owners, shelf‑life) — Satisfied
+- Jira labels updated to `rfp-yes`; artifacts linked — Satisfied
+
 ---
 
 ## N.4 Planned — Features → Epics/Stories (DoR met)
@@ -209,6 +219,16 @@ Work to reach In Development (owning team → output)
 
 Gate to progress
 - DoR rules met; unready work blocked; integration readiness items tracked for gating (Section 5.10).
+
+Gate checklist — Planned (DoR)
+- Epics/Stories linked to Features with AC/NFR and test notes — Satisfied
+- Stories sized and prioritized with clear acceptance paths — Satisfied
+- Dependencies ready or scheduled (credentials, quotas, templates) — Pending
+- CI pipeline updated with new test suites and thresholds — Pending
+- QA data and environments ready (synthetic/fixtures, sandbox accounts) — Pending
+- Rollout and rollback plans referenced at Epic level — Satisfied
+- Non‑functional budgets attached (latency/error budgets) — Satisfied
+- Owners and reviewers assigned per Epic/Story — Satisfied
 
 ---
 
@@ -260,6 +280,16 @@ Work to reach Done (owning team → output)
 Gate to progress
 - Release gates (Section 7) hold: no P0/P1; critical‑path pass rate met; error‑budget ≥ threshold; integration readiness green (5.10).
 
+Gate checklist — In Development (Release)
+- No open P0/P1 defects on release candidate — Satisfied
+- Critical‑path test pass rate ≥ threshold — Satisfied
+- Error‑budget within limits for affected services — Pending
+- Latency budgets respected (risk signal ≤ 10ms; P95 < 150ms) — Pending
+- Canary/rollback verified in non‑prod — Satisfied
+- Monitoring/alerts configured for new paths — Satisfied
+- Customer acceptance recorded for scope included in release — Pending
+- Exceptions labeled, time‑boxed, reversion date set — Satisfied
+
 ---
 
 ## N.6 Done — Accepted and released
@@ -294,6 +324,14 @@ Done checklist (close‑out)
 
 Gate to close
 - All acceptance criteria met; error‑budget respected; post‑release monitoring stable.
+
+Gate checklist — Done (Close‑out)
+- All acceptance criteria met in production — Satisfied
+- Stability window passed without regression — Satisfied
+- Evidence archived (dashboards snapshot, links to logs/export) — Satisfied
+- Decision papers, exceptions, waivers closed/archived — Satisfied
+- Learnings logged and owners assigned (SCM/DM) — Satisfied
+- Residual improvements triaged to roadmap with owners/dates — Satisfied
 
 ---
 
