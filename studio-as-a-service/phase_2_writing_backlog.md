@@ -107,6 +107,16 @@ Note: This backlog is intentionally scoped to essentials for Phase 2; non‑esse
     - Create a dedicated appendix detailing SCM responsibilities across program lifecycle with new sub‑sections: conception, incubation/pre‑flight, infancy (first 90 days), steady‑state, and close‑out.
     - Include cadence, artifacts (Manual Change Register, audits), versioning process, and example KPIs for adoption.
     - Cross‑link from Section 11 and Appendix H/T; align with governance forums in Section 9.
+ - Task: Appendix — End‑to‑End Journey of a Requirement
+   - Expectations:
+     - Walk a realistic requirement through states MAR → Decomposed → RfP → Planned → In Development → Done.
+     - Show key fields/labels, example AC/NFR, design/impact addendum, dashboards/alerts snapshots at each step, and handoffs to forums.
+     - Cross‑link from Section 5.3/5.7 and Appendix L (schema) and Appendix A (dashboards).
+ - Task: Appendix — Communication_Templates (Delivery Manager)
+   - Expectations:
+     - Provide short, exec‑friendly scripts/templates for common situations: exception request; integration not ready; error budget depleted; dependency variance; unfunded exposure; scope change trade‑offs (SFM); idle‑time/standby (TCM); leadership/governance change continuity; risk surface clarification; RfP revalidation ask; gate failure before release.
+     - For each template: objective, 2–3 phrasing options, and “lighter control” suggestions if applicable.
+     - Cross‑link from Sections 8, 9, 10 and Appendix B (alerts) and Appendix M (decision/exception templates).
 
 ---
 
