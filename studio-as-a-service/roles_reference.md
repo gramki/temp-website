@@ -269,6 +269,13 @@ Documentation Requirements (for any escalation):
 - **Delivery Manager (Engagement Program Head)**: Runs the program within the Studio; primary interface to Customer PM/PMO; drives execution against plan; escalates via Studio Owner/Engagement Owner as needed.
 - **Org Alignment**: Delivery Product Owners sit in the Engagement Owner’s org; Delivery Product Managers sit in the Studio Owner’s org.
 
+### Studio Council Member (New)
+- **Accountability**: Institutional learning and playbook evolution across engagements; ensures program retrospectives occur on cadence and that systemic improvements are tracked to closure; owns versioning of this manual and integrates learnings from across programs into published updates
+- **Key Decisions**: What lessons become policy/threshold/template changes; prioritization of improvement items into governance forums (Operational Review, CCB, Steering); when to publish a new manual version and what changes are included
+- **Core Artifacts**: Manual Change Register, improvement backlog, program retrospective notes, proposal papers for policy/threshold updates, manual release notes and version tags
+- **Collaboration**: Delivery Manager, Delivery Product Owner, Governance Coordinator, QA/Tech/Integration Leads, EO Commercial
+- **Org Placement**: Part of the Studio Owner’s organization; independent from any single program for objectivity
+- **Governance**: Attends program retrospectives; owns the cadence (milestone‑based and/or 8–12 week periodic); curates updates to dashboards (Section 9.13), thresholds (Sections 5, 7, 9), and contract appendices (Section 8); maintains lifecycle tracking for each improvement (discovery → decision → implementation → adoption audit) and reports status/exceptions at Monthly Operational Review, with escalations to Steering as needed; publishes manual version updates with release notes after approvals
 
 ---
 
@@ -304,6 +311,7 @@ Documentation Requirements (for any escalation):
 - DevOps / Platform Engineer
 - Release Manager (optional or shared)
 - Developers / Engineers
+- Studio Council Member (New)
 
 ### Customer Org
 - Executive Sponsor
