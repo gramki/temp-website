@@ -121,13 +121,13 @@ Template B — TCM Statement of Work (Team‑Capacity)
 ## J.6 Governance Change & Continuity (SFM and TCM)
 
 Governance Change Notification & Re‑affirmation Window
-- The Customer shall notify the Delivery Manager within three (3) business days of any material change in governance, decision rights, sponsoring executive, or operating model that affects program scope, approvals, or forums. Until re‑affirmation, the Parties shall not harden new milestone dates or expand committed scope beyond existing baselines, except for jointly agreed urgent risk mitigations. Within ten (10) business days of notice, Steering (EO‑owned) shall re‑affirm or replace prior decisions in writing. Absent written change, previously recorded decisions remain binding.
+- The Customer shall notify the Delivery Manager within fifteen (15) business days of any material change in governance, decision rights, sponsoring executive, or operating model that affects program scope, approvals, or forums. Until re‑affirmation, the Parties shall not harden new milestone dates or expand committed scope beyond existing baselines, except for jointly agreed urgent risk mitigations. Within ten (10) business days of notice, Steering (EO‑owned) shall re‑affirm or replace prior decisions in writing. Absent written change, previously recorded decisions remain binding.
 
 Decision Records Are Authoritative
 - The Parties agree that the program decision log and SoW Annexes (including signed RfP feature definitions and interface contracts) are the authoritative records of scope, readiness, and decision history. Email/chat communications do not supersede these records unless captured into the decision log or a signed CR/capacity change.
 
 Continuity Pack & Review SLA
-- Within five (5) business days of governance‑change notice, the Delivery Manager will provide a continuity pack summarizing: (i) current plan and baseline, (ii) funded vs unfunded exposure, (iii) critical dependencies with funding/lead‑time evidence, and (iv) open decisions with options/impacts and owners. Steering shall review and provide re‑affirmations or changes within five (5) business days of receipt.
+- Within five (15) business days of governance‑change notice, the Delivery Manager will provide a continuity pack summarizing: (i) current plan and baseline, (ii) funded vs unfunded exposure, (iii) critical dependencies with funding/lead‑time evidence, and (iv) open decisions with options/impacts and owners. Steering shall review and provide re‑affirmations or changes within five (5) business days of receipt.
 
 Requirements Revalidation & Shelf‑life
 - RfP‑signed Feature definitions remain valid through the governance‑change window. Shelf‑life is extended by the duration of any Customer‑requested pause. If the Customer requests revalidation, or if the governance change materially impacts scope, the Parties shall run a time‑boxed RfP confirmation workshop; resulting changes are handled via CR (SFM) or capacity re‑allocation (TCM).

@@ -30,6 +30,64 @@ Use this appendix to align on terminology and to quickly look up where concepts 
   - Composite score indicating funding readiness and exposure under SFM; used for Steering readiness. See Section 8.
 - Capacity Health Score
   - Composite score indicating team capacity readiness under TCM; includes runway, idle time, variance. See Section 8.
+- Non‑Functional Requirements (NFR)
+  - Quality/system constraints such as performance, security, availability, operability. See Sections 5, 7.
+- Scope‑Funded Model (SFM)
+  - Commercial model where budget is tied to defined scope; changes via CR lifecycle. See Section 8A.
+- Team‑Capacity Model (TCM)
+  - Commercial model where budget is tied to team capacity; scope evolves iteration by iteration. See Section 8B.
+- Service Level Agreement (SLA)
+  - Contracted service commitment (e.g., decision turnaround, provider lead‑time). See Sections 7, 8, 9, Appendix J.
+- Service Level Objective (SLO)
+  - Target level for a service metric (e.g., pass rate, error budget). See Section 7.
+- Service Level Indicator (SLI)
+  - Measured indicator used to assess SLOs (e.g., pass rate, leakage). See Section 7.
+- Mean Time To Detect (MTTD)
+  - Time to detect an incident/defect; tracked on quality dashboards. See Section 7.
+- Mean Time To Restore/Resolve (MTTR)
+  - Time to restore/resolve incidents; tracked on quality dashboards. See Section 7.
+- Statement of Work (SoW)
+  - Contract appendix describing scope/governance/commerce. See Appendix J.
+- Change Request (CR)
+  - Formal scope/time/cost change artifact; governed in Section 8A.
+- Continuous Integration / Continuous Delivery (CI/CD)
+  - Automation pipeline for build/test/release. See Section 7 (Allure/Jenkins) and tooling notes.
+- Application Programming Interface (API)
+  - Programmatic interface/contract; see integration rules. See Sections 5.10, 7.
+- Mutual TLS (mTLS)
+  - Mutual certificate authentication for services. See Section 5.10.
+- Single Sign‑On (SSO)
+  - Federated authentication pattern. See Section 5.10.
+- JSON Web Key (JWK)
+  - JSON key representation used for signing/verification. See Section 5.10.
+- Architecture Decision Record (ADR)
+  - Lightweight record of significant technical decisions. See Appendix C (examples).
+- Site Reliability Engineering (SRE)
+  - Discipline focused on reliability; distinct from product quality metrics in Section 7.
+- User Acceptance Testing (UAT)
+  - Customer testing stage prior to production. Referenced in environments.
+- Delivery Product Owner (DPO)
+  - Product leader in EO org; acts as Solution Architect. Disambiguation: not Data Protection Officer here. See roles_reference and Sections 5, 9.
+- Delivery Product Manager (DPM)
+  - Decomposes features; supports requirement→feature conversion. See roles_reference and Sections 5, 9.
+- Engineering Manager (EM)
+  - Leads engineering execution/capacity/quality. See roles_reference and Sections 9, 10.
+- Engagement Owner (EO)
+  - Business owner; chairs Steering. See roles_reference and Sections 8, 9, Appendix J.
+- Quality Assurance (QA)
+  - Test/quality leadership (QA/Test Lead in this manual). See Section 7.
+- Project Management Office (PMO)
+  - Customer governance/program office. See Section 11 participants.
+- Three‑Domain Secure (3DS)
+  - Card network authentication protocol (e.g., 3DS 2.x). See Section 5 examples.
+- Strong Customer Authentication (SCA)
+  - PSD2 authentication requirement in EU. See Section 5 examples.
+- Card‑Not‑Present (CNP)
+  - Transactions where card is not physically present; higher risk. See Section 5 examples.
+- Transaction Risk Analysis (TRA)
+  - PSD2 risk‑based exemption analysis. See Section 5 examples.
+- One‑Time Password (OTP)
+  - Temporary code used for step‑up authentication/verification. See Section 5 examples.
 - Amortization Reserve (Debt)
   - Capacity set aside (10–20%) for debt paydowns; protects stability and future velocity. See Section 6 and Appendix T.
 - Process Exception / Concession
