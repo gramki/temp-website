@@ -2,6 +2,16 @@
 
 *The environment that shapes everything*
 
+### TL;DR (What changes how you deliver)
+- Ambiguity is normal: insist on MAR → RfP gates before planning; no verbal approvals
+- Power is asymmetric: record decisions (owner/date/rationale); escalate via forums, not chats
+- Legacy/integration dominates timelines: add buffers; test contracts early; fund dependencies
+- Governance beats heroics: align sprint cadence to Monthly/Steering; translate increments into milestones
+- Quality is a gate, not an aspiration: run with error budgets and readiness gates (Section 7)
+- Commercial clarity prevents surprises: choose SFM vs TCM intentionally; publish unfunded exposure or runway (Section 8)
+- Debt is planned, not ignored: reserve capacity and repay by origin with Steering visibility (Section 6)
+- Tool resistance is real: integrate‑then‑improve; win with pilots and evidence, not mandates
+
 ## The Reality Check
 
 Enterprise delivery isn't just "agile at scale." It's a fundamentally different game played on a different field with different rules.
@@ -386,6 +396,16 @@ This enterprise context demands specific delivery approaches:
 - **Waterfall Expectations** → Milestone translation and value demonstration
   - *Why this matters*: When stakeholders think in waterfall terms, translate agile progress into milestone language
   - *Real example*: Instead of "sprint 5 complete," say "Phase 1: Core Features (80% complete, 2 weeks ahead of schedule)"
+
+### Rule Summaries (Actionable)
+- 2.1 Characteristics: Prove complexity early; publish a cross‑system map; set integration contracts in sprint 1
+- 2.2 Power & Decisions: No work on verbal consensus; every decision logged; escalate via 9.9→9.10, not email threads
+- 2.3 Ambiguity/Dependencies: MAR before effort; dependency register with funding/lead‑time; block planning without evidence
+- 2.4 Momentum/Inertia: Pilot in one subsystem; show outcome delta; scale only with sponsorship and data
+- 2.5 Agile vs Waterfall: Translate sprints to milestones; show working software + required documents; avoid “document‑only” burn
+- 2.6 Tech Debt/Constraints: Classify debt by Reason/Impact; reserve 10–20% capacity; repay by origin with Steering visibility
+- 2.7 Tool Adoption: Integrate with current tools first; set an adoption review date; measure time saved and leakage reduced
+- 2.8 Synthesis: Gate by maturity; separate Delivery vs Dependency variance; run with dashboards, ledgers, and forums
 
 ## Enterprise Context Map
 
