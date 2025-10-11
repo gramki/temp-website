@@ -20,7 +20,7 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
   - [x] Define partnership principles
  - [x] **Terminology & Conventions**
   - [x] Define Delivery vs Customer terminology and callout styles
-  - [x] Reference `studio-as-a-service/roles_reference.md` for role/org model (EO vs Studio vs BD/GTM vs Customer)
+  - [ ] Reference `studio-as-a-service/roles_reference.md` for role/org model (EO vs Studio vs BD/GTM vs Customer)
   - [x] Note Two-in-a-Box model (Customer PO × Delivery PO) and governance ownership split (EO vs Studio)
 
 ### Chapter 1: Executive Summary
@@ -28,7 +28,7 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
   - [x] Current state analysis
   - [x] Pain points and opportunities
 - [x] **Core Tensions: Agility vs Accountability, Empathy vs Discipline** *(VP Insight)*
-  - [x] Write VP-level insights on each tension
+  - [ ] Write VP-level insights on each tension
   - [x] Provide practical resolution strategies
 - [x] **Key Takeaways**
   - [x] Summarize main points
@@ -59,7 +59,7 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
   - [x] Explain business impact
   - [x] Provide context for solutions
  - [x] **Coverage Checklist (per blueprint)**
-  - [x] Characteristics of Large Enterprises *(From the Field)*
+  - [ ] Characteristics of Large Enterprises *(From the Field)*
   - [x] Power & Decision Asymmetry *(VP Insight)*
   - [x] Ambiguity, Hidden Dependencies & Unseen Costs *(Caution)*
   - [x] Organizational Momentum & Inertia *(Pro Tip)*
