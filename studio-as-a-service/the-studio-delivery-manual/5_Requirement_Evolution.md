@@ -859,6 +859,21 @@ A feature that integrates with an external system is RfP only when:
 - Observability Ready: Correlation strategy, logs/metrics/traces, dashboards, alert thresholds
 - Change Control: Versioning policy, deprecation timelines, contact/escalation info, provider status page
 
+### Integration Readiness Visual Checklist (At‑a‑glance)
+
+Use this quick checklist to decide if an integration Feature can move beyond RfP/Planned. Mark Yes/No with links to evidence.
+
+- [ ] Contract defined (endpoints, auth, required/optional fields, error taxonomy, idempotency rules)
+- [ ] Testability secured (sandbox access, keys/accounts, seed data, callback endpoints, replay harness)
+- [ ] Non‑functionals agreed (SLAs, rate‑limits/quotas, payload sizes, concurrency, maintenance windows)
+- [ ] Security cleared (mTLS/keys/certs rotation, IP allowlists, secrets management, audit requirements)
+- [ ] Observability ready (correlation strategy, structured logs/metrics/traces, dashboards and alert thresholds)
+- [ ] Change control in place (versioning/deprecation policy, provider status page, escalation contacts)
+- [ ] Failure modes exercised (429/5xx/latency/dropped callbacks; retries with jitter; DLQ paths)
+- [ ] Idempotency & ordering validated (keys stored; at‑least‑once + out‑of‑order handling)
+
+Green to proceed: All mandatory checks above are Yes. Any No blocks transition to Planned/In Dev. Proceed only via recorded exception (Appendix M) with dated reversion and owner. See Appendix A/B for widgets/alerts to surface readiness.
+
 > VP Insight: “If you can’t test it independently, you can’t own it in production. Make testability a contractual requirement.”
 
 ### Example: Card Network Settlement Integration (What We Actually Faced)
