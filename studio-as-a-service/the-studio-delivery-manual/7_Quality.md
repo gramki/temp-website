@@ -9,7 +9,7 @@ This section defines how the Studio governs quality: set realistic expectations,
 ### Minimum Viable Quality Signals (Defaults)
 - Release Gate Snapshot: P0/P1 open = 0; P2s triaged with mitigation and target release
 - Critical Path Test Pass Rate: ≥ 99% per build on main
-- Defect Leakage (last release): ≤ 1 P1 per 10k txns (txn = critical‑path business transactions, e.g., payment authorization attempts; tune scope per product) (or ≤ N P1/P2 per release)
+- Defect Leakage (last release): ≤ N P1/P2 per 100 story points delivered (primary); optionally also track customer‑impact rate ≤ 1 P1 per 10k txns (txn = critical‑path business transactions, e.g., payment authorization attempts)
 - Flake Rate: ≤ 2% (rolling 7 days)
 - Critical Path Automation Coverage: ≥ 80%
 - Pipeline Stability (main): ≥ 95% green; quarantined tests repaired or removed within ≤ 2 sprints
@@ -133,7 +133,7 @@ Note: Tune thresholds per program in Appendix T; map to dashboards in Appendix A
 
 - SLOs (commitments — tune per program):
   - Critical Path Pass Rate ≥ 99% per build on main
-  - Leakage ≤ 1 P1 per 10k txns (or ≤ N P1/P2 per release), with root‑cause action
+  - Leakage ≤ N P1/P2 per 100 story points delivered (primary); also monitor customer‑impact rate ≤ 1 P1 per 10k txns (secondary)
   - Flake Rate ≤ 2% (rolling 7 days)
   - P1 MTTR ≤ 4 hours during support window; P2 MTTR ≤ 2 business days
   - Automation Coverage for Critical Paths ≥ 80%
@@ -147,6 +147,7 @@ Note: Tune thresholds per program in Appendix T; map to dashboards in Appendix A
 
 - Quality KPIs (reporting set):
   - Defect Density by module, Leakage Rate, MTTR/MTTD trends, Flake Rate trend, Critical Path Coverage, Pipeline Stability, Change Failure Rate
+  - Leakage per 100 story points (primary), Leakage per 10k txns (secondary/customer impact)
 
 > Caution: Don’t weaponize metrics. Use them to trigger the right conversation and trade‑offs.
 
