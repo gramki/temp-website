@@ -60,6 +60,8 @@ Callout styles used throughout:
 - **Pro Tip** — tactical guidance
 - **Caution** — traps to avoid
 
+For role definitions, org placement, forum ownership, and escalation paths, see `studio-as-a-service/roles_reference.md`.
+
 > **Caution**: Mixing role terms (e.g., "vendor/client" vs "delivery/customer") creates real confusion in governance and contracts.
 
 ## How to Read This Manual

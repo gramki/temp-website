@@ -20,7 +20,7 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
   - [x] Define partnership principles
  - [x] **Terminology & Conventions**
   - [x] Define Delivery vs Customer terminology and callout styles
-  - [ ] Reference `studio-as-a-service/roles_reference.md` for role/org model (EO vs Studio vs BD/GTM vs Customer)
+  - [x] Reference `studio-as-a-service/roles_reference.md` for role/org model (EO vs Studio vs BD/GTM vs Customer)
   - [x] Note Two-in-a-Box model (Customer PO × Delivery PO) and governance ownership split (EO vs Studio)
 
 ### Chapter 1: Executive Summary
