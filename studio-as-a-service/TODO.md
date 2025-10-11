@@ -46,6 +46,13 @@ Studio Council - Automation Maturity
 * Ingredients of Success - Capacity, Capability, Coherence, and Knowledge & Skills (Training)
 * Always have levers to 'enable/disable' specific automations for a Studio. Practice discipline comes before automation 
 * Studio Continuous Improvement Review
+* Various Gates in the delivery pipeline
+
+
+People and Capacity moderation guidance
+* When to add and when not to add people to the project
+* Obligations to support new studio setup
+* Creating and sustaining a reserve capacity; Effective utilization and grooming of people in reserve (don't use bench; use reserve capacity and people in up-skilling)
 
 Agents for Studio Services Governance
 * Requirement Acceptance
@@ -58,6 +65,12 @@ Agents for Studio Services Governance
 * Maintain Risk Registry and Catch-up Plans; Enforce Catch-up plans through error budgets
 * Scrum Master - Progress, Risk, and Action Items for Delivery Managers
 * Debt Portfolio Report Generation and Circulation
+
+
+Contract Clauses and Language
+* Compile all the relevant sections into one appendix
+
+Quick_start_guide is not satisfactory; Fix this
 
 
 How to Train sales teams?
