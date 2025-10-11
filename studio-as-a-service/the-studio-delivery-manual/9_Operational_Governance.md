@@ -12,6 +12,20 @@ Make delivery predictable with lightweight but reliable rituals, clear ownership
 
 ---
 
+### Operating Defaults (tunable; see Appendix T)
+- Capacity reserve for quality/debt: 15–25% per sprint
+- RfP shelf‑life: 90 days (re‑affirm in Monthly if older)
+- Ready coverage (TCM): ≥ 2–3 sprints of capacity
+- Error budget minimum (quality): ≥ 20% remaining before new intake
+- Flake rate (tests): ≤ 2% rolling 7 days; repair/quarantine ≤ 2 sprints
+- Critical path pass rate: ≥ 99% on main; ≥ 95% pre‑release suite
+- Unfunded CR exposure (SFM): freeze net‑new scope if > 10%
+- FVS guardrail (SFM): do not harden dates if < 60
+- Capacity Health guardrail (TCM): pause ramps/commitments if < 60
+- Dependency variance: escalate if > threshold for 2 consecutive cycles
+
+Note: Tune per program in Appendix T and reference thresholds in Section 7 (quality) and Section 8 (commercial).
+
 ## 9.1 Tiered Rituals (Why, When, Who)
 
 - Principles
