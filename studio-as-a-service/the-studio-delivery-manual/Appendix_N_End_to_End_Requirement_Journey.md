@@ -37,7 +37,7 @@ Outputs / Artifacts
   1) Reduce FPR by ≥ 20% vs baseline over a 4‑week window
   2) P95 `/authorize` latency remains < 150ms
   3) Checkout abandonment ≤ baseline + 1%
-- Labels: `new-requirement`
+- Labels: `integration-risk`
 
 Gate to progress
 - MAR checklist (Section 5.2):
@@ -91,7 +91,7 @@ Outputs / Artifacts
   1) Authorization subsystem: real‑time risk signal on `/authorize`
   2) Fraud/Risk subsystem: risk‑based exemptions policy engine (TRA/low value)
   3) Notifications subsystem: step‑up comms (OTP/SMS/email) with localized templates
-- Labels: `decomposed`
+- Labels: `decomposition/requirements→features`, `integration-risk`
 - AC (evolving):
   - Keep AC‑1 (FPR) but add subsystem testability:
     - “Risk signal computed within 10ms budget inside `/authorize` pipeline.”
@@ -147,7 +147,7 @@ Discovered details added to requirement
 - Back‑out: rollback plan and replay test pack defined
 - Security: mTLS/jwks endpoints verified; secret rotation plan noted
 
-- Labels: `rfp-yes` (remove `features-pending-signoff`)
+- Labels: `RfP`, `integration-risk`
 
 
 Work to reach Planned (owning team → output)
@@ -214,7 +214,7 @@ Discovered details added to requirement/backlog
 
 Outputs / Artifacts
 - Epics/Stories with AC/NFR; DoR satisfied; sprint allocation ready
-- Labels: `planned`, `design-complete`
+- Labels: `decomposition/features→stories`, `design-complete`, `integration-risk`
 
 Planned checklist (DoR)
  
@@ -268,7 +268,7 @@ Discovered details during build
 
 Outputs / Artifacts
 - Incremental accepts (e.g., Exemptions engine epics accepted; risk signal stories in progress)
-- Labels: `in-development`, `partially-delivered`
+- Labels: `in-development`, `partially-delivered`, `integration-risk`
 - AC evolution (clarifications during build):
   - “Exemption policy changes require decision log entry + replay test pack.”
   - “Risk signal tolerates ±5ms variance at P95 under peak.”
@@ -320,7 +320,7 @@ Discovered details captured at close
 - Residual follow‑ups: improve sandbox fidelity; tune step‑up copy for locale X
 
 Outputs / Artifacts
-- Requirement: `done`, `delivered`; decision paper archived; dashboards snapshot
+- Requirement: `done`; labels updated to remove `RfP` and add `integration-risk` only if still relevant; decision paper archived; dashboards snapshot
 - Post‑release review items: tune thresholds; backlog improvements
 
  
