@@ -6,9 +6,15 @@ MAR Templates and Validation Prompts for various types of Requirements:
 4. System Integrations (File-based)
 5. System Integrations (API-based)
 
+In enterprise context setting, ensure we talk about leadership change risks
 
 * Rituals required
 * Presentation templates for various rituals
+
+
+Debt Portfolio
+* Debt Thresholds
+* Debt Risk Warnings
 
 Jira
 * Issue Types and Fields
@@ -31,6 +37,15 @@ Customer POV of Execution
 Microsite
 Hugo Site
 
+Studio Council - Automation Maturity
+* Metrics Maturity Ladder (Evolve, don’t stall)
+* Jira Automation
+* Agents in Foundry
+* Audit each Studio Setup (Pre-flight Check Content)
+* Audit Studio Rituals
+* Ingredients of Success - Capacity, Capability, Coherence, and Knowledge & Skills (Training)
+* Always have levers to 'enable/disable' specific automations for a Studio. Practice discipline comes before automation 
+* Studio Continuous Improvement Review
 
 Agents for Studio Services Governance
 * Requirement Acceptance
