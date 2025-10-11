@@ -140,15 +140,6 @@ Discovered details added to requirement
 
 - Labels: `rfp-yes` (remove `features-pending-signoff`)
 
-RfP checklist (Section 5.3)
-- Feature definitions signed by Customer PM and DPO — Satisfied
-- Design/impact addenda attached and signed — Satisfied
-- AC complete, testable, and include measurement plan — Satisfied
-- Dependencies confirmed with provider commitments (keys, mTLS, quotas, allowlists) — Pending
-- Risk Surfaces recorded and linked — Satisfied
-- QA strategy defined (component/contract/customer‑service paths) — Satisfied
-- Governance recorded (RfP decision date, owners, shelf‑life) — Satisfied
-- Jira labels updated to `rfp-yes`; artifacts linked — Satisfied
 
 Work to reach Planned (owning team → output)
 - Provider credentials issuance and mTLS setup (Integration Lead) → credential pack
@@ -202,14 +193,7 @@ Outputs / Artifacts
 - Labels: `planned`, `design-complete`
 
 Planned checklist (DoR)
-- Epics/Stories linked to Features with AC/NFR and test notes — Satisfied
-- Stories sized and prioritized with clear acceptance paths — Satisfied
-- Dependencies ready or scheduled (credentials, quotas, templates) — Pending
-- CI pipeline updated with new test suites and thresholds — Pending
-- Rollout and rollback plans referenced at Epic level — Satisfied
-- QA data and environments ready (synthetic/fixtures, sandbox accounts) — Pending
-- Non‑functional budgets attached (latency/error budgets) — Satisfied
-- Owners and reviewers assigned per Epic/Story — Satisfied
+ 
 
 Work to reach In Development (owning team → output)
 - Complete provider setup tasks (Integration Lead) → ready environments
@@ -260,16 +244,7 @@ Outputs / Artifacts
   - “Exemption policy changes require decision log entry + replay test pack.”
   - “Risk signal tolerates ±5ms variance at P95 under peak.”
 
-In Development checklist (release readiness per increment)
-- Critical‑path test pass rate ≥ threshold — Satisfied
-- No open P0/P1 defects on release candidate — Satisfied
-- Error‑budget within limits for affected services — Pending
-- Latency budgets respected (risk signal ≤ 10ms; P95 < 150ms) — Pending
-- Feature‑flag staged rollout plan ready — Satisfied
-- Canary/rollback verified in non‑prod — Satisfied
-- Monitoring/alerts configured for new paths — Satisfied
-- Customer acceptance performed on completed Stories/Epics — Pending
-- Exceptions labeled, time‑boxed, with reversion date — Satisfied
+ 
 
 Work to reach Done (owning team → output)
 - Burn down remaining defects to P2+ with waivers documented (QA/EM) → clean RC
@@ -314,13 +289,7 @@ Outputs / Artifacts
 - Requirement: `done`, `delivered`; decision paper archived; dashboards snapshot
 - Post‑release review items: tune thresholds; backlog improvements
 
-Done checklist (close‑out)
-- All acceptance criteria met in production — Satisfied
-- Post‑release stability window passed without regression — Satisfied
-- Dashboards and evidence archived (snapshot, links) — Satisfied
-- Decision papers, exceptions, and waivers closed/archived — Satisfied
-- Learnings logged and owners assigned (SCM/DM) — Satisfied
-- Residual improvements triaged to roadmap with owners/dates — Satisfied
+ 
 
 Gate to close
 - All acceptance criteria met; error‑budget respected; post‑release monitoring stable.
