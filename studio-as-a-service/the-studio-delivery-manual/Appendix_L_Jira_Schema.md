@@ -169,3 +169,118 @@ Exceptions
 
 Governance
 - Owner field should map to a named role; forum fields (Weekly/Monthly/Steering) indicate where decisions are made. SCM audits field usage and consistency quarterly (Section 11).
+
+---
+
+## L.9 Examples: Boards and Automations (copy‑paste‑ready)
+
+### L.9.1 Boards (illustrative)
+- Requirements Board
+  - Filter JQL:
+    ```
+    project = STUDIO AND type = Requirement ORDER BY Rank ASC
+    ```
+  - Columns → Status mappings:
+    - New → New
+    - In Progress → In Progress
+    - Decomposed → Decomposed
+    - RfP → RfP
+    - Planned → Planned
+    - In Development → In Development
+    - Done → Done
+  - Quick Filters:
+    - RfP Ready: `status = "RfP"`
+    - With Integration Risk: `labels = integration-risk`
+    - Shelf‑life Watch (RfP ≥ 14d): `type = Requirement AND status = "RfP" AND "RfP Signed Date" <= -14d`
+
+- Delivery Board (Epics/Stories)
+  - Filter JQL:
+    ```
+    project = STUDIO AND type in (Epic, Story, Task) ORDER BY Rank ASC
+    ```
+  - Swimlanes: by Subsystem (custom field) or Epic
+  - Quick Filters:
+    - Integration Work: `labels = integration-risk`
+    - Exceptions Open: `labels = process-exception AND statusCategory != Done`
+
+### L.9.2 Jira Automation — JSON examples (Jira Cloud)
+- Requirement → RfP gate instrumentation
+  ```json
+  {
+    "name": "Requirement enters RfP: label + date + comment",
+    "projects": ["STUDIO"],
+    "rule": {
+      "trigger": {"type": "IssueTransitioned", "from": ["Decomposed"], "to": ["RfP"]},
+      "conditions": [
+        {"type": "issueType", "issueTypes": ["Requirement"]}
+      ],
+      "actions": [
+        {"type": "editIssue", "fields": {"labels": {"add": ["RfP"]}}},
+        {"type": "editIssue", "fields": {"customfield_RFP_SIGNED": {"set": "{{now}}"}}},
+        {"type": "addComment", "comment": "RfP gate passed. Labels and date set."}
+      ]
+    }
+  }
+  ```
+
+- Feature → Integration Readiness guard (flags: Contracts/Credentials/Environments)
+  ```json
+  {
+    "name": "Feature started with Integration flags missing",
+    "projects": ["STUDIO"],
+    "rule": {
+      "trigger": {"type": "IssueTransitioned", "to": ["In Progress"]},
+      "conditions": [
+        {"type": "issueType", "issueTypes": ["Feature"]},
+        {"type": "or", "conditions": [
+          {"type": "cfEquals", "field": "customfield_CONTRACTS_READY", "value": "No"},
+          {"type": "cfEquals", "field": "customfield_CREDENTIALS_READY", "value": "No"},
+          {"type": "cfEquals", "field": "customfield_ENVIRONMENTS_READY", "value": "No"}
+        ]}
+      ],
+      "actions": [
+        {"type": "editIssue", "fields": {"labels": {"add": ["integration-risk"]}}},
+        {"type": "addComment", "comment": "Integration Readiness flags incomplete. See Appendix 5.10 checklist and resolve before release."},
+        {"type": "assignIssue", "assignee": {"accountId": "{{smart.value.IntegrationLead}}"}}
+      ]
+    }
+  }
+  ```
+
+- Exceptions — enforce reversion date and review task
+  ```json
+  {
+    "name": "Process exception requires reversion date and review task",
+    "projects": ["STUDIO"],
+    "rule": {
+      "trigger": {"type": "IssueCreated"},
+      "conditions": [
+        {"type": "labelsContain", "labels": ["process-exception"]}
+      ],
+      "branches": [
+        {
+          "type": "if",
+          "condition": {"type": "cfEmpty", "field": "customfield_REVERSION_DATE"},
+          "actions": [
+            {"type": "transitionIssue", "to": "Blocked"},
+            {"type": "addComment", "comment": "Add Reversion Date before proceeding."}
+          ]
+        }
+      ],
+      "actions": [
+        {"type": "createIssue", "fields": {
+          "project": {"key": "STUDIO"},
+          "issuetype": {"name": "Task"},
+          "summary": "Review exception before reversion date",
+          "duedate": "{{issue.customfield_REVERSION_DATE.minusDays(10)}}",
+          "labels": ["process-exception"],
+          "description": "Ensure exception is still justified; restore control or extend with Steering approval."
+        }}
+      ]
+    }
+  }
+  ```
+
+Notes
+- Replace customfield_* with your field IDs. See L.3 for the field list. Use labels from L.4 (`RfP`, `integration-risk`, `process-exception`).
+- The JSON shape reflects Jira Cloud Automation export structure in simplified form; adapt to your instance as needed.
