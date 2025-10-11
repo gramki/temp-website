@@ -9,7 +9,7 @@ This section defines how the Studio governs quality: set realistic expectations,
 ### Minimum Viable Quality Signals (Defaults)
 - Release Gate Snapshot: P0/P1 open = 0; P2s triaged with mitigation and target release
 - Critical Path Test Pass Rate: ≥ 99% per build on main
-- Defect Leakage (last release): ≤ 1 P1 per 10k txns (or ≤ N P1/P2 per release)
+- Defect Leakage (last release): ≤ 1 P1 per 10k txns (txn = critical‑path business transactions, e.g., payment authorization attempts; tune scope per product) (or ≤ N P1/P2 per release)
 - Flake Rate: ≤ 2% (rolling 7 days)
 - Critical Path Automation Coverage: ≥ 80%
 - Pipeline Stability (main): ≥ 95% green; quarantined tests repaired or removed within ≤ 2 sprints
