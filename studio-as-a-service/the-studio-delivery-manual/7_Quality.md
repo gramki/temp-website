@@ -6,6 +6,19 @@ This section defines how the Studio governs quality: set realistic expectations,
 
 > VP Reflection: "Zero bugs is a slogan. Bounded risk with discipline is a delivery commitment."
 
+### Minimum Viable Quality Signals (Defaults)
+- Release Gate Snapshot: P0/P1 open = 0; P2s triaged with mitigation and target release
+- Critical Path Test Pass Rate: ≥ 99% per build on main
+- Defect Leakage (last release): ≤ 1 P1 per 10k txns (or ≤ N P1/P2 per release)
+- Flake Rate: ≤ 2% (rolling 7 days)
+- Critical Path Automation Coverage: ≥ 80%
+- Pipeline Stability (main): ≥ 95% green; quarantined tests repaired or removed within ≤ 2 sprints
+- Integration Readiness Flags (in‑scope Features): Contracts/Credentials/Environments = Yes/Yes/Yes
+- Quality Error Budgets Remaining: ≥ 20% (defect, leakage, flake budgets)
+- Customer Acceptance: Signed for scope included in the release
+
+Note: Tune thresholds per program in Appendix T; map to dashboards in Appendix A; enforce via readiness gates in 7.1 and budgets in 7.6.
+
 ### Definitions (Shared Language)
 - Defect: Any variance from expected behavior (AC/NFR) — can be due to code, config, data, environment, integration, or missing/ambiguous AC.
 - Bug: A code‑caused defect (implementation error). Every bug is a defect; not every defect is a bug.
