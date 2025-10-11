@@ -163,6 +163,14 @@ Gate checklist — RfP
 - QA strategy defined (component/contract/customer‑service paths) — Satisfied
 - Governance recorded (RfP decision date, owners, shelf‑life) — Satisfied
 - Jira labels updated to `rfp-yes`; artifacts linked — Satisfied
+ - Integration: API spec and version pin agreed — Pending
+ - Integration: mTLS/cert chains validated in sandbox — Pending
+ - Integration: Quotas/rate‑limits/timeouts confirmed with written commitments — Pending
+ - Integration: Error taxonomy mapped; retry/backoff/idempotency rules defined — Pending
+ - Integration: Data classification/PII flows reviewed; DPIA/TRA notes recorded — Pending
+ - Integration: Sandbox fidelity risks and compensating tests recorded — Satisfied
+ - Integration: Provider SLAs/support contacts/escalation paths documented — Pending
+ - Integration: Monitoring/alert points and trace/log fields defined — Pending
 
 ---
 
