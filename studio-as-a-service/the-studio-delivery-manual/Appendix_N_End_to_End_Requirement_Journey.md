@@ -2,6 +2,8 @@
 
 Purpose: Show, with a realistic BFSI example, how a requirement moves MAR → Decomposed → RfP → Planned → In Development → Done. For each stage: inputs, what transpired (role‑play), outputs/artifacts, gates/criteria to progress, and how AC evolved.
 
+**NOTE:** This section requires refinements. The Gates at each stage need to be reviewed. When transitioning to next stage, any required but pending checklist items should be called out recognized risks and/or debt items. 
+
 Example scenario: Reduce card‑fraud false‑positives by 20% without increasing checkout abandonment or auth SLAs.
 Subsystems: Payments Authorization, Fraud/Risk, Notifications.
 Constraints: PCI DSS; P95 `/authorize` < 150ms; abandonment delta ≤ +1%.
@@ -52,6 +54,13 @@ Gate to progress
   - Evidence/measurement approach sketched (cohorts, A/B or pre/post) — Pending
   - Commercial model/time‑box for decomposition agreed (SFM/TCM) — Pending
   - Governance path and RfP workshop scheduled — Pending
+
+Transition note — Pending carried as risks/debt
+- Named owner(s) and reviewers assigned — Risk: ownership clarity; Debt: process (Reason: Capability & Process) — Owner: DM/DPO — Label: `risk-governance`, `debt-process`
+- Initial Risk Surfaces noted — Risk: unknowns in model drift/sandbox — Owner: DPO — Label: `risk-scope`
+- Evidence/measurement approach sketched — Debt: measurement design (Reason: Information & Volatility) — Owner: QA Lead — Label: `debt-measurement`
+- Commercial model/time‑box for decomposition agreed — Risk: funding/timebox ambiguity; Debt: governance (Reason: Constraints) — Owner: EO/Commercial Mgr — Label: `risk-commercial`, `debt-governance`
+- Governance path and RfP workshop scheduled — Debt: scheduling (Reason: Capability & Process) — Owner: DM — Label: `debt-process`
 
 ---
 
@@ -172,6 +181,13 @@ Gate checklist — RfP
  - Integration: Provider SLAs/support contacts/escalation paths documented — Pending
  - Integration: Monitoring/alert points and trace/log fields defined — Pending
 
+Transition note — Pending carried as risks/debt
+- Provider commitments (quota/allowlists/SLAs) — Risk: dependency lead‑time; Owner: Integration Lead — Labels: `risk-dependency`, `rfp-pending`
+- mTLS/certs in sandbox — Debt: environment readiness (Reason: Constraints) — Owner: Integration Lead — Label: `debt-env`
+- Error taxonomy/retry/idempotency — Debt: design completeness (Reason: Capability & Process) — Owner: Tech Lead — Label: `debt-design`
+- Data classification/DPIA — Risk: compliance exposure; Owner: DPO/Compliance — Labels: `risk-compliance`, `rfp-pending`
+- Monitoring/trace fields — Debt: observability (Reason: Capability & Process) — Owner: QA/EM — Label: `debt-observability`
+
 ---
 
 ## N.4 Planned — Features → Epics/Stories (DoR met)
@@ -221,6 +237,11 @@ Gate checklist — Planned (DoR)
 - Rollout and rollback plans referenced at Epic level — Satisfied
 - Non‑functional budgets attached (latency/error budgets) — Satisfied
 - Owners and reviewers assigned per Epic/Story — Satisfied
+
+Transition note — Pending carried as risks/debt
+- Provider setup tasks outstanding — Risk: dependency schedule slip; Owner: Integration Lead — Label: `risk-dependency`
+- CI thresholds/suites not landed — Debt: automation maturity (Reason: Capability & Process); Owner: QA/EM — Label: `debt-automation`
+- QA data/envs not ready — Debt: environment readiness (Reason: Constraints); Owner: QA Lead — Label: `debt-env`
 
 ---
 
@@ -273,6 +294,11 @@ Gate checklist — In Development (Release)
 - Customer acceptance recorded for scope included in release — Pending
 - Exceptions labeled, time‑boxed, reversion date set — Satisfied
 
+Transition note — Pending carried as risks/debt
+- Error‑budget near limits — Risk: service stability; Owner: EM/DM — Label: `risk-stability`
+- Latency budgets close to threshold — Risk: performance; Owner: Tech Lead — Label: `risk-performance`
+- Customer acceptance pending on scope — Risk: acceptance delay; Owner: Customer PM — Label: `risk-acceptance`
+
 ---
 
 ## N.6 Done — Accepted and released
@@ -309,6 +335,10 @@ Gate checklist — Done (Close‑out)
 - Decision papers, exceptions, waivers closed/archived — Satisfied
 - Learnings logged and owners assigned (SCM/DM) — Satisfied
 - Residual improvements triaged to roadmap with owners/dates — Satisfied
+
+Transition note — Residual risks/debt carried to roadmap
+- Sandbox fidelity improvements — Debt: environment fidelity (Reason: Constraints); Owner: EM/QA — Label: `debt-env`
+- Localization tuning for step‑up copy — Debt: UX/content (Reason: Capability & Process); Owner: DPM/Customer PM — Label: `debt-ux`
 
 ---
 
