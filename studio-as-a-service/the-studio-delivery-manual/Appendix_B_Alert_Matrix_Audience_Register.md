@@ -79,6 +79,13 @@ Guiding notes
   - Forum: Operational Review
   - Escalation: Steering for demand/standby protections
 
+### Governance & Leadership
+- Executive turnover (leadership change event)
+  - Signal: Senior exec change (CIO/CTO/CRO/CEO) announced affecting program scope/governance
+  - Owner: Delivery Manager (continuity pack), DPO (RfP/feature revalidation), Commercial Manager (funding exposure)
+  - Forum: Monthly Operational Review → Executive Steering (decision re‑affirmation)
+  - Escalation: Steering to re‑affirm/replace prior decisions; freeze material scope changes until written re‑confirmation
+
 ---
 
 ## B.2 Audience Register (who, tone, evidence)

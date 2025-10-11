@@ -64,6 +64,8 @@ Why This Exists
 
 ---
 
+---
+
 ## E.3 Sprint‑End Learning & Stabilization (Section 9.11)
 
 Purpose
@@ -122,6 +124,25 @@ Anti‑patterns
 
 Why This Exists
 - To keep the operating model tuned to reality and to pre‑wire Steering decisions.
+
+---
+## E.4a Flight Check addendum — Leadership change revalidation
+
+Purpose
+- Re‑validate critical decisions and readiness when a senior executive change is announced.
+
+Cadence/Trigger
+- Trigger: CIO/CTO/CRO/CEO turnover or mandate reset affecting program scope/governance.
+
+Checklist
+- [ ] Publish a 3–5 page continuity pack (current plan; funded vs unfunded exposure; top dependencies with evidence; open decisions with options/impacts)
+- [ ] Freeze material scope changes until Steering re‑affirms or replaces prior decisions in writing
+- [ ] Re‑validate RfP‑signed Features via a fast confirmation workshop; extend shelf‑life where needed
+- [ ] Confirm decision log completeness; map old → new forums/owners and SLAs
+- [ ] Review contract/SoW alignment and exclusions with Commercial; document gaps
+
+Why This Exists
+- To reduce churn from mandate resets by anchoring to records and re‑affirmations rather than assumptions.
 
 ---
 
