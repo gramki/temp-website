@@ -39,6 +39,29 @@ Use “SFM” and “TCM” prefixes to avoid confusion.
   - TCM: If Capacity Health Score < 60 → pause ramps/commitments; recover runway before scaling.
 - Deep dives: see [8A. Scope‑Funded Model (SFM)](#8a-scope-funded-model-sfm) and [8B. Team‑Capacity Model (TCM)](#8b-team-capacity-model-tcm).
 
+### Model Selection Flow (Mermaid)
+```mermaid
+graph TD
+  A[Start: Engagement context] --> B{Is scope largely knowable upfront?}
+  B -- Yes --> C{Are regulatory/milestone dates fixed with penalties?}
+  B -- No --> D{Is the product a long-running stream with evolving scope?}
+  C -- Yes --> E[SFM]
+  C -- No --> F{Are dependencies/funding within Customer control?}
+  F -- Yes --> E
+  F -- No --> G[Discovery (time-box) then decide]
+  D -- Yes --> H{Will Customer accept runway/idle-time protections?}
+  D -- No --> G
+  H -- Yes --> I[TCM]
+  H -- No --> J{Can we bound a fixed increment with SFM?}
+  J -- Yes --> K[Hybrid: SFM-bounded increments; revisit]
+  J -- No --> G
+
+  subgraph Guardrails
+    E --> E1[If FVS < 60, do not harden dates]
+    I --> I1[If CHS < 60, pause ramps/commitments]
+  end
+```
+
 ---
 
 ## 8A. Scope‑Funded Model (SFM)
