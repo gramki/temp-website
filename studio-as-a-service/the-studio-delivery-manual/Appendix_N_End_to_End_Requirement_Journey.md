@@ -126,6 +126,18 @@ Outputs / Artifacts
   2) P95 `/authorize` < 150ms across peak; risk signal compute ≤ 10ms budget
   3) Checkout abandonment ≤ +1% vs baseline during step‑up
   4) Policy audit trail present (decision, inputs, exemption rationale) and exportable
+
+Discovered details added to requirement
+- Measurement method: matched‑cohort analysis with 95% CI; data sources defined (auth logs + analytics)
+- Latency budgets: 10ms budget for risk signal inside `/authorize`; end‑to‑end P95 < 150ms
+- Policy auditability: structured decision logs with export to compliance archive (daily)
+- Risk Surfaces: model drift tolerance, sandbox fidelity gaps, quota ceilings, notification deliverability
+- Governance: RfP decision date, shelf‑life 90 days, re‑affirmation forum set (Monthly Ops Review)
+- Dependency lead‑times: provider credentials 5–10 days; quota/allowlist 3–5 days; template approval 2–3 days
+- Rollout: feature‑flag kill‑switch and cohort sizing plan documented
+- Back‑out: rollback plan and replay test pack defined
+- Security: mTLS/jwks endpoints verified; secret rotation plan noted
+
 - Labels: `rfp-yes` (remove `features-pending-signoff`)
 
 RfP checklist (Section 5.3)
@@ -166,9 +178,34 @@ What transpired (role‑play)
   - QA Lead: “Add contract tests on `/authorize` risk signal; add customer‑service test flows.”
   - EM: “Reserve 15–25% for quality/debt.”
 
+Discovered details added to requirement/backlog
+- Story‑level AC and NFR linked to each Epic; traceability map updated
+- Latency test hooks for risk signal defined; synthetic datasets enumerated
+- Notification templates and locales listed; fallback copy rules documented
+- Provider sandbox gaps documented with compensating tests
+- CI baseline thresholds recorded (pass rates, flake budget, perf budgets)
+- Feature‑flag rollout stages (internal, 5%, 25%, 50%, 100%) scheduled
+- Capacity plan: 2 sprints for Fraud/Risk, 1 sprint for Notifications, 2 sprints for Auth work
+
 Outputs / Artifacts
 - Epics/Stories with AC/NFR; DoR satisfied; sprint allocation ready
 - Labels: `planned`, `design-complete`
+
+Planned checklist (DoR)
+- Epics/Stories linked to Features with AC/NFR and test notes — Satisfied
+- Stories sized and prioritized with clear acceptance paths — Satisfied
+- Dependencies ready or scheduled (credentials, quotas, templates) — Pending
+- CI pipeline updated with new test suites and thresholds — Pending
+- Rollout and rollback plans referenced at Epic level — Satisfied
+- QA data and environments ready (synthetic/fixtures, sandbox accounts) — Pending
+- Non‑functional budgets attached (latency/error budgets) — Satisfied
+- Owners and reviewers assigned per Epic/Story — Satisfied
+
+Work to reach In Development (owning team → output)
+- Complete provider setup tasks (Integration Lead) → ready environments
+- Land CI config changes and smoke tests (QA/EM) → green pipeline
+- Lock sprint plan and WIP limits (EM/DM) → sprint start checklist
+- Prep data fixtures and contract tests (QA/Tech Lead) → test packs
 
 Gate to progress
 - DoR rules met; unready work blocked; integration readiness items tracked for gating (Section 5.10).
@@ -189,12 +226,36 @@ What transpired (role‑play)
   - QA Lead: “Quarantine flaky tests; schedule mini‑hardening if error‑budget red.”
   - Customer PM: “Accept Stories/Epics that meet AC and non‑functional gates.”
 
+Discovered details during build
+- AC clarifications: acceptable latency variance ±5ms at P95; log fields expanded for audit
+- Edge cases: retries, idempotency keys, rate‑limit backoff, partial step‑up failures
+- Data contracts: schema version pinning; backward compatibility rules
+- Operational limits: provider 429 thresholds observed; queue sizing adjusted
+- Exception policy: one time‑boxed exception for sandbox fidelity with reversible test control
+
 Outputs / Artifacts
 - Incremental accepts (e.g., Exemptions engine epics accepted; risk signal stories in progress)
 - Labels: `in-development`, `partially-delivered`
 - AC evolution (clarifications during build):
   - “Exemption policy changes require decision log entry + replay test pack.”
   - “Risk signal tolerates ±5ms variance at P95 under peak.”
+
+In Development checklist (release readiness per increment)
+- Critical‑path test pass rate ≥ threshold — Satisfied
+- No open P0/P1 defects on release candidate — Satisfied
+- Error‑budget within limits for affected services — Pending
+- Latency budgets respected (risk signal ≤ 10ms; P95 < 150ms) — Pending
+- Feature‑flag staged rollout plan ready — Satisfied
+- Canary/rollback verified in non‑prod — Satisfied
+- Monitoring/alerts configured for new paths — Satisfied
+- Customer acceptance performed on completed Stories/Epics — Pending
+- Exceptions labeled, time‑boxed, with reversion date — Satisfied
+
+Work to reach Done (owning team → output)
+- Burn down remaining defects to P2+ with waivers documented (QA/EM) → clean RC
+- Complete staged rollout to 100% (EM/DM) → release note
+- Validate post‑release metrics window (QA/DM) → stability report
+- Close acceptance on remaining Epics/Stories (Customer PM/DPO) → acceptance log
 
 Gate to progress
 - Release gates (Section 7) hold: no P0/P1; critical‑path pass rate met; error‑budget ≥ threshold; integration readiness green (5.10).
@@ -212,9 +273,24 @@ What transpired (role‑play)
 - DM to Steering: “FPR reduced by 23%; latency/abandonment within limits; risk/exception logs auditable.”
 - EO: “Approve close‑out and move residual improvements to roadmap.”
 
+Discovered details captured at close
+- Measured FPR improvement: 23% over 4‑week matched cohort, CI 96%
+- P95 latency observed: 142ms at peak; risk signal compute median 6ms
+- Abandonment delta: +0.6% within allowed threshold
+- Policy audit exports validated with Compliance
+- Residual follow‑ups: improve sandbox fidelity; tune step‑up copy for locale X
+
 Outputs / Artifacts
 - Requirement: `done`, `delivered`; decision paper archived; dashboards snapshot
 - Post‑release review items: tune thresholds; backlog improvements
+
+Done checklist (close‑out)
+- All acceptance criteria met in production — Satisfied
+- Post‑release stability window passed without regression — Satisfied
+- Dashboards and evidence archived (snapshot, links) — Satisfied
+- Decision papers, exceptions, and waivers closed/archived — Satisfied
+- Learnings logged and owners assigned (SCM/DM) — Satisfied
+- Residual improvements triaged to roadmap with owners/dates — Satisfied
 
 Gate to close
 - All acceptance criteria met; error‑budget respected; post‑release monitoring stable.
