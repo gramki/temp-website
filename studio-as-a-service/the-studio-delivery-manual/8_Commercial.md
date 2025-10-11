@@ -21,6 +21,21 @@ Use “SFM” and “TCM” prefixes to avoid confusion.
 | Main risks | Unfunded exposure; dependency gates | Demand starvation; idle time; dependency variance |
 | Forums | Steering/CCB/Operational | Same, with mix/idle‑time focus |
 
+### Crib Sheet: SFM vs TCM (At a glance)
+- When to choose
+  - SFM: scope is largely knowable upfront; compliance/contracted deliverables; fixed outcomes or milestone funding; multi‑vendor coordination needs hard gates.
+  - TCM: scope evolves by discovery; product/platform teams; long‑running streams; demand may fluctuate and needs runway/idle‑time protections.
+- Key risks
+  - SFM: unfunded exposure; dependency gates slipping; “approved in principle” CRs without budget; premature date hardening.
+  - TCM: demand starvation; idle time; dependency variance stalling squads; unmanaged mix swaps.
+- What to watch (widgets)
+  - SFM: Unfunded CR Exposure; % RfP Signed; Funding Visibility Score; Dependency Funding & Lead‑time; Dependency Variance; Dependency Financial Risk.
+  - TCM: Funded Capacity Coverage (weeks); Backlog Readiness Coverage (sprints); Velocity band vs actual; Idle time %; Dependency Variance; Capacity Health Score.
+- Gate rules
+  - SFM: If Funding Visibility Score < 60 → do not harden dates; bring options to Steering.
+  - TCM: If Capacity Health Score < 60 → pause ramps/commitments; recover runway before scaling.
+- Deep dives: see [8A. Scope‑Funded Model (SFM)](#8a-scope-funded-model-sfm) and [8B. Team‑Capacity Model (TCM)](#8b-team-capacity-model-tcm).
+
 ---
 
 ## 8A. Scope‑Funded Model (SFM)
