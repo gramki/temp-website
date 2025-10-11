@@ -19,6 +19,7 @@ Core Responsibilities
 - Curate thresholds catalog (Appendix T) and propose tuning based on signal trends
 - Run Governance Audits (Appendix H) per schedule; track remediation to closure
 - Keep cross‑program learnings discoverable; advocate reuse/adoption
+ - Delivery Manager capability & mix: assess capacity/skills, propose the right mix of Delivery Managers per subsystem/squad, ensure backups, and coach DMs until the program reaches Steady‑state
 
 ---
 
@@ -44,6 +45,7 @@ Checklist (monthly)
 - [ ] Audit two improvements to adoption (M.3): evidence before/after; learning note
 - [ ] Thresholds: propose one tuning with trend evidence (Appendix T)
 - [ ] Exceptions: reversion reviews; convert repeated to policy paper (M.1)
+ - [ ] DM capability/mix review: verify chairs/coverage per ritual; pair/joint‑run Weekly/Monthly until steady‑state
 Outputs
 - Monthly improvement pack; 1–3 implemented changes; exception closures with notes
 
@@ -55,6 +57,7 @@ Checklist (quarterly)
 - [ ] Manual version release: collate approved changes; publish release notes; update cross‑refs
 - [ ] Portfolio view of improvements: % discovery→adoption; time‑to‑adoption; blocked items with causes
 - [ ] Thresholds review: keep high‑churn items out of the manual; tune in Appendix T
+ - [ ] DM coaching taper: confirm DM(s) can run forums solo with signal discipline; formalize backup rotation
 Outputs
 - Manual vX.Y release; audit report; improvements dashboard; threshold deltas
 
@@ -87,6 +90,7 @@ Outputs
 - Audit Remediation: % audit items closed by due date
 - Version Currency: age since last manual release ≤ 90 days (longer by exception)
 - Exception Hygiene: % exceptions with reversion on time; repeat exceptions converted to policy
+ - DM Readiness: % rituals chaired by DM(s) without SCM shadowing; % forums run on time with required signals
 
 Guardrails
 - Evidence before policy: no policy/threshold change without M.6 Evidence Pack
