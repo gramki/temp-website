@@ -87,6 +87,18 @@ Outputs / Artifacts
 Gate to progress
 - Decomposition complete and testability plausible; ready for RfP workshop.
 
+Decomposition checklist (to achieve RfP)
+- Subsystem boundaries confirmed — Satisfied
+- Features drafted per subsystem — Satisfied
+- Each Feature has purpose/scope and AC/NFR seeds — Pending
+- Design and impact addenda (latency budgets, data flows, auditability) — Pending
+- Dependencies mapped and preliminarily confirmed (keys, quotas, mTLS, templates) — Pending
+- Evidence/measurement plan drafted (cohorts, confidence thresholds, data sources) — Pending
+- Risk Surfaces drafted (model drift, sandbox fidelity, quota ceilings) — Pending
+- Feature owners assigned (Auth, Fraud/Risk, Notifications) — Pending
+- RfP workshop scheduled and materials circulated — Pending
+- Jira labels reflect state (`decomposed`) — Satisfied
+
 ---
 
 ## N.3 RfP — Ready‑for‑Planning (signed Features, design/impact)
@@ -109,6 +121,26 @@ Outputs / Artifacts
   3) Checkout abandonment ≤ +1% vs baseline during step‑up
   4) Policy audit trail present (decision, inputs, exemption rationale) and exportable
 - Labels: `rfp-yes` (remove `features-pending-signoff`)
+
+RfP checklist (Section 5.3)
+- Feature definitions signed by Customer PM and DPO — Satisfied
+- Design/impact addenda attached and signed — Satisfied
+- AC complete, testable, and include measurement plan — Satisfied
+- Dependencies confirmed with provider commitments (keys, mTLS, quotas, allowlists) — Pending
+- Risk Surfaces recorded and linked — Satisfied
+- QA strategy defined (component/contract/customer‑service paths) — Satisfied
+- Governance recorded (RfP decision date, owners, shelf‑life) — Satisfied
+- Jira labels updated to `rfp-yes`; artifacts linked — Satisfied
+
+Work to reach Planned (owning team → output)
+- Provider credentials issuance and mTLS setup (Integration Lead) → credential pack
+- Quota/allowlist approvals and rate‑limit letters (Integration Lead) → provider confirmation
+- Notification template localization approval (Customer PM) → approved templates
+- Feature‑flag rollout plan and kill‑switch (EM/DPM) → rollout spec
+- DoR checklist completed for Epics/Stories (DPM) → ready backlog
+- CI baseline thresholds and test cases enumerated (QA Lead) → QA readiness memo
+- Sprint capacity allocation and sequencing (EM/DPM) → planning board entries
+- Dependency lead‑time scheduling (DM) → integrated plan
 
 Gate to progress
 - RfP gate (Section 5.3) passes: AC complete; dependencies mapped; design/impact signed; Risk Surfaces recorded.
