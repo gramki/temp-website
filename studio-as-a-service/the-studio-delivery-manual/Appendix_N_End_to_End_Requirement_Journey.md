@@ -10,6 +10,8 @@ Constraints: PCI DSS; P95 `/authorize` < 150ms; abandonment delta ≤ +1%.
 
 ## N.1 MAR — Minimally Acceptable Requirement (inputs → AC seed)
 
+About: Establish a measurable intent, boundaries, constraints, and testable AC seed; the Delivery Manager ensures clarity, names owners, and lines up the path to the RfP workshop.
+
 Inputs
 - Customer PM shares business intent: “Reduce false‑positives by 20%.”
 - Baselines: current false‑positive rate (FPR) = 2.5%; abandonment = 2.0%; P95 auth latency = 120ms.
@@ -54,6 +56,8 @@ Gate to progress
 ---
 
 ## N.2 Decomposed — Requirement → Features (subsystem‑scoped)
+
+About: Translate the requirement into subsystem‑scoped Features with plausible testability; the Delivery Manager orchestrates owners, risks, dependencies, and materials to secure RfP sign‑off.
 
 Inputs
 - MAR record; fraud rule inventory; card‑network constraints; data availability notes.
@@ -103,6 +107,8 @@ Decomposition checklist (to achieve RfP)
 
 ## N.3 RfP — Ready‑for‑Planning (signed Features, design/impact)
 
+About: Achieve Customer sign‑off on Feature definitions, AC/NFR, and design/impact; the Delivery Manager secures decisions, records Risk Surfaces, and locks a shelf‑life for planning.
+
 Inputs
 - Draft Feature definitions; design/impact addenda; dependency map; Risk Surfaces (e.g., network model drift, sandbox gaps).
 
@@ -149,6 +155,8 @@ Gate to progress
 
 ## N.4 Planned — Features → Epics/Stories (DoR met)
 
+About: Convert signed Features into ready backlog (Epics/Stories) that meet DoR; the Delivery Manager ensures capacity alignment, dependency readiness, and QA/CI baselines.
+
 Inputs
 - Signed Features; design/impact; Definition of Ready; dependency/credential checklists.
 
@@ -168,6 +176,8 @@ Gate to progress
 ---
 
 ## N.5 In Development — Build, test, and accept incrementally
+
+About: Deliver increments against AC/NFR with stable quality signals; the Delivery Manager manages flow, addresses breaches, and protects release integrity.
 
 Inputs
 - Planned Stories; CI gates; Allure/Jira traceability; integration readiness checklist.
@@ -192,6 +202,8 @@ Gate to progress
 ---
 
 ## N.6 Done — Accepted and released
+
+About: Confirm AC met in production with stable signals and captured learnings; the Delivery Manager closes the loop and seeds improvements to roadmaps and playbooks.
 
 Inputs
 - All features delivered; dashboards green; Quality Council sign‑off; Steering informed.
