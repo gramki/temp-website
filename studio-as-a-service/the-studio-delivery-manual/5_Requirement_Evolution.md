@@ -124,6 +124,36 @@ A requirement is Ready-for-Planning when:
 
 **MAR** → **Decomposed** → **RfP**
 
+### Decomposition Flow (At a glance)
+Use this quick map to orient new readers. It shows the requirement flow and the implementation flow with their gating checks.
+
+```mermaid
+flowchart TB
+  subgraph Requirement Flow
+    R[Requirement] --> MAR[MAR]
+    MAR --> DEC[Decomposed]
+    DEC --> RFP[RfP (signed Features)]
+    RFP --> PLAN[Planned]
+    PLAN --> DEV[In Development]
+  end
+
+  subgraph Implementation Flow
+    F[Feature] --> E[Epic]
+    E --> S[Story]
+  end
+
+  %% Gates
+  G1[Design/Impact sign-off]:::gate
+  G2[AC/NFR sign-off]:::gate
+
+  F -. requires .- G1
+  F -. requires .- G2
+
+  classDef gate fill:#fff7e6,stroke:#f0a202,color:#333;
+```
+
+See 5.8 for Feature Decomposition Gates (Design/Impact, AC/NFR, Risk Registry) and 5.10 for Integration Readiness before planning.
+
 - **MAR**: Minimally acceptable for initial analysis
 - **Decomposed**: Broken down into specific features
 - **RfP**: Feature definitions signed off by Customer Team
