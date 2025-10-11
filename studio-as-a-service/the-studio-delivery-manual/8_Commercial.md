@@ -25,6 +25,9 @@ Use “SFM” and “TCM” prefixes to avoid confusion.
 - When to choose
   - SFM: scope is largely knowable upfront; compliance/contracted deliverables; fixed outcomes or milestone funding; multi‑vendor coordination needs hard gates.
   - TCM: scope evolves by discovery; product/platform teams; long‑running streams; demand may fluctuate and needs runway/idle‑time protections.
+ - When NOT to choose (even if requested)
+   - SFM: do not agree when (i) scope is highly volatile or ill‑defined and Customer resists CR discipline; (ii) material dependencies are outside Customer control or unfunded; (iii) regulatory/compliance approvals are uncertain in timing; (iv) integration unknowns dominate and discovery is required; prefer a discovery phase or TCM until uncertainty reduces.
+   - TCM: do not agree when (i) there are fixed deliverables with regulatory/milestone dates and penalties; (ii) procurement/legal require fixed outcomes or capped budgets; (iii) Customer refuses idle‑time/standby protections or runway governance; (iv) funding is episodic and cannot assure capacity runway; prefer SFM for those deliverables or a hybrid with SFM‑bounded increments.
 - Key risks
   - SFM: unfunded exposure; dependency gates slipping; “approved in principle” CRs without budget; premature date hardening.
   - TCM: demand starvation; idle time; dependency variance stalling squads; unmanaged mix swaps.
