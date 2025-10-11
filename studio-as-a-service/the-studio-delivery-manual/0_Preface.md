@@ -98,6 +98,27 @@ This manual teaches how to navigate tension: to stand firm with logic and kindne
 - **Section 11** — Continuous Improvement: program retros, institutional memory, playbook versioning
 - **Section 12** — Conclusion: synthesis and enduring commitments
 
+## Appendices (Quick Links)
+
+- Appendix A — Dashboards & Metrics: [Appendix_A_Dashboards_Metrics.md](Appendix_A_Dashboards_Metrics.md)
+- Appendix B — Alert Matrix & Audience Register: [Appendix_B_Alert_Matrix_Audience_Register.md](Appendix_B_Alert_Matrix_Audience_Register.md)
+- Appendix C — Debt Portfolio Ledgers: [Appendix_C_Debt_Portfolio_Ledgers.md](Appendix_C_Debt_Portfolio_Ledgers.md)
+- Appendix D — RACI Matrix & Role Readiness: [Appendix_D_RACI_Matrix_Role_Readiness.md](Appendix_D_RACI_Matrix_Role_Readiness.md)
+- Appendix E — Operational Ritual Templates: [Appendix_E_Operational_Ritual_Templates.md](Appendix_E_Operational_Ritual_Templates.md)
+- Appendix F — Governance Flow Map: [Appendix_F_Governance_Flow_Map.md](Appendix_F_Governance_Flow_Map.md)
+- Appendix G — SOPs & Templates: [Appendix_G_SOPs_Templates.md](Appendix_G_SOPs_Templates.md)
+- Appendix H — Governance Audit Checklist: [Appendix_H_Governance_Audit_Checklist.md](Appendix_H_Governance_Audit_Checklist.md)
+- Appendix I — Glossary & Reference Index: [Appendix_I_Glossary_Reference_Index.md](Appendix_I_Glossary_Reference_Index.md)
+- Appendix J — Contract Clauses & SoW Templates: [Appendix_J_Contract_Clauses_SoW_Templates.md](Appendix_J_Contract_Clauses_SoW_Templates.md)
+- Appendix K — Diagrams (Mermaid): [Appendix_K_Diagrams_Mermaid.md](Appendix_K_Diagrams_Mermaid.md)
+- Appendix L — Jira Schema: [Appendix_L_Jira_Schema.md](Appendix_L_Jira_Schema.md)
+- Appendix M — Decision & Exception Templates: [Appendix_M_Decision_Exception_Templates.md](Appendix_M_Decision_Exception_Templates.md)
+- Appendix N — End‑to‑End Requirement Journey: [Appendix_N_End_to_End_Requirement_Journey.md](Appendix_N_End_to_End_Requirement_Journey.md)
+- Appendix O — Example Artifacts (Redacted): [Appendix_O_Example_Artifacts.md](Appendix_O_Example_Artifacts.md)
+- Appendix P — SCM Roles & Playbook: [Appendix_P_SCM_Roles_Playbook.md](Appendix_P_SCM_Roles_Playbook.md)
+- Appendix Q — Communication Templates: [Appendix_Q_Communication_Templates.md](Appendix_Q_Communication_Templates.md)
+- Appendix T — Thresholds Catalog: [Appendix_T_Thresholds_Catalog.md](Appendix_T_Thresholds_Catalog.md)
+
 ## Tooling & Diagrams
 
 - **Dashboards**: Grafana and Jira; examples and specs in Appendix A
