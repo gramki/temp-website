@@ -56,11 +56,11 @@ Gate to progress
   - Governance path and RfP workshop scheduled — Pending
 
 Transition note — Pending carried as risks/debt
-- Named owner(s) and reviewers assigned — Risk: ownership clarity; Debt: process (Reason: Capability & Process) — Owner: DM/DPO — Label: `risk-governance`, `debt-process`
-- Initial Risk Surfaces noted — Risk: unknowns in model drift/sandbox — Owner: DPO — Label: `risk-scope`
+- Named owner(s) and reviewers assigned — Risk: ownership clarity; Debt: process (Reason: Capability & Process) — Owner: Delivery Manager; Delivery Product Owner — Label: `risk-governance`, `debt-process`
+- Initial Risk Surfaces noted — Risk: unknowns in model drift/sandbox — Owner: Delivery Product Owner — Label: `risk-scope`
 - Evidence/measurement approach sketched — Debt: measurement design (Reason: Information & Volatility) — Owner: QA Lead — Label: `debt-measurement`
-- Commercial model/time‑box for decomposition agreed — Risk: funding/timebox ambiguity; Debt: governance (Reason: Constraints) — Owner: EO/Commercial Mgr — Label: `risk-commercial`, `debt-governance`
-- Governance path and RfP workshop scheduled — Debt: scheduling (Reason: Capability & Process) — Owner: DM — Label: `debt-process`
+- Commercial model/time‑box for decomposition agreed — Risk: funding/timebox ambiguity; Debt: governance (Reason: Constraints) — Owner: Engagement Owner (VP Delivery); Commercial Manager — Label: `risk-commercial`, `debt-governance`
+- Governance path and RfP workshop scheduled — Debt: scheduling (Reason: Capability & Process) — Owner: Delivery Manager — Label: `debt-process`
 
 ---
 
@@ -185,8 +185,8 @@ Transition note — Pending carried as risks/debt
 - Provider commitments (quota/allowlists/SLAs) — Risk: dependency lead‑time; Owner: Integration Lead — Labels: `risk-dependency`, `rfp-pending`
 - mTLS/certs in sandbox — Debt: environment readiness (Reason: Constraints) — Owner: Integration Lead — Label: `debt-env`
 - Error taxonomy/retry/idempotency — Debt: design completeness (Reason: Capability & Process) — Owner: Tech Lead — Label: `debt-design`
-- Data classification/DPIA — Risk: compliance exposure; Owner: DPO/Compliance — Labels: `risk-compliance`, `rfp-pending`
-- Monitoring/trace fields — Debt: observability (Reason: Capability & Process) — Owner: QA/EM — Label: `debt-observability`
+- Data classification/DPIA — Risk: compliance exposure; Owner: Delivery Product Owner; Compliance Officer — Labels: `risk-compliance`, `rfp-pending`
+- Monitoring/trace fields — Debt: observability (Reason: Capability & Process) — Owner: QA Lead; Engineering Manager — Label: `debt-observability`
 
 ---
 
@@ -240,7 +240,7 @@ Gate checklist — Planned (DoR)
 
 Transition note — Pending carried as risks/debt
 - Provider setup tasks outstanding — Risk: dependency schedule slip; Owner: Integration Lead — Label: `risk-dependency`
-- CI thresholds/suites not landed — Debt: automation maturity (Reason: Capability & Process); Owner: QA/EM — Label: `debt-automation`
+- CI thresholds/suites not landed — Debt: automation maturity (Reason: Capability & Process); Owner: QA Lead; Engineering Manager — Label: `debt-automation`
 - QA data/envs not ready — Debt: environment readiness (Reason: Constraints); Owner: QA Lead — Label: `debt-env`
 
 ---
@@ -295,9 +295,9 @@ Gate checklist — In Development (Release)
 - Exceptions labeled, time‑boxed, reversion date set — Satisfied
 
 Transition note — Pending carried as risks/debt
-- Error‑budget near limits — Risk: service stability; Owner: EM/DM — Label: `risk-stability`
+- Error‑budget near limits — Risk: service stability; Owner: Engineering Manager; Delivery Manager — Label: `risk-stability`
 - Latency budgets close to threshold — Risk: performance; Owner: Tech Lead — Label: `risk-performance`
-- Customer acceptance pending on scope — Risk: acceptance delay; Owner: Customer PM — Label: `risk-acceptance`
+- Customer acceptance pending on scope — Risk: acceptance delay; Owner: Customer Product Manager — Label: `risk-acceptance`
 
 ---
 
@@ -337,8 +337,8 @@ Gate checklist — Done (Close‑out)
 - Residual improvements triaged to roadmap with owners/dates — Satisfied
 
 Transition note — Residual risks/debt carried to roadmap
-- Sandbox fidelity improvements — Debt: environment fidelity (Reason: Constraints); Owner: EM/QA — Label: `debt-env`
-- Localization tuning for step‑up copy — Debt: UX/content (Reason: Capability & Process); Owner: DPM/Customer PM — Label: `debt-ux`
+- Sandbox fidelity improvements — Debt: environment fidelity (Reason: Constraints); Owner: Engineering Manager; QA Lead — Label: `debt-env`
+- Localization tuning for step‑up copy — Debt: UX/content (Reason: Capability & Process); Owner: Delivery Product Manager; Customer Product Manager — Label: `debt-ux`
 
 ---
 
