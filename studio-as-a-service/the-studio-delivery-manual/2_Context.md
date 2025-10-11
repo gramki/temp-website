@@ -122,6 +122,24 @@ Here's a real example: The customer's Chief Risk Officer decides that all data m
 
 > **VP Insight**: "When decisions live in email threads, accountability evaporates. Always force a record so no one can accuse you of 'not agreeing' later."
 
+### Executive Turnover & Mandate Resets
+
+Senior leadership changes (CIO/CTO/CRO/CEO) routinely reset mandates mid‑program. A new executive often arrives with different incentives, preferred vendors, or a contrasting philosophy (build vs buy, centralized vs federated, monolith vs platform). What felt “approved” last month can be reopened without anyone saying the prior decision was wrong.
+
+**Typical risks**:
+- Budget freezes and re‑prioritization windows (4–8 weeks) that starve in‑flight work
+- Architecture pivots that invalidate signed designs and RfP decisions
+- Governance resets: new decision forums, new SLAs, different evidence expectations
+- Contract reinterpretations and “approved in principle” items reverting to unfunded
+
+**Delivery Implication**: Treat leadership changes as a formal risk event.
+- Freeze material scope changes until the new exec re‑affirms or replaces prior decisions in writing.
+- Publish a 3–5 page “continuity pack”: current plan, funded scope vs unfunded exposure, top dependencies with evidence, open decisions with options/impacts.
+- Re‑validate RfP‑signed Features with a fast confirmation workshop; extend shelf‑life where needed.
+- Anchor to the SoW/contract and decision log; avoid “assumed continuity” without records.
+
+> **From the Field**: "A new CIO paused our card‑issuer program for a ‘platform review’. Our continuity pack showed $420k of unfunded exposure and three dependency lead‑times with no commitment. Rather than defend history, we offered options A) de‑scope; B) re‑sequence behind committed dependencies; C) fund gaps and hold the date. The CIO chose B+C. We lost 2 weeks to the pause—not 2 quarters to churn."
+
 ## 2.3 Ambiguity, Hidden Dependencies & Unseen Costs
 
 Enterprise requirements are rarely complete:
