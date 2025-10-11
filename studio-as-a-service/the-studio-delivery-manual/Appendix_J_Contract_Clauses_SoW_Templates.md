@@ -115,3 +115,34 @@ Template B — TCM Statement of Work (Team‑Capacity)
 - “Process Exception / Concession”, “Lighter Control”, and exception policy are defined in Section 10.9.
 - “SCM” responsibilities and manual versioning are defined in Section 11 and `roles_reference.md`.
 - Tunable thresholds (e.g., %RfP, pass rate, FVS bands) are documented in Appendix T.
+
+---
+
+## J.6 Leadership Change & Continuity Protections (SFM and TCM)
+
+Leadership Change Notification & Re‑affirmation Window
+- The Customer shall notify the Delivery Manager within three (3) business days of any senior leadership change materially affecting the program’s scope or governance (including CIO/CTO/CRO/CEO changes). For ten (10) business days from such notice, material scope/date/capacity changes shall be frozen, except for urgent risk mitigations jointly agreed in writing. Within this window, Steering (EO‑owned) shall re‑affirm or replace prior decisions in writing. Absent written change, previously recorded decisions remain binding.
+
+Decision Records Are Authoritative
+- The Parties agree that the program decision log and SoW Annexes (including signed RfP feature definitions and interface contracts) are the authoritative records of scope, readiness, and decision history. Email/chat communications do not supersede these records unless captured into the decision log or a signed CR/capacity change.
+
+Continuity Pack & Review SLA
+- Within five (5) business days of a leadership‑change notice, the Delivery Manager will provide a continuity pack summarizing: (i) current plan and baseline, (ii) funded vs unfunded exposure, (iii) critical dependencies with funding/lead‑time evidence, and (iv) open decisions with options/impacts and owners. Steering shall review and provide re‑affirmations or changes within five (5) business days of receipt.
+
+RfP Revalidation & Shelf‑life
+- RfP‑signed Feature definitions remain valid through the leadership‑change window. Shelf‑life is extended by the duration of any Customer‑requested pause. If the Customer requests revalidation, the Parties shall run a time‑boxed RfP confirmation workshop; resulting changes are handled via CR (SFM) or capacity re‑allocation (TCM).
+
+Commercial Protections — SFM
+- Customer‑requested pauses exceeding five (5) business days and mandate resets that invalidate previously signed designs or RfP definitions shall be handled via Change Request, including timeline/budget re‑baselining and funding for incremental analysis/rework. Unfunded exposure identified in the continuity pack shall be resolved (fund/de‑scope/re‑sequence) before milestone dates are hardened.
+
+Commercial Protections — TCM
+- Under TCM, dependency/demand starvation caused by leadership‑change pauses beyond the agreed grace period triggers standby/idle‑time protections per the SoW (billable standby or mutually agreed redeployment). Capacity/mix changes shall be routed via Operational Review/Steering and reflected in the capacity ledger; stabilization reserves (quality/debt) remain protected.
+
+Architecture/Policy Resets & Integration Contracts
+- Customer‑mandated architecture/policy resets or integration‑contract changes that invalidate previously approved designs/interfaces shall be recorded via CR (SFM) or capacity change (TCM). The Customer shall fund incremental rework, testing, and certification necessitated by such resets.
+
+Dependencies & Third‑Party Commitments
+- Previously approved dependency commitments (funding and lead‑time) remain obligations of the Customer. If altered due to leadership change, the Customer shall provide revised commitments or fund agreed mitigations (workarounds, additional environments, quota upgrades) before resuming affected scope.
+
+Timelines & SLAs
+- Re‑affirmation SLA: ten (10) business days from notice. Decision turnaround SLA: three (3) business days for Steering items once the continuity pack is tabled. Pauses exceeding these SLAs require a CR (SFM) or documented capacity change (TCM) with adjusted dates/funding.
