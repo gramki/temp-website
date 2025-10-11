@@ -8,47 +8,7 @@ Make delivery predictable with lightweight but reliable rituals, clear ownership
 
 ---
 
-<a id="sec-9-0"></a>
-## 9.0 Delivery Manager Quick Start (Weekly Rhythm + Dashboards)
-
-Use this as your first‑week operating guide. Open the right views, run to the primary signals, and route decisions into the right forums.
-
-### Daily (15–30 min)
-- Open: Team dashboard (CI/test state, WIP/aging), dependency call sheet
-- Act: Confirm owners/dates on today’s dependency calls; block unready work; respect error‑budget gates (Section 7)
-- Escalate: Only with options; queue items for Weekly Review
-
-### Weekly (60–90 min)
-- Open: Program dashboard — %RfP/volatility, error budgets/flake, FVS/Capacity, dependency variance, amortization vs accumulation
-- Run: Weekly Health & Risk Review (Section 9.4)
-  - Triage by breach type first (requirements/quality/commercial/operational)
-  - Present 2–3 options with owners/dates; record in decision log
-  - Add/pay down top 3 debt items linked to signals (Section 9.7)
-
-### Monthly (60–90 min)
-- Open: Monthly pack — trends, runway, unfunded exposure, incident/MTTR
-- Run: Monthly Operational Review (Section 9.9) → prepare Steering decisions
-- SLA: Steering turns decisions in ≤ 3 business days
-
-### Dashboards to open (by default)
-- Requirements (Appendix A): %RfP, shelf‑life, volatility; integration readiness index
-- Quality (Appendix A): critical‑path pass rate, leakage, flake, error budget
-- Commercial (Appendix A): FVS (SFM) / Capacity Health (TCM), unfunded exposure, dependency variance
-- Operational (Section 9.13): dependency variance, decision backlog age, debt amortization vs accumulation
-
-### Primary signals (minimum set)
-- %RfP ≥ target for next increment; shelf‑life within range
-- Critical‑path pass rate ≥ target; error budget ≥ threshold; flake ≤ threshold
-- FVS/Capacity Health within bands; unfunded exposure ≤ threshold
-- Dependency variance within threshold; decision backlog age ≤ SLA
-
-### First‑week checklist
-- [ ] Flight Check completed: ledgers present; dashboards wired; RfP gate configured (Section 9.2)
-- [ ] Ritual calendar published with owners/chairs (EO vs Studio)
-- [ ] Decision log created and linked in dashboards
-- [ ] Escalation ladders posted (Appendix B); options template ready (Appendix M)
-
-References: Appendix E (ritual run‑books), Section 9.13 (Ritual → Primary signals), Appendix H (governance audit), Appendix A/B (dashboards/alerts).
+> Quick Start Guide: A role‑based first‑week playbook is available in `the-studio-delivery-manual/Quick_Start_Guide.md`.
 
 ---
 
