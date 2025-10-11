@@ -145,7 +145,7 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
 - [x] **5.4 Acceptance Criteria: Smells & Maturity** *(Example + "From the Field" note)*
   - [x] Include examples of good/bad criteria
   - [x] Add field notes with lessons learned
-- [x] **5.5 Requirement Evolution: Discovery, Clarification, Emergence**
+ - [x] **5.5 Requirement Evolution: Discovery, Clarification, Emergence**
   - [x] Process for each type of evolution
   - [x] Documentation requirements
 - [x] **5.6 Jira Practices for Requirement Control** *(Pro Tip: label & status heuristics)*
@@ -160,13 +160,13 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
   - [x] Requirement evolution types (discovery/clarification/emergence) with distinct handling
   - [x] External integrations as first-class requirements; interface contracts
   - [x] Dashboards & alerts (RfP %, volatility, AC missing, integration risk) and escalation flows
-- [x] **5.8 External Integrations & Dependencies**
+ - [x] **5.8 External Integrations & Dependencies**
   - [x] Management strategies
   - [x] Risk mitigation
 - [x] **5.9 Commercial Implications of Requirement Evolution** *(VP Reflection)*
   - [x] VP insights on cost implications
   - [x] Commercial management strategies
-- [x] **5.10 Dashboards & Alerts for Requirements** *(Why This Matters: early warning use)*
+ - [x] **5.10 Dashboards & Alerts for Requirements** *(Why This Matters: early warning use)*
   - [x] Explain business value
   - [x] Provide dashboard specifications
 
@@ -178,9 +178,9 @@ This checklist breaks down the complete writing task for the Enterprise Delivery
 - [x] **6.1 Adaptive Refinements vs Rework** *(VP Insight: how learning drives stability)*
   - [x] Write VP insights on learning value
   - [x] Define distinction and criteria
-- [x] **6.2 Debt Spectrum: Technical, Solution, Process, Expediency**
-  - [x] Define each debt type
-  - [x] Impact assessment framework
+- [x] **6.2 Debt Classification (Reason Buckets × Impact Domains)**
+  - [x] Define reason buckets and impact domains; include examples
+  - [x] Impact assessment and prioritization framework
 - [x] **6.3 Debt Portfolio & Catch-Up Plans** *(Pro Tip: amortization not binary payback)*
   - [x] Include pro tips on debt management
   - [x] Provide portfolio templates
