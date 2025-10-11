@@ -93,3 +93,41 @@ Contents (see Appendix G — Requirements SOPs)
 ## Usage & Storage
 - Store each artifact alongside the related Jira items; link from decision logs and dashboards.
 - The Studio Council Member (SCM) audits usage and completeness as part of Appendix H.
+
+---
+
+## M.6 Evidence Pack (One‑Pager)
+
+Purpose
+- Provide a compact, auditable bundle of facts to support a gate/decision (RfP, Release Readiness, CR approval, Exception review). Standardize what “evidence” means and avoid debate over screenshots vs numbers.
+
+Template
+- Title: Evidence Pack — <gate/decision>
+- Context (≤ 5 lines): signal/gate being satisfied or breached; why this is needed now
+- Scope Window: time range; environments; cohorts (e.g., peak hours, card BINs, region)
+- Signals & Thresholds (list 4–8)
+  - <Signal name> — Value: <X> vs Target: <Y> — Source: <dashboard/test run/log> — Status: Pass/Fail
+  - <Signal name> — …
+- Attachments/Evidence
+  - Dashboard snapshot(s) (Appendix A mapping)
+  - Test run links (Allure) and gating suite names (Section 7)
+  - Logs/trace exemplars and query links (with timestamps)
+- Data Sources & Method
+  - Queries used (links/snippets); cohort definition; exclusions/assumptions
+  - Reproducibility notes: where to re‑run and who can access
+- Risk Surfaces & Exceptions
+  - Any listed Risk Surfaces relevant; open process exceptions (labels `process-exception`) and reversion dates
+- Summary & Ask (≤ 3 lines)
+  - Conclusion: Ready/Not ready or Option A/B recommendation
+  - Forum & Date: CCB or Steering on <date>
+- Owner & Reviewers: <roles> (DM/DPO/QA Lead/EM/Integration Lead)
+- Generated: <date/time>  TTL: <e.g., 7 days> (refresh required after)
+- Links
+  - Decision Paper (M.1) / Steering Item (M.4)
+  - Thresholds (Appendix T) referenced; SOPs/Checklists (Appendix G)
+  - Jira items (Requirement/Feature/CR/Dependency) and Appendix L fields/labels
+
+Notes
+- Freshness: include timestamps on screenshots; stale evidence (> TTL) should be refreshed.
+- SCM audits Evidence Packs quarterly for completeness and consistency (Appendix H, Section 11).
+- Use consistent labels from Appendix L to make packs discoverable in Jira (e.g., `RfP`, `integration-risk`).
