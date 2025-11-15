@@ -51,10 +51,10 @@ Why orchestration? Because MCP sessions are long-lived, multi-turn, and often in
 flowchart LR
     C[Client App] --> CF[Cloudflare Edge]
     CF --> H[Heracles Gateway]
-    H -->|/mcp/booking| O1[mcp-orch (Booking)]
-    H -->|/mcp/payments| O2[mcp-orch (Payments)]
-    H -->|/resources/booking| R1[mcp-resources (Booking)]
-    H -->|/resources/payments| R2[mcp-resources (Payments)]
+    H -->|/mcp/booking| O1[mcp-orch : Booking]
+    H -->|/mcp/payments| O2[mcp-orch : Payments]
+    H -->|/resources/booking| R1[mcp-resources : Booking]
+    H -->|/resources/payments| R2[mcp-resources : Payments]
 
     O1 -->|booking.conversation.start| TP1[Booking Agent Provider]
     O1 -->|booking.conversation.send| TP1
