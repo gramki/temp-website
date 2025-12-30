@@ -206,7 +206,7 @@ Over time:
 ## 10. Guidance for Engineers and Architects
 
 Engineers should internalize:
-- Not every data product touches ETSL
+- Not every Data Product touches ETSL
 - ETSL is invoked by *need*, not ideology
 - Domain data products are not “wrong”
 - ETSL is not “central IT”
@@ -229,16 +229,20 @@ This framing reduces resistance and builds trust.
 
 ---
 
-## 12. Common Misconceptions (Explicitly Addressed)
+## 12. Data Mesh-Specific Misconceptions
 
-- ❌ “ETSL replaces Data Mesh”
-- ❌ “ETSL centralizes data ownership”
-- ❌ “All data must flow through ETSL”
+When introducing ETSL alongside Data Mesh, these misconceptions arise frequently:
+
+- ❌ "ETSL replaces Data Mesh"
+- ❌ "ETSL centralizes data ownership"
+- ❌ "All data must flow through ETSL"
 
 Correct framing:
-- ETSL is **selective**
-- ETSL is **incremental**
-- ETSL is **federated**
+- ETSL is **selective** — only truth-sensitive use cases require it
+- ETSL is **incremental** — adoption happens by gravity, not mandate
+- ETSL is **federated** — authority remains distributed
+
+> For general ETSL misconceptions beyond Data Mesh, see *ETSL Purpose and Story*, Section 4.
 
 ---
 

@@ -5,6 +5,8 @@
 **Audience:** Product Managers, Product Architects, Data Architects, Data Engineers, CIOs  
 **Status:** Architectural Guidance Document
 
+> ⚡ **Quick Reference:** For a one-page cheat sheet, see [Building Data Products — Quick Reference](building-data-products-quick-reference.md)
+
 ---
 
 ## Table of Contents
@@ -110,7 +112,7 @@ Over time this leads to:
 - duplicated reconciliation logic,
 - audit and regulatory exposure that surfaces only during regulatory reviews or production incidents.
 
-ETSL exists so that **every data product does not need to independently rediscover what is true**.
+ETSL exists so that **every Data Product does not need to independently rediscover what is true**.
 
 ### A Banking Example: The Drift Problem
 
@@ -118,7 +120,7 @@ Consider two data products built independently in a large bank:
 
 **Product A: "Available Credit" for Real-Time Authorization**
 
-The card authorization team builds a data product to determine available credit for transaction approvals. They consume the credit limit from the underwriting system, subtract the current balance from the card processor, and apply a buffer for pending transactions. The product is fast and serves millions of authorizations daily.
+The card authorization team builds a Data Product to determine available credit for transaction approvals. They consume the credit limit from the underwriting system, subtract the current balance from the card processor, and apply a buffer for pending transactions. The product is fast and serves millions of authorizations daily.
 
 **Product B: "Customer Exposure Summary" for Relationship Managers**
 
@@ -137,7 +139,7 @@ This is not a failure of either team. Both built valid products for their use ca
 ### Before ETSL vs After ETSL
 
 **Before ETSL:**
-- Each data product team sources data from whichever system seems appropriate
+- Each Data Product team sources data from whichever system seems appropriate
 - Reconciliation logic (which limit? which balance?) is embedded in product code
 - Authority is implicit—no one can explain "why this value?" without reading pipelines
 - Cross-product consistency is accidental; inconsistency is discovered late
@@ -150,7 +152,7 @@ This is not a failure of either team. Both built valid products for their use ca
 - Cross-product consistency is designed: products that need the same fact get the same fact
 - Auditors receive consistent answers because all products trace back to the same ETSL truth
 
-The operational complexity of building a data product does not change. What changes is **where truth is decided**—and that decision happens once, not in every product.
+The operational complexity of building a Data Product does not change. What changes is **where truth is decided**—and that decision happens once, not in every product.
 
 > ETSL stabilizes meaning so data products can focus on delivering value.
 
@@ -163,7 +165,7 @@ A **Data Product** is a **consumer‑aligned interpretation of enterprise truth*
 These terms are defined precisely in *Tier‑1 ETSL Canonical Terminology*:
 - **Data Product**: A consumer-aligned, governed data asset that interprets ETSL Data Artifacts to serve a specific use case or decision
 - **ETSL Data Artifact**: A governed, authority-qualified, time-aware representation of enterprise truth
-- **Source-Aligned Data Product**: A domain-owned data product that closely reflects the semantics of an operational system
+- **Source-Aligned Data Product**: A domain-owned Data Product that closely reflects the semantics of an operational system
 
 ### A Data Product:
 - Interprets ETSL Data Artifacts  
@@ -319,7 +321,7 @@ When adopting a Data Product, consumers should verify:
 
 ## 4. Types of Data Products Built on ETSL
 
-ETSL does not collapse data product diversity. Common types include:
+ETSL does not collapse Data Product diversity. Common types include:
 
 - **Analytical Data Products** (dashboards, reports, exploration)
 - **Consumer‑Aligned Data Products** (journey, portfolio, risk views)
@@ -400,7 +402,7 @@ The fraud team defines "account status" as a feature, but uses their own logic t
 ### 4.4 Operationally-Consumed Data Products
 
 **What it looks like:**
-A credit decisioning data product that provides pre-computed eligibility indicators, risk scores, and limit recommendations for real-time lending decisions. Consumed by the loan origination system at application time.
+A credit decisioning Data Product that provides pre-computed eligibility indicators, risk scores, and limit recommendations for real-time lending decisions. Consumed by the loan origination system at application time.
 
 **Typical consumers:**
 - Loan origination systems
@@ -860,139 +862,65 @@ This documentation enables consumers to understand what they are getting—and w
 
 ## 9. Co‑existence with Data Mesh & Domain Products
 
-ETSL does not eliminate:
-- domain‑owned data products,
-- source‑aligned marts,
-- mesh‑style ownership.
+ETSL does not eliminate domain‑owned data products, source‑aligned marts, or mesh‑style ownership. The choice between domain products and ETSL is driven by **cross‑domain truth sensitivity**, not ideology.
 
-Instead:
-- some products build directly from domains,
-- some depend on ETSL,
-- many follow hybrid patterns.
+For the full coexistence philosophy and pattern definitions, see *ETSL and Data Mesh: Co‑existence, Complementarity, and Enterprise Evolution* (`../conceptual/etsl-and-data-mesh-coexistence-guidance.md`).
 
-The choice is driven by **cross‑domain truth sensitivity**, not ideology.
+### 9.1 Banking Examples by Pattern
 
-For detailed co-existence philosophy and patterns, see *ETSL and Data Mesh: Co‑existence, Complementarity, and Enterprise Evolution*.
+The three coexistence patterns—domain-first, ETSL-first, and hybrid—appear frequently in banking. The following examples illustrate each:
 
-### 9.1 Pattern 1: Domain-First
+**Domain-First: Branch Performance Dashboard**
 
-**When to use:**
-The Data Product serves a purely domain-local use case. No cross-domain truth sensitivity exists. Speed of delivery matters more than enterprise semantic alignment.
-
-**Flow:**
-```
-Domain SOR → Domain Source-Aligned Product → Data Product → Domain Consumers
-```
-
-ETSL is not involved.
-
-**Banking Example: Branch Performance Dashboard**
-
-The retail banking operations team builds a dashboard showing branch-level performance: transactions processed, wait times, staffing levels, customer satisfaction scores.
+A retail banking dashboard showing branch-level performance: transactions processed, wait times, staffing levels, customer satisfaction scores.
 
 - *Source:* Branch operations systems (domain-owned)
 - *Consumers:* Branch managers, regional operations leads
-- *Cross-domain sensitivity:* None—this is purely operational data within Retail
-- *ETSL involvement:* None required
-
-*Why this works:*
-- The data is domain-local; no other domain needs this truth
-- The semantics are stable within the domain
-- Speed of iteration matters; governance overhead is unwarranted
-
-*Risks:*
-- If the product later needs customer identity or account data, it may need to integrate with ETSL
-- Definitions may drift from enterprise standards if the domain expands scope
+- *ETSL involvement:* None—purely operational data within Retail
+- *Risk:* If the product later needs customer identity, it may need to integrate with ETSL
 
 ---
 
-### 9.2 Pattern 2: ETSL-First
+**ETSL-First: Regulatory Exposure Report**
 
-**When to use:**
-The Data Product serves a cross-domain use case. Truth sensitivity is high. Multiple domains or regulatory requirements depend on consistent semantics.
-
-**Flow:**
-```
-ETSL Data Artifacts → Data Product → Cross-Domain Consumers
-```
-
-The product consumes ETSL truth directly.
-
-**Banking Example: Regulatory Exposure Report**
-
-The risk reporting team builds a product that provides consolidated customer exposure for regulatory capital calculations. The report is consumed by Risk, Finance, and Regulatory Affairs.
+A consolidated customer exposure report for regulatory capital calculations, consumed by Risk, Finance, Regulatory Affairs, and external regulators.
 
 - *Source:* ETSL Data Artifacts (Credit Limit Facts, Account Ownership Relationships, Party Identity)
-- *Consumers:* Risk, Finance, Regulatory Affairs, External Regulators
-- *Cross-domain sensitivity:* High—multiple domains and regulators depend on consistent numbers
-- *ETSL involvement:* Essential
-
-*Why this works:*
-- Exposure aggregation requires consistent party identity across products
-- Credit limits must carry authority and temporal semantics for audit
-- Regulators require explainability; ETSL provides traceable lineage
-
-*Risks:*
-- Dependency on ETSL artifact availability and freshness
-- Product team must understand ETSL consumption patterns
+- *ETSL involvement:* Essential—multiple domains and regulators depend on consistent numbers
+- *Why it works:* Exposure aggregation requires consistent party identity; regulators require explainability
 
 ---
 
-### 9.3 Pattern 3: Hybrid
+**Hybrid: Unified Customer Service Agent Desktop**
 
-**When to use:**
-The Data Product needs both cross-domain ETSL truth and domain-specific data that ETSL does not govern. Common in products that combine enterprise truth with operational or contextual data.
+A customer service product providing agents with a unified view: identity, accounts, recent transactions, open cases, and service preferences.
 
-**Flow:**
-```
-ETSL Data Artifacts ─────┐
-                         ├──→ Data Product → Consumers
-Domain Data Products ────┘
-```
-
-The product consumes ETSL for truth-sensitive inputs and domain products for domain-local inputs.
-
-**Banking Example: Unified Customer Service Agent Desktop**
-
-A customer service product provides agents with a unified view of the customer: identity, accounts, recent transactions, open cases, and service preferences.
-
-- *From ETSL:* Party Identity (authority-qualified name, identifiers, verification status), Account Ownership Relationships, Credit Limits
-- *From Domain Products:* Recent transaction history (from Card Processor domain product), Open service cases (from CRM domain product), Channel preferences (from Digital domain product)
-- *Consumers:* Customer service agents (voice, chat, branch)
-- *Cross-domain sensitivity:* Moderate—identity and ownership are cross-domain; transactions and cases are domain-local
-
-*Why this works:*
-- Identity must be consistent across all service channels (ETSL)
-- Account ownership must reflect authoritative relationships (ETSL)
-- Recent transactions are operational data, not enterprise truth (domain product)
-- Open cases are CRM-specific, not cross-domain (domain product)
-
-*Risks:*
-- Teams must clearly distinguish which inputs require ETSL vs domain products
-- Domain products may have different freshness than ETSL; documentation must reflect this
-- If domain data becomes cross-domain critical, it may need to migrate to ETSL
+- *From ETSL:* Party Identity, Account Ownership Relationships, Credit Limits
+- *From Domain Products:* Recent transactions (Card Processor), Open cases (CRM), Channel preferences (Digital)
+- *ETSL involvement:* Moderate—identity and ownership are cross-domain; transactions and cases are domain-local
+- *Risk:* Teams must clearly distinguish which inputs require ETSL vs domain products
 
 ---
 
-### 9.4 How Teams Decide
+### 9.2 How Teams Decide
 
 | Question | If Yes... | If No... |
 |----------|-----------|----------|
-| Does the product need cross-domain truth? | Consider ETSL-first or hybrid | Domain-first may suffice |
-| Are there regulatory or audit requirements for this data? | ETSL provides traceability | Domain products may be acceptable |
+| Does the product need cross-domain truth? | ETSL-first or hybrid | Domain-first may suffice |
+| Are there regulatory or audit requirements? | ETSL provides traceability | Domain products may be acceptable |
 | Do multiple domains consume this product? | ETSL ensures consistency | Domain ownership is appropriate |
 | Is there known semantic dispute about this data? | ETSL reconciliation resolves it | Local semantics may be stable |
 
-### 9.5 Avoiding Ideological Fights
+### 9.3 Avoiding Ideological Fights
 
-Teams sometimes argue about whether to use ETSL or domain products based on organizational politics rather than requirements. This is wasteful.
+Teams sometimes argue about ETSL vs domain products based on organizational politics rather than requirements. This is wasteful.
 
 **Practical guidance:**
 
 - **Start with the use case.** What truth does the product need? Who consumes it?
-- **Assess cross-domain sensitivity.** If the answer is "only my domain," ETSL may be unnecessary overhead.
+- **Assess cross-domain sensitivity.** If "only my domain," ETSL may be unnecessary overhead.
 - **Check for existing ETSL artifacts.** If ETSL already provides what you need, use it—don't rebuild.
-- **Escalate genuine gaps.** If you need truth that ETSL should provide but doesn't, propose it rather than working around.
+- **Escalate genuine gaps.** If you need truth that ETSL should provide but doesn't, propose it.
 
 > **Principle:** Where ETSL Data Artifacts meet the requirements, teams are encouraged to use them. Building ETSL Data Artifacts from Domain Data Products is a business-context-informed decision, not an ideological mandate.
 
@@ -1676,7 +1604,7 @@ The goal is **governance without overhead**. Rituals should:
 ETSL-based Data Product engineering differs from common patterns in important ways. Understanding these differences helps teams explain ETSL's value and avoid falling back into familiar anti-patterns.
 
 For comprehensive comparisons with detailed tables covering each practice, see the companion document:
-- *[Comparative Perspectives: ETSL-Based Data Products vs Common Practices](etsl-data-prodcuts-vs-other-approaches.md)*
+- *[Comparative Perspectives: ETSL-Based Data Products vs Common Practices](etsl-data-products-vs-other-approaches.md)*
 
 That document provides in-depth comparisons for:
 1. Classic Data Warehouse / Data Lake
@@ -1913,95 +1841,24 @@ Migration should be **use-case driven**, not mandated.
 
 ## Glossary
 
-This glossary defines key terms used in this document. For foundational ETSL terminology, see *Tier-1 ETSL Canonical Terminology* and *Tier-2 ETSL Canonical Classifications*.
+This document uses terminology defined in the canonical ETSL lexicon:
 
-### Data Product Terms
+- **Tier-1 ETSL Canonical Terminology** (`../terminology/tier-1-etsl-canonical-terminology.md`) — Core semantic primitives: Assertion, Authority, Reconciliation, State, Data Product, Data Artifact, Data Application
+- **Tier-2 ETSL Canonical Classifications** (`../terminology/tier-2-etsl-canonical-classifications.md`) — Behavioral classifications: ETSL Core Data Application, Transforming/Serving Data Applications, Candidate Assertion, ETSL Ingress Boundary
 
-**Data Product**
-> A consumer-aligned, governed data asset that interprets ETSL Data Artifacts to serve a specific use case or decision. Data Products are purpose-built, allowed to evolve quickly, and are not sources of enterprise truth.
-
-**Source-Aligned Data Product**
-> A domain-owned data product that closely reflects the semantics of an operational system or function. ETSL may consume source-aligned data products as assertion sources.
+### Terms Specific to This Document
 
 **Consumer-Aligned Data Product**
-> A data product designed for specific consumers or use cases (e.g., customer service agents, risk committees). Interprets truth for audience needs.
+> A Data Product designed for specific consumers or use cases (e.g., customer service agents, risk committees). Interprets truth for audience needs.
 
 **Analytical Data Product**
-> A data product serving dashboards, reports, and exploration. Typically slow-changing with high stability expectations.
+> A Data Product serving dashboards, reports, and exploration. Typically slow-changing with high stability expectations.
 
 **Feature-Oriented Data Product**
-> A data product providing ML features. Features are derived interpretations of truth, not truth itself.
+> A Data Product providing ML features. Features are derived interpretations of truth, not truth itself.
 
 **Operationally-Consumed Data Product**
-> A data product consumed by operational systems for real-time decisions. High stability expectations; changes are high-risk.
-
----
-
-### ETSL Core Terms
-
-**ETSL (Enterprise Truth & Semantics Layer)**
-> A semantic and authority layer that defines enterprise truth across multiple data systems. ETSL is not a single database but a contract governing the boundaries and meanings of each storage layer.
-
-**ETSL Data Artifact**
-> A governed, authority-qualified, time-aware representation of enterprise truth produced by applying ETSL semantics to assertions. Data Artifacts are stable, reusable across domains, and distinct from raw data or metrics.
-
-**ETSL Semantic Artifact**
-> A normative semantic contract that defines what kinds of truths may be asserted, what relationships may exist, and what authority, integrity, and temporal rules govern assertions.
-
----
-
-### Data Applications
-
-**Data Application**
-> A software component that consumes candidate assertions, ETSL Data Artifacts, or Data Products and applies logic to produce derived data, decisions, or services.
-
-**Transforming Data Application**
-> A data application that consumes ETSL Data Artifacts or Data Products to produce derived datasets, aggregates, or features. Interpretation-oriented; does not assert enterprise truth.
-
-**Serving Data Application**
-> A data application that exposes data via APIs, queries, or services to meet consumer latency, availability, and contract requirements. Must not embed semantic reinterpretation.
-
-**Data-Driven Operational Application**
-> An operational system whose runtime behavior is materially influenced by Data Products. May produce Derived Assertions that re-enter ETSL.
-
-**ETSL Core Data Application**
-> A data application that operates inside the ETSL boundary to normalize assertions, apply authority, perform reconciliation, and derive ETSL Data Artifacts. Out of scope for this document.
-
----
-
-### Authority and Assertions
-
-**Authority**
-> An explicitly modeled mandate that determines which assertions are accepted as valid for a defined semantic scope and temporal context. Authority is organizational and functional—not a system or person name.
-
-**Authority Registry**
-> An explicit, governed mapping of entity types, fact types, and relationships to the enterprise functions empowered to assert them.
-
-**Assertion**
-> A claim made by a system or function about an enterprise fact, relationship, or state at a point in time. Assertions are not automatically authoritative.
-
-**Derived Assertion**
-> An assertion produced as a result of decisions, computations, or reconciliation—not directly emitted by an assertion source. Must carry lineage to source assertions.
-
----
-
-### Temporal and Semantic Concepts
-
-**Temporal Semantics**
-> The mandatory inclusion of effective dates, validity windows, and as-of queryability for all ETSL constructs. Products must respect temporal semantics when consuming ETSL artifacts.
-
-**Effective From / Effective To**
-> The validity window during which an assertion or fact is considered current. `Effective_from` indicates when truth became valid in reality (not when it entered ETSL).
-
-**Current State**
-> The derived, point-in-time representation of an entity at "now." Produced by reconciling relevant facts under ETSL rules.
-
-**As-Of Query**
-> A query that retrieves state as it was at a specified point in time. Required for regulatory reconstruction and audit.
-
----
-
-### Contracts and Governance
+> A Data Product consumed by operational systems for real-time decisions. High stability expectations; changes are high-risk.
 
 **Semantic Contract**
 > The explicit specification of what may be asserted, how it must be structured, what authority governs it, and what invariants apply. Data Products inherit semantic contracts from ETSL.
@@ -2012,25 +1869,7 @@ This glossary defines key terms used in this document. For foundational ETSL ter
 **Service/SLA Contract**
 > Operational expectations: freshness, availability, latency, completeness. Owned by the product team.
 
-**Semantic Drift**
-> The gradual divergence of data semantics from their intended meaning, typically caused by undocumented changes, embedded logic in pipelines, or lack of governance.
-
----
-
-### Reconciliation
-
-**Reconciliation**
-> The semantic process of resolving multiple assertions into an accepted enterprise representation using authority, time, and scope. Reconciliation is not deduplication or "latest-wins."
-
-**Authority Precedence**
-> The rule that determines which authority's assertion prevails when multiple authorities assert the same fact.
-
-**Override**
-> An assertion that explicitly supersedes another assertion, typically from a different authority or in a specific context. Overrides carry lineage to what they override.
-
----
-
-### Key Distinctions
+### Quick Reference
 
 | Term | Role |
 |------|------|
@@ -2039,8 +1878,6 @@ This glossary defines key terms used in this document. For foundational ETSL ter
 | **Transforming Data Application** | Builds data products |
 | **Serving Data Application** | Exposes data products |
 | **Data-Driven Operational Application** | Acts on products; may emit assertions |
-| **Semantic Contract** | Inherited from ETSL |
-| **Interface/SLA Contract** | Owned by product team |
 
 ---
 

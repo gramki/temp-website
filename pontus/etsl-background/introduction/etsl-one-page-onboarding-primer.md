@@ -39,7 +39,7 @@ A **claim** made by a system or function about an enterprise fact, relationship,
 ### 2. Assertion Source
 A system, application, or function that emits assertions.
 
-> An SOR is an assertion source, not enterprise truth.
+> An SOR is an Assertion Source, not enterprise truth.
 
 ---
 
@@ -81,7 +81,7 @@ The **formal definition of meaning**: what entities are, how relationships work,
 ### 8. ETSL Data Artifact
 A **persisted, authority‑qualified, time‑aware representation of enterprise truth**.
 
-> This is the output of ETSL — not a data product.
+> This is the output of ETSL — not a Data Product.
 
 ---
 
@@ -113,15 +113,15 @@ An operational system whose runtime behavior is influenced by data products.
 
 ---
 
-## What ETSL Is NOT
+## What ETSL Is NOT (Quick Reference)
 
-- Not a data lake
-- Not a warehouse
+- Not a data lake, warehouse, or MDM program
 - Not a Data Mesh replacement
-- Not a reporting layer
 - Not centralized data ownership
 
 ETSL is a **truth boundary**, not a platform.
+
+> For the complete list of what ETSL is and is not, including common misconceptions, see *ETSL Purpose and Story*, Section 4.
 
 ---
 

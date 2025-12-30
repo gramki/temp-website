@@ -1,14 +1,14 @@
 # ETSL Guidance Document  
-## State Modelling for ETSL Modelling Architects
+## State Modeling for ETSL Modeling Architects
 
 ---
 
 ## 1. Purpose of This Document
 
-This document provides **architectural guidance** for modelling *State* within the Enterprise Truth & Semantics Layer (ETSL).
+This document provides **architectural guidance** for modeling *State* within the Enterprise Truth & Semantics Layer (ETSL).
 
 It is intended for:
-- ETSL Modelling Architects
+- ETSL Modeling Architects
 - Enterprise Data Architects
 - Domain Architects responsible for semantic integrity
 
@@ -29,10 +29,12 @@ This document does **not** prescribe storage technologies or pipeline mechanics.
 Key properties:
 - Derived, not asserted
 - Bounded to an entity
-- Time-addressable (“as of T”)
+- Time-addressable ("as of T")
 - Semantically complete enough to defend integrity
 
 State is the **form in which enterprise reality is operationally consumed**.
+
+> **Relationship to Tier-1 Definition:** This definition elaborates the Tier-1 canonical definition of State ("a derived, point-in-time representation of an entity produced by reconciling relevant facts and relationships under ETSL rules") for an **architect audience**. It emphasizes invariants and integrity guarantees—the aspects architects must model. The Tier-1 definition remains authoritative; this document provides the architectural perspective.
 
 ---
 
@@ -70,7 +72,7 @@ A valid state answers:
 
 ---
 
-## 5. Modelling State Invariants
+## 5. Modeling State Invariants
 
 ### 5.1 What Are Invariants?
 
@@ -100,7 +102,7 @@ They are part of the **semantic contract** of the entity.
 
 ---
 
-## 6. State Lifecycle Modelling
+## 6. State Lifecycle Modeling
 
 Each state model must define:
 - Lifecycle stages (e.g., CREATED, ACTIVE, TERMINATED)

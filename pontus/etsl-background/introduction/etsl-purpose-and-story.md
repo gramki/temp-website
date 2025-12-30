@@ -69,7 +69,7 @@ Focus on Sections 8–9 (data products and co-existence). Your takeaway: ETSL do
 
 ### What This Document Is Not
 - A tooling or platform proposal
-- A data product manual
+- A Data Product manual
 - A replacement for domain autonomy
 
 ---
@@ -178,7 +178,7 @@ It sits *between* them — and above them — as a shared reference point.
 - Not a data lake or warehouse
 - Not a universal schema
 - Not a reporting layer
-- Not a data product factory
+- Not a Data Product factory
 
 ETSL does not centralize data ownership.  
 It centralizes **semantic agreement**.
@@ -340,33 +340,17 @@ For detailed guidance, see *Building Data Products using ETSL Data Artifacts*.
 
 ## 9. Co-existing with Data Mesh and Domain Ownership
 
-ETSL does not reject Data Mesh principles.
+ETSL complements, not replaces, Data Mesh principles.
 
-**ETSL is not a Data Mesh replacement.** Data Mesh solves the ownership problem—who is accountable for data, how domains can move fast, how federated teams can publish data products. ETSL solves a different problem: how the enterprise agrees on truth when multiple domains, systems, and authorities intersect. These are complementary, not competing.
+**Data Mesh** solves the ownership problem: who is accountable for data, how domains move fast, how federated teams publish data products.
 
-Domain-owned, source-aligned data products:
-- will continue to exist,
-- will continue to evolve,
-- will remain close to operational systems.
+**ETSL** solves a different problem: how the enterprise agrees on truth when multiple domains, systems, and authorities intersect.
 
-ETSL complements this by:
-- addressing cross-domain truth,
-- enabling enterprise-wide reuse,
-- reducing friction between domains.
+These are complementary. Domain-owned data products will continue to exist and evolve. ETSL provides a semantic backbone that domains can align to when cross-domain truth matters.
 
-### Coexistence Patterns
+Three coexistence patterns are common: **domain-first** (no ETSL involvement), **ETSL-first** (cross-domain truth-sensitive), and **hybrid** (combining both). Adoption is incremental—teams engage ETSL when cross-domain truth matters, not for every initiative.
 
-In practice, data products follow one of three patterns:
-
-1. **Domain-first:** A domain builds a data product for a purely local use case. No cross-domain truth sensitivity exists. ETSL is not involved. The domain retains full ownership and speed.
-
-2. **ETSL-first:** A use case requires truth that spans multiple domains—regulatory reporting, enterprise risk, customer identity. The data product consumes ETSL Data Artifacts as its foundation, ensuring consistency with other cross-domain consumers.
-
-3. **Hybrid:** A data product needs both cross-domain truth (from ETSL) and domain-local context (from domain products). It consumes both, clearly distinguishing which inputs require semantic governance.
-
-Adoption is incremental, not disruptive. Teams engage ETSL when cross-domain truth matters—not for every initiative.
-
-For detailed patterns, see *ETSL and Data Mesh: Co-existence, Complementarity, and Enterprise Evolution*.
+For detailed patterns, banking examples, and guidance on choosing the right approach, see *ETSL and Data Mesh: Co-existence, Complementarity, and Enterprise Evolution* (`../conceptual/etsl-and-data-mesh-coexistence-guidance.md`).
 
 ---
 
@@ -408,7 +392,7 @@ ETSL's value compounds. Like a well-maintained ledger, its benefits grow as more
 
 - **Fewer reconciliation debates.** Cross-domain initiatives stop re-arguing definitions. Teams reference ETSL artifacts instead of building local glossaries.
 - **Reduced duplicated pipelines.** Multiple teams needing "customer credit limit" use the same authoritative artifact, not three independently maintained copies.
-- **Faster onboarding of new use cases.** The second data product built on ETSL is faster than the first; the tenth is dramatically faster.
+- **Faster onboarding of new use cases.** The second Data Product built on ETSL is faster than the first; the tenth is dramatically faster.
 
 ### Medium-Term (1–2 Years)
 
@@ -444,6 +428,8 @@ It is **enterprise infrastructure for truth**—infrastructure the enterprise gr
 This document sets the intent and direction.  
 The guides that follow describe how ETSL is modeled, built, and applied—incrementally, pragmatically, and in step with the enterprise's evolution.
 
+> For an honest assessment of objections, tradeoffs, and limitations of this approach, see *ETSL Critiques and Limitations* (`../conceptual/etsl-critiques-and-limitations.md`).
+
 ---
 
 ## Appendix A: What Changes and What Doesn't
@@ -471,22 +457,25 @@ The guides that follow describe how ETSL is modeled, built, and applied—increm
 For detailed guidance on ETSL concepts, architecture, and implementation, see the following documents:
 
 ### Terminology and Classification
-- *Tier-1 ETSL Canonical Terminology* (`Tier1_ETSL_Canonical_Terminology.md`)
-- *Tier-2 ETSL Canonical Classifications* (`Tier2_ETSL_Canonical_Classifications.md`)
+- *Tier-1 ETSL Canonical Terminology* (`../terminology/tier-1-etsl-canonical-terminology.md`)
+- *Tier-2 ETSL Canonical Classifications* (`../terminology/tier-2-etsl-canonical-classifications.md`)
 
 ### Onboarding
-- *ETSL One-Page Onboarding Primer* (`etsl_one_page_onboarding_primer.md`)
+- *ETSL One-Page Onboarding Primer* (`etsl-one-page-onboarding-primer.md`)
 
 ### Building ETSL Artifacts
-- *Building ETSL Data Artifacts in a Large Enterprise* (`building-etsl/data-artifacts/Building_ETSL_Data_Artifacts_in_a_Large_Enterprise.md`)
-- *ETSL Semantic Model Guidance for Architects* (`building-etsl/semantic-model/etsl_semantic_model_guidance_for_architects.md`)
-- *ETSL Authority Modeling Guidance for Architects* (`building-etsl/semantic-model/etsl_authority_modeling_guidance_for_architects.md`)
+- *Building ETSL Data Artifacts in a Large Enterprise* (`../building-etsl/data-artifacts/building-etsl-data-artifacts-in-a-large-enterprise.md`)
+- *ETSL Semantic Model Guidance for Architects* (`../building-etsl/semantic-model/etsl-semantic-model-guidance-for-architects.md`)
+- *ETSL Authority Modeling Guidance for Architects* (`../building-etsl/semantic-model/etsl-authority-modeling-guidance-for-architects.md`)
 
 ### Building Data Products
-- *Building Data Products using ETSL Data Artifacts* (`building-data-products/Building_Data_Products_using_ETSL_Data_Artifacts.md`)
+- *Building Data Products using ETSL Data Artifacts* (`../building-data-products/building-data-products-using-etsl-data-artifacts.md`)
 
 ### Co-existence and Integration
-- *ETSL and Data Mesh: Co-existence, Complementarity, and Enterprise Evolution* (`building-etsl/data-artifacts/etsl_and_data_mesh_coexistence_guidance.md`)
-- *Ontology vs ETSL Semantic vs ETSL Data Artifacts* (`artifacts__ontology_vs_etsl_semantic_vs_etsl_data.md`)
+- *ETSL and Data Mesh: Co-existence, Complementarity, and Enterprise Evolution* (`../conceptual/etsl-and-data-mesh-coexistence-guidance.md`)
+- *Ontology vs ETSL Semantic vs ETSL Data Artifacts* (`../conceptual/artifacts-ontology-vs-semantic-vs-data.md`)
+
+### Critiques and Limitations
+- *ETSL Critiques and Limitations* (`../conceptual/etsl-critiques-and-limitations.md`)
 
 ---  

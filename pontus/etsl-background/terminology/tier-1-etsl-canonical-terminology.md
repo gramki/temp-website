@@ -41,7 +41,7 @@ Tier-1 terms are **semantic primitives**. If their meaning drifts, the ETSL mode
 
 **Is not**
 - Raw ingested data
-- A domain data product
+- A Domain Data Product
 - A metric, KPI, or feature
 
 ---
@@ -122,7 +122,54 @@ Tier-1 terms are **semantic primitives**. If their meaning drifts, the ETSL mode
 
 ---
 
-## 8. State
+## 8. Fact
+
+**Definition**
+> A semantically asserted truth about the enterprise, valid from a point in time, and attributable to an explicit authority.
+
+**Is**
+- Declarative (what is true)
+- Time-bound (effective from a point in time)
+- Authority-qualified
+- Immutable (superseded, never deleted)
+
+**Is not**
+- An event (what happened)
+- A mutable record
+- A derived interpretation
+
+**Relationship to Other Concepts**
+- Facts define what is true; Events explain how truth came to be
+- State is derived from Facts; Facts are not derived from State
+- For detailed guidance, see *Fact Modeling vs Event Modeling*
+
+---
+
+## 9. Event
+
+**Definition**
+> A semantically typed record of something that occurred at a specific point in time, attributable to an emitter and carrying derived or induced authority.
+
+**Is**
+- Narrative (what happened)
+- Occurrence-time bound
+- Authority-qualified (derived or induced, not implicit)
+- Immutable (recorded, never deleted)
+
+**Is not**
+- A fact (what is true)
+- A mutable record
+- A source of truth (though it may induce facts)
+
+**Relationship to Other Concepts**
+- Events explain how truth came to be; Facts define what is true
+- Events may induce Facts (e.g., `AccountOpened` event induces `AccountExists` fact)
+- Event authority is derived (from the emitting system/process) or induced (from the fact it produces)
+- For detailed guidance, see *Fact Modeling vs Event Modeling*
+
+---
+
+## 10. State
 
 **Definition**
 > A derived, point-in-time representation of an entity produced by reconciling relevant facts and relationships under ETSL rules.
@@ -137,10 +184,10 @@ Tier-1 terms are **semantic primitives**. If their meaning drifts, the ETSL mode
 
 ---
 
-## 9. Derived Assertion
+## 11. Derived Assertion
 
 **Definition**
-> An assertion produced by a system whose behavior was influenced by data products or prior derived state.
+> An assertion produced by a system whose behavior was influenced by Data Products or prior derived state.
 
 **Is**
 - First-class enterprise truth
@@ -151,7 +198,7 @@ Tier-1 terms are **semantic primitives**. If their meaning drifts, the ETSL mode
 
 ---
 
-## 10. Data Product
+## 12. Data Product
 
 **Definition**
 > A consumer-aligned, governed data asset that interprets ETSL Data Artifacts to serve a specific use case or decision.
@@ -166,10 +213,10 @@ Tier-1 terms are **semantic primitives**. If their meaning drifts, the ETSL mode
 
 ---
 
-## 11. Source-Aligned Data Product
+## 13. Source-Aligned Data Product
 
 **Definition**
-> A domain-owned data product that closely reflects the semantics of an operational system or function.
+> A domain-owned Data Product that closely reflects the semantics of an operational system or function.
 
 **Is**
 - Domain-local
@@ -180,7 +227,7 @@ Tier-1 terms are **semantic primitives**. If their meaning drifts, the ETSL mode
 
 ---
 
-## 12. Data Application
+## 14. Data Application
 
 **Definition**
 > A software component that consumes **candidate assertions, ETSL Data Artifacts, or Data Products** and applies logic to produce derived data, decisions, or services.
@@ -191,11 +238,11 @@ Tier-1 terms are **semantic primitives**. If their meaning drifts, the ETSL mode
 
 **Is not**
 - A semantic authority
-- A data product itself
+- A Data Product itself
 
 ---
 
-## 13. Data-Driven Operational Application
+## 15. Data-Driven Operational Application
 
 **Definition**
 > An operational system whose behavior or decisions are materially influenced by data products.

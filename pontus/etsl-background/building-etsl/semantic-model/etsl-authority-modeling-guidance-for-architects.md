@@ -135,7 +135,7 @@ The answers point to **Authority**, not systems.
 
 Authorities must be **explicitly enumerated**.
 
-Example semantic artifact:
+Example Semantic Artifact:
 
 ```yaml
 authority: CreditRiskManagement

@@ -2,6 +2,8 @@
 ## From Existing Data Estate to Enterprise Truth  
 ### Architectural Guidance for Architects and Data Engineers
 
+> ⚡ **Quick Reference:** For a one-page cheat sheet, see [Building ETSL Data Artifacts — Quick Reference](building-etsl-data-artifacts-quick-reference.md)
+
 ---
 
 ## Table of Contents
@@ -21,20 +23,21 @@
 ### Authority and Reconciliation
 - [9. Authority Modeling in Practice](#9-authority-modeling-in-practice)
 - [10. Reconciliation and Normalization Patterns](#10-reconciliation-and-normalization-patterns)
+- [11. Reconciliation Failure and Error Handling](#11-reconciliation-failure-and-error-handling)
 
 ### Building and Operating
-- [11. Producing the First ETSL Data Artifacts](#11-producing-the-first-etsl-data-artifacts)
-- [12. Validating ETSL Data Artifacts](#12-validating-etsl-data-artifacts)
-- [13. Operating Model During Early ETSL Adoption](#13-operating-model-during-early-etsl-adoption)
+- [12. Producing the First ETSL Data Artifacts](#12-producing-the-first-etsl-data-artifacts)
+- [13. Validating ETSL Data Artifacts](#13-validating-etsl-data-artifacts)
+- [14. Operating Model During Early ETSL Adoption](#14-operating-model-during-early-etsl-adoption)
 
 ### Scaling and Avoiding Pitfalls
-- [14. Co-existence with Existing Data Products](#14-co-existence-with-existing-data-products)
-- [15. Anti-Patterns to Avoid Early](#15-anti-patterns-to-avoid-early)
-- [16. Roadmap to Broader Adoption](#16-roadmap-to-broader-adoption)
+- [15. Co-existence with Existing Data Products](#15-co-existence-with-existing-data-products)
+- [16. Anti-Patterns to Avoid Early](#16-anti-patterns-to-avoid-early)
+- [17. Roadmap to Broader Adoption](#17-roadmap-to-broader-adoption)
 
 ### Enabling Data Products
-- [17. How This Enables Data Product Engineering](#17-how-this-enables-data-product-engineering)
-- [18. Summary Principles](#18-summary-principles)
+- [18. How This Enables Data Product Engineering](#18-how-this-enables-data-product-engineering)
+- [19. Summary Principles](#19-summary-principles)
 
 ### Reference
 - [Glossary](#glossary)
@@ -87,7 +90,7 @@ Readers should approach this document in sequence on first reading. However, pra
 - **Sections 9–10**: Authority and reconciliation (core ETSL mechanics)
 - **Sections 11–13**: Building, validating, and operating early artifacts
 - **Sections 14–16**: Scaling adoption and avoiding failure modes
-- **Sections 17–18**: Preparation for data product engineering  
+- **Sections 17–18**: Preparation for Data Product engineering  
 
 ---
 
@@ -237,13 +240,13 @@ Instead, it introduces **a new layer of clarity**, selectively and incrementally
 - **Explicit representations of enterprise facts, relationships, and state** — e.g., "Party P owns Account A since date T, under authority of Retail Operations"
 - **Qualified by authority** — every assertion carries the enterprise function empowered to make it
 - **Governed by temporal semantics** — effective dates, validity windows, and as-of-time queryability
-- **Traceable to assertion sources** — lineage back to the SOR or domain product that emitted the original claim
+- **Traceable to Assertion Sources** — lineage back to the SOR or domain product that emitted the original claim
 - **Designed for cross-domain reuse** — the same Party identity artifact serves Retail, Corporate, Compliance, and Risk
 - **Stable relative to consumer data products** — ETSL Data Artifacts change slowly; data products built on them may evolve freely
 
 ### ETSL Data Artifacts ARE NOT
 
-- **Raw ingested SOR tables** — those are assertion sources, not truth
+- **Raw ingested SOR tables** — those are Assertion Sources, not truth
 - **Domain source-aligned data products** — those serve domain-local needs and carry domain-local semantics
 - **Aggregated metrics or KPIs** — those are derived interpretations, not foundational truth
 - **Features or model inputs** — those are consumer-specific projections
@@ -284,7 +287,7 @@ Balance is a **derived value** that belongs in data products, not in ETSL.
 
 **Example 2: "Beneficial Owner" — Feels Inconvenient, But Correctly Belongs in ETSL**
 
-A compliance team tracks beneficial ownership in their AML system. A data engineer suggests exposing this as a domain data product rather than bringing it into ETSL, because "it's just a compliance concern."
+A compliance team tracks beneficial ownership in their AML system. A data engineer suggests exposing this as a Domain Data Product rather than bringing it into ETSL, because "it's just a compliance concern."
 
 *Why this correctly belongs in ETSL:*
 - Beneficial ownership is a relationship asserted under regulatory authority
@@ -334,14 +337,14 @@ The following terms are normative and should be used consistently across teams, 
 ### Key Terms
 
 **Assertion Source**
-> A system, domain data product, or external feed that emits claims about enterprise reality.
+> A system, Domain Data Product, or external feed that emits claims about enterprise reality.
 
 - Examples: Core banking system, CRM, AML/KYC platform, external credit bureau feed
 - Assertion sources are not truth by default—they emit candidates for reconciliation
-- A single logical entity (e.g., "Customer") may have multiple assertion sources
+- A single logical entity (e.g., "Customer") may have multiple Assertion Sources
 
 **Candidate Assertion**
-> A claim captured from an assertion source, prior to normalization or reconciliation.
+> A claim captured from an Assertion Source, prior to normalization or reconciliation.
 
 - Preserves the original form and provenance
 - Not yet authority-qualified
@@ -355,7 +358,7 @@ The following terms are normative and should be used consistently across teams, 
 - Ready for reconciliation with other normalized assertions
 
 **Derived Assertion**
-> An assertion produced as a result of decisions, computations, or reconciliation—not directly emitted by an assertion source.
+> An assertion produced as a result of decisions, computations, or reconciliation—not directly emitted by an Assertion Source.
 
 - Examples: "Authoritative credit limit after reconciliation," "Resolved beneficial owner"
 - Must carry lineage to source assertions
@@ -380,7 +383,7 @@ The following terms are normative and should be used consistently across teams, 
 
 - Responsible for: capture, provenance attachment, authority tagging, normalization
 - Must NOT perform: reconciliation, business decisions, truth derivation
-- Defines where "assertion source world" ends and "ETSL world" begins
+- Defines where "Assertion Source world" ends and "ETSL world" begins
 
 ### Why Shared Vocabulary Matters
 
@@ -429,7 +432,7 @@ Avoid starting with:
 **Exposure Aggregation**
 - Required by: Credit risk, counterparty risk, regulatory capital
 - Why ETSL: Exposure spans loans, derivatives, guarantees—no single system holds the whole picture
-- Scope: Party-level exposure facts, aggregated from multiple assertion sources
+- Scope: Party-level exposure facts, aggregated from multiple Assertion Sources
 
 ### Selection Criteria Checklist
 
@@ -486,13 +489,13 @@ This pattern:
 - ETSL team has visibility into domain product semantics
 
 **When to consume raw SOR feeds:**
-- No domain data product exists
+- No Domain Data Product exists
 - Domain product adds transformations that obscure provenance
 - Regulatory or audit requirements demand direct lineage to source
 
 ### Worked Example: Consuming a Domain Data Product for KYC Status
 
-The Compliance domain owns the KYC platform and publishes a source-aligned data product called "Party Verification Status." This product includes:
+The Compliance domain owns the KYC platform and publishes a Source-Aligned Data Product called "Party Verification Status." This product includes:
 - Party identifier
 - Verification status (Verified, Pending, Failed, Expired)
 - Verification date
@@ -506,14 +509,14 @@ The ETSL team needs Party verification status for cross-domain use cases: credit
 - Changes to KYC platform schema require ETSL pipeline changes
 - Compliance domain has no visibility into how their data is used
 
-**Option B: Consume the domain data product**
+**Option B: Consume the Domain Data Product**
 - ETSL consumes the published "Party Verification Status" product
 - Compliance domain remains accountable for data quality and semantics
 - Product contract provides stability; internal platform changes are absorbed by the domain
 - Domain maintains lineage documentation that ETSL can reference
 
 ETSL chooses Option B. At ingress:
-- The domain product is consumed as an assertion source
+- The domain product is consumed as an Assertion Source
 - Authority is tagged as "Compliance" (the enterprise function, not the system)
 - Provenance references the domain product, not the underlying platform
 - Normalization maps domain vocabulary to ETSL semantic types
@@ -528,11 +531,11 @@ For detailed patterns on ETSL and Data Mesh integration, see *ETSL and Data Mesh
 
 ### 7.3 Mapping Patterns
 
-For each assertion source, document:
+For each Assertion Source, document:
 
 | Aspect | What to Capture |
 |--------|-----------------|
-| Source type | SOR feed or domain data product? |
+| Source type | SOR feed or Domain Data Product? |
 | Entity scope | Which entities does this source assert? |
 | Fact scope | Which facts or relationships? |
 | Authority | Which enterprise function is this source acting on behalf of? |
@@ -547,7 +550,7 @@ See *ETSL and Data Mesh: Co-existence, Complementarity, and Enterprise Evolution
 
 ## 8. Designing the ETSL Ingress Layer
 
-The ETSL Ingress Layer is the **controlled intake surface** where assertions enter the ETSL domain. It defines the boundary between "assertion source world" and "ETSL world."
+The ETSL Ingress Layer is the **controlled intake surface** where assertions enter the ETSL domain. It defines the boundary between "Assertion Source world" and "ETSL world."
 
 ### Purpose of the Ingress Layer
 
@@ -571,6 +574,22 @@ Ingress is **semantic plumbing**, not intelligence.
 | Apply business rules | Business decisions belong in reconciliation or state derivation |
 | Filter "bad" data silently | All assertions should be captured; quality issues surface in validation |
 
+### Normalization vs Semantic Interpretation (Critical Distinction)
+
+The ingress layer performs **format normalization**, not **semantic interpretation**.
+
+| Format Normalization (Allowed) | Semantic Interpretation (Not Allowed) |
+|--------------------------------|---------------------------------------|
+| Date format conversion (ISO 8601) | Deciding which date is "correct" |
+| Character encoding standardization | Inferring meaning from text |
+| Structural transformation to ETSL schema | Choosing between competing values |
+| Semantic type tagging (based on explicit mapping) | Deriving semantic types from content |
+
+**Format normalization** is mechanical, reversible, and governed by explicit mapping rules.  
+**Semantic interpretation** constitutes truth-making and belongs in reconciliation.
+
+> This distinction aligns with Tier-2's definition of ETSL Ingress Boundary: "Capture-only; No reconciliation or semantic interpretation; Provenance-preserving."
+
 ### Ingress Layer Responsibilities
 
 **1. Capture**
@@ -591,6 +610,8 @@ Ingress is **semantic plumbing**, not intelligence.
 - Map source fields to ETSL semantic types
 - Transform source vocabulary to ETSL vocabulary
 - Validate structural conformance (not semantic correctness—that comes later)
+
+> **Note:** For streaming ingress and out-of-order assertion handling, see *ETSL and Temporal Ordering* (`../../conceptual/etsl-and-temporal-ordering.md`).
 
 ### Example: Ingress for Customer Identity
 
@@ -629,7 +650,7 @@ Different sources may require different ingress patterns:
 |-------------|-----------------|
 | Batch SOR extract | Scheduled capture, bulk provenance |
 | Real-time event stream | Event-by-event capture, streaming normalization |
-| Domain data product | API or file-based consumption, contract validation |
+| Domain Data Product | API or file-based consumption, contract validation |
 | External feed (e.g., credit bureau) | Adapter with external authority mapping |
 
 ### Common Early Mistakes in Ingress Design
@@ -661,6 +682,91 @@ Teams building their first ingress layers often make predictable mistakes. Under
 *Semantic damage:* Over-normalization destroys information. Converting "Jane Doe" and "JANE DOE" to a canonical form loses the ability to trace back to the original assertion. Applying business rules (e.g., inferring account type from account number patterns) embeds assumptions that may not hold across all sources. Normalization should be structural, not semantic.
 
 The key invariant: **every assertion entering ETSL carries source, authority, and time.**
+
+---
+
+### 8.6 Data Quality vs ETSL Quality: A Clear Boundary
+
+A common question during ETSL adoption: *Does ETSL replace our data quality practices?*
+
+**The answer is no.** ETSL and traditional Data Quality (DQ) are complementary, not competing. They operate at different layers and address different concerns.
+
+---
+
+#### The Boundary
+
+| Concern | Owner | Where It Happens | Examples |
+|---------|-------|------------------|----------|
+| **Data Quality (DQ)** | Source systems, domain teams | Before ETSL ingress | Missing values, format errors, duplicates, referential integrity within source, timeliness of source feeds |
+| **ETSL Quality** | ETSL Core | At and after ingress | Authority validation, semantic type conformance, temporal validity, reconciliation success, conflict rates |
+
+**Source-aligned quality checks must exist before the ETSL ingress boundary.**
+
+ETSL is concerned with **semantics and truth**—not the data sourcing problems that domain teams are responsible for resolving.
+
+---
+
+#### What ETSL Does Not Replace
+
+- Completeness checks at source level
+- Format validation and standardization at source
+- Deduplication within source systems
+- Referential integrity within domain boundaries
+- Timeliness monitoring of source feeds
+- Data profiling and anomaly detection at source
+
+These remain the responsibility of source systems and domain data teams.
+
+---
+
+#### What ETSL Validates
+
+At the ingress boundary, ETSL validates:
+
+- **Authority**: Is the Assertion Source registered and valid for this assertion type?
+- **Semantic conformance**: Does the assertion use defined semantic types correctly?
+- **Temporal validity**: Are effective dates present and sensible?
+- **Structural completeness**: Are ETSL-required fields (source, authority, time) present?
+
+If an assertion fails ETSL validation, it is rejected with full provenance. **Remediation is the source team's responsibility.**
+
+---
+
+#### Two Distinct Metric Sets
+
+| DQ Metrics (Source Team) | ETSL Quality Metrics (ETSL Team) |
+|--------------------------|----------------------------------|
+| Completeness at source | Reconciliation success rate |
+| Format conformance | Conflict queue depth |
+| Duplicate rate | Time-to-resolution for conflicts |
+| Timeliness of feeds | Ingress rejection rate |
+| Source-level referential integrity | SLA compliance for resolutions |
+
+These are **not the same metrics** and should not be conflated. DQ metrics measure source health; ETSL Quality metrics measure semantic coherence and reconciliation health.
+
+---
+
+#### Alerts and Visibility
+
+When ETSL rejects an assertion due to issues at the DQ/ETSL boundary (e.g., malformed data, missing authority), alerts are visible to **both** ETSL Operations and Source Domain teams.
+
+- ETSL Operations monitors overall rejection rates and patterns
+- Source teams are responsible for investigating and remediating their specific rejections
+
+ETSL rejection rates can serve as a **signal** of upstream DQ issues, but ETSL does not own the remediation.
+
+---
+
+#### Anti-Pattern: Expecting ETSL to Fix DQ Problems
+
+A common mistake is treating ETSL as a "cleaning layer" that will fix source data issues.
+
+This fails because:
+- ETSL is not designed for data transformation or cleansing
+- Ingress is capture-only; semantic interpretation happens later
+- Hiding DQ problems at the ETSL boundary destroys provenance
+
+**If source data is broken, fix it at the source.** ETSL will reject it, preserve it in a dead-letter store, and alert—but it will not fix it.
 
 ---
 
@@ -818,7 +924,7 @@ A v1 Authority Registry for a bank might have 10–20 entries. That is sufficien
 
 ## 10. Reconciliation and Normalization Patterns
 
-Reconciliation is unavoidable in any enterprise with multiple assertion sources. ETSL makes reconciliation **explicit, governed, and auditable**—rather than hidden in pipeline logic.
+Reconciliation is unavoidable in any enterprise with multiple Assertion Sources. ETSL makes reconciliation **explicit, governed, and auditable**—rather than hidden in pipeline logic.
 
 ### Core Principle
 
@@ -984,7 +1090,288 @@ Normalization is largely mechanical. Reconciliation is semantic and governed.
 
 ---
 
-## 11. Producing the First ETSL Data Artifacts
+## 11. Reconciliation Failure and Error Handling
+
+Reconciliation does not always succeed. When multiple assertions conflict and cannot be automatically resolved, the system must handle the failure explicitly—not silently propagate ambiguity downstream.
+
+This section provides guidance on **semantic error handling** for reconciliation failures and related assertion-level errors.
+
+> **Scope Note:** This section addresses semantic error handling only. Technical infrastructure concerns (retries, circuit breakers, failover, platform resilience) are outside the scope of this document and belong to platform engineering guidance.
+
+---
+
+### 11.1 Core Principle: Don't Right-Shift Problems
+
+ETSL's error handling philosophy is **fail fast, fail loud**:
+
+- If an assertion cannot be validated, reject it at ingress
+- If reconciliation cannot produce a deterministic result, stop and alert
+- If authority is missing or unknown, do not proceed
+- Never silently propagate ambiguity to downstream consumers
+
+> **Problems that are deferred become problems that are hidden.**  
+> Hidden problems become audit failures, regulatory findings, and production incidents.
+
+---
+
+### 11.2 Error Classification
+
+ETSL distinguishes between errors that should **break the flow** and errors that allow **graceful continuation**:
+
+| Error Class | Example | Response | Flow |
+|-------------|---------|----------|------|
+| **Validation Failure** | Missing required attribute, malformed assertion | Reject at ingress | Break |
+| **Missing Authority** | Assertion from unregistered source | Reject; route to Authority Registry review | Break |
+| **Semantic Inadequacy** | Assertion uses undefined semantic type | Reject; escalate to Semantic Architect | Break |
+| **Reconciliation Conflict** | Two valid authorities assert conflicting values | Apply reconciliation pattern (see below) | Pattern-dependent |
+| **Temporal Collision** | Overlapping effective periods for exclusive facts | Validate against semantic model; escalate if ambiguous | Break |
+| **Stale Assertion** | Assertion arrives after superseding assertion processed | Apply based on effective time, not arrival time | Continue |
+
+---
+
+### 11.3 Reconciliation Failure Patterns
+
+When reconciliation cannot produce a deterministic result (e.g., two authorities of equal precedence assert conflicting values), one of two patterns applies.
+
+**The pattern is declared per attribute, fact, or relationship in the ETSL Semantic Artifact—not at the entity or domain level.**
+
+---
+
+#### Pattern B: Last-Known-Good Fallback
+
+| Aspect | Behavior |
+|--------|----------|
+| **State emission** | Last successfully reconciled state remains authoritative |
+| **Conflicting assertions** | Quarantined for resolution |
+| **Consumer visibility** | Consumers see stable (potentially stale) truth |
+| **Alert** | Persistent alert to Data Engineering and Operations |
+| **Resolution** | Manual or policy-based intervention required |
+
+**When to use:**
+- Attributes where temporary staleness is acceptable
+- Operational convenience data (e.g., preferred contact channel)
+- Low-criticality facts that do not drive decisions
+
+**Banking example:**
+> A customer's `relationship_manager_id` is asserted differently by CRM and Core Banking. Pattern B applies: the last-known-good assignment remains visible while the conflict is quarantined. Operations receives an alert with SLA.
+
+---
+
+#### Pattern C: Conservative Rejection
+
+| Aspect | Behavior |
+|--------|----------|
+| **State emission** | No state emitted until reconciliation succeeds |
+| **Conflicting assertions** | Block state derivation |
+| **Consumer visibility** | Consumers receive no update (or explicit "unavailable" status) |
+| **Alert** | Persistent alert to Data Engineering and Operations |
+| **Resolution** | Must be resolved before downstream consumption |
+
+**When to use:**
+- High-integrity attributes (regulatory, compliance, financial exposure)
+- Facts that drive automated decisions
+- Attributes where staleness creates risk
+
+**Banking example:**
+> A customer's `aml_verification_status` is asserted as VERIFIED by the KYC system and PENDING by the AML system. Pattern C applies: no state is emitted until the conflict is resolved. Downstream credit decisions that depend on AML status will not proceed with stale or ambiguous data.
+
+---
+
+#### Default Pattern
+
+**The default reconciliation pattern is Conservative Rejection (Pattern C).**
+
+This reflects the principle: don't shift problems to the right. Attributes that tolerate staleness must explicitly opt into Pattern B.
+
+---
+
+### 11.4 Declaring Patterns in Semantic Artifacts
+
+Reconciliation patterns are declared per attribute in the ETSL Semantic Artifact:
+
+```yaml
+artifact_type: etsl_semantic_state
+entity: Account
+version: 2.1.0
+
+attributes:
+  account_status:
+    semantic_type: AccountStatus
+    required: true
+    reconciliation_pattern: conservative_rejection  # Pattern C (default)
+    resolution_sla: 4_hours
+    
+  credit_limit:
+    semantic_type: MoneyAmount
+    required: true
+    reconciliation_pattern: conservative_rejection  # Pattern C
+    resolution_sla: 2_hours
+    
+  preferred_contact_channel:
+    semantic_type: ChannelCode
+    required: false
+    reconciliation_pattern: last_known_good  # Pattern B
+    resolution_sla: 24_hours
+    
+  relationship_manager_id:
+    semantic_type: EmployeeId
+    required: false
+    reconciliation_pattern: last_known_good  # Pattern B
+    resolution_sla: 48_hours
+```
+
+Every attribute with a reconciliation pattern MUST have a `resolution_sla` indicating the time within which conflicts must be resolved.
+
+---
+
+### 11.5 Resolution SLAs
+
+Every reconciliation conflict triggers an alert with an associated SLA.
+
+| SLA Component | Description |
+|---------------|-------------|
+| **resolution_sla** | Time within which the conflict must be resolved |
+| **Alert recipients** | Data Engineering and Operations teams |
+| **Escalation** | Defined per enterprise policy (e.g., escalate to Data Architect after 50% of SLA) |
+
+**SLA breach does not change system behavior.** If Pattern B is declared, the last-known-good remains visible regardless of SLA status. SLA breach is a governance and operational concern, not a semantic one.
+
+The semantic model already declared tolerances. SLAs enforce operational discipline, not semantic behavior.
+
+---
+
+### 11.6 Ingress-Level Rejections
+
+Certain errors are detected and rejected at the ETSL ingress boundary before reconciliation:
+
+| Error | Detection Point | Response |
+|-------|-----------------|----------|
+| Malformed assertion (missing required fields) | Ingress validation | Reject; emit to dead-letter with full provenance |
+| Unknown Assertion Source | Authority check | Reject; route to Authority Registry for review |
+| Undefined semantic type | Schema validation | Reject; escalate to Semantic Architect |
+| Invalid temporal semantics (e.g., effective_from in future for past event) | Temporal validation | Reject; emit to dead-letter |
+
+All rejections MUST:
+- Preserve the original assertion with full provenance
+- Emit to a governed dead-letter store
+- Trigger alerts with SLAs
+- Be queryable for audit and remediation
+
+---
+
+### 11.7 Error Lineage and Traceability
+
+Errors are first-class events in ETSL. Every error MUST carry:
+
+| Field | Purpose |
+|-------|---------|
+| `error_id` | Unique identifier |
+| `error_type` | Classification (validation, authority, reconciliation, temporal) |
+| `source_assertions` | Original assertion(s) that triggered the error |
+| `detection_time` | When the error was detected |
+| `semantic_artifact_version` | Which semantic version was used for validation |
+| `resolution_status` | OPEN, IN_PROGRESS, RESOLVED, ESCALATED |
+| `resolution_sla` | Deadline for resolution |
+| `resolution_details` | How and when resolved (populated after resolution) |
+
+Error records are **immutable and append-only**. Resolution creates a new record linking to the original error.
+
+---
+
+### 11.8 Banking Examples: End-to-End Scenarios
+
+#### Scenario 1: Credit Limit Conflict
+
+**Situation:** The Underwriting system asserts `credit_limit = $50,000`. The Risk system asserts `credit_limit = $30,000`. Both are valid authorities for this attribute.
+
+**Semantic declaration:** `credit_limit` is `conservative_rejection` with 2-hour SLA.
+
+**Behavior:**
+1. Reconciliation detects conflict
+2. No `credit_limit` state is emitted
+3. Alert sent to Data Engineering and Operations
+4. Downstream Data Products querying credit limit receive "UNAVAILABLE" or no update
+5. Resolution: Risk and Underwriting teams clarify; one assertion is withdrawn or authority precedence is established
+6. Once resolved, reconciliation succeeds and state is emitted
+
+---
+
+#### Scenario 2: Customer Identity Mismatch
+
+**Situation:** AML/KYC system asserts customer is VERIFIED. Core Banking asserts customer is PENDING_VERIFICATION.
+
+**Semantic declaration:** `verification_status` is `conservative_rejection` with 4-hour SLA.
+
+**Behavior:**
+1. Reconciliation detects conflict
+2. No `verification_status` state is emitted
+3. Alert sent with 4-hour SLA
+4. Credit decisions that depend on verification status cannot proceed
+5. Resolution: Compliance team investigates; correct status is established
+6. State is emitted after resolution
+
+---
+
+#### Scenario 3: Preferred Channel Disagreement
+
+**Situation:** CRM asserts `preferred_channel = EMAIL`. Contact Center system asserts `preferred_channel = SMS`.
+
+**Semantic declaration:** `preferred_channel` is `last_known_good` with 24-hour SLA.
+
+**Behavior:**
+1. Reconciliation detects conflict
+2. Last-known-good value (e.g., EMAIL from prior state) remains authoritative
+3. Conflicting assertions are quarantined
+4. Alert sent with 24-hour SLA
+5. Downstream systems continue to see EMAIL
+6. Resolution: Data steward reviews and determines authoritative source
+7. Once resolved, new state reflects resolved value
+
+---
+
+#### Scenario 4: Unknown Assertion Source
+
+**Situation:** An assertion arrives from a system not registered in the Authority Registry.
+
+**Behavior:**
+1. Ingress validation detects unknown source
+2. Assertion is rejected
+3. Full assertion preserved in dead-letter store with provenance
+4. Alert sent to Authority Registry owner
+5. Resolution: Either register the source as valid authority, or identify as erroneous emission
+6. If registered, assertion can be replayed
+
+---
+
+### 11.9 Monitoring and Alerting
+
+Operational teams should monitor:
+
+| Metric | What It Indicates |
+|--------|-------------------|
+| **Reconciliation success rate** | Overall health of assertion alignment |
+| **Conflict queue depth** | Volume of unresolved conflicts |
+| **Time-to-resolution** | How quickly conflicts are being resolved |
+| **SLA breach rate** | Governance discipline |
+| **Dead-letter queue growth** | Ingress-level rejection trends |
+| **Pattern B staleness duration** | How long last-known-good values persist |
+
+Alert thresholds are domain- and attribute-specific, defined during semantic modeling.
+
+---
+
+### 11.10 Summary: Error Handling Principles
+
+1. **Fail fast, fail loud** — Don't propagate ambiguity downstream
+2. **Pattern per attribute** — Reconciliation behavior is declared in the Semantic Artifact
+3. **Default to conservative rejection** — Attributes must opt into staleness tolerance
+4. **Every conflict has an SLA** — Resolution timelines are explicit and monitored
+5. **Errors are first-class** — Full lineage, provenance, and resolution tracking
+6. **Technical infrastructure is out of scope** — This is semantic error handling, not platform resilience
+
+---
+
+## 12. Producing the First ETSL Data Artifacts
 
 The first ETSL Data Artifacts set the pattern for everything that follows. Getting them right—even if narrow in scope—is more valuable than getting them fast.
 
@@ -1006,7 +1393,7 @@ ETSL adoption follows a predictable rhythm. Here is what realistic progress look
 
 **Weeks 1–4: Foundation**
 - Select 1–2 cross-domain use cases (see Section 6)
-- Identify 2–4 assertion sources for those use cases
+- Identify 2–4 Assertion Sources for those use cases
 - Draft initial Authority Registry entries
 - Design ingress layer for selected sources
 - Establish team structure and review rituals
@@ -1090,7 +1477,7 @@ The artifact is narrow but correct. It can be trusted—and extended.
 
 A v1 ETSL Data Artifact is "done" when:
 
-1. **Lineage is complete** — traceable from artifact back to assertion sources
+1. **Lineage is complete** — traceable from artifact back to Assertion Sources
 2. **Authority is explicit** — every fact/relationship carries its authority
 3. **Temporal semantics are present** — effective dates, validity windows
 4. **At least one consumer is using it** — validates cross-domain reuse
@@ -1099,7 +1486,7 @@ A v1 ETSL Data Artifact is "done" when:
 
 ---
 
-## 12. Validating ETSL Data Artifacts
+## 13. Validating ETSL Data Artifacts
 
 Validation is not optional. Without explicit validation, ETSL Data Artifacts lose their claim to "enterprise truth."
 
@@ -1170,7 +1557,7 @@ Validation is not a one-time event. Implement:
 
 ---
 
-## 13. Operating Model During Early ETSL Adoption
+## 14. Operating Model During Early ETSL Adoption
 
 ETSL is not just a technical layer—it requires an operating model that sustains semantic clarity over time. Without governance rituals, ETSL degrades into another set of pipelines.
 
@@ -1192,7 +1579,7 @@ The core team does not own all ETSL work—it owns the **semantic contracts and 
 
 | Role | Owns | Does Not Own |
 |------|------|--------------|
-| ETSL Semantic Architect | Semantic contracts, authority registry, reconciliation rules | Pipeline implementation |
+| ETSL Semantic Architect | Semantic contracts, Authority Registry, reconciliation rules | Pipeline implementation |
 | ETSL Data Engineer | Ingress, normalization, state derivation pipelines | Semantic definitions |
 | Domain Architect | Domain-specific authority, source-aligned products | Cross-domain reconciliation |
 | Domain Engineer | Ingress adapters, domain product maintenance | ETSL core infrastructure |
@@ -1238,7 +1625,7 @@ ETSL adoption creates predictable friction between roles. Understanding these te
 Without rituals, ETSL decays. Establish early:
 
 **1. Assertion Onboarding Review**
-- When: Each new assertion source is added
+- When: Each new Assertion Source is added
 - Who: ETSL architect, domain architect, data engineer
 - Output: Approved ingress design, authority mapping
 
@@ -1283,7 +1670,7 @@ As ETSL grows:
 
 ---
 
-## 14. Co-existence with Existing Data Products
+## 15. Co-existence with Existing Data Products
 
 ETSL is designed for co-existence, not replacement. Domain data products continue to serve domain needs. ETSL provides a shared semantic anchor for cross-domain truth—nothing more.
 
@@ -1310,7 +1697,7 @@ Domain SOR → Domain Source-Aligned Product → ETSL Ingress → ETSL Data Arti
 ```
 
 - Domain retains ownership of its product
-- ETSL consumes the product as an assertion source
+- ETSL consumes the product as an Assertion Source
 - No changes required to domain systems
 
 **Pattern 2: ETSL and Domain Products in Parallel**
@@ -1359,7 +1746,7 @@ For detailed patterns, see *ETSL and Data Mesh: Co-existence, Complementarity, a
 
 ---
 
-## 15. Anti-Patterns to Avoid Early
+## 16. Anti-Patterns to Avoid Early
 
 ETSL adoption fails in predictable ways. Understanding **why** teams fall into these patterns—and the **damage** they cause—helps prevent them.
 
@@ -1497,12 +1884,12 @@ ETSL adoption fails in predictable ways. Understanding **why** teams fall into t
 | Modeling everything upfront | Fear of rework | Analysis paralysis | Start narrow |
 | Centralizing ingestion | Desire for control | Bottleneck | Enable domains |
 | Treating ETSL as warehouse | Familiarity | Semantic loss | Separate truth from consumption |
-| Hiding authority in code | Urgency | Audit failure | Explicit authority registry |
+| Hiding authority in code | Urgency | Audit failure | Explicit Authority Registry |
 | Ignoring temporal semantics | Simplicity bias | No history | Time is mandatory |
 
 ---
 
-## 16. Roadmap to Broader Adoption
+## 17. Roadmap to Broader Adoption
 
 ETSL adoption follows a predictable maturity curve. Rushing through stages creates fragility; skipping stages creates gaps.
 
@@ -1530,7 +1917,7 @@ ETSL adoption follows a predictable maturity curve. Rushing through stages creat
 
 **Activities:**
 - Onboard 2–3 additional consumers for existing artifacts
-- Add 1–2 new assertion sources
+- Add 1–2 new Assertion Sources
 - Expand Authority Registry incrementally
 - Document reconciliation patterns for reuse
 - Capture and communicate wins (time saved, disputes resolved)
@@ -1555,13 +1942,13 @@ ETSL adoption follows a predictable maturity curve. Rushing through stages creat
 **Success Criteria:**
 - Domains voluntarily aligning semantics
 - New cross-domain initiatives start with ETSL consideration
-- Reduced semantic disputes in data product development
+- Reduced semantic disputes in Data Product development
 
 ---
 
 ### Stage 4: Enable Data Products (Months 12+)
 
-**Goal:** ETSL becomes the truth substrate for data product engineering.
+**Goal:** ETSL becomes the truth substrate for Data Product engineering.
 
 **Activities:**
 - Data products are built on ETSL Data Artifacts by default
@@ -1622,7 +2009,7 @@ Beyond timelines and activities, ETSL adoption involves a shift in how teams thi
 
 **Phase 3: Enabling (Mature)**
 
-*Outcome:* ETSL is the default truth substrate for data product development. Semantic contracts are enforced in CI/CD. Domains voluntarily align.
+*Outcome:* ETSL is the default truth substrate for Data Product development. Semantic contracts are enforced in CI/CD. Domains voluntarily align.
 
 *Confidence level:* High trust. Teams assume ETSL artifacts are correct and authoritative. Exceptions are rare and investigated.
 
@@ -1638,9 +2025,9 @@ ETSL succeeds when domains choose to align because the value is obvious—not be
 
 ---
 
-## 17. How This Enables Data Product Engineering
+## 18. How This Enables Data Product Engineering
 
-ETSL Data Artifacts provide a **stable truth substrate** for safe data product building. Without this substrate, every data product team must independently:
+ETSL Data Artifacts provide a **stable truth substrate** for safe Data Product building. Without this substrate, every Data Product team must independently:
 - Reconcile conflicting sources
 - Determine authority
 - Handle temporal semantics
@@ -1652,7 +2039,7 @@ This leads to duplication, inconsistency, and escalating costs.
 
 | Without ETSL | With ETSL |
 |--------------|-----------|
-| Each data product reconciles its own sources | Reconciliation is done once, reused many times |
+| Each Data Product reconciles its own sources | Reconciliation is done once, reused many times |
 | Authority is embedded in product code | Authority is explicit and governed |
 | Temporal semantics are inconsistent | All products inherit consistent temporal rules |
 | Audit requires code archaeology | Audit is semantic and traceable |
@@ -1691,7 +2078,7 @@ This separation is the foundation for scalable, auditable, and trustworthy enter
 
 ---
 
-## 18. Summary Principles
+## 19. Summary Principles
 
 The following principles are non-negotiable for ETSL adoption. They should guide every design decision, governance conversation, and stakeholder explanation.
 
@@ -1742,128 +2129,26 @@ For banks navigating regulatory complexity, cross-domain dependencies, and the p
 
 ## Glossary
 
-### Core ETSL Concepts
+This document uses terminology defined in the canonical ETSL lexicon:
 
-**ETSL (Enterprise Truth & Semantics Layer)**
-> A semantic and authority layer that defines enterprise truth across multiple data systems. ETSL is not a single database but a contract governing the boundaries and meanings of each storage layer.
+- **Tier-1 ETSL Canonical Terminology** (`../../terminology/tier-1-etsl-canonical-terminology.md`) — Core semantic primitives: Assertion, Authority, Reconciliation, State, Data Product, Data Artifact, Data Application
+- **Tier-2 ETSL Canonical Classifications** (`../../terminology/tier-2-etsl-canonical-classifications.md`) — Behavioral classifications: ETSL Core Data Application, Transforming/Serving Data Applications, Candidate Assertion, ETSL Ingress Boundary
 
-**ETSL Semantic Artifact**
-> A normative semantic contract that defines what kinds of truths may be asserted, what relationships may be asserted as facts, and what authority, integrity, and temporal rules govern those assertions. Semantic artifacts are prescriptive, not descriptive.
+For the distinction between Ontology, Semantic Artifacts, and Data Artifacts, see *Ontology vs ETSL Semantic vs ETSL Data Artifacts* (`../../conceptual/artifacts-ontology-vs-semantic-vs-data.md`).
 
-**ETSL Data Artifact**
-> A concrete realization of ETSL semantics in data systems—fact records, event records, state tables, relationship instances, or materialized views derived from ETSL truth. Data artifacts represent what is actually recorded, stored, and operated on.
-
-**Ontology Artifact**
-> A conceptual modeling artifact that defines entity types, relationship types, and vocabulary. Ontology artifacts describe meaning and possibility; they do not define operational truth. Ontology informs ETSL; ETSL enforces.
-
----
-
-### Assertion and Ingress
-
-**Assertion**
-> A semantically typed claim that something occurred or was established, at a point in time, by some authority. Assertions are the atomic unit of truth in ETSL.
-
-**Assertion Source**
-> A system, domain data product, or external feed that emits claims about enterprise reality. Assertion sources are not truth by default—they emit candidates for reconciliation.
-
-**Candidate Assertion**
-> A claim captured from an assertion source, prior to normalization or reconciliation. Preserves original form and provenance; not yet authority-qualified.
+### Terms Specific to This Document
 
 **Normalized Assertion**
 > A candidate assertion transformed to align with ETSL semantic contracts. Mapped to ETSL semantic types, carries attached authority, and is ready for reconciliation.
 
-**Derived Assertion**
-> An assertion produced as a result of decisions, computations, or reconciliation—not directly emitted by an assertion source. Must carry lineage to source assertions.
-
-**ETSL Ingress Boundary**
-> The controlled intake surface where assertions enter the ETSL domain. Responsible for capture, provenance attachment, authority tagging, and normalization. Does not perform reconciliation or business decisions.
-
----
-
-### Authority
-
-**Authority**
-> The enterprise function empowered to assert, override, or revoke a class of truth. Authority is organizational and functional—not a system, person, or team name. Authority is stable, auditable, and delegable.
-
-**Authority Registry**
-> An explicit, governed mapping of entity types, fact types, and relationships to the enterprise functions empowered to assert them. The registry is semantic, not an IAM or RBAC system.
-
-**Authority Precedence**
-> The rule that determines which authority's assertion prevails when multiple authorities assert the same fact. Precedence is explicit and governed.
-
-**Override**
-> An assertion that explicitly supersedes another assertion, typically from a different authority or in a specific context (e.g., delinquency, fraud). Overrides carry lineage to what they override.
-
----
-
-### Facts, Events, and State
-
-**Fact**
-> A semantically asserted truth about the enterprise, valid from a point in time, and attributable to an explicit authority. Facts define what is (or became) true in enterprise reality. Facts are append-only.
-
-**Event**
-> A temporal occurrence that represents what happened, explaining why or how one or more facts came into existence or changed. Events explain causality; facts establish truth.
-
-**State**
-> The authoritative, point-in-time realization of an enterprise entity, derived from facts and constrained by explicit invariants. State encodes integrity and is operationally usable, auditable, and defensible.
+**Reconciliation Logic**
+> The explicit, governed rules that resolve conflicts between assertions. Part of the ETSL semantic contract, not hidden in pipeline code.
 
 **Invariant**
 > A condition that must always hold for an entity's state to be valid. Invariants are evaluated on state, explicitly documented, and non-negotiable.
 
----
-
-### Relationships
-
-**Relationship**
-> A semantically typed, time-bound, and governed association between two or more enterprise entities. Relationships are first-class citizens in ETSL—explicit, temporal, directional, and governed.
-
-**Relationship Type**
-> A meaningful, specific type of relationship (e.g., OWNS, GOVERNS, AUTHORIZES). Generic types like "related_to" are anti-patterns.
-
----
-
-### Reconciliation
-
-**Reconciliation**
-> The semantic rules that determine which assertions prevail when conflicts exist. Reconciliation is based on authority precedence, temporal validity, or explicit override rules. It must be deterministic, auditable, and governed.
-
-**Reconciliation Logic**
-> The explicit, governed rules that resolve conflicts between assertions. Part of the ETSL semantic contract, not hidden in pipeline code.
-
-**Normalization**
-> The transformation of candidate assertions to align with ETSL vocabulary and semantic types. Normalization is structural, not semantic—it does not resolve conflicts.
-
----
-
-### Data Products and Applications
-
-**Data Product**
-> A consumer-facing, use-case-specific interpretation of data. Data products may aggregate, filter, or reshape truth for specific use cases. They consume ETSL truth but do not redefine it.
-
-**Source-Aligned Data Product**
-> A data product published by a domain team, aligned to the semantics of the originating system. ETSL may consume source-aligned data products as assertion sources.
-
-**Data Application**
-> A system that builds and serves data products. Data applications consume ETSL Data Artifacts and produce consumer-facing outputs.
-
-**Transforming Data Application**
-> A data application that consumes ETSL truth and produces derived products (aggregates, projections, features).
-
-**Data-Driven Operational Application**
-> An operational system that acts on ETSL state and may produce new assertions that re-enter ETSL as authority-qualified, lineage-aware enterprise truth.
-
----
-
-### Governance and Operations
-
-**Semantic Contract**
-> The explicit specification of what may be asserted, how it must be structured, what authority governs it, and what invariants apply. Semantic contracts are versioned and governed.
-
-**Semantic Drift**
-> The gradual divergence of data semantics from their intended meaning, typically caused by undocumented changes, embedded logic in pipelines, or lack of governance.
-
 **Assertion Onboarding Review**
-> A governance ritual conducted when a new assertion source is added. Produces approved ingress design and authority mapping.
+> A governance ritual conducted when a new Assertion Source is added. Produces approved ingress design and authority mapping.
 
 **Authority Review**
 > A governance ritual conducted when new facts or relationships are added, or when conflicts emerge. Produces an updated Authority Registry.
@@ -1874,9 +2159,7 @@ For banks navigating regulatory complexity, cross-domain dependencies, and the p
 **Semantic Health Check**
 > A periodic (typically quarterly) governance ritual to detect drift, prioritize backlog, and capture lessons learned.
 
----
-
-### Key Distinctions
+### Quick Reference
 
 | Term | Meaning |
 |------|---------|

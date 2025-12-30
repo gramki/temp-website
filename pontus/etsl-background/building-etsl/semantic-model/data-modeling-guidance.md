@@ -387,37 +387,37 @@ Authority in ETSL represents the enterprise function or mandate empowered to ass
 
 - **What are the tools and techniques used for representing ETSL Semantic model artifacts? How to avoid confusion and conflation between the schema data engineers produce across various layers to that of the Semantic model? Give an example repository of Semantic model artifacts produced in one or other format? How are the ETSL model artifacts going to look different from Ontology artifacts?**
 Ref: [model-representation](./etsl-semantic-model-representation.md)
-Ref: [etsl-vs-ontology](./etsl-vs-ontology.md)
-Ref: [artifacts-ontology-etsl-data](./artifacts__ontology_vs_etsl_semantic_vs_etsl_data.md)
+Ref: [Ontology vs Semantic vs Data Artifacts](../../conceptual/artifacts-ontology-vs-semantic-vs-data.md)
+Ref: [artifacts-ontology-etsl-data](../../conceptual/artifacts-ontology-vs-semantic-vs-data.md)
 
 
 - **How can the semantic model artifacts be translatable into assertions in the data engineering pipelines? Is there a way to enforce the semantic model expectations in DBTs?**
-Ref: [semnatic-model-assertions-for-data-engineers](./etsl_semantic_model_assertion_guidance_for_data_engineers.md)
-Ref: [semantic-model-guidance-for-architects](./etsl_semantic_model_guidance_for_architects.md)
+Ref: [semantic-model-assertions-for-engineers](./etsl-semantic-model-assertion-guidance-for-engineers.md)
+Ref: [semantic-model-guidance-for-architects](./etsl-semantic-model-guidance-for-architects.md)
 
 - **Provide guidance on how to iterate on the models with evolving understanding of the enterprise and with evolution of the enterprise information**
 
 - **There is a lot of insistence on 'Authority'. In practice, what should it represent - system, function, team, person? If authority should be asserted for facts, state, and relationships, how is that accomplished in practice?**
-Ref: [authority-modeling-guidance](./etsl_authority_modeling_guidance_for_architects.md)
+Ref: [authority-modeling-guidance](./etsl-authority-modeling-guidance-for-architects.md)
 
-- Much of the semantic modeling looks to be common for an industry (not just Ontology). If yes, there should be some work done by industry bodies like BIAN capture this common model. Can you list down such attempts and their maturity, relevance for building ETSL for a bank? If there are some mature models, what is the work anticipated from Semantic Model Architect to adapt such models for a specific enterprise/bank? How to avoid inconsitency with such published industry work during evolution of proprietary semantic model.
+- Much of the semantic modeling looks to be common for an industry (not just Ontology). If yes, there should be some work done by industry bodies like BIAN capture this common model. Can you list down such attempts and their maturity, relevance for building ETSL for a bank? If there are some mature models, what is the work anticipated from Semantic Model Architect to adapt such models for a specific enterprise/bank? How to avoid inconsistency with such published industry work during evolution of proprietary semantic model.
 
-Ref: [banking-industry-reference](./etsl_banking_industry_reference_models_for_semantic_modeling.md)
+Ref: [banking-industry-reference](./etsl-banking-industry-reference-models.md)
 
 - We covered ETSL Semantic Artifacts and ETSL Data Artifacts. However, as evident from this discussion, the ETSL Data Artifacts do not represent the consumer-domain-aware and use-case-aware data products. The product managers, architects, and engineers of consumer domains also need some normative guidance on using the ETSL Data Artifacts for creating their products. Let us work on a guidance document for Building Data Products using ETSL Data Artifacts.
 
-Before we proceed with that, we need to align oursleves on terminology of Data Products and its constituents. Share your perspective on this.
+Before we proceed with that, we need to align ourselves on terminology of Data Products and its constituents. Share your perspective on this.
 
-- Compare and constract ETSL with Data Mesh as the architectural reference for discussing data products. Clarify that data of SORs or Operational Systems is not truth by default. ETSL normalizes the truth from SOR assertions.
+- Compare and contrast ETSL with Data Mesh as the architectural reference for discussing data products. Clarify that data of SORs or Operational Systems is not truth by default. ETSL normalizes the truth from SOR assertions.
 “In Data Mesh terms, Systems of Record produce source-aligned data. In ETSL, these are treated as assertions that must be normalized, authority-qualified, and reconciled before becoming enterprise truth.”
 > ingestion in ETSL really means: Controlled intake of assertions into the enterprise truth boundary.
 
 - Data Product Types and the approach to build, publish, and govern.
-If a data product can change without coordinated downstream communication, it is analytical.
+If a Data Product can change without coordinated downstream communication, it is analytical.
 If a change requires consumer notification or versioning, it is consumer-aligned.
 Analytical data products exist to learn.
 Aggregated / consumer-aligned data products exist to act.
 
 “Data Products are built and served by Data Applications. Operational systems that consume Data Products and act on them are Data-Driven Operational Applications. Any assertions produced by such systems re-enter ETSL as authority-qualified, lineage-aware enterprise truth.”
 
-- ETSL Data Artifacts and use in transactional, near-real-time applications? Are events ETSL data artifacts? Is it practical to expect ETSL Data Artifacts fresh enough to serve as source for data prodcuts for transaction application use cases? Is there an alternative semantic required for near-real-time operational data products?
+- ETSL Data Artifacts and use in transactional, near-real-time applications? Are events ETSL data artifacts? Is it practical to expect ETSL Data Artifacts fresh enough to serve as source for Data Products for transaction application use cases? Is there an alternative semantic required for near-real-time operational data products?

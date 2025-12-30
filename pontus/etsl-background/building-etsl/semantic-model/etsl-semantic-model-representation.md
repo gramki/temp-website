@@ -224,7 +224,7 @@ ETSL artifacts must never contain:
 
 **Allowed:**
 ```text
-ETSL semantic artifact → implementation schema
+ETSL Semantic Artifact → implementation schema
 ```
 **Forbidden:**
 ```text

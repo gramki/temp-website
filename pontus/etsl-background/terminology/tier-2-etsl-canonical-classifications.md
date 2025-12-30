@@ -92,8 +92,18 @@ Tier-1 terms MUST remain stable.
 
 **Characteristics**
 - Capture-only
-- No reconciliation or interpretation
+- No reconciliation or semantic interpretation
 - Provenance-preserving
+
+**Clarification: Normalization vs Interpretation**
+
+| Allowed at Ingress | Not Allowed at Ingress |
+|--------------------|------------------------|
+| **Format normalization** (date formats, encoding, structural transformation) | **Semantic interpretation** (reconciliation, authority application, business logic) |
+| **Validation** (schema conformance, required fields) | **Conflict resolution** (choosing between competing assertions) |
+| **Provenance capture** (source, timestamp, authority tagging) | **Truth determination** (deciding what is true) |
+
+Format normalization is mechanical and reversible. Semantic interpretation is governed and constitutes truth-making. Ingress performs the former; ETSL Core Data Applications perform the latter.
 
 ---
 

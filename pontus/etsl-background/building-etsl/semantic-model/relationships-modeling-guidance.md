@@ -1,5 +1,5 @@
 # ETSL Guidance Document  
-## Relationship Modeling for ETSL Modelling Architects
+## Relationship Modeling for ETSL Modeling Architects
 
 ---
 
@@ -8,7 +8,7 @@
 This document provides **authoritative guidance** on **Relationship Modeling** within the Enterprise Truth & Semantics Layer (ETSL).
 
 It is intended for:
-- ETSL Modelling Architects
+- ETSL Modeling Architects
 - Enterprise / Domain Architects
 - Architects responsible for semantic integrity across domains
 
@@ -97,7 +97,7 @@ ETSL answers *“What is true, when, and under whose authority?”*
 
 Enterprise ontology defines the conceptual relationship space of the enterprise — the types of relationships that may exist between classes of entities and their intended meaning. ETSL relationship modeling operates one level lower, asserting concrete, time-bound, and governed relationships between specific entity instances that exist in enterprise reality. Ontology informs what is meaningful; ETSL establishes what is true.
 
-Refer to [etsl-vs-ontology.md](./etsl-vs-ontology.md)
+Refer to [Ontology vs Semantic vs Data Artifacts](../../conceptual/artifacts-ontology-vs-semantic-vs-data.md)
 
 ---
 

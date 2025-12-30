@@ -25,6 +25,8 @@ For engineers:
 
 > **State is a deterministic, validated result derived from facts, suitable for operational use.**
 
+> **Relationship to Tier-1 Definition:** This definition elaborates the Tier-1 canonical definition of State ("a derived, point-in-time representation of an entity produced by reconciling relevant facts and relationships under ETSL rules") for an **engineering audience**. It emphasizes determinism, validation, and recomputability—the aspects engineers must implement. The Tier-1 definition remains authoritative; this document provides the engineering perspective.
+
 State is:
 - Computed
 - Versioned

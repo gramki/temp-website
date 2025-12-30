@@ -111,7 +111,7 @@ Model drift analysis	Hard	Easier via lineage
 
 Key takeaway
 
-ETSL treats feature engineering as a transforming data application, not a truth source.
+ETSL treats feature engineering as a Transforming Data Application, not a truth source.
 Features can be promoted to consumer-aligned products — but never to enterprise truth.
 
 ⸻
@@ -143,7 +143,7 @@ Streaming becomes a transport mechanism, not a semantic shortcut.
 
 Common approach
 	•	Expose data via APIs
-	•	API contracts become the data product
+	•	API contracts become the Data Product
 	•	Backend semantics hidden
 
 ETSL’s position

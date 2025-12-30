@@ -124,7 +124,7 @@ This translation must be **mechanical and one-way**.
 
 ### 5.1 What Gets Generated
 
-From the semantic artifact, engineers (via tooling) generate:
+From the Semantic Artifact, engineers (via tooling) generate:
 
 - dbt model contracts
 - dbt schema tests
@@ -183,7 +183,7 @@ ETSL Semantic Artifact → Compiler → Pipeline Assertions
 
 Reverse dependency is forbidden.
 
-If a test fails because semantics changed, the semantic artifact must be updated first.
+If a test fails because semantics changed, the Semantic Artifact must be updated first.
 
 ---
 
@@ -296,7 +296,7 @@ If unsure, stop and escalate.
 
 ## 12. Next Steps You May Want
 
-- Create a semantic artifact repository
+- Create a Semantic Artifact repository
 - Stand up a basic semantic compiler
 - Add semantic checks to CI
 - Formalize architect–engineer rituals

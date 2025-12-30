@@ -224,7 +224,7 @@ This is the irreducible ETSL value-add.
 
 ### 5.4 Maintain Explicit Traceability
 
-Every ETSL semantic artifact should declare:
+Every ETSL Semantic Artifact should declare:
 - Upstream anchor (if any)
 - Version of the upstream model
 - Nature of relationship:

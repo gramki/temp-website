@@ -63,7 +63,7 @@ ETSL governance applies to all layers *above* ingestion, controlling how data fl
 #### 1. Source-Aligned Ingestion Stores *(Pre-ETSL, but ETSL-aware)*
 
 **Purpose:**  
-- Capture data from Systems of Record (SoR)
+- Capture data from Systems of Record (SOR)
 - Preserve original fidelity and lineage
 
 **Physical Forms:**  
@@ -117,7 +117,7 @@ ETSL governance applies to all layers *above* ingestion, controlling how data fl
 - Versioned, temporal
 - Explicit authority (ownership of truth is clear)
 
-*This is NOT a replacement for operational SoRs—it's the enterprise's truth, reconstructed.*
+*This is NOT a replacement for operational SORs—it's the enterprise's truth, reconstructed.*
 
 ---
 
@@ -195,9 +195,9 @@ Add a dedicated section on ETSL as physical data architecture, and integrate an 
 
 **In later sections, thread ETSL-to-storage mappings:**
 - Banking entities → Event + State tables
-- Quark outputs → Projection stores
-- Neutrino decisions → Event ledger
-- Ibuki memory → ETSL-derived context
+- Analytical outputs → Projection stores
+- Automated decisions → Event ledger
+- Agent/AI context → ETSL-derived context
 
 ---
 

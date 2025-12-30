@@ -31,6 +31,8 @@ An **Event** is a *temporal occurrence* that represents **what happened**, expla
 
 > Events explain **how reality changed**.
 
+> **Clarification:** An Event is an **assertion** in the ETSL realm. Like all ETSL assertions, it must carry source, authority, and time. Events are not external system logs or application telemetry—they are governed semantic constructs subject to ETSL's authority and lineage requirements.
+
 ---
 
 ## 3. The Fundamental Distinction
@@ -41,11 +43,13 @@ An **Event** is a *temporal occurrence* that represents **what happened**, expla
 | Nature | Declarative | Narrative |
 | Semantic role | Truth | Explanation |
 | Time semantics | Effective time | Occurrence time |
-| Authority | Explicit | Implicit (emitter) |
+| Authority | Explicit (asserted) | Explicit (derived or induced) |
 | Mutability | Immutable | Immutable |
 
 **Key rule:**  
 > **Events cause facts. Facts define reality.**
+
+> **Note on Authority:** Both Facts and Events are ETSL artifacts and must have authority attributed. For Facts, authority is explicitly asserted. For Events, authority is derived or induced from the event context (see Section 8). Source (who emitted) is distinct from authority (who has the mandate).
 
 ---
 
@@ -169,18 +173,42 @@ An event must:
 
 ## 8. Authority and Governance
 
+Both Facts and Events are ETSL artifacts and **must have authority attributed**. However, the nature and derivation of authority differs.
+
 ### Fact Authority
-- Explicit
-- Often business- or policy-owned
+- **Explicitly asserted** at the time of assertion
+- Business- or policy-owned
 - Stable over time
+- Directly modeled in the Authority Registry
 
 ### Event Authority
-- Emission-based (system, user, process)
-- Contextual
-- Often technical
+- **Derived or induced** from event context
+- Authority is determined from the event's domain, type, or originating function
+- May be derived from the Assertion Source's registered authority
+- Still explicit once derived—not optional or implicit
 
-**Implication**
-> Facts require stricter governance than events.
+### Source vs Authority (Critical Distinction)
+
+| Concept | Definition | Example |
+|---------|------------|---------|
+| **Source** | The system, application, or process that emitted the event | Core Banking System |
+| **Authority** | The enterprise function with the mandate to assert this type of truth | Account Operations |
+
+Source and authority are **not the same**. A single source may emit events on behalf of multiple authorities. Authority must be explicitly resolved, not inferred from source alone.
+
+### Derivation Patterns for Event Authority
+
+| Pattern | Description | When to Use |
+|---------|-------------|-------------|
+| **Source-registered** | Source is registered in Authority Registry with explicit authority mappings | Well-governed, stable sources |
+| **Event-type-based** | Authority is determined by event type (e.g., all `CreditLimitChanged` events → Credit Policy authority) | When event types map cleanly to functional authority |
+| **Domain-induced** | Authority is induced from the domain that owns the event stream | Domain-aligned architectures |
+
+Regardless of derivation method, the resulting authority must be **explicit and auditable**.
+
+### Governance Implication
+
+> Both Facts and Events require authority governance. Facts typically have stricter assertion-time governance; Events require clear derivation rules that are governed at design time.
 
 ---
 
