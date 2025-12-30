@@ -1,0 +1,71 @@
+
+II. Memory as Infrastructure
+(Persistence of knowledge, rationale, and context)
+
+1. Legal discovery & retention pressures
+
+Enterprises are now required to retain:
+	•	Decision rationales
+	•	Model versions
+	•	Data used at time of decision
+
+Under:
+	•	GDPR Art. 22 (automated decision-making)
+	•	SEC record-keeping rules (expanded 2023–24)
+	•	FINRA 4511 updates
+
+This is memory with legal semantics, not logs or data lakes
+
+If a firm cannot reconstruct why a decision was made, it is increasingly treated as non-compliant.
+
+⸻
+
+2. Emergence of “Decision Logs” and “Audit Replay”
+In regulated enterprises:
+	•	Decisions must be replayable
+	•	Context must be preserved (data + rules + overrides)
+
+This is why:
+	•	Event sourcing is resurging
+	•	Immutable ledgers are being used for decisions, not money
+
+This is memory as a regulated artifact.
+
+⸻
+
+3. Knowledge continuity evidence (enterprise pain)
+
+Gartner reports that:
+	•	Knowledge loss due to attrition is now a top-5 operational risk
+	•	Enterprises are investing in institutional memory systems, not just KM portals
+
+This is driven by:
+	•	Retiring workforce
+	•	Distributed decision-making
+	•	Regulator demand for continuity
+
+
+
+This is creating **personal risk for executives** — which accelerates institutional change faster than tech enthusiasm ever could.
+
+2. Agent Sprawl Is the New Microservices Sprawl
+
+You already recognize microservice entropy. Agent entropy will be worse.
+
+What’s emerging
+	•	Hundreds of semi-autonomous agents:
+	•	Different memory scopes
+	•	Different tool permissions
+	•	Different reasoning policies
+	•	Debugging becomes epistemic (“why did it believe this?”)
+
+What’s usually missing
+	•	A “Cognitive Control Plane”
+	•	Agent identity
+	•	Memory boundaries
+	•	Reasoning policy versioning
+	•	Kill-switches and rollback
+
+Prediction
+
+Banks will soon mandate Agent Change Management similar to Model Risk Management (MRM).

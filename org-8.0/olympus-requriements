@@ -1,0 +1,83 @@
+
+Studio Business Requirements
+
+- Studio Customers should be able to onboard their own SaaS products and publish them to the Olympus SaaS Marketplace
+- Studio Customers should be able to bring their own SRE teams and manage their own SaaS products
+- Cost Accounting for SaaS Products
+
+
+Estate for Organizations
+- Publisher Orgs
+- SRE Orgs
+- CSP Accounts and Inventory
+- Spaces
+- SaaS Deployments
+- Tenant Subscriptions
+---
+- Estate Onboarding
+- Estate Observability
+- Estate Governance
+- Estate Billing
+
+SaaS-Scoped Operation Tools
+- Teams Integration
+- Hippo Knowledgebase
+- JSM
+- OpsGenie
+- JeMru (Probes)
+- ZDD Git Repo changes to use sub-module for SaaS Deployment Descriptors
+- SaaS and Cluster Metrics Dashboards
+- Customer Service Navigator
+- Component Navigator
+- Tenant Navigator
+
+Olympus Home
+- Tenant's Zone Control Center
+- Tenant's SaaS Deployment Control Center
+
+SaaS Product Data
+- Metrics and Analytics
+- Monitoring and Alerting
+- Logging and Tracing
+- Security and Compliance
+- Resources Usage and Cost Accounting
+- Performance and Availability
+- Error and Incident Tracking
+
+SaaS-scoped Operation Processes
+- Onboarding
+- Publishing 
+- Deployment & Rollout Management
+- Tenant Subscription Management
+- Traffic & Access Management
+- Monitoring and Alert Management
+- Change Management
+- Incident Management
+- Configuration Management
+- Problem Management
+- Capacity Management
+- Performance Management
+- Security Management
+- Compliance Management
+- Disaster Recovery Management
+- Business Continuity Management
+
+
+Multiple SaaS SRE Orgs
+Onboarding a SaaS Publisher
+Onboarding of a SaaS Product and Publishing Pipeline Specification
+
+
+Single Cluster SaaS Publishing for Developer
+Single Cluster SaaS Deployment Steps for SRE
+Single Cluster SaaS Deployment Run Manual for SRE
+
+SaaS Deployment and Tenant Subscription Updates Automation
+
+Resource and Cost Accounting for SaaS Products
+
+Enabling Access and Authentication for SRE Teams
+- Tenant Pass 
+- World Pass
+
+

@@ -1,0 +1,23 @@
+# 17. Glossary & Definitions
+
+- **FFOS**: Family Financial Operating System; bank-resident platform treating households as primary financial entities.
+- **Family Graph**: Relationship graph capturing members, roles, delegations, and authority edges with temporal metadata.
+- **Core Memory**: Historical data store of financial transactions, obligations, and lifecycle events.
+- **Graph Memory**: Versioned record of family relationships, permissions, and governance evolution.
+- **Feature Store**: Derived signal repository (cashflow, behavioral, risk indicators) consumed by agents with lineage tracking.
+- **Household State Vector**: Aggregated data package representing current financial, risk, and governance posture for a family.
+- **Agent**: Modular service (think, do, orchestrator, governance, concierge) operating under consent and guardrail policies via IPC/IAC.
+- **Think Agent**: Advisory agent producing recommendations with explainability payloads and policy tags.
+- **Do Agent**: Execution agent performing atomic actions (payments, transfers, document submissions) with guardrail checks.
+- **Orchestrator Agent**: Agent coordinating multi-step workflows, persisting state, and invoking other agents via IPC topics.
+- **Governance Agent**: Control service enforcing policies, approvals, escalations, and audit logging.
+- **Concierge Experience Agent**: Channel-facing agent curating household dashboards, tasks, and next-best actions per persona.
+- **Foundation Agent**: System intelligence daemon producing authoritative household state vectors (cashflow, goals, risk, telemetry).
+- **IPC/IAC**: Inter-process/inter-agent communication fabric enabling secure messaging patterns across agents.
+- **External I/O Layer**: Channel abstraction delivering notifications, prompts, approvals, and inbound inputs across mobile, web, chat, voice, and RM tools.
+- **Obligation**: Detected recurring or scheduled financial commitment tied to responsible members and oversight rules.
+- **Workflow Scheduler**: Service orchestrating multi-step processes with idempotent primitives, escalation hooks, and audit capture.
+- **Consent Artifact**: Structured record detailing scope, subject, duration, policy references, and evidence of authorization.
+- **Guardrail Service**: Security layer evaluating policy, thresholds, behavioural analytics, and consent before execution.
+- **Channel Adapter**: Interface service that localizes FFOS interactions for specific channels while maintaining unified contracts.
+- **Feature Pipeline**: Streaming/batch computation producing derived signals for the feature store with governance metadata.
