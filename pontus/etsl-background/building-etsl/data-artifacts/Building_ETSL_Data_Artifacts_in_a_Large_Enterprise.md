@@ -4,6 +4,43 @@
 
 ---
 
+## Table of Contents
+
+### Foundations
+- [1. Purpose and Audience](#1-purpose-and-audience)
+- [2. Positioning ETSL Data Artifacts in the Enterprise Journey](#2-positioning-etsl-data-artifacts-in-the-enterprise-journey)
+- [3. Reality Check: The Starting Point in Large Banks](#3-reality-check-the-starting-point-in-large-banks)
+- [4. Clarifying the Target: What an ETSL Data Artifact Is (and Is Not)](#4-clarifying-the-target-what-an-etsl-data-artifact-is-and-is-not)
+- [5. Terminology for the Transition Phase (Normative)](#5-terminology-for-the-transition-phase-normative)
+
+### Scoping and Mapping
+- [6. Identifying the First ETSL Use Cases](#6-identifying-the-first-etsl-use-cases)
+- [7. Mapping the Existing Data Estate to ETSL Concepts](#7-mapping-the-existing-data-estate-to-etsl-concepts)
+- [8. Designing the ETSL Ingress Layer](#8-designing-the-etsl-ingress-layer)
+
+### Authority and Reconciliation
+- [9. Authority Modeling in Practice](#9-authority-modeling-in-practice)
+- [10. Reconciliation and Normalization Patterns](#10-reconciliation-and-normalization-patterns)
+
+### Building and Operating
+- [11. Producing the First ETSL Data Artifacts](#11-producing-the-first-etsl-data-artifacts)
+- [12. Validating ETSL Data Artifacts](#12-validating-etsl-data-artifacts)
+- [13. Operating Model During Early ETSL Adoption](#13-operating-model-during-early-etsl-adoption)
+
+### Scaling and Avoiding Pitfalls
+- [14. Co-existence with Existing Data Products](#14-co-existence-with-existing-data-products)
+- [15. Anti-Patterns to Avoid Early](#15-anti-patterns-to-avoid-early)
+- [16. Roadmap to Broader Adoption](#16-roadmap-to-broader-adoption)
+
+### Enabling Data Products
+- [17. How This Enables Data Product Engineering](#17-how-this-enables-data-product-engineering)
+- [18. Summary Principles](#18-summary-principles)
+
+### Reference
+- [Glossary](#glossary)
+
+---
+
 ## 1. Purpose and Audience
 
 ### Purpose
@@ -705,6 +742,67 @@ authorities:
 - Some authorities have conditional or contextual override rights
 - All of this is explicit and governed—not hidden in code
 
+### Worked Example: Risk and Operations Both Assert Valid Truths
+
+A customer with a $15,000 credit limit requests a temporary increase to $25,000 for a planned large purchase. Retail Operations approves the request and records the new limit in the operations system. Meanwhile, Credit Risk has not changed their assessed limit—they still consider $15,000 appropriate based on the customer's risk profile.
+
+**What each authority asserts:**
+
+*Credit Risk Management* asserts:
+- Fact: CreditLimit = $15,000
+- Effective from: 2024-01-01
+- Basis: Risk assessment, income verification, credit score
+
+*Retail Operations* asserts:
+- Fact: CreditLimit = $25,000
+- Effective from: 2024-06-01
+- Effective to: 2024-07-01 (30-day temporary increase)
+- Basis: Customer request, relationship manager approval
+
+**Why both assertions are valid:**
+
+Both assertions are legitimate exercises of authority:
+- Credit Risk is empowered to set risk-based limits
+- Retail Operations is empowered to grant temporary increases within policy bounds
+
+Neither assertion is "wrong." They represent different aspects of enterprise reality:
+- The risk-assessed limit (what Risk believes is appropriate)
+- The operational limit (what the customer can actually use right now)
+
+**How ETSL records both without forcing convergence:**
+
+ETSL captures both assertions as facts:
+
+```
+Fact F1:
+  subject: Account A-123
+  predicate: CreditLimit
+  value: 15000
+  effective_from: 2024-01-01
+  authority: CreditRiskManagement
+
+Fact F2:
+  subject: Account A-123
+  predicate: CreditLimit
+  value: 25000
+  effective_from: 2024-06-01
+  effective_to: 2024-07-01
+  authority: RetailOperations
+  relationship_to_F1: temporary_override
+```
+
+Current state derivation applies precedence rules:
+- During June 2024: Operational limit ($25,000) is current (temporary override active)
+- After July 2024: Risk limit ($15,000) becomes current again (override expired)
+
+Both facts remain in ETSL. Neither is deleted or "corrected." The relationship between them is explicit.
+
+This approach:
+- Preserves the full audit trail
+- Allows "as-of" queries at any point in time
+- Makes authority visible to regulators and auditors
+- Does not require Risk and Operations to agree on a single number
+
 ### Building the Authority Registry Incrementally
 
 For early ETSL adoption:
@@ -775,6 +873,45 @@ If account is in delinquency context:
   → Collections authority takes precedence over RetailOperations
   → Context must be explicitly modeled, not inferred
 ```
+
+### A Story of Reconciliation: Account Ownership Through Time
+
+The following narrative illustrates how ETSL reconciliation works in practice, following a single account through a sequence of real events.
+
+**January 15:** Maria opens a savings account at the bank. The core banking system records Maria as the sole owner. ETSL captures this as an ownership assertion from Retail Operations, effective January 15.
+
+**March 1:** Maria adds her husband Carlos as a joint owner. The operations system records the joint ownership. ETSL captures a new assertion: Carlos now co-owns the account, effective March 1. Maria's original ownership assertion remains—it is not overwritten.
+
+**June 10:** Maria passes away. The estate processing system records Maria's death and initiates ownership transfer. ETSL captures an assertion from Estate Operations: Maria's ownership ends effective June 10. Carlos remains as owner.
+
+**July 5:** A dispute arises. Carlos's attorney claims the joint ownership was never properly documented. The legal department issues a hold. ETSL captures an assertion from Legal: ownership status is "disputed," effective July 5. This is an override—it does not delete prior assertions, but it changes what the enterprise treats as current truth for operational purposes.
+
+**August 20:** The dispute is resolved in Carlos's favor. Legal lifts the hold. ETSL captures an assertion: dispute resolved, Carlos confirmed as sole owner, effective August 20.
+
+**What ETSL now contains:**
+
+All five assertions are preserved:
+1. Maria opens account (Retail Operations, Jan 15)
+2. Carlos added as joint owner (Retail Operations, Mar 1)
+3. Maria's ownership ends (Estate Operations, Jun 10)
+4. Ownership disputed (Legal, Jul 5)
+5. Dispute resolved, Carlos confirmed (Legal, Aug 20)
+
+**What current state shows:**
+
+As of today, ETSL derives that Carlos is the sole owner. But any historical query can be answered:
+- "Who owned this account on February 1?" → Maria (sole owner)
+- "Who owned this account on April 1?" → Maria and Carlos (joint owners)
+- "Who owned this account on July 10?" → Disputed (Legal hold active)
+- "Who owned this account on September 1?" → Carlos (sole owner, confirmed)
+
+**Why this matters:**
+
+A regulator asks: "Explain the ownership history of this account." The bank can answer immediately, with full authority attribution and temporal precision—without replaying transactions or consulting multiple systems.
+
+This is what ETSL reconciliation enables: **truth over time, with accountability at every step.**
+
+---
 
 ### Worked Example: Multi-Authority Credit Limit Reconciliation
 
@@ -899,6 +1036,56 @@ ETSL adoption follows a predictable rhythm. Here is what realistic progress look
 
 Start with lower-complexity artifacts to build confidence and momentum.
 
+### Good v1 vs Over-Ambitious: A Credit Limit Example
+
+**The Over-Ambitious Approach**
+
+A team decides their first ETSL artifact will be "Enterprise Credit Exposure." They scope it to include:
+- Credit limits across all products (cards, loans, lines of credit, overdrafts)
+- Utilized amounts and available credit
+- Limit adjustments from all sources (underwriting, risk, operations, collections, fraud)
+- Aggregated exposure at party, household, and corporate hierarchy levels
+- Real-time and batch reconciliation
+- Integration with five different source systems
+
+After three months, the team has:
+- Incomplete ingress from two of five systems
+- Ongoing disputes about authority between Risk and Operations
+- No consuming initiative willing to commit to the unstable artifact
+- Growing skepticism from stakeholders about ETSL's value
+
+The artifact is technically impressive but semantically incomplete. It cannot be trusted.
+
+**The Good v1 Approach**
+
+A different team decides their first ETSL artifact will be "Credit Card Limit Fact." They scope it to include:
+- Credit limit for card accounts only
+- Limit assertions from two sources: Underwriting (initial) and Risk Review (adjustments)
+- Authority modeled for these two sources only
+- Effective dates for each assertion
+- Simple precedence rule: Risk Review supersedes Underwriting
+
+After three months, the team has:
+- Complete ingress from both sources
+- A working Authority Registry with two entries
+- One consuming initiative (fraud detection) actively using the artifact
+- Documented reconciliation logic
+- Confidence from stakeholders that ETSL works
+
+The artifact is narrow but correct. It can be trusted—and extended.
+
+**The Difference**
+
+| Dimension | Over-Ambitious | Good v1 |
+|-----------|----------------|---------|
+| Scope | All credit products | One product type |
+| Sources | Five systems | Two systems |
+| Authority | Disputed | Clear and documented |
+| Consumer | None committed | One active user |
+| Trust | Low (incomplete) | High (correct) |
+
+**Lesson:** A narrow, correct artifact that is actually used is worth far more than an ambitious artifact that is never finished. Scope for correctness, not coverage.
+
 ### What "Done" Looks Like for v1
 
 A v1 ETSL Data Artifact is "done" when:
@@ -1009,6 +1196,42 @@ The core team does not own all ETSL work—it owns the **semantic contracts and 
 | ETSL Data Engineer | Ingress, normalization, state derivation pipelines | Semantic definitions |
 | Domain Architect | Domain-specific authority, source-aligned products | Cross-domain reconciliation |
 | Domain Engineer | Ingress adapters, domain product maintenance | ETSL core infrastructure |
+
+### Typical Tensions and How Rituals Resolve Them
+
+ETSL adoption creates predictable friction between roles. Understanding these tensions—and designing rituals to address them—prevents escalation and builds trust.
+
+**Tension 1: Central Architects vs Domain Teams**
+
+*What happens:* ETSL architects define semantic contracts that domain teams find impractical. Domain teams feel dictated to; architects feel ignored.
+
+*Root cause:* Architects may not understand domain constraints. Domains may not understand cross-domain requirements.
+
+*How rituals help:* The **Assertion Onboarding Review** brings both parties together before implementation. Domain architects explain their constraints; ETSL architects explain cross-domain needs. Compromises are negotiated, not imposed.
+
+**Tension 2: ETSL Architects vs Data Engineers**
+
+*What happens:* Architects define semantic rules that engineers find impossible to enforce in pipelines. Engineers implement workarounds that drift from semantic intent.
+
+*Root cause:* Semantic contracts may be too abstract. Engineers may lack visibility into why rules exist.
+
+*How rituals help:* The **Reconciliation Review** includes both roles. Engineers surface enforcement challenges; architects clarify intent or adjust rules. The result is a semantic contract that can actually be implemented.
+
+**Tension 3: Domain Teams vs Central Governance**
+
+*What happens:* Domain teams see ETSL as "central IT" imposing overhead. They build shadow paths or delay engagement.
+
+*Root cause:* ETSL is perceived as a gate, not a service. Governance feels bureaucratic rather than helpful.
+
+*How rituals help:* Keeping rituals **lightweight and proportional** (hours, not weeks) prevents the perception of bureaucracy. The **Semantic Health Check** is quarterly, not weekly—enough to catch drift without constant overhead.
+
+**Tension 4: Speed vs Correctness**
+
+*What happens:* Teams under delivery pressure want to ship quickly. ETSL insists on authority modeling and validation. Friction results.
+
+*Root cause:* Short-term delivery incentives conflict with long-term semantic stability.
+
+*How rituals help:* By making governance **explicit and predictable**, teams can plan for it. The overhead is known upfront, not discovered as a surprise gate. And the v1 "narrow and correct" philosophy (see Section 11) gives teams a path to early delivery without compromising integrity.
 
 ### Required Rituals
 
@@ -1369,6 +1592,44 @@ Maturity
          M1-3        M4-6        M6-12        M12+
 ```
 
+### The Journey: Outcomes, Confidence, and Mindset
+
+Beyond timelines and activities, ETSL adoption involves a shift in how teams think about enterprise data. Each phase represents a different mindset.
+
+**Phase 1: Proving (Early)**
+
+*Outcome:* One or two ETSL Data Artifacts exist and are being used.
+
+*Confidence level:* Cautious optimism. The team believes the pattern works but hasn't proven it at scale.
+
+*Mindset:* "We are learning what ETSL means in our context." Teams accept that early artifacts may need revision. Mistakes are expected and used for learning. The goal is correctness, not coverage.
+
+*What success feels like:* A cross-domain consumer says, "This is exactly what we needed—we didn't have to reconcile it ourselves."
+
+---
+
+**Phase 2: Stabilizing (Growing)**
+
+*Outcome:* Multiple consumers rely on ETSL artifacts. Authority and reconciliation patterns are documented and repeatable.
+
+*Confidence level:* Growing trust. Teams begin to rely on ETSL artifacts instead of building their own reconciliation.
+
+*Mindset:* "We are building reusable truth." The focus shifts from proving the concept to hardening it. Governance rituals become routine. Engineers stop asking "why do we need ETSL?" and start asking "how do we extend it?"
+
+*What success feels like:* A new initiative asks, "Can we use the Party artifact you already built?" instead of starting from scratch.
+
+---
+
+**Phase 3: Enabling (Mature)**
+
+*Outcome:* ETSL is the default truth substrate for data product development. Semantic contracts are enforced in CI/CD. Domains voluntarily align.
+
+*Confidence level:* High trust. Teams assume ETSL artifacts are correct and authoritative. Exceptions are rare and investigated.
+
+*Mindset:* "We build on truth, not on hope." Data products are built faster because foundational reconciliation is already done. The ETSL team shifts from building artifacts to enabling others. Governance is lightweight because semantic discipline is internalized.
+
+*What success feels like:* An auditor asks for the ownership history of an account. The answer is available in seconds, with full authority attribution, without involving any engineer.
+
 ### Key Insight
 
 > **Alignment happens by gravity, not force.**
@@ -1476,5 +1737,162 @@ The following principles are non-negotiable for ETSL adoption. They should guide
 > It provides a semantic anchor for the truths that matter most.**
 
 For banks navigating regulatory complexity, cross-domain dependencies, and the pressure to adopt AI and automation safely, ETSL offers a path to **enterprise truth without enterprise upheaval**.
+
+---
+
+## Glossary
+
+### Core ETSL Concepts
+
+**ETSL (Enterprise Truth & Semantics Layer)**
+> A semantic and authority layer that defines enterprise truth across multiple data systems. ETSL is not a single database but a contract governing the boundaries and meanings of each storage layer.
+
+**ETSL Semantic Artifact**
+> A normative semantic contract that defines what kinds of truths may be asserted, what relationships may be asserted as facts, and what authority, integrity, and temporal rules govern those assertions. Semantic artifacts are prescriptive, not descriptive.
+
+**ETSL Data Artifact**
+> A concrete realization of ETSL semantics in data systems—fact records, event records, state tables, relationship instances, or materialized views derived from ETSL truth. Data artifacts represent what is actually recorded, stored, and operated on.
+
+**Ontology Artifact**
+> A conceptual modeling artifact that defines entity types, relationship types, and vocabulary. Ontology artifacts describe meaning and possibility; they do not define operational truth. Ontology informs ETSL; ETSL enforces.
+
+---
+
+### Assertion and Ingress
+
+**Assertion**
+> A semantically typed claim that something occurred or was established, at a point in time, by some authority. Assertions are the atomic unit of truth in ETSL.
+
+**Assertion Source**
+> A system, domain data product, or external feed that emits claims about enterprise reality. Assertion sources are not truth by default—they emit candidates for reconciliation.
+
+**Candidate Assertion**
+> A claim captured from an assertion source, prior to normalization or reconciliation. Preserves original form and provenance; not yet authority-qualified.
+
+**Normalized Assertion**
+> A candidate assertion transformed to align with ETSL semantic contracts. Mapped to ETSL semantic types, carries attached authority, and is ready for reconciliation.
+
+**Derived Assertion**
+> An assertion produced as a result of decisions, computations, or reconciliation—not directly emitted by an assertion source. Must carry lineage to source assertions.
+
+**ETSL Ingress Boundary**
+> The controlled intake surface where assertions enter the ETSL domain. Responsible for capture, provenance attachment, authority tagging, and normalization. Does not perform reconciliation or business decisions.
+
+---
+
+### Authority
+
+**Authority**
+> The enterprise function empowered to assert, override, or revoke a class of truth. Authority is organizational and functional—not a system, person, or team name. Authority is stable, auditable, and delegable.
+
+**Authority Registry**
+> An explicit, governed mapping of entity types, fact types, and relationships to the enterprise functions empowered to assert them. The registry is semantic, not an IAM or RBAC system.
+
+**Authority Precedence**
+> The rule that determines which authority's assertion prevails when multiple authorities assert the same fact. Precedence is explicit and governed.
+
+**Override**
+> An assertion that explicitly supersedes another assertion, typically from a different authority or in a specific context (e.g., delinquency, fraud). Overrides carry lineage to what they override.
+
+---
+
+### Facts, Events, and State
+
+**Fact**
+> A semantically asserted truth about the enterprise, valid from a point in time, and attributable to an explicit authority. Facts define what is (or became) true in enterprise reality. Facts are append-only.
+
+**Event**
+> A temporal occurrence that represents what happened, explaining why or how one or more facts came into existence or changed. Events explain causality; facts establish truth.
+
+**State**
+> The authoritative, point-in-time realization of an enterprise entity, derived from facts and constrained by explicit invariants. State encodes integrity and is operationally usable, auditable, and defensible.
+
+**Invariant**
+> A condition that must always hold for an entity's state to be valid. Invariants are evaluated on state, explicitly documented, and non-negotiable.
+
+---
+
+### Relationships
+
+**Relationship**
+> A semantically typed, time-bound, and governed association between two or more enterprise entities. Relationships are first-class citizens in ETSL—explicit, temporal, directional, and governed.
+
+**Relationship Type**
+> A meaningful, specific type of relationship (e.g., OWNS, GOVERNS, AUTHORIZES). Generic types like "related_to" are anti-patterns.
+
+---
+
+### Reconciliation
+
+**Reconciliation**
+> The semantic rules that determine which assertions prevail when conflicts exist. Reconciliation is based on authority precedence, temporal validity, or explicit override rules. It must be deterministic, auditable, and governed.
+
+**Reconciliation Logic**
+> The explicit, governed rules that resolve conflicts between assertions. Part of the ETSL semantic contract, not hidden in pipeline code.
+
+**Normalization**
+> The transformation of candidate assertions to align with ETSL vocabulary and semantic types. Normalization is structural, not semantic—it does not resolve conflicts.
+
+---
+
+### Data Products and Applications
+
+**Data Product**
+> A consumer-facing, use-case-specific interpretation of data. Data products may aggregate, filter, or reshape truth for specific use cases. They consume ETSL truth but do not redefine it.
+
+**Source-Aligned Data Product**
+> A data product published by a domain team, aligned to the semantics of the originating system. ETSL may consume source-aligned data products as assertion sources.
+
+**Data Application**
+> A system that builds and serves data products. Data applications consume ETSL Data Artifacts and produce consumer-facing outputs.
+
+**Transforming Data Application**
+> A data application that consumes ETSL truth and produces derived products (aggregates, projections, features).
+
+**Data-Driven Operational Application**
+> An operational system that acts on ETSL state and may produce new assertions that re-enter ETSL as authority-qualified, lineage-aware enterprise truth.
+
+---
+
+### Governance and Operations
+
+**Semantic Contract**
+> The explicit specification of what may be asserted, how it must be structured, what authority governs it, and what invariants apply. Semantic contracts are versioned and governed.
+
+**Semantic Drift**
+> The gradual divergence of data semantics from their intended meaning, typically caused by undocumented changes, embedded logic in pipelines, or lack of governance.
+
+**Assertion Onboarding Review**
+> A governance ritual conducted when a new assertion source is added. Produces approved ingress design and authority mapping.
+
+**Authority Review**
+> A governance ritual conducted when new facts or relationships are added, or when conflicts emerge. Produces an updated Authority Registry.
+
+**Reconciliation Review**
+> A governance ritual conducted when new reconciliation rules are proposed or unexpected conflicts surface. Produces documented reconciliation logic.
+
+**Semantic Health Check**
+> A periodic (typically quarterly) governance ritual to detect drift, prioritize backlog, and capture lessons learned.
+
+---
+
+### Key Distinctions
+
+| Term | Meaning |
+|------|---------|
+| **Ontology** | Defines meaning and possibility |
+| **ETSL Semantic Artifact** | Defines what may be asserted as true |
+| **ETSL Data Artifact** | Records what is true |
+| **Fact** | What is true |
+| **Event** | What happened |
+| **State** | Current truth, derived from facts |
+| **Assertion Source** | Emits claims |
+| **Authority** | Empowered to assert |
+| **Reconciliation** | Resolves conflicts |
+| **Data Product** | Interprets truth for consumers |
+
+---
+
+*End of Document*
 
 ---

@@ -15,6 +15,10 @@ Target Buyer
 - CIO of Regional Bank 
 - CIO of medium to large sized enterprises
 
+Key Challenges
+- How to integrate but differentiate from Azure and Google
+- How to demonstrate value over Accentures and the like
+
 ## Infrastructure
 - Agent IAM: Customer and Agents IAM
 - Agent Studio:  Build Agents

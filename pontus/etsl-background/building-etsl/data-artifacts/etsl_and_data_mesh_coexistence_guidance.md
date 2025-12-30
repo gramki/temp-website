@@ -245,7 +245,7 @@ Correct framing:
 ## 13. Final Position
 
 > **Data Mesh answers: “Who owns data?”  
-ETSL answers: “What is considered true?”**
+> ETSL answers: “What is considered true?”**
 
 Large enterprises need both.
 

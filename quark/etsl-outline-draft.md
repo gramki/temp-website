@@ -129,32 +129,20 @@ This paper traces the historical evolution of enterprise data architectures, dis
 
 ⸻
 
-12. ETSL and Zeta Product Lines
 
-> [Ignore this section]
+12. Implications for CIOs and Chief Architects
 
-12.1 Quark: Data Products and ETSL-Aligned Projections
-12.2 Neutrino: Decisioning, Inference, and Semantic Events
-12.3 Ibuki: Agent-Native Consumption of Enterprise Truth
-12.4 Originated Data from Zeta Products as Enterprise Facts
-12.5 Avoiding Semantic Leakage Across Product Boundaries
-12.6 ETSL as the Shared Backbone Across Zeta Deployments
+12.1 Shifting Investment from Pipelines to Semantics
+12.2 Organizational and Governance Implications
+12.3 Measuring ETSL Maturity and Success
+12.4 Readiness for AI, Agents, and Autonomous Operations
+12.5 ETSL as Strategic Infrastructure, Not a Data Initiative
 
 ⸻
 
-13. Implications for CIOs and Chief Architects
+13. Conclusion: From Data Accumulation to Enterprise Truth
 
-13.1 Shifting Investment from Pipelines to Semantics
-13.2 Organizational and Governance Implications
-13.3 Measuring ETSL Maturity and Success
-13.4 Readiness for AI, Agents, and Autonomous Operations
-13.5 ETSL as Strategic Infrastructure, Not a Data Initiative
-
-⸻
-
-14. Conclusion: From Data Accumulation to Enterprise Truth
-
-14.1 Why ETSL Is Inevitable at Scale
-14.2 What Changes—and What Endures
-14.3 A Practical Adoption Roadmap for Banks
-14.4 ETSL as the Foundation for Next-Generation Banking Platforms
+13.1 Why ETSL Is Inevitable at Scale
+13.2 What Changes—and What Endures
+13.3 A Practical Adoption Roadmap for Banks
+13.4 ETSL as the Foundation for Next-Generation Banking Platforms
