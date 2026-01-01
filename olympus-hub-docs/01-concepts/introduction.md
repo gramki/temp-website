@@ -80,13 +80,13 @@ Our ontology reveals that all business activities operate across four interconne
 
 Refer to the following model of a system of Human and AI collaboration:
 
-![Human-AI Collaboration Model](human-ai-collab.png)
+![Human-AI Collaboration Model](../assets/human-ai-collab.png)
 
 Each Workbench in Olympus Hub should be seen as such a 'System' of Agents and Machines in an Environment. The Machine in the model above maps to one or more information systems relevant for the specific business domain.
 
 ### The Foundation: Systems Thinking
 
-![Foundation Model for Hub](ontology_combined_reference.md)
+See the [Ontology Reference](./ontology-reference.md) for the complete foundation model.
 
 This requires Systems Thinking. Modeling of effective and optimal collaboration between Systems and People.
 
@@ -136,84 +136,18 @@ The operational framework is most valuable for work that involves:
 - **Measurable outcomes** that can be optimized
 - **Structured approaches** to achieving goals
 
-# Operations Domain – Workbench [TODO: Detail this out]
-Business Entities
-Operations
-Scenarios
+---
 
-Consoles
-Utilities - Files, Reports, Documents
-Operations Team
-Operations Executives
-Tasks and Task Queues
-Checklists & Schleps
-Signals
-SOPs
-Automations
-Command Registry
-Automation Runtimes
-Environment
+## Next Steps
 
-# Signals
-Information from the environment or from the systems managing the entities representing some change or event of relevance for the operations team. These are organized in the following types:
+Now that you understand the conceptual foundation of "Everything is Ops," explore the detailed documentation:
 
-* Events: Events of change published by message oriented systems
-* Exceptions: Errors or failures in the applications that deserve attention of Operations team.
-* Observations: Information of entities or the system that doesn't yet represent a problem in the system or entities but an operations team may be interested in knowing about.
+| Document | What You'll Learn |
+|----------|-------------------|
+| [Ontology Reference](./ontology-reference.md) | Deep dive into the four-layer ontology with examples |
+| [Applicability Guide](./olympus-hub-applicability-guide.md) | Where Olympus Hub delivers value and how to assess readiness |
+| [Hub Architecture](../02-system-design/hub-architecture.md) | Detailed system design: Workbenches, Agents, Signals, Operations |
 
-* Requests: A requests from various users of the applications to draw attention of the operations team.
+---
 
-**  Service Requests: Specialized forms of requests that can be initiated by users of the sytems either in a self-served manner or in an assisted-manner through a contact center, IVR, or such other channel. Service request forms are hosted by hub and can be embedded in various user-interaction channels.
-
-**  Business Requests: Specialized forms for generating requests that can be initaited by the operations teams or internal users of the enterprise in a self-serve manner. Business request froms are hosted by hub and can be embedded in various apps and user-interaction channels meant for the teams and executives internal to the enterprise.
-
-** System Requests: These specialized requests form (REST+JSON interface) that can be integrated into applications of the enterprise that can be invoked directly by the applications. That is, there is no human to initiate these requests. These are auto-initiated by various applications and systems of the enterprise.
-
-
-* Files: represent a batch of events or requests
-
-Hub natively provides mechanisms to deliver signals to any Workbench. Each such signal could potentially initiate an operation to be performed by the operations team.
-
-## Triggers
-* A mechanism to translate a Siganl to invoke an Automation in a Scenario. 
-* These are the filters and binders. That is, they filter out unnecesary signals and bind the relevant subset of signals to invoke automation or simply create a task for operations team to work on. 
-
-All signals of type Requests serve as implicit triggers
-Singals like Events, Exceptions, and Observations are integrated to Scenarios and Automation using System Requests as Triggers.
-
-
-
-# What is Hub Composed of? [TODO: Detail this out]
-
-The subsystems of Olympus Hub
-* Workbench Studio - To define Workbenches
-* Operations Center - Hosts Workbenches for use by the Operations Team; Provides a user interface to access Workbenches and the functionality within each Workbench
-* Signal Providers
-* Command Registry
-** Command Providers (Machines in the Ontology)
-** Commands, also referred to as 'levers' in the Systems Operations context;  
-* Automation Systems
-
-# Workbench Studio
-
-
-# Task Managemewnt System
-* Task Creation and Status synchronization Automation
-* 
-
-
-# Agent Application - Definition
-Capable Agent Application
-Skilful Agent Application
-Enrolled Agent – Environment, Scope, Role
-Creating a Skilful Agent Application from Workbench
-Creating an Enrolled Agent from Workbench
-
-
-Tool Repository
-
-
-# IAM
-* Human Agent IAM
-* AI Agent IAM
-* SSO for Human Agents
+*This document provides the conceptual foundation. For detailed system specifications including Workbench design, Signal types, Task Management, and Agent definitions, see the [Hub Architecture](../02-system-design/hub-architecture.md) document.*
