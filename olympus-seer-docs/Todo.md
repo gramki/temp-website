@@ -17,3 +17,7 @@ Memory Management
 MCP Gateway
 MCP Knowledge/Resource Management Systems
 Skill Repository (Prompts)
+
+Governance
+Explainability & Observability
+Agent Operations - Stop, Blacklist, etc.,

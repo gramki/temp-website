@@ -1,18 +1,53 @@
-[ ] Explain Command Registry
-[ ] Expand Automation Systems
-[ ] Expand Dia - File Exchange System - As I/O Signal Provider, Batch Inputs and Output exchange mechanism
-[ ] Expand Atropos - Event Broker, Event Signal Provider, Simple Event Application Host
-[ ] Expand Kale - Time based signal provider
+Signal Providers:
+[x] Expand Dia - File Exchange System - As I/O Signal Provider, Batch Inputs and Output exchange mechanism
+[x] Expand Atropos - Event Broker, Event Signal Provider, Simple Event Application Host
+[x] Expand Kale - Time based signal provider
+[x] Expand Cronus as a Signal Provider for Exceptions and Observations
+[x] Expand Heracles, the HTTP API Gateway acting as a API Signal Provider
+
+Subscription Configuration Management
+
+
+Tenant Ecosystem Management
+[ ] Tool Registry
+[ ] Machine Registry
+[ ] Environment Registry
+[ ] Agent Registry (Cipher)
+[ ] AI Agent Registry (Seer)
+
+Automation Engines/Systems
 [ ] Expand Perseus - Automation Host for File Application, Map-Reduce Application, and Complex Event Applications
 [ ] Expand Atlantis - A contianer runtime based on k-native to host procedures, decision applications, prediction applications, etc.,
 [ ] Expand Rhea - A BPMN Workflow host
 [ ] Expand ChronoShift - A Temporal based workflow host
+
 [ ] Expand Task Management System Role : Task Queues, Task Lifecycle, Task Assignment management; Certain Activities are Tasks
-[ ] Expand Jira as Task Management System
-[ ] Expand Chronous/Rhea as a Task Management System
-[ ] Expand Chronous as a Signal Provider for Exceptions and Observations
-[ ] Expand Chronous as a Signal Provider for Service Requests, Business Requests, and System Requests
-[ ] Expand Heracles, the HTTP API Gateway acting as a API Signal Provider
+[ ] Expand Jira as Task Management System (also service now, etc.)
+[ ] Expand Jira as I/O Gateway and Jira Task as a signal (also service now, etc.,)
+[ ] Expand Cronus/Rhea as a Task Management System (Inbuilt)
+
+
+Storage Services
+[ ] KB
+[ ] Business Entity Data
+[ ] Operational Data
+[ ] Audit Data
+[ ] Tenant Configuration
+[ ] Tenant Specification Data
+
+
+Scenario
+- Signals
+- Triggers
+- Automation
+- Task Queues
+- Hub Application
+
+Each Automation System gives a specialized name for Hub Application
+
+
+
+
 [ ] Expand Cipher - IAM for Agents
 [ ] Expand Seer - Host of AI Agents
 [ ] Expand Seer - Hub Connector :: Connector into Task Management System to accept, complete, or assign tasks
@@ -53,8 +88,9 @@
 
 [ ] Expand Agent Helper Studio
 [ ] Expand Agent Studio
+[ ] Case Automation Model and the Case Automation Engine
 
-
+Specialized Hubs
 [ ] Outline Olympus Hub's Expected Evolution
 [ ] Outline Integration Hub
 [ ] Outline Data Application Hub
@@ -62,6 +98,7 @@
 [ ] Outline Customer Service & Journeys Hub
 [ ] Outline Cognition Hub (Ability to create Agents that work on Cases  and Workflows)
 [ ] Request and Case are Envelope Entities for automations defined across automation engines. Automation engines and AI Agents should be Cognitive Audit Fabric (CAF) aware
+[ ] *Business Entity Providers*; Should we call this as an applicaiton/system in the Hub realm with a protocol do CRUDS on that entity? This can also encapsulate various views for the entity. 
 
 
 ----
@@ -73,36 +110,43 @@
 [ ] *Workbench as one or many Agents*; Hub Agent Factory
 [ ] Hub-native storage support for Operations, Agents; Hub storage model explained - native stores, automation engine specific stores, their scope, access management, and integration into ETSL/Pontus 
 
-## Concept Definitions & Ontology Updates
+[ ] Workbench as a Machine; Expose a machine from one workbench as a machine to another workbench.
+[ ] Workbench as an Agent; Tenant Agent Directory/Registry;
+[ ] Task Management System
 
-### High Priority (Core Concepts Used Extensively)
 
-| Term            | Used In                          | Current Status                        | Recommendation                                                                                  |
-|-----------------|----------------------------------|---------------------------------------|-------------------------------------------------------------------------------------------------|
-| **Task**        | Task Management, Task Queues     | Not defined                           | Add – distinct from Activity/Action; has assignment, ownership, status, queue                   |
-| **Business Entity** | Workbench, Operations     | Not defined                           | Add – fundamental objects that operations work on                                               |
-| **Request**     | Signal subtypes                  | Mentioned but not formally defined    | Add as Signal subtype – Service/Business/System Requests                                        |
-| **Event**       | Signal subtypes                  | Mentioned but not formally defined    | Add as Signal subtype                                                                          |
-| **Exception**   | Signal subtypes                  | In hub-architecture but not ontology  | Add as Signal subtype                                                                          |
-| **Observation** | Signal subtypes                  | In hub-architecture but not ontology  | Add as Signal subtype                                                                          |
+-----
+UI Applications
+========
+* Hub Admin Center 
+** Subsystems Configuration
+- Configuration: Task Management System
+- Configuration: API Gateway 
+- Configuration: Event Bus 
+- Configuration: File Gateway
+- Configuration: Automation Engines
 
----
+** Tenant Ecosystem Setup
+- User and Access Management 
+- Machine Registry Management
+- Tool Registry Management
+- Workbench Management
+- Environments Management (?)
 
-### Medium Priority (Useful for Completeness)
 
-| Term                    | Used In              | Current Status         | Recommendation                            |
-|-------------------------|---------------------|-----------------------|-------------------------------------------|
-| **Knowledge Base**      | SOPs, Utilities     | Not defined           | Consider adding – where SOPs/docs live    |
-| **Checklist / Runbook** | Process Management  | Not defined           | Could be SOP subtypes                     |
-| **Escalation**          | Task Queues, Alerts | Not defined           | Common pattern; maybe add                 |
-| **Console**             | Operational interfaces | Not defined        | Hub-specific; maybe not ontology          |
 
----
 
-### Lower Priority (Hub-specific, Maybe Not Ontology)
+* Workbench Studio
+- Machine Creator
+- Agent Creator
+- Scenario Creator
+- Environment Manager
+- KB Manager
 
-| Term             | Notes                                                        |
-|------------------|-------------------------------------------------------------|
-| **Workbench**    | Hub-specific instantiation of Domain + Environment + Scenarios |
-| **Command Registry** | Hub-specific registry for Commands                     |
-| **Task Queue**   | Implementation detail of Task management                     |
+
+* Workbench - Agent Desk
+* Workbench - Supervisor Desk (Manage and Govern)
+* Workbench - SRE Desk
+
+
+* Agent Studio
