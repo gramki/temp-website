@@ -1,11 +1,14 @@
 # Primer on Agent Memory Management
 
-**Audience:** Agentic AI Engineers, Platform Architects, Applied AI Researchers
+**Audience:** Agentic AI Engineers, Platform Architects, Applied AI Researchers  
 **Scope:** Episodic, Semantic, Preference, and Procedural Memory in Agent-Native Systems
 
----
+### Related Documents
 
-## Part I — Foundations
+- **[Raw, Trained, Employed](./raw-trained-employed.md)** — Memory is configured at the Training layer and operationalized at the Employed layer
+- **[Knowledge vs Memory vs Context vs Session](./knowledge-memory-context-session.md)** — Foundational distinctions
+
+---
 
 ## 1. Why Agent Memory Is a First-Class System
 

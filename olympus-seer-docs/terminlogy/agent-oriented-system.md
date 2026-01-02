@@ -4,6 +4,11 @@
 > **Audience:** Enterprise Architects, AI Engineers, Product Managers  
 > **Last Updated:** January 2026
 
+### Related Documents
+
+- **[Raw, Trained, Employed](./raw-trained-employed.md)** — Zeta's terminology framework built on AOSM
+- **[Book Summary: AOSM](./book-ref/book-summary.md)** — Comprehensive summary of the AOSM book
+
 ---
 
 ## Overview

@@ -15,6 +15,25 @@ This document assumes familiarity with **Agent-Oriented Systems Modeling (AOSM)*
 
 ---
 
+## Table of Contents
+
+1. [Executive Summary](#executive-summary)
+2. [Scope and Applicability](#scope-and-applicability)
+3. [Origins and Influences](#origins-and-influences)
+4. [Alternative Framings](#alternative-framings)
+5. [OPD Clarification](#opd-clarification-bidirectional-observability-predictability-directability)
+6. [The Problem: Terminology Ambiguity](#1-the-problem-terminology-ambiguity-in-agent-discourse)
+7. [Where Terminology Clarity Adds Value](#2-where-terminology-clarity-adds-value)
+8. [Zeta's Proposed Terminology](#3-zetas-proposed-terminology-agents-by-deployment-nature) — **Core content: Raw, Trained, Employed**
+9. [Composition and Relationships](#4-composition-and-relationships)
+10. [Lifecycle Implications](#5-lifecycle-implications)
+11. [Governance Implications](#6-governance-implications)
+12. [Open Questions](#7-open-questions-for-discussion)
+13. [Summary](#8-summary-what-zeta-hopes-to-achieve)
+14. [Appendices](#appendix-a-glossary)
+
+---
+
 ## Executive Summary
 
 The term "agent" in Agentic AI is used to describe many different things—from foundation models to orchestration code to authorization scopes. In many contexts, this ambiguity is harmless; teams develop shared understanding and context disambiguates meaning.
@@ -44,7 +63,7 @@ In this context:
 - AI agents operate under **Controlled Autonomy**—acting autonomously only to the extent beneficial to, and within bounds set by, responsible humans
 - Humans remain **Accountable** for outcomes; AI agents may be Responsible but never Accountable
 - All agents must satisfy **OPD requirements**: Observability, Predictability, Directability (see [OPD Clarification](#opd-clarification-bidirectional-observability-predictability-directability) below)
-- Agent authority derives from the **Four Components of Autonomy**: Authority, Availability, Capability, Communication
+- Agent authority derives from the **Four Components of Autonomy**: Authority, Availability, Capability, Capacity
 
 This framing explicitly excludes:
 - Fully autonomous physical systems (robotics, self-driving vehicles)
@@ -78,7 +97,7 @@ This proposal draws on several sources:
 - **Agent-Oriented Systems Modeling (AOSM)**: The meta-model for Human-AI Teams developed by Systems Innovation, which provides a rigorous framework for designing systems where humans and AI agents collaborate. Key concepts adopted:
   - Capabilities as Knowledge, Skills, and Abilities (KSA)
   - PIDA Responsibilities (Perception, Interpretation, Decision, Action)
-  - Four Components of Autonomy (Authority, Availability, Capability, Communication)
+  - Four Components of Autonomy (Authority, Availability, Capability, Capacity)
   - Controlled Autonomy and OPD (Observability, Predictability, Directability)
   - RASCI allocation (Responsible, Accountable, Supporting, Consulted, Informed)
 
@@ -617,7 +636,7 @@ Blueprints accelerate deployment while allowing tenants to layer additional trai
 
 **Definition (AOSM-aligned):** An Employed Agent is a Trained Agent that has been granted delegated **Authority**, allocated to a specific **team context**, and assigned **RASCI responsibilities**—operating under **Controlled Autonomy** with a designated **Accountable** human.
 
-In AOSM terms, an Employed Agent is a full participant in a Human-AI Team, with all Four Components of Autonomy present: Authority, Availability, Capability, and Communication.
+In AOSM terms, an Employed Agent is a full participant in a Human-AI Team, with all Four Components of Autonomy present: Authority, Availability, Capability, and Capacity.
 
 **Characteristics:**
 
@@ -635,11 +654,13 @@ In AOSM terms, an Employed Agent is a full participant in a Human-AI Team, with 
 **Employment Spec Components:**
 
 1. **Work Scope**
-   - Deployment stage (dev, staging, production)
    - Project or team boundaries
    - Temporal scope (duration, schedule)
+   - Functional scope (what types of work)
 
 2. **Operational Environment** (AOSM Environment)
+   
+   > **Note**: "Operational Environment" is distinct from "deployment stage" (dev/staging/production). Deployment stage is a software lifecycle concept. Operational Environment is the AOSM concept—the concrete machines, tools, and endpoints the agent interacts with.
    
    The **Environment** in AOSM terms is the concrete context in which the Employed Agent operates—the machines, sensors, tools, and actuators that constitute the HAT's operational reality:
    
@@ -1063,7 +1084,7 @@ For teams in different contexts—internal tools, single-tenant deployments, or 
 | **OPD as Capability** | Agent's ability to observe/predict/direct machines and environment (relates to PIDA) |
 | **OPD as Property** | Agent being observable/predictable/directable BY System Operators (infrastructure) or HAT team members (data plane) |
 | **RASCI** | Responsible, Accountable, Supporting, Consulted, Informed—responsibility assignment |
-| **Four Components of Autonomy** | Authority, Availability, Capability, Communication |
+| **Four Components of Autonomy** | Authority, Availability, Capability, Capacity |
 | **Human-AI Team (HAT)** | Two or more agents (humans and/or AI) working interdependently |
 
 ### Authority Terms
