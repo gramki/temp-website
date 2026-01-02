@@ -1,9 +1,17 @@
-# "Agent" Is Not One Thing: A Layered Terminology for Enterprise AI Agents
+# Raw, Trained, Employed: A Terminology Framework for Enterprise Agents
 
 > **Concept Note — Proposal for Discussion**  
 > **Audience:** Enterprise Architects, Product Managers, AI Engineers  
 > **Status:** Draft for Review — Seeking Feedback  
-> **Last Updated:** January 2026
+> **Last Updated:** January 2026  
+> **Document Type:** Conceptual Framework (not implementation-ready technical design)
+
+### Prerequisite Reading
+
+This document assumes familiarity with **Agent-Oriented Systems Modeling (AOSM)** concepts. Before proceeding, readers should review:
+
+- **[Book Summary: Integrating Artificial and Human Intelligence through Agent-Oriented Systems Design](./book-ref/book-summary.md)** — Essential pre-read covering AOSM meta-model, KSA, PIDA, OPD, RASCI, and HAT patterns
+- For deeper understanding, the complete book is recommended: *Integrating Artificial and Human Intelligence through Agent-Oriented Systems Design* (Systems Innovation Book Series)
 
 ---
 
@@ -366,6 +374,10 @@ This allows Zeta to ship Raw Agents with baseline domain understanding while rem
 | **Authority** | None—cannot act on behalf of any principal |
 | **Mental Model** | None—no understanding of team, task, or context |
 
+> **Design Note: Sub-Layer Consideration**
+> 
+> The Raw Agent layer bundles several concerns with potentially different lifecycles (orchestration code, container artifact, model integration, infrastructure identity). A finer sub-layer decomposition has been considered and is **parked for future iterations** of this framework. The current single-layer model will be validated through adoption; if governance friction emerges due to the bundling, sub-layer separation will be revisited in subsequent versions.
+
 **Capacity and Availability:**
 
 Raw Agents have inherent **capacity constraints** that must be managed:
@@ -405,39 +417,46 @@ In AOSM terms, a Trained Agent represents the outcome of *Training*—the develo
 
 **Training Spec Components:**
 
-1. **Context Definitions**
+The Training Spec is a composite that **references** several independent artifacts. Each referenced artifact has its own lifecycle, versioning, and governance. The Training Spec does not own these artifacts—it binds them together for a specific agent configuration.
+
+1. **Context Definitions** *(integral to Training Spec)*
    - Tenant identity and organizational context
    - Business domain and function
    - Role and responsibility definitions (PIDA mapping)
    - Operating constraints and expectations
 
-2. **Behavioral Configuration**
+2. **Behavioral Configuration** *(integral to Training Spec)*
    - System prompts and instructions
    - Organization style and tone guidelines
-   - **Guardrails and prohibited behaviors** (these cannot be overridden at Employment)
    - Response format specifications
+   - Procedures encoding (organizational protocols, escalation paths)
 
-3. **Tool Training**
-   - Tool specifications (schemas, descriptions, usage patterns)
+3. **Guardrails** *(independent artifact, referenced)*
+   - Prohibited behaviors and safety constraints
+   - **Cannot be overridden at Employment**
+   - May evolve independently based on controlling authority (security, compliance)
+   - Training Spec references guardrail version (semantic versioning)
+
+4. **Tool Specifications** *(independent artifact, referenced)*
+   - Tool schemas, descriptions, usage patterns
    - Tool usage policies and constraints
-   - **Sandbox validation**—training may involve role-playing exercises in sandbox environments
-   - Tool-specific configurations
+   - Evolve based on tool provider lifecycle
+   - Training Spec references tool spec version (semantic versioning)
+   - **Sandbox validation**—training may involve role-playing exercises
 
-4. **Knowledge Configuration**
+5. **Knowledge Bases** *(independent artifact, accessed by reference)*
    - Accessible knowledge bases and indices
    - Retrieval strategies and ranking
    - Knowledge refresh policies
+   - Training Spec references knowledge base version (semantic versioning)
 
-5. **Memory Training**
+6. **Memory Training** *(integral to Training Spec)*
    Training enhances multiple memory types (ref: Reflexion):
    - **Tool memory**: How to use specific tools, past tool interactions
    - **Procedural memory**: Step-by-step processes, workflows, decision trees
    - **Semantic memory**: Domain concepts, organizational knowledge, facts
 
-6. **Procedures Encoding**
-   - Organizational protocols and workflows
-   - Escalation paths and decision criteria
-   - Compliance-required processes
+> **Versioning Model**: All referenced artifacts (Guardrails, Tool Specifications, Knowledge Bases) follow **semantic versioning** compatibility rules. The Training Spec specifies compatible version ranges (e.g., `guardrails: ^2.1.0`, `tools/ticket-system: ~3.0`). Incompatible updates to referenced artifacts require explicit Training Spec updates.
 
 **Trained Agent Spec = Training Spec + Tenant Identity**
 
@@ -618,11 +637,14 @@ Employed Agent (runtime)
     │
     └── Suggests learnings ──→ Trainer (human or agent)
                                     │
-                                    └── Evaluates and incorporates
-                                        into Trained Agent v(n+1)
+                                    └── Reviews with change management controls
+                                        │
+                                        └── Incorporates into Trained Agent v(n+1)
 ```
 
 This preserves the integrity of the Training layer while enabling continuous improvement.
+
+> **Governance Note**: The "Trainer" is not necessarily a single individual or agent, and the update is not a straight-through process. Learning suggestions are subject to **change management controls** appropriate to the Training artifact being modified. Guardrail changes require elevated review; prompt tweaks may have lighter governance. The review process must include controls to prevent malicious updates from compromised Employed Agents.
 
 **Authority Inheritance Rule:**
 
@@ -634,10 +656,7 @@ This means:
 - The agent immediately loses access to B as well
 - The agent's authority shrinks in real-time with the delegator's authority
 
-**Open Question:** How is this real-time authority synchronization implemented? Options:
-1. Short-lived tokens that must be refreshed with current permissions
-2. Policy evaluation at action time against delegator's current permissions
-3. Event-driven revocation when delegator permissions change
+**Implementation Note:** Real-time authority synchronization requires infrastructure support. In Zeta's context, the **Cipher IAM** system with its Policy Enforcement Points (PEPs) provides this capability. Third-party systems can implement PEPs using Cipher SDKs and sidecars. Specific implementation patterns will be detailed in platform technical design documents. (See [Appendix C: Feasibility and Implementation Considerations](#appendix-c-feasibility-and-implementation-considerations))
 
 ---
 
@@ -696,6 +715,24 @@ An Employed Agent's complete version might be expressed as:
 ```
 raw:v2.4.1/trained:v1.7.0/employed:v3.2.0
 ```
+
+**Cross-Layer Version Compatibility:**
+
+Dependencies between layers follow **semantic versioning** rules:
+- **Trained Agent → Raw Agent**: Training Spec declares compatible Raw Agent version range (e.g., `raw: ^2.0.0`)
+- **Employed Agent → Trained Agent**: Employment Spec declares compatible Training Spec version (e.g., `trained: ~1.7.0`)
+
+When a Raw Agent is upgraded, Trained Agents specifying compatible version ranges continue to function. Incompatible upgrades require explicit Training Spec updates and re-validation.
+
+### 4.4 Multi-Agent Delegation
+
+In multi-agent architectures, delegation semantics and patterns are **defined by each Raw Agent** based on its delegation capabilities:
+
+- Some Raw Agents support supervisor/worker patterns with internal delegation
+- Some support peer-to-peer coordination protocols
+- Some support handoff patterns between agents
+
+The specifics of how authority flows between collaborating agents are determined by the Raw Agent's architecture and documented in its specifications. This framework defines the layers; the Raw Agent defines the composition patterns.
 
 ---
 
@@ -821,7 +858,8 @@ Can an Employed Agent delegate to another Employed Agent?
 When a Raw Agent is patched:
 - Must all Trained Agents be re-validated?
 - Must all Employed Agents be re-authorized?
-- What is the compatibility contract between layers?
+
+*Partial Answer:* Cross-layer version compatibility follows semantic versioning (see Section 4.3). Trained Agents specify compatible Raw Agent version ranges. Incompatible upgrades require explicit re-validation.
 
 **Q5: Training Spec Portability**
 Can a Training Spec be migrated to a different Raw Agent?
@@ -847,6 +885,8 @@ In a multi-agent system:
 - Can a Raw Agent (orchestrator) coordinate Employed Agents directly?
 - Or must orchestration happen at the Employed Agent layer?
 - How is authority delegation managed across agent boundaries?
+
+*Partial Answer:* Multi-agent delegation semantics are defined by each Raw Agent based on its delegation capabilities (see Section 4.4). The framework defines layers; Raw Agents define composition patterns.
 
 **Q9: Shared Training**
 Can two Employed Agents share the same Training Spec but have different Employment Specs?
@@ -874,6 +914,8 @@ How do we ensure that Training guardrails cannot be bypassed at Employment?
 - Runtime enforcement mechanisms?
 - Cryptographic binding of Training constraints?
 - Audit detection of guardrail violations?
+
+*Partial Answer:* One potential approach is sidecar-based enforcement, where guardrails are evaluated independently from the primary reasoning loop. Guardrails are intended to block and alert. Specific enforcement mechanisms will be detailed in platform technical design. (See Appendix C)
 
 ---
 
@@ -1060,6 +1102,47 @@ EMPLOYED AGENT: "AML Transaction Monitor"
   - Workforce identity: aml-monitor@workforce.bank.corp
   - OPD: Real-time dashboard, weekly review by CCO, immediate alert channel
 ```
+
+---
+
+## Appendix C: Feasibility and Implementation Considerations
+
+> **Document Scope Clarification**
+> 
+> This document is a **conceptual framework**, not an implementation-ready technical design. It establishes terminology, layer boundaries, and governance principles. The platform technical design phase will address implementation details, and may introduce trade-offs or limitations against this conceptual design.
+
+### Areas Requiring Platform Technical Design Attention
+
+The following aspects of this framework require detailed technical design and may involve implementation trade-offs:
+
+| Aspect | Conceptual Intent | Technical Design Consideration |
+|--------|-------------------|-------------------------------|
+| **Guardrail Enforcement** | Training guardrails cannot be overridden at Employment | Implementation options include sidecar-based evaluation (separate from primary reasoning loop), policy engines, or code-level constraints. Guardrails are intended to **block and alert**. |
+| **Authority Inheritance** | Delegated authority shrinks in real-time with delegator's authority | Requires IAM infrastructure support (e.g., Cipher with Policy Enforcement Points). Token refresh strategies, policy evaluation timing, and revocation propagation need design. |
+| **Cross-Layer Version Compatibility** | Semantic versioning governs dependencies | Compatibility testing automation, migration tooling, and rollback procedures need specification. |
+| **Multi-Agent Authority Flow** | Delegation patterns defined per Raw Agent | Each Raw Agent architecture must document its delegation model. Framework-agnostic patterns may emerge. |
+| **OPD Implementation** | Agents must be Observable, Predictable, Directable | Specific OPD mechanisms (dashboards, kill-switches, intervention protocols) require platform support. |
+| **Credential Isolation** | Employed Agent credentials isolated in shared Raw Agent | Process isolation, memory protection, or HSM integration options need evaluation. |
+| **Audit Correlation** | Actions traceable through all layers | Log aggregation, correlation ID propagation, and performance overhead need design. |
+
+### Implementation Trade-offs to Document
+
+The platform technical design should explicitly document any trade-offs against this conceptual framework:
+
+- If guardrail enforcement has latency implications, document the trade-off
+- If authority inheritance is eventually consistent rather than immediate, document the consistency model
+- If certain Raw Agents cannot support all Training Spec features, document the compatibility constraints
+
+### Zeta Infrastructure Assumptions
+
+This framework assumes availability of:
+
+- **Cipher IAM**: Identity and access management with Policy Enforcement Points
+- **Semantic versioning infrastructure**: Artifact registries with version compatibility checking
+- **Audit infrastructure**: Centralized logging with correlation support
+- **Deployment infrastructure**: Container orchestration with sidecar support
+
+Third-party or customer environments may require Cipher SDKs or sidecar deployment for equivalent capabilities.
 
 ---
 
