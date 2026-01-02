@@ -8,15 +8,6 @@ This document tracks items requiring further clarification or elaboration in the
 
 ### High Priority
 
-- [ ] **OPD Operationalization**
-  - OPD (Observability, Predictability, Directability) is currently stated as a requirement but not operationalized
-  - Need to define what OPD means concretely for:
-    - Raw Agents (System Operator perspective)
-    - Employed Agents (HAT participant perspective)
-  - Discuss: Is OPD conflated? Should it be decomposed further?
-  - **Owner:** TBD
-  - **Status:** Awaiting discussion
-
 - [ ] **Failure Mode Examples**
   - Add examples of failures at each layer
   - Include: Raw Agent crash, Training guardrail violation, Employment Spec misconfiguration, Authority revocation scenario
@@ -75,7 +66,13 @@ This document tracks items requiring further clarification or elaboration in the
 
 ## Completed Items
 
-*(Move completed items here with completion date)*
+- [x] **OPD Operationalization** — *Completed January 2026*
+  - Clarified OPD as bidirectional: capability (agent → environment) vs property (others → agent)
+  - Distinguished System-level OPD (for operators) from HAT-level OPD (for team members)
+  - Added role-based visibility table (delegator, team member, supervisor, accountable)
+  - Added OPD authorization section to Employment Spec
+  - Updated glossary with OPD as Capability and OPD as Property
+  - Updated example scenarios with explicit OPD authorization
 
 ---
 

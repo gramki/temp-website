@@ -173,7 +173,20 @@ For agents to interact effectively as teammates, they require **OPD Elements**:
 |---------|------------|
 | **Observability** | The ability to obtain information to understand the state of your teammate |
 | **Predictability** | The ability to understand what your teammate will do in the future |
-| **Directability** | The ability to require or request your teammate to perform a desired activity |
+| **Directability** | The ability to require or request your teammate to perform a desired activity (includes deciding whether to direct) |
+
+**OPD is Bidirectional:**
+
+1. **OPD as Capability** — An agent's ability to observe, predict, and direct *its environment* (machines, other entities). This relates to the agent's PIDA responsibilities.
+
+2. **OPD as Property** — An agent being observable, predictable, and directable *by others* (operators, team members, supervisors). This enables the observer's own PIDA loop.
+
+**Two Layers of OPD as Property:**
+
+| Layer | Who Observes/Directs | What They See |
+|-------|---------------------|---------------|
+| **System/Infrastructure** | System Operators | Metrics, resources, health, traces |
+| **AOS/Data Plane** | HAT Team Members | Activities, decisions, state, behavior |
 
 ---
 
@@ -629,7 +642,7 @@ This book's meta-model directly informs Zeta's proposed agent terminology:
 | Capabilities (KSA) | Accumulated across all layers: Abilities (Raw), Knowledge/Skills (Trained), Authority (Employed) |
 | Goals → Roles → Responsibilities → Capabilities | The layered progression from product capability to deployed authority |
 | Controlled Autonomy | Authority delegation model—Employed Agent cannot override Training guardrails |
-| OPD Elements | Raw Agent: for System Operators; Employed Agent: for HAT team participants |
+| OPD Elements | Bidirectional: (1) Agent's capability to OPD environment, (2) Agent being OPD'd—Raw Agent by System Operators, Employed Agent by HAT team members |
 
 ### PIDA Responsibilities Across Agent Layers
 

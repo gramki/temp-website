@@ -43,7 +43,7 @@ In this context:
 - Agents possess **Capabilities** (Knowledge, Skills, Abilities—KSA) appropriate to their Responsibilities
 - AI agents operate under **Controlled Autonomy**—acting autonomously only to the extent beneficial to, and within bounds set by, responsible humans
 - Humans remain **Accountable** for outcomes; AI agents may be Responsible but never Accountable
-- All agents must satisfy **OPD requirements**: Observability, Predictability, Directability
+- All agents must satisfy **OPD requirements**: Observability, Predictability, Directability (see [OPD Clarification](#opd-clarification-bidirectional-observability-predictability-directability) below)
 - Agent authority derives from the **Four Components of Autonomy**: Authority, Availability, Capability, Communication
 
 This framing explicitly excludes:
@@ -110,6 +110,100 @@ The three-layer model proposed here is not the only valid decomposition. Other f
 | **By capability** (reasoning / acting / learning) | When the question is "what can it do?" | Capability assessment |
 
 The Raw/Trained/Employed model optimizes for the **delegation and governance** dimension, which is central to Zeta's use case. Teams with different priorities may prefer different decompositions.
+
+---
+
+## OPD Clarification: Bidirectional Observability, Predictability, Directability
+
+The term **OPD** (Observability, Predictability, Directability) is used in two distinct but related senses in this framework. This section clarifies the distinction.
+
+### OPD as Agent Capability (Agent → Environment)
+
+Every agent in an AOS has OPD **capabilities** to interact with its environment:
+
+| Element | Meaning | Relation to PIDA |
+|---------|---------|------------------|
+| **Observe** | Agent senses machine/environment state | Perception |
+| **Predict** | Agent anticipates next state of environment | Interpretation |
+| **Direct** | Agent decides if action is required and triggers it | Decision + Action |
+
+This is part of the agent's PIDA responsibilities—its ability to observe, predict, and direct actions toward machines and other entities in the AOS.
+
+### OPD as Agent Property (Others → Agent)
+
+The agent itself must be **observable, predictable, and directable BY** other agents, supervisors, and operators. This has two distinct layers:
+
+| Layer | Subject (Who Observes) | Object | What They See | Purpose |
+|-------|------------------------|--------|---------------|---------|
+| **System/Infrastructure** | System Operators | Raw Agent | Metrics, resources, cost, availability, health, orchestration traces | Operational management |
+| **AOS/Data Plane** | HAT Team Members | Employed Agent | Activities, decisions, state, behavior | Team coordination, oversight |
+
+### Role-Based Visibility in HAT
+
+Within the Human-AI Team, different roles have different OPD scopes:
+
+| HAT Role | Observability Scope | Directability Scope |
+|----------|---------------------|---------------------|
+| **Delegator** | All activities of agents they delegated to | Full direction within delegation scope |
+| **Team Member** | Relevant activities to coordinate | Based on coordination needs |
+| **Supervisor/Overwatch** | All activity, deviations, failures | Review, intervention, correction |
+| **Accountable Human** | All activity with explanations | Kill-switch, revocation, override |
+
+### The Observer's PIDA Loop
+
+When we say an agent must be "observable, predictable, directable," we are enabling the **observer's own PIDA cycle**:
+
+```
+Observer (Human or Agent in HAT)
+    │
+    ├── Observes the target agent (O)
+    │
+    ├── Predicts what the agent will do next (P)
+    │       └── Based on agent's known behavior, state, context
+    │
+    └── Directs the agent if intervention needed (D)
+            └── Includes deciding whether to direct
+```
+
+**Key insight:** "Predictability" is not a passive property ("the agent is predictable"). It is the **observer's ability** to predict the agent's behavior, which feeds into the observer's own decision-making.
+
+### OPD Across Agent Layers
+
+| Layer | OPD Capability (→ Environment) | OPD Property (← Observers) |
+|-------|-------------------------------|---------------------------|
+| **Raw Agent** | Technical ability to observe/predict/direct machines | Observable by System Operators (metrics, health, traces) |
+| **Trained Agent** | Domain-directed observation and action patterns | Minimal—may be probed for info on Employed Agents it supports |
+| **Employed Agent** | Contextualized OPD within delegated scope | Observable/Directable by HAT team members per role |
+
+### Specifying OPD in Employment Spec
+
+The Employment Spec should explicitly define authorized observers and directors:
+
+```yaml
+opd_authorization:
+  observers:
+    - role: delegator
+      agent: alice@workforce.corp
+      scope: all_activities
+    - role: supervisor
+      agent: compliance-team
+      scope: all_activities_with_review
+    - role: team_member
+      agent: bob@workforce.corp
+      scope: relevant_activities
+  directors:
+    - role: delegator
+      agent: alice@workforce.corp
+      scope: full_within_delegation
+    - role: supervisor
+      agent: compliance-lead@workforce.corp
+      scope: intervention_override
+    - role: accountable
+      agent: manager@workforce.corp
+      scope: kill_switch_revocation
+```
+
+This may be derived from the AOS specification that the HAT is part of, or explicitly stated in the Employment Spec.
 
 ---
 
@@ -316,7 +410,7 @@ In AOSM terms, a Raw Agent possesses **Abilities** (technical execution capabili
 | **Versioning** | Semantic versioning of the codebase |
 | **Multi-tenancy** | Designed for multi-tenant operation |
 | **Availability** | Critical characteristic—capacity constraints, scaling limits, SLAs |
-| **OPD** | Observability, Predictability, Directability—for **System Operators** (not HAT participants) |
+| **OPD (as Property)** | Observable by System Operators: metrics, health, availability, orchestration traces |
 
 **Capabilities (Abilities) a Raw Agent Provides:**
 
@@ -536,7 +630,7 @@ In AOSM terms, an Employed Agent is a full participant in a Human-AI Team, with 
 | **Versioning** | Employment Spec version |
 | **Scope** | Specific work context (team, project, customer) |
 | **Capacity** | Resource quota/budget allocated for this employment |
-| **OPD** | Must satisfy Observability, Predictability, Directability for HAT participants |
+| **OPD (as Property)** | Observable/Directable by HAT team members per role; observers/directors specified in Employment Spec |
 
 **Employment Spec Components:**
 
@@ -622,7 +716,7 @@ Employment can **specialize** the Trained Agent's behavior (narrow scope, add co
 | **Autonomy** | ✓ Controlled Autonomy—acts within bounds set by Accountable human |
 | **Allocation** | ✓ Assigned to a specific Human-AI Team |
 | **RASCI** | ✓ Responsible for specific activities, with human Accountable |
-| **OPD** | ✓ Must be Observable, Predictable, Directable by team |
+| **OPD** | ✓ Observable/Directable by HAT team members; authorized observers/directors per Employment Spec |
 | **Mental Model** | ✓ Complete—shared understanding with team members |
 | **Coordination** | ✓ Active participant in team coordination |
 
@@ -965,7 +1059,9 @@ For teams in different contexts—internal tools, single-tenant deployments, or 
 | **PIDA** | Perception, Interpretation, Decision, Action—the four types of Responsibilities |
 | **Role** | Set of Responsibilities necessary to fulfill a Goal |
 | **Controlled Autonomy** | Acting autonomously only within bounds set by responsible human |
-| **OPD** | Observability, Predictability, Directability—requirements for team participation |
+| **OPD** | Observability, Predictability, Directability—bidirectional: (1) Agent's capability to OPD environment, (2) Agent's property of being OPD'd by others |
+| **OPD as Capability** | Agent's ability to observe/predict/direct machines and environment (relates to PIDA) |
+| **OPD as Property** | Agent being observable/predictable/directable BY System Operators (infrastructure) or HAT team members (data plane) |
 | **RASCI** | Responsible, Accountable, Supporting, Consulted, Informed—responsibility assignment |
 | **Four Components of Autonomy** | Authority, Availability, Capability, Communication |
 | **Human-AI Team (HAT)** | Two or more agents (humans and/or AI) working interdependently |
@@ -1024,7 +1120,13 @@ EMPLOYED AGENT: "Tier-1 Support Bot"
   - Quota: 500 sessions/day, $50/day inference budget
   - Manager (Accountable): @sarah.chen (Support Manager)
   - Workforce identity: tier1-bot@workforce.acme.corp
-  - OPD: Dashboard for Sarah, kill-switch enabled
+  - OPD Authorization:
+      - Observers:
+          - @sarah.chen (delegator): all_activities
+          - support-leads (role): all_activities_with_review
+      - Directors:
+          - @sarah.chen: full_within_delegation
+          - support-leads: intervention, kill-switch
 ```
 
 ### Scenario 2: Enterprise Personal Assistant
@@ -1100,7 +1202,14 @@ EMPLOYED AGENT: "AML Transaction Monitor"
   - Quota: Unlimited (critical function)
   - Manager (Accountable): Chief Compliance Officer
   - Workforce identity: aml-monitor@workforce.bank.corp
-  - OPD: Real-time dashboard, weekly review by CCO, immediate alert channel
+  - OPD Authorization:
+      - Observers:
+          - Chief Compliance Officer (accountable): all_activities_with_explanations
+          - compliance-team (role): all_activities_with_review
+          - audit-team (role): read-only audit trail
+      - Directors:
+          - Chief Compliance Officer: kill-switch, revocation, override
+          - compliance-leads: intervention, parameter adjustment
 ```
 
 ---
