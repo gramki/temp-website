@@ -1,10 +1,11 @@
-# Raw, Trained, Employed: A Terminology Framework for Enterprise Agents
+# Raw, Trained, Employed Agents: Zeta's Extension to AOSM
 
-> **Concept Note — Proposal for Discussion**  
+> **Concept Note — Zeta's Extension to AOSM**  
 > **Audience:** Enterprise Architects, Product Managers, AI Engineers  
 > **Status:** Draft for Review — Seeking Feedback  
 > **Last Updated:** January 2026  
-> **Document Type:** Conceptual Framework (not implementation-ready technical design)
+> **Document Type:** Conceptual Framework (not implementation-ready technical design)  
+> **Relationship to AOSM:** This document extends the Agent-Oriented Systems Modeling (AOSM) meta-model with terminology specific to enterprise agent lifecycle and governance.
 
 ### Prerequisite Reading
 

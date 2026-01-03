@@ -5,7 +5,7 @@
 
 ### Related Documents
 
-- **[Raw, Trained, Employed](./raw-trained-employed.md)** — Memory is configured at the Training layer and operationalized at the Employed layer
+- **[Raw, Trained, Employed Agents](../aosm-meta-model/raw-trained-employed-agents.md)** — Memory is configured at the Training layer and operationalized at the Employed layer
 - **[Knowledge vs Memory vs Context vs Session](./knowledge-memory-context-session.md)** — Foundational distinctions
 
 ---

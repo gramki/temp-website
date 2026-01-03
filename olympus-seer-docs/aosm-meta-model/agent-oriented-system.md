@@ -6,7 +6,7 @@
 
 ### Related Documents
 
-- **[Raw, Trained, Employed](./raw-trained-employed.md)** — Zeta's terminology framework built on AOSM
+- **[Raw, Trained, Employed Agents](./raw-trained-employed-agents.md)** — Zeta's extension to AOSM for enterprise agents
 - **[Book Summary: AOSM](./book-ref/book-summary.md)** — Comprehensive summary of the AOSM book
 
 ---
@@ -659,7 +659,7 @@ When designing agent products using AOSM:
 
 ## 8. See Also
 
-- [Agent Terminology: Raw, Trained, Employed](./agent-is-not-one-thing.md)
+- [Raw, Trained, Employed Agents](./raw-trained-employed-agents.md)
 - [Book Summary: AOSM Framework](./book-ref/book-summary.md)
 
 ---
