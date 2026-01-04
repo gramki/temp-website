@@ -785,5 +785,5 @@ After workbench setup:
 - [Workbench Management](../04-subsystems/workbench-management/README.md) — Technical reference
 - [Signal Exchange](../04-subsystems/signal-exchange/README.md) — Trigger processing
 - [Automation Runtimes](../04-subsystems/automation-runtimes/README.md) — Application hosts
-- [Tenant Setup Guide](./tenant-setup-guide.md) — Prerequisites
+- [Subscription Configuration Guide](./subscription-configuration-guide.md) — Prerequisites
 

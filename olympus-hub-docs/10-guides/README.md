@@ -12,7 +12,7 @@ This section contains step-by-step guides for setting up and operating Olympus H
 
 | Guide | Audience | Description |
 |-------|----------|-------------|
-| [Tenant Setup Guide](./tenant-setup-guide.md) | Administrators | Setting up a new tenant subscription |
+| [Subscription Configuration Guide](./subscription-configuration-guide.md) | Administrators | Configuring a new tenant subscription |
 | [Workbench Setup Guide](./workbench-setup-guide.md) | Process Architects | Configuring a workbench for a business domain |
 
 ---
@@ -21,7 +21,7 @@ This section contains step-by-step guides for setting up and operating Olympus H
 
 ### For Administrators
 
-1. [Tenant Setup Guide](./tenant-setup-guide.md) — Initial subscription configuration, user provisioning, resource allocation
+1. [Subscription Configuration Guide](./subscription-configuration-guide.md) — Initial subscription configuration, user provisioning, resource allocation
 
 ### For Process Architects
 

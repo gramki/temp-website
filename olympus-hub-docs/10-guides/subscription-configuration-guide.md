@@ -1,4 +1,4 @@
-# Tenant Setup Guide
+# Subscription Configuration Guide
 
 > **Audience:** Administrators  
 > **Prerequisites:** Subscription created by Customer Success Executive

@@ -236,7 +236,7 @@ Olympus Hub is an operations management platform designed for large and medium e
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Overview](./10-guides/README.md) | Guide index and reading order | 🟡 WIP |
-| [Tenant Setup Guide](./10-guides/tenant-setup-guide.md) | Complete tenant subscription setup | 🟡 WIP |
+| [Subscription Configuration Guide](./10-guides/subscription-configuration-guide.md) | Complete subscription configuration | 🟡 WIP |
 | [Workbench Setup Guide](./10-guides/workbench-setup-guide.md) | Workbench configuration for a business domain | 🟡 WIP |
 
 *Coming soon: Application Development Guide, Integration Guide, Agent Onboarding Guide*
@@ -341,7 +341,7 @@ olympus-hub-docs/
 │
 └── 10-guides/                   # Practical Guides
     ├── README.md
-    ├── tenant-setup-guide.md
+    ├── subscription-configuration-guide.md
     └── workbench-setup-guide.md
 ```
 
