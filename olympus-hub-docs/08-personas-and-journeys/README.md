@@ -24,36 +24,82 @@ This section describes **who uses Olympus Hub** and **how they accomplish their 
 
 ## Personas
 
-Personas are organized by their **scope of operations**:
+Personas are organized into two main categories:
 
-### Hub System Scope (Publisher Domain)
+- **Hub Personas** — People who use Hub as a platform (configure, operate, administer)
+- **Business Domain Actors** — People/systems whose activities generate Requests
+
+---
+
+### Hub Personas
+
+#### Hub System (Publisher Domain)
+
+The Publisher (Zeta) operates the Hub platform itself.
 
 | Persona | Role | Document |
 |---------|------|----------|
-| **SRE** | Deploy, maintain, monitor the Hub platform | [sre.md](./personas/sre.md) |
-| **Customer Success** | Onboard tenants, support usage | [customer-success.md](./personas/customer-success.md) |
+| **SRE** | Deploy, maintain, monitor Hub infrastructure | [sre.md](./personas/sre.md) |
+| **Customer Success** | Onboard tenants, support adoption | [customer-success.md](./personas/customer-success.md) |
 
-### Tenant Subscription Scope
+#### Workbench Designers
+
+Design and build the operational structure within Workbenches.
 
 | Persona | Role | Document |
 |---------|------|----------|
-| **Administrator** | Manage subscription, resources, users | [administrator.md](./personas/administrator.md) |
-| **Process Architect** | Design Scenarios, SOPs, operational structure | [process-architect.md](./personas/process-architect.md) |
+| **Process Architect** | Design Scenarios, SOPs, knowledge structure | [process-architect.md](./personas/process-architect.md) |
 | **Developer** | Build Hub Applications, define Triggers | [developer.md](./personas/developer.md) |
-| **Auditor** | Review compliance, investigate decisions | [auditor.md](./personas/auditor.md) |
 
-### Workbench Scope
+#### Workbench Operations
+
+Execute and oversee day-to-day operations within Workbenches.
 
 | Persona | Role | Document |
 |---------|------|----------|
 | **Supervisor** | Deploy Scenarios, manage queues, oversee agents | [supervisor.md](./personas/supervisor.md) |
-| **Agent** | Complete tasks, handle requests | [agent.md](./personas/agent.md) |
+| **Agent** | Complete tasks, process requests | [agent.md](./personas/agent.md) |
 
-### Tenant Customer Scope
+#### Tenant Administration
+
+Govern resources, compliance, and access across the tenant subscription.
 
 | Persona | Role | Document |
 |---------|------|----------|
-| **Self-Serve User** | Initiate requests, track status | [self-serve-user.md](./personas/self-serve-user.md) |
+| **Administrator** | Manage subscription, resources, users | [administrator.md](./personas/administrator.md) |
+| **Auditor** | Review compliance, investigate decisions | [auditor.md](./personas/auditor.md) |
+
+---
+
+### Business Domain Actors
+
+These are the actors whose activities **generate Requests** that Hub processes. They interact with the business, not necessarily with Hub directly.
+
+| Actor | Can Originate | Document |
+|-------|---------------|----------|
+| **Business Customer** | Service Request (self-serve or assisted) | [business-customer.md](./personas/business-domain/business-customer.md) |
+| **Business Employee** | Service Request (assisted), Business Request | [business-employee.md](./personas/business-domain/business-employee.md) |
+| **Business System Actor** | All types (Service, Business, System) | [business-system-actor.md](./personas/business-domain/business-system-actor.md) |
+
+> **Note:** The request type is determined by **the nature of the work**, not the originator. See [Request Types](./journeys/request-lifecycle.md#request-types) for details.
+
+> **Note:** Business Employees may also be Agents — they can both trigger requests (as Business Actor) and process tasks (as Hub Persona). See [Persona Overlap](#persona-overlap).
+
+---
+
+## Persona Overlap
+
+Some individuals wear multiple hats:
+
+| Person | As Business Actor | As Hub Persona |
+|--------|-------------------|----------------|
+| **Relationship Manager** | Triggers onboarding (Business Request) | Works tasks as Agent |
+| **Compliance Officer** | Requests review (Business Request) | Reviews as Supervisor/Auditor |
+| **Customer** | Files dispute (Service Request) | May complete Subject tasks (Self-Serve) |
+
+The distinction is:
+- **Business Actor** = Their activity *creates* the Request
+- **Hub Persona** = They *use Hub* to process Requests
 
 ---
 
@@ -61,25 +107,78 @@ Personas are organized by their **scope of operations**:
 
 Journeys describe **cross-persona workflows** — how multiple personas collaborate to achieve an outcome.
 
+### Hub Configuration Journeys
+
 | Journey | Personas Involved | Document |
 |---------|-------------------|----------|
 | **Scenario Development** | Process Architect → Developer → Supervisor | [scenario-development.md](./journeys/scenario-development.md) |
 | **Workbench Configuration** | Administrator → Process Architect → Supervisor | [workbench-configuration.md](./journeys/workbench-configuration.md) |
-| **Request Lifecycle** | Signal → Application → Agent → Completion | [request-lifecycle.md](./journeys/request-lifecycle.md) |
+
+### Operations Journeys
+
+| Journey | Personas Involved | Document |
+|---------|-------------------|----------|
+| **Request Lifecycle** | Business Actor → Signal → Application → Agent | [request-lifecycle.md](./journeys/request-lifecycle.md) |
 | **Audit Investigation** | Auditor (with CAF, Memory Services) | [audit-investigation.md](./journeys/audit-investigation.md) |
 
 ---
 
 ## Persona-Journey Matrix
 
+### Hub Personas
+
 | Journey | Admin | Proc Arch | Developer | Supervisor | Agent | Auditor |
 |---------|:-----:|:---------:|:---------:|:----------:|:-----:|:-------:|
 | Scenario Development | | ●● | ●● | ● | | |
-| Workbench Configuration | ● | ● | | ●● | | |
+| Workbench Configuration | ●● | ● | | ● | | |
 | Request Lifecycle | | | | ● | ●● | |
 | Audit Investigation | | | | | | ●● |
 
+### Business Domain Actors
+
+| Journey | Customer | Employee | System Actor |
+|---------|:--------:|:--------:|:------------:|
+| Request Lifecycle | ●● | ●● | ●● |
+
 Legend: ●● Primary, ● Supporting
+
+---
+
+## Visual Summary
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           OLYMPUS HUB ACTORS                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  HUB PERSONAS (Use Hub as Platform)                                         │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │                                                                     │    │
+│  │  Hub System (Publisher)     Workbench Designers                    │    │
+│  │  ├── SRE                    ├── Process Architect                  │    │
+│  │  └── Customer Success       └── Developer                          │    │
+│  │                                                                     │    │
+│  │  Workbench Operations       Tenant Administration                  │    │
+│  │  ├── Supervisor             ├── Administrator                      │    │
+│  │  └── Agent ◄────────────────┼── Auditor                           │    │
+│  │            │                │                                      │    │
+│  └────────────┼────────────────┼──────────────────────────────────────┘    │
+│               │                │                                            │
+│               │   (may overlap)│                                            │
+│               ▼                ▼                                            │
+│  BUSINESS DOMAIN ACTORS (Generate Requests)                                 │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │                                                                     │    │
+│  │  Business Customer     ──→ Service Request                         │    │
+│  │  Business Employee     ──→ Service Request (assisted), Business    │    │
+│  │  Business System Actor ──→ Service, Business, or System Request    │    │
+│  │                                                                     │    │
+│  │  (Request type = nature of work, not originator)                   │    │
+│  │                                                                     │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -92,4 +191,3 @@ Legend: ●● Primary, ● Supporting
 ---
 
 *Status: 🟡 WIP — Persona and journey documents being developed*
-

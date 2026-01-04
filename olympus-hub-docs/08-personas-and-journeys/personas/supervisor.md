@@ -10,6 +10,7 @@ The **Supervisor** deploys Scenarios into production, manages Task Queues, and o
 
 | Attribute | Value |
 |-----------|-------|
+| **Category** | Hub Persona — Workbench Operations |
 | **Scope** | Workbench |
 | **Domain** | Tenant Identity Domain |
 | **Primary Console** | Ops Center |
@@ -64,13 +65,39 @@ The **Supervisor** deploys Scenarios into production, manages Task Queues, and o
 
 ---
 
-## Tools and Interfaces
+## Hub Capabilities Consumed
 
-| Tool | Purpose |
-|------|---------|
-| **Ops Center** | Queue management, monitoring dashboards |
+### Ops Center (Primary Interface)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **Queue Dashboard** | View queue depths, wait times, agent availability |
+| **Scenario Deployment** | Map tasks to queues, activate scenarios |
+| **Agent Management** | Enroll/remove agents, view performance |
+| **Escalation Handling** | View escalated tasks, reassign, override |
+| **SLA Monitoring** | Track SLA compliance, identify at-risk requests |
+| **Operational Analytics** | Efficiency metrics, throughput analysis |
+
+### Hub Services Accessed
+
+| Service | Usage |
+|---------|-------|
+| **Task Management** | Create queues, configure escalation policies |
+| **Workbench Management** | Deploy scenarios, map task types to queues |
 | **Checklist Service** | Define and monitor operational checklists |
 | **Routine Service** | Assign routines to agents |
+| **Request Management** | View request status, handle escalations |
+| **Memory Services** | Access Enterprise Memory for context |
+
+### What They Manage
+
+| Entity | Actions |
+|--------|---------|
+| **Task Queues** | Create, configure policies, set SLAs |
+| **Agent Enrollment** | Add/remove agents, set capabilities |
+| **Escalation Matrix** | Define escalation rules, timeout policies |
+| **Checklists** | Deploy, monitor, analyze |
+| **Routines** | Assign to agents, track completion |
 
 ---
 

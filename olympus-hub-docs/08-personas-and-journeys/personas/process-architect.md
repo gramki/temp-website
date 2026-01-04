@@ -10,7 +10,8 @@ The **Process Architect** designs the operational structure of a Workbench — d
 
 | Attribute | Value |
 |-----------|-------|
-| **Scope** | Tenant Subscription |
+| **Category** | Hub Persona — Workbench Designer |
+| **Scope** | Workbench |
 | **Domain** | Tenant Identity Domain |
 | **Primary Console** | Workbench Studio |
 
@@ -56,13 +57,36 @@ The **Process Architect** designs the operational structure of a Workbench — d
 
 ---
 
-## Tools and Interfaces
+## Hub Capabilities Consumed
 
-| Tool | Purpose |
-|------|---------|
-| **Workbench Studio** | Design scenarios, SOPs, knowledge bases |
-| **Knowledge Bank** | Manage organizational knowledge |
-| **Checklist Service** | Define operational checklists |
+### Workbench Studio (Primary Interface)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **Scenario Designer** | Define scenarios, goals, SLAs, roles involved |
+| **SOP Editor** | Create and manage Standard Operating Procedures |
+| **Knowledge Bank Management** | Organize knowledge categories, upload content, configure retrieval |
+| **Memory Configuration** | Define memory store categories, visibility policies, retention |
+| **Role Definitions** | Map organizational roles to workbench roles, define capabilities |
+| **Checklist Designer** | Create workbench-level checklists for operational governance |
+
+### Hub Services Accessed
+
+| Service | Usage |
+|---------|-------|
+| **Knowledge Services** | Create/update knowledge base content |
+| **Memory Services** | Configure Enterprise Memory structure |
+| **Workbench Management** | Define and version Scenario definitions |
+| **CAF** | Define decision record schemas, evidence requirements |
+
+### What They Produce
+
+| Output | Consumed By |
+|--------|-------------|
+| Scenario Definitions | Developer (for implementation) |
+| SOPs | Agents (for execution guidance) |
+| Knowledge Base Structure | Agents, Applications (for context) |
+| Checklist Definitions | Supervisors (for deployment) |
 
 ---
 

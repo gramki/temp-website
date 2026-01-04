@@ -10,9 +10,10 @@ The **Developer** builds Hub Applications and defines Triggers that connect Sign
 
 | Attribute | Value |
 |-----------|-------|
-| **Scope** | Tenant Subscription |
+| **Category** | Hub Persona — Workbench Designer |
+| **Scope** | Workbench |
 | **Domain** | Tenant Identity Domain |
-| **Primary Console** | Agent Studio (IDE) |
+| **Primary Console** | IDE / Development Tools |
 
 ---
 
@@ -60,14 +61,44 @@ The **Developer** builds Hub Applications and defines Triggers that connect Sign
 
 ---
 
-## Tools and Interfaces
+## Hub Capabilities Consumed
 
-| Tool | Purpose |
-|------|---------|
-| **Agent Studio** | IDE for application development |
-| **Heracles Launcher** | API testing and debugging |
-| **Tool Registry** | Machine and tool configuration |
-| **Hub Application APM** | Monitoring and debugging |
+### Development Tools (Primary Interface)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **Application Development** | Build Hub Applications using runtime SDKs |
+| **Trigger Designer** | Define signal matching, transformations |
+| **Application Configuration** | Runtime-specific settings, environment bindings |
+| **Testing & Debugging** | Local testing, integration testing |
+
+### Hub Services Accessed
+
+| Service | Usage |
+|---------|-------|
+| **Workbench Management** | Create Trigger definitions, Application configurations |
+| **Registry Services** | Register machines, tools; configure access policies |
+| **Knowledge Services** | Define retrieval patterns for applications |
+| **Memory Services** | Define memory access patterns for applications |
+| **Hub Application APM** | Monitor application performance, debug issues |
+| **Signal Exchange** | Test signal routing, message envelopes |
+
+### Heracles Launcher (API Testing)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **API Testing** | Test Hub APIs, MCP endpoints |
+| **Request Simulation** | Simulate signals, test triggers |
+| **Response Inspection** | Debug response transformations |
+
+### What They Produce
+
+| Output | Consumed By |
+|--------|-------------|
+| Hub Applications | Signal Exchange (for routing) |
+| Trigger Definitions | Signal Exchange (for matching) |
+| Machine/Tool Registrations | Applications (for invocation) |
+| Scenario Manifest | Supervisor (for deployment) |
 
 ---
 

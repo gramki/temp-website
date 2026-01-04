@@ -6,13 +6,18 @@
 
 ## Overview
 
-The **Agent** is the operational workforce — human operators who complete tasks assigned through Task Queues. Agents work within a Workbench scope, handling tasks from multiple Scenarios.
+The **Agent** is the operational workforce that completes tasks assigned through Task Queues. Agents work within a Workbench scope, handling tasks from multiple Scenarios.
+
+> **Note:** Agent refers to both **Human Agents** and **AI Agents** unless explicitly specified. AI Agents are a type of Agent with the same task processing model but automated decision-making capabilities.
 
 | Attribute | Value |
 |-----------|-------|
+| **Category** | Hub Persona — Workbench Operations |
 | **Scope** | Workbench |
 | **Domain** | Tenant Identity Domain |
 | **Primary Console** | Ops Center (Agent View) |
+
+> **Note:** Many Agents are also Business Employees who trigger Business Requests. See [Persona Overlap](../README.md#persona-overlap).
 
 ---
 
@@ -61,14 +66,40 @@ The **Agent** is the operational workforce — human operators who complete task
 
 ---
 
-## Tools and Interfaces
+## Hub Capabilities Consumed
 
-| Tool | Purpose |
-|------|---------|
-| **Ops Center** | Task inbox, entity views, actions |
-| **Knowledge Bank** | Access SOPs, policies, guides |
-| **Memory Services** | Access context, history |
-| **Tool Invocation** | Query external systems |
+### Ops Center — Agent View (Primary Interface)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **Task Inbox** | View assigned tasks, pick from queues |
+| **Task Details** | Request context, entity information, history |
+| **Action Panel** | Execute task actions, update status |
+| **Entity Views** | View business entity details, lifecycle |
+| **Request Timeline** | See full request history, decisions, updates |
+| **Collaboration** | View other agents on request, handoff |
+
+### Hub Services Accessed
+
+| Service | Usage |
+|---------|-------|
+| **Task Management** | Receive tasks, update status, complete |
+| **Knowledge Services** | Query SOPs, policies, procedures |
+| **Memory Services** | Access Enterprise Memory (context), Agent Memory (session) |
+| **Tool Registry** | Discover available tools |
+| **Tool Invocation** | Query external systems via registered tools |
+| **Request Management** | View request details, add updates |
+| **CAF** | Record decisions, attach evidence |
+
+### What They Produce
+
+| Output | Stored In |
+|--------|-----------|
+| Task Completions | Operations Data |
+| Decisions | Enterprise Memory (via CAF) |
+| Thoughts/Memos | Request Updates |
+| Evidence Bundles | Enterprise Memory (via CAF) |
+| Memory Updates | Enterprise/User Memory |
 
 ---
 

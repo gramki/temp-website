@@ -129,7 +129,7 @@ trigger:
       value: "DISPUTE_FILED"
   
   transformation:
-    request_type: BusinessRequest
+    request_type: ServiceRequest  # Customer is always the subject in disputes
     mappings:
       - source: "$.dispute_id"
         target: "entity_id"

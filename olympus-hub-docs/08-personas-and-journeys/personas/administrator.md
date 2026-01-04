@@ -10,6 +10,7 @@ The **Administrator** manages the tenant subscription — resources, users, mach
 
 | Attribute | Value |
 |-----------|-------|
+| **Category** | Hub Persona — Tenant Administration |
 | **Scope** | Tenant Subscription |
 | **Domain** | Tenant Identity Domain |
 | **Primary Console** | Subscription Portal |
@@ -60,13 +61,38 @@ The **Administrator** manages the tenant subscription — resources, users, mach
 
 ---
 
-## Tools and Interfaces
+## Hub Capabilities Consumed
 
-| Tool | Purpose |
-|------|---------|
-| **Subscription Portal** | Subscription management |
-| **User Management Console** | User provisioning |
-| **Registry Services** | Machine and tool configuration |
+### Subscription Portal (Primary Interface)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **Subscription Dashboard** | Overview of subscription status, usage |
+| **Resource Allocation** | Provision data stores, memory stores, knowledge stores |
+| **Budget Management** | Set quotas, track usage, manage costs |
+| **Branding & Themes** | Customize portal appearance |
+
+### Hub Services Accessed
+
+| Service | Usage |
+|---------|-------|
+| **Subscription Management** | Lifecycle, resource allocation, budgets |
+| **User Management** | Provision users, manage roles, domains |
+| **Registry Services** | Register machines, configure tools, environments |
+| **I/O Gateway Configuration** | Configure Atropos, Heracles, Dia, Kale |
+| **Notification Services** | Configure notification channels |
+
+### What They Configure
+
+| Entity | Configuration |
+|--------|---------------|
+| **Data Stores** | Ganymede, Callisto, Europa instances |
+| **Memory Stores** | Enterprise Memory, User Memory allocation |
+| **Knowledge Stores** | Tenant Knowledge Base setup |
+| **Machines** | External system registrations |
+| **I/O Gateways** | Heracles endpoints, Atropos topics |
+| **Users** | Provisioning, role assignment |
+| **Domains** | Identity domain configuration |
 
 ---
 

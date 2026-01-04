@@ -10,6 +10,7 @@ The **Auditor** reviews operational compliance across the organization — inves
 
 | Attribute | Value |
 |-----------|-------|
+| **Category** | Hub Persona — Tenant Administration |
 | **Scope** | Tenant Subscription |
 | **Domain** | Tenant Identity Domain |
 | **Primary Console** | CAF Investigation Console |
@@ -60,30 +61,43 @@ The **Auditor** reviews operational compliance across the organization — inves
 
 ---
 
-## Tools and Interfaces
+## Hub Capabilities Consumed
 
-| Tool | Purpose |
+### CAF Console (Primary Interface)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **Decision Catalog** | Query decisions by criteria, time, agent, scenario |
+| **Evidence Browser** | Access evidence bundles, supporting documents |
+| **Explanation Service** | Generate human-readable decision explanations |
+| **Lineage Tracking** | Trace decision dependencies, input→output |
+| **Compliance Dashboard** | Policy adherence, exception reports |
+
+### Hub Services Accessed
+
+| Service | Usage |
+|---------|-------|
+| **Cognitive Audit Fabric** | Decision catalog, schemas, policies, explanations |
+| **Memory Services** | Access Enterprise Memory (decision records, evidence) |
+| **Request Management** | View request history, task records |
+| **Operations Data** | Query operational records for investigation |
+| **Knowledge Services** | Reference SOPs, policies for compliance check |
+
+### What They Query
+
+| Data | Purpose |
 |------|---------|
-| **CAF Console** | Decision catalog, evidence access |
-| **Enterprise Memory** | Decision records, historical context |
-| **Ops Center** | Request history, task records |
+| **Decision Records** | What was decided, by whom, when |
+| **Evidence Bundles** | Supporting context for decisions |
+| **Request History** | Full lifecycle of requests |
+| **Task Records** | Who did what, when |
+| **Memory Context** | What context was available at decision time |
 
 ---
 
 ## Key Journeys
 
 - [Audit Investigation](../journeys/audit-investigation.md) — Primary journey
-
----
-
-## CAF Capabilities
-
-| Capability | Usage |
-|------------|-------|
-| **Decision Catalog** | Query decisions by criteria |
-| **Evidence Bundles** | Access supporting evidence |
-| **Explanation Service** | Generate decision explanations |
-| **Lineage Tracking** | Trace decision dependencies |
 
 ---
 

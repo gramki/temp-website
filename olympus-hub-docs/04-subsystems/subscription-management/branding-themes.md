@@ -104,7 +104,6 @@ labels:
 |---------|-------------------|
 | **Ops Center** | Full theme support |
 | **Workbench Studio** | Full theme support |
-| **Agent Studio** | Full theme support |
 | **Neutrino Channels** | Partial (customer-facing) |
 | **Email Notifications** | Email template styling |
 | **API Responses** | N/A |

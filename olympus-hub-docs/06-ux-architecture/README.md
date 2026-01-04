@@ -12,7 +12,7 @@ Hub serves multiple user personas through different interfacing applications:
 | **Subject/Customer** | Neutrino Channels | Self-service and assisted interactions |
 | **Tenant Executives** | Product Center, Report Center | Configuration, analytics, reporting |
 | **Workbench Designers** | Workbench Studio | Define workbenches, triggers, scenarios |
-| **Agent Developers** | Agent Studio | Create and manage AI agents |
+| **Developers** | IDE + Development Tools | Build Hub Applications and Triggers |
 
 ## Key Components
 

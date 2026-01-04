@@ -10,7 +10,8 @@ The **Customer Success Executive** onboards tenants, supports their success, and
 
 | Attribute | Value |
 |-----------|-------|
-| **Scope** | Hub System (Publisher) |
+| **Category** | Hub Persona — Hub System (Publisher) |
+| **Scope** | Hub System |
 | **Domain** | Publisher Identity Domain (Zeta) |
 | **Primary Console** | Customer Success Portal |
 
@@ -55,12 +56,33 @@ The **Customer Success Executive** onboards tenants, supports their success, and
 
 ---
 
-## Tools and Interfaces
+## Hub Capabilities Consumed
 
-| Tool | Purpose |
-|------|---------|
-| **Customer Success Portal** | Subscription overview, usage metrics |
-| **Subscription Management** | Create and manage subscriptions |
+### Customer Success Portal (Primary Interface)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **Tenant Overview** | All tenant subscriptions, status |
+| **Usage Analytics** | Adoption metrics, feature usage |
+| **Onboarding Tracker** | Setup progress, pending steps |
+| **Support Dashboard** | Open tickets, escalations |
+
+### Hub Services Accessed
+
+| Service | Usage |
+|---------|-------|
+| **Subscription Management** | Create subscriptions, initial configuration |
+| **Usage Reporting** | Tenant usage data, trends |
+| **Support Integration** | Ticket management, escalation |
+
+### What They Manage
+
+| Entity | Actions |
+|--------|---------|
+| **Tenant Subscriptions** | Create, activate, suspend |
+| **Initial Setup** | Guide configuration, connect with docs |
+| **Adoption** | Track usage, identify underutilization |
+| **Escalations** | Coordinate with SRE for technical issues |
 
 ---
 

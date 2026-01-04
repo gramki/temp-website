@@ -2,13 +2,49 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-This journey describes how a **Request** flows through the Hub system — from signal receipt through completion. It follows the path from Signal → Application → Agent → Completion.
+This journey describes how a **Request** flows through the Hub system — from signal receipt through completion. It follows the path from Business Domain Actor → Signal → Application → Agent → Completion.
 
 ---
 
 ## Overview
 
 A **Request** is the fundamental unit of work in Hub. Each request represents a discrete operation that must be processed to completion.
+
+---
+
+## Request Types
+
+Requests are categorized by **the nature of the work**, not by who originates them:
+
+| Request Type | Nature | Subject | Examples |
+|--------------|--------|---------|----------|
+| **Service Request** | Customer-facing work | **Always a customer** | Dispute filing, account inquiry, claim submission, service change |
+| **Business Request** | Business operations | Optional (may be customer) | Onboarding, compliance review, approval workflow, exception handling |
+| **System Request** | System/data integrity issues requiring business resolution | Optional (often an entity) | Reconciliation failure, data integrity violation, consistency error |
+
+### Key Distinctions
+
+| Aspect | Service Request | Business Request | System Request |
+|--------|-----------------|------------------|----------------|
+| **Subject** | **Always a customer** | Optional | Optional |
+| **Self-serve by customer?** | ✅ Yes (only type) | ❌ No | ❌ No |
+| **Can Customer originate?** | ✅ Yes (self-serve) | ❌ No | ❌ No |
+| **Can Employee originate?** | ✅ Yes (assisted) | ✅ Yes | ❌ No |
+| **Can System originate?** | ✅ Yes | ✅ Yes | ✅ Yes |
+| **Resolved by** | Business agents | Business agents | Business agents (not SRE) |
+
+### Important Notes
+
+1. **Originator ≠ Request Type**: A system can originate any request type. An employee can originate Service or Business requests. Only customers can self-serve (Service Requests only).
+
+2. **System Requests are NOT technical incidents**: They are system-detected issues (reconciliation failures, data integrity violations, consistency errors) that **require business domain judgment** to resolve — not SRE or technical operations.
+
+3. **Process Architect's choice**: The categorization is a design decision. When a customer is involved, the Process Architect decides whether to model it as a Service Request or Business Request based on operational intent.
+
+See also:
+- [Business Customer](../personas/business-domain/business-customer.md) — Can self-serve Service Requests
+- [Business Employee](../personas/business-domain/business-employee.md) — Originates Service (assisted) and Business Requests
+- [Business System](../personas/business-domain/business-system-actor.md) — Originates all types; System Requests for data/integrity issues
 
 | Phase | Primary Actor | Key Activities |
 |-------|---------------|----------------|
@@ -42,6 +78,7 @@ External Event ──→ Signal Provider ──→ Signal Exchange
 | Atropos | Event | Transaction posted |
 | Heracles | API Request | Customer dispute submission |
 | Cronus | Exception | Fraud alert |
+| Dia | File Available | Batch file received |
 | Kale | Schedule | Daily reconciliation |
 
 ---
@@ -126,10 +163,25 @@ All Tasks Complete ──→ Aggregate Results ──→ Update Request ──�
 
 ## Related Documentation
 
-- [Agent Persona](../personas/agent.md)
-- [Request Lifecycle](../../04-subsystems/request-management/request-lifecycle.md)
-- [Signal Exchange](../../04-subsystems/signal-exchange/README.md)
-- [Task Management](../../04-subsystems/task-management/README.md)
+### Request Types and Originators
+
+- [Business Customer](../personas/business-domain/business-customer.md) — Service Request originator
+- [Business Employee](../personas/business-domain/business-employee.md) — Business Request originator
+- [Business System](../personas/business-domain/business-system-actor.md) — System Request originator
+
+### Hub Personas
+
+- [Agent Persona](../personas/agent.md) — Processes tasks within requests
+
+### Subsystems
+
+- [Request Lifecycle (Subsystem)](../../04-subsystems/request-management/request-lifecycle.md) — Request states and updates
+- [Signal Exchange](../../04-subsystems/signal-exchange/README.md) — Signal to request routing
+- [Task Management](../../04-subsystems/task-management/README.md) — Task queues and assignment
+
+### Concepts
+
+- [Ontology - Perception Layer](../../01-concepts/ontology-1-perception-layer.md) — Request type definitions
 
 ---
 

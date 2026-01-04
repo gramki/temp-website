@@ -247,20 +247,26 @@ Olympus Hub is an operations management platform designed for large and medium e
 
 > **Purpose:** Who uses Olympus Hub and how they accomplish their objectives.
 
-#### Personas
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./08-personas-and-journeys/README.md) | Persona and journey index, visual summary | 🟡 WIP |
 
-| Document | Scope | Status |
-|----------|-------|--------|
-| [Overview](./08-personas-and-journeys/README.md) | Persona and journey index | 🟡 WIP |
-| [Process Architect](./08-personas-and-journeys/personas/process-architect.md) | Tenant Subscription | 🔴 Stub |
-| [Developer](./08-personas-and-journeys/personas/developer.md) | Tenant Subscription | 🔴 Stub |
-| [Administrator](./08-personas-and-journeys/personas/administrator.md) | Tenant Subscription | 🔴 Stub |
-| [Auditor](./08-personas-and-journeys/personas/auditor.md) | Tenant Subscription | 🔴 Stub |
-| [Supervisor](./08-personas-and-journeys/personas/supervisor.md) | Workbench | 🔴 Stub |
-| [Agent](./08-personas-and-journeys/personas/agent.md) | Workbench | 🔴 Stub |
-| [SRE](./08-personas-and-journeys/personas/sre.md) | Hub System | 🔴 Stub |
-| [Customer Success](./08-personas-and-journeys/personas/customer-success.md) | Hub System | 🔴 Stub |
-| [Self-Serve User](./08-personas-and-journeys/personas/self-serve-user.md) | Tenant Customer | 🔴 Stub |
+#### Hub Personas
+
+| Category | Personas | Status |
+|----------|----------|--------|
+| **Hub System (Publisher)** | [SRE](./08-personas-and-journeys/personas/sre.md), [Customer Success](./08-personas-and-journeys/personas/customer-success.md) | 🔴 Stub |
+| **Workbench Designers** | [Process Architect](./08-personas-and-journeys/personas/process-architect.md), [Developer](./08-personas-and-journeys/personas/developer.md) | 🔴 Stub |
+| **Workbench Operations** | [Supervisor](./08-personas-and-journeys/personas/supervisor.md), [Agent](./08-personas-and-journeys/personas/agent.md) | 🔴 Stub |
+| **Tenant Administration** | [Administrator](./08-personas-and-journeys/personas/administrator.md), [Auditor](./08-personas-and-journeys/personas/auditor.md) | 🔴 Stub |
+
+#### Business Domain Actors
+
+| Actor | Request Type | Status |
+|-------|--------------|--------|
+| [Business Customer](./08-personas-and-journeys/personas/business-domain/business-customer.md) | Service Request | 🔴 Stub |
+| [Business Employee](./08-personas-and-journeys/personas/business-domain/business-employee.md) | Business Request | 🔴 Stub |
+| [Business System](./08-personas-and-journeys/personas/business-domain/business-system-actor.md) | System Request | 🔴 Stub |
 
 #### Journeys
 
@@ -268,7 +274,7 @@ Olympus Hub is an operations management platform designed for large and medium e
 |----------|-------------------|--------|
 | [Scenario Development](./08-personas-and-journeys/journeys/scenario-development.md) | Process Architect → Developer → Supervisor | 🟡 WIP |
 | [Workbench Configuration](./08-personas-and-journeys/journeys/workbench-configuration.md) | Administrator → Process Architect → Supervisor | 🔴 Stub |
-| [Request Lifecycle](./08-personas-and-journeys/journeys/request-lifecycle.md) | Signal → Application → Agent | 🔴 Stub |
+| [Request Lifecycle](./08-personas-and-journeys/journeys/request-lifecycle.md) | Business Actor → Signal → Application → Agent | 🔴 Stub |
 | [Audit Investigation](./08-personas-and-journeys/journeys/audit-investigation.md) | Auditor | 🔴 Stub |
 
 ### 10 - Guides
@@ -383,15 +389,18 @@ olympus-hub-docs/
 ├── 08-personas-and-journeys/    # Personas and Journeys
 │   ├── README.md
 │   ├── personas/
-│   │   ├── process-architect.md
-│   │   ├── developer.md
-│   │   ├── supervisor.md
-│   │   ├── agent.md
-│   │   ├── administrator.md
-│   │   ├── auditor.md
-│   │   ├── sre.md
-│   │   ├── customer-success.md
-│   │   └── self-serve-user.md
+│   │   ├── process-architect.md     # Workbench Designer
+│   │   ├── developer.md             # Workbench Designer
+│   │   ├── supervisor.md            # Workbench Operations
+│   │   ├── agent.md                 # Workbench Operations
+│   │   ├── administrator.md         # Tenant Administration
+│   │   ├── auditor.md               # Tenant Administration
+│   │   ├── sre.md                   # Hub System (Publisher)
+│   │   ├── customer-success.md      # Hub System (Publisher)
+│   │   └── business-domain/         # Business Domain Actors
+│   │       ├── business-customer.md
+│   │       ├── business-employee.md
+│   │       └── business-system-actor.md
 │   └── journeys/
 │       ├── scenario-development.md
 │       ├── workbench-configuration.md

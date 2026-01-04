@@ -238,29 +238,43 @@ Each I/O Gateway senses signals from specific protocols. These signal types are 
 
 **Request Types (Framework-Level Classification):**
 
-The framework classifies Requests into three types based on **who initiates** them and **how participants are authorized**. This classification affects agent enablement, authorization models, and task assignment patterns.
+The framework classifies Requests into three types based on **the nature of the work** and **subject requirements**. This classification affects agent enablement, authorization models, and task assignment patterns.
 
-| Type | Initiated By | Subject Association | Authorization Model |
-|------|--------------|---------------------|---------------------|
-| **Service Request** | Customers (self-service) or Agents on behalf of customers (assisted) | **Required** — always identifies a customer as subject | Identity-based (self-service) or Role-based (assisted); subject may receive [Tasks](./ontology-3-execution-layer.md#task) |
-| **Business Request** | Internal operations teams | **Optional** — no enforcement | Role and group-based |
-| **System Request** | [Machines](#machine), Applications | **Optional** — no enforcement | Machine identity (credentials, keys, certs) |
+> **Important:** The originator does NOT define the request type. Systems can originate any request type. Employees can originate Service Requests (assisted) or Business Requests. Only customers can self-serve (Service Requests only).
+
+| Type | Nature | Subject | Self-Serve by Customer? |
+|------|--------|---------|-------------------------|
+| **Service Request** | Customer-facing work | **Required** — always a customer | ✅ Yes (only type) |
+| **Business Request** | Business operations | **Optional** — may be customer | ❌ No |
+| **System Request** | System/data integrity issues requiring **business resolution** | **Optional** — often an entity | ❌ No |
+
+**Who Can Originate:**
+
+| Request Type | Customer | Employee | System |
+|--------------|:--------:|:--------:|:------:|
+| **Service Request** | ✅ (self-serve) | ✅ (assisted) | ✅ |
+| **Business Request** | ❌ | ✅ | ✅ |
+| **System Request** | ❌ | ❌ | ✅ |
 
 ### Service Requests
-A Service Request always has a **subject** identified as a customer of the business. The request can be initiated in two ways:
+A Service Request always has a **subject** identified as a customer of the business. The request represents customer-facing work.
+
+**Origination modes:**
 - **Self-service**: The customer initiates directly (portals, mobile apps, IVR)
 - **Assisted**: An [Agent](./ontology-3-execution-layer.md#agent) initiates on behalf of the customer (contact center, branch)
+- **System-initiated**: A system initiates on behalf of the customer (automated customer notification, API submission)
 
 **Key Characteristics:**
 - Always associated with an identified **subject** (the customer)
+- **Only request type that allows customer self-serve**
 - **Initiation authorization**:
   - Self-service: Identity-based (the customer themselves)
   - Assisted: Role-based (contact center agent, branch staff acting on behalf of customer)
+  - System: Machine identity (application credentials, API keys)
 - [Tasks](./ontology-3-execution-layer.md#task) within the [Operation](./ontology-3-execution-layer.md#operation-abstract) can be assigned to:
   - The subject (customer) themselves—enabled as a special participant type
   - [Agents](./ontology-3-execution-layer.md#agent) of the business/organization—based on roles or identity
 - Framework treats customer participants as a **special agent type**—they must be enabled differently
-- Channels: Self-service portals, mobile apps, contact center, IVR, branch
 
 **Example (Self-service):** A customer (subject) files a "Dispute Filing Request" via mobile app. During investigation:
 - The customer is assigned a Task to upload supporting documents
@@ -268,30 +282,47 @@ A Service Request always has a **subject** identified as a customer of the busin
 
 **Example (Assisted):** A contact center agent files a "Dispute Filing Request" on behalf of a customer who called in. The customer remains the subject, but the agent initiated the request.
 
+**Example (System-initiated):** A mobile banking API receives a dispute submission from the customer app and creates the Service Request. The customer is the subject.
+
 ### Business Requests
-Initiated by **internal users** of the Hub tenant's organization—operations teams, back-office staff, managers.
+Internal business operations work. Can be initiated by employees or systems acting on business judgment.
+
+**Origination modes:**
+- **Employee-initiated**: Operations teams, back-office staff, managers
+- **System-initiated**: Automated business operations (scheduled reviews, triggered workflows)
 
 **Key Characteristics:**
 - Does **not** enforce association with an external subject (customer), though optional
+- Subject may be a customer, but this is a Business Request if the work is internal operations rather than customer-facing service
 - Authorization modeled by [Roles](./ontology-2-normative-layer.md#role) and groups rather than just named individuals
 - Participants are enrolled [Agents](./ontology-3-execution-layer.md#agent) (Human or AI) within the organization
-- Typical internal operations workflow
+- **Cannot be self-served by customers**
 
-**Example:** A reconciliation analyst initiates a "Manual Adjustment Request" to correct a settlement discrepancy. No customer subject is required, though the request may optionally reference affected accounts.
+**Example (Employee):** A reconciliation analyst initiates a "Manual Adjustment Request" to correct a settlement discrepancy. No customer subject is required, though the request may optionally reference affected accounts.
+
+**Example (System):** An automated compliance system triggers a "Periodic Account Review Request" based on scheduled checks. May reference customer accounts as subjects.
 
 ### System Requests
-Initiated by **applications or [Machines](#machine)** for integration purposes or to escalate issues that cannot be auto-resolved.
+System-detected issues related to **data integrity, reconciliation, or consistency** that require **business domain resolution**—not technical/SRE resolution.
+
+> **Important:** System Requests are NOT technical incidents. They are issues that systems detect but cannot auto-resolve, requiring business domain agents to make decisions and take action.
 
 **Key Characteristics:**
+- **Only originated by systems** (not customers or employees)
 - Does **not** enforce association with an external subject (customer), though optional
-- For application integration use cases (API-driven operations)
-- For resolution of issues that systems cannot handle autonomously
-- Authorization via machine identity mechanisms (application credentials, API keys, certificates, etc.)
+- Subject is often a business entity (transaction, account, record) rather than a person
+- Represents issues that:
+  - Cannot be resolved by SRE/technical operations alone
+  - Require business judgment to determine correct action
+  - Involve data reconciliation, integrity, or consistency problems
+- Authorization via machine identity mechanisms (application credentials, API keys, certificates)
+- **Cannot be self-served by customers**
 
 **Examples:**
-- A distributed system detects a version conflict and creates a "Version Conflict Resolution Request"
-- A payment gateway encounters an unknown upstream error in a critical decision and escalates via "Upstream Error Investigation Request"
-- A batch processor creates a "Failed Record Review Request" for records that failed validation
+- **Reconciliation failure**: Core banking and card network balances don't match—business agent must determine which is authoritative
+- **Data integrity violation**: Conflicting records detected—business agent must decide resolution
+- **Consistency error**: Out-of-order updates caused state corruption—business agent must review and correct
+- **Failed validation**: Batch processor creates a "Failed Record Review Request" for records that failed business rules
 
 ---
 

@@ -10,7 +10,8 @@ The **SRE** deploys and maintains the Olympus Hub platform — ensuring availabi
 
 | Attribute | Value |
 |-----------|-------|
-| **Scope** | Hub System (Publisher) |
+| **Category** | Hub Persona — Hub System (Publisher) |
+| **Scope** | Hub System |
 | **Domain** | Publisher Identity Domain (Zeta) |
 | **Primary Console** | Infrastructure Dashboard |
 
@@ -60,13 +61,35 @@ The **SRE** deploys and maintains the Olympus Hub platform — ensuring availabi
 
 ---
 
-## Tools and Interfaces
+## Hub Capabilities Consumed
 
-| Tool | Purpose |
-|------|---------|
-| **Olympus Watch** | Observability platform |
-| **Infrastructure Console** | Platform management |
-| **Cipher IAM** | Security administration |
+### Infrastructure Dashboard (Primary Interface)
+
+| Capability | What It Provides |
+|------------|------------------|
+| **Platform Health** | Hub system health, component status |
+| **Resource Monitoring** | CPU, memory, storage across tenants |
+| **Capacity Planning** | Usage trends, growth projections |
+| **Incident Management** | Alert handling, incident tracking |
+
+### Hub Services Accessed
+
+| Service | Usage |
+|---------|-------|
+| **Olympus Watch** | Metrics, logs, traces for Hub platform |
+| **Atlantis** | Compute infrastructure management |
+| **Atropos** | Event bus health, topic management |
+| **Ganymede** | Database health, capacity |
+| **Cipher IAM** | Platform security, certificate management |
+
+### What They Manage
+
+| Entity | Actions |
+|--------|---------|
+| **Hub Platform** | Deploy, upgrade, maintain |
+| **Infrastructure** | Provision, scale, optimize |
+| **Security** | Certificates, secrets, network policies |
+| **Tenant Resources** | Provision on request (via Customer Success) |
 
 ---
 
