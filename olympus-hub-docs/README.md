@@ -163,6 +163,14 @@ Olympus Hub is an operations management platform designed for large and medium e
 
 ### 05 - Infrastructure
 
+> **Note:** Hub is built on the Olympus Platform. Infrastructure primitives (Kubernetes, Kafka, PostgreSQL) are abstracted by platform services. See [Olympus Platform Dependencies](./05-infrastructure/olympus-platform-dependencies.md) for the complete picture.
+
+#### Platform Overview
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Olympus Platform Dependencies](./05-infrastructure/olympus-platform-dependencies.md) | Complete catalog of platform service dependencies | 🟡 WIP |
+
 #### API & Protocol Layer
 
 | Document | Description | Status |
@@ -171,13 +179,11 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [MCP Orchestrator](./05-infrastructure/mcp-orchestrator.md) | Tool orchestration and resource service | ✅ Complete |
 | [Cloudflare Edge](./05-infrastructure/cloudflare-edge.md) | Edge layer, CDN, DDoS protection | 🔴 Stub |
 
-#### Platform & Networking
+#### Platform Notes
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Kubernetes Platform](./05-infrastructure/kubernetes-platform.md) | Container orchestration platform | 🔴 Stub |
-| [Istio Service Mesh](./05-infrastructure/istio-service-mesh.md) | Service mesh, mTLS, traffic control | 🔴 Stub |
-| [Traffic Management](./05-infrastructure/traffic-management.md) | Istio, SLIME, Aeraki notes | ⚠️ Notes |
+| [Traffic Management](./05-infrastructure/traffic-management.md) | Istio, SLIME, Aeraki notes (via Atlantis) | ⚠️ Notes |
 
 #### Identity & Security
 
@@ -185,29 +191,27 @@ Olympus Hub is an operations management platform designed for large and medium e
 |----------|-------------|--------|
 | [Cipher IAM Infrastructure](./05-infrastructure/cipher-iam-infrastructure.md) | SPIFFE/SPIRE, identity, authentication | 🔴 Stub |
 
-#### Messaging & Events
+#### Workflow Engine
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Kafka Event Bus](./05-infrastructure/kafka-event-bus.md) | Distributed event streaming | 🔴 Stub |
-| [Temporal Cluster](./05-infrastructure/temporal-cluster.md) | Durable workflow engine | 🔴 Stub |
+| [Temporal Cluster](./05-infrastructure/temporal-cluster.md) | Durable workflow engine (ChronoShift) | 🔴 Stub |
 
-#### Data Services
+#### Data Services (Olympus Platform)
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [PostgreSQL Database](./05-infrastructure/postgresql-database.md) | Hub operational database | 🔴 Stub |
-| [Redis Cache](./05-infrastructure/redis-cache.md) | Caching and rate limiting | 🔴 Stub |
-| [Ganymede RDBMS](./05-infrastructure/ganymede-rdbms.md) | Relational DBaaS for applications | 🔴 Stub |
+| [Ganymede RDBMS](./05-infrastructure/ganymede-rdbms.md) | Relational DBaaS — Hub internal + applications | 🔴 Stub |
 | [Callisto KV Store](./05-infrastructure/callisto-kv-store.md) | Key-Value store for applications | 🔴 Stub |
 | [Europa OpenSearch](./05-infrastructure/europa-opensearch.md) | Search and analytics (ELK-as-a-Service) | 🔴 Stub |
+| [Redis Cache](./05-infrastructure/redis-cache.md) | Caching and rate limiting | 🔴 Stub |
 | [Knowledge Bank Infrastructure](./05-infrastructure/knowledge-bank-infrastructure.md) | RAG and knowledge retrieval infrastructure | 🔴 Stub |
 
 #### Observability
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Olympus Watch](./05-infrastructure/olympus-watch.md) | Unified observability platform | 🔴 Stub |
+| [Olympus Watch](./05-infrastructure/olympus-watch.md) | Observability as a service (APM, logs, metrics, traces) | 🔴 Stub |
 
 ### 06 - UX Architecture
 
@@ -303,20 +307,17 @@ olympus-hub-docs/
 │   └── supporting-systems/      # Cipher IAM
 │
 ├── 05-infrastructure/           # Platform infrastructure
+│   ├── olympus-platform-dependencies.md  # Platform services catalog
 │   ├── heracles-gateway.md      # MCP gateway (Kong)
 │   ├── mcp-orchestrator.md      # Tool orchestration
 │   ├── cloudflare-edge.md       # Edge layer
-│   ├── kubernetes-platform.md   # Container orchestration
-│   ├── istio-service-mesh.md    # Service mesh
-│   ├── traffic-management.md    # Traffic notes
+│   ├── traffic-management.md    # Traffic notes (via Atlantis)
 │   ├── cipher-iam-infrastructure.md  # SPIFFE/SPIRE
-│   ├── kafka-event-bus.md       # Event streaming
 │   ├── temporal-cluster.md      # Durable workflows
-│   ├── postgresql-database.md   # Hub databases
+│   ├── ganymede-rdbms.md        # Relational DBaaS (Hub + Apps)
+│   ├── callisto-kv-store.md     # Key-value store
+│   ├── europa-opensearch.md     # Search/analytics
 │   ├── redis-cache.md           # Caching
-│   ├── ganymede-rdbms.md        # App relational DB
-│   ├── callisto-kv-store.md     # App key-value store
-│   ├── europa-opensearch.md     # App search/analytics
 │   ├── knowledge-bank-infrastructure.md  # RAG infra
 │   └── olympus-watch.md         # Observability
 │

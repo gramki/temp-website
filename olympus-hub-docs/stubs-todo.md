@@ -176,23 +176,33 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 
 ## Infrastructure Stubs
 
+> **Note:** Hub uses Olympus Platform services. Infrastructure primitives (Kubernetes, Kafka, PostgreSQL) are abstracted by platform services (Atlantis, Atropos, Ganymede).
+
 ### Infrastructure (`05-infrastructure/`)
 
 | Document | Description | Status | Priority |
 |----------|-------------|--------|----------|
+| [olympus-platform-dependencies.md](./05-infrastructure/olympus-platform-dependencies.md) | Complete catalog of platform service dependencies | 🟡 WIP | Critical |
 | [cloudflare-edge.md](./05-infrastructure/cloudflare-edge.md) | Edge layer, CDN, DDoS protection | 🔴 Stub | Medium |
-| [kubernetes-platform.md](./05-infrastructure/kubernetes-platform.md) | Container orchestration platform | 🔴 Stub | High |
-| [istio-service-mesh.md](./05-infrastructure/istio-service-mesh.md) | Service mesh, mTLS, traffic control | 🔴 Stub | High |
 | [cipher-iam-infrastructure.md](./05-infrastructure/cipher-iam-infrastructure.md) | SPIFFE/SPIRE, identity, authentication | 🔴 Stub | High |
-| [kafka-event-bus.md](./05-infrastructure/kafka-event-bus.md) | Distributed event streaming | 🔴 Stub | High |
-| [temporal-cluster.md](./05-infrastructure/temporal-cluster.md) | Durable workflow engine | 🔴 Stub | High |
-| [postgresql-database.md](./05-infrastructure/postgresql-database.md) | Hub operational database | 🔴 Stub | High |
-| [redis-cache.md](./05-infrastructure/redis-cache.md) | Caching and rate limiting | 🔴 Stub | Medium |
-| [ganymede-rdbms.md](./05-infrastructure/ganymede-rdbms.md) | Relational DBaaS for applications | 🔴 Stub | Medium |
+| [temporal-cluster.md](./05-infrastructure/temporal-cluster.md) | Durable workflow engine (ChronoShift) | 🔴 Stub | High |
+| [ganymede-rdbms.md](./05-infrastructure/ganymede-rdbms.md) | Relational DBaaS — Hub internal + applications | 🔴 Stub | High |
 | [callisto-kv-store.md](./05-infrastructure/callisto-kv-store.md) | Key-Value store for applications | 🔴 Stub | Medium |
 | [europa-opensearch.md](./05-infrastructure/europa-opensearch.md) | Search and analytics (ELK-as-a-Service) | 🔴 Stub | Medium |
+| [redis-cache.md](./05-infrastructure/redis-cache.md) | Caching and rate limiting | 🔴 Stub | Medium |
 | [knowledge-bank-infrastructure.md](./05-infrastructure/knowledge-bank-infrastructure.md) | RAG and knowledge retrieval infrastructure | 🔴 Stub | High |
-| [olympus-watch.md](./05-infrastructure/olympus-watch.md) | Unified observability platform | 🔴 Stub | High |
+| [olympus-watch.md](./05-infrastructure/olympus-watch.md) | Observability as a service | 🔴 Stub | High |
+
+### Removed (Abstracted by Platform Services)
+
+The following were removed as they are implementation details abstracted by Olympus Platform:
+
+| Removed Document | Abstracted By |
+|-----------------|---------------|
+| `kubernetes-platform.md` | Atlantis (Compute IaaS) |
+| `istio-service-mesh.md` | Atlantis (Compute IaaS) |
+| `kafka-event-bus.md` | Atropos (Event Bus aaS) |
+| `postgresql-database.md` | Ganymede (RDBMS aaS) |
 
 ---
 
@@ -215,9 +225,9 @@ These stubs are particularly important for Seer integration:
 
 ## Expansion Priority Order
 
-1. **Critical** — Signal Exchange, Workbench Management (trigger-definitions, trigger-evaluator, application-router), CAF (decision records, explanation, evidence)
-2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Applications concept, Infrastructure (Kafka, Temporal, Cipher IAM, Kubernetes, Istio, PostgreSQL, Knowledge Bank, Olympus Watch)
-3. **Medium** — Registry Services, Knowledge Services, Request Management, Infrastructure (Cloudflare, Redis, Ganymede, Callisto, Europa)
+1. **Critical** — Signal Exchange, Workbench Management (trigger-definitions, trigger-evaluator, application-router), CAF (decision records, explanation, evidence), Olympus Platform Dependencies
+2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Applications concept, Infrastructure (Temporal, Cipher IAM, Ganymede, Knowledge Bank, Olympus Watch)
+3. **Medium** — Registry Services, Knowledge Services, Request Management, Infrastructure (Cloudflare, Redis, Callisto, Europa)
 4. **Lower** — Perseus, Machine/Environment Registries
 
 ---

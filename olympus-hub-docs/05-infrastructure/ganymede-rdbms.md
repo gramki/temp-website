@@ -4,7 +4,7 @@
 
 ## Overview
 
-**Ganymede** is Zeta's Relational Database-as-a-Service offering, providing managed PostgreSQL databases for Hub Applications that need to store structured business entities.
+**Ganymede** is Zeta's Relational Database-as-a-Service (DBaaS) offering, providing managed relational databases through the Olympus Platform. Hub uses Ganymede both internally for operational data and exposes it to Hub Applications for business entity storage.
 
 ---
 
@@ -12,10 +12,24 @@
 
 Ganymede provides:
 
-- **Application Data Storage** — Structured business entity persistence
+- **Hub Operational Data** — System metadata, request logs, task records, signal history
+- **Control Plane State** — Workbench, Scenario, Trigger definitions
+- **Application Data Storage** — Structured business entity persistence for Hub Applications
 - **DDL Management** — Schema lifecycle integrated with Workbench definitions
 - **Tenant Isolation** — Per-workbench database instances
 - **Managed Operations** — Automated backups, scaling, and maintenance
+
+---
+
+## Hub Internal vs Application Usage
+
+| Usage | Scope | Owner |
+|-------|-------|-------|
+| **Hub System Data** | Platform-wide | Hub Core |
+| **Hub Operational Data** | Per-workbench | Signal Exchange, Request Management |
+| **Application Data** | Per-workbench | Hub Applications |
+
+Hub itself is a consumer of Ganymede — it does **not** directly manage PostgreSQL instances.
 
 ---
 
