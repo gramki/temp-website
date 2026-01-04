@@ -281,46 +281,71 @@ Hub Console → Registries → Machines → Register Machine
 
 #### Environment Registry
 
-Register environments (operational contexts) where machines operate:
+An **Environment** is the *real* operational setting of an enterprise — the endpoints, access mechanisms, event buses, and file stores where Machines are deployed and produce signals. Register environments to define connection profiles for your Machines.
 
 ```
 Hub Console → Registries → Environments → Register Environment
 ├── Identity:
-│   ├── Name: [e.g., "production"]
-│   ├── Type: [Production / Staging / UAT / Development / Sandbox]
-│   └── Display Name: "Production Environment"
-├── Description: "Live production environment for all operations"
-├── Machines:
-│   ├── core-banking-system:
-│   │   └── Connection Profile: [Production endpoints]
-│   ├── payment-gateway:
-│   │   └── Connection Profile: [Production endpoints]
-│   └── [other machines]
+│   ├── Name: [e.g., "card-network-integration"]
+│   └── Display Name: "Card Network Integration"
+├── Description: "Visa/Mastercard network endpoints and credentials"
+├── Endpoints:
+│   ├── HTTP/TCP Endpoints:
+│   │   ├── visa-api: https://api.visa.com/v1
+│   │   ├── mastercard-api: https://api.mastercard.com/v2
+│   │   └── [other endpoints]
+│   ├── Event Bus Topics:
+│   │   ├── card-transactions: kafka://events.company.com/card.transactions
+│   │   ├── auth-events: kafka://events.company.com/card.authorizations
+│   │   └── [other topics]
+│   └── File Stores:
+│       ├── settlement-files: s3://company-settlements/incoming/
+│       └── dispute-documents: sftp://files.company.com/disputes/
+├── Access Mechanisms:
+│   ├── OAuth Credentials:
+│   │   ├── visa-oauth: [Client ID, Secret → Vault reference]
+│   │   └── mastercard-oauth: [Client ID, Secret → Vault reference]
+│   ├── API Keys:
+│   │   └── internal-services: [Key → Vault reference]
+│   ├── Certificates (mTLS):
+│   │   ├── visa-mtls-cert: [Cert path in Vault]
+│   │   └── mastercard-mtls-cert: [Cert path in Vault]
+│   └── Secrets Vault Path: [/secrets/tenant/env/card-network/]
+├── Machines in this Environment:
+│   ├── visa-gateway → Connection Profile: visa-api + visa-oauth
+│   ├── mastercard-gateway → Connection Profile: mastercard-api + mastercard-oauth
+│   └── settlement-processor → Connection Profile: settlement-files + internal-services
 ├── Access Control:
-│   ├── Allowed Roles: [Administrator, Operator]
-│   ├── Allowed Groups: [Production-Access]
-│   └── Requires Approval: [Yes for production]
+│   ├── Allowed Workbenches: [Dispute Operations, Payment Operations]
+│   ├── Allowed Roles: [Operations, Integration]
+│   └── Requires Approval: [Yes for sensitive environments]
 ├── Agent Authority:
 │   ├── Max Autonomy Level: [Advisory / Collaborative / Autonomous]
 │   └── Actions Requiring Approval: [List of action types]
-├── Secrets:
-│   ├── Vault Path: [Path in secrets manager]
-│   └── Credential Sets: [List]
 └── Metadata:
     ├── Owner Team: [Team name]
-    ├── Status: [Active / Maintenance]
-    └── Parent Environment: [For inheritance, if any]
+    └── Status: [Active / Maintenance]
 ```
 
-**Environment Types:**
+**Environment Examples:**
 
-| Type | Purpose | Characteristics |
-|------|---------|-----------------|
-| **Production** | Live operations | Real data, real consequences |
-| **Staging** | Pre-production testing | Production-like, isolated |
-| **UAT** | User acceptance testing | Controlled test data |
-| **Development** | Development and testing | Flexible, developer access |
-| **Sandbox** | Isolated experimentation | Safe for exploration |
+| Environment | Description | Contains |
+|-------------|-------------|----------|
+| **Core Banking** | Primary banking system access | Account APIs, Transaction topics, Statement files |
+| **Card Network Integration** | Visa/Mastercard connectivity | Network APIs, Auth events, Settlement files |
+| **CRM Integration** | Customer management system | Customer APIs, Event subscriptions |
+| **Payment Gateway** | Payment processing | Payment APIs, Webhook endpoints |
+| **Regulatory Reporting** | Compliance systems | Report endpoints, Submission portals |
+
+**Key Characteristics:**
+
+| Aspect | Description |
+|--------|-------------|
+| **Endpoints** | HTTP/TCP URLs where systems are deployed |
+| **Access Mechanisms** | OAuth, API keys, mTLS certificates, tokens |
+| **Event Buses** | Kafka topics, RabbitMQ queues for pub/sub |
+| **File Stores** | S3 buckets, SFTP locations for batch I/O |
+| **Secrets** | Credentials stored in secure vault, referenced by path |
 
 ---
 

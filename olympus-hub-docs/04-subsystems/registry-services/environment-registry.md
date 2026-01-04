@@ -2,7 +2,7 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-The Environment Registry catalogs **Environments and Sandboxes**—the contexts in which operations execute and agents operate.
+The Environment Registry catalogs **Environments**—the real operational settings of an enterprise where Machines are deployed and produce Signals.
 
 ---
 
@@ -10,10 +10,10 @@ The Environment Registry catalogs **Environments and Sandboxes**—the contexts 
 
 | Attribute | Value |
 |-----------|-------|
-| **Purpose** | Define and manage operational environments |
-| **Contents** | Environment definitions, sandbox configurations |
+| **Purpose** | Define connection profiles and access mechanisms for Machines |
+| **Contents** | Endpoints, access credentials, event topics, file stores |
 | **Scope** | Tenant-specific environment definitions |
-| **Integration** | Workbenches, Cipher IAM, Automation Runtimes |
+| **Integration** | Machine Registry, I/O Gateways, Workbenches, Cipher IAM |
 
 ---
 
@@ -21,7 +21,13 @@ The Environment Registry catalogs **Environments and Sandboxes**—the contexts 
 
 From the ontology:
 
-> An Environment is a bounded operational context that contains Machines, defines access policies, and scopes agent authority.
+> An Environment is the *real* operational setting of an enterprise, including:
+> - Endpoints (HTTP/TCP) where systems are deployed
+> - Access mechanisms (tokens, secrets, certificates)
+> - Event buses/topics to publish/subscribe
+> - File drops / object stores for batch I/O
+
+An Environment hosts real I/O and produces Signals. It is **not** a deployment stage (like Production/Staging/UAT) but rather a logical grouping of connection infrastructure.
 
 ---
 
@@ -32,21 +38,49 @@ environment:
   # Identity
   id: string
   name: string
-  type: enum  # production | staging | uat | development | sandbox
-  
-  # Description
   display_name: string
   description: string
   
-  # Machines
+  # Endpoints
+  endpoints:
+    http_tcp:
+      - name: string
+        url: string
+        protocol: enum  # REST | SOAP | gRPC
+    event_buses:
+      - name: string
+        type: enum  # kafka | rabbitmq | sns
+        connection: string  # topic/queue URI
+    file_stores:
+      - name: string
+        type: enum  # s3 | sftp | webdav
+        location: string
+  
+  # Access Mechanisms
+  access:
+    oauth_credentials:
+      - name: string
+        vault_ref: string  # path to secrets
+    api_keys:
+      - name: string
+        vault_ref: string
+    certificates:
+      - name: string
+        vault_ref: string
+        type: enum  # mtls | signing
+    vault_path: string  # base path for all secrets
+  
+  # Machines in this Environment
   machines:
     - machine_id: string
-      connection_profile: string  # environment-specific connection
+      connection_profile:
+        endpoint: string  # reference to endpoints entry
+        credentials: string  # reference to access entry
   
   # Access Control
   access_control:
+    allowed_workbenches: array
     allowed_roles: array
-    allowed_groups: array
     requires_approval: boolean
   
   # Agent Authority
@@ -54,63 +88,75 @@ environment:
     max_autonomy_level: enum  # advisory | collaborative | autonomous
     require_human_approval: array  # action types requiring approval
   
-  # Secrets & Credentials
-  secrets:
-    vault_path: string
-    credential_sets: array
-  
   # Metadata
   owner_team: string
   status: enum  # active | maintenance | decommissioned
-  parent_environment: string  # for inheritance
 ```
 
 ---
 
-## Environment Types
+## Environment Examples
 
-| Type | Purpose | Characteristics |
-|------|---------|-----------------|
-| **Production** | Live operations | Real data, real consequences |
-| **Staging** | Pre-production testing | Production-like, isolated |
-| **UAT** | User acceptance testing | Controlled test data |
-| **Development** | Development and testing | Flexible, developer access |
-| **Sandbox** | Isolated experimentation | Safe for exploration |
+| Environment | Description | Typical Contents |
+|-------------|-------------|------------------|
+| **Core Banking** | Primary banking system access | Account APIs, Transaction topics, Statement files |
+| **Card Network Integration** | Visa/Mastercard connectivity | Network APIs, Auth events, Settlement files |
+| **CRM Integration** | Customer management system | Customer APIs, Event subscriptions |
+| **Payment Gateway** | Payment processing systems | Payment APIs, Webhook endpoints |
+| **Regulatory Reporting** | Compliance and reporting systems | Report endpoints, Submission portals |
 
 ---
 
-## Sandbox Concept
+## Key Characteristics
 
-Sandboxes are isolated environments for:
-- Agent training and testing
-- New workflow development
-- Customer-specific isolation
-- Regulatory separation
+| Aspect | Description |
+|--------|-------------|
+| **Endpoints** | HTTP/TCP URLs where systems are deployed |
+| **Access Mechanisms** | OAuth, API keys, mTLS certificates, tokens |
+| **Event Buses** | Kafka topics, RabbitMQ queues for pub/sub |
+| **File Stores** | S3 buckets, SFTP locations for batch I/O |
+| **Secrets** | Credentials stored in secure vault, referenced by path |
 
 ---
 
 ## Workbench-Environment Binding
 
-Each Workbench operates in one or more environments:
+Workbenches reference Environments to access their Machines:
 
 ```yaml
 workbench:
   id: "dispute-ops"
   environments:
-    - environment_id: "prod"
-      is_default: true
-    - environment_id: "staging"
-      is_default: false
+    - environment_id: "card-network-integration"
+      machines: [visa-gateway, mastercard-gateway]
+    - environment_id: "core-banking"
+      machines: [account-service, transaction-service]
 ```
+
+---
+
+## Connection Profile Resolution
+
+When a Workbench accesses a Machine, the connection is resolved:
+
+```
+Workbench → Machine → Environment → Endpoint + Credentials
+```
+
+Example:
+- Workbench: Dispute Operations
+- Machine: visa-gateway
+- Environment: card-network-integration
+- Resolved: https://api.visa.com/v1 + OAuth credentials from vault
 
 ---
 
 ## Cipher Integration
 
 Environments integrate with Cipher for:
-- User access to environments
-- Agent enrollment per environment
-- Environment-scoped permissions
+- Secrets management (vault access)
+- mTLS certificate management
+- Agent identity scoping per environment
 
 ---
 
@@ -119,8 +165,9 @@ Environments integrate with Cipher for:
 - [Registry Services Overview](./README.md)
 - [Machine Registry](./machine-registry.md)
 - [Cipher IAM](../supporting-systems/cipher-iam.md)
+- [Ontology: Perception Layer](../../01-concepts/ontology-1-perception-layer.md#environment)
 
 ---
 
-*TODO: Detailed design — environment provisioning, secrets integration, inheritance model*
+*TODO: Detailed design — secrets integration, connection pooling, environment inheritance*
 
