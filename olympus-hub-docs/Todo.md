@@ -177,17 +177,24 @@ UI Applications
 
 
 
-* Workbench Studio
-- Machine Creator
-- Scenario Designer (specific to automation system used for the scenario)
-- Environment Manager
-- KB Manager
+* Hub SRE Operations Center
+* Hub Win Operations Center
 
+* Hub Control Center (Tenant Admins)
+* Workbench Studio (Process Architects, Developers)
 
+Per Workbench
 * Workbench - Agent Desk
 * Workbench - Supervisor Desk (Manage and Govern)
 * Workbench - DevOps Desk 
 
+
+
 [x] - Agent Memory, Org Memory
 
+
+- Machine Creator
+- Scenario Designer (specific to automation system used for the scenario)
+- Environment Manager
+- KB Manager
 

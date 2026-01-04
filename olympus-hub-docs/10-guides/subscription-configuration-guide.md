@@ -14,11 +14,12 @@ Setting up a tenant subscription involves:
 1. [Initial Access](#1-initial-access)
 2. [User Provisioning](#2-user-provisioning)
 3. [Identity Domain Configuration](#3-identity-domain-configuration)
-4. [Resource Allocation](#4-resource-allocation)
-5. [I/O Gateway Configuration](#5-io-gateway-configuration)
-6. [Notification Services](#6-notification-services)
-7. [Budgets and Quotas](#7-budgets-and-quotas)
-8. [Branding (Optional)](#8-branding-optional)
+4. [Resource Allocation](#4-resource-allocation) (Data, Memory, Knowledge Stores)
+5. [Registry Configuration](#5-registry-configuration) (Tools, Machines, Environments)
+6. [I/O Gateway Configuration](#6-io-gateway-configuration)
+7. [Notification Services](#7-notification-services)
+8. [Budgets and Quotas](#8-budgets-and-quotas)
+9. [Branding (Optional)](#9-branding-optional)
 
 ---
 
@@ -184,24 +185,146 @@ Hub Console → Resources → Knowledge Bank → Create Store
 └── Access: [Workbenches that can access]
 ```
 
-### Machines (External Integrations)
+---
 
-Register external systems:
+## 5. Registry Configuration
+
+Hub provides three registries for managing capabilities. Configure these at the subscription level; workbenches then select subsets for their use.
+
+#### Tool Registry
+
+Register tools that agents and automations can invoke:
 
 ```
-Hub Console → Resources → Machines → Register
-├── Name: [e.g., "core-banking-system"]
-├── Type: [REST API / SOAP / Database / etc.]
-├── Connection:
+Hub Console → Registries → Tools → Register Tool
+├── Identity:
+│   ├── Name: [e.g., "get-customer-details"]
+│   ├── Namespace: [e.g., "customer-service"]
+│   └── Version: [e.g., "1.0.0"]
+├── Description:
+│   ├── Display Name: "Get Customer Details"
+│   ├── Description: "Retrieves customer profile and preferences"
+│   └── Documentation URL: [Link to docs]
+├── Schema:
+│   ├── Input Schema: [JSON Schema]
+│   └── Output Schema: [JSON Schema]
+├── Provider:
+│   ├── Type: [HTTP / gRPC / MCP / Internal]
 │   ├── Endpoint: [URL]
-│   ├── Authentication: [OAuth2 / API Key / mTLS]
-│   └── Credentials: [Stored securely]
-└── Permissions: [Which workbenches can access]
+│   └── Authentication: [OAuth2 / API Key / mTLS]
+├── Access Control:
+│   ├── Discoverability: [All / Specific workbenches / Specific roles]
+│   └── Invocation: [Role-based / Scope-based policy]
+├── Operational:
+│   ├── Timeout: [ms]
+│   ├── Retry Policy: [Configure]
+│   └── Rate Limit: [Per minute/hour]
+└── Category: [Data Access / Action / Integration / Computation / Communication]
 ```
+
+**Tool Categories:**
+
+| Category | Purpose | Examples |
+|----------|---------|----------|
+| **Data Access** | Retrieve business entity data | Get customer, Get transaction |
+| **Action Execution** | Perform business actions | Create case, Send notification |
+| **Integration** | External system calls | Call API, Query database |
+| **Computation** | Calculations and transformations | Calculate risk, Format report |
+| **Communication** | Messaging and notification | Send email, Post to channel |
+
+#### Machine Registry
+
+Register machines (systems) that produce signals, accept commands, or provide data:
+
+```
+Hub Console → Registries → Machines → Register Machine
+├── Identity:
+│   ├── Name: [e.g., "core-banking-system"]
+│   ├── Type: [Internal / External / SaaS / Gateway]
+│   └── Vendor: [e.g., "Temenos"]
+├── Description:
+│   ├── Display Name: "Core Banking System"
+│   └── Description: "Primary transaction processing system"
+├── Capabilities:
+│   ├── Produces Signals: [Yes/No]
+│   ├── Accepts Commands: [Yes/No]
+│   └── Provides Data: [Yes/No]
+├── Signal Configuration (if produces signals):
+│   ├── Signal Types: [Events / Exceptions / Observations]
+│   ├── Gateway: [Atropos / Cronus]
+│   └── Topics: [payment.events, account.events]
+├── Command Configuration (if accepts commands):
+│   ├── Namespace: [command namespace]
+│   └── Endpoints: [Configure per environment]
+├── Data Access (if provides data):
+│   ├── Entity Types: [Customer, Account, Transaction]
+│   └── Access Method: [API / Database / File]
+├── Connection:
+│   ├── Protocol: [REST / SOAP / gRPC / JDBC]
+│   ├── Endpoint: [URL per environment]
+│   └── Authentication: [Configure]
+├── Metadata:
+│   ├── Owner Team: [Team name]
+│   ├── Environments: [Development, Staging, Production]
+│   └── Status: [Active / Maintenance / Deprecated]
+└── Workbench Access: [Which workbenches can use this machine]
+```
+
+**Machine Types:**
+
+| Type | Description | Examples |
+|------|-------------|----------|
+| **Internal** | Organization-owned systems | Core banking, custom apps |
+| **External** | Third-party systems | Payment networks, credit bureaus |
+| **SaaS** | Cloud services | Salesforce, ServiceNow |
+| **Gateway** | I/O Gateways (auto-registered) | Atropos, Heracles, Dia |
+
+#### Environment Registry
+
+Register environments (operational contexts) where machines operate:
+
+```
+Hub Console → Registries → Environments → Register Environment
+├── Identity:
+│   ├── Name: [e.g., "production"]
+│   ├── Type: [Production / Staging / UAT / Development / Sandbox]
+│   └── Display Name: "Production Environment"
+├── Description: "Live production environment for all operations"
+├── Machines:
+│   ├── core-banking-system:
+│   │   └── Connection Profile: [Production endpoints]
+│   ├── payment-gateway:
+│   │   └── Connection Profile: [Production endpoints]
+│   └── [other machines]
+├── Access Control:
+│   ├── Allowed Roles: [Administrator, Operator]
+│   ├── Allowed Groups: [Production-Access]
+│   └── Requires Approval: [Yes for production]
+├── Agent Authority:
+│   ├── Max Autonomy Level: [Advisory / Collaborative / Autonomous]
+│   └── Actions Requiring Approval: [List of action types]
+├── Secrets:
+│   ├── Vault Path: [Path in secrets manager]
+│   └── Credential Sets: [List]
+└── Metadata:
+    ├── Owner Team: [Team name]
+    ├── Status: [Active / Maintenance]
+    └── Parent Environment: [For inheritance, if any]
+```
+
+**Environment Types:**
+
+| Type | Purpose | Characteristics |
+|------|---------|-----------------|
+| **Production** | Live operations | Real data, real consequences |
+| **Staging** | Pre-production testing | Production-like, isolated |
+| **UAT** | User acceptance testing | Controlled test data |
+| **Development** | Development and testing | Flexible, developer access |
+| **Sandbox** | Isolated experimentation | Safe for exploration |
 
 ---
 
-## 5. I/O Gateway Configuration
+## 6. I/O Gateway Configuration
 
 ### Atropos (Event Bus)
 
@@ -254,7 +377,7 @@ Hub Console → I/O Gateways → Kale → Configure
 
 ---
 
-## 6. Notification Services
+## 7. Notification Services
 
 Configure outbound notification channels:
 
@@ -298,7 +421,7 @@ Hub Console → Notifications → Webhooks → Configure
 
 ---
 
-## 7. Budgets and Quotas
+## 8. Budgets and Quotas
 
 ### Set Resource Quotas
 
@@ -336,7 +459,7 @@ Hub Console → Administration → Usage
 
 ---
 
-## 8. Branding (Optional)
+## 9. Branding (Optional)
 
 ### Configure Theme
 
@@ -386,7 +509,11 @@ Use this checklist to track your progress:
   □ Data stores provisioned
   □ Memory stores configured
   □ Knowledge stores created
-  □ Machines registered
+
+□ Registries
+  □ Tools registered in Tool Registry
+  □ Machines registered in Machine Registry
+  □ Environments defined in Environment Registry
 
 □ I/O Gateways
   □ Atropos configured (events)
