@@ -174,6 +174,28 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 
 ---
 
+## Infrastructure Stubs
+
+### Infrastructure (`05-infrastructure/`)
+
+| Document | Description | Status | Priority |
+|----------|-------------|--------|----------|
+| [cloudflare-edge.md](./05-infrastructure/cloudflare-edge.md) | Edge layer, CDN, DDoS protection | 🔴 Stub | Medium |
+| [kubernetes-platform.md](./05-infrastructure/kubernetes-platform.md) | Container orchestration platform | 🔴 Stub | High |
+| [istio-service-mesh.md](./05-infrastructure/istio-service-mesh.md) | Service mesh, mTLS, traffic control | 🔴 Stub | High |
+| [cipher-iam-infrastructure.md](./05-infrastructure/cipher-iam-infrastructure.md) | SPIFFE/SPIRE, identity, authentication | 🔴 Stub | High |
+| [kafka-event-bus.md](./05-infrastructure/kafka-event-bus.md) | Distributed event streaming | 🔴 Stub | High |
+| [temporal-cluster.md](./05-infrastructure/temporal-cluster.md) | Durable workflow engine | 🔴 Stub | High |
+| [postgresql-database.md](./05-infrastructure/postgresql-database.md) | Hub operational database | 🔴 Stub | High |
+| [redis-cache.md](./05-infrastructure/redis-cache.md) | Caching and rate limiting | 🔴 Stub | Medium |
+| [ganymede-rdbms.md](./05-infrastructure/ganymede-rdbms.md) | Relational DBaaS for applications | 🔴 Stub | Medium |
+| [callisto-kv-store.md](./05-infrastructure/callisto-kv-store.md) | Key-Value store for applications | 🔴 Stub | Medium |
+| [europa-opensearch.md](./05-infrastructure/europa-opensearch.md) | Search and analytics (ELK-as-a-Service) | 🔴 Stub | Medium |
+| [knowledge-bank-infrastructure.md](./05-infrastructure/knowledge-bank-infrastructure.md) | RAG and knowledge retrieval infrastructure | 🔴 Stub | High |
+| [olympus-watch.md](./05-infrastructure/olympus-watch.md) | Unified observability platform | 🔴 Stub | High |
+
+---
+
 ## Seer Integration Requirements
 
 These stubs are particularly important for Seer integration:
@@ -194,8 +216,8 @@ These stubs are particularly important for Seer integration:
 ## Expansion Priority Order
 
 1. **Critical** — Signal Exchange, Workbench Management (trigger-definitions, trigger-evaluator, application-router), CAF (decision records, explanation, evidence)
-2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Applications concept
-3. **Medium** — Registry Services, Knowledge Services, Request Management
+2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Applications concept, Infrastructure (Kafka, Temporal, Cipher IAM, Kubernetes, Istio, PostgreSQL, Knowledge Bank, Olympus Watch)
+3. **Medium** — Registry Services, Knowledge Services, Request Management, Infrastructure (Cloudflare, Redis, Ganymede, Callisto, Europa)
 4. **Lower** — Perseus, Machine/Environment Registries
 
 ---
