@@ -422,6 +422,32 @@ Hub Application         Signal Exchange         MS Teams Module         Chat Gro
 | `MILESTONE` | Milestone completion card |
 | `STATUS_CHANGE` | Status badge update |
 
+### Cross-Channel Update Attribution
+
+When an agent makes an update through a **different channel** (e.g., Agent Desk, Mobile), the MS Teams module relays it to the chat group with appropriate attribution:
+
+| Condition | Attribution |
+|-----------|-------------|
+| Agent shared Teams credentials | Posted **as the agent** (their Teams identity) |
+| No credential sharing | Posted **by Group Orchestration Bot** with on-behalf-of attribution |
+
+**With credentials:**
+```
+[Alice] — 3:15 PM
+I've reviewed the documentation and approved the claim.
+(Updated via Agent Desk)
+```
+
+**Without credentials:**
+```
+[Dispute Ops Hub] — 3:15 PM
+📝 Update from @Alice (via Agent Desk):
+
+"I've reviewed the documentation and approved the claim."
+```
+
+See [Chat Group Lifecycle - Cross-Channel Update Relay](./chat-group-lifecycle.md#cross-channel-update-relay) for configuration details.
+
 ---
 
 ## Error Handling

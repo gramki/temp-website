@@ -370,6 +370,36 @@ The catalog of direct services may expand.
 
 **Note:** Signal Exchange dispatches to observers, not to agents or tasks directly. It operates at the Request level.
 
+### Q: How are cross-channel updates attributed in chat groups?
+
+**A:** When an agent makes an update through a **different channel** (e.g., Agent Desk, Mobile), the MS Teams module relays it to the chat group with attribution based on credential sharing:
+
+| Condition | Attribution |
+|-----------|-------------|
+| Agent shared Teams credentials | Posted **as the agent** (their Teams identity) |
+| No credential sharing | Posted **by Group Orchestration Bot** with on-behalf-of attribution |
+
+**With credentials shared:**
+```
+[Alice] — 3:15 PM
+I've reviewed the documentation and approved the claim.
+(Updated via Agent Desk)
+```
+
+**Without credentials:**
+```
+[Dispute Ops Hub] — 3:15 PM
+📝 Update from @Alice (via Agent Desk):
+
+"I've reviewed the documentation and approved the claim."
+```
+
+**Key points:**
+- Credential sharing is **opt-in** and **per workbench**
+- Credentials are stored securely in Cipher IAM
+- Agent can revoke at any time
+- This ensures conversation continuity regardless of which channel agents use
+
 ---
 
 ## Bot Provisioning & Identity

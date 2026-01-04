@@ -225,6 +225,61 @@ Every message in the chat group is captured as an update to the Request:
 | **Milestone reached** | "✅ Milestone: {milestone_name}" |
 | **Request completed** | "🎉 Request completed: {outcome}" |
 
+---
+
+## Cross-Channel Update Relay
+
+When an agent makes an update to a Request through a **different channel** (e.g., Agent Desk, Mobile), the MS Teams module relays that update to the chat group. The message attribution depends on credential sharing:
+
+### Message Attribution Logic
+
+| Condition | Message Appears As |
+|-----------|-------------------|
+| Agent has shared Teams credentials with module | Posted **as the agent** (their identity) |
+| Agent has NOT shared credentials | Posted **by Group Orchestration Bot**, with on-behalf-of attribution in body |
+
+### With Credential Sharing (Agent Identity)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ [Alice] — 3:15 PM                                               │
+│ I've reviewed the documentation and approved the claim.         │
+│ (Updated via Agent Desk)                                        │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+The message is posted using Alice's Teams identity, appearing as if she typed it directly.
+
+### Without Credential Sharing (Bot Proxy)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ [Dispute Ops Hub] — 3:15 PM                                     │
+│ 📝 Update from @Alice (via Agent Desk):                         │
+│                                                                  │
+│ "I've reviewed the documentation and approved the claim."       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+The Group Orchestration Bot posts on behalf of Alice, clearly indicating the origin.
+
+### Credential Sharing
+
+Agents can choose to share their Teams credentials with the MS Teams module to enable seamless cross-channel identity:
+
+| Aspect | Details |
+|--------|---------|
+| **Opt-in** | Credential sharing is voluntary per agent |
+| **Scope** | Per workbench (agent may share for some workbenches, not others) |
+| **Storage** | Credentials stored securely in Cipher IAM |
+| **Revocation** | Agent can revoke at any time |
+
+### Why This Matters
+
+- **Conversation continuity** — Team members see consistent authorship
+- **Accountability** — Clear attribution regardless of source channel
+- **Flexibility** — Agents can work from any channel without context loss
+
 ### Example Timeline
 
 ```
