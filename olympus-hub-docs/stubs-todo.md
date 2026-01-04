@@ -147,10 +147,10 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 | Document | Description | Status | Priority |
 |----------|-------------|--------|----------|
 | [README.md](./04-subsystems/ms-teams-integration/README.md) | MS Teams Integration — Copilots, Chat Groups, Signal Routing | 🟡 WIP | High |
+| [bot-architecture.md](./04-subsystems/ms-teams-integration/bot-architecture.md) | Me_Bot, Ask_Bot, Signal Exchange Bot details | 🟡 WIP | High |
+| [chat-group-lifecycle.md](./04-subsystems/ms-teams-integration/chat-group-lifecycle.md) | Request → Chat Group mapping and lifecycle | 🟡 WIP | High |
+| [message-flow.md](./04-subsystems/ms-teams-integration/message-flow.md) | Signal transformation and routing paths | 🟡 WIP | High |
 | [ms-teams-integration-faq.md](./04-subsystems/ms-teams-integration/ms-teams-integration-faq.md) | Design decisions and Q&A | 🟡 WIP | High |
-| *(pending)* bot-architecture.md | Me_Bot, Ask_Bot, Signal Exchange Bot details | 🔴 Not Created | Medium |
-| *(pending)* chat-group-lifecycle.md | Request → Chat Group mapping and lifecycle | 🔴 Not Created | Medium |
-| *(pending)* message-flow.md | Signal transformation and routing paths | 🔴 Not Created | Medium |
 | [ms-teams-integration.md](./04-subsystems/signal-providers/ms-teams-integration.md) | Reference entry in Signal Providers | 🔴 Stub | Low |
 
 ---

@@ -75,6 +75,9 @@ Olympus Hub is an operations management platform designed for large and medium e
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Overview](./04-subsystems/ms-teams-integration/README.md) | MS Teams Integration — Copilots, Chat Groups, Signal Routing | 🟡 WIP |
+| [Bot Architecture](./04-subsystems/ms-teams-integration/bot-architecture.md) | Me_Bot, Ask_Bot, Signal Exchange Bot details | 🟡 WIP |
+| [Chat Group Lifecycle](./04-subsystems/ms-teams-integration/chat-group-lifecycle.md) | Request → Group mapping, membership, archival | 🟡 WIP |
+| [Message Flow](./04-subsystems/ms-teams-integration/message-flow.md) | Signal routing, direct services, responses | 🟡 WIP |
 | [FAQ](./04-subsystems/ms-teams-integration/ms-teams-integration-faq.md) | Design decisions and Q&A | 🟡 WIP |
 
 > **Note:** MS Teams Integration is more than a signal provider — it includes copilot bots for Agents/Supervisors/Business Employees, chat group orchestration for request collaboration, and direct services.

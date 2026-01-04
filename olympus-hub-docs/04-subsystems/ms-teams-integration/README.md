@@ -154,9 +154,12 @@ Agent/Employee              Me_Bot/Ask_Bot          MS Teams Module            H
 
 ## Documents
 
-| Document | Description |
-|----------|-------------|
-| [FAQ](./ms-teams-integration-faq.md) | Design decisions and Q&A |
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Bot Architecture](./bot-architecture.md) | Me_Bot, Ask_Bot, Signal Exchange Bot | 🟡 WIP |
+| [Chat Group Lifecycle](./chat-group-lifecycle.md) | Request → Group mapping, membership, archival | 🟡 WIP |
+| [Message Flow](./message-flow.md) | Signal routing, direct services, responses | 🟡 WIP |
+| [FAQ](./ms-teams-integration-faq.md) | Design decisions and Q&A | 🟡 WIP |
 
 ---
 
