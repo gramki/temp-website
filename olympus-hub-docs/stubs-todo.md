@@ -186,6 +186,33 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 
 ---
 
+## Personas and Journeys
+
+### Personas (`08-personas-and-journeys/personas/`)
+
+| Document | Scope | Status | Priority |
+|----------|-------|--------|----------|
+| [process-architect.md](./08-personas-and-journeys/personas/process-architect.md) | Tenant Subscription | 🔴 Stub | High |
+| [developer.md](./08-personas-and-journeys/personas/developer.md) | Tenant Subscription | 🔴 Stub | High |
+| [administrator.md](./08-personas-and-journeys/personas/administrator.md) | Tenant Subscription | 🔴 Stub | High |
+| [auditor.md](./08-personas-and-journeys/personas/auditor.md) | Tenant Subscription | 🔴 Stub | Medium |
+| [supervisor.md](./08-personas-and-journeys/personas/supervisor.md) | Workbench | 🔴 Stub | High |
+| [agent.md](./08-personas-and-journeys/personas/agent.md) | Workbench | 🔴 Stub | High |
+| [sre.md](./08-personas-and-journeys/personas/sre.md) | Hub System (Publisher) | 🔴 Stub | Medium |
+| [customer-success.md](./08-personas-and-journeys/personas/customer-success.md) | Hub System (Publisher) | 🔴 Stub | Medium |
+| [self-serve-user.md](./08-personas-and-journeys/personas/self-serve-user.md) | Tenant Customer | 🔴 Stub | Medium |
+
+### Journeys (`08-personas-and-journeys/journeys/`)
+
+| Document | Personas Involved | Status | Priority |
+|----------|-------------------|--------|----------|
+| [scenario-development.md](./08-personas-and-journeys/journeys/scenario-development.md) | Process Architect → Developer → Supervisor | 🟡 WIP | Critical |
+| [workbench-configuration.md](./08-personas-and-journeys/journeys/workbench-configuration.md) | Administrator → Process Architect → Supervisor | 🔴 Stub | High |
+| [request-lifecycle.md](./08-personas-and-journeys/journeys/request-lifecycle.md) | Signal → Application → Agent | 🔴 Stub | High |
+| [audit-investigation.md](./08-personas-and-journeys/journeys/audit-investigation.md) | Auditor | 🔴 Stub | Medium |
+
+---
+
 ## Infrastructure Stubs
 
 > **Note:** Hub uses Olympus Platform services. Infrastructure primitives (Kubernetes, Kafka, PostgreSQL) are abstracted by platform services (Atlantis, Atropos, Ganymede).
@@ -238,9 +265,9 @@ These stubs are particularly important for Seer integration:
 
 ## Expansion Priority Order
 
-1. **Critical** — Signal Exchange, Workbench Management (trigger-definitions, trigger-evaluator, application-router), CAF (decision records, explanation, evidence), Olympus Platform Dependencies
-2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Native Utilities (Decision Tools, Prediction Tools), Hub Applications concept, Infrastructure (Temporal, Cipher IAM, Ganymede, Knowledge Bank, Olympus Watch)
-3. **Medium** — Registry Services, Knowledge Services, Request Management, Infrastructure (Cloudflare, Redis, Callisto, Europa)
+1. **Critical** — Signal Exchange, Workbench Management (trigger-definitions, trigger-evaluator, application-router), CAF (decision records, explanation, evidence), Olympus Platform Dependencies, Scenario Development Journey
+2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Native Utilities (Decision Tools, Prediction Tools), Hub Applications concept, Infrastructure (Temporal, Cipher IAM, Ganymede, Knowledge Bank, Olympus Watch), Personas (Process Architect, Developer, Supervisor, Agent, Administrator), Journeys (Workbench Configuration, Request Lifecycle)
+3. **Medium** — Registry Services, Knowledge Services, Request Management, Infrastructure (Cloudflare, Redis, Callisto, Europa), Personas (Auditor, SRE, Customer Success, Self-Serve User), Journeys (Audit Investigation)
 4. **Lower** — Perseus, Machine/Environment Registries
 
 ---

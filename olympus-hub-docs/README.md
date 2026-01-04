@@ -243,6 +243,34 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [Application Data Stores](./07-data-architecture/application-data-stores.md) | Ganymede, Callisto, Europa for applications | 🔴 Stub |
 | [Storage FAQ](./07-data-architecture/storage-faq.md) | Common questions for architects and developers | ✅ Complete |
 
+### 08 - Personas and Journeys
+
+> **Purpose:** Who uses Olympus Hub and how they accomplish their objectives.
+
+#### Personas
+
+| Document | Scope | Status |
+|----------|-------|--------|
+| [Overview](./08-personas-and-journeys/README.md) | Persona and journey index | 🟡 WIP |
+| [Process Architect](./08-personas-and-journeys/personas/process-architect.md) | Tenant Subscription | 🔴 Stub |
+| [Developer](./08-personas-and-journeys/personas/developer.md) | Tenant Subscription | 🔴 Stub |
+| [Administrator](./08-personas-and-journeys/personas/administrator.md) | Tenant Subscription | 🔴 Stub |
+| [Auditor](./08-personas-and-journeys/personas/auditor.md) | Tenant Subscription | 🔴 Stub |
+| [Supervisor](./08-personas-and-journeys/personas/supervisor.md) | Workbench | 🔴 Stub |
+| [Agent](./08-personas-and-journeys/personas/agent.md) | Workbench | 🔴 Stub |
+| [SRE](./08-personas-and-journeys/personas/sre.md) | Hub System | 🔴 Stub |
+| [Customer Success](./08-personas-and-journeys/personas/customer-success.md) | Hub System | 🔴 Stub |
+| [Self-Serve User](./08-personas-and-journeys/personas/self-serve-user.md) | Tenant Customer | 🔴 Stub |
+
+#### Journeys
+
+| Document | Personas Involved | Status |
+|----------|-------------------|--------|
+| [Scenario Development](./08-personas-and-journeys/journeys/scenario-development.md) | Process Architect → Developer → Supervisor | 🟡 WIP |
+| [Workbench Configuration](./08-personas-and-journeys/journeys/workbench-configuration.md) | Administrator → Process Architect → Supervisor | 🔴 Stub |
+| [Request Lifecycle](./08-personas-and-journeys/journeys/request-lifecycle.md) | Signal → Application → Agent | 🔴 Stub |
+| [Audit Investigation](./08-personas-and-journeys/journeys/audit-investigation.md) | Auditor | 🔴 Stub |
+
 ### 10 - Guides
 
 | Document | Description | Status |
@@ -267,7 +295,8 @@ Olympus Hub is an operations management platform designed for large and medium e
 1. **Start here:** [Introduction](./01-concepts/introduction.md) - Understand "Everything is Ops"
 2. **Deep dive:** [Ontology Reference](./01-concepts/ontology-reference.md) - The conceptual foundation
 3. **Evaluate fit:** [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) - Is Olympus Hub right for you?
-4. **Technical details:** [Hub Architecture](./02-system-design/hub-architecture.md) - Architecture and components
+4. **Who uses it:** [Personas and Journeys](./08-personas-and-journeys/README.md) - Actors and workflows
+5. **Technical details:** [Hub Architecture](./02-system-design/hub-architecture.md) - Architecture and components
 
 ---
 
@@ -350,6 +379,24 @@ olympus-hub-docs/
 ├── 07-data-architecture/        # Data Architecture
 │   ├── README.md
 │   └── storage-architecture.md
+│
+├── 08-personas-and-journeys/    # Personas and Journeys
+│   ├── README.md
+│   ├── personas/
+│   │   ├── process-architect.md
+│   │   ├── developer.md
+│   │   ├── supervisor.md
+│   │   ├── agent.md
+│   │   ├── administrator.md
+│   │   ├── auditor.md
+│   │   ├── sre.md
+│   │   ├── customer-success.md
+│   │   └── self-serve-user.md
+│   └── journeys/
+│       ├── scenario-development.md
+│       ├── workbench-configuration.md
+│       ├── request-lifecycle.md
+│       └── audit-investigation.md
 │
 └── 10-guides/                   # Practical Guides
     ├── README.md

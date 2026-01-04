@@ -1,28 +1,22 @@
 Requirements for an Agent Platform:
 
-Discovery of Agents
-Publish, Deploy, Run, and Auto-Scale Agent Applications (Just as containers)
-Create, Test, Fine-tune/Train, and Publish Skilled Agents
-Agent Application vs. Skilled Agent vs. Employed Agent semantic differences; Enabling Lifecycle management of all these agents
-Instantiation and Session management semantics that allow for fine-grained scoping of Agents (User-Agent like Agents vs. Bots/Service-Agents (Single-Role-based agents))
-Need to enforce guardrails in the serving path
-Need to create and administer feedback loops for agent responses
-Provide analytics about agents
-Cognitive Audit Fabric (Explainability, Traceability of decisions)
-Ability to change LLMs; Ability to fine-tune prompts per LLM;
-Ability to manage and moderate access to 'Tools'
-
-Access to Data - Employed Agent Memory, Enterprise/Organization Memory, Industry/Domain Knowlege, Skills, and Employment Scope; Scope-aware Data Serving applications;
-Access to LLMs - Routing, Access Control, A/B Testing, Prompt fine-tuning
-Access to Tools - 
-Access to External Agents - 
-
-
-Observability of the agent applications
-Observability of agent usage
-Observability of LLM and other resource usage 
-Cost Accounting and Control
-
+☐ Instantiation and Session management semantics that allow for fine-grained scoping of Agents (User-Agent like Agents vs. Bots/Service-Agents (Single-Role-based agents))
+☐ Need to create and administer feedback loops for agent responses
+☐ Cognitive Audit Fabric (Explainability, Traceability of decisions)
+☐ Ability to change LLMs; Ability to fine-tune prompts per LLM;
+☐ Ability to manage and moderate access to 'Tools'
+☐ 
+☐ Access to Data - Employed Agent Memory, Enterprise/Organization Memory, Industry/Domain Knowlege, Skills, and Employment Scope; Scope-aware Data Serving applications;
+☐ Access to LLMs - Routing, Access Control, A/B Testing, Prompt fine-tuning
+☐ Access to Tools - 
+☐ Access to External Agents - 
+☐ 
+☐ 
+☐ Observability of the agent applications
+☐ Observability of agent usage
+☐ Observability of LLM and other resource usage 
+☐ Cost Accounting and Control
+☐ 
 Fine-tuning LLMs for specific-usecases
 
 
@@ -187,3 +181,12 @@ Hub and Seer Integrations
 * Seer uses Cipher as the Workforce, Customer IAM and all Employed Agents exist in one of the domains and sandboxes of the tenant
 * Cipher shall support enrolment of Raw, Trained, and Employed Agents and should also serve as a Agent Registry
 * Hub Task Allocation refers to Groups and Agents (Auth Profiles) from the Cipher Sandboxes associated with workbench
+
+
+# Seer Case Automation:
+	- Seer Agent Engine as an Automation System for ‘Seer Case’ Automation; [Requires contract between Hub Request to Automation System integration - Signals/Updates]
+	- A Hub Request as a Collaboration Session for the HAT
+
+# Seer Agent as a Hub Application:
+	- Seer Agent Engine as an Employed Agent provider for ‘Rhea Workflow’ Automation; 
+	- A Hub Request as single Agent's Session
