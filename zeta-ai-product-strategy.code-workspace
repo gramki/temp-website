@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "zeta-ai-product-strategy",
+			"path": "."
+		},
+		{
+			"name": "design-docs",
+			"path": "../design-docs"
+		}
+	],
+	"settings": {}
+}
