@@ -2,7 +2,7 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-Registry Services maintain the **catalogs of capabilities, machines, environments, and tools** available within the Hub ecosystem.
+Registry Services maintain the **catalogs of capabilities, machines, environments, and tools** available within the Hub ecosystem. The Machine and Tool registries operate at **two levels**: abstract definitions (templates) and concrete instances (runtime-usable).
 
 ---
 
@@ -20,9 +20,53 @@ Registries are essential for:
 
 | Registry | Description | Status |
 |----------|-------------|--------|
-| [Tool Registry](./tool-registry.md) | Tools available for agent/automation use | 🔴 Stub |
-| [Machine Registry](./machine-registry.md) | Machines (systems) in the environment | 🔴 Stub |
-| [Environment Registry](./environment-registry.md) | Environments and sandboxes | 🔴 Stub |
+| [Machine Registry](./machine-registry.md) | Machine Definitions & Machine Instances | 🔴 Stub |
+| [Tool Registry](./tool-registry.md) | Tool Protocols (in Definitions) & Tool Instances | 🔴 Stub |
+| [Environment Registry](./environment-registry.md) | Operational environments with endpoints & credentials | 🔴 Stub |
+
+---
+
+## Two-Level Model: Definitions vs Instances
+
+The Machine and Tool registries use a two-level hierarchy:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     DEFINITIONS (Abstract)                       │
+│                                                                  │
+│  ┌───────────────────────────┐    ┌───────────────────────────┐ │
+│  │    Machine Definition     │    │     Tool Protocol         │ │
+│  │  (e.g., temenos-t24)      │───▶│  (e.g., get-account)      │ │
+│  │                           │    │                           │ │
+│  │  • Type, Vendor           │    │  • OpenAPI/AsyncAPI spec  │ │
+│  │  • Capabilities           │    │  • Variables: {{base_url}}│ │
+│  │  • Signal schemas         │    │  • Input/Output schemas   │ │
+│  │  • No endpoints           │    │  • No concrete URLs       │ │
+│  └───────────────────────────┘    └───────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+                                │
+                                │ instantiate
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     INSTANCES (Concrete)                         │
+│                                                                  │
+│  ┌───────────────────────────┐    ┌───────────────────────────┐ │
+│  │       Machine             │    │         Tool              │ │
+│  │  (e.g., acme-core-banking)│───▶│  (e.g., acme-get-account) │ │
+│  │                           │    │                           │ │
+│  │  • Endpoint URL           │    │  • Bound to Machine       │ │
+│  │  • Credentials (vault)    │    │  • Resolved variables     │ │
+│  │  • Variable bindings      │    │  • Access policies        │ │
+│  │  • Access policies        │    │  • Flow control           │ │
+│  └───────────────────────────┘    └───────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Key Points:**
+- **Machine Definitions** are abstract templates; **Machines** are concrete instances
+- **Tool Protocols** are abstract specs (part of Machine Definitions); **Tools** are concrete instances (bound to Machines)
+- Definitions can be platform-provided or tenant-created; Instances are always tenant-specific
+- Variables in Definitions use `{{variable}}` syntax, resolved when creating Instances
 
 ---
 
@@ -32,23 +76,33 @@ Registries are essential for:
 ┌─────────────────────────────────────────────────────────────────┐
 │                   REGISTRY SERVICES                              │
 │                                                                  │
-│  ┌─────────────────────────────────────────────────────────┐    │
-│  │                 REGISTRY API LAYER                       │    │
-│  │        (CRUD, Discovery, Search, Versioning)             │    │
-│  └─────────────────────────┬───────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │                 REGISTRY API LAYER                          ││
+│  │        (CRUD, Discovery, Search, Versioning)                ││
+│  └─────────────────────────┬───────────────────────────────────┘│
 │                            │                                     │
-│  ┌─────────────────────────┼───────────────────────────────┐    │
-│  │                 REGISTRIES                               │    │
-│  │                                                          │    │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │    │
-│  │  │    Tool      │  │   Machine    │  │ Environment  │   │    │
-│  │  │   Registry   │  │   Registry   │  │  Registry    │   │    │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘   │    │
-│  └──────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────┼───────────────────────────────────┐│
+│  │                 REGISTRIES                                  ││
+│  │                                                             ││
+│  │  ┌───────────────────────────────────────────────────────┐ ││
+│  │  │              Machine Registry                         │ ││
+│  │  │  • Machine Definitions (+ Tool Protocols)             │ ││
+│  │  │  • Machines (instances)                               │ ││
+│  │  └───────────────────────────────────────────────────────┘ ││
+│  │  ┌───────────────────────────────────────────────────────┐ ││
+│  │  │              Tool Registry                            │ ││
+│  │  │  • Tools (bound to Machines)                          │ ││
+│  │  │  • Standalone Tools (not machine-bound)               │ ││
+│  │  └───────────────────────────────────────────────────────┘ ││
+│  │  ┌───────────────────────────────────────────────────────┐ ││
+│  │  │           Environment Registry                        │ ││
+│  │  │  • Endpoints, credentials, event buses, file stores   │ ││
+│  │  └───────────────────────────────────────────────────────┘ ││
+│  └─────────────────────────────────────────────────────────────┘│
 │                                                                  │
-│  ┌─────────────────────────────────────────────────────────┐    │
-│  │              STORAGE (System & Tenant Spec)              │    │
-│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │              STORAGE (System & Tenant Spec)                 ││
+│  └─────────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -60,8 +114,8 @@ Registries span two storage layers:
 
 | Layer | Content | Ownership |
 |-------|---------|-----------|
-| **System Data** | Platform-provided blueprints, commands | Platform |
-| **Tenant Spec** | Tenant-specific registrations | Tenant |
+| **System Data** | Platform-provided Machine Definitions, Tool Protocols | Platform |
+| **Tenant Spec** | Tenant Machine Definitions, Machines, Tools, Environments | Tenant |
 
 ---
 
@@ -105,9 +159,9 @@ Hub's role is to integrate with these registries for agent enrollment in Workben
 ## Workbench Integration
 
 Each Workbench can define:
-- **Command Registry Subset** — Commands applicable to this workbench
-- **Tool Access** — Tools available in this workbench
-- **Machine Access** — Machines accessible from this workbench
+- **Machine Access** — Which Machines are accessible from this workbench
+- **Tool Access** — Which Tools (from those Machines or standalone) are available
+- **Environment Binding** — Which Environments provide connection context
 
 ---
 
@@ -116,8 +170,8 @@ Each Workbench can define:
 - [Hub Architecture](../../02-system-design/hub-architecture.md) — System context
 - [Storage Architecture](../../07-data-architecture/storage-architecture.md) — Storage layers
 - [Cipher IAM](../supporting-systems/cipher-iam.md) — Agent identity
+- [Subscription Configuration Guide](../../10-guides/subscription-configuration-guide.md) — Setup guide
 
 ---
 
 *TODO: Detailed design — registry schemas, versioning strategy, access control model*
-

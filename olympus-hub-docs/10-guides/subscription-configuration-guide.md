@@ -189,85 +189,93 @@ Hub Console → Resources → Knowledge Bank → Create Store
 
 ## 5. Registry Configuration
 
-Hub provides three registries for managing capabilities. Configure these at the subscription level; workbenches then select subsets for their use.
+Hub provides three registries for managing capabilities. The Machine and Tool registries operate at **two levels**: abstract definitions (templates) and concrete instances (usable at runtime). Configure these at the subscription level; workbenches then select subsets for their use.
 
-#### Tool Registry
+### Machine Registry
 
-Register tools that agents and automations can invoke:
+The Machine Registry operates at two levels:
+
+1. **Machine Definitions** — Abstract templates describing a type of machine with its Tool Protocols
+2. **Machines** — Concrete instances with actual endpoints, credentials, and policies
+
+#### Step 1: Import or Create Machine Definitions
+
+Machine Definitions are often provided by Hub (for common systems) or vendors. You may also create custom definitions.
 
 ```
-Hub Console → Registries → Tools → Register Tool
+Hub Console → Registries → Machine Definitions → Import / Create
+
+IMPORT FROM CATALOG:
+├── Search: [e.g., "temenos", "finacle", "visa"]
+├── Select: [temenos-core-banking v2.1]
+└── Import → Available in your tenant
+
+CREATE CUSTOM DEFINITION:
 ├── Identity:
-│   ├── Name: [e.g., "get-customer-details"]
-│   ├── Namespace: [e.g., "customer-service"]
-│   └── Version: [e.g., "1.0.0"]
-├── Description:
-│   ├── Display Name: "Get Customer Details"
-│   ├── Description: "Retrieves customer profile and preferences"
-│   └── Documentation URL: [Link to docs]
-├── Schema:
-│   ├── Input Schema: [JSON Schema]
-│   └── Output Schema: [JSON Schema]
-├── Provider:
-│   ├── Type: [HTTP / gRPC / MCP / Internal]
-│   ├── Endpoint: [URL]
-│   └── Authentication: [OAuth2 / API Key / mTLS]
-├── Access Control:
-│   ├── Discoverability: [All / Specific workbenches / Specific roles]
-│   └── Invocation: [Role-based / Scope-based policy]
-├── Operational:
-│   ├── Timeout: [ms]
-│   ├── Retry Policy: [Configure]
-│   └── Rate Limit: [Per minute/hour]
-└── Category: [Data Access / Action / Integration / Computation / Communication]
-```
-
-**Tool Categories:**
-
-| Category | Purpose | Examples |
-|----------|---------|----------|
-| **Data Access** | Retrieve business entity data | Get customer, Get transaction |
-| **Action Execution** | Perform business actions | Create case, Send notification |
-| **Integration** | External system calls | Call API, Query database |
-| **Computation** | Calculations and transformations | Calculate risk, Format report |
-| **Communication** | Messaging and notification | Send email, Post to channel |
-
-#### Machine Registry
-
-Register machines (systems) that produce signals, accept commands, or provide data:
-
-```
-Hub Console → Registries → Machines → Register Machine
-├── Identity:
-│   ├── Name: [e.g., "core-banking-system"]
-│   ├── Type: [Internal / External / SaaS / Gateway]
-│   └── Vendor: [e.g., "Temenos"]
-├── Description:
-│   ├── Display Name: "Core Banking System"
-│   └── Description: "Primary transaction processing system"
+│   ├── Name: [e.g., "internal-crm"]
+│   ├── Version: [e.g., "1.0.0"]
+│   └── Vendor: [Your organization]
+├── Type: [Internal / External / SaaS]
 ├── Capabilities:
 │   ├── Produces Signals: [Yes/No]
 │   ├── Accepts Commands: [Yes/No]
 │   └── Provides Data: [Yes/No]
-├── Signal Configuration (if produces signals):
-│   ├── Signal Types: [Events / Exceptions / Observations]
-│   ├── Gateway: [Atropos / Cronus]
-│   └── Topics: [payment.events, account.events]
-├── Command Configuration (if accepts commands):
-│   ├── Namespace: [command namespace]
-│   └── Endpoints: [Configure per environment]
-├── Data Access (if provides data):
-│   ├── Entity Types: [Customer, Account, Transaction]
-│   └── Access Method: [API / Database / File]
+├── Tool Protocols: (see below)
+└── Signal Schemas: [If produces signals]
+```
+
+**Tool Protocols** (part of Machine Definition):
+
+Each Machine Definition includes abstract Tool Protocols — specifications of tools without concrete endpoints:
+
+```
+Machine Definition → Tool Protocols → Add Protocol
+├── Identity:
+│   ├── ID: [e.g., "get-account"]
+│   └── Name: "Get Account Details"
+├── Protocol Type: [OpenAPI / AsyncAPI / gRPC / GraphQL / MCP]
+├── Specification: [Upload or paste specification]
+│   └── Variables in spec use {{variable}} syntax
+├── Variables (placeholders):
+│   ├── base_url: [Required, no default]
+│   ├── tenant_id: [Required, no default]
+│   └── response_format: [Optional, default: "standard"]
+├── Input Schema: [Derived from spec or explicit]
+└── Output Schema: [Derived from spec or explicit]
+```
+
+#### Step 2: Create Machine Instances
+
+Create concrete Machines by instantiating a Machine Definition with actual connection details:
+
+```
+Hub Console → Registries → Machines → Create Machine
+
+├── Identity:
+│   ├── Name: [e.g., "acme-core-banking"]
+│   └── Display Name: "ACME Core Banking System"
+├── Definition:
+│   ├── Machine Definition: [temenos-core-banking]
+│   └── Version: [2.1.0]
+├── Environment: [Select from Environment Registry]
 ├── Connection:
-│   ├── Protocol: [REST / SOAP / gRPC / JDBC]
-│   ├── Endpoint: [URL per environment]
-│   └── Authentication: [Configure]
-├── Metadata:
-│   ├── Owner Team: [Team name]
-│   ├── Environments: [Development, Staging, Production]
-│   └── Status: [Active / Maintenance / Deprecated]
-└── Workbench Access: [Which workbenches can use this machine]
+│   ├── Endpoint: [https://core.acme-bank.com/api/v2]
+│   ├── Protocol: [REST / SOAP / gRPC]
+│   └── Authentication:
+│       ├── Type: [OAuth2 / API Key / mTLS / Basic]
+│       └── Credentials: [Vault reference]
+├── Variable Bindings (replace {{placeholders}} in Tool Protocols):
+│   ├── base_url: "https://core.acme-bank.com/api/v2"
+│   ├── tenant_id: "acme"
+│   └── [other variables]
+├── Access Policies:
+│   ├── Allowed Workbenches: [Select workbenches]
+│   ├── Allowed Roles: [operator, analyst]
+│   └── Requires Approval: [Yes/No]
+├── Tools: (instantiate from Tool Protocols — see Tool Registry below)
+└── Metadata:
+    ├── Owner Team: [Team name]
+    └── Status: [Active / Maintenance / Deprecated]
 ```
 
 **Machine Types:**
@@ -278,6 +286,115 @@ Hub Console → Registries → Machines → Register Machine
 | **External** | Third-party systems | Payment networks, credit bureaus |
 | **SaaS** | Cloud services | Salesforce, ServiceNow |
 | **Gateway** | I/O Gateways (auto-registered) | Atropos, Heracles, Dia |
+
+---
+
+### Tool Registry
+
+The Tool Registry also operates at two levels:
+
+1. **Tool Protocols** — Abstract specifications (part of Machine Definitions)
+2. **Tools** — Concrete, invocable instances bound to Machines
+
+#### Machine-Bound Tools
+
+When you create a Machine, you instantiate Tools from its Tool Protocols:
+
+```
+Machine → Tools → Configure Tool
+
+├── Tool Protocol: [get-account from temenos-core-banking]
+├── Identity:
+│   ├── ID: [e.g., "acme-get-account"]
+│   └── Name: "Get ACME Account"
+├── Variable Overrides (tool-specific, beyond machine variables):
+│   └── response_format: "detailed"
+├── Access Control:
+│   ├── Discoverability:
+│   │   ├── Allowed Workbenches: [Inherit from Machine / Specific]
+│   │   └── Allowed Roles: [operator, analyst, auditor]
+│   └── Invocation:
+│       ├── Allowed Roles: [operator, analyst]
+│       ├── Requires Approval: [Yes/No]
+│       └── Delegatable to Agents: [Yes/No]
+└── Flow Control:
+    ├── Rate Limit: [100 requests/sec]
+    ├── Burst Limit: [150]
+    ├── Concurrency Limit: [10]
+    ├── Timeout: [5000 ms]
+    └── Retry Policy:
+        ├── Max Attempts: [3]
+        └── Backoff: [Linear / Exponential]
+```
+
+#### Standalone Tools
+
+For tools not bound to external Machines (internal utilities, computations):
+
+```
+Hub Console → Registries → Tools → Register Standalone Tool
+
+├── Identity:
+│   ├── Name: [e.g., "calculate-risk-score"]
+│   ├── Namespace: [e.g., "hub-utilities"]
+│   └── Version: [1.0.0]
+├── Description:
+│   ├── Display Name: "Calculate Risk Score"
+│   └── Description: "Computes risk score based on transaction patterns"
+├── Provider:
+│   ├── Type: [HTTP / gRPC / MCP / Internal]
+│   ├── Endpoint: [URL or internal reference]
+│   └── Authentication: [Configure if external]
+├── Schema:
+│   ├── Input Schema: [JSON Schema]
+│   └── Output Schema: [JSON Schema]
+├── Access Control: [Same as machine-bound tools]
+├── Flow Control: [Same as machine-bound tools]
+└── Category: [Data Access / Action / Computation / Communication]
+```
+
+**Tool Categories:**
+
+| Category | Purpose | Examples |
+|----------|---------|----------|
+| **Data Access** | Retrieve business entity data | Get customer, Get transaction |
+| **Action** | Perform business actions | Create case, Initiate payment |
+| **Query** | Search and filter data | Search transactions, List accounts |
+| **Computation** | Calculations and transformations | Calculate risk, Format report |
+| **Notification** | Messaging and communication | Send email, Push notification |
+
+---
+
+### Definition vs Instance Summary
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│                        DEFINITIONS                              │
+│                    (Abstract Templates)                         │
+│                                                                 │
+│  Machine Definitions ─────────────── Tool Protocols            │
+│  (e.g., temenos-core-banking)        (e.g., get-account spec)  │
+│                                                                 │
+│  • No endpoints                      • No concrete URLs         │
+│  • No credentials                    • Variables as {{...}}     │
+│  • Version-controlled                • Part of Machine Def      │
+└────────────────────────────────────────────────────────────────┘
+                          │
+                          │ instantiate
+                          ▼
+┌────────────────────────────────────────────────────────────────┐
+│                         INSTANCES                               │
+│                   (Concrete, Usable)                            │
+│                                                                 │
+│  Machines ────────────────────────── Tools                     │
+│  (e.g., acme-core-banking)           (e.g., acme-get-account)  │
+│                                                                 │
+│  • Actual endpoints                  • Bound to Machine         │
+│  • Vault credential refs             • Resolved variables       │
+│  • Access policies                   • Per-tool policies        │
+│  • Bound to Environment              • Flow control settings    │
+└────────────────────────────────────────────────────────────────┘
+```
 
 #### Environment Registry
 
