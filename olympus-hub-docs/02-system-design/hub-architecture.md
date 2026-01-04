@@ -531,16 +531,16 @@ Olympus Hub is composed of several integrated subsystems that work together to d
 | **Operations Center** | Runtime environment that hosts Workbenches and provides the operational interface for teams |
 | **I/O Gateways** | Machines that sense Signals and execute Triggers to create Requests (see Section 5.2) |
 | **Command Registry** | Registry of available commands (actions/levers) that can be executed on entities |
-| **Automation Systems** | Engines that execute Operations (Procedures, Workflows, Cases) on Requests |
+| **Automation Runtimes** | Engines that execute Operations (Procedures, Workflows, Cases) on Requests |
 
 ### 5.2 I/O Gateways
 
-Hub distinguishes between **I/O Gateways** (Machines that sense Signals) and **Automation Systems** (engines that execute Operations):
+Hub distinguishes between **I/O Gateways** (Machines that sense Signals) and **Automation Runtimes** (engines that execute Operations):
 
 | Layer | Purpose | Components |
 |-------|---------|------------|
 | **I/O Gateways** | Signal sensing, filtering, transformation, Request binding | Atropos, Cronus, Heracles, Dia |
-| **Automation Systems** | Executing Operations on Requests (channel-agnostic) | Atlantis, Perseus, Rhea, ChronoShift |
+| **Automation Runtimes** | Executing Operations on Requests (channel-agnostic) | Atlantis, Perseus, Rhea, ChronoShift |
 
 #### I/O Gateway Machines
 
@@ -592,7 +592,7 @@ All Request invocations flow through **Workbench-defined Triggers**. Each I/O Ga
 └────────────────────────────────────────────────────────────────┘
 ```
 
-> **Key Principle:** Automation Systems are channel-agnostic. A Request looks the same whether it originated from an HTTP API call (Heracles), a file upload (Dia), an event (Atropos), or an observation (Cronus). I/O Gateways and Triggers handle all protocol-specific concerns.
+> **Key Principle:** Automation Runtimes are channel-agnostic. A Request looks the same whether it originated from an HTTP API call (Heracles), a file upload (Dia), an event (Atropos), or an observation (Cronus). I/O Gateways and Triggers handle all protocol-specific concerns.
 
 ### 5.3 Operation Automation Subsystems
 

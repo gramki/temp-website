@@ -20,7 +20,7 @@
 |------------|-------------------|----------|
 | **System Integration** | Machine, Sensors, Environment, Signal | [Perception Layer](./ontology-1-perception-layer.md) |
 | **I/O Architecture** | Trigger, I/O Gateway Signal Types, Request types | [Perception Layer](./ontology-1-perception-layer.md) |
-| **Automation Design** | Automation, Automation System, Operation | [Automation Layer](./ontology-4-automation-layer.md) |
+| **Automation Design** | Automation, Automation Runtime, Operation | [Automation Layer](./ontology-4-automation-layer.md) |
 | **Agent Framework** | Agent, Human, AI Agent, Human–AI Team | [Execution Layer](./ontology-3-execution-layer.md) |
 | **Tool Development** | Tool, Prediction Application, Decision Application, Command | [Automation Layer](./ontology-4-automation-layer.md) |
 | **Registry Design** | Tool Registry, Machine Registry, Workbench | [Automation Layer](./ontology-4-automation-layer.md) |

@@ -98,7 +98,7 @@
 | **Command** | An action you can tell a system to do | "Lock this account" |
 | **Tool** | Something that helps agents work | Fraud scoring model, decision helper |
 | **Automation** | The recipe for how work should flow | The dispute resolution workflow definition |
-| **Automation System** | The platform that runs the recipes | Olympus Hub |
+| **Automation Runtime** | The platform that runs the recipes | Olympus Hub |
 
 ---
 

@@ -352,7 +352,7 @@ Task Queue (pending)
 ## Human–AI Team
 **Definition:** Group of [Agents](#agent) (human + AI) collaborating in an [Operation](#operation-abstract).  
 **Role:** Execute multi-role work.  
-**Relationships:** Composed of [Agents](#agent); interacts with the [Automation System](./ontology-4-automation-layer.md#automation-system).
+**Relationships:** Composed of [Agents](#agent); interacts with the [Automation Runtime](./ontology-4-automation-layer.md#automation-system).
 
 **See also:** [Workflow](#workflow), [Case](#case)
 

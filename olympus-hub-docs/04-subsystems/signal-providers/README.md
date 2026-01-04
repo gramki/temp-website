@@ -82,7 +82,7 @@ Triggers are defined in Workbench configurations, not in the I/O Gateways themse
 |-----------|--------------|
 | **Workbench Studio** | Defines Triggers that I/O Gateways execute |
 | **Operations Center** | Receives Requests created by I/O Gateways |
-| **Automation Systems** | Execute Operations on Requests |
+| **Automation Runtimes** | Execute Operations on Requests |
 | **Cipher IAM** | Provides authentication/authorization for I/O boundaries |
 
 ## Infrastructure Notes

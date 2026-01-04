@@ -15,7 +15,7 @@ This layer ensures consistency, scalability, and enforceability. It allows compl
 ## Table of Contents
 
 - [Automation](#automation)
-- [Automation System](#automation-system)
+- [Automation Runtime](#automation-system)
 - [Tool (abstract)](#tool-abstract)
 - [Prediction Application](#prediction-application)
 - [Decision Application](#decision-application)
@@ -26,9 +26,9 @@ This layer ensures consistency, scalability, and enforceability. It allows compl
 ---
 
 ## Automation
-**Definition:** The **blueprint or recipe** for how an [Operation](./ontology-3-execution-layer.md#operation-abstract) should run. It is the codified definition (in software) that can be instantiated multiple times by the [Automation System](#automation-system).  
+**Definition:** The **blueprint or recipe** for how an [Operation](./ontology-3-execution-layer.md#operation-abstract) should run. It is the codified definition (in software) that can be instantiated multiple times by the [Automation Runtime](#automation-system).  
 **Role:** Source of truth for executable behavior; defines the steps, decision points, and rules.  
-**Relationships:** Invoked by [Scenarios](./ontology-1-perception-layer.md#scenario); instantiates [Operations](./ontology-3-execution-layer.md#operation-abstract); managed by the [Automation System](#automation-system).
+**Relationships:** Invoked by [Scenarios](./ontology-1-perception-layer.md#scenario); instantiates [Operations](./ontology-3-execution-layer.md#operation-abstract); managed by the [Automation Runtime](#automation-system).
 
 **Analogy:** If an [Operation](./ontology-3-execution-layer.md#operation-abstract) is a meal being cooked, the Automation is the recipe. Many meals (operation instances) can be cooked from the same recipe (automation).
 
@@ -59,18 +59,18 @@ Automation Definition
 - **Account Opening Automation:** Defines KYC checks → credit checks → account creation → welcome
 - **Wire Transfer Automation:** Defines validation → AML screening → approval → execution
 
-**See also:** [Operation](./ontology-3-execution-layer.md#operation-abstract), [Automation System](#automation-system), [SOP](./ontology-2-normative-layer.md#sop-standard-operating-procedure)
+**See also:** [Operation](./ontology-3-execution-layer.md#operation-abstract), [Automation Runtime](#automation-system), [SOP](./ontology-2-normative-layer.md#sop-standard-operating-procedure)
 
 ---
 
-## Automation System
+## Automation Runtime
 **Definition:** The **execution platform** where [Automations](#automation) are run. It is the software orchestration system that instantiates, monitors, and supervises live [Operations](./ontology-3-execution-layer.md#operation-abstract).  
 **Role:** Hosts automations; handles instantiation, monitoring, escalation, and lifecycle management.  
 **Relationships:** Receives [Signals](./ontology-1-perception-layer.md#signal) from the [Environment](./ontology-1-perception-layer.md#environment); supervises [Operations](./ontology-3-execution-layer.md#operation-abstract); runs/manages [Automations](#automation).
 
-**Analogy:** If [Automation](#automation) is the recipe, the Automation System is the **kitchen**—the place with chefs (agents), equipment (tools), and the coordination to prepare meals (operations).
+**Analogy:** If [Automation](#automation) is the recipe, the Automation Runtime is the **kitchen**—the place with chefs (agents), equipment (tools), and the coordination to prepare meals (operations).
 
-**Automation System Responsibilities:**
+**Automation Runtime Responsibilities:**
 
 | Responsibility | Description |
 |----------------|-------------|
@@ -81,7 +81,7 @@ Automation Definition
 | **SLA Monitoring** | Track time-based thresholds and trigger [Escalations](./ontology-3-execution-layer.md#escalation) |
 | **Audit & Compliance** | Log all actions for regulatory and audit purposes |
 
-**Examples of Automation Systems:**
+**Examples of Automation Runtimes:**
 
 | System | Type | Typical Use |
 |--------|------|-------------|
@@ -93,7 +93,7 @@ Automation Definition
 
 **Banking Example:**
 When a "Dispute Filing Request" arrives:
-1. Automation System receives the [Request](./ontology-1-perception-layer.md#request)
+1. Automation Runtime receives the [Request](./ontology-1-perception-layer.md#request)
 2. Instantiates the "Dispute Resolution" [Operation](./ontology-3-execution-layer.md#operation-abstract)
 3. Creates [Tasks](./ontology-3-execution-layer.md#task) and assigns to [Task Queues](./ontology-3-execution-layer.md#task-queue)
 4. Monitors SLAs and triggers [Escalations](./ontology-3-execution-layer.md#escalation) if needed

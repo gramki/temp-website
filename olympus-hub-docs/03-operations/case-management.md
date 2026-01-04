@@ -1,12 +1,12 @@
 
 Case Management in Agentic World
 
-A Case Automation System
+A Case Automation Runtime
 - Trigger invokes the automation system through the Signal, Scenario, and Environment parameters along with any specific parameters specified in the trigger defintion itself
 - The Automation systems setup a Case and provides the Case Entity to Hub to present this information wherever appropriate
 - The Automation sytems manages the life of the Case Entity until it is closed
 
-# Seer Case Automation System
+# Seer Case Automation Runtime
 
 ## Conversation Case Model
 - Integrates Case entity into MS Teams as a Chat Group

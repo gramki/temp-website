@@ -147,10 +147,10 @@ Workbench Blueprint (System-level)
 - File drops / object stores for batch I/O.
 
 **Role:** Hosts real I/O and produces [Signals](#signal).  
-**Relationships:** Produces [Signals](#signal); contains [Machines](#machine) and [Sensors](#sensors); interacts with the [Automation System](./ontology-4-automation-layer.md#automation-system).  
+**Relationships:** Produces [Signals](#signal); contains [Machines](#machine) and [Sensors](#sensors); interacts with the [Automation Runtime](./ontology-4-automation-layer.md#automation-system).  
 **Example:** Kafka topics for transactions, OAuth-secured APIs, S3 buckets for statement files.
 
-**See also:** [Signal](#signal), [Automation System](./ontology-4-automation-layer.md#automation-system)
+**See also:** [Signal](#signal), [Automation Runtime](./ontology-4-automation-layer.md#automation-system)
 
 ---
 

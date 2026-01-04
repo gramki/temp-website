@@ -12,8 +12,7 @@ Tenant Ecosystem Management
 [ ] Tool Registry
 [ ] Machine Registry
 [ ] Environment Registry
-[ ] Agent Registry (Cipher)
-[ ] AI Agent Registry (Seer)
+[ ] Agent Registry - Both Humand and AI Agents (Cipher acts as the agent registry)
 
 Automation Engines/Systems
 [ ] Expand Perseus - Automation Host for File Application, Map-Reduce Application, and Complex Event Applications
@@ -27,6 +26,14 @@ Automation Engines/Systems
 [ ] Expand Cronus/Rhea as a Task Management System (Inbuilt)
 
 
+# *Request* Story
+[ ] Request Lifecycle
+[ ] Request Updates from Tirggers and Requests updates from Automation Runtimes
+[ ] Request as a Session Boundary
+[ ] Request Scope Storage
+[ ] Request to Business Entity Mapping (ex: Dipuste service request to Transaction Dispute Entity mapping; Bindings, transformations, Business Entity Events)
+[ ] Request to Enterprise Memory (Decision Records, Override Records, Evidence Bundles, Explaination Records, etc.,)
+
 Storage Services
 [ ] KB
 [ ] Business Entity Data
@@ -34,6 +41,36 @@ Storage Services
 [ ] Audit Data
 [ ] Tenant Configuration
 [ ] Tenant Specification Data
+
+# Memory Services (are all subsystems of Hub)
+[ ] Hub CAF (Enterprise Memory Control Plane)
+[ ] Hub Agent Memory System (Agent Memory Persistence and Management)
+[ ] Hub Enterprise Memory System (Enterprise Memory Persistence and Management; CAF Integrated)
+
+# Decision Explaination Services (Think and detail this; This is different from decision services provided by Seer; Seer should integrated or align with Decision Explaination Services)
+*explanation* infrastructure (rationale capture, counterfactual generation, decision journaling)
+[ ] Context Storage Services
+[ ] Request (Case) Storage System
+[ ] ETSL
+[ ] CAF
+[ ] Enterprise Memory System
+**Compliance Explanation Infrastructure:**
+- Decision journals (capture of rationale at decision time)
+- Counterfactual generators (what would have happened under different choices)
+- Context preservation (state of information when decision was made)
+- Narrative assemblers (human-readable explanation generation)
+- Replay capability (reconstruct decision with original context)
+
+
+
+# Workbench as a CAF Memory Provider
+[ ] Workbench with Enterprise Memory Storage Services
+[ ] Enterprise Memory Storage Services as part of Seer
+[ ] Workbench Enterprise Memory Stores to CAF Memory mapping
+[ ] Workbench serving as CAF Memory Provider
+[ ] CAF is module under Seer SaaS Suite;
+[ ] Enterprise Memory Services as moduels under Seer SaaS Suite
+[ ] Decision journaling in CAF
 
 
 Scenario
@@ -43,7 +80,7 @@ Scenario
 - Task Queues
 - Hub Application
 
-Each Automation System gives a specialized name for Hub Application
+Each Automation Runtime gives a specialized name for Hub Application
 
 
 
@@ -114,6 +151,10 @@ Specialized Hubs
 [ ] Workbench as an Agent; Tenant Agent Directory/Registry;
 [ ] Task Management System
 
+[ ] Inroduce Hub Application; Wire Triggers -> Request -> Hub Application
+[ ] Hub tracks the complete request lifecycle; *Request are like Jira Item, they can have various comments and statues;*
+[ ] *Trigger can update Applications* I/O Gateway for MS Teams -> Signals -> Trigger -> (New Case or Action in an existing Case); (New Workflow or Action in an existing Workflow Process)
+
 
 -----
 UI Applications
@@ -138,15 +179,17 @@ UI Applications
 
 * Workbench Studio
 - Machine Creator
-- Agent Creator
-- Scenario Creator
+- Scenario Designer (specific to automation system used for the scenario)
 - Environment Manager
 - KB Manager
 
 
 * Workbench - Agent Desk
 * Workbench - Supervisor Desk (Manage and Govern)
-* Workbench - SRE Desk
+* Workbench - SRE Desk 
+- Application Store (OLTP)
+- Operational Stores
+
+- Agent Memory, Org Memory
 
 
-* Agent Studio

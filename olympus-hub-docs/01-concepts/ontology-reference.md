@@ -50,7 +50,7 @@ This layered approach makes it easier to understand *what is happening*, *what o
 ```
 ┌─────────────────────────────────────────────────────────┐
 │  4. AUTOMATION LAYER — "How is it codified and scaled?" │
-│     Automation, Automation System, Tools, Registries    │
+│     Automation, Automation Runtime, Tools, Registries    │
 ├─────────────────────────────────────────────────────────┤
 │  3. EXECUTION LAYER — "How is it done?"                 │
 │     Operation, Activity, Task, Agent, Escalation        │
@@ -74,7 +74,7 @@ Each layer has its own detailed reference document:
 | **1. Perception** | What's happening? | [ontology-1-perception-layer.md](./ontology-1-perception-layer.md) | Domain, Workbench, Environment, Machine, Sensors, Signal, Request, Trigger, Scenario, OPD |
 | **2. Normative** | What ought to be done? | [ontology-2-normative-layer.md](./ontology-2-normative-layer.md) | Role, Goal, SOP, Responsibility, Capability, Capacity, Decision, Knowledge Base, Runbook, Checklist |
 | **3. Execution** | How is it done? | [ontology-3-execution-layer.md](./ontology-3-execution-layer.md) | Operation, Procedure, Workflow, Case, Activity, Task, Escalation, Task Queue, Action, Agent, Human, AI Agent |
-| **4. Automation** | How is it codified? | [ontology-4-automation-layer.md](./ontology-4-automation-layer.md) | Automation, Automation System, Tool, Prediction/Decision Applications, Command, Tool Registry, Machine Registry |
+| **4. Automation** | How is it codified? | [ontology-4-automation-layer.md](./ontology-4-automation-layer.md) | Automation, Automation Runtime, Tool, Prediction/Decision Applications, Command, Tool Registry, Machine Registry |
 
 **Visual Reference:** [Ontology Diagrams](./ontology-diagrams.md) — Class diagram and relationship graph
 

@@ -74,7 +74,7 @@ Our ontology reveals that all business activities operate across four interconne
 - **Perception Layer**: What's happening? (Signals, Triggers, Scenarios)
 - **Normative Layer**: What ought to be done? (Roles, Goals, SOPs, Responsibilities, Capabilities)
 - **Execution Layer**: How is it done? (Operations, Activities, Actions, Agent collaboration)
-- **Automation Layer**: How is it codified and scaled? (Automations, Automation Systems, Tools)
+- **Automation Layer**: How is it codified and scaled? (Automations, Automation Runtimes, Tools)
 
 ### Human-AI Collaboration as the New Operating Model
 
