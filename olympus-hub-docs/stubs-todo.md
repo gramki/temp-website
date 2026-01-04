@@ -134,10 +134,11 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 
 | Document | Description | Status | Priority |
 |----------|-------------|--------|----------|
-| [README.md](./04-subsystems/hub-native-utilities/README.md) | Native stateless tools overview (Decision, Prediction) | 🔴 Stub | High |
-| [decision-tools.md](./04-subsystems/hub-native-utilities/decision-tools.md) | Drools, DMN, JS pure-function decision services | 🔴 Stub | High |
-| [prediction-tools.md](./04-subsystems/hub-native-utilities/prediction-tools.md) | ML Models via Elara/Kserve | 🔴 Stub | High |
-| [caf-integration.md](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for native utilities | 🔴 Stub | High |
+| [README.md](./04-subsystems/hub-native-utilities/README.md) | Native utilities overview (stateless + stateful) | 🔴 Stub | High |
+| [decision-tools.md](./04-subsystems/hub-native-utilities/decision-tools.md) | Drools, DMN, JS pure-function decision services (stateless) | 🔴 Stub | High |
+| [prediction-tools.md](./04-subsystems/hub-native-utilities/prediction-tools.md) | ML Models via Elara/Kserve (stateless) | 🔴 Stub | High |
+| [caf-integration.md](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for Decision/Prediction tools | 🔴 Stub | High |
+| [checklist-service.md](./04-subsystems/hub-native-utilities/checklist-service.md) | Scheduled multi-operation governance with aggregation (stateful) | 🔴 Stub | High |
 
 ---
 

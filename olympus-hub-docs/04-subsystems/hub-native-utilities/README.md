@@ -125,7 +125,7 @@ Hub Applications often need to make decisions or predictions as part of their pr
 
 | Utility | Description | Status |
 |---------|-------------|--------|
-| Checklist Service | Checklist management for agents and supervisors | 📋 Planned |
+| [Checklist Service](./checklist-service.md) | Scheduled multi-operation governance with aggregation and analytics | 🔴 Stub |
 | *(Additional utilities to be defined)* | | |
 
 ---

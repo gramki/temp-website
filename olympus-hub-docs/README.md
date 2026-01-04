@@ -158,10 +158,11 @@ Olympus Hub is an operations management platform designed for large and medium e
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Overview](./04-subsystems/hub-native-utilities/README.md) | Native stateless tools (Decision, Prediction) | 🔴 Stub |
-| [Decision Tools](./04-subsystems/hub-native-utilities/decision-tools.md) | Drools, DMN, JS pure-function decision services | 🔴 Stub |
-| [Prediction Tools](./04-subsystems/hub-native-utilities/prediction-tools.md) | ML Models via Elara/Kserve | 🔴 Stub |
-| [CAF Integration](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for native utilities | 🔴 Stub |
+| [Overview](./04-subsystems/hub-native-utilities/README.md) | Native utilities overview | 🔴 Stub |
+| [Decision Tools](./04-subsystems/hub-native-utilities/decision-tools.md) | Drools, DMN, JS pure-function decision services (stateless) | 🔴 Stub |
+| [Prediction Tools](./04-subsystems/hub-native-utilities/prediction-tools.md) | ML Models via Elara/Kserve (stateless) | 🔴 Stub |
+| [CAF Integration](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for Decision/Prediction tools | 🔴 Stub |
+| [Checklist Service](./04-subsystems/hub-native-utilities/checklist-service.md) | Scheduled multi-operation governance with aggregation | 🔴 Stub |
 
 #### Supporting Systems
 
