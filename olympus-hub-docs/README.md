@@ -164,6 +164,7 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [CAF Integration](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for Decision/Prediction tools | 🔴 Stub |
 | [Checklist Service](./04-subsystems/hub-native-utilities/checklist-service.md) | Workbench-scoped scheduled multi-operation governance | 🔴 Stub |
 | [Routine Service](./04-subsystems/hub-native-utilities/routine-service.md) | Agent-scoped scheduled operations (personal or assigned) | 🔴 Stub |
+| [Manual Task Application](./04-subsystems/hub-native-utilities/manual-task-application.md) | Pass-through app for manual tasks (1:1 Request-Task) | 🔴 Stub |
 
 #### Supporting Systems
 

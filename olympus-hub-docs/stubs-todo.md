@@ -140,6 +140,7 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 | [caf-integration.md](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for Decision/Prediction tools | 🔴 Stub | High |
 | [checklist-service.md](./04-subsystems/hub-native-utilities/checklist-service.md) | Workbench-scoped scheduled multi-operation governance (stateful) | 🔴 Stub | High |
 | [routine-service.md](./04-subsystems/hub-native-utilities/routine-service.md) | Agent-scoped scheduled operations — personal or assigned (stateful) | 🔴 Stub | High |
+| [manual-task-application.md](./04-subsystems/hub-native-utilities/manual-task-application.md) | Pass-through app for manual tasks — 1:1 Request-Task wiring | 🔴 Stub | High |
 
 ---
 
