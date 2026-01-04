@@ -138,7 +138,8 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 | [decision-tools.md](./04-subsystems/hub-native-utilities/decision-tools.md) | Drools, DMN, JS pure-function decision services (stateless) | 🔴 Stub | High |
 | [prediction-tools.md](./04-subsystems/hub-native-utilities/prediction-tools.md) | ML Models via Elara/Kserve (stateless) | 🔴 Stub | High |
 | [caf-integration.md](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for Decision/Prediction tools | 🔴 Stub | High |
-| [checklist-service.md](./04-subsystems/hub-native-utilities/checklist-service.md) | Scheduled multi-operation governance with aggregation (stateful) | 🔴 Stub | High |
+| [checklist-service.md](./04-subsystems/hub-native-utilities/checklist-service.md) | Workbench-scoped scheduled multi-operation governance (stateful) | 🔴 Stub | High |
+| [routine-service.md](./04-subsystems/hub-native-utilities/routine-service.md) | Agent-scoped scheduled operations — personal or assigned (stateful) | 🔴 Stub | High |
 
 ---
 

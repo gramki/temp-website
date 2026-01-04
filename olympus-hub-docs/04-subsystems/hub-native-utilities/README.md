@@ -125,7 +125,8 @@ Hub Applications often need to make decisions or predictions as part of their pr
 
 | Utility | Description | Status |
 |---------|-------------|--------|
-| [Checklist Service](./checklist-service.md) | Scheduled multi-operation governance with aggregation and analytics | 🔴 Stub |
+| [Checklist Service](./checklist-service.md) | Workbench-scoped scheduled multi-operation governance | 🔴 Stub |
+| [Routine Service](./routine-service.md) | Agent-scoped scheduled operations (personal or assigned) | 🔴 Stub |
 | *(Additional utilities to be defined)* | | |
 
 ---
