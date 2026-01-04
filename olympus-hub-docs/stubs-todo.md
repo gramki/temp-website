@@ -269,6 +269,27 @@ The following were removed as they are implementation details abstracted by Olym
 
 ---
 
+## UX Architecture
+
+### UX Architecture (`06-ux-architecture/`)
+
+| Document | Description | Status | Priority |
+|----------|-------------|--------|----------|
+| [README.md](./06-ux-architecture/README.md) | UX Architecture overview — meta approach, persona-channel-use case | 🟡 WIP | High |
+| [hub-control-center.md](./06-ux-architecture/hub-control-center.md) | Tenant Admin console | 🔴 Stub | High |
+| [publisher-consoles.md](./06-ux-architecture/publisher-consoles.md) | SRE and Customer Success consoles | 🔴 Stub | Medium |
+| [workbench-studio.md](./06-ux-architecture/workbench-studio.md) | Designer environment for Process Architects and Developers | 🔴 Stub | High |
+| [hub-home.md](./06-ux-architecture/hub-home.md) | Landing page for Agents and Supervisors | 🔴 Stub | High |
+| [agent-desk.md](./06-ux-architecture/agent-desk.md) | Agent operations console | 🔴 Stub | High |
+| [supervisor-desk.md](./06-ux-architecture/supervisor-desk.md) | Supervisor management console | 🔴 Stub | High |
+| [admin-desk.md](./06-ux-architecture/admin-desk.md) | Workbench admin console | 🔴 Stub | Medium |
+| [mcp-gateways.md](./06-ux-architecture/mcp-gateways.md) | MCP Gateway architecture for AI integration | 🔴 Stub | High |
+| [angelos-framework.md](./06-ux-architecture/angelos-framework.md) | UI component framework | 🔴 Stub | High |
+| [hercules-launcher.md](./06-ux-architecture/hercules-launcher.md) | Launch URL service for deep linking | 🔴 Stub | Medium |
+| [neutrino-integration.md](./06-ux-architecture/neutrino-integration.md) | Customer channel integration | 🔴 Stub | High |
+
+---
+
 ## Seer Integration Requirements
 
 These stubs are particularly important for Seer integration:
@@ -290,8 +311,8 @@ These stubs are particularly important for Seer integration:
 ## Expansion Priority Order
 
 1. **Critical** — Signal Exchange, Workbench Management (trigger-definitions, trigger-evaluator, application-router), CAF (decision records, explanation, evidence), Olympus Platform Dependencies, Scenario Development Journey
-2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Native Utilities (Decision Tools, Prediction Tools), Hub Applications concept, Infrastructure (Temporal, Cipher IAM, Ganymede, Knowledge Bank, Olympus Watch), Hub Personas (Process Architect, Developer, Supervisor, Agent, Administrator), Business Domain Actors (Business Customer, Business Employee, System Actor), Journeys (Workbench Configuration, Request Lifecycle)
-3. **Medium** — Registry Services, Knowledge Services, Request Management, Infrastructure (Cloudflare, Redis, Callisto, Europa), Personas (Auditor, SRE, Customer Success), Journeys (Audit Investigation)
+2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Native Utilities (Decision Tools, Prediction Tools), Hub Applications concept, Infrastructure (Temporal, Cipher IAM, Ganymede, Knowledge Bank, Olympus Watch), Hub Personas (Process Architect, Developer, Supervisor, Agent, Administrator), Business Domain Actors (Business Customer, Business Employee, System Actor), Journeys (Workbench Configuration, Request Lifecycle), UX Architecture (MCP Gateways, Workbench Studio, Agent/Supervisor Desk, Angelos, Neutrino)
+3. **Medium** — Registry Services, Knowledge Services, Request Management, Infrastructure (Cloudflare, Redis, Callisto, Europa), Personas (Auditor, SRE, Customer Success), Journeys (Audit Investigation), UX Architecture (Hub Control Center, Hercules Launcher, Publisher Consoles, Admin Desk)
 4. **Lower** — Perseus, Machine/Environment Registries
 
 ---

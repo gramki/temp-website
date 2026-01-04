@@ -227,12 +227,33 @@ Olympus Hub is an operations management platform designed for large and medium e
 
 ### 06 - UX Architecture
 
+> **Design Philosophy:** (Persona, Channel, Use Case) approach with headless access services and channel adapters.
+
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Overview](./06-ux-architecture/README.md) | UX Architecture and user interfacing applications | 🟡 WIP |
-| [User Interaction Channels](./06-ux-architecture/user-interaction-channels.md) | Subject interaction patterns, Hercules Launcher | ⚠️ Notes |
+| [Overview](./06-ux-architecture/README.md) | UX Architecture — meta approach, applications by persona | 🟡 WIP |
 
-*Coming soon: Hercules Launcher, Angelos Components, Ops Center UX, Neutrino Integration*
+#### Applications by Persona
+
+| Application | Persona | Document | Status |
+|-------------|---------|----------|--------|
+| **Hub Control Center** | Tenant Admin | [hub-control-center.md](./06-ux-architecture/hub-control-center.md) | 🔴 Stub |
+| **Publisher Consoles** | SRE, Customer Success | [publisher-consoles.md](./06-ux-architecture/publisher-consoles.md) | 🔴 Stub |
+| **Workbench Studio** | Process Architect, Developer | [workbench-studio.md](./06-ux-architecture/workbench-studio.md) | 🔴 Stub |
+| **Hub Home** | Agent, Supervisor | [hub-home.md](./06-ux-architecture/hub-home.md) | 🔴 Stub |
+| **Agent Desk** | Agent | [agent-desk.md](./06-ux-architecture/agent-desk.md) | 🔴 Stub |
+| **Supervisor Desk** | Supervisor | [supervisor-desk.md](./06-ux-architecture/supervisor-desk.md) | 🔴 Stub |
+| **Admin Desk** | Workbench Admin | [admin-desk.md](./06-ux-architecture/admin-desk.md) | 🔴 Stub |
+| **Neutrino** | Business Customer | [neutrino-integration.md](./06-ux-architecture/neutrino-integration.md) | 🔴 Stub |
+
+#### UI Framework & Integration
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [MCP Gateways](./06-ux-architecture/mcp-gateways.md) | MCP architecture for AI integration | 🔴 Stub |
+| [Angelos Framework](./06-ux-architecture/angelos-framework.md) | UI component framework | 🔴 Stub |
+| [Hercules Launcher](./06-ux-architecture/hercules-launcher.md) | Launch URL service for deep linking | 🔴 Stub |
+| [User Interaction Channels](./06-ux-architecture/user-interaction-channels.md) | Subject interaction patterns | ⚠️ Notes |
 
 ### 07 - Data Architecture
 

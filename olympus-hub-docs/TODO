@@ -57,69 +57,6 @@ Storage Services
 
 
 
-
-
-# Congntive Workload Related Services:
-    # Workbench as a CAF Memory Provider:
-    [ ] Workbench with Enterprise Memory Storage Services
-    [ ] Enterprise Memory Storage Services as part of Seer
-    [ ] Workbench Enterprise Memory Stores to CAF Memory mapping
-    [ ] Workbench serving as CAF Memory Provider
-    [ ] CAF is module under Seer SaaS Suite;
-    [ ] Enterprise Memory Services as moduels under Seer SaaS Suite
-    [ ] Decision journaling in CAF
-    # CAF Integration:
-    # Decision Explaination Services (Think and detail this; This is different from decision services provided by Seer; Seer should integrated or align with Decision Explaination Services)
-    *explanation* infrastructure (rationale capture, counterfactual generation, decision journaling)
-    [ ] Context Storage Services
-    [ ] Request (Case) Storage System
-    [ ] ETSL
-    [ ] CAF
-    [ ] Enterprise Memory System
-    # Compliance Explanation Infrastructure:
-    - Decision journals (capture of rationale at decision time)
-    - Counterfactual generators (what would have happened under different choices)
-    - Context preservation (state of information when decision was made)
-    - Narrative assemblers (human-readable explanation generation)
-    - Replay capability (reconstruct decision with original context)
-    # Seer Case Automation:
-    [ ] Case Automation Model and the Case Automation Engine (Seer Case Automation)
-
-
-# Signal Exchange and Application Interaction Protocol:
-    - Async updates
-    - Support for HTTP Applications 
-    - Support for MCP 
-    - Support for A2A 
-    - Support for Atropos-base 2-way communication
-    - Support for Event Log (Atropos) based Async updates to any request
-    - Support for External Applications through HTTP Hub Egress Gateway (An application that is merely acting as a wrapper around a tool)
-
-
-
-# Specialized Hubs:
-    [ ] Outline Olympus Hub's Expected Evolution
-    [ ] Outline Integration Hub
-    [ ] Outline Data Application Hub
-    [ ] Outline Operations Hub
-    [ ] Outline Customer Service & Journeys Hub
-    [ ] Outline Cognition Hub (Ability to create Agents that work on Cases  and Workflows)
-    [ ] Request and Case are Envelope Entities for automations defined across automation engines. Automation engines and AI Agents should be Cognitive Audit Fabric (CAF) aware
-    [ ] *Business Entity Providers*; Should we call this as an applicaiton/system in the Hub realm with a protocol do CRUDS on that entity? This can also encapsulate various views for the entity. 
-
-
-# Hub Applications using Other Hub Applications:
-    [ ] Using Hub for creating 'Machines' not just 'Opertaions'
-    [ ] *Workbench as a Machine;* Exposes the commands through Command Registry for use by other Hub Applications
-
-
-# Hub Storage Explanation:
-[ ] Hub-native storage support for Operations; 
-[ ] Hub storage model explained - native stores, automation engine specific stores, their scope, access management
-[ ] Hub Storage integration into ETSL/Pontus 
-
-[ ] Workbench as an Agent; Tenant Agent Directory/Registry;
-
 ✔ Inroduce Hub Application; Wire Triggers -> Request -> Hub Application @done(26-01-04 15:35)
 ✔ Hub tracks the complete request lifecycle; *Request are like Jira Item, they can have various comments and statues;* @done(26-01-04 15:35)
 ✔ *Trigger can update Applications* I/O Gateway for MS Teams -> Signals -> Trigger -> (New Case or Action in an existing Case); (New Workflow or Action in an existing Workflow Process) @done(26-01-04 15:35)
@@ -127,19 +64,20 @@ Storage Services
 
 # UI Architecture:
     ## Meta Approach:
-        - Persona, Channel, Use Case approach
-        - Channel Agnostic, Persona-focused Access Services
+        - (Persona, Channel, Use Case) approach
+        - Channel Agnostic, Persona-focused Headless Access Services
         - Channel Adapters 
         - Web, Mobile, Email, MS Teams, as first-class channels
         - ChatGPT, Claude, Gemini, etc., as first-class channels
 
-        ## Hub Control Center (Tenant Admins):
+    ## Hub Control Center (Tenant Admins):
         - Subsystems Configuration
             - Configuration: Task Management System
             - Configuration: API Gateway 
             - Configuration: Event Bus 
             - Configuration: File Gateway
             - Configuration: Automation Engines
+            - Others
 
         - Tenant Ecosystem Setup
             - User and Access Management 
@@ -168,24 +106,22 @@ Storage Services
     ## Hub UI for Agents and Supervisors (Per Workbench):
         - Hub Workbench - Agent Desk
         - Hub Workbench - Supervisor Desk (Manage and Govern)
-        - Hub Home (Landing page for Agents and Supervisors)
+        - Hub Home (Landing page for Agents and Supervisors; Provides list of workbenches, tasks, agents, etc., Quick Access to common tasks, Alerts and Notifications)
 
         Expand Agent Desk:
             - Consoles (Utility Consoles, Custom Consoles)
-            - Signals, Triggers, Scenarios, Operations
-            - SOPs, Knowledge Base
-            - Agents & Roles
-            - Routines & Checklists
-            - Workbench Memory (Redis-like persistent store)
+            - Task Solver Interface (Custom for each task type; Can be defined by the Workbench Developer; Provide read-only and solver-views for the task)
         
-        Expand Utility (Common) Consoles:
+        Expand Utility Consoles (Common to Agent Desk and Supervisor Desk) :
             - Tasks
             - Files
             - Reports
             - Knowledge Base
-            - Signals, Exceptions, Observations
+            - Signals (Exceptions, Observations, and Others)
+            - Routines & Checklists
             - Analytics (Supervisor Desk)
-            - User & Access Management (Supervisor Desk)
+            - Task Allocation Management (Supervisor Desk)
+            - Agents & Access Management (Supervisor Desk)
         
     ## MCP Architecture:
         - Tenant Admin MCP Gateway
@@ -207,6 +143,17 @@ Storage Services
     - Hub Application Monitoring Operator
     - Hub Scenario Monitoring Operator
 
+# Hub Applications using Other Hub Applications:
+    [ ] Using Hub for creating 'Machines' not just 'Opertaions'
+    [ ] *Workbench as a Machine;* Exposes the commands through Command Registry for use by other Hub Applications
+    
+    
+# Hub Storage Explanation:
+[ ] Hub-native storage support for Operations; 
+[ ] Hub storage model explained - native stores, automation engine specific stores, their scope, access management
+[ ] Hub Storage integration into ETSL/Pontus 
+    
+    
 
 # Ecosystem Integrations:
 
@@ -224,8 +171,92 @@ Storage Services
 
 
 
+
+
+# Congntive Workload Related Services:
+    # Workbench as a CAF Memory Provider:
+    [ ] Workbench with Enterprise Memory Storage Services
+    [ ] Enterprise Memory Storage Services as part of Seer
+    [ ] Workbench Enterprise Memory Stores to CAF Memory mapping
+    [ ] Workbench serving as CAF Memory Provider
+    [ ] CAF is module under Seer SaaS Suite;
+    [ ] Enterprise Memory Services as moduels under Seer SaaS Suite
+    [ ] Decision journaling in CAF
+    # CAF Integration:
+    # Decision Explaination Services (Think and detail this; This is different from decision services provided by Seer; Seer should integrated or align with Decision Explaination Services)
+    *explanation* infrastructure (rationale capture, counterfactual generation, decision journaling)
+    [ ] Context Storage Services
+    [ ] Request (Case) Storage System
+    [ ] ETSL
+    [ ] CAF
+    [ ] Enterprise Memory System
+    # Compliance Explanation Infrastructure:
+    - Decision journals (capture of rationale at decision time)
+    - Counterfactual generators (what would have happened under different choices)
+    - Context preservation (state of information when decision was made)
+    - Narrative assemblers (human-readable explanation generation)
+    - Replay capability (reconstruct decision with original context)
+    # Seer Case Automation:
+    [ ] Case Automation Model and the Case Automation Engine (Seer Case Automation)
+
+    # Hub and Seer Concepts integration:
+    [ ] Workbench as an Agent in the Tenant Agent Registry
+    [ ] Scenario as an Agent in the Tenant Agent Registry
+    [ ] Avoiding Circular Loops between Agents
+    [ ] How does any Scenario as an Agent differen from Seer Case Automation as an Orchestrator Agent?
+
+
+# Signal Exchange and Application Interaction Protocol:
+    - Async updates
+    - Support for HTTP Applications 
+    - Support for MCP 
+    - Support for A2A 
+    - Support for Atropos-base 2-way communication
+    - Support for Event Log (Atropos) based Async updates to any request
+    - Support for External Applications through HTTP Hub Egress Gateway (An application that is merely acting as a wrapper around a tool)
+
+
+
+# Specialized Hubs:
+    [ ] Outline Olympus Hub's Expected Evolution
+    [ ] Outline Integration Hub
+    [ ] Outline Data Application Hub
+    [ ] Outline Operations Hub
+    [ ] Outline Customer Service & Journeys Hub
+    [ ] Outline Cognition Hub (Ability to create Agents that work on Cases  and Workflows)
+    [ ] Request and Case are Envelope Entities for automations defined across automation engines. Automation engines and AI Agents should be Cognitive Audit Fabric (CAF) aware
+    [ ] *Business Entity Providers*; Should we call this as an applicaiton/system in the Hub realm with a protocol do CRUDS on that entity? This can also encapsulate various views for the entity. 
+
+
+
+
 # Other Systems TODOs:
     [ ] Expand Cipher - IAM for Agents
     [ ] Expand Seer - Host of AI Agents
     [ ] Expand Seer - Hub Connector :: Connector into Task Management System to accept, complete, or assign tasks
     [ ] ETSL, CAF, Memory Stores integration explained
+
+
+# Documentation Quality & Onboarding (Backlog):
+    ## Overview Documents (00-overview/):
+    [ ] System Primer - Single ~3 page doc: What is Hub? 5 core concepts, end-to-end request flow
+    [ ] Entity Model - Diagram showing containment (Tenant→Subscription→Workbench→Scenario) and lifecycle (Signal→Trigger→Request→Task)
+    [ ] Glossary - 50-100 terms with precise definitions (Subject, Request, Operation, Scenario, etc.)
+    [ ] Reading Guide - Recommended reading order by persona (Developer, Process Architect, Auditor, etc.)
+    [ ] Decision Log (ADR-style) - Capture rationale for key decisions (Signal Exchange naming, Automation Runtime, etc.)
+
+    ## Worked Examples (09-examples/):
+    [ ] Service Request Example - End-to-end trace: Customer dispute → Signal → Trigger → Request → Tasks → Completion
+    [ ] Business Request Example - Employee-initiated onboarding or compliance review
+    [ ] System Request Example - Reconciliation failure requiring business resolution
+
+    ## Consistency & Completeness:
+    [ ] Define "done" criteria for document types (stub vs complete: must have overview, schema, integration points, example)
+    [ ] Add anti-patterns/common mistakes to key documents (like Storage FAQ)
+    [ ] Standardize diagram approach (ASCII vs Mermaid) across all docs
+    [ ] Version mark: distinguish v1 scope vs aspirational/future features
+    [ ] Add Collaboration sections to remaining personas (Administrator, Auditor, SRE, Customer Success)
+
+    ## Cross-Cutting:
+    [ ] Periodic consistency review - catch terminology drift across documents
+    [ ] Coverage tracking - ensure Concepts ↔ Subsystems ↔ Guides form complete picture
