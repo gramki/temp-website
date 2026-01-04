@@ -380,25 +380,35 @@ The module transforms responses into rich Teams messages:
 
 ### Hub → Teams Flow
 
-When Signal Exchange dispatches updates to watchers:
+When a Hub Application sends a Request Update (e.g., task assignment), Signal Exchange dispatches it to **registered observers** (not to agents directly). The MS Teams module, as an observer, determines which agents to notify:
 
 ```
 Hub Application         Signal Exchange         MS Teams Module         Chat Group
        │                       │                       │                     │
-       │ ── Task Assigned ───> │                       │                     │
-       │    to Agent Bob       │                       │                     │
+       │ ── Request Update ──> │                       │                     │
+       │    (Task Assigned     │                       │                     │
+       │     to Agent Bob)     │                       │                     │
        │                       │                       │                     │
-       │                       │ ── Dispatch Update ─> │                     │
-       │                       │    (to all watchers)  │                     │
+       │                       │ ── Dispatch to ─────> │                     │
+       │                       │    Observers          │                     │
+       │                       │    (Request-level)    │                     │
+       │                       │                       │                     │
+       │                       │                       │ ── Determine ─────> │
+       │                       │                       │    affected agents  │
+       │                       │                       │    (Bob in this     │
+       │                       │                       │    case)            │
        │                       │                       │                     │
        │                       │                       │ ── Add Bob to ────> │
-       │                       │                       │    group            │
+       │                       │                       │    group via        │
+       │                       │                       │    Graph API        │
        │                       │                       │                     │
        │                       │                       │ ── Post Message ──> │
        │                       │                       │    "Task assigned   │
        │                       │                       │     to @Bob"        │
        │                       │                       │                     │
 ```
+
+**Key Point:** Signal Exchange dispatches Request Updates to observers (like MS Teams module). It does NOT dispatch to agents or tasks directly. The MS Teams module parses the update content to determine which agents are affected and takes appropriate action.
 
 ### Update Types and Formatting
 

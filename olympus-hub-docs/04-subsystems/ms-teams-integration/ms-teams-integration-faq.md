@@ -221,11 +221,12 @@ This approach recognizes that:
 - **Represents the workbench** (the bot is a construct of the MS Teams integration module; Signal Exchange itself is unaware of this)
 
 **Important flow:**
-- When messages are received from MS Teams, the Teams module adds them as updates to the request
-- All agents watching the request are dispatched this update by Signal Exchange
+- When messages are received from MS Teams, the Teams module adds them as updates to the Request
+- Signal Exchange dispatches Request Updates to registered **observers** (like MS Teams module), NOT to agents directly
+- Signal Exchange operates at the Request level — it cannot attribute updates to specific tasks or agents
+- The MS Teams module, as an observer, parses updates to determine which agents to notify
 - The origination channel (MS Teams) is captured in envelope metadata
-- All agents with active tasks in a request are by default deemed as watchers
-- The MS Teams chat group reflects all updates to the Request, regardless of Signal Exchange dispatch
+- The MS Teams chat group reflects all updates to the Request
 
 ### Q: What happens when a new task is assigned?
 
@@ -362,7 +363,12 @@ The catalog of direct services may expand.
 
 ### Q: How are Request updates sent to Teams?
 
-**A:** MS Teams module **listens to updates on Request entity** (via Signal Exchange dispatch to watchers) and relays them to the corresponding chat group.
+**A:** MS Teams module is a **registered observer** for Request Updates. When Signal Exchange dispatches a Request Update to observers, the MS Teams module:
+1. Receives the update (at Request level, not agent/task level)
+2. Parses the update to determine which agents are affected
+3. Relays relevant information to the corresponding chat group
+
+**Note:** Signal Exchange dispatches to observers, not to agents or tasks directly. It operates at the Request level.
 
 ---
 

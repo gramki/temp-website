@@ -297,45 +297,57 @@ chat_groups:
 
 ---
 
-## Watcher Mechanics
+## Observer Notifications
 
-### Who Watches a Request?
+### Signal Exchange Dispatch Model
 
-| Watcher Type | Condition |
-|--------------|-----------|
-| **Active task assignees** | Automatic — default watchers |
-| **Supervisors** | If configured or explicitly watching |
-| **Subject** | If included in group |
-| **Explicit watchers** | Agents who chose to watch |
+**Important:** Signal Exchange dispatches Request Updates to **registered observers** (like the MS Teams module), NOT to individual agents or tasks. Signal Exchange operates at the Request level and cannot attribute updates to specific tasks or agents.
 
-### Dispatch vs. Teams Notifications
+| Component | Responsibility |
+|-----------|----------------|
+| **Signal Exchange** | Dispatches Request Updates to registered observers |
+| **MS Teams Module** | As an observer, receives updates and determines which agents to notify |
+| **Hub Application** | Originates updates (task assignments, decisions, etc.) |
+
+### How MS Teams Module Determines Agent Notifications
+
+The MS Teams module, as an observer of Request Updates:
+1. Receives Request Update from Signal Exchange
+2. Parses the update content (e.g., TASK_LIFECYCLE with assignee info)
+3. Determines which agents are affected
+4. Takes appropriate action (add to group, post message, etc.)
+
+### Notification Flow
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  UPDATE DISPATCH PATHS                           │
+│                  REQUEST UPDATE FLOW                             │
 │                                                                  │
-│   Request Update                                                 │
+│   Hub Application                                                │
+│         │                                                        │
+│         │ Request Update (contains task/agent info)              │
+│         ▼                                                        │
+│   Signal Exchange                                                │
+│         │                                                        │
+│         │ Dispatch to registered observers                       │
+│         │ (Request-level, not agent/task-level)                  │
 │         │                                                        │
 │         ├─────────────────────┬──────────────────────────────   │
 │         │                     │                                  │
 │         ▼                     ▼                                  │
-│   Signal Exchange         MS Teams Module                        │
-│   Dispatch                                                       │
-│         │                     │                                  │
-│         │ To all watchers     │ To chat group                   │
-│         │ via configured      │ (duplicate for                  │
-│         │ channels            │ Teams users)                    │
-│         │                     │                                  │
-│         ▼                     ▼                                  │
-│   [WebSocket]             [Teams Chat]                          │
-│   [Webhook]               Members see                           │
-│   [Email]                 message                               │
-│   [Push]                                                        │
+│   MS Teams Module         Other Observers                        │
+│         │                 (WebSocket, Webhook,                   │
+│         │                  Email, Push)                          │
+│         │                                                        │
+│         │ Parse update, determine affected agents                │
+│         ▼                                                        │
+│   Chat Group Actions                                             │
+│   (Add members, post messages)                                   │
 │                                                                  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-**Note:** Agents in the Teams chat group may receive the same update twice (once via Teams, once via other channels). This is by design — channels are not mutually exclusive.
+**Note:** Agents in the Teams chat group may receive the same update through multiple channels. This is by design — channels are not mutually exclusive.
 
 ---
 

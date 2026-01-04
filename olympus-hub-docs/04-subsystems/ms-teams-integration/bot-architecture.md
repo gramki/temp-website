@@ -218,7 +218,7 @@ The bot orchestrates collaboration between agents working on a request. Signal E
 │   ┌─────────────────────────────────────────────────────────┐   │
 │   │                    SIGNAL EXCHANGE                       │   │
 │   │                                                          │   │
-│   │  • Dispatches request updates to watchers                │   │
+│   │  • Dispatches request updates to observers (not agents)  │   │
 │   │  • Unaware of MS Teams or bot construct                  │   │
 │   │  • Treats MS Teams as just another channel               │   │
 │   │                                                          │   │
