@@ -23,13 +23,23 @@ The Routine Service provides **agent-scoped scheduled operations** — essential
 | Aspect | Checklist | Routine |
 |--------|-----------|---------|
 | **Scope** | Workbench-level | Agent-level |
-| **Target** | Multiple agents (via queues/roles) | Single agent |
+| **Ownership** | Workbench governance | Assigned to or created by a single agent |
 | **Created by** | Process Architects, Supervisors | Supervisors (assigned) or Agents (self) |
-| **Assignment** | Items assigned to queues/roles | Entire routine bound to one agent |
-| **Visibility** | Workbench dashboard | Agent's personal dashboard |
-| **Governance** | Organizational control | Personal productivity or assigned duties |
+| **Visibility** | Workbench dashboard (supervisors, auditors) | Agent's personal dashboard |
+| **Purpose** | Organizational governance and control | Personal productivity or assigned duties |
 
 > **A Routine is a Checklist scoped to a single Agent.**
+
+### Important: Task Assignment is Separate
+
+Both Checklists and Routines invoke **Requests**, not Tasks directly:
+
+1. Checklist/Routine triggers a Request
+2. The Hub Application (Scenario) processes the Request
+3. The Hub Application creates Tasks (if any) per its own assignment policy
+4. Task assignment follows the application's rules, not the Checklist/Routine ownership
+
+**Routine ownership ≠ Task ownership.** However, a common use case for Routines is initiating work that the routine's assignee will likely handle — but this is determined by the Hub Application's assignment policy, not by the Routine itself.
 
 ---
 

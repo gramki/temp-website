@@ -34,6 +34,33 @@ Key distinctions:
 
 ---
 
+## Important: Checklists Create Requests, Not Tasks
+
+```
+Checklist Item
+      │
+      ▼
+  Request (created by Checklist Service)
+      │
+      ▼
+  Hub Application (Scenario)
+      │
+      ▼
+  Tasks (if any) — created by Hub Application
+      │
+      ▼
+  Assignment — per Hub Application's assignment policy
+```
+
+**Checklist ownership ≠ Task ownership.**
+
+- Checklists invoke Requests for their configured Scenarios
+- The Hub Application (Procedure, Workflow, Case, etc.) decides whether to create Tasks
+- Task assignment follows the Hub Application's assignment policy
+- The Checklist aggregates Request outcomes, not Task assignments
+
+---
+
 ## Checklist Structure
 
 ```
@@ -51,21 +78,18 @@ Key distinctions:
 │  │  │ Item 1: Cash Position Verification                  │   ││
 │  │  │   Scenario: cash-position-check                     │   ││
 │  │  │   Runtime: Atlantis (Procedure Application)         │   ││
-│  │  │   Assignee: Treasury Team queue                     │   ││
 │  │  └─────────────────────────────────────────────────────┘   ││
 │  │                                                             ││
 │  │  ┌─────────────────────────────────────────────────────┐   ││
 │  │  │ Item 2: Reconciliation Review                       │   ││
 │  │  │   Scenario: daily-recon-review                      │   ││
 │  │  │   Runtime: Rhea (Workflow Application)              │   ││
-│  │  │   Assignee: Reconciliation queue                    │   ││
 │  │  └─────────────────────────────────────────────────────┘   ││
 │  │                                                             ││
 │  │  ┌─────────────────────────────────────────────────────┐   ││
 │  │  │ Item 3: Exception Triage                            │   ││
 │  │  │   Scenario: exception-triage                        │   ││
 │  │  │   Runtime: Seer (Case Orchestration Agent)          │   ││
-│  │  │   Assignee: Senior Analyst                          │   ││
 │  │  └─────────────────────────────────────────────────────┘   ││
 │  └─────────────────────────────────────────────────────────────┘│
 │                                                                  │
@@ -103,13 +127,13 @@ checklist:
       scenario_id: string          # Scenario to invoke
       request_type: enum           # service | business | system
       
-      # Assignment (optional defaults)
-      assignment:
-        queue_id: string           # Task queue for assignment
-        role_id: string            # Or specific role
-        agent_id: string           # Or specific agent
+      # Request context (optional — passed to Hub Application)
+      request_context:
+        suggested_queue: string    # Hint for task assignment (optional)
+        suggested_role: string     # Hint for task assignment (optional)
+        parameters: object         # Scenario-specific parameters
       
-      # Priority and SLA
+      # Priority and SLA (for the Request)
       priority: enum               # low | normal | high | critical
       sla_config:
         target_completion: duration
