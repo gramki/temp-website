@@ -70,6 +70,10 @@ Storage Services
         - Web, Mobile, Email, MS Teams, as first-class channels
         - ChatGPT, Claude, Gemini, etc., as first-class channels
 
+    ## Pending Clarifications:
+        [ ] Product Center - Clarify purpose and scope (Tenant Executives?)
+        [ ] Report Center - Clarify purpose and scope (Analytics, reporting?)
+
     ## Hub Control Center (Tenant Admins):
         - Subsystems Configuration
             - Configuration: Task Management System
@@ -260,3 +264,138 @@ Storage Services
     ## Cross-Cutting:
     [ ] Periodic consistency review - catch terminology drift across documents
     [ ] Coverage tracking - ensure Concepts ↔ Subsystems ↔ Guides form complete picture
+
+
+
+======
+You're absolutely right — I took quite a few liberties! Let me ask the questions I should have asked:
+
+    ---
+    
+    ## Clarifications Needed
+    
+    ### 1. Naming Confusion
+    Hub Workbech Studio
+    Hub Win Operations Center is the name for the UI application for Customer Success persona.
+    Hercules Launcher has nothing to do with Hercules Gateway. Hercules is a framework for web application development. The Launher is a scafollding to convert any HTML5 component to a launcable web app with a url.
+    ---
+    
+    ### 2. Product Center & Report Center
+    
+    Keep them out for now. Add a todo to clarify later.
+    
+    ---
+    
+    ### 3. Workbench Studio Capabilities
+    
+    Your TODO lists:
+    ```
+    Expand Workbench Studio:
+        - Angelos Page (App) Builder
+        - Angelos Components and Binders
+        - Angelos Action Repository
+        - Scenario Builder
+        - Automation Builder [Agentic] and Publisher [Agentic]
+        - Knowledge Base Manager
+        - Tool Registry (Subset of Tools)
+    ```
+    
+    **Questions:**
+    - What does **"[Agentic]"** mean for Automation Builder/Publisher? AI-assisted development?
+    Yes, AI-assisted development.
+
+    - Is **Angelos Action Repository** a catalog of pre-built actions? Who creates them?
+   Angelos is an internal framework for building web components. Hercules is a framework for web application development and hosting.
+   Angelos Action Repository is a catalog of pre-built actions cataloged and made available through Hercules. All tenant developers can contribute to this repository. 
+   The repository also comes with pre-built actions for common tasks against various business entities and hub platform entities.
+
+    - Should the **Scenario Builder** be a visual drag-drop tool or more like a form-based configuration?
+    This should be approached in two parts - Process Architect and Developer perspectives.
+    Process Architect perspective:
+    - Scenario Builder should be a visual drag-drop tool that allows the Process Architect to design the scenario components. Or it could just be a free flow document
+    Developer perspective:
+    - A set of CRDs/YAMLs that describe the scenario components and their relationships.
+    ---
+    
+    ### 4. Agent Desk — Removed Capabilities
+    
+    Your TODO originally had:
+    ```
+    Expand Agent Desk:
+        - Consoles (Utility Consoles, Custom Consoles)
+        - Signals, Triggers, Scenarios, Operations  ← I removed this
+        - SOPs, Knowledge Base                      ← I kept as Knowledge Base Console
+        - Agents & Roles                            ← I removed this
+        - Routines & Checklists
+        - Workbench Memory (Redis-like persistent store)  ← I removed this
+    ```
+    
+    **Questions:**
+    - Should Agents see **Signals, Triggers, Scenarios, Operations** in read-only mode? Or is that Designer/Supervisor only?
+    They should be able to if enabled by Supervisor and Process Architect.
+    - What is **"Agents & Roles"** in Agent Desk context? Seeing who else is working on what?
+    Yes and his own roles and responsibilities.
+    - Is **"Workbench Memory"** a developer/debugging tool or something agents actively use?
+    No, it is a developer/debugging tool. You can remove this from Agent Desk.
+    ---
+    
+    ### 5. MS Teams as First-Class Channel
+    
+    Your TODO has a whole section:
+    ```
+    # MS Teams Integration:
+        [ ] Expand MS Teams as an Agent's Desktop
+        [ ] Expand MS Teams as a I/O Gateway
+        [ ] Expand MS Teams Chat Group as Collaboration mechanism
+    ```
+    
+    **Questions:**
+    - Should there be a dedicated `ms-teams-integration.md` document?
+    - Can an Agent do their *entire job* in MS Teams (adaptive cards, task completion)?
+    - Or is it primarily notifications + quick actions with deep links to web?
+    
+    ---
+    
+    ### 6. AI Assistants as Channels
+    
+    You mentioned "ChatGPT, Claude, Gemini, etc., as first-class channels"
+    
+    **Questions:**
+    - Is this via MCP Gateways only?
+    - Or are there also embedded AI assistants *within* Hub applications (like Copilot)?
+    - When a user talks to ChatGPT about their tasks, what's the UX? Natural language → MCP → Hub Services?
+    
+    ---
+    
+    ### 7. MCP Gateway Granularity
+    
+    I created 5 gateways:
+    - Tenant Admin, Creator, Agent, Supervisor (Control Plane)
+    - Scenario (Data Plane)
+    
+    **Questions:**
+    - Is this the right breakdown?
+    - Should Auditor have their own gateway?
+    - Should there be a "Knowledge" gateway for KB access?
+    
+    ---
+    
+    ### 8. Neutrino Relationship
+    
+    **Questions:**
+    - Is Neutrino a separate Olympus product or part of Hub?
+    - Who owns Neutrino documentation — Hub docs or a separate Neutrino docs?
+    - How deep should Hub's Neutrino documentation go?
+    
+    ---
+    
+    ### 9. Mobile Strategy
+    
+    **Questions:**
+    - Which applications have native mobile apps vs. responsive web?
+    - Is Hub Home mobile-first for Agents?
+    - Is there a separate "mobile" section needed or is it per-application?
+    
+    ---
+    
+    Let me know which of these need clarification and I'll update the documentation accordingly!

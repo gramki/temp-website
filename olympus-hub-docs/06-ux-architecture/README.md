@@ -78,8 +78,8 @@ Hub treats these as first-class interaction channels:
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[SRE Operations Center](./publisher-consoles.md#sre-operations-center)** | SRE | Monitor, maintain, and operate Hub infrastructure |
-| **[Customer Success Center](./publisher-consoles.md#customer-success-center)** | Customer Success | Onboard tenants, support adoption, review usage |
+| **[Hub SRE Operations Center](./publisher-consoles.md#sre-operations-center)** | SRE | Monitor, maintain, and operate Hub infrastructure |
+| **[Hub Win Operations Center](./publisher-consoles.md#win-operations-center)** | Customer Success | Onboard tenants, support adoption, review usage |
 
 ### Tenant Administration
 
@@ -91,7 +91,7 @@ Hub treats these as first-class interaction channels:
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[Workbench Studio](./workbench-studio.md)** | Process Architect, Developer | Design scenarios, build applications, manage knowledge |
+| **[Hub Workbench Studio](./workbench-studio.md)** | Process Architect, Developer | Design scenarios, build applications, manage knowledge |
 | **[Admin Desk](./admin-desk.md)** | Workbench Admin | Configure workbench-specific settings |
 
 ### Workbench Operations
@@ -298,9 +298,11 @@ Key capabilities:
 
 See [Angelos Framework](./angelos-framework.md) for details.
 
-### Hercules Launcher
+### Hercules Framework & Launcher
 
-Hercules provides deep-linking into Hub applications via Launch URLs:
+**Hercules** is a framework for web application development and hosting. **Hercules Launcher** is scaffolding that converts any HTML5 component into a launchable web app with a URL.
+
+Hercules Launcher provides deep-linking into Hub applications via Launch URLs:
 
 | Capability | Description |
 |------------|-------------|
@@ -319,7 +321,7 @@ See [Hercules Launcher](./hercules-launcher.md) for details.
 |----------|-------------|--------|
 | [Hub Control Center](./hub-control-center.md) | Tenant admin console | 🔴 Stub |
 | [Publisher Consoles](./publisher-consoles.md) | SRE and Customer Success consoles | 🔴 Stub |
-| [Workbench Studio](./workbench-studio.md) | Designer environment | 🔴 Stub |
+| [Hub Workbench Studio](./workbench-studio.md) | Designer environment | 🔴 Stub |
 | [Hub Home](./hub-home.md) | Landing page | 🔴 Stub |
 | [Agent Desk](./agent-desk.md) | Agent operations console | 🔴 Stub |
 | [Supervisor Desk](./supervisor-desk.md) | Supervisor management console | 🔴 Stub |
@@ -329,6 +331,8 @@ See [Hercules Launcher](./hercules-launcher.md) for details.
 | [Hercules Launcher](./hercules-launcher.md) | Launch URL service | 🔴 Stub |
 | [Neutrino Integration](./neutrino-integration.md) | Customer channel integration | 🔴 Stub |
 | [User Interaction Channels](./user-interaction-channels.md) | Subject interaction patterns | ⚠️ Notes |
+
+> **TODO:** Clarify Product Center and Report Center — separate applications for Tenant Executives (configuration, analytics, reporting).
 
 ---
 

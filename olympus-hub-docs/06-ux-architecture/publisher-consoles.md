@@ -4,9 +4,12 @@
 
 The **Publisher Consoles** are applications for Hub System (Publisher Domain) personas — SRE and Customer Success teams who operate the Hub platform itself.
 
+- **Hub SRE Operations Center** — For SRE teams
+- **Hub Win Operations Center** — For Customer Success teams
+
 ---
 
-## SRE Operations Center
+## Hub SRE Operations Center
 
 ### Overview
 
@@ -30,7 +33,7 @@ The **Publisher Consoles** are applications for Hub System (Publisher Domain) pe
 ### Screen Structure
 
 ```
-SRE Operations Center
+Hub SRE Operations Center
 ├── Dashboard
 │   ├── System Health
 │   ├── Active Incidents
@@ -60,7 +63,7 @@ SRE Operations Center
 
 ---
 
-## Customer Success Center
+## Hub Win Operations Center
 
 ### Overview
 
@@ -68,7 +71,7 @@ SRE Operations Center
 |-----------|-------|
 | **Primary Persona** | Customer Success Executive |
 | **Scope** | Hub System (all tenants) |
-| **Purpose** | Onboard tenants, support adoption, review usage |
+| **Purpose** | Onboard tenants, support adoption, review usage ("Win" = Customer Success wins) |
 
 ### Capabilities
 
@@ -83,7 +86,7 @@ SRE Operations Center
 ### Screen Structure
 
 ```
-Customer Success Center
+Hub Win Operations Center
 ├── Dashboard
 │   ├── Tenant Health Overview
 │   ├── Onboarding Pipeline

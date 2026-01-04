@@ -2,13 +2,23 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-**Hercules Launcher** is a deep-linking service that generates Launch URLs for Hub applications, enabling direct access to specific pages, tasks, and actions.
+**Hercules** is a framework for web application development and hosting. **Hercules Launcher** is scaffolding that converts any HTML5 component into a launchable web app with a URL, enabling deep-linking into Hub applications.
 
 ---
 
 ## Overview
 
-Hercules enables:
+### Hercules Framework
+
+| Component | Purpose |
+|-----------|---------|
+| **Hercules Framework** | Web application development and hosting platform |
+| **Hercules Launcher** | Scaffolding to convert HTML5 components to launchable web apps |
+| **Angelos Action Repository** | Pre-built actions cataloged and made available through Hercules |
+
+> **Note:** Hercules is unrelated to Heracles Gateway (the API gateway). The names are similar but the systems are distinct.
+
+### Hercules Launcher enables:
 - **Bearer URLs** — Pre-authenticated access (like "anyone with link")
 - **Subject-Bound URLs** — Scoped to specific customer/subject
 - **CTA Generation** — Dynamic links in notifications and emails

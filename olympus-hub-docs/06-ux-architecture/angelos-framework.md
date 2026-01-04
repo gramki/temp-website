@@ -2,17 +2,27 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-**Angelos** is Hub's UI component framework for building operational interfaces — from standard consoles to custom task solvers.
+**Angelos** is an internal framework for building web components used in Hub operational interfaces — from standard consoles to custom task solvers.
 
 ---
 
 ## Overview
 
-Angelos provides:
+### Framework Relationship
+
+| Framework | Purpose |
+|-----------|---------|
+| **Angelos** | Internal framework for building web components |
+| **Hercules** | Framework for web application development and hosting |
+| **Angelos Action Repository** | Pre-built actions cataloged and made available through Hercules |
+
+> Angelos components are the building blocks; Hercules is the hosting and launch platform.
+
+### Angelos provides:
 - **Reusable UI components** for operational interfaces
 - **Page Builder** for visual composition
 - **Event Binders** for component communication
-- **Action Repository** for reusable actions
+- **Action Repository** for reusable actions (via Hercules)
 
 ---
 
@@ -167,7 +177,15 @@ bindings:
 
 ## Action Repository
 
-Reusable action definitions that can be invoked by components.
+Reusable action definitions that can be invoked by components. The Action Repository is cataloged and made available through Hercules.
+
+### Contributors
+
+| Contributor | Actions |
+|-------------|---------|
+| **Hub Platform** | Pre-built actions for Hub platform entities (Tasks, Requests, etc.) |
+| **Business Entity Providers** | Pre-built actions for common business entities |
+| **Tenant Developers** | Custom actions contributed by tenant developers |
 
 ### Action Types
 

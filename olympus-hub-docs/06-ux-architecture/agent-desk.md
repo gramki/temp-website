@@ -30,6 +30,16 @@ Utility consoles are shared between Agent Desk and Supervisor Desk:
 | **Knowledge Base Console** | Search SOPs, policies, reference materials |
 | **Signals Console** | View exceptions, observations, and other signals |
 | **Routines & Checklists Console** | View and complete assigned routines |
+| **Agents & Roles Console** | See who is working on what, own roles and responsibilities |
+
+### Optional Consoles (If Enabled by Supervisor/Process Architect)
+
+| Console | Purpose |
+|---------|---------|
+| **Signals, Triggers, Scenarios Console** | Read-only view of scenario definitions |
+| **Operations Console** | View operation flows and status |
+
+> These consoles provide transparency into the operational structure when enabled by Supervisor or Process Architect.
 
 ### Custom Consoles
 
@@ -119,7 +129,12 @@ Agent Desk
 │   ├── Reports
 │   ├── Knowledge Base
 │   ├── Signals
-│   └── Routines & Checklists
+│   ├── Routines & Checklists
+│   └── Agents & Roles
+│
+├── Optional Consoles (if enabled)
+│   ├── Signals, Triggers, Scenarios (read-only)
+│   └── Operations
 │
 ├── Custom Consoles
 │   └── (Workbench-specific)

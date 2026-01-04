@@ -1,8 +1,8 @@
-# Workbench Studio
+# Hub Workbench Studio
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-**Workbench Studio** is the design and development environment for Process Architects and Developers to build operational scenarios and Hub Applications.
+**Hub Workbench Studio** is the design and development environment for Process Architects and Developers to build operational scenarios and Hub Applications.
 
 ---
 
@@ -33,20 +33,24 @@
 
 | Capability | Description |
 |------------|-------------|
-| **Automation Builder** | Develop Hub Applications with runtime SDKs |
-| **Automation Publisher** | Deploy applications to Automation Runtimes |
+| **Automation Builder [Agentic]** | Develop Hub Applications with AI-assisted development |
+| **Automation Publisher [Agentic]** | Deploy applications with AI-assisted validation |
 | **Trigger Designer** | Define signal matching, transformations |
 | **Tool Registry** | Manage workbench-scoped tool configurations |
 | **Testing & Debugging** | Test triggers, simulate requests |
+
+> **[Agentic]** indicates AI-assisted development capabilities — AI helps with code generation, configuration validation, and best practice suggestions.
 
 ### UI Building Capabilities
 
 | Capability | Description |
 |------------|-------------|
-| **Angelos Page Builder** | Visual tool for building custom consoles |
+| **Angelos Page Builder** | Visual tool for building custom consoles using Angelos web components |
 | **Angelos Components & Binders** | Wire events between UI components |
-| **Angelos Action Repository** | Define reusable actions |
+| **Angelos Action Repository** | Catalog of pre-built actions available via Hercules (see below) |
 | **Task Solver Templates** | Create custom task interfaces |
+
+> **Angelos** is an internal framework for building web components. **Hercules** is a framework for web application development and hosting. The **Angelos Action Repository** is cataloged and made available through Hercules — all tenant developers can contribute actions, and the repository includes pre-built actions for common tasks against business entities and Hub platform entities.
 
 ---
 
@@ -104,23 +108,53 @@ Workbench Studio
 
 ---
 
-## Scenario Builder Flow
+## Scenario Builder
+
+The Scenario Builder supports two perspectives:
+
+### Process Architect Perspective
+
+Visual, drag-drop tool or free-flow document for designing scenario components:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           SCENARIO BUILDER                                   │
+│                    SCENARIO BUILDER (Process Architect)                      │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐           │
-│  │  Signal  │ ──→ │ Trigger  │ ──→ │ Scenario │ ──→ │   Hub    │           │
-│  │ Selector │     │ Designer │     │ Config   │     │   App    │           │
-│  └──────────┘     └──────────┘     └──────────┘     └──────────┘           │
-│                                                                              │
-│  1. Select Signal   2. Define        3. Set Goals    4. Link to            │
-│     Sources            Conditions       & SLAs          Application         │
-│                        & Transform                                           │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  Visual Canvas / Free-Flow Document                                  │    │
+│  │                                                                      │    │
+│  │  [Signal Sources] ──→ [Trigger Conditions] ──→ [Scenario Goals]     │    │
+│  │                                                                      │    │
+│  │  Drag components, connect flows, define SLAs                        │    │
+│  │                                                                      │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Developer Perspective
+
+CRDs/YAMLs that describe scenario components and their relationships:
+
+```yaml
+# Example Scenario CRD
+apiVersion: hub.olympus.tech/v1
+kind: Scenario
+metadata:
+  name: payment-dispute-filed
+  workbench: dispute-operations
+spec:
+  signals:
+    - source: atropos
+      topic: card-network.disputes
+  triggers:
+    - ref: card-network-dispute-trigger
+  application:
+    ref: dispute-resolution-app
+  goals:
+    - id: resolve-dispute
+      sla: P10D
 ```
 
 ---
