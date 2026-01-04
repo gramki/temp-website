@@ -14,7 +14,7 @@ This document captures Q&A from the design discussion for the MS Teams Integrati
 
 ### Q: Is excluding Business Customers a design decision or phase limitation?
 
-**A:** *[Pending clarification]*
+**A:** Current limitation. Could consider adding a "Subject_Bot" for customers in a future phase if tenants want.
 
 ---
 
@@ -29,15 +29,18 @@ This document captures Q&A from the design discussion for the MS Teams Integrati
 | **Agent Copilot** | Me_Bot | Agents, Supervisors | Task processing, workbench operations |
 | **Business Employee Copilot** | Ask_Bot | Business Employees | Request initiation, assigned task handling |
 
+Additionally, there is a **Signal Exchange Bot** per workbench for chat group lifecycle management.
+
 ### Q: Are "Me_Bot" and "Ask_Bot" the actual names?
 
 **A:** No, these are **conceptual/code names** for documentation. Process Architects can name bots as they please per workbench. Suggested convention: include workbench code/name in the bot name for uniqueness.
 
 ### Q: How many bot instances are there?
 
-**A:** **One bot of each kind per workbench**, registered on MS Teams. For example:
+**A:** **One bot of each kind per workbench**, registered on MS Teams. All bots are scoped to a workbench only. For example:
 - `dispute-ops-me-bot` (Agent Copilot for Dispute Operations workbench)
 - `dispute-ops-ask-bot` (Business Employee Copilot for Dispute Operations workbench)
+- `dispute-ops-system-bot` (Signal Exchange Bot for Dispute Operations workbench)
 
 Bot names must be unique across workbenches.
 
@@ -55,6 +58,18 @@ Bot names must be unique across workbenches.
 
 **If not compatible:** The agent can launch the Task Solver via Hercules Launcher from Teams messages. This provides a direct link to the task without navigating through Hub Home → Workbench → Agent Desk → Pick Task.
 
+### Q: Who decides if a Task Solver is Adaptive Card compatible?
+
+**A:** **Developer.** They explicitly register a task-solver component to be used for MS Teams integration.
+
+### Q: What is the fallback if no Adaptive Card component is specified?
+
+**A:** If the Adaptive Card component is not specified, the integration uses **Hercules Launcher** to launch the default/web-based task-solver component.
+
+### Q: Are there size/complexity limits for Adaptive Cards?
+
+**A:** No. This is solely dependent on developer-provided configuration.
+
 ### Q: What can an Agent do via Me_Bot?
 
 | Capability | Supported? |
@@ -70,11 +85,20 @@ Bot names must be unique across workbenches.
 
 ### Q: Is Me_Bot conversational or command-based?
 
-**A:** Initial versions will likely be **command-based**. Expected to evolve into a **GenAI-based conversational bot**.
+**A:** The MS Teams module may start with **structured/command-based** but is certainly expected to support **NLP-based mapping**. The very first version itself could be NLP-based with support for structured messages as well.
 
 ### Q: Do Supervisors get additional capabilities in Me_Bot?
 
-**A:** *[Pending clarification — queue metrics, cross-agent reassignment, escalation handling?]*
+**A:** **Yes.** Supervisors get additional capabilities:
+- Queue metrics
+- Reassignment across agents
+- Escalation handling
+
+These capabilities will evolve over time.
+
+### Q: Do Supervisors primarily use Supervisor Desk or Me_Bot?
+
+**A:** **Both.** Supervisors primarily use **Supervisor Desk** for management operations, and **Me_Bot** for their own tasks and quick actions.
 
 ---
 
@@ -93,6 +117,14 @@ Bot names must be unique across workbenches.
 ### Q: Is Ask_Bot the same as using Hub via Heracles?
 
 **A:** Yes, conceptually. It's using Hub with **MS Teams as the channel**.
+
+### Q: Can a Business Employee send a free-form message that gets classified to a scenario?
+
+**A:** **Yes.** Free-form messages can be classified to scenarios through NLP-based mapping.
+
+### Q: What happens if no trigger matches a Business Employee's message?
+
+**A:** The MS Teams integration module will respond with a suitable message (help, clarification, etc.).
 
 ---
 
@@ -113,6 +145,20 @@ Bot names must be unique across workbenches.
 | **Subject** | Immediately | If scenario's Teams integration is configured to include subject |
 | **Task Assignees** | When tasks are assigned | As Hub Applications create and assign tasks |
 | **Supervisor** | Per configuration | As per scenario manifest/deployment config |
+
+### Q: What does the Signal Exchange Bot do in the chat group?
+
+**A:** The Signal Exchange Bot:
+- **Handles lifecycle** — adds members to chat, archives the chat when done
+- **Relays system updates** — posts updates that are not originated by any individual participant
+- **Represents the workbench's Signal Exchange** (the bot is a construct of the MS Teams integration module; Signal Exchange itself is unaware of this)
+
+**Important flow:**
+- When messages are received to a request from MS Teams channel, the MS Teams module adds them as updates to the request
+- All agents watching the request are dispatched this update by Signal Exchange
+- The origination channel (MS Teams) is captured in envelope metadata
+- All agents with active tasks in a request are by default deemed as watchers
+- The MS Teams Chat Group reflects all updates to the Request, regardless of Signal Exchange dispatch
 
 ### Q: What happens when a new task is assigned?
 
@@ -155,11 +201,19 @@ Bot names must be unique across workbenches.
 
 ### Q: What services does the MS Teams module handle directly (not via Signal Exchange)?
 
-**A:** 
-- Request lifecycle queries
+**A:** The module handles directly:
+- Request status queries
+- Knowledge base lookups
+- Task list queries
 - Other interactions that don't need to create/update Requests
 
-*[Pending clarification: KB lookups? Task list queries?]*
+The catalog of direct services may expand.
+
+### Q: Why do some requests bypass Signal Exchange?
+
+**A:** Signal Exchange need not be in the path for requests that may not correspond to scenarios. Requests don't go through Signal Exchange only for services that Signal Exchange may not offer. 
+
+Each I/O Gateway/module may have value-additions for efficiency and supported channel nuances that are specific to that module's contract.
 
 ### Q: How are Request updates sent to Teams?
 
@@ -195,64 +249,40 @@ Bot names must be unique across workbenches.
 
 **A:** MS Teams integration is **more than a signal provider**. It should cover:
 - Bot types and configuration
-- Message → Signal transformation
+- Message → Signal transformation (structured + NLP)
 - Trigger evaluation for Ask_Bot messages
 - Chat group lifecycle management
 - Request update → Teams relay
 - Direct services (queries not going to Signal Exchange)
 - Chat history archival
 - Identity and registration
+- Task Solver rendering (Adaptive Cards vs Hercules Launcher)
 
 ---
 
-## Pending Clarifications
+## Summary Tables
 
-The following questions are awaiting answers:
+### Bot Types per Workbench
 
-### A. Task Solver Rendering
+| Bot | Codename | Users | Purpose |
+|-----|----------|-------|---------|
+| Agent Copilot | Me_Bot | Agents, Supervisors | Task processing, KB queries, decisions |
+| Business Employee Copilot | Ask_Bot | Business Employees | Request initiation, assigned tasks |
+| System Bot | Signal Exchange Bot | System | Chat group lifecycle, system updates |
 
-1. Who decides if a Task Solver is "Adaptive Card compatible"?
-   - Developer marks it during Task Solver development?
-   - Automatic detection?
-2. Is there a fallback hierarchy? (Adaptive Card → Hercules Launcher)
-3. Are there size/complexity limits for Adaptive Cards that force Hercules fallback?
+### Capability Matrix
 
-### B. Chat Group Identity
-
-1. Is the Signal Exchange bot a single bot per tenant or per workbench?
-2. What does the Signal Exchange bot do in the group?
-   - Post status updates?
-   - Respond to queries about request status?
-   - Facilitate @mentions of agents?
-
-### C. Message → Signal Mapping
-
-1. Is this intent classification (NLP-based) or structured command matching initially?
-2. Can a Business Employee send a free-form message that gets classified to a scenario?
-3. What happens if no trigger matches? (Error? Fallback to help?)
-
-### D. Module Direct Services
-
-1. What services does the module handle directly?
-   - Request status queries?
-   - Knowledge base lookups?
-   - Task list queries?
-2. Is this essentially a local API that bypasses Signal Exchange for read-only operations?
-
-### E. Supervisor Capabilities
-
-1. Do Supervisors get additional capabilities beyond what Agents see via Me_Bot?
-   - Queue metrics?
-   - Reassignment across agents?
-   - Escalation handling?
-2. Or do they primarily use Supervisor Desk for management and Me_Bot only for their own tasks?
-
-### F. Scope Limitation
-
-1. Is excluding Business Customers a design decision (customers shouldn't use Teams) or phase 1 limitation?
-2. Could a future phase add a "Subject_Bot" for customers if tenants want?
+| Capability | Me_Bot (Agent) | Me_Bot (Supervisor) | Ask_Bot |
+|------------|----------------|---------------------|---------|
+| View tasks | ✅ Assigned | ✅ All + Queue | ✅ Explicitly assigned |
+| Complete tasks | ✅ | ✅ | ✅ |
+| Query KB | ✅ | ✅ | ✅ |
+| Initiate requests | ❌ | ❌ | ✅ |
+| Queue metrics | ❌ | ✅ | ❌ |
+| Reassign across agents | ❌ | ✅ | ❌ |
+| Escalation handling | ❌ | ✅ | ❌ |
+| Invoke tools directly | ❌ | ❌ | ❌ |
 
 ---
 
-*Last updated: 2026-01-04*
-
+*Last updated: 2026-01-05*

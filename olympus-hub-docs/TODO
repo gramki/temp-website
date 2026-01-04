@@ -169,8 +169,8 @@ Storage Services
 
 
     # MS Teams Integration:
-        [ ] Expand MS Teams as an Agent's Desktop (an agent should be able to work on a task assigned to them)
-        [ ] Expand MS Teams as a I/O Gateway for request initiation and updates (Bot corresponding to each Workbench for Business Employee)
+        [ ] Expand MS Teams as an Agent's Copilot (an agent should be able to work on a task assigned to them via MS Teams; Me_Bot_Per_Workbench acts as the copilot of the agent)
+        [ ] Expand MS Teams as a I/O Gateway for request initiation and updates (Bot corresponding to each Workbench for Business Employee; Ask_Bot_Per_Workbench acts as the Copilot for the Business Employee)
         [ ] Expand MS Teams Chat Group as a Collaboration mechanism for Agents working on a request (Each Request is Chat Group with all the agents working on it; Each assigned per active Task in the request)
 
 
