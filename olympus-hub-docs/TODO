@@ -170,8 +170,8 @@ Storage Services
 
     # MS Teams Integration:
         [ ] Expand MS Teams as an Agent's Desktop (an agent should be able to work on a task assigned to them)
-        [ ] Expand MS Teams as a I/O Gateway for request initiation and updates 
-        [ ] Expand MS Teams Chat Group as a Collaboration mechanism for Agents working on a request 
+        [ ] Expand MS Teams as a I/O Gateway for request initiation and updates (Bot corresponding to each Workbench for Business Employee)
+        [ ] Expand MS Teams Chat Group as a Collaboration mechanism for Agents working on a request (Each Request is Chat Group with all the agents working on it; Each assigned per active Task in the request)
 
 
 
@@ -271,73 +271,7 @@ Storage Services
 You're absolutely right — I took quite a few liberties! Let me ask the questions I should have asked:
 
     ---
-    
-    ## Clarifications Needed
-    
-    ### 1. Naming Confusion
-    Hub Workbech Studio
-    Hub Win Operations Center is the name for the UI application for Customer Success persona.
-    Hercules Launcher has nothing to do with Hercules Gateway. Hercules is a framework for web application development. The Launher is a scafollding to convert any HTML5 component to a launcable web app with a url.
-    ---
-    
-    ### 2. Product Center & Report Center
-    
-    Keep them out for now. Add a todo to clarify later.
-    
-    ---
-    
-    ### 3. Workbench Studio Capabilities
-    
-    Your TODO lists:
-    ```
-    Expand Workbench Studio:
-        - Angelos Page (App) Builder
-        - Angelos Components and Binders
-        - Angelos Action Repository
-        - Scenario Builder
-        - Automation Builder [Agentic] and Publisher [Agentic]
-        - Knowledge Base Manager
-        - Tool Registry (Subset of Tools)
-    ```
-    
-    **Questions:**
-    - What does **"[Agentic]"** mean for Automation Builder/Publisher? AI-assisted development?
-    Yes, AI-assisted development.
 
-    - Is **Angelos Action Repository** a catalog of pre-built actions? Who creates them?
-   Angelos is an internal framework for building web components. Hercules is a framework for web application development and hosting.
-   Angelos Action Repository is a catalog of pre-built actions cataloged and made available through Hercules. All tenant developers can contribute to this repository. 
-   The repository also comes with pre-built actions for common tasks against various business entities and hub platform entities.
-
-    - Should the **Scenario Builder** be a visual drag-drop tool or more like a form-based configuration?
-    This should be approached in two parts - Process Architect and Developer perspectives.
-    Process Architect perspective:
-    - Scenario Builder should be a visual drag-drop tool that allows the Process Architect to design the scenario components. Or it could just be a free flow document
-    Developer perspective:
-    - A set of CRDs/YAMLs that describe the scenario components and their relationships.
-    ---
-    
-    ### 4. Agent Desk — Removed Capabilities
-    
-    Your TODO originally had:
-    ```
-    Expand Agent Desk:
-        - Consoles (Utility Consoles, Custom Consoles)
-        - Signals, Triggers, Scenarios, Operations  ← I removed this
-        - SOPs, Knowledge Base                      ← I kept as Knowledge Base Console
-        - Agents & Roles                            ← I removed this
-        - Routines & Checklists
-        - Workbench Memory (Redis-like persistent store)  ← I removed this
-    ```
-    
-    **Questions:**
-    - Should Agents see **Signals, Triggers, Scenarios, Operations** in read-only mode? Or is that Designer/Supervisor only?
-    They should be able to if enabled by Supervisor and Process Architect.
-    - What is **"Agents & Roles"** in Agent Desk context? Seeing who else is working on what?
-    Yes and his own roles and responsibilities.
-    - Is **"Workbench Memory"** a developer/debugging tool or something agents actively use?
-    No, it is a developer/debugging tool. You can remove this from Agent Desk.
-    ---
     
     ### 5. MS Teams as First-Class Channel
     
