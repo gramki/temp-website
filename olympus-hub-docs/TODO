@@ -1,9 +1,8 @@
-Signal Providers:
-[x] Expand Dia - File Exchange System - As I/O Signal Provider, Batch Inputs and Output exchange mechanism
-[x] Expand Atropos - Event Broker, Event Signal Provider, Simple Event Application Host
-[x] Expand Kale - Time based signal provider
-[x] Expand Cronus as a Signal Provider for Exceptions and Observations
-[x] Expand Heracles, the HTTP API Gateway acting as a API Signal Provider
+# Signal Providers
+✔ Expand Signal Providers: @done(26-01-04 14:28)
+    ✘ Expand Dia - File Exchange System - As I/O Signal Provider, Batch Inputs and Output exchange mechanism @cancelled(26-01-04 14:33)    - [ ] Expand Kale - Time based signal provider
+    ✘ [ ] Expand Cronus as a Signal Provider for Exceptions and Observations @cancelled(26-01-04 14:46)
+    ✔ [ ] Expand Heracles, the HTTP API Gateway acting as a API Signal Provider @done(26-01-04 14:44)
 
 Subscription Configuration Management
 
@@ -35,12 +34,12 @@ Automation Engines/Systems
 [ ] Request to Enterprise Memory (Decision Records, Override Records, Evidence Bundles, Explaination Records, etc.,)
 
 Storage Services
-[ ] KB
-[ ] Business Entity Data
-[ ] Operational Data
-[ ] Audit Data
-[ ] Tenant Configuration
-[ ] Tenant Specification Data
+    [ ] KB
+    [ ] Business Entity Data
+    [ ] Operational Data
+    [ ] Audit Data
+    [ ] Tenant Configuration
+    [ ] Tenant Specification Data
 
 # Memory Services (are all subsystems of Hub)
 [ ] Hub CAF (Enterprise Memory Control Plane)

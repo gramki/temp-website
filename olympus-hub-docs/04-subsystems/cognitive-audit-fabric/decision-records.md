@@ -2,7 +2,7 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-Decision Records capture the **rationale and context of decisions at decision time**—enabling audit, explanation, and institutional learning.
+Decision Records capture the **rationale and context of decisions at decision time**—enabling audit, explanation, and institutional learning. CAF provides the **catalog and schema** for decision records; the records themselves are stored in **Enterprise Memory**.
 
 ---
 
@@ -14,6 +14,8 @@ Decision Records capture the **rationale and context of decisions at decision ti
 | **Timing** | Written at decision time, not retroactively |
 | **Scope** | All consequential decisions by agents (human and AI) |
 | **Immutability** | Append-only, cannot be modified |
+| **Storage** | Enterprise Memory (via Memory Services) |
+| **CAF Role** | Catalog, schema, policies, indexing |
 
 ---
 
@@ -93,6 +95,20 @@ Decision records are created at:
 | **Human Decisions** | Task completions with decisions |
 | **Automation Decisions** | Rule engine outputs |
 | **Exception Grants** | Manual overrides |
+
+---
+
+## CAF's Role
+
+CAF provides the **control plane** for decision records, not the storage:
+
+| CAF Provides | Memory Services Provides |
+|--------------|-------------------------|
+| Schema definitions | Actual record storage |
+| Capture policies (when/what) | Write operations |
+| Catalog (metadata, indexes) | Read/query operations |
+| Linking rules | Retention execution |
+| Query interfaces | Storage tiering |
 
 ---
 

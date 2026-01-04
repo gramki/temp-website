@@ -2,7 +2,7 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-The Cognitive Audit Fabric (CAF) is the **Enterprise Memory Control Plane**—the connecting tissue that governs how memory is captured, linked, explained, and audited.
+The Cognitive Audit Fabric (CAF) is the **Enterprise Memory Control Plane**—the connecting tissue that governs how memory is captured, linked, explained, and audited. CAF provides catalogs, policies, and services but does **not** store the memory itself.
 
 ---
 
@@ -14,14 +14,21 @@ From the conceptual foundation:
 
 ---
 
-## Purpose
+## CAF is a Control Plane, Not Storage
 
-| CAF Does | CAF Does Not |
-|----------|--------------|
-| Govern memory capture | Replace knowledge systems |
-| Link related records | Store raw agent memory |
-| Enable explanation generation | Provide operational storage |
-| Ensure auditability | Make decisions |
+| CAF Provides | CAF Does NOT Provide |
+|--------------|---------------------|
+| **Catalog** of decision records | Storage for decision records |
+| **Catalog** of evidence bundles | Storage for evidence bundles |
+| **Explanation Service** | Raw data storage |
+| Memory capture **policies** | Memory storage itself |
+| Linking and indexing **rules** | Operational storage |
+| Schema **definitions** | — |
+
+**Where is the actual storage?**
+- Decision records and evidence bundles are stored in **Enterprise Memory** (via Memory Services)
+- CAF maintains a catalog (metadata, references, indexes) pointing to these records
+- CAF enforces policies on how records are structured, linked, and accessed
 
 ---
 
@@ -29,9 +36,9 @@ From the conceptual foundation:
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Decision Records](./decision-records.md) | Decision journaling and rationale capture | 🔴 Stub |
+| [Decision Records](./decision-records.md) | Catalog and schema for decision journaling | 🔴 Stub |
 | [Explanation Service](./explanation-service.md) | Explanation generation and narrative assembly | 🔴 Stub |
-| [Evidence Bundles](./evidence-bundles.md) | Evidence packaging and context preservation | 🔴 Stub |
+| [Evidence Bundles](./evidence-bundles.md) | Catalog and schema for evidence packaging | 🔴 Stub |
 
 ---
 
@@ -40,28 +47,45 @@ From the conceptual foundation:
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                 COGNITIVE AUDIT FABRIC                           │
+│                     (Control Plane)                              │
 │                                                                  │
 │  ┌─────────────────────────────────────────────────────────┐    │
-│  │                  CAF CONTROL PLANE                       │    │
+│  │                     POLICIES                             │    │
 │  │                                                          │    │
-│  │  • Memory capture policies                               │    │
-│  │  • Linking rules                                         │    │
-│  │  • Explanation templates                                 │    │
-│  │  • Audit requirements                                    │    │
-│  └─────────────────────────┬───────────────────────────────┘    │
-│                            │                                     │
-│  ┌─────────────────────────┼───────────────────────────────┐    │
-│  │                 CAF SERVICES                             │    │
+│  │  • Memory capture policies (what to capture, when)       │    │
+│  │  • Schema definitions (structure of records)             │    │
+│  │  • Linking rules (how records relate)                    │    │
+│  │  • Retention policies (how long to keep)                 │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│                                                                  │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                     CATALOGS                             │    │
 │  │                                                          │    │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │    │
-│  │  │  Decision    │  │ Explanation  │  │  Evidence    │   │    │
-│  │  │  Records     │  │   Service    │  │  Bundles     │   │    │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘   │    │
-│  └──────────────────────────────────────────────────────────┘    │
+│  │  ┌───────────────────┐  ┌───────────────────┐           │    │
+│  │  │ Decision Record   │  │ Evidence Bundle   │           │    │
+│  │  │ Catalog           │  │ Catalog           │           │    │
+│  │  │ (metadata, refs)  │  │ (metadata, refs)  │           │    │
+│  │  └───────────────────┘  └───────────────────┘           │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│                                                                  │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                    SERVICES                              │    │
+│  │                                                          │    │
+│  │  ┌───────────────────────────────────────────────────┐  │    │
+│  │  │              Explanation Service                   │  │    │
+│  │  │  • Narrative assembly from records                 │  │    │
+│  │  │  • Counterfactual generation                       │  │    │
+│  │  │  • Multi-audience formatting                       │  │    │
+│  │  └───────────────────────────────────────────────────┘  │    │
+│  └─────────────────────────────────────────────────────────┘    │
 │                            │                                     │
-│  ┌─────────────────────────┼───────────────────────────────┐    │
-│  │            ENTERPRISE MEMORY STORE                       │    │
-│  └──────────────────────────────────────────────────────────┘    │
+│                            │ references                          │
+│                            ▼                                     │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │         ENTERPRISE MEMORY (via Memory Services)          │    │
+│  │                                                          │    │
+│  │  Actual storage of decision records, evidence bundles   │    │
+│  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

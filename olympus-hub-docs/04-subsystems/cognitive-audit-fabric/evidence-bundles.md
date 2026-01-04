@@ -2,7 +2,7 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-Evidence Bundles capture the **complete context at decision time**—enabling reproduction, audit, and verification of decisions.
+Evidence Bundles capture the **complete context at decision time**—enabling reproduction, audit, and verification of decisions. CAF provides the **catalog and schema** for evidence bundles; the bundles themselves are stored in **Enterprise Memory**.
 
 ---
 
@@ -14,6 +14,8 @@ Evidence Bundles capture the **complete context at decision time**—enabling re
 | **Contents** | Documents, data, model I/O, retrieval results |
 | **Immutability** | Frozen at decision time |
 | **Use Cases** | Audit, replay, dispute resolution |
+| **Storage** | Enterprise Memory (via Memory Services) |
+| **CAF Role** | Catalog, schema, policies, integrity verification |
 
 ---
 
@@ -86,7 +88,21 @@ Evidence bundles are captured:
 
 ---
 
-## Storage Tiers
+## CAF's Role
+
+CAF provides the **control plane** for evidence bundles, not the storage:
+
+| CAF Provides | Memory Services Provides |
+|--------------|-------------------------|
+| Schema definitions | Actual bundle storage |
+| Capture policies (triggers) | Write operations |
+| Catalog (metadata, indexes) | Read/query operations |
+| Integrity verification | Storage tiering |
+| Replay orchestration | Retention execution |
+
+---
+
+## Storage Tiers (Managed by Memory Services)
 
 | Tier | Retention | Access | Use Case |
 |------|-----------|--------|----------|
