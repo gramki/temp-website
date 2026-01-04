@@ -2,7 +2,26 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-Signal Exchange captures intermediate updates from long-running Hub Applications and dispatches notifications to interested observers.
+Signal Exchange captures intermediate updates from long-running Hub Applications and dispatches notifications to **registered observer modules**.
+
+---
+
+## Critical Principle
+
+**Signal Exchange dispatches Request Updates to observer MODULES only — never to agents, tasks, or users directly.**
+
+| Component | Role |
+|-----------|------|
+| **Signal Exchange** | Dispatches Request Updates to registered observer modules |
+| **Observer Modules** | Receive updates, parse content, determine which agents/users to notify |
+| **Agents/Users** | Receive notifications from observer modules (not from Signal Exchange) |
+
+Signal Exchange operates at the **Request level**. It cannot:
+- Attribute an update to a specific task
+- Attribute an update to a specific agent
+- Determine which agent should receive a notification
+
+These responsibilities belong to the observer modules (e.g., MS Teams module, Ops Center, Neutrino).
 
 ---
 
@@ -10,11 +29,11 @@ Signal Exchange captures intermediate updates from long-running Hub Applications
 
 | Attribute | Value |
 |-----------|-------|
-| **Purpose** | Notify interested parties of request lifecycle changes |
+| **Purpose** | Dispatch Request Updates to registered observer modules |
 | **Trigger** | Async updates from Applications, state transitions |
-| **Consumers** | Users, systems, dashboards, downstream services |
+| **Consumers** | Observer modules (Ops Center, Neutrino, MS Teams module, etc.) |
 
-Long-running Applications (workflows, durable workflows, case management) can take any duration for completion. Signal Exchange ensures observers are notified of intermediate status changes.
+Long-running Applications (workflows, durable workflows, case management) can take any duration for completion. Signal Exchange dispatches updates to observer modules, which then determine how to notify end users.
 
 ---
 
@@ -130,40 +149,53 @@ Hub Applications send async updates using a standard envelope:
 
 ---
 
-## Observer Subscriptions
+## Observer Module Registration
+
+### What is an Observer Module?
+
+An **observer module** is a Hub subsystem or integration that:
+1. Registers to receive Request Updates from Signal Exchange
+2. Parses update content to determine affected entities (tasks, agents, users)
+3. Takes appropriate action (notify users, update dashboards, trigger workflows)
+
+| Observer Module | Responsibility |
+|-----------------|----------------|
+| **Ops Center** | Update dashboards, notify operators |
+| **Neutrino** | Notify customers via configured channels |
+| **MS Teams Module** | Post to chat groups, add members, notify agents |
+| **Atropos** | Publish events to downstream systems |
 
 ### Subscription Registration
 
-Observers register interest in request lifecycle events:
+Observer modules register interest in request lifecycle events:
 
 ```json
 {
   "subscription": {
     "id": "sub-99999",
-    "observer_type": "user",           // user | system | dashboard
-    "observer_id": "user-12345",
+    "observer_type": "module",          // module | system | dashboard
+    "observer_id": "ms-teams-module",   // Identifies the observer MODULE (not a user)
     
     "scope": {
-      "type": "request",               // request | workbench | scenario | tenant
-      "request_id": "req-12345"        // Specific request
+      "type": "workbench",              // request | workbench | scenario | tenant
+      "workbench_id": "dispute-ops"
     },
     
     "filters": {
-      "update_types": ["STATUS_CHANGE", "MILESTONE", "ERROR"],
-      "state_transitions": ["IN-PROGRESS→COMPLETED"],
+      "update_types": ["STATUS_CHANGE", "TASK_LIFECYCLE", "MILESTONE", "ERROR"],
+      "state_transitions": ["ACTIVE→COMPLETED"],
       "min_priority": "normal"
     },
     
     "delivery": {
-      "channel": "websocket",          // websocket | webhook | event | push | email
-      "endpoint": "wss://...",         // Channel-specific endpoint
-      "format": "summary"              // full | summary | minimal
+      "channel": "webhook",             // websocket | webhook | event
+      "endpoint": "https://hub/ms-teams-module/updates",
+      "format": "full"                  // full | summary | minimal
     },
     
     "preferences": {
-      "batch_window": null,            // null = immediate, or duration
-      "quiet_hours": null,
-      "max_frequency": "1/min"
+      "batch_window": null,             // null = immediate, or duration
+      "max_frequency": "100/s"          // Module-level, not user-level
     }
   }
 }
@@ -173,10 +205,12 @@ Observers register interest in request lifecycle events:
 
 | Scope | Description |
 |-------|-------------|
-| **Request** | Specific request ID |
-| **Workbench** | All requests in a workbench |
+| **Request** | Specific request ID (rarely used by modules) |
+| **Workbench** | All requests in a workbench (common for modules) |
 | **Scenario** | All requests for a scenario |
-| **Tenant** | All requests for tenant (admin) |
+| **Tenant** | All requests for tenant (admin dashboards) |
+
+> **Note:** Observer modules typically subscribe at Workbench or Tenant level, then filter updates internally based on their logic. User-level subscriptions (e.g., "notify user X about request Y") are managed by the observer module, not Signal Exchange.
 
 ---
 
@@ -221,15 +255,17 @@ Dispatched to observers:
 
 ---
 
-## Delivery Channels
+## Delivery Channels (to Observer Modules)
+
+Signal Exchange delivers to observer modules via these channels:
 
 | Channel | Use Case | Latency |
 |---------|----------|---------|
-| **WebSocket** | Real-time dashboards, Ops Center | Immediate |
-| **Webhook** | External system integration | Near-immediate |
-| **Event Bus** | Downstream service triggers | Near-immediate |
-| **Push** | Mobile/desktop notifications | Seconds |
-| **Email** | Non-urgent, audit trail | Minutes |
+| **WebSocket** | Real-time dashboards, Ops Center module | Immediate |
+| **Webhook** | Observer module callbacks | Near-immediate |
+| **Event Bus** | Atropos-based observer modules | Near-immediate |
+
+> **Note:** Push notifications and Email are **not** Signal Exchange responsibilities. Observer modules (like Neutrino) handle user-level notification delivery.
 
 ---
 
@@ -244,16 +280,33 @@ Dispatched to observers:
 
 ---
 
-## Built-in Observers
+## Built-in Observer Modules
 
-Signal Exchange provides built-in observer integrations:
+Signal Exchange integrates with these Hub observer modules:
 
-| Observer | Description |
-|----------|-------------|
-| **Ops Center** | Real-time request status in operations dashboard |
-| **Neutrino** | User notifications via customer channels |
+| Observer Module | Responsibility |
+|-----------------|----------------|
+| **Ops Center** | Update dashboards; operators monitor via UI |
+| **Neutrino** | Customer-facing notifications (push, email, SMS) |
+| **MS Teams Module** | Post to chat groups, add/notify agents |
 | **CAF** | Audit trail of request lifecycle |
 | **Atropos** | Event publication for downstream systems |
+
+### Observer Module Responsibility Chain
+
+```
+Signal Exchange                    Observer Module                    End User
+       │                                 │                                │
+       │ ── Request Update ────────────> │                                │
+       │    (Request-level only)         │                                │
+       │                                 │ ── Parse update ─────────────> │
+       │                                 │    Determine affected agents   │
+       │                                 │    Format for channel          │
+       │                                 │                                │
+       │                                 │ ── Deliver notification ─────> │
+       │                                 │    (channel-specific)          │
+       │                                 │                                │
+```
 
 ---
 

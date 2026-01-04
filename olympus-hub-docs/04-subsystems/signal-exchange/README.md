@@ -15,7 +15,7 @@ The Signal Exchange is responsible for:
 | **Inbound Routing** | Signal Provider → Trigger Evaluation → Request Creation/Update → Application Router → Hub Application |
 | **Outbound Routing** | Hub Application Response → Response Transformation → I/O Gateway |
 | **Async Update Capture** | Receive intermediate updates from long-running Applications |
-| **Observer Notifications** | Dispatch request lifecycle notifications to interested parties |
+| **Observer Notifications** | Dispatch Request Updates to registered observer modules (NOT to agents/tasks directly) |
 | **Flow Control** | Rate limiting, back-pressure, throttling per Scenario |
 | **Store-and-Forward** | Optional buffering and reliable delivery (configurable per Scenario) |
 
@@ -240,20 +240,28 @@ Long-running Applications (workflows, durable workflows, case management) can se
 2. Signal Exchange captures update:
    a. Updates Request state (if state change)
    b. Records update details in Request history
-3. Signal Exchange dispatches notifications:
-   a. Identifies registered observers for this Request
+3. Signal Exchange dispatches to registered observers:
+   a. Identifies registered observer MODULES for this Request
    b. Formats notification per observer's subscription
-   c. Delivers notifications via appropriate channels
-4. Observers receive notification (users, systems, dashboards)
+   c. Delivers to observer modules (NOT to agents/tasks directly)
+4. Observer modules receive notification and determine user-level actions
 ```
+
+**Critical Principle:**
+- Signal Exchange dispatches Request Updates to **observer modules** (e.g., MS Teams module, Neutrino, Ops Center)
+- Signal Exchange does NOT dispatch to individual agents, tasks, or users
+- Signal Exchange operates at the **Request level** only — it cannot attribute updates to specific tasks or agents
+- Observer modules parse update content to determine which users/agents to notify
 
 ### Observer Notification Patterns
 
 | Pattern | Description |
 |---------|-------------|
-| **Push** | Immediate notification via webhook, WebSocket, or event |
-| **Pull** | Observer polls for status (Signal Exchange caches latest) |
-| **Batch** | Notifications aggregated and delivered periodically |
+| **Push** | Immediate dispatch to observer module via webhook, WebSocket, or event |
+| **Pull** | Observer module polls for status (Signal Exchange caches latest) |
+| **Batch** | Updates aggregated and delivered to observer module periodically |
+
+> **Note:** These patterns describe how Signal Exchange delivers to observer **modules** (like MS Teams integration, Neutrino, dashboards). User-level notification logic is the responsibility of each observer module.
 
 ---
 

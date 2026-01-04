@@ -535,10 +535,24 @@ Recoverable error or warning:
 
 See [Request Lifecycle](../request-management/request-lifecycle.md) for additional details on update semantics.
 
+---
+
+## Async Update Processing
+
 Signal Exchange processes async updates by:
 1. Updating Request state (if state change)
 2. Recording update in Request history
-3. Dispatching notifications to registered observers
+3. Dispatching to registered **observer modules** (NOT to agents/tasks directly)
+
+**Critical Principle:** Signal Exchange dispatches Request Updates to observer modules only. It does NOT:
+- Dispatch to individual agents or tasks
+- Attribute updates to specific tasks or agents
+- Determine which agent should be notified
+
+Observer modules (e.g., MS Teams module, Ops Center) receive the full Request Update and parse it to determine:
+- Which tasks are affected (from `TASK_LIFECYCLE` payload)
+- Which agents should be notified (from task assignment info)
+- What action to take (add to group, post message, etc.)
 
 See [Observer Notifications](./observer-notifications.md) for notification dispatch details.
 
