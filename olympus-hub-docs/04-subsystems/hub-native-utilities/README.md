@@ -2,7 +2,7 @@
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-Hub Native Utilities are **stateless, context-only tools** that Hub provides as built-in capabilities. These tools can be invoked by any Hub Application running on any Automation Runtime (Atlantis, Perseus, Rhea, ChronoShift, Seer).
+Hub Native Utilities are **built-in capabilities** that Hub provides for use by Hub Applications and agents. These utilities are available to any Hub Application running on any Automation Runtime (Atlantis, Perseus, Rhea, ChronoShift, Seer).
 
 ---
 
@@ -10,75 +10,101 @@ Hub Native Utilities are **stateless, context-only tools** that Hub provides as 
 
 | Attribute | Value |
 |-----------|-------|
-| **Purpose** | Provide reusable, CAF-aware decision and prediction capabilities |
-| **Nature** | Stateless pure functions — all context passed as input |
-| **Consumers** | Any Hub Application, regardless of Automation Runtime |
-| **CAF Integration** | Automatic — all invocations produce CAF-compliant outputs |
-| **Registration** | Registered as Tools in the Tool Registry |
+| **Purpose** | Provide reusable, Hub-managed capabilities for applications and agents |
+| **Consumers** | Hub Applications, AI Agents, Human Agents |
+| **Scope** | Platform-provided + Tenant-developed utilities |
+| **Hosting** | Atlantis (Hub's container runtime) |
 
 ---
 
-## Why Native Utilities?
+## Utility Categories
+
+Hub Native Utilities include different types of capabilities:
+
+### Decision & Prediction Tools (Stateless)
+
+**Decision Tools** and **Prediction Tools** are specifically designed as **stateless, pure-function** utilities:
+
+- **Stateless** — Output determined solely by input context (no hidden state)
+- **Reproducible** — Same inputs always produce same outputs
+- **CAF-Compliant** — Automatic audit capture for every invocation
+- **Externalized** — Business logic separated from application code
+
+This statelessness is a deliberate design choice for decisions and predictions to ensure:
+- Auditability (all context is explicit)
+- Testability (no side effects)
+- Explainability (inputs fully capture decision basis)
+
+### Other Native Utilities
+
+Not all Hub utilities are stateless. Other utilities (to be detailed) may maintain state as required by their function:
+
+- **Checklist Service** — Manages checklist instances and completion tracking (stateful)
+- *Additional utilities to be defined*
+
+---
+
+## Why Decision & Prediction as Native Utilities?
 
 Hub Applications often need to make decisions or predictions as part of their processing. By providing these as **native utilities**, Hub ensures:
 
-1. **Statelessness** — Decisions are pure functions, making them:
-   - Reproducible (same input → same output)
-   - Testable (no hidden state)
-   - Auditable (all context is explicit)
-
-2. **CAF Compliance** — Every invocation automatically:
+1. **CAF Compliance** — Every invocation automatically:
    - Records the decision/prediction context
    - Captures the inputs and outputs
    - Links to the Request for audit trail
    - Produces explanation artifacts
 
-3. **Reusability** — Decision logic is:
+2. **Reusability** — Decision logic is:
    - Defined once, invoked from any automation
    - Version-controlled and governed
    - Shared across Workbenches (with access control)
 
-4. **Separation of Concerns** — Business logic is externalized:
+3. **Separation of Concerns** — Business logic is externalized:
    - Applications focus on orchestration
    - Decision rules managed by business analysts
    - Models managed by data scientists
 
 ---
 
-## Utility Categories
+## Architecture Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                   HUB NATIVE UTILITIES                           │
 │                                                                  │
 │  ┌─────────────────────────────────────────────────────────────┐│
-│  │                  DECISION TOOLS                             ││
+│  │         STATELESS TOOLS (Decision & Prediction)            ││
 │  │                                                             ││
-│  │  ┌──────────────┐ ┌──────────────┐ ┌──────────────────────┐││
-│  │  │   Drools     │ │     DMN      │ │  JS Pure Functions   │││
-│  │  │  Rule Engine │ │ Decision     │ │  (V8/QuickJS)        │││
-│  │  │              │ │ Model        │ │                      │││
-│  │  └──────────────┘ └──────────────┘ └──────────────────────┘││
+│  │  ┌─────────────────────────┐  ┌─────────────────────────┐  ││
+│  │  │     DECISION TOOLS      │  │    PREDICTION TOOLS     │  ││
+│  │  │                         │  │                         │  ││
+│  │  │  • Drools Rule Engine   │  │  • ML Models (Elara)    │  ││
+│  │  │  • DMN Decision Tables  │  │  • Scikit-learn         │  ││
+│  │  │  • JS Pure Functions    │  │  • TensorFlow/PyTorch   │  ││
+│  │  │                         │  │  • XGBoost/LightGBM     │  ││
+│  │  └─────────────────────────┘  └─────────────────────────┘  ││
+│  │                                                             ││
+│  │  Characteristics: Stateless, CAF-compliant, Pure functions  ││
 │  └─────────────────────────────────────────────────────────────┘│
 │                                                                  │
 │  ┌─────────────────────────────────────────────────────────────┐│
-│  │                 PREDICTION TOOLS                            ││
+│  │              OTHER UTILITIES (Stateful)                     ││
 │  │                                                             ││
-│  │  ┌──────────────────────────────────────────────────────┐  ││
-│  │  │   ML Models (via Elara/Kserve on Atlantis)           │  ││
-│  │  │                                                      │  ││
-│  │  │   • Scikit-learn  • TensorFlow  • PyTorch           │  ││
-│  │  │   • XGBoost       • LightGBM    • Custom Models     │  ││
-│  │  └──────────────────────────────────────────────────────┘  ││
+│  │  ┌─────────────────────────┐  ┌─────────────────────────┐  ││
+│  │  │   Checklist Service     │  │    (Future Utilities)   │  ││
+│  │  │   (TBD)                 │  │                         │  ││
+│  │  └─────────────────────────┘  └─────────────────────────┘  ││
+│  │                                                             ││
+│  │  Characteristics: May maintain state as required            ││
 │  └─────────────────────────────────────────────────────────────┘│
 │                                                                  │
 │  ┌─────────────────────────────────────────────────────────────┐│
 │  │              COMMON INFRASTRUCTURE                          ││
 │  │                                                             ││
-│  │  • CAF Integration Layer (automatic audit capture)          ││
 │  │  • Tool Registry Integration (discovery, access control)    ││
-│  │  • Invocation Gateway (unified invoke pattern)              ││
+│  │  • Invocation Gateway (routing, auth)                       ││
 │  │  • Versioning & Deployment (blue-green, canary)             ││
+│  │  • CAF Integration (for Decision & Prediction tools)        ││
 │  └─────────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -87,17 +113,26 @@ Hub Applications often need to make decisions or predictions as part of their pr
 
 ## Native Utility Inventory
 
+### Stateless Tools (Decision & Prediction)
+
 | Utility | Description | Status |
 |---------|-------------|--------|
-| [Decision Tools](./decision-tools.md) | Drools, DMN, JS pure-functions | 🔴 Stub |
-| [Prediction Tools](./prediction-tools.md) | ML Models via Elara/Kserve | 🔴 Stub |
-| [CAF Integration](./caf-integration.md) | Automatic cognitive audit for all utilities | 🔴 Stub |
+| [Decision Tools](./decision-tools.md) | Drools, DMN, JS pure-functions — stateless, CAF-compliant | 🔴 Stub |
+| [Prediction Tools](./prediction-tools.md) | ML Models via Elara/Kserve — stateless, CAF-compliant | 🔴 Stub |
+| [CAF Integration](./caf-integration.md) | Automatic cognitive audit for Decision & Prediction tools | 🔴 Stub |
+
+### Other Utilities (Stateful)
+
+| Utility | Description | Status |
+|---------|-------------|--------|
+| Checklist Service | Checklist management for agents and supervisors | 📋 Planned |
+| *(Additional utilities to be defined)* | | |
 
 ---
 
-## Invocation Pattern
+## Decision & Prediction Tool Invocation
 
-All native utilities follow a consistent invocation pattern:
+Decision and Prediction tools follow a consistent invocation pattern with automatic CAF integration:
 
 ```
 Hub Application (any Runtime)
@@ -139,9 +174,9 @@ Hub Application (any Runtime)
 
 ---
 
-## CAF-Aware Outputs
+## CAF-Aware Outputs (Decision & Prediction Tools)
 
-Every native utility invocation produces CAF-compliant output:
+Every Decision and Prediction tool invocation automatically produces CAF-compliant output:
 
 ```yaml
 response:
