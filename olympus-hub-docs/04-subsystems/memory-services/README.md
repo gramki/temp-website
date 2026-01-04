@@ -99,7 +99,7 @@ From Seer specifications, Agent Memory includes:
 |-------------------|-------------|
 | **Memory SDKs** | Seer provides SDKs; Hub provides storage |
 | **Context Assembly** | Seer Context Assembly retrieves from Hub Memory |
-| **CAF Integration** | Enterprise Memory feeds Cognitive Audit Fabric |
+| **CAF Governance** | CAF (control plane) governs Enterprise Memory structure and access |
 | **Cross-Agent Learning** | Enterprise Memory enables learning across agents |
 
 ---

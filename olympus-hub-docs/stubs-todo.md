@@ -227,7 +227,7 @@ These stubs are particularly important for Seer integration:
 | **Signal Exchange** | Routes Requests to Seer Case Orchestration Agents |
 | **Workbench Management** | Defines Scenarios that bind to Seer Applications |
 | **Memory Services** | Seer agents use Hub memory storage services |
-| **Cognitive Audit Fabric** | CAF provides audit trail for agent decisions |
+| **Cognitive Audit Fabric** | CAF governs decision record structure; provides explanation service |
 | **Knowledge Services** | Seer Context Assembly retrieves from Hub Knowledge Bank |
 | **Tool Registry** | Seer agents invoke tools registered in Hub |
 | **Task Management** | Seer agents receive and complete tasks via Hub |

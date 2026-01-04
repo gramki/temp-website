@@ -137,14 +137,16 @@ Prior agent/human actions on a case:
 
 ## CAF Integration
 
-Enterprise Memory integrates tightly with Cognitive Audit Fabric:
+Enterprise Memory integrates tightly with Cognitive Audit Fabric. **CAF is the control plane; Enterprise Memory is the storage.**
 
-| CAF Component | Enterprise Memory Role |
-|---------------|------------------------|
-| **Decision Records** | Stored in Enterprise Memory |
-| **Evidence Bundles** | Linked to decision records |
-| **Explanation Service** | Generates from memory records |
-| **Audit Trail** | Memory records form the trail |
+| Aspect | CAF Provides | Enterprise Memory Provides |
+|--------|--------------|---------------------------|
+| **Decision Records** | Catalog, schema, policies | Actual storage |
+| **Evidence Bundles** | Catalog, linking rules | Actual storage |
+| **Explanation Service** | Narrative generation | Source data for explanations |
+| **Audit Trail** | Access control, indexing | Memory records that form the trail |
+
+> **Key distinction:** CAF defines *how* memory is structured and accessed; Enterprise Memory stores the actual records.
 
 ---
 
