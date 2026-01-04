@@ -20,7 +20,7 @@ MS Teams Integration is **more than a signal provider** — it's a full integrat
 
 | Aspect | Description |
 |--------|-------------|
-| **Signal Type** | Chat-Message |
+| **Signal Type** | CHAT_MESSAGE |
 | **Protocol** | MS Teams Bot Framework / Graph API |
 | **Sources** | Me_Bot (Agents/Supervisors), Ask_Bot (Business Employees) |
 | **Underlying Infrastructure** | Heracles (HTTP/API layer) |
@@ -44,8 +44,8 @@ MS Teams Integration is **more than a signal provider** — it's a full integrat
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐              │
-│  │   Me_Bot    │  │  Ask_Bot    │  │  Signal Exchange Bot    │              │
-│  │   (Agent    │  │  (Business  │  │  (Chat Group Lifecycle) │              │
+│  │   Me_Bot    │  │  Ask_Bot    │  │  Group Orchestration    │              │
+│  │   (Agent    │  │  (Business  │  │  Bot (System)           │              │
 │  │   Copilot)  │  │  Employee)  │  │                         │              │
 │  └──────┬──────┘  └──────┬──────┘  └────────────┬────────────┘              │
 │         │                │                      │                           │

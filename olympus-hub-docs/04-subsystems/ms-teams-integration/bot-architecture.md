@@ -30,8 +30,8 @@ Each bot serves as a **dedicated copilot** for its target persona:
 │  │                                                            │  │
 │  │   ┌─────────────────┐  ┌─────────────────┐  ┌───────────┐ │  │
 │  │   │ dispute-ops-me  │  │ dispute-ops-ask │  │ dispute-  │ │  │
-│  │   │   (Me_Bot)      │  │   (Ask_Bot)     │  │ ops-sys   │ │  │
-│  │   │                 │  │                 │  │ (SX Bot)  │ │  │
+│  │   │   (Me_Bot)      │  │   (Ask_Bot)     │  │ ops-hub   │ │  │
+│  │   │                 │  │                 │  │(Group Bot)│ │  │
 │  │   └─────────────────┘  └─────────────────┘  └───────────┘ │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                  │
@@ -40,8 +40,8 @@ Each bot serves as a **dedicated copilot** for its target persona:
 │  │                                                            │  │
 │  │   ┌─────────────────┐  ┌─────────────────┐  ┌───────────┐ │  │
 │  │   │ fraud-inv-me    │  │ fraud-inv-ask   │  │ fraud-    │ │  │
-│  │   │   (Me_Bot)      │  │   (Ask_Bot)     │  │ inv-sys   │ │  │
-│  │   │                 │  │                 │  │ (SX Bot)  │ │  │
+│  │   │   (Me_Bot)      │  │   (Ask_Bot)     │  │ inv-hub   │ │  │
+│  │   │                 │  │                 │  │(Group Bot)│ │  │
 │  │   └─────────────────┘  └─────────────────┘  └───────────┘ │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                  │
@@ -74,19 +74,29 @@ Each bot serves as a **dedicated copilot** for its target persona:
 
 #### Capabilities
 
+An Agent should be able to do via Me_Bot **everything they can do on Agent Desk**:
+
 | Capability | Agent | Supervisor | Notes |
 |------------|-------|------------|-------|
 | View assigned tasks | ✅ Own | ✅ All + Queue | Supervisor sees full queue |
+| Pick tasks from queue | ✅ | ✅ | |
 | Complete tasks | ✅ | ✅ | Via Adaptive Card or Hercules Launcher |
 | Escalate tasks | ✅ | ✅ | |
 | Reassign tasks | ✅ Own | ✅ Cross-agent | Agent can reassign own; Supervisor can reassign any |
 | Reject tasks | ✅ | ✅ | Returns to allocation queue |
-| Query knowledge base | ✅ | ✅ | |
+| Query knowledge base | ✅ | ✅ | SOPs, policies, reference materials |
+| View signals | ✅ | ✅ | Exceptions, observations |
+| Routines & checklists | ✅ | ✅ | View and complete |
 | Record decisions | ✅ | ✅ | CAF-compliant |
-| Record thoughts | ✅ | ✅ | Request updates |
+| Record thoughts/memos | ✅ | ✅ | Request updates |
+| Access files | ✅ | ✅ | Related to requests and entities |
+| Initiate requests | ✅ | ✅ | Trigger scenarios explicitly |
+| View agents & roles | ✅ | ✅ | Who is working on what |
 | Queue metrics | ❌ | ✅ | |
 | Escalation handling | ❌ | ✅ | |
 | **Direct tool invocation** | ❌ | ❌ | Must use Consoles/Applications |
+
+> **Principle:** Me_Bot provides Agent Desk capabilities via the Teams channel.
 
 #### Task Solver Rendering
 
@@ -171,21 +181,25 @@ Business Employee                  Ask_Bot                    MS Teams Module
 
 ---
 
-### 3. Signal Exchange Bot (System/Orchestrator)
+### 3. Group Orchestration Bot (System)
 
-**Purpose:** System bot that orchestrates chat groups and relays system updates.
+**Purpose:** System bot that orchestrates chat groups and relays system updates for requests.
 
 #### Conceptual Names
-- Codename: `Signal Exchange Bot`, `SX Bot`, `System Bot`
-- Example instance: `dispute-ops-system`, `fraud-inv-hub`
+- Codename: `Group Orchestration Bot`, `Group_Bot`
+- Example instance: `dispute-ops-hub`, `fraud-inv-hub`
+
+#### Why This Name?
+
+The bot orchestrates collaboration between agents working on a request. Signal Exchange itself is **unaware of this bot** — it's a construct of the MS Teams integration module. The name signifies its role in group orchestration, not its relationship to Signal Exchange.
 
 #### Role
 
 | Responsibility | Description |
 |----------------|-------------|
-| **Chat group lifecycle** | Create groups for requests, add members, archive on schedule |
+| **Chat group lifecycle** | Create groups for requests, add members via Graph API, archive on schedule |
 | **System update relay** | Post updates not originated by any human participant |
-| **Workbench representation** | Represents Signal Exchange in Teams context |
+| **Group orchestration** | Manage collaboration between agents on a request |
 
 #### What It Does NOT Do
 
@@ -217,7 +231,7 @@ Business Employee                  Ask_Bot                    MS Teams Module
 │   │  • Subscribes to request updates for Teams-enabled       │   │
 │   │    scenarios                                             │   │
 │   │  • Translates updates to Teams messages                  │   │
-│   │  • Uses Signal Exchange Bot as the posting identity      │   │
+│   │  • Uses Group Orchestration Bot as the posting identity  │   │
 │   │                                                          │   │
 │   └─────────────────────────┬───────────────────────────────┘   │
 │                             │                                    │
@@ -230,9 +244,9 @@ Business Employee                  Ask_Bot                    MS Teams Module
 │   ┌─────────────────────────────────────────────────────────┐   │
 │   │              REQUEST CHAT GROUP                          │   │
 │   │                                                          │   │
-│   │   [Signal Exchange Bot]: Request #DSP-2024-0042 created  │   │
+│   │   [Dispute Ops Hub]: Request #DSP-2024-0042 created      │   │
 │   │   [Agent Alice]: I'm reviewing the transaction...        │   │
-│   │   [Signal Exchange Bot]: Task assigned to @Bob           │   │
+│   │   [Dispute Ops Hub]: Task assigned to @Bob               │   │
 │   │   [Bob]: On it!                                          │   │
 │   │                                                          │   │
 │   └─────────────────────────────────────────────────────────┘   │
@@ -265,6 +279,39 @@ Each bot also exists in Cipher IAM:
 | **Workbench Binding** | Bot is bound to specific workbench |
 | **Permission Scope** | Access controlled per workbench policies |
 | **Audit Trail** | Bot actions are audited like any other actor |
+
+---
+
+## Bot Provisioning
+
+### Provisioning Process
+
+Bots are onboarded as part of the **Workbench Deployment** process:
+
+| Step | Actor | Action |
+|------|-------|--------|
+| 1 | **Tenant Admin** | Provisions bots on Azure AD/Entra ID |
+| 2 | **Tenant Admin** | Configures bot identity and credentials |
+| 3 | **Deployment** | Associates bot to Bot Profile in Cipher IAM |
+| 4 | **Workbench** | Bots become active for the workbench |
+
+### Azure Tenant Relationship
+
+| Aspect | Constraint |
+|--------|------------|
+| **Workbench ↔ Azure Tenant** | Each workbench corresponds to exactly one Azure/MS Teams tenant |
+| **Employees & Bots** | Belong to the same Azure tenant |
+| **Cross-Tenant** | Not supported (employees must be in the same tenant as bots) |
+
+### Hub Identity ↔ Teams Identity
+
+| Aspect | Implementation |
+|--------|----------------|
+| **Agent → Teams User** | Agents must have corresponding Teams accounts |
+| **Membership Management** | Module uses Microsoft Graph API to add users to chat groups |
+| **Prerequisite** | Module only works for users who are on Teams |
+
+---
 
 ### Identity Flow
 
@@ -306,9 +353,10 @@ ms_teams_integration:
     display_name: "Dispute Assistance"
     description: "Get help with disputes"
     
-  system_bot:
+  group_bot:
     name: "dispute-ops-hub"
     display_name: "Dispute Ops Hub"
+    description: "System updates and group orchestration"
     
   chat_groups:
     enabled: true

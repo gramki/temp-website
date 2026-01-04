@@ -8,7 +8,10 @@ This document details how messages flow between MS Teams and Hub, including sign
 
 ## Overview
 
-MS Teams messages take one of two paths:
+MS Teams messages flow through a **classification pipeline** across modules:
+
+1. **MS Teams Module** — First, classifies and optionally handles directly
+2. **Signal Exchange** — Second, evaluates triggers for forwarded signals
 
 | Path | When Used | Example |
 |------|-----------|---------|
@@ -16,34 +19,53 @@ MS Teams messages take one of two paths:
 | **Direct Services Path** | Query/action doesn't need a request | "What's the status of my dispute?" |
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                       MESSAGE ROUTING                            │
-│                                                                  │
-│   Incoming Message                                               │
-│         │                                                        │
-│         ▼                                                        │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │               MS TEAMS INTEGRATION MODULE                │   │
-│   │                                                          │   │
-│   │   ┌───────────────────────────────────────────────────┐ │   │
-│   │   │              MESSAGE CLASSIFIER                    │ │   │
-│   │   │         (NLP + Structured Commands)                │ │   │
-│   │   └───────────────────────┬───────────────────────────┘ │   │
-│   │                           │                              │   │
-│   │             ┌─────────────┴─────────────┐               │   │
-│   │             │                           │               │   │
-│   │      Trigger Match?              Direct Service?         │   │
-│   │             │                           │               │   │
-│   │             ▼                           ▼               │   │
-│   │   ┌─────────────────┐         ┌─────────────────┐       │   │
-│   │   │ Signal Exchange │         │ Hub Services    │       │   │
-│   │   │ Path            │         │ Path            │       │   │
-│   │   └─────────────────┘         └─────────────────┘       │   │
-│   │                                                          │   │
-│   └──────────────────────────────────────────────────────────┘   │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       MESSAGE CLASSIFICATION PIPELINE                        │
+│                                                                              │
+│   User Message (unstructured/NLP/structured)                                 │
+│         │                                                                    │
+│         ▼                                                                    │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                  MS TEAMS INTEGRATION MODULE                         │   │
+│   │                                                                      │   │
+│   │   ┌─────────────────────────────────────────────────────────────┐   │   │
+│   │   │              CLASSIFICATION (Module Layer)                   │   │   │
+│   │   │  • NLP intent extraction                                     │   │   │
+│   │   │  • Structured command matching                               │   │   │
+│   │   │  • May use trigger expectations for classification           │   │   │
+│   │   └─────────────────────────┬───────────────────────────────────┘   │   │
+│   │                             │                                        │   │
+│   │               ┌─────────────┴─────────────┐                         │   │
+│   │               │                           │                         │   │
+│   │         Handle Directly?           Forward to Signal Exchange?      │   │
+│   │               │                           │                         │   │
+│   │               ▼                           ▼                         │   │
+│   │   ┌─────────────────┐        ┌─────────────────────────────────┐   │   │
+│   │   │ Direct Service  │        │ Translate to Structured Signal  │   │   │
+│   │   │ (KB, Status,    │        │ (Extract entities, format       │   │   │
+│   │   │  Help, etc.)    │        │  payload for Signal Exchange)   │   │   │
+│   │   └─────────────────┘        └───────────────┬─────────────────┘   │   │
+│   │                                              │                      │   │
+│   └──────────────────────────────────────────────┼──────────────────────┘   │
+│                                                  │                          │
+│                                                  ▼                          │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                       SIGNAL EXCHANGE                                │   │
+│   │                                                                      │   │
+│   │   • Receives structured signal (CHAT_MESSAGE type)                   │   │
+│   │   • Evaluates triggers (same as any signal provider)                 │   │
+│   │   • Creates Request or dispatches update                             │   │
+│   │   • NO special handling for MS Teams source                          │   │
+│   │                                                                      │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+**Key Points:**
+- Teams Module does **first-level classification** (NLP, intent extraction)
+- Signal Exchange does **trigger evaluation** (as for any signal provider)
+- Signal Exchange does NOT short-circuit its logic for MS Teams — it treats it like any other source
 
 ---
 
@@ -51,7 +73,7 @@ MS Teams messages take one of two paths:
 
 ### Flow: Request Initiation
 
-When a Business Employee's message matches a trigger:
+When a Business Employee's message is classified as trigger-worthy:
 
 ```
 Business Employee           Ask_Bot           MS Teams Module         Signal Exchange         Hub App
@@ -60,20 +82,20 @@ Business Employee           Ask_Bot           MS Teams Module         Signal Exc
        │     #12345"           │                    │                       │                   │
        │                       │ ── Forward ──────> │                       │                   │
        │                       │                    │                       │                   │
-       │                       │                    │ ── Classify ────────> │                   │
-       │                       │                    │    (NLP/Structured)   │                   │
+       │                       │                    │ ── Classify (NLP) ──> │                   │
+       │                       │                    │    Extract entities   │                   │
+       │                       │                    │    transaction=12345  │                   │
+       │                       │                    │    intent=dispute     │                   │
        │                       │                    │                       │                   │
-       │                       │                    │ <── Match: Dispute ── │                   │
-       │                       │                    │     Scenario          │                   │
-       │                       │                    │                       │                   │
-       │                       │                    │ ── Signal ──────────> │                   │
-       │                       │                    │    (Chat-Message)     │                   │
+       │                       │                    │ ── Structured Signal ─────────────────>   │
+       │                       │                    │    type: CHAT_MESSAGE │                   │
        │                       │                    │                       │                   │
        │                       │                    │                       │ ── Evaluate ────> │
        │                       │                    │                       │    Triggers       │
+       │                       │                    │                       │    (standard)     │
        │                       │                    │                       │                   │
-       │                       │                    │                       │ <── Create ────── │
-       │                       │                    │                       │     Request       │
+       │                       │                    │                       │ ── Create ──────> │
+       │                       │                    │                       │    Request        │
        │                       │                    │                       │                   │
        │                       │                    │                       │ ── Dispatch ────> │
        │                       │                    │                       │    to Hub App     │
@@ -85,6 +107,8 @@ Business Employee           Ask_Bot           MS Teams Module         Signal Exc
        │      DSP-2024-0042"   │                    │                       │                   │
        │                       │                    │                       │                   │
 ```
+
+**Note:** The MS Teams Module performs NLP classification and translation to structured signal. Signal Exchange then evaluates triggers as it would for any signal provider — it does not special-case MS Teams.
 
 ### Signal Structure
 
@@ -207,11 +231,20 @@ Agent                   Me_Bot           MS Teams Module         Hub Services
 
 ## Message Classification
 
-### Classification Approach
+### Classification Pipeline (Two-Stage)
+
+The classification is a **pipeline across modules**:
+
+| Stage | Module | Responsibility |
+|-------|--------|----------------|
+| **1** | MS Teams Module | NLP/structured classification, decide handle vs. forward |
+| **2** | Signal Exchange | Trigger evaluation for forwarded signals |
+
+### Stage 1: MS Teams Module Classification
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    MESSAGE CLASSIFICATION                        │
+│               MS TEAMS MODULE CLASSIFICATION                     │
 │                                                                  │
 │   Incoming Message                                               │
 │         │                                                        │
@@ -228,23 +261,39 @@ Agent                   Me_Bot           MS Teams Module         Hub Services
 │              ▼                         ▼                        │
 │   ┌─────────────────┐       ┌─────────────────────────────┐    │
 │   │ Execute command │       │     NLP CLASSIFICATION      │    │
-│   │ directly        │       │                             │    │
-│   └─────────────────┘       │  Intent + Entity extraction │    │
+│   │ directly        │       │  (may use trigger           │    │
+│   └─────────────────┘       │   expectations)             │    │
+│                             │  Intent + Entity extraction │    │
 │                             │                             │    │
 │                             └──────────────┬──────────────┘    │
 │                                            │                    │
 │                              ┌─────────────┴─────────────┐     │
 │                              │                           │     │
-│                       Trigger Match?              Service Query? │
+│                       Trigger-worthy?           Service Query?  │
 │                              │                           │     │
 │                              ▼                           ▼     │
 │                    ┌─────────────────┐       ┌─────────────┐   │
-│                    │ Signal Exchange │       │ Direct      │   │
-│                    │ Path            │       │ Service     │   │
+│                    │ Translate to    │       │ Direct      │   │
+│                    │ Structured      │       │ Service     │   │
+│                    │ Signal → Send   │       │             │   │
+│                    │ to Signal Exch. │       │             │   │
 │                    └─────────────────┘       └─────────────┘   │
 │                                                                  │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+### Stage 2: Signal Exchange Trigger Evaluation
+
+Signal Exchange receives structured signals and evaluates triggers **as it would for any signal provider**. It does NOT short-circuit or special-case MS Teams signals.
+
+### Why Does Module Need Trigger Expectations?
+
+To perform accurate NLP classification, the module may need to understand what triggers exist in the workbench. This helps it:
+- Extract relevant entities
+- Determine if a message is likely to match a trigger
+- Format the structured signal appropriately
+
+This is an implementation concern and may evolve.
 
 ### Evolution Path
 

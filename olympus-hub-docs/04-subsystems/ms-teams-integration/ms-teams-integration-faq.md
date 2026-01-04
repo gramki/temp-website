@@ -16,6 +16,14 @@ This document captures Q&A from the design discussion for the MS Teams Integrati
 
 **A:** Current limitation. Could consider adding a "Subject_Bot" for customers in a future phase if tenants want.
 
+### Q: What are the prerequisites for using MS Teams integration?
+
+**A:** 
+- Organization must be using Microsoft Teams
+- Users must have Teams accounts
+- Each workbench corresponds to exactly one Azure/MS Teams tenant
+- Tenant's employees and bots belong to the same Azure tenant
+
 ---
 
 ## Bot Architecture
@@ -37,42 +45,69 @@ The MS Teams integration architecture is driven by two key objectives:
 **Why Chat Groups for Orchestration?**
 - Requests often involve multiple agents across different tasks
 - Chat groups provide natural, real-time collaboration
-- The Signal Exchange Bot orchestrates the group, adding members as needed
+- The Group Orchestration Bot orchestrates the group, adding members as needed
 - All collaboration is captured as Request updates
 
 ---
 
 ### Q: What types of bots are there?
 
-**A:** Two conceptual bot types per workbench:
+**A:** Three bot types per workbench:
 
 | Bot Type | Codename | Primary Users | Purpose |
 |----------|----------|---------------|---------|
-| **Agent Copilot** | Me_Bot | Agents, Supervisors | Task processing, workbench operations |
+| **Agent Copilot** | Me_Bot | Agents, Supervisors | Full Agent Desk capabilities via Teams |
 | **Business Employee Copilot** | Ask_Bot | Business Employees | Request initiation, assigned task handling |
+| **Group Orchestration Bot** | Group_Bot | System | Chat group lifecycle, system updates |
 
-Additionally, there is a **Signal Exchange Bot** per workbench for chat group lifecycle management.
+### Q: Why "Group Orchestration Bot" instead of "Signal Exchange Bot"?
 
-### Q: Are "Me_Bot" and "Ask_Bot" the actual names?
+**A:** The bot orchestrates collaboration between agents working on a request. Signal Exchange itself is unaware of this bot — it's a construct of the MS Teams integration module. The name signifies its orchestration role for group collaboration.
+
+### Q: Are "Me_Bot", "Ask_Bot", and "Group_Bot" the actual names?
 
 **A:** No, these are **conceptual/code names** for documentation. Process Architects can name bots as they please per workbench. Suggested convention: include workbench code/name in the bot name for uniqueness.
 
 ### Q: How many bot instances are there?
 
 **A:** **One bot of each kind per workbench**, registered on MS Teams. All bots are scoped to a workbench only. For example:
-- `dispute-ops-me-bot` (Agent Copilot for Dispute Operations workbench)
-- `dispute-ops-ask-bot` (Business Employee Copilot for Dispute Operations workbench)
-- `dispute-ops-system-bot` (Signal Exchange Bot for Dispute Operations workbench)
+- `dispute-ops-agent` (Agent Copilot for Dispute Operations workbench)
+- `dispute-ops-assist` (Business Employee Copilot for Dispute Operations workbench)
+- `dispute-ops-hub` (Group Orchestration Bot for Dispute Operations workbench)
 
 Bot names must be unique across workbenches.
 
 ### Q: Does Supervisor use a different bot than Agents?
 
-**A:** No, Supervisors use the same **Me_Bot** as Agents.
+**A:** No, Supervisors use the same **Me_Bot** as Agents, with additional capabilities.
 
 ---
 
 ## Me_Bot (Agent Copilot)
+
+### Q: What can an Agent do via Me_Bot?
+
+**A:** An Agent should be able to do via Me_Bot **everything they can do on Agent Desk**:
+
+| Capability | Supported | Notes |
+|------------|-----------|-------|
+| View assigned tasks | ✅ | My Tasks, Queue Tasks |
+| Pick tasks from queue | ✅ | |
+| Complete tasks | ✅ | Via Adaptive Card or Hercules Launcher |
+| Escalate tasks | ✅ | |
+| Reassign tasks | ✅ | Own tasks |
+| Reject tasks | ✅ | Returns to allocation queue |
+| Query knowledge base | ✅ | SOPs, policies, reference materials |
+| View signals | ✅ | Exceptions, observations |
+| View/complete routines & checklists | ✅ | |
+| Record decisions | ✅ | CAF-compliant |
+| Record thoughts/memos | ✅ | Request updates |
+| Access files | ✅ | Related to requests and entities |
+| Initiate requests | ✅ | Trigger scenarios explicitly |
+| View agents & roles | ✅ | Who is working on what, own roles |
+| **Direct tool invocation** | ❌ | Must use Consoles/Applications |
+
+> **Principle:** Me_Bot provides Agent Desk capabilities via the Teams channel.
 
 ### Q: Can an Agent complete the full task lifecycle via MS Teams?
 
@@ -92,26 +127,13 @@ Bot names must be unique across workbenches.
 
 **A:** No. This is solely dependent on developer-provided configuration.
 
-### Q: What can an Agent do via Me_Bot?
-
-| Capability | Supported? |
-|------------|------------|
-| View assigned tasks | ✅ Yes |
-| Query knowledge base | ✅ Yes |
-| Record decisions and thoughts | ✅ Yes |
-| Complete tasks | ✅ Yes |
-| Escalate tasks | ✅ Yes |
-| Reassign tasks | ✅ Yes |
-| Reject tasks (send back to allocation) | ✅ Yes |
-| **Directly invoke tools** | ❌ No — must go through Hub Applications and Consoles |
-
 ### Q: Is Me_Bot conversational or command-based?
 
 **A:** The MS Teams module may start with **structured/command-based** but is certainly expected to support **NLP-based mapping**. The very first version itself could be NLP-based with support for structured messages as well.
 
 ### Q: Do Supervisors get additional capabilities in Me_Bot?
 
-**A:** **Yes.** Supervisors get additional capabilities:
+**A:** **Yes.** Supervisors get additional capabilities beyond Agent capabilities:
 - Queue metrics
 - Reassignment across agents
 - Escalation handling
@@ -159,7 +181,7 @@ Chat groups serve as **collaboration surfaces** for multi-participant orchestrat
 | Aspect | Rationale |
 |--------|-----------|
 | **One group per request** | Natural mapping — all collaboration about a request in one place |
-| **Bot as orchestrator** | Signal Exchange Bot manages membership, relays system updates |
+| **Bot as orchestrator** | Group Orchestration Bot manages membership, relays system updates |
 | **Dynamic membership** | As tasks are assigned, assignees join automatically |
 | **Persistent history** | All messages become Request updates, preserved for audit |
 
@@ -171,7 +193,7 @@ This approach recognizes that:
 
 ---
 
-### Q: Is a new Teams group created for each Request?
+### Q: Is a new Teams chat group created for each Request?
 
 **A:** Yes, for **scenarios configured to use Teams integration**. Not all scenarios need Teams chat groups.
 
@@ -181,29 +203,33 @@ This approach recognizes that:
 
 | Member | When Added | Condition |
 |--------|------------|-----------|
-| **Signal Exchange Bot** | Immediately | Always (represents the system) |
+| **Group Orchestration Bot** | Immediately | Always (represents the system) |
 | **Scenario Default Participants** | Immediately | As configured in scenario |
 | **Subject** | Immediately | If scenario's Teams integration is configured to include subject |
 | **Task Assignees** | When tasks are assigned | As Hub Applications create and assign tasks |
 | **Supervisor** | Per configuration | As per scenario manifest/deployment config |
 
-### Q: What does the Signal Exchange Bot do in the chat group?
+### Q: How are members added to the chat group?
 
-**A:** The Signal Exchange Bot:
-- **Handles lifecycle** — adds members to chat, archives the chat when done
+**A:** Via Microsoft Graph API. The MS Teams integration module uses Graph API to manage group membership.
+
+### Q: What does the Group Orchestration Bot do in the chat group?
+
+**A:** The Group Orchestration Bot:
+- **Handles lifecycle** — creates group, adds members, archives when done
 - **Relays system updates** — posts updates that are not originated by any individual participant
-- **Represents the workbench's Signal Exchange** (the bot is a construct of the MS Teams integration module; Signal Exchange itself is unaware of this)
+- **Represents the workbench** (the bot is a construct of the MS Teams integration module; Signal Exchange itself is unaware of this)
 
 **Important flow:**
-- When messages are received to a request from MS Teams channel, the MS Teams module adds them as updates to the request
+- When messages are received from MS Teams, the Teams module adds them as updates to the request
 - All agents watching the request are dispatched this update by Signal Exchange
 - The origination channel (MS Teams) is captured in envelope metadata
 - All agents with active tasks in a request are by default deemed as watchers
-- The MS Teams Chat Group reflects all updates to the Request, regardless of Signal Exchange dispatch
+- The MS Teams chat group reflects all updates to the Request, regardless of Signal Exchange dispatch
 
 ### Q: What happens when a new task is assigned?
 
-**A:** The new assignee is added to the chat group.
+**A:** The new assignee is added to the chat group via Graph API.
 
 ### Q: Are agents removed from the group when their task is completed?
 
@@ -224,21 +250,100 @@ This approach recognizes that:
 
 ---
 
+## Message Classification Pipeline
+
+### Q: Who handles message classification?
+
+**A:** The classification is a **pipeline across modules**:
+
+1. **Teams Module (First):**
+   - Receives message from Teams channel
+   - Performs NLP/structured classification
+   - Decides: handle directly (query, help) OR forward to Signal Exchange
+   - For forwarded messages: translates unstructured/NLP input to structured signal format
+
+2. **Signal Exchange (Second):**
+   - Receives structured signal from Teams module
+   - Evaluates triggers as it would for any signal provider
+   - **Does NOT short-circuit** its logic for MS Teams — treats it like any other signal source
+   - Creates Request or dispatches update
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    MESSAGE CLASSIFICATION PIPELINE                           │
+│                                                                              │
+│   User Message (unstructured/NLP/structured)                                 │
+│         │                                                                    │
+│         ▼                                                                    │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                  MS TEAMS INTEGRATION MODULE                         │   │
+│   │                                                                      │   │
+│   │   ┌─────────────────────────────────────────────────────────────┐   │   │
+│   │   │                    CLASSIFICATION                            │   │   │
+│   │   │  • NLP intent extraction                                     │   │   │
+│   │   │  • Structured command matching                               │   │   │
+│   │   │  • May need trigger expectations for classification          │   │   │
+│   │   └─────────────────────────┬───────────────────────────────────┘   │   │
+│   │                             │                                        │   │
+│   │               ┌─────────────┴─────────────┐                         │   │
+│   │               │                           │                         │   │
+│   │         Handle Directly?           Forward to Signal Exchange?      │   │
+│   │               │                           │                         │   │
+│   │               ▼                           ▼                         │   │
+│   │   ┌─────────────────┐        ┌─────────────────────────────────┐   │   │
+│   │   │ Direct Service  │        │ Translate to Structured Signal  │   │   │
+│   │   │ (KB, Status,    │        │ (Extract entities, format       │   │   │
+│   │   │  Help, etc.)    │        │  payload for Signal Exchange)   │   │   │
+│   │   └─────────────────┘        └───────────────┬─────────────────┘   │   │
+│   │                                              │                      │   │
+│   └──────────────────────────────────────────────┼──────────────────────┘   │
+│                                                  │                          │
+│                                                  ▼                          │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                       SIGNAL EXCHANGE                                │   │
+│   │                                                                      │   │
+│   │   • Receives structured signal (CHAT_MESSAGE type)                   │   │
+│   │   • Evaluates triggers (same as any signal provider)                 │   │
+│   │   • Creates Request or dispatches update                             │   │
+│   │   • NO special handling for MS Teams source                          │   │
+│   │                                                                      │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Q: Why does the Teams module need trigger expectations?
+
+**A:** To perform accurate NLP classification, the module may need to understand what triggers exist in the workbench. This helps it:
+- Extract relevant entities
+- Determine if a message is likely to match a trigger
+- Format the structured signal appropriately
+
+This is an implementation concern and may evolve.
+
+### Q: Does Signal Exchange know it's receiving from MS Teams?
+
+**A:** Signal Exchange receives the signal with metadata indicating the source is MS Teams. However, it **does not alter its processing logic** based on this. The trigger evaluation, request creation, and dispatch follow the same path as any other signal provider.
+
+---
+
 ## Signal & Message Flow
 
 ### Q: Is there a dedicated MS Teams Signal Provider?
 
-**A:** The MS Teams integration module uses **Heracles as underlying infrastructure**, but Signal Exchange sees messages as signals from the **MS Teams integration module**, not directly from Heracles.
+**A:** The MS Teams integration module uses **Heracles as underlying infrastructure**, but Signal Exchange sees signals from the **MS Teams integration module** with signal type `CHAT_MESSAGE`.
 
 ### Q: How does a Business Employee message trigger a Scenario?
 
 **A:** 
 1. Business Employee sends message in Ask_Bot
-2. Message is treated as a **signal**
-3. All triggers evaluate the signal to check if it matches their conditions
-4. Highest precedence matching trigger wins
-5. If matched → Scenario is triggered, Request is created
-6. If no trigger matches → Message is handled by MS Teams module directly (enquiry, help, etc.)
+2. MS Teams module receives and classifies the message
+3. If trigger-worthy, module translates to structured signal
+4. Signal is sent to Signal Exchange
+5. Signal Exchange evaluates triggers (as for any signal)
+6. Highest precedence matching trigger wins
+7. If matched → Scenario is triggered, Request is created
+8. If no trigger matches → Response returned to Teams module → module handles directly
 
 ### Q: What services does the MS Teams module handle directly (not via Signal Exchange)?
 
@@ -246,31 +351,49 @@ This approach recognizes that:
 - Request status queries
 - Knowledge base lookups
 - Task list queries
+- Help/menu requests
 - Other interactions that don't need to create/update Requests
 
 The catalog of direct services may expand.
 
 ### Q: Why do some requests bypass Signal Exchange?
 
-**A:** Signal Exchange need not be in the path for requests that may not correspond to scenarios. Requests don't go through Signal Exchange only for services that Signal Exchange may not offer. 
-
-Each I/O Gateway/module may have value-additions for efficiency and supported channel nuances that are specific to that module's contract.
+**A:** Signal Exchange handles scenario-based request creation and updates. For read-only queries (status, KB lookup, task list), there's no need to involve Signal Exchange. Each I/O module may have value-additions for efficiency and channel-specific optimizations.
 
 ### Q: How are Request updates sent to Teams?
 
-**A:** MS Teams module **listens to updates on Request entity** and relays them to the corresponding chat or chat group.
+**A:** MS Teams module **listens to updates on Request entity** (via Signal Exchange dispatch to watchers) and relays them to the corresponding chat group.
 
 ---
 
-## Identity & Authentication
+## Bot Provisioning & Identity
+
+### Q: How are bots provisioned?
+
+**A:** Bots are onboarded as part of the **Workbench Deployment** process:
+
+1. **Tenant Admin** provisions bots on Azure AD/Entra ID
+2. Admin provides the relevant identity and credentials
+3. These are associated to the **Bot Profile in Cipher IAM** during deployment
+
+### Q: What's the relationship between Hub tenant and Azure tenant?
+
+**A:** Each workbench under a Hub Tenant corresponds to **exactly one Azure/MS Teams tenant**. Tenant's employees and bots belong to the same Azure tenant.
 
 ### Q: How are bots authenticated in MS Teams?
 
-**A:** Each bot is registered in **AD/Entra ID** following MS Teams bot identity guidelines.
+**A:** Each bot is registered in **Azure AD/Entra ID** following MS Teams bot identity guidelines.
 
 ### Q: Do bots exist in Cipher IAM?
 
-**A:** **Yes.** Each bot also exists in Cipher IAM as a **Bot identity**.
+**A:** **Yes.** Each bot also exists in Cipher IAM as a **Bot identity**, associated with the workbench during deployment.
+
+### Q: How is Hub identity mapped to Teams identity?
+
+**A:** 
+- Hub users who are Agents must have corresponding Teams accounts
+- The MS Teams module uses **Graph API** to add users to chat groups
+- The module only works for users who are on Teams
 
 ### Q: Can a person access multiple workbenches' bots?
 
@@ -291,12 +414,12 @@ Each I/O Gateway/module may have value-additions for efficiency and supported ch
 **A:** MS Teams integration is **more than a signal provider**. It should cover:
 - Bot types and configuration
 - Message → Signal transformation (structured + NLP)
-- Trigger evaluation for Ask_Bot messages
+- Classification pipeline
 - Chat group lifecycle management
 - Request update → Teams relay
 - Direct services (queries not going to Signal Exchange)
 - Chat history archival
-- Identity and registration
+- Bot provisioning and identity
 - Task Solver rendering (Adaptive Cards vs Hercules Launcher)
 
 ---
@@ -307,22 +430,68 @@ Each I/O Gateway/module may have value-additions for efficiency and supported ch
 
 | Bot | Codename | Users | Purpose |
 |-----|----------|-------|---------|
-| Agent Copilot | Me_Bot | Agents, Supervisors | Task processing, KB queries, decisions |
+| Agent Copilot | Me_Bot | Agents, Supervisors | Full Agent Desk capabilities via Teams |
 | Business Employee Copilot | Ask_Bot | Business Employees | Request initiation, assigned tasks |
-| System Bot | Signal Exchange Bot | System | Chat group lifecycle, system updates |
+| Group Orchestration Bot | Group_Bot | System | Chat group lifecycle, system updates |
 
 ### Capability Matrix
 
 | Capability | Me_Bot (Agent) | Me_Bot (Supervisor) | Ask_Bot |
 |------------|----------------|---------------------|---------|
-| View tasks | ✅ Assigned | ✅ All + Queue | ✅ Explicitly assigned |
+| View tasks | ✅ Assigned + Queue | ✅ All + Queue | ✅ Explicitly assigned |
 | Complete tasks | ✅ | ✅ | ✅ |
+| Initiate requests | ✅ | ✅ | ✅ |
 | Query KB | ✅ | ✅ | ✅ |
-| Initiate requests | ❌ | ❌ | ✅ |
+| View signals | ✅ | ✅ | ❌ |
+| Routines & checklists | ✅ | ✅ | ❌ |
 | Queue metrics | ❌ | ✅ | ❌ |
 | Reassign across agents | ❌ | ✅ | ❌ |
 | Escalation handling | ❌ | ✅ | ❌ |
 | Invoke tools directly | ❌ | ❌ | ❌ |
+
+---
+
+## Open Questions
+
+The following questions remain open for future clarification:
+
+### Adaptive Cards
+- What version of Adaptive Cards is supported?
+- What actions are supported within cards?
+- How do cards submit data back to Hub?
+- Can cards update dynamically (refresh)?
+
+### File Handling
+- Can users attach files in chat that become part of the Request?
+- Can bots share files (evidence, documents)?
+- How are attachments stored (Dia integration)?
+
+### Notification Preferences
+- Can users mute specific types of notifications?
+- Are there preferences for what updates trigger Teams messages?
+- Can agents choose email-only vs. Teams notifications?
+
+### Offline/Async Handling
+- What happens when user sends message but Hub is unavailable?
+- How are long-running requests with no updates for days handled?
+
+### Security & Compliance
+- What data classification applies to chat content?
+- How do message retention policies interact (Teams vs. Hub)?
+- What compliance certifications are relevant?
+
+### Monitoring & Observability
+- How are bot interactions logged?
+- What metrics are collected?
+- How to debug message classification issues?
+
+### Multi-Workbench Experience
+- How does a user switch between workbench bots?
+- Is there a unified view across workbenches?
+
+### Mobile Experience
+- Are there MS Teams mobile behavior differences?
+- What are Adaptive Card limitations on mobile?
 
 ---
 

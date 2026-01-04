@@ -1,4 +1,5 @@
 # User Interaction Channels
+//TODO: Why is this focused on just 'customers as subjects'?
 
 > **Status:** ⚠️ Notes — Raw notes, needs structuring
 

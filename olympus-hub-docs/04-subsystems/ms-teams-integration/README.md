@@ -14,7 +14,7 @@ The core objective is to make bots **copilots** of the personas they serve:
 
 | Persona | Copilot | Purpose |
 |---------|---------|---------|
-| **Agents** | Me_Bot | Task processing, KB queries, decisions — without leaving Teams |
+| **Agents** | Me_Bot | Full Agent Desk capabilities via Teams |
 | **Supervisors** | Me_Bot | Same as agents, plus queue metrics and oversight |
 | **Business Employees** | Ask_Bot | Request initiation and assigned task handling |
 
@@ -31,7 +31,7 @@ When orchestration is required between multiple participants:
 | Aspect | Approach |
 |--------|----------|
 | **One group per request** | All collaboration about a request in one place |
-| **Bot as orchestrator** | Signal Exchange Bot manages membership and relays updates |
+| **Bot as orchestrator** | Group Orchestration Bot manages membership and relays updates |
 | **Dynamic membership** | Assignees join automatically as tasks are created |
 | **Persistent history** | All messages become Request updates for audit |
 
@@ -53,8 +53,8 @@ When orchestration is required between multiple participants:
 │  │                        BOT LAYER (Per Workbench)                       │  │
 │  │                                                                        │  │
 │  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐        │  │
-│  │  │   Me_Bot    │  │  Ask_Bot    │  │  Signal Exchange Bot    │        │  │
-│  │  │   (Agent    │  │  (Business  │  │  (System/Orchestrator)  │        │  │
+│  │  │   Me_Bot    │  │  Ask_Bot    │  │  Group Orchestration    │        │  │
+│  │  │   (Agent    │  │  (Business  │  │  Bot (System)           │        │  │
 │  │  │   Copilot)  │  │  Employee)  │  │                         │        │  │
 │  │  └──────┬──────┘  └──────┬──────┘  └────────────┬────────────┘        │  │
 │  │         │                │                      │                      │  │
@@ -92,6 +92,9 @@ When orchestration is required between multiple participants:
 | Complete/Escalate/Reassign tasks | ✅ | ✅ |
 | Query knowledge base | ✅ | ✅ |
 | Record decisions and thoughts | ✅ | ✅ |
+| View signals | ✅ | ✅ |
+| Routines & checklists | ✅ | ✅ |
+| Initiate requests | ✅ | ✅ |
 | Queue metrics | ❌ | ✅ |
 | Cross-agent reassignment | ❌ | ✅ |
 | Escalation handling | ❌ | ✅ |
@@ -110,13 +113,15 @@ When orchestration is required between multiple participants:
 | Query knowledge base | ✅ |
 | See agent-queue tasks | ❌ |
 
-### Signal Exchange Bot (System/Orchestrator)
+### Group Orchestration Bot (System)
 
 | Responsibility | Description |
 |----------------|-------------|
-| Chat group lifecycle | Create groups, add members, archive |
+| Chat group lifecycle | Create groups, add members (via Graph API), archive |
 | System updates | Post updates not from individual participants |
-| Request representation | Represents the workbench's Signal Exchange |
+| Group representation | Orchestrates collaboration between agents on a request |
+
+> **Note:** The Group Orchestration Bot is a construct of the MS Teams integration module. Signal Exchange itself is unaware of this bot.
 
 ---
 

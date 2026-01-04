@@ -1,5 +1,7 @@
 # Admin Desk
 
+//TODO: This need to be fixed to get to DevOps/SRE action list; Shoudln't sound like a Supervisor Desk
+
 > **Status:** 🔴 Stub — Placeholder for expansion
 
 **Admin Desk** is the workbench-level administration console for configuring workbench-specific settings.

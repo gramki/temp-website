@@ -25,8 +25,8 @@ When multiple participants need to coordinate:
 
 | Aspect | Implementation |
 |--------|----------------|
-| **Group creation** | Signal Exchange Bot creates group on request creation |
-| **Membership management** | Bot adds members as tasks are assigned |
+| **Group creation** | Group Orchestration Bot creates group on request creation |
+| **Membership management** | Bot adds members via Graph API as tasks are assigned |
 | **System updates** | Bot posts status changes, assignments, milestones |
 | **Archival** | Bot triggers archive on schedule after completion |
 
@@ -42,7 +42,7 @@ When multiple participants need to coordinate:
 │         │                                                        │
 │         ▼                                                        │
 │   ┌─────────────────┐                                           │
-│   │ GROUP CREATED   │ ◄─── Signal Exchange Bot creates group    │
+│   │ GROUP CREATED   │ ◄─── Group Orchestration Bot creates group│
 │   │ (Initial        │      with initial members                  │
 │   │  Members)       │                                           │
 │   └────────┬────────┘                                           │
@@ -85,7 +85,7 @@ A chat group is created when:
 
 | Member Type | When Added | Condition |
 |-------------|------------|-----------|
-| **Signal Exchange Bot** | Immediately | Always — orchestrator presence |
+| **Group Orchestration Bot** | Immediately | Always — orchestrator presence |
 | **Scenario Default Participants** | Immediately | As configured in scenario manifest |
 | **Request Subject** | Immediately | If `auto_add_subject: true` |
 | **Request Originator** | Immediately | If employee-originated |
@@ -102,7 +102,7 @@ Example: "Dispute Resolution - DSP-2024-0042"
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ [Signal Exchange Bot] — Today at 2:34 PM                        │
+│ [Dispute Ops Hub] — Today at 2:34 PM                            │
 │                                                                  │
 │ 📋 Request Created                                               │
 │                                                                  │
@@ -139,13 +139,13 @@ When a Hub Application creates and assigns a task:
 │         ▼                                                        │
 │   MS Teams Module                                                │
 │         │                                                        │
-│         │ 1. Add Bob to chat group (if not already member)       │
+│         │ 1. Add Bob to chat group via Graph API                 │
 │         │ 2. Post assignment notification                        │
 │         ▼                                                        │
 │   Chat Group                                                     │
 │         │                                                        │
-│         │ [Signal Exchange Bot]: Task "Review Transaction"       │
-│         │                        assigned to @Bob                │
+│         │ [Dispute Ops Hub]: Task "Review Transaction"           │
+│         │                    assigned to @Bob                    │
 │         │                                                        │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -213,7 +213,7 @@ Every message in the chat group is captured as an update to the Request:
 
 ## System Updates
 
-### What the Signal Exchange Bot Posts
+### What the Group Orchestration Bot Posts
 
 | Event | Message Format |
 |-------|---------------|
@@ -232,11 +232,11 @@ Every message in the chat group is captured as an update to the Request:
 │ Dispute Resolution - DSP-2024-0042                              │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
-│ [Signal Exchange Bot] — 2:34 PM                                 │
+│ [Dispute Ops Hub] — 2:34 PM                                     │
 │ 📋 Request Created                                               │
 │ Subject: John Smith | Priority: High                            │
 │                                                                  │
-│ [Signal Exchange Bot] — 2:34 PM                                 │
+│ [Dispute Ops Hub] — 2:34 PM                                     │
 │ Task "Initial Review" assigned to @Alice                        │
 │                                                                  │
 │ [Alice] — 2:41 PM                                               │
@@ -246,18 +246,18 @@ Every message in the chat group is captured as an update to the Request:
 │ [Alice] — 2:52 PM                                               │
 │ Confirmed fraud pattern. Escalating for compliance review.      │
 │                                                                  │
-│ [Signal Exchange Bot] — 2:52 PM                                 │
+│ [Dispute Ops Hub] — 2:52 PM                                     │
 │ ⚠️ Task "Initial Review" escalated by @Alice                    │
 │ Task "Compliance Review" assigned to @Bob                       │
 │                                                                  │
 │ [Bob] — 3:15 PM                                                 │
 │ Thanks Alice. I'll need to check against recent fraud alerts.  │
 │                                                                  │
-│ [Signal Exchange Bot] — 4:02 PM                                 │
+│ [Dispute Ops Hub] — 4:02 PM                                     │
 │ ✅ Task "Compliance Review" completed by @Bob                   │
 │ Decision: Confirmed fraud, card blocked                         │
 │                                                                  │
-│ [Signal Exchange Bot] — 4:02 PM                                 │
+│ [Dispute Ops Hub] — 4:02 PM                                     │
 │ 🎉 Request completed: Resolved - Fraud Confirmed                │
 │                                                                  │
 └─────────────────────────────────────────────────────────────────┘
@@ -271,7 +271,7 @@ Every message in the chat group is captured as an update to the Request:
 
 When a Request reaches a terminal state (Completed, Cancelled):
 
-1. Signal Exchange Bot posts completion message
+1. Group Orchestration Bot posts completion message
 2. Group remains **active and accessible**
 3. Participants can still collaborate (late notes, follow-ups)
 4. No new tasks will be assigned
