@@ -68,6 +68,16 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [Heracles - API Gateway](./04-subsystems/signal-providers/heracles-api-gateway.md) | HTTP/REST/MCP signal gateway | 🟡 WIP |
 | [Dia - File Gateway](./04-subsystems/signal-providers/dia-file-gateway.md) | File and batch input gateway | 🟡 WIP |
 | [Kale - Scheduler](./04-subsystems/signal-providers/kale-scheduler.md) | Time-based signal generator | 🟡 WIP |
+| [MS Teams](./04-subsystems/signal-providers/ms-teams-integration.md) | Copilot bots + chat collaboration (see dedicated subsystem) | 🔴 Stub |
+
+#### MS Teams Integration
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./04-subsystems/ms-teams-integration/README.md) | MS Teams Integration — Copilots, Chat Groups, Signal Routing | 🟡 WIP |
+| [FAQ](./04-subsystems/ms-teams-integration/ms-teams-integration-faq.md) | Design decisions and Q&A | 🟡 WIP |
+
+> **Note:** MS Teams Integration is more than a signal provider — it includes copilot bots for Agents/Supervisors/Business Employees, chat group orchestration for request collaboration, and direct services.
 
 #### Automation Runtimes (Hub Application Hosts)
 

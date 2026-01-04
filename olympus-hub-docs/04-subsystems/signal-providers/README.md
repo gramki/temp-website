@@ -38,8 +38,11 @@ I/O Gateways are Machines in the Hub Environment that sense Signals from various
 | [Heracles](./heracles-api-gateway.md) | HTTP-Request | HTTP/REST/MCP | API calls from users, apps, agents | 🟡 WIP |
 | [Dia](./dia-file-gateway.md) | Batch-Request | SFTP/HTTP/WebDAV | File arrivals with batch data | 🟡 WIP |
 | [Kale](./kale-scheduler.md) | Time-Signal | Scheduler | Scheduled triggers | 🟡 WIP |
+| [MS Teams](./ms-teams-integration.md) | Chat-Message | MS Teams Bot Framework | Copilot bots + chat collaboration | 🔴 Stub |
 
 **Extensibility:** Signal types are tied to I/O Gateways. New gateways (e.g., GraphQL, gRPC, WebSocket) can introduce new signal types while the core flow remains stable: **Signal → Trigger → Request → Scenario → Operation**.
+
+> **Note:** MS Teams Integration is more than a signal provider — it includes copilot bots, chat group orchestration, and direct services. See [MS Teams Integration](../ms-teams-integration/) for full documentation.
 
 ## Common Responsibilities
 

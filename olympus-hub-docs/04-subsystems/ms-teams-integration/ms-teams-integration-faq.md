@@ -20,6 +20,28 @@ This document captures Q&A from the design discussion for the MS Teams Integrati
 
 ## Bot Architecture
 
+### Design Rationale
+
+The MS Teams integration architecture is driven by two key objectives:
+
+| Objective | Approach |
+|-----------|----------|
+| **Bots as Copilots** | Each bot serves as a dedicated copilot for its persona, providing contextual assistance within their natural workspace (MS Teams) |
+| **Chat Groups as Collaboration Surfaces** | When orchestration is required between multiple participants, the bot becomes the orchestrator using chat groups as the collaboration surface |
+
+**Why Copilots?**
+- Agents and Business Employees already work in MS Teams
+- Rather than forcing context switches to Hub UIs, bring Hub capabilities to where they work
+- Each persona gets a dedicated copilot tuned to their needs and permissions
+
+**Why Chat Groups for Orchestration?**
+- Requests often involve multiple agents across different tasks
+- Chat groups provide natural, real-time collaboration
+- The Signal Exchange Bot orchestrates the group, adding members as needed
+- All collaboration is captured as Request updates
+
+---
+
 ### Q: What types of bots are there?
 
 **A:** Two conceptual bot types per workbench:
@@ -129,6 +151,25 @@ These capabilities will evolve over time.
 ---
 
 ## Chat Group per Request
+
+### Design Rationale
+
+Chat groups serve as **collaboration surfaces** for multi-participant orchestration:
+
+| Aspect | Rationale |
+|--------|-----------|
+| **One group per request** | Natural mapping — all collaboration about a request in one place |
+| **Bot as orchestrator** | Signal Exchange Bot manages membership, relays system updates |
+| **Dynamic membership** | As tasks are assigned, assignees join automatically |
+| **Persistent history** | All messages become Request updates, preserved for audit |
+
+This approach recognizes that:
+- Complex requests involve handoffs between agents
+- Agents need to coordinate, ask questions, share context
+- Supervisors need visibility into collaboration
+- Traditional task assignment doesn't capture the human interaction
+
+---
 
 ### Q: Is a new Teams group created for each Request?
 
