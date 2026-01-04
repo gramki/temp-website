@@ -231,6 +231,16 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [Application Data Stores](./07-data-architecture/application-data-stores.md) | Ganymede, Callisto, Europa for applications | 🔴 Stub |
 | [Storage FAQ](./07-data-architecture/storage-faq.md) | Common questions for architects and developers | ✅ Complete |
 
+### 10 - Guides
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./10-guides/README.md) | Guide index and reading order | 🟡 WIP |
+| [Tenant Setup Guide](./10-guides/tenant-setup-guide.md) | Complete tenant subscription setup | 🟡 WIP |
+| [Workbench Setup Guide](./10-guides/workbench-setup-guide.md) | Workbench configuration for a business domain | 🟡 WIP |
+
+*Coming soon: Application Development Guide, Integration Guide, Agent Onboarding Guide*
+
 ### Project Tracking
 
 | Document | Description |
@@ -325,9 +335,14 @@ olympus-hub-docs/
 │   ├── README.md
 │   └── user-interaction-channels.md
 │
-└── 07-data-architecture/        # Data Architecture
+├── 07-data-architecture/        # Data Architecture
+│   ├── README.md
+│   └── storage-architecture.md
+│
+└── 10-guides/                   # Practical Guides
     ├── README.md
-    └── storage-architecture.md
+    ├── tenant-setup-guide.md
+    └── workbench-setup-guide.md
 ```
 
 ---

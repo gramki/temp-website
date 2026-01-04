@@ -186,10 +186,8 @@ UI Applications
 
 * Workbench - Agent Desk
 * Workbench - Supervisor Desk (Manage and Govern)
-* Workbench - SRE Desk 
-- Application Store (OLTP)
-- Operational Stores
+* Workbench - DevOps Desk 
 
-- Agent Memory, Org Memory
+[x] - Agent Memory, Org Memory
 
 
