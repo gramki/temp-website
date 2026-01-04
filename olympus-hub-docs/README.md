@@ -154,6 +154,15 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [Tenant Customers](./04-subsystems/user-management/tenant-customers.md) | Self-serve users and policies | 🔴 Stub |
 | [Domain Management](./04-subsystems/user-management/domain-management.md) | Publisher and Tenant domains | 🔴 Stub |
 
+#### Hub Native Utilities
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./04-subsystems/hub-native-utilities/README.md) | Native stateless tools (Decision, Prediction) | 🔴 Stub |
+| [Decision Tools](./04-subsystems/hub-native-utilities/decision-tools.md) | Drools, DMN, JS pure-function decision services | 🔴 Stub |
+| [Prediction Tools](./04-subsystems/hub-native-utilities/prediction-tools.md) | ML Models via Elara/Kserve | 🔴 Stub |
+| [CAF Integration](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for native utilities | 🔴 Stub |
+
 #### Supporting Systems
 
 | Document | Description | Status |

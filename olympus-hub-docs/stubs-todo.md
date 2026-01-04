@@ -130,6 +130,15 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 | [tenant-customers.md](./04-subsystems/user-management/tenant-customers.md) | Self-serve users and policies | 🔴 Stub | High |
 | [domain-management.md](./04-subsystems/user-management/domain-management.md) | Publisher and Tenant domain organization | 🔴 Stub | Medium |
 
+### Hub Native Utilities (`04-subsystems/hub-native-utilities/`)
+
+| Document | Description | Status | Priority |
+|----------|-------------|--------|----------|
+| [README.md](./04-subsystems/hub-native-utilities/README.md) | Native stateless tools overview (Decision, Prediction) | 🔴 Stub | High |
+| [decision-tools.md](./04-subsystems/hub-native-utilities/decision-tools.md) | Drools, DMN, JS pure-function decision services | 🔴 Stub | High |
+| [prediction-tools.md](./04-subsystems/hub-native-utilities/prediction-tools.md) | ML Models via Elara/Kserve | 🔴 Stub | High |
+| [caf-integration.md](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for native utilities | 🔴 Stub | High |
+
 ---
 
 ## Existing Documents (Already WIP or Complete)
@@ -220,13 +229,14 @@ These stubs are particularly important for Seer integration:
 | **Tool Registry** | Seer agents invoke tools registered in Hub |
 | **Task Management** | Seer agents receive and complete tasks via Hub |
 | **Seer Case Automation** | Hub invokes Seer as an Automation Runtime |
+| **Hub Native Utilities** | Seer agents invoke Decision Tools and Prediction Tools with automatic CAF compliance |
 
 ---
 
 ## Expansion Priority Order
 
 1. **Critical** — Signal Exchange, Workbench Management (trigger-definitions, trigger-evaluator, application-router), CAF (decision records, explanation, evidence), Olympus Platform Dependencies
-2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Applications concept, Infrastructure (Temporal, Cipher IAM, Ganymede, Knowledge Bank, Olympus Watch)
+2. **High** — Memory Services, Task Management, Automation Runtimes (Rhea, ChronoShift, Seer Case), Hub Native Utilities (Decision Tools, Prediction Tools), Hub Applications concept, Infrastructure (Temporal, Cipher IAM, Ganymede, Knowledge Bank, Olympus Watch)
 3. **Medium** — Registry Services, Knowledge Services, Request Management, Infrastructure (Cloudflare, Redis, Callisto, Europa)
 4. **Lower** — Perseus, Machine/Environment Registries
 
