@@ -342,15 +342,43 @@ Hub Console → I/O Gateways → Atropos → Configure
 
 ### Heracles (API Gateway)
 
-Configure API endpoints:
+Configure API endpoints and custom domains:
 
 ```
 Hub Console → I/O Gateways → Heracles → Configure
-├── Base Path: /api/v1/[tenant]
-├── Authentication: Cipher OAuth2
-├── Rate Limits: [Per subscription tier]
-└── CORS: [Configure if needed]
+├── Base Configuration:
+│   ├── Base Path: /api/v1/[tenant]
+│   ├── Authentication: Cipher OAuth2
+│   ├── Rate Limits: [Per subscription tier]
+│   └── CORS: [Configure allowed origins]
+├── Custom Domain (Vanity URL):
+│   ├── Domain: [api.yourcompany.com]
+│   ├── SSL Certificate:
+│   │   ├── Type: [Managed / Custom]
+│   │   ├── Certificate: [Upload .pem or use Let's Encrypt]
+│   │   ├── Private Key: [Upload .key]
+│   │   └── Certificate Chain: [Upload intermediate certs]
+│   ├── DNS Configuration:
+│   │   └── CNAME: [Point to hub-gateway.olympus.tech]
+│   └── Verification: [Verify domain ownership]
+├── MCP Endpoints (for AI Agents):
+│   ├── MCP Base Path: /mcp/v1/[tenant]
+│   ├── Session Timeout: [30 minutes default]
+│   └── Streaming: [Enabled]
+└── Security:
+    ├── IP Allowlist: [Optional - restrict access by IP]
+    ├── mTLS: [Enable for machine-to-machine]
+    └── WAF Rules: [Configure custom rules]
 ```
+
+**Domain Configuration Notes:**
+
+| Configuration | Description |
+|---------------|-------------|
+| **Managed SSL** | Olympus automatically provisions and renews certificates |
+| **Custom SSL** | Upload your own certificates (required for some compliance) |
+| **Wildcard Certs** | Supported for `*.yourcompany.com` patterns |
+| **Multi-domain** | Configure multiple vanity domains per tenant |
 
 ### Dia (File Gateway)
 
