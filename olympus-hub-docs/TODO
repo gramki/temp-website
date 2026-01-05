@@ -62,26 +62,95 @@ Storage Services
 ✔ *Trigger can update Applications* I/O Gateway for MS Teams -> Signals -> Trigger -> (New Case or Action in an existing Case); (New Workflow or Action in an existing Workflow Process) @done(26-01-04 15:35)
 ✔ @done(26-01-04 15:35)
 
-- *Review UI Architecture content*
-- TODO: Steward Desk need to be fixed to get to DevOps/SRE action list; Shoudln't sound like a Supervisor Desk
-- TODO: Why is 'User Interaction Channels' focused on just 'customers as subjects'?
-- "Hub SRE Operations Center, Hub Win Operations Center" - !!
-- Critical to specifiy Signal Exchange to Hub Application contract
-- Concrete Data Structure of Request
-- Signal Exchange to Observer Module contract
+✔ *Review UI Architecture content* @done(26-01-05 11:08)
+✔ TODO: Steward Desk need to be fixed to get to DevOps/SRE action list; Shoudln't sound like a Supervisor Desk @done(26-01-05 11:08)
+✔ "Hub SRE Operations Center, Hub Win Operations Center" - !! @done(26-01-05 11:08)
+
 
 
 # UI Architecture:
     ## Meta Approach:
-        - (Persona, Channel, Use Case) approach
-        - Channel Agnostic, Persona-focused Headless Access Services
-        - Channel Adapters 
-        - Web, Mobile, Email, MS Teams, as first-class channels
-        - ChatGPT, Claude, Gemini, etc., as first-class channels
+        ✔ (Persona, Channel, Use Case) approach @done(26-01-05 11:04)
+        ✔ Channel Agnostic, Persona-focused Headless Access Services @done(26-01-05 11:04)
+        ✔ Channel Adapters @done(26-01-05 11:04)
+        ✔ Web, Mobile, Email, MS Teams, as first-class channels @done(26-01-05 11:04)
+        ✔ ChatGPT, Claude, Gemini, etc., as first-class channels @done(26-01-05 11:04)
 
     ## Hub Analytics Module:
         ✔ Report Center - Clarified as part of Hub Analytics using Olympus LakeStack @done(26-01-05)
-        ✔ Product Center - Removed (not required) @done(26-01-05)
+        ✘ Product Center - Removed (not required) @cancelled(26-01-05 11:03)
+
+
+    ## Hub Control Center (Tenant Admins):
+        ### Subsystems Configuration: @done(26-01-05 11:09)
+            ✔ Configuration: Task Management System @done(26-01-05 11:09)
+            ✔ Configuration: API Gateway @done(26-01-05 11:09)
+            ✔ Configuration: Event Bus @done(26-01-05 11:09)
+            ✔ Configuration: File Gateway @done(26-01-05 11:09)
+            ✔ Configuration: Automation Engines @done(26-01-05 11:09)
+            ✔ Others @done(26-01-05 11:09)
+
+        ### Tenant Ecosystem Setup: @done(26-01-05 11:09)
+            ✔ User and Access Management @done(26-01-05 11:09)
+            ✔ Machine Registry Management @done(26-01-05 11:09)
+            ✔ Tool Registry Management @done(26-01-05 11:09)
+            ✔ Workbench Management @done(26-01-05 11:09)
+            ✔ Environments Management (?) @done(26-01-05 11:09)
+
+    ## Hub UI for Publisher:
+        ✔ Hub SRE Operations Center @done(26-01-05 11:10)
+        ✔ Hub Win Operations Center @done(26-01-05 11:10)
+        
+    ## Hub UI for Workbench Creators:
+        ✔ Hub Studio (Process Architects, Developers) @done(26-01-05 11:10)
+        ✔ Hub Workbench - Steward Desk @done(26-01-05 11:10)
+
+        ### Expand Workbench Studio: @done(26-01-05 11:10)
+            ✔ Angelos Page (App) Builder (Custom Console Buildign use case) @done(26-01-05 11:10)
+            ✔ Angelos Components and Binders (connects events from one component to tigger events in other components in a Page) @done(26-01-05 11:10)
+            ✔ Angelos Action Repository @done(26-01-05 11:10)
+            ✔ Scenario Builder (Signal -> Trigger -> Scenario -> Operation) @done(26-01-05 11:10)
+            ✔ Automation Builder [Agentic] and Publisher [Agentic] @done(26-01-05 11:10)
+            ✔ Knowledge Base Manager - SOPs, Reference Manuals, etc., @done(26-01-05 11:10)
+            ✔ Tool Registry (Subset of Tools applicable to this Workbench) @done(26-01-05 11:10)
+        
+    ## Hub UI for Agents and Supervisors (Per Workbench):
+        ✔ Hub Workbench - Agent Desk @done(26-01-05 11:07)
+        ✔ Hub Workbench - Supervisor Desk (Manage and Govern) @done(26-01-05 11:07)
+        ✔ Hub Home (Landing page for Agents and Supervisors; Provides list of workbenches, tasks, agents, etc., Quick Access to common tasks, Alerts and Notifications) @done(26-01-05 11:07)
+
+        ### Expand Agent Desk: @done(26-01-05 11:10)
+            ✔ Consoles (Utility Consoles, Custom Consoles) @done(26-01-05 11:07)
+            ✔ Task Solver Interface (Custom for each task type; Can be defined by the Workbench Developer; Provide read-only and solver-views for the task) @done(26-01-05 11:07)
+
+        ### Expand Utility Consoles (Common to Agent Desk and Supervisor Desk) : @done(26-01-05 11:10)
+            ✔ Tasks @done(26-01-05 11:05)
+            ✔ Files @done(26-01-05 11:05)
+            ✔ Reports @done(26-01-05 11:05)
+            ✔ Knowledge Base @done(26-01-05 11:05)
+            ✔ Signals (Exceptions, Observations, and Others) @done(26-01-05 11:05)
+            ✔ Routines & Checklists @done(26-01-05 11:05)
+            ✔ Analytics (Supervisor Desk) @done(26-01-05 11:05)
+            ✔ Task Allocation Management (Supervisor Desk) @done(26-01-05 11:05)
+            ✔ Agents & Access Management (Supervisor Desk) @done(26-01-05 11:05)
+        
+    ## MCP Architecture:
+        ✔ MCP Router (infrastructure) @done(26-01-05 11:05)
+        ✔ MCP Channels (persona-scoped): @done(26-01-05 11:05)
+            ✔ Tenant Admin MCP Channel @done(26-01-05 11:05)
+            ✔ Creator MCP Channel @done(26-01-05 11:05)
+            ✔ Agent MCP Channel @done(26-01-05 11:05)
+            ✔ Supervisor MCP Channel @done(26-01-05 11:05)
+            ✔ Business User MCP Channel (Dataplane): @done(26-01-05 11:05)
+                ✔ Service Request @done(26-01-05 11:05)
+                ✔ Business Request @done(26-01-05 11:05)
+                ✔ System Request @done(26-01-05 11:05)
+
+    ## Business Customer aka Service Request Interfaces:
+        - Use of Neutrino Channels for Business Customer
+        - Task Solver Components for Subject Tasks
+        - Integration into Neutrino Channels - Mobile, Web, Email, MS Teams, etc.,
+        - TODO: Why is 'User Interaction Channels' focused on just 'customers as subjects'?
 
     ## Partially Covered (Need Expansion):
         [ ] Angelos Components & Binders - Detail the event wiring mechanism (how events from one component trigger events in other components within a Page)
@@ -89,74 +158,10 @@ Storage Services
         [ ] Task Solver Interface - Specify template structure, how Workbench Developers define custom solver views per task type, read-only vs solver view patterns
         [ ] Custom Consoles - Detail the building process using Angelos Page Builder, component composition, data binding, deployment lifecycle
 
-    ## Hub Control Center (Tenant Admins):
-        - Subsystems Configuration
-            - Configuration: Task Management System
-            - Configuration: API Gateway 
-            - Configuration: Event Bus 
-            - Configuration: File Gateway
-            - Configuration: Automation Engines
-            - Others
-
-        - Tenant Ecosystem Setup
-            - User and Access Management 
-            - Machine Registry Management
-            - Tool Registry Management
-            - Workbench Management
-            - Environments Management (?)
-
-    ## Hub UI for Publisher:
-        - Hub SRE Operations Center
-        - Hub Win Operations Center
-        
-    ## Hub UI for Workbench Creators:
-        - Hub Studio (Process Architects, Developers)
-        - Hub Workbench - Steward Desk 
-
-        Expand Workbench Studio:
-            - Angelos Page (App) Builder (Custom Console Buildign use case)
-            - Angelos Components and Binders (connects events from one component to tigger events in other components in a Page)
-            - Angelos Action Repository
-            - Scenario Builder (Signal -> Trigger -> Scenario -> Operation)
-            - Automation Builder [Agentic] and Publisher [Agentic]
-            - Knowledge Base Manager - SOPs, Reference Manuals, etc.,
-            - Tool Registry (Subset of Tools applicable to this Workbench)
-        
-    ## Hub UI for Agents and Supervisors (Per Workbench):
-        - Hub Workbench - Agent Desk
-        - Hub Workbench - Supervisor Desk (Manage and Govern)
-        - Hub Home (Landing page for Agents and Supervisors; Provides list of workbenches, tasks, agents, etc., Quick Access to common tasks, Alerts and Notifications)
-
-        Expand Agent Desk:
-            - Consoles (Utility Consoles, Custom Consoles)
-            - Task Solver Interface (Custom for each task type; Can be defined by the Workbench Developer; Provide read-only and solver-views for the task)
-        
-        Expand Utility Consoles (Common to Agent Desk and Supervisor Desk) :
-            - Tasks
-            - Files
-            - Reports
-            - Knowledge Base
-            - Signals (Exceptions, Observations, and Others)
-            - Routines & Checklists
-            - Analytics (Supervisor Desk)
-            - Task Allocation Management (Supervisor Desk)
-            - Agents & Access Management (Supervisor Desk)
-        
-    ## MCP Architecture:
-        - MCP Router (infrastructure)
-        - MCP Channels (persona-scoped):
-            - Tenant Admin MCP Channel
-            - Creator MCP Channel       
-            - Agent MCP Channel 
-            - Supervisor MCP Channel
-            - Business User MCP Channel (Dataplane):
-                - Service Request
-                - Business Request
-                - System Request
-    ## Business Customer aka Service Request Interfaces:
-        - Use of Neutrino Channels for Business Customer
-        - Task Solver Components for Subject Tasks
-        - Integration into Neutrino Channels - Mobile, Web, Email, MS Teams, etc.,
+# Singal Exchange Related Tasks:
+    - Critical to specifiy Signal Exchange to Hub Application contract
+    - Concrete Data Structure of Request
+    - Signal Exchange to Observer Module contract
 
 # Hub Operator Subsystem:
     - Workbench Operator
@@ -173,11 +178,17 @@ Storage Services
     
     
 # Hub Storage Explanation:
-[ ] Hub-native storage support for Operations; 
-[ ] Hub storage model explained - native stores, automation engine specific stores, their scope, access management
-[ ] Hub Storage integration into ETSL/Pontus 
+    ✔ Hub-native storage support for Operations — covered in storage-architecture.md (Layer 3A Operations Data) @done(26-01-05)
+    ✔ Hub storage model explained - C1/C2 architecture covered; C3 implementation details deferred to subsystem development @done(26-01-05)
+    ✔ Automation engine specific stores - clarified as out of scope; each runtime documents its own internals @done(26-01-05)
+    [ ] Hub Storage integration into ETSL/Pontus — pending clarification on ETSL and Pontus 
     
-    
+# Hub Knowledge Bank Submodule Explanation:
+    [ ] Ingestion
+    [ ] Storage
+    [ ] Retrieval Mechanisms
+    [ ] Analytics
+
 
 # Ecosystem Integrations:
 
@@ -239,6 +250,24 @@ Storage Services
     - Support for Event Log (Atropos) based Async updates to any request
     - Support for External Applications through HTTP Hub Egress Gateway (An application that is merely acting as a wrapper around a tool)
 
+# Workbench Developer Tasks:
+    [ ] Create a Workbench
+    ### Scenario Builder:
+        [ ] Create a Scenario
+        [ ] Create a Signal
+        [ ] Create a Trigger
+        [ ] Create a Machine
+        [ ] Create a Tool
+        [ ] Create a Knowledge Base 
+        [ ] Create a Hub Application
+        [ ] Create a Data Store
+        [ ] Create a Task Solver Component for Supported Channels
+    ### Consoles and Extensions:
+        [ ] Create a Report in Report Center
+        [ ] Create a Custom Console
+        [ ] Create an Action in Angelos Action Repository
+    [ ] Publish a Workbench
+    [ ] Maintain a Workbench
 
 
 # Specialized Hubs:

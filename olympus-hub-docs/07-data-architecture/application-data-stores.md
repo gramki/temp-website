@@ -6,6 +6,18 @@ Application Data Stores are workbench-scoped data stores that Hub Applications u
 
 ---
 
+## Key Principles
+
+| Principle | Description |
+|-----------|-------------|
+| **Runtime-Agnostic** | All Hub Applications can access these stores regardless of their Automation Runtime (Atlantis, Perseus, Rhea, ChronoShift, Seer) |
+| **Admin-Enabled** | Provisioned by Tenant Admins during workbench activation |
+| **Optional Service** | Hub makes this available but does **not mandate** its use |
+| **Developer Choice** | How an application is built and whether it uses these stores is the developer's decision |
+| **Workbench-Scoped** | Shared across all applications within a workbench, not per-runtime |
+
+---
+
 ## Overview
 
 | Aspect | Description |
@@ -159,6 +171,45 @@ When a workbench is deactivated:
 | Developers | DDL management, debugging |
 | Tenant Admins | Provisioning, monitoring |
 | Platform Operators | Support, capacity management |
+
+---
+
+## Relationship to Automation Runtimes
+
+Application Data Stores are **workbench-scoped, not runtime-scoped**. This means:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         WORKBENCH: Dispute Resolution                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  HUB APPLICATIONS (different runtimes, same data stores)                    │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐             │
+│  │  Filing Agent   │  │ Document Proc   │  │  Final Review   │             │
+│  │  (Seer)         │  │  (Perseus)      │  │   (Rhea)        │             │
+│  └────────┬────────┘  └────────┬────────┘  └────────┬────────┘             │
+│           │                    │                    │                       │
+│           └────────────────────┼────────────────────┘                       │
+│                                │                                            │
+│                                ▼                                            │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                    APPLICATION DATA STORES                          │   │
+│  │  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐               │   │
+│  │  │  Ganymede   │   │  Callisto   │   │   Europa    │               │   │
+│  │  │  (Entities) │   │  (Cache)    │   │  (Search)   │               │   │
+│  │  └─────────────┘   └─────────────┘   └─────────────┘               │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Automation Runtime Internal Storage:**
+Each Automation Runtime (Atlantis, Perseus, Rhea, ChronoShift, Seer) may have its own internal storage for:
+- Workflow state (Rhea, ChronoShift)
+- Batch job metadata (Perseus)
+- Agent state (Seer)
+
+These internal storage choices are **engineering decisions for each runtime** and are documented in their respective project documentation, not in Hub's architecture documentation.
 
 ---
 

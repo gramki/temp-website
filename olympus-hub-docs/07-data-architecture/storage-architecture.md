@@ -4,6 +4,17 @@ Hub data is organized into **four categories**, each with distinct scope, lifecy
 
 ---
 
+## Scope Note
+
+> **Documentation Level:** This document covers **C1/C2 architecture** — the conceptual and container-level design of Hub's storage model. It defines *what* storage categories exist, *who* owns them, and *how* they relate.
+>
+> **Out of Scope:**
+> - **C3 implementation details** (specific technologies, schemas, configurations) are deferred to individual subsystem design documents when those modules are developed.
+> - **Automation Runtime internals** — each Automation Runtime (Atlantis, Perseus, Rhea, ChronoShift, Seer) is a significant system with its own engineering decisions. Their internal storage choices are documented in their respective project documentation, not here.
+> - **Hub Operations Data internals** — the specific technologies Hub uses for its own operational stores are implementation details to be decided during development.
+
+---
+
 ## Overview
 
 ```
@@ -186,6 +197,24 @@ Layer 3 contains two distinct categories of data, both scoped to a workbench but
 - Application-owned (Hub Applications directly access these)
 - DDL integrated into Workbench Definition lifecycle
 - Schema evolution managed through Workbench Management
+
+#### Relationship to Hub Applications and Automation Runtimes
+
+**Key principles:**
+
+| Principle | Description |
+|-----------|-------------|
+| **Runtime-Agnostic Access** | All Hub Applications can access Application Data Stores provisioned under their workbench, **regardless of which Automation Runtime they are based on** (Atlantis, Perseus, Rhea, ChronoShift, Seer). |
+| **Admin-Enabled** | Access to Application Data Stores must be enabled by the Tenant Admin during workbench provisioning. |
+| **Optional Service** | Application Data Stores are a service Hub makes available — **not mandated**. Applications may choose not to use them if they have no domain-specific storage needs. |
+| **Developer Choice** | How a Hub Application is built and whether it uses Application Data Stores is the **developer's choice**. Hub provides the capability; the application decides to use it. |
+| **Runtime Independence** | Each Automation Runtime is a significant system with its own engineering decisions. Their internal storage choices (e.g., workflow state, batch metadata) are documented in their respective project documentation, not here. |
+
+**Example:** A Dispute Resolution application may be built on:
+- **Rhea** (BPMN workflow) for process orchestration
+- **Seer** (Case Agent) for intelligent decision-making
+
+Both can access the same Ganymede database for the "Transaction Dispute" entity, the same Callisto cache for status lookups, and the same Europa index for search — because Application Data Stores are workbench-scoped, not runtime-scoped.
 
 #### Available Services
 
