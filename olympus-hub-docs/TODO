@@ -79,9 +79,9 @@ Storage Services
         - Web, Mobile, Email, MS Teams, as first-class channels
         - ChatGPT, Claude, Gemini, etc., as first-class channels
 
-    ## Pending Clarifications:
-        [ ] Product Center - Clarify purpose and scope (Tenant Executives?)
-        [ ] Report Center - Clarify purpose and scope (Analytics, reporting?)
+    ## Hub Analytics Module:
+        ✔ Report Center - Clarified as part of Hub Analytics using Olympus LakeStack @done(26-01-05)
+        [ ] Product Center - Removed (not required)
 
     ## Hub Control Center (Tenant Admins):
         - Subsystems Configuration
@@ -147,7 +147,10 @@ Storage Services
                 - Service Request
                 - Business Request
                 - System Request
-        
+    ## Business Customer aka Service Request Interfaces:
+        - Use of Neutrino Channels for Business Customer
+        - Task Solver Components for Subject Tasks
+        - Integration into Neutrino Channels - Mobile, Web, Email, MS Teams, etc.,
 
 # Hub Operator Subsystem:
     - Workbench Operator

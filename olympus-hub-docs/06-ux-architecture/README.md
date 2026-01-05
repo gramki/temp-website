@@ -335,7 +335,7 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 | [User Interaction Channels](./frameworks-and-integrations/user-interaction-channels.md) | Subject interaction patterns | ⚠️ Notes |
 | [MS Teams Integration](../04-subsystems/ms-teams-integration/README.md) | MS Teams channel for Agents/Employees | 🟡 WIP |
 
-> **TODO:** Clarify Product Center and Report Center — separate applications for Tenant Executives (configuration, analytics, reporting).
+> **Note:** Reports are powered by [Hub Analytics](../04-subsystems/hub-analytics/README.md), which integrates with [Olympus LakeStack](../05-infrastructure/olympus-lakestack.md) for report building, publishing, and dispatching. Reports appear in the Reports Console of Agent Desk, Supervisor Desk, and Steward Desk.
 
 ---
 
@@ -345,6 +345,8 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 - [Heracles Gateway](../05-infrastructure/heracles-gateway.md) — API gateway infrastructure
 - [MCP Router](../05-infrastructure/mcp-router.md) — MCP infrastructure
 - [MS Teams Integration](../04-subsystems/ms-teams-integration/README.md) — Collaboration channel
+- [Hub Analytics](../04-subsystems/hub-analytics/README.md) — Operational analytics and Report Center integration
+- [Olympus LakeStack](../05-infrastructure/olympus-lakestack.md) — Analytics platform
 
 ---
 

@@ -26,7 +26,7 @@ Utility consoles are shared between Agent Desk and Supervisor Desk:
 |---------|---------|
 | **Tasks Console** | View and manage assigned tasks |
 | **Files Console** | Access files related to requests and entities |
-| **Reports Console** | Run and view operational reports |
+| **Reports Console** | Run and view operational + business domain reports (via [Hub Analytics](../../04-subsystems/hub-analytics/README.md)) |
 | **Knowledge Base Console** | Search SOPs, policies, reference materials |
 | **Signals Console** | View exceptions, observations, and other signals |
 | **Routines & Checklists Console** | View and complete assigned routines |
@@ -147,10 +147,11 @@ Agent Desk
 
 ## Related Documentation
 
-- [Agent Persona](../08-personas-and-journeys/personas/agent.md)
-- [Task Management](../04-subsystems/task-management/README.md)
-- [Request Lifecycle Journey](../08-personas-and-journeys/journeys/request-lifecycle.md)
-- [Angelos Framework](./frameworks-and-integrations/angelos-framework.md)
+- [Agent Persona](../../08-personas-and-journeys/personas/agent.md)
+- [Task Management](../../04-subsystems/task-management/README.md)
+- [Request Lifecycle Journey](../../08-personas-and-journeys/journeys/request-lifecycle.md)
+- [Angelos Framework](../frameworks-and-integrations/angelos-framework.md)
+- [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers Reports Console
 
 ---
 

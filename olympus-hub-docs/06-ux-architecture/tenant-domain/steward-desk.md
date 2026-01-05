@@ -38,6 +38,7 @@ The same personas (Process Architect, Developer) use both applications, but with
 | **Application Health Console** | Per-application metrics, latency, failures |
 | **Trigger Health Console** | Trigger evaluation rates, misses, errors |
 | **Queue Health Console** | Task queue depths, processing times |
+| **Reports Console** | Operational reports for workbench/application health (via [Hub Analytics](../../04-subsystems/hub-analytics/README.md)) |
 
 ### Incident Response Consoles
 
@@ -189,7 +190,8 @@ Steward Desk
 │   ├── Workbench Health
 │   ├── Application Health
 │   ├── Trigger Health
-│   └── Queue Health
+│   ├── Queue Health
+│   └── Reports
 │
 ├── Incident Response
 │   ├── Incident Console
@@ -223,11 +225,12 @@ See [Olympus Watch](../05-infrastructure/olympus-watch.md) for observability inf
 
 ## Related Documentation
 
-- [Process Architect Persona](../08-personas-and-journeys/personas/process-architect.md)
-- [Developer Persona](../08-personas-and-journeys/personas/developer.md)
+- [Process Architect Persona](../../08-personas-and-journeys/personas/process-architect.md)
+- [Developer Persona](../../08-personas-and-journeys/personas/developer.md)
 - [Workbench Studio](./workbench-studio.md) — Design-time counterpart
-- [Hub Application APM](../04-subsystems/supporting-systems/hub-application-apm.md)
-- [Olympus Watch](../05-infrastructure/olympus-watch.md)
+- [Hub Application APM](../../04-subsystems/supporting-systems/hub-application-apm.md)
+- [Olympus Watch](../../05-infrastructure/olympus-watch.md)
+- [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers Reports Console
 
 ---
 

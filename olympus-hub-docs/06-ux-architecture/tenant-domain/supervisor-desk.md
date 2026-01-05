@@ -24,7 +24,7 @@
 |---------|---------|
 | **Tasks Console** | View all tasks, not just assigned |
 | **Files Console** | Access files across requests |
-| **Reports Console** | Run operational and management reports |
+| **Reports Console** | Run operational + business domain reports (via [Hub Analytics](../../04-subsystems/hub-analytics/README.md)) |
 | **Knowledge Base Console** | Manage SOPs, policies |
 | **Signals Console** | Monitor exceptions, observations |
 | **Routines & Checklists Console** | Define and monitor checklists |
@@ -170,10 +170,11 @@ Supervisor Desk
 
 ## Related Documentation
 
-- [Supervisor Persona](../08-personas-and-journeys/personas/supervisor.md)
-- [Task Management](../04-subsystems/task-management/README.md)
-- [Checklist Service](../04-subsystems/hub-native-utilities/checklist-service.md)
-- [Routine Service](../04-subsystems/hub-native-utilities/routine-service.md)
+- [Supervisor Persona](../../08-personas-and-journeys/personas/supervisor.md)
+- [Task Management](../../04-subsystems/task-management/README.md)
+- [Checklist Service](../../04-subsystems/hub-native-utilities/checklist-service.md)
+- [Routine Service](../../04-subsystems/hub-native-utilities/routine-service.md)
+- [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers Reports Console
 
 ---
 

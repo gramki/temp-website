@@ -142,6 +142,12 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 | [routine-service.md](./04-subsystems/hub-native-utilities/routine-service.md) | Agent-scoped scheduled operations — personal or assigned (stateful) | 🔴 Stub | High |
 | [manual-task-application.md](./04-subsystems/hub-native-utilities/manual-task-application.md) | Pass-through app for manual tasks — 1:1 Request-Task wiring | 🔴 Stub | High |
 
+### Hub Analytics (`04-subsystems/hub-analytics/`)
+
+| Document | Description | Status | Priority |
+|----------|-------------|--------|----------|
+| [README.md](./04-subsystems/hub-analytics/README.md) | Hub Analytics — Operational data, aggregations, Report Center integration | 🔴 Stub | High |
+
 ### MS Teams Integration (`04-subsystems/ms-teams-integration/`)
 
 | Document | Description | Status | Priority |
@@ -266,6 +272,7 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 | [redis-cache.md](./05-infrastructure/redis-cache.md) | Caching and rate limiting | 🔴 Stub | Medium |
 | [knowledge-bank-infrastructure.md](./05-infrastructure/knowledge-bank-infrastructure.md) | RAG and knowledge retrieval infrastructure | 🔴 Stub | High |
 | [olympus-watch.md](./05-infrastructure/olympus-watch.md) | Observability as a service | 🔴 Stub | High |
+| [olympus-lakestack.md](./05-infrastructure/olympus-lakestack.md) | Analytics platform and Report Center | 🔴 Stub | High |
 
 ### Removed (Abstracted by Platform Services)
 

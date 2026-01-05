@@ -179,6 +179,14 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [Routine Service](./04-subsystems/hub-native-utilities/routine-service.md) | Agent-scoped scheduled operations (personal or assigned) | 🔴 Stub |
 | [Manual Task Application](./04-subsystems/hub-native-utilities/manual-task-application.md) | Pass-through app for manual tasks (1:1 Request-Task) | 🔴 Stub |
 
+#### Hub Analytics
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./04-subsystems/hub-analytics/README.md) | Operational data, aggregations, and Report Center integration | 🔴 Stub |
+
+> **Note:** Hub Analytics integrates with [Olympus LakeStack](./05-infrastructure/olympus-lakestack.md) for report building, publishing, and dispatching. Reports appear in the Reports Console of Agent Desk, Supervisor Desk, and Steward Desk.
+
 #### Supporting Systems
 
 | Document | Description | Status |
@@ -237,6 +245,12 @@ Olympus Hub is an operations management platform designed for large and medium e
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Olympus Watch](./05-infrastructure/olympus-watch.md) | Observability as a service (APM, logs, metrics, traces) | 🔴 Stub |
+
+#### Analytics
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Olympus LakeStack](./05-infrastructure/olympus-lakestack.md) | Analytics platform with Report Center | 🔴 Stub |
 
 ### 06 - UX Architecture
 
@@ -395,6 +409,7 @@ olympus-hub-docs/
 │   ├── request-management/      # Request lifecycle, storage, binding
 │   ├── subscription-management/ # Tenant administration
 │   ├── user-management/         # User personas and domains
+│   ├── hub-analytics/           # Operational analytics & Report Center
 │   └── supporting-systems/      # Cipher IAM
 │
 ├── 05-infrastructure/           # Platform infrastructure
@@ -410,7 +425,8 @@ olympus-hub-docs/
 │   ├── europa-opensearch.md     # Search/analytics
 │   ├── redis-cache.md           # Caching
 │   ├── knowledge-bank-infrastructure.md  # RAG infra
-│   └── olympus-watch.md         # Observability
+│   ├── olympus-watch.md         # Observability
+│   └── olympus-lakestack.md     # Analytics & Report Center
 │
 ├── 06-ux-architecture/          # UX & User Applications
 │   ├── README.md
