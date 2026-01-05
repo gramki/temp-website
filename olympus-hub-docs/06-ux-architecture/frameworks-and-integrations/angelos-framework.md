@@ -225,8 +225,8 @@ action:
 
 ## Related Documentation
 
-- [Workbench Studio](./workbench-studio.md)
-- [Agent Desk](./agent-desk.md)
+- [Workbench Studio](../tenant-domain/workbench-studio.md)
+- [Agent Desk](../tenant-domain/agent-desk.md)
 - [Hercules Launcher](./hercules-launcher.md)
 
 ---

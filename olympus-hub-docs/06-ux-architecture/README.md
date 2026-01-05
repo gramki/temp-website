@@ -78,29 +78,29 @@ Hub treats these as first-class interaction channels:
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[Hub SRE Operations Center](./hub-sre-ops-center.md)** | SRE | Monitor, maintain, and operate Hub infrastructure |
-| **[Hub Win Operations Center](./hub-win-ops-center.md)** | Customer Success | Onboard tenants, support adoption, review usage |
+| **[Hub SRE Operations Center](./publisher-domain/hub-sre-ops-center.md)** | SRE | Monitor, maintain, and operate Hub infrastructure |
+| **[Hub Win Operations Center](./publisher-domain/hub-win-ops-center.md)** | Customer Success | Onboard tenants, support adoption, review usage |
 
 ### Tenant Administration
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[Hub Control Center](./hub-control-center.md)** | Administrator | Configure subscription, resources, users, machines |
+| **[Hub Control Center](./tenant-domain/hub-control-center.md)** | Administrator | Configure subscription, resources, users, machines |
 
 ### Workbench Designers
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[Hub Workbench Studio](./workbench-studio.md)** | Process Architect, Developer | Design scenarios, build applications, manage knowledge |
-| **[Steward Desk](./steward-desk.md)** | Process Architect, Developer | Runtime monitoring, incident triage, production support |
+| **[Hub Workbench Studio](./tenant-domain/workbench-studio.md)** | Process Architect, Developer | Design scenarios, build applications, manage knowledge |
+| **[Steward Desk](./tenant-domain/steward-desk.md)** | Process Architect, Developer | Runtime monitoring, incident triage, production support |
 
 ### Workbench Operations
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[Hub Home](./hub-home.md)** | Agent, Supervisor | Landing page with workbenches, tasks, alerts |
-| **[Agent Desk](./agent-desk.md)** | Agent | Complete tasks, investigate, decide |
-| **[Supervisor Desk](./supervisor-desk.md)** | Supervisor | Monitor queues, manage agents, handle escalations |
+| **[Hub Home](./tenant-domain/hub-home.md)** | Agent, Supervisor | Landing page with workbenches, tasks, alerts |
+| **[Agent Desk](./tenant-domain/agent-desk.md)** | Agent | Complete tasks, investigate, decide |
+| **[Supervisor Desk](./tenant-domain/supervisor-desk.md)** | Supervisor | Monitor queues, manage agents, handle escalations |
 
 ### Business Domain Actors
 
@@ -132,7 +132,7 @@ The administrative console for managing the tenant subscription.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-See [Hub Control Center](./hub-control-center.md) for details.
+See [Hub Control Center](./tenant-domain/hub-control-center.md) for details.
 
 ---
 
@@ -162,7 +162,7 @@ The design and development environment for Process Architects and Developers.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-See [Workbench Studio](./workbench-studio.md) for details.
+See [Workbench Studio](./tenant-domain/workbench-studio.md) for details.
 
 ---
 
@@ -178,7 +178,7 @@ The central landing page for Agents and Supervisors.
 | **Alerts & Notifications** | Real-time updates requiring attention |
 | **Recent Activity** | Recently accessed requests, tasks |
 
-See [Hub Home](./hub-home.md) for details.
+See [Hub Home](./tenant-domain/hub-home.md) for details.
 
 ---
 
@@ -211,7 +211,7 @@ The operational interface for Agents to complete tasks.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-See [Agent Desk](./agent-desk.md) for details.
+See [Agent Desk](./tenant-domain/agent-desk.md) for details.
 
 ---
 
@@ -239,7 +239,7 @@ The management interface for Supervisors to oversee operations.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-See [Supervisor Desk](./supervisor-desk.md) for details.
+See [Supervisor Desk](./tenant-domain/supervisor-desk.md) for details.
 
 ---
 
@@ -273,7 +273,7 @@ Hub exposes Model Context Protocol (MCP) gateways for AI agent integration.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-See [MCP Channels](./mcp-channels.md) for details.
+See [MCP Channels](./tenant-domain/mcp-channels.md) for details.
 
 ---
 
@@ -319,15 +319,15 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Hub Control Center](./hub-control-center.md) | Tenant admin console | 🔴 Stub |
-| [Hub SRE Operations Center](./hub-sre-ops-center.md) | Infrastructure operations for SRE | 🔴 Stub |
-| [Hub Win Operations Center](./hub-win-ops-center.md) | Customer Success operations | 🔴 Stub |
-| [Hub Workbench Studio](./workbench-studio.md) | Designer environment | 🔴 Stub |
-| [Hub Home](./hub-home.md) | Landing page | 🔴 Stub |
-| [Agent Desk](./agent-desk.md) | Agent operations console | 🔴 Stub |
-| [Supervisor Desk](./supervisor-desk.md) | Supervisor management console | 🔴 Stub |
-| [Steward Desk](./steward-desk.md) | Workbench admin console | 🔴 Stub |
-| [MCP Channels](./mcp-channels.md) | MCP architecture | 🔴 Stub |
+| [Hub Control Center](./tenant-domain/hub-control-center.md) | Tenant admin console | 🔴 Stub |
+| [Hub SRE Operations Center](./publisher-domain/hub-sre-ops-center.md) | Infrastructure operations for SRE | 🔴 Stub |
+| [Hub Win Operations Center](./publisher-domain/hub-win-ops-center.md) | Customer Success operations | 🔴 Stub |
+| [Hub Workbench Studio](./tenant-domain/workbench-studio.md) | Designer environment | 🔴 Stub |
+| [Hub Home](./tenant-domain/hub-home.md) | Landing page | 🔴 Stub |
+| [Agent Desk](./tenant-domain/agent-desk.md) | Agent operations console | 🔴 Stub |
+| [Supervisor Desk](./tenant-domain/supervisor-desk.md) | Supervisor management console | 🔴 Stub |
+| [Steward Desk](./tenant-domain/steward-desk.md) | Workbench admin console | 🔴 Stub |
+| [MCP Channels](./tenant-domain/mcp-channels.md) | MCP architecture | 🔴 Stub |
 | [Angelos Framework](./frameworks-and-integrations/angelos-framework.md) | UI component framework | 🔴 Stub |
 | [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) | Launch URL service | 🔴 Stub |
 | [Neutrino Integration](./frameworks-and-integrations/neutrino-integration.md) | Customer channel integration | 🔴 Stub |
