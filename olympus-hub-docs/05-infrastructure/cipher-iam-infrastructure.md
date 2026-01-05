@@ -172,7 +172,7 @@ Hub services integrate via:
 - [Cipher IAM Subsystem](../04-subsystems/supporting-systems/cipher-iam.md) — Subsystem integration
 - [User Management](../04-subsystems/user-management/README.md) — User personas and scopes
 - [Domain Management](../04-subsystems/user-management/domain-management.md) — Publisher and Tenant domains
-- [MCP Orchestrator](./mcp-orchestrator.md) — Tool authorization flows
+- [MCP Router](./mcp-orchestrator.md) — Tool authorization flows
 
 ---
 

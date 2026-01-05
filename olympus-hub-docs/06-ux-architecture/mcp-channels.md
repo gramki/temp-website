@@ -1,18 +1,18 @@
-# MCP Gateways
+# MCP Channels
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 
-Hub exposes **Model Context Protocol (MCP) Gateways** to enable AI agents and assistants to interact with Hub capabilities programmatically.
+Hub exposes **MCP Channels** to enable AI agents and assistants to interact with Hub capabilities programmatically. Each channel is scoped to a specific persona and provides a curated set of tools.
 
 ---
 
 ## Overview
 
-MCP Gateways provide structured access to Hub for AI systems like ChatGPT, Claude, Gemini, and custom AI agents. Each gateway is **named by the persona it serves** and scoped accordingly.
+MCP Channels provide persona-scoped access to Hub for AI systems like ChatGPT, Claude, Gemini, and custom AI agents. All channels are served through the **MCP Router**, which handles authentication, authorization, and routing.
 
-### Gateway Summary
+### Channel Summary
 
-| Gateway | Persona(s) | Plane | Purpose |
+| Channel | Persona(s) | Plane | Purpose |
 |---------|------------|-------|---------|
 | **Tenant Admin** | Administrator | Control | Subscription management |
 | **Creator** | Process Architect, Developer | Control | Design and development |
@@ -22,11 +22,11 @@ MCP Gateways provide structured access to Hub for AI systems like ChatGPT, Claud
 
 ---
 
-## Gateway Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         MCP GATEWAY ARCHITECTURE                             │
+│                         MCP ARCHITECTURE                                     │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  AI ASSISTANTS                                                               │
@@ -39,7 +39,7 @@ MCP Gateways provide structured access to Hub for AI systems like ChatGPT, Claud
 │                          │                                                   │
 │                          ▼                                                   │
 │  ┌─────────────────────────────────────────────────────────────────────┐    │
-│  │                     MCP ORCHESTRATOR                                 │    │
+│  │                        MCP ROUTER                                    │    │
 │  │         (Authentication, Authorization, Routing, Rate Limiting)      │    │
 │  └─────────────────────────────────────────────────────────────────────┘    │
 │                          │                                                   │
@@ -47,28 +47,46 @@ MCP Gateways provide structured access to Hub for AI systems like ChatGPT, Claud
 │       ▼         ▼        ▼        ▼         ▼          ▼                    │
 │  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────────────┐       │
 │  │ Tenant  │ │ Creator │ │  Agent  │ │Supervisor│ │  Business User  │       │
-│  │  Admin  │ │ Gateway │ │ Gateway │ │ Gateway │ │     Gateway     │       │
-│  │ Gateway │ │         │ │         │ │         │ │                 │       │
+│  │  Admin  │ │ Channel │ │ Channel │ │ Channel │ │     Channel     │       │
+│  │ Channel │ │         │ │         │ │         │ │                 │       │
 │  └─────────┘ └─────────┘ └─────────┘ └─────────┘ └─────────────────┘       │
 │       │           │           │           │               │                 │
-│       │           │           │           │               │                 │
-│  Control Plane Gateways                    Data Plane Gateway               │
-│  (Hub Administration)                      (Request Initiation)             │
+│  Control Plane Channels                   Data Plane Channel                │
+│  (Hub Administration)                     (Request Initiation)              │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-All gateways are behind the MCP Orchestrator, which handles authentication, authorization, routing, and rate limiting uniformly.
+---
+
+## Router ↔ Channel Integration
+
+The **MCP Router** is the central infrastructure component that:
+1. Receives requests from AI assistants via Heracles
+2. Validates authentication (JWT)
+3. Determines target MCP Channel from persona context
+4. Applies channel-specific tool discovery filtering
+5. Routes to channel-scoped tool providers
+6. Aggregates responses and returns to client
+
+See [MCP Router](../05-infrastructure/mcp-router.md) for infrastructure details.
+
+| Responsibility | MCP Router | MCP Channel |
+|----------------|------------|-------------|
+| **Authentication** | JWT validation | N/A (handled by Router) |
+| **Authorization** | OPA policy evaluation | Tool-specific policies |
+| **Discovery** | Filter by channel scope | Define tool catalog |
+| **Routing** | Select channel, forward | Expose tools to Router |
 
 ---
 
-## Control Plane Gateways
+## Control Plane Channels
 
-### Tenant Admin MCP Gateway
+### Tenant Admin MCP Channel
 
 | Aspect | Description |
 |--------|-------------|
-| **Persona** | Administrator |
+| **Persona** | [Administrator](../08-personas-and-journeys/personas/administrator.md) |
 | **Scope** | Tenant Subscription |
 | **Purpose** | Subscription management via AI assistant |
 
@@ -80,11 +98,11 @@ All gateways are behind the MCP Orchestrator, which handles authentication, auth
 
 ---
 
-### Creator MCP Gateway
+### Creator MCP Channel
 
 | Aspect | Description |
 |--------|-------------|
-| **Persona** | Process Architect, Developer |
+| **Persona** | [Process Architect](../08-personas-and-journeys/personas/process-architect.md), [Developer](../08-personas-and-journeys/personas/developer.md) |
 | **Scope** | Workbench |
 | **Purpose** | Design and development assistance |
 
@@ -97,11 +115,11 @@ All gateways are behind the MCP Orchestrator, which handles authentication, auth
 
 ---
 
-### Agent MCP Gateway
+### Agent MCP Channel
 
 | Aspect | Description |
 |--------|-------------|
-| **Persona** | Agent |
+| **Persona** | [Agent](../08-personas-and-journeys/personas/agent.md) (Human/AI) |
 | **Scope** | Workbench |
 | **Purpose** | Task processing via AI assistant |
 
@@ -115,11 +133,11 @@ All gateways are behind the MCP Orchestrator, which handles authentication, auth
 
 ---
 
-### Supervisor MCP Gateway
+### Supervisor MCP Channel
 
 | Aspect | Description |
 |--------|-------------|
-| **Persona** | Supervisor |
+| **Persona** | [Supervisor](../08-personas-and-journeys/personas/supervisor.md) |
 | **Scope** | Workbench |
 | **Purpose** | Operations management via AI assistant |
 
@@ -133,9 +151,9 @@ All gateways are behind the MCP Orchestrator, which handles authentication, auth
 
 ---
 
-## Data Plane Gateway
+## Data Plane Channel
 
-### Business User MCP Gateway
+### Business User MCP Channel
 
 | Aspect | Description |
 |--------|-------------|
@@ -147,13 +165,13 @@ All gateways are behind the MCP Orchestrator, which handles authentication, auth
 
 #### Personas Served
 
-This gateway serves **Business Domain Actors** — users who interact with Hub to initiate or participate in business operations:
+This channel serves **Business Domain Actors** — users who interact with Hub to initiate or participate in business operations:
 
 | Persona | Description | Typical Interactions |
 |---------|-------------|---------------------|
-| **Business Customer** | End customer of the tenant's business | Self-serve requests, status queries, updates |
-| **Business Employee** | Employee assisting customers or handling internal work | Assisted requests, business operations |
-| **Business System Actor** | Automated systems initiating requests | System-triggered requests, integrations |
+| [**Business Customer**](../08-personas-and-journeys/personas/business-domain/business-customer.md) | End customer of the tenant's business | Self-serve requests, status queries, updates |
+| [**Business Employee**](../08-personas-and-journeys/personas/business-domain/business-employee.md) | Employee assisting customers or handling internal work | Assisted requests, business operations |
+| [**Business System Actor**](../08-personas-and-journeys/personas/business-domain/business-system-actor.md) | Automated systems initiating requests | System-triggered requests, integrations |
 
 See [Personas - Business Domain](../08-personas-and-journeys/README.md#business-domain-actors) for details.
 
@@ -195,7 +213,7 @@ See [Personas - Business Domain](../08-personas-and-journeys/README.md#business-
 
 ## Tool Exposure
 
-MCP Gateways expose Hub capabilities as MCP tools:
+MCP Channels expose Hub capabilities as MCP tools:
 
 | Category | Example Tools |
 |----------|--------------|
@@ -212,7 +230,7 @@ MCP Gateways expose Hub capabilities as MCP tools:
 | Aspect | Mechanism |
 |--------|-----------|
 | **Authentication** | OAuth 2.0, SPIFFE/SPIRE for workloads |
-| **Authorization** | OPA policies per gateway |
+| **Authorization** | OPA policies per channel |
 | **Scoping** | Tools scoped to persona capabilities |
 | **Audit** | All MCP invocations logged |
 | **Rate Limiting** | Per-client rate limits |
@@ -221,11 +239,10 @@ MCP Gateways expose Hub capabilities as MCP tools:
 
 ## Related Documentation
 
-- [MCP Orchestrator](../05-infrastructure/mcp-orchestrator.md)
-- [Heracles Gateway](../05-infrastructure/heracles-gateway.md)
-- [Tool Registry](../04-subsystems/registry-services/tool-registry.md)
+- [MCP Router](../05-infrastructure/mcp-router.md) — Infrastructure component for routing
+- [Heracles Gateway](../05-infrastructure/heracles-gateway.md) — API Gateway
+- [Tool Registry](../04-subsystems/registry-services/tool-registry.md) — Tool definitions
 
 ---
 
 *TODO: Detailed tool specifications, authorization policies, sample invocations*
-

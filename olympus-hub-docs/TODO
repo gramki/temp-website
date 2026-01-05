@@ -137,14 +137,16 @@ Storage Services
             - Agents & Access Management (Supervisor Desk)
         
     ## MCP Architecture:
-        - Tenant Admin MCP Gateway
-        - Creator MCP Gateway       
-        - Agent MCP Gateway 
-        - Supervisor MCP Gateway
-        ### Scenario MCP Gateway (Dataplane I/O Gateway):
-            - Business Request
-            - System Request
-            - Service Request
+        - MCP Router (infrastructure)
+        - MCP Channels (persona-scoped):
+            - Tenant Admin MCP Channel
+            - Creator MCP Channel       
+            - Agent MCP Channel 
+            - Supervisor MCP Channel
+            - Business User MCP Channel (Dataplane):
+                - Service Request
+                - Business Request
+                - System Request
         
 
 # Hub Operator Subsystem:

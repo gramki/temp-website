@@ -197,7 +197,7 @@ Heracles uses Kubernetes Custom Resources for configuration:
 
 - [Olympus Academy - Heracles](https://heracles.olympus.tech/)
 - [Heracles Gateway Infrastructure](../../05-infrastructure/heracles-gateway.md) - Detailed Kong/MCP configuration
-- [MCP Orchestrator](../../05-infrastructure/mcp-orchestrator.md) - MCP tool orchestration
+- [MCP Router](../../05-infrastructure/mcp-orchestrator.md) - MCP tool orchestration
 - [Hub Architecture - Signals](../../02-system-design/hub-architecture.md#13-signals)
 - [Cipher IAM](../supporting-systems/cipher-iam.md) - Authentication/authorization
 

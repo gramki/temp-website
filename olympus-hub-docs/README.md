@@ -201,7 +201,7 @@ Olympus Hub is an operations management platform designed for large and medium e
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Heracles Gateway](./05-infrastructure/heracles-gateway.md) | Kong-based MCP gateway design | ✅ Complete |
-| [MCP Orchestrator](./05-infrastructure/mcp-orchestrator.md) | Tool orchestration and resource service | ✅ Complete |
+| [MCP Router](./05-infrastructure/mcp-router.md) | Tool orchestration and resource service | ✅ Complete |
 | [Cloudflare Edge](./05-infrastructure/cloudflare-edge.md) | Edge layer, CDN, DDoS protection | 🔴 Stub |
 
 #### Platform Notes
@@ -400,7 +400,7 @@ olympus-hub-docs/
 ├── 05-infrastructure/           # Platform infrastructure
 │   ├── olympus-platform-dependencies.md  # Platform services catalog
 │   ├── heracles-gateway.md      # MCP gateway (Kong)
-│   ├── mcp-orchestrator.md      # Tool orchestration
+│   ├── mcp-router.md      # Tool orchestration
 │   ├── cloudflare-edge.md       # Edge layer
 │   ├── traffic-management.md    # Traffic notes (via Atlantis)
 │   ├── cipher-iam-infrastructure.md  # SPIFFE/SPIRE

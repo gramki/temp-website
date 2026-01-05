@@ -1,4 +1,4 @@
-# mcp-orch.md — Olympus Seer MCP Orchestrator & Resource Service
+# MCP Router & Resource Service
 
 ## Table of Contents
 1. [Purpose & Scope](#purpose--scope)  
@@ -6,28 +6,37 @@
 3. [Desired Architecture](#desired-architecture)  
 4. [Backends in the Agentic World](#backends-in-the-agentic-world)  
 5. [Tool Registration, Discovery & Lifecycle](#tool-registration-discovery--lifecycle)  
-6. [Orchestration Responsibilities](#orchestration-responsibilities)  
+6. [Routing Responsibilities](#routing-responsibilities)  
 7. [Interaction with Providers](#interaction-with-providers)  
 8. [Protocol Integration with Heracles](#protocol-integration-with-heracles)  
-9. [JSON-RPC Behavior in Orchestration](#json-rpc-behavior-in-orchestration)  
+9. [JSON-RPC Behavior in Routing](#json-rpc-behavior-in-routing)  
 10. [Standardized Error Codes & Conventions](#standardized-error-codes--conventions)  
 11. [Metrics (RPC Frame–Level)](#metrics-rpc-framelevel)  
 12. [Observability & Reporting](#observability--reporting)  
 13. [Security & Access Control](#security--access-control)  
-14. [mcp-resources (Resource Service)](#mcp-resources-resource-service)  
-15. [Operations Playbook](#operations-playbook)  
-16. [Roadmap & Open Questions](#roadmap--open-questions)  
+14. [MCP Channels Integration](#mcp-channels-integration)  
+15. [mcp-resources (Resource Service)](#mcp-resources-resource-service)  
+16. [Operations Playbook](#operations-playbook)  
+17. [Roadmap & Open Questions](#roadmap--open-questions)  
 
 ---
 
 ## Purpose & Scope
 
-This document defines **mcp-orch** (the Orchestrator) and **mcp-resources** (the Resource Service) as part of **Olympus Seer**.  
-It provides functional expectations, protocol-level details, and integration behaviors with **Heracles** (our Kong-based MCP Gateway).
+This document defines the **MCP Router** and **mcp-resources** (the Resource Service) as part of **Olympus Seer**.  
+It provides functional expectations, protocol-level details, and integration behaviors with **Heracles** (our Kong-based API Gateway).
 
-- **Scope:** session orchestration, tool registration/discovery, error handling, metrics, resource serving.  
+- **Scope:** Session routing, tool registration/discovery, error handling, metrics, resource serving, MCP Channel integration.  
 - **Not in scope:** technology stack or implementation-specific details.  
-- **Audience:** platform engineers familiar with Kong/Heracles, JWT, and OTel.  
+- **Audience:** platform engineers familiar with Kong/Heracles, JWT, and OTel.
+
+### Key Components
+
+| Component | Role |
+|-----------|------|
+| **MCP Router** | Central routing, authentication, authorization, session management |
+| **MCP Channels** | Persona-scoped access surfaces (see [MCP Channels](../06-ux-architecture/mcp-channels.md)) |
+| **mcp-resources** | Artifact/resource serving |  
 
 ---
 
@@ -51,8 +60,8 @@ Why orchestration? Because MCP sessions are long-lived, multi-turn, and often in
 flowchart LR
     C[Client App] --> CF[Cloudflare Edge]
     CF --> H[Heracles Gateway]
-    H -->|/mcp/booking| O1[mcp-orch : Booking]
-    H -->|/mcp/payments| O2[mcp-orch : Payments]
+    H -->|/mcp/booking| O1[MCP Router : Booking]
+    H -->|/mcp/payments| O2[MCP Router : Payments]
     H -->|/resources/booking| R1[mcp-resources : Booking]
     H -->|/resources/payments| R2[mcp-resources : Payments]
 
@@ -69,7 +78,7 @@ flowchart LR
 ```
 
 This topology illustrates the end-to-end flow:  
-- **Client → Cloudflare → Heracles → mcp-orch** for conversational and tool calls.  
+- **Client → Cloudflare → Heracles → MCP Router** for conversational and tool calls.  
 - **Client → Cloudflare → Heracles → mcp-resources** for artifact/resource fetches.  
 - Tool providers include both **simple services** (flight search, payment) and **agents** (fraud detection agent, booking agent).  
 
@@ -95,7 +104,7 @@ This topology illustrates the end-to-end flow:
 
 ## Tool Registration, Discovery & Lifecycle
 
-### Registration (Provider → mcp-orch)
+### Registration (Provider → MCP Router)
 All tools **must** register with:  
 - `name`, `namespace`, `version`, `description`.  
 - `input_schema`, `output_schema`.  
@@ -108,12 +117,12 @@ All tools **must** register with:
   - **Policy specification**: Each tool must include Rego policy for access control and discovery.  
 - `provider_id`, retry hints, SLA hints.  
 
-### Discovery (mcp-orch → Clients)
+### Discovery (MCP Router → Clients)
 - Aggregates all registered tools.  
 - Applies **discoverability rules** → client sees only entitled tools.  
 - **Templatized tool names and endpoints:** supports dynamic tool configuration using header values.
   - Tool names and endpoints can contain Mustache template variables (e.g., `{{tenant.id}}`, `{{subject.id}}`, `{{client.id}}`).
-  - During discovery, mcp-orch replaces template variables with actual values from forwarded headers.
+  - During discovery, MCP Router replaces template variables with actual values from forwarded headers.
   - **Template Engine**: Mustache templates for logic-less variable substitution.
   - **Template Syntax**: `{{variable}}` format (e.g., `{{tenant.id}}`, `{{subject.id}}`).
   - Available template variables: `{{tenant.id}}`, `{{subject.id}}`, `{{client.id}}`, `{{client.app}}`, `{{auth.session.id}}`, `{{mcp.session.id}}`.
@@ -122,14 +131,15 @@ All tools **must** register with:
 
 ### Lifecycle
 - `register`, `update`, `suspend`, `resume`, `deregister`.  
-- mcp-orch enforces lifecycle: unregistered or suspended tools cannot be invoked.  
+- MCP Router enforces lifecycle: unregistered or suspended tools cannot be invoked.  
 
 ---
 
-## Orchestration Responsibilities
+## Routing Responsibilities
 
 - Accept `X-MCP-Transport-Session` from Heracles, correlate all frames.  
 - Parse JSON-RPC frames; dispatch to registered providers.  
+- **Route requests through appropriate MCP Channel** based on persona context.
 - Forward headers:  
   - `X-MCP-Transport-Session`  
   - `X-Client-Id`  
@@ -148,7 +158,7 @@ All tools **must** register with:
 ## Interaction with Providers
 
 - Providers must implement **HTTP(S) or Streamable HTTP**.  
-- mcp-orch forwards required headers:  
+- MCP Router forwards required headers:  
   - `X-MCP-Transport-Session`  
   - `X-Client-Id`  
   - `X-Client-App`
@@ -185,7 +195,7 @@ All tools **must** register with:
 
 ---
 
-## JSON-RPC Behavior in Orchestration
+## JSON-RPC Behavior in Routing
 
 - Supported frame types: `request`, `result`, `error`, `progress`.  
 - Session lifecycle: `initialize` → multi-turn dialogue → `finalize`.  
@@ -196,7 +206,7 @@ All tools **must** register with:
 
 ## Standardized Error Codes & Conventions
 
-mcp-orch aligns errors to **HTTP status conventions**:  
+MCP Router aligns errors to **HTTP status conventions**:  
 
 - `400` Invalid frame, validation failed.  
 - `401/403` Unauthorized/Forbidden.  
@@ -217,7 +227,7 @@ mcp-orch aligns errors to **HTTP status conventions**:
 
 ## Metrics (RPC Frame–Level)
 
-mcp-orch must emit detailed metrics:  
+MCP Router must emit detailed metrics:  
 
 - **Per RPC call:**  
   - Latency histograms: time-to-first-byte, time-to-last-byte.  
@@ -253,6 +263,7 @@ Metrics exported via **OTel**.
   - Invocation rules.  
   - Discoverability rules.  
 - Enforces resource scoping: resources tied to specific `<mcp-server-name>`.
+- **MCP Channel scoping**: Routes to appropriate channel based on persona context.
 - **Policy Engine Integration**: OPA (Open Policy Agent) for embedded policy evaluation.
   - **Reference**: [OPA Documentation](https://www.openpolicyagent.org/docs/)
   - **Rego Language**: [Rego Policy Language Guide](https://www.openpolicyagent.org/docs/latest/policy-language/)
@@ -262,7 +273,50 @@ Metrics exported via **OTel**.
   - Each tool must provide Rego policies for access control and discovery.
   - Policies evaluated at runtime using forwarded header values.
   - Template variables supported: `{tenant.id}`, `{subject.id}`, `{client.id}`, `{client.app}`, `{auth.session.id}`, `{mcp.session.id}`.
-  - `{auth.session.scope}` available for policy evaluation but not in templates.  
+  - `{auth.session.scope}` available for policy evaluation but not in templates.
+
+---
+
+## MCP Channels Integration
+
+The MCP Router works with **MCP Channels** to provide persona-scoped access to Hub capabilities.
+
+### Channel Routing
+
+| Channel | Persona | Tool Scope |
+|---------|---------|------------|
+| **Tenant Admin** | Administrator | Subscription management tools |
+| **Creator** | Process Architect, Developer | Design and development tools |
+| **Agent** | Agent (Human/AI) | Task processing tools |
+| **Supervisor** | Supervisor | Operations management tools |
+| **Business User** | Customer, Employee, System | Request initiation tools |
+
+### Router → Channel Flow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        MCP ROUTER                               │
+│                                                                  │
+│   1. Receive request from Heracles                              │
+│   2. Validate JWT, extract persona context                      │
+│   3. Determine target MCP Channel from persona                  │
+│   4. Apply channel-specific tool discovery filtering            │
+│   5. Route to channel-scoped tool providers                     │
+│   6. Aggregate responses, return to client                      │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Channel-Specific Behaviors
+
+| Aspect | Router Responsibility | Channel Responsibility |
+|--------|----------------------|------------------------|
+| **Authentication** | JWT validation | N/A (handled by Router) |
+| **Authorization** | OPA policy evaluation | Tool-specific policies |
+| **Discovery** | Filter by channel scope | Define tool catalog |
+| **Routing** | Select channel, forward | Expose tools to Router |
+
+See [MCP Channels](../06-ux-architecture/mcp-channels.md) for channel definitions and capabilities.  
 
 ---
 
@@ -334,9 +388,9 @@ Every tool specification must have a corresponding tool provider application ide
 - **Bot Identity**: Autonomous agents receive independent bot identities in Cipher IAM
 
 ### Authorization Flow
-When a tool requires authorization from the subject, mcp-orch initiates an authorization dialog:
+When a tool requires authorization from the subject, MCP Router initiates an authorization dialog:
 
-1. **Authorization Request**: mcp-orch presents authorization request to client
+1. **Authorization Request**: MCP Router presents authorization request to client
 2. **Tool Provider Identification**: Provides names of tools requiring authorization
 3. **Client Interaction**: Client contacts Cipher through MCP tools
 4. **OIDC Access Grant**: Cipher presents OIDC-compliant access grant dialog
@@ -370,24 +424,24 @@ For autonomous usage, tool-providers must request authorization tokens for each 
 
 ### Token Types
 - **Grant JWT**: Long-lived or perpetual tokens stored by Cipher for privilege grants
-- **Authorization JWT**: Short-lived session tokens issued to mcp-orch and tool-providers for actual usage
+- **Authorization JWT**: Short-lived session tokens issued to MCP Router and tool-providers for actual usage
 
 ### Token Management
 - **Grant Tokens**: Long-lived or perpetual tokens stored by Cipher, never exposed to tool-providers
-- **Authorization Tokens**: Short-lived tokens (few minutes) issued to mcp-orch and tool-providers
+- **Authorization Tokens**: Short-lived tokens (few minutes) issued to MCP Router and tool-providers
 - **Tool-Provider Tokens**: Inaccessible and unusable by any application other than tool-provider
-- **Client/Transport Bound Tokens**: Retrievable only by mcp-orch, used only where permitted
+- **Client/Transport Bound Tokens**: Retrievable only by MCP Router, used only where permitted
 - **Token Persistence**: Tool providers may not persist authorization tokens
-- **Usability Checks**: mcp-orch verifies token usability before forwarding
+- **Usability Checks**: MCP Router verifies token usability before forwarding
 - **Autonomous Sessions**: Each autonomous session requires fresh authorization token request
 
 ### Token Forwarding
 - **Header**: JWT forwarded as `X-Tool-Authorization` HTTP header
-- **Verification**: mcp-orch verifies token usability in current transport session
+- **Verification**: MCP Router verifies token usability in current transport session
 - **Client Transparency**: Client proceeds with tool use without presenting tokens directly
 
 ### Cipher Integration
-Cipher IAM provides tools through mcp-orch for:
+Cipher IAM provides tools through MCP Router for:
 - **Privilege Management**: Users can manage tool-provider privileges
 - **Effective Privileges**: Query available privileges for tool-providers in transport session
 - **OIDC Compliance**: Full OIDC-compliant IAM service
@@ -406,7 +460,7 @@ Cipher IAM provides tools through mcp-orch for:
 ## OPA Policy Engine Integration
 
 ### Embedded Policy Evaluation
-- **Architecture**: OPA embedded within mcp-orch for high-performance policy evaluation.
+- **Architecture**: OPA embedded within MCP Router for high-performance policy evaluation.
 - **Policy Language**: Rego for declarative access control and discovery rules.
 - **Evaluation Context**: Policies receive forwarded header values and tool metadata.
 

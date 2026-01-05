@@ -13,7 +13,7 @@ The Tool Registry is the **catalog of tools available for agent and automation u
 | **Purpose** | Catalog tool protocols and concrete tool instances |
 | **Consumers** | AI Agents (via Seer), Automation Runtimes, Human Agents |
 | **Scope** | Tool Protocols in Machine Definitions + Concrete Tools bound to Machines |
-| **Integration** | Machine Registry, MCP Orchestrator, Seer Context Assembly |
+| **Integration** | Machine Registry, MCP Router, Seer Context Assembly |
 
 ---
 
@@ -297,9 +297,9 @@ When an agent or automation requests a tool:
 
 ---
 
-## MCP Orchestrator Integration
+## MCP Router Integration
 
-The Tool Registry integrates with MCP Orchestrator for agent tool access:
+The Tool Registry integrates with MCP Router for agent tool access:
 
 | MCP Concept | Tool Registry Role |
 |-------------|-------------------|
@@ -307,7 +307,7 @@ The Tool Registry integrates with MCP Orchestrator for agent tool access:
 | **Tool Schema** | Protocol specification served as MCP schema |
 | **Access Control** | OPA policies reference Tool Registry permissions |
 | **Template Variables** | Mustache templates resolved from tool/machine variables |
-| **Invocation** | MCP Orchestrator routes to Machine endpoint |
+| **Invocation** | MCP Router routes to Machine endpoint |
 
 ---
 
@@ -339,7 +339,7 @@ Each Workbench defines:
 
 - [Registry Services Overview](./README.md)
 - [Machine Registry](./machine-registry.md) — Machine definitions and instances
-- [MCP Orchestrator](../../05-infrastructure/mcp-orchestrator.md)
+- [MCP Router](../../05-infrastructure/mcp-orchestrator.md)
 - [Heracles Gateway](../../05-infrastructure/heracles-gateway.md)
 
 ---

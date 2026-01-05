@@ -118,7 +118,7 @@ Temporary session data for:
 |---------|-------|
 | **Heracles Gateway** | Rate limiting, session cache |
 | **Signal Exchange** | Flow control counters |
-| **MCP Orchestrator** | Session state cache |
+| **MCP Router** | Session state cache |
 | **Subscription Management** | Quota tracking |
 
 ---

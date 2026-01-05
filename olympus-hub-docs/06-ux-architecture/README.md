@@ -273,7 +273,7 @@ Hub exposes Model Context Protocol (MCP) gateways for AI agent integration.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-See [MCP Gateways](./mcp-gateways.md) for details.
+See [MCP Channels](./mcp-channels.md) for details.
 
 ---
 
@@ -326,7 +326,7 @@ See [Hercules Launcher](./hercules-launcher.md) for details.
 | [Agent Desk](./agent-desk.md) | Agent operations console | 🔴 Stub |
 | [Supervisor Desk](./supervisor-desk.md) | Supervisor management console | 🔴 Stub |
 | [Admin Desk](./admin-desk.md) | Workbench admin console | 🔴 Stub |
-| [MCP Gateways](./mcp-gateways.md) | MCP architecture | 🔴 Stub |
+| [MCP Channels](./mcp-channels.md) | MCP architecture | 🔴 Stub |
 | [Angelos Framework](./angelos-framework.md) | UI component framework | 🔴 Stub |
 | [Hercules Launcher](./hercules-launcher.md) | Launch URL service | 🔴 Stub |
 | [Neutrino Integration](./neutrino-integration.md) | Customer channel integration | 🔴 Stub |
