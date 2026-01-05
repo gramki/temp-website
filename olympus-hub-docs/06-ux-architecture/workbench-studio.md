@@ -164,7 +164,7 @@ spec:
 - [Process Architect Persona](../08-personas-and-journeys/personas/process-architect.md)
 - [Developer Persona](../08-personas-and-journeys/personas/developer.md)
 - [Scenario Development Journey](../08-personas-and-journeys/journeys/scenario-development.md)
-- [Angelos Framework](./angelos-framework.md)
+- [Angelos Framework](./frameworks-and-integrations/angelos-framework.md)
 
 ---
 

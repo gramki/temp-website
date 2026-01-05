@@ -150,7 +150,7 @@ Agent Desk
 - [Agent Persona](../08-personas-and-journeys/personas/agent.md)
 - [Task Management](../04-subsystems/task-management/README.md)
 - [Request Lifecycle Journey](../08-personas-and-journeys/journeys/request-lifecycle.md)
-- [Angelos Framework](./angelos-framework.md)
+- [Angelos Framework](./frameworks-and-integrations/angelos-framework.md)
 
 ---
 

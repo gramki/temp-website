@@ -21,7 +21,7 @@
 | Feature | Description |
 |---------|-------------|
 | **Workbench List** | All workbenches the user has access to, with quick stats |
-| **My Tasks** | Tasks assigned to the user across all workbenches |
+| **My Tasks** | Summary of tasks assigned to the user, grouped by Workbench (not a task queue; to view and act on tasks, use the corresponding Agent Desk) |
 | **Quick Actions** | Shortcuts to common operations |
 | **Alerts & Notifications** | Real-time updates requiring attention |
 | **Recent Activity** | Recently accessed requests, tasks, entities |

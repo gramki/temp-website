@@ -106,7 +106,7 @@ Hub treats these as first-class interaction channels:
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[Neutrino Channels](./neutrino-integration.md)** | Business Customer | Self-serve, track requests, complete subject tasks |
+| **[Neutrino Channels](./frameworks-and-integrations/neutrino-integration.md)** | Business Customer | Self-serve, track requests, complete subject tasks |
 
 ---
 
@@ -296,7 +296,7 @@ Key capabilities:
 - **Component Binders** — Event wiring between components
 - **Action Repository** — Reusable action definitions
 
-See [Angelos Framework](./angelos-framework.md) for details.
+See [Angelos Framework](./frameworks-and-integrations/angelos-framework.md) for details.
 
 ### Hercules Framework & Launcher
 
@@ -311,7 +311,7 @@ Hercules Launcher provides deep-linking into Hub applications via Launch URLs:
 | **Tenant Scoping** | Bound to web stack subscription |
 | **CTA Generation** | Dynamic links in notifications and emails |
 
-See [Hercules Launcher](./hercules-launcher.md) for details.
+See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for details.
 
 ---
 
@@ -327,10 +327,10 @@ See [Hercules Launcher](./hercules-launcher.md) for details.
 | [Supervisor Desk](./supervisor-desk.md) | Supervisor management console | 🔴 Stub |
 | [Steward Desk](./steward-desk.md) | Workbench admin console | 🔴 Stub |
 | [MCP Channels](./mcp-channels.md) | MCP architecture | 🔴 Stub |
-| [Angelos Framework](./angelos-framework.md) | UI component framework | 🔴 Stub |
-| [Hercules Launcher](./hercules-launcher.md) | Launch URL service | 🔴 Stub |
-| [Neutrino Integration](./neutrino-integration.md) | Customer channel integration | 🔴 Stub |
-| [User Interaction Channels](./user-interaction-channels.md) | Subject interaction patterns | ⚠️ Notes |
+| [Angelos Framework](./frameworks-and-integrations/angelos-framework.md) | UI component framework | 🔴 Stub |
+| [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) | Launch URL service | 🔴 Stub |
+| [Neutrino Integration](./frameworks-and-integrations/neutrino-integration.md) | Customer channel integration | 🔴 Stub |
+| [User Interaction Channels](./frameworks-and-integrations/user-interaction-channels.md) | Subject interaction patterns | ⚠️ Notes |
 
 > **TODO:** Clarify Product Center and Report Center — separate applications for Tenant Executives (configuration, analytics, reporting).
 
