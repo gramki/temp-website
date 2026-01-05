@@ -81,7 +81,9 @@ Signal Providers must register with Signal Exchange before they can send or rece
 
 ### Incoming Signal DTO Schema
 
-Defines the structure of signals that the Signal Provider sends to Signal Exchange:
+Defines the structure of signals that the Signal Provider sends to Signal Exchange.
+
+> **Note:** All signals are scoped to a **Tenant** and **Subscription**. These are required in the signal header.
 
 ```json
 {
@@ -92,8 +94,16 @@ Defines the structure of signals that the Signal Provider sends to Signal Exchan
   "properties": {
     "signal_header": {
       "type": "object",
-      "required": ["signal_id", "signal_type", "timestamp"],
+      "required": ["tenant_id", "subscription_id", "signal_id", "signal_type", "timestamp"],
       "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Tenant scope for this signal"
+        },
+        "subscription_id": {
+          "type": "string",
+          "description": "Subscription scope for this signal"
+        },
         "signal_id": {
           "type": "string",
           "description": "Unique identifier for this signal"
@@ -134,7 +144,9 @@ Defines the structure of signals that the Signal Provider sends to Signal Exchan
 
 ### Outgoing Message DTO Schema
 
-Defines the structure of messages Signal Exchange sends to the Signal Provider (for I/O Gateways that receive responses):
+Defines the structure of messages Signal Exchange sends to the Signal Provider (for I/O Gateways that receive responses).
+
+> **Note:** All outgoing messages include **Tenant** and **Subscription** scope in the message header.
 
 ```json
 {
@@ -145,8 +157,16 @@ Defines the structure of messages Signal Exchange sends to the Signal Provider (
   "properties": {
     "message_header": {
       "type": "object",
-      "required": ["message_id", "message_type", "timestamp"],
+      "required": ["tenant_id", "subscription_id", "message_id", "message_type", "timestamp"],
       "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Tenant scope for this message"
+        },
+        "subscription_id": {
+          "type": "string",
+          "description": "Subscription scope for this message"
+        },
         "message_id": {
           "type": "string",
           "description": "Unique identifier for this message"

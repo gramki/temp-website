@@ -57,10 +57,12 @@ The envelope provides:
 
 ### Envelope Contents Summary
 
+All messages are scoped to a **Tenant** and **Subscription**. This context is always present in the envelope.
+
 | Direction | Envelope Contains |
 |-----------|-------------------|
-| **SX → HA** | Origination info, Originator, Request metadata (incl. subject), Environment (Workbench/Scenario/Request scoped), Payload with content_type and semantic_type |
-| **HA → SX** | Request identification (workbench, scenario, request-id), Hub-specified update payload, Optional piggyback_payload with content_type and object_type |
+| **SX → HA** | Tenant/Subscription scope, Origination info, Originator, Request metadata (incl. subject), Environment (Workbench/Scenario/Request scoped), Payload with content_type and semantic_type |
+| **HA → SX** | Tenant/Subscription scope, Request identification (workbench, scenario, request-id), Hub-specified update payload, Optional piggyback_payload with content_type and object_type |
 
 ---
 
@@ -143,7 +145,9 @@ Sent when a new Request is created:
     "version": "1.0",
     "message_type": "REQUEST_INITIATION",
     "message_id": "uuid",
-    "timestamp": "2026-01-04T10:30:00Z"
+    "timestamp": "2026-01-04T10:30:00Z",
+    "tenant_id": "acme-bank",
+    "subscription_id": "sub-prod-001"
   },
   
   "origination": {
@@ -199,7 +203,9 @@ Sent when subsequent signals update an existing Request:
     "version": "1.0",
     "message_type": "REQUEST_UPDATE",
     "message_id": "uuid",
-    "timestamp": "2026-01-04T10:35:00Z"
+    "timestamp": "2026-01-04T10:35:00Z",
+    "tenant_id": "acme-bank",
+    "subscription_id": "sub-prod-001"
   },
   
   "origination": {
@@ -371,6 +377,7 @@ Hub Applications send **Request Update** messages to Signal Exchange. All messag
 
 | Requirement | Description |
 |-------------|-------------|
+| **Tenant/Subscription Scope** | Every message MUST include `tenant_id` and `subscription_id` as received in earlier SX → HA messages |
 | **Request Identification** | Every message MUST include `workbench_id`, `scenario_id`, `request_id` as received in earlier SX → HA messages |
 | **Hub-Specified Payloads** | Each `update_type` has a Hub-defined payload structure (see sub-types below) |
 | **Piggyback Payload** | Applications MAY include additional custom data in `piggyback_payload` |
@@ -386,7 +393,9 @@ Applications respond to `REQUEST_INITIATION` or `REQUEST_UPDATE` (from SX) with 
     "version": "1.0",
     "message_type": "REQUEST_RESPONSE",
     "message_id": "uuid",
-    "timestamp": "2026-01-04T10:32:00Z"
+    "timestamp": "2026-01-04T10:32:00Z",
+    "tenant_id": "acme-bank",
+    "subscription_id": "sub-prod-001"
   },
   
   "request": {
@@ -454,7 +463,9 @@ REQUEST_UPDATE (from Application)
     "version": "1.0",
     "message_type": "REQUEST_UPDATE",
     "message_id": "uuid",
-    "timestamp": "2026-01-04T12:45:00Z"
+    "timestamp": "2026-01-04T12:45:00Z",
+    "tenant_id": "acme-bank",            // Required: as received from SX
+    "subscription_id": "sub-prod-001"    // Required: as received from SX
   },
   
   "request": {
