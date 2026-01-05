@@ -26,10 +26,11 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 
 | Document | Description | Status | Priority |
 |----------|-------------|--------|----------|
-| [README.md](./04-subsystems/signal-exchange/README.md) | Signal Exchange overview — the data plane | 🔴 Stub | Critical |
-| [message-envelope.md](./04-subsystems/signal-exchange/message-envelope.md) | Standard envelope, request states, response status | 🔴 Stub | Critical |
+| [README.md](./04-subsystems/signal-exchange/README.md) | Signal Exchange overview — message-oriented data plane | 🟡 WIP | Critical |
+| [signal-provider-interactions.md](./04-subsystems/signal-exchange/signal-provider-interactions.md) | Signal Provider registration, DTOs, filters, triggers | 🟡 WIP | Critical |
+| [message-envelope.md](./04-subsystems/signal-exchange/message-envelope.md) | Signal Exchange ↔ Hub Application DTOs | 🟡 WIP | Critical |
 | [trigger-evaluator.md](./04-subsystems/signal-exchange/trigger-evaluator.md) | Trigger matching and transformation | 🔴 Stub | Critical |
-| [request-factory.md](./04-subsystems/signal-exchange/request-factory.md) | Request creation and updates | 🔴 Stub | Critical |
+| [request-factory.md](./04-subsystems/signal-exchange/request-factory.md) | Request creation from Request Mutation DTOs | 🟡 WIP | Critical |
 | [application-router.md](./04-subsystems/signal-exchange/application-router.md) | Routing Requests to Hub Applications | 🔴 Stub | Critical |
 | [response-transformer.md](./04-subsystems/signal-exchange/response-transformer.md) | Response transformation for I/O Gateways | 🔴 Stub | High |
 | [flow-controller.md](./04-subsystems/signal-exchange/flow-controller.md) | Flow control and store-and-forward | 🔴 Stub | High |

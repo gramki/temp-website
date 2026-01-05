@@ -1,8 +1,41 @@
 # Message Envelope
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft — Under active development
 
 The Signal Exchange enforces a **standard message envelope** for all communication with Hub Applications, regardless of application-specific payloads.
+
+---
+
+## Scope
+
+This document defines the DTOs for **Signal Exchange ↔ Hub Application** communication:
+
+```
+┌────────────────────┐                    ┌────────────────────┐
+│  Signal Provider   │                    │   Hub Application  │
+└─────────┬──────────┘                    └─────────┬──────────┘
+          │                                         │
+          │ Signal Provider DTOs                    │ Application DTOs
+          │ (see signal-provider-interactions.md)   │ (this document)
+          │                                         │
+          ▼                                         ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                       SIGNAL EXCHANGE                            │
+│                                                                  │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │           MESSAGE ENVELOPE (This Document)               │   │
+│   │                                                          │   │
+│   │   • Request Initiation DTO    (Exchange → App)           │   │
+│   │   • Request Update DTO        (Exchange → App)           │   │
+│   │   • Request Response DTO      (App → Exchange)           │   │
+│   │   • Async Update DTO          (App → Exchange)           │   │
+│   │                                                          │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+For **Signal Provider ↔ Signal Exchange** DTOs, see [Signal Provider Interactions](./signal-provider-interactions.md).
 
 ---
 
@@ -11,7 +44,7 @@ The Signal Exchange enforces a **standard message envelope** for all communicati
 | Aspect | Description |
 |--------|-------------|
 | **Purpose** | Standard contract for all Hub Application communication |
-| **Scope** | All request initiation, updates, and responses |
+| **Scope** | Signal Exchange ↔ Hub Application messages |
 | **Payload** | Application-specific and Scenario-specific payloads are embedded within the envelope |
 
 The envelope provides:

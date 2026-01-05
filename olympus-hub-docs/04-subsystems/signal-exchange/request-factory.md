@@ -1,8 +1,8 @@
 # Request Factory
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft — Under active development
 
-The Request Factory creates new Requests or updates existing Requests based on transformed signal payloads.
+The Request Factory creates new Requests or updates existing Requests based on **Request Mutation DTOs** produced by Triggers.
 
 ---
 
@@ -10,10 +10,23 @@ The Request Factory creates new Requests or updates existing Requests based on t
 
 | Attribute | Value |
 |-----------|-------|
-| **Purpose** | Create and update Requests from transformed signals |
-| **Input** | Transformed payloads from Trigger Evaluator |
-| **Output** | Requests routed to Application Router |
+| **Purpose** | Create and update Requests from Request Mutation DTOs |
+| **Input** | Request Mutation DTOs from Trigger Evaluator |
+| **Output** | Requests dispatched to Application Router |
 | **State** | Interacts with Request Management for persistence |
+
+---
+
+## Request Mutation DTO
+
+The **Request Mutation DTO** is the standard input format for the Request Factory. Triggers transform Incoming Signal DTOs into Request Mutation DTOs.
+
+| Mutation Type | Description |
+|---------------|-------------|
+| **INITIATION** | Create a new Request |
+| **UPDATE** | Update an existing Request |
+
+See [Signal Provider Interactions](./signal-provider-interactions.md#request-mutation-dto) for the full DTO schema.
 
 ---
 
@@ -21,10 +34,11 @@ The Request Factory creates new Requests or updates existing Requests based on t
 
 | Function | Description |
 |----------|-------------|
-| **Request Creation** | Create new Request instances |
-| **Request Updates** | Update existing Requests with new signal data |
+| **Request Creation** | Create new Request instances from INITIATION mutations |
+| **Request Updates** | Update existing Requests from UPDATE mutations |
+| **Observer Registration** | Auto-register originating Signal Provider as observer |
 | **Session Binding** | Bind Request to Application session |
-| **Idempotency** | Prevent duplicate Request creation |
+| **Idempotency** | Prevent duplicate Request creation via idempotency keys |
 | **Request Typing** | Apply correct Request type (Service/Business/System) |
 
 ---

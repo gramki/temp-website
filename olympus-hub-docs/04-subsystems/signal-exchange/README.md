@@ -1,8 +1,10 @@
 # Signal Exchange
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft — Under active development
 
-The Signal Exchange is the **data plane** that handles the bidirectional flow of signals and responses between Signal Providers and Hub Applications. It also provides **flow control** and can operate as a **store-and-forward engine** when configured.
+The Signal Exchange is the **data plane** that handles the bidirectional flow of signals and responses between Signal Providers and Hub Applications. It is a **message-oriented system** (similar to Atropos and OMS*) that provides **flow control** and can operate as a **store-and-forward engine** when configured.
+
+> *OMS (Olympus Message System) is an in-house broker-less message exchange framework similar to ZeroMQ.
 
 ---
 
@@ -97,7 +99,8 @@ The Signal Exchange is responsible for:
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Message Envelope](./message-envelope.md) | Standard envelope for Application communication | 🔴 Stub |
+| [Signal Provider Interactions](./signal-provider-interactions.md) | Signal Provider registration, DTOs, filters, triggers | 🟡 Draft |
+| [Message Envelope](./message-envelope.md) | Signal Exchange ↔ Hub Application DTOs | 🟡 Draft |
 | [Trigger Evaluator](./trigger-evaluator.md) | Trigger matching and transformation | 🔴 Stub |
 | [Request Factory](./request-factory.md) | Request creation and updates | 🔴 Stub |
 | [Application Router](./application-router.md) | Routing to Hub Applications | 🔴 Stub |
@@ -267,14 +270,25 @@ Long-running Applications (workflows, durable workflows, case management) can se
 
 ## Integration Points
 
-| Component | Integration |
-|-----------|-------------|
-| **Workbench Management** | Trigger definitions, Scenario → Application mappings |
-| **Signal Providers** | Signal intake |
-| **I/O Gateways** | Signal intake + response delivery |
-| **Automation Runtimes** | Hub Application invocation |
-| **Request Management** | Request state, storage, entity binding |
-| **CAF** | Decision records for routing decisions |
+| Component | Integration | Protocol |
+|-----------|-------------|----------|
+| **Signal Providers** | Signal intake, observer notifications | Message (Atropos/OMS) |
+| **I/O Gateways** | Signal intake + response delivery | Message (Atropos/OMS) |
+| **Hub Applications** | Request dispatch, response handling | Message (Atropos/OMS) |
+| **Workbench Management** | Trigger definitions, Scenario → Application mappings | Internal |
+| **Request Management** | Request state, storage, entity binding | Internal |
+| **CAF** | Decision records for routing decisions | Internal |
+
+### Interface Separation
+
+| Interface | Protocol | Use Case |
+|-----------|----------|----------|
+| **Signal Exchange** | Message (Atropos/OMS) | Create or update Hub Requests |
+| **Request Lifecycle** | HTTP REST | Lifecycle enquiry, status checks, cancellation |
+
+> **Note:** Signal Providers use the **Signal Exchange** message interface for interactions that create or update Requests. For **lifecycle and enquiry** operations, Signal Providers can use the **Request Lifecycle** module's HTTP interface.
+
+See [Signal Provider Interactions](./signal-provider-interactions.md) for details.
 
 ---
 
