@@ -16,7 +16,7 @@ The Signal Exchange is responsible for:
 |----------|-------------|
 | **Inbound Routing** | Signal Provider → Trigger Evaluation → Request Creation/Update → Application Router → Hub Application |
 | **Outbound Routing** | Hub Application Response → Response Transformation → I/O Gateway |
-| **Async Update Capture** | Receive intermediate updates from long-running Applications |
+| **Request Update Capture** | Receive intermediate updates (REQUEST_UPDATE) from long-running Applications |
 | **Observer Notifications** | Dispatch Request Updates to registered observer modules (NOT to agents/tasks directly) |
 | **Flow Control** | Rate limiting, back-pressure, throttling per Scenario |
 | **Store-and-Forward** | Optional buffering and reliable delivery (configurable per Scenario) |
@@ -234,12 +234,12 @@ scenario:
 3. I/O Gateway delivers response to originator
 ```
 
-### Async Update Flow (Application → Observers)
+### Request Update Flow (Application → Observers)
 
-Long-running Applications (workflows, durable workflows, case management) can send intermediate updates:
+Long-running Applications (workflows, durable workflows, case management) can send intermediate updates via `REQUEST_UPDATE` messages:
 
 ```
-1. Hub Application sends async update to Signal Exchange
+1. Hub Application sends REQUEST_UPDATE to Signal Exchange
 2. Signal Exchange captures update:
    a. Updates Request state (if state change)
    b. Records update details in Request history
@@ -249,6 +249,8 @@ Long-running Applications (workflows, durable workflows, case management) can se
    c. Delivers to observer modules (NOT to agents/tasks directly)
 4. Observer modules receive notification and determine user-level actions
 ```
+
+> **Note:** In Signal Exchange ↔ Hub Application interactions, **Async Update and Request Update are the same concept**. Both use `REQUEST_UPDATE` message type.
 
 **Critical Principle:**
 - Signal Exchange dispatches Request Updates to **observer modules** (e.g., MS Teams module, Neutrino, Ops Center)

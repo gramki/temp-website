@@ -206,6 +206,24 @@ Defines the structure of messages Signal Exchange sends to the Signal Provider (
 
 > **Key Principle:** All outgoing messages are in context of a **Request** and contain standard **request-update envelope data** as the schema supports.
 
+### Outgoing Message DTO Carries Request Mutations
+
+The **Outgoing Message DTO** is how Signal Providers receive **all Request mutations**:
+
+| Mutation Type | Description | Example |
+|---------------|-------------|---------|
+| **Status Change** | Request status transitions (ACTIVE, PENDING, COMPLETED, CANCELLED) | Request moved to PENDING awaiting documents |
+| **Task Lifecycle** | Task created, picked, acted upon, escalated | Task assigned to agent-123 |
+| **Decision** | Decision records with evidence references | Dispute validity determined |
+| **Thought** | Reasoning or rationale comments | Agent explains prioritization logic |
+| **Memo** | Scoped notes for future reference | Customer preference noted |
+| **Memory Update** | Subject/Org/Session memory updates | Customer preference stored |
+| **Progress** | Progress indicators | 60% complete |
+| **Milestone** | Significant checkpoints | Document verification complete |
+| **Error** | Recoverable errors or warnings | Document unreadable |
+
+These are delivered via the `request_update_envelope` and `payload` fields in the Outgoing Message DTO.
+
 ---
 
 ## Signal Acknowledgement
@@ -286,6 +304,8 @@ Signal Providers that **initiate a Request** are automatically registered as **o
 
 ## Signal Definitions and Triggers
 
+> **Note:** The transformation from Incoming Signal DTO to internal Request handling is managed within Signal Exchange. The **Request Mutation DTO** described below is an **internal artifact** — it is NOT exchanged between Signal Provider and Signal Exchange. Signal Providers receive Request updates via the **Outgoing Message DTO**.
+
 ### Signal Definition
 
 A **Signal Definition** is a **filter** defined using the Signal Provider's Incoming Signal DTO:
@@ -360,9 +380,11 @@ The Trigger is responsible for:
 
 ---
 
-## Request Mutation DTO
+## Request Mutation DTO (Internal)
 
-The **Request Mutation DTO** is the standard message format that Triggers produce for Signal Exchange. This is used for both Request Initiation and Request Updates.
+> **Scope:** The Request Mutation DTO is an **internal artifact** within Signal Exchange. It flows from **Trigger Evaluator → Request Factory**. It is NOT exchanged with Signal Providers.
+
+The **Request Mutation DTO** is the standard internal message format that Triggers produce. This is used for both Request Initiation and Request Updates.
 
 ### Request Initiation DTO
 

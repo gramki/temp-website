@@ -99,10 +99,12 @@ Tracks the overall business status of the Request:
 
 | Type | Direction | Purpose |
 |------|-----------|---------|
-| `REQUEST_INITIATION` | Relay → App | New request dispatch |
-| `REQUEST_UPDATE` | Relay → App | Signal-driven update to active request |
-| `REQUEST_RESPONSE` | App → Relay | Synchronous response |
-| `ASYNC_UPDATE` | App → Relay | Asynchronous intermediate update |
+| `REQUEST_INITIATION` | Exchange → App | New request dispatch |
+| `REQUEST_UPDATE` | Exchange → App | Signal-driven update to active request |
+| `REQUEST_RESPONSE` | App → Exchange | Synchronous response |
+| `REQUEST_UPDATE` | App → Exchange | Asynchronous update (same as REQUEST_UPDATE) |
+
+> **Note:** In Signal Exchange ↔ Hub Application interactions, **Async Update and Request Update are the same concept**. Hub Applications send `REQUEST_UPDATE` messages for any intermediate updates, whether synchronous or asynchronous. The distinction between "sync" and "async" is a timing concern, not a message type concern.
 
 ---
 
@@ -313,14 +315,16 @@ Applications **must** respond using the standard envelope:
 }
 ```
 
-### Asynchronous Update
+### Request Update (from Application)
 
-Long-running Applications (workflows, durable workflows, case management) send intermediate updates via `ASYNC_UPDATE` messages. All updates from Applications are routed through Signal Exchange using this message type.
+Long-running Applications (workflows, durable workflows, case management) send intermediate updates via `REQUEST_UPDATE` messages. All updates from Applications are routed through Signal Exchange using this message type.
 
-The `update_type` field discriminates the sub-type of the async update:
+> **Note:** Whether the update is sent synchronously (inline with a response) or asynchronously (at a later time) does not change the message type. Both use `REQUEST_UPDATE`.
+
+The `update_type` field discriminates the sub-type of the update:
 
 ```
-ASYNC_UPDATE
+REQUEST_UPDATE (from Application)
     ├── STATUS_CHANGE      (Request status transition)
     ├── TASK_LIFECYCLE     (Task events)
     ├── DECISION           (Decision records)
@@ -332,13 +336,13 @@ ASYNC_UPDATE
     └── ERROR              (Recoverable errors)
 ```
 
-### ASYNC_UPDATE Base Envelope
+### REQUEST_UPDATE Base Envelope (from Application)
 
 ```json
 {
   "envelope": {
     "version": "1.0",
-    "message_type": "ASYNC_UPDATE",
+    "message_type": "REQUEST_UPDATE",
     "message_id": "uuid",
     "timestamp": "2026-01-04T12:45:00Z"
   },
@@ -364,7 +368,7 @@ ASYNC_UPDATE
 
 ---
 
-## ASYNC_UPDATE Sub-Types
+## REQUEST_UPDATE Sub-Types (from Application)
 
 ### STATUS_CHANGE
 
@@ -570,9 +574,9 @@ See [Request Lifecycle](../request-management/request-lifecycle.md) for addition
 
 ---
 
-## Async Update Processing
+## Request Update Processing
 
-Signal Exchange processes async updates by:
+Signal Exchange processes Request Updates (from Hub Applications) by:
 1. Updating Request state (if state change)
 2. Recording update in Request history
 3. Dispatching to registered **observer modules** (NOT to agents/tasks directly)
@@ -582,10 +586,12 @@ Signal Exchange processes async updates by:
 - Attribute updates to specific tasks or agents
 - Determine which agent should be notified
 
-Observer modules (e.g., MS Teams module, Ops Center) receive the full Request Update and parse it to determine:
+Observer modules (e.g., MS Teams module, Ops Center, originating Signal Provider) receive the full Request Update and parse it to determine:
 - Which tasks are affected (from `TASK_LIFECYCLE` payload)
 - Which agents should be notified (from task assignment info)
 - What action to take (add to group, post message, etc.)
+
+> **Note:** Originating Signal Providers are automatically registered as observers and receive Request Updates via their **Outgoing Message DTO**. See [Signal Provider Interactions](./signal-provider-interactions.md).
 
 See [Observer Notifications](./observer-notifications.md) for notification dispatch details.
 
