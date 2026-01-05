@@ -146,33 +146,23 @@ Storage Services
                 ✔ Business Request @done(26-01-05 11:05)
                 ✔ System Request @done(26-01-05 11:05)
 
-    ## Business Customer aka Service Request Interfaces:
-        - Use of Neutrino Channels for Business Customer
-        - Task Solver Components for Subject Tasks
-        - Integration into Neutrino Channels - Mobile, Web, Email, MS Teams, etc.,
-        - TODO: Why is 'User Interaction Channels' focused on just 'customers as subjects'?
 
-    ## Partially Covered (Need Expansion):
-        [ ] Angelos Components & Binders - Detail the event wiring mechanism (how events from one component trigger events in other components within a Page)
-        [ ] Angelos Action Repository - Detail catalog structure, contribution process (tenant developers + pre-built actions), discovery and usage patterns
-        [ ] Task Solver Interface - Specify template structure, how Workbench Developers define custom solver views per task type, read-only vs solver view patterns
-        [ ] Custom Consoles - Detail the building process using Angelos Page Builder, component composition, data binding, deployment lifecycle
 
 # Singal Exchange Related Tasks:
-    - Critical to specifiy Signal Exchange to Hub Application contract
-    - Concrete Data Structure of Request
-    - Signal Exchange to Observer Module contract
+    ✔ Critical to specifiy Signal Exchange to Hub Application contract @done(26-01-05 16:14)
+    ✔ Concrete Data Structure of Request @done(26-01-05 16:14)
+    ✔ Signal Exchange to Observer Module contract @done(26-01-05 16:14)
 
 # Hub Operator Subsystem:
-    - Workbench Operator
-    - Registries (various) Operator
-    - Task Queues Operator
-    - Hub Application Operator
-    - Hub Storage Operator
-    - Hub Application Monitoring Operator
-    - Hub Scenario Monitoring Operator
+    ✔ Workbench Operator @done(26-01-05 23:36)
+    ✔ Registries (various) Operator @done(26-01-05 23:36)
+    ✔ Task Queues Operator @done(26-01-05 23:36)
+    ✔ Hub Application Operator @done(26-01-05 23:36)
+    ✔ Hub Storage Operator @done(26-01-05 23:36)
+    ✔ Hub Application Monitoring Operator @done(26-01-05 23:36)
+    ✔ Hub Scenario Monitoring Operator @done(26-01-05 23:36)
 
-# Hub Applications using Other Hub Applications:
+    # Hub Applications using Other Hub Applications (Composite Patterns):
     [ ] Using Hub for creating 'Machines' not just 'Opertaions'
     [ ] *Workbench as a Machine;* Exposes the commands through Command Registry for use by other Hub Applications
     
@@ -198,17 +188,16 @@ Storage Services
 # Ecosystem Integrations:
 
     # Task Management System:
-        [ ] Expand Task Management System Role : Task Queues, Task Lifecycle, Task Assignment management; Certain Activities are Tasks
+        ✔ Expand Task Management System Role : Task Queues, Task Lifecycle, Task Assignment management; Certain Activities are Tasks @done(26-01-05 23:49)
+        ✔ Expand Cronus/Rhea as a Task Management System (Inbuilt) @done(26-01-05 23:49)
         [ ] Expand Jira as Task Management System (also service now, etc.)
         [ ] Expand Jira as I/O Gateway and Jira Task as a signal (also service now, etc.,)
-        [ ] Expand Cronus/Rhea as a Task Management System (Inbuilt)
 
 
     # MS Teams Integration:
         ✔ Expand MS Teams as an Agent's Copilot (an agent should be able to work on a task assigned to them via MS Teams; Me_Bot_Per_Workbench acts as the copilot of the agent) @done(26-01-05 01:28)
         ✔ Expand MS Teams as a I/O Gateway for request initiation and updates (Bot corresponding to each Workbench for Business Employee; Ask_Bot_Per_Workbench acts as the Copilot for the Business Employee) @done(26-01-05 01:28)
         ✔ Expand MS Teams Chat Group as a Collaboration mechanism for Agents working on a request (Each Request is Chat Group with all the agents working on it; Each assigned per active Task in the request) @done(26-01-05 01:28)
-✔ @done(26-01-05 01:28)
 
 
 # Notification Channels:
@@ -220,47 +209,15 @@ Storage Services
     ✔ Supervisor Notification Service @done(26-01-05 15:48)
     ✔ Tenant Admin Notification Service @done(26-01-05 15:48)
 
-# Congntive Workload Related Services:
-    # Workbench as a CAF Memory Provider:
-    [ ] Workbench with Enterprise Memory Storage Services
-    [ ] Enterprise Memory Storage Services as part of Seer
-    [ ] Workbench Enterprise Memory Stores to CAF Memory mapping
-    [ ] Workbench serving as CAF Memory Provider
-    [ ] CAF is module under Seer SaaS Suite;
-    [ ] Enterprise Memory Services as moduels under Seer SaaS Suite
-    [ ] Decision journaling in CAF
-    # CAF Integration:
-    # Decision Explaination Services (Think and detail this; This is different from decision services provided by Seer; Seer should integrated or align with Decision Explaination Services)
-    *explanation* infrastructure (rationale capture, counterfactual generation, decision journaling)
-    [ ] Context Storage Services
-    [ ] Request (Case) Storage System
-    [ ] ETSL
-    [ ] CAF
-    [ ] Enterprise Memory System
-    # Compliance Explanation Infrastructure:
-    - Decision journals (capture of rationale at decision time)
-    - Counterfactual generators (what would have happened under different choices)
-    - Context preservation (state of information when decision was made)
-    - Narrative assemblers (human-readable explanation generation)
-    - Replay capability (reconstruct decision with original context)
-    # Seer Case Automation:
-    [ ] Case Automation Model and the Case Automation Engine (Seer Case Automation)
-
-    # Hub and Seer Concepts integration:
-    [ ] Workbench as an Agent in the Tenant Agent Registry
-    [ ] Scenario as an Agent in the Tenant Agent Registry
-    [ ] Avoiding Circular Loops between Agents
-    [ ] How does any Scenario as an Agent differen from Seer Case Automation as an Orchestrator Agent?
-
 
 # Signal Exchange and Application Interaction Protocol:
-    - Async updates
-    - Support for HTTP Applications 
+    ✔ Async updates @done(26-01-05 22:10)
+    ✔ Support for HTTP Applications @done(26-01-05 22:10)
+    ✔ Support for Atropos-base 2-way communication @done(26-01-05 22:10)
+    ✔ Support for Event Log (Atropos) based Async updates to any request @done(26-01-05 23:58)
+    ✔ Support for External Applications through HTTP Hub Egress Gateway (An application that is merely acting as a wrapper around a tool) @done(26-01-05 23:58)
     - Support for MCP 
     - Support for A2A 
-    - Support for Atropos-base 2-way communication
-    - Support for Event Log (Atropos) based Async updates to any request
-    - Support for External Applications through HTTP Hub Egress Gateway (An application that is merely acting as a wrapper around a tool)
 
 # Workbench Developer Tasks:
     [ ] Create a Workbench
@@ -293,6 +250,47 @@ Storage Services
     [ ] *Business Entity Providers*; Should we call this as an applicaiton/system in the Hub realm with a protocol do CRUDS on that entity? This can also encapsulate various views for the entity. 
 
 
+# Congntive Workload Related Services:
+
+    ## AOSM Architecture and Concepts:
+        [ ] Pull AOSM outside of Seer and Hub; This is a generic architecture and concepts for Agent-Oriented Systems;
+        [ ] Map Hub Workbench to AOS and as Human-AI Team Collaboration Sustrate
+
+    ## Hub and Seer Concepts integration:
+        [ ] Case Automation Model and the Case Automation Engine (Seer Case Automation)
+        [ ] Workbench as an Agent in the Tenant Agent Registry
+        [ ] Scenario as an Agent in the Tenant Agent Registry
+        [ ] Avoiding Circular Loops between Agents
+        [ ] How does any Scenario as an Agent different from Seer Case Automation as an Orchestrator Agent?
+
+    ## Seer Agents and Hub Agents:
+        The application itself doesn't host 'Hub Agents'; 
+        A Seer application have 'internal agents' that are not 'hub visible'
+        A Seer Agent receives Task Assignment Webhook Call; This call is delivered to the Seer Hub Application representing the Seer Agent; 
+        The Seer Hub Application then delegates the task to the Seer Agent Engine to complete the task.        
+
+    ## Workbench as a CAF Memory Provider:
+        [ ] Workbench with Enterprise Memory Storage Services
+        [ ] Enterprise Memory Storage Services as part of Seer
+        [ ] Workbench Enterprise Memory Stores to CAF Memory mapping
+        [ ] Workbench serving as CAF Memory Provider
+        [ ] CAF is module under Seer SaaS Suite;
+        [ ] Enterprise Memory Services as moduels under Seer SaaS Suite
+        [ ] Decision journaling in CAF
+    ## CAF Integration:
+        # Decision Explaination Services (Think and detail this; This is different from decision services provided by Seer; Seer should integrated or align with Decision Explaination Services)
+        *explanation* infrastructure (rationale capture, counterfactual generation, decision journaling)
+        [ ] Context Storage Services
+        [ ] Request (Case) Storage System
+        [ ] ETSL
+        [ ] CAF
+        [ ] Enterprise Memory System
+    ## Compliance Explanation Infrastructure:
+        - Decision journals (capture of rationale at decision time)
+        - Counterfactual generators (what would have happened under different choices)
+        - Context preservation (state of information when decision was made)
+        - Narrative assemblers (human-readable explanation generation)
+        - Replay capability (reconstruct decision with original context)
 
 
 # Other Systems TODOs:
@@ -301,6 +299,9 @@ Storage Services
     [ ] Expand Seer - Hub Connector :: Connector into Task Management System to accept, complete, or assign tasks
     [ ] ETSL, CAF, Memory Stores integration explained
 
+=======================================================
+********* PHASE 2 TODOs *********
+=======================================================
 
 # Documentation Quality & Onboarding (Backlog):
     ## Overview Documents (00-overview/):
@@ -326,5 +327,20 @@ Storage Services
     [ ] Periodic consistency review - catch terminology drift across documents
     [ ] Coverage tracking - ensure Concepts ↔ Subsystems ↔ Guides form complete picture
 
+# UX Architecture:
+    ## Business Customer aka Service Request Interfaces:
+        - Use of Neutrino Channels for Business Customer
+        - Task Solver Components for Subject Tasks
+        - Integration into Neutrino Channels - Mobile, Web, Email, MS Teams, etc.,
+        - TODO: Why is 'User Interaction Channels' focused on just 'customers as subjects'?
 
+    ## Partially Covered (Need Expansion):
+        [ ] Angelos Components & Binders - Detail the event wiring mechanism (how events from one component trigger events in other components within a Page)
+        [ ] Angelos Action Repository - Detail catalog structure, contribution process (tenant developers + pre-built actions), discovery and usage patterns
+        [ ] Task Solver Interface - Specify template structure, how Workbench Developers define custom solver views per task type, read-only vs solver view patterns
+        [ ] Custom Consoles - Detail the building process using Angelos Page Builder, component composition, data binding, deployment lifecycle
 
+# Signal Exchange and Application Interaction Protocol:
+    - Support for MCP 
+    - Support for A2A 
+        
