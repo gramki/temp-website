@@ -35,12 +35,12 @@ Hub's UX architecture is built on three organizing principles:
 
 Hub treats these as first-class interaction channels:
 
-| Category | Channels |
-|----------|----------|
-| **Traditional** | Web, Mobile, Email |
-| **Collaboration** | MS Teams, Slack |
-| **AI Assistants** | ChatGPT, Claude, Gemini |
-| **Customer-Facing** | Neutrino (Web Portal, Mobile App, IVR, Chat) |
+| Category | Channels | Details |
+|----------|----------|---------|
+| **Traditional** | Web, Mobile, Email | Standard web/mobile apps |
+| **Collaboration** | [MS Teams](../04-subsystems/ms-teams-integration/README.md), Slack | Agent/Employee copilots, chat groups |
+| **AI Assistants** | ChatGPT, Claude, Gemini | Via [MCP Channels](./tenant-domain/mcp-channels.md) |
+| **Customer-Facing** | [Neutrino](./frameworks-and-integrations/neutrino-integration.md) | Web Portal, Mobile App, IVR, Chat |
 
 ### Architecture Pattern
 
@@ -107,6 +107,7 @@ Hub treats these as first-class interaction channels:
 | Application | Persona | Purpose |
 |-------------|---------|---------|
 | **[Neutrino Channels](./frameworks-and-integrations/neutrino-integration.md)** | Business Customer | Self-serve, track requests, complete subject tasks |
+| **[MS Teams Integration](../04-subsystems/ms-teams-integration/README.md)** | Business Employee, Agent, Supervisor | Request initiation, task management, collaboration |
 
 ---
 
@@ -332,6 +333,7 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 | [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) | Launch URL service | 🔴 Stub |
 | [Neutrino Integration](./frameworks-and-integrations/neutrino-integration.md) | Customer channel integration | 🔴 Stub |
 | [User Interaction Channels](./frameworks-and-integrations/user-interaction-channels.md) | Subject interaction patterns | ⚠️ Notes |
+| [MS Teams Integration](../04-subsystems/ms-teams-integration/README.md) | MS Teams channel for Agents/Employees | 🟡 WIP |
 
 > **TODO:** Clarify Product Center and Report Center — separate applications for Tenant Executives (configuration, analytics, reporting).
 
@@ -341,7 +343,8 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 
 - [Personas and Journeys](../08-personas-and-journeys/) — Who uses Hub and how
 - [Heracles Gateway](../05-infrastructure/heracles-gateway.md) — API gateway infrastructure
-- [MCP Orchestrator](../05-infrastructure/mcp-orchestrator.md) — MCP infrastructure
+- [MCP Router](../05-infrastructure/mcp-router.md) — MCP infrastructure
+- [MS Teams Integration](../04-subsystems/ms-teams-integration/README.md) — Collaboration channel
 
 ---
 
