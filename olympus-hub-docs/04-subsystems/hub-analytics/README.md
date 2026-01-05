@@ -146,21 +146,93 @@ report_catalog:
 
 | Principle | Description |
 |-----------|-------------|
-| **LakeStack Native** | Leverages Olympus LakeStack for all report building and publishing |
+| **LakeStack Native** | Leverages Olympus LakeStack (Pontus) for all report building and publishing |
 | **Hub Integration** | Hub Analytics provides the glue between LakeStack and Hub consoles |
+| **ETSL Integration** | Registers Operations Data into ETSL as assertions for enterprise-wide semantic consistency |
 | **Extension Model** | Detailed extension approaches are defined by LakeStack (out of scope) |
 | **Context-Aware** | Reports receive Hub context (workbench, user, request) for filtering |
 
 ---
 
+---
+
+## ETSL Integration
+
+Hub Analytics integrates Hub's Operations Data into the **Enterprise Truth & Semantics Layer (ETSL)** for enterprise-wide semantic consistency.
+
+### Responsibilities
+
+| Responsibility | Description |
+|----------------|-------------|
+| **Assertion Registration** | Registers Operations Data (requests, tasks, decisions) into ETSL as assertions |
+| **Data Product Creation** | Creates ETSL Data Products for operations analytics |
+| **Operations Data Marts** | Uses Pontus infrastructure to build Operations Data Marts |
+| **Serving Layer Integration** | Integrates with Pontus serving mechanisms (Report Center and others) |
+
+### Integration Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       HUB ANALYTICS - ETSL INTEGRATION                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  HUB OPERATIONS DATA                                                         │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  Requests │ Tasks │ Decisions │ Activities │ Signals │ Sessions    │    │
+│  └───────────────────────────────────┬─────────────────────────────────┘    │
+│                                      │                                       │
+│                                      ▼                                       │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │                    HUB ANALYTICS SUBSYSTEM                          │    │
+│  │                                                                      │    │
+│  │   ┌─────────────────────┐    ┌─────────────────────────────────┐   │    │
+│  │   │ Assertion           │    │ Data Product                    │   │    │
+│  │   │ Registration        │    │ Creation                        │   │    │
+│  │   └──────────┬──────────┘    └────────────────┬────────────────┘   │    │
+│  │              │                                │                     │    │
+│  └──────────────┼────────────────────────────────┼─────────────────────┘    │
+│                 │                                │                          │
+│                 ▼                                ▼                          │
+│  ┌──────────────────────────────────────────────────────────────────────┐   │
+│  │                    OLYMPUS LAKESTACK (PONTUS)                        │   │
+│  │                                                                       │   │
+│  │   ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────┐  │   │
+│  │   │      ETSL       │  │  Operations     │  │   Report Center    │  │   │
+│  │   │   (Assertions)  │  │  Data Marts     │  │   (Serving)        │  │   │
+│  │   └─────────────────┘  └─────────────────┘  └─────────────────────┘  │   │
+│  │                                                                       │   │
+│  └───────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### What Hub Analytics Does NOT Do
+
+| Aspect | Hub Analytics Role |
+|--------|-------------------|
+| **ETSL Semantic Modeling** | Does not define ETSL semantic artifacts — that's ETSL's responsibility |
+| **Authority Modeling** | Does not model ETSL authority — references existing ETSL authority definitions |
+| **Direct ETSL Consumption** | Hub Applications do not directly consume ETSL Data Artifacts |
+
+### ETSL Data Products → Hub
+
+ETSL Data Products (created by other systems or by Hub Analytics) may be exposed to Hub Workbenches as:
+- **Enterprise Memory** — organizational knowledge from ETSL
+- **Enterprise Knowledge** — authoritative facts from ETSL
+
+Hub is **agnostic** to whether tenants use ETSL but **advocates** this approach for semantic consistency.
+
+---
+
 ## Related Documentation
 
-- [Olympus LakeStack](../../05-infrastructure/olympus-lakestack.md) — Analytics platform
+- [Olympus LakeStack](../../05-infrastructure/olympus-lakestack.md) — Analytics platform (Pontus)
+- [Storage Architecture — ETSL Integration](../../07-data-architecture/storage-architecture.md#etsl-and-pontus-integration-touch-points) — Detailed touch points
 - [Agent Desk](../../06-ux-architecture/tenant-domain/agent-desk.md) — Reports Console
 - [Supervisor Desk](../../06-ux-architecture/tenant-domain/supervisor-desk.md) — Reports Console
 - [Steward Desk](../../06-ux-architecture/tenant-domain/steward-desk.md) — Reports Console
 
 ---
 
-*TODO: Detailed integration specifications, report catalog schema, embedding protocols*
+*TODO: Detailed integration specifications, report catalog schema, embedding protocols, ETSL assertion schemas*
 

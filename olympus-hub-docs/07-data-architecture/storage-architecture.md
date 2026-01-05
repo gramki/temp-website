@@ -528,6 +528,65 @@ All Hub subsystems are expected to:
 
 ---
 
+---
+
+## ETSL and Pontus Integration (Touch Points)
+
+Hub integrates with the **Enterprise Truth & Semantics Layer (ETSL)** and **Pontus** data infrastructure at several touch points. These integrations are **not mandated** but are **recommended** for enterprises seeking semantic consistency across their data ecosystem.
+
+> **Note:** Pontus is part of Olympus LakeStack. References to LakeStack in Hub documentation are consistent with Pontus.
+
+### What is ETSL?
+
+ETSL (Enterprise Truth & Semantics Layer) is a semantic layer that makes enterprise truth **explicit, governed, and reusable**. It:
+- Captures **assertions** from systems (claims about facts at points in time)
+- Models **authority explicitly** (who decides what is true for what scope)
+- **Reconciles** assertions based on authority and time
+- Derives **state** from reconciled assertions
+- Produces **ETSL Data Artifacts** (authority-qualified, time-aware representations of truth)
+- Enables **Data Products** (consumer-aligned interpretations of ETSL Data Artifacts)
+
+### Touch Points
+
+| Touch Point | Direction | Description |
+|-------------|-----------|-------------|
+| **Operations Data → ETSL** | Hub → ETSL | Hub Analytics subsystem integrates Operations Data into ETSL as assertions |
+| **Operations Data Products** | Hub → Pontus | Hub Analytics creates Data Products for operations analytics using Pontus infrastructure |
+| **Enterprise Memory → ETSL** | Hub → ETSL | Enterprise Memory may be integrated into ETSL as assertions (configurable, future scope) |
+| **Enterprise Memory as Data Product** | Hub → ETSL | Enterprise Memory stores may be modeled as ETSL-based Data Products |
+| **ETSL Data Products → Knowledge/Memory** | ETSL → Hub | Data Products based on ETSL Data Artifacts may be exposed as Enterprise Memory or Enterprise Knowledge in Workbenches |
+
+### Hub's Position
+
+| Aspect | Hub's Approach |
+|--------|----------------|
+| **ETSL Data Artifacts** | Hub does not directly consume ETSL Data Artifacts |
+| **ETSL Data Products** | May be exposed to Workbenches as Enterprise Memory or Enterprise Knowledge |
+| **Hub Agnosticism** | Hub is agnostic to whether tenants use ETSL, but advocates the approach |
+| **Integration Scope** | Touch points are clarified; detailed integration is future scope |
+
+### Hub Analytics and Pontus
+
+The **Hub Analytics** subsystem uses Pontus infrastructure to:
+
+| Capability | Pontus Infrastructure |
+|------------|----------------------|
+| **Operations Data Marts** | Pontus data mart infrastructure |
+| **Serving Layers** | Pontus serving mechanisms (various tools) |
+| **Report Center** | Olympus LakeStack Report Center |
+| **ETSL Integration** | Registers Operations Data as ETSL assertions |
+
+### Future Scope
+
+The following are identified for future versions:
+
+| Item | Description |
+|------|-------------|
+| **Configurable ETSL Integration** | Enterprise Memory store implementations may support configurable integration into ETSL as assertions |
+| **ETSL Data Product Modeling** | Detailed patterns for modeling Enterprise Memory as ETSL Data Products |
+
+---
+
 ## Related Documentation
 
 - [Hub Architecture](../02-system-design/hub-architecture.md) — System context
@@ -537,6 +596,7 @@ All Hub subsystems are expected to:
 - [Workbench Management](../04-subsystems/workbench-management/README.md) — Workbench and DDL lifecycle
 - [Cipher IAM](../04-subsystems/supporting-systems/cipher-iam.md) — Identity and access management
 - [Ontology Reference](../01-concepts/ontology-reference.md) — Core concepts
+- [Hub Analytics](../04-subsystems/hub-analytics/README.md) — ETSL/Pontus integration for analytics
 
 ### Olympus Platform References
 

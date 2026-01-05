@@ -181,7 +181,12 @@ Storage Services
     ✔ Hub-native storage support for Operations — covered in storage-architecture.md (Layer 3A Operations Data) @done(26-01-05)
     ✔ Hub storage model explained - C1/C2 architecture covered; C3 implementation details deferred to subsystem development @done(26-01-05)
     ✔ Automation engine specific stores - clarified as out of scope; each runtime documents its own internals @done(26-01-05)
-    [ ] Hub Storage integration into ETSL/Pontus — pending clarification on ETSL and Pontus 
+    ✔ Hub Storage integration into ETSL/Pontus — touch points documented in storage-architecture.md and hub-analytics @done(26-01-05)
+        - Hub Analytics registers Operations Data into ETSL as assertions
+        - Hub Analytics creates Data Products using Pontus/LakeStack infrastructure
+        - Enterprise Memory may integrate with ETSL (future scope, configurable)
+        - ETSL Data Products may be exposed as Enterprise Memory/Knowledge in Workbenches
+        - Hub is agnostic but advocates ETSL approach 
     
 # Hub Knowledge Bank Submodule Explanation:
     [ ] Ingestion
