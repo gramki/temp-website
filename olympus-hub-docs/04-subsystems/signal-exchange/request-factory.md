@@ -19,7 +19,7 @@ The Request Factory creates new Requests or updates existing Requests based on *
 
 ## Request Mutation DTO
 
-The **Request Mutation DTO** is the standard input format for the Request Factory. Triggers transform Incoming Signal DTOs into Request Mutation DTOs.
+The **Request Mutation DTO** is the standard input format for the Request Factory. Triggers transform Normalized Signal DTOs into Request Mutation DTOs.
 
 | Mutation Type | Description |
 |---------------|-------------|

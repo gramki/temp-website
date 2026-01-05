@@ -181,13 +181,13 @@ Storage Services
     ✔ Hub-native storage support for Operations — covered in storage-architecture.md (Layer 3A Operations Data) @done(26-01-05)
     ✔ Hub storage model explained - C1/C2 architecture covered; C3 implementation details deferred to subsystem development @done(26-01-05)
     ✔ Automation engine specific stores - clarified as out of scope; each runtime documents its own internals @done(26-01-05)
-    ✔ Hub Storage integration into ETSL/Pontus — touch points documented in storage-architecture.md and hub-analytics @done(26-01-05)
-        - Hub Analytics registers Operations Data into ETSL as assertions
-        - Hub Analytics creates Data Products using Pontus/LakeStack infrastructure
-        - Enterprise Memory may integrate with ETSL (future scope, configurable)
-        - ETSL Data Products may be exposed as Enterprise Memory/Knowledge in Workbenches
-        - Hub is agnostic but advocates ETSL approach 
-    
+    ✔ Hub Storage integration into ETSL/Pontus — touch points documented in storage-architecture.md and hub-analytics @done(26-01-05 13:55)
+    ✔ Hub Analytics registers Operations Data into ETSL as assertions @done(26-01-05 13:54)
+    ✔ Hub Analytics creates Data Products using Pontus/LakeStack infrastructure @done(26-01-05 13:54)
+    ✔ Enterprise Memory may integrate with ETSL (future scope, configurable) @done(26-01-05 13:54)
+    ✔ ETSL Data Products may be exposed as Enterprise Memory/Knowledge in Workbenches @done(26-01-05 13:54)
+    ✔ Hub is agnostic but advocates ETSL approach @done(26-01-05 13:54)
+
 # Hub Knowledge Bank Submodule Explanation:
     [ ] Ingestion
     [ ] Storage
@@ -211,7 +211,14 @@ Storage Services
 ✔ @done(26-01-05 01:28)
 
 
-
+# Notification Channels:
+    ✔ Persona, Channel, Use Case based Notification Channels @done(26-01-05 15:48)
+    ✔ Hub Notification Router integrating with Cipher Notification Services @done(26-01-05 15:48)
+    ✔ Notification Mechanisms: Email, SMS, Push Notification, Webhook @done(26-01-05 15:48)
+    ✔ Agent Notification Service @done(26-01-05 15:48)
+    ✔ Business User Notification Service @done(26-01-05 15:48)
+    ✔ Supervisor Notification Service @done(26-01-05 15:48)
+    ✔ Tenant Admin Notification Service @done(26-01-05 15:48)
 
 # Congntive Workload Related Services:
     # Workbench as a CAF Memory Provider:

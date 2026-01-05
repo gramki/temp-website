@@ -14,25 +14,113 @@ Signal Exchange is a **message-oriented system** (similar to Atropos and OMS*) t
 
 ---
 
+## Normalized Signal Format
+
+Signal Exchange uses a **single, normalized signal format** that all Signal Providers must align to, regardless of their transport protocol. I/O Gateways are responsible for transforming protocol-specific signals to this normalized format before sending to Signal Exchange.
+
+### Normalized Signal DTO Structure
+
+All signals sent to Signal Exchange must conform to this structure:
+
+```json
+{
+  "signal_header": {
+    "tenant_id": "acme-bank",              // Required: Tenant scope
+    "subscription_id": "sub-prod-001",     // Required: Subscription scope
+    "signal_id": "sig-12345",              // Required: Unique identifier for this signal
+    "signal_type": "account_event",        // Required: Type of signal
+    "timestamp": "2026-01-05T10:00:00Z",   // Required: Signal timestamp
+    "correlation_id": "corr-67890",        // Optional: Correlation to existing request
+    "idempotency_key": "idem-22222"        // Optional: Key for idempotent processing
+  },
+  "payload": {
+    "content_type": "application/json",     // application/json | application/base64
+    "data": {                               // Signal-specific payload data
+      // Provider-defined payload structure
+    }
+  },
+  "metadata": {                             // Optional: Additional metadata
+    "source_system": "temenos-core",
+    "source_event_id": "evt-99999",
+    "trace_id": "trace-abc123"
+  },
+  "additional_fields": {                    // Optional: SP-specific additional fields
+    // Signal Provider may add additional fields beyond the normalized structure
+    // These are preserved but not processed by Signal Exchange
+  }
+}
+```
+
+### Alignment Requirements
+
+- **Signal Providers must align to Signal Exchange's normalized DTO structure** — all required fields must be present and correctly formatted
+- **Signal Providers may add additional data** — fields beyond the normalized structure are preserved but not processed by Signal Exchange
+- **I/O Gateways handle transformation** — protocol-specific signals are transformed to normalized format by I/O Gateways before reaching Signal Exchange
+
+---
+
 ## Signal Provider Registration
 
-Signal Providers must register with Signal Exchange before they can send or receive messages. Registration establishes the **contract** between the Signal Provider and Signal Exchange.
+Signal Providers must register with Signal Exchange **per tenant subscription** before they can send or receive messages. Registration is a **formal document** that indicates:
+- The Signal Provider can serve the specified tenant and subscription
+- The service coordinates (endpoints, protocols) at which it will provide services for this subscription
+- The attributes and fields the Signal Provider uses that map to Signal Exchange's normalized DTO
+- Any additional fields the Signal Provider includes beyond the normalized structure
+- The preferred interface (HTTP, Atropos, or OMS) for receiving updates from Signal Exchange
 
 ### Registration Payload
 
 ```json
 {
-  "signal_provider": {
-    "id": "sp-temenos-core-banking",
-    "name": "Temenos Core Banking",
-    "type": "io_gateway",               // io_gateway | signal_source
-    "version": "2.1.0"
+  "registration": {
+    "tenant_id": "acme-bank",              // Required: Tenant this registration serves
+    "subscription_id": "sub-prod-001",     // Required: Subscription this registration serves
+    "signal_provider": {
+      "id": "sp-temenos-core-banking",
+      "name": "Temenos Core Banking",
+      "type": "io_gateway",                // io_gateway | signal_source
+      "version": "2.1.0"
+    },
+    "service_coordinates": {
+      "endpoint": "https://temenos.example.com/signals",
+      "protocol": "https",
+      "auth": {
+        "type": "oauth2",
+        "token_endpoint": "https://temenos.example.com/oauth/token"
+      }
+    }
   },
   
-  "incoming_signal_schema": {
-    "schema_type": "json_schema",       // json_schema | avro | protobuf
+  "normalized_dto_mapping": {
+    "description": "How this SP's attributes map to Signal Exchange's normalized DTO",
+    "mappings": {
+      "signal_header.tenant_id": "from: auth_context.tenant",
+      "signal_header.subscription_id": "from: auth_context.subscription",
+      "signal_header.signal_id": "from: event.id",
+      "signal_header.signal_type": "from: event.type",
+      "signal_header.timestamp": "from: event.timestamp",
+      "payload.data": "from: event.payload"
+    }
+  },
+  
+  "additional_fields_schema": {
+    "description": "Additional fields this SP includes beyond normalized DTO",
+    "schema_type": "json_schema",
     "schema_version": "1.0",
-    "schema": { /* JSON Schema for incoming signals */ }
+    "schema": {
+      "type": "object",
+      "properties": {
+        "protocol_metadata": {
+          "type": "object",
+          "description": "HTTP-specific metadata preserved for response routing"
+        },
+        "source_channel": {
+          "type": "string",
+          "description": "Original channel identifier (mobile-app, web-portal, etc.)"
+        }
+      }
+    },
+    "suggested_use": "These fields are preserved for use in response transformation back to protocol format"
   },
   
   "outgoing_message_schema": {
@@ -40,13 +128,13 @@ Signal Providers must register with Signal Exchange before they can send or rece
     "schema_version": "1.0",
     "schema": { /* JSON Schema for outgoing messages */ },
     "correlation": {
-      "mode": "correlated",             // correlated | independent
+      "mode": "correlated",                // correlated | independent
       "correlation_field": "request_id"
     }
   },
   
   "acknowledgement": {
-    "mode": "sync",                     // sync | async
+    "mode": "sync",                        // sync | async
     "timeout_ms": 5000,
     "retry_policy": {
       "max_attempts": 3,
@@ -54,12 +142,22 @@ Signal Providers must register with Signal Exchange before they can send or rece
     }
   },
   
-  "notification": {
-    "mechanism": "webhook",             // webhook | websocket | event_bus | poll
-    "endpoint": "https://provider.example.com/callbacks",
-    "auth": {
-      "type": "oauth2",
-      "token_endpoint": "..."
+  "update_delivery": {
+    "interface": "http",                   // http | atropos | oms
+    "configuration": {
+      // For HTTP:
+      "endpoint": "https://provider.example.com/updates",
+      "method": "POST",
+      "auth": {
+        "type": "oauth2",
+        "token_endpoint": "https://provider.example.com/oauth/token"
+      }
+      // For Atropos:
+      // "topic": "sp-temenos-updates",
+      // "subscription": "sp-temenos-sub"
+      // For OMS:
+      // "queue": "sp-temenos-queue",
+      // "endpoint": "oms://provider.example.com/updates"
     }
   }
 }
@@ -69,26 +167,27 @@ Signal Providers must register with Signal Exchange before they can send or rece
 
 | Component | Description |
 |-----------|-------------|
-| **signal_provider** | Provider identity and metadata |
-| **incoming_signal_schema** | Schema for signals sent by this provider to Signal Exchange |
+| **registration** | Tenant/subscription scope, Signal Provider identity, and service coordinates |
+| **normalized_dto_mapping** | How this SP's attributes map to Signal Exchange's normalized DTO fields |
+| **additional_fields_schema** | Schema for additional fields beyond normalized DTO (preserved but not processed by SX) |
 | **outgoing_message_schema** | Schema for messages Signal Exchange sends to this provider |
 | **acknowledgement** | How Signal Exchange acknowledges receipt of incoming signals |
-| **notification** | How Signal Exchange notifies this provider of Request updates |
+| **update_delivery** | Preferred interface (HTTP, Atropos, or OMS) and configuration for receiving Request updates from Signal Exchange |
+
+> **Note:** Registration is **per tenant subscription**. A Signal Provider serving multiple tenants/subscriptions must register separately for each.
 
 ---
 
-## Schemas
+## Normalized Signal DTO Schema
 
-### Incoming Signal DTO Schema
-
-Defines the structure of signals that the Signal Provider sends to Signal Exchange.
+This is the **standardized format** that Signal Exchange receives from all Signal Providers. I/O Gateways transform protocol-specific signals to this normalized format before sending to Signal Exchange.
 
 > **Note:** All signals are scoped to a **Tenant** and **Subscription**. These are required in the signal header.
 
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "IncomingSignalDTO",
+  "title": "NormalizedSignalDTO",
   "type": "object",
   "required": ["signal_header", "payload"],
   "properties": {
@@ -98,23 +197,24 @@ Defines the structure of signals that the Signal Provider sends to Signal Exchan
       "properties": {
         "tenant_id": {
           "type": "string",
-          "description": "Tenant scope for this signal"
+          "description": "Tenant scope for this signal (required)"
         },
         "subscription_id": {
           "type": "string",
-          "description": "Subscription scope for this signal"
+          "description": "Subscription scope for this signal (required)"
         },
         "signal_id": {
           "type": "string",
-          "description": "Unique identifier for this signal"
+          "description": "Unique identifier for this signal (required)"
         },
         "signal_type": {
           "type": "string",
-          "description": "Type of signal (e.g., 'account_event', 'file_available')"
+          "description": "Type of signal (e.g., 'account_event', 'file_available') (required)"
         },
         "timestamp": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Signal timestamp (required)"
         },
         "correlation_id": {
           "type": "string",
@@ -128,7 +228,17 @@ Defines the structure of signals that the Signal Provider sends to Signal Exchan
     },
     "payload": {
       "type": "object",
-      "description": "Signal-specific payload (provider-defined)"
+      "required": ["content_type", "data"],
+      "properties": {
+        "content_type": {
+          "type": "string",
+          "enum": ["application/json", "application/base64"],
+          "description": "Content type of payload data"
+        },
+        "data": {
+          "description": "Signal-specific payload data (provider-defined structure)"
+        }
+      }
     },
     "metadata": {
       "type": "object",
@@ -136,11 +246,22 @@ Defines the structure of signals that the Signal Provider sends to Signal Exchan
         "source_system": { "type": "string" },
         "source_event_id": { "type": "string" },
         "trace_id": { "type": "string" }
-      }
+      },
+      "description": "Optional metadata for tracing and debugging"
+    },
+    "additional_fields": {
+      "type": "object",
+      "description": "Optional additional fields beyond normalized structure. These are preserved but not processed by Signal Exchange. Signal Providers should document these in their registration's additional_fields_schema."
     }
   }
 }
 ```
+
+> **Key Points:**
+> - Signal Providers **must align** to this normalized structure — all required fields must be present
+> - Signal Providers **may add additional fields** beyond this structure — these are preserved but not processed by Signal Exchange
+> - I/O Gateways are responsible for transforming protocol-specific signals to this normalized format
+> - The `additional_fields` section allows SPs to include protocol-specific or provider-specific data that may be needed for response transformation
 
 ### Outgoing Message DTO Schema
 
@@ -248,7 +369,11 @@ These are delivered via the `request_update_envelope` and `payload` fields in th
 
 ## Signal Acknowledgement
 
-Signal Exchange acknowledges receipt of incoming signals:
+Signal Exchange acknowledges receipt of incoming signals. The acknowledgement mechanism depends on the registration configuration:
+
+### Synchronous Acknowledgement
+
+When `acknowledgement.mode: sync` is configured, Signal Exchange sends an immediate response over the same message channel (request-response pattern):
 
 ```json
 {
@@ -262,6 +387,12 @@ Signal Exchange acknowledges receipt of incoming signals:
   }
 }
 ```
+
+> **Note:** Even in a message-oriented system, synchronous acknowledgement uses a request-response pattern over the same channel. The Signal Provider sends a signal and waits for the acknowledgement response before proceeding.
+
+### Asynchronous Acknowledgement
+
+When `acknowledgement.mode: async` is configured, Signal Exchange sends acknowledgement via the configured `update_delivery` interface (HTTP, Atropos, or OMS). The Signal Provider does not wait for acknowledgement.
 
 | Status | Description |
 |--------|-------------|
@@ -279,7 +410,7 @@ Signal Providers that **initiate a Request** are automatically registered as **o
 |--------|-------------|
 | **Automatic Registration** | No explicit subscription required |
 | **Scope** | Observer of the specific Request they initiated |
-| **Notification Mechanism** | Uses the `notification` configuration from registration |
+| **Update Delivery** | Uses the `update_delivery` interface configuration from registration (HTTP, Atropos, or OMS) |
 | **Lifecycle** | Observation ends when Request reaches terminal state |
 
 ```
@@ -324,11 +455,11 @@ Signal Providers that **initiate a Request** are automatically registered as **o
 
 ## Signal Definitions and Triggers
 
-> **Note:** The transformation from Incoming Signal DTO to internal Request handling is managed within Signal Exchange. The **Request Mutation DTO** described below is an **internal artifact** — it is NOT exchanged between Signal Provider and Signal Exchange. Signal Providers receive Request updates via the **Outgoing Message DTO**.
+> **Note:** The transformation from Normalized Signal DTO to internal Request handling is managed within Signal Exchange. The **Request Mutation DTO** described below is an **internal artifact** — it is NOT exchanged between Signal Provider and Signal Exchange. Signal Providers receive Request updates via the **Outgoing Message DTO**.
 
 ### Signal Definition
 
-A **Signal Definition** is a **filter** defined using the Signal Provider's Incoming Signal DTO:
+A **Signal Definition** is a **filter** defined using the Normalized Signal DTO structure:
 
 ```yaml
 signal_definition:
@@ -336,7 +467,7 @@ signal_definition:
   name: "Account Overdraft Signal"
   signal_provider_id: "sp-temenos-core-banking"
   
-  # Filter on Incoming Signal DTO fields
+  # Filter on Normalized Signal DTO fields
   filter:
     signal_type: "account_event"
     payload:
@@ -349,7 +480,7 @@ signal_definition:
 
 ### Trigger Definition
 
-A **Trigger** is a **code/low-code artifact** that translates the Incoming Signal DTO to a **Request Mutation DTO** (Request Initiation or Update message):
+A **Trigger** is a **code/low-code artifact** that translates the Normalized Signal DTO to a **Request Mutation DTO** (Request Initiation or Update message):
 
 ```yaml
 trigger:
@@ -363,7 +494,7 @@ trigger:
   correlation:
     key_expression: "payload.account_id"
     
-  # Transformation from Incoming Signal DTO → Request Mutation DTO
+  # Transformation from Normalized Signal DTO → Request Mutation DTO
   transformation:
     type: low_code                      # low_code | code
     
@@ -394,7 +525,7 @@ Signal Exchange only supports **two payload types**:
 | **Base64** | Base64-encoded binary data | Files, images, encrypted content |
 
 The Trigger is responsible for:
-1. Extracting data from the Incoming Signal DTO
+1. Extracting data from the Normalized Signal DTO
 2. Transforming it to the expected format
 3. Packing it into the Request Mutation DTO
 
@@ -490,7 +621,7 @@ The **Request Mutation DTO** is the standard internal message format that Trigge
 | Interface | Protocol | Use Case |
 |-----------|----------|----------|
 | **Signal Intake** | Message (Atropos/OMS) | Incoming signals from Signal Providers |
-| **Observer Notification** | Webhook/WebSocket/Event | Outgoing updates to registered observers |
+| **Update Delivery** | HTTP, Atropos, or OMS (per SP preference) | Outgoing updates to registered observers (Signal Providers and observer modules) |
 | **Sync Response** | Message (Atropos/OMS) | Immediate response for bidirectional gateways |
 
 ### Request Lifecycle Module Interface
@@ -517,12 +648,13 @@ Signal Providers can also contact the **Request Lifecycle Module** over **HTTP**
 │                                                                              │
 │  SIGNAL PROVIDER                                                             │
 │       │                                                                      │
-│       │ 1. Incoming Signal (Incoming Signal DTO)                            │
+│       │ 1. Normalized Signal (Normalized Signal DTO)                         │
+│       │    (I/O Gateways transform protocol-specific → normalized format)    │
 │       ▼                                                                      │
 │  ┌─────────────────────────────────────────────────────────────────────┐    │
 │  │                      SIGNAL EXCHANGE                                 │    │
 │  │                                                                      │    │
-│  │   2. Validate against registered Incoming Signal Schema             │    │
+│  │   2. Validate against Normalized Signal DTO Schema                   │    │
 │  │   3. Send Acknowledgement to Signal Provider                        │    │
 │  │   4. Match against Signal Definitions (filter)                       │    │
 │  │   5. Execute Trigger (transformation)                                │    │

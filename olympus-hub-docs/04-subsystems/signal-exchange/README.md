@@ -14,7 +14,7 @@ The Signal Exchange is responsible for:
 
 | Function | Description |
 |----------|-------------|
-| **Inbound Routing** | Signal Provider → Trigger Evaluation → Request Creation/Update → Application Router → Hub Application |
+| **Inbound Routing** | Normalized Signal → Trigger Evaluation → Request Creation/Update → Application Router → Hub Application |
 | **Outbound Routing** | Hub Application Response → Response Transformation → I/O Gateway |
 | **Request Update Capture** | Receive intermediate updates (REQUEST_UPDATE) from long-running Applications |
 | **Observer Notifications** | Dispatch Request Updates to registered observer modules (NOT to agents/tasks directly) |
@@ -32,10 +32,13 @@ The Signal Exchange is responsible for:
 │                                                                  │
 │  ┌─────────────────────────────────────────────────────────┐    │
 │  │                   SIGNAL INTAKE                          │    │
-│  │          (From all Signal Providers)                     │    │
+│  │     (Normalized Signal DTO from all Signal Providers)     │    │
 │  │                                                          │    │
 │  │   • I/O Gateways (Atropos, Cronus, Heracles, Dia, Kale) │    │
 │  │   • Other Signal Providers (input-only sources)         │    │
+│  │                                                          │    │
+│  │   All signals arrive in Signal Exchange's normalized     │    │
+│  │   DTO format, regardless of originating protocol         │    │
 │  └─────────────────────────┬───────────────────────────────┘    │
 │                            │                                     │
 │  ┌─────────────────────────┼───────────────────────────────┐    │
@@ -83,8 +86,9 @@ The Signal Exchange is responsible for:
 │  │              RESPONSE TRANSFORMER                        │    │
 │  │                                                          │    │
 │  │   • Transform Application responses                      │    │
-│  │   • Format for I/O Gateway protocols                    │    │
-│  │   • Only for bidirectional Signal Providers             │    │
+│  │   • Transform from normalized format to I/O Gateway     │    │
+│  │     protocol format                                     │    │
+│  │   • Only for bidirectional Signal Providers (io_gateway)│    │
 │  └─────────────────────────┬───────────────────────────────┘    │
 │                            │                                     │
 │                            ▼                                     │
@@ -101,6 +105,7 @@ The Signal Exchange is responsible for:
 |----------|-------------|--------|
 | [Signal Provider Interactions](./signal-provider-interactions.md) | Signal Provider registration, DTOs, filters, triggers | 🟡 Draft |
 | [Message Envelope](./message-envelope.md) | Signal Exchange ↔ Hub Application DTOs | 🟡 Draft |
+| [Reminder Capability](./reminder-capability.md) | Time-based reminder scheduling and notifications | 🟡 Draft |
 | [Trigger Evaluator](./trigger-evaluator.md) | Trigger matching and transformation | 🔴 Stub |
 | [Request Factory](./request-factory.md) | Request creation and updates | 🔴 Stub |
 | [Application Router](./application-router.md) | Routing to Hub Applications | 🔴 Stub |
@@ -116,10 +121,10 @@ The Signal Exchange is responsible for:
 
 | Type | Description | Response Path |
 |------|-------------|---------------|
-| **I/O Gateway** | Bidirectional Signal Provider | Yes — receives responses |
-| **Signal Provider** | May be input-only | No — fire-and-forget |
+| **I/O Gateway** | Bidirectional Signal Provider (type: `io_gateway`) | Yes — receives responses |
+| **Signal Provider** | May be input-only (type: `signal_source`) | No — fire-and-forget |
 
-All I/O Gateways are Signal Providers, but not all Signal Providers are I/O Gateways.
+All I/O Gateways are Signal Providers, but not all Signal Providers are I/O Gateways. The `io_gateway` type indicates a bidirectional provider that receives responses, while `signal_source` indicates an input-only provider that does not receive responses.
 
 ### Request as Application Session
 
@@ -209,8 +214,9 @@ scenario:
 ### Inbound Flow (Signal → Application)
 
 ```
-1. Signal arrives from Signal Provider
-2. Signal Intake receives and normalizes signal
+1. Signal Provider sends signal in normalized DTO format to Signal Exchange
+   (I/O Gateways transform protocol-specific signals to normalized format)
+2. Signal Intake receives normalized signal
 3. Trigger Evaluator:
    a. Loads trigger definitions (from Workbench Management)
    b. Matches signal against trigger conditions
@@ -223,6 +229,8 @@ scenario:
    b. Routes Request to Application
 6. Hub Application begins processing
 ```
+
+> **Note:** Signal Exchange executes triggers and creates/manages requests. Signal Providers only forward signals in normalized format; they do not execute triggers or create requests.
 
 ### Outbound Flow (Application → I/O Gateway)
 
@@ -276,7 +284,7 @@ Long-running Applications (workflows, durable workflows, case management) can se
 |-----------|-------------|----------|
 | **Signal Providers** | Signal intake, observer notifications | Message (Atropos/OMS) |
 | **I/O Gateways** | Signal intake + response delivery | Message (Atropos/OMS) |
-| **Hub Applications** | Request dispatch, response handling | Message (Atropos/OMS) |
+| **Hub Applications** | Request dispatch, response handling | HTTP, Atropos, or OMS (per Application Runtime preference) |
 | **Workbench Management** | Trigger definitions, Scenario → Application mappings | Internal |
 | **Request Management** | Request state, storage, entity binding | Internal |
 | **CAF** | Decision records for routing decisions | Internal |
@@ -289,6 +297,39 @@ Long-running Applications (workflows, durable workflows, case management) can se
 | **Request Lifecycle** | HTTP REST | Lifecycle enquiry, status checks, cancellation |
 
 > **Note:** Signal Providers use the **Signal Exchange** message interface for interactions that create or update Requests. For **lifecycle and enquiry** operations, Signal Providers can use the **Request Lifecycle** module's HTTP interface.
+
+### Delivery Interfaces
+
+Signal Exchange uses multiple transport interfaces for delivering messages. The same transport options (HTTP, Atropos, OMS) are available for both **Application Runtimes** and **Signal Providers**.
+
+| Interface | Protocol | Characteristics |
+|-----------|----------|-----------------|
+| **HTTP** | HTTP/REST | Synchronous request-response, standard REST API |
+| **Atropos** | Event Bus | Pub-sub messaging, asynchronous delivery |
+| **OMS** | Message (Olympus Message System) | Broker-less messaging, asynchronous delivery |
+
+#### Application Runtime Delivery
+
+Signal Exchange delivers messages to Application Runtimes over their preferred interface:
+
+**Key Characteristics:**
+- **Interface Selection**: Each Application Runtime specifies its preferred interface(s) during registration/configuration
+- **Bidirectional**: Signal Exchange both delivers messages to Applications and accepts updates from Applications on any of these interfaces
+- **Out-of-Order Delivery**: Messages may arrive out of order — Application Runtimes must handle ordering if required
+- **Deduplication**: Deduplication is the responsibility of the recipient (Application Runtime), not Signal Exchange
+- **Idempotency**: Application Runtimes should design their message handlers to be idempotent
+
+#### Signal Provider Update Delivery
+
+Signal Providers register their preferred interface for receiving Request updates from Signal Exchange:
+
+**Key Characteristics:**
+- **Interface Selection**: Each Signal Provider specifies its preferred interface (HTTP, Atropos, or OMS) during registration in the `update_delivery` configuration
+- **Same Transport Options**: Signal Providers have access to the same transport options (HTTP, Atropos, OMS) as Application Runtimes
+- **Observer Updates**: Signal Providers that initiate Requests are automatically registered as observers and receive updates via their configured interface
+- **Out-of-Order Delivery**: Messages may arrive out of order — Signal Providers must handle ordering if required
+- **Deduplication**: Deduplication is the responsibility of the recipient (Signal Provider), not Signal Exchange
+- **Idempotency**: Signal Providers should design their update handlers to be idempotent
 
 See [Signal Provider Interactions](./signal-provider-interactions.md) for details.
 

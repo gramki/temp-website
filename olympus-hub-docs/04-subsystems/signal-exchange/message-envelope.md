@@ -55,6 +55,18 @@ The envelope provides:
 - Protocol-agnostic application integration
 - User-reportable status information
 
+### Delivery Characteristics
+
+Signal Exchange delivers messages to Application Runtimes over **HTTP, Atropos, or OMS** interfaces based on Application Runtime preference. Signal Exchange also accepts updates from Applications on any of these interfaces.
+
+| Characteristic | Description |
+|----------------|-------------|
+| **Interface Selection** | Each Application Runtime specifies its preferred interface(s) during configuration |
+| **Bidirectional** | Signal Exchange both delivers messages to Applications and accepts updates from Applications |
+| **Out-of-Order Delivery** | Messages may arrive out of order — Application Runtimes must handle ordering if required |
+| **Deduplication** | Deduplication is the responsibility of the recipient (Application Runtime), not Signal Exchange |
+| **Idempotency** | Application Runtimes should design message handlers to be idempotent |
+
 ### Envelope Contents Summary
 
 All messages are scoped to a **Tenant** and **Subscription**. This context is always present in the envelope.
@@ -112,6 +124,7 @@ Tracks the overall business status of the Request:
 |------|-----------|---------|
 | `REQUEST_INITIATION` | Exchange → App | New request dispatch |
 | `REQUEST_UPDATE` | Exchange → App | Signal-driven update to active request |
+| `REMINDER_NOTIFICATION` | Exchange → App | Scheduled reminder alarm notification |
 | `REQUEST_RESPONSE` | App → Exchange | Synchronous response |
 | `REQUEST_UPDATE` | App → Exchange | Asynchronous update (same as REQUEST_UPDATE) |
 
@@ -121,9 +134,10 @@ Tracks the overall business status of the Request:
 
 ## Signal Exchange → Hub Application (SX → HA)
 
-Signal Exchange sends two message types to Hub Applications:
+Signal Exchange sends three message types to Hub Applications:
 - **Request Initiation** — when a new Request is created
 - **Request Update** — when subsequent signals update an existing Request
+- **Reminder Notification** — when a scheduled reminder alarm is triggered
 
 Both use a **standardized envelope format** containing:
 
@@ -253,6 +267,115 @@ Sent when subsequent signals update an existing Request:
 }
 ```
 
+### Reminder Notification Message (SX → HA)
+
+Sent when a scheduled reminder alarm is triggered:
+
+```json
+{
+  "envelope": {
+    "version": "1.0",
+    "message_type": "REMINDER_NOTIFICATION",
+    "message_id": "uuid",
+    "timestamp": "2026-01-10T14:00:00Z",          // Time when alarm was initiated by SX
+    "tenant_id": "acme-bank",
+    "subscription_id": "sub-prod-001"
+  },
+  
+  "request": {
+    "id": "req-12345",
+    "correlation_id": "corr-67890",
+    "workbench_id": "dispute-ops",
+    "scenario_id": "dispute-filing",
+    "current_status": "ACTIVE",
+    "subject": {
+      "type": "customer",
+      "id": "cust-67890"
+    }
+  },
+  
+  "reminder": {
+    "reminder_schedule_id": "rem-12345",          // ID of the reminder schedule
+    "kind": "document_upload_timeout",             // Semantic/business-domain type (from REMIND request)
+    "sequence": 3,                                 // Sequence number of this alarm in the schedule
+    "alarm_initiated_at": "2026-01-10T14:00:00Z", // Time when SX initiated the alarm
+    "original_request_payload": {                  // Original request payload (as-is)
+      "content_type": "application/json",
+      "semantic_type": "com.acme.dispute.DisputeFilingRequest",
+      "data": {
+        // Original payload from REQUEST_INITIATION
+      }
+    },
+    "reminder_payload": {                          // Reminder payload from REMIND request
+      "content_type": "application/json",
+      "semantic_type": "com.acme.dispute.ReminderContext",
+      "data": {
+        "message": "Follow up on document verification",
+        "task_id": "task-67890",
+        "agent_id": "agent-12345",
+        "priority": "high"
+      }
+    }
+  }
+}
+```
+
+**Reminder Notification Characteristics:**
+- Sent as close to but not before the scheduled time
+- For recurring reminders, sent per the cron schedule
+- Original request payload is included as-is for context
+- Reminder payload contains application-specific reminder context
+- Sequence number tracks which occurrence in a recurring schedule
+- Alarm initiation time indicates when Signal Exchange triggered the notification
+
+**Reminder Suppression:**
+- If Request is COMPLETED or CANCELLED when alarm time arrives, the alarm is suppressed
+- No REMINDER_NOTIFICATION is sent for suppressed alarms
+- All reminders for a Request are automatically cancelled when Request reaches terminal state
+
+### Reminder Cancelled Notification (SX → HA)
+
+Sent when a reminder schedule is cancelled (either explicitly or due to Request terminal state):
+
+```json
+{
+  "envelope": {
+    "version": "1.0",
+    "message_type": "REQUEST_UPDATE",
+    "message_id": "uuid",
+    "timestamp": "2026-01-08T10:30:00Z",
+    "tenant_id": "acme-bank",
+    "subscription_id": "sub-prod-001"
+  },
+  
+  "request": {
+    "id": "req-12345",
+    "correlation_id": "corr-67890",
+    "workbench_id": "dispute-ops",
+    "scenario_id": "dispute-filing",
+    "current_status": "ACTIVE"
+  },
+  
+  "update": {
+    "update_type": "REMINDER_CANCELLED",
+    "sequence": 12
+  },
+  
+  "payload": {
+    "reminder_cancelled": {
+      "reminder_schedule_id": "rem-12345",        // ID of cancelled reminder schedule
+      "cancelled_at": "2026-01-08T10:30:00Z",     // When cancellation occurred
+      "cancellation_reason": "explicit"            // explicit | request_completed | request_cancelled
+    }
+  }
+}
+```
+
+**Cancellation Reasons:**
+- **explicit**: Reminder was explicitly cancelled via CANCEL_REMINDER update
+- **request_completed**: Reminder cancelled because Request reached COMPLETED status
+- **request_cancelled**: Reminder cancelled because Request reached CANCELLED status
+
 ---
 
 ## Request-Specific Environment
@@ -266,6 +389,7 @@ While every Hub Application has access to the base Environment configured for th
   "environment": {
     "base": {
       "tenant_id": "acme-bank",
+      "subscription_id": "sub-prod-001",
       "environment_name": "production",
       "workbench_id": "dispute-ops",
       "scenario_id": "dispute-filing"
@@ -331,7 +455,7 @@ While every Hub Application has access to the base Environment configured for th
 
 | Component | Description |
 |-----------|-------------|
-| **base** | Tenant, environment, workbench, scenario context |
+| **base** | Tenant, subscription, environment, workbench, scenario context |
 | **subject** | User/subject information initiating the request |
 | **auth** | Access tokens, scopes, delegations for downstream calls |
 | **identity** | Agent SPIFFE identity, acting-as relationships |
@@ -339,6 +463,8 @@ While every Hub Application has access to the base Environment configured for th
 | **feature_flags** | Request-scoped feature flag overrides |
 | **quotas** | Request-scoped quota limits |
 | **routing** | Request-scoped routing preferences |
+
+> **Note:** The `tenant_id` and `subscription_id` appear in both `envelope.tenant_id`/`envelope.subscription_id` and `environment.base.tenant_id`/`environment.base.subscription_id`. The **envelope fields are the source of truth** — they are set by Signal Exchange based on the normalized signal's header. The `environment.base` fields are provided for convenience and consistency, and should match the envelope values.
 
 ### Environment Preparation
 
@@ -452,6 +578,8 @@ REQUEST_UPDATE (from Application)
     ├── MEMORY_UPDATE      (Subject/Org/Session memory)
     ├── PROGRESS           (Progress indicators)
     ├── MILESTONE          (Checkpoints)
+    ├── REMIND             (Schedule a reminder)
+    ├── CANCEL_REMINDER    (Cancel a reminder schedule)
     └── ERROR              (Recoverable errors)
 ```
 
@@ -702,6 +830,76 @@ Recoverable error or warning:
   }
 }
 ```
+
+### REMIND
+
+Schedule a reminder for the Request:
+
+> **Purpose:** The reminder feature helps agents and applications receive stimuli to continue parked work when there is no input from external systems or agents they may be waiting on. For example, an agent might be waiting on a user uploading documents, but if the user is not acting, the agent may need a reminder to take an alternate path. Reminders provide a mechanism for applications to schedule follow-up actions without maintaining their own scheduling infrastructure.
+
+```json
+{
+  "update": { "update_type": "REMIND", "sequence": 10 },
+  "payload": {
+    "reminder": {
+      "reminder_schedule_id": "rem-12345",        // Required: Unique ID for this reminder schedule
+      "kind": "document_upload_timeout",           // Optional: Semantic/business-domain type for reminder interpretation
+      "schedule": {
+        "type": "once",                            // once | recurring
+        "when": "2026-01-10T14:00:00Z",           // For once: ISO 8601 datetime
+        "cron_expression": "0 9 * * 1-5"          // For recurring: Cron expression (e.g., 9 AM Mon-Fri)
+      },
+      "reminder_payload": {                        // Required: Payload to include in reminder notification
+        "content_type": "application/json",
+        "semantic_type": "com.acme.dispute.ReminderContext",
+        "data": {
+          // Application-specific reminder context
+          // Can include task_id, agent_id, or other business data
+          "message": "Follow up on document verification",
+          "task_id": "task-67890",                 // Optional: Task context
+          "agent_id": "agent-12345",               // Optional: Agent context
+          "priority": "high"
+        }
+      }
+    }
+  }
+}
+```
+
+**Reminder Schedule Types:**
+- **once**: Single reminder at specified datetime
+- **recurring**: Recurring reminders based on cron expression
+
+**Reminder Lifecycle:**
+- Reminders are automatically cancelled when Request reaches COMPLETED or CANCELLED status
+- All pending alarms for cancelled/completed Requests are suppressed by Signal Exchange
+- Reminders can be explicitly cancelled via CANCEL_REMINDER update
+
+### CANCEL_REMINDER
+
+Cancel a reminder schedule:
+
+```json
+{
+  "update": { "update_type": "CANCEL_REMINDER", "sequence": 11 },
+  "payload": {
+    "cancel_reminder": {
+      "reminder_schedule_id": "rem-12345"          // Required: ID of reminder schedule to cancel
+    }
+  }
+}
+```
+
+**Cancellation Authorization:**
+- The Application that created the reminder
+- Supervisor of the Workbench
+- The agent who created the reminder schedule
+- Any agent with relevant privilege
+
+**Cancellation Notification:**
+When a reminder is cancelled, Signal Exchange sends a REQUEST_UPDATE to the Application with:
+- `update_type: "REMINDER_CANCELLED"`
+- Payload containing the cancelled reminder_schedule_id
 
 ---
 

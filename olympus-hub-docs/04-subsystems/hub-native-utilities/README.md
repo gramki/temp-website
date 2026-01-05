@@ -128,6 +128,7 @@ Hub Applications often need to make decisions or predictions as part of their pr
 | [Checklist Service](./checklist-service.md) | Workbench-scoped scheduled multi-operation governance | 🔴 Stub |
 | [Routine Service](./routine-service.md) | Agent-scoped scheduled operations (personal or assigned) | 🔴 Stub |
 | [Manual Task Application](./manual-task-application.md) | Pass-through app for manual tasks (1:1 Request-Task wiring) | 🔴 Stub |
+| [HTTP Tool Calling Application](./http-tool-calling-application.md) | Simplified app for HTTP tool invocations with JS transformations | 🟡 Draft |
 | *(Additional utilities to be defined)* | | |
 
 ---

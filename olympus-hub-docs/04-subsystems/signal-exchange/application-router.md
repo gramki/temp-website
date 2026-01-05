@@ -22,8 +22,9 @@ The Application Router routes Requests and Request updates to the appropriate Hu
 | Function | Description |
 |----------|-------------|
 | **Application Selection** | Determine target Application from Scenario |
-| **Request Routing** | Route new Requests to Applications |
+| **Request Routing** | Route new Requests to Applications via preferred interface |
 | **Update Routing** | Route Request updates to active Application sessions |
+| **Interface Selection** | Route to Application Runtime's preferred interface (HTTP, Atropos, or OMS) |
 | **Load Balancing** | Distribute across Application instances |
 | **Failover** | Handle Application unavailability |
 
@@ -50,14 +51,15 @@ Each Automation Runtime provides specialized Hub Application types:
 2. Identify Scenario from Request
 3. Look up Application mapping for Scenario
 4. Determine Application type and Automation Runtime
-5. Invoke appropriate Automation Runtime API:
-   - Atlantis: Function invocation
-   - Perseus: Job submission
-   - Rhea: Process start
-   - ChronoShift: Workflow start/signal
-   - Seer: Case initiation/update
-6. Track Application session binding
+5. Identify Application Runtime's preferred interface (HTTP, Atropos, or OMS)
+6. Route Request via selected interface:
+   - HTTP: POST to Application endpoint
+   - Atropos: Publish to Application's topic
+   - OMS: Send message to Application's queue
+7. Track Application session binding
 ```
+
+> **Note:** Signal Exchange delivers messages to Application Runtimes over HTTP, Atropos, or OMS interfaces as per the preference of the Application Runtime. Signal Exchange also accepts updates from Applications on any of these interfaces.
 
 ---
 
@@ -68,11 +70,20 @@ For ongoing Application sessions:
 ```
 1. Receive Request update
 2. Find active Application session for Request
-3. Route update to correct session:
-   - ChronoShift: Workflow signal
-   - Seer: Case event
-   - Others: As appropriate for Application type
+3. Route update via Application Runtime's preferred interface:
+   - HTTP: POST update to Application endpoint
+   - Atropos: Publish update to Application's topic
+   - OMS: Send update message to Application's queue
 ```
+
+### Message Delivery Characteristics
+
+| Characteristic | Description |
+|----------------|-------------|
+| **Out-of-Order Delivery** | Messages may arrive out of order — Application Runtimes must handle ordering if required |
+| **Deduplication** | Deduplication is the responsibility of the recipient (Application Runtime), not Signal Exchange |
+| **Idempotency** | Application Runtimes should design message handlers to be idempotent |
+| **Interface Flexibility** | Applications can receive on one interface and send updates on a different interface |
 
 ---
 

@@ -1,6 +1,6 @@
 # I/O Gateways (Signal Providers)
 
-I/O Gateways are Machines in the Hub Environment that sense Signals from various protocols and channels, execute Workbench-defined Triggers, and create standardized Requests for Operations.
+I/O Gateways are Machines in the Hub Environment that sense Signals from various protocols and channels, forward them to Signal Exchange, and receive responses back to the originating channel. Signal Exchange executes Workbench-defined Triggers and creates standardized Requests for Hub Applications.
 
 > **Olympus Academy References:**
 > - [Atropos - Event Bus](https://atropos.olympus.tech/)
@@ -20,12 +20,15 @@ I/O Gateways are Machines in the Hub Environment that sense Signals from various
 │   │ (Events) │  │(Obs/Exc) │  │(HTTP/API)│  │ (Files)  │        │
 │   └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘        │
 │        │             │             │             │              │
+│        │ 1. Sense protocol-specific signals                      │
+│        │ 2. Transform to normalized format                      │
 │        └─────────────┴──────┬──────┴─────────────┘              │
 │                             ▼                                    │
-│                    TRIGGER (Workbench-defined)                   │
+│                    SIGNAL EXCHANGE                                │
+│                    (Normalized Signal DTO)                        │
 │                             │                                    │
 │                             ▼                                    │
-│                         REQUEST                                  │
+│                    Trigger Evaluation → Request Creation          │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -53,39 +56,46 @@ All I/O Gateways share these responsibilities:
 - Parse and validate incoming data
 - Extract relevant metadata (source, timestamp, correlation IDs)
 
-### 2. Trigger Execution
-I/O Gateways execute Workbench-defined Triggers:
+### 2. Transport & Security
+I/O Gateways handle the transport layer, authentication, and access control for their scope:
 
-| Trigger Responsibility | Description |
-|------------------------|-------------|
-| **Filter** | Determine which incoming Signals should proceed |
-| **Transform** | Convert protocol-specific format to/from Request/Response |
-| **Access** | Enforce authorization rules at I/O boundary |
-| **Bind** | Map protocol message → Request (input) and Response → protocol message (output) |
+| Responsibility | Description |
+|----------------|-------------|
+| **Transport Layer** | Manage protocol-specific communication (HTTP, event bus, file transfer, etc.) |
+| **Authentication** | Authenticate incoming requests/signals at the I/O boundary |
+| **Access Control** | Enforce authorization rules for their scope (additional controls may be enforced at subsequent subsystems) |
+| **Communication Port** | Provide communication port and semantics to accept signals under a tenant's subscription |
 
-### 3. Request Creation
-- Create standardized Requests from protocol-specific inputs
-- Requests are channel-agnostic—Operations don't know their origin
+### 3. Signal Normalization
+I/O Gateways transform protocol-specific signals to Signal Exchange's normalized signal format:
+
+- Transform from protocol-specific format → Signal Exchange's normalized DTO format
+- Ensure all required fields (tenant_id, subscription_id, signal_id, etc.) are present
+- Preserve protocol-specific metadata as additional fields (if needed)
+- Align to Signal Exchange's DTO structure while maintaining extensibility
+
+> **Note:** Signal Exchange receives signals in a single, normalized format regardless of the originating protocol. I/O Gateways are responsible for this transformation.
 
 ### 4. Response Handling
-- Receive Operation responses
-- Transform back to protocol-specific format
+- Receive responses from Signal Exchange (for bidirectional I/O Gateways)
+- Transform normalized response format back to protocol-specific format
 - Deliver to originating channel
 
 ## Workbench Trigger Configuration
 
-Triggers are defined in Workbench configurations, not in the I/O Gateways themselves. This allows:
+Triggers are defined in Workbench Management and executed by Signal Exchange, not by I/O Gateways. This allows:
 - Same I/O Gateway to serve multiple Workbenches
 - Workbench-specific filtering and transformation rules
-- Centralized Trigger management in Workbench Studio
+- Centralized Trigger management in Workbench Management
+- I/O Gateways to focus on transport, security, and normalization
 
 ## Relationship to Other Subsystems
 
 | Subsystem | Relationship |
 |-----------|--------------|
-| **Workbench Studio** | Defines Triggers that I/O Gateways execute |
-| **Operations Center** | Receives Requests created by I/O Gateways |
-| **Automation Runtimes** | Execute Operations on Requests |
+| **Workbench Management** | Defines Triggers that Signal Exchange executes (not I/O Gateways) |
+| **Signal Exchange** | Receives normalized signals from I/O Gateways, executes triggers, creates and routes Requests |
+| **Automation Runtimes** | Execute Hub Applications on Requests |
 | **Cipher IAM** | Provides authentication/authorization for I/O boundaries |
 
 ## Infrastructure Notes

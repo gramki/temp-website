@@ -163,6 +163,7 @@ An **observer module** is a Hub subsystem or integration that:
 | **Ops Center** | Update dashboards, notify operators |
 | **Neutrino** | Notify customers via configured channels |
 | **MS Teams Module** | Post to chat groups, add members, notify agents |
+| **Notification Services** | Translate Request Updates into persona-specific notifications (Email, SMS, Push, Webhook) |
 | **Atropos** | Publish events to downstream systems |
 
 ### Subscription Registration
