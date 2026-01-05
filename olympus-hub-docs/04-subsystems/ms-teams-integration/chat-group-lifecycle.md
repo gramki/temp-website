@@ -356,7 +356,7 @@ chat_groups:
 
 ### Signal Exchange Dispatch Model
 
-**Important:** Signal Exchange dispatches Request Updates to **registered observers** (like the MS Teams module), NOT to individual agents or tasks. Signal Exchange operates at the Request level and cannot attribute updates to specific tasks or agents.
+**Important:** Signal Exchange dispatches Request Updates to **registered observers** (like the MS Teams module), NOT to individual agents or tasks. Signal Exchange operates at the Request level and cannot direct updates to specific tasks or agents.
 
 | Component | Responsibility |
 |-----------|----------------|

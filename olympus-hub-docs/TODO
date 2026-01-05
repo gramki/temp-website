@@ -62,6 +62,15 @@ Storage Services
 ✔ *Trigger can update Applications* I/O Gateway for MS Teams -> Signals -> Trigger -> (New Case or Action in an existing Case); (New Workflow or Action in an existing Workflow Process) @done(26-01-04 15:35)
 ✔ @done(26-01-04 15:35)
 
+- *Review UI Architecture content*
+- TODO: Admin Desk need to be fixed to get to DevOps/SRE action list; Shoudln't sound like a Supervisor Desk
+- TODO: Why is 'User Interaction Channels' focused on just 'customers as subjects'?
+- "Publisher Consoles" - !!
+- Critical to specifiy Signal Exchange to Hub Application contract
+- Concrete Data Structure of Request
+- Signal Exchange to Observer Module contract
+
+
 # UI Architecture:
     ## Meta Approach:
         - (Persona, Channel, Use Case) approach
@@ -169,10 +178,10 @@ Storage Services
 
 
     # MS Teams Integration:
-        [ ] Expand MS Teams as an Agent's Copilot (an agent should be able to work on a task assigned to them via MS Teams; Me_Bot_Per_Workbench acts as the copilot of the agent)
-        [ ] Expand MS Teams as a I/O Gateway for request initiation and updates (Bot corresponding to each Workbench for Business Employee; Ask_Bot_Per_Workbench acts as the Copilot for the Business Employee)
-        [ ] Expand MS Teams Chat Group as a Collaboration mechanism for Agents working on a request (Each Request is Chat Group with all the agents working on it; Each assigned per active Task in the request)
-
+        ✔ Expand MS Teams as an Agent's Copilot (an agent should be able to work on a task assigned to them via MS Teams; Me_Bot_Per_Workbench acts as the copilot of the agent) @done(26-01-05 01:28)
+        ✔ Expand MS Teams as a I/O Gateway for request initiation and updates (Bot corresponding to each Workbench for Business Employee; Ask_Bot_Per_Workbench acts as the Copilot for the Business Employee) @done(26-01-05 01:28)
+        ✔ Expand MS Teams Chat Group as a Collaboration mechanism for Agents working on a request (Each Request is Chat Group with all the agents working on it; Each assigned per active Task in the request) @done(26-01-05 01:28)
+✔ @done(26-01-05 01:28)
 
 
 
