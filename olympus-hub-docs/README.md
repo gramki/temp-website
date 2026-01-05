@@ -256,7 +256,7 @@ Olympus Hub is an operations management platform designed for large and medium e
 | **Hub Home** | Agent, Supervisor | [hub-home.md](./06-ux-architecture/hub-home.md) | 🔴 Stub |
 | **Agent Desk** | Agent | [agent-desk.md](./06-ux-architecture/agent-desk.md) | 🔴 Stub |
 | **Supervisor Desk** | Supervisor | [supervisor-desk.md](./06-ux-architecture/supervisor-desk.md) | 🔴 Stub |
-| **Admin Desk** | Workbench Admin | [admin-desk.md](./06-ux-architecture/admin-desk.md) | 🔴 Stub |
+| **Steward Desk** | Workbench Admin | [steward-desk.md](./06-ux-architecture/steward-desk.md) | 🔴 Stub |
 | **Neutrino** | Business Customer | [neutrino-integration.md](./06-ux-architecture/neutrino-integration.md) | 🔴 Stub |
 
 #### UI Framework & Integration

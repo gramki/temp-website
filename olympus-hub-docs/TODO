@@ -63,7 +63,7 @@ Storage Services
 ✔ @done(26-01-04 15:35)
 
 - *Review UI Architecture content*
-- TODO: Admin Desk need to be fixed to get to DevOps/SRE action list; Shoudln't sound like a Supervisor Desk
+- TODO: Steward Desk need to be fixed to get to DevOps/SRE action list; Shoudln't sound like a Supervisor Desk
 - TODO: Why is 'User Interaction Channels' focused on just 'customers as subjects'?
 - "Publisher Consoles" - !!
 - Critical to specifiy Signal Exchange to Hub Application contract
@@ -105,7 +105,7 @@ Storage Services
         
     ## Hub UI for Workbench Creators:
         - Hub Studio (Process Architects, Developers)
-        - Hub Workbench - Admin Desk 
+        - Hub Workbench - Steward Desk 
 
         Expand Workbench Studio:
             - Angelos Page (App) Builder (Custom Console Buildign use case)

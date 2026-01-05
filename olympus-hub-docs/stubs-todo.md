@@ -293,7 +293,7 @@ The following were removed as they are implementation details abstracted by Olym
 | [hub-home.md](./06-ux-architecture/hub-home.md) | Landing page for Agents and Supervisors | 🔴 Stub | High |
 | [agent-desk.md](./06-ux-architecture/agent-desk.md) | Agent operations console | 🔴 Stub | High |
 | [supervisor-desk.md](./06-ux-architecture/supervisor-desk.md) | Supervisor management console | 🔴 Stub | High |
-| [admin-desk.md](./06-ux-architecture/admin-desk.md) | Workbench admin console | 🔴 Stub | Medium |
+| [steward-desk.md](./06-ux-architecture/steward-desk.md) | Workbench admin console | 🔴 Stub | Medium |
 | [mcp-channels.md](./06-ux-architecture/mcp-channels.md) | MCP Gateway architecture for AI integration | 🔴 Stub | High |
 | [angelos-framework.md](./06-ux-architecture/angelos-framework.md) | UI component framework | 🔴 Stub | High |
 | [hercules-launcher.md](./06-ux-architecture/hercules-launcher.md) | Launch URL service for deep linking | 🔴 Stub | Medium |

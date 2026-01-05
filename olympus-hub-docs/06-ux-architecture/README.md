@@ -92,7 +92,7 @@ Hub treats these as first-class interaction channels:
 | Application | Persona | Purpose |
 |-------------|---------|---------|
 | **[Hub Workbench Studio](./workbench-studio.md)** | Process Architect, Developer | Design scenarios, build applications, manage knowledge |
-| **[Admin Desk](./admin-desk.md)** | Workbench Admin | Configure workbench-specific settings |
+| **[Steward Desk](./steward-desk.md)** | Workbench Admin | Configure workbench-specific settings |
 
 ### Workbench Operations
 
@@ -325,7 +325,7 @@ See [Hercules Launcher](./hercules-launcher.md) for details.
 | [Hub Home](./hub-home.md) | Landing page | 🔴 Stub |
 | [Agent Desk](./agent-desk.md) | Agent operations console | 🔴 Stub |
 | [Supervisor Desk](./supervisor-desk.md) | Supervisor management console | 🔴 Stub |
-| [Admin Desk](./admin-desk.md) | Workbench admin console | 🔴 Stub |
+| [Steward Desk](./steward-desk.md) | Workbench admin console | 🔴 Stub |
 | [MCP Channels](./mcp-channels.md) | MCP architecture | 🔴 Stub |
 | [Angelos Framework](./angelos-framework.md) | UI component framework | 🔴 Stub |
 | [Hercules Launcher](./hercules-launcher.md) | Launch URL service | 🔴 Stub |
