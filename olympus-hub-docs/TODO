@@ -81,7 +81,13 @@ Storage Services
 
     ## Hub Analytics Module:
         ✔ Report Center - Clarified as part of Hub Analytics using Olympus LakeStack @done(26-01-05)
-        [ ] Product Center - Removed (not required)
+        ✔ Product Center - Removed (not required) @done(26-01-05)
+
+    ## Partially Covered (Need Expansion):
+        [ ] Angelos Components & Binders - Detail the event wiring mechanism (how events from one component trigger events in other components within a Page)
+        [ ] Angelos Action Repository - Detail catalog structure, contribution process (tenant developers + pre-built actions), discovery and usage patterns
+        [ ] Task Solver Interface - Specify template structure, how Workbench Developers define custom solver views per task type, read-only vs solver view patterns
+        [ ] Custom Consoles - Detail the building process using Angelos Page Builder, component composition, data binding, deployment lifecycle
 
     ## Hub Control Center (Tenant Admins):
         - Subsystems Configuration
