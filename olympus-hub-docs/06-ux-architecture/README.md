@@ -78,8 +78,8 @@ Hub treats these as first-class interaction channels:
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[Hub SRE Operations Center](./publisher-consoles.md#sre-operations-center)** | SRE | Monitor, maintain, and operate Hub infrastructure |
-| **[Hub Win Operations Center](./publisher-consoles.md#win-operations-center)** | Customer Success | Onboard tenants, support adoption, review usage |
+| **[Hub SRE Operations Center](./hub-sre-ops-center.md)** | SRE | Monitor, maintain, and operate Hub infrastructure |
+| **[Hub Win Operations Center](./hub-win-ops-center.md)** | Customer Success | Onboard tenants, support adoption, review usage |
 
 ### Tenant Administration
 
@@ -92,7 +92,7 @@ Hub treats these as first-class interaction channels:
 | Application | Persona | Purpose |
 |-------------|---------|---------|
 | **[Hub Workbench Studio](./workbench-studio.md)** | Process Architect, Developer | Design scenarios, build applications, manage knowledge |
-| **[Steward Desk](./steward-desk.md)** | Workbench Admin | Configure workbench-specific settings |
+| **[Steward Desk](./steward-desk.md)** | Process Architect, Developer | Runtime monitoring, incident triage, production support |
 
 ### Workbench Operations
 
@@ -320,7 +320,8 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Hub Control Center](./hub-control-center.md) | Tenant admin console | 🔴 Stub |
-| [Publisher Consoles](./publisher-consoles.md) | SRE and Customer Success consoles | 🔴 Stub |
+| [Hub SRE Operations Center](./hub-sre-ops-center.md) | Infrastructure operations for SRE | 🔴 Stub |
+| [Hub Win Operations Center](./hub-win-ops-center.md) | Customer Success operations | 🔴 Stub |
 | [Hub Workbench Studio](./workbench-studio.md) | Designer environment | 🔴 Stub |
 | [Hub Home](./hub-home.md) | Landing page | 🔴 Stub |
 | [Agent Desk](./agent-desk.md) | Agent operations console | 🔴 Stub |

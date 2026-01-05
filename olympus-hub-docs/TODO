@@ -65,7 +65,7 @@ Storage Services
 - *Review UI Architecture content*
 - TODO: Steward Desk need to be fixed to get to DevOps/SRE action list; Shoudln't sound like a Supervisor Desk
 - TODO: Why is 'User Interaction Channels' focused on just 'customers as subjects'?
-- "Publisher Consoles" - !!
+- "Hub SRE Operations Center, Hub Win Operations Center" - !!
 - Critical to specifiy Signal Exchange to Hub Application contract
 - Concrete Data Structure of Request
 - Signal Exchange to Observer Module contract

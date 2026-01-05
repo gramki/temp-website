@@ -288,7 +288,7 @@ The following were removed as they are implementation details abstracted by Olym
 |----------|-------------|--------|----------|
 | [README.md](./06-ux-architecture/README.md) | UX Architecture overview — meta approach, persona-channel-use case | 🟡 WIP | High |
 | [hub-control-center.md](./06-ux-architecture/hub-control-center.md) | Tenant Admin console | 🔴 Stub | High |
-| [publisher-consoles.md](./06-ux-architecture/publisher-consoles.md) | SRE and Customer Success consoles | 🔴 Stub | Medium |
+| [hub-sre-ops-center.md, hub-win-ops-center.md](./06-ux-architecture/hub-sre-ops-center.md, hub-win-ops-center.md) | SRE and Customer Success consoles | 🔴 Stub | Medium |
 | [workbench-studio.md](./06-ux-architecture/workbench-studio.md) | Designer environment for Process Architects and Developers | 🔴 Stub | High |
 | [hub-home.md](./06-ux-architecture/hub-home.md) | Landing page for Agents and Supervisors | 🔴 Stub | High |
 | [agent-desk.md](./06-ux-architecture/agent-desk.md) | Agent operations console | 🔴 Stub | High |
