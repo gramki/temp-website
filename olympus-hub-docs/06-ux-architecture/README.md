@@ -40,6 +40,7 @@ Hub treats these as first-class interaction channels:
 | **Traditional** | Web, Mobile, Email | Standard web/mobile apps |
 | **Collaboration** | [MS Teams](../04-subsystems/ms-teams-integration/README.md), Slack | Agent/Employee copilots, chat groups |
 | **AI Assistants** | ChatGPT, Claude, Gemini | Via [MCP Channels](./tenant-domain/mcp-channels.md) |
+| **Programmatic** | REST APIs | Via [REST Channels](./tenant-domain/rest-channels.md) |
 | **Customer-Facing** | [Neutrino](./frameworks-and-integrations/neutrino-integration.md) | Web Portal, Mobile App, IVR, Chat |
 
 ### Architecture Pattern
@@ -274,7 +275,7 @@ Hub exposes Model Context Protocol (MCP) gateways for AI agent integration.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-See [MCP Channels](./tenant-domain/mcp-channels.md) for details.
+See [MCP Channels](./tenant-domain/mcp-channels.md) for AI assistant access and [REST Channels](./tenant-domain/rest-channels.md) for programmatic REST API access.
 
 ---
 
@@ -329,6 +330,7 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 | [Supervisor Desk](./tenant-domain/supervisor-desk.md) | Supervisor management console | 🔴 Stub |
 | [Steward Desk](./tenant-domain/steward-desk.md) | Workbench admin console | 🔴 Stub |
 | [MCP Channels](./tenant-domain/mcp-channels.md) | MCP architecture | 🔴 Stub |
+| [REST Channels](./tenant-domain/rest-channels.md) | REST API architecture | 🟡 Draft |
 | [Angelos Framework](./frameworks-and-integrations/angelos-framework.md) | UI component framework | 🔴 Stub |
 | [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) | Launch URL service | 🔴 Stub |
 | [Neutrino Integration](./frameworks-and-integrations/neutrino-integration.md) | Customer channel integration | 🔴 Stub |

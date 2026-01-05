@@ -239,9 +239,10 @@ MCP Channels expose Hub capabilities as MCP tools:
 
 ## Related Documentation
 
-- [MCP Router](../05-infrastructure/mcp-router.md) — Infrastructure component for routing
-- [Heracles Gateway](../05-infrastructure/heracles-gateway.md) — API Gateway
-- [Tool Registry](../04-subsystems/registry-services/tool-registry.md) — Tool definitions
+- [REST Channels](./rest-channels.md) — RESTful API access for web/mobile/system clients
+- [MCP Router](../../05-infrastructure/mcp-router.md) — Infrastructure component for routing
+- [Heracles Gateway](../../05-infrastructure/heracles-gateway.md) — API Gateway
+- [Tool Registry](../../04-subsystems/registry-services/tool-registry.md) — Tool definitions
 
 ---
 
