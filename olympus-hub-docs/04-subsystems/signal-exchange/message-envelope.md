@@ -25,10 +25,12 @@ This document defines the DTOs for **Signal Exchange ↔ Hub Application** commu
 │   ┌─────────────────────────────────────────────────────────┐   │
 │   │           MESSAGE ENVELOPE (This Document)               │   │
 │   │                                                          │   │
-│   │   • Request Initiation DTO    (Exchange → App)           │   │
-│   │   • Request Update DTO        (Exchange → App)           │   │
-│   │   • Request Response DTO      (App → Exchange)           │   │
-│   │   • Async Update DTO          (App → Exchange)           │   │
+│   │   SX → HA (Signal Exchange to Hub Application):          │   │
+│   │   • Request Initiation                                   │   │
+│   │   • Request Update                                       │   │
+│   │                                                          │   │
+│   │   HA → SX (Hub Application to Signal Exchange):          │   │
+│   │   • Request Update (with Hub-specified payloads)         │   │
 │   │                                                          │   │
 │   └─────────────────────────────────────────────────────────┘   │
 │                                                                  │
@@ -52,6 +54,13 @@ The envelope provides:
 - Standardized response status reporting
 - Protocol-agnostic application integration
 - User-reportable status information
+
+### Envelope Contents Summary
+
+| Direction | Envelope Contains |
+|-----------|-------------------|
+| **SX → HA** | Origination info, Originator, Request metadata (incl. subject), Environment (Workbench/Scenario/Request scoped), Payload with content_type and semantic_type |
+| **HA → SX** | Request identification (workbench, scenario, request-id), Hub-specified update payload, Optional piggyback_payload with content_type and object_type |
 
 ---
 
@@ -108,9 +117,23 @@ Tracks the overall business status of the Request:
 
 ---
 
-## Request Envelope (Signal Exchange → Application)
+## Signal Exchange → Hub Application (SX → HA)
 
-### Initiation Message
+Signal Exchange sends two message types to Hub Applications:
+- **Request Initiation** — when a new Request is created
+- **Request Update** — when subsequent signals update an existing Request
+
+Both use a **standardized envelope format** containing:
+
+| Envelope Section | Description |
+|------------------|-------------|
+| **origination** | How and where this message originated |
+| **originator** | Who/what triggered this message |
+| **request** | Request metadata including subject information |
+| **environment** | Workbench, Scenario, and Request-scoped information |
+| **payload** | Content type, semantic type, and payload data |
+
+### Request Initiation Message
 
 Sent when a new Request is created:
 
@@ -122,25 +145,51 @@ Sent when a new Request is created:
     "message_id": "uuid",
     "timestamp": "2026-01-04T10:30:00Z"
   },
+  
+  "origination": {
+    "signal_id": "sig-12345",
+    "signal_provider_id": "sp-heracles-api",
+    "trigger_id": "trg-dispute-filing",
+    "channel": "mobile-app"
+  },
+  
+  "originator": {
+    "type": "signal_provider",           // signal_provider | system | schedule
+    "id": "sp-heracles-api",
+    "name": "Heracles API Gateway"
+  },
+  
   "request": {
     "id": "req-12345",
     "correlation_id": "corr-67890",
     "workbench_id": "dispute-ops",
     "scenario_id": "dispute-filing",
-    "request_type": "BusinessRequest",
-    "created_at": "2026-01-04T10:30:00Z"
+    "request_type": "BusinessRequest",   // ServiceRequest | BusinessRequest | SystemRequest
+    "created_at": "2026-01-04T10:30:00Z",
+    "subject": {                         // Present when request has a subject
+      "type": "customer",
+      "id": "cust-67890",
+      "name": "John Doe",
+      "segment": "premium"
+    }
   },
+  
   "environment": {
-    // Request-specific environment (see below)
+    // Workbench, Scenario, and Request-scoped information (see below)
   },
+  
   "payload": {
-    // Application-specific and Scenario-specific payload
-    // Transformed from Signal via Trigger transformation
+    "content_type": "application/json",  // application/json | application/base64
+    "semantic_type": "com.acme.dispute.DisputeFilingRequest",
+    "data": {
+      // Application-specific and Scenario-specific payload
+      // Transformed from Signal via Trigger transformation
+    }
   }
 }
 ```
 
-### Update Message
+### Request Update Message (SX → HA)
 
 Sent when subsequent signals update an existing Request:
 
@@ -152,21 +201,48 @@ Sent when subsequent signals update an existing Request:
     "message_id": "uuid",
     "timestamp": "2026-01-04T10:35:00Z"
   },
+  
+  "origination": {
+    "signal_id": "sig-23456",
+    "signal_provider_id": "sp-atropos-events",
+    "trigger_id": "trg-document-uploaded",
+    "channel": "event-bus"
+  },
+  
+  "originator": {
+    "type": "signal_provider",
+    "id": "sp-atropos-events",
+    "name": "Atropos Event Bus"
+  },
+  
   "request": {
     "id": "req-12345",
     "correlation_id": "corr-67890",
-    "current_state": "IN-PROGRESS"
+    "workbench_id": "dispute-ops",
+    "scenario_id": "dispute-filing",
+    "current_status": "ACTIVE",
+    "subject": {
+      "type": "customer",
+      "id": "cust-67890"
+    }
   },
+  
   "environment": {
     // Request-specific environment (refreshed for update)
   },
+  
   "update": {
     "update_type": "SIGNAL_UPDATE",     // SIGNAL_UPDATE | USER_INPUT | SYSTEM_EVENT
     "update_source": "atropos",
     "update_id": "upd-99999"
   },
+  
   "payload": {
-    // Update-specific payload
+    "content_type": "application/json",
+    "semantic_type": "com.acme.dispute.DocumentUploadedEvent",
+    "data": {
+      // Update-specific payload
+    }
   }
 }
 ```
@@ -282,11 +358,27 @@ For `REQUEST_UPDATE` messages, the environment is **refreshed**:
 
 ---
 
-## Response Envelope (Application → Signal Exchange)
+## Hub Application → Signal Exchange (HA → SX)
+
+Hub Applications send **Request Update** messages to Signal Exchange. All messages must:
+
+1. **Comply with Signal Exchange's Request Update DTOs** — use the standardized envelope
+2. **Contain Request identifying data** — workbench, scenario, request-id (as received from Signal Exchange)
+3. **Use Hub-specified payloads** — for each update type (Task Lifecycle, Memo, Thought, etc.)
+4. **Optionally include piggyback-payload** — additional custom payload from the Hub Application
+
+### Compliance Requirements
+
+| Requirement | Description |
+|-------------|-------------|
+| **Request Identification** | Every message MUST include `workbench_id`, `scenario_id`, `request_id` as received in earlier SX → HA messages |
+| **Hub-Specified Payloads** | Each `update_type` has a Hub-defined payload structure (see sub-types below) |
+| **Piggyback Payload** | Applications MAY include additional custom data in `piggyback_payload` |
+| **Piggyback Envelope** | Piggyback payload has its own `content_type` and `object_type` |
 
 ### Synchronous Response
 
-Applications **must** respond using the standard envelope:
+Applications respond to `REQUEST_INITIATION` or `REQUEST_UPDATE` (from SX) with a synchronous response:
 
 ```json
 {
@@ -296,28 +388,46 @@ Applications **must** respond using the standard envelope:
     "message_id": "uuid",
     "timestamp": "2026-01-04T10:32:00Z"
   },
+  
   "request": {
+    "workbench_id": "dispute-ops",
+    "scenario_id": "dispute-filing",
     "id": "req-12345",
     "correlation_id": "corr-67890"
   },
+  
   "request_status": {
     "status": "ACTIVE",                 // ACTIVE | PENDING | COMPLETED | CANCELLED
     "status_reason": "Awaiting document verification"
   },
+  
   "response_status": {
     "code": "ACCEPTED",
     "description": "Dispute case opened successfully",
     "user_message": "Your dispute has been registered. Case ID: DSP-2026-12345"
   },
+  
   "payload": {
-    // Application-specific response payload
+    "content_type": "application/json",
+    "semantic_type": "com.acme.dispute.DisputeFilingResponse",
+    "data": {
+      // Application-specific response payload
+    }
+  },
+  
+  "piggyback_payload": {                // Optional: additional custom payload
+    "content_type": "application/json",
+    "object_type": "com.acme.dispute.AuditContext",
+    "data": {
+      // Custom data from Hub Application
+    }
   }
 }
 ```
 
 ### Request Update (from Application)
 
-Long-running Applications (workflows, durable workflows, case management) send intermediate updates via `REQUEST_UPDATE` messages. All updates from Applications are routed through Signal Exchange using this message type.
+Long-running Applications (workflows, durable workflows, case management) send intermediate updates via `REQUEST_UPDATE` messages.
 
 > **Note:** Whether the update is sent synchronously (inline with a response) or asynchronously (at a later time) does not change the message type. Both use `REQUEST_UPDATE`.
 
@@ -346,22 +456,36 @@ REQUEST_UPDATE (from Application)
     "message_id": "uuid",
     "timestamp": "2026-01-04T12:45:00Z"
   },
+  
   "request": {
-    "id": "req-12345",
+    "workbench_id": "dispute-ops",       // Required: as received from SX
+    "scenario_id": "dispute-filing",     // Required: as received from SX
+    "id": "req-12345",                   // Required: as received from SX
     "correlation_id": "corr-67890"
   },
+  
   "update": {
-    "update_type": "STATUS_CHANGE",   // Discriminator for sub-type
-    "sequence": 5                      // Ordering for concurrent updates
+    "update_type": "STATUS_CHANGE",      // Discriminator for sub-type
+    "sequence": 5                         // Ordering for concurrent updates
   },
-  "user_notification": {               // Optional: trigger observer notification
+  
+  "user_notification": {                 // Optional: trigger observer notification
     "enabled": true,
     "title": "...",
     "message": "...",
     "priority": "normal"
   },
+  
   "payload": {
-    // Sub-type specific payload (see below)
+    // Hub-specified payload for this update_type (see below)
+  },
+  
+  "piggyback_payload": {                 // Optional: additional custom payload
+    "content_type": "application/json",
+    "object_type": "com.acme.dispute.CustomContext",
+    "data": {
+      // Custom data from Hub Application
+    }
   }
 }
 ```
