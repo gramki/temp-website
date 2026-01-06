@@ -40,6 +40,10 @@ All ADRs follow the standard format:
 | [0016](./0016-typed-data-store-crds.md) | Typed CRDs for data stores (Ganymede, Callisto, Europa) | Accepted | 2026-01-06 | operators |
 | [0017](./0017-trigger-as-standalone-specification.md) | TriggerSpec as standalone CRD | Accepted | 2026-01-06 | operators |
 | [0018](./0018-dedicated-apm-operator.md) | Dedicated APM operator for Hub observability | Accepted | 2026-01-06 | operators |
+| [0019](./0019-signal-exchange-observer-pattern.md) | Observer pattern for SX module integration | Accepted | 2026-01-06 | signal-exchange |
+| [0020](./0020-request-level-granularity.md) | Signal Exchange operates at Request level only | Accepted | 2026-01-06 | signal-exchange |
+| [0021](./0021-cns-as-delivery-layer.md) | Cipher Notification Service as delivery layer | Accepted | 2026-01-06 | notification |
+| [0022](./0022-workbench-scoped-user-preferences.md) | User preferences scoped to workbench with tenant fallback | Accepted | 2026-01-06 | notification |
 
 ---
 
@@ -74,6 +78,14 @@ All ADRs follow the standard format:
 - [0016](./0016-typed-data-store-crds.md) - Typed CRDs for data stores (Ganymede, Callisto, Europa)
 - [0017](./0017-trigger-as-standalone-specification.md) - TriggerSpec as standalone CRD
 - [0018](./0018-dedicated-apm-operator.md) - Dedicated APM operator for Hub observability
+
+### Signal Exchange
+- [0019](./0019-signal-exchange-observer-pattern.md) - Observer pattern for SX module integration
+- [0020](./0020-request-level-granularity.md) - Signal Exchange operates at Request level only
+
+### Notification
+- [0021](./0021-cns-as-delivery-layer.md) - Cipher Notification Service as delivery layer
+- [0022](./0022-workbench-scoped-user-preferences.md) - User preferences scoped to workbench with tenant fallback
 
 ---
 
