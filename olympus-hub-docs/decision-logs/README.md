@@ -65,6 +65,14 @@ All ADRs follow the standard format:
 | [0041](./0041-standalone-tool-variation.md) | Standalone Tool as ToolInstance variation | Accepted | 2026-01-06 | operators |
 | [0042](./0042-scenario-as-tool-granularity.md) | Scenario as Tool granularity (entire scenario = one tool) | Accepted | 2026-01-06 | composite-patterns |
 | [0043](./0043-workbench-as-machine-transitive-exposure.md) | Workbench as Machine transitive tool exposure | Accepted | 2026-01-06 | composite-patterns |
+| [0044](./0044-platform-agnostic-registry.md) | Platform-agnostic container registry via Olympus Weave | Accepted | 2026-01-06 | artifact-registry |
+| [0045](./0045-subscription-scoped-git-repository.md) | One Git repo per subscription, main branch only | Accepted | 2026-01-06 | artifact-registry |
+| [0046](./0046-semver-promotion-compatibility.md) | Semantic version compatibility for promotion | Accepted | 2026-01-06 | artifact-registry |
+| [0047](./0047-scenario-atomic-promotion-unit.md) | Scenario as atomic promotion unit | Accepted | 2026-01-06 | artifact-registry |
+| [0048](./0048-physical-copy-cross-subscription.md) | Physical copy for cross-subscription promotion | Accepted | 2026-01-06 | artifact-registry |
+| [0049](./0049-git-as-storage-manual-sync.md) | Git as storage with manual sync triggers | Accepted | 2026-01-06 | artifact-registry |
+| [0050](./0050-test-runner-as-hub-application.md) | Hub Test Runner as Hub Application on Atlantis | Accepted | 2026-01-06 | ci-subsystem |
+| [0051](./0051-developer-responsibility-stubbing.md) | Developer responsibility for machine/tool stubbing | Accepted | 2026-01-06 | ci-subsystem |
 
 ---
 
@@ -136,6 +144,18 @@ All ADRs follow the standard format:
 ### Composite Patterns
 - [0042](./0042-scenario-as-tool-granularity.md) - Scenario as Tool granularity (entire scenario = one tool)
 - [0043](./0043-workbench-as-machine-transitive-exposure.md) - Workbench as Machine transitive tool exposure
+
+### Artifact Registry
+- [0044](./0044-platform-agnostic-registry.md) - Platform-agnostic container registry via Olympus Weave
+- [0045](./0045-subscription-scoped-git-repository.md) - One Git repo per subscription, main branch only
+- [0046](./0046-semver-promotion-compatibility.md) - Semantic version compatibility for promotion
+- [0047](./0047-scenario-atomic-promotion-unit.md) - Scenario as atomic promotion unit
+- [0048](./0048-physical-copy-cross-subscription.md) - Physical copy for cross-subscription promotion
+- [0049](./0049-git-as-storage-manual-sync.md) - Git as storage with manual sync triggers
+
+### CI Subsystem
+- [0050](./0050-test-runner-as-hub-application.md) - Hub Test Runner as Hub Application on Atlantis
+- [0051](./0051-developer-responsibility-stubbing.md) - Developer responsibility for machine/tool stubbing
 
 ---
 
