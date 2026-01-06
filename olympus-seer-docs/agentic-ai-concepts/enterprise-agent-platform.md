@@ -7,8 +7,8 @@
 
 ### Related Documents
 
-- **[Raw, Trained, Employed Agents](../aosm-meta-model/raw-trained-employed-agents.md)** — Zeta's three-layer model for agent lifecycle and governance
-- **[Agent-Oriented System (AOS): Definition, Structure, and Design Process](../aosm-meta-model/agent-oriented-system.md)** — AOSM meta-model foundations
+- **[Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md)** — Zeta's three-layer model for agent lifecycle and governance
+- **[Agent-Oriented System (AOS): Definition, Structure, and Design Process](../../aosm-meta-model/agent-oriented-system.md)** — AOSM meta-model foundations
 
 ---
 

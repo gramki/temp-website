@@ -30,5 +30,5 @@ Governance, Policy & Override functions are distributed between subsystems:
 ## Related
 
 - [Introduction](../introduction.md) — Seer overview
-- [Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md) — Agent lifecycle model
+- [Raw, Trained, Employed Agents](../../../aosm-meta-model/raw-trained-employed-agents.md) — Agent lifecycle model
 

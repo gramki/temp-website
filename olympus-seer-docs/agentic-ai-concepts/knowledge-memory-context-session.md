@@ -6,7 +6,7 @@
 ### Related Documents
 
 - **[Primer on Agent Memory Management](./agent-memory-management.md)** — Deep dive into memory types, lifecycle, and governance
-- **[Raw, Trained, Employed Agents](../aosm-meta-model/raw-trained-employed-agents.md)** — How these concepts map to agent layers
+- **[Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md)** — How these concepts map to agent layers
 
 ---
 

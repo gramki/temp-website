@@ -34,7 +34,7 @@ The Agent Identity & Authority Framework provides **verifiable identity** and **
 ## Related
 
 - [Introduction](../introduction.md)
-- [Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md)
+- [Raw, Trained, Employed Agents](../../../aosm-meta-model/raw-trained-employed-agents.md)
 
 ---
 

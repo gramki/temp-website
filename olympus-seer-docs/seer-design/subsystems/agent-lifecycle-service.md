@@ -31,7 +31,7 @@ Seer implements Zeta's three-layer agent model, grounded in **Agent-Oriented Sys
 | **Trained Agent** | Knowledge, Skills, Role | Domain expertise, defined responsibilities | Authority to act |
 | **Employed Agent** | Authority, Autonomy | Delegated authority, team allocation | — (complete) |
 
-> For the complete agent model, see [Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md).
+> For the complete agent model, see [Raw, Trained, Employed Agents](../../../aosm-meta-model/raw-trained-employed-agents.md).
 
 ---
 
@@ -438,8 +438,8 @@ Learnings are subject to change management controls and cannot bypass guardrails
 ## Related
 
 - [Introduction](../introduction.md)
-- [Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md) — Complete agent model
-- [Agent-Oriented System](../../aosm-meta-model/agent-oriented-system.md) — AOSM foundations
+- [Raw, Trained, Employed Agents](../../../aosm-meta-model/raw-trained-employed-agents.md) — Complete agent model
+- [Agent-Oriented System](../../../aosm-meta-model/agent-oriented-system.md) — AOSM foundations
 - [Runtime & Deployment](./runtime-deployment.md) — Lifecycle execution
 
 ---

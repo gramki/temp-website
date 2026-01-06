@@ -44,7 +44,7 @@ Observability operates during **production runtime**:
 
 - [Agent Evaluation](./agent-evaluation.md) — Development-time quality assurance
 - [Introduction](../introduction.md)
-- [Agent-Oriented System](../../aosm-meta-model/agent-oriented-system.md) — OPD requirements
+- [Agent-Oriented System](../../../aosm-meta-model/agent-oriented-system.md) — OPD requirements
 
 ---
 

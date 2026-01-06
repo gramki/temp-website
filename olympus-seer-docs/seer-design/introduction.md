@@ -66,8 +66,8 @@ Seer implements Zeta's three-layer agent model, grounded in **Agent-Oriented Sys
 
 **Key principle:** Training guardrails are immutable. Employment can narrow scope but never expand authority.
 
-> For the complete agent model, see [Raw, Trained, Employed Agents](../aosm-meta-model/raw-trained-employed-agents.md).  
-> For AOSM foundations, see [Agent-Oriented System](../aosm-meta-model/agent-oriented-system.md).
+> For the complete agent model, see [Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md).  
+> For AOSM foundations, see [Agent-Oriented System](../../aosm-meta-model/agent-oriented-system.md).
 
 ---
 
@@ -149,7 +149,7 @@ Seer's design is grounded in **Agent-Oriented Systems Modeling (AOSM)**, which p
 | **Controlled Autonomy** | Agents act only within bounds set by accountable humans |
 | **Four Components of Autonomy** | Authority, Availability, Capability, Capacity |
 
-> For complete AOSM reference, see [Agent-Oriented System](../aosm-meta-model/agent-oriented-system.md).
+> For complete AOSM reference, see [Agent-Oriented System](../../aosm-meta-model/agent-oriented-system.md).
 
 ---
 
@@ -157,8 +157,8 @@ Seer's design is grounded in **Agent-Oriented Systems Modeling (AOSM)**, which p
 
 ### Conceptual Foundations
 - [Enterprise AI Agent Platforms](../agentic-ai-concepts/enterprise-agent-platform.md) — What enterprise agent platforms require
-- [Agent-Oriented System](../aosm-meta-model/agent-oriented-system.md) — AOSM meta-model
-- [Raw, Trained, Employed Agents](../aosm-meta-model/raw-trained-employed-agents.md) — Agent lifecycle model
+- [Agent-Oriented System](../../aosm-meta-model/agent-oriented-system.md) — AOSM meta-model
+- [Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md) — Agent lifecycle model
 
 ### Platform Requirements
 - [Enterprise Agent Platform Requirements](../requirements-enterprise-agentic-platform/README.md) — Bank-grade platform requirements

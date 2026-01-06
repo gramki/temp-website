@@ -66,7 +66,7 @@ Evaluation operates during **development and CI/CD**:
 
 - [Agent Observability](./agent-observability.md) — Runtime monitoring
 - [Introduction](../introduction.md)
-- [Agent-Oriented System](../../aosm-meta-model/agent-oriented-system.md) — OPD requirements
+- [Agent-Oriented System](../../../aosm-meta-model/agent-oriented-system.md) — OPD requirements
 
 ---
 
