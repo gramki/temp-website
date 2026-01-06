@@ -53,6 +53,14 @@ All ADRs follow the standard format:
 | [0029](./0029-caf-control-plane.md) | CAF as control plane for Memory Services (not storage) | Accepted | 2026-01-06 | data-architecture |
 | [0030](./0030-workbench-scoped-data-stores.md) | Application Data Stores are workbench-scoped (not runtime-scoped) | Accepted | 2026-01-06 | data-architecture |
 | [0031](./0031-optional-data-stores.md) | Application Data Stores are optional (not mandated) | Accepted | 2026-01-06 | data-architecture |
+| [0032](./0032-bots-as-persona-copilots.md) | MS Teams bots designed as persona copilots | Accepted | 2026-01-06 | ms-teams-integration |
+| [0033](./0033-chat-groups-as-collaboration-surfaces.md) | Chat groups as collaboration surfaces for requests | Accepted | 2026-01-06 | ms-teams-integration |
+| [0034](./0034-workbench-scoped-bots.md) | One bot of each kind per workbench | Accepted | 2026-01-06 | ms-teams-integration |
+| [0035](./0035-two-stage-message-classification.md) | Two-stage message classification pipeline | Accepted | 2026-01-06 | ms-teams-integration |
+| [0036](./0036-cross-channel-update-attribution.md) | Cross-channel update attribution via credential sharing | Accepted | 2026-01-06 | ms-teams-integration |
+| [0037](./0037-ms-teams-module-as-observer.md) | MS Teams module as Signal Exchange observer | Accepted | 2026-01-06 | ms-teams-integration |
+| [0038](./0038-group-orchestration-bot-construct.md) | Group Orchestration Bot as MS Teams module construct | Accepted | 2026-01-06 | ms-teams-integration |
+| [0039](./0039-direct-services-bypass.md) | Direct services bypass Signal Exchange | Accepted | 2026-01-06 | ms-teams-integration |
 
 ---
 
@@ -108,6 +116,16 @@ All ADRs follow the standard format:
 - [0029](./0029-caf-control-plane.md) - CAF as control plane for Memory Services (not storage)
 - [0030](./0030-workbench-scoped-data-stores.md) - Application Data Stores are workbench-scoped
 - [0031](./0031-optional-data-stores.md) - Application Data Stores are optional (not mandated)
+
+### MS Teams Integration
+- [0032](./0032-bots-as-persona-copilots.md) - MS Teams bots designed as persona copilots
+- [0033](./0033-chat-groups-as-collaboration-surfaces.md) - Chat groups as collaboration surfaces for requests
+- [0034](./0034-workbench-scoped-bots.md) - One bot of each kind per workbench
+- [0035](./0035-two-stage-message-classification.md) - Two-stage message classification pipeline
+- [0036](./0036-cross-channel-update-attribution.md) - Cross-channel update attribution via credential sharing
+- [0037](./0037-ms-teams-module-as-observer.md) - MS Teams module as Signal Exchange observer
+- [0038](./0038-group-orchestration-bot-construct.md) - Group Orchestration Bot as MS Teams module construct
+- [0039](./0039-direct-services-bypass.md) - Direct services bypass Signal Exchange
 
 ---
 

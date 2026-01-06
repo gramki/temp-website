@@ -129,6 +129,6 @@ For "Subject, Originator, All assignees, All Actors" - these are resolved per re
 ### 9. Task Solver Component
 You mentioned "Agent uses the Task Solver Component to understand the task and request context". 
 - Is Task Solver a UI component, an AI assistant, or something else?
-> UI Component.
+> UI Component. However, when using MCP interface, the agent may use other semantics to provide the information that will complete the task.
 - Is it part of Task Management or a separate subsystem?
 > Check the UX Architecture. 
