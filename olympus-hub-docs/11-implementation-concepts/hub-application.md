@@ -6,7 +6,7 @@
 
 ## Overview
 
-A **Hub Application** is the concrete automation artifact that executes Scenario logic. It is the software implementation of an [Automation](../01-concepts/ontology-4-automation-layer.md#automation) — receiving Request Updates from Signal Exchange, processing business logic, delegating Tasks to Agents, and reporting outcomes. Hub Applications run on Automation Runtimes (Atlantis, Rhea, Seer, Perseus) and can be built using various technologies from simple rule engines to sophisticated AI agents.
+A **Hub Application** is the concrete automation artifact that executes Scenario logic. It is the software implementation of an [Automation](../01-concepts/ontology-4-automation-layer.md#automation) — receiving Request Updates from Signal Exchange, processing business logic, delegating Tasks to Agents, and reporting outcomes. Hub Applications run on Automation Runtimes (Atlantis, Rhea, Seer, Perseus) and can be implemented using various technologies including rule engines, workflows, and AI agents.
 
 ---
 

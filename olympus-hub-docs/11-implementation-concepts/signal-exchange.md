@@ -6,7 +6,7 @@
 
 ## Overview
 
-**Signal Exchange (SX)** is Hub's central routing and orchestration engine. It receives normalized signals from I/O Gateways, evaluates triggers to determine which Scenarios should respond, creates and manages Requests, routes updates to Hub Applications, and notifies observers. It is the "nervous system" of Hub — connecting perception (signals) to execution (applications).
+**Signal Exchange (SX)** is Hub's central routing and orchestration service. It receives normalized signals from I/O Gateways, evaluates triggers to determine which Scenarios should respond, creates and manages Requests, routes updates to Hub Applications, and notifies observers. SX connects signal ingestion to application execution.
 
 ---
 
@@ -62,7 +62,7 @@ The ontology describes **what** should happen conceptually. Signal Exchange impl
 
 ### Why This Design?
 
-Signal Exchange follows the **observer pattern** and **single point of truth** principles:
+Signal Exchange follows the **observer pattern** and **centralized routing** principles:
 
 1. **Centralized Routing**: All signals flow through SX, ensuring consistent trigger evaluation and request management
 2. **Observer Integration**: Subsystems (Notification, Task Management, MS Teams) register as observers rather than being directly coupled

@@ -66,7 +66,7 @@ Multiple specialized runtimes enable:
 
 | Alternative | Why Not Chosen |
 |-------------|----------------|
-| **Single universal runtime** | Jack of all trades, master of none |
+| **Single universal runtime** | Cannot optimize for different paradigms |
 | **Arbitrary container orchestration** | No Hub-specific integration |
 | **External runtimes only** | Inconsistent experience |
 

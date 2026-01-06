@@ -32,7 +32,7 @@ The ontology assumes workbenches exist but doesn't address:
 3. **Resource management** — How are quotas, limits, and billing applied?
 4. **Artifact provenance** — How do we track where artifacts come from?
 
-Subscription solves all of these by providing a hard isolation boundary.
+Subscription addresses these requirements by providing a hard isolation boundary.
 
 ---
 
@@ -67,7 +67,7 @@ Hub targets **small teams in regulated enterprises** (banks, financial services)
 3. **Security Isolation**: Compromised DEV credentials can't affect PROD
 4. **Compliance**: Regulatory requirements often mandate environment separation
 
-A Subscription provides "near-physical" separation — different credentials, different registries, different Git repos — while remaining within the same Tenant's logical boundary.
+A Subscription provides distinct credentials, registries, and Git repositories — achieving environment isolation while remaining within the same Tenant's logical boundary.
 
 ### Alternatives Considered
 
