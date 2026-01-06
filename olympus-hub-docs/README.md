@@ -8,6 +8,18 @@ Olympus Hub is an operations management platform designed for large and medium e
 
 ## 📚 Documentation Index
 
+### 00 - Hub Need and Value
+
+> **Start Here:** Primers explaining Hub's value proposition for different stakeholders.
+
+| Document | Audience | Status |
+|----------|----------|--------|
+| [Overview](./00-hub-need-and-value/README.md) | All | ✅ Complete |
+| [CIO Primer](./00-hub-need-and-value/primer-cio.md) | Enterprise CIOs, CTOs, Enterprise Architects | ✅ Complete |
+| [Process Architect Primer](./00-hub-need-and-value/primer-process-architect.md) | Process Architects, Business Analysts | ✅ Complete |
+| [Developer Primer](./00-hub-need-and-value/primer-developer.md) | Developers, Solution Architects | ✅ Complete |
+| [Strategic Value Primer](./00-hub-need-and-value/primer-strategic-value.md) | Zeta CTO, Board, Product Leadership | ✅ Complete |
+
 ### 01 - Core Concepts
 
 | Document | Description | Status |
@@ -403,6 +415,13 @@ olympus-hub-docs/
 ├── Todo.md                      # Outstanding tasks
 ├── stubs-todo.md                # Stub expansion tracker
 ├── assets/                      # Images and diagrams
+│
+├── 00-hub-need-and-value/       # Value proposition primers
+│   ├── README.md
+│   ├── primer-cio.md
+│   ├── primer-process-architect.md
+│   ├── primer-developer.md
+│   └── primer-strategic-value.md
 │
 ├── 01-concepts/                 # Conceptual foundations
 │   ├── introduction.md
