@@ -118,3 +118,4 @@ Deep analysis of actual schema differences.
 - [Promotion Model](../04-subsystems/artifact-registry/promotion-model.md)
 - [Dev-Lifecycle-Stages](../04-subsystems/artifact-registry/dev-lifecycle-stages.md)
 
+

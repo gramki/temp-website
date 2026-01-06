@@ -8,6 +8,45 @@ Every Workbench in Hub is assigned a **Dev-Lifecycle-Stage** tag that indicates 
 
 ---
 
+## Recommended Baseline: Two-Subscription Model
+
+For regulated enterprises (Hub's target audience), the **recommended baseline** uses separate subscriptions to achieve near-physical separation:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    TWO-SUBSCRIPTION MODEL (RECOMMENDED)                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   DEV SUBSCRIPTION                       PROD SUBSCRIPTION                   │
+│   ┌─────────────────────────┐           ┌─────────────────────────┐         │
+│   │                         │           │                         │         │
+│   │  dispute-ops-dev (DEV)  │           │  dispute-ops-prod (PROD)│         │
+│   │           │             │           │                         │         │
+│   │           ▼             │  ──────▶  │                         │         │
+│   │  dispute-ops-stg (STAG) │  Promote  │                         │         │
+│   │                         │           │                         │         │
+│   │  Snapshot Registry      │           │  Production Registry    │         │
+│   │                         │           │                         │         │
+│   └─────────────────────────┘           └─────────────────────────┘         │
+│                                                                              │
+│   BENEFITS:                                                                  │
+│   • Separate registries, repos, credentials                                 │
+│   • Clear security boundary                                                 │
+│   • Different access control (dev team vs ops)                              │
+│   • Compliance requirement for regulated industries                         │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+| Subscription | Contains | Registry Access |
+|--------------|----------|-----------------|
+| **DEV Subscription** | DEV and STAGING workbenches | Snapshot + Production |
+| **PROD Subscription** | PROD workbenches only | Production only |
+
+> **Note:** STAGING can be in DEV subscription (for internal validation) or PROD subscription (for pre-prod), depending on organizational requirements.
+
+---
+
 ## Default Stages
 
 | Stage | Registry Access | Purpose |
@@ -205,4 +244,5 @@ Promotion is blocked if the target has:
 - [Container Registry](./container-registry.md) — Snapshot and Production registries
 - [Promotion Model](./promotion-model.md) — Promotion workflow and approval
 - [Git Repository](./git-repository.md) — CRD storage
+
 

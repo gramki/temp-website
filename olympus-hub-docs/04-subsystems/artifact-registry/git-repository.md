@@ -11,9 +11,33 @@ Every Hub subscription is backed by a **platform-managed Git repository** that s
 | Scope | Repository |
 |-------|------------|
 | **Per Subscription** | One Git repository per subscription |
-| **Per Workbench** | 🔴 Future (not currently supported) |
+| **Per Workbench** | 🔴 Future (may be added if needed) |
 
-> **Current Limitation:** Branching is not supported. Each developer requiring concurrent development should use a dedicated DEV workbench instance.
+---
+
+## Design Rationale: Main Branch Only
+
+Hub uses a **main-branch-only** model. This is a deliberate simplification for small teams in regulated environments:
+
+| Benefit | Description |
+|---------|-------------|
+| **Audit Simplicity** | Single linear history, easy to trace changes |
+| **Compliance Clarity** | No merge conflicts, clear change attribution |
+| **Reduced Complexity** | No branch management overhead for small teams |
+| **Promotion Consistency** | What's in main is what gets promoted |
+
+### Concurrent Development Pattern
+
+For scenarios requiring concurrent development, use **separate DEV workbenches**:
+
+```
+DEV SUBSCRIPTION
+├── dispute-ops-dev          ← Primary development
+├── dispute-ops-dev-feature  ← Feature isolation (when needed)
+└── dispute-ops-staging      ← Pre-prod validation
+```
+
+> **Note:** For small teams (Hub's target audience), a single DEV workbench is typically sufficient. Feature workbenches are created only when isolation is genuinely needed.
 
 ---
 
@@ -163,23 +187,24 @@ spec:
 
 ## Branching Model
 
-| Aspect | Current State |
-|--------|---------------|
-| **Branches** | Main branch only |
-| **Environment Branches** | Not supported |
-| **Feature Branches** | Not supported |
+Hub uses a **simplified single-branch model** optimized for small teams with compliance requirements:
 
-### Workaround for Concurrent Development
+| Aspect | State | Rationale |
+|--------|-------|-----------|
+| **Branches** | Main only | Simplifies audit trail |
+| **Environment Branches** | Not needed | Workbenches represent environments |
+| **Feature Branches** | Via workbenches | Isolation when genuinely required |
 
-Developers requiring concurrent development should use **separate DEV workbench instances**:
+### Why Not Git Branches?
 
-```
-dispute-ops-dev-alice/     ← Alice's development workspace
-dispute-ops-dev-bob/       ← Bob's development workspace
-dispute-ops-dev-feature-x/ ← Feature X workspace
-```
+| Traditional Approach | Hub Approach |
+|---------------------|--------------|
+| Feature branches in Git | Separate DEV workbenches |
+| Merge conflicts to resolve | No conflicts (isolated workbenches) |
+| Branch policies to configure | Promotion policies instead |
+| Complex history | Linear, auditable history |
 
-> **Future:** Branch support may be added to enable feature branches within a single workbench.
+For small teams in regulated environments, this model provides **compliance-friendly simplicity** without sacrificing capability.
 
 ---
 
@@ -213,7 +238,19 @@ Developer/Admin                Git Repository              Workbench
 
 ### Sync Delegation
 
-Admins can delegate sync trigger permissions to Developers:
+Admins can delegate sync trigger permissions to Developers.
+
+#### Default Permissions (Out-of-the-Box)
+
+| Workbench Stage | Developer Sync Permission |
+|-----------------|--------------------------|
+| **DEV** | ✅ Developers can sync their assigned DEV workbenches |
+| **STAGING** | ❌ Admin approval required |
+| **PROD** | ❌ Admin approval required |
+
+> **Rationale:** Developers need agility in DEV; non-DEV requires oversight.
+
+#### Custom Configuration
 
 ```yaml
 apiVersion: hub.olympus.io/v1
@@ -327,4 +364,5 @@ DEV workbenches can reference external source repositories for Hub Application d
 - [Container Registry](./container-registry.md) — OCI artifact storage
 - [Promotion Model](./promotion-model.md) — Artifact promotion
 - [Developer Operators](../operators/developer-operators.md) — CRD management
+
 

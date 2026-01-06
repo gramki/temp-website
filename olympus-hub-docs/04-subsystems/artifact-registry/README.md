@@ -6,6 +6,17 @@
 
 The Artifact Registry subsystem manages the storage, versioning, and promotion of all Hub artifacts across subscriptions and workbenches. It provides a GitOps-based approach to managing Hub resources with OCI container registries for runtime artifacts.
 
+### Target Audience
+
+Hub is designed for **small teams in enterprise environments** (e.g., banks, financial services). This shapes the Artifact Registry design:
+
+| Characteristic | Design Implication |
+|----------------|-------------------|
+| **Small teams** | Simple defaults, minimal configuration overhead |
+| **Enterprise/Regulated** | All controls mandatory, audit trails non-negotiable |
+| **Compliance requirements** | Approval workflows essential, not optional |
+| **Multi-subscription** | DEV and PROD in separate subscriptions (near-physical separation) |
+
 ### Key Principles
 
 | Principle | Description |
@@ -14,6 +25,57 @@ The Artifact Registry subsystem manages the storage, versioning, and promotion o
 | **GitOps Storage** | All CRDs and configurations stored in platform-managed Git |
 | **Promotion-Based Flow** | Artifacts move through lifecycle stages via explicit promotion |
 | **Subscription Isolation** | Each subscription has dedicated registries and Git repository |
+| **Sensible Defaults** | Enterprise controls with minimal configuration for small teams |
+
+---
+
+## Recommended Baseline: Two-Subscription Model
+
+For regulated enterprises, the **recommended baseline** is to use separate subscriptions for development and production contexts:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    RECOMMENDED: TWO-SUBSCRIPTION MODEL                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   DEV SUBSCRIPTION                       PROD SUBSCRIPTION                   │
+│   (Development Context)                  (Production Context)                │
+│   ┌─────────────────────────┐           ┌─────────────────────────┐         │
+│   │                         │           │                         │         │
+│   │  ┌─────────┐           │  Promote  │           ┌─────────┐  │         │
+│   │  │   DEV   │───────────┼──────────▶│───────────│  PROD   │  │         │
+│   │  │Workbench│           │  Scenario │           │Workbench│  │         │
+│   │  └─────────┘           │           │           └─────────┘  │         │
+│   │                         │           │                         │         │
+│   │  ┌─────────┐           │           │  ┌─────────┐           │         │
+│   │  │ STAGING │           │           │  │  (UAT)  │ Optional  │         │
+│   │  │Workbench│           │           │  │Workbench│           │         │
+│   │  └─────────┘           │           │  └─────────┘           │         │
+│   │                         │           │                         │         │
+│   │  Snapshot Registry      │           │  Production Registry    │         │
+│   │  Git Repository         │           │  Git Repository         │         │
+│   │                         │           │                         │         │
+│   └─────────────────────────┘           └─────────────────────────┘         │
+│                                                                              │
+│   WHY SEPARATE SUBSCRIPTIONS:                                                │
+│   • Near-physical isolation (different registries, repos, credentials)       │
+│   • Clear security boundary between dev and prod                            │
+│   • Separate access control (dev team vs ops team)                          │
+│   • Compliance requirement for many regulated industries                     │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Default Promotion Path
+
+A **pre-configured promotion path** is created between DEV and PROD subscriptions:
+
+| Setting | Default Value |
+|---------|---------------|
+| Approval Required | Yes |
+| Approver | Tenant Admin |
+| Notifications | Admin + Requester |
+| Artifacts Copied | Physical copy to PROD subscription registry |
 
 ---
 
@@ -232,4 +294,5 @@ Accessible via:
 ## Open Points
 
 See [open-points.md](./open-points.md) for unresolved questions.
+
 

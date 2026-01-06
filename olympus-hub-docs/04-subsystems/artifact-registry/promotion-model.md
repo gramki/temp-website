@@ -6,6 +6,38 @@ Promotion is the controlled movement of artifacts from one workbench or subscrip
 
 ---
 
+## Sensible Defaults for Small Teams
+
+Hub is designed for **small teams in regulated enterprises**. The promotion model provides sensible defaults that satisfy compliance requirements with minimal configuration:
+
+### Out-of-the-Box Promotion Path
+
+When using the recommended two-subscription model, a **default promotion path** is pre-configured:
+
+```
+DEV Subscription ──────────────────────▶ PROD Subscription
+(DEV/STAGING workbenches)                (PROD workbenches)
+```
+
+| Default Setting | Value | Rationale |
+|-----------------|-------|-----------|
+| **Approval Required** | Yes | Compliance requirement |
+| **Approver** | Tenant Admin | Single approver for small teams |
+| **Notification Recipients** | Requester + Admin | Minimal but sufficient |
+| **Artifact Copy** | Physical copy | Subscription isolation |
+
+### Default Developer Permissions
+
+| Workbench Stage | Sync Permission | Promotion Permission |
+|-----------------|-----------------|---------------------|
+| **DEV** | ✅ Can sync | ✅ Can request promotion |
+| **STAGING** | ❌ Admin only | ✅ Can request promotion |
+| **PROD** | ❌ Admin only | ❌ Admin only |
+
+> **Note:** All controls are present and auditable. Defaults simply reduce configuration burden for small teams.
+
+---
+
 ## Promotion Units
 
 Artifacts can only be promoted at specific granularities:
@@ -416,4 +448,5 @@ Workbench now running v1.2.2
 - [Dev-Lifecycle-Stages](./dev-lifecycle-stages.md) — Stage compatibility
 - [Git Repository](./git-repository.md) — CRD storage and sync
 - [Data Store Migrations](./data-store-migrations.md) — Migration handling
+
 

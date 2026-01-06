@@ -82,8 +82,9 @@ Support feature branches with GitOps-style reconciliation.
 - Complex merge conflict handling
 - Branch management overhead
 - Harder to ensure promotion consistency
+- Complicates audit trail for compliance
 
-**Why rejected:** Current limitation acknowledged; may be added in future.
+**Why rejected:** Main-branch-only is a deliberate simplification for compliance, not a limitation. Hub's target audience (small teams in regulated enterprises) benefits from simpler audit trails over branch flexibility.
 
 ## Consequences
 
@@ -91,27 +92,30 @@ Support feature branches with GitOps-style reconciliation.
 
 - Consistent repository structure across subscriptions
 - Simplified promotion (same repo for source and some targets)
-- Clear audit trail via Git history
+- Clear, linear audit trail via Git history
 - Platform controls security and access
+- Compliance-friendly: single source of truth, no merge complexity
 
 ### Negative
 
-- No feature branch support (current limitation)
-- Developers need separate workbenches for concurrent work
-- Less familiar to developers used to branching
+- Less familiar to developers used to branching workflows
+- Concurrent development requires separate workbenches
 
 ### Neutral
 
 - Optional mirror to customer repositories for visibility
 - Standard folder structure enforced
+- Separate workbenches provide equivalent isolation to branches
 
 ## Implementation Notes
 
-- Workaround for concurrent development: Use separate DEV workbench instances
+- Concurrent development pattern: Use separate DEV workbench instances
 - Repository can push to additional remotes (customer Git) on promotion complete
+- For small teams, a single DEV workbench is typically sufficient
 
 ## References
 
 - [Git Repository](../04-subsystems/artifact-registry/git-repository.md)
 - [Promotion Model](../04-subsystems/artifact-registry/promotion-model.md)
+
 
