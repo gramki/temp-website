@@ -178,20 +178,12 @@ Storage Services
     ✔ ETSL Data Products may be exposed as Enterprise Memory/Knowledge in Workbenches @done(26-01-05 13:54)
     ✔ Hub is agnostic but advocates ETSL approach @done(26-01-05 13:54)
 
-# Hub Knowledge Bank Submodule Explanation:
-    [ ] Ingestion
-    [ ] Storage
-    [ ] Retrieval Mechanisms
-    [ ] Analytics
-
 
 # Ecosystem Integrations:
 
     # Task Management System:
         ✔ Expand Task Management System Role : Task Queues, Task Lifecycle, Task Assignment management; Certain Activities are Tasks @done(26-01-05 23:49)
         ✔ Expand Cronus/Rhea as a Task Management System (Inbuilt) @done(26-01-05 23:49)
-        [ ] Expand Jira as Task Management System (also service now, etc.)
-        [ ] Expand Jira as I/O Gateway and Jira Task as a signal (also service now, etc.,)
 
 
     # MS Teams Integration:
@@ -216,8 +208,6 @@ Storage Services
     ✔ Support for Atropos-base 2-way communication @done(26-01-05 22:10)
     ✔ Support for Event Log (Atropos) based Async updates to any request @done(26-01-05 23:58)
     ✔ Support for External Applications through HTTP Hub Egress Gateway (An application that is merely acting as a wrapper around a tool) @done(26-01-05 23:58)
-    - Support for MCP 
-    - Support for A2A 
 
 # Workbench Developer Tasks:
     [ ] Create a Workbench
@@ -302,6 +292,12 @@ Storage Services
 =======================================================
 ********* PHASE 2 TODOs *********
 =======================================================
+# Hub Knowledge Bank Submodule Explanation:
+    [ ] Ingestion
+    [ ] Storage
+    [ ] Retrieval Mechanisms
+    [ ] Analytics
+
 
 # Documentation Quality & Onboarding (Backlog):
     ## Overview Documents (00-overview/):
@@ -310,11 +306,21 @@ Storage Services
     [ ] Glossary - 50-100 terms with precise definitions (Subject, Request, Operation, Scenario, etc.)
     [ ] Reading Guide - Recommended reading order by persona (Developer, Process Architect, Auditor, etc.)
     [ ] Decision Log (ADR-style) - Capture rationale for key decisions (Signal Exchange naming, Automation Runtime, etc.)
+    [ ] Expand the architecture section - Hub design concepts, principles, and patterns
+    
 
     ## Worked Examples (09-examples/):
     [ ] Service Request Example - End-to-end trace: Customer dispute → Signal → Trigger → Request → Tasks → Completion
     [ ] Business Request Example - Employee-initiated onboarding or compliance review
     [ ] System Request Example - Reconciliation failure requiring business resolution
+
+    ## Worked Examples various Hub Applications and Scenarios (placeholder; real applications will suggested later):
+    [ ] File App Example - File processing scenario
+    [ ] Map-Reduce App Example - Data processing scenario
+    [ ] Complex Event App Example - Event processing scenario
+    [ ] Workflow App Example - Workflow processing scenario
+    [ ] Durable Workflow App Example - Durable workflow processing scenario
+    [ ] Seer Case Orchestration Agent Example - Case orchestration scenario
 
     ## Consistency & Completeness:
     [ ] Define "done" criteria for document types (stub vs complete: must have overview, schema, integration points, example)
@@ -344,3 +350,6 @@ Storage Services
     - Support for MCP 
     - Support for A2A 
         
+# Task Management System:
+    [ ] Expand Jira as Task Management System (also service now, etc.)
+    [ ] Expand Jira as I/O Gateway and Jira Task as a signal (also service now, etc.,)

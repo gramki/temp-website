@@ -59,7 +59,7 @@ This document provides a quick reference for all Custom Resource Definitions (CR
 | `NotificationChannelConfig` | workbench-apm-operator | Developer | Alert notification channels |
 | `WorkbenchAsMachine` | workbench-as-a-machine-operator | Developer | Expose workbench as machine |
 | `ScenarioAsTool` | scenario-as-a-tool-operator | Developer | Expose scenario as tool |
-| `ScenarioAsAgent` | scenario-as-an-agent-operator | Developer | Expose scenario as agent |
+| `ScenarioAsAgent` | scenario-as-an-agent-operator | Developer | Expose scenario as agent (task queue or A2A) |
 | `WorkbenchMSTeams` | workbench-ms-teams-operator | Developer | MS Teams integration |
 
 ### Tenant Domain — Supervisor

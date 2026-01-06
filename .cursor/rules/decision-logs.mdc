@@ -1,0 +1,184 @@
+# Decision Log Guidelines
+
+## Purpose
+
+This rules file instructs Cursor to capture important design decisions made during documentation and development conversations. All significant decisions should be recorded as Architecture Decision Records (ADRs).
+
+---
+
+## When to Capture a Decision
+
+Record a decision when the user:
+
+1. **Makes an architectural choice** between alternatives (e.g., "Let's go with normalization")
+2. **Clarifies a design principle** that affects multiple components
+3. **Establishes a convention** or pattern to follow
+4. **Resolves an ambiguity** in the design
+5. **Defines a boundary** or responsibility between components
+6. **Chooses a technology** or approach over alternatives
+7. **Sets a constraint** or requirement
+
+### Indicators of Important Decisions
+
+Listen for phrases like:
+- "Let's go with..."
+- "We should..."
+- "The rule is..."
+- "This means..."
+- "From now on..."
+- "The pattern is..."
+- "X is responsible for Y, not Z"
+
+---
+
+## Decision Log Location
+
+All decision records are stored in:
+
+```
+olympus-hub-docs/decision-logs/
+├── README.md                    # Index of all decisions
+├── 0001-signal-normalization.md
+├── 0002-scenario-specification-types.md
+└── ...
+```
+
+---
+
+## ADR Format
+
+Use the standard Architecture Decision Record format:
+
+```markdown
+# ADR-NNNN: [Short Title]
+
+## Status
+
+[Proposed | Accepted | Deprecated | Superseded by ADR-XXXX]
+
+## Date
+
+YYYY-MM-DD
+
+## Context
+
+[What is the issue that we're seeing that is motivating this decision or change?]
+[What forces are at play (technical, business, social)?]
+
+## Decision
+
+[What is the change that we're proposing and/or doing?]
+[State the decision clearly and concisely.]
+
+## Consequences
+
+### Positive
+- [Benefit 1]
+- [Benefit 2]
+
+### Negative
+- [Tradeoff 1]
+- [Tradeoff 2]
+
+### Neutral
+- [Side effect that is neither positive nor negative]
+
+## Related
+
+- [Link to related ADRs]
+- [Link to relevant documentation]
+```
+
+---
+
+## Decision Categories
+
+Tag decisions with categories for easier discovery:
+
+| Category | Description | Example |
+|----------|-------------|---------|
+| `architecture` | System architecture choices | Component boundaries, layering |
+| `data` | Data model and storage decisions | Schema design, storage selection |
+| `integration` | Integration patterns | Signal formats, API contracts |
+| `security` | Security and access control | Authentication, authorization |
+| `ux` | User experience patterns | Notification behavior, UI conventions |
+| `process` | Process and workflow decisions | Task management, escalation rules |
+| `composite` | Composite pattern decisions | How components can be combined |
+| `operator` | Operator and CRD decisions | GitOps patterns |
+
+---
+
+## Numbering Convention
+
+- Use 4-digit sequential numbers: `0001`, `0002`, etc.
+- Never reuse numbers, even for deprecated decisions
+- If superseding a decision, create a new ADR and mark the old one as superseded
+
+---
+
+## README Index Format
+
+Maintain a README.md in the decision-logs folder:
+
+```markdown
+# Decision Log
+
+Architecture Decision Records for Olympus Hub.
+
+## Index
+
+| # | Decision | Status | Date | Category |
+|---|----------|--------|------|----------|
+| [0001](./0001-signal-normalization.md) | Normalize signal format between SPs and SX | Accepted | 2026-01-05 | integration |
+| [0002](./0002-scenario-specification-types.md) | Three specification types for Scenarios | Accepted | 2026-01-05 | architecture |
+| ... | ... | ... | ... | ... |
+
+## By Category
+
+### Architecture
+- [0002](./0002-scenario-specification-types.md) - Three specification types for Scenarios
+
+### Integration
+- [0001](./0001-signal-normalization.md) - Normalize signal format between SPs and SX
+
+...
+```
+
+---
+
+## Cursor Instructions
+
+### During Conversations
+
+When a significant design decision is made:
+
+1. **Acknowledge the decision** in your response
+2. **Offer to capture it** as an ADR: "Would you like me to record this as an Architecture Decision Record?"
+3. If confirmed (or if decision is clearly significant), create the ADR file
+4. Update the README.md index
+
+### Proactive Identification
+
+If the user makes a decision that seems significant but doesn't explicitly request logging:
+- Mention: "This seems like an important design decision. Should I capture it in the decision log?"
+
+### Backfilling
+
+When asked to backfill decisions from past conversations:
+1. Review the conversation summary for decisions
+2. Create ADRs for each significant decision
+3. Use the approximate date when the decision was made
+4. Update the README index
+
+
+## Quality Checklist
+
+Before creating an ADR:
+
+- [ ] Title is clear and specific
+- [ ] Context explains why the decision was needed
+- [ ] Decision is stated clearly
+- [ ] Consequences are realistic (include tradeoffs)
+- [ ] Category is assigned
+- [ ] README index is updated
+- [ ] Related documents are linked

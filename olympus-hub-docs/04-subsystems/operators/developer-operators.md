@@ -1616,7 +1616,124 @@ spec:
 
 ### Scenario as an Agent Operator
 
-Exposes a Scenario as an AI Agent that can participate in multi-agent workflows.
+Exposes a Scenario as an Agent that can be enrolled in Task Queues across Workbenches. This enables automated task completion within pre-existing Scenarios without modifying their original automation. The automating Scenario can use **any Hub Application type** — rule-based (Drools/DMN), workflow (Rhea), image processing, AI-powered (Seer), or any other runtime.
+
+> **See Also:** [Scenario as an Agent Pattern](../../09-composite-systems-and-patterns/scenario-as-an-agent.md) for detailed architecture and usage guide.
+
+#### Use Cases
+
+| Use Case | Description |
+|----------|-------------|
+| **Task Automation** | Automate specific task types in existing Scenarios |
+| **Load Sharing** | Scenario-Agent works alongside human agents |
+| **Gradual Rollout** | Start with small percentage, increase over time |
+| **Reusable Automation** | Same agent enrolled in multiple task queues |
+
+#### ScenarioAsAgent CRD
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: ScenarioAsAgent
+metadata:
+  name: evidence-review-agent
+  namespace: acme-bank
+spec:
+  # Source Scenario (the automating Scenario)
+  source:
+    workbench: evidence-automation
+    scenario: evidence-review-automation
+    
+  # Agent Identity in IAM
+  agent:
+    id: scenario-agent-evidence-review
+    display_name: "Evidence Review Automation"
+    version: "1.0.0"
+    description: "Automated review of evidence documents"
+    
+    # Skills (for skill-based routing in task queues)
+    skills:
+      - document_analysis
+      - evidence_review
+      - fraud_detection
+      
+    # Capacity settings
+    capacity:
+      max_concurrent_tasks: 10
+      
+  # Signal Configuration (how agent receives task notifications)
+  signals:
+    webhook_path: "/signals/agent/{{agent.id}}/notifications"
+    webhook_secret_ref: "vault://scenario-agents/evidence-review/webhook-secret"
+    
+    # Trigger that maps task notifications to Scenario requests
+    trigger:
+      id: trg-task-notification
+      scenario_id: evidence-review-automation
+      
+      events:
+        - task.assigned
+        - task.escalated
+        - task.cancelled
+        - request.cancelled
+        
+      transformation:
+        type: low_code
+        mapping:
+          request_type: AgentTaskRequest
+          source_context:
+            workbench_id: "$.payload.source_workbench_id"
+            request_id: "$.payload.source_request_id"
+            task_id: "$.payload.task_id"
+          payload_mapping:
+            task_id: "$.payload.task_id"
+            task_type: "$.payload.task_type"
+            task_payload: "$.payload.task_payload"
+            deadline: "$.payload.sla.deadline"
+            
+  # Deployments (where this agent will be enrolled)
+  deployments:
+    - target_workbench: dispute-operations
+      task_queues:
+        - queue_id: evidence-review-queue
+          escalation_level: 0
+          allocation_weight: 10  # 10% of tasks
+          enabled: true
+          
+    - target_workbench: fraud-investigation
+      task_queues:
+        - queue_id: document-review-queue
+          escalation_level: 1
+          allocation_weight: 50
+          enabled: true
+          
+  # API Configuration (how agent calls back to complete tasks)
+  api_access:
+    token_ref: "vault://scenario-agents/evidence-review/token"
+    # API endpoints are discovered from target workbench at deployment time
+```
+
+#### Operator Reconciliation
+
+| Resource | Create | Update | Delete |
+|----------|--------|--------|--------|
+| IAM Agent Identity | Create bot in Cipher IAM | Update profile, skills | Remove identity |
+| Bot Token | Generate and store | Rotate token | Revoke token |
+| HTTP Signal Endpoint | Register in Heracles | Update webhook config | Remove endpoint |
+| Trigger | Create signal-to-request trigger | Update transformation | Remove trigger |
+| Webhook Subscriptions | Register in each target workbench | Update event subscriptions | Remove subscriptions |
+| Task Queue Enrollment | Enroll agent in specified queues | Update allocation weights | Unenroll agent |
+
+#### Validation Rules
+
+1. **Source Scenario must exist** and have a Hub Application configured
+2. **Skills must be valid** identifiers in Cipher IAM skill catalog
+3. **Target workbenches must be accessible** (cross-workbench permissions)
+4. **Task queues must exist** in target workbenches
+5. **Allocation weight must be 0-100** and sum with other agents ≤ 100
+
+#### A2A Protocol Mode (Alternative)
+
+For Scenarios participating in Agent-to-Agent multi-agent workflows (rather than task queues):
 
 ```yaml
 apiVersion: hub.olympus.io/v1
@@ -1626,22 +1743,20 @@ metadata:
   namespace: acme-bank
 spec:
   # Source Scenario
-  scenario_ref: dispute-consultation
+  source:
+    workbench: dispute-operations
+    scenario: dispute-consultation
 
   # Agent Identity
   agent:
-    name: dispute-specialist
+    id: dispute-specialist
     display_name: "Dispute Specialist Agent"
     version: "1.0.0"
-    description: "Expert agent for dispute-related consultations"
+    skills:
+      - dispute-analysis
+      - regulation-interpretation
 
-  # Agent Capabilities
-  capabilities:
-    - dispute-analysis
-    - regulation-interpretation
-    - chargeback-guidance
-
-  # Communication Protocol
+  # Communication Protocol (A2A instead of task-queue)
   protocol:
     type: a2a  # Agent-to-Agent protocol
     input_format: natural_language

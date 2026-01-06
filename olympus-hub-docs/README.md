@@ -325,6 +325,17 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [Request Lifecycle](./08-personas-and-journeys/journeys/request-lifecycle.md) | Business Actor → Signal → Application → Agent | 🔴 Stub |
 | [Audit Investigation](./08-personas-and-journeys/journeys/audit-investigation.md) | Auditor | 🔴 Stub |
 
+### 09 - Composite Systems and Patterns
+
+> **Purpose:** Patterns for composing Workbenches, Scenarios, and Applications to create sophisticated solutions.
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./09-composite-systems-and-patterns/README.md) | Composite pattern philosophy and index | 🟡 WIP |
+| [Scenario as an Agent](./09-composite-systems-and-patterns/scenario-as-an-agent.md) | Publish Scenario as Agent for task completion | 🟡 WIP |
+
+*Coming soon: Scenario as a Tool, Workbench as a Machine*
+
 ### 10 - Guides
 
 | Document | Description | Status |
@@ -332,8 +343,15 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [Overview](./10-guides/README.md) | Guide index and reading order | 🟡 WIP |
 | [Subscription Configuration Guide](./10-guides/subscription-configuration-guide.md) | Complete subscription configuration | 🟡 WIP |
 | [Workbench Setup Guide](./10-guides/workbench-setup-guide.md) | Workbench configuration for a business domain | 🟡 WIP |
+| [Signal Configuration Guide](./10-guides/signal-configuration-guide.md) | Define signals, filters, and triggers | 🟡 WIP |
 
 *Coming soon: Application Development Guide, Integration Guide, Agent Onboarding Guide*
+
+### Decision Logs
+
+| Document | Description |
+|----------|-------------|
+| [Decision Log Index](./decision-logs/README.md) | Architecture Decision Records (ADRs) |
 
 ### Project Tracking
 
@@ -457,10 +475,21 @@ olympus-hub-docs/
 │       ├── request-lifecycle.md
 │       └── audit-investigation.md
 │
-└── 10-guides/                   # Practical Guides
+├── 09-composite-systems-and-patterns/  # Composite Patterns
+│   ├── README.md
+│   └── scenario-as-an-agent.md
+│
+├── 10-guides/                   # Practical Guides
+│   ├── README.md
+│   ├── subscription-configuration-guide.md
+│   ├── workbench-setup-guide.md
+│   └── signal-configuration-guide.md
+│
+└── decision-logs/               # Architecture Decision Records
     ├── README.md
-    ├── subscription-configuration-guide.md
-    └── workbench-setup-guide.md
+    ├── 0001-signal-normalization.md
+    ├── 0002-scenario-specification-types.md
+    └── ...
 ```
 
 ---

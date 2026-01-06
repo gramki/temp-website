@@ -14,6 +14,7 @@ This section contains step-by-step guides for setting up and operating Olympus H
 |-------|----------|-------------|
 | [Subscription Configuration Guide](./subscription-configuration-guide.md) | Administrators | Configuring a new tenant subscription |
 | [Workbench Setup Guide](./workbench-setup-guide.md) | Process Architects | Configuring a workbench for a business domain |
+| [Signal Configuration Guide](./signal-configuration-guide.md) | Process Architects, Developers | Defining signals, filters, and triggers |
 
 ---
 
@@ -26,8 +27,11 @@ This section contains step-by-step guides for setting up and operating Olympus H
 ### For Process Architects
 
 1. [Workbench Setup Guide](./workbench-setup-guide.md) — Define scenarios, triggers, knowledge bases, and agent groups
+2. [Signal Configuration Guide](./signal-configuration-guide.md) — Define signal types, signal definitions, and triggers
 
 ### For Developers
+
+1. [Signal Configuration Guide](./signal-configuration-guide.md) — Create triggers with low-code and code transformations
 
 *Coming soon: Application Development Guide, Integration Guide*
 
@@ -51,5 +55,7 @@ Before using these guides, ensure you have:
 
 - [Subscription Management](../04-subsystems/subscription-management/README.md) — Technical reference
 - [Workbench Management](../04-subsystems/workbench-management/README.md) — Technical reference
+- [Signal Exchange](../04-subsystems/signal-exchange/README.md) — Signal processing reference
+- [I/O Gateways](../04-subsystems/signal-providers/README.md) — Signal sources reference
 - [User Management](../04-subsystems/user-management/README.md) — Persona definitions
 
