@@ -64,7 +64,7 @@ Unlike CI/CD pipelines where deployment can be automatic, Hub requires explicit 
 
 ---
 
-## 2. No Merge Conflicts
+## 2. No Merge Conflicts (When Using Separate Workbenches)
 
 ### The Problem with Merges
 
@@ -93,6 +93,8 @@ Audit: Clear record of each promotion
 - No unexpected merge conflicts blocking work
 - No risk of merge resolution errors
 - Clear attribution of changes
+
+> **Note:** If two developers share the same workbench and edit the same files, Git conflicts can still occur during `git pull`. The workbench model encourages isolation, but shared workbenches require the usual Git coordination.
 
 ---
 

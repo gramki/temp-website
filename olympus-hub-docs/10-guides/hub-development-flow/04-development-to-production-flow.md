@@ -294,8 +294,10 @@ spec:
 
 **Rollback constraints:**
 - Only to the **immediately previous version**
-- Data store migrations are **not automatically reversed**
+- Data store migrations are **not automatically reversed** — if your change included data migrations, you may need manual intervention
 - Must be initiated by Admin
+
+> **Important:** Plan your data migrations carefully. If a migration is irreversible (e.g., dropping columns), ensure the previous application version can still function, or be prepared for manual data fixes.
 
 ---
 

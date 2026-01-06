@@ -87,7 +87,8 @@ Before diving in, familiarize yourself with these terms:
 |---------|------------|
 | **Workbench** | Isolated development/runtime context with its own configurations |
 | **Scenario** | A business process automation; the atomic unit of promotion |
-| **Dev-Lifecycle-Stage** | Tag (DEV/STAGING/PROD) indicating workbench purpose |
+| **Dev-Lifecycle-Stage** | Tag (DEV/STAGING/PROD) indicating workbench purpose — not to be confused with "Hub Environment" |
+| **Hub Environment** | Business/operations domain entity for runtime configuration (different from dev-lifecycle-stage) |
 | **Promotion** | Moving artifacts from one workbench to another |
 | **Subscription** | Isolated tenant environment with dedicated registries and Git repo |
 
@@ -104,7 +105,9 @@ Before diving in, familiarize yourself with these terms:
 
 ## Related Documentation
 
-- [Artifact Registry](../../04-subsystems/artifact-registry/README.md) — Technical details
+- [Artifact Registry](../../04-subsystems/artifact-registry/README.md) — Technical details on registries and promotion
+- [Dev-Lifecycle-Stages](../../04-subsystems/artifact-registry/dev-lifecycle-stages.md) — Stage definitions and registry access
 - [CI Subsystem](../../04-subsystems/ci-subsystem/README.md) — Build and test infrastructure
+- [Workbench Management](../../04-subsystems/workbench-management/README.md) — Workbench lifecycle and configuration
 - [Developer Operators](../../04-subsystems/operators/developer-operators.md) — CRD specifications
 

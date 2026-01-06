@@ -46,12 +46,11 @@ This creates risk:
 │   ┌─────────────────────────┐           ┌─────────────────────────┐         │
 │   │                         │           │                         │         │
 │   │  DEV Workbench          │           │  PROD Workbench         │         │
-│   │  ├── Snapshot Registry  │           │  ├── Production Registry│         │
-│   │  ├── Git Repository     │           │  ├── Git Repository     │         │
-│   │  └── Dev Credentials    │           │  └── Prod Credentials   │         │
+│   │  └── Snapshot Registry  │           │  └── Production Registry│         │
 │   │                         │           │                         │         │
 │   │  STAGING Workbench      │           │                         │         │
-│   │  (optional here)        │           │                         │         │
+│   │  └── Production Registry│           │                         │         │
+│   │  (or in PROD sub)       │           │                         │         │
 │   │                         │           │                         │         │
 │   └─────────────────────────┘           └─────────────────────────┘         │
 │                                                                              │
@@ -72,9 +71,12 @@ This creates risk:
 | Component | Purpose |
 |-----------|---------|
 | **Snapshot Registry** | Development builds, work-in-progress artifacts |
+| **Production Registry** | Also available for STAGING workbenches |
 | **Git Repository** | DEV workbench CRDs and configurations |
 | **DEV Workbench(es)** | Active development, experimentation |
-| **STAGING Workbench** | Pre-production validation (optional, can be in PROD sub) |
+| **STAGING Workbench** | Pre-production validation (optional, can be in PROD subscription) |
+
+> **Note:** STAGING workbenches use the **production registry** (not snapshot), ensuring what you test in STAGING matches production. STAGING can alternatively be placed in the PROD subscription for stricter separation.
 
 **Who has access:**
 - Developers (full access to DEV workbenches)

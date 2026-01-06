@@ -37,6 +37,10 @@ git pull
 git log --oneline -5
 ```
 
+> **Terminology Clarification:**  
+> - **Git pull/push** = Moving CRD files between your local machine and the Git repository  
+> - **Workbench Sync** = Applying CRD changes from Git to the running workbench (via Developer Console or API)
+
 ---
 
 ## Working on a Feature

@@ -6,7 +6,9 @@
 
 ## What Is a Workbench?
 
-A **Workbench** is a complete, isolated context for developing and running Hub Scenarios. Think of it as:
+A **Workbench** is a complete, isolated context for developing and running Hub Scenarios. Each workbench is tagged with a **Dev-Lifecycle-Stage** (DEV, STAGING, or PROD) indicating its purpose — distinct from **Hub Environment**, which is a business/operations domain concept for runtime configuration.
+
+Think of it as:
 
 | Analogy | Explanation |
 |---------|-------------|

@@ -14,9 +14,10 @@ Every design involves trade-offs. This document honestly describes the limitatio
 
 ### What This Means
 
-- You cannot create feature branches within a workbench
+- You cannot create feature branches within a workbench's Git repository
 - No git-flow, trunk-based development, or similar branching strategies
 - Concurrent development requires separate workbenches
+- Each subscription has a single Git repository with only a main branch
 
 ### Who This Affects
 
