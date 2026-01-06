@@ -1,0 +1,227 @@
+# Subsystem Documentation Rules
+
+Guidelines for creating and maintaining subsystem documentation.
+
+---
+
+## Folder Structure
+
+Every subsystem folder should contain:
+
+```
+subsystem-name/
+├── README.md           # Required: Overview and entry point
+├── open-points.md      # Required: Track unresolved questions
+├── component-a.md      # Detailed component documentation
+├── component-b.md      # Additional components as needed
+└── diagrams/           # Optional: Complex diagram assets
+```
+
+---
+
+## README.md Requirements
+
+Every subsystem README must include:
+
+### Required Sections
+
+| Section | Purpose |
+|---------|---------|
+| **Overview** | 2-3 sentence description of subsystem purpose |
+| **Architecture** | Diagram showing high-level structure |
+| **Key Concepts** | Table defining core terms/entities |
+| **Components** | List with links to detailed docs |
+| **Core Responsibilities** | What this subsystem does |
+| **Integration Points** | Inbound and outbound connections |
+
+### Optional Sections
+
+| Section | When to Include |
+|---------|-----------------|
+| **Configuration** | If subsystem has configurable settings |
+| **Security** | If subsystem handles sensitive data/operations |
+| **Performance** | If subsystem has SLA or scaling considerations |
+
+### Quality Checklist
+
+Before finalizing a subsystem README:
+
+- [ ] Overview is concise (2-3 sentences max)
+- [ ] Architecture diagram is present and readable
+- [ ] All key concepts are defined
+- [ ] All components have links to detailed docs
+- [ ] Responsibilities are clear and bounded
+- [ ] Non-responsibilities are stated (clarifies scope)
+- [ ] Integration points list source/target and interface type
+- [ ] Related documentation links are valid
+- [ ] Open points file is linked
+
+---
+
+## Component Documentation Requirements
+
+For each component within a subsystem:
+
+### Required Sections
+
+| Section | Purpose |
+|---------|---------|
+| **Overview** | What this component does |
+| **Role in Parent** | How it fits in the subsystem |
+| **Responsibilities** | What it handles |
+| **Non-Responsibilities** | Explicit boundaries |
+| **Data Model** | Key entities with schemas |
+| **Behavior** | Operations and flows |
+
+### Optional Sections
+
+| Section | When to Include |
+|---------|-----------------|
+| **Interfaces** | If component exposes API/contracts |
+| **Events** | If component emits/consumes events |
+| **Configuration** | If component is configurable |
+| **Error Handling** | If error scenarios are non-obvious |
+| **Examples** | Always helpful; include when possible |
+
+---
+
+## Diagrams
+
+### When to Use Diagrams
+
+- **Architecture overview** — Always in README
+- **Complex flows** — When >3 steps or multiple actors
+- **Data relationships** — Entity relationships, state machines
+- **Integration patterns** — How subsystem connects to others
+
+### Diagram Standards
+
+#### ASCII Art (Simple Diagrams)
+
+```
+┌─────────────┐     ┌─────────────┐
+│ Component A │────▶│ Component B │
+└─────────────┘     └─────────────┘
+```
+
+#### Mermaid (Complex Diagrams)
+
+````markdown
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+````
+
+### Diagram Maintenance
+
+- Update diagrams when architecture changes
+- Date diagrams if they may become stale
+- Reference diagrams from text; don't rely on diagrams alone
+
+---
+
+## Cross-References
+
+### Linking Patterns
+
+| Link Type | Format |
+|-----------|--------|
+| **Same folder** | `[Component](component.md)` |
+| **Parent folder** | `[Parent](../README.md)` |
+| **Sibling subsystem** | `[Other](../other-subsystem/README.md)` |
+| **ADR** | `[ADR-0001](../../decision-logs/0001-decision.md)` |
+| **Guide** | `[Guide](../../10-guides/guide-name.md)` |
+
+### Required Cross-References
+
+Every subsystem document should link to:
+
+- [ ] Parent subsystem README (for components)
+- [ ] Related ADRs (for decisions made)
+- [ ] Related guides (for how-to content)
+- [ ] Related subsystems (for dependencies)
+
+---
+
+## Open Points Management
+
+### When to Add Open Points
+
+- Unresolved design questions
+- Pending decisions needing stakeholder input
+- Deferred items with clear deferral reason
+- Assumptions that need validation
+
+### Open Points Lifecycle
+
+```
+Question arises → Document in open-points.md
+       │
+       ▼
+Discussion/Decision → Create ADR if significant
+       │
+       ▼
+Update open-points.md → Move to "Resolved" section
+```
+
+### Open Points Review
+
+- Review weekly during active development
+- Clear "Resolved" items that are >1 month old
+- Escalate "Under Discussion" items stale >2 weeks
+
+---
+
+## Consistency Standards
+
+### Terminology
+
+- Use glossary terms consistently
+- Define new terms in Key Concepts table
+- Add new terms to glossary
+
+### Formatting
+
+- Use tables for structured data
+- Use bullet lists for related items
+- Use numbered lists for sequences
+- Use code blocks for schemas/examples
+
+### Tone
+
+- Be direct and specific
+- Avoid hedging language ("might", "could", "possibly")
+- State assumptions explicitly
+- Distinguish facts from recommendations
+
+---
+
+## Review Checklist
+
+Before merging subsystem documentation:
+
+### Structure
+- [ ] Follows folder structure
+- [ ] README has all required sections
+- [ ] Components have required sections
+- [ ] Open points file exists
+
+### Content
+- [ ] Overview is accurate and concise
+- [ ] Diagrams are present and accurate
+- [ ] Key concepts are defined
+- [ ] Responsibilities are clear
+- [ ] Boundaries are explicit
+
+### Quality
+- [ ] Cross-references are valid
+- [ ] Terminology is consistent
+- [ ] Examples are included
+- [ ] ADRs exist for significant decisions
+
+### Integration
+- [ ] Added to parent index
+- [ ] Related subsystems updated if needed
+- [ ] Glossary updated if new terms
