@@ -116,6 +116,74 @@ Tag decisions with categories for easier discovery:
 
 ---
 
+## Consistency Verification
+
+### Before Creating a New ADR
+
+**IMPORTANT:** Before finalizing a new decision, verify it does not contradict existing non-superseded decisions:
+
+1. **Review related ADRs** — Search for ADRs in the same category or affecting the same components
+2. **Check for conflicts** — Ensure the new decision doesn't invalidate or contradict existing decisions
+3. **Identify supersession** — If the new decision overrides an existing one, it's a supersession, not a new parallel decision
+
+### Handling Contradictions
+
+If a contradiction is found:
+
+| Situation | Action |
+|-----------|--------|
+| New decision is correct, old is wrong | Mark old as "Superseded by ADR-XXXX" |
+| Old decision should remain valid | Reconsider the new decision or clarify scope |
+| Decisions apply to different contexts | Document the scope clearly in both |
+
+### Supersession Rules
+
+When a decision supersedes another:
+
+1. **Update the OLD ADR:**
+   - Change status to `Superseded by ADR-XXXX`
+   - Add a note at the top: `> **Note:** This decision has been superseded by [ADR-XXXX](./XXXX-title.md)`
+
+2. **Update the NEW ADR:**
+   - In the metadata table, add: `| **Supersedes** | ADR-NNNN |`
+   - In the Context section, reference why the previous decision is being superseded
+   - Link to the superseded ADR in the Related section
+
+3. **Update README index:**
+   - Update the old ADR's status to show `Superseded`
+   - Add the new ADR to the index
+
+### Example Supersession
+
+**Old ADR (0010):**
+```markdown
+# ADR-0010: Feature X Uses Approach A
+
+| **Status** | Superseded by ADR-0025 |
+
+> **Note:** This decision has been superseded by [ADR-0025](./0025-feature-x-approach-b.md)
+
+...
+```
+
+**New ADR (0025):**
+```markdown
+# ADR-0025: Feature X Uses Approach B
+
+| **Supersedes** | ADR-0010 |
+
+## Context
+
+ADR-0010 established Approach A for Feature X. After implementation experience, 
+we found that Approach B better addresses [reasons]...
+
+## Related
+
+- [ADR-0010](./0010-feature-x-approach-a.md) — Previous approach (superseded)
+```
+
+---
+
 ## README Index Format
 
 Maintain a README.md in the decision-logs folder:
@@ -175,6 +243,8 @@ When asked to backfill decisions from past conversations:
 
 Before creating an ADR:
 
+- [ ] **Consistency verified** — No contradictions with existing non-superseded ADRs
+- [ ] **Supersession handled** — If overriding an existing ADR, both are updated with cross-references
 - [ ] Title is clear and specific
 - [ ] Context explains why the decision was needed
 - [ ] Decision is stated clearly
