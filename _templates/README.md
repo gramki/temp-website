@@ -20,6 +20,7 @@ This folder contains templates for common documentation types in the design-docs
 | [composite-pattern.md](composite-pattern.md) | Composite pattern documentation | Documenting patterns that compose Hub components |
 | [open-points.md](open-points.md) | Open questions tracker | Tracking unresolved questions per subsystem |
 | [operator.md](operator.md) | Operator documentation | Documenting Hub operators and CRDs |
+| [implementation-concept.md](implementation-concept.md) | Implementation concept | Documenting Hub implementation concepts extending ontology |
 
 ## Template Maintenance
 

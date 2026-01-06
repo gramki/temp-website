@@ -347,6 +347,16 @@ Olympus Hub is an operations management platform designed for large and medium e
 
 *Coming soon: Application Development Guide, Integration Guide, Agent Onboarding Guide*
 
+### 11 - Implementation Concepts
+
+> **Purpose:** Hub-specific implementation concepts that extend the theoretical ontology into concrete platform capabilities.
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./11-implementation-concepts/README.md) | Concept index and relationship to ontology | 🟡 WIP |
+
+*See the [Implementation Concepts Index](./11-implementation-concepts/README.md) for the full list of 42 concepts organized by category.*
+
 ### Decision Logs
 
 | Document | Description |
