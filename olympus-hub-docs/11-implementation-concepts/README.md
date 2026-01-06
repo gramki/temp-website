@@ -24,8 +24,8 @@ These implementation concepts are:
 |---------|-------------|--------|
 | [Tenant](./tenant.md) | Multi-tenant isolation unit | 🔴 TODO |
 | [Subscription](./subscription.md) | Resource and billing boundary within a tenant | ✅ Complete |
-| [Dev-Lifecycle-Stage](./dev-lifecycle-stage.md) | Workbench maturity tags (DEV, STAGING, PROD) | 🔴 TODO |
-| [Promotion](./promotion.md) | Controlled artifact movement between workbenches | 🔴 TODO |
+| [Dev-Lifecycle-Stage](./dev-lifecycle-stage.md) | Workbench maturity tags (DEV, STAGING, PROD) | ✅ Complete |
+| [Promotion](./promotion.md) | Controlled artifact movement between workbenches | ✅ Complete |
 | [Blueprint](./blueprint.md) | Reusable workbench templates | 🔴 TODO |
 
 ### Signal Architecture
@@ -33,7 +33,7 @@ These implementation concepts are:
 | Concept | Description | Status |
 |---------|-------------|--------|
 | [Signal Exchange](./signal-exchange.md) | Hub's central routing and orchestration engine | ✅ Complete |
-| [I/O Gateway](./io-gateway.md) | Signal ingress/egress points (Heracles, Atropos, etc.) | 🔴 TODO |
+| [I/O Gateway](./io-gateway.md) | Signal ingress/egress points (Heracles, Atropos, etc.) | ✅ Complete |
 | [Normalized Signal Format](./normalized-signal-format.md) | Standard DTO for signal transport | 🔴 TODO |
 | [Message Envelope](./message-envelope.md) | Standard wrapper for application communication | 🔴 TODO |
 | [Reminder Capability](./reminder-capability.md) | Time-based stimuli for parked workflows | 🔴 TODO |
@@ -44,7 +44,7 @@ These implementation concepts are:
 | Concept | Description | Status |
 |---------|-------------|--------|
 | [Hub Application](./hub-application.md) | Concrete automation artifact running on a runtime | ✅ Complete |
-| [Automation Runtime](./automation-runtime.md) | Execution host for Hub Applications | 🔴 TODO |
+| [Automation Runtime](./automation-runtime.md) | Execution host for Hub Applications | ✅ Complete |
 | [Hub Native Utilities](./hub-native-utilities.md) | Built-in platform applications and tools | 🔴 TODO |
 | [Direct Tool Dispatcher](./direct-tool-dispatcher.md) | Bypass SX for synchronous tool invocation | 🔴 TODO |
 
@@ -52,7 +52,7 @@ These implementation concepts are:
 
 | Concept | Description | Status |
 |---------|-------------|--------|
-| [Request Lifecycle](./request-lifecycle.md) | Request states, updates, and transitions | 🔴 TODO |
+| [Request Lifecycle](./request-lifecycle.md) | Request states, updates, and transitions | ✅ Complete |
 | [Request Update](./request-update.md) | Append-only updates to request context | 🔴 TODO |
 | [Task Allocation](./task-allocation.md) | Assignment algorithms and workload balancing | 🔴 TODO |
 | [Escalation Matrix](./escalation-matrix.md) | Multi-level cumulative agent assignment | 🔴 TODO |
@@ -61,8 +61,8 @@ These implementation concepts are:
 
 | Concept | Description | Status |
 |---------|-------------|--------|
-| [Persona](./persona.md) | Hub user types with distinct responsibilities | 🔴 TODO |
-| [Channel](./channel.md) | Interaction interfaces (Web, MCP, REST, MS Teams) | 🔴 TODO |
+| [Persona](./persona.md) | Hub user types with distinct responsibilities | ✅ Complete |
+| [Channel](./channel.md) | Interaction interfaces (Web, MCP, REST, MS Teams) | ✅ Complete |
 | [Headless Access Service](./headless-access-service.md) | Backend services with channel adapters | 🔴 TODO |
 | [Notification Services](./notification-services.md) | User notification subsystem | 🔴 TODO |
 
@@ -80,9 +80,9 @@ These implementation concepts are:
 
 | Concept | Description | Status |
 |---------|-------------|--------|
-| [CRD (Custom Resource Definition)](./crd.md) | Declarative configuration model | 🔴 TODO |
+| [CRD (Custom Resource Definition)](./crd.md) | Declarative configuration model | ✅ Complete |
 | [Operator](./operator.md) | GitOps-based resource reconciliation | 🔴 TODO |
-| [Scenario Specification Types](./scenario-specification-types.md) | Normative, Automation, and Deployment specs | 🔴 TODO |
+| [Scenario Specification Types](./scenario-specification-types.md) | Normative, Automation, and Deployment specs | ✅ Complete |
 
 ### Composite Patterns
 
