@@ -48,6 +48,11 @@ All ADRs follow the standard format:
 | [0024](./0024-javascript-transformation-functions.md) | JavaScript transformation functions for DTO mapping | Accepted | 2026-01-06 | hub-native-utilities |
 | [0025](./0025-stateless-decision-prediction-tools.md) | Decision and Prediction Tools as stateless utilities | Accepted | 2026-01-06 | hub-native-utilities |
 | [0026](./0026-signal-exchange-reminder-capability.md) | Signal Exchange built-in reminder capability | Accepted | 2026-01-06 | signal-exchange |
+| [0027](./0027-four-layer-storage-model.md) | Four-layer storage model for Hub data | Accepted | 2026-01-06 | data-architecture |
+| [0028](./0028-data-classification.md) | Cognitive vs Operational vs Domain data classification | Accepted | 2026-01-06 | data-architecture |
+| [0029](./0029-caf-control-plane.md) | CAF as control plane for Memory Services (not storage) | Accepted | 2026-01-06 | data-architecture |
+| [0030](./0030-workbench-scoped-data-stores.md) | Application Data Stores are workbench-scoped (not runtime-scoped) | Accepted | 2026-01-06 | data-architecture |
+| [0031](./0031-optional-data-stores.md) | Application Data Stores are optional (not mandated) | Accepted | 2026-01-06 | data-architecture |
 
 ---
 
@@ -96,6 +101,13 @@ All ADRs follow the standard format:
 - [0023](./0023-http-tool-calling-application.md) - HTTP Tool Calling Application as built-in Hub Application
 - [0024](./0024-javascript-transformation-functions.md) - JavaScript transformation functions for DTO mapping
 - [0025](./0025-stateless-decision-prediction-tools.md) - Decision and Prediction Tools as stateless utilities
+
+### Data Architecture
+- [0027](./0027-four-layer-storage-model.md) - Four-layer storage model for Hub data
+- [0028](./0028-data-classification.md) - Cognitive vs Operational vs Domain data classification
+- [0029](./0029-caf-control-plane.md) - CAF as control plane for Memory Services (not storage)
+- [0030](./0030-workbench-scoped-data-stores.md) - Application Data Stores are workbench-scoped
+- [0031](./0031-optional-data-stores.md) - Application Data Stores are optional (not mandated)
 
 ---
 
