@@ -1504,13 +1504,26 @@ These operators enable advanced patterns where Hub constructs are exposed as reu
 
 ### Workbench as a Machine Operator
 
-Exposes a Workbench as a Machine that can be accessed by other Workbenches.
+Exposes a Workbench as a Machine that can be accessed by other Workbenches. This enables cross-workbench tool invocation where one workbench exposes its capabilities (Scenarios as Tools, Standalone Tools, Machine Tools) as a cohesive Machine interface.
+
+> **See Also:** [Workbench as a Machine Pattern](../../09-composite-systems-and-patterns/workbench-as-a-machine.md) for detailed architecture and usage guide.
+
+#### Tool Types That Can Be Exposed
+
+| Tool Type | Description | Source |
+|-----------|-------------|--------|
+| **Scenarios as Tools** | Entire Scenarios with HTTP signals exposed as operations | Scenario Automation Spec |
+| **Standalone Tools** | Hub Applications registered as standalone tools | ToolInstance with machine.type: standalone |
+| **Machine Tools** | Tools from external machines (transitive exposure) | ToolInstance with external machine_ref |
+| **Decision Tools** | Stateless decision/prediction tools | Decision/Prediction Tool Specs |
+
+#### WorkbenchAsMachine CRD
 
 ```yaml
 apiVersion: hub.olympus.io/v1
 kind: WorkbenchAsMachine
 metadata:
-  name: dispute-ops-as-machine
+  name: dispute-ops-machine
   namespace: acme-bank
 spec:
   # Source Workbench
@@ -1518,101 +1531,212 @@ spec:
 
   # Machine Identity
   machine:
-    name: dispute-operations-machine
+    id: dispute-operations
     display_name: "Dispute Operations Service"
-    version: "1.0.0"
+    version: "2.0.0"
+    description: "Dispute resolution capabilities for enterprise use"
 
-  # Exposed Capabilities
+  # Machine Capabilities
   capabilities:
-    produces_signals: true
-    accepts_commands: true
-    provides_data: true
+    produces_signals: false    # Machine doesn't emit signals to consumers
+    accepts_commands: true     # Machine can receive tool invocations
+    provides_data: true        # Machine can return data
 
-  # Exposed Tools (subset of scenarios)
-  exposed_scenarios:
-    - scenario_ref: standard-dispute
-      tool_name: create-dispute
-      description: "Create a new dispute"
-      input_mapping:
-        # Map external input to scenario context
-        customer_id: "{{input.customer_id}}"
-        transaction_id: "{{input.transaction_id}}"
-        amount: "{{input.amount}}"
-        type: "{{input.dispute_type}}"
-      output_mapping:
-        # Map scenario result to tool output
-        dispute_id: "{{request.id}}"
-        status: "{{request.state}}"
-
-    - scenario_ref: dispute-status-query
-      tool_name: get-dispute-status
-      description: "Get status of a dispute"
+  # Tools to Expose
+  exposed_tools:
+    
+    # Scenario as Tool (entire scenario with operations)
+    scenarios:
+      - scenario_ref: standard-dispute
+        tool:
+          name: dispute-resolution
+          display_name: "Dispute Resolution"
+          description: "Create and manage disputes"
+        operations:
+          - signal_type: dispute.submitted
+            operation_name: create
+            description: "Create a new dispute"
+            input_mapping:
+              customer_id: "{{input.customer_id}}"
+              transaction_id: "{{input.transaction_id}}"
+              amount: "{{input.amount}}"
+              type: "{{input.dispute_type}}"
+            output_mapping:
+              dispute_id: "{{request.id}}"
+              status: "{{request.state}}"
+              
+          - signal_type: dispute.evidence.submitted
+            operation_name: add-evidence
+            description: "Add evidence to existing dispute"
+              
+          - signal_type: dispute.status.query
+            operation_name: get-status
+            description: "Get dispute status"
+    
+    # Standalone Tools (Hub Applications as tools)
+    standalone_tools:
+      - tool_ref: fraud-detection-tool
+        exposed_name: fraud-check
+        description: "Check transaction for fraud risk"
+        
+      - tool_ref: eligibility-check-tool
+        exposed_name: dispute-eligibility
+        description: "Check if transaction is eligible for dispute"
+    
+    # Machine Tools (transitive exposure)
+    machine_tools:
+      - tool_ref: core-banking/get-transaction
+        exposed_name: get-transaction
+        description: "Get transaction details"
+    
+    # Decision Tools
+    decision_tools:
+      - tool_ref: dispute-classification-rules
+        exposed_name: classify-dispute
+        description: "Classify dispute type based on transaction"
 
   # Access Control
-  access:
+  access_control:
     allowed_workbenches:
-      - fraud-investigation
       - customer-service
+      - fraud-investigation
+      - mobile-banking
     allowed_roles:
-      - operator
+      - service-operator
+      - analyst
+    opa_policy_ref: policies/dispute-machine-access
+
+  # Authentication for incoming requests
+  authentication:
+    methods:
+      - type: oauth2_client_credentials
+        issuer: https://auth.hub.acme.com
+      - type: api_key
+        header: X-API-Key
 ```
+
+#### Operator Reconciliation
+
+| Action | Behavior |
+|--------|----------|
+| **Create** | Register Machine Definition in Machine Registry, configure I/O Gateway routes |
+| **Update** | Update Machine Definition, refresh exposed tools |
+| **Delete** | Remove Machine from registry, remove I/O Gateway routes |
+
+#### Validation Rules
+
+1. **Workbench must exist** and be deployed
+2. **Exposed scenarios must exist** with HTTP signal triggers
+3. **Exposed standalone tools must exist** in Tool Registry
+4. **Exposed machine tools must be accessible** by the workbench
+5. **Access control must be valid** (workbenches/roles must exist)
 
 ### Scenario as a Tool Operator
 
-Exposes a Scenario as a callable Tool.
+Exposes a Scenario as a callable Tool. A single Scenario becomes one Tool with multiple operations (one per HTTP signal type). This prevents tool explosion while maintaining discoverability.
+
+> **Note:** Scenario as a Tool is typically configured as part of [Workbench as a Machine](./workbench-as-a-machine.md) pattern. Use ScenarioAsTool CRD when exposing a single scenario independently.
+
+#### Key Design Decision
+
+| Approach | Description |
+|----------|-------------|
+| **Entire Scenario = One Tool** | The Scenario is exposed as a single tool |
+| **Each HTTP Signal = One Operation** | Different signal types become operations of that tool |
+
+This prevents tool proliferation — a scenario with 5 signal types creates 1 tool with 5 operations, not 5 tools.
+
+#### ScenarioAsTool CRD
 
 ```yaml
 apiVersion: hub.olympus.io/v1
 kind: ScenarioAsTool
 metadata:
-  name: quick-dispute-check-tool
+  name: dispute-eligibility-tool
   namespace: acme-bank
 spec:
   # Source Scenario
-  scenario_ref: quick-dispute-check
+  scenario_ref: dispute-eligibility-check
 
   # Tool Identity
   tool:
-    name: check-dispute-eligibility
-    display_name: "Check Dispute Eligibility"
+    name: dispute-eligibility
+    display_name: "Dispute Eligibility Check"
     version: "1.0.0"
-    description: "Quick check if a transaction is eligible for dispute"
+    description: "Check and manage dispute eligibility"
 
-  # Input/Output Schema
-  input_schema:
-    type: object
-    properties:
-      transaction_id:
-        type: string
-      customer_id:
-        type: string
-    required:
-      - transaction_id
-      - customer_id
+  # Operations (one per HTTP signal type)
+  operations:
+    - signal_type: eligibility.check
+      operation_name: check
+      description: "Check if transaction is eligible for dispute"
+      input_schema:
+        type: object
+        properties:
+          transaction_id: { type: string }
+          customer_id: { type: string }
+        required: [transaction_id, customer_id]
+      output_schema:
+        type: object
+        properties:
+          eligible: { type: boolean }
+          reason: { type: string }
+          dispute_types: { type: array, items: { type: string } }
+      execution:
+        mode: synchronous
+        timeout_seconds: 30
+    
+    - signal_type: eligibility.bulk_check
+      operation_name: bulk-check
+      description: "Check eligibility for multiple transactions"
+      input_schema:
+        type: object
+        properties:
+          transactions: { type: array, items: { type: object } }
+      output_schema:
+        type: object
+        properties:
+          results: { type: array }
+      execution:
+        mode: asynchronous
+        timeout_seconds: 120
 
-  output_schema:
-    type: object
-    properties:
-      eligible:
-        type: boolean
-      reason:
-        type: string
-      dispute_types:
-        type: array
-        items:
-          type: string
+  # Dispatcher Configuration
+  dispatcher_config:
+    credential_mode: pass-through
+    access_control:
+      allowed_workbenches:
+        - customer-service
+        - mobile-app-backend
+      allowed_roles:
+        - analyst
+        - operator
+    retry:
+      max_attempts: 3
+      backoff:
+        type: exponential
+        initial_delay_ms: 100
 
-  # Execution Mode
-  execution:
-    mode: synchronous  # synchronous | asynchronous
-    timeout_seconds: 30
-
-  # Access Control
-  access:
-    allowed_workbenches:
-      - customer-service
-      - mobile-app-backend
+  # Observability
+  observability:
+    metrics_enabled: true
+    tracing_enabled: true
 ```
+
+#### Operator Reconciliation
+
+| Action | Behavior |
+|--------|----------|
+| **Create** | Register tool in Tool Registry with all operations |
+| **Update** | Update tool registration, refresh operation schemas |
+| **Delete** | Remove tool from Tool Registry |
+
+#### Validation Rules
+
+1. **Scenario must exist** with HTTP signal triggers
+2. **Signal types must match** existing triggers in the scenario
+3. **Schemas must be valid** JSON Schema format
+4. **Access control** workbenches/roles must exist
 
 ### Scenario as an Agent Operator
 

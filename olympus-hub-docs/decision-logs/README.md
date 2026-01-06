@@ -61,6 +61,10 @@ All ADRs follow the standard format:
 | [0037](./0037-ms-teams-module-as-observer.md) | MS Teams module as Signal Exchange observer | Accepted | 2026-01-06 | ms-teams-integration |
 | [0038](./0038-group-orchestration-bot-construct.md) | Group Orchestration Bot as MS Teams module construct | Accepted | 2026-01-06 | ms-teams-integration |
 | [0039](./0039-direct-services-bypass.md) | Direct services bypass Signal Exchange | Accepted | 2026-01-06 | ms-teams-integration |
+| [0040](./0040-direct-tool-dispatcher.md) | Direct Tool Dispatcher as platform utility | Accepted | 2026-01-06 | hub-native-utilities |
+| [0041](./0041-standalone-tool-variation.md) | Standalone Tool as ToolInstance variation | Accepted | 2026-01-06 | operators |
+| [0042](./0042-scenario-as-tool-granularity.md) | Scenario as Tool granularity (entire scenario = one tool) | Accepted | 2026-01-06 | composite-patterns |
+| [0043](./0043-workbench-as-machine-transitive-exposure.md) | Workbench as Machine transitive tool exposure | Accepted | 2026-01-06 | composite-patterns |
 
 ---
 
@@ -95,6 +99,7 @@ All ADRs follow the standard format:
 - [0016](./0016-typed-data-store-crds.md) - Typed CRDs for data stores (Ganymede, Callisto, Europa)
 - [0017](./0017-trigger-as-standalone-specification.md) - TriggerSpec as standalone CRD
 - [0018](./0018-dedicated-apm-operator.md) - Dedicated APM operator for Hub observability
+- [0041](./0041-standalone-tool-variation.md) - Standalone Tool as ToolInstance variation
 
 ### Signal Exchange
 - [0019](./0019-signal-exchange-observer-pattern.md) - Observer pattern for SX module integration
@@ -109,6 +114,7 @@ All ADRs follow the standard format:
 - [0023](./0023-http-tool-calling-application.md) - HTTP Tool Calling Application as built-in Hub Application
 - [0024](./0024-javascript-transformation-functions.md) - JavaScript transformation functions for DTO mapping
 - [0025](./0025-stateless-decision-prediction-tools.md) - Decision and Prediction Tools as stateless utilities
+- [0040](./0040-direct-tool-dispatcher.md) - Direct Tool Dispatcher as platform utility
 
 ### Data Architecture
 - [0027](./0027-four-layer-storage-model.md) - Four-layer storage model for Hub data
@@ -126,6 +132,10 @@ All ADRs follow the standard format:
 - [0037](./0037-ms-teams-module-as-observer.md) - MS Teams module as Signal Exchange observer
 - [0038](./0038-group-orchestration-bot-construct.md) - Group Orchestration Bot as MS Teams module construct
 - [0039](./0039-direct-services-bypass.md) - Direct services bypass Signal Exchange
+
+### Composite Patterns
+- [0042](./0042-scenario-as-tool-granularity.md) - Scenario as Tool granularity (entire scenario = one tool)
+- [0043](./0043-workbench-as-machine-transitive-exposure.md) - Workbench as Machine transitive tool exposure
 
 ---
 

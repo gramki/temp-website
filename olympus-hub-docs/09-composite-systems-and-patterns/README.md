@@ -173,7 +173,8 @@ All composite patterns share common architectural elements:
 | Pattern | Status | Description |
 |---------|--------|-------------|
 | [Scenario as an Agent](./scenario-as-an-agent.md) | 🟡 Draft | Expose Scenario (any automation type) as an Agent for task completion |
-| Scenario as a Tool | 🔴 Planned | Expose Scenario as a callable Tool |
-| Workbench as a Machine | 🔴 Planned | Expose Workbench as a Machine |
+| [Hub Application as Standalone Tool](./hub-application-as-standalone-tool.md) | 🟡 Draft | Hub Application as directly invocable tool (workbench = machine) |
+| [Workbench as a Machine](./workbench-as-a-machine.md) | 🟡 Draft | Expose Workbench as a Machine for cross-workbench tool invocation |
+| Scenario as a Tool | 🔴 Planned | Expose Scenario as a callable Tool (part of Workbench as Machine) |
 
 
