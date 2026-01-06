@@ -15,6 +15,7 @@ This section contains step-by-step guides for setting up and operating Olympus H
 | [Subscription Configuration Guide](./subscription-configuration-guide.md) | Administrators | Configuring a new tenant subscription |
 | [Workbench Setup Guide](./workbench-setup-guide.md) | Process Architects | Configuring a workbench for a business domain |
 | [Signal Configuration Guide](./signal-configuration-guide.md) | Process Architects, Developers | Defining signals, filters, and triggers |
+| [Hub Development Flow Primer](./hub-development-flow/README.md) | Developers | Understanding Hub's development model and workflow |
 
 ---
 
@@ -31,7 +32,8 @@ This section contains step-by-step guides for setting up and operating Olympus H
 
 ### For Developers
 
-1. [Signal Configuration Guide](./signal-configuration-guide.md) — Create triggers with low-code and code transformations
+1. [Hub Development Flow Primer](./hub-development-flow/README.md) — **Start here** — Understand Hub's development model
+2. [Signal Configuration Guide](./signal-configuration-guide.md) — Create triggers with low-code and code transformations
 
 *Coming soon: Application Development Guide, Integration Guide*
 
