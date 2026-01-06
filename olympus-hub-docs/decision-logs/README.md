@@ -44,6 +44,10 @@ All ADRs follow the standard format:
 | [0020](./0020-request-level-granularity.md) | Signal Exchange operates at Request level only | Accepted | 2026-01-06 | signal-exchange |
 | [0021](./0021-cns-as-delivery-layer.md) | Cipher Notification Service as delivery layer | Accepted | 2026-01-06 | notification |
 | [0022](./0022-workbench-scoped-user-preferences.md) | User preferences scoped to workbench with tenant fallback | Accepted | 2026-01-06 | notification |
+| [0023](./0023-http-tool-calling-application.md) | HTTP Tool Calling Application as built-in Hub Application | Accepted | 2026-01-06 | hub-native-utilities |
+| [0024](./0024-javascript-transformation-functions.md) | JavaScript transformation functions for DTO mapping | Accepted | 2026-01-06 | hub-native-utilities |
+| [0025](./0025-stateless-decision-prediction-tools.md) | Decision and Prediction Tools as stateless utilities | Accepted | 2026-01-06 | hub-native-utilities |
+| [0026](./0026-signal-exchange-reminder-capability.md) | Signal Exchange built-in reminder capability | Accepted | 2026-01-06 | signal-exchange |
 
 ---
 
@@ -82,10 +86,16 @@ All ADRs follow the standard format:
 ### Signal Exchange
 - [0019](./0019-signal-exchange-observer-pattern.md) - Observer pattern for SX module integration
 - [0020](./0020-request-level-granularity.md) - Signal Exchange operates at Request level only
+- [0026](./0026-signal-exchange-reminder-capability.md) - Signal Exchange built-in reminder capability
 
 ### Notification
 - [0021](./0021-cns-as-delivery-layer.md) - Cipher Notification Service as delivery layer
 - [0022](./0022-workbench-scoped-user-preferences.md) - User preferences scoped to workbench with tenant fallback
+
+### Hub Native Utilities
+- [0023](./0023-http-tool-calling-application.md) - HTTP Tool Calling Application as built-in Hub Application
+- [0024](./0024-javascript-transformation-functions.md) - JavaScript transformation functions for DTO mapping
+- [0025](./0025-stateless-decision-prediction-tools.md) - Decision and Prediction Tools as stateless utilities
 
 ---
 
