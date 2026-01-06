@@ -22,11 +22,11 @@ These implementation concepts are:
 
 | Concept | Description | Status |
 |---------|-------------|--------|
-| [Tenant](./tenant.md) | Multi-tenant isolation unit | 🔴 TODO |
+| [Tenant](./tenant.md) | Multi-tenant isolation unit | ✅ Complete |
 | [Subscription](./subscription.md) | Resource and billing boundary within a tenant | ✅ Complete |
 | [Dev-Lifecycle-Stage](./dev-lifecycle-stage.md) | Workbench maturity tags (DEV, STAGING, PROD) | ✅ Complete |
 | [Promotion](./promotion.md) | Controlled artifact movement between workbenches | ✅ Complete |
-| [Blueprint](./blueprint.md) | Reusable workbench templates | 🔴 TODO |
+| [Blueprint](./blueprint.md) | Reusable workbench templates | ✅ Complete |
 
 ### Signal Architecture
 
@@ -34,10 +34,10 @@ These implementation concepts are:
 |---------|-------------|--------|
 | [Signal Exchange](./signal-exchange.md) | Hub's central routing and orchestration engine | ✅ Complete |
 | [I/O Gateway](./io-gateway.md) | Signal ingress/egress points (Heracles, Atropos, etc.) | ✅ Complete |
-| [Normalized Signal Format](./normalized-signal-format.md) | Standard DTO for signal transport | 🔴 TODO |
-| [Message Envelope](./message-envelope.md) | Standard wrapper for application communication | 🔴 TODO |
-| [Reminder Capability](./reminder-capability.md) | Time-based stimuli for parked workflows | 🔴 TODO |
-| [Observer Pattern](./observer-pattern.md) | Module integration with Signal Exchange | 🔴 TODO |
+| [Normalized Signal Format](./normalized-signal-format.md) | Standard DTO for signal transport | ✅ Complete |
+| [Message Envelope](./message-envelope.md) | Standard wrapper for application communication | ✅ Complete |
+| [Reminder Capability](./reminder-capability.md) | Time-based stimuli for parked workflows | ✅ Complete |
+| [Observer Pattern](./observer-pattern.md) | Module integration with Signal Exchange | ✅ Complete |
 
 ### Application Architecture
 
@@ -45,17 +45,17 @@ These implementation concepts are:
 |---------|-------------|--------|
 | [Hub Application](./hub-application.md) | Concrete automation artifact running on a runtime | ✅ Complete |
 | [Automation Runtime](./automation-runtime.md) | Execution host for Hub Applications | ✅ Complete |
-| [Hub Native Utilities](./hub-native-utilities.md) | Built-in platform applications and tools | 🔴 TODO |
-| [Direct Tool Dispatcher](./direct-tool-dispatcher.md) | Bypass SX for synchronous tool invocation | 🔴 TODO |
+| [Hub Native Utilities](./hub-native-utilities.md) | Built-in platform applications and tools | ✅ Complete |
+| [Direct Tool Dispatcher](./direct-tool-dispatcher.md) | Bypass SX for synchronous tool invocation | ✅ Complete |
 
 ### Request and Task
 
 | Concept | Description | Status |
 |---------|-------------|--------|
 | [Request Lifecycle](./request-lifecycle.md) | Request states, updates, and transitions | ✅ Complete |
-| [Request Update](./request-update.md) | Append-only updates to request context | 🔴 TODO |
-| [Task Allocation](./task-allocation.md) | Assignment algorithms and workload balancing | 🔴 TODO |
-| [Escalation Matrix](./escalation-matrix.md) | Multi-level cumulative agent assignment | 🔴 TODO |
+| [Request Update](./request-update.md) | Append-only updates to request context | ✅ Complete |
+| [Task Allocation](./task-allocation.md) | Assignment algorithms and workload balancing | ✅ Complete |
+| [Escalation Matrix](./escalation-matrix.md) | Multi-level cumulative agent assignment | ✅ Complete |
 
 ### User Experience Architecture
 
@@ -63,52 +63,52 @@ These implementation concepts are:
 |---------|-------------|--------|
 | [Persona](./persona.md) | Hub user types with distinct responsibilities | ✅ Complete |
 | [Channel](./channel.md) | Interaction interfaces (Web, MCP, REST, MS Teams) | ✅ Complete |
-| [Headless Access Service](./headless-access-service.md) | Backend services with channel adapters | 🔴 TODO |
-| [Notification Services](./notification-services.md) | User notification subsystem | 🔴 TODO |
+| [Headless Access Service](./headless-access-service.md) | Backend services with channel adapters | ✅ Complete |
+| [Notification Services](./notification-services.md) | User notification subsystem | ✅ Complete |
 
 ### Data Architecture
 
 | Concept | Description | Status |
 |---------|-------------|--------|
-| [Application Data Store](./application-data-store.md) | Workbench-scoped storage (Ganymede, Callisto, Europa) | 🔴 TODO |
-| [Memory Services](./memory-services.md) | Enterprise, Agent, and User memory | 🔴 TODO |
-| [Knowledge Bank](./knowledge-bank.md) | RAG and document retrieval | 🔴 TODO |
-| [Cognitive Audit Fabric](./cognitive-audit-fabric.md) | Memory control plane and audit | 🔴 TODO |
-| [Hub Environment](./hub-environment.md) | Business/operations domain runtime configuration | 🔴 TODO |
+| [Application Data Store](./application-data-store.md) | Workbench-scoped storage (Ganymede, Callisto, Europa) | ✅ Complete |
+| [Memory Services](./memory-services.md) | Enterprise, Agent, and User memory | ✅ Complete |
+| [Knowledge Bank](./knowledge-bank.md) | RAG and document retrieval | ✅ Complete |
+| [Cognitive Audit Fabric](./cognitive-audit-fabric.md) | Memory control plane and audit | ✅ Complete |
+| [Hub Environment](./hub-environment.md) | Business/operations domain runtime configuration | ✅ Complete |
 
 ### Configuration Model
 
 | Concept | Description | Status |
 |---------|-------------|--------|
 | [CRD (Custom Resource Definition)](./crd.md) | Declarative configuration model | ✅ Complete |
-| [Operator](./operator.md) | GitOps-based resource reconciliation | 🔴 TODO |
+| [Operator](./operator.md) | GitOps-based resource reconciliation | ✅ Complete |
 | [Scenario Specification Types](./scenario-specification-types.md) | Normative, Automation, and Deployment specs | ✅ Complete |
 
 ### Composite Patterns
 
 | Concept | Description | Status |
 |---------|-------------|--------|
-| [Scenario as Agent](./scenario-as-agent.md) | Scenario published as task-completing agent | 🔴 TODO |
-| [Scenario as Tool](./scenario-as-tool.md) | Scenario exposed as callable tool | 🔴 TODO |
-| [Workbench as Machine](./workbench-as-machine.md) | Workbench exposed as Machine to other workbenches | 🔴 TODO |
-| [Hub Application as Standalone Tool](./hub-application-as-standalone-tool.md) | Direct tool invocation bypassing SX | 🔴 TODO |
+| [Scenario as Agent](./scenario-as-agent.md) | Scenario published as task-completing agent | ✅ Complete |
+| [Scenario as Tool](./scenario-as-tool.md) | Scenario exposed as callable tool | ✅ Complete |
+| [Workbench as Machine](./workbench-as-machine.md) | Workbench exposed as Machine to other workbenches | ✅ Complete |
+| [Hub Application as Standalone Tool](./hub-application-as-standalone-tool.md) | Direct tool invocation bypassing SX | ✅ Complete |
 
 ### DevOps and Lifecycle
 
 | Concept | Description | Status |
 |---------|-------------|--------|
-| [Artifact Registry](./artifact-registry.md) | Container and CRD storage | 🔴 TODO |
-| [Promotion Destination](./promotion-destination.md) | Target workbench/subscription for artifact movement | 🔴 TODO |
-| [CI Subsystem](./ci-subsystem.md) | Build and test infrastructure | 🔴 TODO |
-| [Hub Test Runner](./hub-test-runner.md) | Integration testing framework | 🔴 TODO |
-| [APM (Application Performance Monitoring)](./apm.md) | Observability for Hub Applications | 🔴 TODO |
+| [Artifact Registry](./artifact-registry.md) | Container and CRD storage | ✅ Complete |
+| [Promotion Destination](./promotion-destination.md) | Target workbench/subscription for artifact movement | ✅ Complete |
+| [CI Subsystem](./ci-subsystem.md) | Build and test infrastructure | ✅ Complete |
+| [Hub Test Runner](./hub-test-runner.md) | Integration testing framework | ✅ Complete |
+| [APM (Application Performance Monitoring)](./apm.md) | Observability for Hub Applications | ✅ Complete |
 
 ### Integration
 
 | Concept | Description | Status |
 |---------|-------------|--------|
-| [MS Teams Integration](./ms-teams-integration.md) | Persona bots and chat group collaboration | 🔴 TODO |
-| [Hercules Launcher](./hercules-launcher.md) | Deep linking service for cross-channel navigation | 🔴 TODO |
+| [MS Teams Integration](./ms-teams-integration.md) | Persona bots and chat group collaboration | ✅ Complete |
+| [Hercules Launcher](./hercules-launcher.md) | Deep linking service for cross-channel navigation | ✅ Complete |
 
 ---
 
