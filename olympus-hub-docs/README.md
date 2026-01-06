@@ -22,6 +22,7 @@ Olympus Hub is an operations management platform designed for large and medium e
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Hub Architecture](./02-system-design/hub-architecture.md) | Detailed system architecture: Workbenches, Agents, Signals, Operations | 🟡 WIP |
+| [Implementation Concepts](./02-system-design/implementation-concepts/README.md) | Hub-specific concepts extending the ontology (42 concepts) | 🟡 WIP |
 
 ### 03 - Operations
 
@@ -347,16 +348,6 @@ Olympus Hub is an operations management platform designed for large and medium e
 
 *Coming soon: Application Development Guide, Integration Guide, Agent Onboarding Guide*
 
-### 11 - Implementation Concepts
-
-> **Purpose:** Hub-specific implementation concepts that extend the theoretical ontology into concrete platform capabilities.
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./11-implementation-concepts/README.md) | Concept index and relationship to ontology | 🟡 WIP |
-
-*See the [Implementation Concepts Index](./11-implementation-concepts/README.md) for the full list of 42 concepts organized by category.*
-
 ### Decision Logs
 
 | Document | Description |
@@ -419,7 +410,8 @@ olympus-hub-docs/
 │   └── olympus-hub-applicability-guide.md
 │
 ├── 02-system-design/            # System architecture
-│   └── hub-architecture.md
+│   ├── hub-architecture.md
+│   └── implementation-concepts/    # 42 Hub-specific implementation concepts
 │
 ├── 03-operations/               # Operational patterns
 │   └── case-management.md

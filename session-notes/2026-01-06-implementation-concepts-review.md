@@ -1,21 +1,34 @@
 # Session Summary: Implementation Concepts Editorial Review
 
 **Date:** January 6, 2026  
-**Focus:** Editorial review of 30 newly created implementation concept documents
+**Focus:** Editorial review of 30 implementation concept documents and folder reorganization
 
 ---
 
 ## Session Objectives
 
-1. Perform editorial review on all 30 implementation concept documents in `11-implementation-concepts/`
+1. Perform editorial review on all 30 implementation concept documents
 2. Check for inconsistencies, ambiguities, and architectural language quality
 3. Identify and fix superfluous or over-reaching statements
+4. Move `implementation-concepts/` under `02-system-design/` for better organization
+
+---
+
+## Folder Reorganization
+
+**Moved:** `olympus-hub-docs/11-implementation-concepts/` → `olympus-hub-docs/02-system-design/implementation-concepts/`
+
+**Rationale:** Implementation concepts are part of system design, not a separate top-level section.
+
+**References Updated:**
+- `olympus-hub-docs/README.md` - Updated section 02 and removed section 11
+- `session-notes/2026-01-06-implementation-concepts-review.md` - This file
 
 ---
 
 ## Documents Reviewed
 
-All 30 documents created in the previous session:
+All 30 documents in `02-system-design/implementation-concepts/`:
 
 ### Category: Access and Communication
 - `tenant.md`
@@ -104,7 +117,7 @@ The first 12 documents had issues that were already addressed:
 
 **All 42 implementation concept documents pass editorial review.**
 
-The `11-implementation-concepts/` section is complete and ready for use as a reference for:
+The `02-system-design/implementation-concepts/` section is complete and ready for use as a reference for:
 - New team members onboarding to Hub concepts
 - Developers understanding implementation specifics
 - Architects referencing decisions and rationale
@@ -124,5 +137,7 @@ Potential future work:
 ## Session Notes
 
 - Working tree was clean at session start (all previous commits pushed)
-- No new commits required from this review session
+- Editorial review found no issues requiring fixes
+- Folder reorganization: moved `11-implementation-concepts/` to `02-system-design/implementation-concepts/`
+- Updated README.md references
 
