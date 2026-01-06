@@ -35,6 +35,11 @@ All ADRs follow the standard format:
 | [0011](./0011-persona-scoped-api-channels.md) | MCP and REST APIs organized by persona, not function | Accepted | 2026-01-06 | integration |
 | [0012](./0012-control-plane-data-plane-channel-separation.md) | Business User on Data Plane; other channels on Control Plane | Accepted | 2026-01-06 | architecture |
 | [0013](./0013-shared-utility-consoles.md) | Agent and Supervisor share utility consoles | Accepted | 2026-01-06 | ux |
+| [0014](./0014-gitops-operator-model.md) | GitOps-based operator model for Hub resources | Accepted | 2026-01-06 | operators |
+| [0015](./0015-persona-based-operator-grouping.md) | Operators grouped by persona | Accepted | 2026-01-06 | operators |
+| [0016](./0016-typed-data-store-crds.md) | Typed CRDs for data stores (Ganymede, Callisto, Europa) | Accepted | 2026-01-06 | operators |
+| [0017](./0017-trigger-as-standalone-specification.md) | TriggerSpec as standalone CRD | Accepted | 2026-01-06 | operators |
+| [0018](./0018-dedicated-apm-operator.md) | Dedicated APM operator for Hub observability | Accepted | 2026-01-06 | operators |
 
 ---
 
@@ -63,6 +68,13 @@ All ADRs follow the standard format:
 ### UX
 - [0013](./0013-shared-utility-consoles.md) - Shared utility consoles between Agent and Supervisor
 
+### Operators
+- [0014](./0014-gitops-operator-model.md) - GitOps-based operator model for Hub resources
+- [0015](./0015-persona-based-operator-grouping.md) - Operators grouped by persona
+- [0016](./0016-typed-data-store-crds.md) - Typed CRDs for data stores (Ganymede, Callisto, Europa)
+- [0017](./0017-trigger-as-standalone-specification.md) - TriggerSpec as standalone CRD
+- [0018](./0018-dedicated-apm-operator.md) - Dedicated APM operator for Hub observability
+
 ---
 
 ## Contributing
@@ -75,4 +87,3 @@ When making significant design decisions:
 4. Link to related documentation
 
 See `.cursor/rules/decision-logs.mdc` for detailed guidelines.
-
