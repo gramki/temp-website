@@ -163,9 +163,10 @@ Storage Services
     ✔ Hub Scenario Monitoring Operator @done(26-01-05 23:36)
 
     # Hub Applications using Other Hub Applications (Composite Patterns):
-    [ ] Using Hub for creating 'Machines' not just 'Opertaions'
-    [ ] *Workbench as a Machine;* Exposes the commands through Command Registry for use by other Hub Applications
-    
+    ✔ Using Hub for creating 'Machines' not just 'Opertaions' @done(26-01-06 13:12)
+    ✔ *Workbench as a Machine;* Exposes the commands through Command Registry for use by other Hub Applications @done(26-01-06 13:12)
+    ✔ Direct Tool Exposure and Invocation; Internal Tools; Hub Data Stores as Tools; Knowledge Base as Tools; @done(26-01-06 13:12)
+    ✔ Scenario as a Tool @done(26-01-06 13:13)
     
 # Hub Storage Explanation:
     ✔ Hub-native storage support for Operations — covered in storage-architecture.md (Layer 3A Operations Data) @done(26-01-05)
@@ -210,24 +211,23 @@ Storage Services
     ✔ Support for External Applications through HTTP Hub Egress Gateway (An application that is merely acting as a wrapper around a tool) @done(26-01-05 23:58)
 
 # Workbench Developer Tasks:
-    [ ] Create a Workbench
+    ✔ Create a Workbench @done(26-01-06 00:06)
     ### Scenario Builder:
         [ ] Create a Scenario
-        [ ] Create a Signal
-        [ ] Create a Trigger
+        ✔ Create a Signal @done(26-01-06 08:43)
+        ✔ Create a Trigger @done(26-01-06 08:43)
         [ ] Create a Machine
         [ ] Create a Tool
         [ ] Create a Knowledge Base 
         [ ] Create a Hub Application
         [ ] Create a Data Store
         [ ] Create a Task Solver Component for Supported Channels
-    ### Consoles and Extensions:
-        [ ] Create a Report in Report Center
-        [ ] Create a Custom Console
-        [ ] Create an Action in Angelos Action Repository
-    [ ] Publish a Workbench
-    [ ] Maintain a Workbench
-
+    ✔ ### Consoles and Extensions: @done(26-01-06 00:05)
+        ✔ Create a Report in Report Center @done(26-01-06 00:05)
+        ✔ Create a Custom Console @done(26-01-06 00:05)
+        ✔ Create an Action in Angelos Action Repository @done(26-01-06 00:05)
+    ✔ Publish a Workbench @done(26-01-06 00:05)
+    ✔ Maintain a Workbench @done(26-01-06 00:05)
 
 # Specialized Hubs:
     [ ] Outline Olympus Hub's Expected Evolution
