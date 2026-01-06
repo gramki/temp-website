@@ -73,7 +73,7 @@ Patterns where Scenarios participate in or invoke other Scenarios:
 | Pattern | Description | Use Case |
 |---------|-------------|----------|
 | [Scenario as an Agent](./scenario-as-an-agent.md) | A Scenario enrolled as an Agent in another Scenario's task queue | Automating tasks (rule-based, workflow, AI, or other) in pre-existing Scenarios |
-| *Scenario as a Tool* | A Scenario invocable as a Tool by Hub Applications | Reusing complex automation as callable procedures |
+| [Scenario as a Tool](./scenario-as-a-tool.md) | A Scenario invocable as a Tool by Hub Applications | Reusing complex automation as callable procedures |
 | *Scenario Chaining* | One Scenario triggering another upon completion | Multi-phase processes with different automation needs |
 
 ### Workbench Composition Patterns
@@ -173,8 +173,8 @@ All composite patterns share common architectural elements:
 | Pattern | Status | Description |
 |---------|--------|-------------|
 | [Scenario as an Agent](./scenario-as-an-agent.md) | 🟡 Draft | Expose Scenario (any automation type) as an Agent for task completion |
+| [Scenario as a Tool](./scenario-as-a-tool.md) | ✅ Documented | Expose Scenario as a callable Tool for Hub Applications |
 | [Hub Application as Standalone Tool](./hub-application-as-standalone-tool.md) | 🟡 Draft | Hub Application as directly invocable tool (workbench = machine) |
 | [Workbench as a Machine](./workbench-as-a-machine.md) | 🟡 Draft | Expose Workbench as a Machine for cross-workbench tool invocation |
-| Scenario as a Tool | 🔴 Planned | Expose Scenario as a callable Tool (part of Workbench as Machine) |
 
 
