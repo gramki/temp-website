@@ -40,8 +40,8 @@ From the conceptual foundation:
 |--------------|--------|-------------|--------|
 | **Episodic** | [episodic-memory-store/](./episodic-memory-store/) | Event-based, time-ordered, case-bound records | 🟡 Draft |
 | **Semantic** | [semantic-memory-store/](./semantic-memory-store/) | Learned beliefs, patterns, probabilistic inferences | 🟡 Draft |
-| Procedural | *Future* | Skills, patterns, procedures | 🔴 Planned |
-| Preference | *Future* | User/agent preferences | 🔴 Planned |
+| **Procedural** | [procedural-memory-store/](./procedural-memory-store/) | Learned skills, procedures, action sequences | 🟡 Draft |
+| **Preference** | [preference-memory-store/](./preference-memory-store/) | User/agent preferences, behaviors, interaction patterns | 🟡 Draft |
 
 ### Episodic Memory Store
 
@@ -86,11 +86,39 @@ From the conceptual foundation:
 | [Entity Beliefs](./semantic-memory-store/entity-beliefs.md) | Probabilistic entity attributes | 🟡 Draft |
 | [Relationship Beliefs](./semantic-memory-store/relationship-beliefs.md) | Inferred entity connections | 🟡 Draft |
 
+### Procedural Memory Store
+
+> Learned skills, procedures, and action patterns. Skill-anchored, role/workbench-scoped. See [procedural-memory-store/README.md](./procedural-memory-store/README.md) for full documentation.
+
+#### Record Schemas (4 types)
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Learned Skills](./procedural-memory-store/learned-skills.md) | Capabilities learned from successful patterns | 🟡 Draft |
+| [Procedures](./procedural-memory-store/procedures.md) | Step-by-step guidance derived from cases | 🟡 Draft |
+| [Action Sequences](./procedural-memory-store/action-sequences.md) | Successful tool invocation patterns | 🟡 Draft |
+| [Tool Usage Patterns](./procedural-memory-store/tool-usage-patterns.md) | Effective tool combinations and orderings | 🟡 Draft |
+| [Record Relationships](./procedural-memory-store/record-relationships.md) | Skill-anchored traversal patterns | 🟡 Draft |
+
+### Preference Memory Store
+
+> Learned preferences and behavioral patterns. Subject-anchored (user/agent), context-sensitive. See [preference-memory-store/README.md](./preference-memory-store/README.md) for full documentation.
+
+#### Record Schemas (4 types)
+| Document | Description | Status |
+|----------|-------------|--------|
+| [User Preferences](./preference-memory-store/user-preferences.md) | Learned preferences for human users | 🟡 Draft |
+| [Agent Behaviors](./preference-memory-store/agent-behaviors.md) | Observed agent behavioral patterns | 🟡 Draft |
+| [Interaction Patterns](./preference-memory-store/interaction-patterns.md) | How entities prefer to interact | 🟡 Draft |
+| [Contextual Preferences](./preference-memory-store/contextual-preferences.md) | Context-dependent preference variations | 🟡 Draft |
+| [Record Relationships](./preference-memory-store/record-relationships.md) | Subject-anchored traversal patterns | 🟡 Draft |
+
 ### CAF Services
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Explanation Service](./explanation-service.md) | Explanation generation and narrative assembly | 🔴 Stub |
-| [Enterprise Learning Services](./enterprise-learning-services.md) | Memory promotion to ETSL, pattern-to-knowledge workflows | 🔴 Stub |
+| [Memory Store Catalog](./memory-store-catalog.md) | Discovery API for registered memory stores | 🟡 Draft |
+| [Record Content Schema Registry](./record-content-schema-registry.md) | Schema discovery, retrieval, and validation | 🟡 Draft |
+| [Explanation Service](./explanation-service.md) | Explanation generation using semantic explainers from Schema Registry | 🟡 Draft |
+| [Enterprise Learning Services](./enterprise-learning-services.md) | Conceptual design for memory promotion; manual process initially | 🟡 Draft |
 
 ---
 
@@ -148,14 +176,33 @@ From the conceptual foundation:
 
 ## Record Binding Conventions
 
+### Episodic Record Immutability
+
+All **episodic memory records** are **immutable**. Once written, they cannot be modified or deleted.
+
+```yaml
+# Every episodic record includes:
+content_hash: string    # sha256:<hex> — cryptographic hash of record content
+```
+
+| Principle | Description |
+|-----------|-------------|
+| **Append-Only** | Records can only be created, never updated or deleted |
+| **Hash-Verified** | Content hash ensures integrity and enables de-duplication |
+| **Tamper-Evident** | Any modification would change the hash, revealing tampering |
+| **Corrections via New Records** | Errors are corrected by creating `override_record` referencing original |
+
+See [CAF Store REST API - Immutability](./episodic-memory-store/caf-store-rest-api.md#immutability) for enforcement details.
+
 ### ID Format (UUID v4)
 
 All CAF record identifiers use **UUID v4** format:
 
 ```yaml
-id: uuid           # e.g., "550e8400-e29b-41d4-a716-446655440000"
-case_id: uuid      # Universal binding anchor
-*_id: uuid         # All foreign key references
+id: uuid              # e.g., "550e8400-e29b-41d4-a716-446655440000"
+content_hash: string  # sha256:<hex> — record content hash
+case_id: uuid         # Universal binding anchor
+*_id: uuid            # All foreign key references
 ```
 
 | Principle | Description |
@@ -445,12 +492,12 @@ The following concepts require detailed specification:
 |---------|-------------|----------|--------|
 | **CAF-to-Memory-Store Contract** | Interface contract between CAF control plane and Enterprise Memory stores | P1 | ✅ Done |
 | **CAF Store REST API** | Default read/write API for memory stores (order-tolerant, idempotent) | P1 | ✅ Done |
-| **CAF Memory Store Catalog** | Registry of available memory stores, capabilities, routing | P1 | Pending |
-| **CAF Explainer Services** | Explanation generation APIs, audience formatting, counterfactual generation | P1 | Pending |
-| **CAF Enterprise Learning Services** | Memory → ETSL promotion, pattern-to-knowledge workflows, governance gates | P1 | 🟡 Stub |
-| **CAF Record Content Schema Repository** | Central registry for content type schemas (olympus://schemas/...) | P2 | Pending |
-| **Procedural Memory Store** | Skill, learned-procedure record types and contracts | P2 | Pending |
-| **Preference Memory Store** | User/agent preference record types and contracts | P2 | Pending |
+| **CAF Memory Store Catalog** | Registry of available memory stores, capabilities, routing; discovery API | P1 | ✅ Done |
+| **CAF Explainer Services** | Explanation generation using semantic explainers; audience formatting; counterfactuals | P1 | ✅ Done |
+| **CAF Enterprise Learning Services** | Conceptual design complete; manual initially, automation post-adoption | P1 | ✅ Done |
+| **CAF Record Content Schema Repository** | Central registry for content type schemas (olympus://schemas/...); CRD registration, discovery API | P2 | ✅ Done |
+| **Procedural Memory Store** | Skill, learned-procedure record types (4 types: LearnedSkill, Procedure, ActionSequence, ToolUsagePattern) | P2 | ✅ Done |
+| **Preference Memory Store** | User/agent preference record types (4 types: UserPreference, AgentBehavior, InteractionPattern, ContextualPreference) | P2 | ✅ Done |
 
 ### Completed
 - Episodic Memory Store — 9 record types, domain contracts, REST API

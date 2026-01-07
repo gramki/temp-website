@@ -265,9 +265,9 @@ Storage Services
         [ ] Enterprise Memory Storage Services as part of Seer
         [ ] Workbench Enterprise Memory Stores to CAF Memory mapping
         [ ] Workbench serving as CAF Memory Provider
-        [ ] CAF is module under Hub;
-        [ ] Enterprise Memory Services as moduels under Seer SaaS Suite
+        [ ] CAF is module under Hub SaaS Suite;
         [ ] Decision journaling in CAF
+        [ ] Enterprise Memory Services as moduels under Hub SaaS Suite
     ## CAF Integration:
         # Decision Explaination Services (Think and detail this; This is different from decision services provided by Seer; Seer should integrated or align with Decision Explaination Services)
         *explanation* infrastructure (rationale capture, counterfactual generation, decision journaling)

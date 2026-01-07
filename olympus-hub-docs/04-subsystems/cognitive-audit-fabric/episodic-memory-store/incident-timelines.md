@@ -32,8 +32,9 @@ Without incident timelines:
 
 ```yaml
 incident_timeline:
-  # Identity
+  # Identity & Integrity
   id: uuid                         # Unique identifier (UUID v4)
+  content_hash: string             # sha256:<hex> — hash of record content (immutability verification)
   created_at: datetime
   case_id: uuid                    # Universal binding ID (UUID v4, = hub request_id when Hub-originated)
   

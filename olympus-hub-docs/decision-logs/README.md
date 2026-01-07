@@ -78,6 +78,10 @@ All ADRs follow the standard format:
 | [0054](./0054-caf-typed-content-convention.md) | MIME-based content typing with human-readable formats | Accepted | 2026-01-07 | caf |
 | [0055](./0055-caf-memory-store-contract.md) | CRD registration, HTTPS retrieval, JWS auth for memory stores | Accepted | 2026-01-07 | caf |
 | [0056](./0056-caf-episodic-memory-scope.md) | Episodic Memory scope, Case Record as root anchor | Accepted | 2026-01-07 | caf |
+| [0057](./0057-episodic-memory-immutability.md) | Episodic records are immutable with content hash | Accepted | 2026-01-07 | caf |
+| [0058](./0058-caf-semantic-explainers.md) | Every schema includes semantic explainer section | Accepted | 2026-01-07 | caf |
+| [0059](./0059-caf-memory-not-knowledge.md) | CAF governs Memory only; ETSL governs Knowledge | Accepted | 2026-01-07 | caf |
+| [0060](./0060-learning-services-deferred-automation.md) | Learning Services manual initially, automation deferred | Accepted | 2026-01-07 | caf |
 
 ---
 
@@ -169,6 +173,10 @@ All ADRs follow the standard format:
 - [0054](./0054-caf-typed-content-convention.md) - MIME-based content typing, human-readable serialization
 - [0055](./0055-caf-memory-store-contract.md) - CRD registration, reader/writer protocols, JWS authentication
 - [0056](./0056-caf-episodic-memory-scope.md) - Episodic Memory scope, Case Record as root
+- [0057](./0057-episodic-memory-immutability.md) - Episodic records immutable with SHA-256 content hash
+- [0058](./0058-caf-semantic-explainers.md) - Semantic explainer section in every content schema
+- [0059](./0059-caf-memory-not-knowledge.md) - CAF governs Memory; ETSL governs Knowledge
+- [0060](./0060-learning-services-deferred-automation.md) - Learning Services manual initially, automation deferred
 
 ---
 

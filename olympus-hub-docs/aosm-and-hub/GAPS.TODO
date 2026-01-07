@@ -52,18 +52,20 @@
 
 # Hub — Cognitive Audit Fabric (CAF):
     ## P1 (High):
-        [ ] HUB-CAF-003: CAF Memory Store Catalog — registry of stores, capabilities, routing logic
-        [ ] HUB-CAF-004: CAF Explainer Services — explanation generation APIs, audience formatting, counterfactual generation
-        [ ] HUB-CAF-005: CAF Enterprise Learning Services — memory promotion to ETSL, pattern-to-knowledge workflows
+        [x] HUB-CAF-003: CAF Memory Store Catalog — discovery API for stores, capabilities, routing, health
+        [x] HUB-CAF-004: CAF Explainer Services — semantic explainers in schemas, audience templates, counterfactuals
+        [x] HUB-CAF-005: CAF Enterprise Learning Services — conceptual design complete; manual process initially, automation deferred to post-adoption maturity
     ## P2 (Medium):
-        [ ] HUB-CAF-006: CAF Record Content Schema Repository — central registry (olympus://schemas/...), versioning, validation
-        [ ] HUB-CAF-007: Context hashing for replay — reproducibility
-        [ ] HUB-CAF-008: Legal holds representation and enforcement
-        [ ] HUB-CAF-009: CAF as control plane for Knowledge Bank (not just Memory) — should CAF govern Knowledge?
+        [x] HUB-CAF-006: CAF Record Content Schema Repository — CRD registration, discovery API, validation endpoint
+        [x] HUB-CAF-007: Content hashing for replay — all episodic records have content_hash (SHA-256) for immutability and reproducibility
+        [~] HUB-CAF-008: Legal holds — REMOVED: covered by retention policies; immutability already provides preservation guarantees
+        [~] HUB-CAF-009: CAF as control plane for Knowledge Bank — RESOLVED: CAF does NOT govern Knowledge; CAF is Memory control plane only; Knowledge is governed by ETSL
         [ ] HUB-CAF-010: CAF explicit implementation of AOSM OPD requirements (Observability, Predictability, Directability)
     ## Completed (2026-01-07):
         [x] HUB-CAF-001: Episodic Memory Store — 9 record types (Case, Decision, Evidence, Context, Outcome, Override, Handoff, Hypothesis, IncidentTimeline)
         [x] HUB-CAF-002: CAF-to-Memory-Store Contract — CRD registration, reader/writer protocols, JWS auth
+        [x] HUB-CAF-003: CAF Memory Store Catalog — discovery API, store routing, health checks
+        [x] HUB-CAF-006: CAF Record Content Schema Registry — CRD registration, discovery API, validation
         [x] HUB-CAF-011: Episodic record relationships and traversal patterns
         [x] HUB-CAF-012: CAF Store REST API — order-tolerant, idempotent, de-duplicating writes
         [x] HUB-CAF-013: Semantic Memory Store — 6 record types (Hypothesis, Pattern, Constraint, Finding, EntityBelief, RelationshipBelief)
@@ -86,10 +88,12 @@
         [ ] HUB-MEM-006: Promotion criteria and workflow (memory → ETSL knowledge) — see HUB-CAF-005 Enterprise Learning Services
         [ ] HUB-MEM-007: Unified ESPP taxonomy across Enterprise Memory — Enterprise uses different types than Agent
         [ ] HUB-MEM-008: HandoffContext schema and task management UI/UX integration
-        [ ] HUB-MEM-010: Procedural Memory Store contract — skill, learned-procedure record types
-        [ ] HUB-MEM-011: Preference Memory Store contract — user/agent preference record types
+        [x] HUB-MEM-010: Procedural Memory Store — 4 record types (LearnedSkill, Procedure, ActionSequence, ToolUsagePattern)
+        [x] HUB-MEM-011: Preference Memory Store — 4 record types (UserPreference, AgentBehavior, InteractionPattern, ContextualPreference)
     ## Completed (2026-01-07):
         [x] HUB-MEM-009: Semantic Memory Store — 6 record types defined, domain-scoped, evidence-grounded
+        [x] HUB-MEM-010: Procedural Memory Store — 4 record types (LearnedSkill, Procedure, ActionSequence, ToolUsagePattern)
+        [x] HUB-MEM-011: Preference Memory Store — 4 record types (UserPreference, AgentBehavior, InteractionPattern, ContextualPreference)
 
 # Hub — Knowledge Services / Knowledge Bank:
     ## P1 (High):
@@ -178,17 +182,17 @@
 
 # Gap Counts by System:
     Seer:                  18 gaps (6 P0, 5 P1, 7 P2)
-    Hub:                   27 gaps (0 P0, 8 P1, 17 P2, 2 P3)  # CAF schemas & contracts complete
+    Hub:                   18 gaps (0 P0, 5 P1, 11 P2, 2 P3)  # CAF complete
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total:                 62 gaps (significant CAF progress)
+    Total:                 53 gaps
 
 # Gap Counts by Priority:
     P0 (Blocking):          6 gaps (Hub P0s resolved)
-    P1 (High):             16 gaps
-    P2 (Medium):           32 gaps
+    P1 (High):             13 gaps  # CAF-005 complete
+    P2 (Medium):           26 gaps
     P3 (Low):               8 gaps
 
 # Recently Resolved (2026-01-07):
@@ -203,11 +207,28 @@
         [x] HUB-CAF-014: Record relationships — entity-anchored, domain(workbench)-scoped
         [x] HUB-MEM-009: Domain binding (hub_metadata to workbench level)
     
+    ## Procedural Memory Store (Complete):
+        [x] HUB-MEM-010: 4 record types (LearnedSkill, Procedure, ActionSequence, ToolUsagePattern)
+        [x] Record relationships — skill-anchored, role/workbench-scoped
+    
+    ## Preference Memory Store (Complete):
+        [x] HUB-MEM-011: 4 record types (UserPreference, AgentBehavior, InteractionPattern, ContextualPreference)
+        [x] Record relationships — subject-anchored, context-sensitive
+    
+    ## CAF Services (Complete):
+        [x] HUB-CAF-003: Memory Store Catalog — discovery API, routing, health checks
+        [x] HUB-CAF-004: Explanation Service — semantic explainers, audience templates, counterfactuals
+        [x] HUB-CAF-005: Enterprise Learning Services — conceptual design, manual process initially, automation deferred
+        [x] HUB-CAF-006: Record Content Schema Registry — CRD registration, discovery, validation, semantic explainers
+    
     ## Cross-Cutting:
         [x] UUID convention for all record IDs
         [x] Typed content convention (MIME + versioned schemas)
         [x] Human-readable serialization (JSON default)
         [x] hub_metadata section standardized
+        [x] HUB-CAF-007: Content hash (SHA-256) for immutability and reproducibility
+        [~] HUB-CAF-008: Legal holds — removed, covered by retention policies + immutability
+        [~] HUB-CAF-009: CAF scope clarified — Memory control plane only, not Knowledge (Knowledge governed by ETSL)
 
 
 =======================================================
@@ -231,11 +252,11 @@
     [ ] Define CAF Memory Store Catalog
 
 # Phase 3: Polish and Governance (P2+):
-    [ ] CAF Enterprise Learning Services (memory → ETSL promotion)
-    [ ] Procedural Memory Store contract
-    [ ] Preference Memory Store contract
+    [ ] CAF Enterprise Learning Services (full API spec)
+    [x] Procedural Memory Store — DONE: 4 record types + relationships
+    [x] Preference Memory Store — DONE: 4 record types + relationships
     [ ] ETSL integration design
-    [ ] Unified ESPP memory taxonomy
+    [x] Unified ESPP memory taxonomy — DONE: All 4 memory classes defined
     [ ] CAF as OPD control plane
     [ ] Evaluation and CI/CD integration
 

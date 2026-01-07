@@ -1,6 +1,6 @@
 # Enterprise Learning Services
 
-> **Status**: 🔴 Stub — Placeholder for expansion  
+> **Status**: 🟡 Draft — Conceptual design complete; implementation deferred  
 > **Last Updated**: 2026-01-07  
 > **Related**: [CAF README](./README.md) | [Semantic Memory Store](./semantic-memory-store/README.md) | [ETSL](../../../pontus/etsl/)
 
@@ -8,15 +8,17 @@
 
 ## Overview
 
-**Enterprise Learning Services** is a CAF component responsible for **promoting learned memory to authoritative knowledge** — specifically to ETSL (Enterprise Temporal Semantic Layer) when authorized.
+**Enterprise Learning Services** is a CAF component responsible for **promoting memory across the ESPP hierarchy** — from Episodic to Semantic/Procedural/Preference, and from Semantic to ETSL when authorized.
 
 ### Core Mission
 
-> *"Turn experience into institutional knowledge — deliberately, with governance."*
+> *"Turn experience into institutional memory and knowledge — deliberately, with governance."*
 
-Enterprise Learning Services bridges the gap between:
-- **Semantic Memory** (learned, probabilistic, informative)
-- **Enterprise Knowledge** (asserted, governed, normative)
+Enterprise Learning Services orchestrates the full learning lifecycle:
+- **Episodic → Semantic**: Patterns from cases become hypotheses and beliefs
+- **Episodic → Procedural**: Successful action sequences become learned procedures
+- **Episodic → Preference**: Observed preferences become preference records
+- **Semantic → ETSL**: Validated hypotheses become authoritative knowledge
 
 ---
 
@@ -24,58 +26,49 @@ Enterprise Learning Services bridges the gap between:
 
 | Responsibility | Description |
 |----------------|-------------|
-| **Promotion Orchestration** | Coordinate memory → knowledge promotion workflows |
-| **ETSL Integration** | Translate promoted beliefs into ETSL assertions |
-| **Governance Checkpoints** | Enforce approval gates before promotion |
+| **Cross-Memory Promotion** | Orchestrate Episodic → Semantic/Procedural/Preference workflows |
+| **Knowledge Promotion** | Coordinate Semantic → ETSL workflows |
+| **Pattern Detection** | Identify promotable patterns in episodic traces |
 | **Evidence Packaging** | Compile evidence packages for governance review |
-| **Conflict Detection** | Identify when learned patterns conflict with existing knowledge |
+| **Governance Checkpoints** | Enforce approval gates before promotion |
+| **Conflict Detection** | Identify when learned patterns conflict with existing memory/knowledge |
 | **Rollback Support** | Enable reversal of promotions when beliefs are disproven |
 
 ---
 
-## Promotion Flow
+## Promotion Hierarchy
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                    SEMANTIC MEMORY                                       │
+│                        EPISODIC MEMORY                                   │
+│                    (Event-based, case-bound)                             │
 │                                                                          │
-│  HypothesisRecord │ PatternSummary │ LearnedConstraint │ EntityBelief   │
-│                                                                          │
-└─────────────────────────────────────┬───────────────────────────────────┘
-                                      │
-                                      │ Candidate identified
-                                      │ (confidence threshold, evidence count)
-                                      ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│              ENTERPRISE LEARNING SERVICES                                │
-│                                                                          │
-│  1. Candidate Detection                                                  │
-│     - Monitor beliefs crossing promotion thresholds                      │
-│     - Detect patterns with stable, replicated evidence                   │
-│                                                                          │
-│  2. Evidence Compilation                                                 │
-│     - Gather supporting episodes                                         │
-│     - Compile counterexamples                                            │
-│     - Generate evidence package                                          │
-│                                                                          │
-│  3. Governance Submission                                                │
-│     - Submit to appropriate governance channel                           │
-│     - Track approval status                                              │
-│                                                                          │
-│  4. ETSL Translation                                                     │
-│     - Convert approved belief to ETSL assertion                          │
-│     - Handle temporal semantics                                          │
-│     - Establish authority and scope                                      │
-│                                                                          │
-│  5. Post-Promotion                                                       │
-│     - Update Semantic Memory record status → promoted                    │
-│     - Link to ETSL assertion                                             │
-│     - Monitor for contradicting evidence                                 │
+│  CaseRecord → DecisionRecord → OutcomeRecord → OverrideRecord           │
+│            → EvidenceBundle → ContextSnapshot → HandoffContext          │
+│            → IncidentTimeline                                           │
 │                                                                          │
 └─────────────────────────────────────┬───────────────────────────────────┘
                                       │
-                                      │ Approved + Translated
-                                      ▼
+          ┌───────────────────────────┼───────────────────────────┐
+          │                           │                           │
+          ▼                           ▼                           ▼
+┌──────────────────┐      ┌──────────────────┐      ┌──────────────────┐
+│ SEMANTIC MEMORY  │      │PROCEDURAL MEMORY │      │PREFERENCE MEMORY │
+│                  │      │                  │      │                  │
+│ Patterns from    │      │ Successful       │      │ Observed user/   │
+│ cases become     │      │ action sequences │      │ agent preferences│
+│ hypotheses       │      │ become skills    │      │ become settings  │
+│                  │      │                  │      │                  │
+│ • Hypothesis     │      │ • LearnedSkill   │      │ • Preference     │
+│ • Pattern        │      │ • Procedure      │      │ • Behavior       │
+│ • EntityBelief   │      │ • ActionSequence │      │ • Setting        │
+│ • Relationship   │      │                  │      │                  │
+│ • Constraint     │      │                  │      │                  │
+│ • Finding        │      │                  │      │                  │
+└────────┬─────────┘      └──────────────────┘      └──────────────────┘
+         │
+         │ Validated + Governed
+         ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                           ETSL                                           │
 │                 (Enterprise Temporal Semantic Layer)                     │
@@ -92,19 +85,170 @@ Enterprise Learning Services bridges the gap between:
 
 ---
 
+## Promotion Flows
+
+### Flow 1: Episodic → Semantic
+
+**Pattern detection from case outcomes**
+
+```
+Episodic:
+  Multiple OutcomeRecords showing same result
+  + Multiple DecisionRecords with similar rationale
+  + OverrideRecords with consistent justification
+                    │
+                    ▼
+Enterprise Learning Services:
+  1. Detect recurring pattern across cases
+  2. Extract commonalities (conditions, outcomes)
+  3. Calculate confidence from evidence
+  4. Generate HypothesisRecord or PatternSummary
+                    │
+                    ▼
+Semantic Memory:
+  HypothesisRecord (pattern pending validation)
+  PatternSummary (descriptive correlation)
+  LearnedConstraint (advisory guideline)
+```
+
+### Flow 2: Episodic → Procedural
+
+**Skill extraction from successful action sequences**
+
+```
+Episodic:
+  DecisionRecords + ContextSnapshots showing:
+  - Consistent action sequences
+  - Successful outcomes
+  - Across multiple similar cases
+                    │
+                    ▼
+Enterprise Learning Services:
+  1. Identify repeating action sequences
+  2. Extract preconditions and postconditions
+  3. Measure success rate
+  4. Generate LearnedSkill or Procedure
+                    │
+                    ▼
+Procedural Memory:
+  LearnedSkill (reusable capability)
+  Procedure (step-by-step guidance)
+  ActionSequence (successful pattern)
+```
+
+### Flow 3: Episodic → Preference
+
+**Preference extraction from behavioral patterns**
+
+```
+Episodic:
+  DecisionRecords + ContextSnapshots showing:
+  - User/agent choices when alternatives exist
+  - Consistent selections over time
+  - Context-dependent preferences
+                    │
+                    ▼
+Enterprise Learning Services:
+  1. Identify choice patterns
+  2. Extract preference dimensions
+  3. Determine context sensitivity
+  4. Generate Preference or Behavior record
+                    │
+                    ▼
+Preference Memory:
+  Preference (learned preference)
+  Behavior (observed behavior pattern)
+  Setting (inferred setting)
+```
+
+### Flow 4: Semantic → ETSL
+
+**Knowledge promotion through governance**
+
+```
+Semantic Memory:
+  HypothesisRecord with:
+  - High confidence (e.g., > 0.85)
+  - Sufficient evidence (e.g., 20+ episodes)
+  - Stable over time (e.g., 30+ days)
+  - Clear scope
+                    │
+                    ▼
+Enterprise Learning Services:
+  1. Identify promotion candidates
+  2. Compile evidence package
+  3. Submit to governance channel
+  4. Track approval workflow
+                    │
+                    ▼
+Governance:
+  - Review evidence
+  - Assess risk
+  - Approve/reject/defer
+                    │
+                    ▼ (if approved)
+ETSL:
+  Asserted Fact / Rule / Constraint
+  - Authority-qualified
+  - Temporally valid
+  - Versioned
+```
+
+---
+
 ## Promotion Types
 
-| Source (Memory) | Target (Knowledge) | Governance Gate |
-|-----------------|-------------------|-----------------|
-| HypothesisRecord | ETSL Fact / Rule | Domain governance review |
-| PatternSummary | ETSL Derived Fact | Data steward approval |
-| LearnedConstraint | ETSL Business Rule | Policy committee |
-| EntityBelief | ETSL Entity Attribute | MDM governance |
-| RelationshipBelief | ETSL Relationship | Entity governance |
+### Episodic → Semantic
+
+| Source Pattern | Target Record | Trigger Condition |
+|----------------|--------------|-------------------|
+| Recurring outcomes across cases | HypothesisRecord | N+ cases with similar outcome |
+| Repeated decision rationale | PatternSummary | Consistent reasoning pattern |
+| Override justifications | LearnedConstraint | Repeated policy gap signals |
+| Entity behavior signals | EntityBelief | Consistent entity attributes |
+| Cross-entity interactions | RelationshipBelief | Repeated relationship signals |
+
+### Episodic → Procedural
+
+| Source Pattern | Target Record | Trigger Condition |
+|----------------|--------------|-------------------|
+| Successful action sequences | LearnedSkill | High success rate across cases |
+| Step-by-step resolution paths | Procedure | Repeatable workflow detected |
+| Tool invocation patterns | ActionSequence | Consistent tool use patterns |
+
+### Episodic → Preference
+
+| Source Pattern | Target Record | Trigger Condition |
+|----------------|--------------|-------------------|
+| User choice consistency | UserPreference | Stable selections over time |
+| Agent decision patterns | AgentBehavior | Repeated agent choices |
+| Configuration selections | InferredSetting | Consistent config patterns |
+
+### Semantic → ETSL (Knowledge Promotion)
+
+| Source (Semantic) | Target (ETSL) | Governance Gate |
+|------------------|---------------|-----------------|
+| HypothesisRecord | Fact / Rule | Domain governance review |
+| PatternSummary | Derived Fact | Data steward approval |
+| LearnedConstraint | Business Rule | Policy committee |
+| EntityBelief | Entity Attribute | MDM governance |
+| RelationshipBelief | Relationship | Entity governance |
 
 ---
 
 ## Promotion Criteria (Configurable)
+
+### Episodic → Semantic / Procedural / Preference
+
+| Criterion | Description | Default |
+|-----------|-------------|---------|
+| **Min Occurrences** | Minimum pattern repetitions | 5 |
+| **Min Consistency** | Pattern consistency ratio | 0.80 |
+| **Min Timespan** | Pattern must span this period | 14 days |
+| **Min Success Rate** | For procedural promotions | 0.90 |
+| **Scope Clarity** | Explicit scope required | Yes |
+
+### Semantic → ETSL
 
 | Criterion | Description | Default |
 |-----------|-------------|---------|
@@ -170,58 +314,161 @@ When learned patterns conflict with existing knowledge:
 ## API Sketch (Placeholder)
 
 ```yaml
-# Candidate Detection
-GET /learning/candidates
+# ============================================================
+# EPISODIC → SEMANTIC / PROCEDURAL / PREFERENCE
+# ============================================================
+
+# Detect promotable patterns in episodic memory
+GET /learning/episodic-patterns
+  ?workbench_id=...
+  &target_memory=semantic|procedural|preference
+  &min_occurrences=5
+  &status=candidate
+
+# Get pattern details with supporting episodes
+GET /learning/episodic-patterns/{pattern_id}
+
+# Promote episodic pattern to target memory
+POST /learning/episodic-patterns/{pattern_id}/promote
+  {
+    target_memory: "semantic",      # or procedural, preference
+    target_record_type: "hypothesis",
+    initial_confidence: 0.75,
+    scope: { workbench_id: "..." }
+  }
+
+# ============================================================
+# SEMANTIC → ETSL (Knowledge Promotion)
+# ============================================================
+
+# List promotion candidates (high-confidence semantic records)
+GET /learning/knowledge-candidates
   ?workbench_id=...
   &min_confidence=0.85
   &status=ready_for_review
 
-# Evidence Package
-GET /learning/candidates/{hypothesis_id}/evidence-package
+# Get evidence package for governance
+GET /learning/knowledge-candidates/{record_id}/evidence-package
 
-# Submit for Governance
-POST /learning/candidates/{hypothesis_id}/submit
+# Submit for governance review
+POST /learning/knowledge-candidates/{record_id}/submit
   {
     governance_channel: "policy-committee",
     notes: "Strong evidence, recommend promotion"
   }
 
-# Promote to ETSL
-POST /learning/candidates/{hypothesis_id}/promote
+# Promote to ETSL (after governance approval)
+POST /learning/knowledge-candidates/{record_id}/promote
   {
     target_type: "etsl_rule",
     effective_from: "2026-02-01",
     authority: "fraud-ops-governance"
   }
 
-# Rollback Promotion
+# ============================================================
+# PROMOTION MANAGEMENT
+# ============================================================
+
+# List all promotions
+GET /learning/promotions
+  ?workbench_id=...
+  &source_memory=episodic|semantic
+  &target=semantic|procedural|preference|etsl
+  &status=active|deprecated
+
+# Rollback a promotion
 POST /learning/promotions/{promotion_id}/rollback
   {
     reason: "Contradicting evidence discovered",
     evidence: [...]
   }
+
+# Deprecate due to new evidence
+POST /learning/promotions/{promotion_id}/deprecate
+  {
+    reason: "Pattern no longer holds",
+    effective_from: "2026-03-01"
+  }
 ```
 
 ---
 
-## TODO
+## Design Scope & Maturity
 
-| Item | Description | Priority |
-|------|-------------|----------|
-| Define promotion criteria configuration schema | How tenants/workbenches customize thresholds | P1 |
-| Define ETSL assertion translation format | Mapping from Memory to ETSL types | P1 |
-| Design governance workflow integration | How promotion requests flow to approval | P1 |
-| Define conflict detection algorithms | How to detect knowledge conflicts | P2 |
-| Design rollback mechanics | How to safely deprecate promoted assertions | P2 |
-| Define monitoring/alerting for promotion anomalies | Track promotion health | P2 |
+### What This Document Covers
+
+| Aspect | Status |
+|--------|--------|
+| Promotion hierarchy (Episodic → ESPP → ETSL) | ✅ Defined |
+| Promotion flows (all 4 paths) | ✅ Defined |
+| Promotion types and trigger conditions | ✅ Defined |
+| Configurable promotion criteria | ✅ Defined |
+| ETSL assertion translation | ✅ Defined |
+| Conflict resolution strategies | ✅ Defined |
+| API sketch (endpoints) | ✅ Defined |
+| Procedural Memory record schemas | ✅ Defined (see [procedural-memory-store/](./procedural-memory-store/)) |
+| Preference Memory record schemas | ✅ Defined (see [preference-memory-store/](./preference-memory-store/)) |
+
+### What This Document Does NOT Cover (Intentionally Deferred)
+
+The following aspects are **intentionally not specified** at this stage:
+
+| Aspect | Reason for Deferral |
+|--------|---------------------|
+| **Pattern detection algorithms** | Requires operational experience to understand what patterns emerge in practice |
+| **Automated promotion workflows** | Premature automation; initial cycles should be human-supervised |
+| **Machine learning for pattern recognition** | Over-engineering before adoption; start with manual curation |
+| **Governance workflow automation** | Governance processes vary by organization; define after adoption |
+| **Conflict detection algorithms** | Need real-world conflict examples before designing algorithms |
+| **Rollback automation** | Edge cases unknown; manual rollback sufficient initially |
+| **Monitoring/alerting thresholds** | Baselines unknown until operational |
+
+### Initial Operating Model: Manual Promotion
+
+> **Design Principle**: Enterprise Learning Services is envisaged as a **manual, human-supervised process** in early Hub adoption cycles. Automation should be introduced incrementally as patterns become clear and governance matures.
+
+**Phase 1 (Initial Adoption):**
+- Analysts manually identify patterns in episodic memory
+- Promotion candidates flagged via UI or reports
+- Governance review via existing approval workflows
+- ETSL promotion via manual assertion authoring
+
+**Phase 2 (Maturity):**
+- Pattern detection surfaced as suggestions (human confirms)
+- Semi-automated evidence packaging
+- Integrated governance workflow
+
+**Phase 3 (Full Automation — Future):**
+- Automated pattern detection with confidence thresholds
+- Auto-promotion for low-risk patterns
+- Continuous monitoring and anomaly detection
+
+### Why No Premature Engineering
+
+| Risk | Mitigation |
+|------|------------|
+| **Building for unknown patterns** | Wait until episodic memory accumulates real data |
+| **Over-automating governance** | Let organizations define their approval processes first |
+| **Optimizing before understanding** | Manual processes reveal what's actually worth automating |
+| **Coupling to specific algorithms** | Keep flexibility for different approaches per domain |
 
 ---
 
 ## Related Documents
 
+### CAF Components
 - [CAF README](./README.md) — Cognitive Audit Fabric overview
-- [Semantic Memory Store](./semantic-memory-store/README.md) — Source of learned beliefs
-- [Hypothesis Records](./semantic-memory-store/hypothesis-records.md) — Primary promotion candidates
+- [Episodic Memory Store](./episodic-memory-store/README.md) — Event-based, case-bound memory
+- [Semantic Memory Store](./semantic-memory-store/README.md) — Learned beliefs and patterns
+- Procedural Memory Store *(stub pending)* — Learned skills and procedures  
+- Preference Memory Store *(stub pending)* — Observed preferences and behaviors
+
+### Key Record Types
+- [Hypothesis Records](./semantic-memory-store/hypothesis-records.md) — Primary knowledge promotion candidates
+- [Decision Records](./episodic-memory-store/decision-records.md) — Source for pattern detection
+- [Outcome Records](./episodic-memory-store/outcome-records.md) — Source for learning feedback
+
+### Target Systems
 - [ETSL Overview](../../../pontus/etsl/) — Enterprise Temporal Semantic Layer
 - [Enterprise Knowledge](../../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/README.md) — Asserted truths
 

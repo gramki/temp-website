@@ -33,8 +33,9 @@ Without evidence bundles:
 
 ```yaml
 evidence_bundle:
-  # Identity
+  # Identity & Integrity
   id: uuid                         # Unique identifier (UUID v4)
+  content_hash: string             # sha256:<hex> — hash of record content (immutability verification)
   timestamp: datetime
   decision_record_id: uuid         # → DecisionRecord this evidence supports (1:1)
   context_snapshot_id: uuid        # → ContextSnapshot at decision time

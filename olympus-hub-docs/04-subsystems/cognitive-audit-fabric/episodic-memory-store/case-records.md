@@ -19,9 +19,10 @@ Every CAF record references a `case_id`—the Case Record is what that ID resolv
 
 ```yaml
 # ─────────────────────────────────────────────────────────────────
-# Identity
+# Identity & Integrity
 # ─────────────────────────────────────────────────────────────────
 case_id: uuid                           # Primary identifier (= hub request_id when Hub-originated)
+content_hash: string                    # sha256:<hex> — hash of record content (immutability verification)
 case_type: string                       # e.g., "fraud_investigation", "loan_application", "dispute_resolution"
 external_reference: string              # Optional: external system case/ticket ID
 
@@ -118,6 +119,38 @@ sensitivity: enum                       # public | internal | confidential | res
 
 ---
 
+## Immutability
+
+All episodic memory records, including Case Records, are **immutable**. See [CAF Store REST API](./caf-store-rest-api.md#immutability) for enforcement details.
+
+### Content Hash
+
+The `content_hash` field contains a SHA-256 hash of the record content:
+
+```
+sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+```
+
+| Attribute | Description |
+|-----------|-------------|
+| **Algorithm** | SHA-256 |
+| **Scope** | Hash of all fields except `content_hash` itself |
+| **Purpose** | Integrity verification, de-duplication, tamper detection |
+
+### Status Changes
+
+Since records are immutable, status changes are handled as **new records**:
+
+| Change | Record Type |
+|--------|-------------|
+| Status transition | New `case_record` with updated status |
+| Resolution | New `case_record` with `resolution` populated |
+| Correction | `override_record` referencing original |
+
+Each status change creates a new immutable snapshot with its own `content_hash`.
+
+---
+
 ## Status Lifecycle
 
 ```
@@ -210,6 +243,7 @@ For Hub-originated cases, `case_id == request_id` initially. But a case may cont
 ```json
 {
   "case_id": "550e8400-e29b-41d4-a716-446655440000",
+  "content_hash": "sha256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069",
   "case_type": "fraud_investigation",
   "external_reference": "FRAUD-2026-00142",
   

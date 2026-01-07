@@ -14,10 +14,12 @@ This document defines the **default write API** that all CAF-compliant Episodic 
 
 | Principle | Description |
 |-----------|-------------|
+| **Immutable** | Once written, records cannot be modified or deleted |
 | **Order-Tolerant** | Records may arrive in any order (decision before case, outcome before decision) |
-| **Idempotent** | Same record written twice produces same result (de-duplication by ID) |
+| **Idempotent** | Same record written twice produces same result (de-duplication by ID + hash) |
 | **Eventually Consistent** | Relationships resolved asynchronously |
 | **Schema-Validating** | Stores validate against CAF schemas before accepting |
+| **Hash-Verified** | All records include content hash for integrity verification |
 
 ---
 
@@ -112,19 +114,19 @@ X-CAF-Signature: <jws>
   "record_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "case_id": "550e8400-e29b-41d4-a716-446655440000",
   "timestamp": "2026-01-07T10:15:00Z",
+  "content_hash": "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
   
   "data": {
     // Full record content per CAF schema
   },
   
   "write_options": {
-    "if_not_exists": false,           // Fail if record exists (default: upsert)
     "validate_references": false      // Check foreign keys exist (default: false)
   }
 }
 ```
 
-#### Response: Success (201 Created / 200 OK)
+#### Response: Success (201 Created)
 
 ```json
 {
@@ -132,31 +134,51 @@ X-CAF-Signature: <jws>
   "record_type": "decision_record",
   "record_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "case_id": "550e8400-e29b-41d4-a716-446655440000",
+  "content_hash": "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
   
   "self": {
     "href": "https://memory.../v1/stores/.../records/decision_record/a1b2c3d4-..."
   },
   
   "write_result": {
-    "action": "created",              // created | updated | duplicate_ignored
-    "version": 1,                     // Record version (increments on update)
+    "action": "created",              // created | duplicate (exact match)
     "written_at": "2026-01-07T10:15:01Z"
   }
 }
 ```
 
-#### Response: Duplicate (200 OK with duplicate_ignored)
+#### Response: Duplicate (200 OK)
 
-When the exact same record is written again:
+When the exact same record (matching `record_id` + `content_hash`) is written again:
 
 ```json
 {
   "status": "accepted",
   "record_id": "a1b2c3d4-...",
+  "content_hash": "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
   "write_result": {
-    "action": "duplicate_ignored",
-    "existing_version": 1,
+    "action": "duplicate",
     "written_at": "2026-01-07T10:15:01Z"   // Original write time
+  }
+}
+```
+
+#### Response: Conflict (409 Conflict)
+
+When a record with the same `record_id` but **different** `content_hash` is written:
+
+```json
+{
+  "status": "rejected",
+  "error": {
+    "code": "IMMUTABLE_CONFLICT",
+    "message": "Record already exists with different content",
+    "details": {
+      "record_id": "a1b2c3d4-...",
+      "existing_hash": "sha256:abc123...",
+      "submitted_hash": "sha256:def456...",
+      "written_at": "2026-01-07T10:15:01Z"
+    }
   }
 }
 ```
@@ -183,6 +205,7 @@ X-CAF-Signature: <jws>
       "record_id": "550e8400-...",
       "case_id": "550e8400-...",
       "timestamp": "2026-01-07T10:00:00Z",
+      "content_hash": "sha256:abc123...",
       "data": { /* ... */ }
     },
     {
@@ -190,6 +213,7 @@ X-CAF-Signature: <jws>
       "record_id": "a1b2c3d4-...",
       "case_id": "550e8400-...",
       "timestamp": "2026-01-07T10:15:00Z",
+      "content_hash": "sha256:def456...",
       "data": { /* ... */ }
     },
     {
@@ -197,6 +221,7 @@ X-CAF-Signature: <jws>
       "record_id": "b2c3d4e5-...",
       "case_id": "550e8400-...",
       "timestamp": "2026-01-07T10:15:00Z",
+      "content_hash": "sha256:789abc...",
       "data": { /* ... */ }
     }
   ],
@@ -303,35 +328,88 @@ POST /records
 
 ---
 
+## Immutability
+
+**All episodic memory records are immutable.** Once written, a record cannot be modified or deleted.
+
+### Immutability Guarantees
+
+| Guarantee | Description |
+|-----------|-------------|
+| **No Updates** | `PUT` and `PATCH` are not supported |
+| **No Deletes** | `DELETE` is not supported |
+| **Hash Verification** | Content hash prevents accidental rewrites with different data |
+| **Audit Trail** | Every write is logged with timestamp and writer identity |
+
+### Why Immutability?
+
+| Reason | Description |
+|--------|-------------|
+| **Audit Integrity** | Records cannot be tampered with after the fact |
+| **Reproducibility** | Decisions can be exactly reconstructed |
+| **Compliance** | Meets regulatory requirements for decision traceability |
+| **Trust** | Consumers can trust that what they read is what was written |
+
+### Corrections Pattern
+
+If a record contains errors, the correction is captured as a **new record**:
+
+```json
+{
+  "record_type": "override_record",
+  "record_id": "ovr-987654",
+  "case_id": "550e8400-...",
+  "timestamp": "2026-01-07T11:00:00Z",
+  "content_hash": "sha256:correction123...",
+  
+  "data": {
+    "supersedes_record_id": "a1b2c3d4-...",        // Original record
+    "supersedes_record_type": "decision_record",
+    "reason": "data_correction",
+    "corrected_fields": ["decision.confidence"],
+    "authority": { "actor_id": "user-jane", "actor_type": "human" },
+    "notes": "Original confidence value was calculated incorrectly"
+  }
+}
+```
+
+---
+
 ## De-duplication
 
-Stores must handle duplicate writes idempotently.
+Stores must handle duplicate writes idempotently based on `(record_type, record_id, content_hash)`.
 
 ### De-duplication Key
 
 ```
-(record_type, record_id)
+(record_type, record_id, content_hash)
 ```
 
 ### De-duplication Behavior
 
 | Scenario | Behavior |
 |----------|----------|
-| Exact duplicate (same content) | Return `duplicate_ignored`, no update |
-| Same ID, different content | Return `updated`, increment version |
-| Same ID, `if_not_exists: true` | Return error `RECORD_EXISTS` |
+| Same ID + same hash | Return `duplicate`, accept idempotently |
+| Same ID + different hash | Return error `IMMUTABLE_CONFLICT` |
 
-### Version Tracking
+### Content Hash Requirements
 
-```json
-{
-  "record_id": "a1b2c3d4-...",
-  "version": 2,
-  "version_history": [
-    { "version": 1, "written_at": "2026-01-07T10:15:00Z", "writer": "agent-1" },
-    { "version": 2, "written_at": "2026-01-07T10:20:00Z", "writer": "human-jane" }
-  ]
-}
+| Attribute | Requirement |
+|-----------|-------------|
+| **Algorithm** | SHA-256 (required) |
+| **Format** | `sha256:<hex-encoded-hash>` |
+| **Scope** | Hash of `data` field contents (canonical JSON) |
+| **Validation** | Store MUST verify submitted hash matches computed hash |
+
+```python
+import hashlib
+import json
+
+def compute_content_hash(data: dict) -> str:
+    """Compute canonical hash of record data."""
+    canonical = json.dumps(data, sort_keys=True, separators=(',', ':'))
+    hash_bytes = hashlib.sha256(canonical.encode('utf-8')).digest()
+    return f"sha256:{hash_bytes.hex()}"
 ```
 
 ---
@@ -405,10 +483,13 @@ This REST API supports all **Episodic Memory** record types:
 |-------------|------|-------------|
 | 400 | `INVALID_REQUEST` | Malformed JSON or missing required fields |
 | 400 | `VALIDATION_FAILED` | Schema validation failed |
+| 400 | `HASH_MISMATCH` | Submitted hash doesn't match computed hash of data |
+| 400 | `HASH_MISSING` | Required `content_hash` field not provided |
 | 401 | `SIGNATURE_INVALID` | JWS signature verification failed |
 | 401 | `SIGNATURE_EXPIRED` | JWS token expired |
 | 404 | `STORE_NOT_FOUND` | Store canonical name not recognized |
-| 409 | `RECORD_EXISTS` | Record exists and `if_not_exists: true` |
+| 405 | `METHOD_NOT_ALLOWED` | PUT, PATCH, DELETE not supported (immutability) |
+| 409 | `IMMUTABLE_CONFLICT` | Record exists with different content (hash mismatch) |
 | 413 | `BATCH_TOO_LARGE` | Batch exceeds max records per request |
 | 422 | `UNSUPPORTED_RECORD_TYPE` | Record type not in store capabilities |
 | 429 | `RATE_LIMITED` | Too many requests |
@@ -434,14 +515,16 @@ Stores implementing this spec must:
 
 | # | Requirement |
 |---|-------------|
-| 1 | Accept records in any order (case may arrive after decisions) |
-| 2 | De-duplicate by `(record_type, record_id)` |
-| 3 | Validate against CAF schemas |
-| 4 | Track record versions |
-| 5 | Resolve pending references when anchor records arrive |
-| 6 | Return standardized error codes |
-| 7 | Support batch writes |
-| 8 | Implement rate limiting |
+| 1 | **Enforce immutability** — reject PUT, PATCH, DELETE |
+| 2 | **Validate content hash** — verify submitted hash matches computed hash |
+| 3 | **Detect conflicts** — reject same ID with different hash |
+| 4 | Accept records in any order (case may arrive after decisions) |
+| 5 | De-duplicate by `(record_type, record_id, content_hash)` |
+| 6 | Validate against CAF schemas |
+| 7 | Resolve pending references when anchor records arrive |
+| 8 | Return standardized error codes |
+| 9 | Support batch writes |
+| 10 | Implement rate limiting |
 
 ---
 
