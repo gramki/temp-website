@@ -77,6 +77,7 @@ All ADRs follow the standard format:
 | [0053](./0053-caf-record-id-traversal.md) | UUID IDs, case_id binding, traversal conventions | Accepted | 2026-01-07 | caf |
 | [0054](./0054-caf-typed-content-convention.md) | MIME-based content typing with human-readable formats | Accepted | 2026-01-07 | caf |
 | [0055](./0055-caf-memory-store-contract.md) | CRD registration, HTTPS retrieval, JWS auth for memory stores | Accepted | 2026-01-07 | caf |
+| [0056](./0056-caf-episodic-memory-scope.md) | Episodic Memory scope, Case Record as root anchor | Accepted | 2026-01-07 | caf |
 
 ---
 
@@ -163,10 +164,11 @@ All ADRs follow the standard format:
 
 ### Cognitive Audit Fabric (CAF)
 - [0029](./0029-caf-control-plane.md) - CAF as control plane for Memory Services (not storage)
-- [0052](./0052-caf-record-type-taxonomy.md) - 8 record types in 3 categories (Core, Lifecycle, Learning)
+- [0052](./0052-caf-record-type-taxonomy.md) - 9 record types in 3 categories (Core, Lifecycle, Learning)
 - [0053](./0053-caf-record-id-traversal.md) - UUID IDs, case_id universal binding, traversal patterns
 - [0054](./0054-caf-typed-content-convention.md) - MIME-based content typing, human-readable serialization
-- [0055](./0055-caf-memory-store-contract.md) - CRD registration, HTTPS retrieval, JWS authentication
+- [0055](./0055-caf-memory-store-contract.md) - CRD registration, reader/writer protocols, JWS authentication
+- [0056](./0056-caf-episodic-memory-scope.md) - Episodic Memory scope, Case Record as root
 
 ---
 

@@ -2,19 +2,39 @@
 
 > **Status**: Draft  
 > **Last Updated**: 2026-01-07  
-> **Related**: [CAF README](./README.md) | [Record Relationships](./record-relationships.md)
+> **Memory Scope**: Episodic Memory Stores  
+> **Related**: [CAF README](./README.md) | [Record Relationships](./record-relationships.md) | [CAF Store REST API](./caf-store-rest-api.md)
 
 ---
 
 ## Overview
 
-This document defines the contract between the **Cognitive Audit Fabric (CAF)** control plane and **Memory Stores** that hold CAF records. Memory Stores register with CAF and expose a standardized HTTPS-based retrieval API for case and record access.
+This document defines the contract between the **Cognitive Audit Fabric (CAF)** control plane and **Episodic Memory Stores** that hold CAF records. Memory Stores register with CAF, advertise both reader and writer protocols, and expose standardized APIs for case and record access.
+
+### Scope: Episodic Memory
+
+This contract applies to **Episodic Memory Stores** — stores that hold event-based, time-ordered, case-bound records:
+
+| Record Type | Description |
+|-------------|-------------|
+| Case Record | Case anchor and lifecycle |
+| Decision Record | Decision with rationale |
+| Evidence Bundle | Context at decision time |
+| Context Snapshot | Compiled context per turn |
+| Outcome Record | Post-decision outcomes |
+| Override Record | Manual override documentation |
+| Handoff Context | State transfer between agents |
+| Incident Timeline | Chronological event sequence |
+| Hypothesis Record | Learned patterns (may promote to Semantic) |
+
+**Other memory types** (Semantic, Procedural, Preference) will have separate contracts. See [Future: Other Memory Store Types](#future-other-memory-store-types).
 
 ### Key Principles
 
 | Principle | Description |
 |-----------|-------------|
-| **CAF is Read-Only** | CAF retrieves records from stores; write APIs are store-specific |
+| **Dual Protocol** | Stores advertise both reader and writer protocols |
+| **Default REST** | All stores must implement CAF Store REST API for both read and write |
 | **Storage Agnostic** | CAF doesn't know store internals; it follows hypermedia links |
 | **Single Store per Case** | A case's records are fully contained in one store |
 | **CAF-Controlled Access** | CAF access layer authorizes principals; stores verify CAF signatures |
@@ -32,44 +52,63 @@ Memory Stores register with CAF via a Kubernetes Custom Resource Definition (CRD
 apiVersion: olympus.hub/v1
 kind: MemoryStore
 metadata:
-  name: fraud-ops-enterprise-memory
+  name: fraud-ops-episodic-memory
   namespace: workbench-fraud-ops
 spec:
   # ─────────────────────────────────────────────────────────────────
   # Identity
   # ─────────────────────────────────────────────────────────────────
-  canonical_name: "fraud-ops.enterprise-memory.primary"
-  display_name: "Fraud Operations - Primary Enterprise Memory"
+  canonical_name: "fraud-ops.episodic-memory.primary"
+  display_name: "Fraud Operations - Primary Episodic Memory"
   
   # A single memory store service can host multiple stores
   # Each store is distinguished by its canonical_name
-  host_service: "enterprise-memory-service"
+  host_service: "episodic-memory-service"
   
   # ─────────────────────────────────────────────────────────────────
   # Classification
   # ─────────────────────────────────────────────────────────────────
-  store_type: enterprise_memory  # enterprise_memory | agent_memory | user_memory
+  memory_class: episodic              # episodic | semantic | procedural | preference
+  store_type: enterprise_memory       # enterprise_memory | agent_memory | user_memory
   
   # Metadata describing purpose and scope
   metadata:
     purpose: "Primary store for fraud case decisions, evidence, and outcomes"
-    scope: "workbench"  # tenant | subscription | workbench
+    scope: "workbench"                # tenant | subscription | workbench
     data_classification: "cognitive"  # Per ADR-0028
     retention_policy: "7-years"
     
   # ─────────────────────────────────────────────────────────────────
-  # Endpoints
+  # Writer Protocols
   # ─────────────────────────────────────────────────────────────────
-  endpoints:
-    base_url: https://memory.fraud-ops.olympus.internal
+  writer_protocols:
+    - protocol: rest
+      version: "1.0"
+      spec: "caf-store-rest-api/v1"   # CAF-defined spec (required)
+      endpoint: https://memory.fraud-ops.olympus.internal/v1/stores/{store_name}/records
+      status: active
+      
+    - protocol: grpc                   # Optional alternative
+      version: "1.0"
+      spec: "caf-store-grpc-api/v1"
+      endpoint: grpc://memory.fraud-ops.olympus.internal:443
+      status: active
+      
+    - protocol: kafka                  # Optional streaming
+      version: "1.0"
+      spec: "vendor-specific"
+      endpoint: kafka://kafka.internal:9092/caf-records
+      status: active
     
-    # Case retrieval (CAF reads)
-    case_api: /v1/stores/{store_name}/cases/{case_id}
-    record_api: /v1/stores/{store_name}/records/{record_type}/{record_id}
-    
-    # Health and discovery
-    health: /health
-    capabilities: /v1/stores/{store_name}/capabilities
+  # ─────────────────────────────────────────────────────────────────
+  # Reader Protocols
+  # ─────────────────────────────────────────────────────────────────
+  reader_protocols:
+    - protocol: rest
+      version: "1.0"
+      spec: "caf-store-read-api/v1"   # CAF-defined spec (required)
+      endpoint: https://memory.fraud-ops.olympus.internal/v1/stores/{store_name}
+      status: active
     
   # ─────────────────────────────────────────────────────────────────
   # Capabilities
@@ -81,6 +120,7 @@ spec:
       - summary         # Counts and metadata only
       
     record_types:
+      - case_record           # Case anchor (required for episodic stores)
       - decision_record
       - evidence_bundle
       - context_snapshot
@@ -95,6 +135,8 @@ spec:
       max_records_per_response: 500
       supports_time_range_filter: true
       supports_record_type_filter: true
+      order_tolerant_writes: true     # Handles out-of-order records
+      deduplication: true             # Idempotent by record_id
 
 status:
   registered: true
@@ -597,25 +639,61 @@ GET /health
 
 ## Implementation Checklist
 
-Memory store implementations must:
+Episodic Memory Store implementations must:
 
 | # | Requirement | Notes |
 |---|-------------|-------|
-| 1 | Register via MemoryStore CRD | Include canonical name, endpoints, capabilities |
-| 2 | Verify JWS signatures | Fetch CAF public keys from JWKS endpoint |
-| 3 | Implement case retrieval | All three views (expanded, timeline, summary) |
-| 4 | Implement record retrieval | With hypermedia links to related records |
-| 5 | Implement capabilities endpoint | For CAF discovery |
-| 6 | Implement health endpoint | For CAF monitoring |
-| 7 | Return standard error format | Use defined error codes |
-| 8 | Support pagination | For large cases |
-| 9 | Generate record summaries | Human-readable for timeline view |
+| 1 | Register via MemoryStore CRD | Include canonical name, protocols, capabilities |
+| 2 | Implement CAF Store REST API (write) | Order-tolerant, idempotent, validating |
+| 3 | Implement CAF Store REST API (read) | All three views (expanded, timeline, summary) |
+| 4 | Verify JWS signatures | Fetch CAF public keys from JWKS endpoint |
+| 5 | Handle out-of-order records | Accept decisions before cases, resolve later |
+| 6 | De-duplicate by record_id | Same record twice = idempotent |
+| 7 | Implement capabilities endpoint | For CAF discovery |
+| 8 | Implement health endpoint | For CAF monitoring |
+| 9 | Return standard error format | Use defined error codes |
+| 10 | Support pagination | For large cases |
+| 11 | Generate record summaries | Human-readable for timeline view |
+
+---
+
+## Future: Other Memory Store Types
+
+This contract covers **Episodic Memory Stores**. Future contracts will define stores for other memory classes:
+
+### Memory Class Taxonomy
+
+| Memory Class | Purpose | Record Types | Contract Status |
+|--------------|---------|--------------|-----------------|
+| **Episodic** | Event-based, time-ordered, case-bound | Case, Decision, Evidence, Outcome, etc. | ✅ This document |
+| **Semantic** | Facts, entities, relationships | Entity, Relationship, Fact, Concept | 🔴 TODO |
+| **Procedural** | Learned skills, patterns, procedures | Skill, Procedure, Pattern | 🔴 TODO |
+| **Preference** | User/agent preferences, behaviors | Preference, Behavior, Setting | 🔴 TODO |
+
+### Hypothesis Records: The Bridge
+
+`HypothesisRecord` is unique—it starts in Episodic Memory (learned from cases) but may be **promoted** to:
+- **Semantic Memory** → becomes a `Fact` or `Entity`
+- **Procedural Memory** → becomes a `Skill` or `Pattern`
+
+This promotion workflow will be defined in the Semantic/Procedural contracts.
+
+### Planned Contract Documents
+
+| Document | Description | Priority |
+|----------|-------------|----------|
+| `semantic-memory-store-contract.md` | Entity, fact, relationship stores | P2 |
+| `procedural-memory-store-contract.md` | Skill and pattern stores | P2 |
+| `preference-memory-store-contract.md` | User/agent preference stores | P3 |
+| `hypothesis-promotion-workflow.md` | Episodic → Semantic/Procedural promotion | P2 |
 
 ---
 
 ## Related Documents
 
 - [CAF README](./README.md) — Overview and conventions
+- [CAF Store REST API](./caf-store-rest-api.md) — Write API specification
+- [Case Records](./case-records.md) — Case record schema
 - [Record Relationships](./record-relationships.md) — How records link together
 - [Decision Records](./decision-records.md) — Decision record schema
 - [Evidence Bundles](./evidence-bundles.md) — Evidence bundle schema

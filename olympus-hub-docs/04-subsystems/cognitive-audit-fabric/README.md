@@ -34,12 +34,21 @@ From the conceptual foundation:
 
 ## Subsystem Documents
 
-### Core Records
+### Episodic Memory Records
+
+> **Note**: The following records are all **Episodic Memory** — event-based, time-ordered, case-bound. See [Memory Store Contract](./memory-store-contract.md#future-other-memory-store-types) for other memory classes.
+
+#### Anchor Record
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Decision Records](./decision-records.md) | Catalog and schema for decision journaling | 🔴 Stub |
-| [Evidence Bundles](./evidence-bundles.md) | Catalog and schema for evidence packaging | 🔴 Stub |
-| [Context Snapshots](./context-snapshots.md) | Compiled context for each agent turn | 🔴 Stub |
+| [Case Records](./case-records.md) | Case anchor, lifecycle, and resolution | 🟡 Draft |
+
+#### Core Records
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Decision Records](./decision-records.md) | Catalog and schema for decision journaling | 🟡 Draft |
+| [Evidence Bundles](./evidence-bundles.md) | Catalog and schema for evidence packaging | 🟡 Draft |
+| [Context Snapshots](./context-snapshots.md) | Compiled context for each agent turn | 🟡 Draft |
 
 ### Lifecycle & Feedback Records
 | Document | Description | Status |
@@ -59,11 +68,12 @@ From the conceptual foundation:
 |----------|-------------|--------|
 | [Explanation Service](./explanation-service.md) | Explanation generation and narrative assembly | 🔴 Stub |
 
-### Cross-Cutting
+### Contracts & APIs
 | Document | Description | Status |
 |----------|-------------|--------|
+| [Memory Store Contract](./memory-store-contract.md) | Store registration, protocols, scope | 🟡 Draft |
+| [CAF Store REST API](./caf-store-rest-api.md) | Default write API (order-tolerant, idempotent) | 🟡 Draft |
 | [Record Relationships](./record-relationships.md) | How records link and traversal patterns | 🟡 Draft |
-| [Memory Store Contract](./memory-store-contract.md) | CAF ↔ Memory Store interface (registration, retrieval, auth) | 🟡 Draft |
 
 ---
 

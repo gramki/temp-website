@@ -33,9 +33,17 @@ case_id: uuid      # Universal binding anchor
 
 ```
                                     ┌─────────────────┐
-                                    │    case_id      │
-                                    │  (anchor UUID)  │
+                                    │   CaseRecord    │
+                                    │    (anchor)     │
+                                    │                 │
+                                    │  - case_id      │
+                                    │  - case_type    │
+                                    │  - status       │
+                                    │  - actors[]     │
+                                    │  - resolution   │
                                     └────────┬────────┘
+                                             │
+                                             │  All records reference case_id
                                              │
            ┌─────────────────────────────────┼─────────────────────────────────┐
            │                                 │                                 │
@@ -76,6 +84,13 @@ case_id: uuid      # Universal binding anchor
         │  - evidence[]     │                      │                   │
         └───────────────────┘                      └───────────────────┘
 ```
+
+### CaseRecord as Root
+
+The `CaseRecord` is the **root anchor** for all episodic memory:
+- All other records contain `case_id` pointing to the CaseRecord
+- CaseRecord tracks case lifecycle, actors, and resolution
+- CaseRecord may be written after other records (order-tolerant stores)
 
 ---
 
