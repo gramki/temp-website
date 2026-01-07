@@ -1,6 +1,6 @@
 # Consolidated Gaps — AOSM, Hub, and Seer Integration
 # Consolidated from: fraud-case-agent-build-task-list-opus.md, fraud-case-agent-build-task-list-gpt.md, design-gap-analysis.md, aos-hub-journal-story-todo.md
-# Last Updated: 2026-01-07
+# Last Updated: 2026-01-07 (Memory Services session complete)
 # Organization: System → Subsystem → Priority
 
 
@@ -79,21 +79,27 @@
 
 # Hub — Memory Services:
     ## P1 (High):
-        [ ] HUB-MEM-001: Memory Services query API specification — cannot retrieve precedent
-        [ ] HUB-MEM-002: Memory indexing and search (semantic + filter) implementation details
-        [ ] HUB-MEM-003: Retention and deletion semantics (PII, legal hold) — compliance risk
-        [ ] HUB-MEM-004: PII classification + redaction strategy for fraud data — no classifier pipeline
-        [ ] HUB-MEM-005: Agent Memory SDK/API and authentication/authorization
+        [x] HUB-MEM-001: Memory Services query API specification — enterprise-memory/query-api.md
+        [x] HUB-MEM-002: Memory indexing and search (semantic + filter) — included in query-api.md (OpenSearch hybrid queries)
+        [x] HUB-MEM-003: Retention and deletion semantics (PII, legal hold) — enterprise-memory/retention-policy.md
+        [x] HUB-MEM-004: PII classification + redaction strategy — shared/pii-policy.md (no PII in Enterprise, entity references only)
+        [x] HUB-MEM-005: Enterprise Memory Access Tools/API — enterprise-memory/access-tools.md
     ## P2 (Medium):
-        [ ] HUB-MEM-006: Promotion criteria and workflow (memory → ETSL knowledge) — see HUB-CAF-005 Enterprise Learning Services
-        [ ] HUB-MEM-007: Unified ESPP taxonomy across Enterprise Memory — Enterprise uses different types than Agent
-        [ ] HUB-MEM-008: HandoffContext schema and task management UI/UX integration
+        [x] HUB-MEM-006: Promotion criteria and workflow (memory → ETSL knowledge) — see HUB-CAF-005 Enterprise Learning Services
+        [x] HUB-MEM-007: Unified ESPP taxonomy across Enterprise Memory — shared/espp-taxonomy.md
+        [x] HUB-MEM-008: HandoffContext schema and task management UI/UX integration — updated handoff-context.md
         [x] HUB-MEM-010: Procedural Memory Store — 4 record types (LearnedSkill, Procedure, ActionSequence, ToolUsagePattern)
         [x] HUB-MEM-011: Preference Memory Store — 4 record types (UserPreference, AgentBehavior, InteractionPattern, ContextualPreference)
+    ## Agent Memory (Stubs Created):
+        [ ] HUB-MEM-012: Agent Memory storage layer decision — candidates: Europa, Callisto, purpose-built
+        [ ] HUB-MEM-013: Agent Memory SDK specification — agent-memory/sdk.md (stub)
+        [ ] HUB-MEM-014: Agent Memory retention and decay models — agent-memory/retention-and-decay.md (stub)
+        [ ] HUB-MEM-015: Agent Memory context assembly integration — agent-memory/context-assembly.md (stub)
     ## Completed (2026-01-07):
+        [x] HUB-MEM-001 through HUB-MEM-011 — all P1 and P2 Enterprise Memory tasks complete
         [x] HUB-MEM-009: Semantic Memory Store — 6 record types defined, domain-scoped, evidence-grounded
-        [x] HUB-MEM-010: Procedural Memory Store — 4 record types (LearnedSkill, Procedure, ActionSequence, ToolUsagePattern)
-        [x] HUB-MEM-011: Preference Memory Store — 4 record types (UserPreference, AgentBehavior, InteractionPattern, ContextualPreference)
+        [x] Memory Services reorganized into subfolders: enterprise-memory/, agent-memory/, shared/
+        [x] ADRs created: 0061 (No PII), 0062 (Writes via SX), 0063 (Reads via Tools), 0064 (Subfolder org)
 
 # Hub — Knowledge Services / Knowledge Bank:
     ## P1 (High):
@@ -182,17 +188,17 @@
 
 # Gap Counts by System:
     Seer:                  18 gaps (6 P0, 5 P1, 7 P2)
-    Hub:                   18 gaps (0 P0, 5 P1, 11 P2, 2 P3)  # CAF complete
+    Hub:                   14 gaps (0 P0, 0 P1, 9 P2, 5 P3)  # CAF + Memory Services complete
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total:                 53 gaps
+    Total:                 49 gaps
 
 # Gap Counts by Priority:
     P0 (Blocking):          6 gaps (Hub P0s resolved)
-    P1 (High):             13 gaps  # CAF-005 complete
-    P2 (Medium):           26 gaps
+    P1 (High):              6 gaps  # Hub Memory Services P1s complete
+    P2 (Medium):           29 gaps  # +4 new Agent Memory stubs
     P3 (Low):               8 gaps
 
 # Recently Resolved (2026-01-07):
@@ -229,6 +235,24 @@
         [x] HUB-CAF-007: Content hash (SHA-256) for immutability and reproducibility
         [~] HUB-CAF-008: Legal holds — removed, covered by retention policies + immutability
         [~] HUB-CAF-009: CAF scope clarified — Memory control plane only, not Knowledge (Knowledge governed by ETSL)
+    
+    ## Hub Memory Services (Complete):
+        [x] HUB-MEM-001: Query API specification — enterprise-memory/query-api.md
+        [x] HUB-MEM-002: OpenSearch indexing + hybrid search (semantic + filter)
+        [x] HUB-MEM-003: Retention and deletion semantics — enterprise-memory/retention-policy.md
+        [x] HUB-MEM-004: PII classification + redaction — shared/pii-policy.md (no PII in Enterprise Memory)
+        [x] HUB-MEM-005: Enterprise Memory Access Tools — enterprise-memory/access-tools.md
+        [x] HUB-MEM-006: Promotion criteria — links to Enterprise Learning Services
+        [x] HUB-MEM-007: Unified ESPP taxonomy — shared/espp-taxonomy.md
+        [x] HUB-MEM-008: HandoffContext + Task UI integration — updated handoff-context.md
+        [x] Memory Services reorganized: enterprise-memory/, agent-memory/, shared/
+        [x] Enterprise Memory storage: Olympus Europa (managed OpenSearch)
+        [x] Write path: Signal Exchange → Atropos → Memory Store (memory-record-routing.md)
+        [x] Read path: Memory Access Tools only (no raw API access)
+        [x] ADR-0061: No PII in Episodic Memory
+        [x] ADR-0062: Memory Writes via Signal Exchange
+        [x] ADR-0063: Memory Reads via Access Tools
+        [x] ADR-0064: Memory Services Subfolder Organization
 
 
 =======================================================
@@ -244,12 +268,12 @@
     [ ] Define Context Assembly Engine SDK
 
 # Phase 2: Enable Core Features (P1):
-    [ ] Define Memory Services query/write APIs
+    [x] Define Memory Services query/write APIs — DONE: query-api.md, access-tools.md, memory-record-routing.md
     [ ] Define Knowledge Bank retrieval API
     [ ] Implement human-in-loop checkpoint pattern
     [ ] Specify credential injection for agents
-    [ ] Define CAF Explainer Services API
-    [ ] Define CAF Memory Store Catalog
+    [x] Define CAF Explainer Services API — DONE: explanation-service.md
+    [x] Define CAF Memory Store Catalog — DONE: memory-store-catalog.md
 
 # Phase 3: Polish and Governance (P2+):
     [ ] CAF Enterprise Learning Services (full API spec)

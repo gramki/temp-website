@@ -82,6 +82,10 @@ All ADRs follow the standard format:
 | [0058](./0058-caf-semantic-explainers.md) | Every schema includes semantic explainer section | Accepted | 2026-01-07 | caf |
 | [0059](./0059-caf-memory-not-knowledge.md) | CAF governs Memory only; ETSL governs Knowledge | Accepted | 2026-01-07 | caf |
 | [0060](./0060-learning-services-deferred-automation.md) | Learning Services manual initially, automation deferred | Accepted | 2026-01-07 | caf |
+| [0061](./0061-no-pii-in-episodic-memory.md) | No PII allowed in episodic memory records | Accepted | 2026-01-07 | memory-services |
+| [0062](./0062-memory-writes-via-signal-exchange.md) | All memory writes routed through Signal Exchange | Accepted | 2026-01-07 | memory-services |
+| [0063](./0063-memory-reads-via-access-tools.md) | Memory reads via defined access tools only | Accepted | 2026-01-07 | memory-services |
+| [0064](./0064-memory-services-subfolder-organization.md) | Memory Services organized into subfolders | Accepted | 2026-01-07 | memory-services |
 
 ---
 
@@ -177,6 +181,12 @@ All ADRs follow the standard format:
 - [0058](./0058-caf-semantic-explainers.md) - Semantic explainer section in every content schema
 - [0059](./0059-caf-memory-not-knowledge.md) - CAF governs Memory; ETSL governs Knowledge
 - [0060](./0060-learning-services-deferred-automation.md) - Learning Services manual initially, automation deferred
+
+### Memory Services
+- [0061](./0061-no-pii-in-episodic-memory.md) - No PII allowed in episodic memory records
+- [0062](./0062-memory-writes-via-signal-exchange.md) - All memory writes routed through Signal Exchange
+- [0063](./0063-memory-reads-via-access-tools.md) - Memory reads via defined access tools only
+- [0064](./0064-memory-services-subfolder-organization.md) - Memory Services organized into subfolders (enterprise/agent/shared)
 
 ---
 

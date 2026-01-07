@@ -1,8 +1,8 @@
 # Hub Enterprise Memory
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft — Under active development
 
-Hub Enterprise Memory captures the organization's **lived cognition over time**—what happened, what was decided, why, and how it influenced future behavior.
+Hub Enterprise Memory captures the organization's **lived cognition over time**—what happened, what was decided, why, and how it influenced future behavior. This document describes Hub's concrete implementation of CAF-compliant enterprise memory stores.
 
 ---
 
@@ -166,14 +166,194 @@ Enterprise Knowledge (asserted facts, policies)
 
 ---
 
+## Implementation Architecture
+
+### OpenSearch-Based Storage
+
+Hub Enterprise Memory uses **OpenSearch** as the storage engine, providing:
+
+| Capability | OpenSearch Feature |
+|------------|-------------------|
+| **Document storage** | JSON document store |
+| **Semantic search** | k-NN plugin with dense vectors |
+| **Structured queries** | Query DSL with filters |
+| **Aggregations** | Analytics and histograms |
+| **Time-series** | Date histograms, range queries |
+
+### Index Structure
+
+```yaml
+# Index naming convention
+indices:
+  # Episodic memory (per record type)
+  - "{tenant}_{workbench}_episodic_case_records"
+  - "{tenant}_{workbench}_episodic_decision_records"
+  - "{tenant}_{workbench}_episodic_evidence_bundles"
+  - "{tenant}_{workbench}_episodic_context_snapshots"
+  - "{tenant}_{workbench}_episodic_outcome_records"
+  - "{tenant}_{workbench}_episodic_override_records"
+  - "{tenant}_{workbench}_episodic_handoff_context"
+  - "{tenant}_{workbench}_episodic_hypothesis_records"
+  - "{tenant}_{workbench}_episodic_incident_timelines"
+  
+  # Semantic memory
+  - "{tenant}_{workbench}_semantic_patterns"
+  - "{tenant}_{workbench}_semantic_constraints"
+  - "{tenant}_{workbench}_semantic_entity_beliefs"
+  - "{tenant}_{workbench}_semantic_relationship_beliefs"
+  
+  # Procedural memory
+  - "{tenant}_{workbench}_procedural_skills"
+  - "{tenant}_{workbench}_procedural_procedures"
+  
+  # Preference memory
+  - "{tenant}_{workbench}_preference_user"
+  - "{tenant}_{workbench}_preference_agent"
+```
+
+### Embedding Configuration
+
+```yaml
+embedding_config:
+  model: "olympus-embed-v2"
+  dimension: 1024
+  
+  # Per-record-type embedding sources
+  embedding_sources:
+    decision_record:
+      fields: ["action", "rationale.summary", "rationale.factors_considered"]
+      weight_strategy: "field_importance"
+    
+    case_record:
+      fields: ["summary", "entity_type", "resolution.outcome"]
+    
+    handoff_context:
+      fields: ["current_state.summary", "current_state.key_facts", "recommendations.suggested_next_steps"]
+    
+    pattern_summary:
+      fields: ["description", "conditions", "implications"]
+```
+
+---
+
+## Write Path (via Signal Exchange)
+
+**Critical Design Decision:** No Hub agent or application directly writes to Enterprise Memory stores. All writes flow through Signal Exchange.
+
+### Write Flow
+
+```
+Hub Application/Agent
+        │
+        │ Adds memory_records to REQUEST_UPDATE
+        ▼
+Signal Exchange
+        │
+        │ Validates, enriches, routes
+        ▼
+Atropos Topic (per memory store)
+        │
+        │ Async consumption
+        ▼
+Memory Store Writer Service
+        │
+        │ Schema validation, embedding generation, indexing
+        ▼
+OpenSearch
+```
+
+See [Signal Exchange - Memory Record Routing](../signal-exchange/memory-record-routing.md) for full specification.
+
+### Why No Direct Writes?
+
+| Reason | Benefit |
+|--------|---------|
+| **Centralized auditing** | All writes logged through Signal Exchange |
+| **Request context binding** | Records automatically linked to Request |
+| **Async processing** | Application latency decoupled from storage |
+| **Deduplication** | Signal Exchange handles idempotency |
+| **Schema enforcement** | Consistent validation before storage |
+
+---
+
+## Read Path (via Memory Access Tools)
+
+Applications and agents read from Enterprise Memory using **Memory Access Tools**:
+
+| Tool | Purpose |
+|------|---------|
+| `memory.search_precedent` | Semantic search for similar cases |
+| `memory.get_case_history` | Full case timeline retrieval |
+| `memory.query_decisions` | Structured decision queries |
+| `memory.get_handoff_context` | Handoff context for case |
+| `memory.search_patterns` | Semantic pattern search |
+| `memory.get_entity_beliefs` | Entity belief retrieval |
+
+See [Memory Access Tools](./memory-access-tools.md) for tool specifications.
+
+### Read Flow
+
+```
+Hub Application/Agent
+        │
+        │ Invokes memory access tool
+        ▼
+Memory Tool Executor
+        │
+        │ Authorization, query building
+        ▼
+Memory Query Service
+        │
+        │ Embedding generation (if semantic), query execution
+        ▼
+OpenSearch
+        │
+        │ Results
+        ▼
+Response Formatting
+        │
+        │ Formatted for agent consumption
+        ▼
+Hub Application/Agent
+```
+
+---
+
+## Retention and Deletion
+
+### Retention Policies
+
+| Memory Class | Default Retention | Legal Hold |
+|--------------|-------------------|------------|
+| **Episodic** | 7 years | ✅ Supported |
+| **Semantic** | 5 years | ✅ Supported |
+| **Procedural** | 3 years | ⚠️ Limited |
+| **Preference** | 2 years | ❌ Not applicable |
+
+### PII Prohibition
+
+> **Critical Constraint:** No Episodic memory record may contain PII.
+
+- Records use entity references (e.g., `entity_id: cust-abc123`) instead of PII
+- PII is resolved at query time via separate PII-enabled tools
+- Write-time validation rejects records with detected PII
+
+See [Retention and PII Policy](./retention-and-pii-policy.md) for full details.
+
+---
+
 ## Related Documentation
 
 - [Memory Services Overview](./README.md)
+- [Memory Query API](./memory-query-api.md)
+- [Memory Access Tools](./memory-access-tools.md)
+- [Retention and PII Policy](./retention-and-pii-policy.md)
 - [Hub Agent Memory](./hub-agent-memory.md)
 - [Cognitive Audit Fabric](../cognitive-audit-fabric/README.md)
+- [Signal Exchange - Memory Record Routing](../signal-exchange/memory-record-routing.md)
 - [Knowledge Services](../knowledge-services/README.md)
 
 ---
 
-*TODO: Detailed design — storage backends, linking mechanisms, promotion workflows, search optimization*
+*TODO: Detailed design — index lifecycle management, embedding model training, performance tuning, cross-workbench federation*
 

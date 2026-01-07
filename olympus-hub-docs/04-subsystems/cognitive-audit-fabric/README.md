@@ -194,6 +194,42 @@ content_hash: string    # sha256:<hex> — cryptographic hash of record content
 
 See [CAF Store REST API - Immutability](./episodic-memory-store/caf-store-rest-api.md#immutability) for enforcement details.
 
+### No PII in Episodic Memory
+
+> **Critical Constraint:** No Episodic memory record may contain Personally Identifiable Information (PII).
+
+This is a **non-negotiable design constraint** that applies to all CAF-compliant episodic memory stores.
+
+```yaml
+# ❌ WRONG - Contains PII
+decision_record:
+  customer_name: "John Smith"         # PII - prohibited
+  customer_email: "john@example.com"  # PII - prohibited
+  decision: "approve_refund"
+
+# ✅ CORRECT - Uses entity references
+decision_record:
+  entity_type: "customer"
+  entity_id: "cust-abc123"            # Opaque token, not PII
+  customer_segment: "premium"          # Aggregated attribute, not PII
+  decision: "approve_refund"
+```
+
+| Principle | Description |
+|-----------|-------------|
+| **Entity References Only** | Use opaque entity IDs (`cust-abc123`) instead of personal identifiers |
+| **PII Resolution at Runtime** | Agents resolve customer details via separate PII-enabled tools when needed |
+| **Write-Time Validation** | Memory stores reject records containing detected PII |
+| **Immutability Implication** | PII corrections would require new records; avoiding PII simplifies compliance |
+
+**Why No PII?**
+- Episodic records are immutable — PII corrections cannot be made in place
+- GDPR/CCPA right-to-erasure requests are complex for immutable records
+- Episodic records may feed into ML training — PII would require anonymization
+- Cross-workbench analysis is safer without PII exposure
+
+See [Enterprise Memory Retention Policy](../memory-services/enterprise-memory/retention-policy.md) and [Shared PII Policy](../memory-services/shared/pii-policy.md) for enforcement details and PII detection pipeline.
+
 ### ID Format (UUID v4)
 
 All CAF record identifiers use **UUID v4** format:

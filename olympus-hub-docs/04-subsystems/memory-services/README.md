@@ -1,128 +1,246 @@
 # Memory Services
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft — Under active development
 
-Memory Services provide the **memory storage and access layer** for Olympus Hub. This subsystem is critical for Seer integration—all agents *should* use Hub memory storage services.
+Memory Services is a Hub subsystem that provides **memory storage and access capabilities** for Hub Applications and agents. It encompasses two major capability areas: **Enterprise Memory** (organizational-level, durable) and **Agent Memory** (agent/session-level, ephemeral).
 
 ---
 
 ## Overview
 
-Memory Services implements the cognitive memory layer defined in the [Enterprise Knowledge vs Memory vs Agent Memory](../../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md) specification.
+Hub provides **built-in memory stores** that adhere to CAF (Cognitive Audit Fabric) expectations. These are concrete implementations provisioned via CRDs as part of workbench specifications.
 
----
+### Key Principles
 
-## Memory Types
-
-| Memory Type | Scope | Purpose | Persistence |
-|-------------|-------|---------|-------------|
-| **Agent Memory** | Agent/Session | Operational continuity, recent interactions | Ephemeral |
-| **Enterprise Memory** | Organization | Institutional cognition, cross-agent learning | Durable |
-
----
-
-## Subsystem Documents
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Hub Agent Memory](./hub-agent-memory.md) | Agent Memory persistence and management | 🔴 Stub |
-| [Hub Enterprise Memory](./hub-enterprise-memory.md) | Enterprise Memory persistence and management | 🔴 Stub |
+| Principle | Description |
+|-----------|-------------|
+| **CAF Compliance** | All memory stores implement CAF contracts and schemas |
+| **Workbench Scoped** | Memory stores are always scoped to a workbench |
+| **ESPP Taxonomy** | Unified Episodic-Semantic-Procedural-Preference taxonomy |
+| **Olympus Platform** | Uses Olympus platform services (Europa, etc.) |
 
 ---
 
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    MEMORY SERVICES                               │
-│                                                                  │
-│  ┌─────────────────────────────────────────────────────────┐    │
-│  │                 MEMORY ACCESS LAYER                      │    │
-│  │        (APIs for read, write, query, search)             │    │
-│  └─────────────────────────┬───────────────────────────────┘    │
-│                            │                                     │
-│  ┌─────────────────────────┼───────────────────────────────┐    │
-│  │               MEMORY TYPE MANAGERS                       │    │
-│  │                                                          │    │
-│  │  ┌──────────────┐  ┌──────────────┐                     │    │
-│  │  │    Agent     │  │  Enterprise  │                     │    │
-│  │  │    Memory    │  │    Memory    │                     │    │
-│  │  │   Manager    │  │   Manager    │                     │    │
-│  │  └──────────────┘  └──────────────┘                     │    │
-│  └──────────────────────────────────────────────────────────┘    │
-│                                                                  │
-│  ┌─────────────────────────────────────────────────────────┐    │
-│  │                 STORAGE BACKENDS                         │    │
-│  │   (Vector stores, Key-value, Document, Time-series)     │    │
-│  └─────────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           HUB MEMORY SERVICES                                 │
+│                                                                               │
+│   ┌───────────────────────────────────┐   ┌───────────────────────────────┐  │
+│   │      ENTERPRISE MEMORY            │   │       AGENT MEMORY            │  │
+│   │                                   │   │                               │  │
+│   │   Scope: Organizational           │   │   Scope: Agent/Session        │  │
+│   │   Retention: 7+ years             │   │   Retention: Days to months   │  │
+│   │   Write: Signal Exchange          │   │   Write: Direct SDK           │  │
+│   │   PII: Prohibited                 │   │   PII: Permitted              │  │
+│   │   Storage: Europa (OpenSearch)    │   │   Storage: TBD                │  │
+│   │                                   │   │                               │  │
+│   │   • Audit & compliance            │   │   • Operational continuity    │  │
+│   │   • Precedent search              │   │   • Personalization           │  │
+│   │   • Institutional learning        │   │   • Session context           │  │
+│   │   • Cross-agent knowledge         │   │   • Preference learning       │  │
+│   └───────────────────────────────────┘   └───────────────────────────────┘  │
+│                                                                               │
+│   ┌─────────────────────────────────────────────────────────────────────────┐ │
+│   │                        SHARED CONCEPTS                                   │ │
+│   │                                                                          │ │
+│   │   • ESPP Taxonomy (Episodic, Semantic, Procedural, Preference)          │ │
+│   │   • CAF schema compatibility                                            │ │
+│   │   • Workbench scoping                                                   │ │
+│   │   • Promotion paths (Agent → Enterprise → ETSL)                         │ │
+│   └─────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Agent Memory Categories
+## Subsystem Structure
 
-From Seer specifications, Agent Memory includes:
+### Enterprise Memory
 
-| Category | Description | Examples |
-|----------|-------------|----------|
-| **Episodic** | Recent interactions and events | Chat history, tool calls |
-| **Semantic** | Facts promoted from experience | Learned preferences, patterns |
-| **Preference** | User/context preferences | Communication style, timezone |
-| **Procedural** | Workflows, skills, procedures | Task execution patterns |
+Organizational-level memory for audit, compliance, and institutional learning.
 
----
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Enterprise Memory README](./enterprise-memory/README.md) | Overview and architecture | 🟡 Draft |
+| [Query API](./enterprise-memory/query-api.md) | Query API specification | 🟡 Draft |
+| [Access Tools](./enterprise-memory/access-tools.md) | Memory access tool specifications | 🟡 Draft |
+| [Retention Policy](./enterprise-memory/retention-policy.md) | Retention, deletion, legal hold | 🟡 Draft |
 
-## Enterprise Memory Categories
+### Agent Memory
 
-| Category | Description | Examples |
-|----------|-------------|----------|
-| **Decision Records** | What was decided and why | Approval decisions, exceptions |
-| **Outcome Records** | What happened after decisions | Success/failure outcomes |
-| **Exception History** | Overrides and exceptions granted | Manual overrides with rationale |
-| **Handoff Context** | Prior agent/human actions | Case transition context |
+Agent/session-level memory for operational continuity and personalization.
 
----
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Agent Memory README](./agent-memory/README.md) | Overview and architecture | 🟡 Draft |
+| [Agent Memory SDK](./agent-memory/sdk.md) | SDK specification | 🔴 Stub |
+| [Retention & Decay](./agent-memory/retention-and-decay.md) | Retention and decay models | 🔴 Stub |
 
-## Key Principles
+### Shared Concepts
 
-1. **Agent Memory is Operational** — Helps agents act in the moment
-2. **Enterprise Memory is Institutional** — Captures what the organization learned
-3. **Promotion Path** — Agent Memory → Enterprise Memory → Enterprise Knowledge
-4. **All Agents Use Hub Storage** — Even with custom frameworks, storage is centralized
+Common concepts and specifications across both memory types.
 
----
-
-## Seer Integration
-
-| Integration Point | Description |
-|-------------------|-------------|
-| **Memory SDKs** | Seer provides SDKs; Hub provides storage |
-| **Context Assembly** | Seer Context Assembly retrieves from Hub Memory |
-| **CAF Governance** | CAF (control plane) governs Enterprise Memory structure and access |
-| **Cross-Agent Learning** | Enterprise Memory enables learning across agents |
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Shared README](./shared/README.md) | Overview of shared concepts | 🟡 Draft |
+| [ESPP Taxonomy](./shared/espp-taxonomy.md) | Unified memory taxonomy | 🟡 Draft |
+| [PII Policy](./shared/pii-policy.md) | PII handling across memory types | 🟡 Draft |
 
 ---
 
-## Multi-Tenancy & Scoping
+## Memory Type Comparison
 
-| Scope Level | Description |
-|-------------|-------------|
-| **Tenant** | Strict tenant isolation |
-| **Workbench** | Memory scoped to specific workbenches |
-| **Agent** | Agent-specific memory within workbench |
-| **Session** | Session-scoped ephemeral memory |
-| **Request** | Request-scoped memory |
+| Aspect | Enterprise Memory | Agent Memory |
+|--------|-------------------|--------------|
+| **Scope** | Organizational — cross-agent, cross-session | Agent/Session — individual context |
+| **Persistence** | Durable — 7+ years for episodic | Ephemeral — days to months |
+| **Purpose** | Audit, precedent, institutional learning | Operational continuity, personalization |
+| **Write Path** | Via Signal Exchange (no direct writes) | Direct SDK access |
+| **Read Path** | Via Memory Access Tools | SDK methods, Seer context assembly |
+| **PII Policy** | **Prohibited** — entity references only | **Permitted** — with consent |
+| **Immutability** | Immutable records (CAF compliance) | Mutable (update/delete allowed) |
+| **Storage Backend** | Olympus Europa (managed OpenSearch) | TBD (to be determined) |
+
+---
+
+## ESPP Memory Taxonomy
+
+Both Enterprise and Agent Memory implement the **ESPP (Episodic-Semantic-Procedural-Preference)** taxonomy:
+
+| Memory Class | Anchoring | Purpose |
+|--------------|-----------|---------|
+| **Episodic** | Event/Time/Case | What happened — decisions, outcomes, handoffs |
+| **Semantic** | Entity/Domain | What we know — patterns, beliefs, constraints |
+| **Procedural** | Skill/Task | How to act — learned procedures, skills |
+| **Preference** | Subject | How to personalize — user/agent preferences |
+
+See [ESPP Taxonomy](./shared/espp-taxonomy.md) for detailed record types and semantics.
+
+---
+
+## Storage Architecture
+
+### Enterprise Memory: Olympus Europa
+
+Enterprise Memory uses **Olympus Europa** — the platform's managed OpenSearch service:
+
+| Aspect | Description |
+|--------|-------------|
+| **Service** | Olympus Europa (managed OpenSearch) |
+| **Multi-Tenancy** | Platform-level tenant isolation |
+| **Semantic Search** | k-NN plugin for vector similarity |
+| **Index Pattern** | `{tenant}_{workbench}_{memory_class}_{record_type}` |
+
+### Agent Memory: To Be Determined
+
+Agent Memory storage backend is **not yet finalized**. Options include:
+
+| Candidate | Consideration |
+|-----------|---------------|
+| **Olympus Europa** | If semantic search is critical |
+| **Olympus Callisto** | If low-latency is critical (Redis-based) |
+| **Purpose-built service** | If specialized requirements emerge |
+
+---
+
+## Provisioning
+
+Memory stores are provisioned as part of Workbench specifications via CRDs:
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: Workbench
+metadata:
+  name: fraud-ops-prod
+  namespace: acme-bank
+spec:
+  memory_services:
+    # Enterprise Memory
+    enterprise_memory:
+      enabled: true
+      stores:
+        - name: "fraud-ops.episodic.primary"
+          memory_class: episodic
+          storage:
+            backend: europa
+            cluster_ref: europa-prod
+          retention:
+            default_days: 2555
+            legal_hold_enabled: true
+    
+    # Agent Memory
+    agent_memory:
+      enabled: true
+      defaults:
+        retention:
+          episodic_hours: 24
+          semantic_days: 30
+          procedural_days: -1  # Indefinite
+          preference_days: 90
+```
+
+### Admin Delegation
+
+| Role | Capability |
+|------|-----------|
+| **Tenant Admin** | Provision memory stores for any workbench |
+| **Workbench Admin** | Configure memory stores if delegated rights |
+| **Developer** | Request memory store provisioning, use memory access tools |
+
+---
+
+## Promotion Paths
+
+Memory can be **promoted** across types and scopes:
+
+```
+Agent Memory (observed pattern)
+        │
+        │ Pattern validated across sessions
+        ▼
+Enterprise Memory (institutional knowledge)
+        │
+        │ High confidence + governance approval
+        ▼
+ETSL (Enterprise Temporal Semantic Layer)
+```
+
+See [Enterprise Learning Services](../cognitive-audit-fabric/enterprise-learning-services.md) for promotion workflows.
 
 ---
 
 ## Related Documentation
 
 - [Cognitive Audit Fabric](../cognitive-audit-fabric/README.md) — CAF integration
-- [Knowledge Services](../knowledge-services/README.md) — Knowledge vs Memory
+- [Signal Exchange](../signal-exchange/README.md) — Write path routing (Enterprise Memory)
+- [Signal Exchange - Memory Record Routing](../signal-exchange/memory-record-routing.md) — Memory write routing
+- [Enterprise Learning Services](../cognitive-audit-fabric/enterprise-learning-services.md) — Promotion workflows
 - [Seer Context Assembly](../../../olympus-seer-docs/seer-design/subsystems/context-assembly-engine.md)
 
 ---
 
-*TODO: Detailed design — storage backends, retention policies, promotion mechanisms*
+## Decision Records
 
+| ADR | Title |
+|-----|-------|
+| [0061](../../decision-logs/0061-no-pii-in-episodic-memory.md) | No PII in Episodic Memory |
+| [0062](../../decision-logs/0062-memory-writes-via-signal-exchange.md) | Memory Writes via Signal Exchange |
+| [0063](../../decision-logs/0063-memory-reads-via-access-tools.md) | Memory Reads via Access Tools |
+| [0064](../../decision-logs/0064-memory-services-subfolder-organization.md) | Memory Services Subfolder Organization |
+
+---
+
+## Legacy Files
+
+> **Note**: The following files at the root of memory-services/ are being retained for reference but are superseded by the new subfolder structure:
+> - `hub-enterprise-memory.md` → See `enterprise-memory/README.md`
+> - `hub-agent-memory.md` → See `agent-memory/README.md`
+> - `memory-query-api.md` → See `enterprise-memory/query-api.md`
+> - `memory-access-tools.md` → See `enterprise-memory/access-tools.md`
+> - `retention-and-pii-policy.md` → See `enterprise-memory/retention-policy.md` and `shared/pii-policy.md`
+
+---
+
+*TODO: Agent memory storage decision, cross-memory queries, federation*

@@ -106,6 +106,7 @@ The Signal Exchange is responsible for:
 | [Signal Provider Interactions](./signal-provider-interactions.md) | Signal Provider registration, DTOs, filters, triggers | 🟡 Draft |
 | [Message Envelope](./message-envelope.md) | Signal Exchange ↔ Hub Application DTOs | 🟡 Draft |
 | [Reminder Capability](./reminder-capability.md) | Time-based reminder scheduling and notifications | 🟡 Draft |
+| [Memory Record Routing](./memory-record-routing.md) | Routing memory records from Request Updates to memory stores | 🟡 Draft |
 | [Trigger Evaluator](./trigger-evaluator.md) | Trigger matching and transformation | 🔴 Stub |
 | [Request Factory](./request-factory.md) | Request creation and updates | 🔴 Stub |
 | [Application Router](./application-router.md) | Routing to Hub Applications | 🔴 Stub |
@@ -251,6 +252,7 @@ Long-running Applications (workflows, durable workflows, case management) can se
 2. Signal Exchange captures update:
    a. Updates Request state (if state change)
    b. Records update details in Request history
+   c. Extracts memory_records and routes to memory stores (see below)
 3. Signal Exchange dispatches to registered observers:
    a. Identifies registered observer MODULES for this Request
    b. Formats notification per observer's subscription
@@ -259,6 +261,24 @@ Long-running Applications (workflows, durable workflows, case management) can se
 ```
 
 > **Note:** In Signal Exchange ↔ Hub Application interactions, **Async Update and Request Update are the same concept**. Both use `REQUEST_UPDATE` message type.
+
+### Memory Record Routing (Application → Memory Stores)
+
+**Critical Design Decision:** All enterprise episodic memory writes flow through Signal Exchange. Applications and agents do not directly access memory store write APIs.
+
+```
+1. Hub Application attaches memory_records to REQUEST_UPDATE
+   (decision_records, evidence_bundles, handoff_context, etc.)
+2. Signal Exchange extracts memory_records from update payload
+3. For each memory record:
+   a. Validates against CAF schema
+   b. Enriches with hub_metadata (tenant, workbench, scenario, request_id)
+   c. Determines target Atropos topic based on memory_class and Scenario config
+   d. Publishes to Atropos topic
+4. Memory Store Writer Service consumes from Atropos and indexes in OpenSearch
+```
+
+See [Memory Record Routing](./memory-record-routing.md) for full specification.
 
 **Critical Principle:**
 - Signal Exchange dispatches Request Updates to **observer modules** (e.g., MS Teams module, Neutrino, Ops Center)
