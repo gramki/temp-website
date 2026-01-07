@@ -203,7 +203,8 @@ Handoff context surfaces in:
 
 ## Related Documentation
 
-- [CAF Overview](./README.md)
+- [CAF Overview](../README.md)
+- [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Hub Enterprise Memory](../memory-services/hub-enterprise-memory.md)
 - [Task Management](../task-management/README.md)

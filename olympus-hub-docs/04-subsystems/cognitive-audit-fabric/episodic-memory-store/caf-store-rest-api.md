@@ -2,7 +2,7 @@
 
 > **Status**: 🟡 Draft  
 > **Last Updated**: 2026-01-07  
-> **Related**: [Memory Store Contract](./memory-store-contract.md) | [Case Records](./case-records.md)
+> **Related**: [CAF README](../README.md) | [Memory Store Contract](./memory-store-contract.md) | [Case Records](./case-records.md)
 
 ---
 

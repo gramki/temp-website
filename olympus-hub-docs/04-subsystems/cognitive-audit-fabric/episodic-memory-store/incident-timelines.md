@@ -246,7 +246,8 @@ Incident timelines are assembled from:
 
 ## Related Documentation
 
-- [CAF Overview](./README.md)
+- [CAF Overview](../README.md)
+- [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Evidence Bundles](./evidence-bundles.md)
 - [Hub Observability](../../05-infrastructure/olympus-watch.md)

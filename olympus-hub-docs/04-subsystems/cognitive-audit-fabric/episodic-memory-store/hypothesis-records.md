@@ -217,7 +217,8 @@ A hypothesis may be promoted to Enterprise Knowledge when:
 
 ## Related Documentation
 
-- [CAF Overview](./README.md)
+- [CAF Overview](../README.md)
+- [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Outcome Records](./outcome-records.md)
 - [Enterprise Memory](../memory-services/hub-enterprise-memory.md)

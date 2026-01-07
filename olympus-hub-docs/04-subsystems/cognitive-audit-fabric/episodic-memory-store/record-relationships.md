@@ -369,7 +369,8 @@ For efficient traversal, the following indexes are required:
 
 ## Related Documentation
 
-- [CAF Overview](./README.md)
+- [CAF Overview](../README.md)
+- [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Evidence Bundles](./evidence-bundles.md)
 - [Context Snapshots](./context-snapshots.md)

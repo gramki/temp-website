@@ -34,46 +34,43 @@ From the conceptual foundation:
 
 ## Subsystem Documents
 
-### Episodic Memory Records
+### Memory Stores (by Memory Class)
 
-> **Note**: The following records are all **Episodic Memory** — event-based, time-ordered, case-bound. See [Memory Store Contract](./memory-store-contract.md#future-other-memory-store-types) for other memory classes.
+| Memory Class | Folder | Description | Status |
+|--------------|--------|-------------|--------|
+| **Episodic** | [episodic-memory-store/](./episodic-memory-store/) | Event-based, time-ordered, case-bound records | 🟡 Draft |
+| Semantic | *Future* | Facts, entities, relationships | 🔴 Planned |
+| Procedural | *Future* | Skills, patterns, procedures | 🔴 Planned |
+| Preference | *Future* | User/agent preferences | 🔴 Planned |
 
-#### Anchor Record
+### Episodic Memory Store
+
+> Event-based, time-ordered, case-bound cognitive records. See [episodic-memory-store/README.md](./episodic-memory-store/README.md) for full documentation.
+
+#### Contracts & APIs
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Case Records](./case-records.md) | Case anchor, lifecycle, and resolution | 🟡 Draft |
+| [Memory Store Contract](./episodic-memory-store/memory-store-contract.md) | CRD registration, protocols, scope | 🟡 Draft |
+| [CAF Store REST API](./episodic-memory-store/caf-store-rest-api.md) | Default write API (order-tolerant, idempotent) | 🟡 Draft |
+| [Record Relationships](./episodic-memory-store/record-relationships.md) | How records link and traversal patterns | 🟡 Draft |
 
-#### Core Records
+#### Record Schemas (9 types)
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Decision Records](./decision-records.md) | Catalog and schema for decision journaling | 🟡 Draft |
-| [Evidence Bundles](./evidence-bundles.md) | Catalog and schema for evidence packaging | 🟡 Draft |
-| [Context Snapshots](./context-snapshots.md) | Compiled context for each agent turn | 🟡 Draft |
+| [Case Records](./episodic-memory-store/case-records.md) | Root anchor, lifecycle, resolution | 🟡 Draft |
+| [Decision Records](./episodic-memory-store/decision-records.md) | Decision with rationale | 🟡 Draft |
+| [Evidence Bundles](./episodic-memory-store/evidence-bundles.md) | Context at decision time | 🟡 Draft |
+| [Context Snapshots](./episodic-memory-store/context-snapshots.md) | Compiled context per turn | 🟡 Draft |
+| [Outcome Records](./episodic-memory-store/outcome-records.md) | Post-decision outcomes | 🟡 Draft |
+| [Override Records](./episodic-memory-store/override-records.md) | Manual override documentation | 🟡 Draft |
+| [Handoff Context](./episodic-memory-store/handoff-context.md) | State transfer between agents | 🟡 Draft |
+| [Hypothesis Records](./episodic-memory-store/hypothesis-records.md) | Learned patterns (bridge to Semantic) | 🟡 Draft |
+| [Incident Timelines](./episodic-memory-store/incident-timelines.md) | Chronological event sequences | 🟡 Draft |
 
-### Lifecycle & Feedback Records
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Outcome Records](./outcome-records.md) | Track what happened after decisions | 🔴 Stub |
-| [Override Records](./override-records.md) | Document manual overrides with accountability | 🔴 Stub |
-| [Handoff Context](./handoff-context.md) | State transfer between agents | 🔴 Stub |
-
-### Learning & Investigation Records
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Hypothesis Records](./hypothesis-records.md) | Learned patterns pending promotion to knowledge | 🔴 Stub |
-| [Incident Timelines](./incident-timelines.md) | Chronological event sequences for investigation | 🔴 Stub |
-
-### Services
+### CAF Services
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Explanation Service](./explanation-service.md) | Explanation generation and narrative assembly | 🔴 Stub |
-
-### Contracts & APIs
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Memory Store Contract](./memory-store-contract.md) | Store registration, protocols, scope | 🟡 Draft |
-| [CAF Store REST API](./caf-store-rest-api.md) | Default write API (order-tolerant, idempotent) | 🟡 Draft |
-| [Record Relationships](./record-relationships.md) | How records link and traversal patterns | 🟡 Draft |
 
 ---
 

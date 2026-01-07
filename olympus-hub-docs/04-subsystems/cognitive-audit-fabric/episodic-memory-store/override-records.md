@@ -171,7 +171,8 @@ CAF monitors override patterns to identify:
 
 ## Related Documentation
 
-- [CAF Overview](./README.md)
+- [CAF Overview](../README.md)
+- [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Outcome Records](./outcome-records.md)
 - [Hub Enterprise Memory](../memory-services/hub-enterprise-memory.md)

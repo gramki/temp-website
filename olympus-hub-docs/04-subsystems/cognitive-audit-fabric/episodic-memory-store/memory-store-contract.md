@@ -3,7 +3,7 @@
 > **Status**: Draft  
 > **Last Updated**: 2026-01-07  
 > **Memory Scope**: Episodic Memory Stores  
-> **Related**: [CAF README](./README.md) | [Record Relationships](./record-relationships.md) | [CAF Store REST API](./caf-store-rest-api.md)
+> **Related**: [CAF README](../README.md) | [Record Relationships](./record-relationships.md) | [CAF Store REST API](./caf-store-rest-api.md)
 
 ---
 
@@ -691,7 +691,7 @@ This promotion workflow will be defined in the Semantic/Procedural contracts.
 
 ## Related Documents
 
-- [CAF README](./README.md) — Overview and conventions
+- [CAF README](../README.md) — Overview and conventions
 - [CAF Store REST API](./caf-store-rest-api.md) — Write API specification
 - [Case Records](./case-records.md) — Case record schema
 - [Record Relationships](./record-relationships.md) — How records link together

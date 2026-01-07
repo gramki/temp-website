@@ -3,7 +3,7 @@
 > **Status**: 🟡 Draft  
 > **Last Updated**: 2026-01-07  
 > **Memory Type**: Episodic Memory  
-> **Related**: [Record Relationships](./record-relationships.md) | [Memory Store Contract](./memory-store-contract.md)
+> **Related**: [CAF README](../README.md) | [Record Relationships](./record-relationships.md) | [Memory Store Contract](./memory-store-contract.md)
 
 ---
 

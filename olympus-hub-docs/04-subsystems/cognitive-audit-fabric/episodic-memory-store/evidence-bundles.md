@@ -233,7 +233,8 @@ Evidence bundles enable decision replay:
 
 ## Related Documentation
 
-- [CAF Overview](./README.md)
+- [CAF Overview](../README.md)
+- [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Explanation Service](./explanation-service.md)
 

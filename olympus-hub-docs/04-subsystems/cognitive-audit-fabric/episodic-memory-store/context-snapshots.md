@@ -219,7 +219,8 @@ Context Snapshots feed into:
 
 ## Related Documentation
 
-- [CAF Overview](./README.md)
+- [CAF Overview](../README.md)
+- [Episodic Memory Store](./README.md)
 - [Evidence Bundles](./evidence-bundles.md)
 - [Seer Context Assembly Engine](../../../olympus-seer-docs/seer-design/subsystems/context-assembly-engine.md)
 
