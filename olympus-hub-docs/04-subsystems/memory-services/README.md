@@ -8,7 +8,7 @@ Memory Services provide the **memory storage and access layer** for Olympus Hub.
 
 ## Overview
 
-Memory Services implements the cognitive memory layer defined in the [Enterprise Knowledge vs Memory vs Agent Memory](../../../olympus-seer-docs/agentic-ai-concepts/enprise-knowledge-memory-other-data.md) specification.
+Memory Services implements the cognitive memory layer defined in the [Enterprise Knowledge vs Memory vs Agent Memory](../../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md) specification.
 
 ---
 

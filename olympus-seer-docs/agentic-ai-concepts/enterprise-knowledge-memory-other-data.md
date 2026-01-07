@@ -301,7 +301,7 @@ It answers the question:
 
 ## 6. Enterprise Memory in Agentic Systems
 
-Agent Memory is operational—it helps agents act in the moment. Enterprise Memory is institutional—it captures what the organization learned from agent actions.
+Agent Memory is operational—it helps agents act in the moment. Enterprise Memory is institutional — it captures what the organization learned from agent actions.
 
 In an agentic world, **Enterprise Memory becomes the institutional learning layer** that enables:
 
@@ -748,3 +748,205 @@ Enterprises have spent decades managing *knowledge*.
 The next decade will be about managing *memory* —human, machine, and hybrid.
 
 Agentic AI makes this unavoidable.
+
+---
+
+## 12. Foundational Definitions: Truth, Semantics, Knowledge, and Memory
+
+These terms are often used interchangeably in enterprise discourse, but they play **distinct cognitive roles**. Keeping them separate is a prerequisite for agentic and audit-grade systems.
+
+### 12.1 Truth
+
+**Truth** is an **asserted commitment** by the enterprise.
+
+Truth answers:
+
+> *“What does the enterprise commit to treating as correct and binding?”*
+
+**Properties**
+
+- Asserted (not inferred)
+- Owned by an authority (function, committee, regulator)
+- Normative (constrains behavior)
+- Stable until explicitly revised
+- Versioned (not probabilistic)
+
+**Examples**
+
+- A risk policy
+- A canonical definition of a KPI
+- An approved eligibility rule
+
+Truth is not required to be perfect. It is required to be **declared**.
+
+### 12.2 Semantics
+
+**Semantics** provide **meaning and interpretation**.
+
+Semantics answer:
+
+> *“What does this symbol, value, or rule mean in context?”*
+
+**Properties**
+
+- Interpretive (not normative)
+- Often shared across domains
+- Can exist without assertion
+- Enables translation across systems
+
+**Examples**
+
+- Column meaning in a data catalog
+- Business meaning of a metric
+- Ontologies and taxonomies
+
+Semantics do **not** constrain behavior by themselves. They enable understanding.
+
+### 12.3 Knowledge
+
+**Knowledge** is **truth plus semantics**, stabilized for reuse.
+
+Knowledge answers:
+
+> *“What is true, and what does it mean?”*
+
+**Properties**
+
+- Declarative
+- Governed
+- Reusable across contexts
+- Intended to inform and constrain decisions
+
+**Examples**
+
+- Policies with defined scope and meaning
+- Canonical metrics with agreed definitions
+- Reference data with business semantics
+
+### 12.4 Relationship Between Truth, Semantics, and Knowledge
+
+The relationship can be expressed as:
+
+```
+Knowledge = Truth × Semantics
+```
+
+- Truth without semantics is unusable
+- Semantics without truth is unbinding
+- Knowledge requires both
+
+### 12.5 Knowledge vs Semantic Memory (Critical Distinction)
+
+Semantic memory may inform revisions to knowledge, but it is not knowledge by default.
+
+| Aspect          | Enterprise Knowledge | Semantic Memory (Learned)    |
+| --------------- | -------------------- | ---------------------------- |
+| Source          | Assertion            | Experience                   |
+| Confidence      | Declared             | Probabilistic                |
+| Temporal nature | Stable (versioned)   | Evolves (decay/supersession) |
+| Governance      | Formal               | Analytical + review-based    |
+| Role            | Constrain action      | Inform action                |
+
+### 12.6 How ESPP Memory Relates to Truth and Knowledge
+
+| Memory type  | Relation to Truth              | Relation to Knowledge                    |
+| ----------- | ------------------------------ | ---------------------------------------- |
+| Episodic    | May violate truth (exceptions) | Evidence for review                      |
+| Semantic    | Challenges/refines truth       | Candidate for promotion                  |
+| Procedural  | Operationalizes truth          | May diverge from it (drift)              |
+| Preference  | Reveals gaps in truth          | Signals misalignment and prompts review  |
+
+Truth constrains memory going forward. Memory pressures truth to evolve (deliberately).
+
+---
+
+## 13. Vocabulary Mapping Across Enterprise Data, Cognition, and Systems
+
+Enterprises simultaneously use:
+
+1. **Operational / OLTP terminology** (systems of record)
+2. **Data & analytics terminology** (lakes, warehouses, marts)
+3. **Common enterprise practice terminology** (colloquial usage)
+4. **Cognitive systems terminology** (memory, knowledge, learning)
+5. **ETSL / CAF terminology** (intentional, governance-oriented constructs)
+
+Each vocabulary evolved to solve a different problem. Confusion arises when terms are mixed without translation.
+
+### 13.1 The five vocabulary groups (what each optimizes for)
+
+| Vocabulary group          | Primary optimization                     |
+| ------------------------- | ---------------------------------------- |
+| OLTP / Operations         | Correctness of transactions and state    |
+| Data platforms            | Analytical performance and reuse         |
+| Common enterprise usage   | Convenience and familiarity              |
+| Cognitive systems         | Reasoning over time                      |
+| ETSL / CAF                | Auditability, explainability, governance |
+
+### 13.2 Core term mapping (side-by-side)
+
+| Common term  | OLTP / ops meaning       | Data platform meaning | Cognitive meaning        | ETSL / CAF interpretation |
+| ------------ | ------------------------ | --------------------- | ------------------------ | ------------------------- |
+| Transaction  | Atomic state change      | Fact row              | Episodic signal          | Source event              |
+| Record       | Row in table             | Row / document        | Memory fragment          | Evidence element          |
+| History      | Past rows                | Time-series data      | Episodic memory          | Event lineage             |
+| Policy       | Code/config rule         | Reference table       | Knowledge constraint     | Asserted knowledge        |
+| Rule         | Conditional logic        | Filter / transform    | Constraint               | Policy artifact           |
+| SOP          | Document                 | Unstructured text     | Procedural memory        | Procedural artifact       |
+| Metric       | Calculated value         | Aggregate             | Derived knowledge        | Knowledge artifact        |
+| Feature      | Input variable           | Feature column        | Signal                   | Derived signal            |
+| State        | Current value            | Snapshot              | Memory-derived state     | Observed state            |
+| Exception    | Error / override         | Outlier               | Preference signal        | Override record           |
+
+### 13.3 Storage systems vs cognitive meaning (explicit decoupling)
+
+| Storage system  | What it stores            | Cognitive role                           |
+| --------------- | ------------------------- | ---------------------------------------- |
+| OLTP DB         | Transactions, state       | Memory source (pre-cognitive)            |
+| Event store     | Ordered events            | Episodic memory substrate                |
+| Data lake       | Raw data                  | Proto-memory / proto-knowledge           |
+| Warehouse       | Curated tables            | Derived knowledge artifacts               |
+| Knowledge graph | Entities, relations       | Enterprise knowledge                     |
+| Wiki / docs     | Text artifacts            | Often procedural memory                  |
+| Vector store    | Embeddings                | Retrieval index (not memory by itself)   |
+
+Key principle:
+
+> **Storage systems do not define cognition; interpretation does.**
+
+### 13.4 A practical translation rule (use this)
+
+When you hear a term, ask:
+
+1. *What system is this term coming from?*
+2. *What decision is this term supposed to influence over time?*
+
+Then map it:
+
+- If it influences **beliefs and constraints** → Knowledge
+- If it influences **future decisions via experience** → Memory
+- If it influences **execution only** → Procedure / signal
+
+### 13.5 Why ETSL / CAF needs its own vocabulary
+
+ETSL/CAF terms (e.g., `DecisionRecord`, `EvidenceBundle`, `OverrideRecord`, `ExplanationRecord`) are not replacements for existing enterprise terms.
+
+They exist to:
+
+- make cognition explicit
+- preserve causality
+- support audits
+- link actions to rationale
+
+They form a meta-vocabulary that can reference OLTP, data, and knowledge systems without being trapped by any one of them.
+
+---
+
+## Appendix: further reading (now organized by memory type)
+
+The “further reading” lists are maintained alongside the per-type Enterprise Memory pages:
+
+- [`./enterprise-memory/episodic-memory.md`](./enterprise-memory/episodic-memory.md)
+- [`./enterprise-memory/semantic-memory.md`](./enterprise-memory/semantic-memory.md)
+- [`./enterprise-memory/procedural-memory.md`](./enterprise-memory/procedural-memory.md)
+- [`./enterprise-memory/preference-memory.md`](./enterprise-memory/preference-memory.md)
+- Cross-cutting: [`./enterprise-memory/README.md`](./enterprise-memory/README.md)

@@ -113,9 +113,9 @@ Seer provides SDKs for use in building Raw Agents. The SDK handles:
 ## Related
 
 - [Introduction](../introduction.md)
-- [Agent Memory Management](../../agentic-ai-concepts/agent-memory-management.md)
-- [Knowledge vs Memory vs Context vs Session](../../agentic-ai-concepts/knowledge-memory-context-session.md)
-- [Enterprise Knowledge vs Memory vs Agent Memory](../../agentic-ai-concepts/enprise-knowledge-memory-other-data.md)
+- [Agent Memory Management](../../agentic-ai-concepts/agent-memory/agent-memory-management.md)
+- [Knowledge vs Memory vs Context vs Session](../../agentic-ai-concepts/agent-memory/knowledge-memory-context-session.md)
+- [Enterprise Knowledge vs Memory vs Agent Memory](../../agentic-ai-concepts/enterprise-knowledge-memory-other-data.md)
 
 ---
 

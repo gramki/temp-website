@@ -9,6 +9,9 @@
 
 - **[Raw, Trained, Employed Agents](../../aosm-meta-model/raw-trained-employed-agents.md)** — Zeta's three-layer model for agent lifecycle and governance
 - **[Agent-Oriented System (AOS): Definition, Structure, and Design Process](../../aosm-meta-model/agent-oriented-system.md)** — AOSM meta-model foundations
+- **[Enterprise Knowledge vs Enterprise Memory vs Agent Memory](./enterprise-knowledge-memory-other-data.md)** — canonical cognitive classification (“storage ≠ cognition”)
+- **[Designing an Agent](./designing-an-agent.md)** — applied guide: how to use knowledge, memory, and operational data together
+- **[Agent context building](./agent-memory/context-building.md)** — context compiler pipeline and safety considerations
 
 ---
 

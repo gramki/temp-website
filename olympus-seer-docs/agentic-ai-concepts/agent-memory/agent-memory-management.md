@@ -1,7 +1,7 @@
-# Primer on Agent Memory Management
+# Agent Memory Management (Overview)
 
 **Audience:** Agentic AI Engineers, Platform Architects, Applied AI Researchers  
-**Scope:** Episodic, Semantic, Preference, and Procedural Memory in Agent-Native Systems
+**Scope:** How agent memory works, how to manage it safely, and where to find the detailed pages per memory type.
 
 ### Related Documents
 
@@ -29,71 +29,14 @@ Each stage has architectural, algorithmic, and governance implications.
 
 ---
 
-## 2. The Four Canonical Memory Types
+## 2. The Four Canonical Memory Types (navigation)
 
-### 2.1 Episodic Memory
+This primer uses the canonical four memory types. The detailed pages live alongside this doc:
 
-**Definition:** Records of what happened—events, interactions, traces, outcomes.
-
-* Examples: conversations, decisions taken, tool invocations, failures
-* Time horizon: short to medium
-* Mutability: append-only
-
-**Primary risks:**
-
-* Unbounded growth
-* Over-inclusion in context
-* Privacy leakage
-
----
-
-### 2.2 Semantic Memory
-
-**Definition:** Stable knowledge—facts, concepts, relationships, models of the world.
-
-* Examples: entity attributes, domain facts, schemas
-* Time horizon: long
-* Mutability: versioned
-
-**Primary risks:**
-
-* Stale or contradictory facts
-* Lack of provenance
-* Weak grounding
-
----
-
-### 2.3 Preference Memory
-
-**Definition:** Learned or stated biases guiding behavior.
-
-* Examples: verbosity, tone, risk appetite, format choices
-* Time horizon: medium to long
-* Mutability: confidence-weighted
-
-**Primary risks:**
-
-* Overfitting to transient signals
-* Conflicting preferences
-* Lack of explainability
-
----
-
-### 2.4 Procedural Memory
-
-**Definition:** How to do things—skills, workflows, policies, plans.
-
-* Examples: escalation playbooks, compliance workflows, tool chains
-* Time horizon: long
-* Mutability: version-controlled
-
-**Primary risks:**
-
-* Drift from policy
-* Silent obsolescence
-* Hidden coupling to tools
-
----
+- **Episodic memory**: [`episodic-memory.md`](./episodic-memory.md)
+- **Semantic memory**: [`semantic-memory.md`](./semantic-memory.md)
+- **Preference memory**: [`preference-memory.md`](./preference-memory.md)
+- **Procedural memory**: [`procedural-memory.md`](./procedural-memory.md)
 
 ## 3. Identifying What Should Become Memory
 
@@ -195,86 +138,11 @@ One memory ≠ one database.
 
 ---
 
-## 5. Retrieving Memory
+## 5. Retrieval + context building
 
-### 5.1 Episodic Retrieval
+Agent memory isn’t useful unless it can be retrieved and assembled into a turn’s reasoning context.
 
-* Time-window queries
-* Similarity search
-* Trace reconstruction
-
-Use cases:
-
-* "What happened last time this failed?"
-
----
-
-### 5.2 Semantic Retrieval
-
-* Entity-centric lookup
-* Graph traversal
-* Hybrid symbolic + vector search
-
-Use cases:
-
-* "What do we know about customer X?"
-
----
-
-### 5.3 Preference Retrieval
-
-* Contextual matching
-* Conflict resolution
-* Confidence-weighted ranking
-
-Use cases:
-
-* "How should I respond to this user now?"
-
----
-
-### 5.4 Procedural Retrieval
-
-* Skill matching
-* Policy applicability checks
-* Tool-routing
-
-Use cases:
-
-* "Which workflow applies under these constraints?"
-
-**Further reading:**
-
-* [https://langchain-ai.github.io/langgraph/](https://langchain-ai.github.io/langgraph/) (LangGraph)
-* [https://arxiv.org/abs/2302.04761](https://arxiv.org/abs/2302.04761) (Toolformer)
-
----
-
-## 6. Context Composition: From Memory to Action
-
-### 6.1 Why Context Composition Matters
-
-Naive agents stuff memory into prompts.
-
-Mature agents **compile context**.
-
----
-
-### 6.2 Structured Context Frames
-
-A well-formed context separates concerns:
-
-* System goals and constraints
-* Semantic ground truths
-* Relevant episodes
-* Preferences
-* Applicable procedures
-
-This enables predictable behavior.
-
-**Further reading:**
-
-* [https://arxiv.org/abs/2307.03172](https://arxiv.org/abs/2307.03172) (Lost in the Middle: Context Position Effects)
+- **Context building / context compiler**: [`context-building.md`](./context-building.md)
 
 ---
 
@@ -330,8 +198,8 @@ Eviction is a **governance decision**.
 | Decay model     | None                        | N/A                        | Required                       |
 | Governance      | Minimal                     | External                   | Core concern                   |
 
-**RAG** answers *"What should I look up?"*
-**Tools** answer *"What can I do now?"*
+**RAG** answers *"What should I look up?"*  
+**Tools** answer *"What can I do now?"*  
 **Agent memory** answers *"What have I learned and how should it shape future behavior?"*
 
 ---
@@ -584,221 +452,8 @@ Engineers who design memory deliberately will build agents that are:
 
 ---
 
-## Appendix A — Memory Governance (Enterprise-Grade)
+## Appendix: moved into dedicated pages
 
-This appendix is a practical checklist for making memory safe, auditable, and operable in real systems.
+- **Memory governance checklist**: [`governance.md`](./governance.md)
+- **OSS framework memory patterns**: [`frameworks.md`](./frameworks.md)
 
-### A.1 Governance Goals
-
-* **User trust:** predictable use of remembered information
-* **Safety:** prevent prompt injection and policy bypass
-* **Privacy:** consent, minimization, and deletion
-* **Compliance:** retention, audit trails, access control
-* **Operational resilience:** versioning, rollbacks, incident response
-
----
-
-### A.2 Memory Classification and Data Handling
-
-Classify memory at ingestion:
-
-* **PII / sensitive personal data** (names, phone, health, precise location)
-* **Confidential business data** (contracts, financials, customer records)
-* **Public / non-sensitive**
-
-Controls by class:
-
-* Encryption at rest + in transit
-* Field-level redaction (mask or drop)
-* Per-tenant isolation
-* Strict retention defaults for sensitive classes
-
----
-
-### A.3 Consent, Transparency, and User Controls
-
-Minimum recommended features:
-
-* **Explicit “remember / forget”** operations
-* **Memory viewer** (what is stored, confidence, last used)
-* **Deletion semantics:** hard delete for user-requested removal; tombstone + audit for system records
-* **Scope controls:** per-app vs global; per-domain vs universal
-
----
-
-### A.4 Access Control and Scoping
-
-Model memory access like any other privileged data:
-
-* Authentication + authorization
-* Role-based access (RBAC) for operators
-* Contextual scoping (only retrieve within user/app/tenant)
-* Policy gating (procedural memory is often highest risk)
-
----
-
-### A.5 Retention, Decay, and Legal Holds
-
-* Default episodic TTL (e.g., 30–180 days) with archival options
-* Prefer **summaries** over raw transcripts for long retention
-* Semantic facts are **versioned** with effective dates
-* Support legal holds and audit retention where required
-
----
-
-### A.6 Provenance and Auditability
-
-Store the following for every memory inclusion:
-
-* Memory ID + type
-* Source (conversation/tool/system) + timestamp
-* Confidence / freshness
-* Retrieval method and score
-* Reason for inclusion (salience tag)
-
-This enables:
-
-* Debugging
-* Compliance audits
-* “Why did the agent do that?” answers
-
----
-
-### A.7 Security Hardening: Memory as an Attack Surface
-
-* Treat retrieved memory as **untrusted input**
-* Strip/neutralize instructions inside retrieved text
-* Enforce tool allowlists and policy precedence
-* Rate-limit and monitor memory writes (poisoning attempts)
-
----
-
-## Appendix B — Memory in Open-Source Agent Frameworks
-
-This appendix highlights how two popular OSS agent frameworks model memory, with practical pros/cons.
-
-### B.1 LangGraph (LangChain) — State, Threads, and Checkpointed Persistence
-
-**What the framework provides**
-
-* **Short-term memory** as part of the agent/graph **state**.
-* **Persistence** via **checkpointers** that checkpoint graph state to a **thread** at each super-step, enabling resuming, time-travel, and post-run inspection.
-
-**Primary references**
-
-* LangGraph Persistence: [https://langchain-ai.github.io/langgraph/concepts/persistence/](https://langchain-ai.github.io/langgraph/concepts/persistence/)
-* LangGraph Memory: [https://langchain-ai.github.io/langgraph/concepts/memory/](https://langchain-ai.github.io/langgraph/concepts/memory/)
-
-**How it maps to the memory lifecycle**
-
-* Identify: application-defined (you decide what to write into state)
-* Store: state checkpoints (threaded)
-* Retrieve: load thread state; optionally long-term memory stores
-* Compose: state acts as the structured context carrier
-* Decay/Evict: mostly application-owned (retention policies depend on your checkpointer backend)
-
-**Pros**
-
-* Strong **state-first** design encourages structured context
-* Persistence enables **debugging**, **HITL**, and **resumability**
-* Works well for deterministic workflows + agent loops
-
-**Cons / gotchas**
-
-* Long-term memory governance (decay/eviction, provenance) is largely **your responsibility**
-* Without discipline, state can become an untyped “junk drawer”
-
----
-
-### B.2 CrewAI — Built-in Memory Types + External Memory Providers
-
-**What the framework provides**
-
-* A “basic” memory system with multiple memory types (short-term, long-term, entity memory) and support for external memory providers.
-
-**Primary references**
-
-* CrewAI Memory: [https://docs.crewai.com/concepts/memory](https://docs.crewai.com/concepts/memory)
-* CrewAI Crews: [https://docs.crewai.com/concepts/crews](https://docs.crewai.com/concepts/crews)
-
-**How it maps to the memory lifecycle**
-
-* Identify: framework-supported (agent/task interactions are candidates)
-* Store: framework-managed stores + optional external providers
-* Retrieve: injected as context during execution
-* Compose: convenience-oriented; can be less explicit than a “context compiler”
-* Decay/Evict: varies by provider; must be designed for production use
-
-**Pros**
-
-* Clear developer ergonomics: memory is a first-class concept
-* Distinct memory types reduce “everything is a chunk” behavior
-
-**Cons / gotchas**
-
-* Production-grade governance (provenance, retention, redaction) depends on your chosen storage/provider
-* Context assembly can become opaque if not instrumented
-
----
-
-### B.3 (Optional) AutoGen — Memory as RAG Patterns and Ecosystem Extensions
-
-AutoGen documents memory largely through a RAG lens ("retrieve useful facts and add to context") and supports ecosystem integrations.
-
-**Primary references**
-
-* AutoGen Memory: [https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/memory.html](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/memory.html)
-
-**Commentary**
-
-* Good fit for teams starting with RAG-centric “memory.”
-* For full agent memory management, you will still need explicit lifecycle controls (promotion, decay, eviction, provenance).
-
----
-
-### B.4 Semantic Kernel — Memory Stores, Skills, and Planner-Centric Context
-
-**What the framework provides**
-
-Semantic Kernel (SK) treats memory primarily as a **semantic recall system** integrated with skills and planners. Memory is externalized via **memory stores** (vector databases) and accessed through APIs such as `SaveInformationAsync` and `SearchAsync`.
-
-Memory is typically:
-
-* Semantic (facts, summaries, notes)
-* Vector-based
-* Skill- or planner-consumed rather than agent-state-centric
-
-**Primary references**
-
-* Semantic Kernel Vector Store Connectors: [https://learn.microsoft.com/en-us/semantic-kernel/concepts/vector-store-connectors/](https://learn.microsoft.com/en-us/semantic-kernel/concepts/vector-store-connectors/)
-* Semantic Kernel Planning: [https://learn.microsoft.com/en-us/semantic-kernel/concepts/planning](https://learn.microsoft.com/en-us/semantic-kernel/concepts/planning)
-* Semantic Kernel Overview: [https://learn.microsoft.com/en-us/semantic-kernel/](https://learn.microsoft.com/en-us/semantic-kernel/)
-
-**How it maps to the memory lifecycle**
-
-* **Identify:** Application-driven; developers decide what to write to memory (often summaries or extracted facts)
-* **Store:** Vector memory stores (Azure AI Search, Qdrant, Pinecone, etc.)
-* **Retrieve:** Similarity search scoped by collection / namespace
-* **Compose:** Retrieved memories are injected into prompts via skills or planners
-* **Decay:** Not native; must be implemented at the store or application layer
-* **Evict:** Manual or store-level (TTL, deletion by key/collection)
-
-**Pros**
-
-* Clear, explicit APIs for semantic memory
-* Strong alignment with enterprise .NET / Azure ecosystems
-* Clean separation between skills, planners, and memory access
-
-**Cons / gotchas**
-
-* Memory is largely **semantic-only**; episodic and preference memory require custom modeling
-* No built-in promotion, decay, or provenance model
-* Context composition remains mostly prompt-oriented unless extended
-
-**Architectural takeaway**
-
-Semantic Kernel excels as a **semantic memory + skill orchestration layer**, but teams building long-lived agentic systems should:
-
-* Add explicit episodic stores (event logs)
-* Layer preference modeling separately
-* Introduce a context compiler and governance controls above SK’s memory APIs

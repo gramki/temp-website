@@ -164,8 +164,8 @@ Seer's design is grounded in **Agent-Oriented Systems Modeling (AOSM)**, which p
 - [Enterprise Agent Platform Requirements](../requirements-enterprise-agentic-platform/README.md) — Bank-grade platform requirements
 
 ### Agent Concepts
-- [Agent Memory Management](../agentic-ai-concepts/agent-memory-management.md) — Memory types and lifecycle
-- [Knowledge vs Memory vs Context vs Session](../agentic-ai-concepts/knowledge-memory-context-session.md) — Terminology clarity
+- [Agent Memory Management](../agentic-ai-concepts/agent-memory/agent-memory-management.md) — Memory types and lifecycle
+- [Knowledge vs Memory vs Context vs Session](../agentic-ai-concepts/agent-memory/knowledge-memory-context-session.md) — Terminology clarity
 
 ---
 

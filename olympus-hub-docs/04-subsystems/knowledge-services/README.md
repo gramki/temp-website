@@ -109,7 +109,7 @@ From Seer requirements:
 
 - [Memory Services](../memory-services/README.md) — Memory vs. Knowledge
 - [Seer Context Assembly](../../../olympus-seer-docs/seer-design/subsystems/context-assembly-engine.md)
-- [Enterprise Knowledge vs Memory](../../../olympus-seer-docs/agentic-ai-concepts/enprise-knowledge-memory-other-data.md)
+- [Enterprise Knowledge vs Memory](../../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md)
 
 ---
 
