@@ -90,6 +90,7 @@ From the conceptual foundation:
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Explanation Service](./explanation-service.md) | Explanation generation and narrative assembly | 🔴 Stub |
+| [Enterprise Learning Services](./enterprise-learning-services.md) | Memory promotion to ETSL, pattern-to-knowledge workflows | 🔴 Stub |
 
 ---
 
@@ -442,13 +443,23 @@ The following concepts require detailed specification:
 
 | Concept | Description | Priority | Status |
 |---------|-------------|----------|--------|
-| **CAF-to-Memory-Store Contract** | Interface contract between CAF control plane and Enterprise Memory stores; how CAF delegates storage operations | P1 | ✅ Done |
-| **CAF Memory Store Catalog** | Registry of available memory stores, their capabilities, and how CAF selects/routes to appropriate stores | P1 | Pending |
-| **CAF Explainer Services** | Explanation generation APIs, audience formatting, counterfactual generation, narrative assembly | P1 | Pending |
-| **CAF Record Content Schema Repository** | Central registry for content type schemas (olympus://schemas/...), versioning, validation, evolution | P2 | Pending |
+| **CAF-to-Memory-Store Contract** | Interface contract between CAF control plane and Enterprise Memory stores | P1 | ✅ Done |
+| **CAF Store REST API** | Default read/write API for memory stores (order-tolerant, idempotent) | P1 | ✅ Done |
+| **CAF Memory Store Catalog** | Registry of available memory stores, capabilities, routing | P1 | Pending |
+| **CAF Explainer Services** | Explanation generation APIs, audience formatting, counterfactual generation | P1 | Pending |
+| **CAF Enterprise Learning Services** | Memory → ETSL promotion, pattern-to-knowledge workflows, governance gates | P1 | 🟡 Stub |
+| **CAF Record Content Schema Repository** | Central registry for content type schemas (olympus://schemas/...) | P2 | Pending |
+| **Procedural Memory Store** | Skill, learned-procedure record types and contracts | P2 | Pending |
+| **Preference Memory Store** | User/agent preference record types and contracts | P2 | Pending |
+
+### Completed
+- Episodic Memory Store — 9 record types, domain contracts, REST API
+- Semantic Memory Store — 6 record types, domain-scoped, evidence-grounded
+- Record relationships — case_id binding (episodic), workbench_id binding (semantic)
+- Typed content convention — MIME + versioned schemas
+- Human-readable serialization — JSON default
 
 ### Deferred Items
-- CAF write APIs (who calls whom) — *Deferred: specific to Enterprise Memory Store implementation*
-- Schema validation enforcement
-- Compliance mappings
+- Schema validation enforcement — depends on Schema Repository
+- Compliance mappings — regulatory-specific
 

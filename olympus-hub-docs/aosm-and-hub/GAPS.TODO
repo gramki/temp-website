@@ -51,26 +51,29 @@
 =======================================================
 
 # Hub — Cognitive Audit Fabric (CAF):
-    ## P0 (Blocking):
-        [x] HUB-CAF-001: CAF schema specification (DecisionRecord, EvidenceBundle, etc.) — DONE: All 8 record types defined with schemas
     ## P1 (High):
-        [x] HUB-CAF-002: CAF-to-Memory-Store Contract — DONE: memory-store-contract.md (CRD registration, HTTPS retrieval, JWS auth, views)
         [ ] HUB-CAF-003: CAF Memory Store Catalog — registry of stores, capabilities, routing logic
         [ ] HUB-CAF-004: CAF Explainer Services — explanation generation APIs, audience formatting, counterfactual generation
-        [ ] HUB-CAF-005: Context snapshot storage and ID lifecycle — where stored, how referenced
+        [ ] HUB-CAF-005: CAF Enterprise Learning Services — memory promotion to ETSL, pattern-to-knowledge workflows
     ## P2 (Medium):
         [ ] HUB-CAF-006: CAF Record Content Schema Repository — central registry (olympus://schemas/...), versioning, validation
         [ ] HUB-CAF-007: Context hashing for replay — reproducibility
         [ ] HUB-CAF-008: Legal holds representation and enforcement
         [ ] HUB-CAF-009: CAF as control plane for Knowledge Bank (not just Memory) — should CAF govern Knowledge?
         [ ] HUB-CAF-010: CAF explicit implementation of AOSM OPD requirements (Observability, Predictability, Directability)
-    ## Completed:
-        [x] Record relationships and traversal patterns — DONE: record-relationships.md
-        [x] UUID convention for all IDs — DONE: documented in all schemas
-        [x] case_id universal binding — DONE: all records navigable from case_id
-        [x] hub_metadata optional section — DONE: all records have Hub context fields
-        [x] Typed content convention with MIME types — DONE: content_type for structured fields
-        [x] Human-readable serialization requirement (JSON default) — DONE: documented in README
+    ## Completed (2026-01-07):
+        [x] HUB-CAF-001: Episodic Memory Store — 9 record types (Case, Decision, Evidence, Context, Outcome, Override, Handoff, Hypothesis, IncidentTimeline)
+        [x] HUB-CAF-002: CAF-to-Memory-Store Contract — CRD registration, reader/writer protocols, JWS auth
+        [x] HUB-CAF-011: Episodic record relationships and traversal patterns
+        [x] HUB-CAF-012: CAF Store REST API — order-tolerant, idempotent, de-duplicating writes
+        [x] HUB-CAF-013: Semantic Memory Store — 6 record types (Hypothesis, Pattern, Constraint, Finding, EntityBelief, RelationshipBelief)
+        [x] HUB-CAF-014: Semantic record relationships — entity-anchored, domain-scoped traversal
+        [x] UUID convention for all IDs — documented in all schemas
+        [x] case_id universal binding (episodic) — all records navigable from case_id
+        [x] workbench_id domain binding (semantic) — all records scoped to domain
+        [x] hub_metadata section — tenant/subscription/workbench context
+        [x] Typed content convention — MIME types + structured content_type for versioned schemas
+        [x] Human-readable serialization requirement — JSON default, YAML allowed, binary prohibited
 
 # Hub — Memory Services:
     ## P1 (High):
@@ -80,13 +83,13 @@
         [ ] HUB-MEM-004: PII classification + redaction strategy for fraud data — no classifier pipeline
         [ ] HUB-MEM-005: Agent Memory SDK/API and authentication/authorization
     ## P2 (Medium):
-        [ ] HUB-MEM-006: Promotion criteria and workflow (agent → enterprise memory) — who approves, what thresholds
+        [ ] HUB-MEM-006: Promotion criteria and workflow (memory → ETSL knowledge) — see HUB-CAF-005 Enterprise Learning Services
         [ ] HUB-MEM-007: Unified ESPP taxonomy across Enterprise Memory — Enterprise uses different types than Agent
         [ ] HUB-MEM-008: HandoffContext schema and task management UI/UX integration
-        [x] HUB-MEM-009: Semantic Memory Store contract — DONE: 6 record types (Hypothesis, Pattern, Constraint, Finding, EntityBelief, RelationshipBelief)
-        [ ] HUB-MEM-010: Procedural Memory Store contract — skill, pattern record types
+        [ ] HUB-MEM-010: Procedural Memory Store contract — skill, learned-procedure record types
         [ ] HUB-MEM-011: Preference Memory Store contract — user/agent preference record types
-        [ ] HUB-MEM-012: Hypothesis promotion workflow — episodic → semantic/procedural
+    ## Completed (2026-01-07):
+        [x] HUB-MEM-009: Semantic Memory Store — 6 record types defined, domain-scoped, evidence-grounded
 
 # Hub — Knowledge Services / Knowledge Bank:
     ## P1 (High):
@@ -175,25 +178,36 @@
 
 # Gap Counts by System:
     Seer:                  18 gaps (6 P0, 5 P1, 7 P2)
-    Hub:                   34 gaps (1 P0, 12 P1, 19 P2, 2 P3)  # Semantic Memory Store complete
+    Hub:                   27 gaps (0 P0, 8 P1, 17 P2, 2 P3)  # CAF schemas & contracts complete
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total:                 69 gaps (was 70, 1 more resolved)
+    Total:                 62 gaps (significant CAF progress)
 
 # Gap Counts by Priority:
-    P0 (Blocking):          7 gaps
-    P1 (High):             20 gaps
-    P2 (Medium):           34 gaps (was 35)
+    P0 (Blocking):          6 gaps (Hub P0s resolved)
+    P1 (High):             16 gaps
+    P2 (Medium):           32 gaps
     P3 (Low):               8 gaps
 
 # Recently Resolved (2026-01-07):
-    [x] HUB-CAF-001: CAF record schemas (9 episodic + 6 semantic = 15 record types)
-    [x] HUB-CAF-002: CAF-to-Memory-Store Contract (CRD registration, reader/writer protocols, JWS auth)
-    [x] HUB-CAF-011: Record relationships and traversal patterns
-    [x] HUB-CAF-012: CAF Store REST API (order-tolerant, idempotent, de-duplicating)
-    [x] HUB-MEM-009: Semantic Memory Store (6 record types: Hypothesis, Pattern, Constraint, Finding, EntityBelief, RelationshipBelief)
+    ## Episodic Memory Store (Complete):
+        [x] HUB-CAF-001: 9 record types (Case, Decision, Evidence, Context, Outcome, Override, Handoff, Hypothesis, IncidentTimeline)
+        [x] HUB-CAF-002: Memory Store Contract (CRD registration, reader/writer protocols, JWS auth)
+        [x] HUB-CAF-011: Record relationships — case_id anchored traversal
+        [x] HUB-CAF-012: CAF Store REST API — order-tolerant, idempotent, de-duplicating
+    
+    ## Semantic Memory Store (Complete):
+        [x] HUB-CAF-013: 6 record types (Hypothesis, Pattern, Constraint, Finding, EntityBelief, RelationshipBelief)
+        [x] HUB-CAF-014: Record relationships — entity-anchored, domain(workbench)-scoped
+        [x] HUB-MEM-009: Domain binding (hub_metadata to workbench level)
+    
+    ## Cross-Cutting:
+        [x] UUID convention for all record IDs
+        [x] Typed content convention (MIME + versioned schemas)
+        [x] Human-readable serialization (JSON default)
+        [x] hub_metadata section standardized
 
 
 =======================================================
@@ -204,7 +218,8 @@
     [ ] Finalize Seer Training Spec and Employment Spec schemas
     [ ] Define Seer runtime deployment model
     [ ] Specify Hub ↔ Seer integration (how Hub invokes Seer agents)
-    [x] Finalize CAF schema (DecisionRecord, EvidenceBundle) — DONE: All 8 record types
+    [x] Finalize CAF Episodic Memory Store — DONE: 9 record types + contracts + APIs
+    [x] Finalize CAF Semantic Memory Store — DONE: 6 record types + relationships
     [ ] Define Context Assembly Engine SDK
 
 # Phase 2: Enable Core Features (P1):
@@ -212,9 +227,13 @@
     [ ] Define Knowledge Bank retrieval API
     [ ] Implement human-in-loop checkpoint pattern
     [ ] Specify credential injection for agents
-    [ ] Define Explanation Service API
+    [ ] Define CAF Explainer Services API
+    [ ] Define CAF Memory Store Catalog
 
 # Phase 3: Polish and Governance (P2+):
+    [ ] CAF Enterprise Learning Services (memory → ETSL promotion)
+    [ ] Procedural Memory Store contract
+    [ ] Preference Memory Store contract
     [ ] ETSL integration design
     [ ] Unified ESPP memory taxonomy
     [ ] CAF as OPD control plane
