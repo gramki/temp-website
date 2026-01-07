@@ -39,7 +39,7 @@ From the conceptual foundation:
 | Memory Class | Folder | Description | Status |
 |--------------|--------|-------------|--------|
 | **Episodic** | [episodic-memory-store/](./episodic-memory-store/) | Event-based, time-ordered, case-bound records | 🟡 Draft |
-| Semantic | *Future* | Facts, entities, relationships | 🔴 Planned |
+| **Semantic** | [semantic-memory-store/](./semantic-memory-store/) | Learned beliefs, patterns, probabilistic inferences | 🟡 Draft |
 | Procedural | *Future* | Skills, patterns, procedures | 🔴 Planned |
 | Preference | *Future* | User/agent preferences | 🔴 Planned |
 
@@ -66,6 +66,25 @@ From the conceptual foundation:
 | [Handoff Context](./episodic-memory-store/handoff-context.md) | State transfer between agents | 🟡 Draft |
 | [Hypothesis Records](./episodic-memory-store/hypothesis-records.md) | Learned patterns (bridge to Semantic) | 🟡 Draft |
 | [Incident Timelines](./episodic-memory-store/incident-timelines.md) | Chronological event sequences | 🟡 Draft |
+
+### Semantic Memory Store
+
+> Learned beliefs, patterns, and probabilistic inferences. Domain-scoped (workbench), not case-bound. See [semantic-memory-store/README.md](./semantic-memory-store/README.md) for full documentation.
+
+#### Contracts & APIs
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Record Relationships](./semantic-memory-store/record-relationships.md) | Entity-anchored traversal patterns | 🟡 Draft |
+
+#### Record Schemas (6 types)
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Hypothesis Records](./semantic-memory-store/hypothesis-records.md) | Patterns pending promotion to knowledge | 🟡 Draft |
+| [Pattern Summary](./semantic-memory-store/pattern-summary.md) | Recurring patterns with conditions | 🟡 Draft |
+| [Learned Constraints](./semantic-memory-store/learned-constraints.md) | Advisory "avoid X when Y" guidelines | 🟡 Draft |
+| [Evaluation Findings](./semantic-memory-store/evaluation-findings.md) | Benchmark and test results | 🟡 Draft |
+| [Entity Beliefs](./semantic-memory-store/entity-beliefs.md) | Probabilistic entity attributes | 🟡 Draft |
+| [Relationship Beliefs](./semantic-memory-store/relationship-beliefs.md) | Inferred entity connections | 🟡 Draft |
 
 ### CAF Services
 | Document | Description | Status |

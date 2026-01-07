@@ -83,7 +83,7 @@
         [ ] HUB-MEM-006: Promotion criteria and workflow (agent → enterprise memory) — who approves, what thresholds
         [ ] HUB-MEM-007: Unified ESPP taxonomy across Enterprise Memory — Enterprise uses different types than Agent
         [ ] HUB-MEM-008: HandoffContext schema and task management UI/UX integration
-        [ ] HUB-MEM-009: Semantic Memory Store contract — entity, fact, relationship record types
+        [x] HUB-MEM-009: Semantic Memory Store contract — DONE: 6 record types (Hypothesis, Pattern, Constraint, Finding, EntityBelief, RelationshipBelief)
         [ ] HUB-MEM-010: Procedural Memory Store contract — skill, pattern record types
         [ ] HUB-MEM-011: Preference Memory Store contract — user/agent preference record types
         [ ] HUB-MEM-012: Hypothesis promotion workflow — episodic → semantic/procedural
@@ -175,24 +175,25 @@
 
 # Gap Counts by System:
     Seer:                  18 gaps (6 P0, 5 P1, 7 P2)
-    Hub:                   35 gaps (1 P0, 12 P1, 20 P2, 2 P3)  # Added 4 memory store contracts
+    Hub:                   34 gaps (1 P0, 12 P1, 19 P2, 2 P3)  # Semantic Memory Store complete
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total:                 70 gaps (added 4 for other memory classes)
+    Total:                 69 gaps (was 70, 1 more resolved)
 
 # Gap Counts by Priority:
     P0 (Blocking):          7 gaps
     P1 (High):             20 gaps
-    P2 (Medium):           35 gaps (+4)
+    P2 (Medium):           34 gaps (was 35)
     P3 (Low):               8 gaps
 
 # Recently Resolved (2026-01-07):
-    [x] HUB-CAF-001: CAF record schemas (9 record types with full schemas, including CaseRecord)
+    [x] HUB-CAF-001: CAF record schemas (9 episodic + 6 semantic = 15 record types)
     [x] HUB-CAF-002: CAF-to-Memory-Store Contract (CRD registration, reader/writer protocols, JWS auth)
     [x] HUB-CAF-011: Record relationships and traversal patterns
     [x] HUB-CAF-012: CAF Store REST API (order-tolerant, idempotent, de-duplicating)
+    [x] HUB-MEM-009: Semantic Memory Store (6 record types: Hypothesis, Pattern, Constraint, Finding, EntityBelief, RelationshipBelief)
 
 
 =======================================================
