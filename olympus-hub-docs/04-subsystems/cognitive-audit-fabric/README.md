@@ -34,11 +34,36 @@ From the conceptual foundation:
 
 ## Subsystem Documents
 
+### Core Records
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Decision Records](./decision-records.md) | Catalog and schema for decision journaling | 🔴 Stub |
-| [Explanation Service](./explanation-service.md) | Explanation generation and narrative assembly | 🔴 Stub |
 | [Evidence Bundles](./evidence-bundles.md) | Catalog and schema for evidence packaging | 🔴 Stub |
+| [Context Snapshots](./context-snapshots.md) | Compiled context for each agent turn | 🔴 Stub |
+
+### Lifecycle & Feedback Records
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Outcome Records](./outcome-records.md) | Track what happened after decisions | 🔴 Stub |
+| [Override Records](./override-records.md) | Document manual overrides with accountability | 🔴 Stub |
+| [Handoff Context](./handoff-context.md) | State transfer between agents | 🔴 Stub |
+
+### Learning & Investigation Records
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Hypothesis Records](./hypothesis-records.md) | Learned patterns pending promotion to knowledge | 🔴 Stub |
+| [Incident Timelines](./incident-timelines.md) | Chronological event sequences for investigation | 🔴 Stub |
+
+### Services
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Explanation Service](./explanation-service.md) | Explanation generation and narrative assembly | 🔴 Stub |
+
+### Cross-Cutting
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Record Relationships](./record-relationships.md) | How records link and traversal patterns | 🟡 Draft |
+| [Memory Store Contract](./memory-store-contract.md) | CAF ↔ Memory Store interface (registration, retrieval, auth) | 🟡 Draft |
 
 ---
 
@@ -61,11 +86,14 @@ From the conceptual foundation:
 │  ┌─────────────────────────────────────────────────────────┐    │
 │  │                     CATALOGS                             │    │
 │  │                                                          │    │
-│  │  ┌───────────────────┐  ┌───────────────────┐           │    │
-│  │  │ Decision Record   │  │ Evidence Bundle   │           │    │
-│  │  │ Catalog           │  │ Catalog           │           │    │
-│  │  │ (metadata, refs)  │  │ (metadata, refs)  │           │    │
-│  │  └───────────────────┘  └───────────────────┘           │    │
+│  │  Core:          Decision Records | Evidence Bundles      │    │
+│  │                 Context Snapshots                         │    │
+│  │                                                          │    │
+│  │  Lifecycle:     Outcome Records | Override Records       │    │
+│  │                 Handoff Context                           │    │
+│  │                                                          │    │
+│  │  Learning:      Hypothesis Records | Incident Timelines  │    │
+│  │                                                          │    │
 │  └─────────────────────────────────────────────────────────┘    │
 │                                                                  │
 │  ┌─────────────────────────────────────────────────────────┐    │
@@ -88,6 +116,193 @@ From the conceptual foundation:
 │  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Record Binding Conventions
+
+### ID Format (UUID v4)
+
+All CAF record identifiers use **UUID v4** format:
+
+```yaml
+id: uuid           # e.g., "550e8400-e29b-41d4-a716-446655440000"
+case_id: uuid      # Universal binding anchor
+*_id: uuid         # All foreign key references
+```
+
+| Principle | Description |
+|-----------|-------------|
+| **Uniqueness** | UUIDs are globally unique across all systems |
+| **Opacity** | No semantic meaning encoded (unlike sequential IDs) |
+| **Decentralization** | Can be generated without coordination |
+| **Immutability** | IDs never change after creation |
+
+### Case ID (Universal Binding)
+
+All CAF records include a **`case_id`** field as a universal binding identifier:
+
+```yaml
+case_id: string  # Universal binding ID (= hub request_id when Hub-originated)
+```
+
+| Context | case_id Value |
+|---------|---------------|
+| **Hub-originated** | Same as `hub_metadata.request_id` |
+| **External system** | External case/ticket/reference ID |
+| **Standalone agent** | Agent-assigned correlation ID |
+
+This enables:
+- **Cross-record correlation** regardless of origin system
+- **Mixed-origin cases** (some records from Hub, some from external systems)
+- **System-agnostic queries** ("all records for case X")
+
+### Hub Metadata (Optional)
+
+All CAF records include an **optional** `hub_metadata` section that captures the Hub context in which the record was created:
+
+```yaml
+hub_metadata:
+  tenant_id: string              # Tenant identifier
+  subscription_id: string        # Subscription within tenant
+  workbench_id: string           # Workbench where event occurred
+  scenario_id: string            # Scenario governing this record
+  request_id: string             # Hub Request this record belongs to
+  parent_request_id: string      # Parent request if nested (optional)
+```
+
+| Field | Description | Always Present? |
+|-------|-------------|-----------------|
+| `tenant_id` | Top-level organizational boundary | Yes |
+| `subscription_id` | Subscription within tenant | Yes |
+| `workbench_id` | Workbench context for the operation | Yes |
+| `scenario_id` | Scenario that governed the behavior | Context-dependent |
+| `request_id` | Hub Request ID for traceability | Context-dependent |
+| `parent_request_id` | For nested/sub-requests | Only when applicable |
+
+**Why optional?** CAF records may be created outside of Hub context (e.g., by standalone agents or external systems). When present, `hub_metadata` enables:
+- Cross-record correlation (all records for a request)
+- Workbench-scoped queries and dashboards
+
+### Typed Content Convention
+
+For fields containing structured data (objects, arrays with complex items), CAF uses a **typed content** pattern with content type metadata:
+
+#### Typed Content Wrapper
+
+```yaml
+typed_content:
+  content: object | array | string   # The actual content
+  content_type:
+    # MIME-compatible string (for interoperability)
+    mime: string                     # e.g., "application/vnd.olympus.caf.decision-factors.v1+json"
+    
+    # Structured form (for programmatic access)
+    format: string                   # Serialization: json (default) | yaml
+    schema: string                   # Fully qualified type: olympus.caf.decision-factors
+    schema_version: string           # Semantic version: "1.0.0"
+    schema_uri: string               # Optional: resolvable schema location
+```
+
+#### MIME Type Format
+
+CAF uses **vendor MIME types** (RFC 6838 compliant) for schema+version encoding:
+
+```
+application/vnd.olympus.<namespace>.<type>.v<major>+<format>
+```
+
+| Component | Description | Example |
+|-----------|-------------|---------|
+| `vnd.olympus` | Vendor prefix | Required |
+| `<namespace>` | Subsystem namespace | `caf`, `seer`, `hub` |
+| `<type>` | Schema type name | `decision-factors`, `evidence-bundle` |
+| `v<major>` | Major version | `v1`, `v2` |
+| `+<format>` | Serialization suffix | `+json`, `+yaml` |
+
+**Examples:**
+- `application/vnd.olympus.caf.decision-factors.v1+json`
+- `application/vnd.olympus.caf.entity-snapshot.v2+json`
+- `application/vnd.olympus.seer.agent-memory.v1+yaml`
+
+#### Serialization Format Requirements
+
+**CAF records MUST use human-readable serialization formats.** This is a design requirement to support:
+- Manual inspection during debugging and investigation
+- Audit review without specialized tooling
+- Log analysis and troubleshooting
+- Regulatory examination and discovery
+
+| Format | Status | Use Case |
+|--------|--------|----------|
+| **JSON** | ✅ **Default** | All CAF records unless specified otherwise |
+| **YAML** | ✅ Allowed | Configuration-heavy content, multi-line text |
+| **XML** | ⚠️ Legacy only | Integration with legacy systems |
+| **Binary (CBOR, Protobuf, etc.)** | ❌ **Not allowed** | Use only in performance-critical non-CAF contexts |
+
+**Default Rule:** When `format` is not specified, assume **JSON**.
+
+```yaml
+# Preferred - explicit JSON
+content_type:
+  mime: "application/vnd.olympus.caf.decision-factors.v1+json"
+  format: json
+  schema: olympus.caf.decision-factors
+  schema_version: "1.0.0"
+
+# Also valid - format defaults to json when omitted
+content_type:
+  mime: "application/vnd.olympus.caf.decision-factors.v1+json"
+  schema: olympus.caf.decision-factors
+  schema_version: "1.0.0"
+```
+
+**Rationale:** CAF exists for audit, explanation, and institutional learning. Binary formats optimize for machine efficiency at the cost of human legibility—the opposite of CAF's mission. The marginal storage/bandwidth savings do not justify the loss of inspectability.
+
+#### Why Structured Form Too?
+
+Standard MIME types have limitations:
+- Cannot express **minor/patch versions** (only major in suffix)
+- Cannot include **schema URI** for resolution
+- Parsing type components requires string manipulation
+
+The structured form provides:
+
+| Need | MIME Limitation | Structured Solution |
+|------|-----------------|---------------------|
+| **Full semver** | Only major version | `schema_version: "1.2.3"` |
+| **Schema resolution** | No URI support | `schema_uri: "olympus://schemas/..."` |
+| **Programmatic access** | String parsing required | Direct field access |
+| **Format negotiation** | Coupled with type | Separate `format` field |
+
+#### Schema Registry
+
+Content types reference schemas in the **CAF Schema Registry**:
+
+```
+olympus://schemas/<namespace>/<type>/v<version>
+```
+
+Example: `olympus://schemas/caf/decision-factors/v1.0.0`
+
+The registry provides:
+- Schema definitions (JSON Schema, Avro, Protobuf)
+- Version history and compatibility matrix
+- Validation endpoints
+- Documentation links
+
+#### When to Use Typed Content
+
+| Field Type | Use Typed Content? | Rationale |
+|------------|-------------------|-----------|
+| Simple scalars | No | String, number, boolean need no typing |
+| Enums | No | Type is self-evident |
+| Domain objects | **Yes** | May evolve, need version tracking |
+| Extensible arrays | **Yes** | Item types may vary |
+| External data | **Yes** | Schema unknown at design time |
+| Model I/O | **Yes** | Model-specific formats |
+- Scenario-level analytics and auditing
+- Request-level traceability across systems
 
 ---
 
@@ -127,13 +342,28 @@ Reconstruct decisions with original context:
 
 CAF enables answering the critical questions:
 
+### Decision & Audit Questions
 | Question | CAF Component |
 |----------|---------------|
 | *"What was decided?"* | Decision Records |
 | *"Why was it decided?"* | Decision Records + Explanation Service |
-| *"What was known at the time?"* | Evidence Bundles |
+| *"What was known at the time?"* | Evidence Bundles + Context Snapshots |
 | *"What would have happened otherwise?"* | Counterfactual Generator |
 | *"Can we prove this was reasonable?"* | Explanation Service + Evidence Bundles |
+
+### Outcome & Learning Questions
+| Question | CAF Component |
+|----------|---------------|
+| *"Did the decision work?"* | Outcome Records |
+| *"Who overrode it and why?"* | Override Records |
+| *"What patterns are we seeing?"* | Hypothesis Records |
+
+### Investigation & Continuity Questions
+| Question | CAF Component |
+|----------|---------------|
+| *"What happened in sequence?"* | Incident Timelines |
+| *"What context did the agent have?"* | Context Snapshots |
+| *"What does the next agent need to know?"* | Handoff Context |
 
 ---
 
@@ -178,5 +408,21 @@ From the Todo notes:
 
 ---
 
-*TODO: Detailed design — CAF schema, explanation templates, linking semantics, compliance mappings*
+---
+
+## TODO: Concepts to Clarify
+
+The following concepts require detailed specification:
+
+| Concept | Description | Priority | Status |
+|---------|-------------|----------|--------|
+| **CAF-to-Memory-Store Contract** | Interface contract between CAF control plane and Enterprise Memory stores; how CAF delegates storage operations | P1 | ✅ Done |
+| **CAF Memory Store Catalog** | Registry of available memory stores, their capabilities, and how CAF selects/routes to appropriate stores | P1 | Pending |
+| **CAF Explainer Services** | Explanation generation APIs, audience formatting, counterfactual generation, narrative assembly | P1 | Pending |
+| **CAF Record Content Schema Repository** | Central registry for content type schemas (olympus://schemas/...), versioning, validation, evolution | P2 | Pending |
+
+### Deferred Items
+- CAF write APIs (who calls whom) — *Deferred: specific to Enterprise Memory Store implementation*
+- Schema validation enforcement
+- Compliance mappings
 

@@ -244,8 +244,8 @@ Storage Services
 # Congntive Workload Related Services:
 
     ## AOSM Architecture and Concepts:
-        [ ] Pull AOSM outside of Seer and Hub; This is a generic architecture and concepts for Agent-Oriented Systems;
-        [ ] Map Hub Workbench to AOS and as Human-AI Team Collaboration Sustrate
+        ✔ Pull AOSM outside of Seer and Hub; This is a generic architecture and concepts for Agent-Oriented Systems; @done(26-01-07 15:14)
+        ✔ Map Hub Workbench to AOS and as Human-AI Team Collaboration Sustrate @done(26-01-07 15:14)
 
     ## Hub and Seer Concepts integration:
         [ ] Case Automation Model and the Case Automation Engine (Seer Case Automation)
@@ -265,7 +265,7 @@ Storage Services
         [ ] Enterprise Memory Storage Services as part of Seer
         [ ] Workbench Enterprise Memory Stores to CAF Memory mapping
         [ ] Workbench serving as CAF Memory Provider
-        [ ] CAF is module under Seer SaaS Suite;
+        [ ] CAF is module under Hub;
         [ ] Enterprise Memory Services as moduels under Seer SaaS Suite
         [ ] Decision journaling in CAF
     ## CAF Integration:

@@ -73,6 +73,10 @@ All ADRs follow the standard format:
 | [0049](./0049-git-as-storage-manual-sync.md) | Git as storage with manual sync triggers | Accepted | 2026-01-06 | artifact-registry |
 | [0050](./0050-test-runner-as-hub-application.md) | Hub Test Runner as Hub Application on Atlantis | Accepted | 2026-01-06 | ci-subsystem |
 | [0051](./0051-developer-responsibility-stubbing.md) | Developer responsibility for machine/tool stubbing | Accepted | 2026-01-06 | ci-subsystem |
+| [0052](./0052-caf-record-type-taxonomy.md) | CAF defines 8 record types in 3 categories | Accepted | 2026-01-07 | caf |
+| [0053](./0053-caf-record-id-traversal.md) | UUID IDs, case_id binding, traversal conventions | Accepted | 2026-01-07 | caf |
+| [0054](./0054-caf-typed-content-convention.md) | MIME-based content typing with human-readable formats | Accepted | 2026-01-07 | caf |
+| [0055](./0055-caf-memory-store-contract.md) | CRD registration, HTTPS retrieval, JWS auth for memory stores | Accepted | 2026-01-07 | caf |
 
 ---
 
@@ -156,6 +160,13 @@ All ADRs follow the standard format:
 ### CI Subsystem
 - [0050](./0050-test-runner-as-hub-application.md) - Hub Test Runner as Hub Application on Atlantis
 - [0051](./0051-developer-responsibility-stubbing.md) - Developer responsibility for machine/tool stubbing
+
+### Cognitive Audit Fabric (CAF)
+- [0029](./0029-caf-control-plane.md) - CAF as control plane for Memory Services (not storage)
+- [0052](./0052-caf-record-type-taxonomy.md) - 8 record types in 3 categories (Core, Lifecycle, Learning)
+- [0053](./0053-caf-record-id-traversal.md) - UUID IDs, case_id universal binding, traversal patterns
+- [0054](./0054-caf-typed-content-convention.md) - MIME-based content typing, human-readable serialization
+- [0055](./0055-caf-memory-store-contract.md) - CRD registration, HTTPS retrieval, JWS authentication
 
 ---
 

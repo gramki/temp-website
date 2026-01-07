@@ -1,0 +1,226 @@
+# Consolidated Gaps — AOSM, Hub, and Seer Integration
+# Consolidated from: fraud-case-agent-build-task-list-opus.md, fraud-case-agent-build-task-list-gpt.md, design-gap-analysis.md, aos-hub-journal-story-todo.md
+# Last Updated: 2026-01-07
+# Organization: System → Subsystem → Priority
+
+
+=======================================================
+********* SEER *********
+=======================================================
+
+# Seer — Agent Lifecycle Service:
+    ## P0 (Blocking):
+        [ ] SEER-ALS-001: Training Spec CRD schema not finalized — cannot create Training Spec
+        [ ] SEER-ALS-002: Employment Spec CRD schema not finalized — cannot create Employment Spec
+        [ ] SEER-ALS-003: Raw Agent deployment model (containers, serverless) needs specification
+        [ ] SEER-ALS-004: Agent registration and lifecycle API needs specification
+    ## P1 (High):
+        [ ] SEER-ALS-005: Guardrail definition format and enforcement mechanism needs specification
+        [ ] SEER-ALS-006: Authority enforcement at runtime — how Seer enforces delegation limits
+
+# Seer — Context Assembly Engine:
+    ## P0 (Blocking):
+        [ ] SEER-CAE-001: Context Assembly Engine APIs (compile context, retrieval adapters, ranking, truncation, provenance) — currently placeholder
+    ## P1 (High):
+        [ ] SEER-CAE-003: SDK/API for retrieving from Hub Memory Services
+    ## P2 (Medium):
+        [ ] SEER-CAE-002: Token budgeting algorithms for large context windows
+
+# Seer — Runtime & Deployment:
+    ## P0 (Blocking):
+        [ ] SEER-RTD-001: Seer runtime infrastructure details incomplete — cannot deploy agent
+    ## P1 (High):
+        [ ] SEER-RTD-002: Container deployment specification for Seer runtime
+        [ ] SEER-RTD-003: Model Gateway integration (model routing, failover) — documented but incomplete
+
+# Seer — Agent Observability:
+    ## P2 (Medium):
+        [ ] SEER-OBS-001: Seer observability SDK specification incomplete
+        [ ] SEER-OBS-002: Integration with Olympus Watch needs clarification
+
+# Seer — Agent Evaluation:
+    ## P2 (Medium):
+        [ ] SEER-EVL-001: Agent Evaluation Service API specification incomplete
+        [ ] SEER-EVL-002: CI/CD integration for agent testing — quality gates
+        [ ] SEER-EVL-003: Sandbox environment provisioning — how sandbox is created
+        [ ] SEER-EVL-004: Deterministic replay harness — replay decisions using stored evidence
+
+
+=======================================================
+********* HUB *********
+=======================================================
+
+# Hub — Cognitive Audit Fabric (CAF):
+    ## P0 (Blocking):
+        [x] HUB-CAF-001: CAF schema specification (DecisionRecord, EvidenceBundle, etc.) — DONE: All 8 record types defined with schemas
+    ## P1 (High):
+        [x] HUB-CAF-002: CAF-to-Memory-Store Contract — DONE: memory-store-contract.md (CRD registration, HTTPS retrieval, JWS auth, views)
+        [ ] HUB-CAF-003: CAF Memory Store Catalog — registry of stores, capabilities, routing logic
+        [ ] HUB-CAF-004: CAF Explainer Services — explanation generation APIs, audience formatting, counterfactual generation
+        [ ] HUB-CAF-005: Context snapshot storage and ID lifecycle — where stored, how referenced
+    ## P2 (Medium):
+        [ ] HUB-CAF-006: CAF Record Content Schema Repository — central registry (olympus://schemas/...), versioning, validation
+        [ ] HUB-CAF-007: Context hashing for replay — reproducibility
+        [ ] HUB-CAF-008: Legal holds representation and enforcement
+        [ ] HUB-CAF-009: CAF as control plane for Knowledge Bank (not just Memory) — should CAF govern Knowledge?
+        [ ] HUB-CAF-010: CAF explicit implementation of AOSM OPD requirements (Observability, Predictability, Directability)
+    ## Completed:
+        [x] Record relationships and traversal patterns — DONE: record-relationships.md
+        [x] UUID convention for all IDs — DONE: documented in all schemas
+        [x] case_id universal binding — DONE: all records navigable from case_id
+        [x] hub_metadata optional section — DONE: all records have Hub context fields
+        [x] Typed content convention with MIME types — DONE: content_type for structured fields
+        [x] Human-readable serialization requirement (JSON default) — DONE: documented in README
+
+# Hub — Memory Services:
+    ## P1 (High):
+        [ ] HUB-MEM-001: Memory Services query API specification — cannot retrieve precedent
+        [ ] HUB-MEM-002: Memory indexing and search (semantic + filter) implementation details
+        [ ] HUB-MEM-003: Retention and deletion semantics (PII, legal hold) — compliance risk
+        [ ] HUB-MEM-004: PII classification + redaction strategy for fraud data — no classifier pipeline
+        [ ] HUB-MEM-005: Agent Memory SDK/API and authentication/authorization
+    ## P2 (Medium):
+        [ ] HUB-MEM-006: Promotion criteria and workflow (agent → enterprise memory) — who approves, what thresholds
+        [ ] HUB-MEM-007: Unified ESPP taxonomy across Enterprise Memory — Enterprise uses different types than Agent
+        [ ] HUB-MEM-008: HandoffContext schema and task management UI/UX integration
+
+# Hub — Knowledge Services / Knowledge Bank:
+    ## P1 (High):
+        [ ] HUB-KNW-001: Knowledge Bank ingress pipelines, chunking strategies, retrieval algorithms — RAG setup unclear
+        [ ] HUB-KNW-002: Knowledge Bank retrieval API specification — cannot retrieve policy
+    ## P2 (Medium):
+        [ ] HUB-KNW-003: Chunking and embedding strategies for policy documents
+        [ ] HUB-KNW-004: Provenance tracking for retrieved chunks — source tracking for RAG
+        [ ] HUB-KNW-005: Policy versioning and approval workflow integration
+        [ ] HUB-KNW-006: CLI/API/CRD for Knowledge Bank creation and document ingestion — subsystem marked stub
+        [ ] HUB-KNW-007: Knowledge base reference integration with Seer Training Spec
+    ## P3 (Low):
+        [ ] HUB-KNW-008: Structured policy/rules vs docs in Knowledge Bank distinction
+
+# Hub — Tool Registry / Direct Tool Dispatcher:
+    ## P1 (High):
+        [ ] HUB-TLS-001: Human-in-the-loop checkpoint implementation for high-impact actions — approval flow unclear
+    ## P2 (Medium):
+        [ ] HUB-TLS-002: Canonical tool registration flow and runtime invocation contract
+        [ ] HUB-TLS-003: Approval workflows (task system hooks, queue routing) for high-risk actions
+
+# Hub — Scenario Management / Hub-Seer Integration:
+    ## P0 (Blocking):
+        [ ] HUB-SCN-001: Seer agent binding in Hub Automation Spec — how Hub invokes Seer agents
+    ## P1 (High):
+        [ ] HUB-SCN-002: Runtime selection (Seer vs other Hub runtimes) — when to use which
+        [ ] HUB-SCN-003: AI delegation to Seer agents — task handoff mechanism
+        [ ] HUB-SCN-004: Credential injection mechanism for Employment Spec secrets
+
+# Hub — Task Management / Case Management:
+    ## P2 (Medium):
+        [ ] HUB-TSK-001: Case/task management integration — where case state lives in Hub
+        [ ] HUB-TSK-002: Race condition handling for concurrent case updates
+    ## P3 (Low):
+        [ ] HUB-TSK-003: Team interdependence patterns (Pooled, Sequential, Reciprocal) — AOSM patterns
+
+
+=======================================================
+********* ETSL INTEGRATION *********
+=======================================================
+
+# ETSL — Enterprise Memory Integration:
+    ## P2 (Medium):
+        [ ] ETSL-001: ETSL integration with Enterprise Memory semantic facts — should semantic facts be ETSL assertions?
+        [ ] ETSL-002: ETSL integration with Decision Records — should decisions be ETSL assertions?
+        [ ] ETSL-003: Cross-workbench assertions and reconciliation
+    ## P3 (Low):
+        [ ] ETSL-004: Data Products consumption from Enterprise Memory
+
+
+=======================================================
+********* AOSM CONCEPTUAL *********
+=======================================================
+
+# AOSM — Capability and Autonomy Modeling:
+    ## P2 (Medium):
+        [ ] AOSM-001: Explicit KSA modeling in Hub (Knowledge, Skills, Abilities) — implicit, not formalized
+        [ ] AOSM-004: Procedural Memory vs SOPs distinction — can Procedural Memory override SOPs?
+        [ ] AOSM-005: Controlled Autonomy bounds enforcement — where are authority limits enforced?
+        [ ] AOSM-006: RASCI explicit modeling in CAF — who is R/A/S/C/I per decision?
+    ## P3 (Low):
+        [ ] AOSM-002: Capability Assessment Table support in Hub — function allocation for HAT
+        [ ] AOSM-003: Four Components of Autonomy — Availability explicitly modeled?
+        [ ] AOSM-007: HAT coordination protocols formalization — human-AI handoffs
+
+
+=======================================================
+********* EXTERNAL DEPENDENCIES *********
+=======================================================
+
+# External — System Integrations:
+    ## P1 (High):
+        [ ] EXT-001: CMS API contract and state machine definition — depends on existing system
+    ## P2 (Medium):
+        [ ] EXT-002: Fraud vendor API schemas — external dependency
+        [ ] EXT-003: PII patterns and redaction rules — needs compliance team input
+        [ ] EXT-004: Benchmark creation from Enterprise Memory — historical data extraction
+    ## P3 (Low):
+        [ ] EXT-005: Mock data generation for fraud scenarios — test data
+        [ ] EXT-006: Model prompts/completions storage policy — privacy constraints per tenant
+
+
+=======================================================
+********* SUMMARY *********
+=======================================================
+
+# Gap Counts by System:
+    Seer:                  18 gaps (6 P0, 5 P1, 7 P2)
+    Hub:                   31 gaps (1 P0, 12 P1, 16 P2, 2 P3)  # Updated: CAF contract completed
+    ETSL:                   4 gaps (3 P2, 1 P3)
+    AOSM:                   7 gaps (4 P2, 3 P3)
+    External:               6 gaps (1 P1, 3 P2, 2 P3)
+    --------------------------
+    Total:                 66 gaps (was 67, 1 more resolved)
+
+# Gap Counts by Priority:
+    P0 (Blocking):          7 gaps
+    P1 (High):             20 gaps (was 21)
+    P2 (Medium):           31 gaps
+    P3 (Low):               8 gaps
+
+# Recently Resolved (2026-01-07):
+    [x] HUB-CAF-001: CAF record schemas (8 record types with full schemas)
+    [x] HUB-CAF-002: CAF-to-Memory-Store Contract (CRD registration, HTTPS retrieval, JWS auth)
+    [x] HUB-CAF-011: Record relationships and traversal patterns
+
+
+=======================================================
+********* RESOLUTION ORDER *********
+=======================================================
+
+# Phase 1: Unblock Agent Development (P0):
+    [ ] Finalize Seer Training Spec and Employment Spec schemas
+    [ ] Define Seer runtime deployment model
+    [ ] Specify Hub ↔ Seer integration (how Hub invokes Seer agents)
+    [x] Finalize CAF schema (DecisionRecord, EvidenceBundle) — DONE: All 8 record types
+    [ ] Define Context Assembly Engine SDK
+
+# Phase 2: Enable Core Features (P1):
+    [ ] Define Memory Services query/write APIs
+    [ ] Define Knowledge Bank retrieval API
+    [ ] Implement human-in-loop checkpoint pattern
+    [ ] Specify credential injection for agents
+    [ ] Define Explanation Service API
+
+# Phase 3: Polish and Governance (P2+):
+    [ ] ETSL integration design
+    [ ] Unified ESPP memory taxonomy
+    [ ] CAF as OPD control plane
+    [ ] Evaluation and CI/CD integration
+
+
+=======================================================
+********* SOURCE REFERENCES *********
+=======================================================
+
+# Gap ID Prefixes:
+    opus-X.X.X  = fraud-case-agent-build-task-list-opus.md
+    gpt-X       = fraud-case-agent-build-task-list-gpt.md
+    gap-X.X     = design-gap-analysis.md
+    journal-QX  = aos-hub-journal-story-todo.md

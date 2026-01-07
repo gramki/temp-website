@@ -34,35 +34,102 @@ Without evidence bundles:
 ```yaml
 evidence_bundle:
   # Identity
-  id: string
+  id: uuid                         # Unique identifier (UUID v4)
   timestamp: datetime
-  decision_record_id: string
+  decision_record_id: uuid         # → DecisionRecord this evidence supports (1:1)
+  context_snapshot_id: uuid        # → ContextSnapshot at decision time
+  case_id: uuid                    # Universal binding ID (UUID v4, = hub request_id when Hub-originated)
+  
+  # Hub Metadata (optional - populated when captured within Hub context)
+  hub_metadata:
+    tenant_id: string              # Tenant identifier
+    subscription_id: string        # Subscription within tenant
+    workbench_id: string           # Workbench where decision occurred
+    scenario_id: string            # Scenario governing this decision
+    request_id: string             # Hub Request this decision belongs to
+    parent_request_id: string      # Parent request if nested (optional)
   
   # Context Snapshot
   context:
     session_state: object       # Agent session state
+    session_state_content_type:
+      mime: string              # e.g., "application/vnd.olympus.seer.session-state.v1+json"
+      schema: string
+      schema_version: string
     agent_memory: object        # Agent memory snapshot
+    agent_memory_content_type:
+      mime: string              # e.g., "application/vnd.olympus.seer.agent-memory.v1+json"
+      schema: string
+      schema_version: string
     enterprise_memory: array    # Retrieved enterprise memory
+    enterprise_memory_content_type:
+      mime: string              # Items conform to this type
+      schema: string
+      schema_version: string
     enterprise_knowledge: array # Retrieved knowledge
+    enterprise_knowledge_content_type:
+      mime: string
+      schema: string
+      schema_version: string
   
   # Data References
   data:
     entity_snapshots: array     # Business entity states
+    entity_snapshots_content_type:
+      mime: string              # e.g., "application/vnd.olympus.caf.entity-snapshot.v1+json"
+      schema: string
+      schema_version: string
     documents: array            # Document references
+    documents_content_type:
+      mime: string
+      schema: string
+      schema_version: string
     external_data: array        # API responses, lookups
+    external_data_content_type:
+      mime: string              # May vary per item; this is default
+      schema: string
+      schema_version: string
   
   # Model I/O
   model:
     prompts: array              # LLM prompts sent
+    prompts_content_type:
+      mime: string              # e.g., "application/vnd.olympus.seer.llm-prompt.v1+json"
+      schema: string
+      schema_version: string
     completions: array          # LLM responses received
+    completions_content_type:
+      mime: string              # e.g., "application/vnd.olympus.seer.llm-completion.v1+json"
+      schema: string
+      schema_version: string
     embeddings: object          # Embedding inputs/outputs
+    embeddings_content_type:
+      mime: string
+      schema: string
+      schema_version: string
     predictions: array          # ML model predictions
+    predictions_content_type:
+      mime: string              # e.g., "application/vnd.olympus.seer.ml-prediction.v1+json"
+      schema: string
+      schema_version: string
   
   # Retrieval
   retrieval:
     queries: array              # RAG queries executed
+    queries_content_type:
+      mime: string
+      schema: string
+      schema_version: string
     results: array              # Retrieved chunks
+    results_content_type:
+      mime: string
+      schema: string
+      schema_version: string
     rankings: object            # Relevance rankings
+    rankings_content_type:
+      mime: string
+      schema: string
+      schema_version: string
   
   # Metadata
   metadata:

@@ -34,34 +34,54 @@ Without decision records:
 ```yaml
 decision_record:
   # Identity
-  id: string
+  id: uuid                         # Unique identifier (UUID v4)
   timestamp: datetime
-  tenant_id: string
+  case_id: uuid                    # Universal binding ID (UUID v4, = hub request_id when Hub-originated)
+  
+  # Hub Metadata (optional - populated when decision made within Hub context)
+  hub_metadata:
+    tenant_id: string              # Tenant identifier
+    subscription_id: string        # Subscription within tenant
+    workbench_id: string           # Workbench where decision occurred
+    scenario_id: string            # Scenario governing this decision
+    request_id: string             # Hub Request this decision belongs to
+    parent_request_id: string      # Parent request if nested (optional)
   
   # Decision Context
   decision_type: string  # e.g., "loan_approval", "fraud_alert", "case_routing"
   entity_type: string    # what entity this decision affects
   entity_id: string
-  request_id: string     # originating request
   
   # The Decision
   decision: string       # the actual decision made
   alternatives: array    # alternatives considered
+  alternatives_content_type:
+    mime: string         # e.g., "application/vnd.olympus.caf.decision-alternative.v1+json"
+    schema: string       # olympus.caf.decision-alternative
+    schema_version: string
   selected_alternative: string
   
   # Rationale
   factors: array         # factors that influenced the decision
+  factors_content_type:
+    mime: string         # e.g., "application/vnd.olympus.caf.decision-factor.v1+json"
+    schema: string       # olympus.caf.decision-factor
+    schema_version: string
   weights: object        # relative importance of factors
+  weights_content_type:
+    mime: string         # e.g., "application/vnd.olympus.caf.factor-weights.v1+json"
+    schema: string       # olympus.caf.factor-weights
+    schema_version: string
   confidence: number     # confidence level (0-1)
   reasoning: text        # human-readable reasoning
   
-  # Evidence
-  evidence_bundle_id: string  # link to evidence bundle
-  context_snapshot_id: string # link to context at decision time
+  # Evidence & Context Links
+  evidence_bundle_id: uuid       # → EvidenceBundle (1:1)
+  context_snapshot_id: uuid      # → ContextSnapshot at decision time
   
   # Accountability
-  actor_type: enum       # human | ai_agent
-  actor_id: string       # who/what made the decision
+  actor_type: enum               # human | ai_agent
+  actor_id: uuid                 # who/what made the decision
   accountable_party: string # human accountable (always human)
   authority_chain: array # delegation chain if AI
   
