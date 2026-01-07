@@ -1,8 +1,10 @@
 # Hub Applications
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft
 
 Hub Applications are the automation artifacts that execute Scenarios within Olympus Hub. Each Automation Runtime provides one or more specialized Hub Application types.
+
+**Cognitive Applications:** Hub Applications that emit tasks, compile context for agents, and produce memory records are termed **Cognitive Applications**. See [Cognitive Application](../02-system-design/implementation-concepts/cognitive-application.md) for details.
 
 ---
 

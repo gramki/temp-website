@@ -266,6 +266,10 @@ Long-running Applications (workflows, durable workflows, case management) can se
 
 **Critical Design Decision:** All enterprise episodic memory writes flow through Signal Exchange. Applications and agents do not directly access memory store write APIs.
 
+**Schema Validation:** Signal Exchange validates all memory records against registered schemas. Valid records are routed to memory stores; invalid records are retained in request history (marked invalid) but NOT written to memory stores. See [Memory Record Routing](./memory-record-routing.md) for details.
+
+**Cognitive Applications:** Applications that regularly emit memory records should be modeled as [Cognitive Applications](../../02-system-design/implementation-concepts/cognitive-application.md).
+
 ```
 1. Hub Application attaches memory_records to REQUEST_UPDATE
    (decision_records, evidence_bundles, handoff_context, etc.)

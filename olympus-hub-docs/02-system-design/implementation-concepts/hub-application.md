@@ -139,6 +139,21 @@ spec:
 | **Batch Application** | Perseus | File processing, ETL |
 | **HTTP Tool Calling** | Built-in | Simple HTTP integrations |
 
+### Cognitive Application (Capability Profile)
+
+Any Hub Application that emits **tasks**, compiles **context** for agents, and produces **memory records** is termed a **Cognitive Application**. This is not a separate type but a capability profile indicating the application participates in Hub's memory and context infrastructure.
+
+| Capability | Description |
+|------------|-------------|
+| **Task Emission** | Creates tasks for human and AI agents |
+| **Context Compilation** | Builds request-level context for agents |
+| **Memory Record Emission** | Produces structured episodic memory records |
+| **Schema Registration** | Declares memory record schemas in specification |
+
+**Recommendation:** Any application that emits tasks is advised to be modeled as a Cognitive Application.
+
+→ **Details:** [Cognitive Application](./cognitive-application.md)
+
 ---
 
 ## Behavior
@@ -311,6 +326,7 @@ spec:
 
 | Concept | Relationship |
 |---------|--------------|
+| [Cognitive Application](./cognitive-application.md) | Capability profile for task-emitting, context-compiling applications |
 | [Automation Runtime](./automation-runtime.md) | Hosts Hub Applications |
 | [Signal Exchange](./signal-exchange.md) | Routes requests to Applications |
 | [Request Lifecycle](./request-lifecycle.md) | Application orchestrates Request state |

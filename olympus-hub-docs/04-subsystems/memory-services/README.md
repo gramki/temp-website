@@ -18,6 +18,7 @@ Hub provides **built-in memory stores** that adhere to CAF (Cognitive Audit Fabr
 | **Workbench Scoped** | Memory stores are always scoped to a workbench |
 | **ESPP Taxonomy** | Unified Episodic-Semantic-Procedural-Preference taxonomy |
 | **Olympus Platform** | Uses Olympus platform services (Europa, etc.) |
+| **Cognitive Application** | Applications that emit memory records should be modeled as [Cognitive Applications](../../02-system-design/implementation-concepts/cognitive-application.md) |
 
 ---
 

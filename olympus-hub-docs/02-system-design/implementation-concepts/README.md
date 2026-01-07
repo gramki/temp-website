@@ -44,6 +44,7 @@ These implementation concepts are:
 | Concept | Description | Status |
 |---------|-------------|--------|
 | [Hub Application](./hub-application.md) | Concrete automation artifact running on a runtime | ✅ Complete |
+| [Cognitive Application](./cognitive-application.md) | Task-emitting, context-compiling application profile | ✅ Complete |
 | [Automation Runtime](./automation-runtime.md) | Execution host for Hub Applications | ✅ Complete |
 | [Hub Native Utilities](./hub-native-utilities.md) | Built-in platform applications and tools | ✅ Complete |
 | [Direct Tool Dispatcher](./direct-tool-dispatcher.md) | Bypass SX for synchronous tool invocation | ✅ Complete |

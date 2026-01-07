@@ -19,7 +19,9 @@ Task Management handles the **creation, assignment, tracking, and lifecycle of t
 
 ## Core Premise
 
-Hub Applications orchestrate work by delegating tasks to agents in their Workbench. The flow is:
+Hub Applications orchestrate work by delegating tasks to agents in their Workbench. Applications that emit tasks are termed **[Cognitive Applications](../../02-system-design/implementation-concepts/cognitive-application.md)** — they participate in Hub's memory and context infrastructure by compiling context for agents and emitting episodic memory records.
+
+The flow is:
 
 ```
 Hub Application                    Signal Exchange               Task Management
@@ -356,10 +358,12 @@ Best practice: Configure escalation thresholds to allow newly assigned agents su
 
 ## Related Documentation
 
+- [Cognitive Application](../../02-system-design/implementation-concepts/cognitive-application.md) — Task-emitting applications
 - [Signal Exchange](../signal-exchange/README.md) — Task event routing
 - [Request Management](../request-management/README.md) — Request lifecycle
 - [Workbench Management](../workbench-management/README.md) — Queue configuration
 - [Agent Desk](../../06-ux-architecture/tenant-domain/agent-desk.md) — Task Solver UI
 - [Cipher IAM](../supporting-systems/cipher-iam.md) — Identity and access
+- [Memory Services](../memory-services/README.md) — Memory for agents and applications
 
 ---

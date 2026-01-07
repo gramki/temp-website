@@ -86,6 +86,7 @@ All ADRs follow the standard format:
 | [0062](./0062-memory-writes-via-signal-exchange.md) | All memory writes routed through Signal Exchange | Accepted | 2026-01-07 | memory-services |
 | [0063](./0063-memory-reads-via-access-tools.md) | Memory reads via defined access tools only | Accepted | 2026-01-07 | memory-services |
 | [0064](./0064-memory-services-subfolder-organization.md) | Memory Services organized into subfolders | Accepted | 2026-01-07 | memory-services |
+| [0065](./0065-cognitive-application-capability-profile.md) | Cognitive Application as capability profile of Hub Application | Accepted | 2026-01-07 | architecture |
 
 ---
 
@@ -99,6 +100,7 @@ All ADRs follow the standard format:
 - [0009](./0009-headless-services-with-channel-adapters.md) - Headless services with channel adapters
 - [0010](./0010-ai-assistants-first-class-channel.md) - AI assistants as first-class channel
 - [0012](./0012-control-plane-data-plane-channel-separation.md) - Control Plane vs Data Plane separation
+- [0065](./0065-cognitive-application-capability-profile.md) - Cognitive Application as capability profile
 
 ### Integration
 - [0001](./0001-signal-normalization.md) - Signal normalization between SPs and SX

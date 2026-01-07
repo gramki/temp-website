@@ -403,29 +403,110 @@ writer_service:
 
 ---
 
-## Error Handling
+## Schema Validation
 
-### Validation Failures
+Signal Exchange validates all memory records against registered schemas before routing.
+
+### Schema Resolution
+
+Memory record schemas are resolved in the following order:
+
+1. **Application-registered schema** — schemas declared in the Cognitive Application's specification
+2. **Workbench-registered schema** — schemas registered at workbench scope
+3. **Platform schema** — standard CAF schemas provided by Hub
+
+If the same schema type and version exists at both Application and Workbench scope, the **Workbench definition wins** (the Operator alerts on conflict during deployment).
+
+### Validation Behavior
+
+| Condition | Action |
+|-----------|--------|
+| **Schema found, record valid** | Enrich → Route to Atropos → Index in memory store |
+| **Schema found, record invalid** | Mark as `validation_status: INVALID` → Retain in request history → Do NOT route to memory store |
+| **Schema not found** | Mark as `validation_status: UNVALIDATED` → Retain in request history → Alert operator |
+
+**Critical Principle:** Invalid records are **never discarded**. They are preserved in the request history for audit and debugging.
+
+```python
+def validate_and_route_record(record: dict, context: RequestContext) -> ValidationResult:
+    # 1. Resolve schema
+    schema = resolve_schema(
+        content_type=record.get("content_type"),
+        version=record.get("schema_version"),
+        application_id=context.application_id,
+        workbench_id=context.workbench_id
+    )
+    
+    if not schema:
+        # Schema not found - retain but mark unvalidated
+        record["validation_status"] = "UNVALIDATED"
+        record["validation_message"] = f"Schema not found: {record.get('content_type')}"
+        save_to_request_history(record, context.request_id)
+        alert_operator("schema_not_found", record, context)
+        return ValidationResult.UNVALIDATED
+    
+    # 2. Validate against schema
+    validation_errors = validate_against_schema(record["data"], schema)
+    
+    if validation_errors:
+        # Invalid - retain in history but do not route
+        record["validation_status"] = "INVALID"
+        record["validation_errors"] = validation_errors
+        save_to_request_history(record, context.request_id)
+        log_validation_failure(record, validation_errors)
+        return ValidationResult.INVALID
+    
+    # 3. Valid - enrich and route
+    record["validation_status"] = "VALID"
+    enriched = enrich_with_metadata(record, context)
+    route_to_atropos(enriched, context)
+    return ValidationResult.VALID
+```
+
+### Invalid Record Preservation
+
+Invalid records are preserved to ensure:
+
+| Goal | Mechanism |
+|------|-----------|
+| **No data loss** | Invalid records remain in request history |
+| **Clean memory stores** | Only valid records are indexed in OpenSearch |
+| **Debuggability** | Developers can query request history to see validation errors |
+| **Audit trail** | Attempted record submissions are logged even if invalid |
+
+### Querying Invalid Records
+
+Supervisors and developers can query invalid records for debugging:
 
 ```yaml
-# On schema validation failure
-validation_failure:
-  action: log_and_continue
-  
-  logging:
-    level: error
-    fields:
-      - record_id
-      - record_type
-      - validation_errors
-      - request_id
-      - scenario_id
-  
-  # Optionally send to dead letter queue for investigation
-  dlq:
-    enabled: true
-    topic: "memory-records-dlq"
+# Query request history for invalid memory records
+GET /requests/{request_id}/memory_records?validation_status=INVALID
+
+# Response
+{
+  "records": [
+    {
+      "record_id": "dec-abc123",
+      "record_type": "decision_record",
+      "validation_status": "INVALID",
+      "validation_errors": [
+        {
+          "path": "$.data.confidence",
+          "message": "Expected number, got string"
+        }
+      ],
+      "submitted_at": "2026-01-07T10:15:00Z",
+      "submitted_by": "app-fraud-handler"
+    }
+  ]
+}
 ```
+
+---
+
+## Error Handling
+
+### Routing Failures
 
 ### Routing Failures
 
