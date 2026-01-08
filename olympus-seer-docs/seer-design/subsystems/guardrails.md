@@ -9,18 +9,20 @@
 
 Seer Guardrails provide **safety constraints and enforcement** for AI agents. Guardrails operate at two levels:
 
-1. **System Prompt Guardrails** — Behavioral constraints embedded in agent prompts
-2. **Sidecar Guardrails** — Enforcement functions that intercept requests/responses
+1. **Behavioral Guidelines** — Advisory instructions embedded in agent prompts (not enforced programmatically)
+2. **Sidecar Guardrails** — Enforcement functions that intercept and validate requests/responses
 
-Both types are complementary and can be used together.
+Both types are complementary: behavioral guidelines shape agent behavior, while sidecar guardrails provide programmatic enforcement.
+
+> **Important**: Behavioral guidelines rely on LLM compliance and are advisory. Sidecar guardrails are the **actual enforcement layer**. Critical safety requirements should always have sidecar enforcement.
 
 ---
 
 ## Guardrail Types
 
-### System Prompt Guardrails
+### Behavioral Guidelines (Prompt-Based)
 
-System prompt guardrails are **behavioral instructions** embedded in the Training Spec that guide agent behavior:
+Behavioral guidelines are **advisory instructions** embedded in the Training Spec that shape agent behavior. They are **not programmatically enforced** — the agent may ignore them (especially under adversarial prompting).
 
 ```yaml
 # In TrainingSpec
@@ -29,16 +31,16 @@ spec:
     systemPrompt: |
       You are a Fraud Case Analyst...
     
-    guardrailPrompts:
+    behavioralGuidelines:
       - name: pii-protection
-        prompt: |
+        guideline: |
           CRITICAL SAFETY RULE: Never include personally identifiable 
           information (PII) in your responses. Always use entity 
           references like [CUSTOMER_ID] instead of actual names, 
           account numbers, or addresses.
       
       - name: scope-boundary
-        prompt: |
+        guideline: |
           You are only authorized to handle fraud cases. If a request 
           is outside your scope (e.g., account closure, loan approval), 
           politely decline and suggest the appropriate channel.
@@ -47,8 +49,29 @@ spec:
 **Key Characteristics:**
 - Specified distinctly in Training Spec
 - CAE ensures they are retained in compiled context
-- Behavioral (advisory), not enforced programmatically
-- Complemented by sidecar guardrails for enforcement
+- **Advisory only** — not enforced programmatically
+- LLMs can ignore guidelines (especially with jailbreaks)
+- **Must be paired with sidecar guardrails** for critical safety requirements
+
+> **Design Principle**: Never rely solely on behavioral guidelines for security-critical constraints. Always pair with sidecar enforcement.
+
+#### Verification Pattern
+
+For critical behavioral guidelines, add a sidecar guardrail that verifies compliance:
+
+```yaml
+# Behavioral guideline (advisory)
+behavioralGuidelines:
+  - name: pii-protection
+    guideline: "Never include PII..."
+
+# Sidecar enforcement (verification)
+sidecarGuardrails:
+  after:
+    - ref: pii-detector
+      config:
+        mode: reject  # Enforces what the guideline advises
+```
 
 ### Sidecar Guardrails
 
@@ -494,14 +517,14 @@ class ToxicityFilter(AfterGuardrail):
 # In TrainingSpec
 spec:
   guardrails:
-    # System prompt guardrails
-    prompts:
+    # Behavioral guidelines (advisory, not enforced)
+    behavioralGuidelines:
       - name: pii-protection
-        prompt: "Never include PII in responses..."
+        guideline: "Never include PII in responses..."
       - name: scope-boundary
-        prompt: "Only handle fraud cases..."
+        guideline: "Only handle fraud cases..."
     
-    # Sidecar guardrails
+    # Sidecar guardrails (enforced)
     before:
       - ref:
           name: pii-detector
@@ -747,16 +770,263 @@ Guardrail interventions are logged to CAF:
 
 ---
 
+## Design Considerations
+
+### Latency Optimization
+
+Guardrails add latency to every request. To mitigate:
+
+#### Parallel Execution
+
+Independent guardrails can execute in parallel:
+
+```yaml
+spec:
+  guardrails:
+    before:
+      - ref: pii-detector
+        parallel: true        # Can run in parallel
+      - ref: prompt-injection
+        parallel: true        # Can run in parallel
+      - ref: scope-validator
+        dependsOn: [pii-detector]  # Must wait for pii-detector
+```
+
+#### Pre-Warmed Worker Pools
+
+To avoid subprocess startup overhead (~350ms), guardrails use pre-warmed worker pools:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      GUARDRAIL WORKER POOL                                   │
+│                                                                               │
+│   ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐                     │
+│   │ Worker  │   │ Worker  │   │ Worker  │   │ Worker  │  Pre-warmed         │
+│   │   1     │   │   2     │   │   3     │   │   4     │  Python venvs       │
+│   └─────────┘   └─────────┘   └─────────┘   └─────────┘                     │
+│                                                                               │
+│   New request → Dispatch to available worker → Execute → Return              │
+│   (No subprocess fork, no venv load)                                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+Configuration:
+```yaml
+spec:
+  workerPool:
+    minWorkers: 2
+    maxWorkers: 8
+    idleTimeout: 300s
+```
+
+---
+
+### Failure Policy
+
+Default failure policy is **deny** (fail-closed):
+
+```yaml
+spec:
+  failurePolicy: deny  # DEFAULT - request blocked if guardrail fails
+```
+
+Using `allow` (fail-open) requires explicit justification:
+
+```yaml
+spec:
+  failurePolicy: allow
+  failurePolicyJustification: "Non-critical logging guardrail, should not block requests"
+```
+
+> **Security Principle**: Fail-closed by default. Fail-open requires documented justification and should be audited regularly.
+
+---
+
+### LLM-Based Guardrails
+
+LLM-based guardrails (e.g., toxicity detection) have special considerations:
+
+#### Circuit Breakers
+
+LLM calls go through **Model Gateway**, which provides circuit breakers:
+
+```yaml
+# Model Gateway handles:
+- Rate limiting
+- Timeout handling
+- Fallback on model unavailability
+- Token budget enforcement
+```
+
+#### Non-Determinism
+
+LLM guardrails may produce different results on identical inputs:
+
+```yaml
+spec:
+  llmGuardrails:
+    determinism:
+      cacheIdenticalInputs: true    # Cache results for same input
+      cacheExpiry: 60s
+      
+      # For testing only
+      deterministicMode: false      # Set true in test environments
+      seed: 42                      # Fixed seed for reproducibility
+```
+
+#### Cost Implications
+
+LLM guardrails double (or more) the LLM cost per request:
+
+```
+Request: 
+  Agent LLM call:      1,000 tokens
+  Guardrail LLM call:    500 tokens
+  ----------------------------
+  Total:               1,500 tokens (50% overhead)
+```
+
+Consider using smaller models for guardrail tasks:
+```yaml
+config:
+  model: gpt-4o-mini    # Smaller, cheaper model for guardrail
+```
+
+---
+
+### Testing Framework
+
+Guardrails require systematic testing:
+
+#### Unit Testing
+
+```python
+from seer_guardrails.testing import GuardrailTestHarness
+
+def test_pii_detector_rejects_ssn():
+    harness = GuardrailTestHarness(PIIDetector())
+    
+    result = harness.test_before(
+        payload={"content": "SSN: 123-45-6789"},
+        config={"sensitivity": "high"}
+    )
+    
+    assert result.action == "reject"
+    assert result.error_code == "GR-PII-001"
+
+def test_pii_detector_passes_clean_content():
+    harness = GuardrailTestHarness(PIIDetector())
+    
+    result = harness.test_before(
+        payload={"content": "The transaction was approved"},
+        config={"sensitivity": "high"}
+    )
+    
+    assert result.action == "pass"
+```
+
+#### Pipeline Integration Testing
+
+```python
+from seer_guardrails.testing import PipelineTestHarness
+
+def test_full_pipeline():
+    pipeline = PipelineTestHarness(
+        training_guardrails=[PIIDetector(), PromptInjection()],
+        employment_guardrails=[ComplianceChecker()]
+    )
+    
+    # Test that union of guardrails works correctly
+    result = pipeline.test_request(
+        payload={"content": "Check account 123-45-6789"},
+        expected_action="reject",
+        expected_stage="before"
+    )
+```
+
+#### Deterministic Mode for LLM Guardrails
+
+```python
+from seer_guardrails.testing import DeterministicLLM
+
+def test_toxicity_filter():
+    with DeterministicLLM(responses={"toxic_input": {"toxic": True, "score": 0.9}}):
+        harness = GuardrailTestHarness(ToxicityFilter())
+        
+        result = harness.test_after(
+            payload={"response": {"content": "toxic_input"}},
+            config={"threshold": 0.7}
+        )
+        
+        assert result.action == "reject"
+```
+
+---
+
+### Guardrail Composition
+
+For complex logic requiring multiple guardrail outcomes:
+
+```yaml
+spec:
+  guardrails:
+    before:
+      - ref: pii-detector
+        id: pii
+      - ref: toxicity-detector
+        id: toxicity
+      
+      # Meta-guardrail that evaluates combined results
+      - ref: composite-evaluator
+        config:
+          rules:
+            - condition: "pii.detected AND toxicity.detected"
+              action: reject
+              escalate: true
+            - condition: "pii.detected OR toxicity.detected"
+              action: transform
+              addReviewFlag: true
+```
+
+---
+
+### Resource Management
+
+Guardrails share pod resources. To prevent resource starvation:
+
+```yaml
+spec:
+  resources:
+    # Per-guardrail limits
+    perGuardrail:
+      cpu: "200m"
+      memory: "256Mi"
+      timeout: 5s
+    
+    # Total guardrail budget (all guardrails combined)
+    totalBudget:
+      cpu: "1"
+      memory: "1Gi"
+      
+    # Reserve for agent (guaranteed)
+    agentReserve:
+      cpu: "2"
+      memory: "4Gi"
+```
+
+---
+
 ## Related Documentation
 
 - [Agent Lifecycle Service](./agent-lifecycle-service.md) — Guardrail immutability
 - [Training Spec CRD](../hub-integration/training-spec-crd.md) — Guardrail specification
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Additional guardrails
-- [Context Assembly Engine](./context-assembly-engine.md) — Prompt guardrails in context
+- [Context Assembly Engine](./context-assembly-engine.md) — Behavioral guidelines in context
+- [Model Gateway](./model-gateway.md) — LLM circuit breakers
 - [Hub Artifact Registry](../../../olympus-hub-docs/04-subsystems/registry-services/README.md) — Tenant guardrail registration
 - [Atlantis Runtime](../../../olympus-hub-docs/05-infrastructure/README.md) — Sidecar deployment
 
 ---
 
-*Seer Guardrails provide defense-in-depth safety through behavioral prompts and enforcement sidecars.*
+*Seer Guardrails provide defense-in-depth safety through behavioral guidelines and enforcement sidecars, with optimizations for latency, testing, and resource management.*
 
