@@ -147,6 +147,8 @@ When a Hub Request update reaches a Seer agent:
 
 ## Documents in This Section
 
+### Concepts
+
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Raw Agent in Hub Context](./raw-agent.md) | Container requirements, framework flexibility | 🟡 Draft |
@@ -155,6 +157,13 @@ When a Hub Request update reaches a Seer agent:
 | [Request Dispatch](./request-dispatch.md) | SX → Runtime Service → Agent flow | 🟡 Draft |
 | [Memory Integration](./memory-integration.md) | Agent Memory Services in Seer context | 🟡 Draft |
 | [Context Assembly](./context-assembly.md) | CAE invocation patterns | 🟡 Draft |
+
+### CRD Specifications
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Training Spec CRD](./training-spec-crd.md) | Full TrainingSpec CRD schema | 🟡 Draft |
+| [Employment Spec CRD](./employment-spec-crd.md) | Full EmploymentSpec CRD schema | 🟡 Draft |
 
 ---
 

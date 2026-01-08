@@ -30,6 +30,11 @@ How Seer agents operate within the Hub ecosystem:
 - [Memory Integration](./hub-integration/memory-integration.md) — Agent Memory Services in Seer context
 - [Context Assembly](./hub-integration/context-assembly.md) — CAE invocation patterns
 
+### CRD Specifications
+
+- [Training Spec CRD](./hub-integration/training-spec-crd.md) — Full TrainingSpec schema
+- [Employment Spec CRD](./hub-integration/employment-spec-crd.md) — Full EmploymentSpec schema
+
 ## Background
 
 - [Requirements: Enterprise Agentic Platform](../requirements-enterprise-agentic-platform/README.md)

@@ -10,9 +10,9 @@
 
 # Seer — Agent Lifecycle Service:
     ## P0 (Blocking):
-        [ ] SEER-ALS-001: Training Spec CRD schema not finalized — cannot create Training Spec
-        [ ] SEER-ALS-002: Employment Spec CRD schema not finalized — cannot create Employment Spec
-        [ ] SEER-ALS-003: Raw Agent deployment model (containers, serverless) needs specification
+        [x] SEER-ALS-001: Training Spec CRD schema — seer-design/hub-integration/training-spec-crd.md
+        [x] SEER-ALS-002: Employment Spec CRD schema — seer-design/hub-integration/employment-spec-crd.md
+        [x] SEER-ALS-003: Raw Agent deployment model — seer-design/hub-integration/raw-agent.md (containers on Atlantis)
         [ ] SEER-ALS-004: Agent registration and lifecycle API needs specification
     ## P1 (High):
         [ ] SEER-ALS-005: Guardrail definition format and enforcement mechanism needs specification
@@ -123,11 +123,11 @@
 
 # Hub — Scenario Management / Hub-Seer Integration:
     ## P0 (Blocking):
-        [ ] HUB-SCN-001: Seer agent binding in Hub Automation Spec — how Hub invokes Seer agents
+        [x] HUB-SCN-001: Seer agent binding in Hub Automation Spec — seer-design/hub-integration/trained-agent.md
     ## P1 (High):
-        [ ] HUB-SCN-002: Runtime selection (Seer vs other Hub runtimes) — when to use which
-        [ ] HUB-SCN-003: AI delegation to Seer agents — task handoff mechanism
-        [ ] HUB-SCN-004: Credential injection mechanism for Employment Spec secrets
+        [x] HUB-SCN-002: Runtime selection (Seer vs other Hub runtimes) — seer-design/hub-integration/README.md
+        [x] HUB-SCN-003: AI delegation to Seer agents — seer-design/hub-integration/request-dispatch.md
+        [x] HUB-SCN-004: Credential injection mechanism — employment-spec-crd.md (operationalEnv.toolBindings.credentials)
 
 # Hub — Task Management / Case Management:
     ## P2 (Medium):
@@ -187,18 +187,18 @@
 =======================================================
 
 # Gap Counts by System:
-    Seer:                  18 gaps (6 P0, 5 P1, 7 P2)
-    Hub:                   14 gaps (0 P0, 0 P1, 9 P2, 5 P3)  # CAF + Memory Services complete
+    Seer:                  11 gaps (1 P0, 2 P1, 7 P2)  # Hub integration complete, 3 P0 + 4 P1 resolved
+    Hub:                   10 gaps (0 P0, 0 P1, 5 P2, 5 P3)  # Seer integration complete
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total:                 49 gaps
+    Total:                 38 gaps
 
 # Gap Counts by Priority:
-    P0 (Blocking):          6 gaps (Hub P0s resolved)
-    P1 (High):              6 gaps  # Hub Memory Services P1s complete
-    P2 (Medium):           29 gaps  # +4 new Agent Memory stubs
+    P0 (Blocking):          1 gap   # Only SEER-ALS-004 (Agent Lifecycle API)
+    P1 (High):              3 gaps  # Seer guardrails, runtime infra
+    P2 (Medium):           26 gaps
     P3 (Low):               8 gaps
 
 # Recently Resolved (2026-01-07):
