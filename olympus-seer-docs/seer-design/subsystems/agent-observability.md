@@ -520,7 +520,8 @@ obs = SeerObservability(
 - [Runtime Deployment](./runtime-deployment.md) — Pod configuration
 - [Model Gateway](./model-gateway.md) — LLM metrics
 - [Guardrails](./guardrails.md) — Guardrail metrics
-- Hub Enterprise Memory — CAF scope
+- [Hub Enterprise Memory](../../../olympus-hub-docs/04-subsystems/memory-services/enterprise-memory/README.md) — CAF scope
+- [ADR-0076: Observability via Watch](../../../olympus-hub-docs/decision-logs/0076-seer-observability-watch-based.md)
 
 ---
 

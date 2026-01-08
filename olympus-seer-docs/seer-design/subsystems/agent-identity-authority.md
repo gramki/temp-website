@@ -1,6 +1,7 @@
 # Agent Identity & Authority Framework
 
-> **Status:** Placeholder — Design in progress
+> **Status**: ⬜ Placeholder — Depends on Cipher IAM design  
+> **Last Updated**: 2026-01-08
 
 ## Overview
 

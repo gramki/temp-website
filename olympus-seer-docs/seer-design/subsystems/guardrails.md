@@ -1025,6 +1025,7 @@ spec:
 - [Model Gateway](./model-gateway.md) — LLM circuit breakers
 - [Hub Artifact Registry](../../../olympus-hub-docs/04-subsystems/registry-services/README.md) — Tenant guardrail registration
 - [Atlantis Runtime](../../../olympus-hub-docs/05-infrastructure/README.md) — Sidecar deployment
+- [ADR-0072: Guardrails Two-Layer Model](../../../olympus-hub-docs/decision-logs/0072-seer-guardrails-two-layer-model.md)
 
 ---
 

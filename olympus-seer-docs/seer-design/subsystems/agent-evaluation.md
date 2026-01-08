@@ -1,6 +1,8 @@
 # Agent Evaluation Service
 
-> **Status:** Placeholder — Design in progress
+> **Status**: 🔴 PARKED — Deferred to post-MVP  
+> **Last Updated**: 2026-01-08  
+> **See**: [ADR-0077](../../../olympus-hub-docs/decision-logs/0077-seer-evaluation-deferred.md)
 
 ## Overview
 
@@ -67,9 +69,27 @@ Evaluation operates during **development and CI/CD**:
 - [Agent Observability](./agent-observability.md) — Runtime monitoring
 - [Introduction](../introduction.md)
 - [Agent-Oriented System](../../../aosm-meta-model/agent-oriented-system.md) — OPD requirements
+- [ADR-0077: Agent Evaluation Deferred](../../../olympus-hub-docs/decision-logs/0077-seer-evaluation-deferred.md)
 
 ---
 
-*TODO: Detailed design — evaluation framework selection, CI integration patterns, benchmark catalog*
+## Parking Rationale
+
+Agent Evaluation is **deferred to post-MVP** for the following reasons:
+
+1. **Evaluation patterns are immature**: The industry has not converged on best practices for agent evaluation
+2. **MVP focus**: Initial deployment prioritizes core agent lifecycle, not advanced testing
+3. **Dependency on production experience**: Effective evaluation requires understanding of real-world failure modes
+4. **Framework diversity**: Different agentic frameworks have different testing idioms
+
+### Interim Approach
+
+- Developers use their framework's native testing tools
+- Manual validation in development workbenches
+- Observability-based monitoring in production
+
+---
+
+*Work will resume after MVP when evaluation patterns mature.*
 
 

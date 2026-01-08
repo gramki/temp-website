@@ -642,6 +642,7 @@ spec:
 - [Authority Enforcement](./authority-enforcement.md) — Runtime policy enforcement
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Deployment configuration
 - [Agent Lifecycle API](./agent-lifecycle-api.md) — Lifecycle operations
+- [ADR-0074: Runtime on Atlantis](../../../olympus-hub-docs/decision-logs/0074-seer-runtime-atlantis-based.md)
 
 ---
 

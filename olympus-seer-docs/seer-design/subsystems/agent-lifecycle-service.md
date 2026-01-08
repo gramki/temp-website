@@ -1,6 +1,7 @@
 # Agent Definition & Lifecycle Service
 
-> **Status:** Placeholder — Design in progress
+> **Status**: 🟡 Draft  
+> **Last Updated**: 2026-01-08
 
 ## Overview
 

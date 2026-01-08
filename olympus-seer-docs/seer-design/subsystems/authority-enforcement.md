@@ -566,6 +566,7 @@ Workbench Observations provide:
 - [Hub Registry Services](../../../olympus-hub-docs/04-subsystems/registry-services/README.md) — Tool specifications
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Authority configuration
 - [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) — Update policies
+- [ADR-0073: Authority Enforcement via OPA](../../../olympus-hub-docs/decision-logs/0073-seer-authority-enforcement-opa.md)
 
 ---
 

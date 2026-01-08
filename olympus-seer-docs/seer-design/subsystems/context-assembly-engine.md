@@ -19,9 +19,9 @@ Agent decision context draws from three distinct sources, each serving a differe
 
 | Source | What the Agent Asks | Nature | Owned By |
 |--------|---------------------|--------|----------|
-| **Enterprise Knowledge** | *"What should I do?"* | Normative — rules, policies, facts | Hub (Knowledge Integration) |
-| **Enterprise Memory** | *"What has been done?"* | Historical — precedent, outcomes, exceptions | Hub (Memory System) |
-| **Agent Memory** | *"What have I been doing?"* | Operational — session state, recent interactions | Seer (Agent Runtime) |
+| **Enterprise Knowledge** | *"What should I do?"* | Normative — rules, policies, facts | Hub (Knowledge Services) |
+| **Enterprise Memory** | *"What has been done?"* | Historical — precedent, outcomes, exceptions | Hub (Memory Services) |
+| **Agent Memory** | *"What have I been doing?"* | Operational — session state, recent interactions | Hub (Memory Services), accessed via Seer SDK |
 
 ### Why All Three Matter
 
@@ -45,7 +45,7 @@ Agent decision context draws from three distinct sources, each serving a differe
 ┌───────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │  Enterprise   │     │   Enterprise    │     │     Agent       │
 │   Knowledge   │     │     Memory      │     │     Memory      │
-│  (Hub - RAG)  │     │ (Hub - Memory)  │     │ (Seer Runtime)  │
+│  (Hub - RAG)  │     │ (Hub - Memory)  │     │  (Hub - Memory) │
 └───────────────┘     └─────────────────┘     └─────────────────┘
 ```
 

@@ -108,8 +108,8 @@ Seer does not operate in isolation. It relies on **Olympus Hub** for operational
 | **Agent Identity & Authority Framework** | Agent identity, delegation chains, authority enforcement (via Cipher) | [Design →](./subsystems/agent-identity-authority.md) |
 | **Context Assembly Engine** | Context compilation from memory, knowledge, session state | [Design →](./subsystems/context-assembly-engine.md) |
 | **Runtime & Deployment Abstraction** | Agent execution, policy enforcement, graceful degradation | [Design →](./subsystems/runtime-deployment.md) |
-| **Agent Observability Service** | Runtime metrics, decision traces, health monitoring | [Design →](./subsystems/agent-observability.md) |
-| **Agent Evaluation Service** | Development-time testing, benchmarks, CI/CD quality gates | [Design →](./subsystems/agent-evaluation.md) |
+| **Agent Observability Service** | Runtime metrics, logs, traces, dashboards, alerts | [Design →](./subsystems/agent-observability.md) |
+| **Agent Evaluation Service** | Development-time testing, benchmarks, CI/CD quality gates | [Design →](./subsystems/agent-evaluation.md) *(PARKED)* |
 | **Model Gateway** | Unified LLM/SLM access, model routing, fallback | [Design →](./subsystems/model-gateway.md) |
 
 See [Subsystems Overview](./subsystems/README.md) for the complete list and governance distribution.

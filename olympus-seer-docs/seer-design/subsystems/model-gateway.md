@@ -476,6 +476,7 @@ budget_available(virtual_key) {
 - [Training Spec CRD](../hub-integration/training-spec-crd.md) — Model whitelist
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Model restrictions
 - [Olympus Watch](https://watch.olympus.tech/) — Observability
+- [ADR-0075: Model Gateway (Bifrost)](../../../olympus-hub-docs/decision-logs/0075-seer-model-gateway-bifrost.md)
 
 ---
 
