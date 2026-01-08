@@ -1,10 +1,11 @@
 # Callisto — Key-Value Store
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-08
 
 ## Overview
 
-**Callisto** is Zeta's managed Key-Value Store service, providing high-performance, low-latency data access for Hub Applications that need simple key-based lookups or session state storage.
+**Callisto** is Zeta's managed Key-Value Store service built on **MongoDB**, providing high-performance, low-latency data access for Hub Applications that need simple key-based lookups or session state storage.
 
 ---
 
@@ -16,6 +17,7 @@ Callisto provides:
 - **Session State** — Application-specific session data
 - **Configuration Cache** — Runtime configuration storage
 - **Materialized Views** — Denormalized data for fast reads
+- **Agent Memory KV Store** — Session-scoped key-value storage for AI agents
 
 ---
 
@@ -26,9 +28,11 @@ Callisto provides:
 | Simple key-value lookups | ✅ Use Callisto |
 | Session state persistence | ✅ Use Callisto |
 | Entity state cache | ✅ Use Callisto |
+| **Agent Memory KV Store** | ✅ Use Callisto |
 | Structured queries | ❌ Use Ganymede |
 | Full-text search | ❌ Use Europa |
 | Complex relationships | ❌ Use Ganymede |
+| Semantic/vector search | ❌ Use Europa |
 
 ---
 
@@ -199,20 +203,59 @@ Callisto exposes metrics to Olympus Watch:
 
 ---
 
+## Agent Memory Services
+
+Callisto serves as the storage backend for **Agent Memory KV Store**:
+
+### Requirements
+
+| Requirement | Expectation |
+|-------------|-------------|
+| **Isolation** | Per (tenant, workbench, scenario, request, agent) |
+| **Encryption** | Values encrypted at application layer before storage |
+| **TTL** | Automatic cleanup after session + retention period |
+| **Logical Stores** | Multiple stores per agent (e.g., `preferences`, `entities`) |
+| **Quota** | Storage limits per agent/request (configurable) |
+
+### Key Pattern for Agent Memory
+
+```
+<tenant>/<workbench>/<scenario>/<request_id>/<agent_id>/<store_name>/<key>
+```
+
+### Operations
+
+| Operation | Description | Latency Target |
+|-----------|-------------|----------------|
+| `put(store, key, value)` | Store encrypted value | < 10ms |
+| `get(store, key)` | Retrieve and return (encrypted) | < 5ms |
+| `delete(store, key)` | Remove key | < 10ms |
+| `list(store)` | List keys in store | < 20ms |
+
+### Lifecycle Integration
+
+- **Provisioning**: Stores auto-provisioned on first access
+- **Cleanup**: TTL-based expiration (session + retention period)
+- **Monitoring**: Metrics to Olympus Watch per agent/request
+
+See [Agent Memory Services](../04-subsystems/memory-services/agent-memory/README.md) for full specification.
+
+---
+
 ## Related Documentation
 
 - [Application Data Stores](../07-data-architecture/application-data-stores.md) — Overview
 - [Storage FAQ](../07-data-architecture/storage-faq.md) — Common questions
 - [Ganymede](./ganymede-rdbms.md) — Relational alternative
 - [Europa](./europa-opensearch.md) — Search/analytics alternative
+- [Agent Memory Services](../04-subsystems/memory-services/agent-memory/README.md) — KV Store use case
+- [Agent Memory Storage Services](../04-subsystems/memory-services/agent-memory/storage-services.md) — Detailed specification
+- [ADR-0071: Agent Memory Storage Backends](../decision-logs/0071-agent-memory-storage-backends.md) — Storage decisions
 
 ---
 
 ## References
 
 - [Olympus Academy: Callisto](https://academy.olympus.tech/callisto) — Full documentation
-
----
-
-*Expand this document with SDK usage, consistency models, and operational procedures.*
+- [MongoDB Documentation](https://docs.mongodb.com/) — Underlying technology
 

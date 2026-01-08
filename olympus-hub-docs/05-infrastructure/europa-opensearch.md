@@ -1,10 +1,11 @@
 # Europa — OpenSearch/ELK-as-a-Service
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-08
 
 ## Overview
 
-**Europa** is Zeta's managed OpenSearch service (formerly Elasticsearch), providing full-text search, analytics, and log aggregation capabilities for Hub Applications.
+**Europa** is Zeta's managed OpenSearch service (AWS OpenSearch with vector support), providing full-text search, analytics, vector/semantic search, and log aggregation capabilities for Hub Applications.
 
 ---
 
@@ -13,9 +14,12 @@
 Europa provides:
 
 - **Full-Text Search** — Natural language search across documents
+- **Vector/Semantic Search** — k-NN plugin for embedding-based similarity search
 - **Analytics** — Aggregations, metrics, and reporting
 - **Log Aggregation** — Application and operational logs
 - **Complex Queries** — Faceted search, filters, rankings
+- **Enterprise Memory** — Episodic, Semantic, Procedural, Preference memory stores
+- **Agent Memory** — Log, Conversation, and Document storage with RAG
 
 ---
 
@@ -27,6 +31,9 @@ Europa provides:
 | Log analytics | ✅ Use Europa |
 | Complex aggregations | ✅ Use Europa |
 | Faceted search | ✅ Use Europa |
+| **Vector/semantic search (RAG)** | ✅ Use Europa (k-NN) |
+| **Enterprise Memory stores** | ✅ Use Europa |
+| **Agent Memory Log/Conversation/Docs** | ✅ Use Europa + S3 |
 | Simple key-value | ❌ Use Callisto |
 | Transactional data | ❌ Use Ganymede |
 | Primary data store | ❌ Use Ganymede |
@@ -187,10 +194,65 @@ Example: `acme-disputes-dispute-documents-v1`
 | Feature | Description |
 |---------|-------------|
 | **Full-Text Search** | Natural language query parsing |
+| **Vector Search (k-NN)** | Embedding-based similarity search for RAG |
 | **Aggregations** | Metrics, buckets, pipelines |
 | **Analyzers** | Standard, language-specific, custom |
 | **Highlighting** | Search result highlighting |
 | **Suggestions** | Autocomplete, did-you-mean |
+| **Tiered Storage** | Hot (OpenSearch) + Cold (S3) with time-based cutoff |
+
+---
+
+## Vector Search (k-NN)
+
+Europa supports semantic/vector search via OpenSearch k-NN plugin:
+
+### Configuration
+
+```yaml
+indices:
+  - name: agent-session-logs
+    settings:
+      index.knn: true
+    mappings:
+      properties:
+        content:
+          type: text
+        embedding:
+          type: knn_vector
+          dimension: 1536  # Model-specific
+          method:
+            name: hnsw
+            engine: nmslib
+            parameters:
+              ef_construction: 128
+              m: 16
+```
+
+### Query
+
+```python
+# Semantic search
+results = europa.search(
+    index="agent-session-logs",
+    query={
+        "knn": {
+            "embedding": {
+                "vector": query_embedding,
+                "k": 10
+            }
+        }
+    }
+)
+```
+
+### Embedding Generation
+
+| Aspect | Configuration |
+|--------|---------------|
+| **Default** | Synchronous on write |
+| **Async Option** | Configurable per workbench |
+| **Model** | Hub framework-provided (Olympus embedding service) |
 
 ---
 
@@ -224,6 +286,90 @@ Europa exposes metrics to Olympus Watch:
 
 ---
 
+## Tiered Storage (S3)
+
+For long-running sessions and archival, Europa integrates with S3 for tiered storage:
+
+### Configuration
+
+```yaml
+tiered_storage:
+  enabled: true
+  hot_tier:
+    storage: opensearch
+    retention_hours: 24  # Configurable per workbench
+  cold_tier:
+    storage: s3
+    bucket: olympus-europa-cold-{tenant}
+    lifecycle:
+      transition_days: 1
+      expiration_days: 30  # Session + retention period
+```
+
+### Tiering Model
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      TIERED STORAGE                              │
+│                                                                   │
+│   ┌─────────────────────────────┐                                │
+│   │        HOT TIER             │ ◄── Recent data               │
+│   │   OpenSearch (Europa)       │     (configurable hours)       │
+│   │   - Fast query access       │                                │
+│   │   - k-NN vector search      │                                │
+│   └──────────────┬──────────────┘                                │
+│                  │ Time-based cutoff                             │
+│                  ▼                                                │
+│   ┌─────────────────────────────┐                                │
+│   │        COLD TIER            │ ◄── Older data                │
+│   │         S3                  │     (archived)                 │
+│   │   - Cost-effective          │                                │
+│   │   - Compliance retention    │                                │
+│   └─────────────────────────────┘                                │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Memory Services Integration
+
+Europa serves as the storage backend for Hub Memory Services:
+
+### Enterprise Memory
+
+| Memory Class | Index Pattern | Features |
+|--------------|---------------|----------|
+| **Episodic** | `{tenant}_{workbench}_episodic_{type}` | Immutable, 7+ year retention |
+| **Semantic** | `{tenant}_{workbench}_semantic_{type}` | Evidence-grounded beliefs |
+| **Procedural** | `{tenant}_{workbench}_procedural_{type}` | Learned skills and procedures |
+| **Preference** | `{tenant}_{workbench}_preference_{type}` | User and agent preferences |
+
+### Agent Memory
+
+| Service | Storage | Features |
+|---------|---------|----------|
+| **Log Service** | Europa + S3 tiered | Append-only, RAG search |
+| **Conversation Service** | Europa + S3 tiered | Compaction, token budgets |
+| **Document Storage** | Europa + S3 | Vector search, content-addressable |
+
+### Agent Memory Requirements
+
+| Requirement | Expectation |
+|-------------|-------------|
+| **Isolation** | Per (tenant, workbench, scenario, request, agent) |
+| **Encryption** | Values encrypted at application layer |
+| **Embeddings** | Synchronous on write (default), async optional |
+| **TTL** | Session + retention period (configurable) |
+| **Tiering** | Time-based hot/cold transition |
+
+### Agent Memory Index Pattern
+
+```
+{tenant}_{workbench}_{scenario}_{request_id}_{agent_id}_{service}
+```
+
+---
+
 ## Related Documentation
 
 - [Application Data Stores](../07-data-architecture/application-data-stores.md) — Overview
@@ -231,15 +377,17 @@ Europa exposes metrics to Olympus Watch:
 - [Ganymede](./ganymede-rdbms.md) — Relational alternative
 - [Callisto](./callisto-kv-store.md) — Key-Value alternative
 - [Olympus Watch](./olympus-watch.md) — Log aggregation
+- [Memory Services](../04-subsystems/memory-services/README.md) — Hub Memory Services overview
+- [Enterprise Memory](../04-subsystems/memory-services/enterprise-memory/README.md) — Organizational memory
+- [Agent Memory](../04-subsystems/memory-services/agent-memory/README.md) — Session-scoped agent memory
+- [Agent Memory Storage Services](../04-subsystems/memory-services/agent-memory/storage-services.md) — Detailed specification
+- [ADR-0071: Agent Memory Storage Backends](../decision-logs/0071-agent-memory-storage-backends.md) — Storage decisions
 
 ---
 
 ## References
 
 - [OpenSearch Documentation](https://opensearch.org/docs/latest/)
+- [OpenSearch k-NN Plugin](https://opensearch.org/docs/latest/search-plugins/knn/index/) — Vector search
 - [Olympus Academy: Europa](https://academy.olympus.tech/europa) — Full documentation
-
----
-
-*Expand this document with mapping strategies, query optimization, and operational procedures.*
 

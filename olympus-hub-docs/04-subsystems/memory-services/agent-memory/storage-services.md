@@ -360,6 +360,12 @@ for result in doc_results:
 - [Context Assembly Integration](./context-assembly.md) — Seer integration
 - [Design Rationale](./design-rationale.md) — Why these four services
 
+### Infrastructure
+
+- [Olympus Callisto](../../../../olympus-hub-docs/05-infrastructure/callisto-kv-store.md) — MongoDB-based KV Store
+- [Olympus Europa](../../../../olympus-hub-docs/05-infrastructure/europa-opensearch.md) — OpenSearch with k-NN and S3 tiering
+- [ADR-0071: Storage Backends](../../../decision-logs/0071-agent-memory-storage-backends.md) — Storage layer decisions
+
 ---
 
 *Storage services provide the building blocks for agent memory with strict session scoping and encryption.*
