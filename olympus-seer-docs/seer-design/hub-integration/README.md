@@ -176,7 +176,7 @@ When a Hub Request update reaches a Seer agent:
 
 ### Hub Components
 - [Hub Application Concepts](../../../olympus-hub-docs/01-concepts/hub-applications.md)
-- [Scenario Management](../../../olympus-hub-docs/04-subsystems/scenario-management/README.md)
+- [Workbench & Scenario Management](../../../olympus-hub-docs/04-subsystems/workbench-management/README.md)
 - [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md)
 - [Agent Memory Services](../../../olympus-hub-docs/04-subsystems/memory-services/agent-memory/README.md)
 

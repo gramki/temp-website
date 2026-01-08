@@ -585,5 +585,5 @@ Every compilation includes trace context:
 - [Knowledge vs Memory vs Context vs Session](../../agentic-ai-concepts/agent-memory/knowledge-memory-context-session.md)
 - [Enterprise Knowledge vs Memory vs Agent Memory](../../agentic-ai-concepts/enterprise-knowledge-memory-other-data.md)
 - [Hub Memory Services](../../../olympus-hub-docs/04-subsystems/memory-services/README.md)
-- [Hub Knowledge Bank](../../../olympus-hub-docs/04-subsystems/knowledge-bank/README.md)
+- [Hub Knowledge Services](../../../olympus-hub-docs/04-subsystems/knowledge-services/README.md)
 

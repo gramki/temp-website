@@ -1024,7 +1024,7 @@ spec:
 - [Context Assembly Engine](./context-assembly-engine.md) — Behavioral guidelines in context
 - [Model Gateway](./model-gateway.md) — LLM circuit breakers
 - [Hub Artifact Registry](../../../olympus-hub-docs/04-subsystems/registry-services/README.md) — Tenant guardrail registration
-- [Atlantis Runtime](../../../olympus-hub-docs/05-infrastructure/README.md) — Sidecar deployment
+- [Atlantis Runtime](../../../olympus-hub-docs/04-subsystems/automation-runtimes/atlantis-runtime.md) — Sidecar deployment
 - [ADR-0072: Guardrails Two-Layer Model](../../../olympus-hub-docs/decision-logs/0072-seer-guardrails-two-layer-model.md)
 
 ---

@@ -380,7 +380,7 @@ Traces stored in agent observability logs and can be correlated with Hub request
 - [Context Assembly Engine](../subsystems/context-assembly-engine.md) — Full CAE design
 - [Memory Integration](./memory-integration.md) — Agent Memory as CAE source
 - [Enterprise Memory Access Tools](../../../olympus-hub-docs/04-subsystems/memory-services/enterprise-memory/access-tools.md) — Memory retrieval
-- [Knowledge Bank](../../../olympus-hub-docs/04-subsystems/knowledge-bank/README.md) — Policy retrieval
+- [Knowledge Services](../../../olympus-hub-docs/04-subsystems/knowledge-services/README.md) — Policy retrieval
 
 ---
 

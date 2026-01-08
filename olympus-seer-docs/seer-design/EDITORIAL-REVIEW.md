@@ -20,6 +20,10 @@ This document captures the findings from a comprehensive editorial review of the
 | `README.md` | Referenced non-existent `observability-evaluation.md` | Updated to separate `agent-observability.md` and `agent-evaluation.md` |
 | `introduction.md` | Referenced old subsystem name | Updated subsystem table |
 | `context-assembly-engine.md` | Agent Memory ownership incorrect | Clarified: Hub owns storage, Seer uses SDK |
+| `guardrails.md` | Referenced non-existent `05-infrastructure/README.md` | Updated to `automation-runtimes/atlantis-runtime.md` |
+| `context-assembly-engine.md` | Referenced non-existent `knowledge-bank/` folder | Updated to `knowledge-services/README.md` |
+| `hub-integration/README.md` | Referenced non-existent `scenario-management/` folder | Updated to `workbench-management/README.md` |
+| `hub-integration/context-assembly.md` | Referenced non-existent `knowledge-bank/` folder | Updated to `knowledge-services/README.md` |
 
 ### 2. ✅ Status Inconsistencies
 
