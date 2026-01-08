@@ -37,6 +37,13 @@ How Seer agents operate within the Hub ecosystem:
 - [Training Spec CRD](./hub-integration/training-spec-crd.md) — Full TrainingSpec schema
 - [Employment Spec CRD](./hub-integration/employment-spec-crd.md) — Full EmploymentSpec schema
 
+## Guides
+
+Practical guidance for building and operating Seer agents:
+
+- [Guides Overview](./guides/README.md)
+- [Guardrails Best Practices](./guides/guardrails-best-practices.md) — Effective guardrail design, configuration, governance
+
 ## Background
 
 - [Requirements: Enterprise Agentic Platform](../requirements-enterprise-agentic-platform/README.md)
