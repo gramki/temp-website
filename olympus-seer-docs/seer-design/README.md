@@ -18,6 +18,18 @@ This folder contains the design documents for **Olympus Seer** (Seer) — Zeta's
 - [Observability & Evaluation Service](./subsystems/observability-evaluation.md)
 - [Model Gateway](./subsystems/model-gateway.md)
 
+## Hub Integration
+
+How Seer agents operate within the Hub ecosystem:
+
+- [Hub Integration Overview](./hub-integration/README.md) — Seer as Hub Application Runtime
+- [Raw Agent in Hub Context](./hub-integration/raw-agent.md) — Container requirements, framework flexibility
+- [Trained Agent as Hub Application](./hub-integration/trained-agent.md) — HubApplicationSpec ↔ TrainingSpec
+- [Employed Agent as Deployed Application](./hub-integration/employed-agent.md) — ScenarioDeployment ↔ EmploymentSpec
+- [Request Dispatch](./hub-integration/request-dispatch.md) — Signal Exchange → Runtime → Agent flow
+- [Memory Integration](./hub-integration/memory-integration.md) — Agent Memory Services in Seer context
+- [Context Assembly](./hub-integration/context-assembly.md) — CAE invocation patterns
+
 ## Background
 
 - [Requirements: Enterprise Agentic Platform](../requirements-enterprise-agentic-platform/README.md)
