@@ -89,7 +89,7 @@ workbench_provisioning:
 
 1. **Create Task Queues**
    - Define queue types and policies
-   - Configure escalation rules
+   - Configure time-based escalation rules (Task Queue EM)
    - Set SLA parameters
 
 2. **Enroll Agents**
@@ -97,9 +97,14 @@ workbench_provisioning:
    - Configure skills and capabilities
    - Set availability
 
-3. **Test Readiness**
+3. **Configure Directability**
+   - Task Queue EM handles time-based escalation for stalled tasks
+   - Scenario EM (configured per scenario deployment) handles rejection-based escalation
+   - See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md)
+
+4. **Test Readiness**
    - Validate queue routing
-   - Test escalation paths
+   - Test escalation paths (both time-based and rejection-based)
    - Verify agent access
 
 ### Output
@@ -116,8 +121,8 @@ workbench_provisioning:
 - [Process Architect Persona](../personas/process-architect.md)
 - [Supervisor Persona](../personas/supervisor.md)
 - [Workbench Setup Guide](../../10-guides/workbench-setup-guide.md)
+- [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) — Escalation matrix types
+- [Escalation Matrix](../../02-system-design/implementation-concepts/escalation-matrix.md)
 
 ---
-
-*TODO: Detailed phase specifications, configuration schemas, validation checklists*
 

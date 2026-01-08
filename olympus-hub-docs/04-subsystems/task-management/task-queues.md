@@ -404,6 +404,89 @@ Tasks assigned to Workbench supervisors.
 
 ---
 
+## Escalation Task Queue
+
+When an agent output is **rejected** (by guardrails, policies, or applications), Task Management creates an **Escalation Task** to handle the intervention. This task is assigned using the Scenario Escalation Matrix.
+
+### Escalation Task Creation
+
+```
+Agent produces output (Decision Result, Action Result, etc.)
+        │
+        ▼
+Guardrail/Policy/Application rejects output
+        │
+        ▼
+Signal Exchange routes REQUEST_UPDATE (rejection)
+        │
+        ▼
+Task Management observes rejection
+        │
+        ▼
+Task Management creates Escalation Task:
+  • task_type: "intervention_required"
+  • queue: from Scenario Escalation Matrix
+  • context: original rejection details
+  • notification: to Accountable Human
+```
+
+### Escalation Task Structure
+
+```json
+{
+  "task_id": "esc-task-12345",
+  "request_id": "req-67890",
+  "task_type": "intervention_required",
+  
+  "escalation_context": {
+    "rejection_source": "guardrail",
+    "rejection_reason": "Confidence below threshold (0.45 < 0.70)",
+    "rejected_artifact": {
+      "type": "decision_result",
+      "artifact_id": "dec-11111",
+      "agent_id": "fraud-case-agent"
+    },
+    "original_task_id": "task-99999"
+  },
+  
+  "resolution_options": [
+    "change_context_rerun",
+    "override_decision",
+    "reassign_task",
+    "fail_scenario",
+    "create_corrective_action"
+  ],
+  
+  "queue": {
+    "queue_id": "scenario-escalation-queue",
+    "from_scenario_escalation_matrix": true
+  }
+}
+```
+
+### Two Types of Escalation
+
+| Escalation Type | Trigger | Escalation Matrix Used |
+|-----------------|---------|------------------------|
+| **Time-Based** | Task age exceeds threshold | Task Queue Escalation Matrix |
+| **Rejection-Based** | Agent output rejected | Scenario Escalation Matrix |
+
+### Escalation Task Resolution
+
+When the escalation task is completed, the resolution is recorded in CAF:
+
+| Resolution | CAF Record |
+|------------|------------|
+| Decision changed | Override Record + DirectiveResolution |
+| Context changed, re-run | ContextIntervention Record + DirectiveResolution |
+| Task reassigned | Task History (REASSIGNED) |
+| Scenario failed | Request State Change |
+| Corrective action created | New Request (parent-child linked) |
+
+See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
+
+---
+
 ## Manual Queue Management
 
 ### Supervisor Actions

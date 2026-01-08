@@ -1,8 +1,11 @@
 # MCP Channels
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-08
 
 Hub exposes **MCP Channels** to enable AI agents and assistants to interact with Hub capabilities programmatically. Each channel is scoped to a specific persona and provides a curated set of tools.
+
+MCP Channels include **Directability Methods** for handling escalation tasks created when AI agent outputs are rejected. See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
 
 ---
 
@@ -222,6 +225,62 @@ MCP Channels expose Hub capabilities as MCP tools:
 | **Knowledge Tools** | `search_knowledge`, `get_sop`, `get_policy` |
 | **Entity Tools** | `get_entity`, `search_entities` |
 | **Queue Tools** | `get_queue_metrics`, `reassign_task` |
+| **Directability Tools** | `acknowledge_escalation`, `override_decision`, `change_context_rerun`, `fail_scenario` |
+
+### Directability Tools
+
+Tools for handling escalation tasks created when AI agent outputs are rejected.
+
+| Tool | Description | Channels |
+|------|-------------|----------|
+| `acknowledge_escalation` | Acknowledge an escalation task for review | Agent, Supervisor |
+| `override_decision` | Override a rejected decision with new value | Agent, Supervisor |
+| `change_context_rerun` | Modify context and request agent re-run | Agent, Supervisor |
+| `reassign_for_retry` | Reassign original task to different agent | Supervisor |
+| `fail_scenario` | Fail the scenario due to unresolvable rejection | Supervisor |
+| `create_corrective_action` | Create corrective action in different scenario | Supervisor |
+| `get_rejection_context` | Get rejection details and resolution options | Agent, Supervisor |
+
+#### Example: Override Decision
+
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "override_decision",
+    "arguments": {
+      "task_id": "esc-task-12345",
+      "original_decision_id": "dec-11111",
+      "new_decision": {
+        "action": "approve_refund",
+        "amount": 150.00
+      },
+      "rationale": "Customer history justifies approval despite low model confidence",
+      "rationale_category": "new_information"
+    }
+  }
+}
+```
+
+#### Example: Change Context and Re-run
+
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "change_context_rerun",
+    "arguments": {
+      "task_id": "esc-task-12345",
+      "additional_context": {
+        "customer_tier": "platinum",
+        "previous_disputes": [],
+        "account_age_years": 12
+      },
+      "instructions": "Consider customer's long tenure and clean history"
+    }
+  }
+}
+```
 
 ---
 

@@ -99,6 +99,9 @@ All ADRs follow the standard format:
 | [0075](./0075-seer-model-gateway-bifrost.md) | Seer Model Gateway based on Bifrost OSS | Accepted | 2026-01-08 | seer |
 | [0076](./0076-seer-observability-watch-based.md) | Seer agent observability via Olympus Watch | Accepted | 2026-01-08 | seer |
 | [0077](./0077-seer-evaluation-deferred.md) | Seer Agent Evaluation deferred to post-MVP | Accepted (Deferred) | 2026-01-08 | seer |
+| [0078](./0078-agent-directability-rejection-escalation.md) | Agent Directability via Rejection-Escalation Model | Accepted | 2026-01-08 | directability |
+| [0079](./0079-scenario-escalation-matrix.md) | Scenario Escalation Matrix for Application Exceptions | Accepted | 2026-01-08 | directability |
+| [0080](./0080-directability-operations.md) | Directability Operations in Task Management | Accepted | 2026-01-08 | directability |
 
 ---
 
@@ -219,6 +222,11 @@ All ADRs follow the standard format:
 - [0075](./0075-seer-model-gateway-bifrost.md) - Model Gateway based on Bifrost OSS
 - [0076](./0076-seer-observability-watch-based.md) - Agent observability via Olympus Watch
 - [0077](./0077-seer-evaluation-deferred.md) - Agent Evaluation deferred to post-MVP
+
+### Agent Directability
+- [0078](./0078-agent-directability-rejection-escalation.md) - Agent Directability via Rejection-Escalation Model
+- [0079](./0079-scenario-escalation-matrix.md) - Scenario Escalation Matrix for Application Exceptions
+- [0080](./0080-directability-operations.md) - Directability Operations in Task Management
 
 ---
 

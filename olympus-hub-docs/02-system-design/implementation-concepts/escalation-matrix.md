@@ -1,12 +1,16 @@
 # Escalation Matrix
 
-> **Category:** Request and Task
+> **Category:** Request and Task  
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-08
 
 ---
 
 ## Overview
 
 The **Escalation Matrix** is a multi-level agent assignment configuration within a Task Queue. When tasks remain unresolved beyond threshold times, escalation adds agents at higher levels to the assignment, creating cumulative visibility and accountability without removing original assignees.
+
+Escalation Matrix is a core mechanism for **Agent Directability**—enabling humans to intervene when AI agents produce rejected outputs. See [Agent Directability](./agent-directability.md) for the full directability model.
 
 ---
 
@@ -149,8 +153,39 @@ Task completed at T+300 by Agent-Bob
 | Trigger | Condition |
 |---------|-----------|
 | **Time-based** | Task age exceeds level threshold |
+| **Rejection-based** | Agent output rejected by guardrail, policy, or application |
 | **Manual** | Supervisor forces escalation |
 | **Status-based** | Task put on hold (may pause escalation) |
+
+### Rejection-Based Escalation (Directability)
+
+When an agent's output is rejected (by guardrails, policies, or applications), an **escalation task** is created to handle the intervention:
+
+```
+Agent produces Decision Result
+        │
+        ▼
+Guardrail rejects: "Confidence below threshold"
+        │
+        ▼
+Signal Exchange routes REQUEST_UPDATE (rejection)
+        │
+        ▼
+Task Management creates Escalation Task
+        │
+        ▼
+Escalation Matrix determines assignment:
+├── Task Queue EM: For task-level exceptions
+└── Scenario EM: For application-level exceptions
+        │
+        ▼
+Human resolves (change context, override, reassign, etc.)
+        │
+        ▼
+CAF records: Override, ContextIntervention, DirectiveResolution
+```
+
+This integrates with the [Agent Directability](./agent-directability.md) model.
 
 ### Cumulative Assignment
 
@@ -279,9 +314,11 @@ escalation_matrix:
 
 | Concept | Relationship |
 |---------|--------------|
+| [Agent Directability](./agent-directability.md) | Escalation enables human intervention in agent operations |
 | [Task Allocation](./task-allocation.md) | Escalation triggers allocation at new level |
 | [Request Lifecycle](./request-lifecycle.md) | Task states affect escalation |
 | [Notification Services](./notification-services.md) | Escalation generates notifications |
+| [Cognitive Audit Fabric](./cognitive-audit-fabric.md) | Escalation recorded via Override/DirectiveResolution records |
 
 ---
 

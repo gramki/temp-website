@@ -1,8 +1,11 @@
 # Signal Exchange
 
-> **Status:** 🟡 Draft — Under active development
+> **Status:** 🟡 Draft — Under active development  
+> **Last Updated:** 2026-01-08
 
 The Signal Exchange is the **data plane** that handles the bidirectional flow of signals and responses between Signal Providers and Hub Applications. It is a **message-oriented system** (similar to Atropos and OMS*) that provides **flow control** and can operate as a **store-and-forward engine** when configured.
+
+Signal Exchange plays a key role in **Agent Directability** by routing rejection events and request updates that trigger escalation flows. See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
 
 > *OMS (Olympus Message System) is an in-house broker-less message exchange framework similar to ZeroMQ.
 
@@ -304,6 +307,35 @@ See [Memory Record Routing](./memory-record-routing.md) for full specification.
 - Signal Exchange does NOT dispatch to individual agents, tasks, or users
 - Signal Exchange operates at the **Request level** only — it cannot attribute updates to specific tasks or agents
 - Observer modules parse update content to determine which users/agents to notify
+
+### Rejection Routing (Directability Flow)
+
+When an agent's output is **rejected** (by guardrails, policies, or applications), the rejection is routed through Signal Exchange as a `REQUEST_UPDATE`:
+
+```
+1. Agent produces output (Decision Result, Action Result, etc.)
+2. Guardrail/Policy/Application rejects the output
+3. Rejection packaged as REQUEST_UPDATE with:
+   - update_type: REJECTION
+   - rejection_source: guardrail | policy | application | agent
+   - rejection_reason: Human-readable explanation
+   - rejected_artifact: Reference to what was rejected
+4. Signal Exchange routes REQUEST_UPDATE to Hub Application
+5. Signal Exchange notifies observer modules:
+   - Task Management (observes and creates escalation task)
+   - Notification Services (alerts Accountable Human)
+6. Task Management uses Escalation Matrix to assign resolution task
+7. Human resolves via Override or ContextIntervention
+8. Resolution recorded in CAF (DirectiveResolution record)
+```
+
+This flow enables **Agent Directability** — the ability for humans to intervene when AI agent outputs are rejected. See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full model.
+
+**Key Design Points:**
+- Signal Exchange routes the rejection REQUEST_UPDATE — it does not create escalation tasks directly
+- Task Management (as an observer) handles escalation task creation
+- All escalation matrices are defined by Supervisors (not Signal Exchange)
+- Rejection routing follows the same path as any REQUEST_UPDATE
 
 ### Observer Notification Patterns
 

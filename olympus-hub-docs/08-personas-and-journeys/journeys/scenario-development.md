@@ -15,7 +15,7 @@ A **Scenario** is a Perception Layer concept representing a situational context 
 | **1. Design** | Process Architect | Scenario Definition, SOP |
 | **2. Build** | Developer | Hub Application, Triggers |
 | **3. Task Delegation** | Process Architect + Developer | Scenario Manifest |
-| **4. Deploy** | Supervisor | Task Queue Mappings, Activation |
+| **4. Deploy** | Supervisor | Task Queue Mappings, Scenario Escalation Matrix, Activation |
 
 ---
 
@@ -244,16 +244,22 @@ The Supervisor activates the Scenario in the Workbench, mapping tasks to queues 
      - **Designated Agent Queue**: Route to a specific agent field in the task
 
 3. **Configure Queue Properties**
-   - Escalation policies
+   - Time-based escalation policies (Task Queue EM)
    - SLA enforcement
    - Agent eligibility rules
 
-4. **Activate Scenario**
+4. **Configure Scenario Escalation Matrix**
+   - Define escalation for rejection-based exceptions (Scenario EM)
+   - Designate Accountable Human for notifications
+   - Configure resolution options (override, context change, fail, corrective action)
+   - This handles cases when AI agent outputs are rejected by guardrails, policies, or applications
+
+5. **Activate Scenario**
    - Deploy to Workbench
    - Enable triggers
    - Begin processing signals
 
-### Output: Task Queue Mappings
+### Output: Task Queue Mappings + Scenario Escalation
 
 ```yaml
 scenario_deployment:
@@ -283,11 +289,47 @@ scenario_deployment:
       queue_type: subject  # Special: routes to customer
       channel: "customer-portal"
   
+  # Scenario Escalation Matrix (for rejection-based exceptions)
+  scenario_escalation:
+    accountable_human:
+      type: workbench_role
+      value: supervisor
+    
+    levels:
+      - level: 0
+        name: "Senior Analyst Review"
+        candidates:
+          type: iam_role
+          value: senior-dispute-analyst
+        threshold_minutes: null
+        
+      - level: 1
+        name: "Supervisor Intervention"
+        candidates:
+          type: workbench_role
+          value: supervisor
+        threshold_minutes: 60
+    
+    resolution_options:
+      allow_context_change: true
+      allow_decision_override: true
+      allow_scenario_fail: true
+      allow_corrective_action: true
+  
   # Activation
   status: active
   activated_at: "2026-01-04T10:00:00Z"
   activated_by: "supervisor-jane"
 ```
+
+### Two Types of Escalation
+
+| Escalation Type | Trigger | Configuration |
+|-----------------|---------|---------------|
+| **Time-based** | Task age exceeds threshold | `escalation_after` in task queue mappings |
+| **Rejection-based** | Agent output rejected by guardrail/policy/app | `scenario_escalation` block |
+
+See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
 
 ---
 
@@ -370,8 +412,8 @@ A fully deployed Scenario composes:
 - [Scenario Definitions](../../04-subsystems/workbench-management/scenario-definitions.md)
 - [Trigger Definitions](../../04-subsystems/workbench-management/trigger-definitions.md)
 - [Task Management](../../04-subsystems/task-management/README.md)
+- [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) — Scenario Escalation Matrix configuration
+- [Scenario Specification Types](../../02-system-design/implementation-concepts/scenario-specification-types.md) — Deployment Spec with escalation
 
 ---
-
-*TODO: Detailed design — manifest schema, validation rules, deployment workflow*
 

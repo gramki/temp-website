@@ -57,6 +57,7 @@ These implementation concepts are:
 | [Request Update](./request-update.md) | Append-only updates to request context | ✅ Complete |
 | [Task Allocation](./task-allocation.md) | Assignment algorithms and workload balancing | ✅ Complete |
 | [Escalation Matrix](./escalation-matrix.md) | Multi-level cumulative agent assignment | ✅ Complete |
+| [Agent Directability](./agent-directability.md) | Human intervention in AI agent operations | 🟡 Draft |
 
 ### User Experience Architecture
 
@@ -136,6 +137,8 @@ These implementation concepts are:
 │   Operation ──────────────────────────▶ Request + Request Lifecycle          │
 │                                                                              │
 │   Task ───────────────────────────────▶ Task + Allocation + Escalation       │
+│                                                                              │
+│   OPD (Directability) ───────────────▶ Agent Directability + CAF Records    │
 │                                                                              │
 │   Agent ──────────────────────────────▶ Persona + Channel + Notification     │
 │                                                                              │

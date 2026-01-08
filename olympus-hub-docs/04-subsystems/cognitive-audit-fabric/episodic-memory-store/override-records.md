@@ -1,8 +1,12 @@
 # Override Records
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-08  
+> **Parent:** [Episodic Memory Store](./README.md)
 
 Override Records capture **manual overrides of automated or prior decisions**—documenting who overrode, why, and with what authority. CAF provides the **catalog and schema** for override records; the records themselves are stored in **Enterprise Memory**.
+
+Override Records are a key component of **Agent Directability**—the mechanism by which humans intervene in AI agent operations. See [Agent Directability](../../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
 
 ---
 
@@ -170,15 +174,62 @@ CAF monitors override patterns to identify:
 
 ---
 
+## Directive Resolution Linkage
+
+Override Records are linked to **Directive Resolution Records** which track the intervention lifecycle:
+
+| Override Created | Resolution Records Created |
+|------------------|---------------------------|
+| Override initiated | DirectiveResolution (subtype: `ack`) when acknowledged |
+| Override applied | DirectiveResolution (subtype: `outcome`) when resolved |
+
+This linkage provides:
+- **Acknowledgment tracking**: When was the override seen?
+- **Resolution timing**: How long did it take to resolve?
+- **Outcome verification**: Did the override achieve its goal?
+
+See [Directive Resolution Records](./directive-resolution-records.md) for the full schema.
+
+---
+
+## Directability Context
+
+Override Records are created during the **directability flow**:
+
+```
+Rejection Event (Guardrail, Policy, Agent, Application)
+        │
+        ▼
+Signal Exchange routes REQUEST_UPDATE
+        │
+        ▼
+Escalation Task created (by Task Management)
+        │
+        ▼
+Human reviews and decides to override
+        │
+        ▼
+Override Record created ◄── THIS DOCUMENT
+        │
+        ▼
+DirectiveResolution (ack) created
+        │
+        ▼
+Override applied, new decision produced
+        │
+        ▼
+DirectiveResolution (outcome) created
+```
+
+---
+
 ## Related Documentation
 
 - [CAF Overview](../README.md)
 - [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Outcome Records](./outcome-records.md)
+- [Directive Resolution Records](./directive-resolution-records.md)
+- [Agent Directability](../../../02-system-design/implementation-concepts/agent-directability.md)
 - [Enterprise Memory](../../memory-services/enterprise-memory/README.md)
-
----
-
-*TODO: Detailed design — authority validation, pattern detection algorithms, approval workflow integration*
 

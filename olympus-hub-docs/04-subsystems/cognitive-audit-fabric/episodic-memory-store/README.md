@@ -61,6 +61,7 @@ In cognitive science, **episodic memory** stores autobiographical events — exp
 |----------|-------------|
 | [Outcome Records](./outcome-records.md) | Post-decision outcomes |
 | [Override Records](./override-records.md) | Manual override documentation |
+| [Directive Resolution Records](./directive-resolution-records.md) | Intervention lifecycle tracking |
 | [Handoff Context](./handoff-context.md) | State transfer between agents |
 
 #### Learning & Investigation Records
@@ -81,9 +82,10 @@ In cognitive science, **episodic memory** stores autobiographical events — exp
 | 4 | ContextSnapshot | Compiled context | `snapshot_id`, `session_id`, `turn_number`, `context_frame` |
 | 5 | OutcomeRecord | Post-decision outcome | `outcome_id`, `decision_id`, `actual_outcome`, `variance` |
 | 6 | OverrideRecord | Manual override | `override_id`, `original_decision_id`, `justification` |
-| 7 | HandoffContext | State transfer | `handoff_id`, `from_actor`, `to_actor`, `open_items` |
-| 8 | HypothesisRecord | Learned pattern | `hypothesis_id`, `pattern`, `confidence`, `supporting_evidence` |
-| 9 | IncidentTimeline | Event sequence | `timeline_id`, `events[]`, `analysis` |
+| 7 | DirectiveResolution | Intervention lifecycle | `resolution_id`, `intervention_ref`, `subtype`, `outcome` |
+| 8 | HandoffContext | State transfer | `handoff_id`, `from_actor`, `to_actor`, `open_items` |
+| 9 | HypothesisRecord | Learned pattern | `hypothesis_id`, `pattern`, `confidence`, `supporting_evidence` |
+| 10 | IncidentTimeline | Event sequence | `timeline_id`, `events[]`, `analysis` |
 
 ---
 

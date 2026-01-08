@@ -1,12 +1,13 @@
 # Agent Model
 
-> **How human and AI agents interact with Hub**
+> **How human and AI agents interact with Hub**  
+> **Last Updated:** 2026-01-08
 
 ---
 
 ## Overview
 
-Olympus Hub is built for **human-AI collaboration**. Both human and AI agents work within the same operational framework — receiving tasks, accessing tools, making decisions, and completing work. This document explains the agent model, how different agent types participate, and how they collaborate.
+Olympus Hub is built for **human-AI collaboration**. Both human and AI agents work within the same operational framework — receiving tasks, accessing tools, making decisions, and completing work. This document explains the agent model, how different agent types participate, how they collaborate, and how humans maintain **directability** over AI agents.
 
 ---
 
@@ -335,6 +336,94 @@ Result returned to Agent
 
 ---
 
+## Agent Directability
+
+**Directability** is the ability for humans to intervene in, redirect, or override AI agent behavior during cognitive operations. Hub implements directability through a rejection-escalation model.
+
+### Agent Archetypes
+
+Hub recognizes four functional archetypes that describe what an agent does at any moment. **An agent may wear all hats** — these are perspectives, not exclusive roles.
+
+| Archetype | Function | Rejectable Artifacts |
+|-----------|----------|---------------------|
+| **Thinker** | Reasoning, decisions | Decision Request, Decision Result |
+| **Doer** | Executing actions | Action Request, Action Result |
+| **Orchestrator** | Assigning work | Task Assignment |
+| **Governor** | Observing, auditing | None (observations are facts) |
+
+### Rejection as Intervention Trigger
+
+All directability flows from **rejection events**:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  AI AGENT DIRECTABILITY                                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  AI Agent produces output                                                    │
+│       │                                                                      │
+│       │ (Decision Result, Action Result, etc.)                               │
+│       ▼                                                                      │
+│  ┌───────────────────────────────────────────────────────────────┐          │
+│  │  REJECTION SOURCES                                            │          │
+│  │                                                               │          │
+│  │  • Guardrail: "Confidence below threshold"                   │          │
+│  │  • Policy: "Amount exceeds auto-approval limit"              │          │
+│  │  • Application: "Missing required evidence"                  │          │
+│  │  • Another Agent: "Invalid transaction reference"            │          │
+│  └───────────────────────┬───────────────────────────────────────┘          │
+│                          │                                                   │
+│                          ▼                                                   │
+│  ┌───────────────────────────────────────────────────────────────┐          │
+│  │  ESCALATION TASK CREATED                                      │          │
+│  │                                                               │          │
+│  │  Assigned via Scenario Escalation Matrix (Supervisor-defined) │          │
+│  │  Accountable Human notified                                   │          │
+│  └───────────────────────┬───────────────────────────────────────┘          │
+│                          │                                                   │
+│                          ▼                                                   │
+│  ┌───────────────────────────────────────────────────────────────┐          │
+│  │  HUMAN RESOLUTION OPTIONS                                     │          │
+│  │                                                               │          │
+│  │  • Override the decision (with new value)                    │          │
+│  │  • Change context and re-run                                 │          │
+│  │  • Reassign to different agent                               │          │
+│  │  • Fail the scenario                                         │          │
+│  │  • Create corrective action                                  │          │
+│  └───────────────────────┬───────────────────────────────────────┘          │
+│                          │                                                   │
+│                          ▼                                                   │
+│  ┌───────────────────────────────────────────────────────────────┐          │
+│  │  CAF RECORDS                                                  │          │
+│  │                                                               │          │
+│  │  Override Record / ContextIntervention Record                 │          │
+│  │  DirectiveResolution Record (ack + outcome)                   │          │
+│  └───────────────────────────────────────────────────────────────┘          │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Directability Roles
+
+| Role | Directability Responsibility |
+|------|------------------------------|
+| **Supervisor** | Defines all escalation matrices; handles escalated tasks; overrides decisions |
+| **Agent** | Completes escalation tasks; may trigger rejection by abandoning |
+| **Process Architect** | Defines guardrails and policies that trigger rejections |
+| **Developer** | Implements application logic that may reject artifacts |
+
+### What's NOT Directability
+
+| Concern | Reason | Where Handled |
+|---------|--------|---------------|
+| **Kill-switch** | Infrastructure concern | Seer Runtime (Agent Lifecycle) |
+| **Authority Revocation** | Requires deliberation | Enterprise Learning workflow |
+| **Governor Observations** | Facts, not proposals | Recorded as-is; feed Enterprise Learning |
+
+→ **Details:** [Agent Directability](./implementation-concepts/agent-directability.md)
+
+---
+
 ## Agent Identity and Security
 
 ### Human Agent IAM
@@ -429,4 +518,6 @@ Hub enables advanced agent compositions:
 | [Channel](./implementation-concepts/channel.md) | Interaction interfaces |
 | [Task Allocation](./implementation-concepts/task-allocation.md) | Work distribution |
 | [Escalation Matrix](./implementation-concepts/escalation-matrix.md) | Escalation patterns |
+| [Agent Directability](./implementation-concepts/agent-directability.md) | Human intervention in AI operations |
+| [Cognitive Audit Fabric](./implementation-concepts/cognitive-audit-fabric.md) | Intervention audit records |
 

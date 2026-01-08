@@ -1,8 +1,11 @@
 # Task Management
 
-> **Status:** 🟡 Draft — Core concepts defined, component details in progress
+> **Status:** 🟡 Draft — Core concepts defined, component details in progress  
+> **Last Updated:** 2026-01-08
 
 Task Management handles the **creation, assignment, tracking, and lifecycle of tasks**—the units of work delegated to agents (human and AI) within a Workbench.
+
+Task Management is a key enabler of **Agent Directability**—when agent outputs are rejected, Task Management creates escalation tasks and tracks the intervention lifecycle. See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
 
 ---
 
@@ -358,10 +361,12 @@ Best practice: Configure escalation thresholds to allow newly assigned agents su
 
 ## Related Documentation
 
+- [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) — Human intervention in agent operations
 - [Cognitive Application](../../02-system-design/implementation-concepts/cognitive-application.md) — Task-emitting applications
-- [Signal Exchange](../signal-exchange/README.md) — Task event routing
+- [Signal Exchange](../signal-exchange/README.md) — Task event routing, rejection routing
 - [Request Management](../request-management/README.md) — Request lifecycle
 - [Workbench Management](../workbench-management/README.md) — Queue configuration
+- [Cognitive Audit Fabric](../cognitive-audit-fabric/README.md) — Intervention records (Override, DirectiveResolution)
 - [Agent Desk](../../06-ux-architecture/tenant-domain/agent-desk.md) — Task Solver UI
 - [Cipher IAM](../supporting-systems/cipher-iam.md) — Identity and access
 - [Memory Services](../memory-services/README.md) — Memory for agents and applications

@@ -140,6 +140,62 @@ Task Assigned ──→ Investigation ──→ Decision ──→ Action ──
 
 ---
 
+## Phase 4.5: Rejection Handling (Agent Directability)
+
+When an AI agent's output is **rejected** by guardrails, policies, or applications, the request enters an intervention flow.
+
+### Actors
+
+- **Guardrails/Policies/Applications**: Rejection sources
+- **Task Management**: Creates escalation task
+- **Supervisor/Senior Agent**: Resolves escalation
+
+### Flow
+
+```
+Agent Output ──→ Rejection ──→ Escalation Task Created ──→ Human Resolves
+                                      │
+                                      ↓
+                              ┌─────────────────┐
+                              │ Resolution:     │
+                              │ • Override      │
+                              │ • Context Change│
+                              │ • Reassign      │
+                              │ • Fail Scenario │
+                              │ • Corrective    │
+                              └─────────────────┘
+```
+
+### Rejection Sources
+
+| Source | Example |
+|--------|---------|
+| **Guardrail** | Confidence below threshold |
+| **Policy** | Amount exceeds auto-approval limit |
+| **Application** | Missing required evidence |
+| **Another Agent** | Invalid transaction reference |
+
+### Resolution Options
+
+| Resolution | Effect |
+|------------|--------|
+| **Override Decision** | Replace rejected decision with human-provided value |
+| **Change Context & Re-run** | Add context and trigger agent re-evaluation |
+| **Reassign Task** | Assign to different agent for retry |
+| **Fail Scenario** | Mark request as failed |
+| **Corrective Action** | Spawn new request in different scenario |
+
+### Audit Trail
+
+All interventions are recorded in CAF:
+- **Override Records** — Decision changes
+- **ContextIntervention Records** — Context changes
+- **DirectiveResolution Records** — Resolution lifecycle
+
+See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
+
+---
+
 ## Phase 5: Resolution
 
 ### Actor: Hub Application + Signal Exchange
@@ -182,8 +238,7 @@ All Tasks Complete ──→ Aggregate Results ──→ Update Request ──�
 ### Concepts
 
 - [Ontology - Perception Layer](../../01-concepts/ontology-1-perception-layer.md) — Request type definitions
+- [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) — Rejection and intervention handling
 
 ---
-
-*TODO: Detailed phase specifications, timing diagrams, exception handling*
 

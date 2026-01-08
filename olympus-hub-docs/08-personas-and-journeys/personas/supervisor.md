@@ -1,12 +1,15 @@
 # Persona: Supervisor
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-08
 
 ---
 
 ## Overview
 
 The **Supervisor** deploys Scenarios into production, manages Task Queues, and oversees agent operations within a Workbench.
+
+The Supervisor is the **primary owner of Agent Directability** in Hub—they define all escalation matrices and are responsible for handling interventions when AI agent outputs are rejected. See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
 
 | Attribute | Value |
 |-----------|-------|
@@ -23,8 +26,10 @@ The **Supervisor** deploys Scenarios into production, manages Task Queues, and o
 |-----------|-------------|
 | **Deploy Scenarios** | Map tasks to queues and activate scenarios |
 | **Manage Queues** | Configure escalation, eligibility, and capacity |
+| **Define Directability** | Configure all escalation matrices for agent intervention |
 | **Oversee Operations** | Monitor SLAs, agent efficiency, queue health |
 | **Handle Escalations** | Address escalated tasks and agent issues |
+| **Resolve Interventions** | Override decisions, modify context when agent outputs are rejected |
 
 ---
 
@@ -62,6 +67,25 @@ The **Supervisor** deploys Scenarios into production, manages Task Queues, and o
    - Address escalated tasks
    - Override decisions when authorized
    - Coordinate with Process Architects on SOP issues
+
+### Directability Phase
+
+1. **Escalation Matrix Configuration**
+   - Define Task Queue escalation matrices
+   - Define Scenario escalation matrices
+   - Set escalation thresholds and candidate levels
+   - Configure accountable human notifications
+
+2. **Intervention Resolution**
+   - Receive rejection notifications from agents/guardrails
+   - Review rejected decisions or actions
+   - Choose resolution: override, context change, reassign, fail
+   - Record resolution in CAF (Override/ContextIntervention/DirectiveResolution)
+
+3. **Pattern Analysis**
+   - Monitor intervention frequency by scenario/queue
+   - Identify systematic issues requiring process changes
+   - Feed observations to Enterprise Learning workflows
 
 ---
 
@@ -121,11 +145,12 @@ The **Supervisor** deploys Scenarios into production, manages Task Queues, and o
 
 ## Related Documentation
 
+- [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) — How Supervisors enable human intervention
+- [Escalation Matrix](../../02-system-design/implementation-concepts/escalation-matrix.md) — Escalation configuration
 - [Task Management](../../04-subsystems/task-management/README.md)
+- [Cognitive Audit Fabric](../../04-subsystems/cognitive-audit-fabric/README.md) — Intervention records
 - [Checklist Service](../../04-subsystems/hub-native-utilities/checklist-service.md)
 - [Routine Service](../../04-subsystems/hub-native-utilities/routine-service.md)
 
 ---
-
-*TODO: Detailed responsibilities, monitoring workflows, escalation patterns*
 

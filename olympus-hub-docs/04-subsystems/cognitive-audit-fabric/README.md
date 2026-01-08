@@ -1,8 +1,11 @@
 # Cognitive Audit Fabric (CAF)
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-08
 
 The Cognitive Audit Fabric (CAF) is the **Enterprise Memory Control Plane**—the connecting tissue that governs how memory is captured, linked, explained, and audited. CAF provides catalogs, policies, and services but does **not** store the memory itself.
+
+CAF is the audit foundation for **Agent Directability**—all human interventions in AI agent operations are recorded through CAF's Override, ContextIntervention, and DirectiveResolution records. See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
 
 ---
 
@@ -54,7 +57,7 @@ From the conceptual foundation:
 | [CAF Store REST API](./episodic-memory-store/caf-store-rest-api.md) | Default write API (order-tolerant, idempotent) | 🟡 Draft |
 | [Record Relationships](./episodic-memory-store/record-relationships.md) | How records link and traversal patterns | 🟡 Draft |
 
-#### Record Schemas (9 types)
+#### Record Schemas (10 types)
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Case Records](./episodic-memory-store/case-records.md) | Root anchor, lifecycle, resolution | 🟡 Draft |
@@ -63,6 +66,7 @@ From the conceptual foundation:
 | [Context Snapshots](./episodic-memory-store/context-snapshots.md) | Compiled context per turn | 🟡 Draft |
 | [Outcome Records](./episodic-memory-store/outcome-records.md) | Post-decision outcomes | 🟡 Draft |
 | [Override Records](./episodic-memory-store/override-records.md) | Manual override documentation | 🟡 Draft |
+| [Directive Resolution Records](./episodic-memory-store/directive-resolution-records.md) | Intervention lifecycle tracking | 🟡 Draft |
 | [Handoff Context](./episodic-memory-store/handoff-context.md) | State transfer between agents | 🟡 Draft |
 | [Hypothesis Records](./episodic-memory-store/hypothesis-records.md) | Learned patterns (bridge to Semantic) | 🟡 Draft |
 | [Incident Timelines](./episodic-memory-store/incident-timelines.md) | Chronological event sequences | 🟡 Draft |

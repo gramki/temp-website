@@ -386,6 +386,48 @@ Response includes pagination metadata:
 | `GET` | `/entities/{entity_type}/{entity_id}` | Get entity details |
 | `GET` | `/entities/{entity_type}/{entity_id}/history` | Get entity history |
 
+### Directability APIs
+
+APIs for handling escalation tasks created when AI agent outputs are rejected.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/tasks/{task_id}/acknowledge` | Acknowledge escalation task |
+| `POST` | `/tasks/{task_id}/override` | Override rejected decision |
+| `POST` | `/tasks/{task_id}/change-context` | Change context and trigger re-run |
+| `POST` | `/tasks/{task_id}/reassign-retry` | Reassign original task to different agent |
+| `POST` | `/tasks/{task_id}/fail-scenario` | Fail the scenario |
+| `POST` | `/tasks/{task_id}/corrective-action` | Create corrective action request |
+| `GET` | `/tasks/{task_id}/rejection-context` | Get rejection details and options |
+
+#### Override Request Body
+
+```json
+{
+  "original_decision_id": "dec-11111",
+  "new_decision": {
+    "action": "approve_refund",
+    "amount": 150.00
+  },
+  "rationale": "Customer history justifies approval",
+  "rationale_category": "new_information"
+}
+```
+
+#### Change Context Request Body
+
+```json
+{
+  "additional_context": {
+    "customer_tier": "platinum",
+    "previous_disputes": []
+  },
+  "instructions": "Consider customer's long tenure"
+}
+```
+
+See [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) for the full directability model.
+
 ### Decision Recording APIs
 
 | Method | Endpoint | Description |

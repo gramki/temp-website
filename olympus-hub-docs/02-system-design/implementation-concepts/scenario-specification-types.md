@@ -220,6 +220,47 @@ spec:
   sla:
     target_completion_hours: 72
     warning_threshold_hours: 48
+  
+  # Scenario Escalation Matrix (for application-level exceptions)
+  # Handles rejections from guardrails, policies, and applications
+  scenario_escalation:
+    # Accountable human for this scenario
+    accountable_human:
+      type: workbench_role
+      value: supervisor
+    
+    # Escalation levels for application exceptions
+    levels:
+      - level: 0
+        name: "Senior Analyst Review"
+        candidates:
+          type: iam_role
+          value: senior-dispute-analyst
+        threshold_minutes: null  # Immediate on rejection
+        notification:
+          recipients:
+            - role: accountable_human
+          template: rejection_escalation_l0
+          
+      - level: 1
+        name: "Supervisor Intervention"
+        candidates:
+          type: workbench_role
+          value: supervisor
+        threshold_minutes: 60  # If not resolved in 60 min
+        notification:
+          recipients:
+            - role: supervisor
+            - role: process_architect
+          template: rejection_escalation_l1
+          urgency: high
+    
+    # Resolution options enabled
+    resolution_options:
+      allow_context_change: true
+      allow_decision_override: true
+      allow_scenario_fail: true
+      allow_corrective_action: true
     
   # Activation settings
   activation:
@@ -232,6 +273,18 @@ spec:
     variables:
       MAX_RETRIES: "3"
 ```
+
+#### Scenario Escalation vs Task Queue Escalation
+
+| Aspect | Task Queue Escalation Matrix | Scenario Escalation Matrix |
+|--------|------------------------------|----------------------------|
+| **Trigger** | Time-based (task age) | Rejection-based (guardrail, policy, application) |
+| **Purpose** | Bring in help for stalled tasks | Handle application-level exceptions |
+| **Scope** | Task-level | Request/Scenario-level |
+| **Configured By** | Supervisor (in Task Queue config) | Supervisor (in Scenario Deployment) |
+| **Resolution** | Any assignee can complete task | Override, context change, fail, or corrective action |
+
+See [Agent Directability](./agent-directability.md) for the full directability model.
 
 ---
 
