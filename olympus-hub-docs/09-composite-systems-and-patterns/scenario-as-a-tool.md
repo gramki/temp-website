@@ -90,7 +90,20 @@ A Hub Application in Workbench-A calls a Scenario in Workbench-A as a tool.
 **How it works:**
 1. Scenario is registered as a tool in the workbench's Tool Registry
 2. Hub Application invokes via Direct Tool Dispatcher
-3. Signal is sent to the Scenario, response returned
+3. Signal is sent to the Scenario, **child request** created
+4. Child request has access to parent's context (by reference)
+5. Response returned to invoking application
+
+**Request Hierarchy:**
+
+| Aspect | Behavior |
+|--------|----------|
+| **Child Request** | Created with `parent_request_id` linking to invoker's request |
+| **Context Access** | Child can access parent context via compiled-context API |
+| **Lifecycle** | Child is completed/cancelled when parent completes/cancels |
+| **Result Isolation** | Child context is isolated — only result payload returns to parent |
+
+→ See: [Request Hierarchy](../04-subsystems/request-management/request-hierarchy.md)
 
 **Configuration:** Use `ScenarioAsTool` CRD directly.
 
@@ -107,6 +120,32 @@ A Hub Application in Workbench-A calls a Scenario in Workbench-B.
 2. Scenario is exposed as one of the Machine's tools
 3. Workbench-A registers Workbench-B as a Machine
 4. Hub Application invokes via Machine interface
+5. A **separate request** is created in Workbench-B (NOT a child request)
+
+**No Parent-Child Relationship:**
+
+| Aspect | Behavior |
+|--------|----------|
+| **Request Relationship** | None — treated as external machine/tool invocation |
+| **Context Sharing** | None implicit — invoker must explicitly forward context |
+| **Lifecycle** | Independent — no cascade on parent completion/cancellation |
+| **Contract** | Invoker provides context per recipient's tool contract |
+
+```python
+# Cross-workbench invocation — must explicitly forward context
+result = await machine_client.invoke(
+    machine="customer-service-workbench",
+    tool="eligibility-check",
+    input={
+        "customer_id": "cust-12345",
+        # Explicitly forwarded context (per tool contract)
+        "context": {
+            "case_id": current_request.id,
+            "priority": "high"
+        }
+    }
+)
+```
 
 **Configuration:** Use `WorkbenchAsMachine` CRD with `exposed_tools.scenarios`.
 

@@ -87,6 +87,11 @@ All ADRs follow the standard format:
 | [0063](./0063-memory-reads-via-access-tools.md) | Memory reads via defined access tools only | Accepted | 2026-01-07 | memory-services |
 | [0064](./0064-memory-services-subfolder-organization.md) | Memory Services organized into subfolders | Accepted | 2026-01-07 | memory-services |
 | [0065](./0065-cognitive-application-capability-profile.md) | Cognitive Application as capability profile of Hub Application | Accepted | 2026-01-07 | architecture |
+| [0066](./0066-request-hierarchy-context-inheritance.md) | Request hierarchy, context inheritance, and lifecycle cascade | Accepted | 2026-01-07 | request-management |
+| [0067](./0067-agent-memory-session-scope.md) | Agent Memory strictly session-scoped | Accepted | 2026-01-08 | memory-services |
+| [0068](./0068-agent-memory-framework-native-idioms.md) | Agent Memory enables framework-native idioms | Accepted | 2026-01-08 | memory-services |
+| [0069](./0069-agent-memory-storage-services.md) | Four storage services for Agent Memory | Accepted | 2026-01-08 | memory-services |
+| [0070](./0070-agent-memory-encryption-isolation.md) | Agent Memory encryption and isolation model | Accepted | 2026-01-08 | memory-services |
 
 ---
 
@@ -184,11 +189,20 @@ All ADRs follow the standard format:
 - [0059](./0059-caf-memory-not-knowledge.md) - CAF governs Memory; ETSL governs Knowledge
 - [0060](./0060-learning-services-deferred-automation.md) - Learning Services manual initially, automation deferred
 
-### Memory Services
+### Memory Services — Enterprise
 - [0061](./0061-no-pii-in-episodic-memory.md) - No PII allowed in episodic memory records
 - [0062](./0062-memory-writes-via-signal-exchange.md) - All memory writes routed through Signal Exchange
 - [0063](./0063-memory-reads-via-access-tools.md) - Memory reads via defined access tools only
 - [0064](./0064-memory-services-subfolder-organization.md) - Memory Services organized into subfolders (enterprise/agent/shared)
+
+### Memory Services — Agent
+- [0067](./0067-agent-memory-session-scope.md) - Agent Memory strictly session-scoped (not cross-session)
+- [0068](./0068-agent-memory-framework-native-idioms.md) - Agent Memory enables framework-native idioms (no ESPP enforcement)
+- [0069](./0069-agent-memory-storage-services.md) - Four storage services: Log, Conversation, KV, Documents
+- [0070](./0070-agent-memory-encryption-isolation.md) - Application-layer encryption with agent+session unique keys
+
+### Request Management
+- [0066](./0066-request-hierarchy-context-inheritance.md) - Request hierarchy, context inheritance, lifecycle cascade
 
 ---
 

@@ -222,8 +222,8 @@ A hypothesis may be promoted to Enterprise Knowledge when:
 - [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Outcome Records](./outcome-records.md)
-- [Enterprise Memory](../memory-services/hub-enterprise-memory.md)
-- [Enterprise Knowledge](../knowledge-services/README.md)
+- [Enterprise Memory](../../memory-services/enterprise-memory/README.md)
+- [Enterprise Knowledge](../../knowledge-services/README.md)
 
 ---
 

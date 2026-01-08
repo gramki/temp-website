@@ -105,7 +105,7 @@ The **Auditor** reviews operational compliance across the organization — inves
 
 - [Cognitive Audit Fabric](../../04-subsystems/cognitive-audit-fabric/README.md)
 - [Memory Services](../../04-subsystems/memory-services/README.md)
-- [Enterprise Memory](../../04-subsystems/memory-services/hub-enterprise-memory.md)
+- [Enterprise Memory](../../04-subsystems/memory-services/enterprise-memory/README.md)
 
 ---
 

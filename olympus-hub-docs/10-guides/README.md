@@ -16,6 +16,7 @@ This section contains step-by-step guides for setting up and operating Olympus H
 | [Workbench Setup Guide](./workbench-setup-guide.md) | Process Architects | Configuring a workbench for a business domain |
 | [Signal Configuration Guide](./signal-configuration-guide.md) | Process Architects, Developers | Defining signals, filters, and triggers |
 | [Hub Development Flow Primer](./hub-development-flow/README.md) | Developers | Understanding Hub's development model and workflow |
+| [Agent Memory Developer Guide](./agent-memory-developer-guide.md) | Developers | Best practices for using Agent Memory Services |
 
 ---
 
@@ -34,6 +35,7 @@ This section contains step-by-step guides for setting up and operating Olympus H
 
 1. [Hub Development Flow Primer](./hub-development-flow/README.md) — **Start here** — Understand Hub's development model
 2. [Signal Configuration Guide](./signal-configuration-guide.md) — Create triggers with low-code and code transformations
+3. [Agent Memory Developer Guide](./agent-memory-developer-guide.md) — Best practices for Agent Memory Services
 
 *Coming soon: Application Development Guide, Integration Guide*
 

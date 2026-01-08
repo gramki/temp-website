@@ -110,9 +110,9 @@ Olympus Hub is an operations management platform designed for large and medium e
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Overview](./04-subsystems/memory-services/README.md) | Memory Services architecture | 🔴 Stub |
-| [Hub Agent Memory](./04-subsystems/memory-services/hub-agent-memory.md) | Agent Memory persistence and management | 🔴 Stub |
-| [Hub Enterprise Memory](./04-subsystems/memory-services/hub-enterprise-memory.md) | Enterprise Memory persistence and management | 🔴 Stub |
+| [Overview](./04-subsystems/memory-services/README.md) | Memory Services architecture | 🟡 Draft |
+| [Agent Memory](./04-subsystems/memory-services/agent-memory/README.md) | Agent Memory persistence and management | 🟡 Draft |
+| [Enterprise Memory](./04-subsystems/memory-services/enterprise-memory/README.md) | Enterprise Memory persistence and management | 🟡 Draft |
 
 #### Cognitive Audit Fabric (CAF)
 

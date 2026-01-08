@@ -130,7 +130,8 @@ Store PII in a separate, mutable store; episodic records contain links.
 
 ## References
 
-- [Retention and PII Policy](../04-subsystems/memory-services/retention-and-pii-policy.md)
+- [Retention Policy](../04-subsystems/memory-services/enterprise-memory/retention-policy.md)
+- [PII Policy](../04-subsystems/memory-services/shared/pii-policy.md)
 - [CAF README - No PII Section](../04-subsystems/cognitive-audit-fabric/README.md)
 - GDPR Article 17 — Right to Erasure
 - CCPA §1798.105 — Right to Delete

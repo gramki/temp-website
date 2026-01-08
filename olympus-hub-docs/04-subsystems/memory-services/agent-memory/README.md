@@ -1,216 +1,380 @@
 # Agent Memory Services
 
 > **Status**: 🟡 Draft  
-> **Last Updated**: 2026-01-07  
+> **Last Updated**: 2026-01-08  
 > **Parent**: [Memory Services](../README.md)
 
 ---
 
 ## Overview
 
-**Agent Memory Services** provides Hub's implementation of agent-level memory for operational continuity and personalization. These stores capture recent interactions, learned preferences, and session context that help agents maintain continuity across conversations.
+**Agent Memory Services** provides Hub's infrastructure for agent-level memory persistence, isolation, retrieval, and lifecycle management. Unlike Enterprise Memory, Hub does not prescribe specific memory management approaches — it enables agents built on any framework to persist operational state with appropriate guardrails.
 
-### Key Characteristics
+### Design Philosophy
+
+Hub encourages **Raw Agents** to be built with any framework of choice. The agentic AI landscape is in its infancy with significant evolution expected before standards or best practices emerge. Hub therefore avoids opinionated approaches while advocating that agent developers recognize the distinction between Enterprise Memory and Agent Memory.
+
+---
+
+## Table of Contents
+
+1. [Key Characteristics](#key-characteristics)
+2. [Core Constraints](#core-constraints)
+3. [Storage Services](#storage-services)
+4. [Access Patterns](#access-patterns)
+5. [RAG / Semantic Search Capabilities](#rag--semantic-search-capabilities)
+6. [User Profile (Request Scoped)](#user-profile-request-scoped)
+7. [Provisioning](#provisioning)
+8. [Lifecycle Management](#lifecycle-management)
+9. [Security Model](#security-model)
+10. [What Hub Provides vs Framework Responsibility](#what-hub-provides-vs-framework-responsibility)
+11. [Related Documents](#related-documents)
+
+---
+
+## Key Characteristics
 
 | Characteristic | Description |
 |----------------|-------------|
-| **Scope** | Agent/session — scoped to individual agent or user |
-| **Persistence** | Ephemeral — days to months depending on memory class |
-| **Purpose** | Operational continuity, personalization, context |
-| **Write Path** | Direct SDK access (not via Signal Exchange) |
-| **Read Path** | SDK methods and Seer context assembly |
-| **PII Policy** | **Permitted** — with appropriate consent and handling |
+| **Scope** | Request/Session — all memory is bounded by session lifecycle |
+| **Isolation** | Per (tenant, workbench, scenario, request, agent) |
+| **Persistence** | Durable stores only — no in-memory stores |
+| **Write Path** | Direct SDK access and tool invocation |
+| **Read Path** | SDK methods, tools, and Seer context assembly |
+| **PII Policy** | **Permitted** — within session scope (not cross-session) |
+| **Encryption** | Application-layer encryption with agent+session unique keys |
 
 ---
 
-## Architecture
+## Core Constraints
 
-### Storage Backend
+### No In-Memory Stores
 
-> **Note**: The storage backend for Agent Memory is **not yet finalized**. Options under consideration include managed key-value stores, document stores, or purpose-built memory services. This will be determined based on access patterns and scale requirements.
+Hub Runtimes **do not ensure durable execution on the same VM**. Hub Sessions (Requests) are long-lived, and agents cannot expect in-memory stores to be reliably available across invocations.
+
+| ❌ Not Supported | ✅ Required Approach |
+|------------------|---------------------|
+| In-memory dictionaries | Hub-provided storage services |
+| Process-local caching | Request-scoped durable stores |
+| VM affinity assumptions | Stateless agent execution |
+
+### Session-Scoped Storage Only
+
+All agent memory is bounded by the Request/Session lifecycle:
+
+| Constraint | Rationale |
+|------------|-----------|
+| **Maximum lifetime = Session lifetime** | Prevents accidental enterprise memory patterns |
+| **No user preferences beyond session** | Cross-session preferences require Enterprise Memory or business entity stores |
+| **No cross-agent visibility** | Each agent's memory is isolated; no cross-talk |
+
+### Strict Isolation
+
+Every agent receives isolated storage scoped by:
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                      AGENT MEMORY STORAGE                                     │
-│                                                                               │
-│   ┌─────────────────────────────────────────────────────────────────────┐    │
-│   │                    STORAGE BACKEND (TBD)                             │    │
-│   │                                                                      │    │
-│   │   Requirements:                                                      │    │
-│   │   • Low-latency reads (context assembly is time-sensitive)           │    │
-│   │   • TTL support (automatic expiry for ephemeral data)                │    │
-│   │   • Vector search capability (semantic retrieval)                    │    │
-│   │   • Multi-tenant isolation                                           │    │
-│   │   • Workbench scoping                                                │    │
-│   │                                                                      │    │
-│   │   Candidates:                                                        │    │
-│   │   • Olympus Europa (OpenSearch) — if semantic search critical        │    │
-│   │   • Olympus Callisto (Redis) — if latency critical                   │    │
-│   │   • Purpose-built memory service — if specialized needs              │    │
-│   └─────────────────────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────────────────┘
+tenant → workbench → scenario → request → agent
 ```
+
+All read/write APIs operate **only within this scope** — agents cannot access higher scopes or other agents' memory.
 
 ---
 
-## Key Differences from Enterprise Memory
+## Storage Services
 
-| Aspect | Enterprise Memory | Agent Memory |
-|--------|-------------------|--------------|
-| **Scope** | Organizational | Agent/User/Session |
-| **Retention** | 7+ years | Days to months |
-| **Write Path** | Via Signal Exchange | Direct SDK |
-| **PII** | Prohibited | Permitted (with consent) |
-| **Immutability** | Immutable records | Mutable (update/delete) |
-| **Audit Requirements** | Full CAF compliance | Lightweight logging |
-| **Primary Use** | Audit, precedent | Context, personalization |
+Hub provides four storage services for agent memory:
 
----
+### 1. Log Service
 
-## Write Path
+**Purpose**: Append-only message log for session history
 
-Agent Memory supports **direct writes** via SDK — Signal Exchange routing is not required:
+| Feature | Description |
+|---------|-------------|
+| **Operations** | Append, Retrieve (last N), RAG retrieval |
+| **Use Cases** | Session history, conversation audit trail |
+| **Compaction** | None — append-only |
+| **Retrieval** | Last N messages, semantic search (RAG) |
 
-```
-Agent (via Seer Runtime)
-        │
-        │ SDK method call
-        ▼
-Agent Memory SDK
-        │
-        │ Validation, scoping
-        ▼
-Agent Memory Service
-        │
-        │ TTL assignment, indexing
-        ▼
-Storage Backend
-```
+### 2. Conversation Service
 
-### Why Direct Writes?
+**Purpose**: Append-only message store with compaction strategies
 
-| Reason | Justification |
-|--------|---------------|
-| **Latency** | Agent memory writes should be fast; async routing adds latency |
-| **No Request Binding** | Agent memory isn't always tied to a Hub Request |
-| **Simpler Model** | Session context doesn't need Signal Exchange complexity |
-| **Mutability** | Agent memory can be updated/deleted; immutability not required |
+| Feature | Description |
+|---------|-------------|
+| **Operations** | Append, Retrieve, Compact |
+| **Use Cases** | Conversation context, token budget management |
+| **Compaction** | Configurable per store and per agent |
+| **Strategies** | LLM-based summarization, sliding window, token budget |
 
----
+**Compaction Behavior**:
+- Configured by developer in agent specification
+- Can be tuned in deployment CRD
+- **Synchronous** — executed before write operations
+- Respects token budget constraints
 
-## Read Path
+### 3. Key-Value (KV) Service
 
-Agent Memory is read via:
+**Purpose**: Structured key-value storage for entities and preferences
 
-1. **SDK Methods** — Direct retrieval for agent code
-2. **Seer Context Assembly** — Automatic inclusion in agent context
+| Feature | Description |
+|---------|-------------|
+| **Operations** | Put, Get, Delete, List |
+| **Use Cases** | Entity extraction, in-session preferences, state |
+| **Store Names** | Logical names like "preferences", "merchant", etc. |
+| **Naming Rules** | Pattern: `(a-zA-Z_-)+` (ASCII only, no PII in keys) |
+
+**Logical Store Names**:
 
 ```python
-# SDK method example
-from hub.memory import agent_memory
+# Named stores for business domain organization
+kv_store.put("preferences", "theme", "dark")
+kv_store.put("merchant", "id", "ACME-123")
 
-# Write
-await agent_memory.remember(
-    agent_id="agent-support-001",
-    memory_type="semantic",
-    content={"user_prefers": "email", "timezone": "PST"},
-    ttl_days=90
-)
-
-# Read
-preferences = await agent_memory.recall(
-    agent_id="agent-support-001",
-    memory_type="semantic",
-    query="user preferences"
-)
+# Default store (name = ".")
+kv_store.put(".", "last_action", "approve")
 ```
+
+### 4. Document Storage Service
+
+**Purpose**: CLOB and BLOB storage for session documents
+
+| Feature | Description |
+|---------|-------------|
+| **Operations** | Store, Retrieve, Delete |
+| **Use Cases** | Documents exchanged/referenced in session |
+| **Addressing** | Content-addressable URI (hash-based) |
+| **Security** | Virus/malware scanning before persistence |
+
+**Document References**:
+- Documents are stored and assigned a unique URI
+- URI is content-addressable (unique per content hash)
+- Agents reference documents by URI in other services
 
 ---
 
-## Memory Classes (ESPP)
+## Access Patterns
 
-Agent Memory implements the same ESPP taxonomy as Enterprise Memory, but with different semantics:
+All storage services are available through both SDK and tool interfaces:
 
-| Class | Purpose | Retention | Example |
-|-------|---------|-----------|---------|
-| **Episodic** | Recent interactions, session context | Session + 24h | Last 10 conversation turns |
-| **Semantic** | Learned facts about user/context | 30 days | "User prefers email over phone" |
-| **Procedural** | Task patterns, workflow customizations | Indefinite | "User always approves under $500" |
-| **Preference** | Communication style, settings | 90 days | "Prefers concise responses" |
+### SDK Access (for Raw Agent Frameworks)
 
-### Decay Model
+```python
+from hub.agent_memory import kv_store, conversation, log_store, documents
 
-Agent Memory supports **decay** — records lose relevance over time:
+# KV Store
+await kv_store.put("preferences", "language", "en-US")
+value = await kv_store.get("preferences", "language")
 
-| Memory Class | Decay Model | Refresh Trigger |
-|--------------|-------------|-----------------|
-| **Episodic** | Time-based (linear) | N/A — expires automatically |
-| **Semantic** | Usage-based | Re-accessed = TTL extended |
-| **Procedural** | None | Explicit deletion |
-| **Preference** | Usage-based | Re-confirmed = TTL extended |
+# Conversation
+await conversation.append(message)
+context = await conversation.retrieve(token_budget=4000)
+
+# Log Store
+await log_store.append(entry)
+recent = await log_store.get_last(n=10)
+relevant = await log_store.rag_search(query="user complaint")
+
+# Documents
+uri = await documents.store(content, content_type="application/pdf")
+doc = await documents.retrieve(uri)
+```
+
+### Tool Access (for LLM-based Agents)
+
+Each service exposes **save** and **recall** operations as tools:
+
+| Tool | Operations | Description |
+|------|------------|-------------|
+| `agent_memory.kv` | `save`, `recall`, `delete` | Key-value operations |
+| `agent_memory.conversation` | `save`, `recall` | Conversation context |
+| `agent_memory.log` | `save`, `recall` | Session log |
+| `agent_memory.documents` | `save`, `recall` | Document storage |
+
+**Agent Training**: Agents are encouraged to incorporate memory management skills — understanding when to save vs recall, appropriate use of each service.
 
 ---
 
-## Promotion to Enterprise Memory
+## RAG / Semantic Search Capabilities
 
-Agent Memory can **promote** to Enterprise Memory when patterns become institutional:
+Log Service and Document Service support RAG-based semantic search:
 
-```
-Agent Memory (observed pattern)
-        │
-        │ Pattern detected across sessions
-        ▼
-Enterprise Learning Services
-        │
-        │ Review, validation, governance
-        ▼
-Enterprise Memory (institutional knowledge)
-```
+| Aspect | Details |
+|--------|---------|
+| **Available On** | Log Service, Document Service (Conversation planned) |
+| **Backing Store** | TBD (storage choice to be finalized) |
+| **Embeddings** | Hub framework-provided (not developer-specified) |
+| **Use Cases** | Semantic search over session history, document retrieval |
+| **Limits** | Embedding count per session (configurable) |
 
-See [Enterprise Learning Services](../../cognitive-audit-fabric/enterprise-learning-services.md) for promotion workflows.
+> **Note**: RAG is a **capability of storage services**, not a separate fifth service.
+
+---
+
+## User Profile (Request Scoped)
+
+User Profile is a **convenience wrapper** around KV Store for common user-related data patterns:
+
+| Aspect | Details |
+|--------|---------|
+| **Implementation** | Uses KV Store with `"user_profile"` logical store name |
+| **Scope** | Request/Session only (not cross-session) |
+| **Schema** | Free-form (no enforced structure) |
+| **Populated By** | Agent-supplied (not automatically from Hub identity) |
+
+> **For cross-session user preferences**: Use Enterprise Memory or business entity stores.
 
 ---
 
 ## Provisioning
 
-Agent Memory is provisioned as part of the Workbench specification:
+### Store Provisioning
+
+| Level | Responsibility | Details |
+|-------|----------------|---------|
+| **Workbench** | Admin provisions stores | On developer request |
+| **Agent Spec** | Developer declares requirements | Memory services needed |
+| **Deployment** | Requirements mapped to stores | CRD configuration |
+
+### Agent Specification
+
+```yaml
+apiVersion: seer.olympus.io/v1
+kind: Agent
+metadata:
+  name: support-agent
+spec:
+  memory:
+    services:
+      - type: conversation
+        compaction:
+          strategy: summarization
+          token_budget: 8000
+      - type: kv
+        stores:
+          - preferences
+          - customer
+      - type: documents
+```
+
+### Deployment CRD
 
 ```yaml
 apiVersion: hub.olympus.io/v1
-kind: Workbench
+kind: AgentDeployment
 metadata:
-  name: fraud-ops-prod
-  namespace: acme-bank
+  name: support-agent-prod
 spec:
-  memory_services:
-    agent_memory:
-      enabled: true
-      
-      defaults:
-        retention:
-          episodic_hours: 24
-          semantic_days: 30
-          procedural_days: -1      # Indefinite
-          preference_days: 90
-        
-      storage:
-        backend: tbd               # To be determined
-        # backend: callisto       # If Redis
-        # backend: europa         # If OpenSearch
+  agent_ref: support-agent
+  memory_mapping:
+    conversation:
+      workbench_store: fraud-ops-conversation-store
+      compaction:
+        token_budget: 6000  # Override from spec
+    kv:
+      workbench_store: fraud-ops-kv-store
+      quota_mb: 10
 ```
+
+### Quotas
+
+| Quota Type | Scope | Configurable By |
+|------------|-------|-----------------|
+| Storage size (MB) | Per agent per request | Deployment CRD |
+| Document count | Per agent per request | Deployment CRD |
+| Embedding count | Per agent per request | Deployment CRD |
 
 ---
 
-## Seer Integration
+## Lifecycle Management
 
-Agent Memory integrates tightly with Seer:
+### Retention
 
-| Integration Point | Description |
-|-------------------|-------------|
-| **Context Assembly** | Agent memory retrieved during context compilation |
-| **Memory SDKs** | Seer provides SDKs that write to Hub Agent Memory |
-| **Raw Agent Frameworks** | Can use own frameworks but storage in Hub |
-| **Observability** | Memory operations traced as part of agent traces |
+| Phase | Behavior |
+|-------|----------|
+| **Active Session** | Full read/write access |
+| **Session Completed/Cancelled** | Memory retained for configured period |
+| **Retention Expired** | Automatic deletion |
+
+- Retention period configured **per store by tenant admin**
+- Agents **cannot request early cleanup** (can override values)
+- Supports debugging/audit during retention period
+
+### No Cross-Request Memory
+
+| Requirement | Path |
+|-------------|------|
+| Remember across sessions | Use Enterprise Memory |
+| Persist business entities | Use operational data stores with entity semantics |
+| User preferences (cross-session) | Use Enterprise Memory or business entity stores |
+
+---
+
+## Security Model
+
+### Encryption
+
+| Aspect | Implementation |
+|--------|----------------|
+| **Encryption Level** | Application layer (before persistence) |
+| **Key Scope** | Unique per agent, per session |
+| **Key Derivation** | From Workbench-scoped root key |
+| **Values** | Encrypted; not logged; not retrievable outside session |
+
+### Privacy
+
+| Constraint | Enforcement |
+|------------|-------------|
+| Agent memory is agent-private | Scoped APIs enforce isolation |
+| Values not logged | Application-layer encryption |
+| Not retrievable outside session | Session-scoped keys |
+| Store names: no PII | Validation on `(a-zA-Z_-)+` pattern |
+
+---
+
+## What Hub Provides vs Framework Responsibility
+
+### Hub Provides
+
+| Capability | Description |
+|------------|-------------|
+| Storage services | Log, Conversation, KV, Documents |
+| Persistence | Durable stores with lifecycle management |
+| Isolation | Strict scoping per agent per request |
+| Encryption | Application-layer with session-unique keys |
+| Tools | Save/recall operations as callable tools |
+| SDK | Direct API access for Raw Agent frameworks |
+| Quotas | Configurable limits per agent |
+| Retention | Admin-configurable retention periods |
+
+### Left to Agent Frameworks
+
+| Capability | Notes |
+|------------|-------|
+| **Preference Learning** | Framework-specific algorithms |
+| **Entity Extraction** | Framework-specific NLP/LLM approaches |
+| **Provenance in Context Compilation** | How agent tracks memory sources |
+| **Multi-agent Orchestration** | Sub-agent topology internal to Raw Agent |
+| **Compaction Algorithms** | Beyond Hub-provided strategies |
+
+### Multi-Agent Note
+
+The **Request** is the shared context between agents in a Session. However, each agent could be a **compound agent** with an internal topology of sub-agents. Such sub-agents:
+- Are not visible to Hub as agents
+- Are out of Hub's purview
+- Can access the memory of the Hub Agent that spawned them (if coded that way)
+
+---
+
+## Not Supported
+
+| Feature | Rationale |
+|---------|-----------|
+| **Cross-talk between agents** | Isolation is a core principle |
+| **In-memory stores** | No VM affinity guarantee |
+| **Agent memory → Request updates** | No conflation with Enterprise Memory |
+| **Multi-agent memory sharing** | Out of scope; use Request context |
+| **Namespace-Scoped LTM Strategies** | LTM belongs to Enterprise Memory |
+| **Cross-session memory** | Maximum lifespan = Request/Session |
 
 ---
 
@@ -218,8 +382,11 @@ Agent Memory integrates tightly with Seer:
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Agent Memory SDK](./sdk.md) | SDK specification for agent memory operations | 🔴 Stub |
-| [Retention & Decay](./retention-and-decay.md) | Retention policies and decay models | 🔴 Stub |
+| [Agent Memory SDK](./sdk.md) | SDK and tool specification | 🟡 Draft |
+| [Storage Services](./storage-services.md) | Log, Conversation, KV, Document services | 🟡 Draft |
+| [Retention & Lifecycle](./retention-and-lifecycle.md) | Retention policies and lifecycle management | 🟡 Draft |
+| [Design Rationale](./design-rationale.md) | Trade-offs and design decisions | 🟡 Draft |
+| [Framework Reference](./framework-reference/README.md) | Industry framework analysis and patterns | 🟢 Reference |
 | [Context Assembly Integration](./context-assembly.md) | Integration with Seer context assembly | 🔴 Stub |
 
 ---
@@ -227,22 +394,33 @@ Agent Memory integrates tightly with Seer:
 ## Related Documents
 
 - [Memory Services Overview](../README.md) — Parent subsystem
-- [Enterprise Memory Services](../enterprise-memory/README.md) — Organizational memory
+- [Enterprise Memory Services](../enterprise-memory/README.md) — Organizational memory (cross-session)
 - [Shared Concepts](../shared/README.md) — ESPP taxonomy, common patterns
+- [Agent Memory Developer Guide](../../../10-guides/agent-memory-developer-guide.md) — **Best practices for developers**
 - [Seer Context Assembly](../../../../olympus-seer-docs/seer-design/subsystems/context-assembly-engine.md)
 
----
+### Decision Logs
 
-## TODO
-
-| Item | Priority | Notes |
-|------|----------|-------|
-| Storage backend decision | P1 | Evaluate latency vs search requirements |
-| SDK specification | P1 | Define API surface |
-| Decay algorithm | P2 | Time-based vs usage-based specifics |
-| PII handling | P2 | Consent model, encryption requirements |
+- [ADR-0067: Agent Memory Session Scope](../../../decision-logs/0067-agent-memory-session-scope.md) — Session lifecycle
+- [ADR-0068: Framework-Native Idioms](../../../decision-logs/0068-agent-memory-framework-native-idioms.md) — No ESPP enforcement
+- [ADR-0069: Storage Services](../../../decision-logs/0069-agent-memory-storage-services.md) — Four services
+- [ADR-0070: Encryption and Isolation](../../../decision-logs/0070-agent-memory-encryption-isolation.md) — Security model
 
 ---
 
-*TODO: Storage backend selection, SDK specification, decay algorithms, PII handling*
+## Key Differences from Enterprise Memory
 
+| Aspect | Enterprise Memory | Agent Memory |
+|--------|-------------------|--------------|
+| **Scope** | Organizational, cross-agent | Agent/Session only |
+| **Retention** | 7+ years | Session + retention period |
+| **Write Path** | Via Signal Exchange | Direct SDK/tools |
+| **PII** | Prohibited | Permitted (session scope) |
+| **Immutability** | Immutable records | Mutable (update/delete) |
+| **Audit Requirements** | Full CAF compliance | Encryption, no logging |
+| **Cross-Session** | Yes | No |
+| **Primary Use** | Audit, precedent, institutional learning | Context, personalization, state |
+
+---
+
+*Hub Agent Memory Services enable framework-agnostic agent memory with strict session scoping, encryption, and isolation.*

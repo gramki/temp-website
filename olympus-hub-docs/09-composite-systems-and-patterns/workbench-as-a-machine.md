@@ -12,6 +12,8 @@ This pattern provides:
 - **Unified machine interface** for all workbench capabilities
 - **Direct tool invocation** bypassing SX/Request overhead
 
+> **Note:** Cross-workbench invocations do **NOT** create parent-child request relationships. Context must be explicitly forwarded per the tool's contract. See [Request Hierarchy](../04-subsystems/request-management/request-hierarchy.md).
+
 ---
 
 ## The Premise

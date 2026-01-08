@@ -31,16 +31,16 @@ Hub provides **built-in memory stores** that adhere to CAF (Cognitive Audit Fabr
 │   ┌───────────────────────────────────┐   ┌───────────────────────────────┐  │
 │   │      ENTERPRISE MEMORY            │   │       AGENT MEMORY            │  │
 │   │                                   │   │                               │  │
-│   │   Scope: Organizational           │   │   Scope: Agent/Session        │  │
-│   │   Retention: 7+ years             │   │   Retention: Days to months   │  │
-│   │   Write: Signal Exchange          │   │   Write: Direct SDK           │  │
-│   │   PII: Prohibited                 │   │   PII: Permitted              │  │
+│   │   Scope: Organizational           │   │   Scope: Request/Session      │  │
+│   │   Retention: 7+ years             │   │   Retention: Session + period │  │
+│   │   Write: Signal Exchange          │   │   Write: Direct SDK + Tools   │  │
+│   │   PII: Prohibited                 │   │   PII: Permitted (session)    │  │
 │   │   Storage: Europa (OpenSearch)    │   │   Storage: TBD                │  │
 │   │                                   │   │                               │  │
 │   │   • Audit & compliance            │   │   • Operational continuity    │  │
-│   │   • Precedent search              │   │   • Personalization           │  │
-│   │   • Institutional learning        │   │   • Session context           │  │
-│   │   • Cross-agent knowledge         │   │   • Preference learning       │  │
+│   │   • Precedent search              │   │   • In-session preferences    │  │
+│   │   • Institutional learning        │   │   • Conversation context      │  │
+│   │   • Cross-agent knowledge         │   │   • Entity extraction         │  │
 │   └───────────────────────────────────┘   └───────────────────────────────┘  │
 │                                                                               │
 │   ┌─────────────────────────────────────────────────────────────────────────┐ │
@@ -71,13 +71,15 @@ Organizational-level memory for audit, compliance, and institutional learning.
 
 ### Agent Memory
 
-Agent/session-level memory for operational continuity and personalization.
+Request/session-scoped memory for operational continuity and personalization.
 
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Agent Memory README](./agent-memory/README.md) | Overview and architecture | 🟡 Draft |
-| [Agent Memory SDK](./agent-memory/sdk.md) | SDK specification | 🔴 Stub |
-| [Retention & Decay](./agent-memory/retention-and-decay.md) | Retention and decay models | 🔴 Stub |
+| [Storage Services](./agent-memory/storage-services.md) | Log, Conversation, KV, Document services | 🟡 Draft |
+| [Agent Memory SDK](./agent-memory/sdk.md) | SDK and tool specification | 🟡 Draft |
+| [Retention & Lifecycle](./agent-memory/retention-and-lifecycle.md) | Retention policies and lifecycle | 🟡 Draft |
+| [Context Assembly](./agent-memory/context-assembly.md) | Seer integration | 🔴 Stub |
 
 ### Shared Concepts
 
@@ -95,20 +97,23 @@ Common concepts and specifications across both memory types.
 
 | Aspect | Enterprise Memory | Agent Memory |
 |--------|-------------------|--------------|
-| **Scope** | Organizational — cross-agent, cross-session | Agent/Session — individual context |
-| **Persistence** | Durable — 7+ years for episodic | Ephemeral — days to months |
-| **Purpose** | Audit, precedent, institutional learning | Operational continuity, personalization |
-| **Write Path** | Via Signal Exchange (no direct writes) | Direct SDK access |
-| **Read Path** | Via Memory Access Tools | SDK methods, Seer context assembly |
-| **PII Policy** | **Prohibited** — entity references only | **Permitted** — with consent |
+| **Scope** | Organizational — cross-agent, cross-session | Request/Session — individual agent |
+| **Persistence** | Durable — 7+ years for episodic | Session + retention period |
+| **Purpose** | Audit, precedent, institutional learning | Operational continuity, session context |
+| **Write Path** | Via Signal Exchange (no direct writes) | Direct SDK and Tool access |
+| **Read Path** | Via Memory Access Tools | SDK methods, Tools, Seer context assembly |
+| **PII Policy** | **Prohibited** — entity references only | **Permitted** — within session scope |
 | **Immutability** | Immutable records (CAF compliance) | Mutable (update/delete allowed) |
+| **Isolation** | Workbench scoped | Per (tenant, workbench, scenario, request, agent) |
+| **Cross-Session** | Yes | No — use Enterprise Memory for cross-session |
+| **Encryption** | Platform-level | Application-layer, agent+session unique keys |
 | **Storage Backend** | Olympus Europa (managed OpenSearch) | TBD (to be determined) |
 
 ---
 
 ## ESPP Memory Taxonomy
 
-Both Enterprise and Agent Memory implement the **ESPP (Episodic-Semantic-Procedural-Preference)** taxonomy:
+The **ESPP (Episodic-Semantic-Procedural-Preference)** taxonomy provides a conceptual framework for memory classification:
 
 | Memory Class | Anchoring | Purpose |
 |--------------|-----------|---------|
@@ -117,7 +122,14 @@ Both Enterprise and Agent Memory implement the **ESPP (Episodic-Semantic-Procedu
 | **Procedural** | Skill/Task | How to act — learned procedures, skills |
 | **Preference** | Subject | How to personalize — user/agent preferences |
 
-See [ESPP Taxonomy](./shared/espp-taxonomy.md) for detailed record types and semantics.
+### Applicability by Memory Type
+
+| Memory Type | ESPP Enforcement | Rationale |
+|-------------|------------------|-----------|
+| **Enterprise Memory** | ✅ Enforced | Governance, 7+ year retention, cross-agent knowledge |
+| **Agent Memory** | ❌ Optional | Session-scoped, framework-native idioms preferred |
+
+See [ESPP Taxonomy](./shared/espp-taxonomy.md) for detailed record types and applicability.
 
 ---
 
@@ -174,12 +186,19 @@ spec:
     # Agent Memory
     agent_memory:
       enabled: true
-      defaults:
-        retention:
-          episodic_hours: 24
-          semantic_days: 30
-          procedural_days: -1  # Indefinite
-          preference_days: 90
+      stores:
+        log_store:
+          retention_after_session_hours: 72
+        conversation_store:
+          retention_after_session_hours: 48
+          compaction:
+            default_strategy: summarization
+            default_token_budget: 8000
+        kv_store:
+          retention_after_session_hours: 24
+        document_store:
+          retention_after_session_hours: 168
+          max_document_size_mb: 10
 ```
 
 ### Admin Delegation
@@ -194,19 +213,38 @@ spec:
 
 ## Promotion Paths
 
-Memory can be **promoted** across types and scopes:
+### Enterprise Memory → ETSL
+
+Enterprise Memory can be **promoted** to ETSL via Enterprise Learning Services:
 
 ```
-Agent Memory (observed pattern)
-        │
-        │ Pattern validated across sessions
-        ▼
 Enterprise Memory (institutional knowledge)
         │
         │ High confidence + governance approval
         ▼
 ETSL (Enterprise Temporal Semantic Layer)
 ```
+
+### Agent Memory → Enterprise Memory
+
+Agent Memory **cannot be automatically promoted** to Enterprise Memory. The path is:
+
+1. Agent developer identifies valuable patterns observed in sessions
+2. Developer explicitly writes to Enterprise Memory via Signal Exchange
+3. Memory follows normal Enterprise Memory governance
+
+```
+Session-Observed Pattern
+        │
+        │ Developer identifies cross-session value
+        ▼
+Explicit Write (via Cognitive Application + Signal Exchange)
+        │
+        ▼
+Enterprise Memory
+```
+
+> **Note**: Agent Memory is strictly session-scoped. Cross-session persistence requires explicit Enterprise Memory writes.
 
 See [Enterprise Learning Services](../cognitive-audit-fabric/enterprise-learning-services.md) for promotion workflows.
 
@@ -224,23 +262,30 @@ See [Enterprise Learning Services](../cognitive-audit-fabric/enterprise-learning
 
 ## Decision Records
 
+### Enterprise Memory
+
 | ADR | Title |
 |-----|-------|
 | [0061](../../decision-logs/0061-no-pii-in-episodic-memory.md) | No PII in Episodic Memory |
 | [0062](../../decision-logs/0062-memory-writes-via-signal-exchange.md) | Memory Writes via Signal Exchange |
 | [0063](../../decision-logs/0063-memory-reads-via-access-tools.md) | Memory Reads via Access Tools |
+
+### Agent Memory
+
+| ADR | Title |
+|-----|-------|
+| [0067](../../decision-logs/0067-agent-memory-session-scope.md) | Agent Memory Session Scope |
+| [0068](../../decision-logs/0068-agent-memory-framework-native-idioms.md) | Framework-Native Idioms (No ESPP Enforcement) |
+| [0069](../../decision-logs/0069-agent-memory-storage-services.md) | Four Storage Services |
+| [0070](../../decision-logs/0070-agent-memory-encryption-isolation.md) | Encryption and Isolation |
+
+### Subsystem Organization
+
+| ADR | Title |
+|-----|-------|
 | [0064](../../decision-logs/0064-memory-services-subfolder-organization.md) | Memory Services Subfolder Organization |
 
 ---
-
-## Legacy Files
-
-> **Note**: The following files at the root of memory-services/ are being retained for reference but are superseded by the new subfolder structure:
-> - `hub-enterprise-memory.md` → See `enterprise-memory/README.md`
-> - `hub-agent-memory.md` → See `agent-memory/README.md`
-> - `memory-query-api.md` → See `enterprise-memory/query-api.md`
-> - `memory-access-tools.md` → See `enterprise-memory/access-tools.md`
-> - `retention-and-pii-policy.md` → See `enterprise-memory/retention-policy.md` and `shared/pii-policy.md`
 
 ---
 

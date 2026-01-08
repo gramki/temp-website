@@ -1,6 +1,6 @@
 # Consolidated Gaps — AOSM, Hub, and Seer Integration
 # Consolidated from: fraud-case-agent-build-task-list-opus.md, fraud-case-agent-build-task-list-gpt.md, design-gap-analysis.md, aos-hub-journal-story-todo.md
-# Last Updated: 2026-01-07 (Memory Services session complete)
+# Last Updated: 2026-01-08 (Agent Memory complete, deprecated files removed)
 # Organization: System → Subsystem → Priority
 
 
@@ -90,11 +90,11 @@
         [x] HUB-MEM-008: HandoffContext schema and task management UI/UX integration — updated handoff-context.md
         [x] HUB-MEM-010: Procedural Memory Store — 4 record types (LearnedSkill, Procedure, ActionSequence, ToolUsagePattern)
         [x] HUB-MEM-011: Preference Memory Store — 4 record types (UserPreference, AgentBehavior, InteractionPattern, ContextualPreference)
-    ## Agent Memory (Stubs Created):
+    ## Agent Memory:
         [ ] HUB-MEM-012: Agent Memory storage layer decision — candidates: Europa, Callisto, purpose-built
-        [ ] HUB-MEM-013: Agent Memory SDK specification — agent-memory/sdk.md (stub)
-        [ ] HUB-MEM-014: Agent Memory retention and decay models — agent-memory/retention-and-decay.md (stub)
-        [ ] HUB-MEM-015: Agent Memory context assembly integration — agent-memory/context-assembly.md (stub)
+        [x] HUB-MEM-013: Agent Memory SDK specification — agent-memory/sdk.md (complete)
+        [x] HUB-MEM-014: Agent Memory retention and lifecycle — agent-memory/retention-and-lifecycle.md (complete)
+        [~] HUB-MEM-015: Agent Memory context assembly integration — agent-memory/context-assembly.md (stub; depends on Seer CAE)
     ## Completed (2026-01-07):
         [x] HUB-MEM-001 through HUB-MEM-011 — all P1 and P2 Enterprise Memory tasks complete
         [x] HUB-MEM-009: Semantic Memory Store — 6 record types defined, domain-scoped, evidence-grounded
@@ -253,6 +253,14 @@
         [x] ADR-0062: Memory Writes via Signal Exchange
         [x] ADR-0063: Memory Reads via Access Tools
         [x] ADR-0064: Memory Services Subfolder Organization
+        [x] ADR-0067: Agent Memory Session Scope
+        [x] ADR-0068: Agent Memory Framework-Native Idioms
+        [x] ADR-0069: Agent Memory Storage Services
+        [x] ADR-0070: Agent Memory Encryption and Isolation
+        [x] Agent Memory SDK, Storage Services, Retention, Design Rationale complete
+        [x] Framework analysis migrated to agent-memory/framework-reference/
+        [x] Developer guide created: 10-guides/agent-memory-developer-guide.md
+        [x] Deprecated root-level files removed
 
 
 =======================================================

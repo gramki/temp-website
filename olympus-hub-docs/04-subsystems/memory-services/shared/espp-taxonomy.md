@@ -8,7 +8,44 @@
 
 ## Overview
 
-The **ESPP (Episodic-Semantic-Procedural-Preference)** taxonomy provides a unified structure for memory across Hub Memory Services. Both Enterprise Memory and Agent Memory implement this taxonomy, though with different scopes and semantics.
+The **ESPP (Episodic-Semantic-Procedural-Preference)** taxonomy provides a unified conceptual structure for memory across Hub Memory Services.
+
+### Applicability by Memory Type
+
+| Memory Type | ESPP Applicability | Enforcement |
+|-------------|-------------------|-------------|
+| **Enterprise Memory** | ✅ Full taxonomy | **Enforced** — CAF compliance requires proper classification |
+| **Agent Memory** | 🟡 Conceptual guidance | **Optional** — Use framework-native patterns |
+
+### Why Different Enforcement?
+
+| Aspect | Enterprise Memory | Agent Memory |
+|--------|-------------------|--------------|
+| **Retention** | 7+ years | Session + days |
+| **Governance** | Regulated, audited | Minimal |
+| **Cross-Agent** | Shared knowledge | Isolated |
+| **Primary Users** | Governance, compliance, ML | Agent runtime |
+
+**Enterprise Memory** requires ESPP classification for:
+- Regulatory compliance (knowing what type of record exists)
+- Cross-agent knowledge sharing (common vocabulary)
+- Promotion workflows (Episodic → Semantic → ETSL)
+- Long-term audit (understanding historical decisions)
+
+**Agent Memory** does not enforce ESPP because:
+- Session-scoped data doesn't require long-term governance
+- Agentic frameworks don't use ESPP taxonomy (see [Framework Analysis](../agent-memory/framework-reference/README.md))
+- Enforcing taxonomy would conflict with framework-native idioms
+- Developers should write code native to their chosen framework
+
+### Guidance for Agent Developers
+
+While Hub doesn't enforce ESPP in Agent Memory, developers benefit from understanding these concepts:
+
+1. **Recognize memory types** — Understanding ESPP helps identify when data should be promoted to Enterprise Memory
+2. **Use logical store names** — Organize agent memory with domain-relevant names (`"preferences"`, `"facts"`, `"workflow_state"`)
+3. **Don't over-classify** — In session scope, the distinction between "preference" and "fact" is often not meaningful
+4. **Use framework idioms** — Write memory code that's natural for your framework (LangChain, LangGraph, Strands, etc.)
 
 ---
 
@@ -226,8 +263,11 @@ Both Enterprise and Agent Memory follow CAF schema conventions:
 
 ## Related Documents
 
-- [Enterprise Memory](../enterprise-memory/README.md) — Organizational memory
-- [Agent Memory](../agent-memory/README.md) — Agent-level memory
+- [Enterprise Memory](../enterprise-memory/README.md) — Organizational memory (ESPP enforced)
+- [Agent Memory](../agent-memory/README.md) — Agent-level memory (ESPP optional)
+- [Agent Memory Design Rationale](../agent-memory/design-rationale.md) — Why ESPP is not enforced
+- [Framework Analysis](../agent-memory/framework-reference/README.md) — How frameworks handle memory taxonomy
 - [CAF README](../../cognitive-audit-fabric/README.md) — CAF integration
 - [Enterprise Learning Services](../../cognitive-audit-fabric/enterprise-learning-services.md) — Promotion workflows
+- [Agent Memory Developer Guide](../../../10-guides/agent-memory-developer-guide.md) — Best practices
 

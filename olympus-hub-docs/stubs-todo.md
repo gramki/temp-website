@@ -61,9 +61,9 @@ This file tracks all subsystem stub documents created for Olympus Hub. Each stub
 
 | Document | Description | Status | Priority |
 |----------|-------------|--------|----------|
-| [README.md](./04-subsystems/memory-services/README.md) | Memory Services overview | 🔴 Stub | High |
-| [hub-agent-memory.md](./04-subsystems/memory-services/hub-agent-memory.md) | Agent Memory persistence and management | 🔴 Stub | High |
-| [hub-enterprise-memory.md](./04-subsystems/memory-services/hub-enterprise-memory.md) | Enterprise Memory persistence and management | 🔴 Stub | High |
+| [README.md](./04-subsystems/memory-services/README.md) | Memory Services overview | 🟡 Draft | Complete |
+| [Agent Memory README](./04-subsystems/memory-services/agent-memory/README.md) | Agent Memory persistence and management | 🟡 Draft | Complete |
+| [Enterprise Memory README](./04-subsystems/memory-services/enterprise-memory/README.md) | Enterprise Memory persistence and management | 🟡 Draft | Complete |
 
 ### Cognitive Audit Fabric (`04-subsystems/cognitive-audit-fabric/`)
 

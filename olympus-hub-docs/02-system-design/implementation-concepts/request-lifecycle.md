@@ -336,6 +336,21 @@ T+28h:  App makes decision
 
 ---
 
+## Request Hierarchy
+
+Requests can have parent-child relationships when a Hub Application invokes another Scenario **within the same workbench**:
+
+| Aspect | Behavior |
+|--------|----------|
+| **Parent-Child Link** | Child request has `parent_request_id` referencing parent |
+| **Context Inheritance** | Child can access parent context by reference |
+| **Lifecycle Cascade** | Child is completed/cancelled when parent reaches terminal state |
+| **Cross-Workbench** | No parent-child relationship — treated as external invocation |
+
+→ **Details:** [Request Hierarchy](../../04-subsystems/request-management/request-hierarchy.md)
+
+---
+
 ## Related Concepts
 
 | Concept | Relationship |
@@ -344,6 +359,7 @@ T+28h:  App makes decision
 | [Hub Application](./hub-application.md) | Orchestrates Request state |
 | [Request Update](./request-update.md) | Individual update within Request |
 | [Task Allocation](./task-allocation.md) | Tasks are created within Requests |
+| [Request Hierarchy](../../04-subsystems/request-management/request-hierarchy.md) | Parent-child requests, context inheritance |
 
 ---
 

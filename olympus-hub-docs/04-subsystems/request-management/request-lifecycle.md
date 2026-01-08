@@ -1,6 +1,6 @@
 # Request Lifecycle
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft
 
 Request Lifecycle defines the **states, transitions, and update patterns** for Requests as they flow through Operations.
 
@@ -67,6 +67,19 @@ Signal Exchange tracks two distinct concerns:
 
 - **COMPLETED** — cannot transition further
 - **CANCELLED** — cannot transition further
+
+### Lifecycle Cascade (Parent-Child Requests)
+
+When a request has child requests (from same-workbench scenario invocations), terminal state transitions **cascade** to all descendants:
+
+| Parent Transition | Descendant Behavior |
+|-------------------|---------------------|
+| → `COMPLETED` | All descendants marked `COMPLETED` with reason `PARENT_COMPLETED` |
+| → `CANCELLED` | All descendants marked `CANCELLED` with reason `PARENT_CANCELLED` |
+
+Non-terminal transitions (`ACTIVE` ↔ `PENDING`) do **not** cascade.
+
+→ **Details:** [Request Hierarchy](./request-hierarchy.md)
 
 ---
 
@@ -342,6 +355,7 @@ See [Signal Exchange Message Envelope](../signal-exchange/message-envelope.md) f
 ## Related Documentation
 
 - [Request Management Overview](./README.md)
+- [Request Hierarchy](./request-hierarchy.md) — Parent-child requests, context inheritance, lifecycle cascade
 - [Request Storage](./request-storage.md)
 - [Signal Exchange - Message Envelope](../signal-exchange/message-envelope.md)
 - [Signal Exchange - Observer Notifications](../signal-exchange/observer-notifications.md)

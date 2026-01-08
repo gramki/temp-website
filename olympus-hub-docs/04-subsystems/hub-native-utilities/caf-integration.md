@@ -326,7 +326,7 @@ Returns: Human-readable explanation + counterfactual
 - [Decision Tools](./decision-tools.md) — Rule-based decisions
 - [Prediction Tools](./prediction-tools.md) — ML predictions
 - [Cognitive Audit Fabric](../cognitive-audit-fabric/README.md) — CAF requirements
-- [Enterprise Memory](../memory-services/hub-enterprise-memory.md) — Storage
+- [Enterprise Memory](../memory-services/enterprise-memory/README.md) — Storage
 
 ---
 

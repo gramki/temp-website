@@ -2,6 +2,12 @@
 
 > **Audience:** engineers building a production fraud-case-resolution agent  
 > **Goal:** a practical task breakdown with an approach per task, mapped to **Hub vs Seer**, including **confidence** and explicit **gaps** where the design docs are incomplete/stubs.
+>
+> **Note (2026-01-08):** This is a historical planning document. References to `hub-enterprise-memory.md` and `hub-agent-memory.md` refer to files that have been superseded:
+> - `hub-enterprise-memory.md` → `enterprise-memory/README.md`
+> - `hub-agent-memory.md` → `agent-memory/README.md`
+> 
+> Many gaps identified here have been resolved. See [GAPS.TODO](./GAPS.TODO) for current status.
 
 ## 0) Inputs / anchor docs used
 

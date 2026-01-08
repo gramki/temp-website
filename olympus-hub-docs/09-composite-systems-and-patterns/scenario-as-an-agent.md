@@ -176,6 +176,21 @@ When a Scenario is published as an Agent, it participates in the standard agent 
 5. **Task Update** — Hub Application calls Agent REST API to update/complete the task
 6. **Request Update** — Original Scenario receives the task completion
 
+### Request Hierarchy (Same-Workbench)
+
+When the Scenario-Agent is in the **same workbench** as the consuming scenario, a **parent-child request relationship** is established:
+
+| Aspect | Behavior |
+|--------|----------|
+| **Child Request** | Request created in automating scenario is a child of the parent request |
+| **Context Access** | Child can access parent's compiled context via reference |
+| **Lifecycle Cascade** | Child is completed/cancelled when parent completes/cancels |
+| **Result Isolation** | Child context is isolated — only task completion result returns |
+
+When the Scenario-Agent is in a **different workbench**, there is **no parent-child relationship** — the automating scenario creates an independent request.
+
+→ **Details:** [Request Hierarchy](../04-subsystems/request-management/request-hierarchy.md)
+
 ### Detailed Flow Diagram
 
 ```

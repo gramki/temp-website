@@ -173,7 +173,7 @@ CAF provides the **control plane** for decision records, not the storage:
 - [Episodic Memory Store](./README.md)
 - [Explanation Service](./explanation-service.md)
 - [Evidence Bundles](./evidence-bundles.md)
-- [Hub Enterprise Memory](../memory-services/hub-enterprise-memory.md)
+- [Enterprise Memory](../../memory-services/enterprise-memory/README.md)
 
 ---
 

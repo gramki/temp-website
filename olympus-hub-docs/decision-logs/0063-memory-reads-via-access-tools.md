@@ -139,6 +139,6 @@ Provide both SDK methods and tools, SDK for programmatic access.
 
 ## References
 
-- [Memory Access Tools](../04-subsystems/memory-services/memory-access-tools.md)
-- [Memory Query API](../04-subsystems/memory-services/memory-query-api.md)
+- [Memory Access Tools](../04-subsystems/memory-services/enterprise-memory/access-tools.md)
+- [Memory Query API](../04-subsystems/memory-services/enterprise-memory/query-api.md)
 

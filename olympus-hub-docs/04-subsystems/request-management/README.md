@@ -1,6 +1,6 @@
 # Request Management
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft — Core concepts defined
 
 Request Management handles the **lifecycle, storage, and entity binding for Requests**—the standardized inputs to Operations.
 
@@ -20,6 +20,7 @@ Requests are the **standardized representation** of work to be done, created fro
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Request Lifecycle](./request-lifecycle.md) | Request states, updates, session boundary | 🔴 Stub |
+| [Request Hierarchy](./request-hierarchy.md) | Parent-child requests, context inheritance, lifecycle cascade | ✅ Complete |
 | [Request Storage](./request-storage.md) | Request scope storage | 🔴 Stub |
 | [Request Entity Binding](./request-entity-binding.md) | Request to Business Entity mapping | 🔴 Stub |
 

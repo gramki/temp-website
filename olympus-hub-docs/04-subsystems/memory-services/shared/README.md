@@ -1,7 +1,7 @@
 # Shared Memory Concepts
 
 > **Status**: 🟡 Draft  
-> **Last Updated**: 2026-01-07  
+> **Last Updated**: 2026-01-08  
 > **Parent**: [Memory Services](../README.md)
 
 ---
@@ -25,7 +25,7 @@ This folder contains concepts and specifications shared across both **Enterprise
 
 ### 1. ESPP Taxonomy
 
-Both Enterprise and Agent Memory use the **ESPP (Episodic-Semantic-Procedural-Preference)** taxonomy:
+The **ESPP (Episodic-Semantic-Procedural-Preference)** taxonomy provides a conceptual framework for memory organization:
 
 | Memory Class | Anchoring | Purpose |
 |--------------|-----------|---------|
@@ -34,7 +34,11 @@ Both Enterprise and Agent Memory use the **ESPP (Episodic-Semantic-Procedural-Pr
 | **Procedural** | Skill/Task | How to act |
 | **Preference** | Subject | How to personalize |
 
-The same classes appear in both memory types, but with different scopes and semantics.
+> **Important Applicability Difference**:
+> - **Enterprise Memory**: ESPP taxonomy is **enforced** — records must be classified
+> - **Agent Memory**: ESPP taxonomy is **optional** — developers use framework-native patterns
+>
+> See [ESPP Taxonomy](./espp-taxonomy.md) for details on applicability by memory type.
 
 ### 2. Workbench Scoping
 
@@ -63,12 +67,15 @@ Both memory types use Olympus platform services:
 
 | Aspect | Enterprise Memory | Agent Memory |
 |--------|-------------------|--------------|
-| **Scope** | Organizational | Agent/Session |
-| **Retention** | 7+ years | Days to months |
-| **Write Path** | Signal Exchange | Direct SDK |
-| **Immutability** | Yes | No |
-| **PII** | Prohibited | Permitted |
+| **Scope** | Organizational — cross-agent, cross-session | Request/Session — per agent |
+| **Retention** | 7+ years (configurable) | Session + admin-configured period (hours to days) |
+| **Write Path** | Via Signal Exchange (no direct writes) | Direct SDK and Tools |
+| **Read Path** | Via Memory Access Tools | SDK methods, Tools |
+| **Immutability** | Yes (append-only) | No (update/delete allowed) |
+| **PII** | Prohibited (entity references only) | Permitted (session scope) |
+| **ESPP Taxonomy** | Enforced | Optional |
 | **Storage** | Europa (OpenSearch) | TBD |
+| **Encryption** | Platform-level | Application-layer, session-unique keys |
 
 ---
 

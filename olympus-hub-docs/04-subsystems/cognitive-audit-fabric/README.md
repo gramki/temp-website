@@ -513,7 +513,7 @@ From the Todo notes:
 ## Related Documentation
 
 - [Memory Services](../memory-services/README.md) — Enterprise Memory storage
-- [Hub Enterprise Memory](../memory-services/hub-enterprise-memory.md) — Memory layer
+- [Enterprise Memory](../memory-services/enterprise-memory/README.md) — Memory layer
 - [Seer Agent Observability](../../../olympus-seer-docs/seer-design/subsystems/agent-observability.md)
 
 ---

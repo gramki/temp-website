@@ -160,8 +160,8 @@ investigation_query:
 
 - [Auditor Persona](../personas/auditor.md)
 - [Cognitive Audit Fabric](../../04-subsystems/cognitive-audit-fabric/README.md)
-- [Enterprise Memory](../../04-subsystems/memory-services/hub-enterprise-memory.md)
-- [Decision Records](../../04-subsystems/cognitive-audit-fabric/decision-records.md)
+- [Enterprise Memory](../../04-subsystems/memory-services/enterprise-memory/README.md)
+- [Decision Records](../../04-subsystems/cognitive-audit-fabric/episodic-memory-store/decision-records.md)
 
 ---
 

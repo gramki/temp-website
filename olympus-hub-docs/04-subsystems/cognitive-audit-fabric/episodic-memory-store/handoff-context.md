@@ -351,8 +351,8 @@ timeline_event:
 - [CAF Overview](../README.md)
 - [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
-- [Hub Enterprise Memory](../memory-services/hub-enterprise-memory.md)
-- [Task Management](../task-management/README.md)
+- [Enterprise Memory](../../memory-services/enterprise-memory/README.md)
+- [Task Management](../../task-management/README.md)
 
 ---
 
@@ -457,8 +457,8 @@ quality_scoring:
 - [Episodic Memory Store](./README.md)
 - [Decision Records](./decision-records.md)
 - [Memory Services](../../memory-services/README.md)
-- [Hub Enterprise Memory](../../memory-services/hub-enterprise-memory.md)
-- [Memory Access Tools](../../memory-services/memory-access-tools.md)
+- [Enterprise Memory](../../memory-services/enterprise-memory/README.md)
+- [Memory Access Tools](../../memory-services/enterprise-memory/access-tools.md)
 - [Task Management](../../task-management/README.md)
 
 ---

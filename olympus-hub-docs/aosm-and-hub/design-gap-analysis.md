@@ -1,6 +1,8 @@
 # Design Gap Analysis: CAF, Memory, Knowledge, and ETSL
 
 > **Purpose:** Verify if CAF, Memory Services, Knowledge Bank, and ETSL are properly integrated into Hub's design and how they relate to AOSM.
+>
+> **Note (2026-01-08):** This is a historical analysis document. References to `hub-enterprise-memory.md` and `hub-agent-memory.md` refer to files that have been superseded by `enterprise-memory/README.md` and `agent-memory/README.md` respectively. Many gaps identified here have been resolved.
 
 ---
 

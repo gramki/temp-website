@@ -135,6 +135,21 @@ A **Request** represents a potentially long-running session for a Hub Applicatio
 - The Application processes the Request over its lifetime
 - The Request tracks the full interaction history
 
+### Request Hierarchy (Parent-Child Requests)
+
+When a Hub Application invokes another Scenario **within the same workbench** (as tool or agent), a **child request** is created:
+
+| Aspect | Behavior |
+|--------|----------|
+| **Context Inheritance** | Child can access parent context via reference |
+| **Lifecycle Cascade** | Child is completed/cancelled when parent completes/cancels |
+| **Observer Isolation** | Observers see only their specific request's updates |
+| **Depth Limit** | Configurable per workbench (default: 5) |
+
+**Cross-workbench invocations** do NOT create parent-child relationships — invoker must explicitly forward context.
+
+→ **Details:** [Request Hierarchy](../request-management/request-hierarchy.md)
+
 ### Message Dispatch vs Request Status
 
 Signal Exchange tracks two distinct state machines:
