@@ -92,6 +92,7 @@ All ADRs follow the standard format:
 | [0068](./0068-agent-memory-framework-native-idioms.md) | Agent Memory enables framework-native idioms | Accepted | 2026-01-08 | memory-services |
 | [0069](./0069-agent-memory-storage-services.md) | Four storage services for Agent Memory | Accepted | 2026-01-08 | memory-services |
 | [0070](./0070-agent-memory-encryption-isolation.md) | Agent Memory encryption and isolation model | Accepted | 2026-01-08 | memory-services |
+| [0071](./0071-agent-memory-storage-backends.md) | Agent Memory storage backends (Callisto + Europa + S3) | Accepted | 2026-01-08 | memory-services |
 
 ---
 
@@ -200,6 +201,7 @@ All ADRs follow the standard format:
 - [0068](./0068-agent-memory-framework-native-idioms.md) - Agent Memory enables framework-native idioms (no ESPP enforcement)
 - [0069](./0069-agent-memory-storage-services.md) - Four storage services: Log, Conversation, KV, Documents
 - [0070](./0070-agent-memory-encryption-isolation.md) - Application-layer encryption with agent+session unique keys
+- [0071](./0071-agent-memory-storage-backends.md) - Storage backends: KV→Callisto, Log/Conv/Docs→Europa+S3
 
 ### Request Management
 - [0066](./0066-request-hierarchy-context-inheritance.md) - Request hierarchy, context inheritance, lifecycle cascade

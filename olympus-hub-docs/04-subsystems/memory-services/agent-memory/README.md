@@ -194,6 +194,30 @@ Each service exposes **save** and **recall** operations as tools:
 
 ---
 
+## Storage Architecture
+
+Each Agent Memory service uses an appropriate Olympus platform service:
+
+| Service | Storage Backend | Characteristics |
+|---------|-----------------|-----------------|
+| **KV Store** | Olympus Callisto (MongoDB) | Low-latency CRUD, document storage |
+| **Log Service** | Olympus Europa (OpenSearch) + S3 | RAG-enabled, time-based tiering |
+| **Conversation Service** | Olympus Europa (OpenSearch) + S3 | RAG-enabled, time-based tiering |
+| **Document Storage** | Olympus Europa (OpenSearch) + S3 | Vector search, content-addressable |
+
+### Tiered Storage
+
+For Log and Conversation services, data is tiered based on time:
+
+| Tier | Storage | Data Age | Access Pattern |
+|------|---------|----------|----------------|
+| **Hot** | Europa (OpenSearch) | Recent | Frequent read/write |
+| **Cold** | S3 | Older | Archive, occasional access |
+
+Tiering is time-based and configured per workbench.
+
+---
+
 ## RAG / Semantic Search Capabilities
 
 Log Service and Document Service support RAG-based semantic search:
@@ -201,8 +225,9 @@ Log Service and Document Service support RAG-based semantic search:
 | Aspect | Details |
 |--------|---------|
 | **Available On** | Log Service, Document Service (Conversation planned) |
-| **Backing Store** | TBD (storage choice to be finalized) |
-| **Embeddings** | Hub framework-provided (not developer-specified) |
+| **Backing Store** | Olympus Europa (OpenSearch with k-NN plugin) |
+| **Embeddings** | Hub framework-provided, synchronous on write (default) |
+| **Async Option** | Configurable for async embedding generation |
 | **Use Cases** | Semantic search over session history, document retrieval |
 | **Limits** | Embedding count per session (configurable) |
 
@@ -405,6 +430,7 @@ The **Request** is the shared context between agents in a Session. However, each
 - [ADR-0068: Framework-Native Idioms](../../../decision-logs/0068-agent-memory-framework-native-idioms.md) — No ESPP enforcement
 - [ADR-0069: Storage Services](../../../decision-logs/0069-agent-memory-storage-services.md) — Four services
 - [ADR-0070: Encryption and Isolation](../../../decision-logs/0070-agent-memory-encryption-isolation.md) — Security model
+- [ADR-0071: Storage Backends](../../../decision-logs/0071-agent-memory-storage-backends.md) — Callisto + Europa + S3
 
 ---
 

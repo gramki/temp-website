@@ -107,7 +107,7 @@ Common concepts and specifications across both memory types.
 | **Isolation** | Workbench scoped | Per (tenant, workbench, scenario, request, agent) |
 | **Cross-Session** | Yes | No — use Enterprise Memory for cross-session |
 | **Encryption** | Platform-level | Application-layer, agent+session unique keys |
-| **Storage Backend** | Olympus Europa (managed OpenSearch) | TBD (to be determined) |
+| **Storage Backend** | Olympus Europa (managed OpenSearch) | Mixed: Callisto (KV) + Europa (Log/Conv/Docs) + S3 tiering |
 
 ---
 
@@ -146,15 +146,20 @@ Enterprise Memory uses **Olympus Europa** — the platform's managed OpenSearch 
 | **Semantic Search** | k-NN plugin for vector similarity |
 | **Index Pattern** | `{tenant}_{workbench}_{memory_class}_{record_type}` |
 
-### Agent Memory: To Be Determined
+### Agent Memory: Mixed Backend
 
-Agent Memory storage backend is **not yet finalized**. Options include:
+Agent Memory uses different Olympus services per storage type:
 
-| Candidate | Consideration |
-|-----------|---------------|
-| **Olympus Europa** | If semantic search is critical |
-| **Olympus Callisto** | If low-latency is critical (Redis-based) |
-| **Purpose-built service** | If specialized requirements emerge |
+| Service | Backend | Rationale |
+|---------|---------|-----------|
+| **KV Store** | Olympus Callisto (MongoDB) | Low-latency CRUD operations |
+| **Log Service** | Olympus Europa + S3 tiered | RAG search, time-based archival |
+| **Conversation Service** | Olympus Europa + S3 tiered | RAG search, compaction, archival |
+| **Document Storage** | Olympus Europa + S3 | Vector search, content-addressable |
+
+**Tiering**: Log and Conversation services use time-based tiering — recent data in Europa (hot), older data in S3 (cold).
+
+**Embeddings**: Generated synchronously on write (default), configurable for async.
 
 ---
 
@@ -278,6 +283,7 @@ See [Enterprise Learning Services](../cognitive-audit-fabric/enterprise-learning
 | [0068](../../decision-logs/0068-agent-memory-framework-native-idioms.md) | Framework-Native Idioms (No ESPP Enforcement) |
 | [0069](../../decision-logs/0069-agent-memory-storage-services.md) | Four Storage Services |
 | [0070](../../decision-logs/0070-agent-memory-encryption-isolation.md) | Encryption and Isolation |
+| [0071](../../decision-logs/0071-agent-memory-storage-backends.md) | Storage Backends (Callisto + Europa + S3) |
 
 ### Subsystem Organization
 

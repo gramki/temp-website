@@ -10,11 +10,22 @@
 
 Hub provides four storage services for agent memory, each designed for specific use cases while maintaining strict session scoping, encryption, and isolation.
 
+### Storage Backend Summary
+
+| Service | Backend | Tiering |
+|---------|---------|---------|
+| **Log Service** | Olympus Europa (OpenSearch) | S3 (time-based) |
+| **Conversation Service** | Olympus Europa (OpenSearch) | S3 (time-based) |
+| **KV Store** | Olympus Callisto (MongoDB) | None |
+| **Document Storage** | Olympus Europa (OpenSearch) | S3 |
+
 ---
 
 ## 1. Log Service
 
 **Purpose**: Append-only message log for session history and audit trail.
+
+**Storage**: Olympus Europa (OpenSearch) with S3 tiered storage.
 
 ### Operations
 
@@ -67,6 +78,8 @@ relevant = await log_store.rag_search(
 ## 2. Conversation Service
 
 **Purpose**: Append-only message store with configurable compaction strategies for token budget management.
+
+**Storage**: Olympus Europa (OpenSearch) with S3 tiered storage.
 
 ### Operations
 
@@ -136,6 +149,8 @@ memory:
 
 **Purpose**: Structured key-value storage for entities, preferences, and state.
 
+**Storage**: Olympus Callisto (MongoDB) — low-latency CRUD operations.
+
 ### Operations
 
 | Operation | Description |
@@ -201,6 +216,8 @@ value = await kv_store.get(".", "last_action")
 ## 4. Document Storage Service
 
 **Purpose**: CLOB and BLOB storage for documents referenced or exchanged in session.
+
+**Storage**: Olympus Europa (OpenSearch) with S3 for content storage — vector search enabled.
 
 ### Operations
 

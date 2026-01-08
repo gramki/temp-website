@@ -91,7 +91,7 @@
         [x] HUB-MEM-010: Procedural Memory Store — 4 record types (LearnedSkill, Procedure, ActionSequence, ToolUsagePattern)
         [x] HUB-MEM-011: Preference Memory Store — 4 record types (UserPreference, AgentBehavior, InteractionPattern, ContextualPreference)
     ## Agent Memory:
-        [ ] HUB-MEM-012: Agent Memory storage layer decision — candidates: Europa, Callisto, purpose-built
+        [x] HUB-MEM-012: Agent Memory storage layer decision — KV:Callisto, Log/Conv/Docs:Europa+S3
         [x] HUB-MEM-013: Agent Memory SDK specification — agent-memory/sdk.md (complete)
         [x] HUB-MEM-014: Agent Memory retention and lifecycle — agent-memory/retention-and-lifecycle.md (complete)
         [~] HUB-MEM-015: Agent Memory context assembly integration — agent-memory/context-assembly.md (stub; depends on Seer CAE)
