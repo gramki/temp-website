@@ -93,6 +93,12 @@ All ADRs follow the standard format:
 | [0069](./0069-agent-memory-storage-services.md) | Four storage services for Agent Memory | Accepted | 2026-01-08 | memory-services |
 | [0070](./0070-agent-memory-encryption-isolation.md) | Agent Memory encryption and isolation model | Accepted | 2026-01-08 | memory-services |
 | [0071](./0071-agent-memory-storage-backends.md) | Agent Memory storage backends (Callisto + Europa + S3) | Accepted | 2026-01-08 | memory-services |
+| [0072](./0072-seer-guardrails-two-layer-model.md) | Seer guardrails: behavioral guidelines + sidecar enforcement | Accepted | 2026-01-08 | seer |
+| [0073](./0073-seer-authority-enforcement-opa.md) | Seer authority enforcement via OPA at Tool Gateway and SX | Accepted | 2026-01-08 | seer |
+| [0074](./0074-seer-runtime-atlantis-based.md) | Seer runtime on Atlantis (EKS, Heracles, Istio) | Accepted | 2026-01-08 | seer |
+| [0075](./0075-seer-model-gateway-bifrost.md) | Seer Model Gateway based on Bifrost OSS | Accepted | 2026-01-08 | seer |
+| [0076](./0076-seer-observability-watch-based.md) | Seer agent observability via Olympus Watch | Accepted | 2026-01-08 | seer |
+| [0077](./0077-seer-evaluation-deferred.md) | Seer Agent Evaluation deferred to post-MVP | Accepted (Deferred) | 2026-01-08 | seer |
 
 ---
 
@@ -205,6 +211,14 @@ All ADRs follow the standard format:
 
 ### Request Management
 - [0066](./0066-request-hierarchy-context-inheritance.md) - Request hierarchy, context inheritance, lifecycle cascade
+
+### Seer (AI Runtime)
+- [0072](./0072-seer-guardrails-two-layer-model.md) - Two-layer guardrails: behavioral guidelines + sidecar enforcement
+- [0073](./0073-seer-authority-enforcement-opa.md) - Authority enforcement via OPA at Tool Gateway and Signal Exchange
+- [0074](./0074-seer-runtime-atlantis-based.md) - Runtime on Atlantis (EKS, Heracles, Istio)
+- [0075](./0075-seer-model-gateway-bifrost.md) - Model Gateway based on Bifrost OSS
+- [0076](./0076-seer-observability-watch-based.md) - Agent observability via Olympus Watch
+- [0077](./0077-seer-evaluation-deferred.md) - Agent Evaluation deferred to post-MVP
 
 ---
 
