@@ -35,8 +35,8 @@
 
 # Seer — Agent Observability:
     ## P2 (Medium):
-        [ ] SEER-OBS-001: Seer observability SDK specification incomplete
-        [ ] SEER-OBS-002: Integration with Olympus Watch needs clarification
+        [x] SEER-OBS-001: Seer observability SDK — seer-design/subsystems/agent-observability.md (Python, Node, Java)
+        [x] SEER-OBS-002: Olympus Watch integration — included in agent-observability.md (metrics, logs, traces, dashboards, alerts)
 
 # Seer — Agent Evaluation:
     ## P2 (Medium):
@@ -187,18 +187,18 @@
 =======================================================
 
 # Gap Counts by System:
-    Seer:                   2 gaps (0 P0, 0 P1, 2 P2)  # Model Gateway complete
+    Seer:                   0 gaps (0 P0, 0 P1, 0 P2)  # ALL SEER GAPS RESOLVED!
     Hub:                   10 gaps (0 P0, 0 P1, 5 P2, 5 P3)  # Seer integration complete
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total:                 29 gaps
+    Total:                 27 gaps
 
 # Gap Counts by Priority:
     P0 (Blocking):          0 gaps  # All P0s resolved!
     P1 (High):              1 gap   # External only (CMS API)
-    P2 (Medium):           20 gaps
+    P2 (Medium):           18 gaps
     P3 (Low):               8 gaps
 
 # Recently Resolved (2026-01-07):

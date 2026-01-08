@@ -12,10 +12,10 @@ This folder contains design documents for each Olympus Seer subsystem.
 | [Authority Enforcement](./authority-enforcement.md) | OPA policies at Tool Gateway and Signal Exchange, violation handling | 🟡 Draft |
 | [Agent Identity & Authority Framework](./agent-identity-authority.md) | Agent identity, delegation chains, IAM integration (via Cipher) | Placeholder |
 | [Context Assembly Engine](./context-assembly-engine.md) | Context compilation from memory, knowledge, session state | 🟡 Draft |
-| [Runtime & Deployment Abstraction](./runtime-deployment.md) | Agent execution, policy enforcement, graceful degradation | Placeholder |
-| [Agent Observability Service](./agent-observability.md) | Runtime metrics, decision traces, health monitoring | Placeholder |
+| [Runtime & Deployment](./runtime-deployment.md) | Atlantis, Heracles, pod architecture, request dispatch | 🟡 Draft |
+| [Agent Observability](./agent-observability.md) | SDK, Watch integration, metrics, logs, traces, dashboards | 🟡 Draft |
 | [Agent Evaluation Service](./agent-evaluation.md) | Development-time testing, benchmarks, CI/CD quality gates | Placeholder |
-| [Model Gateway](./model-gateway.md) | Unified LLM/SLM access, model routing, fallback | Placeholder |
+| [Model Gateway](./model-gateway.md) | Bifrost-based LLM gateway, routing, fallback, budgets | 🟡 Draft |
 
 ## Governance Distribution
 
