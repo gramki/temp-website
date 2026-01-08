@@ -13,18 +13,18 @@
         [x] SEER-ALS-001: Training Spec CRD schema — seer-design/hub-integration/training-spec-crd.md
         [x] SEER-ALS-002: Employment Spec CRD schema — seer-design/hub-integration/employment-spec-crd.md
         [x] SEER-ALS-003: Raw Agent deployment model — seer-design/hub-integration/raw-agent.md (containers on Atlantis)
-        [ ] SEER-ALS-004: Agent registration and lifecycle API needs specification
+        [x] SEER-ALS-004: Agent Lifecycle API — seer-design/subsystems/agent-lifecycle-api.md
     ## P1 (High):
         [ ] SEER-ALS-005: Guardrail definition format and enforcement mechanism needs specification
         [ ] SEER-ALS-006: Authority enforcement at runtime — how Seer enforces delegation limits
 
 # Seer — Context Assembly Engine:
     ## P0 (Blocking):
-        [ ] SEER-CAE-001: Context Assembly Engine APIs (compile context, retrieval adapters, ranking, truncation, provenance) — currently placeholder
+        [x] SEER-CAE-001: Context Assembly Engine APIs — seer-design/subsystems/context-assembly-engine.md (compile, retrievers, ranking, provenance)
     ## P1 (High):
-        [ ] SEER-CAE-003: SDK/API for retrieving from Hub Memory Services
+        [x] SEER-CAE-003: SDK/API for Hub Memory retrieval — included in context-assembly-engine.md
     ## P2 (Medium):
-        [ ] SEER-CAE-002: Token budgeting algorithms for large context windows
+        [x] SEER-CAE-002: Token budgeting algorithms — included in context-assembly-engine.md (fixed, proportional, dynamic)
 
 # Seer — Runtime & Deployment:
     ## P0 (Blocking):
@@ -187,18 +187,18 @@
 =======================================================
 
 # Gap Counts by System:
-    Seer:                  11 gaps (1 P0, 2 P1, 7 P2)  # Hub integration complete, 3 P0 + 4 P1 resolved
+    Seer:                   7 gaps (0 P0, 2 P1, 5 P2)  # Lifecycle + CAE complete
     Hub:                   10 gaps (0 P0, 0 P1, 5 P2, 5 P3)  # Seer integration complete
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total:                 38 gaps
+    Total:                 34 gaps
 
 # Gap Counts by Priority:
-    P0 (Blocking):          1 gap   # Only SEER-ALS-004 (Agent Lifecycle API)
+    P0 (Blocking):          0 gaps  # All P0s resolved!
     P1 (High):              3 gaps  # Seer guardrails, runtime infra
-    P2 (Medium):           26 gaps
+    P2 (Medium):           23 gaps
     P3 (Low):               8 gaps
 
 # Recently Resolved (2026-01-07):
