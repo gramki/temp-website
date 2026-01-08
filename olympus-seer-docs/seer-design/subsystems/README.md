@@ -8,8 +8,9 @@ This folder contains design documents for each Olympus Seer subsystem.
 |-----------|-------------|--------|
 | [Agent Definition & Lifecycle Service](./agent-lifecycle-service.md) | Agent versioning, Training/Employment Specs, state management, governance definitions | 🟡 Draft |
 | [Agent Lifecycle API](./agent-lifecycle-api.md) | REST API for lifecycle management, kill switch, webhooks | 🟡 Draft |
-| [Guardrails](./guardrails.md) | System prompt + sidecar guardrails, Python contract, enforcement pipeline | 🟡 Draft |
-| [Agent Identity & Authority Framework](./agent-identity-authority.md) | Agent identity, delegation chains, authority enforcement (via Cipher) | Placeholder |
+| [Guardrails](./guardrails.md) | Behavioral guidelines + sidecar enforcement, Python contract, execution pipeline | 🟡 Draft |
+| [Authority Enforcement](./authority-enforcement.md) | OPA policies at Tool Gateway and Signal Exchange, violation handling | 🟡 Draft |
+| [Agent Identity & Authority Framework](./agent-identity-authority.md) | Agent identity, delegation chains, IAM integration (via Cipher) | Placeholder |
 | [Context Assembly Engine](./context-assembly-engine.md) | Context compilation from memory, knowledge, session state | 🟡 Draft |
 | [Runtime & Deployment Abstraction](./runtime-deployment.md) | Agent execution, policy enforcement, graceful degradation | Placeholder |
 | [Agent Observability Service](./agent-observability.md) | Runtime metrics, decision traces, health monitoring | Placeholder |

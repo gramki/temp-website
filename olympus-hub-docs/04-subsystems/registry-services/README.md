@@ -143,6 +143,126 @@ Registries span two storage layers:
 
 ---
 
+## Tool Specification Requirements
+
+### OPA Context Schema
+
+Every Tool Specification **must define its OPA context schema**. This schema specifies what data is available to OPA policies when evaluating authority at the Tool Gateway.
+
+```yaml
+# Tool Specification
+apiVersion: hub.olympus.io/v1
+kind: ToolSpecification
+metadata:
+  name: refund-approve
+spec:
+  # ... tool definition ...
+  
+  authority:
+    # OPA context schema for this tool
+    opaContextSchema:
+      type: object
+      properties:
+        parameters:
+          type: object
+          description: Tool invocation parameters
+          properties:
+            amount:
+              type: number
+              description: Refund amount in cents
+            case_id:
+              type: string
+            reason:
+              type: string
+        # Standard context (always available)
+        agent:
+          $ref: "#/definitions/AgentContext"
+        access:
+          $ref: "#/definitions/AccessContext"
+        invocation:
+          $ref: "#/definitions/InvocationContext"
+    
+    # Default OPA policy for this tool
+    defaultPolicy: |
+      package seer.authority.refund_approve
+      
+      default decision = "REJECT"
+      
+      decision = "ALLOW" {
+        input.parameters.amount <= 10000
+        input.agent.delegated_scopes[_] == "write:refunds"
+      }
+      
+      reason = "Amount exceeds tool limit" {
+        input.parameters.amount > 10000
+      }
+```
+
+### Standard Context Definitions
+
+These schemas are always available at the Tool Gateway:
+
+```yaml
+definitions:
+  AgentContext:
+    type: object
+    description: Identity and authority of the invoking agent
+    properties:
+      agent_id:
+        type: string
+      training_spec:
+        type: string
+      employment_spec:
+        type: string
+      iam_role:
+        type: string
+      delegated_scopes:
+        type: array
+        items:
+          type: string
+      accountable_user:
+        type: string
+        description: IAM user or group accountable for this agent
+
+  AccessContext:
+    type: object
+    description: Tenant and workbench context
+    properties:
+      tenant_id:
+        type: string
+      workbench_id:
+        type: string
+      scenario_id:
+        type: string
+      request_id:
+        type: string
+
+  InvocationContext:
+    type: object
+    description: Invocation metadata
+    properties:
+      timestamp:
+        type: string
+        format: date-time
+      request_headers:
+        type: object
+        description: HTTP headers from invocation
+      source_ip:
+        type: string
+```
+
+### Policy Override Hierarchy
+
+| Level | Scope | Override Behavior |
+|-------|-------|-------------------|
+| **Tool Specification** | Per-tool | Base policy |
+| **Training Specification** | Per-agent type | Extends/overrides tool policy |
+| **Employment Specification** | Per-deployment | **Final override** |
+
+Employment policies always take precedence.
+
+---
+
 ## Agent Registry (Special Case)
 
 The Agent Registry is managed by **Cipher IAM**, not Hub Registry Services:

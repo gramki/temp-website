@@ -16,7 +16,7 @@
         [x] SEER-ALS-004: Agent Lifecycle API — seer-design/subsystems/agent-lifecycle-api.md
     ## P1 (High):
         [x] SEER-ALS-005: Guardrail definition format and enforcement — seer-design/subsystems/guardrails.md
-        [ ] SEER-ALS-006: Authority enforcement at runtime — how Seer enforces delegation limits
+        [x] SEER-ALS-006: Authority enforcement at runtime — seer-design/subsystems/authority-enforcement.md (OPA at Tool Gateway + Signal Exchange)
 
 # Seer — Context Assembly Engine:
     ## P0 (Blocking):
@@ -187,18 +187,18 @@
 =======================================================
 
 # Gap Counts by System:
-    Seer:                   6 gaps (0 P0, 1 P1, 5 P2)  # Guardrails complete
+    Seer:                   5 gaps (0 P0, 0 P1, 5 P2)  # Authority enforcement complete
     Hub:                   10 gaps (0 P0, 0 P1, 5 P2, 5 P3)  # Seer integration complete
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total:                 33 gaps
+    Total:                 32 gaps
 
 # Gap Counts by Priority:
     P0 (Blocking):          0 gaps  # All P0s resolved!
-    P1 (High):              2 gaps  # Seer authority, runtime infra
-    P2 (Medium):           23 gaps
+    P1 (High):              1 gap   # Seer runtime infra only
+    P2 (Medium):           22 gaps
     P3 (Low):               8 gaps
 
 # Recently Resolved (2026-01-07):
