@@ -140,19 +140,19 @@ IDEA (Anyone) → INTENT (APO) → CHARTER (PA accepts) → WORKBENCH → RUN �
 
 ```
 N Production Workbenches → 1 Development Workbench
-                                    │
-                                    ▼
-                              APO Inbox
-                                    │
-                      ┌─────────────┼─────────────┐
-                      ▼             ▼             ▼
-                  Accept        Reject         Route
-                      │                           │
-                      ▼                           ▼
-                  Resolve                    PA / Dev
-                      │
-                      ▼
-              Reflect to Source
+                                   │
+                                   ▼
+                             APO Inbox
+                                   │
+                     ┌─────────────┼─────────────┐
+                     ▼             ▼             ▼
+                 Accept        Reject         Route
+                     │                           │
+                     ▼                           ▼
+                 Resolve                    PA / Dev
+                     │
+                     ▼
+             Reflect to Source
 ```
 
 ---
