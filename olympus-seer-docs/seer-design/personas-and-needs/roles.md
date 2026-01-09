@@ -16,24 +16,28 @@ Enterprise roles defined below are **consumers** of the managed platform, not ow
 
 ---
 
-## 1. Agent Product Owner (APO)
+## 1. Automation Product Owner (APO)
 
-**Primary mandate:** Own *intent* and *business accountability* of agents.
+> **Note:** APO is a **Hub persona** that covers all automation. This section describes the agentic extensions. See [Hub APO Definition](../../../olympus-hub-docs/08-personas-and-journeys/personas/automation-product-owner.md) for the base role.
+
+**Primary mandate:** Own *intent* and *business accountability* of automation (including agents).
 
 **Owns**
 
-* Agent goals and non-goals
+* Automation goals and non-goals
 * Business outcomes and success criteria
-* Autonomy policy proposals (what agents should be allowed to do)
+* Automation approach decision (agentic vs. conventional)
+* Autonomy policy proposals (for agentic scenarios)
 * Value justification and prioritization
 * Improvement prioritization based on operational feedback
 
 **Decides**
 
-* Why the agent exists
+* Why the automation exists
 * What problems it is allowed to solve
+* Whether to pursue agentic or conventional path
 * When autonomy expansion is desired (subject to ARAO approval)
-* Priority of agent improvements based on COS/ARE feedback
+* Priority of improvements based on COS/ARE feedback
 
 **Does NOT own**
 
@@ -44,7 +48,7 @@ Enterprise roles defined below are **consumers** of the managed platform, not ow
 
 **Key question answered**
 
-> "What should this agent do, and why does it matter?"
+> "What should this automation do, and why does it matter?"
 
 ---
 

@@ -45,7 +45,7 @@ Seer UX follows the same (Persona, Channel, Use Case) approach as Hub:
 
 | Persona | Desk | Purpose |
 |---------|------|---------|
-| **APO** | Agent Portfolio Desk | Manage agent portfolio, outcomes, autonomy |
+| **APO** | Agent Portfolio Desk | Manage automation portfolio, outcomes, autonomy |
 | **CSA** | Agent Design Desk | Design architectures, validate patterns |
 | **AE** | Agent Development Desk | Build, test, deploy agents |
 | **KMO** | Knowledge Governance Desk | Curate knowledge, govern memory |

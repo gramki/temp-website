@@ -1,42 +1,48 @@
-# Agent Product Owner (APO)
+# Automation Product Owner (APO) — Seer Extensions
 
 > **Status:** Reference Document  
 > **Last Updated:** 2026-01-09  
-> **Related:** [Role Definitions](./roles.md) | [ARE Reference](./are.md)
+> **Related:** [Hub APO Definition](../../../olympus-hub-docs/08-personas-and-journeys/personas/automation-product-owner.md) | [Role Definitions](./roles.md)
 
 ---
 
-## The Problem APO Solves
+## Overview
 
-Organizations build agents without asking the fundamental question: *Why does this agent exist?*
+The **Automation Product Owner (APO)** is a **Hub persona** that owns business intent and outcomes for all automation — whether conventional or agentic.
 
-The result is predictable:
+This document describes **Seer-specific extensions** to the APO role for scenarios where the agentic automation path is chosen.
 
-- Agents that solve problems no one has
-- Agents that technically work but deliver no value
-- Agents with unclear boundaries that creep into unwanted territory
-- Agents that succeed operationally but fail commercially
-- Autonomy decisions made by engineers who shouldn't own them
-
-Someone has to own the *intent* of the agent — not the code, not the operations, not the compliance — just the reason it exists and whether it's delivering on that reason.
-
-**APO exists because agents need a business conscience.**
+> **See also:** [Hub APO Definition](../../../olympus-hub-docs/08-personas-and-journeys/personas/automation-product-owner.md) for the base role definition.
 
 ---
 
-## The APO Mandate
+## APO's Agentic Responsibilities
+
+When automation takes the agentic path, APO has additional responsibilities beyond the base Hub role:
+
+| Base APO Responsibility | Agentic Extension |
+|-------------------------|-------------------|
+| Own automation intent | Own **agent** intent specifically |
+| Define success criteria | Define agent-specific KPIs |
+| Propose automation approach | Propose **autonomy levels** |
+| Track outcomes | Track agent-specific outcomes |
+| Prioritize improvements | Incorporate COS/ARE feedback |
+
+---
+
+## The Agentic APO Mandate
 
 > **APO owns agent intent and business accountability.**
 
-This means:
+For agentic scenarios specifically:
 
 | APO Owns | APO Does NOT Own |
 |----------|------------------|
-| Why the agent exists | How the agent reasons |
-| What problems it solves | How it's implemented |
-| What autonomy it should have | Whether autonomy is approved |
-| Business success criteria | Runtime safety |
-| Improvement priorities | Day-to-day operations |
+| Why the agent exists | How the agent reasons (CSA) |
+| What problems it solves | How it's implemented (AE) |
+| What autonomy it should have | Whether autonomy is approved (ARAO) |
+| Business success criteria | Runtime safety (ARE) |
+| Improvement priorities | Cognitive health monitoring (COS) |
 
 **The distinction matters.** APO is not a technical role. APO is the voice of the business inside agent development.
 

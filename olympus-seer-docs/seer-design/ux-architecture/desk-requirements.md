@@ -22,7 +22,7 @@ Seer UX follows the same (Persona, Channel, Use Case) meta approach as Hub.
 
 | Persona | Desk | Primary Focus |
 |---------|------|---------------|
-| Agent Product Owner (APO) | **Agent Portfolio Desk** | Business outcomes, autonomy management |
+| Automation Product Owner (APO) | **Agent Portfolio Desk** | Business outcomes, autonomy management |
 | Cognitive Systems Architect (CSA) | **Agent Design Desk** | Architecture, patterns, validation |
 | Agent Engineer (AE) | **Agent Development Desk** | Build, test, deploy |
 | Knowledge & Memory Owner (KMO) | **Knowledge Governance Desk** | Curate, govern, promote |
@@ -32,7 +32,7 @@ Seer UX follows the same (Persona, Channel, Use Case) meta approach as Hub.
 
 ---
 
-## 1. Agent Product Owner (APO) — Agent Portfolio Desk
+## 1. Automation Product Owner (APO) — Agent Portfolio Desk
 
 ### Purpose
 Manage agent portfolio, track business outcomes, and govern autonomy requests.

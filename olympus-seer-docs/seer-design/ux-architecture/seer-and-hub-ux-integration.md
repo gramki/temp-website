@@ -89,7 +89,7 @@ Not all desks are relevant at every stage. Workbenches are **tagged with their c
 
 | Desk | Design | Build | Deploy | Run | Evolve |
 |------|:------:|:-----:|:------:|:---:|:------:|
-| **Agent Portfolio Desk** (APO) | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Automation Portfolio Desk** (APO) | ✓ | ✓ | ✓ | ✓ | ✓ |
 | **Agent Design Desk** (CSA) | ✓ | ✓ | — | — | ✓ |
 | **Agent Development Desk** (AE) | — | ✓ | ✓ | — | ✓ |
 | **Knowledge Governance Desk** (KMO) | ✓ | ✓ | ✓ | ✓ | ✓ |

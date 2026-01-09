@@ -48,6 +48,7 @@ Design and build the operational structure within Workbenches.
 
 | Persona | Role | Document |
 |---------|------|----------|
+| **Automation Product Owner (APO)** | Own automation intent, business outcomes, autonomy proposals | [automation-product-owner.md](./personas/automation-product-owner.md) |
 | **Process Architect** | Design Scenarios, SOPs, knowledge structure | [process-architect.md](./personas/process-architect.md) |
 | **Developer** | Build Hub Applications, define Triggers | [developer.md](./personas/developer.md) |
 
@@ -111,8 +112,11 @@ Journeys describe **cross-persona workflows** — how multiple personas collabor
 
 | Journey | Personas Involved | Document |
 |---------|-------------------|----------|
+| **Automation Lifecycle (Conventional)** | APO → Process Architect → Developer → Supervisor → (Evolve) | [automation-lifecycle.md](./journeys/automation-lifecycle.md) |
 | **Scenario Development** | Process Architect → Developer → Supervisor | [scenario-development.md](./journeys/scenario-development.md) |
 | **Workbench Configuration** | Administrator → Process Architect → Supervisor | [workbench-configuration.md](./journeys/workbench-configuration.md) |
+
+> **Note:** For agentic automation (AI agents), see the [Agentic Automation Lifecycle](../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md) in Seer documentation.
 
 ### Operations Journeys
 
@@ -127,12 +131,13 @@ Journeys describe **cross-persona workflows** — how multiple personas collabor
 
 ### Hub Personas
 
-| Journey | Admin | Proc Arch | Developer | Supervisor | Agent | Auditor |
-|---------|:-----:|:---------:|:---------:|:----------:|:-----:|:-------:|
-| Scenario Development | | ●● | ●● | ● | | |
-| Workbench Configuration | ●● | ● | | ● | | |
-| Request Lifecycle | | | | ● | ●● | |
-| Audit Investigation | | | | | | ●● |
+| Journey | Admin | APO | Proc Arch | Developer | Supervisor | Agent | Auditor |
+|---------|:-----:|:---:|:---------:|:---------:|:----------:|:-----:|:-------:|
+| Automation Lifecycle (Conventional) | ● | ●● | ●● | ●● | ● | | ● |
+| Scenario Development | | ● | ●● | ●● | ● | | |
+| Workbench Configuration | ●● | | ● | | ● | | |
+| Request Lifecycle | | ● | | | ● | ●● | |
+| Audit Investigation | | | | | | | ●● |
 
 ### Business Domain Actors
 
@@ -155,8 +160,9 @@ Legend: ●● Primary, ● Supporting
 │  ┌─────────────────────────────────────────────────────────────────────┐    │
 │  │                                                                     │    │
 │  │  Hub System (Publisher)     Workbench Designers                    │    │
-│  │  ├── SRE                    ├── Process Architect                  │    │
-│  │  └── Customer Success       └── Developer                          │    │
+│  │  ├── SRE                    ├── Automation Product Owner (APO)     │    │
+│  │  └── Customer Success       ├── Process Architect                  │    │
+│  │                             └── Developer                          │    │
 │  │                                                                     │    │
 │  │  Workbench Operations       Tenant Administration                  │    │
 │  │  ├── Supervisor             ├── Administrator                      │    │
