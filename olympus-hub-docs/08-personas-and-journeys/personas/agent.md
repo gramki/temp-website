@@ -64,6 +64,18 @@ The **Agent** is the operational workforce that completes tasks assigned through
 | **Supervisor** | Receive guidance, escalate issues |
 | **Other Agents** | Hand off, consult, collaborate |
 
+### Feedback Promotion (Non-Development Workbenches)
+
+1. **Issue Identification**
+   - Notice bugs during task processing
+   - Observe behavioral patterns
+   - Identify improvement opportunities
+
+2. **Feedback Promotion**
+   - Promote bugs and observations to development workbench
+   - Include context: related request, task, scenario
+   - Track promoted feedback status
+
 ---
 
 ## Hub Capabilities Consumed
@@ -106,6 +118,7 @@ The **Agent** is the operational workforce that completes tasks assigned through
 ## Key Journeys
 
 - [Request Lifecycle](../journeys/request-lifecycle.md) — Primary journey
+- [Production Feedback Loop](../journeys/production-feedback-loop.md) — Feedback promotion (non-dev workbenches)
 
 ---
 
@@ -125,6 +138,8 @@ The **Agent** is the operational workforce that completes tasks assigned through
 
 - [Task Management](../../04-subsystems/task-management/README.md)
 - [Memory Services](../../04-subsystems/memory-services/README.md)
+- [Production Feedback](../../02-system-design/implementation-concepts/production-feedback.md) — Feedback promotion concept
+- [Agent Desk](../../06-ux-architecture/tenant-domain/agent-desk.md) — Primary interface
 - [Ontology - Execution Layer](../../01-concepts/ontology-3-execution-layer.md)
 
 ---

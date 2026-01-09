@@ -98,6 +98,14 @@ This means:
    - Submit for ARAO approval
    - Review autonomy periodically
 
+### Evolution Phase (Production Feedback)
+
+9. **Review Production Feedback** (development workbenches only)
+   - Receive feedback from linked production workbenches
+   - Triage incoming bugs, issues, and suggestions
+   - Accept, reject, or route feedback to PA/Developer
+   - Mark resolved when fixes are delivered
+
 ---
 
 ## Automation Approach Decision
@@ -134,14 +142,17 @@ APO proposes whether a scenario should be automated via agents or conventional a
 
 ## Hub Capabilities Consumed
 
-### Primary Interface (Planned: Automation Portfolio Desk)
+### Primary Interface: Automation Product Desk
 
-| Capability | What It Provides |
-|------------|------------------|
-| **Automation Catalog** | View all automations, status, ownership |
-| **Outcomes Dashboard** | Track business KPIs per automation |
-| **Improvement Backlog** | Prioritize enhancements |
-| **Autonomy Registry** | View/manage autonomy levels (agentic) |
+| Console | What It Provides |
+|---------|------------------|
+| **Charter Console** | Create and manage automation charters |
+| **Outcomes Console** | Track business KPIs per automation |
+| **Backlog Console** | Prioritize improvements and enhancements |
+| **Feedback Console** | Local feedback within workbench |
+| **Production Feedback Inbox** | Review feedback from production workbenches (development workbenches only) |
+
+See [Automation Product Desk](../../06-ux-architecture/tenant-domain/automation-product-desk.md) for full details.
 
 ### Hub Services Accessed
 
@@ -190,6 +201,7 @@ Every automation should have a charter that answers:
 
 - [Automation Lifecycle](../journeys/automation-lifecycle.md) — Primary journey
 - [Scenario Development](../journeys/scenario-development.md) — Supporting role
+- [Production Feedback Loop](../journeys/production-feedback-loop.md) — Evolution journey (primary role in development workbenches)
 
 ---
 
@@ -209,8 +221,11 @@ Every automation should have a charter that answers:
 - [Process Architect](./process-architect.md) — Designs scenarios
 - [Automation Lifecycle Journey](../journeys/automation-lifecycle.md) — End-to-end workflow
 - [Scenario Development Journey](../journeys/scenario-development.md) — Scenario creation
+- [Production Feedback Loop Journey](../journeys/production-feedback-loop.md) — Evolution workflow
+- [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Architecture decision
+- [Automation Product Desk](../../06-ux-architecture/tenant-domain/automation-product-desk.md) — Primary interface
 
 ---
 
-*Status: 🟡 Draft — Role defined, console pending implementation*
+*Status: 🟡 Draft — Role defined, desk documented*
 

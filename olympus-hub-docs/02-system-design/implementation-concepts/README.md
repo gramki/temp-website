@@ -101,6 +101,7 @@ These implementation concepts are:
 |---------|-------------|--------|
 | [Artifact Registry](./artifact-registry.md) | Container and CRD storage | ✅ Complete |
 | [Promotion Destination](./promotion-destination.md) | Target workbench/subscription for artifact movement | ✅ Complete |
+| [Production Feedback](./production-feedback.md) | Feedback flow from production to development workbenches | 🟡 Draft |
 | [CI Subsystem](./ci-subsystem.md) | Build and test infrastructure | ✅ Complete |
 | [Hub Test Runner](./hub-test-runner.md) | Integration testing framework | ✅ Complete |
 | [APM (Application Performance Monitoring)](./apm.md) | Observability for Hub Applications | ✅ Complete |

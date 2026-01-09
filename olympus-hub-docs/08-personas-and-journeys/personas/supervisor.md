@@ -87,6 +87,23 @@ The Supervisor is the **primary owner of Agent Directability** in Hub—they def
    - Identify systematic issues requiring process changes
    - Feed observations to Enterprise Learning workflows
 
+### Evolution Phase (Production Feedback)
+
+1. **Issue Identification**
+   - Identify operational issues during monitoring
+   - Receive escalation patterns requiring design changes
+   - Note configuration constraints or limitations
+
+2. **Feedback Promotion** (non-development workbenches)
+   - Promote bugs, issues, and observations to development workbench
+   - Include lineage: related requests, tasks, scenarios
+   - Track promoted feedback status
+
+3. **Resolution Tracking**
+   - Monitor status of promoted feedback
+   - Receive resolution notifications when fixes are deployed
+   - Validate fixes in production
+
 ---
 
 ## Hub Capabilities Consumed
@@ -129,6 +146,7 @@ The Supervisor is the **primary owner of Agent Directability** in Hub—they def
 
 - [Scenario Development](../journeys/scenario-development.md) — Deploy phase
 - [Workbench Configuration](../journeys/workbench-configuration.md) — Supporting role
+- [Production Feedback Loop](../journeys/production-feedback-loop.md) — Feedback promotion (non-dev workbenches)
 
 ---
 
@@ -147,8 +165,10 @@ The Supervisor is the **primary owner of Agent Directability** in Hub—they def
 
 - [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) — How Supervisors enable human intervention
 - [Escalation Matrix](../../02-system-design/implementation-concepts/escalation-matrix.md) — Escalation configuration
+- [Production Feedback](../../02-system-design/implementation-concepts/production-feedback.md) — Feedback promotion concept
 - [Task Management](../../04-subsystems/task-management/README.md)
 - [Cognitive Audit Fabric](../../04-subsystems/cognitive-audit-fabric/README.md) — Intervention records
+- [Supervisor Desk](../../06-ux-architecture/tenant-domain/supervisor-desk.md) — Primary interface
 - [Checklist Service](../../04-subsystems/hub-native-utilities/checklist-service.md)
 - [Routine Service](../../04-subsystems/hub-native-utilities/routine-service.md)
 

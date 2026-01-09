@@ -125,6 +125,12 @@ Journeys describe **cross-persona workflows** — how multiple personas collabor
 | **Request Lifecycle** | Business Actor → Signal → Application → Agent | [request-lifecycle.md](./journeys/request-lifecycle.md) |
 | **Audit Investigation** | Auditor (with CAF, Memory Services) | [audit-investigation.md](./journeys/audit-investigation.md) |
 
+### Evolution Journeys
+
+| Journey | Personas Involved | Document |
+|---------|-------------------|----------|
+| **Production Feedback Loop** | Agent, Supervisor → APO → PA, Developer | [production-feedback-loop.md](./journeys/production-feedback-loop.md) |
+
 ---
 
 ## Persona-Journey Matrix
@@ -138,6 +144,7 @@ Journeys describe **cross-persona workflows** — how multiple personas collabor
 | Workbench Configuration | ●● | | ● | | ● | | |
 | Request Lifecycle | | ● | | | ● | ●● | |
 | Audit Investigation | | | | | | | ●● |
+| Production Feedback Loop | | ●● | ● | ● | ●● | ● | |
 
 ### Business Domain Actors
 
