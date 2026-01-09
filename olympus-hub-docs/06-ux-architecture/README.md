@@ -92,7 +92,9 @@ Hub treats these as first-class interaction channels:
 
 | Application | Persona | Purpose |
 |-------------|---------|---------|
-| **[Hub Workbench Studio](./tenant-domain/workbench-studio.md)** | Process Architect, Developer | Design scenarios, build applications, manage knowledge |
+| **[Automation Product Desk](./tenant-domain/automation-product-desk.md)** | Automation Product Owner | Define charters, track outcomes, manage backlog |
+| **[Scenario Design Desk](./tenant-domain/scenario-design-desk.md)** | Process Architect | Design scenarios, SOPs, knowledge structure |
+| **[Automation Development Desk](./tenant-domain/automation-development-desk.md)** | Developer | Build, test, deploy Hub Applications |
 | **[Steward Desk](./tenant-domain/steward-desk.md)** | Process Architect, Developer | Runtime monitoring, incident triage, production support |
 
 ### Workbench Operations
@@ -138,33 +140,42 @@ See [Hub Control Center](./tenant-domain/hub-control-center.md) for details.
 
 ---
 
-### Workbench Studio (Designers)
+### Designer Desks
 
-The design and development environment for Process Architects and Developers.
+Workbench design and development is split across three persona-focused desks:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                          WORKBENCH STUDIO                                    │
+│                       WORKBENCH DESIGNER DESKS                               │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  DESIGN                              │  DEVELOPMENT                          │
-│  ├── Scenario Builder                │  ├── Automation Builder               │
-│  │   (Signal→Trigger→Scenario)       │  │   (Hub Application Development)    │
-│  ├── Knowledge Base Manager          │  ├── Automation Publisher             │
-│  │   (SOPs, Reference Manuals)       │  └── Tool Registry (Workbench scope)  │
-│  └── Memory Configuration            │                                       │
-│                                      │                                       │
-│  UI BUILDING                         │                                       │
-│  ├── Angelos Page Builder            │                                       │
-│  │   (Custom Console Building)       │                                       │
-│  ├── Angelos Components & Binders    │                                       │
-│  │   (Event wiring between components)                                       │
-│  └── Angelos Action Repository       │                                       │
+│  AUTOMATION PRODUCT DESK (APO)                                              │
+│  ├── Charter Console                 │  Define business case, success       │
+│  ├── Outcomes Console                │  Track value realization             │
+│  ├── Backlog Console                 │  Prioritize automation initiatives   │
+│  └── Feedback Console                │  Capture operational learnings       │
+│                                                                              │
+│  SCENARIO DESIGN DESK (Process Architect)                                   │
+│  ├── Scenario Console                │  Design scenarios, triggers, goals   │
+│  ├── SOP Console                     │  Create procedures, checklists       │
+│  ├── Knowledge Console               │  Organize knowledge assets           │
+│  ├── Memory Console                  │  Configure memory structure          │
+│  └── Escalation Console              │  Design escalation patterns          │
+│                                                                              │
+│  AUTOMATION DEVELOPMENT DESK (Developer)                                    │
+│  ├── Development Console             │  Build Hub Applications              │
+│  ├── Test Console                    │  Validate functionality              │
+│  ├── Release Console                 │  Deploy and version                  │
+│  ├── Tool Console                    │  Configure tool bindings             │
+│  └── UI Console                      │  Build custom interfaces             │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-See [Workbench Studio](./tenant-domain/workbench-studio.md) for details.
+See:
+- [Automation Product Desk](./tenant-domain/automation-product-desk.md)
+- [Scenario Design Desk](./tenant-domain/scenario-design-desk.md)
+- [Automation Development Desk](./tenant-domain/automation-development-desk.md)
 
 ---
 
@@ -324,7 +335,9 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 | [Hub Control Center](./tenant-domain/hub-control-center.md) | Tenant admin console | 🔴 Stub |
 | [Hub SRE Operations Center](./publisher-domain/hub-sre-ops-center.md) | Infrastructure operations for SRE | 🔴 Stub |
 | [Hub Win Operations Center](./publisher-domain/hub-win-ops-center.md) | Customer Success operations | 🔴 Stub |
-| [Hub Workbench Studio](./tenant-domain/workbench-studio.md) | Designer environment | 🔴 Stub |
+| [Automation Product Desk](./tenant-domain/automation-product-desk.md) | APO workspace for charters and outcomes | 🔴 Stub |
+| [Scenario Design Desk](./tenant-domain/scenario-design-desk.md) | PA workspace for normative design | 🔴 Stub |
+| [Automation Development Desk](./tenant-domain/automation-development-desk.md) | Developer workspace for implementation | 🔴 Stub |
 | [Hub Home](./tenant-domain/hub-home.md) | Landing page | 🔴 Stub |
 | [Agent Desk](./tenant-domain/agent-desk.md) | Agent operations console | 🔴 Stub |
 | [Supervisor Desk](./tenant-domain/supervisor-desk.md) | Supervisor management console | 🔴 Stub |

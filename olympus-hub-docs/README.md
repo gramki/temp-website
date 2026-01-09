@@ -279,7 +279,9 @@ Olympus Hub is an operations management platform designed for large and medium e
 |-------------|---------|----------|--------|
 | **Hub Control Center** | Tenant Admin | [hub-control-center.md](./06-ux-architecture/hub-control-center.md) | 🔴 Stub |
 | **Publisher Consoles** | SRE (Hub SRE Ops Center), Customer Success (Hub Win Ops Center) | [hub-sre-ops-center.md, hub-win-ops-center.md](./06-ux-architecture/hub-sre-ops-center.md, hub-win-ops-center.md) | 🔴 Stub |
-| **Hub Workbench Studio** | Process Architect, Developer | [workbench-studio.md](./06-ux-architecture/workbench-studio.md) | 🔴 Stub |
+| **Automation Product Desk** | Automation Product Owner | [automation-product-desk.md](./06-ux-architecture/tenant-domain/automation-product-desk.md) | 🔴 Stub |
+| **Scenario Design Desk** | Process Architect | [scenario-design-desk.md](./06-ux-architecture/tenant-domain/scenario-design-desk.md) | 🔴 Stub |
+| **Automation Development Desk** | Developer | [automation-development-desk.md](./06-ux-architecture/tenant-domain/automation-development-desk.md) | 🔴 Stub |
 | **Hub Home** | Agent, Supervisor | [hub-home.md](./06-ux-architecture/hub-home.md) | 🔴 Stub |
 | **Agent Desk** | Agent | [agent-desk.md](./06-ux-architecture/agent-desk.md) | 🔴 Stub |
 | **Supervisor Desk** | Supervisor | [supervisor-desk.md](./06-ux-architecture/supervisor-desk.md) | 🔴 Stub |

@@ -227,7 +227,8 @@ See [Olympus Watch](../05-infrastructure/olympus-watch.md) for observability inf
 
 - [Process Architect Persona](../../08-personas-and-journeys/personas/process-architect.md)
 - [Developer Persona](../../08-personas-and-journeys/personas/developer.md)
-- [Workbench Studio](./workbench-studio.md) — Design-time counterpart
+- [Scenario Design Desk](./scenario-design-desk.md) — Design-time counterpart (Process Architect)
+- [Automation Development Desk](./automation-development-desk.md) — Design-time counterpart (Developer)
 - [Hub Application APM](../../04-subsystems/supporting-systems/hub-application-apm.md)
 - [Olympus Watch](../../05-infrastructure/olympus-watch.md)
 - [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers Reports Console

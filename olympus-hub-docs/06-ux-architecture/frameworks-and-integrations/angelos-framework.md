@@ -225,7 +225,7 @@ action:
 
 ## Related Documentation
 
-- [Workbench Studio](../tenant-domain/workbench-studio.md)
+- [Automation Development Desk](../tenant-domain/automation-development-desk.md) — UI Console for building custom interfaces
 - [Agent Desk](../tenant-domain/agent-desk.md)
 - [Hercules Launcher](./hercules-launcher.md)
 

@@ -189,7 +189,8 @@ Policies governing Request behavior within the Workbench:
 - [Signal Exchange](../signal-exchange/README.md) — Data plane consuming definitions
 - [Automation Runtimes](../automation-runtimes/README.md) — Hub Application hosts
 - [Hub Architecture](../../02-system-design/hub-architecture.md) — Workbench concept
-- [Workbench Studio](../../06-ux-architecture/workbench-studio.md) — Design UI
+- [Scenario Design Desk](../../06-ux-architecture/tenant-domain/scenario-design-desk.md) — Scenario design UI
+- [Automation Development Desk](../../06-ux-architecture/tenant-domain/automation-development-desk.md) — Application development UI
 
 ---
 
