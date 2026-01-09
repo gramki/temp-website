@@ -108,6 +108,7 @@ All ADRs follow the standard format:
 | [0084](./0084-automation-lifecycle-split.md) | Automation Lifecycle Split (Conventional vs Agentic) | Accepted | 2026-01-09 | journeys |
 | [0085](./0085-seer-desk-naming-convention.md) | Seer Desk Naming Convention (Standardize on "Desk") | Accepted | 2026-01-09 | ux-architecture |
 | [0086](./0086-are-role-naming.md) | Agent Reliability Engineer (ARE) Role Naming | Accepted | 2026-01-09 | personas |
+| [0087](./0087-idea-intent-charter-model.md) | Idea-Intent-Charter Model for Automation Ideation | Accepted | 2026-01-09 | ideation |
 
 ---
 
@@ -247,6 +248,9 @@ All ADRs follow the standard format:
 
 ### Journeys
 - [0084](./0084-automation-lifecycle-split.md) - Automation Lifecycle Split (Conventional vs Agentic)
+
+### Ideation
+- [0087](./0087-idea-intent-charter-model.md) - Idea-Intent-Charter Model for Automation Ideation
 
 ---
 

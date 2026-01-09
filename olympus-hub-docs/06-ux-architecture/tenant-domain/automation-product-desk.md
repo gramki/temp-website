@@ -1,8 +1,10 @@
 # Automation Product Desk
 
-> **Status:** 🔴 Stub — Placeholder for expansion
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-09  
+> **ADR:** [0082](../../decision-logs/0082-hub-desk-restructuring.md), [0087](../../decision-logs/0087-idea-intent-charter-model.md)
 
-**Automation Product Desk** is the strategic workspace for **Automation Product Owners (APO)** to define, track, and evolve automation capabilities within a Workbench.
+**Automation Product Desk** is the strategic workspace for **Automation Product Owners (APO)** to manage the ideation-to-outcome lifecycle for automation capabilities within a Workbench.
 
 ---
 
@@ -20,16 +22,94 @@
 
 The APO owns the **business intent** behind automation. This desk provides tools to:
 
-1. **Define** — Create automation charters and articulate business value
-2. **Track** — Monitor outcomes against success criteria
-3. **Prioritize** — Manage the automation backlog and roadmap
-4. **Evolve** — Review learnings and iterate on automation strategy
+1. **Ideate** — Capture ideas and formalize intents
+2. **Charter** — Create design contracts with Process Architects
+3. **Track** — Monitor outcomes against success criteria
+4. **Prioritize** — Manage the automation backlog and roadmap
+5. **Evolve** — Review feedback and iterate on automation strategy
 
 ---
 
 ## Consoles
 
-### Charter Console
+### Ideas Console
+
+Capture and triage automation ideas from any source.
+
+| Capability | Description |
+|------------|-------------|
+| **Idea Inbox** | View submitted ideas from Agents, Supervisors, Feedback |
+| **Idea Review** | Evaluate business value and alignment |
+| **Promote to Intent** | Convert promising ideas to formal intents |
+| **Park/Reject** | Defer or close ideas with notes |
+| **Idea Backlog** | Manage parked ideas for future consideration |
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           IDEAS CONSOLE                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [Filter: Submitted ▼]  [Category: All ▼]  [Value: All ▼]  [Search...]     │
+│                                                                              │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │ 💡 Document preview in task solver                      SUBMITTED     │  │
+│  │    By: agent@acme.com | Category: Efficiency | Value: Medium         │  │
+│  │    From: dispute-ops-prod-apac | 2 days ago                          │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │ 💡 Auto-categorization for incoming disputes            UNDER_REVIEW │  │
+│  │    By: supervisor@acme.com | Category: Capability | Value: High      │  │
+│  │    From: Direct | 5 days ago                                         │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+│  [Promote to Intent] [Park] [Reject] [Merge]                                │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Intents Console
+
+Create and manage formal automation intents — the business case before design.
+
+| Capability | Description |
+|------------|-------------|
+| **Intent Builder** | Create intents with problem statement, value, success criteria |
+| **Approach Selection** | Propose conventional, agentic, or hybrid automation |
+| **Scope Definition** | Define in-scope and out-of-scope boundaries |
+| **Submit to PA** | Send completed intents to Process Architect for review |
+| **Track Status** | Monitor intent lifecycle (draft → complete → accepted) |
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          INTENTS CONSOLE                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [+] New Intent    [Filter: All ▼]    [Search...]                           │
+│                                                                              │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │ Automated Dispute Triage                                COMPLETE      │  │
+│  │ Approach: Agentic | Value: High | Submitted to PA                    │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │ Card Replacement Self-Service                           DRAFT        │  │
+│  │ Approach: Conventional | Value: Medium | 40% complete                │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+│  [Edit] [Submit to PA] [Withdraw]                                           │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Charters Console
+
+View and manage active charters — design contracts accepted by PA.
+
+| Capability | Description |
+|------------|-------------|
+| **Active Charters** | View all charters with status and progress |
+| **Charter Details** | See intent, PA acceptance, workbench linkage |
+| **Progress Tracking** | Track design and build milestones |
+| **Supersession** | Replace charters when scope changes significantly |
+
+### Charter Console (Legacy View)
 
 Define and manage automation charters — the business case for each automation capability.
 
@@ -268,11 +348,11 @@ The APO proposes whether a scenario should use:
 
 - [Automation Product Owner Persona](../../08-personas-and-journeys/personas/automation-product-owner.md)
 - [Automation Lifecycle Journey](../../08-personas-and-journeys/journeys/automation-lifecycle.md)
+- [Production Feedback Loop Journey](../../08-personas-and-journeys/journeys/production-feedback-loop.md)
 - [Scenario Design Desk](./scenario-design-desk.md) — Where PA takes over after charter approval
+- [Automation Ideation Subsystem](../../04-subsystems/automation-ideation/README.md) — Idea → Intent → Charter services
+- [Feedback Services Subsystem](../../04-subsystems/feedback-services/README.md) — Production feedback services
 - [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers outcome dashboards
 - [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Production feedback architecture
-
----
-
-*TODO: Detailed charter templates, outcome tracking specifications, backlog management workflows*
+- [ADR-0087: Idea-Intent-Charter Model](../../decision-logs/0087-idea-intent-charter-model.md) — Ideation lifecycle
 

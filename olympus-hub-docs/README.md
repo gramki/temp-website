@@ -71,6 +71,26 @@ Olympus Hub is an operations management platform designed for large and medium e
 | [Trigger Definitions](./04-subsystems/workbench-management/trigger-definitions.md) | Trigger configuration | 🔴 Stub |
 | [Application Configuration](./04-subsystems/workbench-management/application-configuration.md) | Hub Application setup | 🔴 Stub |
 
+#### Automation Ideation
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./04-subsystems/automation-ideation/README.md) | Idea → Intent → Charter lifecycle | 🟡 Draft |
+| [Idea Management](./04-subsystems/automation-ideation/idea-management.md) | Capture and triage ideas | 🟡 Draft |
+| [Intent Formalization](./04-subsystems/automation-ideation/intent-formalization.md) | APO formalizes business cases | 🟡 Draft |
+| [Charter Acceptance](./04-subsystems/automation-ideation/charter-acceptance.md) | PA accepts, design begins | 🟡 Draft |
+| [Outcome Tracking](./04-subsystems/automation-ideation/outcome-tracking.md) | Measure success, feedback loop | 🟡 Draft |
+
+#### Feedback Services
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Overview](./04-subsystems/feedback-services/README.md) | Production feedback to development | 🟡 Draft |
+| [Feedback Entities](./04-subsystems/feedback-services/feedback-entities.md) | Problem and Feedback types | 🟡 Draft |
+| [Feedback Promotion](./04-subsystems/feedback-services/feedback-promotion.md) | Promotion flow and lineage | 🟡 Draft |
+| [Feedback Inbox](./04-subsystems/feedback-services/feedback-inbox.md) | APO inbox management | 🟡 Draft |
+| [Resolution Tracking](./04-subsystems/feedback-services/resolution-tracking.md) | Resolution lifecycle | 🟡 Draft |
+
 #### I/O Gateways (Signal Providers)
 
 | Document | Description | Status |
