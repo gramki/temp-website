@@ -39,6 +39,32 @@ How Seer agents operate within the Hub ecosystem:
 - [Training Spec CRD](./hub-integration/training-spec-crd.md) — Full TrainingSpec schema
 - [Employment Spec CRD](./hub-integration/employment-spec-crd.md) — Full EmploymentSpec schema
 
+## Personas & Roles
+
+Enterprise roles for building and operating Agent-Oriented Systems:
+
+- [Role Definitions](./personas-and-needs/roles.md) — All 7 enterprise personas
+- [Agent Product Owner (APO)](./personas-and-needs/apo.md) — Intent and business accountability
+- [Cognitive Systems Architect (CSA)](./personas-and-needs/csa.md) — Cognitive design and patterns
+- [Agent Engineer (AE)](./personas-and-needs/ae.md) — Implementation and testing
+- [Knowledge & Memory Owner (KMO)](./personas-and-needs/kmo.md) — Knowledge curation and memory governance
+- [Agent Reliability Engineer (ARE)](./personas-and-needs/are.md) — Operations and reliability
+- [Cognitive Operations Steward (COS)](./personas-and-needs/cos.md) — Cognitive health monitoring
+- [AI Risk & Audit Owner (ARAO)](./personas-and-needs/arao.md) — Compliance and audit
+
+### Production Readiness
+
+- [Production Readiness](./personas-and-needs/needs/production-readiness.md) — What it takes to be production-ready
+- [Production Readiness Checklist](./personas-and-needs/needs/production-readiness-checklist.md) — Gate checklist
+- [AE Deliverables to ARE](./personas-and-needs/ae-deliverables-to-are.md) — Build-operate handoff contract
+
+## UX Architecture
+
+Applications and channels for enterprise personas:
+
+- [UX Architecture Overview](./ux-architecture/README.md) — Desks and channels
+- [Desk Requirements](./ux-architecture/desk-requirements.md) — Requirements for all persona desks
+
 ## Guides
 
 Practical guidance for building and operating Seer agents:

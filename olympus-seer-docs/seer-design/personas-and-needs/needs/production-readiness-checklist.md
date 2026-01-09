@@ -178,12 +178,12 @@ The system composed of agents must satisfy **all** items below.
 
 ---
 
-## B5. Operational Outcome Scoring (OOS)
+## B5. Agent Health Scoring (AHS)
 
 * [ ] Action Quality signals collected
 * [ ] Task Completion signals collected
-* [ ] OOS computable near-real-time
-* [ ] OOS visible to ARE dashboards
+* [ ] AHS computable near-real-time
+* [ ] AHS visible to ARE dashboards
 
 **Gate owner:** ARE
 

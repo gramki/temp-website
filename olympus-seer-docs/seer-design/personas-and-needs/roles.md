@@ -157,7 +157,7 @@ Enterprise roles defined below are **consumers** of the managed platform, not ow
 **Owns**
 
 * Runtime safety enforcement
-* Observability, OOS (Operational Outcome Score), and COR (Cost-to-Operation Ratio)
+* Observability, AHS (Agent Health Score), and CHR (Cost-to-Health Ratio)
 * Cost control and containment
 * Incident response and recovery
 * Platform provider coordination (capacity, incidents, capabilities)

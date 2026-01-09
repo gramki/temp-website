@@ -292,14 +292,14 @@ The AOS must enforce **economic discipline**.
 
 ## 15. Operational Outcome Scoring
 
-The AOS must compute **Operational Outcome Scores (OOS)**.
+The AOS must compute **Agent Health Scores (AHS)**.
 
 ### Mandatory inputs
 
 * Action quality signals
 * Task completion signals
 
-OOS must be:
+AHS must be:
 
 * Computable near-real-time
 * Comparable across agents
@@ -443,7 +443,7 @@ This appendix maps **each production-readiness capability** to the **roles/perso
 | System-Level Safety Controls | | | | **P** | V | | C | |
 | Unified Observability | N | | C | **P** | N | | C | |
 | Cost Governance (System Level) | N | | | **P** | | | C | C |
-| Operational Outcome Scoring (OOS) | N | | C | **P**,N | | | | |
+| Agent Health Scoring (AHS) | N | | C | **P**,N | | | | |
 | Incident Management Readiness | A | | C | **P** | A | | C | |
 | Security & Isolation | | | C | C | V | | **P** | |
 | Audit & Evidence Readiness | | | C | C | **P** | | | |
@@ -458,7 +458,7 @@ This appendix maps **each production-readiness capability** to the **roles/perso
 | **APO** | Agent Identity & Contract | Business ownership, trend review, severity decisions |
 | **AA** | Capability Declaration, Safety Control, Execution Boundaries, Failure Behavior, Topology | Architecture & design |
 | **AE** | Action Traces, Outcome Signals, Versioning | Implementation & instrumentation |
-| **ARE** | Cost Attribution, System Safety, Observability, Cost Governance, OOS, Incident Mgmt, Resilience | Platform reliability & operations |
+| **ARE** | Cost Attribution, System Safety, Observability, Cost Governance, AHS, Incident Mgmt, Resilience | Platform reliability & operations |
 | **ARAO** | Audit & Evidence Readiness | Risk, audit, compliance |
 | **KMO** | Memory Discipline | Memory & knowledge governance |
 | **Platform** | Security & Isolation | Infrastructure & security |
