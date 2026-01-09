@@ -103,6 +103,11 @@ All ADRs follow the standard format:
 | [0079](./0079-scenario-escalation-matrix.md) | Scenario Escalation Matrix for Application Exceptions | Accepted | 2026-01-08 | directability |
 | [0080](./0080-directability-operations.md) | Directability Operations in Task Management | Accepted | 2026-01-08 | directability |
 | [0081](./0081-production-feedback-loop.md) | Production Feedback Loop to Development Workbench | Accepted | 2026-01-09 | workbench-management |
+| [0082](./0082-hub-desk-restructuring.md) | Hub Desk Restructuring (Workbench Studio → 3 Desks) | Accepted | 2026-01-09 | ux-architecture |
+| [0083](./0083-apo-as-hub-persona.md) | Automation Product Owner as Hub Persona | Accepted | 2026-01-09 | personas |
+| [0084](./0084-automation-lifecycle-split.md) | Automation Lifecycle Split (Conventional vs Agentic) | Accepted | 2026-01-09 | journeys |
+| [0085](./0085-seer-desk-naming-convention.md) | Seer Desk Naming Convention (Standardize on "Desk") | Accepted | 2026-01-09 | ux-architecture |
+| [0086](./0086-are-role-naming.md) | Agent Reliability Engineer (ARE) Role Naming | Accepted | 2026-01-09 | personas |
 
 ---
 
@@ -231,6 +236,17 @@ All ADRs follow the standard format:
 
 ### Workbench Management
 - [0081](./0081-production-feedback-loop.md) - Production Feedback Loop to Development Workbench
+
+### UX Architecture
+- [0082](./0082-hub-desk-restructuring.md) - Hub Desk Restructuring (Workbench Studio → 3 Desks)
+- [0085](./0085-seer-desk-naming-convention.md) - Seer Desk Naming Convention
+
+### Personas
+- [0083](./0083-apo-as-hub-persona.md) - Automation Product Owner as Hub Persona
+- [0086](./0086-are-role-naming.md) - Agent Reliability Engineer (ARE) Role Naming
+
+### Journeys
+- [0084](./0084-automation-lifecycle-split.md) - Automation Lifecycle Split (Conventional vs Agentic)
 
 ---
 
