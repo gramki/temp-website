@@ -1,0 +1,112 @@
+# Program Jazz
+========
+Jazz Savings Account
+Jazz Credit Account
+Bill Hub Credit Card Collection
+Google Flex Floater Card
+Zapp AutoReload
+PWP (Ultra Pay)  should support Auto Pay using Private Channel Payment Accounts
+UAT Only - Jazz Savings Account UPI
+
+
+
+
+
+# Project -1
+## The A* Framework Enablement
+- Shadow Ledger Framework from Tachyon Kernel
+- Athena Authorization Gateway Framework
+-- Shadow Account Channel Framework from Tachyon ITP (Athena)
+-- Shadow Account Workbench
+-- Shadow Account Support Panel
+-- [Shadow Card and Shadow Account concepts can be merged at Athena]
+-- [Authorization Gateway, Channel, Account Provider, Reonciliation and Settlement Process, Reports]
+
+
+## Integrating HDFC Flexcube with Tachyon Shadow Account Framework
+- HDFC CASA Shadow Account Channel (Connector, Authorization Gateway (Real Ledger Provider), Clearing House, Clearing, Reconciliation)
+
+## Integrating HDFC V+ with Tachyon Shadow Account Framework
+
+
+## HDFC Jazz Savings Account -  A Tachyon DDA Product Bundle to bring CASA to the HDFC Tachyon-based Ecosystem 
+
+- DDA Bundle for HDFC Jazz Account Bundle Blueprint
+-- Shadow Payment Account
+-- Payment Instrument against Shadow Payment Account
+-- Shadow Ledger to Shadow Payment Instrument Integration (Authentication Credentials)
+
+-- DDA Account with Shadow Ledger
+-- Private Channel Form Factro, UPI Form-facator
+- DDA Payment Account Provider enhancements if any to support debits and credits to Jazz Account (ideally there should be none)
+- HDFC Jazz Account Bundle Product Management in Product Center
+- HDFC Jazz Account Bundle Management in Bundle Workbench
+
+## HDFC Jazz Savings Account Discovery and Management in Zapp Account
+- Jazz Account Discovery, Application, Issuance flow in Zapp Account and other touch points
+- Jazz Account Management (Payment Instruments, Spend Limits, Postings, Statement) 
+
+## HDFC Jazz Credit Account
+
+
+====================================
+
+# Project 2: Ultra Pay Recurring Payment Support on Private Channels
+An Ajax merchant should be able to register recurring payment mandates and present payment requests using those mandates using Payment Accounts associated with Private Channels in the Payer Ajax (PSP) Wallet.
+Practically, this translates to support for recurring payments on Zapp Account, Pixel Accounts, Pay Later Accounts, and now the Jazz Savings Acconts through Ultra Pay (Pay with Payzapp)
+
+## Private Channel Recurring Payments Support in Ajax 
+- Ajax - Mandates (Acquiring PSP recurring payment tokens) {if payment account in the ajax psp wallet is account-based rather than form-factor based, we don't need to introduce issuer-side mandates}
+- Ajax Support Panel - Mandates, Payment Accounts management
+- Ajax Payment Acceptance Product enhancements to support Auto-pay Support
+- Ajax Recurring Payment Support on Closed-loop Payment Instruments (Athena Private Channels)
+- Ultra Pay interface for Recurring Payments (In-app UI)
+
+## Private Channels Recurring Payments Support at Athena
+- Tethys - Mandates (Issuer-side recurring payment tokens) on On-us Channels
+
+
+====================================
+
+# Project - 3: Zapp Account Auto Sweeps using Jazz Savings Account
+
+## Zapp Account as a Merchant of Ultra Pay for Auto Sweeps
+- Jazz Savings Account Sweeps Management - Unlink, Auto Sweep Rules for In and Out of Zapp Account
+- Recurring Payment Mandate for Zapp Account against the Jazz Savings Account
+
+## HDFC Jazz Savings Account in Ultra Pay
+- Auto discovery of the Jazz Savings Bundle  
+- Addition of Private Channel Payment Account into Ultra Pay PSP wallet 
+- Acquirer-mandate registration and lifecycle management 
+
+## Issuer Recurring Payment Management on Zapp Account and Jazz Savings Account 
+- Notifications for Upcoming Recurring Payments
+- Block, Revoke Manadates
+- View Transactions - Success and Failed
+
+====================================
+
+# Project 4: 
+## Bill Hub for Credit Collections
+- Biller-Initiated Mandate Registration
+- Credit Collection Support - MAD, TAD, Max Possible
+- Fulfillment 
+- Mandate Revocation handling
+
+## Bill Hub for Payer-initiate Recurring Payments
+- Payer-Initiated Mandate Support
+
+## Bill Hub Autopay Management
+- View, Block, Revoke Mandates
+
+
+
+# An Ajax Merchant initiated transaction for a Shadow Account
+## Transaction Flow
+1. Acquiring Payment Transaction
+1. Issuer Payment Transaction
+1. Shadow Payment Transaction
+
+## Reconciliations
+## Settlements
+##

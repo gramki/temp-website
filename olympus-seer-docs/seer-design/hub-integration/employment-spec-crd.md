@@ -1,0 +1,567 @@
+# Employment Spec CRD
+
+> **Status**: 🟡 Draft  
+> **Last Updated**: 2026-01-08  
+> **Parent**: [Seer-Hub Integration](./README.md)
+
+---
+
+## Overview
+
+The **EmploymentSpec CRD** defines an Employed Agent — a Trained Agent granted delegated authority and deployed to serve a specific Scenario. This CRD is created by the **Seer Operator** when a Hub ScenarioDeployment is processed.
+
+---
+
+## CRD Definition
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: employmentspecs.seer.olympus.io
+spec:
+  group: seer.olympus.io
+  names:
+    kind: EmploymentSpec
+    listKind: EmploymentSpecList
+    plural: employmentspecs
+    singular: employmentspec
+    shortNames:
+      - es
+      - employment
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          required:
+            - spec
+          properties:
+            spec:
+              $ref: '#/components/schemas/EmploymentSpecSpec'
+            status:
+              $ref: '#/components/schemas/EmploymentSpecStatus'
+```
+
+---
+
+## Full Schema
+
+```yaml
+apiVersion: seer.olympus.io/v1
+kind: EmploymentSpec
+metadata:
+  name: fraud-analyst-emp-001
+  namespace: acme-disputes
+  labels:
+    seer.olympus.io/training: fraud-analyst-v2
+    seer.olympus.io/scenario: dispute-resolution
+    seer.olympus.io/workbench: acme-disputes
+    hub.olympus.io/deployment: dispute-res-deploy-001
+  annotations:
+    seer.olympus.io/created-from: "hub.olympus.io/ScenarioDeployment/dispute-res-deploy-001"
+
+spec:
+  # ============================================================
+  # TRAINING REFERENCE
+  # ============================================================
+  training:
+    ref:
+      name: fraud-analyst-v2
+      namespace: acme-disputes
+      version: "1.7.0"
+    # Snapshot of training version at employment time
+    snapshot:
+      rawAgentVersion: "2.4.1"
+      guardrailVersions:
+        pii-protection: "1.0.3"
+        financial-compliance: "2.1.0"
+        escalation-triggers: "1.2.1"
+
+  # ============================================================
+  # WORK SCOPE
+  # ============================================================
+  workScope:
+    # Hub context
+    tenant: acme
+    workbench: acme-disputes
+    scenario: dispute-resolution
+    
+    # Temporal scope
+    temporal:
+      startTime: "2026-01-08T00:00:00Z"
+      endTime: null                      # No end (ongoing)
+      timezone: America/New_York
+    
+    # Functional scope (restrictions)
+    functional:
+      caseTypes:
+        - fraud
+        - unauthorized-transaction
+      excludedCaseTypes:
+        - internal-dispute
+      maxConcurrentCases: 50
+
+  # ============================================================
+  # AUTHORITY DELEGATION
+  # ============================================================
+  delegation:
+    # Delegation model
+    model: role                          # user | role
+    
+    # For role delegation
+    role:
+      name: fraud-analyst
+      namespace: acme-roles
+    
+    # Accountable human (always required)
+    accountable:
+      type: user
+      ref: disputes-supervisor
+      name: "Jane Smith"
+    
+    # Authority constraints (can only restrict, not expand)
+    constraints:
+      maxAutonomousDecision: 5000        # USD
+      requiresApprovalAbove: 5000
+      prohibitedActions:
+        - close_account
+        - reverse_transaction_above_limit
+      approvalRequired:
+        - recommend_refund_above_1000
+        - escalate_to_legal
+
+  # ============================================================
+  # OPERATIONAL ENVIRONMENT
+  # ============================================================
+  operationalEnv:
+    # Tool bindings (operative - concrete instances)
+    toolBindings:
+      - protocol: temenos-t24/get-transactions
+        alias: get_transactions
+        machine: acme-core-banking
+        instance: acme-get-transactions
+        endpoint: https://core.acme.bank/api/v1/transactions
+        credentials:
+          secretRef:
+            name: acme-core-banking-creds
+            key: api-key
+      
+      - protocol: fraud-engine/evaluate
+        alias: check_fraud_rules
+        machine: acme-fraud-engine
+        instance: acme-fraud-evaluate
+        endpoint: https://fraud.acme.bank/api/v1/evaluate
+        credentials:
+          secretRef:
+            name: acme-fraud-engine-creds
+            key: api-key
+      
+      - protocol: case-management/update-status
+        alias: update_case
+        machine: acme-case-mgmt
+        instance: acme-case-update
+        endpoint: https://cases.acme.bank/api/v1/status
+        credentials:
+          secretRef:
+            name: acme-case-mgmt-creds
+            key: api-key
+    
+    # Resource bindings
+    resourceBindings:
+      - name: dispute-policies
+        type: knowledge-bank
+        instance: acme-dispute-kb-prod
+        endpoint: https://kb.acme.hub/dispute-policies
+      
+      - name: fraud-patterns
+        type: knowledge-bank
+        instance: acme-fraud-kb-prod
+        endpoint: https://kb.acme.hub/fraud-patterns
+    
+    # Memory bindings
+    memoryBindings:
+      - name: case-dialog
+        workbenchStore: disputes-conversation-store
+        storeId: conv-store-001
+      
+      - name: case-entities
+        workbenchStore: disputes-kv-store
+        storeId: kv-store-001
+      
+      - name: session-audit
+        workbenchStore: disputes-log-store
+        storeId: log-store-001
+
+  # ============================================================
+  # CAPACITY AND RESOURCES
+  # ============================================================
+  capacity:
+    # Compute resources
+    compute:
+      replicas: 2
+      cpu: "2"
+      memory: "4Gi"
+      gpu: false
+    
+    # Token/API budgets
+    tokens:
+      daily: 1000000
+      perRequest: 50000
+      model: claude-3-sonnet
+    
+    # Rate limits
+    rateLimits:
+      requestsPerMinute: 60
+      concurrentRequests: 10
+    
+    # Quotas
+    quotas:
+      maxSessionDuration: 3600          # seconds
+      maxMemoryPerSession: 100          # MB
+
+  # ============================================================
+  # DELEGATOR PREFERENCES
+  # ============================================================
+  preferences:
+    # Communication style overrides (within training bounds)
+    communication:
+      escalationThreshold: 0.7          # confidence below this → escalate
+      verbosityLevel: concise
+      includeReasoning: true
+    
+    # Decision guidelines
+    decisions:
+      preferConservative: true          # when uncertain, escalate
+      maxRiskTolerance: medium
+    
+    # Notification preferences
+    notifications:
+      escalationChannel: slack
+      escalationTarget: "#disputes-escalations"
+      summaryFrequency: daily
+
+  # ============================================================
+  # RUNTIME CONFIGURATION
+  # ============================================================
+  runtime:
+    # Atlantis deployment
+    deployment:
+      platform: atlantis
+      cluster: prod-us-east-1
+      namespace: seer-agents
+    
+    # Health checks
+    health:
+      livenessProbe:
+        path: /health/live
+        periodSeconds: 10
+      readinessProbe:
+        path: /health/ready
+        periodSeconds: 5
+      startupProbe:
+        path: /health/startup
+        failureThreshold: 30
+    
+    # Environment injection
+    environment:
+      SEER_AGENT_ID: fraud-analyst-emp-001
+      SEER_TENANT_ID: acme
+      SEER_WORKBENCH_ID: acme-disputes
+      SEER_SCENARIO_ID: dispute-resolution
+      LOG_LEVEL: info
+    
+    # Secrets injection
+    secrets:
+      - name: agent-encryption-key
+        secretRef:
+          name: fraud-analyst-secrets
+          key: encryption-key
+
+  # ============================================================
+  # OBSERVABILITY
+  # ============================================================
+  observability:
+    # Logging
+    logging:
+      level: info
+      format: json
+      destination: olympus-watch
+    
+    # Metrics
+    metrics:
+      enabled: true
+      port: 9090
+      path: /metrics
+    
+    # Tracing
+    tracing:
+      enabled: true
+      sampler: probabilistic
+      samplingRate: 0.1
+
+status:
+  # Managed by Seer Operator
+  state: Active                         # Requested | Approved | Active | Suspended | Revoked
+  
+  # Lifecycle timestamps
+  requestedAt: "2026-01-08T10:00:00Z"
+  approvedAt: "2026-01-08T10:01:00Z"
+  activatedAt: "2026-01-08T10:02:00Z"
+  
+  # Runtime status
+  runtime:
+    deploymentName: fraud-analyst-emp-001-deployment
+    availableReplicas: 2
+    readyReplicas: 2
+    podStatus:
+      - name: fraud-analyst-emp-001-abc123
+        phase: Running
+        ready: true
+      - name: fraud-analyst-emp-001-def456
+        phase: Running
+        ready: true
+  
+  # Metrics
+  metrics:
+    requestsToday: 150
+    tokensUsedToday: 450000
+    averageLatencyMs: 2500
+    errorRate: 0.02
+  
+  # Version info
+  versions:
+    raw: "2.4.1"
+    trained: "1.7.0"
+    employed: "1.0.0"
+    composite: "raw:v2.4.1/trained:v1.7.0/employed:v1.0.0"
+  
+  # Conditions
+  conditions:
+    - type: Ready
+      status: "True"
+      lastTransitionTime: "2026-01-08T10:02:00Z"
+    - type: Approved
+      status: "True"
+      lastTransitionTime: "2026-01-08T10:01:00Z"
+    - type: BudgetHealthy
+      status: "True"
+      lastTransitionTime: "2026-01-08T10:00:00Z"
+      message: "Token usage at 45% of daily limit"
+```
+
+---
+
+## Schema Reference
+
+### spec.training
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `ref.name` | string | ✅ | TrainingSpec name |
+| `ref.namespace` | string | ✅ | TrainingSpec namespace |
+| `ref.version` | string | ✅ | TrainingSpec version |
+| `snapshot` | object | ✅ | Locked versions at employment |
+
+### spec.workScope
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `tenant` | string | ✅ | Tenant identifier |
+| `workbench` | string | ✅ | Workbench identifier |
+| `scenario` | string | ✅ | Scenario identifier |
+| `temporal` | object | ❌ | Time boundaries |
+| `functional` | object | ❌ | Functional restrictions |
+
+### spec.delegation
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `model` | string | ✅ | `user` or `role` |
+| `role` | object | ❌ | For role delegation |
+| `accountable` | object | ✅ | Human accountable (always required) |
+| `constraints` | object | ❌ | Authority restrictions |
+
+### spec.operationalEnv.toolBindings
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `protocol` | string | ✅ | Tool protocol from Training |
+| `alias` | string | ✅ | Agent-facing name |
+| `machine` | string | ✅ | Machine instance name |
+| `instance` | string | ✅ | Tool instance name |
+| `endpoint` | string | ✅ | Resolved endpoint URL |
+| `credentials` | object | ❌ | Secret reference |
+
+### spec.capacity
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `compute` | object | ✅ | CPU, memory, replicas |
+| `tokens` | object | ❌ | Token budgets |
+| `rateLimits` | object | ❌ | Request rate limits |
+| `quotas` | object | ❌ | Resource quotas |
+
+---
+
+## Lifecycle States
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│  Requested  │────►│   Approved  │────►│   Active    │
+└─────────────┘     └─────────────┘     └──────┬──────┘
+                                               │
+                         ┌─────────────────────┼─────────────────────┐
+                         ▼                     │                     ▼
+                  ┌─────────────┐              │              ┌─────────────┐
+                  │  Suspended  │◄─────────────┘              │   Revoked   │
+                  └──────┬──────┘                             └─────────────┘
+                         │
+                         └──────────► (can return to Active)
+```
+
+| State | Description | Serving? | Authority? |
+|-------|-------------|----------|------------|
+| **Requested** | Pending approval | ❌ | ❌ |
+| **Approved** | Approved, starting | ❌ | ✅ |
+| **Active** | Serving requests | ✅ | ✅ |
+| **Suspended** | Temporarily paused | ❌ | ✅ |
+| **Revoked** | Permanently stopped | ❌ | ❌ |
+
+---
+
+## Kill Switch
+
+The Seer Operator can issue kill switch commands:
+
+```yaml
+# Suspend (retains authority)
+apiVersion: seer.olympus.io/v1
+kind: EmploymentAction
+metadata:
+  name: suspend-fraud-analyst-001
+spec:
+  target:
+    name: fraud-analyst-emp-001
+    namespace: acme-disputes
+  action: suspend
+  reason: "Investigating anomalous behavior"
+  initiator: security-team
+```
+
+```yaml
+# Revoke (removes authority permanently)
+apiVersion: seer.olympus.io/v1
+kind: EmploymentAction
+metadata:
+  name: revoke-fraud-analyst-001
+spec:
+  target:
+    name: fraud-analyst-emp-001
+    namespace: acme-disputes
+  action: revoke
+  reason: "Security incident response"
+  initiator: security-team
+```
+
+---
+
+## Employment Constraints
+
+What Employment **can** and **cannot** do:
+
+| Can Do | Cannot Do |
+|--------|-----------|
+| Restrict tool access | Enable tools not in Training |
+| Narrow scope of actions | Expand authority beyond Training |
+| Add delegator preferences | Override Training guardrails |
+| Set resource quotas | Remove safety constraints |
+| Specify work context | Grant capabilities not trained |
+| Map to specific endpoints | Change tool protocols |
+| Reduce autonomy threshold | Increase autonomy beyond Training |
+
+---
+
+## Creation Flow
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                      EMPLOYMENT CREATION FLOW                                 │
+│                                                                               │
+│   ┌─────────────────┐                                                        │
+│   │ ScenarioDeployment                                                       │
+│   │ (Hub CRD)       │                                                        │
+│   └────────┬────────┘                                                        │
+│            │                                                                  │
+│            ▼                                                                  │
+│   ┌─────────────────┐                                                        │
+│   │ Hub Operator    │                                                        │
+│   │                 │                                                        │
+│   │ 1. Validates    │                                                        │
+│   │ 2. Resolves     │                                                        │
+│   │    bindings     │                                                        │
+│   │ 3. Creates      │                                                        │
+│   │    deployment   │                                                        │
+│   │    request      │                                                        │
+│   └────────┬────────┘                                                        │
+│            │                                                                  │
+│            ▼                                                                  │
+│   ┌─────────────────┐                                                        │
+│   │ Seer Operator   │                                                        │
+│   │                 │                                                        │
+│   │ 1. Validates    │                                                        │
+│   │    TrainingSpec │                                                        │
+│   │ 2. Creates      │                                                        │
+│   │    EmploymentSpec                                                        │
+│   │ 3. Snapshots    │                                                        │
+│   │    versions     │                                                        │
+│   │ 4. Registers    │                                                        │
+│   │    with Cipher  │                                                        │
+│   │ 5. Deploys to   │                                                        │
+│   │    Atlantis     │                                                        │
+│   └────────┬────────┘                                                        │
+│            │                                                                  │
+│            ▼                                                                  │
+│   ┌─────────────────┐                                                        │
+│   │ Atlantis        │                                                        │
+│   │                 │                                                        │
+│   │ Starts pods     │                                                        │
+│   │ from Raw Agent  │                                                        │
+│   │ container       │                                                        │
+│   └─────────────────┘                                                        │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Versioning
+
+Complete Employed Agent version:
+
+```
+raw:v2.4.1/trained:v1.7.0/employed:v1.0.0
+```
+
+Every action is traceable to:
+1. **Raw Agent version** — Container executing
+2. **Training Spec version** — Knowledge, prompts, guardrails
+3. **Employment Spec version** — Authority, context, bindings
+4. **Accountable human** — Delegating principal
+
+---
+
+## Related Documentation
+
+- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Conceptual model
+- [Employed Agent as Deployed Application](./employed-agent.md) — Hub integration
+- [Training Spec CRD](./training-spec-crd.md) — Training configuration
+- [Request Dispatch](./request-dispatch.md) — Runtime invocation
+
+---
+
+*EmploymentSpec CRD grants authority and context — the final step that activates an agent in the Hub ecosystem.*
+

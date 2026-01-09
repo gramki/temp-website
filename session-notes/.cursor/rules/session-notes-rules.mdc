@@ -1,0 +1,50 @@
+# Session Notes Rules
+
+## Purpose
+
+This folder contains historical session summaries for continuity and reference.
+
+---
+
+## Cursor Instructions
+
+### DO NOT Eagerly Consult
+
+**IMPORTANT:** Do not proactively search, read, or reference content from `session-notes/` unless:
+
+1. The user **explicitly references** a session note by name or path
+2. The user **explicitly asks** about a previous session
+3. The user **asks to resume** work from a previous session
+
+### Why This Matters
+
+- Session notes are **historical records**, not active design documents
+- They may reference outdated information that has since evolved
+- The current documentation is the **source of truth**, not session notes
+- Consulting session notes unprompted may introduce confusion
+
+### When User References Session Notes
+
+If the user explicitly asks about a previous session:
+
+1. **Read the specific session note** referenced
+2. **Check if referenced content is still current** — Compare against current docs
+3. **Note any discrepancies** — Session notes may be outdated
+4. **Use as context only** — Don't treat as authoritative
+
+---
+
+## What Belongs Here
+
+| Belongs | Doesn't Belong |
+|---------|----------------|
+| Session summaries | Active design documents |
+| Work-in-progress status snapshots | Final specifications |
+| Commit logs | Architecture Decision Records |
+| Next steps from sessions | Current open points |
+
+---
+
+## Summary
+
+**Treat session-notes as historical archives — consult only when explicitly asked.**

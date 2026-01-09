@@ -1,0 +1,192 @@
+Requirements for an Agent Platform:
+
+☐ Instantiation and Session management semantics that allow for fine-grained scoping of Agents (User-Agent like Agents vs. Bots/Service-Agents (Single-Role-based agents))
+☐ Need to create and administer feedback loops for agent responses
+☐ Cognitive Audit Fabric (Explainability, Traceability of decisions)
+☐ Ability to change LLMs; Ability to fine-tune prompts per LLM;
+☐ Ability to manage and moderate access to 'Tools'
+☐ 
+☐ Access to Data - Employed Agent Memory, Enterprise/Organization Memory, Industry/Domain Knowlege, Skills, and Employment Scope; Scope-aware Data Serving applications;
+☐ Access to LLMs - Routing, Access Control, A/B Testing, Prompt fine-tuning
+☐ Access to Tools - 
+☐ Access to External Agents - 
+☐ 
+☐ 
+☐ Observability of the agent applications
+☐ Observability of agent usage
+☐ Observability of LLM and other resource usage 
+☐ Cost Accounting and Control
+☐ 
+Fine-tuning LLMs for specific-usecases
+
+
+Agent Directory
+- Prompt Registry
+- Eval Infrastructure
+- Learning Infrastructure
+- Agent Templates/Pattern
+
+Agent Host
+- Modeled as a Automation Engine/System for Hub
+- Runs agent pods using k8s or k-native as optimal for the workload
+- Agent Identity, Scope, Role Management
+- Session Management
+- Memory Management
+- Routing to A/B versions
+- Auto-wiring of Evals, Guard rails through service mesh & side cars
+
+
+Model Registry and Access Gateway
+
+Agent Access Gateway (A2A, MCP)
+
+- Vector Databases?
+
+ML Serving (KServe)
+A/B Testing infra
+
+
+
+[ ] Agentic Application Framework
+[ ] Channel-Agnostic Multi-Agent Session
+[ ] Agent Memory, Session Memory
+[ ] Agent IAM
+[ ] Capable Agent, Skilled Agent, Employed Agent 
+[ ] Interaction Channel Orchestrators
+[ ] LLM Gateway
+[ ] Agent Helper Studio
+[ ] Agent Helper Gateway
+
+# Agent By Deployment Nature
+## Capable Agents
+- Modality Support
+- Orchestration Capbilities (Memory, Context, Knowledge)
+- Multi-agent patterns/topologies supported
+- Interaction Channels and Protocols supported
+- LLM expctations (whitelsit/blacklist)
+
+## Skilled Agents
+- Tenant, Domain, Function, Role, and Responsibility definitions and expectations as prompts 
+- Organization Style, Taste, Guardrails as Prompts 
+- Tools Specifications, Knowledge (organization memory) accessible to the agent
+- Memory Management, Context Management settings
+- Identity; Agent has no credentials to access any other systme unless employed
+- Skills can be fine-tuned (more prompts can be layered)
+- Skill Spec - Encapsulates all aspects of a Skilled Agent other than the identity, discovery, audit, operability aspects
+
+
+## Employed Agents
+- Scope of work (environment, tools, access tokens)
+- Scope and Nature of Authority Delegation (Individual user scope, IAM role scoped, etc.,)
+- Identity and Credentials to access other services
+- Policies and Restrictions (expressed as prompts)
+- Constraints and Preferances of the Delegate (expressed as prompts)
+- Employment Spec - Encapuslates all aspects of a Employed Agent other than the identity, discovery, audit, operability aspects
+
+
+# Agent Platform Capabilities
+
+LLM and SLM Gateways
+Channel-neutral Sessions
+Channel-specific Orchestration Agents (Coordinators; May be these are not agents, they are just applications; The coordination here is technical and mostly routing)
+Memory Management
+MCP Gateway
+MCP Knowledge/Resource Management Systems
+Skill Repository (Prompts)
+
+Governance
+Explainability & Observability
+Agent Operations - Stop, Blacklist, etc.,
+
+
+
+
+====
+Context should handle
+	•	Reasoning
+	•	Planning
+	•	Tool orchestration
+	•	Decision making
+
+Capable Agents (Agent Applications that are deployed)
+- They have explicit code to handle orchestration with LLM, Tools, and certain other subsystems/modules
+- They handle context in a specific way that suites a range of use-cases
+- They are ideally domain/industry agnostic but are qualified by the quality of reasoning, orchestration, context management, modalities supported, 
+
+
+
+Session is about identity, scoping, and continuity — not reasoning.
+
+Typical session attributes
+	•	Session ID
+	•	User / actor identity
+	•	Start & end timestamps
+	•	Channel (web, voice, API)
+	•	Conversation transcript
+	•	Security / auth context
+	•	Conversation-level metadata
+
+A session can live minutes, hours, or days.
+
+
+Key insight:
+	•	Context is assembled
+	•	Memory is retrieved or updated
+	•	Knowledge is queried
+	•	Only chosen outputs are written back to memory
+
+=====
+
+
+Orchestration Agents will support human-in-the-lopp orchestration using the Hub's semantics to bring agents into the loop
+
+Orchestration Agents support Case Model to integrate into the Hub as a Case Automation System. 
+
+I/O Gateway for MS Teams -> Signals -> Trigger -> (New Case or Action in an existing Case); (New Workflow or Action in an existing Workflow Process)
+
+
+[ ] Map the AOSM, HAT Terminology (Goals, Roles, Responsibilites, Authority) to Seer and Hub Terminology
+
+
+Subsystems - Role and Requirements
+Personas and their Jobs
+
+Publisher:
+- May publish Raw agents or Trained Agent Blueprints as part of their module 
+- CI for Raw Agents (Evals)
+- CI for Trained Agent Blueprints (sample tenants, environment, resources, etc.,)
+
+SRE
+- Deploy and Rollout Raw Agents
+- Observe and Operate Raw Agents
+
+Tenant
+- Train an Agent
+- Publish Trained Agent
+- Define a Agent-Oriented System 
+- Create a HAT 
+- Employ a Trained Agent
+- Promote learnings from Employed Agents to Trained Agents
+- Manage Employed Agents: tune capacity, constraints, block/unblock; Observe 
+- Team Members
+- Audit and Supervise Agent Activities 
+
+Hub and Seer Integrations
+====
+* Workbench as AOS
+    - Operation as a collaboration session for the HAT
+
+* Seer Agent Engine as an Automation System for ‘Seer Case’ Automation; [Requires contract between Hub Request to Automation System integration - Signals/Updates]
+* Seer Agent Engine as an Employed Agent provider for ‘Rhea Workflow’ Automation; 
+* Seer uses Cipher as the Workforce, Customer IAM and all Employed Agents exist in one of the domains and sandboxes of the tenant
+* Cipher shall support enrolment of Raw, Trained, and Employed Agents and should also serve as a Agent Registry
+* Hub Task Allocation refers to Groups and Agents (Auth Profiles) from the Cipher Sandboxes associated with workbench
+
+
+# Seer Case Automation:
+	- Seer Agent Engine as an Automation System for ‘Seer Case’ Automation; [Requires contract between Hub Request to Automation System integration - Signals/Updates]
+	- A Hub Request as a Collaboration Session for the HAT
+
+# Seer Agent as a Hub Application:
+	- Seer Agent Engine as an Employed Agent provider for ‘Rhea Workflow’ Automation; 
+	- A Hub Request as single Agent's Session

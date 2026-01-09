@@ -1,0 +1,136 @@
+# ADR-0029: CAF as Control Plane for Memory Services (Not a Storage Layer)
+
+## Status
+
+**Accepted**
+
+## Date
+
+2026-01-06
+
+## Context
+
+Hub's Cognitive Audit Fabric (CAF) is critical for decision auditability and explainability. There was confusion about CAF's role:
+- Is CAF a storage layer like Ganymede or Europa?
+- Is CAF a database where decisions are stored?
+- How does CAF relate to Memory Services?
+
+This confusion led to architectural discussions about:
+- Where decisions are actually stored
+- How CAF integrates with Memory Services
+- What CAF's responsibilities are
+
+## Decision
+
+**CAF is the control plane for Memory Services — it is NOT a storage layer.**
+
+### What CAF Provides
+
+| Function | Description |
+|----------|-------------|
+| **Lifecycle Management** | Manages lifecycle of memory stores |
+| **Contracts** | Informs and guides the contracts for memory operations |
+| **Catalog** | Provides a catalog of memory stores |
+| **Access Enablement** | Enables access to memory stores |
+| **Decision Records Schema** | Defines structure for decision capture in Enterprise Memory |
+| **Evidence Bundles** | Packaging and linking of evidence to decisions |
+| **Explanation Service** | Narrative generation from Enterprise Memory for audit and transparency |
+
+### What CAF Is NOT
+
+| Not This | Clarification |
+|----------|---------------|
+| **Storage Layer** | CAF does not store data; Memory Services store data |
+| **Database** | CAF is not a database like Ganymede or Europa |
+| **Alternative to Memory Services** | CAF controls Memory Services, doesn't replace them |
+
+### Relationship Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│               COGNITIVE AUDIT FABRIC (CAF)                       │
+│                     (Control Plane)                              │
+│                                                                  │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────────────────┐ │
+│  │  Lifecycle   │ │  Contracts   │ │  Decision Records Schema │ │
+│  │  Management  │ │  & Catalog   │ │  Evidence Bundles        │ │
+│  └──────┬───────┘ └──────┬───────┘ └──────────┬───────────────┘ │
+│         │                │                     │                 │
+│         └────────────────┼─────────────────────┘                 │
+│                          │                                       │
+│                          ▼                                       │
+│  ┌─────────────────────────────────────────────────────────────┐│
+│  │                    MEMORY SERVICES                           ││
+│  │                    (Storage Layer)                           ││
+│  │                                                              ││
+│  │  ┌───────────────┐ ┌───────────────┐ ┌───────────────────┐  ││
+│  │  │   Enterprise  │ │    Agent      │ │      User         │  ││
+│  │  │    Memory     │ │   Memory      │ │     Memory        │  ││
+│  │  │               │ │               │ │                   │  ││
+│  │  │ • Semantic    │ │ • Session     │ │ • Preferences     │  ││
+│  │  │ • Episodic    │ │ • Working     │ │ • Behaviors       │  ││
+│  │  │ • Procedural  │ │               │ │                   │  ││
+│  │  └───────────────┘ └───────────────┘ └───────────────────┘  ││
+│  └─────────────────────────────────────────────────────────────┘│
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Where Decisions Are Stored
+
+| Artifact | Stored In | Governed By |
+|----------|-----------|-------------|
+| Decision records (what, why, evidence) | Enterprise Memory | CAF |
+| Explanation narratives | Generated by CAF Explanation Service | N/A |
+| Evidence bundles | Linked from Enterprise Memory | CAF |
+| Operational log (who, what, when) | Operations Data + Cipher Audit Service | Standard audit |
+
+## Alternatives Considered
+
+### Alternative 1: CAF as Separate Storage Layer
+CAF stores decisions in its own database.
+
+- **Pros**: Self-contained, no dependency on Memory Services
+- **Cons**: Duplicates storage, splits cognitive data, complicates architecture
+
+### Alternative 2: CAF Embedded in Each Memory Service
+Each memory service has its own audit/governance logic.
+
+- **Pros**: No separate control plane
+- **Cons**: Inconsistent governance, duplicated logic, harder to maintain standards
+
+## Consequences
+
+### Positive
+- **Clear Separation**: Storage (Memory Services) vs Governance (CAF)
+- **Single Source of Truth**: Decisions stored once in Enterprise Memory
+- **Consistent Governance**: CAF applies uniform standards across all memory types
+- **Explanation Service**: CAF can generate explanations from any memory store
+
+### Negative
+- **Indirection**: Must understand CAF → Memory Services relationship
+- **Dependency**: Memory Services depend on CAF for governance
+
+### Neutral
+- CAF defines schemas; Memory Services implement storage
+- Decision records follow CAF schema but are stored in Enterprise Memory
+
+## Implementation Notes
+
+**When a decision is recorded:**
+1. Application sends decision via Hub API
+2. CAF validates decision record structure (schema compliance)
+3. CAF packages evidence bundle (links to relevant context)
+4. Enterprise Memory stores the decision record
+5. CAF indexes decision for future retrieval and explanation
+
+**When an explanation is requested:**
+1. Request includes decision reference
+2. CAF retrieves decision from Enterprise Memory
+3. CAF's Explanation Service generates narrative
+4. Narrative returned to requester
+
+## Related Decisions
+
+- [ADR-0027: Four-Layer Storage Model](./0027-four-layer-storage-model.md)
+- [ADR-0028: Cognitive vs Operational vs Domain Data Classification](./0028-data-classification.md)
+

@@ -1,0 +1,184 @@
+# Prompt for Cursor / Editor Agent
+
+## Build: Zeta Agent Platform Guidance for Bank‑Grade, Cloud‑Portable AI Agents
+
+---
+
+## Role & Audience
+
+You are an **expert enterprise platform architect and technical writer** working for **Zeta**. Your audience includes:
+
+* Zeta **CTO and Board** (strategic clarity, risk, defensibility)
+* **Enterprise architects** (system design, portability, failure modes)
+* **Product managers** (scope boundaries, roadmap implications)
+
+The output must be **clear, opinionated, and grounded in real-world constraints of banking and cloud platforms**.
+
+---
+
+## Objective
+
+Create a **detailed guidance document** that explains **how Zeta should build an AI agent platform** that enables:
+
+1. **Agent-based products for large and mid-sized banks**
+2. **Deployment inside customer cloud accounts / landing zones**
+3. **Portability across AWS, Azure, and GCP**
+4. **Business continuity via multi-region and multi-cloud setups**
+5. **Minimal lock-in to CSP-specific agent frameworks**, while still leveraging hyperscaler value (models, compute, scale)
+
+The document must explain **why CSP-native agent platforms are insufficient on their own**, and **what Zeta’s product platform must own**.
+
+---
+
+## Core Context You Must Internalize
+
+### 1. Agents Are Products, Not Chatbots
+
+* Agents have **identity, authority, memory, lifecycle, and failure modes**
+* They make or influence decisions in regulated systems
+* They must be **auditable, explainable, override-able, and revocable**
+
+### 2. Clear Conceptual Distinctions (Do Not Blur These)
+
+* **Context**: ephemeral working state for a single reasoning step
+* **Session**: interaction boundary and continuity handle
+* **Memory**: agent-owned, long-lived recall (episodic, semantic, preference, procedural)
+* **Knowledge**: external, authoritative data accessed via retrieval (RAG, APIs)
+
+### 3. Why Banks Are Different
+
+* Strong regulatory expectations (audit, evidence, accountability)
+* Delegated authority and dual control requirements
+* Data residency, tenancy isolation, and jurisdictional constraints
+* Expectation to deploy software in **their** cloud accounts
+* Zero tolerance for opaque decision-making
+
+### 4. Zeta’s Strategic Position
+
+* Zeta must **own agent semantics and control planes**
+* CSPs (AWS, Azure, GCP) are **execution substrates**, not product platforms
+* All **persistent state must be portable** across regions and clouds
+* Failure is assumed; resilience is designed, not hoped for
+
+---
+
+## Required Sections (Follow This ToC Exactly)
+
+Use the following Table of Contents as the spine of the document. Do not materially reorder sections.
+
+### 1. Executive Summary
+
+### 2. Problem Statement & Strategic Context
+
+### 3. System & Infrastructure Requirements for Agentic Products
+
+Explain *what the system must do* and *why*, independent of implementation.
+
+### 4. State of the World: CSP Offerings for Agentic AI
+
+This section must **compare actual CSP products and capabilities**, not marketing claims.
+
+Cover **AWS, Azure, and GCP** across:
+
+* Data & knowledge stack (object storage, feature stores, vector search, RAG services)
+* ML Ops & model lifecycle
+* Agent build / composition tools
+* Agent runtimes and deployment models
+* Safety, guardrails, and policy tooling
+* Observability, evaluation, and logging
+
+For **each capability**, explicitly comment on:
+
+* What the CSP provides
+* Where it excels
+* **Lock-in risk** (Low / Medium / High) and *why*
+
+### 5. What CSP Offerings Cannot Address
+
+Focus on **structural gaps**, such as:
+
+* Product-grade agent lifecycle
+* Bank-grade authority models
+* Cross-cloud and customer-cloud portability
+* Durable memory, audit, and evidence
+* Business continuity across CSP failures
+
+### 6. Zeta’s Solution Principles
+
+Clearly articulated, non-negotiable design principles.
+
+### 7. Zeta Agent Platform: Conceptual Architecture
+
+High-level description (no code) of control plane vs execution plane.
+
+### 8. Platform Components & Design Rationale
+
+For each component:
+
+* What it does
+* Why Zeta must own it
+* How it avoids CSP lock-in
+
+Components include (minimum):
+
+* Agent definition & lifecycle
+* Agent identity & authority
+* Context assembly engine
+* Memory system
+* Knowledge integration (RAG)
+* Tool & action framework
+* Audit & explanation fabric
+* Governance, risk, and overrides
+* Runtime & deployment abstraction
+
+### 9. Summary Table: Required Platform Services
+
+A concise table mapping:
+
+* Platform service
+* Owned by Zeta vs CSP
+* Portability risk
+* Rationale
+
+### 10. Product & Go-To-Market Implications
+
+Explain why this platform stance:
+
+* Matters to banks
+* Reduces regulatory friction
+* Differentiates Zeta from CSP-native solutions
+
+### 11. Explicit Non-Goals and Boundaries
+
+Be explicit about what Zeta will **not** build (e.g., foundation models).
+
+### Appendix A: Regulatory & Legal Considerations
+
+### Appendix D: Failure Scenarios & Leading Indicators
+
+---
+
+## Style & Quality Bar
+
+* Write in **clear, authoritative language** (no hype)
+* Prefer **reasoned arguments over feature lists**
+* Be explicit about **trade-offs and risks**
+* Assume readers are senior and time-constrained
+* This document should feel **board-safe and regulator-aware**
+
+---
+
+## Output Expectations
+
+* Markdown format
+* Sectioned exactly as above
+* Dense but readable for the intended audience (no fluff)
+* Opinionated and internally consistent
+
+---
+
+## Final Instruction
+
+This document should make it **obvious** why:
+
+> *A cloud-portable, bank-grade agent platform must exist above CSP offerings — and why Zeta is uniquely positioned to build it.*

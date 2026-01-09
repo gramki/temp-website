@@ -1,0 +1,141 @@
+# Composite Patterns Documentation Guidelines
+
+## Purpose
+
+This rules file guides future work on the Composite Systems and Patterns documentation in Olympus Hub.
+
+---
+
+## Core Principles
+
+### 1. Technology-Agnostic Automation
+
+**CRITICAL:** Composite patterns do NOT require AI or Gen AI capabilities.
+
+When documenting any pattern involving "Agents" or automation:
+
+- **DO** emphasize that any Hub Application type can power the automation:
+  - Rule-based (Drools/DMN)
+  - Workflow (Rhea BPMN)
+  - Image processing (OpenCV, Tesseract)
+  - Batch processing (Perseus)
+  - Durable workflows (ChronoShift)
+  - AI-powered (Seer, ML models)
+  
+- **DO NOT** assume or imply that AI is required
+- **DO NOT** use only AI examples - always provide both AI and non-AI examples
+- **DO** clarify that "Agent" refers to the capability to complete tasks, not the underlying technology
+
+### 2. Pattern Documentation Structure
+
+Every composite pattern document MUST include these sections:
+
+1. **Overview** - Brief description of the pattern
+2. **The Premise** - Why this pattern exists, what problem it solves
+3. **Automation Types** (if applicable) - Table of both AI and non-AI options with use cases
+4. **Why Use This Pattern** - Numbered list of benefits with examples
+5. **How It Works** - Detailed interaction model
+6. **Architecture Components** - Technical components required
+7. **Value Proposition** - Benefits for Ops Leaders, Architects, Developers (table format)
+8. **Step-by-Step Implementation Guide** - Phased approach with code/config examples
+9. **Operator Support** - CRD specification and operator behavior
+10. **Best Practices** - Do's and Don'ts tables
+11. **Troubleshooting** - Common issues and debug checklist
+12. **Related Documentation** - Links to relevant docs
+
+### 3. Diagram Requirements
+
+Include these diagrams:
+
+- **Conceptual diagram** showing the pattern at a high level
+- **Interaction flow diagram** showing message/data flow between components
+- **Reuse pattern diagram** (if applicable) showing the same component serving multiple consumers
+
+Use ASCII art diagrams with box-drawing characters for consistency.
+
+### 4. Example Requirements
+
+For implementation examples:
+
+- Provide **at least 2-3 different automation approaches** (e.g., rule-based, image processing, AI)
+- Use appropriate runtime for each example (Atlantis, Rhea, Seer, Perseus, ChronoShift)
+- Include code in appropriate languages (Java for Drools, Python for general, YAML for workflows)
+- Show the same logical task completed differently by each approach
+
+---
+
+## README Maintenance
+
+The `README.md` in this folder MUST:
+
+1. **Introduce composite pattern thinking** - Explain the philosophy
+2. **List pattern categories** - Scenario, Workbench, Application composition
+3. **Provide synopsis for each pattern** - Brief description before linking
+4. **Maintain the Pattern Index table** - Update status (🔴 Planned, 🟡 Draft, ✅ Complete)
+5. **Be updated** whenever a new pattern is added
+
+---
+
+## Operator Integration
+
+Each composite pattern typically has an associated operator. When documenting:
+
+1. **Link to the pattern doc** from the operator documentation in `04-subsystems/operators/`
+2. **Include the CRD specification** in both places (pattern doc and operator doc)
+3. **Document reconciliation behavior** - What resources are created/updated/deleted
+4. **Document validation rules** - What makes a spec valid
+
+---
+
+## Cross-References
+
+Composite patterns should cross-reference:
+
+- **Task Management** (`04-subsystems/task-management/`) - For patterns involving task queues
+- **Signal Exchange** (`04-subsystems/signal-exchange/`) - For patterns involving signals
+- **REST Channels** (`06-ux-architecture/tenant-domain/rest-channels.md`) - For Agent REST APIs
+- **Developer Operators** (`04-subsystems/operators/developer-operators.md`) - For operator specs
+
+---
+
+## Pattern Status
+
+Patterns completed and planned (update this list as patterns are completed):
+
+### Completed
+- [x] **Scenario as an Agent** - Scenario enrolled as Agent in task queues
+- [x] **Scenario as a Tool** - Invoke a Scenario as a callable Tool from Hub Applications
+- [x] **Hub Application as Standalone Tool** - Hub Application as directly invocable tool
+- [x] **Workbench as a Machine** - Register a Workbench as a Machine for other Workbenches
+
+### Planned
+- [ ] **Scenario Chaining** - One Scenario triggering another upon completion
+- [ ] **Federated Workbenches** - Multiple Workbenches collaborating on shared Requests
+- [ ] **Nested Workflows** - Workflows invoking other workflows
+
+---
+
+## Writing Style
+
+- Use **tables** for comparisons and lists of options
+- Use **numbered lists** for sequential steps or ranked items
+- Use **bullet points** for unordered lists
+- Include **status badges** (🔴 Stub, 🟡 WIP, ✅ Complete) in tables
+- Use **blockquotes** for important notes and warnings
+- Use **code blocks** with appropriate language hints
+
+---
+
+## Checklist for New Patterns
+
+When adding a new composite pattern:
+
+- [ ] Create detailed pattern document following the structure above
+- [ ] Include both AI and non-AI automation examples
+- [ ] Add diagrams (conceptual, flow, reuse)
+- [ ] Update README.md with synopsis and link
+- [ ] Update Pattern Index table in README.md
+- [ ] Add/update operator documentation in `04-subsystems/operators/`
+- [ ] Update CRD reference in `04-subsystems/operators/crd-reference.md`
+- [ ] Cross-reference from related subsystem docs
+- [ ] Update this planned patterns list

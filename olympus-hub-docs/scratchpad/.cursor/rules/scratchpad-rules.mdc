@@ -1,0 +1,69 @@
+# Scratchpad Folder Rules
+
+## Purpose
+
+This folder contains **unfinished thinking, draft notes, and work-in-progress ideas**. The content here is exploratory and may contain:
+
+- Incomplete thoughts
+- Inconsistencies with finalized documentation
+- Outdated information
+- Contradictory statements
+- Placeholder text
+
+---
+
+## Cursor Instructions
+
+### DO NOT Eagerly Consult
+
+**IMPORTANT:** Do not proactively search, read, or reference content from this `scratchpad/` folder unless:
+
+1. The user **explicitly references** a file in this folder by name or path
+2. The user **explicitly asks** to review scratchpad content
+3. The user **pastes content** from a scratchpad file into the conversation
+
+### Why This Matters
+
+- Scratchpad content represents **thinking in progress**, not finalized decisions
+- Using scratchpad content as authoritative source may introduce **inconsistencies**
+- The user may have already refined these ideas in formal documentation elsewhere
+- Referencing outdated scratchpad notes may **confuse the conversation**
+
+### When User References Scratchpad
+
+If the user explicitly references scratchpad content:
+
+1. **Acknowledge the draft nature**: "I see this is from the scratchpad — I'll treat it as work-in-progress thinking."
+2. **Don't assume finality**: The content may not reflect current decisions
+3. **Check for updates**: If the topic has formal documentation elsewhere, mention it
+4. **Help refine**: Offer to help develop the ideas into formal documentation
+
+---
+
+## What Belongs in Scratchpad
+
+| Belongs Here | Doesn't Belong Here |
+|--------------|---------------------|
+| Initial brainstorming | Finalized specifications |
+| Rough notes from discussions | Architecture Decision Records |
+| Ideas to explore later | Approved documentation |
+| Draft outlines | Production configurations |
+| Temporary working notes | Operator CRDs |
+
+---
+
+## Moving Content Out
+
+When scratchpad content is ready to be formalized:
+
+1. Create proper documentation in the appropriate folder
+2. Apply appropriate templates and formatting
+3. Ensure consistency with existing documentation
+4. Consider if any decisions should be captured as ADRs
+5. Delete or archive the scratchpad file
+
+---
+
+## Summary
+
+**Treat scratchpad as "Do Not Disturb" unless explicitly invited.**

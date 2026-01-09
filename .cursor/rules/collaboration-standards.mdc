@@ -1,0 +1,103 @@
+# Collaboration Standards
+
+Guidelines for maintaining quality and consistency in design documentation.
+
+---
+
+## Documentation Quality
+
+When creating or updating documentation:
+
+### Before Writing
+
+1. **Check for templates** — Look in `_templates/` for the appropriate template
+2. **Review related docs** — Understand existing patterns and conventions
+3. **Check the glossary** — Use established terminology consistently
+
+### While Writing
+
+1. **Follow template structure** — Don't skip sections; mark as "TBD" if incomplete
+2. **Add cross-references** — Link to related documents, ADRs, and guides
+3. **Include diagrams** — Use Mermaid or ASCII art for architecture/flow
+4. **Be explicit about scope** — State what is and isn't covered
+
+### After Writing
+
+1. **Validate cross-references** — Ensure all links are valid
+2. **Update indexes** — Add to README.md in the parent folder
+3. **Capture decisions** — Create ADRs for significant design choices
+4. **Track open points** — Add unresolved questions to `open-points.md`
+5. **Log design debt** — If making expedient choices, log in `design-debt/`
+
+---
+
+## Session Handoff
+
+### Starting a Session
+
+1. Reference previous work explicitly by file path
+2. State the current goal clearly
+3. Provide relevant context or ask for a summary
+
+### During a Session
+
+1. Make decisions explicitly: "We will go with X"
+2. Ask for clarification pauses when needed
+3. Request phased approaches for complex topics
+
+### Ending a Session
+
+1. Commit all changes with meaningful messages
+2. Update `open-points.md` if questions remain
+3. Note next steps in commit message
+4. Update `PERIODIC-TODO.md` if new periodic tasks identified
+
+---
+
+## Cross-Reference Management
+
+### When Creating References
+
+- Use relative paths from the document location
+- Prefer linking to specific sections with anchors
+- Add "See Also" sections at document end
+
+### When Renaming/Moving Files
+
+- Search for all references to the file: `grep -r "filename" .`
+- Update all references before committing
+- Update parent folder README index
+
+---
+
+## Design Debt Management
+
+When making expedient decisions that need future attention:
+
+1. **Document in code/docs** — Add `<!-- DESIGN-DEBT: description -->` comment
+2. **Log formally** — Add entry to `design-debt/` folder
+3. **Set priority** — High (blocks progress), Medium (technical risk), Low (cleanup)
+4. **Link context** — Reference the document/ADR where debt was incurred
+
+---
+
+## Template Usage
+
+| Document Type | Template |
+|---------------|----------|
+| Subsystem README | `_templates/subsystem-readme.md` |
+| Detailed Component | `_templates/component-detail.md` |
+| Guide/How-To | `_templates/guide.md` |
+| ADR | `_templates/adr.md` |
+| Composite Pattern | `_templates/composite-pattern.md` |
+| Open Points | `_templates/open-points.md` |
+| Operator Docs | `_templates/operator.md` |
+
+---
+
+## Quality Reminders
+
+- Run periodic quality checks (see `PERIODIC-TODO.md`)
+- Review ADR consistency quarterly
+- Validate cross-references monthly
+- Update glossary when new terms emerge
