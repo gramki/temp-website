@@ -86,3 +86,4 @@ The question arose: how much automation should be specified now?
 - [Enterprise Learning Services](../04-subsystems/cognitive-audit-fabric/enterprise-learning-services.md) — Full design
 - [ADR 0059](./0059-caf-memory-not-knowledge.md) — CAF/ETSL boundary
 
+

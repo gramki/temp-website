@@ -14,6 +14,7 @@ This folder contains design documents for each Olympus Seer subsystem.
 | [Context Assembly Engine](./context-assembly-engine.md) | Context compilation from memory, knowledge, session state | 🟡 Draft |
 | [Runtime & Deployment](./runtime-deployment.md) | Atlantis, Heracles, pod architecture, request dispatch | 🟡 Draft |
 | [Agent Observability](./agent-observability.md) | SDK, Watch integration, metrics, logs, traces, dashboards | 🟡 Draft |
+| [Observability Extensions to Watch](./observability-extensions-to-watch.md) | Platform-level dashboards, alerts, tools for Seer SRE personas | 🟡 Draft |
 | [Agent Evaluation Service](./agent-evaluation.md) | Development-time testing, benchmarks, CI/CD quality gates | 🔴 PARKED |
 | [Model Gateway](./model-gateway.md) | Bifrost-based LLM gateway, routing, fallback, budgets | 🟡 Draft |
 

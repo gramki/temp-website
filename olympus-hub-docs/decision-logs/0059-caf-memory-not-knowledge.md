@@ -74,3 +74,4 @@ CAF facilitates this promotion but does not own or govern the resulting ETSL ass
 - [Enterprise Learning Services](../04-subsystems/cognitive-audit-fabric/enterprise-learning-services.md) — Promotion to ETSL
 - [Semantic Memory Store](../04-subsystems/cognitive-audit-fabric/semantic-memory-store/README.md) — Memory vs Knowledge distinction
 
+

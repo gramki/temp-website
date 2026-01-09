@@ -65,3 +65,4 @@ Computed from canonical JSON (sorted keys, no whitespace) of the `data` field.
 - [Case Records](../04-subsystems/cognitive-audit-fabric/episodic-memory-store/case-records.md) — Content hash in schema
 - [ADR 0056](./0056-caf-episodic-memory-scope.md) — Episodic Memory scope
 
+
