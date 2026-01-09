@@ -1,21 +1,23 @@
-# Olympus Design Documentation
+# Olympus Hub & Seer Design Documentation
 
-> **Enterprise Operations and AI Agent Platform Design**
+> **Design documentation for Olympus Hub and Olympus Seer**
 
-This repository contains the design documentation for the **Olympus Platform** — a comprehensive enterprise solution for operations management and AI-powered automation built on Agent-Oriented Systems Modeling (AOSM) principles.
+This repository contains the design documentation for **Olympus Hub** (operations management platform) and **Olympus Seer** (AI agent engine).
+
+→ **For the broader Olympus platform:** See [Olympus Academy](http://academy.olympus.tech)
 
 ---
 
-## 🎯 What Is Olympus?
+## 🎯 What's In This Repository?
 
-Olympus is an enterprise platform comprising two major components:
+This repository documents two products within the Olympus ecosystem:
 
-| Platform | Purpose | Core Idea |
-|----------|---------|-----------|
-| **Olympus Hub** | Operations Management | Model, manage, and optimize business operations through human-AI collaboration |
-| **Olympus Seer** | AI Agent Engine | Host, govern, and operate AI agents with enterprise-grade controls |
+| Product | Purpose | Documentation |
+|---------|---------|---------------|
+| **Olympus Hub** | Operations management platform for modeling, managing, and optimizing business operations through human-AI collaboration | [olympus-hub-docs/](./olympus-hub-docs/) |
+| **Olympus Seer** | AI agent engine for hosting, governing, and operating AI agents with enterprise-grade controls | [olympus-seer-docs/](./olympus-seer-docs/) |
 
-Both platforms are built on the **Agent-Oriented Systems Modeling (AOSM)** meta-model, ensuring a unified conceptual foundation for human-AI teaming.
+Both products are designed using **Agent-Oriented Systems Modeling (AOSM)** principles, documented in [aosm-meta-model/](./aosm-meta-model/).
 
 ---
 
