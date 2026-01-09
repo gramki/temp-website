@@ -102,6 +102,7 @@ All ADRs follow the standard format:
 | [0078](./0078-agent-directability-rejection-escalation.md) | Agent Directability via Rejection-Escalation Model | Accepted | 2026-01-08 | directability |
 | [0079](./0079-scenario-escalation-matrix.md) | Scenario Escalation Matrix for Application Exceptions | Accepted | 2026-01-08 | directability |
 | [0080](./0080-directability-operations.md) | Directability Operations in Task Management | Accepted | 2026-01-08 | directability |
+| [0081](./0081-production-feedback-loop.md) | Production Feedback Loop to Development Workbench | Accepted | 2026-01-09 | workbench-management |
 
 ---
 
@@ -227,6 +228,9 @@ All ADRs follow the standard format:
 - [0078](./0078-agent-directability-rejection-escalation.md) - Agent Directability via Rejection-Escalation Model
 - [0079](./0079-scenario-escalation-matrix.md) - Scenario Escalation Matrix for Application Exceptions
 - [0080](./0080-directability-operations.md) - Directability Operations in Task Management
+
+### Workbench Management
+- [0081](./0081-production-feedback-loop.md) - Production Feedback Loop to Development Workbench
 
 ---
 
