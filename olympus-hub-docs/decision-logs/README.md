@@ -109,6 +109,10 @@ All ADRs follow the standard format:
 | [0085](./0085-seer-desk-naming-convention.md) | Seer Desk Naming Convention (Standardize on "Desk") | Accepted | 2026-01-09 | ux-architecture |
 | [0086](./0086-are-role-naming.md) | Agent Reliability Engineer (ARE) Role Naming | Accepted | 2026-01-09 | personas |
 | [0087](./0087-idea-intent-charter-model.md) | Idea-Intent-Charter Model for Automation Ideation | Accepted | 2026-01-09 | ideation |
+| [0088](./0088-devops-workbench-composite-pattern.md) | DevOps Workbench as Composite Pattern | Accepted | 2026-01-09 | devops-workbench |
+| [0089](./0089-bidirectional-devops-workbench-binding.md) | Bidirectional DevOps Workbench Binding (Two CRDs) | Accepted | 2026-01-09 | devops-workbench |
+| [0090](./0090-signal-routing-via-atropos-devops.md) | Signal Routing via Atropos for DevOps | Accepted | 2026-01-09 | devops-workbench |
+| [0091](./0091-git-based-crd-publishing.md) | Git-Based CRD Publishing for DevOps Workbench | Accepted | 2026-01-09 | devops-workbench |
 
 ---
 
@@ -251,6 +255,13 @@ All ADRs follow the standard format:
 
 ### Ideation
 - [0087](./0087-idea-intent-charter-model.md) - Idea-Intent-Charter Model for Automation Ideation
+
+### DevOps Workbench
+- [0088](./0088-devops-workbench-composite-pattern.md) - DevOps Workbench as Composite Pattern for automation development
+- [0089](./0089-bidirectional-devops-workbench-binding.md) - Two-CRD model with operators for bidirectional binding
+- [0090](./0090-signal-routing-via-atropos-devops.md) - Signal routing via Atropos for cross-workbench events
+- [0091](./0091-git-based-crd-publishing.md) - Git-based CRD publishing with PR approval workflow
+- [0091](./0091-git-based-crd-publishing.md) - Git-based CRD publishing with PR approval workflow
 
 ---
 

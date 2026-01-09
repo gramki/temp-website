@@ -13,6 +13,8 @@ Admin Operators manage infrastructure resources and foundational configurations 
 | **Application Data Store Operators** | Ganymede (Relational), Callisto (Key-Value), Europa (Search/Analytics) |
 | **Cognitive Services Operators** | Knowledge Bank Configuration, Memory Services Configuration |
 | **workbench-admin-operator** | Environments, Machine Definitions, Machine Instances, Tool Definitions, Tool Instances |
+| **devops-binding-operator** | DevOpsWorkbenchBinding (provisions credentials, pushes manifest to D) |
+| **manifest-operator** | BusinessWorkbenchManifest (registers gateway Machine, creates Tool bindings) |
 
 ---
 
@@ -996,9 +998,220 @@ For EuropaStore:
 
 ---
 
+## DevOps Workbench Operators
+
+DevOps operators enable bidirectional integration between Business Workbenches (A) and DevOps Workbenches (D) for automating development activities.
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    DEVOPS WORKBENCH OPERATORS                                │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  BUSINESS WORKBENCH (A)                    DEVOPS WORKBENCH (D)             │
+│                                                                              │
+│  ┌─────────────────────────────┐          ┌─────────────────────────────┐  │
+│  │ DevOpsWorkbenchBinding CRD  │          │ BusinessWorkbenchManifest   │  │
+│  │ (created by Tenant Admin)   │          │ CRD (pushed by A's operator)│  │
+│  └──────────────┬──────────────┘          └──────────────┬──────────────┘  │
+│                 │                                        │                  │
+│                 ▼                                        ▼                  │
+│  ┌─────────────────────────────┐          ┌─────────────────────────────┐  │
+│  │ devops-binding-operator     │  ──────▶ │ manifest-operator           │  │
+│  │ • Validate binding spec     │   Push   │ • Register gateway Machine  │  │
+│  │ • Provision credentials     │   CRD    │ • Create Tool bindings      │  │
+│  │ • Build and push manifest   │          │ • Store credentials         │  │
+│  │ • Configure signal routing  │          │ • Health check gateway      │  │
+│  │ • Handle credential rotation│          │                             │  │
+│  └─────────────────────────────┘          └─────────────────────────────┘  │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### devops-binding-operator
+
+Runs in Business Workbench (A). Watches `DevOpsWorkbenchBinding` CRDs.
+
+#### DevOpsWorkbenchBinding Specification
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: DevOpsWorkbenchBinding
+metadata:
+  name: dispute-devops-binding
+  namespace: acme-bank
+spec:
+  # Target DevOps Workbench
+  devops_workbench:
+    workbench_id: dispute-devops
+    namespace: acme-devops
+    subscription_id: acme-devops-central    # If cross-subscription
+    api_endpoint: https://hub.acme-devops.olympus.io/api/v1
+  
+  # Signal routing configuration (A → D)
+  signal_routing:
+    enabled: true
+    sources:
+      - subsystem: automation-ideation
+        events: [idea.submitted, intent.completed, charter.created]
+      - subsystem: ci-subsystem
+        events: [test.failed, build.failed]
+      - subsystem: artifact-registry
+        events: [promotion.requested, artifact.published]
+      - subsystem: feedback-services
+        events: [feedback.promoted, problem.promoted]
+    filters:
+      - source: ci-subsystem
+        condition: "event.type in ['test.failed', 'build.failed']"
+  
+  # Resources exposed to DevOps Workbench (D → A access)
+  exposed_resources:
+    knowledge:
+      enabled: true
+      access: read
+      collections: ["*"]
+    enterprise_memory:
+      enabled: true
+      access: read
+      scopes: [workbench, scenario]
+    data_stores:
+      enabled: true
+      stores:
+        - type: ganymede
+          access: read
+        - type: callisto
+          access: read
+    caf_records:
+      enabled: true
+      access: read
+      record_types: [DecisionRecord, EvidenceBundle]
+    scenario_metadata:
+      enabled: true
+      access: read
+  
+  # Credential configuration
+  credentials:
+    token_expiry: 90d
+    rotation:
+      enabled: true
+      frequency: 30d
+      overlap: 24h
+
+status:
+  phase: Bound | Pending | Error | Rotating
+  binding_id: uuid
+  credentials:
+    current_token:
+      secret_ref:
+        name: dispute-devops-binding-token
+      expires_at: "2026-04-09T10:00:00Z"
+      next_rotation: "2026-02-08T10:00:00Z"
+  manifest:
+    pushed_at: "2026-01-09T10:00:05Z"
+    push_status: Success | Failed | Pending
+```
+
+#### Reconciliation Behavior
+
+| Event | Action |
+|-------|--------|
+| **Create** | Validate spec → Create ServiceAccount → Generate BotToken → Build manifest → Push to D → Configure signal routing |
+| **Update** | Re-validate → Update credentials if needed → Push updated manifest → Reconfigure signal routing |
+| **Delete** | Revoke tokens → Delete manifest from D → Remove signal routing |
+| **Rotation** | Generate new token → Push to D → Wait overlap → Revoke old token |
+
+---
+
+### manifest-operator
+
+Runs in DevOps Workbench (D). Watches `BusinessWorkbenchManifest` CRDs.
+
+#### BusinessWorkbenchManifest Specification
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: BusinessWorkbenchManifest
+metadata:
+  name: dispute-ops-dev-manifest
+  namespace: acme-devops
+  labels:
+    hub.olympus.io/source-workbench: dispute-ops-dev
+    hub.olympus.io/source-subscription: acme-bank
+spec:
+  # Source Business Workbench
+  source_workbench:
+    workbench_id: dispute-ops-dev
+    workbench_name: "Dispute Operations - Development"
+    subscription_id: acme-bank
+    gateway_endpoint: https://hub.acme-bank.olympus.io/api/v1/workbenches/dispute-ops-dev
+  
+  # Machine to register in D
+  machine:
+    name: dispute-ops-dev-gateway
+    description: "Gateway to Dispute Operations workbench resources"
+    tools:
+      - name: query_knowledge
+        endpoint: /knowledge/query
+        method: POST
+      - name: query_memory
+        endpoint: /memory/query
+        method: POST
+      - name: get_scenario
+        endpoint: /scenarios/{scenario_id}
+        method: GET
+      # ... more tools
+  
+  # Credentials
+  credentials:
+    secret_ref:
+      name: dispute-ops-dev-gateway-credentials
+    auth_type: bot_token
+  
+  # Binding metadata
+  binding:
+    binding_id: uuid
+    expires_at: "2026-04-09T10:00:00Z"
+
+status:
+  phase: Active | Pending | Error | Expired
+  machine:
+    registered: true
+    machine_id: dispute-ops-dev-gateway
+    registered_at: "2026-01-09T10:00:10Z"
+  tools:
+    total: 8
+    available: 8
+  credentials:
+    valid: true
+    expires_at: "2026-04-09T10:00:00Z"
+```
+
+#### Reconciliation Behavior
+
+| Event | Action |
+|-------|--------|
+| **Create** | Validate manifest → Register Machine → Create Tool bindings → Store credentials → Health check |
+| **Update** | Update Machine config → Update Tool bindings → Rotate credentials if new |
+| **Delete** | Remove Machine → Remove Tool bindings → Delete credentials |
+| **Expiry** | Set phase to Expired → Disable Machine → Alert admin |
+
+---
+
+### Validation Rules
+
+| Specification | Validation |
+|---------------|------------|
+| DevOpsWorkbenchBinding | Target workbench must exist; must be type=devops; cross-subscription requires credentials |
+| BusinessWorkbenchManifest | Source must be authorized; credentials must be valid; endpoint must be reachable |
+
+---
+
 ## Related Documentation
 
 - [Operators Overview](./README.md)
+- [DevOps Workbench Pattern](../../09-composite-systems-and-patterns/devops-workbench/README.md)
+- [DevOps Workbench Binding](../../09-composite-systems-and-patterns/devops-workbench/devops-workbench-binding.md)
 - [Registry Services](../registry-services/README.md)
 - [Machine Registry](../registry-services/machine-registry.md)
 - [Tool Registry](../registry-services/tool-registry.md)
@@ -1011,5 +1224,5 @@ For EuropaStore:
 
 ---
 
-*Admin Operators enable declarative management of tenant infrastructure, application data stores, and cognitive services.*
+*Admin Operators enable declarative management of tenant infrastructure, application data stores, cognitive services, and cross-workbench DevOps bindings.*
 

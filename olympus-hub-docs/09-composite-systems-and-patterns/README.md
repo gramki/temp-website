@@ -82,7 +82,8 @@ Patterns where Workbenches interact with or consume other Workbenches:
 
 | Pattern | Description | Use Case |
 |---------|-------------|----------|
-| *Workbench as a Machine* | A Workbench registered as a Machine in another Workbench | Cross-domain operations, shared services |
+| [Workbench as a Machine](./workbench-as-a-machine.md) | A Workbench registered as a Machine in another Workbench | Cross-domain operations, shared services |
+| [DevOps Workbench](./devops-workbench/README.md) | A dedicated Workbench automating development activities | Agentic automation of development persona workflows |
 | *Federated Workbenches* | Multiple Workbenches collaborating on shared Requests | Enterprise-wide processes spanning departments |
 
 ### Application Composition Patterns
@@ -176,5 +177,6 @@ All composite patterns share common architectural elements:
 | [Scenario as a Tool](./scenario-as-a-tool.md) | ✅ Documented | Expose Scenario as a callable Tool for Hub Applications |
 | [Hub Application as Standalone Tool](./hub-application-as-standalone-tool.md) | 🟡 Draft | Hub Application as directly invocable tool (workbench = machine) |
 | [Workbench as a Machine](./workbench-as-a-machine.md) | 🟡 Draft | Expose Workbench as a Machine for cross-workbench tool invocation |
+| [DevOps Workbench](./devops-workbench/README.md) | 🟡 Draft | Automate development workflows with AI-assisted agents |
 
 

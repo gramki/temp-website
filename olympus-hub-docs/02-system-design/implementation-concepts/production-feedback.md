@@ -49,7 +49,7 @@
 | Problem | Solution |
 |---------|----------|
 | Operational issues have no formal channel to development | Structured promotion with lineage |
-| APO must manually gather feedback | Centralized inbox with filtering |
+| Automation Product Owner must manually gather feedback | Centralized inbox with filtering |
 | Actions on feedback are not tracked | Full lifecycle with status reflection |
 | No link between issue and fix | Resolution links to scenario version |
 
@@ -63,7 +63,7 @@ Workbenches form an **N:1 feedback topology**:
 
 - Each non-development workbench (STAGING, PROD) can point to **one** development workbench
 - Multiple production workbenches can point to the **same** development workbench
-- The development workbench is where the APO resides and reviews feedback
+- The development workbench is where the Automation Product Owner resides and reviews feedback
 
 ```yaml
 apiVersion: hub.olympus.io/v1
@@ -189,9 +189,9 @@ Every feedback item includes immutable lineage:
 
 ## Action Reflection
 
-When APO takes action, the status is **reflected back** to the source workbench:
+When the Automation Product Owner takes action, the status is **reflected back** to the source workbench:
 
-| APO Action | Source Effect |
+| Action | Source Effect |
 |------------|---------------|
 | **Accept** | `status.state` → `accepted`, promoter notified |
 | **Reject** | `status.state` → `rejected`, reason included, promoter notified |
@@ -232,7 +232,7 @@ When feedback is resolved:
 
 | Persona | Capabilities |
 |---------|-------------|
-| **APO** | Review inbox, accept/reject/route, resolve |
+| **Automation Product Owner** | Review inbox, accept/reject/route, resolve |
 | **Process Architect** | Receive routed feedback, update normative specs |
 | **Developer** | Receive routed feedback, implement fixes |
 
@@ -326,7 +326,7 @@ feedback:
 - [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Architecture decision
 - [Automation Lifecycle Journey](../../08-personas-and-journeys/journeys/automation-lifecycle.md) — Full lifecycle context
 - [Production Feedback Journey](../../08-personas-and-journeys/journeys/production-feedback-loop.md) — Step-by-step workflow
-- [Automation Product Desk](../../06-ux-architecture/tenant-domain/automation-product-desk.md) — APO interface
+- [Automation Product Desk](../../06-ux-architecture/tenant-domain/automation-product-desk.md) — Automation Product Owner interface
 - [Dev-Lifecycle-Stage](./dev-lifecycle-stage.md) — Workbench stage definitions
 - [Promotion](./promotion.md) — Forward artifact promotion (complementary concept)
 

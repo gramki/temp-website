@@ -61,9 +61,9 @@ Operators managing tenant-specific resources and configurations:
 
 | Operator Category | Persona | Purpose |
 |-------------------|---------|---------|
-| **Admin Operators** | Tenant Admin | Infrastructure resources and machine/tool definitions |
+| **Admin Operators** | Tenant Admin | Infrastructure resources, machine/tool definitions, DevOps bindings |
 | **Process Architect Operator** | Process Architect | Workbench and Scenario normative specifications |
-| **Developer Operators** | Developer | Automation, deployment, and application specifications |
+| **Developer Operators** | Developer | Automation, deployment, application, and composite pattern specifications |
 | **Supervisor Operators** | Supervisor | Task queues and supervision configuration |
 
 ---
@@ -95,7 +95,12 @@ Operators managing tenant-specific resources and configurations:
 │  │  │  • Memory Stores    │  │  • Machine Instance Specification   │   │    │
 │  │  └─────────────────────┘  │  • Tool Definition Specification    │   │    │
 │  │                           │  • Tool Instance Specification      │   │    │
-│  │                           └─────────────────────────────────────┘   │    │
+│  │  ┌─────────────────────┐  └─────────────────────────────────────┘   │    │
+│  │  │  DevOps Operators   │                                            │    │
+│  │  │  • devops-binding-  │  (Manages DevOpsWorkbenchBinding CRD)     │    │
+│  │  │    operator         │  (Pushes BusinessWorkbenchManifest to D)  │    │
+│  │  │  • manifest-operator│  (Registers gateway Machine and Tools)    │    │
+│  │  └─────────────────────┘                                            │    │
 │  └─────────────────────────────────────────────────────────────────────┘    │
 │                                                                              │
 │  ┌─────────────────────────────────────────────────────────────────────┐    │

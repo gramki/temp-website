@@ -99,6 +99,7 @@ These implementation concepts are:
 
 | Concept | Description | Status |
 |---------|-------------|--------|
+| [DevOps Workbench Reference](./devops-workbench-reference.md) | Associate business workbench with DevOps workbench | 🟡 Draft |
 | [Artifact Registry](./artifact-registry.md) | Container and CRD storage | ✅ Complete |
 | [Promotion Destination](./promotion-destination.md) | Target workbench/subscription for artifact movement | ✅ Complete |
 | [Production Feedback](./production-feedback.md) | Feedback flow from production to development workbenches | 🟡 Draft |

@@ -33,6 +33,8 @@ This document provides a quick reference for all Custom Resource Definitions (CR
 | `MachineInstance` | workbench-admin-operator | Tenant Admin | Concrete machine endpoint |
 | `ToolDefinition` | workbench-admin-operator | Tenant Admin | Abstract tool template |
 | `ToolInstance` | workbench-admin-operator | Tenant Admin | Concrete tool endpoint |
+| `DevOpsWorkbenchBinding` | devops-binding-operator | Tenant Admin | Cross-workbench DevOps binding (A → D signals, D → A resources, Git access) |
+| `BusinessWorkbenchManifest` | manifest-operator | Tenant Admin | Business workbench gateway and Git machine manifest (pushed to D) |
 
 ### Tenant Domain — Process Architect
 
