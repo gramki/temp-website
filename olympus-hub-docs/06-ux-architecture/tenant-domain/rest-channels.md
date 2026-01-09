@@ -299,6 +299,58 @@ Response includes pagination metadata:
 | `GET` | `/task-types/{type_id}/solver-template` | Get solver template |
 | `PUT` | `/task-types/{type_id}/solver-template` | Update solver template |
 
+### Feedback Inbox APIs (Development Workbenches Only)
+
+APIs for APO to review feedback from linked production workbenches. See [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md).
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/feedback/inbox` | List all incoming feedback from production workbenches |
+| `GET` | `/feedback/inbox/{feedback_id}` | Get feedback details |
+| `POST` | `/feedback/inbox/{feedback_id}/accept` | Accept feedback |
+| `POST` | `/feedback/inbox/{feedback_id}/reject` | Reject feedback with reason |
+| `POST` | `/feedback/inbox/{feedback_id}/route` | Route feedback to PA or Developer |
+| `POST` | `/feedback/inbox/{feedback_id}/resolve` | Mark feedback resolved with link to fix |
+| `GET` | `/feedback/sources` | List linked production workbenches |
+
+#### Accept Feedback Request Body
+
+```json
+{
+  "notes": "Will include in v1.4.0 release"
+}
+```
+
+#### Reject Feedback Request Body
+
+```json
+{
+  "reason": "Unable to reproduce issue",
+  "notes": "Tested in staging, escalation triggers correctly"
+}
+```
+
+#### Route Feedback Request Body
+
+```json
+{
+  "route_to": "developer",
+  "notes": "Implementation issue, not design"
+}
+```
+
+#### Resolve Feedback Request Body
+
+```json
+{
+  "resolution": {
+    "scenario_version": "1.4.0",
+    "release_notes": "Fixed escalation trigger timing",
+    "deployment_date": "2026-01-15"
+  }
+}
+```
+
 ---
 
 ## Agent REST Channel
@@ -436,6 +488,34 @@ See [Agent Directability](../../02-system-design/implementation-concepts/agent-d
 | `GET` | `/decisions/{decision_id}` | Get decision record |
 | `POST` | `/decisions/{decision_id}/evidence` | Attach evidence |
 
+### Feedback Promotion APIs (Non-Development Workbenches)
+
+APIs for promoting feedback to the linked development workbench. See [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md).
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/feedback` | Promote new feedback to development workbench |
+| `GET` | `/feedback/promoted` | List feedback I've promoted |
+| `GET` | `/feedback/{feedback_id}` | Get promoted feedback details and status |
+
+#### Promote Feedback Request Body
+
+```json
+{
+  "type": "Problem",
+  "subtype": "Bug",
+  "severity": "high",
+  "title": "Escalation not triggering for priority disputes",
+  "description": "When a dispute is marked as priority...",
+  "related_entities": {
+    "requests": ["req-1234"],
+    "tasks": ["task-5678"],
+    "scenarios": ["standard-dispute"]
+  },
+  "attachments": []
+}
+```
+
 ---
 
 ## Supervisor REST Channel
@@ -555,6 +635,19 @@ See [Agent Directability](../../02-system-design/implementation-concepts/agent-d
 | `GET` | `/analytics/throughput` | Get throughput metrics |
 | `GET` | `/analytics/efficiency` | Get efficiency metrics |
 | `GET` | `/analytics/queue-health` | Get queue health dashboard data |
+
+### Feedback Promotion APIs (Non-Development Workbenches)
+
+APIs for promoting operational feedback to the linked development workbench. See [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md).
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/feedback` | Promote new feedback to development workbench |
+| `GET` | `/feedback` | List local feedback items |
+| `GET` | `/feedback/promoted` | List feedback promoted to development |
+| `GET` | `/feedback/{feedback_id}` | Get feedback details and status |
+| `PUT` | `/feedback/{feedback_id}` | Update local feedback before promotion |
+| `POST` | `/feedback/{feedback_id}/promote` | Promote existing local feedback |
 
 ---
 

@@ -88,7 +88,7 @@ Manage the automation backlog and prioritization.
 
 ### Feedback Console
 
-Capture and route feedback from operations.
+Capture and route feedback from operations within the current workbench.
 
 | Capability | Description |
 |------------|-------------|
@@ -96,6 +96,71 @@ Capture and route feedback from operations.
 | **Feedback Triage** | Categorize, prioritize, and route feedback |
 | **Improvement Proposals** | Draft proposals for Evolve stage |
 | **Stakeholder Updates** | Communicate progress to sponsors |
+
+### Production Feedback Inbox (Development Workbenches Only)
+
+In **development stage workbenches**, the APO receives feedback promoted from linked production workbenches. See [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md).
+
+| Capability | Description |
+|------------|-------------|
+| **Inbox** | View all incoming Problems and Feedback from linked production workbenches |
+| **Source Filter** | Filter by source workbench (APAC, EMEA, Staging, etc.) |
+| **Type Filter** | Filter by type (Bug, Issue, Critical Limitation, Observation, Suggestion, Learning) |
+| **Severity Filter** | Filter by severity (Critical, High, Medium, Low) |
+| **Triage** | Accept, reject, or route feedback to PA/Developer |
+| **Link to Backlog** | Associate feedback with backlog items |
+| **Resolve** | Mark resolved and link to fix (scenario version, release) |
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     PRODUCTION FEEDBACK INBOX                                │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [Filter: All Sources ▼] [Type: All ▼] [Severity: All ▼] [Status: Pending ▼]│
+│                                                                              │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │ 🔴 BUG | Escalation not triggering                                    │  │
+│  │    From: dispute-ops-prod-apac | Promoted by: supervisor@acme.com    │  │
+│  │    Severity: High | Status: Pending                                   │  │
+│  │    Related: REQ-1234, standard-dispute scenario                       │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │ 🟡 ISSUE | SLA thresholds too aggressive for EMEA timezone           │  │
+│  │    From: dispute-ops-prod-emea | Promoted by: supervisor@acme.eu     │  │
+│  │    Severity: Medium | Status: In Review                               │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │ 💡 SUGGESTION | Add document preview in task solver                   │  │
+│  │    From: dispute-ops-staging | Promoted by: agent@acme.com           │  │
+│  │    Severity: Low | Status: Accepted                                   │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+│  [Accept] [Reject] [Route to PA] [Route to Dev] [Link to Backlog]           │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Feedback Item Detail View
+
+When APO selects a feedback item:
+
+| Section | Content |
+|---------|---------|
+| **Header** | Type, title, severity, status |
+| **Lineage** | Source workbench, promoter, promotion timestamp |
+| **Content** | Full description, attachments |
+| **Related Entities** | Linked requests, tasks, scenarios |
+| **Actions** | Accept, Reject (with reason), Route, Resolve |
+| **Resolution** | Link to fix (scenario version, release notes) |
+
+#### Action Reflection
+
+When APO takes action, status is reflected back to the source workbench:
+
+| Action | Source Workbench Effect |
+|--------|------------------------|
+| **Accept** | Status → `accepted`, promoter notified |
+| **Reject** | Status → `rejected` (with reason), promoter notified |
+| **Route** | Status → `routed` (to PA/Developer), promoter notified |
+| **Resolve** | Status → `resolved` (with link to fix), promoter + supervisor notified |
 
 ---
 
@@ -144,6 +209,25 @@ APO                    Charter Console          Process Architect
  │                           │                          │
 ```
 
+### 4. Production Feedback Review (Development Workbench)
+
+```
+Production WB              Dev Workbench APO           PA / Developer
+    │                           │                          │
+    ├─── Promote Feedback ─────▶│                          │
+    │    (with lineage)         │                          │
+    │                           │                          │
+    │                           ├─── Review in Inbox ─────▶│
+    │                           │                          │
+    │                           ├─── Accept / Route ──────▶│
+    │                           │                          │
+    │◀── Status Reflected ──────┤                          │
+    │                           │                          │
+    │                           │◀── Resolved ─────────────┤
+    │◀── Resolution Link ───────┤                          │
+    │                           │                          │
+```
+
 ---
 
 ## Integration with Other Desks
@@ -186,6 +270,7 @@ The APO proposes whether a scenario should use:
 - [Automation Lifecycle Journey](../../08-personas-and-journeys/journeys/automation-lifecycle.md)
 - [Scenario Design Desk](./scenario-design-desk.md) — Where PA takes over after charter approval
 - [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers outcome dashboards
+- [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Production feedback architecture
 
 ---
 

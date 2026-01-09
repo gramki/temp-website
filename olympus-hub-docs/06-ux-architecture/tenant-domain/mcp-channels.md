@@ -226,6 +226,7 @@ MCP Channels expose Hub capabilities as MCP tools:
 | **Entity Tools** | `get_entity`, `search_entities` |
 | **Queue Tools** | `get_queue_metrics`, `reassign_task` |
 | **Directability Tools** | `acknowledge_escalation`, `override_decision`, `change_context_rerun`, `fail_scenario` |
+| **Feedback Tools** | `promote_feedback`, `list_promoted_feedback`, `list_feedback_inbox`, `accept_feedback`, `resolve_feedback` |
 
 ### Directability Tools
 
@@ -282,6 +283,86 @@ Tools for handling escalation tasks created when AI agent outputs are rejected.
 }
 ```
 
+### Feedback Tools
+
+Tools for promoting feedback to development workbenches and reviewing incoming feedback. See [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md).
+
+#### Promotion Tools (Non-Development Workbenches)
+
+| Tool | Description | Channels |
+|------|-------------|----------|
+| `promote_feedback` | Promote new feedback to development workbench | Agent, Supervisor, Creator |
+| `list_promoted_feedback` | List feedback I've promoted with current status | Agent, Supervisor, Creator |
+| `get_feedback_status` | Get status of a specific promoted feedback | Agent, Supervisor, Creator |
+
+#### Inbox Tools (Development Workbenches Only)
+
+| Tool | Description | Channels |
+|------|-------------|----------|
+| `list_feedback_inbox` | List all incoming feedback from production workbenches | Creator |
+| `get_feedback_details` | Get full details of a feedback item | Creator |
+| `accept_feedback` | Accept feedback for implementation | Creator |
+| `reject_feedback` | Reject feedback with reason | Creator |
+| `route_feedback` | Route feedback to PA or Developer | Creator |
+| `resolve_feedback` | Mark feedback resolved with link to fix | Creator |
+| `list_feedback_sources` | List linked production workbenches | Creator |
+
+#### Example: Promote Feedback
+
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "promote_feedback",
+    "arguments": {
+      "type": "Problem",
+      "subtype": "Bug",
+      "severity": "high",
+      "title": "Escalation not triggering for priority disputes",
+      "description": "When a dispute is marked as priority, the escalation should trigger at the 2-hour mark but is not firing.",
+      "related_entities": {
+        "requests": ["req-1234", "req-5678"],
+        "scenarios": ["standard-dispute"]
+      }
+    }
+  }
+}
+```
+
+#### Example: Accept Feedback (APO in Development Workbench)
+
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "accept_feedback",
+    "arguments": {
+      "feedback_id": "fb-12345",
+      "notes": "Will include in v1.4.0 release, targeting 2026-01-15"
+    }
+  }
+}
+```
+
+#### Example: Resolve Feedback (APO in Development Workbench)
+
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "resolve_feedback",
+    "arguments": {
+      "feedback_id": "fb-12345",
+      "resolution": {
+        "scenario_version": "1.4.0",
+        "release_notes": "Fixed escalation trigger timing for priority disputes",
+        "deployment_date": "2026-01-15"
+      }
+    }
+  }
+}
+```
+
 ---
 
 ## Security Model
@@ -302,6 +383,7 @@ Tools for handling escalation tasks created when AI agent outputs are rejected.
 - [MCP Router](../../05-infrastructure/mcp-router.md) — Infrastructure component for routing
 - [Heracles Gateway](../../05-infrastructure/heracles-gateway.md) — API Gateway
 - [Tool Registry](../../04-subsystems/registry-services/tool-registry.md) — Tool definitions
+- [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Production feedback architecture
 
 ---
 

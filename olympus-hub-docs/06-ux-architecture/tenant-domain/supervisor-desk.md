@@ -168,6 +168,63 @@ Supervisor Desk
 
 ---
 
+---
+
+## Feedback Promotion (Non-Development Workbenches)
+
+In **non-development workbenches** (STAGING, PROD), supervisors can promote feedback to the linked development workbench. Supervisors typically promote operational issues and critical limitations. See [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md).
+
+### Feedback Promotion Points
+
+| Console | Typical Promotions |
+|---------|-------------------|
+| **Analytics Console** | Issues with metrics, thresholds, or SLA configurations |
+| **Task Allocation** | Escalation policy issues, queue configuration problems |
+| **Signals Console** | Pattern observations, signal handling bugs |
+| **Escalation Queue** | Systemic escalation issues, process gaps |
+
+### Feedback Console (Supervisor-Specific)
+
+Supervisors have a dedicated console for managing and promoting operational feedback:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        FEEDBACK CONSOLE                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [+ New Feedback]                              [Filter: Open ▼]             │
+│                                                                              │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  LOCAL ISSUES (This Workbench)                                        │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │ 🔴 Queue config causing missed SLAs     | Open    | [Promote]         │  │
+│  │ 🟡 Escalation matrix needs adjustment   | Open    | [Promote]         │  │
+│  │ 🟢 Agent skill mapping verified         | Closed  |                   │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  PROMOTED TO DEVELOPMENT                                              │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │ Escalation not triggering for priority | Pending  | Promoted 2h ago  │  │
+│  │ SLA thresholds too aggressive          | In Review| Promoted 1d ago  │  │
+│  │ Missing notification template          | Resolved | Fixed in v1.3.0  │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Supervisor Feedback Types
+
+| Type | Subtype | Description |
+|------|---------|-------------|
+| **Problem** | Bug | Implementation defect affecting operations |
+| **Problem** | Issue | Operational constraint requiring attention |
+| **Problem** | Critical Limitation | Capability gap blocking operations |
+| **Feedback** | Observation | Behavioral pattern worth noting |
+| **Feedback** | Suggestion | Improvement idea |
+
+---
+
 ## Related Documentation
 
 - [Supervisor Persona](../../08-personas-and-journeys/personas/supervisor.md)
@@ -175,6 +232,7 @@ Supervisor Desk
 - [Checklist Service](../../04-subsystems/hub-native-utilities/checklist-service.md)
 - [Routine Service](../../04-subsystems/hub-native-utilities/routine-service.md)
 - [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers Reports Console
+- [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Production feedback architecture
 
 ---
 

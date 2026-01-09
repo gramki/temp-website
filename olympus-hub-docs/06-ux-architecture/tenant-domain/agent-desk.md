@@ -241,6 +241,68 @@ When an AI agent's output is **rejected** (by guardrails, policies, or applicati
 
 ---
 
+---
+
+## Feedback Promotion (Non-Development Workbenches)
+
+In **non-development workbenches** (STAGING, PROD), agents can promote feedback to the linked development workbench. See [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md).
+
+### Feedback Promotion Interface
+
+Agents can promote feedback from any context in the Agent Desk:
+
+| Promotion Point | Typical Feedback |
+|-----------------|------------------|
+| **Task Solver** | Bug encountered while completing task |
+| **Signals Console** | Observation about signal patterns |
+| **Knowledge Base Console** | Suggestion for SOP improvement |
+
+### Feedback Promotion Dialog
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     PROMOTE FEEDBACK TO DEVELOPMENT                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  Type: [Problem ▼]     Subtype: [Bug ▼]     Severity: [High ▼]              │
+│                                                                              │
+│  Title: _______________________________________________________________     │
+│                                                                              │
+│  Description:                                                                │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │                                                                     │    │
+│  │                                                                     │    │
+│  │                                                                     │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
+│                                                                              │
+│  Related Entities (auto-populated from context):                            │
+│  ☑ Request: REQ-1234                                                        │
+│  ☑ Task: TASK-5678                                                          │
+│  ☑ Scenario: standard-dispute                                               │
+│                                                                              │
+│  Attachments: [+ Add Screenshot] [+ Add File]                               │
+│                                                                              │
+│  Target: dispute-ops-dev (Development Workbench)                            │
+│                                                                              │
+│  [Cancel]                                              [Promote Feedback]   │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### My Promoted Feedback
+
+Agents can track feedback they've promoted:
+
+| Column | Description |
+|--------|-------------|
+| **Title** | Feedback title |
+| **Type** | Problem/Feedback subtype |
+| **Promoted** | Timestamp |
+| **Status** | Pending, In Review, Accepted, Rejected, Resolved |
+| **Resolution** | Link to fix (if resolved) |
+
+---
+
 ## Related Documentation
 
 - [Agent Persona](../../08-personas-and-journeys/personas/agent.md)
@@ -250,6 +312,7 @@ When an AI agent's output is **rejected** (by guardrails, policies, or applicati
 - [Request Lifecycle Journey](../../08-personas-and-journeys/journeys/request-lifecycle.md)
 - [Angelos Framework](../frameworks-and-integrations/angelos-framework.md)
 - [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers Reports Console
+- [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Production feedback architecture
 
 ---
 
