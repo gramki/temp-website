@@ -46,8 +46,8 @@ Seer UX follows the same (Persona, Channel, Use Case) approach as Hub:
 | Persona | Desk | Purpose |
 |---------|------|---------|
 | **APO** | Agent Portfolio Desk | Manage agent portfolio, outcomes, autonomy |
-| **CSA** | Agent Design Studio | Design architectures, validate patterns |
-| **AE** | Agent Development Workbench | Build, test, deploy agents |
+| **CSA** | Agent Design Desk | Design architectures, validate patterns |
+| **AE** | Agent Development Desk | Build, test, deploy agents |
 | **KMO** | Knowledge Governance Desk | Curate knowledge, govern memory |
 | **ARE** | Agent Operations Desk | Operate safely, monitor health, respond |
 | **COS** | Cognitive Health Desk | Monitor behavior, detect drift, route issues |
@@ -72,10 +72,11 @@ Seer UX follows the same (Persona, Channel, Use Case) approach as Hub:
 
 | Document | Description | Status |
 |----------|-------------|--------|
+| [Seer and Hub UX Integration](./seer-and-hub-ux-integration.md) | How Seer desks integrate with Hub Workbenches | 🔴 Planning |
 | [Desk Requirements](./desk-requirements.md) | Requirements for all persona desks | 🔴 Planning |
 | Agent Portfolio Desk | APO desk specification | ⬜ Not Started |
-| Agent Design Studio | CSA desk specification | ⬜ Not Started |
-| Agent Development Workbench | AE desk specification | ⬜ Not Started |
+| Agent Design Desk | CSA desk specification | ⬜ Not Started |
+| Agent Development Desk | AE desk specification | ⬜ Not Started |
 | Knowledge Governance Desk | KMO desk specification | ⬜ Not Started |
 | Agent Operations Desk | ARE desk specification | ⬜ Not Started |
 | Cognitive Health Desk | COS desk specification | ⬜ Not Started |
