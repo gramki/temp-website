@@ -5,7 +5,7 @@
 
 This journey describes the complete lifecycle of a **conventional automation** capability — from initial business need through ongoing evolution. It covers rule-based, workflow-driven automation implemented as Hub Applications.
 
-> **Note:** For agentic automation (AI agents, cognitive reasoning), see the [Agentic Automation Lifecycle](../../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md) in Seer documentation.
+> **Note:** For agentic automation (AI agents, cognitive reasoning), see the [Agentic Automation Lifecycle](../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md) in Seer documentation.
 
 ---
 
@@ -139,7 +139,7 @@ The Process Architect designs the scenario, with APO providing business context.
 | Risk profile | Low tolerance for error | Acceptable with controls |
 | Process nature | Scripted workflow | Expert reasoning |
 
-> **Fork Point:** If the decision is "Agentic" or "Hybrid", the scenario transitions to the Seer [Agentic Automation Lifecycle](../../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md). The remainder of this document covers the conventional path.
+> **Fork Point:** If the decision is "Agentic" or "Hybrid", the scenario transitions to the Seer [Agentic Automation Lifecycle](../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md). The remainder of this document covers the conventional path.
 
 ### Output: Scenario Definition
 
@@ -336,7 +336,7 @@ Based on operational learnings, the automation is improved.
 
 Legend: ●● Primary, ● Supporting, — Not involved
 
-> **Note:** For agentic automation, additional Seer personas (CSA, AE, KMO, ARE, COS, ARAO) are involved. See the [Agentic Automation Lifecycle](../../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md).
+> **Note:** For agentic automation, additional Seer personas (CSA, AE, KMO, ARE, COS, ARAO) are involved. See the [Agentic Automation Lifecycle](../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md).
 
 ---
 
@@ -380,7 +380,7 @@ When the automation approach decision in Stage 2 selects "Agentic" or "Hybrid", 
 | **Production Gate** | Supervisor | ARE + ARAO |
 | **Monitoring** | Supervisor | ARE + COS |
 
-For the complete agentic journey, see: [Agentic Automation Lifecycle](../../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md)
+For the complete agentic journey, see: [Agentic Automation Lifecycle](../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md)
 
 ---
 

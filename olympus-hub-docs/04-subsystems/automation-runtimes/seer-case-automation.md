@@ -186,7 +186,7 @@ From the case management notes, Seer Cases support multiple collaboration channe
 - [Automation Runtimes Overview](./README.md)
 - [ChronoShift - Temporal](./chronoshift-temporal.md)
 - [Case Management](../../03-operations/case-management.md)
-- [Seer Introduction](../../../../olympus-seer-docs/seer-design/introduction.md)
+- [Seer Introduction](../../../olympus-seer-docs/seer-design/introduction.md)
 
 ---
 

@@ -334,7 +334,7 @@ At charter creation, you confirm the automation approach:
 | **Agentic** | Requires reasoning, judgment, unstructured inputs | Design proceeds with Seer involvement |
 | **Hybrid** | Some tasks conventional, some agentic | Design addresses both paths |
 
-→ *For agentic paths, see: [Agentic Automation Lifecycle](../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md)*
+→ *For agentic paths, see: [Agentic Automation Lifecycle](../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md)*
 
 ### Output
 
@@ -908,7 +908,7 @@ sequenceDiagram
 ## Related Documentation
 
 - [Automation Lifecycle (Conventional)](../08-personas-and-journeys/journeys/automation-lifecycle.md)
-- [Agentic Automation Lifecycle](../../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md)
+- [Agentic Automation Lifecycle](../../olympus-seer-docs/seer-design/personas-and-needs/journeys/agentic-automation-lifecycle.md)
 - [DevOps Workbench Pattern](../09-composite-systems-and-patterns/devops-workbench/README.md)
 - [DevOps Scenarios](../09-composite-systems-and-patterns/devops-workbench/devops-scenarios.md)
 - [Automation Ideation Subsystem](../04-subsystems/automation-ideation/README.md)
