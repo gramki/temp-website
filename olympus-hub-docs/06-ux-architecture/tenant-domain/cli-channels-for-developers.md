@@ -1418,10 +1418,97 @@ hub audit log --since 1h
 
 ---
 
+## Marketplace Commands
+
+Commands for interacting with the Marketplace subsystem.
+
+### Publisher Commands
+
+| Command | Description |
+|---------|-------------|
+| `hub marketplace publish <package-manifest-crd>` | Publish a package to Marketplace |
+| `hub marketplace packages list` | List all packages published by current publisher |
+| `hub marketplace packages get <package-id>` | Get details of a published package |
+| `hub marketplace packages update <package-id> <version>` | Publish new version |
+| `hub marketplace packages withdraw <package-id>` | Withdraw package from catalog |
+| `hub marketplace packages deprecate <package-id>` | Mark package as deprecated |
+
+### Subscriber Commands
+
+| Command | Description |
+|---------|-------------|
+| `hub marketplace search <query>` | Search packages |
+| `hub marketplace browse [--publisher <id>] [--category <cat>]` | Browse packages |
+| `hub marketplace get <package-id>` | Get package details |
+| `hub marketplace subscribe <package-id> <workbench-id>` | Request subscription |
+| `hub marketplace subscriptions list` | List subscriptions for current workbench |
+| `hub marketplace subscriptions get <subscription-id>` | Get subscription details |
+| `hub marketplace subscriptions update <subscription-id>` | Pull new version |
+| `hub marketplace subscriptions unsubscribe <subscription-id>` | Unsubscribe |
+
+### Common Commands
+
+| Command | Description |
+|---------|-------------|
+| `hub marketplace publishers list` | List available publishers |
+| `hub marketplace publishers get <publisher-id>` | Get publisher details |
+| `hub marketplace status` | View current Marketplace status and notifications |
+
+### Example Workflows
+
+**Publish a Package:**
+
+```bash
+# 1. Create Package Manifest CRD
+hub create package-manifest dispute-ops-package
+
+# 2. Edit the manifest with package details
+hub edit package-manifest dispute-ops-package
+
+# 3. Validate the manifest
+hub validate package-manifest dispute-ops-package
+
+# 4. Publish to Marketplace (requires admin approval)
+hub marketplace publish dispute-ops-package
+```
+
+**Subscribe to a Package:**
+
+```bash
+# 1. Search for packages
+hub marketplace search "dispute resolution"
+
+# 2. Get package details
+hub marketplace get dispute-ops-v1.2.0
+
+# 3. Subscribe to package for current workbench
+hub marketplace subscribe dispute-ops-v1.2.0 dispute-ops-dev
+
+# 4. After admin approval, list available BlueprintSpecs
+hub get blueprintspecs
+```
+
+**Create Derived Resource from BlueprintSpec:**
+
+```bash
+# 1. View available BlueprintSpecs
+hub get scenarioblueprintspecs
+
+# 2. Create derived resource
+hub create scenario-normative --from-blueprint dispute-triage
+
+# 3. Customize and deploy
+hub edit scenario-normative dispute-triage
+hub sync scenario dispute-triage
+```
+
+---
+
 ## Related Documentation
 
 - [Hub CLI Installation Guide](../../10-guides/hub-cli-setup.md) — Installation and initial setup
 - [Automation Development Desk](./automation-development-desk.md) — Web UI for developers
+- [Marketplace Console](./marketplace-console.md) — Marketplace UI
 - [Agent Development Lifecycle Guide](../../../../olympus-seer-docs/seer-design/guides/agent-development-lifecycle.md) — Complete agent development workflow
 - [Agent Lifecycle FAQ](../../../../olympus-seer-docs/seer-design/guides/agent-lifecycle-faq.md) — Common questions
 

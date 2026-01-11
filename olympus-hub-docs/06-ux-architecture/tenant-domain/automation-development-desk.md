@@ -161,6 +161,21 @@ Build custom operational interfaces.
 | **Action Repository** | Catalog of pre-built actions |
 | **Task Solver Templates** | Create custom task interfaces |
 
+### Marketplace Console
+
+Access Marketplace for publishing and subscribing to packages.
+
+| Capability | Description |
+|------------|-------------|
+| **Package Discovery** | Browse and search available packages |
+| **Package Creation** | Create Package Manifest CRDs |
+| **Publishing** | Publish packages to Marketplace |
+| **Subscription** | Subscribe to packages for workbench |
+| **BlueprintSpec Usage** | Create derived resources from BlueprintSpecs |
+| **Notifications** | View Marketplace notifications |
+
+→ See [Marketplace Console](./marketplace-console.md) for details.
+
 ---
 
 ## Key Workflows
@@ -317,6 +332,7 @@ spec:
 - [Hub CLI Installation Guide](../../10-guides/hub-cli-setup.md) — CLI installation and setup
 - [Scenario Design Desk](./scenario-design-desk.md) — Upstream: Normative specifications
 - [Supervisor Desk](./supervisor-desk.md) — Downstream: Deployment and operations
+- [Marketplace Console](./marketplace-console.md) — Package publishing and subscription
 - [Angelos Framework](../frameworks-and-integrations/angelos-framework.md) — UI component framework
 - [Rhea Runtime](../../04-subsystems/automation-runtimes/rhea-runtime.md) — Hub Application runtime
 

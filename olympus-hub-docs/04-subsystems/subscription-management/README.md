@@ -125,6 +125,41 @@ A **Tenant** represents an organization using Olympus Hub:
 
 ---
 
+## Marketplace Publisher Registration
+
+Subscription Management handles the **publisher registration workflow** for tenants who want to publish packages to the Marketplace.
+
+### Registration Flow
+
+```
+Tenant Admin initiates registration
+         │
+         │ Submits: Publisher name, contact, signing certificate
+         ▼
+Hub Win Team reviews
+         │
+         │ Validates: Business legitimacy, certificate
+         ▼
+Approval/Rejection
+         │
+         │ If approved: Publisher status activated
+         ▼
+Tenant can now publish packages
+```
+
+### Registration Requirements
+
+| Requirement | Description |
+|-------------|-------------|
+| **Initiator** | Tenant Admin |
+| **Approver** | Hub Win (Customer Success) team |
+| **Certificate** | Valid signing certificate required |
+| **Status** | Active subscription required |
+
+→ See [Marketplace Publishing Services](../marketplace/publishing-services.md) for details.
+
+---
+
 ## Integration Points
 
 | Component | Integration |
@@ -135,6 +170,7 @@ A **Tenant** represents an organization using Olympus Hub:
 | **Memory Services** | Memory store allocation |
 | **Knowledge Services** | Knowledge store allocation |
 | **Signal Providers** | I/O Gateway configuration |
+| **Marketplace** | Publisher registration and management |
 | **Billing System** | Usage metering and billing (external) |
 
 ---

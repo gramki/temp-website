@@ -101,6 +101,12 @@ Each Automation Runtime may give a specialized name to the "Hub Application" con
 | ChronoShift | Temporal Workflow Definition |
 | Seer Case | Case Specification |
 
+### Blueprint-Based Applications
+
+Hub Applications for any runtime can be sourced from **Marketplace Blueprints** instead of being built from source. When using a `HubApplicationBlueprintSpec`, the runtime type is defined by the Blueprint, and the CI subsystem executes the Blueprint's build recipe to produce the application container.
+
+→ See [Hub Application Blueprints](../marketplace/hub-application-blueprints.md) for details.
+
 ---
 
 ## Related Documentation

@@ -140,6 +140,19 @@ Design escalation patterns.
 | **Notification Rules** | Configure escalation notifications |
 | **SLA Integration** | Link escalation to SLA breaches |
 
+### Marketplace Console
+
+Access Marketplace for discovering scenario BlueprintSpecs.
+
+| Capability | Description |
+|------------|-------------|
+| **Package Discovery** | Browse and search scenario packages |
+| **Subscription Initiation** | Request subscription to packages |
+| **BlueprintSpec Browse** | View available ScenarioBlueprintSpecs |
+| **Create from Blueprint** | Create ScenarioNormativeSpec from BlueprintSpec |
+
+→ See [Marketplace Console](./marketplace-console.md) for details.
+
 ---
 
 ## Key Workflows
@@ -281,6 +294,7 @@ scenario_normative_spec:
 - [Scenario Development Journey](../../08-personas-and-journeys/journeys/scenario-development.md)
 - [Automation Product Desk](./automation-product-desk.md) — Upstream: Charter definition
 - [Automation Development Desk](./automation-development-desk.md) — Downstream: Implementation
+- [Marketplace Console](./marketplace-console.md) — Discover and subscribe to scenario packages
 - [Knowledge Services](../../04-subsystems/knowledge-services/README.md) — Knowledge storage
 
 ---

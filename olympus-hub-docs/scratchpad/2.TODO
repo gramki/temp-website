@@ -15,7 +15,7 @@
         - Levers for ARE
 
 # Hub CLI Documentation:
-    - CLI for Hub Application Developers
+    ✔ CLI for Hub Application Developers @done(26-01-11 17:17)
 
 # Seer Agent Lifeycle:
     - Steps by Persona
@@ -25,6 +25,20 @@
     - How is an Employed agent observed, directed, and controlled? 
     - Common Observability and Operations interface for an Employed Seer Agent 
 
+# Hub Packages:
+    ✔ Package as a Collection of Scenario Blueprints (includes Trained Agents) @done(26-01-11 21:14)
+    ✔ Package as a Collection of Workbench Blueprints @done(26-01-11 21:14)
+    ✔ Package as a Collection of Machine Blueprints @done(26-01-11 21:14)
+    ✔ Package as a Collection of Standalone Tools Blueprints @done(26-01-11 21:14)
+    ✔ Package as a Collection of Raw Agents Blueprints @done(26-01-11 21:14)
+    ✔ Package as a Collection of Hub Application Blueprints @done(26-01-11 21:14)
+    ---
+    ## Hub Extensions:
+    - Singal Providers & Signals Blueprints (Machines as Signal Providers is already supported)
+    - Channel Blueprints
+    
+
+# Hub Marketplace
 
 # Workbench Developer Tasks:
     ✔ Create a Workbench @done(26-01-06 00:06)

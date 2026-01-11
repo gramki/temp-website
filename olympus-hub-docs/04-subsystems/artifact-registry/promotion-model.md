@@ -442,11 +442,52 @@ Workbench now running v1.2.2
 
 ---
 
+## Marketplace Blueprint Promotion
+
+When promoting resources that were created from Marketplace BlueprintSpecs, the promotion model handles automatic package subscriptions.
+
+### Blueprint-Derived Resource Promotion
+
+```
+Source Workbench                    Target Workbench
+┌──────────────────────┐           ┌──────────────────────┐
+│                      │           │                      │
+│  Derived Resource    │  Promote  │  Derived Resource    │
+│  (Blueprint ref)     │──────────▶│  (Blueprint ref)     │
+│                      │           │                      │
+│  Package Subscription│           │  Package Subscription│
+│  (existing)          │           │  (auto-created)      │
+│                      │           │                      │
+└──────────────────────┘           └──────────────────────┘
+```
+
+### Automatic Subscription
+
+| Step | Action |
+|------|--------|
+| 1 | Promotion detects Blueprint reference in resource |
+| 2 | Target workbench checked for existing package subscription |
+| 3 | If missing, subscription automatically created by platform operators |
+| 4 | BlueprintSpec becomes available in target workbench |
+| 5 | Promoted resource retains Blueprint reference |
+
+### Benefits
+
+- Maintains Blueprint reference integrity across workbenches
+- Enables update propagation to promoted resources
+- Transparent to developer (no manual subscription needed)
+- Containers cloned on first deployment (lazy cloning preserved)
+
+→ See [Marketplace Subscription Services](../marketplace/subscription-services.md) for details.
+
+---
+
 ## Related Documentation
 
 - [Container Registry](./container-registry.md) — Registry mechanics
 - [Dev-Lifecycle-Stages](./dev-lifecycle-stages.md) — Stage compatibility
 - [Git Repository](./git-repository.md) — CRD storage and sync
 - [Data Store Migrations](./data-store-migrations.md) — Migration handling
+- [Marketplace Integration Points](../marketplace/integration-points.md) — Marketplace integration
 
 

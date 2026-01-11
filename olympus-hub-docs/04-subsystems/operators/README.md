@@ -66,6 +66,18 @@ Operators managing tenant-specific resources and configurations:
 | **Developer Operators** | Developer | Automation, deployment, application, and composite pattern specifications |
 | **Supervisor Operators** | Supervisor | Task queues and supervision configuration |
 
+### Marketplace Domain
+
+Operators managing Marketplace-related resources:
+
+| Operator | Persona | Purpose |
+|----------|---------|---------|
+| **marketplace-package-operator** | Developer | Package Manifest CRD management |
+| **marketplace-subscription-operator** | Admin | Package Subscription lifecycle |
+| **blueprintspec-operator** | System | BlueprintSpec delivery and management |
+
+→ See [Marketplace Operators](./marketplace-operators.md) for details.
+
 ---
 
 ## Architecture
@@ -230,6 +242,7 @@ Operators validate dependencies and fail fast if prerequisites are not met.
 | [Process Architect Operator](./process-architect-operator.md) | Normative specification operators |
 | [Developer Operators](./developer-operators.md) | Automation and deployment operators |
 | [Supervisor Operators](./supervisor-operators.md) | Task queue and supervision operators |
+| [Marketplace Operators](./marketplace-operators.md) | Package manifest and subscription operators |
 | [CRD Reference](./crd-reference.md) | Complete CRD schema reference |
 
 ---

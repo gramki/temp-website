@@ -80,6 +80,7 @@ This enables:
 |-----|----------|
 | [ADR-0007](../../decision-logs/0007-composite-pattern-technology-agnostic.md) | Hub Applications can be any technology (not just AI) |
 | [ADR-0023](../../decision-logs/0023-http-tool-calling-application.md) | HTTP Tool Calling Application as built-in type |
+| [ADR-0102](../../decision-logs/0102-hub-application-blueprints.md) | Hub Application Blueprints with Build Recipes |
 
 ---
 
@@ -128,6 +129,43 @@ spec:
       - api-credentials
 ```
 
+### Blueprint-Based Applications
+
+Hub Applications can also be built from **Marketplace Blueprints** using the `blueprint` field instead of `container`:
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: HubApplicationSpec
+metadata:
+  name: payment-integrations
+spec:
+  # Blueprint reference (instead of container)
+  blueprint:
+    ref: "camel-dsl-runtime"      # HubApplicationBlueprintSpec from Marketplace
+    version: "^3.0.0"             # Semver version range
+  
+  # Inputs for the Blueprint's build recipe
+  inputs:
+    dsl:
+      path: "./routes/"           # Path in workbench Git
+    config:
+      path: "./config/"
+  
+  # Runtime inherited from Blueprint
+  scenarios:
+    - payment-integration
+```
+
+**Key differences:**
+- `blueprint.ref` references a `HubApplicationBlueprintSpec` from a subscribed Marketplace package
+- `inputs` provides file paths that the Blueprint's build recipe uses
+- `container` is not specified (mutually exclusive with `blueprint`)
+- `runtime` is inherited from the Blueprint unless explicitly overridden
+
+The CI subsystem recognizes Blueprint references and executes the Blueprint's build recipe to produce the final container.
+
+→ See [Hub Application Blueprints](../../04-subsystems/marketplace/hub-application-blueprints.md) for full details.
+
 ### Application Types
 
 | Type | Runtime | Best For |
@@ -137,6 +175,7 @@ spec:
 | **AI Agent Application** | Seer | LLM-based agents |
 | **Batch Application** | Perseus | File processing, ETL |
 | **HTTP Tool Calling** | Built-in | Simple HTTP integrations |
+| **Blueprint-Based Application** | (from Blueprint) | DSL runtimes, low-code engines |
 
 ### Cognitive Application (Capability Profile)
 

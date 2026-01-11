@@ -107,6 +107,43 @@ The Win Operations Center operates at the **publisher level**, providing oversig
 
 ---
 
+---
+
+## Marketplace Administration
+
+The Hub Win Operations Center includes **Marketplace administration** capabilities for platform-level management.
+
+| Capability | Description |
+|------------|-------------|
+| **Publisher Registration Approval** | Review and approve publisher registration requests |
+| **Package Oversight** | View all published packages across tenants |
+| **Blacklisting** | Block packages with security issues |
+| **Security Alerts** | View and act on security scan results |
+| **Region Management** | Publish available region lists |
+
+### Publisher Registration Workflow
+
+```
+Publisher Registration Request
+         │
+         ▼
+Hub Win Ops Center
+         │
+         ├─── Review business legitimacy
+         ├─── Validate signing certificate
+         ├─── Check compliance requirements
+         │
+         ▼
+Approve / Reject
+         │
+         ▼
+Notification to Tenant Admin
+```
+
+→ See [Marketplace Publishing Services](../../04-subsystems/marketplace/publishing-services.md) for details.
+
+---
+
 ## Future: Win Team Workbench
 
 In future, Customer Success teams may have a dedicated **Hub instance** with workbenches to manage customer relationships. This would enable:
@@ -118,9 +155,10 @@ In future, Customer Success teams may have a dedicated **Hub instance** with wor
 
 ## Related Documentation
 
-- [Customer Success Persona](../08-personas-and-journeys/personas/customer-success.md)
-- [Subscription Management](../04-subsystems/subscription-management/README.md)
+- [Customer Success Persona](../../08-personas-and-journeys/personas/customer-success.md)
+- [Subscription Management](../../04-subsystems/subscription-management/README.md)
 - [Hub SRE Operations Center](./hub-sre-ops-center.md) — SRE counterpart
+- [Marketplace Subsystem](../../04-subsystems/marketplace/README.md) — Marketplace overview
 
 ---
 

@@ -203,6 +203,50 @@ Policies governing Request behavior within the Workbench:
 
 ---
 
+## BlueprintSpecs from Marketplace
+
+Workbenches can contain **BlueprintSpecs** from subscribed Marketplace packages in addition to regular specifications.
+
+### BlueprintSpec Handling
+
+| Aspect | Description |
+|--------|-------------|
+| **Availability** | BlueprintSpecs appear when package subscription is active |
+| **Visibility** | Visible alongside regular specifications |
+| **Usage** | Cannot be deployed directly; must create derived resources |
+| **Derived Resources** | Regular specifications created from BlueprintSpecs |
+
+### Derived Resource Creation
+
+```
+BlueprintSpec (from Marketplace)
+         │
+         │ User creates derived resource
+         ▼
+Regular Specification (workbench resource)
+         │
+         │ With Blueprint reference section
+         ▼
+Can be deployed normally
+```
+
+### Blueprint Reference Section
+
+Derived resources include a reference to their source Blueprint:
+
+```yaml
+blueprintReference:
+  packageSha: "sha256:abc123..."
+  packageUri: "marketplace://packages/dispute-ops-v1.2.0"
+  blueprintName: "dispute-triage"
+  blueprintType: "ScenarioBlueprintSpec"
+  packageVersion: "1.2.0"
+```
+
+→ See [Marketplace Blueprints and Packages](../marketplace/blueprints-and-packages.md) for details.
+
+---
+
 ## Integration Points
 
 | Component | Integration |
@@ -214,6 +258,7 @@ Policies governing Request behavior within the Workbench:
 | **Knowledge Services** | Knowledge Base associations |
 | **Atropos** | DevOps signal routing to external workbenches |
 | **DevOps Workbench** | Receives development lifecycle signals |
+| **Marketplace** | BlueprintSpecs from package subscriptions |
 | **Scenario Design Desk** | UI for Scenario design (see UX Architecture) |
 | **Automation Development Desk** | UI for Application development (see UX Architecture) |
 

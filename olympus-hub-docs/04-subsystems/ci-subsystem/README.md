@@ -73,6 +73,7 @@ The CI (Continuous Integration) Subsystem provides build and test infrastructure
 | Component | Description | Documentation |
 |-----------|-------------|---------------|
 | Runtime CI | Per-runtime build and unit test | [runtime-ci.md](./runtime-ci.md) |
+| Blueprint-Based Builds | Builds from Marketplace Blueprints | [blueprint-based-builds.md](./blueprint-based-builds.md) |
 | Hub Test Runner | Integration test execution | [test-runner.md](./test-runner.md) |
 | Test CRDs | Test and TestSuite definitions | [test-crds.md](./test-crds.md) |
 
@@ -83,6 +84,7 @@ The CI (Continuous Integration) Subsystem provides build and test infrastructure
 | Concept | Description |
 |---------|-------------|
 | **Runtime CI** | Build and unit test infrastructure specific to each Application Runtime |
+| **Blueprint-Based Builds** | Builds that combine Marketplace Blueprints with subscriber files via build recipes |
 | **Hub Test Runner** | Platform-provided integration test execution engine |
 | **Test** | CRD defining a single test case (input, expected output, assertions) |
 | **Test Suite** | CRD grouping Tests with execution ordering |

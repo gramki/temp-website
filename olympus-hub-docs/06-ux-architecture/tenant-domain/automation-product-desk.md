@@ -334,6 +334,21 @@ The APO proposes whether a scenario should use:
 
 ---
 
+### Marketplace Console
+
+Access Marketplace for discovering automation packages.
+
+| Capability | Description |
+|------------|-------------|
+| **Package Discovery** | Browse and search automation packages |
+| **Package Details** | View package contents and publisher info |
+| **Subscription Initiation** | Request subscription to packages |
+| **Notifications** | View Marketplace notifications |
+
+→ See [Marketplace Console](./marketplace-console.md) for details.
+
+---
+
 ## Channel Support
 
 | Channel | Access |
@@ -350,6 +365,7 @@ The APO proposes whether a scenario should use:
 - [Automation Lifecycle Journey](../../08-personas-and-journeys/journeys/automation-lifecycle.md)
 - [Production Feedback Loop Journey](../../08-personas-and-journeys/journeys/production-feedback-loop.md)
 - [Scenario Design Desk](./scenario-design-desk.md) — Where PA takes over after charter approval
+- [Marketplace Console](./marketplace-console.md) — Discover and subscribe to automation packages
 - [Automation Ideation Subsystem](../../04-subsystems/automation-ideation/README.md) — Idea → Intent → Charter services
 - [Feedback Services Subsystem](../../04-subsystems/feedback-services/README.md) — Production feedback services
 - [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers outcome dashboards

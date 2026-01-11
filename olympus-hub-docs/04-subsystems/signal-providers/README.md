@@ -43,6 +43,12 @@ I/O Gateways are Machines in the Hub Environment that sense Signals from various
 | [Kale](./kale-scheduler.md) | Time-Signal | Scheduler | Scheduled triggers | 🟡 WIP |
 | [MS Teams](./ms-teams-integration.md) | CHAT_MESSAGE | MS Teams Bot Framework | Copilot bots + chat collaboration | 🟡 WIP |
 
+### Additional Documentation
+
+**Dia (File Gateway):**
+- [File Format Specification](./dia/file-format-specification.md) - Schema definition for CSV/TSV/fixed-width file formats with header/footer validation
+- [Parser Requirements](./dia/parser-requirements.md) - Detailed requirements for implementing the file format parser
+
 **Extensibility:** Signal types are tied to I/O Gateways. New gateways (e.g., GraphQL, gRPC, WebSocket) can introduce new signal types while the core flow remains stable: **Signal → Trigger → Request → Scenario → Operation**.
 
 > **Note:** MS Teams Integration is more than a signal provider — it includes copilot bots, chat group orchestration, and direct services. See [MS Teams Integration](../ms-teams-integration/) for full documentation.

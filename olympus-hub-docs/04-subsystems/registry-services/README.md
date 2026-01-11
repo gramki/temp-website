@@ -119,6 +119,30 @@ Registries span two storage layers:
 
 ---
 
+## Platform-Provided Resources in Marketplace Packages
+
+Marketplace packages can reference **platform-provided resources** (Machine Definitions, Tool Protocols) but cannot include them.
+
+### Resolution Model
+
+| Resource Type | In Package | Resolution |
+|---------------|------------|------------|
+| **Platform Machine Definitions** | Reference only | Resolved from System Data |
+| **Platform Tool Protocols** | Reference only | Resolved from System Data |
+| **Custom Machine Definitions** | Included as Blueprint | Becomes MachineBlueprintSpec |
+| **Custom Tool Protocols** | Included as Blueprint | Becomes ToolBlueprintSpec |
+
+### Validation
+
+During package publishing:
+- Referenced platform resources are validated
+- Missing platform resources cause publishing failure
+- Version compatibility is checked
+
+→ See [Marketplace Blueprints and Packages](../marketplace/blueprints-and-packages.md) for details.
+
+---
+
 ## Common Registry Patterns
 
 ### Registration

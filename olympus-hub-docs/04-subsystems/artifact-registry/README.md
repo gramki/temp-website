@@ -291,6 +291,36 @@ Accessible via:
 
 ---
 
+## Marketplace Integration
+
+The Artifact Registry integrates with the [Marketplace Subsystem](../marketplace/README.md) for artifact sharing across tenants.
+
+### Key Integration Points
+
+| Integration | Description |
+|-------------|-------------|
+| **Lazy Container Cloning** | Marketplace containers cloned to tenant registry on first deployment |
+| **Signature Verification** | Marketplace signature verified during container clone |
+| **Blueprint-Derived Resources** | Containers referenced by derived resources cloned on deployment |
+
+### Container Cloning Flow
+
+```
+Marketplace Artifact Repository
+            │
+            │ First deployment triggers clone
+            ▼
+Tenant Production Registry
+            │
+            │ Available for workbench use
+            ▼
+Workbench Deployment
+```
+
+→ See [Marketplace Artifact Repository](../marketplace/marketplace-artifact-repository.md) for details.
+
+---
+
 ## Open Points
 
 See [open-points.md](./open-points.md) for unresolved questions.

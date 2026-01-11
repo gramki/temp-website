@@ -65,6 +65,12 @@ Hub Control Center
 │   ├── Workbenches
 │   └── Environments
 │
+├── Marketplace
+│   ├── Subscription Approvals
+│   ├── Publisher Management
+│   ├── Allow/Disallow Lists
+│   └── Subscribed Packages
+│
 ├── Budget & Usage
 │   ├── Resource Usage
 │   ├── Cost Tracking
@@ -78,11 +84,27 @@ Hub Control Center
 
 ---
 
+## Marketplace Administration
+
+The Hub Control Center includes **Marketplace Console** for administrative functions.
+
+| Capability | Description |
+|------------|-------------|
+| **Subscription Approvals** | Approve/reject package subscription requests |
+| **Publisher Management** | Manage publisher registration status |
+| **Allow/Disallow Lists** | Configure trusted/blocked publishers (Apache-style) |
+| **Subscribed Packages** | View all subscriptions across workbenches |
+
+→ See [Marketplace Console](./marketplace-console.md) for details.
+
+---
+
 ## Related Documentation
 
-- [Administrator Persona](../08-personas-and-journeys/personas/administrator.md)
-- [Subscription Management](../04-subsystems/subscription-management/README.md)
-- [Subscription Configuration Guide](../10-guides/subscription-configuration-guide.md)
+- [Administrator Persona](../../08-personas-and-journeys/personas/administrator.md)
+- [Subscription Management](../../04-subsystems/subscription-management/README.md)
+- [Subscription Configuration Guide](../../10-guides/subscription-configuration-guide.md)
+- [Marketplace Console](./marketplace-console.md) — Marketplace administration
 
 ---
 
