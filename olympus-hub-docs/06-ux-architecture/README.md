@@ -38,6 +38,7 @@ Hub treats these as first-class interaction channels:
 | Category | Channels | Details |
 |----------|----------|---------|
 | **Traditional** | Web, Mobile, Email | Standard web/mobile apps |
+| **CLI** | `hub` CLI | Via [CLI Channels](./tenant-domain/cli-channels-for-developers.md) |
 | **Collaboration** | [MS Teams](../04-subsystems/ms-teams-integration/README.md), Slack | Agent/Employee copilots, chat groups |
 | **AI Assistants** | ChatGPT, Claude, Gemini | Via [MCP Channels](./tenant-domain/mcp-channels.md) |
 | **Programmatic** | REST APIs | Via [REST Channels](./tenant-domain/rest-channels.md) |
@@ -342,6 +343,7 @@ See [Hercules Launcher](./frameworks-and-integrations/hercules-launcher.md) for 
 | [Agent Desk](./tenant-domain/agent-desk.md) | Agent operations console | 🔴 Stub |
 | [Supervisor Desk](./tenant-domain/supervisor-desk.md) | Supervisor management console | 🔴 Stub |
 | [Steward Desk](./tenant-domain/steward-desk.md) | Workbench admin console | 🔴 Stub |
+| [CLI Channels for Developers](./tenant-domain/cli-channels-for-developers.md) | Hub CLI command reference for developers | 🟢 Done |
 | [MCP Channels](./tenant-domain/mcp-channels.md) | MCP architecture | 🔴 Stub |
 | [REST Channels](./tenant-domain/rest-channels.md) | REST API architecture | 🟡 Draft |
 | [Angelos Framework](./frameworks-and-integrations/angelos-framework.md) | UI component framework | 🔴 Stub |

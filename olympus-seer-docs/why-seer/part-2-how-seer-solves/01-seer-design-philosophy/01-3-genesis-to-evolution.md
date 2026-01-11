@@ -23,6 +23,25 @@ Agents begin as responses to business needs. The genesis phase establishes:
 
 The Workbench provides the context that shapes these decisions. An agent conceived within a Dispute Resolution workbench inherits the dispute domain's knowledge, procedures, and governance requirements.
 
+### The Scenario-Grounding Principle
+
+> **Critical Design Principle:** A Training Specification cannot be meaningful without being grounded in Scenario context. Training must be:
+> 
+> 1. **Conceived** for a specific Scenario (Genesis)
+> 2. **Developed and iterated** in a Sandbox Workbench (Development)
+> 3. **Validated** against Scenario test cases (Evaluation)
+> 4. **Improved** based on feedback from Employed Agents in production (Evolution)
+> 
+> While a published Training Specification is reusable across multiple Scenarios, its validity derives from Scenario-grounded development and validation. A Training Specification created without Scenario context is hypothetical and unproven.
+
+This grounding ensures that:
+- Knowledge binding reflects actual operational needs
+- Skills are tested against realistic work patterns
+- Guardrails are validated against real risk scenarios
+- Tool configurations match actual integration requirements
+
+See: [Agent Development Lifecycle Guide](../../../seer-design/guides/agent-development-lifecycle.md) for detailed guidance.
+
 ## Development: Building and Testing
 
 During development, the agent is built, trained, and validated:

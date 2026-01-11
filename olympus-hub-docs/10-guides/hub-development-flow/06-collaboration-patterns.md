@@ -10,6 +10,40 @@ Hub is designed for small teams (2-5 developers). This document describes collab
 
 ---
 
+## Workbench Instance Model: One Instance Per Developer
+
+**Critical Understanding**: A workbench instance can only have **one branch associated** and **one workspace**. Multiple developers working on the same Workbench Specification must create **separate workbench instances**, each mapped to their own branch.
+
+### How It Works
+
+| Scenario | Solution |
+|----------|----------|
+| **1 developer** working on `main` branch | 1 workbench instance (`dispute-ops-dev`) → `main` branch |
+| **3 developers** working on same Workbench Specification | 3 workbench instances:<br>- `dispute-ops-dev-alice` → `feature/alice-trigger`<br>- `dispute-ops-dev-bob` → `feature/bob-ui`<br>- `dispute-ops-dev-charlie` → `main` |
+| **Developer switches branches** | Must either:<br>- Switch workbench instance branch (admin/authorized dev)<br>- Use different workbench instance for new branch<br>- Switch to existing workbench instance for that branch |
+
+### Creating Workbench Instances
+
+**For New Developers**:
+1. Contact Tenant Admin to request a workbench instance
+2. Specify:
+   - Workbench Specification name (e.g., `dispute-ops`)
+   - Your branch name (e.g., `feature/my-feature`)
+   - Your user identity
+
+**For Branch Switching**:
+- Option 1: Request new workbench instance for new branch
+- Option 2: Have admin/authorized dev update existing instance's branch association
+- Option 3: Use existing workbench instance if one exists for your branch
+
+### Best Practices
+
+- **One branch per workbench instance**: Never try to use one instance for multiple branches
+- **Coordinate with team**: Check if workbench instance exists for your branch before requesting new one
+- **Clean up**: Request deletion of unused workbench instances when done
+
+---
+
 ## Pattern 1: Single Developer
 
 **Scenario:** You're the only developer on a Hub project.
@@ -202,11 +236,33 @@ Hub is designed for small teams (2-5 developers). This document describes collab
 # Meaningful commit messages
 git commit -m "[dispute-ops-dev/standard-dispute] feat: add tier-2 routing"
 
-# Frequent pushes
-git push  # After each logical unit
+# Frequent pushes (GitOps requirement)
+git push  # After each logical unit, before syncing
 
 # Pull before work
 git pull  # Start of each session
+
+# Always commit before sync (GitOps pattern)
+git add .
+git commit -m "feat: update scenario"
+git push
+hub sync scenario standard-dispute  # Reads from Git
+```
+
+### Hub CLI Commands for Coordination
+
+```bash
+# Check your context (branch, workbench, alignment)
+hub context
+
+# Verify branch alignment before syncing
+hub context  # Shows branch alignment status
+
+# View recent changes
+hub get scenario-deployment --watch
+
+# Monitor team's work
+hub watch scenario-deployment standard-dispute-dev
 ```
 
 ### Scenario Ownership

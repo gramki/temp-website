@@ -19,6 +19,34 @@ Think of it as:
 
 ---
 
+## Remote Development Model
+
+> **Important**: Hub development is entirely **remote**. There is no local development environment on your laptop.
+
+You access your workbench via a **remote workspace** managed by Hub:
+
+```bash
+# On your laptop — open a remote workspace
+hubdev login
+hubdev workspace open dispute-ops-dev
+
+# VS Code opens connected to remote workspace
+# All hub commands run inside this workspace
+```
+
+| Where | CLI | What You Do |
+|-------|-----|-------------|
+| **Your laptop** | `hubdev` | Login, open/close workspaces, list instances |
+| **Remote workspace** | `hub` | Validate, sync scenarios, view logs, monitor requests |
+
+**Key Points:**
+- All resources (specs, scripts, configs) live in a Hub-managed remote workspace backed by Git
+- VS Code connects to this remote workspace (not local files)
+- All `hub` CLI commands execute within the remote workspace context
+- No "works on my machine" issues — everyone has the same environment
+
+---
+
 ## Workbench vs Branch: The Key Difference
 
 In Git, a branch is just a pointer to a set of commits. In Hub, a workbench is much more:
@@ -83,12 +111,12 @@ dispute-ops-dev/
 
 | Action | How |
 |--------|-----|
-| **Edit Scenarios** | Modify YAML files, sync to workbench |
+| **Edit Scenarios** | Modify YAML files, commit to Git, sync scenario |
 | **Build applications** | Trigger Runtime CI |
 | **Run Scenarios** | Send signals via I/O Gateway |
 | **Test end-to-end** | Use Hub Test Runner |
 | **Debug** | Check logs in Olympus Watch |
-| **Iterate quickly** | Sync → Test → Fix → Repeat |
+| **Iterate quickly** | Commit → Sync → Test → Fix → Repeat |
 
 ---
 
@@ -164,30 +192,69 @@ DEV Subscription
 
 ### The Edit-Sync-Test Cycle
 
+```bash
+# 1. Open your workspace (on laptop)
+hubdev workspace open dispute-ops-dev
+
+# 2. In VS Code (remote workspace terminal)
+# Edit files in the editor, then:
+
+# 3. Commit and push to Git (GitOps requirement)
+git add scenarios/standard-dispute/
+git commit -m "feat: update standard-dispute scenario"
+git push
+
+# 4. Deploy to workbench instance (reads from Git)
+hub sync scenario standard-dispute
+
+# 5. Test and monitor
+hub watch scenario-deployment standard-dispute-dev
+hub logs agent my-agent-emp-001 --follow
+hub metrics agent my-agent-emp-001
+```
+
+> **Note**: All `hub` commands operate on **committed Git files**, not the local filesystem. The workspace branch is associated with the workbench instance. The smallest unit of deployment is a **Scenario**.
+
+**The Complete Cycle:**
+
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    DEVELOPMENT CYCLE                                         │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
+│   LAPTOP: hubdev workspace open ──▶ VS Code opens remote workspace           │
+│                                                                              │
+│   WORKSPACE:                                                                 │
 │       ┌──────────┐                                                          │
 │       │          │                                                          │
 │       │  EDIT    │◀────────────────────────────────────────────┐            │
-│       │  CRDs    │                                             │            │
+│       │  CRDs    │  (in VS Code editor)                        │            │
 │       │          │                                             │            │
 │       └────┬─────┘                                             │            │
 │            │                                                   │            │
 │            ▼                                                   │            │
 │       ┌──────────┐                                             │            │
 │       │          │                                             │            │
-│       │  SYNC    │  Push changes to workbench                  │            │
+│       │  COMMIT  │  git add . && git commit && git push       │            │
+│       │          │  (GitOps requirement)                      │            │
+│       │          │                                             │            │
+│       └────┬─────┘                                             │            │
+│            │                                                   │            │
+│            ▼                                                   │            │
+│       ┌──────────┐                                             │            │
+│       │          │                                             │            │
+│       │  SYNC    │  hub sync scenario <name>                  │            │
+│       │          │  (reads from Git)                           │            │
 │       │          │                                             │            │
 │       └────┬─────┘                                             │            │
 │            │                                                   │            │
 │            ▼                                                   │            │
 │       ┌──────────┐         ┌──────────┐                        │            │
 │       │          │ pass    │          │                        │            │
-│       │  TEST    │────────▶│ PROMOTE  │  Request promotion     │            │
+│       │  TEST    │────────▶│ PROMOTE  │  hub request-approval │            │
 │       │          │         │          │  to STAGING/PROD       │            │
+│       │  hub watch│        │          │                        │            │
+│       │  hub logs │        │          │                        │            │
 │       └────┬─────┘         └──────────┘                        │            │
 │            │                                                   │            │
 │            │ fail                                              │            │
@@ -235,8 +302,17 @@ Each workbench is isolated:
 | **Workbench** | Complete environment, not just code |
 | **DEV workbench** | Your primary development context |
 | **Feature workbench** | Created when isolation is needed |
-| **Sync** | Push changes from Git to workbench |
+| **Sync** | Deploy scenario from committed Git files to workbench |
 | **Isolation** | Workbenches don't affect each other |
+| **GitOps** | All hub commands read from committed Git files |
+| **Scenario** | Smallest unit of deployment |
+
+---
+
+## Related Documentation
+
+- [CLI Channels for Developers](../../06-ux-architecture/tenant-domain/cli-channels-for-developers.md) — Full CLI command reference
+- [Hub CLI Setup](../hub-cli-setup.md) — Installation guide
 
 ---
 

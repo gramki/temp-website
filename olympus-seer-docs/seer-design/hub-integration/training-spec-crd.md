@@ -1,7 +1,7 @@
 # Training Spec CRD
 
 > **Status**: 🟡 Draft  
-> **Last Updated**: 2026-01-08  
+> **Last Updated**: 2026-01-11  
 > **Parent**: [Seer-Hub Integration](./README.md)
 
 ---
@@ -9,6 +9,41 @@
 ## Overview
 
 The **TrainingSpec CRD** defines a Trained Agent — a Raw Agent configured with organizational knowledge, domain-specific skills, prompts, and referenced capabilities. This CRD is managed by the **Seer Operator**.
+
+---
+
+## Naming Conventions
+
+### Resource Naming
+
+| Pattern | Example | Description |
+|---------|---------|-------------|
+| `{agent-name}-v{version}` | `dispute-triage-agent-v1` | Standard versioned training |
+| `{agent-name}-{domain}-v{version}` | `analyst-disputes-v1` | Domain-scoped training |
+
+### Display Name
+
+Use pattern: `"{Name} (Training Spec)"` or include in `spec.context.identity.displayName`.
+
+### Required Labels
+
+```yaml
+labels:
+  seer.olympus.io/resource-type: training-spec
+  seer.olympus.io/domain: {domain-name}
+  seer.olympus.io/agent-type: {case-worker|orchestrator|specialist}
+  seer.olympus.io/role: {role-name}
+```
+
+### Recommended Annotations
+
+```yaml
+annotations:
+  seer.olympus.io/source-scenario: "{scenario-name}"
+  seer.olympus.io/source-workbench: "{workbench-name}"
+  seer.olympus.io/genesis-date: "{date}"
+  seer.olympus.io/conceived-by: "{persona}: {identity}"
+```
 
 ---
 

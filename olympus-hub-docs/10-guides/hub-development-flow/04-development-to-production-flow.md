@@ -75,12 +75,20 @@ This document walks through the full lifecycle of a change from development to p
 
 ### Step 1: Develop
 
-**What you do:** Edit Scenario CRDs and Hub Application code.
+**What you do:** Open remote workspace, edit Scenario CRDs and Hub Application code, then commit to Git.
 
 ```bash
-# Your local development
-vim scenarios/standard-dispute/automation.yaml
-vim applications/dispute-handler/src/main.py
+# On your laptop — open remote workspace
+hubdev workspace open dispute-ops-dev
+
+# In VS Code (remote workspace), edit files:
+# - scenarios/standard-dispute/automation.yaml
+# - applications/dispute-handler/src/main.py
+
+# Commit and push changes (GitOps requirement)
+git add .
+git commit -m "feat: update standard-dispute scenario"
+git push
 ```
 
 **What changes:**
@@ -88,6 +96,8 @@ vim applications/dispute-handler/src/main.py
 - Source code for Hub Applications
 - Trigger definitions
 - Notification templates
+
+**Note:** All editing happens in the remote workspace, not on your local machine. All changes must be committed to Git before syncing.
 
 ### Step 2: Build
 
@@ -108,19 +118,33 @@ registry.hub.acme.com/dev-sub/dispute-ops-dev/dispute-handler:1.2.3-beta.1+abc12
 
 ### Step 3: Sync
 
-**What you do:** Sync CRD changes to your DEV workbench.
+**What you do:** Sync scenario from committed Git files to your DEV workbench instance. The smallest unit of deployment is a **Scenario**.
 
 | What Gets Synced | Where It Goes |
 |------------------|---------------|
-| Scenario specs | Workbench runtime |
+| Scenario specs (all 3 spec files) | Workbench runtime |
 | Trigger definitions | Signal Exchange |
 | Task queue configs | Task Management |
 | Application references | Runtime deployment |
 
 **How:**
-- Via Developer Console UI: "Sync" button
-- Via API: POST to sync endpoint
-- Automatic: On CI completion (if configured)
+
+```bash
+# Via hub CLI (in remote workspace)
+# Note: Changes must be committed to Git first (see Step 1)
+hub sync scenario standard-dispute
+
+# Watch deployment progress
+hub get scenario-deployment standard-dispute-dev --watch
+```
+
+**What Gets Synced**: When you run `hub sync scenario standard-dispute`, Hub:
+- Reads all 3 scenario spec files from Git (ScenarioNormativeSpec, ScenarioAutomationSpec, ScenarioDeploymentSpec)
+- Reads all referenced resource files from Git (HubApplicationSpec, etc.)
+- Syncs **all resources** in the scenario atomically
+- Generates HubApplicationDeployment and child resources
+
+Or via Developer Console UI: "Sync" button (also reads from Git).
 
 ### Step 4: Test
 
@@ -305,14 +329,21 @@ spec:
 
 | Phase | Actor | Action | Result |
 |-------|-------|--------|--------|
-| Develop | Developer | Edit CRDs, code | Changes in Git |
+| Develop | Developer | Edit CRDs, code, commit to Git | Changes committed in Git |
 | Build | CI System | Compile, test | Container in snapshot registry |
-| Sync | Developer | Push to workbench | Changes live in DEV |
+| Sync | Developer | Sync scenario from Git to workbench | Changes live in DEV |
 | Test | Developer | Validate changes | Confidence in quality |
 | Request | Developer | Submit promotion | Request in queue |
 | Approve | Admin | Review, approve | Promotion authorized |
 | Copy | System | Transfer artifacts | Artifacts in PROD subscription |
-| Deploy | System | Sync to PROD | Changes live in PROD |
+| Deploy | System | Sync scenario to PROD | Changes live in PROD |
+
+---
+
+## Related Documentation
+
+- [CLI Channels for Developers](../../06-ux-architecture/tenant-domain/cli-channels-for-developers.md) — Full CLI command reference
+- [Hub CLI Setup](../hub-cli-setup.md) — Installation guide
 
 ---
 

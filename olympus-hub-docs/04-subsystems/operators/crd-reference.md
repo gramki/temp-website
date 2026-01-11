@@ -54,6 +54,7 @@ This document provides a quick reference for all Custom Resource Definitions (CR
 | `ScenarioAutomationSpec` | scenario-developer-operator | Developer | Application, tools, runtime |
 | `ScenarioDeploymentSpec` | scenario-developer-operator | Developer | SLAs, queues, activation |
 | `HubApplicationSpec` | hub-application-operator | Developer | Application code and config |
+| `HubApplicationDeployment` | hub-application-operator | (Generated) | Running application instance — parent of runtime resources |
 | `LogAlertSpec` | workbench-apm-operator | Developer | Log-based alerts |
 | `MetricAlertSpec` | workbench-apm-operator | Developer | Metric-based alerts |
 | `ProbeSpec` | workbench-apm-operator | Developer | Health and availability probes |

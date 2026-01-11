@@ -687,60 +687,109 @@ spec:
 
 Defines a Hub Application with its code, configuration, and dependencies.
 
+#### Naming Conventions
+
+| Runtime | Resource Name Pattern | Display Name Pattern |
+|---------|----------------------|---------------------|
+| **Seer (Trained Agent)** | `{agent-name}` | `"{Name} (Trained Agent)"` |
+| **Rhea** | `{workflow-name}-app` | `"{Name} Application"` |
+| **Atlantis** | `{service-name}-app` | `"{Name} Application"` |
+
+#### Labels for Seer Trained Agents
+
+```yaml
+labels:
+  hub.olympus.io/workbench: {workbench-name}
+  hub.olympus.io/runtime: seer
+  seer.olympus.io/resource-type: trained-agent  # Indicates this is a Trained Agent
+  seer.olympus.io/agent-type: {case-worker|orchestrator|specialist}
+```
+
+#### Example: Seer Trained Agent (Canonical Pattern)
+
+For Seer AI agents, use `seerTrainingRef` to reference a `TrainingSpec`:
+
 ```yaml
 apiVersion: hub.olympus.io/v1
 kind: HubApplicationSpec
 metadata:
-  name: standard-dispute-application
-  namespace: acme-bank
+  name: dispute-triage-agent
+  namespace: acme-disputes
   labels:
-    workbench: dispute-operations
+    hub.olympus.io/workbench: acme-disputes
+    hub.olympus.io/runtime: seer
+    seer.olympus.io/resource-type: trained-agent
+    seer.olympus.io/agent-type: case-worker
+  annotations:
+    seer.olympus.io/training-spec: "dispute-triage-agent-v1"
+    seer.olympus.io/raw-agent: "dispute-analyst-base:^2.0.0"
 spec:
   # Identity
   application:
-    name: standard-dispute-application
-    display_name: "Standard Dispute Resolution Application"
-    version: "2.0.0"
-    description: "Handles standard dispute resolution workflow"
+    name: dispute-triage-agent
+    display_name: "Dispute Triage Agent (Trained Agent)"  # Convention: include type
+    version: "1.0.0"
+    description: "AI agent for routine dispute triage - Trained Agent for Seer runtime"
 
   # Runtime
   runtime:
-    type: seer  # seer | rhea | atlantis | chronoshift | http-tool-calling
+    type: seer
     version: "1.0.0"
 
-  # Source Code (for applicable runtimes)
-  source:
-    type: git
-    repository: "https://github.com/acme-bank/dispute-applications"
-    branch: main
-    path: "standard-dispute/"
-    
-    # Or inline for simple applications
-    # type: inline
-    # content: |
-    #   ... application code ...
+  # CANONICAL: Reference to Seer TrainingSpec
+  # Use seerTrainingRef for formally trained agents
+  seerTrainingRef:
+    name: dispute-triage-agent-v1
+    namespace: acme-disputes
+    version: "1.0.0"
 
-  # For Seer (AI Agent) Runtime
-  seer_config:
-    agent_prompt:
-      type: file
-      path: "prompts/agent.md"
-    
+  # Hub-side tool protocol references (normative)
+  # These are resolved to operative bindings at deployment time
+  dependencies:
     tools:
-      - ref: get-transaction
-      - ref: post-provisional-credit
-      - ref: initiate-chargeback
-      - ref: create-task
-      - ref: search-knowledge
+      - protocol: case-lookup
+      - protocol: document-request
+      - protocol: refund-processor
     
-    model:
-      provider: bedrock
-      model_id: anthropic.claude-3-sonnet
-      temperature: 0.1
-      max_tokens: 4096
+    knowledge_stores:
+      - dispute-policies-kb
+      - refund-rules-kb
+    
+    memory_stores:
+      - case-dialog-store
 
-  # For Rhea (Workflow) Runtime
-  rhea_config:
+  # Configuration (environment-agnostic)
+  configuration:
+    env_vars:
+      LOG_LEVEL: info
+```
+
+> **Note**: For Seer agents, `seerTrainingRef` is the canonical pattern. It references a `TrainingSpec` CRD managed by Seer Operator. The `TrainingSpec` contains prompts, knowledge bindings, guardrails, and behavioral configuration.
+
+#### Example: Rhea Workflow Application
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: HubApplicationSpec
+metadata:
+  name: dispute-workflow-app
+  namespace: acme-disputes
+  labels:
+    hub.olympus.io/workbench: acme-disputes
+    hub.olympus.io/runtime: rhea
+spec:
+  application:
+    name: dispute-workflow-app
+    display_name: "Dispute Resolution Workflow Application"
+    version: "2.0.0"
+    description: "BPMN workflow for dispute resolution"
+
+  runtime:
+    type: rhea
+    version: "1.0.0"
+
+  # Rhea-specific configuration
+  rheaConfig:
     workflow_definition:
       type: file
       path: "workflows/main.yaml"
@@ -751,20 +800,46 @@ spec:
       - name: contact_merchant
         handler: activities.contact_merchant
 
-  # Dependencies
   dependencies:
     tools:
       - acme-get-transaction
       - acme-post-provisional-credit
-      - acme-visa-chargeback
-    
-    knowledge_stores:
-      - compliance-knowledge
-    
-    memory_stores:
-      - agent-memory-cache
+```
 
-  # Configuration
+#### Example: Atlantis Container Application
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: HubApplicationSpec
+metadata:
+  name: dispute-handler-app
+  namespace: acme-disputes
+  labels:
+    hub.olympus.io/workbench: acme-disputes
+    hub.olympus.io/runtime: atlantis
+spec:
+  application:
+    name: dispute-handler-app
+    display_name: "Dispute Handler Application"
+    version: "1.5.0"
+    description: "Custom business logic for dispute handling"
+
+  runtime:
+    type: atlantis
+    version: "1.0.0"
+
+  # Container source
+  source:
+    type: git
+    repository: "https://github.com/acme-bank/dispute-applications"
+    branch: main
+    path: "dispute-handler/"
+
+  dependencies:
+    tools:
+      - acme-get-transaction
+      - acme-visa-chargeback
+
   configuration:
     env_vars:
       LOG_LEVEL: info
@@ -774,7 +849,6 @@ spec:
       - name: API_KEY
         vault_ref: secrets/dispute-app/api-key
 
-  # Health Check
   health:
     endpoint: /health
     interval_seconds: 30

@@ -300,11 +300,12 @@ spec:
 
 ## Channel Support
 
-| Channel | Access |
-|---------|--------|
-| **Web** | Full desk access |
-| **MCP** | Application query, deployment triggers via Creator Gateway |
-| **REST** | Programmatic CI/CD integration |
+| Channel | Access | Documentation |
+|---------|--------|---------------|
+| **Web** | Full desk access | This document |
+| **CLI** | Full development workflow via `hub` commands | [CLI Channels for Developers](./cli-channels-for-developers.md) |
+| **MCP** | Application query, deployment triggers via Creator Gateway | — |
+| **REST** | Programmatic CI/CD integration | — |
 
 ---
 
@@ -312,6 +313,8 @@ spec:
 
 - [Developer Persona](../../08-personas-and-journeys/personas/developer.md)
 - [Scenario Development Journey](../../08-personas-and-journeys/journeys/scenario-development.md)
+- [CLI Channels for Developers](./cli-channels-for-developers.md) — Command-line interface reference
+- [Hub CLI Installation Guide](../../10-guides/hub-cli-setup.md) — CLI installation and setup
 - [Scenario Design Desk](./scenario-design-desk.md) — Upstream: Normative specifications
 - [Supervisor Desk](./supervisor-desk.md) — Downstream: Deployment and operations
 - [Angelos Framework](../frameworks-and-integrations/angelos-framework.md) — UI component framework

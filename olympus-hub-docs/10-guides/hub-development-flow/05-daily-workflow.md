@@ -12,34 +12,48 @@ This document describes typical day-to-day activities when developing on Hub.
 
 ## Morning: Starting Your Day
 
-### 1. Check Workbench Status
+### 1. Open Your Workspace
 
-```
-Developer Console → Your Workbench → Status
-
-What to check:
-├── Any failed deployments overnight?
-├── Test results from scheduled runs?
-├── Notifications from team?
-└── Pending promotion requests?
+```bash
+# On your laptop
+hubdev login                          # If not already logged in
+hubdev workspace open dispute-ops-dev  # Opens VS Code to remote workspace
 ```
 
-### 2. Sync Latest Changes (If Shared Workbench)
+### 2. Check Status (In Workspace Terminal)
+
+```bash
+# Check recent deployments
+hub get scenario-deployment
+
+# Check any agent issues
+hub health --all
+
+# View recent events
+hub events --all
+
+# Check current context
+hub context
+```
+
+### 3. Sync Latest Changes (If Shared Workbench)
 
 If working in a shared DEV workbench:
 
 ```bash
-# Pull latest CRDs from Git
-cd subscription-repo/workbenches/dispute-ops-dev
-git pull
+# In remote workspace — pull latest from Git
+hub branch                    # Check current branch
+git pull                     # Pull latest (standard git)
 
 # Check what changed
 git log --oneline -5
 ```
 
 > **Terminology Clarification:**  
-> - **Git pull/push** = Moving CRD files between your local machine and the Git repository  
-> - **Workbench Sync** = Applying CRD changes from Git to the running workbench (via Developer Console or API)
+> - **Git pull/push** = Moving CRD files in the remote workspace Git repository  
+> - **hub sync scenario** = Deploying scenario from committed Git files to the running workbench instance
+> 
+> **GitOps Pattern**: All `hub` commands read from **committed Git files**, not the local filesystem. Always `git commit` and `git push` before `hub sync scenario`.
 
 ---
 
@@ -58,17 +72,22 @@ git log --oneline -5
 │            │                                                                 │
 │            ▼                                                                 │
 │       ┌──────────┐                                                          │
-│       │  BUILD   │  2. Trigger Runtime CI (if code changes)                 │
+│       │  COMMIT  │  2. Commit and push to Git (GitOps requirement)         │
 │       └────┬─────┘                                                          │
 │            │                                                                 │
 │            ▼                                                                 │
 │       ┌──────────┐                                                          │
-│       │  SYNC    │  3. Sync changes to DEV workbench                        │
+│       │  BUILD   │  3. Trigger Runtime CI (if code changes)                 │
 │       └────┬─────┘                                                          │
 │            │                                                                 │
 │            ▼                                                                 │
 │       ┌──────────┐                                                          │
-│       │  TEST    │  4. Test your changes                                    │
+│       │  SYNC    │  4. Sync scenario to DEV workbench                       │
+│       └────┬─────┘                                                          │
+│            │                                                                 │
+│            ▼                                                                 │
+│       ┌──────────┐                                                          │
+│       │  TEST    │  5. Test your changes                                    │
 │       └────┬─────┘                                                          │
 │            │                                                                 │
 │            ├─── Works? ───▶ Continue or request promotion                   │
@@ -77,6 +96,16 @@ git log --oneline -5
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
+
+> **Understanding GitOps: Why Commit First?**
+> 
+> Hub commands operate on **committed Git files only**, not your local filesystem. This ensures:
+> - Complete audit trail in Git history
+> - Branch-based isolation
+> - Reproducible deployments
+> - 100% GitOps compliance
+> 
+> **Workflow**: Always `git commit` and `git push` before `hub sync scenario`.
 
 ---
 
@@ -106,15 +135,16 @@ spec:
 ```
 
 ```bash
-# 2. Commit and push to Git
+# 2. Commit and push to Git (GitOps requirement)
 git add triggers/dispute-submitted.yaml
 git commit -m "[dispute-ops-dev/standard-dispute] feat: add high-value routing"
 git push
 
-# 3. Sync to workbench (via UI or API)
-# Developer Console → Sync → Confirm
+# 3. Sync scenario (reads from Git)
+hub sync scenario standard-dispute
 
 # 4. Test the change
+hub watch scenario-deployment standard-dispute-dev
 # Send a test signal with amount > 1000
 ```
 
@@ -133,16 +163,20 @@ def process_dispute(dispute):
 ```
 
 ```bash
-# 2. Trigger Runtime CI
-# Developer Console → Applications → dispute-handler → Build
+# 2. Commit and push code changes (GitOps requirement)
+git add applications/dispute-handler/
+git commit -m "[dispute-ops-dev] fix: handle null customer name"
+git push
 
-# 3. Wait for build completion
-# Build logs available in console
+# 3. Trigger Runtime CI (in remote workspace)
+hub build application dispute-handler
+hub get build dispute-handler --watch
 
-# 4. Sync workbench (picks up new container version)
-# Developer Console → Sync → Confirm
+# 4. Sync scenario (picks up new container version from Git)
+hub sync scenario standard-dispute
 
 # 5. Test the fix
+hub watch request REQ-2026-01-11-00042
 # Send test signal that previously failed
 ```
 
@@ -247,32 +281,65 @@ Request promotion before leaving:
 
 ## Quick Reference: Common Commands
 
-### Git Operations
+### Workspace Access (hubdev — on your laptop)
 
 ```bash
-# Pull latest
-git pull
-
-# Check status
-git status
-
-# Commit changes
-git add .
-git commit -m "[workbench/scenario] type: description"
-
-# Push
-git push
+hubdev login                              # Authenticate
+hubdev workspace list                     # List available instances
+hubdev workspace open dispute-ops-dev     # Open workspace
+hubdev workspace open dispute-ops-dev --branch feature/x  # Specific branch
 ```
 
-### Developer Console Actions
+### Development (hub — in remote workspace)
 
-| Action | Path |
-|--------|------|
-| Sync workbench | Workbench → Sync |
-| Trigger build | Applications → [App] → Build |
-| View logs | Workbench → Logs |
-| Run tests | Test Runner → Run |
-| Request promotion | Workbench → Promote |
+```bash
+# Validate (optional, before committing)
+hub validate scenario standard-dispute
+hub validate -f scenarios/standard-dispute/automation.yaml
+
+# Commit and push (GitOps requirement)
+git add .
+git commit -m "[workbench/scenario] type: description"
+git push
+
+# Deploy (reads from Git)
+hub sync scenario standard-dispute        # Deploy scenario
+hub sync scenario standard-dispute --wait # Wait for completion
+
+# Monitor
+hub logs agent my-agent-emp-001 --follow
+hub metrics agent my-agent-emp-001
+hub watch request REQ-2026-01-11-00042    # Watch specific request
+hub watch scenario-deployment standard-dispute-dev  # Watch all requests
+
+# Validate & Publish
+hub validate training-spec my-agent-v1 --workbench dispute-ops-dev
+hub publish training-spec my-agent-v1 --version 1.0.0
+```
+
+### Git Operations (in remote workspace)
+
+```bash
+hub branch                     # List/switch branches
+hub branch feature/new --new   # Create new branch
+git pull                       # Pull latest
+git status                     # Check status
+git add .                      # Stage changes
+git commit -m "[workbench/scenario] type: description"
+git push                       # Push to remote
+```
+
+### Developer Console Actions (Alternative to CLI)
+
+| Action | Console Path | CLI Equivalent |
+|--------|--------------|----------------|
+| Validate scenario | — | `hub validate scenario <name>` |
+| Sync workbench | Workbench → Sync | `hub sync scenario <name>` |
+| View logs | Workbench → Logs | `hub logs agent <name>` |
+| Run tests | Test Runner → Run | `hub validate training-spec <name>` |
+| Request promotion | Workbench → Promote | `hub request-approval scenario-deployment <name>` |
+
+> **Note**: All changes must be committed to Git before syncing. Use `git commit` and `git push` in the workspace terminal, then sync via console or CLI.
 
 ---
 
@@ -282,10 +349,37 @@ git push
 
 ```
 Possible causes:
+├── Branch mismatch → Check hub context, switch to workbench branch
+├── Dirty files → Commit or stash uncommitted changes
 ├── CRD validation error → Check YAML syntax
 ├── Reference missing → Ensure referenced resources exist
 ├── Permission denied → Check your workbench access
 └── Version conflict → Pull latest, resolve, retry
+```
+
+### "Branch Mismatch Error"
+
+```
+❌ ERROR: Branch Mismatch
+   Current git branch: feature/new-trigger
+   Workbench instance branch: main
+
+To fix:
+├── Switch to workbench branch: hub branch main && git pull
+├── Request new workbench instance for your branch (contact Tenant Admin)
+└── Update workbench instance branch (requires admin/authorized dev)
+```
+
+### "Dirty Files Error"
+
+```
+❌ ERROR: Dirty Files Detected
+   Scenario files have uncommitted local changes
+
+To fix:
+├── Commit changes: git add . && git commit -m "message" && git push
+├── Stash changes: git stash && hub sync scenario <name> && git stash pop
+└── Discard changes: git checkout <files>
 ```
 
 ### "Build failed"
@@ -318,6 +412,13 @@ Possible causes:
 | **Development** | Edit → Build → Sync → Test loop |
 | **Testing** | Manual tests, Hub Test Runner |
 | **End of day** | Commit, push, request promotions |
+
+---
+
+## Related Documentation
+
+- [CLI Channels for Developers](../../06-ux-architecture/tenant-domain/cli-channels-for-developers.md) — Full CLI command reference
+- [Hub CLI Setup](../hub-cli-setup.md) — Installation guide
 
 ---
 

@@ -92,7 +92,6 @@ apiVersion: hub.olympus.io/v1
 kind: HubApplicationSpec
 metadata:
   name: dispute-handler
-  namespace: acme-bank
 spec:
   display_name: "Dispute Handler"
   version: "1.2.3"
@@ -326,6 +325,7 @@ spec:
 
 | Concept | Relationship |
 |---------|--------------|
+| [Hub Application Deployment](./hub-application-deployment.md) | Running instance of a Hub Application (generated from ScenarioDeploymentSpec) |
 | [Cognitive Application](./cognitive-application.md) | Capability profile for task-emitting, context-compiling applications |
 | [Automation Runtime](./automation-runtime.md) | Hosts Hub Applications |
 | [Signal Exchange](./signal-exchange.md) | Routes requests to Applications |

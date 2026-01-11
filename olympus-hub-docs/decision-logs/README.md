@@ -113,6 +113,7 @@ All ADRs follow the standard format:
 | [0089](./0089-bidirectional-devops-workbench-binding.md) | Bidirectional DevOps Workbench Binding (Two CRDs) | Accepted | 2026-01-09 | devops-workbench |
 | [0090](./0090-signal-routing-via-atropos-devops.md) | Signal Routing via Atropos for DevOps | Accepted | 2026-01-09 | devops-workbench |
 | [0091](./0091-git-based-crd-publishing.md) | Git-Based CRD Publishing for DevOps Workbench | Accepted | 2026-01-09 | devops-workbench |
+| [0092](./0092-hub-resources-no-namespace-concept.md) | Hub Resources Do Not Use Namespace Concept | Accepted | 2026-01-11 | CLI, CRD Design |
 
 ---
 
@@ -261,7 +262,9 @@ All ADRs follow the standard format:
 - [0089](./0089-bidirectional-devops-workbench-binding.md) - Two-CRD model with operators for bidirectional binding
 - [0090](./0090-signal-routing-via-atropos-devops.md) - Signal routing via Atropos for cross-workbench events
 - [0091](./0091-git-based-crd-publishing.md) - Git-based CRD publishing with PR approval workflow
-- [0091](./0091-git-based-crd-publishing.md) - Git-based CRD publishing with PR approval workflow
+
+### CLI & CRD Design
+- [0092](./0092-hub-resources-no-namespace-concept.md) - Hub Resources Do Not Use Namespace Concept (workbench instance scoping)
 
 ---
 

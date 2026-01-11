@@ -1,4 +1,17 @@
+
+# Agent Lifecycle:
+	- Raw Agent
+	- Trained Agent (Scenario Specification along with Trained Agent Specification	)
+	- Employed Agent (Scenario Deployment Specification along with Employment Specification)
+
+
+
+
+
+
+	========== ORIGINAL REQUIREMENTS FOR AN AGENT PLATFORM ==============
 Requirements for an Agent Platform:
+
 
 ☐ Instantiation and Session management semantics that allow for fine-grained scoping of Agents (User-Agent like Agents vs. Bots/Service-Agents (Single-Role-based agents))
 ☐ Need to create and administer feedback loops for agent responses

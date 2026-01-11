@@ -59,4 +59,5 @@ Create a session note when:
 | Date | Topic | Summary |
 |------|-------|---------|
 | [2026-01-06](./2026-01-06-quality-infrastructure.md) | Quality Infrastructure | Templates, cursor rules, design debt, PERIODIC-TODO |
+| [2026-01-11](./2026-01-11-hub-namespace-concept-removal.md) | Hub Namespace Concept Removal | Removed namespace from Hub resources, standardized on workbench instance scoping, fixed inconsistencies across 7 documentation files, created ADR-0092 |
 

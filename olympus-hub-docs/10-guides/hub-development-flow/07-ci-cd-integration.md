@@ -71,6 +71,12 @@ Runtime CI is provided by each Hub Application Runtime:
 
 ### Triggering a Build
 
+**Via hub CLI (in remote workspace):**
+```bash
+hub build application dispute-handler
+hub get build dispute-handler --watch
+```
+
 **Via Developer Console:**
 ```
 Applications → [Your App] → Build → Trigger
@@ -181,6 +187,20 @@ spec:
 
 ### Running Tests
 
+**Via hub CLI (in remote workspace):**
+```bash
+# Validate scenario (optional, before committing)
+hub validate scenario standard-dispute
+
+# Commit changes (GitOps requirement)
+git add .
+git commit -m "feat: update scenario"
+git push
+
+# Run test suite
+hub test suite dispute-full-flow
+```
+
 **Via Developer Console:**
 ```
 Test Runner → Suites → dispute-full-flow → Run
@@ -218,29 +238,34 @@ Tests:
 │   1. CODE CHANGE                                                             │
 │      └── Developer edits code/CRDs                                          │
 │                                                                              │
-│   2. BUILD (if code changes)                                                 │
+│   2. COMMIT TO GIT (GitOps requirement)                                     │
+│      └── git add . && git commit && git push                               │
+│      └── All hub commands read from committed Git files                     │
+│                                                                              │
+│   3. BUILD (if code changes)                                                 │
 │      └── Runtime CI builds and unit tests                                   │
 │      └── ❌ Fail? → Fix and retry                                           │
 │                                                                              │
-│   3. SYNC TO DEV                                                             │
-│      └── Developer syncs changes to DEV workbench                           │
+│   4. SYNC TO DEV                                                             │
+│      └── Developer syncs scenario from Git to DEV workbench               │
+│      └── hub sync scenario <name> (reads from Git)                          │
 │                                                                              │
-│   4. INTEGRATION TEST                                                        │
+│   5. INTEGRATION TEST                                                        │
 │      └── Hub Test Runner executes tests                                     │
 │      └── ❌ Fail? → Fix and retry                                           │
 │                                                                              │
-│   5. REQUEST PROMOTION                                                       │
+│   6. REQUEST PROMOTION                                                       │
 │      └── Developer requests promotion to STAGING/PROD                       │
 │                                                                              │
-│   6. APPROVAL                                                                │
+│   7. APPROVAL                                                                │
 │      └── Admin reviews and approves                                         │
 │      └── ❌ Rejected? → Address feedback                                    │
 │                                                                              │
-│   7. DEPLOYMENT                                                              │
+│   8. DEPLOYMENT                                                              │
 │      └── Artifacts promoted to target                                       │
 │      └── Migrations executed (if any)                                       │
 │                                                                              │
-│   8. VERIFICATION                                                            │
+│   9. VERIFICATION                                                            │
 │      └── Smoke tests in target environment (optional)                       │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
@@ -316,6 +341,13 @@ Events:
 | **Runtime CI** | Build and unit test | Code changes |
 | **Test Runner** | Integration test | Before promotion |
 | **Promotion** | Deployment | Moving to STAGING/PROD |
+
+---
+
+## Related Documentation
+
+- [CLI Channels for Developers](../../06-ux-architecture/tenant-domain/cli-channels-for-developers.md) — Full CLI command reference
+- [Hub CLI Setup](../hub-cli-setup.md) — Installation guide
 
 ---
 

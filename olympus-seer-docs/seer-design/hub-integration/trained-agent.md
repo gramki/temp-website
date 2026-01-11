@@ -1,14 +1,61 @@
 # Trained Agent as Hub Application
 
 > **Status**: 🟡 Draft  
-> **Last Updated**: 2026-01-08  
+> **Last Updated**: 2026-01-11  
 > **Parent**: [Seer-Hub Integration](./README.md)
 
 ---
 
 ## Overview
 
-A **Trained Agent** is a Raw Agent configured with organizational knowledge, domain-specific skills, and defined responsibilities. In Hub terms, a Trained Agent corresponds to a **Hub Application Specification** with `runtime: seer`.
+A **Trained Agent** is a Raw Agent configured with organizational knowledge, domain-specific skills, and defined responsibilities. In Hub terms, a Trained Agent corresponds to a **Hub Application Specification** with `runtime: seer` and a `seerTrainingRef` pointing to a `TrainingSpec`.
+
+---
+
+## Naming Conventions
+
+### Resource Naming
+
+| CRD | Naming Pattern | Example |
+|-----|----------------|---------|
+| **TrainingSpec** | `{agent-name}-v{version}` | `dispute-triage-agent-v1` |
+| **HubApplicationSpec** | `{agent-name}` | `dispute-triage-agent` |
+
+### Display Name Conventions
+
+| CRD | Display Name Pattern |
+|-----|---------------------|
+| **TrainingSpec** | `"{Name} (Training Spec)"` |
+| **HubApplicationSpec** | `"{Name} (Trained Agent)"` |
+
+### Required Labels
+
+For `HubApplicationSpec` representing a Trained Agent:
+
+```yaml
+metadata:
+  labels:
+    hub.olympus.io/workbench: {workbench-name}
+    hub.olympus.io/runtime: seer
+    seer.olympus.io/resource-type: trained-agent
+    seer.olympus.io/agent-type: {case-worker|orchestrator|specialist}
+  annotations:
+    seer.olympus.io/training-spec: "{training-spec-name}"
+    seer.olympus.io/raw-agent: "{raw-agent-name}:{version}"
+```
+
+For `TrainingSpec`:
+
+```yaml
+metadata:
+  labels:
+    seer.olympus.io/resource-type: training-spec
+    seer.olympus.io/agent-type: {case-worker|orchestrator|specialist}
+    seer.olympus.io/domain: {domain-name}
+  annotations:
+    seer.olympus.io/source-scenario: "{scenario-name}"
+    seer.olympus.io/source-workbench: "{workbench-name}"
+```
 
 ---
 
