@@ -1,8 +1,9 @@
 # AI Risk & Audit Owner (ARAO)
 
 > **Status:** Reference Document  
-> **Last Updated:** 2026-01-09  
-> **Related:** [Role Definitions](./roles.md) | [ARE Reference](./are.md)
+> **Last Updated:** 2026-01-13  
+> **Related:** [Role Definitions](./roles.md) | [ARE Reference](./are.md)  
+> **Detailed Needs:** [Audit Readiness and Evidence Requirements](./needs/arao-audit-readiness.md)
 
 ---
 

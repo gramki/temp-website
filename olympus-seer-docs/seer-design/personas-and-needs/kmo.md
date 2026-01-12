@@ -1,8 +1,9 @@
 # Knowledge & Memory Owner (KMO)
 
 > **Status:** Reference Document  
-> **Last Updated:** 2026-01-09  
-> **Related:** [Role Definitions](./roles.md) | [CSA Reference](./csa.md)
+> **Last Updated:** 2026-01-13  
+> **Related:** [Role Definitions](./roles.md) | [CSA Reference](./csa.md)  
+> **Detailed Needs:** [Enterprise Learning and Memory Promotion](./needs/kmo-enterprise-learning.md)
 
 ---
 

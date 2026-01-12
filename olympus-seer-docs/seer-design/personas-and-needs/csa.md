@@ -1,8 +1,9 @@
 # Cognitive Systems Architect (CSA)
 
 > **Status:** Reference Document  
-> **Last Updated:** 2026-01-09  
-> **Related:** [Role Definitions](./roles.md) | [APO Reference](./apo.md)
+> **Last Updated:** 2026-01-13  
+> **Related:** [Role Definitions](./roles.md) | [APO Reference](./apo.md)  
+> **Detailed Needs:** [Design Validation and Pattern Compliance](./needs/csa-design-validation.md)
 
 ---
 

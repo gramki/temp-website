@@ -1,8 +1,9 @@
 # Automation Product Owner (APO) — Seer Extensions
 
 > **Status:** Reference Document  
-> **Last Updated:** 2026-01-09  
-> **Related:** [Hub APO Definition](../../../olympus-hub-docs/08-personas-and-journeys/personas/automation-product-owner.md) | [Role Definitions](./roles.md)
+> **Last Updated:** 2026-01-13  
+> **Related:** [Hub APO Definition](../../../olympus-hub-docs/08-personas-and-journeys/personas/automation-product-owner.md) | [Role Definitions](./roles.md)  
+> **Detailed Needs:** [Business Outcomes and Autonomy Management](./needs/apo-business-outcomes-and-autonomy.md)
 
 ---
 

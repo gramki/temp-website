@@ -1,8 +1,9 @@
 # Agent Reliability Engineer (ARE)
 
 > **Status:** Reference Document  
-> **Last Updated:** 2026-01-09  
-> **Related:** [Role Definitions](./roles.md) | [AE Deliverables to ARE](./ae-deliverables-to-are.md)
+> **Last Updated:** 2026-01-13  
+> **Related:** [Role Definitions](./roles.md) | [AE Deliverables to ARE](./needs/ae-deliverables-to-are.md)  
+> **Detailed Needs:** [Production Readiness Requirements](./needs/production-readiness.md)
 
 ---
 

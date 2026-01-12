@@ -88,7 +88,7 @@ Seer UX follows the same (Persona, Channel, Use Case) approach as Hub:
 
 - [Role Definitions](../personas-and-needs/roles.md) — Persona definitions
 - [Hub UX Architecture](../../../olympus-hub-docs/06-ux-architecture/README.md) — Hub UX patterns
-- [Observability Extensions](../subsystems/observability-extensions-to-watch.md) — Watch integration
+- [Observability Extensions](../subsystems/observability-extensions-to-watch/README.md) — Watch integration
 - [Production Readiness](../personas-and-needs/needs/production-readiness.md) — ARE gate process
 
 ---

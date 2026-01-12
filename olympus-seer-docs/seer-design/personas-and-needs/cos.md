@@ -1,8 +1,9 @@
 # Cognitive Operations Steward (COS)
 
 > **Status:** Reference Document  
-> **Last Updated:** 2026-01-09  
-> **Related:** [Role Definitions](./roles.md) | [ARE Reference](./are.md)
+> **Last Updated:** 2026-01-13  
+> **Related:** [Role Definitions](./roles.md) | [ARE Reference](./are.md)  
+> **Detailed Needs:** [Behavioral Monitoring and Drift Detection](./needs/cos-behavioral-monitoring.md)
 
 ---
 

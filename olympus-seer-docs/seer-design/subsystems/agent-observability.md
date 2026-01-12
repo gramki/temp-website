@@ -517,7 +517,7 @@ obs = SeerObservability(
 ## Related Documentation
 
 - [Olympus Watch](https://watch.olympus.tech/) — Observability platform
-- [Observability Extensions to Watch](./observability-extensions-to-watch.md) — Platform-level dashboards and tools for Seer SRE personas
+- [Observability Extensions to Watch](../observability-extensions-to-watch/README.md) — Platform-level dashboards and tools for Seer SRE personas
 - [Runtime Deployment](./agent-runtime/runtime-deployment.md) — Pod configuration
 - [Model Gateway](./model-gateway.md) — LLM metrics
 - [Guardrails](./guardrails.md) — Guardrail metrics

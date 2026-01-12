@@ -694,7 +694,7 @@ Some consoles appear in multiple desks with appropriate permissions:
 | **Seer CLI** | Command-line tools for AE, ARE |
 | **Seer MCP Server** | AI assistant access |
 | **Seer REST API** | Programmatic access |
-| **Watch Integration** | Observability dashboards (via [Observability Extensions](../subsystems/observability-extensions-to-watch.md)) |
+| **Watch Integration** | Observability dashboards (via [Observability Extensions](../subsystems/observability-extensions-to-watch/README.md)) |
 
 ---
 

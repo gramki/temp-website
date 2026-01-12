@@ -79,49 +79,48 @@ This tracker serves as a **published reference** (unlike scratchpad files which 
 ### Layer 2: Platform-Level Observability
 
 #### Personas & Dashboards
-- ✅ AI Platform Engineer dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 1: AI Platform Engineer §Dashboards
-- ✅ LLMOps Engineer dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 2: LLMOps Engineer §Dashboards
-- ✅ SRE for Agentic Systems dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 3: SRE for Agentic Systems §Dashboards
-- ✅ Security Architect (AI-focused) dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 4: Security Architect (AI-focused) §Dashboards
-- ✅ Unified Operations Center dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Cross-Persona: Unified Operations View
+- ✅ AI Platform Engineer dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 1: AI Platform Engineer
+- ✅ LLMOps Engineer dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 2: LLMOps Engineer
+- ✅ SRE for Agentic Systems dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems
+- ✅ Security Architect (AI-focused) dashboard - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect (AI-focused)
 
 #### Platform Health Metrics
-- ✅ Runtime health metrics (pods, restarts, scaling, resource usage) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 1 §Metrics §Runtime Health Metrics
-- ✅ Tool registry metrics (tools total, versions, lookup latency, sync errors) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 1 §Metrics §Tool Registry Metrics
-- ✅ Policy engine metrics (evaluations, latency, bundle sync, compile errors) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 1 §Metrics §Policy Engine Metrics
+- ✅ Runtime health metrics (pods, restarts, scaling, resource usage) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 1: AI Platform Engineer §Metrics §Runtime Health Metrics
+- ✅ Tool registry metrics (tools total, versions, lookup latency, sync errors) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 1: AI Platform Engineer §Metrics §Tool Registry Metrics
+- ✅ Policy engine metrics (evaluations, latency, bundle sync, compile errors) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 1: AI Platform Engineer §Metrics §Policy Engine Metrics
 
 #### LLMOps Metrics
-- ✅ Model performance metrics (requests, latency, tokens, cost, errors, fallbacks) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 2 §Metrics §Model Performance Metrics
-- ✅ Prompt versioning metrics (active version, deployments, rollbacks, A/B split) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 2 §Metrics §Prompt Versioning Metrics
-- ✅ Model quality metrics (confidence, hallucinations, grounding failures, refusal rate) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 2 §Metrics §Model Quality Metrics
+- ✅ Model performance metrics (requests, latency, tokens, cost, errors, fallbacks) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 2: LLMOps Engineer §Metrics §Model Performance Metrics
+- ✅ Prompt versioning metrics (active version, deployments, rollbacks, A/B split) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 2: LLMOps Engineer §Metrics §Prompt Versioning Metrics
+- ✅ Model quality metrics (confidence, hallucinations, grounding failures, refusal rate) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 2: LLMOps Engineer §Metrics §Model Quality Metrics
 
 #### Agentic System Reliability Metrics
-- ✅ Reliability metrics (requests, latency, SLA compliance, timeouts, availability) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 3 §Metrics §Reliability Metrics
-- ✅ Retry & circuit breaker metrics (retries, CB state, trips, backpressure) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 3 §Metrics §Retry & Circuit Breaker Metrics
-- ✅ Multi-agent metrics (delegations, cascade depth, cascade failures) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 3 §Metrics §Multi-Agent Metrics
-- ✅ Cost control metrics (cost per agent, cost per request, budget utilization, anomalies) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 3 §Metrics §Cost Control Metrics
+- ✅ Reliability metrics (requests, latency, SLA compliance, timeouts, availability) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems §Metrics §Reliability Metrics
+- ✅ Retry & circuit breaker metrics (retries, CB state, trips, backpressure) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems §Metrics §Retry & Circuit Breaker Metrics
+- ✅ Multi-agent metrics (delegations, cascade depth, cascade failures) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems §Metrics §Multi-Agent Metrics
+- ✅ Cost control metrics (cost per agent, cost per request, budget utilization, anomalies) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems §Metrics §Cost Control Metrics
 
 #### Security Metrics
-- ✅ Tool access control metrics (denials, grants, sensitive invocations, escalations) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 4 §Metrics §Tool Access Control Metrics
-- ✅ Prompt security metrics (injection detections, blocks, jailbreaks, validation failures) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 4 §Metrics §Prompt Security Metrics
-- ✅ Data security metrics (PII access, exfiltration blocks, sanitization, guardrail blocks) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 4 §Metrics §Data Security Metrics
-- ✅ Audit metrics (sensitive decisions, human overrides, audit log writes) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 4 §Metrics §Audit Metrics
+- ✅ Tool access control metrics (denials, grants, sensitive invocations, escalations) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect §Metrics §Security Metrics
+- ✅ Prompt security metrics (injection detections, blocks, jailbreaks, validation failures) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect §Metrics §Security Metrics
+- ✅ Data security metrics (PII access, exfiltration blocks, sanitization, guardrail blocks) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect §Metrics §Security Metrics
+- ✅ Audit metrics (sensitive decisions, human overrides, audit log writes) - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect §Metrics §Security Metrics
 
 #### Platform Alerts
-- ✅ AI Platform Engineer alerts - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 1 §Alerts
-- ✅ LLMOps Engineer alerts - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 2 §Alerts
-- ✅ SRE for Agentic Systems alerts - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 3 §Alerts
-- ✅ Security Architect alerts - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 4 §Alerts
+- ✅ AI Platform Engineer alerts - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/alert-templates.md` §Persona-Specific Alerts §AI Platform Engineer Alerts
+- ✅ LLMOps Engineer alerts - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/alert-templates.md` §Persona-Specific Alerts §LLMOps Engineer Alerts
+- ✅ SRE for Agentic Systems alerts - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/alert-templates.md` §Persona-Specific Alerts §SRE for Agentic Systems Alerts
+- ✅ Security Architect alerts - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/alert-templates.md` §Persona-Specific Alerts §Security Architect Alerts
 
 #### Operational Tools
-- ✅ AI Platform Engineer tools - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 1 §Operational Tools
-- ✅ LLMOps Engineer tools - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 2 §Operational Tools
-- ✅ SRE for Agentic Systems tools - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 3 §Operational Tools
-- ✅ Security Architect tools - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Persona 4 §Operational Tools
+- ✅ AI Platform Engineer tools - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/operational-tools.md` §Agent Management Tools, §Platform Tools
+- ✅ LLMOps Engineer tools - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/operational-tools.md` §LLMOps Tools
+- ✅ SRE for Agentic Systems tools - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/operational-tools.md` §Agent Management Tools
+- ✅ Security Architect tools - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/operational-tools.md` §Security Tools, §Audit and Investigation Tools
 
 #### Implementation
-- ✅ Watch extension deployment - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Implementation Notes §Watch Extension Deployment
-- ✅ Metric collection architecture - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Implementation Notes §Metric Collection Architecture
+- ✅ Watch extension deployment - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/watch-extension-layer.md` §Extension Deployment Model
+- ✅ Metric collection architecture - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/watch-extension-layer.md` §Metric Collection Architecture
 
 ---
 
@@ -157,7 +156,7 @@ This tracker serves as a **published reference** (unlike scratchpad files which 
 #### Foundation
 - ✅ Built on Olympus Watch - `olympus-seer-docs/seer-design/subsystems/agent-observability.md` §Overview
 - ✅ Architecture diagram (Agent Pods → Atlantis → Watch) - `olympus-seer-docs/seer-design/subsystems/agent-observability.md` §Architecture
-- ✅ Platform extensions architecture - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` §Architecture
+- ✅ Platform extensions architecture - `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/README.md` §Architecture
 - ✅ Hub Application APM integration with Watch - `olympus-hub-docs/04-subsystems/supporting-systems/hub-application-apm.md`
 - ✅ Olympus Watch platform (logs, metrics, traces) - `olympus-hub-docs/05-infrastructure/olympus-watch.md`
 
@@ -801,7 +800,7 @@ This tracker serves as a **published reference** (unlike scratchpad files which 
 
 ### Seer Design References
 - `olympus-seer-docs/seer-design/subsystems/agent-observability.md` - Agent-level observability SDK and instrumentation
-- `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` - Platform-level observability extensions
+- `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/README.md` - Platform-level observability extensions
 - `olympus-seer-docs/seer-design/subsystems/guardrails.md` - Guardrails (immutable training guardrails, enforcement)
 - `olympus-seer-docs/seer-design/subsystems/authority-enforcement.md` - Authority enforcement (policy enforcement)
 - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-api.md` - Kill switch API endpoints

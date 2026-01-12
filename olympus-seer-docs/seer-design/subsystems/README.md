@@ -12,13 +12,14 @@ This folder contains design documents for each Olympus Seer subsystem.
 | [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md) | Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory | 🟢 Complete |
 | [Agent Ingress Gateway](./agent-ingress-gateway/README.md) | Subscription lifecycle, subscription-scoped policies, Signal Exchange integration | 🟡 Draft |
 | [Model Gateway](./model-gateway/README.md) | Bifrost-based LLM gateway, routing, fallback, budgets | 🟡 Draft |
-| [Agent Health Monitor](./agent-health-monitor/README.md) | Cost SLOs, behavior SLOs, feedback SLOs, human feedback service | 🟡 Draft |
-| [Agent Session Supervisor](./agent-session-supervisor/README.md) | Supervisory policies, observations, escalations | 🟡 Draft |
+| [Agent Health Monitor](./agent-health-monitor/README.md) | Cost SLOs, behavior SLOs, feedback SLOs, human feedback service | 🟢 Complete |
+| [Agent Session Supervisor](./agent-session-supervisor/README.md) | Supervisory policies, observations, escalations | 🟢 Complete |
 | [Context Compiler](./context-compiler/README.md) | Context compilation from memory, knowledge, session state | 🟡 Draft |
 | [Seer Agent SDK](./seer-agent-sdk/README.md) | SDK for Raw Agents (employment spec, prompts, context, metrics, tools, memory, knowledge) | 🟡 Draft |
 | [Raw Agent Lifecycle Manager](./raw-agent-lifecycle-manager/README.md) | Raw agent spec, validation, directory, operators, levers | 🟡 Draft |
 | [Trained Agent Lifecycle Manager](./trained-agent-lifecycle-manager/README.md) | Training spec, validation, directory, employed agent discovery, feedback services | 🟢 Complete |
-| [Agent Analytics](./agent-analytics/README.md) | Cognitive observability enhancements, platform-level dashboards | 🟡 Draft |
+| [Agent Analytics](./agent-analytics/README.md) | Agent operational data mart, ETSL integration, report integration | 🟢 Complete |
+| [Observability Extensions to Watch](./observability-extensions-to-watch/README.md) | Watch extensions, persona dashboards, alert templates, operational tools | 🟢 Complete |
 | [Agent Test Runner](./agent-test-runner/README.md) | Agent testing, behavior validation, health and safety checks | 🟢 Complete |
 
 ## Legacy Files (To Be Migrated)
@@ -32,7 +33,7 @@ The following files contain detailed content that will be migrated to the approp
 - `context-assembly-engine.md` → `context-compiler/` and `seer-agent-sdk/`
 - `runtime-deployment.md` → `agent-runtime/runtime-deployment.md` ✅ Migrated
 - `agent-observability.md` → `agent-analytics/` and `seer-agent-sdk/`
-- `observability-extensions-to-watch.md` → `agent-analytics/`
+- `observability-extensions-to-watch.md` → `observability-extensions-to-watch/` ✅ Migrated
 - `model-gateway.md` → `model-gateway/`
 - `agent-evaluation.md` → `agent-test-runner/` (MVP validations implemented; advanced evaluations in `parked-capabilities.md`)
 - `agent-identity-authority.md` → `cipher-iam-extensions/` (placeholder)

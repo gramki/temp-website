@@ -1,41 +1,86 @@
 # Agent Analytics
 
-> **Status**: 🟡 Draft — Capability outline  
-> **Last Updated**: 2026-01-11
+> **Status**: 🟢 Design Complete  
+> **Last Updated**: 2026-01-13
 
 ## Overview
 
-Agent Analytics provides platform-level observability extensions to Olympus Watch, including cognitive observability enhancements, SRE persona dashboards, and operational tools.
+Agent Analytics provides a data mart for agent operational data. It answers questions based on historic health, cost, effectiveness, feedback, and behavior of agents—not runtime observability.
+
+**Key Principle**: Agent Analytics is a data mart (analogous to Hub Analytics) that houses operational data for agents. Runtime observability is provided by Observability Extensions to Watch (separate subsystem).
 
 ---
 
-## Capabilities
+## Design Documents
 
-Based on `olympus-hub-docs/scratchpad/seer-subsystems.md`:
-
-### Cognitive Observability Enhancements
-- Reasoning quality metrics (measure reasoning step quality, not just quantity)
-- Decision confidence calibration (track how well confidence scores match outcomes)
-- Context relevance scoring (measure how relevant retrieved context is)
-- Tool selection effectiveness (analyze tool selection quality and outcomes)
-- Learning effectiveness metrics (measure how well agents learn from feedback)
+| Document | Description | Status |
+|----------|-------------|--------|
+| [SCOPE.md](./SCOPE.md) | Design scope, coverage summary, key decisions | Overview |
+| [Operational Data Service](./operational-data-service.md) | Data collection, aggregation, validation, staging | C2 |
+| [Data Mart Service](./data-mart-service.md) | Data mart construction, ETSL integration, data product creation | C2 |
+| [Report Integration Service](./report-integration-service.md) | LakeStack Report Center integration, catalog sync, access mapping, context injection | C2 |
 
 ---
 
-## Existing Content
+## Architecture
 
-Detailed content available in:
-- `../agent-observability.md` - Agent observability SDK (parts to be migrated here)
-- `observability-extensions-to-watch.md` - Platform-level observability extensions
+```mermaid
+flowchart TB
+    subgraph AgentAnalytics[Agent Analytics]
+        ODS[Operational Data Service]
+        DMS[Data Mart Service]
+        RIS[Report Integration Service]
+    end
+    
+    subgraph DataSources[Data Sources]
+        Watch[Olympus Watch]
+        SeerSidecar[Seer Sidecar]
+        ModelGateway[Model Gateway]
+        AgentRuntime[Agent Runtime]
+    end
+    
+    subgraph LakeStack[Olympus LakeStack]
+        Pontus[Pontus Data Infrastructure]
+        ReportCenter[Report Center]
+        ETSL[ETSL]
+    end
+    
+    DataSources --> ODS
+    ODS --> DMS
+    DMS --> Pontus
+    DMS --> ETSL
+    DMS --> ReportCenter
+    RIS --> ReportCenter
+```
+
+---
+
+## Key Design Decisions
+
+### Data Mart Model
+
+- **Agent Analytics is a data mart**, not runtime observability
+- Data is collected, aggregated, and stored for historical analysis
+- Runtime observability is provided by Observability Extensions to Watch (separate subsystem)
+
+### LakeStack Integration
+
+- **Uses Pontus infrastructure** for data mart construction and storage
+- **Leverages ETSL** for enterprise-wide semantic consistency
+- **Follows Hub Analytics pattern** for consistency across Olympus products
+
+### Separation from Observability
+
+- **Agent Analytics** = Historical data mart for analytics and reporting
+- **Observability Extensions to Watch** = Runtime observability for AREs and Cognitive Operations Stewards
+- **Clear separation** between historical analysis and real-time monitoring
 
 ---
 
 ## Related
 
-- `implementation-concepts/agent-observability.md` - Observability concepts
-- `seer-agent-sdk/README.md` - SDK for metrics reporting
-- `olympus-hub-docs/05-infrastructure/olympus-watch.md` - Olympus Watch platform
-
----
-
-*Detailed design to be added in subsequent sessions.*
+- [Observability Extensions to Watch](../observability-extensions-to-watch/README.md) — Runtime observability (separate subsystem)
+- [Agent Session Supervisor](../agent-session-supervisor/README.md) — Uses Agent Analytics data mart for analytical supervisors
+- [Agent Health Monitor](../agent-health-monitor/README.md) — Uses Agent Analytics data mart for SLO evaluation
+- [Hub Analytics](../../../olympus-hub-docs/04-subsystems/hub-analytics/README.md) — Analogous Hub subsystem
+- [Olympus LakeStack](../../../olympus-hub-docs/05-infrastructure/olympus-lakestack.md) — LakeStack Pontus and Report Center infrastructure

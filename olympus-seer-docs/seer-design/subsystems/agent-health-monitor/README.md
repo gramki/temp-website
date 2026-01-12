@@ -1,30 +1,91 @@
 # Agent Health Monitor
 
-> **Status**: 🟡 Draft — Capability outline  
-> **Last Updated**: 2026-01-11
+> **Status**: 🟢 Design Complete  
+> **Last Updated**: 2026-01-13
 
 ## Overview
 
-Agent Health Monitor tracks and enforces health-related Service Level Objectives (SLOs) for agents, including cost SLOs, behavior SLOs, and feedback SLOs.
+Agent Health Monitor tracks and monitors health-related Service Level Objectives (SLOs) for agents, including cost SLOs (ARE), behavior SLOs (COS), and feedback SLOs (PA/APO).
 
 ---
 
-## Capabilities
+## Design Documents
 
-Based on `olympus-hub-docs/scratchpad/seer-subsystems.md`:
+| Document | Description | Status |
+|----------|-------------|--------|
+| [SCOPE.md](./SCOPE.md) | Design scope, coverage summary, key decisions | Overview |
+| [Health Spec Manager](./health-spec-manager.md) | Spec structure, SLO definitions, validation, deployment configuration | C2 |
+| [SLO Manager](./slo-manager.md) | SLO definition and threshold management | C2 |
+| [SLO Tracking Service](./slo-tracking-service.md) | SLO deviation tracking using Agent Analytics data mart | C2 |
+| [Human Feedback Service](./human-feedback-service.md) | Feedback collection, routing, metric calculation | C2 |
+| [Health Operators](./health-operators.md) | Lifecycle management, state transitions | C2 |
+| [Health Levers](./health-levers.md) | Runtime controls, enable/disable, suspend | C2 |
+| [Health Directory](./health-directory.md) | Registry, search, version tracking, SLO status | C2 |
 
-- Cost SLOs
-- Behavior SLOs
-- Feedback SLOs
-- Human Feedback Service
+---
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph HealthMonitor[Agent Health Monitor]
+        HSM[Health Spec Manager]
+        SLOM[SLO Manager]
+        SLOT[SLO Tracking Service]
+        HFS[Human Feedback Service]
+        HO[Health Operators]
+        HL[Health Levers]
+        HD[Health Directory]
+    end
+    
+    subgraph ExternalSystems[External Systems]
+        AgentAnalytics[Agent Analytics]
+        TrainingFeedback[Training Feedback Services]
+        AgentSessionSupervisor[Agent Session Supervisor]
+        SeerOp[Seer Operator]
+    end
+    
+    AgentAnalytics --> SLOT
+    SLOT --> SLOM
+    HFS --> TrainingFeedback
+    SLOM --> AgentSessionSupervisor
+    HSM --> SeerOp
+    HO --> HD
+    HL --> HD
+```
+
+---
+
+## Key Design Decisions
+
+### SLO Types by Persona
+
+- **Cost SLOs (ARE)**: Address ARE needs for cost governance
+- **Behavior SLOs (COS)**: Address COS needs for behavior monitoring
+- **Feedback SLOs (PA/APO)**: Address Process Architect and APO needs for feedback tracking
+
+### No Enforcement
+
+- **SLO Manager and Tracking Service only manage and track**—no enforcement
+- **Enforcement handled by supervisors** (if configured) or external systems
+- **Tracking and alerting only**
+
+### Agent Analytics Integration
+
+- **Uses Agent Analytics data mart** for SLO evaluation
+- **Historical data** for trend analysis and burn rate calculation
+- **Efficient aggregation** for SLO evaluation
+
+### Lifecycle Pattern
+
+- **Follows same pattern** as Supervisor lifecycle managers
+- **Spec Manager handles validation** and structure management
+- **Seer Operator reconciles** CRDs to Kubernetes state
 
 ---
 
 ## Related
 
-- `agent-analytics/README.md` - Agent analytics
-- `agent-session-supervisor/README.md` - Agent session supervisor
-
----
-
-*Detailed design to be added in subsequent sessions.*
+- [Agent Analytics](../agent-analytics/README.md) — Uses Agent Analytics data mart for SLO evaluation
+- [Agent Session Supervisor](../agent-session-supervisor/README.md) — Can trigger supervisors on SLO deviations (if configured)
+- [Training Feedback Services](../trained-agent-lifecycle-manager/training-feedback-services.md) — Routes feedback for Training Spec improvements

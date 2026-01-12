@@ -142,13 +142,13 @@ This document maps **OPDA capabilities** (Observability, Predictability, Directa
 
 ### Observability Needs
 - ✅ Agent Health Score (AHS) - `are.md` §The ARE Control Loop §Agent Health Score
-- ✅ System health observability (latency, errors, availability) - `observability-extensions-to-watch.md` §Persona 3: SRE for Agentic Systems
-- ✅ Cost observability (token usage, cost tracking) - `observability-extensions-to-watch.md` §Persona 3 §Metrics §Cost Control Metrics
-- ✅ Reliability metrics (requests, latency, SLA compliance) - `observability-extensions-to-watch.md` §Persona 3 §Metrics §Reliability Metrics
-- ✅ Retry and circuit breaker metrics - `observability-extensions-to-watch.md` §Persona 3 §Metrics §Retry & Circuit Breaker Metrics
-- ✅ Multi-agent metrics (delegations, cascade failures) - `observability-extensions-to-watch.md` §Persona 3 §Metrics §Multi-Agent Metrics
-- ✅ Platform health dashboards - `observability-extensions-to-watch.md` §Persona 1: AI Platform Engineer §Dashboards
-- ✅ Operational tools (circuit breaker control, load shedder, agent throttle) - `observability-extensions-to-watch.md` §Persona 3 §Operational Tools
+- ✅ System health observability (latency, errors, availability) - `observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems
+- ✅ Cost observability (token usage, cost tracking) - `observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems §Metrics §Cost Control Metrics
+- ✅ Reliability metrics (requests, latency, SLA compliance) - `observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems §Metrics §Reliability Metrics
+- ✅ Retry and circuit breaker metrics - `observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems §Metrics §Retry & Circuit Breaker Metrics
+- ✅ Multi-agent metrics (delegations, cascade failures) - `observability-extensions-to-watch/persona-dashboards.md` §Persona 3: SRE for Agentic Systems §Metrics §Multi-Agent Metrics
+- ✅ Platform health dashboards - `observability-extensions-to-watch/persona-dashboards.md` §Persona 1: AI Platform Engineer
+- ✅ Operational tools (circuit breaker control, load shedder, agent throttle) - `observability-extensions-to-watch/operational-tools.md` §Agent Management Tools
 
 ### Predictability Needs
 - ❌ Operational predictability (agents fail predictably)
@@ -159,10 +159,10 @@ This document maps **OPDA capabilities** (Observability, Predictability, Directa
 ### Directability Needs
 - ✅ Kill switch capability - `agent-lifecycle-api.md` §Kill Switch
 - ✅ Suspend/revoke employment - `agent-lifecycle-api.md` §Suspend Employment, §Revoke Employment
-- ✅ Cost kill-switch - `observability-extensions-to-watch.md` §Persona 3 §Operational Tools
-- ✅ Agent throttle - `observability-extensions-to-watch.md` §Persona 3 §Operational Tools
-- ✅ Load shedder - `observability-extensions-to-watch.md` §Persona 3 §Operational Tools
-- ✅ Circuit breaker control - `observability-extensions-to-watch.md` §Persona 3 §Operational Tools
+- ✅ Cost kill-switch - `observability-extensions-to-watch/operational-tools.md` §Agent Management Tools
+- ✅ Agent throttle - `observability-extensions-to-watch/operational-tools.md` §Agent Management Tools
+- ✅ Load shedder - `observability-extensions-to-watch/operational-tools.md` §Agent Management Tools
+- ✅ Circuit breaker control - `observability-extensions-to-watch/operational-tools.md` §Agent Management Tools
 - ❌ Graceful degradation controls
 - ❌ Recovery operations
 
@@ -208,11 +208,11 @@ This document maps **OPDA capabilities** (Observability, Predictability, Directa
 **Primary Mandate:** Ensure agents are defensible to regulators and stakeholders.
 
 ### Observability Needs
-- ✅ Security metrics (prompt injection, jailbreak attempts) - `observability-extensions-to-watch.md` §Persona 4: Security Architect (AI-focused) §Metrics §Prompt Security Metrics
-- ✅ Tool access control metrics - `observability-extensions-to-watch.md` §Persona 4 §Metrics §Tool Access Control Metrics
-- ✅ Data security metrics (PII access, exfiltration blocks) - `observability-extensions-to-watch.md` §Persona 4 §Metrics §Data Security Metrics
-- ✅ Audit metrics (sensitive decisions, human overrides) - `observability-extensions-to-watch.md` §Persona 4 §Metrics §Audit Metrics
-- ✅ Security dashboards - `observability-extensions-to-watch.md` §Persona 4 §Dashboards
+- ✅ Security metrics (prompt injection, jailbreak attempts) - `observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect §Metrics §Security Metrics
+- ✅ Tool access control metrics - `observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect §Metrics §Security Metrics
+- ✅ Data security metrics (PII access, exfiltration blocks) - `observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect §Metrics §Security Metrics
+- ✅ Audit metrics (sensitive decisions, human overrides) - `observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect §Metrics §Security Metrics
+- ✅ Security dashboards - `observability-extensions-to-watch/persona-dashboards.md` §Persona 4: Security Architect
 - ❌ Policy compliance tracking (continuous policy adherence)
 - ❌ Audit trail completeness (all decisions auditable)
 - ❌ Explainability metrics (can we explain decisions?)
@@ -239,7 +239,7 @@ This document maps **OPDA capabilities** (Observability, Predictability, Directa
 ## Cross-Persona OPDA Needs
 
 ### Shared Observability Needs
-- ✅ Platform-level dashboards (unified view) - `observability-extensions-to-watch.md` §Cross-Persona: Unified Operations View
+- ✅ Platform-level dashboards (unified view) - `observability-extensions-to-watch/persona-dashboards.md` (all personas)
 - ✅ Alerting infrastructure - `agent-observability.md` §Alerts
 - ❌ Cross-persona observability (different views for different personas)
 - ❌ Persona-specific dashboards (tailored to each persona's needs)
@@ -311,7 +311,7 @@ This document maps **OPDA capabilities** (Observability, Predictability, Directa
 - `olympus-seer-docs/seer-design/personas-and-needs/cos.md` - COS role details
 - `olympus-seer-docs/seer-design/personas-and-needs/arao.md` - ARAO role details
 - `olympus-seer-docs/seer-design/subsystems/agent-observability.md` - Observability capabilities
-- `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch.md` - Platform observability
+- `olympus-seer-docs/seer-design/subsystems/observability-extensions-to-watch/README.md` - Platform observability
 - `olympus-seer-docs/seer-design/subsystems/authority-enforcement.md` - Authority enforcement
 - `olympus-seer-docs/seer-design/subsystems/guardrails.md` - Guardrails
 - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-api.md` - Lifecycle and kill switch APIs
