@@ -365,33 +365,39 @@ machine:
 
 ---
 
-## Key Questions to Resolve
+## Resolved Design Decisions
 
-1. **Multi-Provider Support**: Can a Machine emit signals through multiple providers simultaneously? (e.g., critical events via Atropos AND Heracles)
+### Multi-Provider Support
 
-2. **Provider Selection**: How does a Machine choose which provider to use? Is it:
-   - Configured per Machine instance?
-   - Determined by signal type?
-   - Based on environment/workbench?
+**Decision:** Machines can emit signals through multiple providers simultaneously. Hub does not deduplicate or acknowledge signals from multiple providers as the same or redundant. Each signal is processed independently.
 
-3. **Signal Schema Validation**: Where does signal schema validation occur?
-   - At Machine (before emission)?
-   - At Signal Provider (during normalization)?
-   - At Signal Exchange (after normalization)?
+**Example:** A Machine can send critical events via both Atropos (for real-time processing) and Heracles (for audit trail). Hub will process both signals separately.
 
-4. **Authentication/Authorization**: How are Machine credentials managed for each provider?
-   - Per-provider credentials?
-   - Shared credentials?
-   - Machine identity (SPIFFE)?
+### Provider Selection
 
-5. **Error Handling**: What happens if signal emission fails?
-   - Retry at Machine level?
-   - Dead letter queue?
-   - Alerting?
+**Decision:** Provider selection is the Machine's choice and is outside Hub's scope. Machines are represented in Hub, not defined in Hub (often external systems). The Machine decides which provider(s) to use based on its own logic and requirements.
 
-6. **Outbound Signals**: The documentation mentions Signal Providers can handle "outbound" signals. How do Machines receive responses/updates?
-   - Via same provider (bidirectional)?
-   - Via different mechanism?
+### Signal Schema Validation
+
+**Decision:** Signal schema validation occurs at the Signal Provider during normalization. Each provider validates according to its protocol requirements:
+- **Webhook (Heracles)**: Validates against OpenAPI specification for POST request body
+- **Atropos Inbox**: Validates CloudEvents v1.0 compliance
+- **SFTP (Dia)**: Validates file format specification
+
+### Hub Ingress Endpoints
+
+**Decision:** Hub ingress endpoints are:
+- **Scoped**: Subscription-scoped and per-workbench
+- **Naming Pattern**: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+- **Provisioning**: Provisioned by tenant admin or authorized developers as resources when required
+
+### Authentication
+
+**Decision:** Per-provider authentication mechanisms are used. Each Signal Provider has its own authentication requirements and mechanisms.
+
+### Error Handling
+
+**Decision:** Sound defaults for error handling will be implemented. Specific error handling strategies will be defined per provider and pull mechanism.
 
 ---
 
@@ -1068,9 +1074,10 @@ machine_instance:
           type: sasl_scram
           credentials_ref: "vault://secrets/external-payment/kafka-auth"
         
-        # Hub-hosted topic (auto-created/managed by Hub)
+        # Hub-hosted topic (configured, dedicated to machine instance)
         # Hub will queue messages here for dispatch
-        hub_topic: "hub.payment-operations.external-payment.events"  # Auto-generated or configured
+        # Pattern: /hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}
+        hub_topic: "/hub/acme-bank/prod-subscription/payment-operations/atropos/external-payment-events"
 ```
 
 **Flow:**
@@ -1140,8 +1147,9 @@ machine_instance:
           connector_class: "io.confluent.connect.kafka.KafkaSourceConnector"
           # Additional Kafka Connect properties
         
-        # Hub-hosted topic (auto-created/managed by Hub)
-        hub_topic: "hub.transaction-operations.legacy-kafka.transactions"  # Auto-generated or configured
+        # Hub-hosted topic (configured, dedicated to machine instance)
+        # Pattern: /hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}
+        hub_topic: "/hub/acme-bank/prod-subscription/transaction-operations/atropos/legacy-kafka-transactions"
 ```
 
 **Flow:**
@@ -1196,21 +1204,33 @@ machine_instance:
             type: username_password
             credentials_ref: "vault://secrets/batch-file/sftp-auth"
         
-        # Hub Dia SFTP endpoint (auto-configured)
+        # Hub Dia SFTP endpoint (configured, subscription-scoped, per-workbench)
+        # Pattern: /hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}
         hub_sftp:
           endpoint: "sftp://dia.olympus.tech:22"  # Hub-provided
           path: "/inbound/settlements/{workbench_id}"  # Workbench-scoped
           auth:
             type: api_key
             credentials_ref: "vault://secrets/hub-dia/sftp-key"
+        
+        # Polling configuration
+        polling:
+          schedule: "0 */5 * * * *"  # Every 5 minutes (cron format)
+          file_filters:
+            - pattern: "settlement_*.csv"
+              min_size: 1024  # Minimum file size in bytes
 ```
 
 **Flow:**
 1. Hub connects to Machine-provided SFTP: `sftp://batch-files.acme.com:22`
-2. Hub monitors/pulls files from Machine SFTP path: `/outbound/settlements`
-3. Hub uploads pulled files to Hub Dia SFTP endpoint: `sftp://dia.olympus.tech:22/inbound/settlements/payment-operations`
-4. Hub Dia SFTP endpoint processes file arrival (push semantics)
-5. Signal Exchange processes as normal push signals
+2. Hub polls Machine SFTP path: `/outbound/settlements` according to configured schedule
+3. Hub applies file filters during poll (pattern matching, size checks)
+4. Hub reads file fully from Machine SFTP
+5. Hub uploads pulled file to Hub Dia SFTP endpoint: `sftp://dia.olympus.tech:22/inbound/settlements/payment-operations` (immediately after full read)
+6. Hub Dia SFTP endpoint processes file arrival (push semantics, validates file format)
+7. Signal Exchange processes as normal push signals
+
+**Note:** The pull mechanism does not validate files. File validation happens at the Hub Dia SFTP push endpoint according to the file format specification.
 
 ---
 
@@ -1218,58 +1238,65 @@ machine_instance:
 
 ### General Pull-to-Push Conversion
 
+**Resolved Decisions:**
+
 1. **Hub-Hosted Topic/Endpoint Naming:**
-   - How are Hub-hosted topics/endpoints named? (e.g., `hub.{workbench_id}.{machine_id}.{signal_type}`)
-   - Are they auto-generated or can they be configured?
-   - Are they unique per Machine Instance or shared?
+   - **Pattern**: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+   - **Configuration**: Topics/endpoints are configured (not auto-generated)
+   - **Scoping**: Topics are dedicated to machine instance
 
 2. **Automatic Conversion:**
-   - Is the pull-to-push conversion automatic (handled by signal-pulling applications)?
-   - Or does it require explicit configuration?
+   - **Decision**: Pull-to-push conversion is automatic when endpoints are appropriately provisioned and specified
+   - Signal-pulling applications handle the conversion automatically
 
 3. **Error Handling:**
-   - What happens if Hub cannot connect to Machine-provided endpoint?
-   - What happens if messages fail to queue to Hub-hosted topic?
-   - Retry logic and dead-letter handling?
+   - **Decision**: Sound defaults for error handling will be implemented
+   - Specific error handling strategies will be defined per provider and pull mechanism
 
 ### Atropos Subscription Pull
 
+**Resolved Decisions:**
+
 4. **Subscription Management:**
-   - How does Hub manage subscriptions to Machine-provided topics?
-   - Consumer group naming and management?
-   - Offset management (start from beginning, latest, or specific offset)?
+   - **Decision**: The signal-pulling application registers as a subscriber with the configured credentials
+   - **Decision**: Atropos manages all subscription aspects (consumer groups, offsets, etc.)
+   - **Decision**: Subscriber only needs to acknowledge processed messages
 
 5. **Hub-Hosted Topic:**
-   - Is the Hub-hosted topic created automatically when Machine Instance is configured?
-   - Who manages the Hub-hosted topic lifecycle?
-   - Can multiple Machine Instances share the same Hub-hosted topic?
+   - **Decision**: Topic is dedicated to machine instance
+   - **Decision**: Topic is auto-provisioned with machine instance
+   - **Decision**: Tenant admin manages the topic lifecycle
 
 ### Kafka Connect Pull
 
+**Resolved Decisions:**
+
 6. **Kafka Connect Integration:**
-   - Does Hub run Kafka Connect connectors internally?
-   - Or does Hub use external Kafka Connect cluster?
-   - How are connectors configured and managed?
+   - **Decision**: Hub runs Kafka Connect connectors internally
+   - **Decision**: Connectors are provisioned with machine instance
+   - **Decision**: Connector lifecycle is tied to machine instance lifecycle
 
 7. **Schema Compatibility:**
-   - Are there any schema transformations needed between Machine topic and Hub topic?
-   - Or is it pass-through with CloudEvents compliance?
+   - **Decision**: Schema transformation is kept as TBD in documentation
+   - **Note**: Transformation should be possible but not specified at this stage
 
 ### SFTP Pull
 
+**Resolved Decisions:**
+
 8. **File Polling:**
-   - How frequently does Hub poll Machine SFTP for new files?
-   - Does Hub monitor for file changes or poll on schedule?
-   - How are file naming patterns handled?
+   - **Decision**: Polling schedule is specified in the pull configuration
+   - **Decision**: Hub polls on a configurable schedule
+   - **Decision**: File filters are applied during poll
 
 9. **File Processing:**
-   - Are files processed immediately upon pull?
-   - Or are they queued for batch processing?
-   - What happens to files after they're uploaded to Hub Dia SFTP?
+   - **Decision**: Files are pushed immediately after full read completion
+   - **Decision**: Processing of pushed files follows the push endpoint configuration
 
-10. **SFTP Schema:**
-    - What is the signal schema for SFTP pull? (marked as TBD)
-    - Is it file metadata, file content, or both?
+10. **SFTP Pull Validation:**
+    - **Decision**: Pull mechanism does not validate files
+    - **Decision**: Pull mechanism reads file fully, then pushes to Hub Dia SFTP
+    - **Note**: File validation happens at the push endpoint (Hub Dia SFTP)
 
 ### Authentication & Authorization
 

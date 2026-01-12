@@ -35,6 +35,33 @@ A **Signal** is an external event or stimulus that arrives at Hub through an I/O
 | Business Exceptions | **Cronus** | Fraud alert, compliance observation |
 | Chat Messages | **MS Teams** | User message in bot channel |
 
+### Machine Signal Emission
+
+**Machines emit signals through Signal Providers** (I/O Gateways), which serve as Hub ingress endpoints. Machines can emit signals using **push** or **pull** models:
+
+**Push Model:** Machine actively sends signals to Hub ingress endpoints
+- **Webhook**: HTTP POST to Heracles gateway endpoint
+- **Atropos Inbox**: Publish events to Event Bus topic
+- **SFTP**: Upload files to Dia SFTP endpoint
+
+**Pull Model:** Hub uses signal-pulling applications to retrieve signals from Machines
+- **Atropos Subscription**: Hub subscribes to Machine-provided Event Bus topic
+- **Kafka Connect**: Hub connects to Machine-provided Kafka via Kafka Connect
+- **SFTP**: Hub polls Machine SFTP and uploads to Hub Dia SFTP
+
+**Signal Flow from Machines:**
+```
+Domain Machine → Signal Provider (Hub Ingress) → Signal Exchange → Trigger → Scenario/Application
+```
+
+**Key Points:**
+- Machines are configured in [Machine Registry](../04-subsystems/registry-services/machine-registry.md) with `signal_emission` configuration
+- Hub ingress endpoints are subscription-scoped and per-workbench
+- Signal schema validation occurs at Signal Provider during normalization
+- Machines can emit through multiple providers simultaneously (Hub does not deduplicate)
+
+For detailed Machine signal emission configuration, see [Machine Signal Emission Guide](./machine-signal-emission-guide.md).
+
 ### Signal Flow
 
 ```

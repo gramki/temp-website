@@ -34,6 +34,7 @@ These implementation concepts are:
 |---------|-------------|--------|
 | [Signal Exchange](./signal-exchange.md) | Hub's central routing and orchestration engine | ✅ Complete |
 | [I/O Gateway](./io-gateway.md) | Signal ingress/egress points (Heracles, Atropos, etc.) | ✅ Complete |
+| [Machine Signal Emission](./machine-signal-emission.md) | How Machines produce signals through Signal Providers | ✅ Complete |
 | [Normalized Signal Format](./normalized-signal-format.md) | Standard DTO for signal transport | ✅ Complete |
 | [Message Envelope](./message-envelope.md) | Standard wrapper for application communication | ✅ Complete |
 | [Reminder Capability](./reminder-capability.md) | Time-based stimuli for parked workflows | ✅ Complete |

@@ -468,6 +468,97 @@ Hub Console → Registries → Environments → Register Environment
 
 ## 6. I/O Gateway Configuration
 
+I/O Gateways (Signal Providers) serve as Hub ingress endpoints where Machines send signals. Configure these endpoints to enable Machine signal emission.
+
+### Hub Ingress Endpoint Provisioning
+
+Hub ingress endpoints are subscription-scoped and per-workbench. They must be provisioned before Machines can emit signals.
+
+**Endpoint Characteristics:**
+- **Scoping**: Subscription-scoped and per-workbench
+- **Naming Pattern**: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+- **Provisioning**: By tenant admin or authorized developers as resources
+
+**Provisioning Process:**
+
+```
+Hub Console → I/O Gateways → Hub Ingress Endpoints → Provision Endpoint
+
+├── Endpoint Type:
+│   ├── Webhook (Heracles)
+│   ├── Atropos Topic
+│   ├── SFTP (Dia)
+│   └── [Other providers]
+├── Workbench: [Select workbench]
+├── Subscription: [Your subscription]
+├── Endpoint Configuration:
+│   ├── Name: [Unique name slug]
+│   ├── Authentication: [Configure per provider]
+│   └── Access Policies: [Allowed machines, rate limits]
+└── Provision → Endpoint available for Machine configuration
+```
+
+**Example: Provision Webhook Endpoint**
+
+```
+Hub Console → I/O Gateways → Heracles → Provision Webhook Endpoint
+
+├── Workbench: payment-operations
+├── Subscription: prod-subscription
+├── Endpoint Name: payment-signals
+├── Endpoint URL: 
+│   └── https://heracles.olympus.tech/api/workbenches/payment-operations/signals
+├── Authentication:
+│   ├── Methods: [API Key, OAuth2]
+│   ├── API Key: [Generate and store in Vault]
+│   └── OAuth2: [Configure issuer and scopes]
+├── Access Policies:
+│   ├── Allowed Machines: [acme-payment-switch, acme-gateway]
+│   └── Rate Limit: [1000 requests/minute]
+└── Provision
+```
+
+**Example: Provision Atropos Topic**
+
+```
+Hub Console → I/O Gateways → Atropos → Provision Topic
+
+├── Workbench: payment-operations
+├── Subscription: prod-subscription
+├── Topic Name: payment-events
+├── Topic Path:
+│   └── /hub/acme-bank/prod-subscription/payment-ops/atropos/payment-events
+├── Authentication:
+│   ├── Type: [SASL/SCRAM, OAuth2, mTLS]
+│   └── Credentials: [Store in Vault]
+├── Lifecycle:
+│   ├── Auto-provisioned: [Yes]
+│   └── Managed by: [Tenant Admin]
+└── Provision
+```
+
+**Example: Provision SFTP Endpoint**
+
+```
+Hub Console → I/O Gateways → Dia → Provision SFTP Endpoint
+
+├── Workbench: settlement-operations
+├── Subscription: prod-subscription
+├── Endpoint Name: settlement-inbound
+├── SFTP Server: sftp://dia.olympus.tech:22
+├── Folder Path: /inbound/settlements/settlement-operations
+├── Authentication:
+│   ├── Type: [API Key, Username/Password]
+│   └── Credentials: [Store in Vault]
+└── Provision
+```
+
+**Authorization:**
+- **Tenant Admin**: Can provision endpoints for any workbench in their tenant
+- **Authorized Developers**: Can provision endpoints for workbenches they have access to
+
+For detailed Machine signal emission configuration, see [Machine Signal Emission Guide](./machine-signal-emission-guide.md).
+
 ### Atropos (Event Bus)
 
 Configure event sources:

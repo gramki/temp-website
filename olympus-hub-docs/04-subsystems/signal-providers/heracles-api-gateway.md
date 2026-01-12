@@ -193,6 +193,174 @@ Heracles uses Kubernetes Custom Resources for configuration:
 | `heracles.hub_requests.created` | Hub Requests created |
 | `heracles.latency.p99` | 99th percentile latency |
 
+## Machine Signal Emission via Webhook
+
+Machines can emit signals to Hub through Heracles using **webhook endpoints**. Webhooks provide a simple HTTP-based push mechanism for Machines to send signals in real-time.
+
+### Webhook Endpoint Characteristics
+
+| Characteristic | Description |
+|----------------|-------------|
+| **Scoping** | Workbench-scoped endpoints |
+| **Endpoint Pattern** | `https://heracles.olympus.tech/api/workbenches/{workbench-id}/signals` |
+| **Method** | POST |
+| **Protocol** | HTTP/HTTPS |
+| **Provisioning** | Provisioned by tenant admin or authorized developers as resources |
+
+### Signal Schema Validation
+
+**Heracles validates webhook payloads against OpenAPI specification** for POST request body. The schema is defined in the Machine Definition or Machine Instance configuration.
+
+**Validation Process:**
+1. Machine sends HTTP POST request to webhook endpoint
+2. Heracles validates request body against OpenAPI specification
+3. If valid, Heracles normalizes to Signal Exchange format
+4. If invalid, Heracles returns 400 Bad Request with validation errors
+
+### Authentication Mechanisms
+
+Webhook endpoints support multiple authentication mechanisms:
+
+| Mechanism | Description | Configuration |
+|-----------|-------------|---------------|
+| **API Key** | Simple API key in header or query parameter | `X-API-Key` header or `?api_key=...` |
+| **OAuth 2.0** | Bearer token authentication | `Authorization: Bearer <token>` |
+| **mTLS** | Mutual TLS for service-to-service | Client certificate validation |
+| **HMAC** | HMAC signature validation | `X-Hub-Signature` header |
+
+### Example Machine Configuration
+
+**Machine Definition (Schema):**
+```yaml
+machine_definition:
+  id: "payment-switch"
+  signal_emission:
+    signals:
+      - type: "payment.authorized"
+        push:
+          protocols: [webhook]
+          schemas:
+            webhook:
+              openapi_spec:
+                type: object
+                required: [payment_id, amount, customer_id]
+                properties:
+                  payment_id:
+                    type: string
+                    description: "Unique payment identifier"
+                  amount:
+                    type: number
+                    description: "Payment amount"
+                  customer_id:
+                    type: string
+                    description: "Customer identifier"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    description: "Payment authorization timestamp"
+                  currency:
+                    type: string
+                    default: "USD"
+```
+
+**Machine Instance (Endpoint Configuration):**
+```yaml
+machine:
+  id: "acme-payment-switch"
+  definition_id: "payment-switch"
+  workbench_id: "payment-operations"
+  
+  signal_emission:
+    push:
+      webhook:
+        # Workbench-scoped endpoint
+        endpoint: "https://heracles.olympus.tech/api/workbenches/payment-operations/signals"
+        method: POST
+        auth:
+          type: api_key
+          credentials_ref: "vault://secrets/acme/payment-switch/webhook-key"
+```
+
+### Example Webhook Request
+
+**HTTP Request:**
+```http
+POST /api/workbenches/payment-operations/signals HTTP/1.1
+Host: heracles.olympus.tech
+Content-Type: application/json
+X-API-Key: <api-key-from-vault>
+
+{
+  "payment_id": "pay_12345",
+  "amount": 100.50,
+  "customer_id": "cust_67890",
+  "timestamp": "2026-01-15T10:30:00Z",
+  "currency": "USD"
+}
+```
+
+**Response (Success):**
+```http
+HTTP/1.1 202 Accepted
+Content-Type: application/json
+
+{
+  "request_id": "req_abc123",
+  "status": "ACCEPTED",
+  "message": "Signal received and queued for processing"
+}
+```
+
+**Response (Validation Error):**
+```http
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
+{
+  "error": "Validation failed",
+  "details": [
+    {
+      "field": "amount",
+      "message": "must be a number"
+    }
+  ]
+}
+```
+
+### Endpoint Provisioning
+
+Webhook endpoints are provisioned as resources within a subscription and workbench:
+
+1. **Tenant Admin** provisions endpoints for workbenches in their tenant
+2. **Authorized Developers** can provision endpoints for accessible workbenches
+3. Endpoints are tied to workbench lifecycle
+4. Endpoint configuration includes authentication credentials and access policies
+
+**Provisioning Example:**
+```yaml
+webhook_endpoint:
+  id: "payment-ops-signals"
+  workbench_id: "payment-operations"
+  subscription_id: "prod-subscription"
+  tenant_id: "acme-bank"
+  
+  endpoint: "https://heracles.olympus.tech/api/workbenches/payment-operations/signals"
+  
+  auth:
+    methods: [api_key, oauth2]
+    api_key:
+      credentials_ref: "vault://secrets/payment-ops/webhook-key"
+    oauth2:
+      issuer: "https://auth.olympus.tech"
+      scopes: ["webhook:send"]
+  
+  access_policies:
+    allowed_machines: ["acme-payment-switch", "acme-gateway"]
+    rate_limit: 1000  # requests per minute
+```
+
+For detailed configuration, see [Machine Registry](../registry-services/machine-registry.md) and [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md).
+
 ## Related Documentation
 
 - [Olympus Academy - Heracles](https://heracles.olympus.tech/)
@@ -200,6 +368,8 @@ Heracles uses Kubernetes Custom Resources for configuration:
 - [MCP Router](../../05-infrastructure/mcp-orchestrator.md) - MCP tool orchestration
 - [Hub Architecture - Signals](../../02-system-design/hub-architecture.md#13-signals)
 - [Cipher IAM](../supporting-systems/cipher-iam.md) - Authentication/authorization
+- [Machine Registry](../registry-services/machine-registry.md)
+- [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md)
 
 ---
 

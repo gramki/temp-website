@@ -114,6 +114,7 @@ All ADRs follow the standard format:
 | [0090](./0090-signal-routing-via-atropos-devops.md) | Signal Routing via Atropos for DevOps | Accepted | 2026-01-09 | devops-workbench |
 | [0091](./0091-git-based-crd-publishing.md) | Git-Based CRD Publishing for DevOps Workbench | Accepted | 2026-01-09 | devops-workbench |
 | [0092](./0092-hub-resources-no-namespace-concept.md) | Hub Resources Do Not Use Namespace Concept | Accepted | 2026-01-11 | CLI, CRD Design |
+| [0103](./0103-machine-signal-emission.md) | Machine Signal Emission Through Signal Providers | Accepted | 2026-01-15 | integration |
 
 ---
 
@@ -133,6 +134,7 @@ All ADRs follow the standard format:
 - [0001](./0001-signal-normalization.md) - Signal normalization between SPs and SX
 - [0004](./0004-reminder-kind-attribute.md) - Reminder kind attribute for semantic typing
 - [0011](./0011-persona-scoped-api-channels.md) - Persona-scoped API channels
+- [0103](./0103-machine-signal-emission.md) - Machine Signal Emission Through Signal Providers
 
 ### Process
 - [0006](./0006-task-queue-escalation-model.md) - Task queue escalation model

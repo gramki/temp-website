@@ -40,12 +40,25 @@ The ontology describes **what** should happen conceptually. Signal Exchange impl
 ## Definition
 
 **Signal Exchange** is the central data-plane service that:
-- Receives normalized signals from I/O Gateways
+- Receives normalized signals from I/O Gateways (which receive signals from Machines)
 - Evaluates triggers to match signals to Scenarios
 - Creates Requests and manages their lifecycle
 - Routes request updates to Hub Applications
 - Notifies registered observers of request events
 - Provides reminder capabilities for time-based stimuli
+
+### Machine Signal Emission
+
+**Machines emit signals through Signal Providers (I/O Gateways)**, which serve as Hub ingress endpoints. Signal Providers:
+- Receive signals from Machines (push model) or process signals from Hub-hosted topics (pull model)
+- Validate signal schemas according to protocol requirements during normalization
+- Normalize signals to Signal Exchange DTO format
+- Forward normalized signals to Signal Exchange
+
+**Multi-Provider Support:**
+- Machines can emit signals through multiple providers simultaneously
+- Hub does not deduplicate signals from multiple providers
+- Each signal is processed independently
 
 ### Characteristics
 
@@ -87,6 +100,7 @@ Signal Exchange follows the **observer pattern** and **centralized routing** pri
 | [ADR-0019](../../decision-logs/0019-signal-exchange-observer-pattern.md) | Observer pattern for SX module integration |
 | [ADR-0020](../../decision-logs/0020-request-level-granularity.md) | SX operates at Request level only |
 | [ADR-0026](../../decision-logs/0026-signal-exchange-reminder-capability.md) | Built-in reminder capability |
+| [ADR-0103](../../decision-logs/0103-machine-signal-emission.md) | Machine Signal Emission Through Signal Providers |
 
 ---
 

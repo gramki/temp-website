@@ -211,12 +211,175 @@ Dia ensures resources are accessible only to authorized users/applications:
 | `dia.records.processed` | Records processed (batch-split) |
 | `dia.requests.created` | Requests created |
 
+## Machine Signal Emission via SFTP
+
+Machines can emit signals through Dia using **SFTP** in two models: **push** (Machine uploads to Hub Dia SFTP) and **pull** (Hub polls Machine SFTP and uploads to Hub Dia SFTP).
+
+### Push Model: Machine Uploads to Hub Dia SFTP
+
+**Flow:** Machine uploads file to Hub Dia SFTP endpoint → Dia detects file arrival → Dia validates file format → Dia emits signals to Signal Exchange
+
+**Configuration:**
+- Machine uploads files via SFTP to Hub Dia SFTP server endpoint
+- Files must conform to the file format specification defined in Machine Definition
+- Dia validates file format upon arrival
+- Dia parses file and emits signals (one per row if configured)
+
+**Example Machine Configuration:**
+```yaml
+machine:
+  id: "settlement-file-system"
+  signal_emission:
+    push:
+      sftp:
+        # Hub Dia SFTP server endpoint
+        server_endpoint: "sftp://dia.olympus.tech:22"
+        
+        # Target folder path on Hub Dia SFTP server (workbench-scoped)
+        folder_path: "/inbound/settlements/{workbench_id}"
+        
+        # Authentication for Hub Dia SFTP
+        auth:
+          type: api_key
+          credentials_ref: "vault://secrets/settlement-files/dia-sftp-key"
+        
+        # File naming pattern (optional)
+        file_pattern: "settlement_*.csv"
+```
+
+**File Format Specification:**
+Files must conform to the format specification defined in Machine Definition. See [File Format Specification](./dia/file-format-specification.md) for complete schema definition.
+
+**Example File Format Configuration:**
+```yaml
+machine_definition:
+  id: "settlement-file-system"
+  signal_emission:
+    signals:
+      - type: "settlement.file.ready"
+        push:
+          protocols: [sftp]
+          schemas:
+            sftp:
+              file_format_spec:
+                name: "settlement-file-v1"
+                format: "csv"
+                encoding: "utf-8"
+                dialect:
+                  delimiter: ","
+                  quote: '"'
+                structure:
+                  header:
+                    rows: 1
+                    validation:
+                      required: true
+                      fields:
+                        - name: "file_type"
+                          position: 0
+                          type: "string"
+                          constraints:
+                            enum: ["SETTLEMENT"]
+                  body:
+                    startRow: 2
+                    schema:
+                      fields:
+                        - name: "transaction_id"
+                          position: 0
+                          type: "string"
+                        - name: "amount"
+                          position: 1
+                          type: "decimal"
+                  footer:
+                    rows: 1
+                    validation:
+                      required: true
+```
+
+**Flow:**
+1. Machine uploads file to Hub Dia SFTP: `sftp://dia.olympus.tech:22`
+2. Machine uploads to folder path: `/inbound/settlements/payment-operations`
+3. Hub Dia detects file arrival
+4. Hub Dia validates file format according to specification
+5. Hub Dia parses file and emits signals to Signal Exchange (one signal per row if `perRow: true`)
+6. Signal Exchange processes as normal push signals
+
+### Pull Model: Hub Polls Machine SFTP
+
+**Flow:** Hub polls Machine SFTP for files → Hub reads file fully → Hub uploads to Hub Dia SFTP → Dia processes file arrival (push semantics)
+
+**Configuration:**
+- Machine provides SFTP server endpoint and source path
+- Hub uses signal-pulling application (SFTP Poller) to poll Machine SFTP
+- Hub uploads pulled files to Hub Dia SFTP endpoint
+- Files are processed according to push endpoint configuration
+
+**Example Machine Configuration:**
+```yaml
+machine:
+  id: "batch-file-system"
+  signal_emission:
+    pull:
+      sftp:
+        # Machine-provided SFTP server
+        machine_sftp:
+          endpoint: "sftp://batch-files.acme.com:22"
+          path: "/outbound/settlements"
+          auth:
+            type: username_password
+            credentials_ref: "vault://secrets/batch-file/sftp-auth"
+        
+        # Hub Dia SFTP endpoint (subscription-scoped, per-workbench)
+        hub_sftp:
+          endpoint: "sftp://dia.olympus.tech:22"
+          path: "/inbound/settlements/{workbench_id}"
+          auth:
+            type: api_key
+            credentials_ref: "vault://secrets/hub-dia/sftp-key"
+        
+        # Polling configuration
+        polling:
+          schedule: "0 */5 * * * *"  # Every 5 minutes (cron format)
+          file_filters:
+            - pattern: "settlement_*.csv"
+              min_size: 1024  # Minimum file size in bytes
+```
+
+**Flow:**
+1. Hub connects to Machine-provided SFTP: `sftp://batch-files.acme.com:22`
+2. Hub polls Machine SFTP path: `/outbound/settlements` according to configured schedule
+3. Hub applies file filters during poll (pattern matching, size checks)
+4. Hub reads file fully from Machine SFTP
+5. Hub uploads pulled file to Hub Dia SFTP endpoint: `sftp://dia.olympus.tech:22/inbound/settlements/payment-operations` (immediately after full read)
+6. Hub Dia SFTP endpoint processes file arrival (push semantics, validates file format)
+7. Signal Exchange processes as normal push signals
+
+**Important Notes:**
+- **Pull mechanism does not validate files** - it only reads files fully and pushes them
+- **File validation happens at the Hub Dia SFTP push endpoint** according to the file format specification
+- **Processing of pushed files follows push endpoint configuration** (validation, parsing, signal emission)
+
+### File Format Specification
+
+The file format specification follows the schema defined in [File Format Specification](./dia/file-format-specification.md), which supports:
+- **Format Types**: CSV, TSV, Fixed-Width
+- **Structure**: Header, Body, Footer sections
+- **Validation**: Pattern matching, field validation, cross-validation
+- **Integrity Checks**: File size, hash, row count, column count
+- **Output**: JSON per-row format with metadata
+
+For detailed file format specifications, see [File Format Specification](./dia/file-format-specification.md).
+
+For detailed configuration, see [Machine Registry](../registry-services/machine-registry.md) and [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md).
+
 ## Related Documentation
 
 - [Olympus Academy - Dia](https://dia.olympus.tech/)
+- [File Format Specification](./dia/file-format-specification.md) - Complete schema definition for CSV/TSV/Fixed-Width file formats
 - [Hub Architecture - Signals](../../02-system-design/hub-architecture.md#13-signals)
 - [Hub Architecture - Triggers](../../02-system-design/hub-architecture.md#14-triggers)
 - [Ontology - Signal](../../01-concepts/ontology-reference.md#signal)
+- [Machine Registry](../registry-services/machine-registry.md)
+- [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md)
 
 ---
 

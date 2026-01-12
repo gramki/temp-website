@@ -149,6 +149,84 @@ machine_definition:
       name: "Initiate Payment"
       protocol_type: openapi
       specification: { ... }
+  
+  # Signal Emission Configuration
+  signal_emission:
+    signals:
+      - type: "account.created"
+        push:
+          protocols: [webhook, atropos_inbox]
+          schemas:
+            webhook:
+              openapi_spec:
+                type: object
+                required: [account_id, customer_id, account_type]
+                properties:
+                  account_id:
+                    type: string
+                    description: "Unique account identifier"
+                  customer_id:
+                    type: string
+                    description: "Customer identifier"
+                  account_type:
+                    type: string
+                    enum: [checking, savings, loan]
+                  timestamp:
+                    type: string
+                    format: date-time
+            atropos_inbox:
+              openapi_schema:
+                type: object
+                required: [id, source, specversion, type, data]
+                properties:
+                  id: { type: string }
+                  source: { type: string }
+                  specversion: { type: string, enum: ["1.0"] }
+                  type: { type: string }
+                  data: { type: object }
+              cloudevents_compliant: true
+              cloudevents_spec_version: "1.0"
+        pull:
+          protocols: [atropos_subscription]
+          schemas:
+            atropos_subscription:
+              openapi_schema:
+                type: object
+                required: [id, source, specversion, type, data]
+                properties:
+                  id: { type: string }
+                  source: { type: string }
+                  specversion: { type: string, enum: ["1.0"] }
+                  type: { type: string }
+                  data: { type: object }
+              cloudevents_compliant: true
+      
+      - type: "transaction.posted"
+        push:
+          protocols: [webhook, atropos_inbox]
+          schemas:
+            webhook:
+              openapi_spec:
+                type: object
+                required: [transaction_id, account_id, amount]
+                properties:
+                  transaction_id: { type: string }
+                  account_id: { type: string }
+                  amount: { type: number }
+                  currency: { type: string, default: "USD" }
+                  timestamp: { type: string, format: date-time }
+            atropos_inbox:
+              openapi_schema:
+                type: object
+                required: [id, source, specversion, type, data]
+                properties:
+                  id: { type: string }
+                  source: { type: string }
+                  specversion: { type: string, enum: ["1.0"] }
+                  type: { type: string }
+                  data: { type: object }
+              cloudevents_compliant: true
+              cloudevents_spec_version: "1.0"
 ```
 
 ---
@@ -213,6 +291,62 @@ machine:
         timeout_ms: number
         retry_policy: object
   
+  # Signal Emission Configuration (concrete endpoints for this instance)
+  signal_emission:
+    push:
+      webhook:
+        endpoint: string          # Workbench-scoped Hub ingress endpoint
+        auth:
+          type: enum              # api_key | oauth2 | mtls
+          credentials_ref: string # Vault path
+      atropos_inbox:
+        broker_endpoint: string   # Event bus broker endpoint
+        topic: string             # Topic name
+        auth:
+          type: enum              # sasl_scram | oauth2 | mtls
+          credentials_ref: string # Vault path
+      sftp:
+        server_endpoint: string    # Hub Dia SFTP server endpoint
+        folder_path: string       # Target folder path
+        auth:
+          type: enum              # api_key | username_password
+          credentials_ref: string # Vault path
+        file_pattern: string      # Optional file naming pattern
+    pull:
+      atropos_subscription:
+        machine_broker: string    # Machine-provided broker endpoint
+        machine_topic: string     # Machine-provided topic name
+        hub_topic: string         # Hub-hosted topic (auto-provisioned)
+        auth:
+          type: enum              # sasl_scram | oauth2 | mtls
+          credentials_ref: string # Vault path
+      kafka_connect:
+        machine_broker: string    # Machine-provided Kafka broker endpoint
+        machine_topic: string     # Machine-provided topic name
+        hub_topic: string         # Hub-hosted topic (auto-provisioned)
+        connect_config: object    # Kafka Connect connector configuration
+        auth:
+          type: enum              # sasl_scram | oauth2 | mtls
+          credentials_ref: string # Vault path
+      sftp:
+        machine_sftp:
+          endpoint: string        # Machine-provided SFTP server endpoint
+          path: string            # Source path on Machine SFTP
+          auth:
+            type: enum            # username_password | api_key
+            credentials_ref: string # Vault path
+        hub_sftp:
+          endpoint: string        # Hub Dia SFTP server endpoint
+          path: string            # Target path on Hub Dia SFTP
+          auth:
+            type: enum            # api_key
+            credentials_ref: string # Vault path
+        polling:
+          schedule: string         # Cron expression for polling schedule
+          file_filters:
+            - pattern: string     # File name pattern (glob)
+              min_size: number    # Minimum file size in bytes
+  
   # Metadata
   owner_team: string
   status: enum  # active | maintenance | deprecated
@@ -262,6 +396,29 @@ machine:
       flow_control:
         rate_limit: 10
         timeout_ms: 30000
+  
+  # Signal Emission Configuration
+  signal_emission:
+    push:
+      webhook:
+        endpoint: "https://heracles.olympus.tech/api/workbenches/payment-ops/signals"
+        auth:
+          type: api_key
+          credentials_ref: "vault://secrets/acme/core-banking/webhook-key"
+      atropos_inbox:
+        broker_endpoint: "kafka://kafka.olympus.tech:9092"
+        topic: "acme-core-banking.events"
+        auth:
+          type: sasl_scram
+          credentials_ref: "vault://secrets/acme/core-banking/kafka-auth"
+    pull:
+      atropos_subscription:
+        machine_broker: "kafka://external-events.acme-bank.com:9092"
+        machine_topic: "core-banking.events"
+        hub_topic: "/hub/acme-bank/prod-subscription/payment-ops/atropos/acme-core-banking-events"
+        auth:
+          type: sasl_scram
+          credentials_ref: "vault://secrets/acme/core-banking/external-kafka-auth"
 ```
 
 ---
@@ -297,6 +454,57 @@ The final specification is computed by:
 2. Apply Machine-level variable bindings
 3. Apply Tool-level variable overrides
 4. Apply Tool-level access policies and flow control
+
+---
+
+## Signal Emission Configuration
+
+Machines emit signals through **Signal Providers** (I/O Gateways), which serve as Hub ingress endpoints. Signal Providers normalize signals and forward them to Signal Exchange for trigger evaluation.
+
+**Signal Flow:**
+```
+Machine → Signal Provider (Hub Ingress) → Signal Exchange → Trigger → Scenario/Application
+```
+
+### Push vs Pull Models
+
+Machines can emit signals using two models:
+
+1. **Push Model**: Machine actively sends signals to Hub ingress endpoints
+   - **Webhook**: HTTP POST to Heracles gateway endpoint
+   - **Atropos Inbox**: Publish events to Event Bus topic
+   - **SFTP**: Upload files to Dia SFTP endpoint
+
+2. **Pull Model**: Hub uses signal-pulling applications to retrieve signals from Machines
+   - **Atropos Subscription**: Hub subscribes to Machine-provided Event Bus topic
+   - **Kafka Connect**: Hub connects to Machine-provided Kafka via Kafka Connect
+   - **SFTP**: Hub polls Machine SFTP and uploads to Hub Dia SFTP
+
+### Hub Ingress Endpoints
+
+Hub ingress endpoints are:
+- **Scoped**: Subscription-scoped and per-workbench
+- **Naming Pattern**: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+- **Provisioning**: Provisioned by tenant admin or authorized developers as resources
+
+### Schema Validation
+
+Signal schema validation occurs at the Signal Provider during normalization:
+- **Webhook (Heracles)**: Validates against OpenAPI specification for POST request body
+- **Atropos Inbox**: Validates CloudEvents v1.0 compliance
+- **SFTP (Dia)**: Validates file format specification
+
+### Multi-Provider Support
+
+Machines can emit signals through multiple providers simultaneously. Hub does not deduplicate signals from multiple providers—each signal is processed independently.
+
+### Provider Selection
+
+Provider selection is the Machine's choice and is outside Hub's scope. Machines are represented in Hub, not defined in Hub (often external systems).
+
+For detailed configuration examples and protocol specifications, see:
+- [Signal Providers](../signal-providers/README.md)
+- [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md)
 
 ---
 

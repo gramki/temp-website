@@ -173,6 +173,123 @@ Atropos uses Kubernetes Custom Resources (CRs) for declarative management:
 | **Graceful Failure Handling** | DLQs, circuit breakers, replay mechanisms |
 | **Event Flow Observability** | Logs, traces, and alerts for event workflows |
 
+## Machine Signal Emission
+
+Machines can emit signals through Atropos using two models: **push** (Atropos Inbox) and **pull** (Atropos Subscription).
+
+### Push Model: Atropos Inbox
+
+**Flow:** Machine publishes events to Atropos topic → Atropos normalizes and forwards to Signal Exchange
+
+**Configuration:**
+- Machine publishes events to Event Bus topic (Kafka, RabbitMQ, AWS EventBridge)
+- Events must be CloudEvents v1.0 compliant
+- Atropos consumes from the topic and normalizes to Signal Exchange format
+
+**Example Machine Configuration:**
+```yaml
+machine:
+  id: "payment-switch"
+  signal_emission:
+    push:
+      atropos_inbox:
+        broker_endpoint: "kafka://kafka.olympus.tech:9092"
+        topic: "payment.events"
+        auth:
+          type: sasl_scram
+          credentials_ref: "vault://secrets/payment-switch/kafka-auth"
+```
+
+**Event Format (CloudEvents v1.0):**
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "source": "payment-switch.acme.com",
+  "specversion": "1.0",
+  "type": "com.acme.payment.authorized",
+  "datacontenttype": "application/json",
+  "time": "2026-01-15T10:30:00Z",
+  "data": {
+    "payment_id": "pay_12345",
+    "amount": 100.50,
+    "customer_id": "cust_67890",
+    "currency": "USD"
+  }
+}
+```
+
+### Pull Model: Atropos Subscription
+
+**Flow:** Hub subscribes to Machine-provided topic → Messages queued to Hub-hosted topic → Signal Provider → Signal Exchange
+
+**Configuration:**
+- Machine provides broker endpoint and topic name
+- Hub uses signal-pulling application (Atropos Subscriber) to subscribe
+- Messages are queued to Hub-hosted topic for dispatch
+- Hub-hosted topic follows naming pattern: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+
+**Example Machine Configuration:**
+```yaml
+machine:
+  id: "external-payment-system"
+  signal_emission:
+    pull:
+      atropos_subscription:
+        # Machine-provided endpoint and topic
+        machine_broker: "kafka://external-payment.acme.com:9092"
+        machine_topic: "payment.events"
+        auth:
+          type: sasl_scram
+          credentials_ref: "vault://secrets/external-payment/kafka-auth"
+        
+        # Hub-hosted topic (auto-provisioned, dedicated to machine instance)
+        hub_topic: "/hub/acme-bank/prod-subscription/payment-ops/atropos/external-payment-events"
+```
+
+**Flow:**
+1. Signal-pulling application (Atropos Subscriber) registers as subscriber with Atropos
+2. Atropos manages subscription aspects (consumer groups, offsets, etc.)
+3. Subscriber reads messages from Machine topic
+4. Subscriber queues messages to Hub-hosted topic
+5. Hub-hosted topic dispatches to Signal Exchange (push semantics)
+6. Signal Exchange processes as normal push signals
+
+### Subscription Management
+
+**Key Points:**
+- Signal-pulling application registers as subscriber with configured credentials
+- **Atropos manages all subscription aspects** (consumer groups, offsets, reconnection, etc.)
+- Subscriber only needs to acknowledge processed messages
+- Subscription lifecycle is tied to machine instance lifecycle
+
+**Subscription Characteristics:**
+- Consumer group naming: Managed by Atropos
+- Offset management: Managed by Atropos (start from beginning, latest, or specific offset)
+- Reconnection: Automatic with offset recovery
+- Error handling: Sound defaults with retry and dead-letter handling
+
+### Hub-Hosted Topics
+
+**Characteristics:**
+- **Naming Pattern**: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+- **Dedicated**: Each topic is dedicated to a machine instance
+- **Auto-Provisioning**: Topics are auto-provisioned with machine instance
+- **Lifecycle Management**: Tenant admin manages topic lifecycle (creation, deletion, cleanup)
+- **Tied to Instance**: Topic lifecycle is tied to machine instance lifecycle
+
+**Example Hub-Hosted Topic:**
+```
+/hub/acme-bank/prod-subscription/payment-ops/atropos/external-payment-events
+```
+
+This topic is:
+- Subscription-scoped: `prod-subscription`
+- Workbench-scoped: `payment-ops`
+- Signal Provider: `atropos`
+- Machine-specific: `external-payment-events`
+
+For detailed configuration, see [Machine Registry](../registry-services/machine-registry.md) and [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md).
+
 ## Related Documentation
 
 - [Olympus Academy - Atropos](https://atropos.olympus.tech/)
@@ -180,6 +297,8 @@ Atropos uses Kubernetes Custom Resources (CRs) for declarative management:
 - [Hub Architecture - Triggers](../../02-system-design/hub-architecture.md#14-triggers)
 - [Ontology - Signal](../../01-concepts/ontology-reference.md#signal)
 - [Ontology - Trigger](../../01-concepts/ontology-reference.md#trigger)
+- [Machine Registry](../registry-services/machine-registry.md)
+- [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md)
 
 ---
 

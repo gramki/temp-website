@@ -8,7 +8,111 @@
 
 ## Summary
 
-This document captures all open points, questions, and TBD items from the Machine signal emission documentation. These need to be resolved before finalizing the specification.
+This document captures all open points, questions, and TBD items from the Machine signal emission documentation. Resolved items have been moved to the "Resolved Decisions" section below.
+
+---
+
+## Resolved Decisions
+
+The following items have been resolved and incorporated into the documentation:
+
+### 1.1 Multi-Provider Support
+**Status:** ✅ Resolved
+
+**Decision:** Machines can emit signals through multiple providers simultaneously. Hub does not deduplicate or acknowledge signals from multiple providers as the same or redundant. Each signal is processed independently.
+
+### 1.2 Provider Selection Logic
+**Status:** ✅ Resolved
+
+**Decision:** Provider selection is the Machine's choice and is outside Hub's scope. Machines are represented in Hub, not defined in Hub (often external systems). The Machine decides which provider(s) to use based on its own logic and requirements.
+
+### 1.3 Signal Schema Validation Location
+**Status:** ✅ Resolved
+
+**Decision:** Signal schema validation occurs at the Signal Provider during normalization. Each provider validates according to its protocol requirements (OpenAPI for Webhook, CloudEvents for Atropos, File Format Spec for SFTP).
+
+### 2.1 Endpoint Scoping
+**Status:** ✅ Resolved
+
+**Decision:** 
+- Hub ingress endpoints are subscription-scoped and per-workbench
+- Endpoints are provisioned by tenant admin or authorized developers as resources when required
+- Endpoint pattern: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+
+### 2.2 Endpoint Authentication
+**Status:** ✅ Resolved
+
+**Decision:** Per-provider authentication mechanisms are used. Each Signal Provider has its own authentication requirements and mechanisms.
+
+### 3.1 Hub-Hosted Topic/Endpoint Naming
+**Status:** ✅ Resolved
+
+**Decision:** 
+- Hub-hosted topics/endpoints use pattern: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+- Topics/endpoints are configured (not auto-generated)
+- Topics are dedicated to machine instance
+
+### 3.2 Automatic Conversion
+**Status:** ✅ Resolved
+
+**Decision:** Pull-to-push conversion is automatic when endpoints are appropriately provisioned and specified. Signal-pulling applications handle the conversion automatically.
+
+### 3.3 Error Handling for Pull Operations
+**Status:** ✅ Resolved
+
+**Decision:** Sound defaults for error handling will be implemented. Specific error handling strategies will be defined per provider and pull mechanism.
+
+### 4.1 Subscription Management
+**Status:** ✅ Resolved
+
+**Decision:** 
+- Signal-pulling application registers as subscriber with Atropos using configured credentials
+- Atropos manages all subscription aspects (consumer groups, offsets, etc.)
+- Subscriber only needs to acknowledge processed messages
+
+### 4.2 Hub-Hosted Topic Lifecycle
+**Status:** ✅ Resolved
+
+**Decision:** 
+- Topic is dedicated to machine instance
+- Topic is auto-provisioned with machine instance
+- Tenant admin manages the topic lifecycle
+
+### 5.1 Kafka Connect Integration
+**Status:** ✅ Resolved
+
+**Decision:** 
+- Hub runs Kafka Connect connectors internally
+- Connectors are provisioned with machine instance
+- Connector lifecycle is tied to machine instance lifecycle
+
+### 5.2 Schema Compatibility
+**Status:** ✅ Resolved (TBD for implementation)
+
+**Decision:** Schema transformation is kept as TBD in documentation. Transformation should be possible but not specified at this stage.
+
+### 6.1 File Polling Mechanism
+**Status:** ✅ Resolved
+
+**Decision:** 
+- Polling schedule is specified in the pull configuration
+- Hub polls on a configurable schedule
+- File filters are applied during poll
+
+### 6.2 File Processing
+**Status:** ✅ Resolved
+
+**Decision:** 
+- Files are pushed immediately after full read completion
+- Processing of pushed files follows the push endpoint configuration
+
+### 6.3 SFTP Pull Signal Schema
+**Status:** ✅ Resolved
+
+**Decision:** 
+- Pull mechanism does not validate files
+- Pull mechanism reads file fully, then pushes to Hub Dia SFTP
+- File validation happens at the push endpoint (Hub Dia SFTP)
 
 ---
 
@@ -398,22 +502,15 @@ This document captures all open points, questions, and TBD items from the Machin
 
 ## Priority Classification
 
-### High Priority (Blocking)
-1. **Provider Selection Logic** (1.2) - Needed for configuration
-2. **Hub Ingress Endpoint Scoping** (2.1) - Needed for deployment
-3. **Hub-Hosted Topic Naming** (3.1) - Needed for implementation
-4. **SFTP Pull Signal Schema** (6.3) - Needed to complete specification
-5. **Authentication & Authorization** (7.1, 7.2, 7.3) - Security requirement
+### High Priority (Remaining)
+1. **Authentication & Authorization Details** (7.1, 7.2, 7.3) - Security requirement (specific mechanisms to be detailed)
+2. **Error Handling Defaults** (8.1, 8.2) - Resilience requirement (specific defaults to be defined)
 
-### Medium Priority (Important)
-1. **Multi-Provider Support** (1.1) - Feature completeness
-2. **Schema Validation Location** (1.3) - Quality assurance
-3. **Subscription Management** (4.1) - Operational requirement
-4. **Error Handling** (8.1, 8.2) - Resilience requirement
-5. **Signal-Pulling Applications** (9.1, 9.2) - Feature completeness
+### Medium Priority (Remaining)
+1. **Signal-Pulling Application Details** (9.1, 9.2) - Feature completeness (additional applications to be documented)
 
-### Low Priority (Nice to Have)
-1. **Documentation Updates** (10.x) - Can be done incrementally
+### Low Priority (Remaining)
+1. **Documentation Updates** (10.x) - Can be done incrementally (most updates completed)
 2. **Implementation Tasks** (11.x) - Follows design decisions
 
 ---

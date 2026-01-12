@@ -35,11 +35,32 @@ The ontology describes signals abstractly. I/O Gateways specify:
 ## Definition
 
 **I/O Gateway** is a protocol-specific component that:
-- Accepts signals in protocol-native format
+- Serves as **Hub ingress endpoints** where Machines send signals
+- Accepts signals in protocol-native format (push model) or processes signals from Hub-hosted topics (pull model)
+- Validates signal schemas according to protocol requirements during normalization
 - Normalizes signals to standard DTO
 - Forwards normalized signals to Signal Exchange
 - Receives updates from Signal Exchange
 - Delivers updates in protocol-native format
+
+### Machine Signal Emission
+
+**I/O Gateways serve as Hub ingress endpoints for Machine signals.** Machines emit signals through Signal Providers using two models:
+
+**Push Model:** Machines actively send signals to Gateway endpoints
+- **Webhook**: Machine sends HTTP POST to Heracles gateway endpoint
+- **Atropos Inbox**: Machine publishes events to Event Bus topic
+- **SFTP**: Machine uploads files to Dia SFTP endpoint
+
+**Pull Model:** Signal-pulling applications retrieve signals from Machines, queue to Hub-hosted topics, then Gateway processes from Hub-hosted resources
+- **Atropos Subscription**: Signal-pulling app subscribes to Machine topic, queues to Hub-hosted topic
+- **Kafka Connect**: Signal-pulling app connects to Machine Kafka, queues to Hub-hosted topic
+- **SFTP**: Signal-pulling app polls Machine SFTP, uploads to Hub Dia SFTP
+
+**Hub Ingress Endpoints:**
+- **Scoped**: Subscription-scoped and per-workbench
+- **Naming Pattern**: `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}`
+- **Provisioning**: Provisioned by tenant admin or authorized developers as resources
 
 ### Characteristics
 
@@ -75,6 +96,7 @@ Protocol abstraction enables:
 | ADR | Decision |
 |-----|----------|
 | [ADR-0001](../../decision-logs/0001-signal-normalization.md) | Normalize signal format between SPs and SX |
+| [ADR-0103](../../decision-logs/0103-machine-signal-emission.md) | Machine Signal Emission Through Signal Providers |
 
 ---
 
@@ -159,17 +181,18 @@ Protocol abstraction enables:
 
 ### Inbound Flow
 
+**Push Model:**
 ```
-1. External system sends protocol-native request
-   └── HTTP POST, Kafka message, file drop, etc.
+1. Machine sends signal to Hub ingress endpoint
+   └── HTTP POST (Heracles), Event Bus publish (Atropos), SFTP upload (Dia)
 
-2. Gateway receives and validates:
-   ├── Transport-level authentication
-   ├── Access control (tenant, subscription)
-   └── Payload validation
+2. Gateway receives at Hub ingress endpoint:
+   ├── Transport-level authentication (per-provider mechanisms)
+   ├── Access control (tenant, subscription, workbench)
+   └── Schema validation (OpenAPI, CloudEvents, File Format Spec)
 
 3. Gateway normalizes to DTO:
-   ├── Extract tenant/subscription context
+   ├── Extract tenant/subscription/workbench context
    ├── Map protocol fields to standard structure
    └── Generate signal_id, timestamp
 
@@ -179,6 +202,23 @@ Protocol abstraction enables:
 5. Gateway returns acknowledgment:
    └── Sync: wait for SX response
    └── Async: immediate ACK, SX processes later
+```
+
+**Pull Model:**
+```
+1. Signal-pulling application retrieves signal from Machine
+   └── Subscribe to topic, poll SFTP, connect via Kafka Connect
+
+2. Signal-pulling application queues to Hub-hosted topic/endpoint
+   └── Pattern: /hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}
+
+3. Gateway processes from Hub-hosted resource (push semantics):
+   ├── Receive from Hub-hosted topic/endpoint
+   ├── Schema validation (same as push model)
+   └── Normalize to DTO
+
+4. Gateway forwards to Signal Exchange:
+   └── Normalized DTO via internal protocol
 ```
 
 ### Outbound Flow
@@ -202,14 +242,56 @@ Protocol abstraction enables:
 
 ---
 
+## Hub Ingress Endpoint Configuration
+
+**Hub ingress endpoints** are the entry points into the Hub platform where Machines send signals. These endpoints are exposed by I/O Gateways and serve as the Hub's boundary for signal reception.
+
+### Endpoint Characteristics
+
+| Characteristic | Description |
+|---------------|-------------|
+| **Scoping** | Subscription-scoped and per-workbench |
+| **Naming Pattern** | `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}` |
+| **Provisioning** | Provisioned by tenant admin or authorized developers as resources when required |
+| **Authentication** | Per-provider authentication mechanisms |
+
+### Endpoint Provisioning
+
+Hub ingress endpoints are provisioned as resources within a subscription and workbench context:
+
+1. **Tenant Admin** can provision endpoints for any workbench in their tenant
+2. **Authorized Developers** can provision endpoints for workbenches they have access to
+3. Endpoints are tied to the workbench lifecycle
+4. Endpoint configuration includes authentication credentials and access policies
+
+### Example Endpoint Patterns
+
+- **Heracles Webhook**: `https://heracles.olympus.tech/api/workbenches/{workbench-id}/signals`
+- **Atropos Topic**: `/hub/{tenant}/{subscription}/{workbench-id}/atropos/{topic-name}`
+- **Dia SFTP**: `sftp://dia.olympus.tech:22/inbound/{workbench-id}/{folder-path}`
+
+## Signal Schema Validation
+
+**Signal schema validation occurs at the I/O Gateway during normalization.** Each Gateway validates according to its protocol requirements:
+
+| Gateway | Validation Method |
+|---------|-------------------|
+| **Heracles (Webhook)** | Validates against OpenAPI specification for POST request body |
+| **Atropos Inbox** | Validates CloudEvents v1.0 compliance |
+| **Dia (SFTP)** | Validates file format specification (CSV/TSV/Fixed-Width) |
+
+Validation failures are handled according to provider-specific error handling policies.
+
 ## Constraints and Invariants
 
 | Constraint | Description |
 |------------|-------------|
 | **Tenant scoping** | All signals must include tenant context |
 | **Subscription scoping** | All signals must include subscription context |
+| **Workbench scoping** | Hub ingress endpoints are per-workbench |
 | **Normalization** | All signals must be normalized before SX |
-| **Authentication** | All requests must be authenticated |
+| **Schema validation** | All signals must be validated at Gateway during normalization |
+| **Authentication** | All requests must be authenticated (per-provider mechanisms) |
 | **Idempotency** | Gateways should support idempotency keys |
 
 ---

@@ -11,26 +11,55 @@ I/O Gateways are Machines in the Hub Environment that sense Signals from various
 
 ## Architectural Role
 
+**Signal Providers (I/O Gateways) are Machines in the Hub Environment** that serve as Hub ingress endpoints. **Machines emit signals through Signal Providers**, which normalize signals and forward them to Signal Exchange.
+
+**Signal Flow:**
+```
+Domain Machine → Signal Provider (Hub Ingress) → Signal Exchange → Trigger → Scenario/Application
+```
+
+### Complete Signal Flow Diagram
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                 I/O GATEWAYS (Machines in Environment)           │
+│                    DOMAIN MACHINES                               │
+│              (e.g., Payment Switch, Core Banking)               │
 │                                                                  │
-│   ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐        │
-│   │ Atropos  │  │ Cronus   │  │ Heracles │  │   Dia    │        │
-│   │ (Events) │  │(Obs/Exc) │  │(HTTP/API)│  │ (Files)  │        │
-│   └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘        │
-│        │             │             │             │              │
-│        │ 1. Sense protocol-specific signals                      │
-│        │ 2. Transform to normalized format                      │
-│        └─────────────┴──────┬──────┴─────────────┘              │
-│                             ▼                                    │
-│                    SIGNAL EXCHANGE                                │
-│                    (Normalized Signal DTO)                        │
-│                             │                                    │
-│                             ▼                                    │
-│                    Trigger Evaluation → Request Creation          │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │  Machines emit signals via:                              │   │
+│   │  • Push: Webhook, Atropos Inbox, SFTP                    │   │
+│   │  • Pull: Atropos Subscription, Kafka Connect, SFTP Poll  │   │
+│   └───────────────┬─────────────────────────────────────────┘   │
+│                   │                                              │
+│                   ▼                                              │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │         SIGNAL PROVIDERS (Hub Ingress Endpoints)         │   │
+│   │              (I/O Gateways - Machines in Environment)    │   │
+│   │                                                           │   │
+│   │   ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐ │
+│   │   │ Atropos  │  │ Cronus   │  │ Heracles │  │   Dia    │ │
+│   │   │ (Events) │  │(Obs/Exc) │  │(HTTP/API)│  │ (Files)  │ │
+│   │   └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘ │
+│   │        │             │             │             │       │
+│   │        │ 1. Receive signals at Hub ingress endpoints      │
+│   │        │ 2. Validate schema (per protocol)                 │
+│   │        │ 3. Transform to normalized format                 │
+│   │        └─────────────┴──────┬──────┴─────────────┘       │
+│   └─────────────────────────────┼─────────────────────────────┘
+│                                   ▼                            │
+│                          SIGNAL EXCHANGE                       │
+│                    (Normalized Signal DTO)                      │
+│                                   │                            │
+│                                   ▼                            │
+│                    Trigger Evaluation → Request Creation        │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+**Key Points:**
+- Signal Providers are Machines themselves in the Hub Environment
+- Machines emit signals through Signal Providers (Hub ingress)
+- Signal Providers validate schemas during normalization
+- All signals are normalized to Signal Exchange format regardless of source protocol
 
 ## I/O Gateway Inventory
 
@@ -82,10 +111,55 @@ I/O Gateways transform protocol-specific signals to Signal Exchange's normalized
 
 > **Note:** Signal Exchange receives signals in a single, normalized format regardless of the originating protocol. I/O Gateways are responsible for this transformation.
 
-### 4. Response Handling
+### 4. Signal Schema Validation
+
+**Signal schema validation occurs at the Signal Provider during normalization.** Each provider validates according to its protocol requirements:
+
+| Signal Provider | Validation Method |
+|----------------|-------------------|
+| **Heracles (Webhook)** | Validates against OpenAPI specification for POST request body |
+| **Atropos Inbox** | Validates CloudEvents v1.0 compliance |
+| **Dia (SFTP)** | Validates file format specification (CSV/TSV/Fixed-Width) |
+| **Cronus** | Validates exception/observation schema |
+
+Validation failures are handled according to provider-specific error handling policies.
+
+### 5. Response Handling
 - Receive responses from Signal Exchange (for bidirectional I/O Gateways)
 - Transform normalized response format back to protocol-specific format
 - Deliver to originating channel
+
+---
+
+## Hub Ingress Endpoints
+
+**Hub ingress endpoints** are the entry points into the Hub platform where Machines send signals. These endpoints are exposed by Signal Providers and serve as the Hub's boundary for signal reception.
+
+### Endpoint Characteristics
+
+| Characteristic | Description |
+|---------------|-------------|
+| **Scoping** | Subscription-scoped and per-workbench |
+| **Naming Pattern** | `/hub/{tenant}/{subscription}/{workbench-id}/{signal-provider}/{name-slug}` |
+| **Provisioning** | Provisioned by tenant admin or authorized developers as resources when required |
+| **Authentication** | Per-provider authentication mechanisms |
+
+### Endpoint Provisioning
+
+Hub ingress endpoints are provisioned as resources within a subscription and workbench context:
+
+1. **Tenant Admin** can provision endpoints for any workbench in their tenant
+2. **Authorized Developers** can provision endpoints for workbenches they have access to
+3. Endpoints are tied to the workbench lifecycle
+4. Endpoint configuration includes authentication credentials and access policies
+
+### Example Endpoint Patterns
+
+- **Heracles Webhook**: `https://heracles.olympus.tech/api/workbenches/{workbench-id}/signals`
+- **Atropos Topic**: `/hub/{tenant}/{subscription}/{workbench-id}/atropos/{topic-name}`
+- **Dia SFTP**: `sftp://dia.olympus.tech:22/inbound/{workbench-id}/{folder-path}`
+
+For detailed configuration, see [Machine Registry](../registry-services/machine-registry.md) and [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md).
 
 ## Workbench Trigger Configuration
 
