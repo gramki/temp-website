@@ -17,7 +17,7 @@ This folder contains the design documents for **Olympus Seer** (Seer) — Zeta's
 - [Authority Enforcement](./subsystems/authority-enforcement.md) — OPA policies, Tool Gateway, Signal Exchange
 - [Agent Identity & Authority Framework](./subsystems/agent-identity-authority.md)
 - [Context Assembly Engine](./subsystems/context-assembly-engine.md) — Compile API, retrievers, token budgeting
-- [Runtime & Deployment Abstraction](./subsystems/runtime-deployment.md)
+- [Runtime & Deployment Abstraction](./subsystems/agent-runtime/runtime-deployment.md)
 - [Agent Observability](./subsystems/agent-observability.md) — SDK, Watch integration
 - [Agent Evaluation Service](./subsystems/agent-evaluation.md) — PARKED (post-MVP)
 - [Model Gateway](./subsystems/model-gateway.md)

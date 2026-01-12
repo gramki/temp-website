@@ -518,7 +518,7 @@ obs = SeerObservability(
 
 - [Olympus Watch](https://watch.olympus.tech/) — Observability platform
 - [Observability Extensions to Watch](./observability-extensions-to-watch.md) — Platform-level dashboards and tools for Seer SRE personas
-- [Runtime Deployment](./runtime-deployment.md) — Pod configuration
+- [Runtime Deployment](./agent-runtime/runtime-deployment.md) — Pod configuration
 - [Model Gateway](./model-gateway.md) — LLM metrics
 - [Guardrails](./guardrails.md) — Guardrail metrics
 - [Hub Enterprise Memory](../../../olympus-hub-docs/04-subsystems/memory-services/enterprise-memory/README.md) — CAF scope

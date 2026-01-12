@@ -471,7 +471,7 @@ budget_available(virtual_key) {
 
 - [Bifrost GitHub](https://github.com/maximhq/bifrost) — Upstream project
 - [Bifrost Documentation](https://docs.getbifrost.ai/) — Feature documentation
-- [Runtime Deployment](./runtime-deployment.md) — Agent deployment
+- [Runtime Deployment](./agent-runtime/runtime-deployment.md) — Agent deployment
 - [Authority Enforcement](./authority-enforcement.md) — OPA policies
 - [Training Spec CRD](../hub-integration/training-spec-crd.md) — Model whitelist
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Model restrictions

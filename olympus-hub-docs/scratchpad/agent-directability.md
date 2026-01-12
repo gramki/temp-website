@@ -325,3 +325,138 @@ Shall I incorporate this refined model into the design session document and proc
 
 =====
 > DONE
+
+---
+
+# Agent Directability in Seer: Capabilities Status
+
+> **Status**: 🟡 Draft  
+> **Last Updated**: 2026-01-11
+
+---
+
+## Kill Switch & Lifecycle Control
+
+### Kill Switch Functionality
+- ✅ Kill switch API endpoints (suspend, revoke, bulk operations) - `agent-lifecycle-api.md` §Kill Switch
+- ✅ Kill switch via Lifecycle Service - `agent-lifecycle-service.md` §Kill Switch
+- ✅ Kill switch execution via Runtime & Deployment - `runtime-deployment.md` §Kill Switch
+- ✅ Suspend employment (retains authority, stops execution) - `agent-lifecycle-api.md` §Suspend Employment
+- ✅ Revoke employment (permanently removes authority) - `agent-lifecycle-api.md` §Revoke Employment
+- ✅ Resume suspended employment - `agent-lifecycle-api.md` §Resume Employment
+
+### Employment State Management
+- ✅ Employment state transitions (Requested → Approved → Active → Suspended → Revoked) - `agent-lifecycle-service.md` §Employment States
+- ✅ State-based authority control - `agent-lifecycle-service.md` §Employment States
+
+---
+
+## Guardrail Interventions
+
+### Guardrail Intervention Capabilities
+- ✅ Guardrail intervention recording - `guardrails.md` §Guardrail Interventions
+- ✅ Guardrail intervention logging to CAF - `guardrails.md` §Guardrail Interventions
+- ✅ Intervention details in guardrail results - `guardrails.md` §Guardrail SDK §GuardrailResult
+- ✅ Before guardrails (transform, reject, add context) - `guardrails.md` §Sidecar Guardrails
+- ✅ After guardrails (transform response, reject, redact) - `guardrails.md` §Sidecar Guardrails
+
+---
+
+## Authority Enforcement & Escalation
+
+### Escalation Capabilities
+- ✅ Escalation mentioned in authority enforcement - `authority-enforcement.md` §Violation Handling §Corrective Actions
+- ✅ Escalation for agents on task queue - `authority-enforcement.md` §Violation Handling §Corrective Actions
+- ✅ Human supervisor manual intervention - `authority-enforcement.md` §Violation Handling §Corrective Actions
+
+### Production Readiness Requirements
+- ✅ Defined escalation triggers requirement - `production-readiness.md` §8. Failure & Escalation Behavior
+- ✅ Defined human handoff behavior requirement - `production-readiness.md` §8. Failure & Escalation Behavior
+- ✅ Defined failure states requirement - `production-readiness.md` §8. Failure & Escalation Behavior
+
+---
+
+## Hub Directability Capabilities (Documented)
+
+### Rejection-Based Directability Model
+- ✅ Rejection as universal trigger for directability (Agent, Guardrail, Policy, Application rejections) - `02-system-design/implementation-concepts/agent-directability.md` §Rejection as Universal Trigger
+- ✅ Escalation hierarchy (Agent → TaskQueue → Scenario) - `02-system-design/implementation-concepts/agent-directability.md` §Escalation Hierarchy
+- ✅ Escalation matrix configuration (Task Queue EM, Scenario EM) - `04-subsystems/task-management/task-queues.md` §Escalation Matrix, `02-system-design/implementation-concepts/agent-directability.md` §Two Escalation Matrix Types
+- ✅ Escalation task creation and assignment - `04-subsystems/task-management/task-queues.md` §Escalation Task Queue §Escalation Task Creation
+- ✅ Accountable human notification on escalation - `04-subsystems/task-management/task-queues.md` §Escalation Task Queue §Escalation Task Creation
+- ✅ Escalation resolution options (change context, override decision, reassign, etc.) - `02-system-design/implementation-concepts/agent-directability.md` §Resolution Options
+
+### Agent Archetypes & Directability
+- ✅ Thinker archetype directability (Decision Request/Result rejection handling) - `02-system-design/implementation-concepts/agent-directability.md` §Agent Archetypes
+- ✅ Doer archetype directability (Action Request/Result rejection handling) - `02-system-design/implementation-concepts/agent-directability.md` §Agent Archetypes
+- ✅ Orchestrator archetype directability (Task Assignment rejection handling) - `02-system-design/implementation-concepts/agent-directability.md` §Agent Archetypes
+- ✅ Governor archetype handling (observations as facts, not proposals) - `02-system-design/implementation-concepts/agent-directability.md` §Agent Archetypes §Governor Special Case
+
+### Resolution Options by Rejection Type
+- ✅ Decision Result resolution (change context and re-run, change decision and continue) - `02-system-design/implementation-concepts/agent-directability.md` §Resolution Options §Resolution by Rejection Type
+- ✅ Decision Request resolution (change context and re-run, fail scenario) - `02-system-design/implementation-concepts/agent-directability.md` §Resolution Options §Resolution by Rejection Type
+- ✅ Task Assignment resolution (reassign, give failure result, abandon) - `02-system-design/implementation-concepts/agent-directability.md` §Resolution Options §Resolution by Rejection Type
+- ✅ Action Request resolution (reject the action) - `02-system-design/implementation-concepts/agent-directability.md` §Resolution Options §Resolution by Rejection Type
+- ✅ Action Result resolution (create corrective action, reassign, give failure result, abandon) - `02-system-design/implementation-concepts/agent-directability.md` §Resolution Options §Resolution by Rejection Type
+
+### CAF Integration for Directability
+- ✅ Override Record (decision changes) - `04-subsystems/cognitive-audit-fabric/episodic-memory-store/override-records.md`
+- ✅ ContextIntervention Record (context changes for re-run) - `02-system-design/implementation-concepts/agent-directability.md` §CAF Integration §Intervention Records
+- ✅ DirectiveResolution Record (acknowledgment and outcome tracking) - `04-subsystems/cognitive-audit-fabric/episodic-memory-store/directive-resolution-records.md`
+- ✅ Handoff Context Record (escalation state transfer) - `02-system-design/implementation-concepts/agent-directability.md` §CAF Integration §Intervention Records
+- ✅ Cross-scenario directability tracing (parent-child request refs, tool use traces) - `02-system-design/implementation-concepts/agent-directability.md` §Cross-Scenario Tracing
+
+### Signal Exchange Integration
+- ✅ Rejection event routing via Signal Exchange - `04-subsystems/signal-exchange/README.md` §Overview, `02-system-design/implementation-concepts/agent-directability.md` §Escalation Flow
+- ✅ REQUEST_UPDATE with rejection content - `02-system-design/implementation-concepts/agent-directability.md` §Escalation Flow
+- ✅ Task Management observation of rejection events - `04-subsystems/task-management/task-queues.md` §Escalation Task Queue §Escalation Task Creation
+
+### Proactive Directability
+- ✅ Proactive human commands (pause, prioritize, guidance) - `02-system-design/implementation-concepts/agent-directability.md` §Rejection as Universal Trigger §Proactive Directability
+- ✅ Policy/guardrail-based proactive intervention triggers - `02-system-design/implementation-concepts/agent-directability.md` §Rejection as Universal Trigger §Proactive Directability
+- ✅ Directive record type for non-rejection commands - `04-subsystems/cognitive-audit-fabric/episodic-memory-store/directive-resolution-records.md`
+
+### Directability Operations
+- ✅ Override decision operation - `04-subsystems/task-management/agent-task-operations.md` §Directability Operations §Override Decision
+- ✅ Change context operation - `04-subsystems/task-management/agent-task-operations.md` §Directability Operations §Change Context and Re-run
+- ✅ Reassign task operation - `04-subsystems/task-management/agent-task-operations.md` §Directability Operations §Reassign to Alternative Agent
+- ✅ Abandon task operation - `04-subsystems/task-management/agent-task-operations.md` §Agent Operations §Abandon Task
+- ✅ Spawn corrective action scenario operation - `04-subsystems/task-management/agent-task-operations.md` §Directability Operations §Create Corrective Action
+- ✅ Fail scenario operation - `04-subsystems/task-management/agent-task-operations.md` §Directability Operations §Fail Scenario
+
+### Directability Observability
+- ❌ Directability metrics (override rate, escalation rate, intervention types)
+- ❌ Directability dashboards (intervention timeline, resolution effectiveness)
+- ❌ Directability alerts (high escalation rate, unresolved interventions)
+
+### Directability UX
+- ✅ Intervention solver interface (UI for handling escalations) - `04-subsystems/task-management/agent-task-operations.md` §Task Solver Interface, `02-system-design/implementation-concepts/agent-directability.md` §UX References
+- ✅ Directability REST APIs - `decision-logs/0080-directability-operations.md` §API Exposure §REST Endpoints
+- ✅ Directability MCP methods - `decision-logs/0080-directability-operations.md` §API Exposure §MCP Tools
+
+### Documentation Standards
+- ❌ Persona-based documentation (all capabilities documented from perspective of defined personas: APO, CSA, AE, KMO, ARE, COS, ARAO, and SRE personas) - Reference: `olympus-seer-docs/seer-design/personas-and-needs/roles.md`
+- ❌ Persona-specific use cases and examples for each capability
+- ❌ Persona journey integration (how directability capabilities support each persona's journey)
+
+---
+
+## Document References
+
+### Seer Design References
+- `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-api.md` - Kill switch API endpoints
+- `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md` - Kill switch via lifecycle service
+- `olympus-seer-docs/seer-design/subsystems/runtime-deployment.md` - Kill switch execution
+- `olympus-seer-docs/seer-design/subsystems/guardrails.md` - Guardrail interventions
+- `olympus-seer-docs/seer-design/subsystems/authority-enforcement.md` - Authority enforcement and escalation mentions
+- `olympus-seer-docs/seer-design/personas-and-needs/needs/production-readiness.md` - Escalation behavior requirements
+
+### Hub Design References
+- `olympus-hub-docs/02-system-design/implementation-concepts/agent-directability.md` - Complete directability model
+- `olympus-hub-docs/04-subsystems/task-management/task-queues.md` - Task queues and escalation matrices
+- `olympus-hub-docs/04-subsystems/task-management/agent-task-operations.md` - Directability operations
+- `olympus-hub-docs/04-subsystems/cognitive-audit-fabric/episodic-memory-store/override-records.md` - Override records
+- `olympus-hub-docs/04-subsystems/cognitive-audit-fabric/episodic-memory-store/directive-resolution-records.md` - Directive resolution records
+- `olympus-hub-docs/04-subsystems/signal-exchange/README.md` - Signal Exchange routing
+- `olympus-hub-docs/decision-logs/0078-agent-directability-rejection-escalation.md` - ADR on rejection-escalation model
+- `olympus-hub-docs/decision-logs/0080-directability-operations.md` - ADR on directability operations

@@ -171,7 +171,7 @@ When a Hub Request update reaches a Seer agent:
 
 ### Seer Internals
 - [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Raw/Trained/Employed model
-- [Runtime & Deployment](../subsystems/runtime-deployment.md) — Atlantis runtime
+- [Runtime & Deployment](../subsystems/agent-runtime/runtime-deployment.md) — Atlantis runtime
 - [Context Assembly Engine](../subsystems/context-assembly-engine.md) — CAE design
 
 ### Hub Components

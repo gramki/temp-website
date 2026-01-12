@@ -710,7 +710,7 @@ Extensions are deployed as:
 - [Model Gateway](./model-gateway.md) — LLM routing and metrics source
 - [Guardrails](./guardrails.md) — Security guardrail implementation
 - [Authority Enforcement](./authority-enforcement.md) — OPA policy enforcement
-- [Runtime Deployment](./runtime-deployment.md) — Atlantis infrastructure
+- [Runtime Deployment](../agent-runtime/runtime-deployment.md) — Atlantis infrastructure
 - [ADR-0076: Observability via Watch](../../../olympus-hub-docs/decision-logs/0076-seer-observability-watch-based.md)
 
 ---

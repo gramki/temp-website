@@ -324,7 +324,7 @@ The Lifecycle Service can issue **kill switch commands** to immediately:
 - Suspend an Employed Agent (retains authority, stops execution)
 - Revoke an Employed Agent (permanently removes authority)
 
-Kill switch commands are executed by the [Runtime & Deployment](./runtime-deployment.md) service.
+Kill switch commands are executed by the [Runtime & Deployment](./agent-runtime/runtime-deployment.md) service.
 
 ### Versioning
 
@@ -441,7 +441,7 @@ Learnings are subject to change management controls and cannot bypass guardrails
 - [Introduction](../introduction.md)
 - [Raw, Trained, Employed Agents](../../../aosm-meta-model/raw-trained-employed-agents.md) — Complete agent model
 - [Agent-Oriented System](../../../aosm-meta-model/agent-oriented-system.md) — AOSM foundations
-- [Runtime & Deployment](./runtime-deployment.md) — Lifecycle execution
+- [Runtime & Deployment](./agent-runtime/runtime-deployment.md) — Lifecycle execution
 
 ---
 

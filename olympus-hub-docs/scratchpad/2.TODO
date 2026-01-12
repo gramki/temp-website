@@ -1,29 +1,61 @@
-# Seer Persona and Needs:
-    [ ] Enumerate Needs, Journeys, and Capabilities for Seer Personas
-    [ ] Desks
-    [ ] Conclude on Agent Observability
-    [ ] Conclude on Agent Predictability
-    [ ] Conclude on Agent Directability 
-    [ ] Review Trained Agent Specifications for the ARE (Production Readiness) requirements
+# Seer overall Todos:
+    Conclude the Personas and their needs
+    Conclude UX Architecture
+    Conclude Subsystems and their capabilities and concepts
+    Conclude OPD - Map all requirements to Personas, Desk, and Consoles
+    Organize Capabilities, Concepts, and Subsystems into a coherent folders
 
-    ## Predictability:
-        - GitOps
-        - Request Isolation
-        - Agent Memory and Enterprise Memory Separation
-        - Observabile System Prompts
-        - Guardrails
-        - Levers for ARE
+    ## AOS in Understanding anlogies:
+        - Scenario as an Agent and Team of Agents; 
+        - A Scenario invocation is invocation of an Agent; 
+        - A Scenario invocation is inovcation of a Team
+        - When assigning task to an AI Agent, in the Hub context, the Agent is seeing a Scenario.  
+        - Workbench as an Agent and Team of Agents
+        - Machine as an Agent
+
+    ## Seer Persona and Needs:
+        [ ] Enumerate Needs, Journeys, and Capabilities for Seer Personas
+        [ ] Desks
+        [ ] Conclude on Agent Observability 
+            (olympus-hub-docs/scratchpad/agent-observability.md)
+        [ ] Conclude on Agent Predictability
+            (olympus-hub-docs/scratchpad/agent-predicatbility.md)
+        [ ] Conclude on Agent Directability 
+             (olympus-hub-docs/scratchpad/agent-authority-controls.md)
+             (olympus-hub-docs/scratchpad/agent-directability.md)
+        [ ] Review Trained Agent Specifications for the ARE (Production Readiness) requirements
+
+        ### Predictability:
+            - GitOps
+            - Request Isolation
+            - Agent Memory and Enterprise Memory Separation
+            - Observabile System Prompts
+            - Guardrails
+            - Levers for ARE
+
+    ## Seer Agent Lifeycle:
+        - Steps by Persona
+        - Steps by Desk
+        - How does one ship Raw Agents & Trained agents - Different publishers and different journeys 
+        - How does one Employ an Agent 
+        - How is an Employed agent observed, directed, and controlled? 
+        - Common Observability and Operations interface for an Employed Seer Agent 
 
 # Hub CLI Documentation:
     ✔ CLI for Hub Application Developers @done(26-01-11 17:17)
 
-# Seer Agent Lifeycle:
-    - Steps by Persona
-    - Steps by Desk
-    - How does one ship Raw Agents & Trained agents - Different publishers and different journeys 
-    - How does one Employ an Agent 
-    - How is an Employed agent observed, directed, and controlled? 
-    - Common Observability and Operations interface for an Employed Seer Agent 
+# Hub Enhancements for Seer:
+    - Delegation Templates in Task Management
+    ## Scenario Interventions:
+        - Scenario Levers 
+        - OPA Policy Changes
+        - Escalation Matrices Changes
+        - Task Queue Changes
+    ## Request Interventions:
+        - Rejections
+        - Decision Overrides
+        - Task Creation, Updates, Deletions
+        - Task Completions, Assignments, Reassignments, Abandonments, Hold, Resume
 
 # Hub Marketplace:
     ## Subsystem Components:

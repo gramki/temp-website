@@ -65,7 +65,7 @@ This document captures the findings from a comprehensive editorial review of the
 | `guardrails.md` | 🟡 Draft | Complete |
 | `authority-enforcement.md` | 🟡 Draft | Complete |
 | `context-assembly-engine.md` | 🟡 Draft | Complete |
-| `runtime-deployment.md` | 🟡 Draft | Complete |
+| `agent-runtime/runtime-deployment.md` | 🟡 Draft | Complete |
 | `agent-observability.md` | 🟡 Draft | Complete |
 | `model-gateway.md` | 🟡 Draft | Complete |
 | `agent-identity-authority.md` | ⬜ Placeholder | Depends on Cipher design |

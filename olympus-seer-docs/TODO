@@ -9,7 +9,7 @@
 
 
 
-	========== ORIGINAL REQUIREMENTS FOR AN AGENT PLATFORM ==============
+========== ORIGINAL REQUIREMENTS FOR AN AGENT PLATFORM ==============
 Requirements for an Agent Platform:
 
 
@@ -97,15 +97,14 @@ A/B Testing infra
 - Employment Spec - Encapuslates all aspects of a Employed Agent other than the identity, discovery, audit, operability aspects
 
 
-# Agent Platform Capabilities
-
-LLM and SLM Gateways
-Channel-neutral Sessions
-Channel-specific Orchestration Agents (Coordinators; May be these are not agents, they are just applications; The coordination here is technical and mostly routing)
-Memory Management
-MCP Gateway
-MCP Knowledge/Resource Management Systems
-Skill Repository (Prompts)
+# Agent Platform Capabilities:
+	✔ LLM and SLM Gateways @done(26-01-11 11:48)
+	✔ Channel-neutral Sessions @done(26-01-11 11:49)
+	✔ Channel-specific Orchestration Agents (Coordinators; May be these are not agents, they are just applications; The coordination here is technical and mostly routing) - This is explained throuhg MS Team Integration and MCP Channels in Hub @done(26-01-11 11:50)
+	✔ Memory Management @done(26-01-11 11:50)
+	✔ MCP Gateway @done(26-01-11 11:50)
+	MCP Knowledge/Resource Management Systems
+	Skill Repository (Prompts)
 
 Governance
 Explainability & Observability

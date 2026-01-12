@@ -634,15 +634,129 @@ spec:
 
 ---
 
+## Ingress Path Provisioning
+
+Seer Operator configures **Heracles cluster-ingress paths** for each Employed Agent as part of deployment.
+
+### Path Pattern
+
+```
+/seer/subscription/{subscription_id}/data-plane/workbench/{workbench_id}/agents/{agent_id}/dispatch
+```
+
+**Characteristics**:
+- **Cluster-ingress only** — Not publicly accessible
+- **Per Employed Agent** — One data plane endpoint per agent
+- **Internal routing** — Used by sx-observer to dispatch requests
+
+### Ingress Configuration
+
+```yaml
+# Heracles Ingress Configuration (conceptual)
+apiVersion: heracles.olympus.io/v1
+kind: ClusterIngress
+metadata:
+  name: fraud-analyst-acme-retail-ingress
+  namespace: acme-disputes
+spec:
+  rules:
+    - path: /seer/subscription/acme-corp/data-plane/workbench/acme-disputes/agents/fraud-analyst-acme-retail/dispatch
+      backend:
+        service:
+          name: fraud-analyst-acme-retail
+          port: 8080
+  authentication:
+    provider: zone-auth
+    clientId: sx-observer
+```
+
+### Authentication/Authorization at Ingress
+
+| Aspect | Behavior |
+|--------|----------|
+| **Client Identity** | Heracles sees the client as sx-observer |
+| **Credential Verification** | zone-auth verifies sx-observer credentials |
+| **Agent Tokens** | Agents do NOT receive tokens validated at ingress |
+| **Agent Authentication** | Agents use their own token (from EmploymentSpec, Hub Environment, or Request Context) |
+| **Message Verification** | Agents verify that message is dispatched by SX and belongs to their workbench |
+
+### Rate Limiting
+
+Rate limiting at ingress level (if applicable):
+
+```yaml
+spec:
+  rateLimit:
+    requestsPerSecond: 100
+    burstSize: 200
+```
+
+---
+
+## Ingress Lifecycle
+
+### Creation
+
+Ingress paths are created **during deployment** after IAM profile creation/update:
+
+```
+1. EmploymentSpec Created
+2. Seer Operator provisions IAM profile (see iam-provisioning.md)
+3. Seer Operator creates K8s Deployment
+4. Seer Operator configures Heracles ingress path
+5. Agent pods start receiving traffic
+```
+
+### Updates
+
+Seer Operator updates ingress when agent configuration changes:
+
+| Change Type | Ingress Update |
+|-------------|----------------|
+| Agent renamed | Path updated |
+| Service port changed | Backend updated |
+| Rate limits changed | Rate limit config updated |
+
+### Cleanup
+
+On agent retirement:
+
+1. Ingress path is removed from Heracles
+2. Traffic stops routing to agent
+3. Agent pods are terminated
+
+---
+
+## Integration with Heracles
+
+### Heracles API Gateway Configuration
+
+| Aspect | Configuration |
+|--------|---------------|
+| **TLS Termination** | At Heracles gateway |
+| **Request Routing** | Path-based routing to agent services |
+| **Health Checks** | Heracles health checks agent endpoints |
+
+### Cluster-Ingress (Internal)
+
+- **Not publicly accessible** — Internal cluster traffic only
+- **mTLS** — All traffic encrypted via Istio
+- **Service Mesh** — Traffic flows through Istio sidecar
+
+---
+
 ## Related Documentation
 
 - [Atlantis Overview](https://atlantis.olympus.tech/docs/overview/) — Compute infrastructure
 - [Heracles Overview](https://heracles.olympus.tech/docs/getting-started/) — Traffic management
-- [Guardrails](./guardrails.md) — Sidecar guardrails
-- [Authority Enforcement](./authority-enforcement.md) — Runtime policy enforcement
-- [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Deployment configuration
-- [Agent Lifecycle API](./agent-lifecycle-api.md) — Lifecycle operations
-- [ADR-0074: Runtime on Atlantis](../../../olympus-hub-docs/decision-logs/0074-seer-runtime-atlantis-based.md)
+- [Guardrails](../guardrails.md) — Sidecar guardrails
+- [Authority Enforcement](../authority-enforcement.md) — Runtime policy enforcement
+- [Employment Spec CRD](../../hub-integration/employment-spec-crd.md) — Deployment configuration
+- [Agent Lifecycle API](../agent-lifecycle-api.md) — Lifecycle operations
+- [IAM Provisioning](./iam-provisioning.md) — IAM profile lifecycle
+- [Signal Exchange Integration](./signal-exchange-integration.md) — sx-observer architecture
+- [Agent Ingress Gateway Integration](./agent-ingress-gateway-integration.md) — Request routing
+- [ADR-0074: Runtime on Atlantis](../../../../olympus-hub-docs/decision-logs/0074-seer-runtime-atlantis-based.md)
 
 ---
 

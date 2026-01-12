@@ -336,7 +336,7 @@ The dispatch uses Atlantis/K8s service mesh:
 - [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) — Observer pattern
 - [Employed Agent](./employed-agent.md) — Deployment details
 - [Context Assembly](./context-assembly.md) — CAE invocation
-- [Runtime & Deployment](../subsystems/runtime-deployment.md) — Seer runtime
+- [Runtime & Deployment](../subsystems/agent-runtime/runtime-deployment.md) — Seer runtime
 
 ---
 

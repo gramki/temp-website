@@ -78,7 +78,9 @@ Session affinity is opportunistic (agents must be stateless).
 
 ## Related
 
-- [Runtime Deployment Subsystem](../../olympus-seer-docs/seer-design/subsystems/runtime-deployment.md)
+- [Agent Runtime Subsystem](../../olympus-seer-docs/seer-design/subsystems/agent-runtime/README.md)
+- [Runtime Deployment](../../olympus-seer-docs/seer-design/subsystems/agent-runtime/runtime-deployment.md)
+- [ADR-0104: Agent Runtime Detailed Design](./0104-seer-agent-runtime-detailed-design.md)
 - [Atlantis Documentation](https://atlantis.olympus.tech/)
 - [Heracles Documentation](https://heracles.olympus.tech/)
 - [Employment Spec CRD](../../olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md)

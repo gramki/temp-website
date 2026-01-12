@@ -6,17 +6,36 @@ This folder contains design documents for each Olympus Seer subsystem.
 
 | Subsystem | Description | Status |
 |-----------|-------------|--------|
-| [Agent Definition & Lifecycle Service](./agent-lifecycle-service.md) | Agent versioning, Training/Employment Specs, state management, governance definitions | 🟡 Draft |
-| [Agent Lifecycle API](./agent-lifecycle-api.md) | REST API for lifecycle management, kill switch, webhooks | 🟡 Draft |
-| [Guardrails](./guardrails.md) | Behavioral guidelines + sidecar enforcement, Python contract, execution pipeline | 🟡 Draft |
-| [Authority Enforcement](./authority-enforcement.md) | OPA policies at Tool Gateway and Signal Exchange, violation handling | 🟡 Draft |
-| [Agent Identity & Authority Framework](./agent-identity-authority.md) | Agent identity, delegation chains, IAM integration (via Cipher) | Placeholder |
-| [Context Assembly Engine](./context-assembly-engine.md) | Context compilation from memory, knowledge, session state | 🟡 Draft |
-| [Runtime & Deployment](./runtime-deployment.md) | Atlantis, Heracles, pod architecture, request dispatch | 🟡 Draft |
-| [Agent Observability](./agent-observability.md) | SDK, Watch integration, metrics, logs, traces, dashboards | 🟡 Draft |
-| [Observability Extensions to Watch](./observability-extensions-to-watch.md) | Platform-level dashboards, alerts, tools for Seer SRE personas | 🟡 Draft |
-| [Agent Evaluation Service](./agent-evaluation.md) | Development-time testing, benchmarks, CI/CD quality gates | 🔴 PARKED |
-| [Model Gateway](./model-gateway.md) | Bifrost-based LLM gateway, routing, fallback, budgets | 🟡 Draft |
+| [Cipher IAM Extensions](./cipher-iam-extensions/README.md) | Agent identity, authority delegation, IAM integration | 🟡 Draft |
+| [Agent Runtime](./agent-runtime/README.md) | Runtime environment, deployment, scaling operators | 🟢 Complete |
+| [Seer Sidecar](./seer-sidecar/README.md) | Guardrails, metrics, policy enforcement, authority enforcement | 🟡 Draft |
+| [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md) | Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory | 🟡 Draft |
+| [Agent Ingress Gateway](./agent-ingress-gateway/README.md) | Subscription lifecycle, subscription-scoped policies, Signal Exchange integration | 🟡 Draft |
+| [Model Gateway](./model-gateway/README.md) | Bifrost-based LLM gateway, routing, fallback, budgets | 🟡 Draft |
+| [Agent Health Monitor](./agent-health-monitor/README.md) | Cost SLOs, behavior SLOs, feedback SLOs, human feedback service | 🟡 Draft |
+| [Agent Session Supervisor](./agent-session-supervisor/README.md) | Supervisory policies, observations, escalations | 🟡 Draft |
+| [Context Compiler](./context-compiler/README.md) | Context compilation from memory, knowledge, session state | 🟡 Draft |
+| [Seer Agent SDK](./seer-agent-sdk/README.md) | SDK for Raw Agents (employment spec, prompts, context, metrics, tools, memory, knowledge) | 🟡 Draft |
+| [Raw Agent Lifecycle Manager](./raw-agent-lifecycle-manager/README.md) | Raw agent spec, validation, directory, operators, levers | 🟡 Draft |
+| [Trained Agent Lifecycle Manager](./trained-agent-lifecycle-manager/README.md) | Training spec, validation, directory, employed agent discovery, feedback services | 🟡 Draft |
+| [Agent Analytics](./agent-analytics/README.md) | Cognitive observability enhancements, platform-level dashboards | 🟡 Draft |
+| [Agent Test Runner](./agent-test-runner/README.md) | Agent testing, behavior validation, health and safety checks | 🟡 Draft |
+
+## Legacy Files (To Be Migrated)
+
+The following files contain detailed content that will be migrated to the appropriate subsystem folders:
+
+- `agent-lifecycle-service.md` → `agent-lifecycle-manager/`
+- `agent-lifecycle-api.md` → `agent-lifecycle-manager/`
+- `guardrails.md` → `seer-sidecar/`
+- `authority-enforcement.md` → `seer-sidecar/` and `agent-ingress-gateway/`
+- `context-assembly-engine.md` → `context-compiler/` and `seer-agent-sdk/`
+- `runtime-deployment.md` → `agent-runtime/runtime-deployment.md` ✅ Migrated
+- `agent-observability.md` → `agent-analytics/` and `seer-agent-sdk/`
+- `observability-extensions-to-watch.md` → `agent-analytics/`
+- `model-gateway.md` → `model-gateway/`
+- `agent-evaluation.md` → `agent-test-runner/parked-capabilities.md` (rephrased)
+- `agent-identity-authority.md` → `cipher-iam-extensions/` (placeholder)
 
 ## Governance Distribution
 
@@ -24,16 +43,17 @@ Governance, Policy & Override functions are distributed between subsystems:
 
 | Function | Subsystem | Role |
 |----------|-----------|------|
-| Policy/Guardrail **Definitions** | Lifecycle Service | Control plane |
-| Policy/Guardrail **Enforcement** | Runtime Service | Data plane |
-| Authority **Grants** | Lifecycle Service | Control plane |
-| Authority **Checks** | Runtime Service | Data plane |
-| Kill Switch **Commands** | Lifecycle Service | Control plane |
-| Kill Switch **Execution** | Runtime Service | Data plane |
+| Policy/Guardrail **Definitions** | Agent Lifecycle Manager | Control plane |
+| Policy/Guardrail **Enforcement** | Seer Sidecar | Data plane |
+| Authority **Grants** | Agent Lifecycle Manager | Control plane |
+| Authority **Checks** | Agent Ingress Gateway, Seer Sidecar | Data plane |
+| Kill Switch **Commands** | Agent Lifecycle Manager | Control plane |
+| Kill Switch **Execution** | Agent Runtime | Data plane |
 
 ## Related
 
 - [Introduction](../introduction.md) — Seer overview
+- [Implementation Concepts](../implementation-concepts/) — Conceptual documentation
 - [Raw, Trained, Employed Agents](../../../aosm-meta-model/raw-trained-employed-agents.md) — Agent lifecycle model
 - [Editorial Review](../EDITORIAL-REVIEW.md) — Documentation review summary
 
@@ -45,4 +65,3 @@ Governance, Policy & Override functions are distributed between subsystems:
 - [ADR-0075: Model Gateway (Bifrost)](../../../olympus-hub-docs/decision-logs/0075-seer-model-gateway-bifrost.md)
 - [ADR-0076: Observability via Watch](../../../olympus-hub-docs/decision-logs/0076-seer-observability-watch-based.md)
 - [ADR-0077: Agent Evaluation Deferred](../../../olympus-hub-docs/decision-logs/0077-seer-evaluation-deferred.md)
-
