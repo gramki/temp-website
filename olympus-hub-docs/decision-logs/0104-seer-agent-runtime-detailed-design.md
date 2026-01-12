@@ -60,9 +60,12 @@ IAM Change → IAM Observer Service → CRD Update → Seer Operator → Respawn
 
 | Decision | Rationale |
 |----------|-----------|
-| **Agents update requests directly via Hub APIs** | Simplified response path |
+| **Agents update requests directly via Hub APIs** | Simplified response path; sx-observer does NOT forward responses |
+| **Outbound Hub API calls pass through sidecar guardrails** | Enforcement on every Hub API call (request updates, decisions, etc.) |
 | **External resources via Workbench Data Store** | URIs instead of inline content for large outputs |
 | **DLQ in Atropos for failed dispatches** | Configurable retries, replay capability |
+
+> **Note**: Agents handle responses directly through Hub APIs. The sx-observer only forwards inbound dispatch requests to agents — it does not forward agent responses back to Signal Exchange.
 
 ### Ingress Path Configuration
 

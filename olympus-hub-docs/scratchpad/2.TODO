@@ -56,6 +56,21 @@
         - Decision Overrides
         - Task Creation, Updates, Deletions
         - Task Completions, Assignments, Reassignments, Abandonments, Hold, Resume
+    ## Signal Providers:
+        - Kill Switches
+        - Levers
+        - Quotas
+        - Policies (OPA Policies)
+        - Filters (all signal providers must support tenant provisioned filters)
+    ## Scenarion Testing in CI:
+        - I think this is already covered by the Hub Test Runner subsystem; Verify
+        - For Seer Agent Scenarios, the test validations can be different.
+    ## Data Stores:
+        - Object and Stream stores for Agents to send BLOBs/CLOBs/Streams to Request and the clients.
+    ## Tools Gateway, Memory Services:
+        - OPA Policies from Hub Application Specifications and Deployments
+        - Quotas
+        - Levers
 
 # Hub Marketplace:
     ## Subsystem Components:

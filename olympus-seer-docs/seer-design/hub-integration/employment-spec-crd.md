@@ -608,7 +608,7 @@ Every action is traceable to:
 
 ## Related Documentation
 
-- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Conceptual model
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Employment spec management
 - [Employed Agent as Deployed Application](./employed-agent.md) — Hub integration
 - [Training Spec CRD](./training-spec-crd.md) — Training configuration
 - [Request Dispatch](./request-dispatch.md) — Runtime invocation

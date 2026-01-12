@@ -30,23 +30,31 @@ Seer uses a **two-layer guardrail model**:
 
 ### Layer 2: Sidecar Guardrails (Enforcement)
 - Deployed as Istio sidecars in agent pods
-- Execute "before" and "after" agent actions
-- Can transform, reject, or redact requests/responses
+- **Inbound guardrails**: Execute on `/dispatch` requests coming into the agent
+- **Outbound guardrails**: Execute on every Hub API call from the agent (request updates, decisions, task completions, etc.)
+- Outbound guardrails support per-API configuration with wildcard pattern matching
+- Guardrail responses: **Allow**, **Alert**, **Deny**
+- Each guardrail processor defines its own configuration schema for alert/deny behavior
 - Implemented as Python libraries in OCI images
 - Publish error codes with human-readable descriptions
+- Failure policy: Defaults to **Deny** (fail-closed)
 
 ### Enforcement Pipeline
 
 ```
-Request → Before Guardrails → Agent → After Guardrails → Response
-              (reject/transform)        (redact/validate)
+Inbound:
+  Dispatch Request → Inbound Guardrails (Allow/Alert/Deny) → Agent
+
+Outbound:
+  Agent → Hub API Call → Outbound Guardrails (pattern-matched, Allow/Alert/Deny) → Hub API
 ```
 
 ### Configuration
 
 - **Training Spec**: Defines guardrail references and base configuration (immutable once published)
 - **Employment Spec**: Can add stricter guardrails, never relax
-- **Failure Policy**: Per-guardrail (`deny` or `allow` with justification)
+- **Per-API Configuration**: Outbound guardrails can be configured per API endpoint with wildcard patterns
+- **Failure Policy**: Guardrail failure defaults to Deny (fail-closed)
 
 ---
 
@@ -72,7 +80,8 @@ Request → Before Guardrails → Agent → After Guardrails → Response
 
 ## Related
 
-- [Guardrails Subsystem](../../olympus-seer-docs/seer-design/subsystems/guardrails.md)
+- [Guardrail Service Design](../../olympus-seer-docs/seer-design/subsystems/seer-sidecar/guardrail-service.md)
+- [Guardrails Concepts](../../olympus-seer-docs/seer-design/implementation-concepts/guardrails.md)
 - [Guardrails Best Practices Guide](../../olympus-seer-docs/seer-design/guides/guardrails-best-practices.md)
 - [Training Spec CRD](../../olympus-seer-docs/seer-design/hub-integration/training-spec-crd.md)
 

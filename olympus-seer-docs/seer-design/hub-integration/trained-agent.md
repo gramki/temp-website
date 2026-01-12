@@ -335,7 +335,7 @@ spec:
 
 ## Related Documentation
 
-- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Full TrainingSpec details
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Employment spec management, delegation chain sync
 - [Raw Agent in Hub](./raw-agent.md) — Container layer
 - [Employed Agent in Hub](./employed-agent.md) — Deployment layer
 - [Hub Registry Services](../../../olympus-hub-docs/04-subsystems/registry-services/README.md) — Tool/Resource binding

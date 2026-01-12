@@ -1,7 +1,11 @@
 # Authority Enforcement
 
-> **Status**: 🟡 Draft  
+> **Status**: 🟠 Legacy — See new design docs  
 > **Last Updated**: 2026-01-08
+
+---
+
+> ⚠️ **Note**: Sidecar enforcement content has been migrated to [Authority Enforcement Service](./seer-sidecar/authority-enforcement-service.md) and [Policy Enforcement Service](./seer-sidecar/policy-enforcement-service.md). This document is retained for reference. See [Seer Sidecar](./seer-sidecar/README.md) for the current design.
 
 ---
 

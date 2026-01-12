@@ -29,7 +29,7 @@ This document captures the findings from a comprehensive editorial review of the
 
 | File | Issue | Resolution |
 |------|-------|------------|
-| `agent-lifecycle-service.md` | "Placeholder" but comprehensive | Updated to "Draft" |
+| `agent-lifecycle-service.md` | "Placeholder" but comprehensive | **Superseded** by `agent-lifecycle-manager/` detailed design |
 | `agent-evaluation.md` | Not marked as parked | Added "PARKED" status |
 | All draft documents | Many now complete | Status remains "Draft" (for team review) |
 
@@ -60,8 +60,7 @@ This document captures the findings from a comprehensive editorial review of the
 
 | Document | Status | Notes |
 |----------|--------|-------|
-| `agent-lifecycle-service.md` | 🟡 Draft | Comprehensive |
-| `agent-lifecycle-api.md` | 🟡 Draft | Complete |
+| `agent-lifecycle-manager/` | 🟢 Complete | Supersedes `agent-lifecycle-service.md` and `agent-lifecycle-api.md` |
 | `guardrails.md` | 🟡 Draft | Complete |
 | `authority-enforcement.md` | 🟡 Draft | Complete |
 | `context-assembly-engine.md` | 🟡 Draft | Complete |

@@ -43,7 +43,7 @@ Hub Operators → emit CRDs → Seer Operator → K8s Deployments → Atlantis
 Each Employed Agent pod contains:
 1. **Main container**: Raw Agent (OCI image from Training Spec)
 2. **Istio sidecar**: mTLS, telemetry (auto-injected)
-3. **Guardrail sidecars**: Before/after enforcement
+3. **Guardrail sidecars**: Inbound and outbound enforcement
 
 ### Request Dispatch
 

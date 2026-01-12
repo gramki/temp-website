@@ -1,7 +1,11 @@
 # Seer Guardrails
 
-> **Status**: 🟡 Draft  
+> **Status**: 🟠 Legacy — See new design docs  
 > **Last Updated**: 2026-01-08
+
+---
+
+> ⚠️ **Note**: Runtime enforcement content has been migrated to [Guardrail Service](./seer-sidecar/guardrail-service.md). This document is retained for reference but the new design uses an **inbound/outbound guardrail model** instead of the before/after model described here. See [Seer Sidecar](./seer-sidecar/README.md) for the current design.
 
 ---
 
@@ -1018,7 +1022,7 @@ spec:
 
 ## Related Documentation
 
-- [Agent Lifecycle Service](./agent-lifecycle-service.md) — Guardrail immutability
+- [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md) — Guardrail immutability in Employment Spec
 - [Training Spec CRD](../hub-integration/training-spec-crd.md) — Guardrail specification
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Additional guardrails
 - [Context Assembly Engine](./context-assembly-engine.md) — Behavioral guidelines in context

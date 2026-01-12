@@ -9,7 +9,7 @@ This folder contains design documents for each Olympus Seer subsystem.
 | [Cipher IAM Extensions](./cipher-iam-extensions/README.md) | Agent identity, authority delegation, IAM integration | 🟡 Draft |
 | [Agent Runtime](./agent-runtime/README.md) | Runtime environment, deployment, scaling operators | 🟢 Complete |
 | [Seer Sidecar](./seer-sidecar/README.md) | Guardrails, metrics, policy enforcement, authority enforcement | 🟡 Draft |
-| [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md) | Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory | 🟡 Draft |
+| [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md) | Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory | 🟢 Complete |
 | [Agent Ingress Gateway](./agent-ingress-gateway/README.md) | Subscription lifecycle, subscription-scoped policies, Signal Exchange integration | 🟡 Draft |
 | [Model Gateway](./model-gateway/README.md) | Bifrost-based LLM gateway, routing, fallback, budgets | 🟡 Draft |
 | [Agent Health Monitor](./agent-health-monitor/README.md) | Cost SLOs, behavior SLOs, feedback SLOs, human feedback service | 🟡 Draft |
@@ -25,8 +25,8 @@ This folder contains design documents for each Olympus Seer subsystem.
 
 The following files contain detailed content that will be migrated to the appropriate subsystem folders:
 
-- `agent-lifecycle-service.md` → `agent-lifecycle-manager/`
-- `agent-lifecycle-api.md` → `agent-lifecycle-manager/`
+- `agent-lifecycle-service.md` — Legacy, superseded by `agent-lifecycle-manager/` detailed design
+- `agent-lifecycle-api.md` — Legacy, superseded by `agent-lifecycle-manager/` detailed design
 - `guardrails.md` → `seer-sidecar/`
 - `authority-enforcement.md` → `seer-sidecar/` and `agent-ingress-gateway/`
 - `context-assembly-engine.md` → `context-compiler/` and `seer-agent-sdk/`

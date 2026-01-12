@@ -222,5 +222,5 @@ Running
 ---
 
 **References:**
-*   `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md`
+*   `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/README.md`
 *   `olympus-seer-docs/why-seer/part-2-how-seer-solves/01-seer-design-philosophy/01-5-control-plane-vs-execution.md`

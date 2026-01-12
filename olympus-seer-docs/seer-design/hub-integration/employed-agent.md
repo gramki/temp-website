@@ -305,7 +305,7 @@ Every action is traceable to:
 
 ## Related Documentation
 
-- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Full EmploymentSpec details
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Employment spec management, delegation chain sync
 - [Trained Agent in Hub](./trained-agent.md) — Application Spec layer
 - [Request Dispatch](./request-dispatch.md) — How requests reach agents
 - [Memory Integration](./memory-integration.md) — Agent Memory in deployment

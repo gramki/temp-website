@@ -220,7 +220,7 @@ Although Hub doesn't directly manage Raw Agents, it indirectly interacts through
 
 ## Related Documentation
 
-- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Full Raw Agent specification
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Employment spec management
 - [Trained Agent in Hub](./trained-agent.md) — How Raw becomes Trained
 - [Request Dispatch](./request-dispatch.md) — How requests reach agents
 - [Agent Memory Developer Guide](../../../olympus-hub-docs/10-guides/agent-memory-developer-guide.md) — Memory best practices

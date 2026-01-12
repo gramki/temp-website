@@ -183,4 +183,4 @@ spec:
 
 **References:**
 *   `aosm-meta-model/raw-trained-employed-agents.md`
-*   `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md`
+*   `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/README.md`

@@ -128,7 +128,7 @@ If you're new to the team, here's how to get unblocked:
 ### Required Reading
 
 - [Scenario Specification Types](../../../../olympus-hub-docs/02-system-design/implementation-concepts/scenario-specification-types.md)
-- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md)
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md)
 - [Agentic Automation Lifecycle Journey](../personas-and-needs/journeys/agentic-automation-lifecycle.md)
 - [DevOps Workbench Pattern](../../../../olympus-hub-docs/09-composite-systems-and-patterns/devops-workbench.md)
 
@@ -1472,7 +1472,7 @@ hub logs operator hub-operator -n olympus-system --tail=100
 ## Related Documentation
 
 - [Agentic Automation Lifecycle Journey](../personas-and-needs/journeys/agentic-automation-lifecycle.md) — Persona-centric view
-- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Technical details
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Technical details
 - [Training Spec CRD](../hub-integration/training-spec-crd.md) — Schema reference
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Deployment reference
 - [Guardrails Best Practices](./guardrails-best-practices.md) — Guardrail configuration

@@ -531,7 +531,7 @@ The Hub Operator:
 
 ## Related Documentation
 
-- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Conceptual model
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Employment spec management
 - [Trained Agent as Hub Application](./trained-agent.md) — Hub integration
 - [Employment Spec CRD](./employment-spec-crd.md) — Deployment configuration
 - [Guardrails](../subsystems/agent-identity-authority.md) — Guardrail framework

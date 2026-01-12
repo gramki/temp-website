@@ -238,7 +238,7 @@ Enterprise agents must exhibit three critical properties:
 - `aosm-meta-model/raw-trained-employed-agents.md` — Agent lifecycle model
 - `olympus-seer-docs/agentic-ai-concepts/designing-an-agent.md`
 - `olympus-seer-docs/seer-design/hub-integration/README.md`
-- `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md`
+- `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/README.md`
 
 ### 5.6 CI/CD for Enterprise Agents
 

@@ -11,8 +11,8 @@ This folder contains the design documents for **Olympus Seer** (Seer) — Zeta's
 ## Subsystems
 
 - [Subsystems Overview](./subsystems/README.md)
-- [Agent Definition & Lifecycle Service](./subsystems/agent-lifecycle-service.md)
-- [Agent Lifecycle API](./subsystems/agent-lifecycle-api.md) — REST API, kill switch, webhooks
+- [Agent Lifecycle Manager](./subsystems/agent-lifecycle-manager/README.md) — Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory
+- [Agent Lifecycle API](./subsystems/agent-lifecycle-api.md) — REST API, kill switch, webhooks (legacy — see Agent Lifecycle Manager)
 - [Guardrails](./subsystems/guardrails.md) — Behavioral guidelines, sidecar enforcement, Python contract
 - [Authority Enforcement](./subsystems/authority-enforcement.md) — OPA policies, Tool Gateway, Signal Exchange
 - [Agent Identity & Authority Framework](./subsystems/agent-identity-authority.md)

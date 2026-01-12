@@ -525,15 +525,15 @@ This tracker serves as a **published reference** (unlike scratchpad files which 
 
 #### Kill Switch Functionality
 - ✅ Kill switch API endpoints (suspend, revoke, bulk operations) - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-api.md` §Kill Switch
-- ✅ Kill switch via Lifecycle Service - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md` §Kill Switch
+- ✅ Kill switch via Agent Levers Service - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/agent-levers-service.md` §Kill Switch
 - ✅ Kill switch execution via Runtime & Deployment - `olympus-seer-docs/seer-design/subsystems/agent-runtime/runtime-deployment.md` §Kill Switch
 - ✅ Suspend employment (retains authority, stops execution) - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-api.md` §Suspend Employment
 - ✅ Revoke employment (permanently removes authority) - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-api.md` §Revoke Employment
 - ✅ Resume suspended employment - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-api.md` §Resume Employment
 
 #### Employment State Management
-- ✅ Employment state transitions (Requested → Approved → Active → Suspended → Revoked) - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md` §Employment States
-- ✅ State-based authority control - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md` §Employment States
+- ✅ Employment state transitions (Requested → Approved → Active → Suspended → Revoked) - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/employment-spec-manager.md`
+- ✅ State-based authority control - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/agent-levers-service.md`
 
 ---
 
@@ -804,7 +804,7 @@ This tracker serves as a **published reference** (unlike scratchpad files which 
 - `olympus-seer-docs/seer-design/subsystems/guardrails.md` - Guardrails (immutable training guardrails, enforcement)
 - `olympus-seer-docs/seer-design/subsystems/authority-enforcement.md` - Authority enforcement (policy enforcement)
 - `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-api.md` - Kill switch API endpoints
-- `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md` - Kill switch via lifecycle service
+- `olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/agent-levers-service.md` - Kill switch via Agent Levers Service
 - `olympus-seer-docs/seer-design/subsystems/agent-runtime/runtime-deployment.md` - Kill switch execution
 
 ### Hub Design References

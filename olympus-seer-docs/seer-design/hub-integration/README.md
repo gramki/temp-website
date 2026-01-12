@@ -170,7 +170,7 @@ When a Hub Request update reaches a Seer agent:
 ## Related Documentation
 
 ### Seer Internals
-- [Agent Lifecycle Service](../subsystems/agent-lifecycle-service.md) — Raw/Trained/Employed model
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory
 - [Runtime & Deployment](../subsystems/agent-runtime/runtime-deployment.md) — Atlantis runtime
 - [Context Assembly Engine](../subsystems/context-assembly-engine.md) — CAE design
 

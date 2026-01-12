@@ -31,33 +31,14 @@ Behavioral guidelines are **advisory instructions** embedded in the Training Spe
 
 ### Sidecar Guardrails
 
-Sidecar guardrails are **enforcement functions** that execute before and/or after agent invocation:
+Sidecar guardrails are **enforcement functions** that intercept agent traffic at two points:
 
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                      SIDECAR GUARDRAIL PIPELINE                               │
-│                                                                               │
-│   ┌─────────────┐                                                            │
-│   │   Request   │                                                            │
-│   └──────┬──────┘                                                            │
-│          │                                                                    │
-│          ▼                                                                    │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │                    BEFORE GUARDRAILS                                 │   │
-│   │   Can: Transform request, Reject, Add context                        │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│          │                                                                    │
-│          ▼                                                                    │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │                    AGENT INVOCATION                                  │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│          │                                                                    │
-│          ▼                                                                    │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │                    AFTER GUARDRAILS                                  │   │
-│   │   Can: Transform response, Reject, Redact                            │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-```
+- **Inbound guardrails**: Execute on `/dispatch` requests coming into the agent
+- **Outbound guardrails**: Execute on every Hub API call from the agent (request updates, decisions, task completions, etc.)
+
+Outbound guardrails support **per-API configuration** with wildcard pattern matching, and each guardrail returns **Allow**, **Alert**, or **Deny**.
+
+> **See**: [Guardrail Service Design](../subsystems/seer-sidecar/guardrail-service.md) for detailed implementation.
 
 ---
 
@@ -106,10 +87,12 @@ sidecarGuardrails:
 
 ## Related
 
-- `subsystems/seer-sidecar/README.md` - Seer Sidecar subsystem (guardrail execution)
-- `subsystems/agent-lifecycle-manager/README.md` - Guardrail configuration in Training/Employment Specs
-- `implementation-concepts/authority-enforcement.md` - Authority enforcement (complementary to guardrails)
+- [Guardrail Service Design](../subsystems/seer-sidecar/guardrail-service.md) — Detailed sidecar guardrail design
+- [Seer Sidecar](../subsystems/seer-sidecar/README.md) — Sidecar subsystem overview
+- [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Guardrail configuration
+- [Authority Enforcement](./authority-enforcement.md) — Complementary enforcement
+- [ADR-0072: Guardrails Two-Layer Model](../../../olympus-hub-docs/decision-logs/0072-seer-guardrails-two-layer-model.md)
 
 ---
 
-*For detailed implementation, see `subsystems/guardrails.md` (to be migrated to `subsystems/seer-sidecar/`).*
+*For detailed sidecar guardrail implementation, see [Guardrail Service Design](../subsystems/seer-sidecar/guardrail-service.md).*

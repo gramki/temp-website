@@ -2,7 +2,7 @@
 
 > **Status**: 🟡 Draft  
 > **Last Updated**: 2026-01-08  
-> **Parent**: [Agent Lifecycle Service](./agent-lifecycle-service.md)
+> **Parent**: [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md)
 
 ---
 
@@ -656,7 +656,7 @@ client.kill_switch.suspend(
 
 ## Related Documentation
 
-- [Agent Lifecycle Service](./agent-lifecycle-service.md) — Conceptual model
+- [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md) — Detailed design
 - [Training Spec CRD](../hub-integration/training-spec-crd.md) — Full CRD schema
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Full CRD schema
 - [Cipher IAM](../../../olympus-hub-docs/04-subsystems/supporting-systems/cipher-iam.md) — Authentication
