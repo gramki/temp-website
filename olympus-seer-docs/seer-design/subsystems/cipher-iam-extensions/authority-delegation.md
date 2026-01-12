@@ -1,6 +1,6 @@
 # Authority Delegation
 
-> **Status**: 🟢 Complete  
+> **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-12
 
 ---

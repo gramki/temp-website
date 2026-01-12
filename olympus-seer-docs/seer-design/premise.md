@@ -18,7 +18,7 @@ Olympus Seer:
 - Context Assembly Engine :: SDKs provided for use in building raw agents
 - Runtime & Deployment Abstraction :: For Raw Agents, Trained Agents, and Employed Agents; includes policy/guardrail ENFORCEMENT, authority CHECKS, override/kill switch EXECUTION, graceful degradation paths
 - Agent Observability Service :: Runtime metrics, traces, health; relies on Olympus Estate & Watch for infrastructure observability
-- Agent Evaluation Service :: Development-time testing, benchmarks, CI/CD quality gates; entirely owned by Seer
+- Agent Test Runner :: Development-time testing, behavior/health/safety validations, CI/CD quality gates; entirely owned by Seer
 - Model Abstraction Layer :: Owned by Seer
 
 Note: Governance, Policy & Override functions are distributed between:

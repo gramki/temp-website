@@ -1025,7 +1025,7 @@ spec:
 - [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md) — Guardrail immutability in Employment Spec
 - [Training Spec CRD](../hub-integration/training-spec-crd.md) — Guardrail specification
 - [Employment Spec CRD](../hub-integration/employment-spec-crd.md) — Additional guardrails
-- [Context Assembly Engine](./context-assembly-engine.md) — Behavioral guidelines in context
+- [Context Compilation Service](./context-compiler/compilation-service.md) — Behavioral guidelines in context
 - [Model Gateway](./model-gateway.md) — LLM circuit breakers
 - [Hub Artifact Registry](../../../olympus-hub-docs/04-subsystems/registry-services/README.md) — Tenant guardrail registration
 - [Atlantis Runtime](../../../olympus-hub-docs/04-subsystems/automation-runtimes/atlantis-runtime.md) — Sidecar deployment

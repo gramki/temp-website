@@ -13,23 +13,25 @@ Context is not a simple concatenation of inputs — it is a **compiled artifact*
 
 ---
 
-## The Three-Source Model
+## The Four-Source Model
 
-Agent decision context draws from three distinct sources, each serving a different cognitive purpose:
+Agent decision context draws from four distinct sources, each serving a different cognitive purpose:
 
 | Source | What the Agent Asks | Nature | Owned By |
 |--------|---------------------|--------|----------|
 | **Enterprise Knowledge** | *"What should I do?"* | Normative — rules, policies, facts | Hub (Knowledge Services) |
 | **Enterprise Memory** | *"What has been done?"* | Historical — precedent, outcomes, exceptions | Hub (Memory Services) |
-| **Agent Memory** | *"What have I been doing?"* | Operational — session state, recent interactions | Hub (Memory Services), accessed via Seer SDK |
+| **Agent Memory** | *"What have I been doing?"* | Operational — session state, recent interactions | Hub (Memory Services) |
+| **Hub Request Context** | *"What is the request context chain?"* | Hierarchical — current request + all ancestors | Hub (Request Management) |
 
-### Why All Three Matter
+### Why All Four Matter
 
 | Without... | The Agent Cannot... |
 |------------|---------------------|
 | Enterprise Knowledge | Know what is permitted, required, or true |
 | Enterprise Memory | Recognize precedent, learn from outcomes, continue handoffs |
 | Agent Memory | Maintain session continuity, recall recent interactions |
+| Hub Request Context | Access ancestor request context, understand request hierarchy |
 
 ### Retrieval Flow
 
@@ -65,8 +67,11 @@ Agent decision context draws from three distinct sources, each serving a differe
 
 | Capability | Description |
 |------------|-------------|
-| **Context Sources** | Enterprise Knowledge, Enterprise Memory, Agent Memory |
-| **Retrieval Orchestration** | Coordinates retrieval from memory, knowledge, and APIs |
+| **Context Sources** | Enterprise Knowledge, Enterprise Memory, Agent Memory, Hub Request Context |
+| **Request Hierarchy Integration** | Ancestry topology traversal, goal and role-based filtering |
+| **Request-Update-Based Retriever Configuration** | Automatic retriever selection based on Training Spec selectors |
+| **Tool-Aware Compilation** | Incorporation of available tools into context constraints |
+| **Retrieval Orchestration** | Coordinates retrieval from memory, knowledge, request context, and APIs |
 | **Context Ranking** | Prioritizes information by relevance to the current task |
 | **Context Truncation** | Manages context size within model token limits |
 | **Context Logging** | Records assembled context for audit and reproducibility |
@@ -76,11 +81,14 @@ Agent decision context draws from three distinct sources, each serving a differe
 
 ## Related
 
-- `subsystems/context-compiler/README.md` - Context Compiler subsystem implementation
-- `subsystems/seer-agent-sdk/README.md` - SDK APIs for context assembly
-- `olympus-hub-docs/04-subsystems/memory-services/README.md` - Hub Memory Services
-- `olympus-hub-docs/04-subsystems/knowledge-services/README.md` - Hub Knowledge Services
+- [Context Compiler: Compilation Service](../subsystems/context-compiler/compilation-service.md) — Detailed context compilation service design
+- [Context Compiler: README](../subsystems/context-compiler/README.md) — Context Compiler subsystem overview
+- [Seer Agent SDK: Context Compiler APIs](../subsystems/seer-agent-sdk/python-sdk/context-compiler-apis.md) — Python SDK APIs
+- [Seer Agent SDK: Context Compiler APIs](../subsystems/seer-agent-sdk/java-sdk/context-compiler-apis.md) — Java SDK APIs
+- [Hub Memory Services](../../../olympus-hub-docs/04-subsystems/memory-services/README.md) — Enterprise Memory and Agent Memory
+- [Hub Knowledge Services](../../../olympus-hub-docs/04-subsystems/knowledge-services/README.md) — Enterprise Knowledge
+- [Hub Request Hierarchy](../../../olympus-hub-docs/04-subsystems/request-management/request-hierarchy.md) — Request hierarchy and context inheritance
 
 ---
 
-*For detailed implementation, see `subsystems/context-assembly-engine.md` (to be migrated to `subsystems/context-compiler/`).*
+*For detailed implementation, see [Context Compiler: Compilation Service](../subsystems/context-compiler/compilation-service.md).*

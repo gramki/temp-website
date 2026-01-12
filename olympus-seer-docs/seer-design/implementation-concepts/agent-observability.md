@@ -51,12 +51,13 @@ Both layers feed into Olympus Watch for unified observability.
 
 ## Related
 
-- `subsystems/agent-analytics/README.md` - Agent Analytics subsystem
-- `subsystems/seer-agent-sdk/README.md` - Observability SDK APIs
-- `subsystems/observability-extensions-to-watch.md` - Platform-level extensions (to be moved to agent-analytics)
+- [Seer Agent SDK: Observability APIs (Python)](../subsystems/seer-agent-sdk/python-sdk/observability-apis.md) — Python SDK observability APIs
+- [Seer Agent SDK: Observability APIs (Java)](../subsystems/seer-agent-sdk/java-sdk/observability-apis.md) — Java SDK observability APIs
+- [Seer Agent SDK: README](../subsystems/seer-agent-sdk/README.md) — SDK overview
+- [Agent Observability](../subsystems/agent-observability.md) — Full observability design (platform-level)
 - `olympus-hub-docs/05-infrastructure/olympus-watch.md` - Olympus Watch platform
 - `olympus-hub-docs/04-subsystems/supporting-systems/hub-application-apm.md` - Hub Application APM
 
 ---
 
-*For detailed implementation, see `subsystems/agent-observability.md` (to be migrated to `subsystems/agent-analytics/` and `subsystems/seer-agent-sdk/`).*
+*For detailed SDK implementation, see [Seer Agent SDK: Observability APIs](../subsystems/seer-agent-sdk/python-sdk/observability-apis.md) (Python) and [Seer Agent SDK: Observability APIs](../subsystems/seer-agent-sdk/java-sdk/observability-apis.md) (Java).*

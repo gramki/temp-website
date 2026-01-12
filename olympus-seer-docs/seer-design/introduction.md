@@ -106,10 +106,10 @@ Seer does not operate in isolation. It relies on **Olympus Hub** for operational
 |-----------|-------------|--------|
 | **Agent Lifecycle Manager** | Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory | [Design →](./subsystems/agent-lifecycle-manager/README.md) |
 | **Agent Identity & Authority Framework** | Agent identity, delegation chains, authority enforcement (via Cipher) | [Design →](./subsystems/agent-identity-authority.md) |
-| **Context Assembly Engine** | Context compilation from memory, knowledge, session state | [Design →](./subsystems/context-assembly-engine.md) |
+| **Context Compiler** | Context compilation from memory, knowledge, session state, request hierarchy | [Design →](./subsystems/context-compiler/compilation-service.md) |
 | **Runtime & Deployment Abstraction** | Agent execution, policy enforcement, graceful degradation | [Design →](./subsystems/agent-runtime/runtime-deployment.md) |
 | **Agent Observability Service** | Runtime metrics, logs, traces, dashboards, alerts | [Design →](./subsystems/agent-observability.md) |
-| **Agent Evaluation Service** | Development-time testing, benchmarks, CI/CD quality gates | [Design →](./subsystems/agent-evaluation.md) *(PARKED)* |
+| **Agent Test Runner** | Agent testing, behavior validation, health and safety checks | [Design →](./subsystems/agent-test-runner/README.md) |
 | **Model Gateway** | Unified LLM/SLM access, model routing, fallback | [Design →](./subsystems/model-gateway.md) |
 
 See [Subsystems Overview](./subsystems/README.md) for the complete list and governance distribution.

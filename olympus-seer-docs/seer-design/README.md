@@ -16,10 +16,10 @@ This folder contains the design documents for **Olympus Seer** (Seer) — Zeta's
 - [Guardrails](./subsystems/guardrails.md) — Behavioral guidelines, sidecar enforcement, Python contract
 - [Authority Enforcement](./subsystems/authority-enforcement.md) — OPA policies, Tool Gateway, Signal Exchange
 - [Agent Identity & Authority Framework](./subsystems/agent-identity-authority.md)
-- [Context Assembly Engine](./subsystems/context-assembly-engine.md) — Compile API, retrievers, token budgeting
+- [Context Compiler](./subsystems/context-compiler/compilation-service.md) — Context compilation service, retrievers, token budgeting
 - [Runtime & Deployment Abstraction](./subsystems/agent-runtime/runtime-deployment.md)
 - [Agent Observability](./subsystems/agent-observability.md) — SDK, Watch integration
-- [Agent Evaluation Service](./subsystems/agent-evaluation.md) — PARKED (post-MVP)
+- [Agent Test Runner](./subsystems/agent-test-runner/README.md) — Agent testing, behavior validation, health and safety checks
 - [Model Gateway](./subsystems/model-gateway.md)
 
 ## Hub Integration

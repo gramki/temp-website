@@ -172,7 +172,7 @@ When a Hub Request update reaches a Seer agent:
 ### Seer Internals
 - [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory
 - [Runtime & Deployment](../subsystems/agent-runtime/runtime-deployment.md) — Atlantis runtime
-- [Context Assembly Engine](../subsystems/context-assembly-engine.md) — CAE design
+- [Context Compilation Service](../subsystems/context-compiler/compilation-service.md) — Context compilation service design
 
 ### Hub Components
 - [Hub Application Concepts](../../../olympus-hub-docs/01-concepts/hub-applications.md)

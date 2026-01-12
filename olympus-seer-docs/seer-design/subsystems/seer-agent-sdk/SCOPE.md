@@ -1,21 +1,17 @@
-# Seer Agent SDK
+# Seer Agent SDK: Scope and Coverage
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-12
 
 ---
 
-## Overview
+## Coverage Summary
 
-Seer Agent SDK provides the SDK for Raw Agents to interact with Seer and Hub services. The SDK is available in two language variants (Python and Java), both providing the same logical API groups with language-appropriate idioms. The SDK provides APIs for employment spec access, prompt access, context compilation, metrics reporting, tracing, tool discovery/calling, memory services, knowledge services, and events.
+The Seer Agent SDK subsystem provides comprehensive C2-level design documentation for Python and Java SDKs that enable Raw Agents to interact with Seer and Hub services.
 
-**Key Design Point**: The SDK provides framework-agnostic core APIs that work with any agentic framework, with optional framework-specific builders for popular Python frameworks (LangGraph, Strands, OpenAPI).
+### Design Documents
 
----
-
-## Design Documents
-
-### Python SDK
+#### Python SDK
 
 | Document | Status | Description |
 |----------|--------|-------------|
@@ -26,7 +22,7 @@ Seer Agent SDK provides the SDK for Raw Agents to interact with Seer and Hub ser
 | [Hub Integration APIs](python-sdk/hub-integration-apis.md) | 🟢 Complete | Tool discovery/calling, Stores, Knowledge Services, Memory Services, Events APIs |
 | [Framework APIs](python-sdk/framework-apis.md) | 🟢 Complete | LangGraph, Strands, OpenAPI agent builders |
 
-### Java SDK
+#### Java SDK
 
 | Document | Status | Description |
 |----------|--------|-------------|
@@ -37,56 +33,52 @@ Seer Agent SDK provides the SDK for Raw Agents to interact with Seer and Hub ser
 | [Hub Integration APIs](java-sdk/hub-integration-apis.md) | 🟢 Complete | Tool discovery/calling, Stores, Knowledge Services, Memory Services, Events APIs |
 | [Framework APIs](java-sdk/framework-apis.md) | 🟢 Complete | Framework-agnostic patterns and adapters |
 
-### Scope and Coverage
+---
 
-| Document | Status | Description |
-|----------|--------|-------------|
-| [SCOPE](SCOPE.md) | 🟢 Complete | Coverage summary, design status, intended depth, implementation details deferred |
+## Design Status
+
+### Completed
+
+- ✅ **Python SDK**: All API groups complete
+- ✅ **Java SDK**: All API groups complete
+- ✅ **Framework-Agnostic Design**: Both SDKs maintain framework-agnostic core APIs
+- ✅ **Language-Specific Implementations**: Python and Java SDKs provide language-appropriate idioms
 
 ---
 
-## Key Design Decisions
+## Intended Depth
 
-### Two Language Variants
+### C2-Level (Container) Design
 
-**Decision**: SDK is provided in two language variants: Python SDK and Java SDK.
+All components are designed at the C2 (Container) level, focusing on:
+- Functional scope and capabilities
+- API surface and usage patterns
+- Integration points with Seer and Hub services
+- Conceptual models and data flows
 
-**Rationale**:
-- Python is dominant in agentic AI ecosystem (LangChain, LangGraph, Strands)
-- Java is required for enterprise Java applications
-- Both SDKs provide equivalent functionality with language-appropriate idioms
+### C3-Level (Component) Detail
 
-### API Consistency
+The following areas include C3-level detail for critical mechanisms:
+- **SDK Authentication**: Detailed authentication model and SPIFFE identity integration
+- **Cache Management**: Detailed caching strategies and invalidation logic
+- **Error Handling**: Detailed error handling and retry policies
+- **Observability Auto-Instrumentation**: Detailed instrumentation hooks and patterns
 
-**Decision**: Both SDKs provide the same logical API groups with language-appropriate implementations.
+---
 
-**Rationale**:
-- Consistent developer experience across languages
-- Same capabilities available in both languages
-- Language-specific idioms for better developer experience
+## Implementation Details Deferred
 
-### Framework-Agnostic Core
+The following implementation details are deferred to the detailed implementation stage:
 
-**Decision**: Core SDK APIs are framework-agnostic; framework builders are optional convenience layers.
-
-**Rationale**:
-- Developers can use core APIs with any framework
-- No framework lock-in
-- Framework builders are optional convenience
-
-### Prompt Access with Autonomy Level Support
-
-**Decision**: Prompts in Training Spec are tagged with autonomy level (Full, Suggest, Ask, Watch); prompts are used at the tagged level or lower levels of autonomy.
-
-**Rationale**:
-- Different autonomy levels require different prompt styles
-- Full autonomy needs different instructions than supervised autonomy
-- Ensures prompts match the agent's authority level
-
-**Selection Logic**:
-- Prompts tagged at a level can be used at that level or lower
-- Exclusive tags restrict usage to specific levels
-- Current autonomy level determined from Employment Spec
+| Area | Deferred Details |
+|------|------------------|
+| **SDK Authentication** | Specific authentication protocols, token management |
+| **Cache Implementation** | Cache storage backend, eviction policies, TTL strategies |
+| **Error Handling** | Specific error codes, retry policies, circuit breakers |
+| **Observability Instrumentation** | Specific instrumentation libraries, hook implementations |
+| **Framework Builders** | Detailed framework-specific builder implementations |
+| **API Wire Formats** | Detailed request/response wire formats |
+| **Performance Optimization** | Connection pooling, request batching, latency optimization |
 
 ---
 

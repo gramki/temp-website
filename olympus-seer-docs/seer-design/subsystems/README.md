@@ -8,7 +8,7 @@ This folder contains design documents for each Olympus Seer subsystem.
 |-----------|-------------|--------|
 | [Cipher IAM Extensions](./cipher-iam-extensions/README.md) | Agent identity, authority delegation, IAM integration | 🟡 Draft |
 | [Agent Runtime](./agent-runtime/README.md) | Runtime environment, deployment, scaling operators | 🟢 Complete |
-| [Seer Sidecar](./seer-sidecar/README.md) | Guardrails, metrics, policy enforcement, authority enforcement | 🟡 Draft |
+| [Seer Sidecar](./seer-sidecar/README.md) | Guardrails, metrics, policy enforcement, authority enforcement | 🟢 Complete |
 | [Agent Lifecycle Manager](./agent-lifecycle-manager/README.md) | Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory | 🟢 Complete |
 | [Agent Ingress Gateway](./agent-ingress-gateway/README.md) | Subscription lifecycle, subscription-scoped policies, Signal Exchange integration | 🟡 Draft |
 | [Model Gateway](./model-gateway/README.md) | Bifrost-based LLM gateway, routing, fallback, budgets | 🟡 Draft |
@@ -17,9 +17,9 @@ This folder contains design documents for each Olympus Seer subsystem.
 | [Context Compiler](./context-compiler/README.md) | Context compilation from memory, knowledge, session state | 🟡 Draft |
 | [Seer Agent SDK](./seer-agent-sdk/README.md) | SDK for Raw Agents (employment spec, prompts, context, metrics, tools, memory, knowledge) | 🟡 Draft |
 | [Raw Agent Lifecycle Manager](./raw-agent-lifecycle-manager/README.md) | Raw agent spec, validation, directory, operators, levers | 🟡 Draft |
-| [Trained Agent Lifecycle Manager](./trained-agent-lifecycle-manager/README.md) | Training spec, validation, directory, employed agent discovery, feedback services | 🟡 Draft |
+| [Trained Agent Lifecycle Manager](./trained-agent-lifecycle-manager/README.md) | Training spec, validation, directory, employed agent discovery, feedback services | 🟢 Complete |
 | [Agent Analytics](./agent-analytics/README.md) | Cognitive observability enhancements, platform-level dashboards | 🟡 Draft |
-| [Agent Test Runner](./agent-test-runner/README.md) | Agent testing, behavior validation, health and safety checks | 🟡 Draft |
+| [Agent Test Runner](./agent-test-runner/README.md) | Agent testing, behavior validation, health and safety checks | 🟢 Complete |
 
 ## Legacy Files (To Be Migrated)
 
@@ -34,7 +34,7 @@ The following files contain detailed content that will be migrated to the approp
 - `agent-observability.md` → `agent-analytics/` and `seer-agent-sdk/`
 - `observability-extensions-to-watch.md` → `agent-analytics/`
 - `model-gateway.md` → `model-gateway/`
-- `agent-evaluation.md` → `agent-test-runner/parked-capabilities.md` (rephrased)
+- `agent-evaluation.md` → `agent-test-runner/` (MVP validations implemented; advanced evaluations in `parked-capabilities.md`)
 - `agent-identity-authority.md` → `cipher-iam-extensions/` (placeholder)
 
 ## Governance Distribution

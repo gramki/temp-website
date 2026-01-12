@@ -40,7 +40,7 @@ Seer is the **agent control plane and runtime**. It answers the question: *How d
 | **Context Assembly Engine** | Context compilation from memory, knowledge, session state |
 | **Runtime & Deployment Abstraction** | Agent execution, policy enforcement, graceful degradation |
 | **Agent Observability Service** | Runtime metrics, logs, traces |
-| **Agent Evaluation Service** | Testing, benchmarks, quality gates |
+| **Agent Test Runner** | Testing, behavior/health/safety validations, quality gates |
 | **Model Gateway** | Unified LLM access, routing, fallback |
 
 ## What Hub Provides

@@ -494,11 +494,12 @@ This tracker serves as a **published reference** (unlike scratchpad files which 
 - ❌ Predictability test result reporting (report results in CI/CD)
 - ❌ Predictability metrics in deployment dashboards
 
-#### Agent Evaluation Service
-- ❌ Systematic evaluation frameworks (comprehensive testing frameworks) - Note: Deferred to post-MVP
-- ❌ Benchmark suites (standard tests for agent capabilities) - Note: Deferred to post-MVP
-- ❌ Quality metrics (accuracy, relevance, safety, coherence scores) - Note: Deferred to post-MVP
-- ❌ CI/CD integration for evaluation (quality gates for deployments) - Note: Deferred to post-MVP
+#### Agent Test Runner
+- ✅ MVP validations (behavior consistency/quality, health, safety) - `olympus-seer-docs/seer-design/subsystems/agent-test-runner/README.md`
+- ❌ Advanced evaluation frameworks (comprehensive testing frameworks) - `olympus-seer-docs/seer-design/subsystems/agent-test-runner/parked-capabilities.md` (Deferred to post-MVP)
+- ❌ Benchmark suites (standard tests for agent capabilities) - `olympus-seer-docs/seer-design/subsystems/agent-test-runner/parked-capabilities.md` (Deferred to post-MVP)
+- ❌ Quality metrics (accuracy, relevance, safety, coherence scores) - `olympus-seer-docs/seer-design/subsystems/agent-test-runner/parked-capabilities.md` (Deferred to post-MVP)
+- ❌ CI/CD integration for evaluation (quality gates for deployments) - `olympus-seer-docs/seer-design/subsystems/agent-test-runner/parked-capabilities.md` (Deferred to post-MVP)
 
 #### Advanced Workflow Management
 - ❌ Workflow versioning (version control for workflows)

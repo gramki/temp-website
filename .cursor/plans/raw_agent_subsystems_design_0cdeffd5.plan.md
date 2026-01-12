@@ -41,55 +41,55 @@ todos:
     status: completed
   - id: sdk-framework-apis-python
     content: Create C2-level design for Python SDK Framework Convenience APIs covering LangGraph, Strands, OpenAPI agent builders, maintaining framework-agnostic design principles
-    status: in_progress
+    status: completed
     dependencies:
       - sdk-employment-spec-apis-python
       - sdk-prompt-apis-python
       - sdk-context-compiler-apis-python
   - id: sdk-framework-apis-java
     content: Create C2-level design for Java SDK Framework Convenience APIs covering framework-agnostic patterns, maintaining framework-agnostic design principles
-    status: in_progress
+    status: completed
     dependencies:
       - sdk-employment-spec-apis-java
       - sdk-prompt-apis-java
       - sdk-context-compiler-apis-java
   - id: raw-agent-spec-manager
     content: "Create C2-level design for Raw Agent Spec Manager covering functional scope (Raw Agent CRD structure with structured/typed capabilities specification: tool calling capabilities, orchestration capabilities, archetype roles supported (thinker, doer, orchestrator, governor), tags supported for prompts and their meaning in Authority Enforcement; documentation reference for Trained/Employed Agent developers; container image reference; identity for recognizing derived agents; validation rules; note that Raw Agents are NOT deployable - only Employed Agents are deployable; Raw Agents are containers referenced by Employed Agents through Training Spec) and integration points"
-    status: pending
+    status: completed
   - id: raw-agent-directory
     content: Create C2-level design for Raw Agent Directory covering functional scope (raw agent registry, capability discovery, versioning, search) and integration points
-    status: pending
+    status: completed
     dependencies:
       - raw-agent-spec-manager
   - id: raw-agent-operators
     content: Create C2-level design for Raw Agent Operators covering functional scope (Raw Agent lifecycle management operators - note that Raw Agents are NOT directly deployed; they are deployed only as part of Employed Agents with associated configs and environment in workbench instances; operators manage Raw Agent registration, validation, versioning, and discovery) and integration with Agent Runtime (for Employed Agent deployment that references Raw Agent containers)
-    status: pending
+    status: completed
     dependencies:
       - raw-agent-spec-manager
   - id: raw-agent-levers
     content: Create C2-level design for Raw Agent Levers covering functional scope (kill switches, capability toggles, emergency controls, execution methods) and integration points
-    status: pending
+    status: completed
     dependencies:
       - raw-agent-operators
   - id: migrate-context-assembly
     content: Migrate runtime enforcement content from subsystems/context-assembly-engine.md to context-compiler/compilation-service.md
-    status: pending
+    status: completed
     dependencies:
       - context-compiler-service
   - id: migrate-observability
     content: Migrate SDK content from subsystems/agent-observability.md to seer-agent-sdk/python-sdk/observability-apis.md and seer-agent-sdk/java-sdk/observability-apis.md
-    status: pending
+    status: completed
     dependencies:
       - sdk-observability-apis-python
       - sdk-observability-apis-java
   - id: create-context-compiler-scope
     content: Create SCOPE.md document for context-compiler with coverage summary, design status, intended depth callout, and related documentation references
-    status: pending
+    status: completed
     dependencies:
       - context-compiler-service
   - id: create-sdk-scope
     content: Create SCOPE.md document for seer-agent-sdk with coverage summary, design status, intended depth callout, and related documentation references
-    status: pending
+    status: completed
     dependencies:
       - sdk-employment-spec-apis-python
       - sdk-employment-spec-apis-java
@@ -105,7 +105,7 @@ todos:
       - sdk-framework-apis-java
   - id: create-raw-agent-scope
     content: Create SCOPE.md document for raw-agent-lifecycle-manager with coverage summary, design status, intended depth callout, and related documentation references
-    status: pending
+    status: completed
     dependencies:
       - raw-agent-spec-manager
       - raw-agent-directory
@@ -113,13 +113,13 @@ todos:
       - raw-agent-levers
   - id: update-context-compiler-readme
     content: Update context-compiler/README.md with links to all detailed design documents, remove old content references, update status to reflect design completion, add design documents table, and include Key Design Decisions section
-    status: pending
+    status: completed
     dependencies:
       - context-compiler-service
       - create-context-compiler-scope
   - id: update-sdk-readme
     content: Update seer-agent-sdk/README.md with links to all detailed design documents (organized by Python SDK and Java SDK folders), remove old content references, update status to reflect design completion, add design documents table, and include Key Design Decisions section
-    status: pending
+    status: completed
     dependencies:
       - sdk-employment-spec-apis-python
       - sdk-employment-spec-apis-java
@@ -136,7 +136,7 @@ todos:
       - create-sdk-scope
   - id: update-raw-agent-readme
     content: Update raw-agent-lifecycle-manager/README.md with links to all detailed design documents, remove old content references, update status to reflect design completion, add design documents table, and include Key Design Decisions section
-    status: pending
+    status: completed
     dependencies:
       - raw-agent-spec-manager
       - raw-agent-directory
@@ -145,13 +145,13 @@ todos:
       - create-raw-agent-scope
   - id: update-concept-docs
     content: Update implementation-concepts/context-assembly.md and implementation-concepts/agent-observability.md to reference new design documents and remove migrated content
-    status: pending
+    status: completed
     dependencies:
       - migrate-context-assembly
       - migrate-observability
   - id: update-employed-agent-profile
     content: Update agent-lifecycle-manager/employed-agent-directory.md to add explicit identity sections for Raw Agent (raw agent name, version, container image reference, capabilities summary) and Trained Agent (training spec name, version, training spec reference) in the Employed Agent Profile structure
-    status: pending
+    status: completed
 ---
 
 # Raw Agent Subsystems Detailed Design

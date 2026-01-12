@@ -8,7 +8,7 @@
 
 ## Overview
 
-The **Context Assembly Engine (CAE)** is a Seer service that compiles relevant context for agent reasoning. Unlike pre-compiled context delivery, CAE is **agent-initiated** — the Raw Agent explicitly invokes CAE via SDK or API to assemble context as needed.
+The **Context Compilation Service** (formerly Context Assembly Engine/CAE) is a Seer service that compiles relevant context for agent reasoning. Unlike pre-compiled context delivery, the service is **agent-initiated** — the Raw Agent explicitly invokes it via SDK or API to assemble context as needed.
 
 ---
 
@@ -377,12 +377,12 @@ Traces stored in agent observability logs and can be correlated with Hub request
 
 ## Related Documentation
 
-- [Context Assembly Engine](../subsystems/context-assembly-engine.md) — Full CAE design
+- [Context Compilation Service](../subsystems/context-compiler/compilation-service.md) — Full context compilation service design
 - [Memory Integration](./memory-integration.md) — Agent Memory as CAE source
 - [Enterprise Memory Access Tools](../../../olympus-hub-docs/04-subsystems/memory-services/enterprise-memory/access-tools.md) — Memory retrieval
 - [Knowledge Services](../../../olympus-hub-docs/04-subsystems/knowledge-services/README.md) — Policy retrieval
 
 ---
 
-*Context Assembly Engine provides agent-initiated context compilation, retrieving from Hub's memory and knowledge services.*
+*Context Compilation Service provides agent-initiated context compilation, retrieving from Hub's memory and knowledge services.*
 

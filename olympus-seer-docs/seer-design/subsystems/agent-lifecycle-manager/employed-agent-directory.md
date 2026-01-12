@@ -93,6 +93,27 @@ agentProfile:
       employed: "3.2.0"
     state: "active"
     
+    # Raw Agent Identity
+    rawAgent:
+      name: "fraud-analyst-base"
+      version: "2.4.1"
+      containerImage: "registry.olympus.io/seer/agents/fraud-analyst:fraud-analyst-base-2.4.1"
+      capabilitiesSummary:
+        toolCalling:
+          supportedProtocols: ["temenos-t24/get-transactions", "case-management/update-case"]
+        archetypeRoles: ["thinker", "doer"]
+        orchestration:
+          multiAgentCoordination: true
+    
+    # Trained Agent Identity
+    trainedAgent:
+      trainingSpecName: "fraud-analyst-v2"
+      trainingSpecVersion: "1.7.0"
+      trainingSpecRef:
+        name: "fraud-analyst-v2"
+        namespace: "acme-disputes"
+        version: "1.7.0"
+    
   # Work Scope
   workScope:
     workbench: "acme-disputes"

@@ -17,7 +17,7 @@ This document captures the findings from a comprehensive editorial review of the
 
 | File | Issue | Resolution |
 |------|-------|------------|
-| `README.md` | Referenced non-existent `observability-evaluation.md` | Updated to separate `agent-observability.md` and `agent-evaluation.md` |
+| `README.md` | Referenced non-existent `observability-evaluation.md` | Updated to separate `agent-observability.md` and `agent-test-runner/` |
 | `introduction.md` | Referenced old subsystem name | Updated subsystem table |
 | `context-assembly-engine.md` | Agent Memory ownership incorrect | Clarified: Hub owns storage, Seer uses SDK |
 | `guardrails.md` | Referenced non-existent `05-infrastructure/README.md` | Updated to `automation-runtimes/atlantis-runtime.md` |
@@ -30,7 +30,7 @@ This document captures the findings from a comprehensive editorial review of the
 | File | Issue | Resolution |
 |------|-------|------------|
 | `agent-lifecycle-service.md` | "Placeholder" but comprehensive | **Superseded** by `agent-lifecycle-manager/` detailed design |
-| `agent-evaluation.md` | Not marked as parked | Added "PARKED" status |
+| `agent-evaluation.md` | Not marked as parked | Migrated to `agent-test-runner/` (MVP implemented; advanced evaluations in `parked-capabilities.md`) |
 | All draft documents | Many now complete | Status remains "Draft" (for team review) |
 
 ### 3. ✅ Terminology Standardization
@@ -68,7 +68,7 @@ This document captures the findings from a comprehensive editorial review of the
 | `agent-observability.md` | 🟡 Draft | Complete |
 | `model-gateway.md` | 🟡 Draft | Complete |
 | `agent-identity-authority.md` | ⬜ Placeholder | Depends on Cipher design |
-| `agent-evaluation.md` | 🔴 PARKED | Deferred to post-MVP |
+| `agent-test-runner/` | 🟢 Complete | MVP validations implemented; advanced evaluations in `parked-capabilities.md` (deferred to post-MVP) |
 
 ### Hub Integration
 
