@@ -155,7 +155,7 @@ Injected at runtime by Seer:
 | `SEER_SCENARIO_ID` | Deployment | Scenario context |
 | `HUB_MEMORY_ENDPOINT` | Platform | Agent Memory Services URL |
 | `HUB_TOOL_ENDPOINT` | Platform | Direct Tool Dispatcher URL |
-| `SEER_CAE_ENDPOINT` | Platform | Context Assembly Engine URL |
+| `SEER_CONTEXT_COMPILER_ENDPOINT` | Platform | Context Compilation Service URL |
 
 ---
 
@@ -214,7 +214,7 @@ Although Hub doesn't directly manage Raw Agents, it indirectly interacts through
 | **Memory** | Agent Memory SDK | Agent accesses Hub-provided memory stores |
 | **Tools** | Direct Tool Dispatcher | Agent invokes Hub-registered tools |
 | **Knowledge** | Knowledge Bank API | Agent retrieves policy/procedure documents |
-| **Context** | CAE SDK | Agent compiles context from Hub Memory |
+| **Context** | Context Compilation Service SDK | Agent compiles context from Hub Memory, Knowledge, and Request Hierarchy |
 
 ---
 

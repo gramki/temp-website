@@ -1,14 +1,20 @@
 # Request Dispatch to Seer Agents
 
 > **Status**: 🟡 Draft  
-> **Last Updated**: 2026-01-08  
+> **Last Updated**: 2026-01-12  
 > **Parent**: [Seer-Hub Integration](./README.md)
 
 ---
 
 ## Overview
 
-When a Hub Request is updated, the update is dispatched to the Seer Employed Agent via a multi-hop path: **Signal Exchange → Seer Runtime Service → Agent Pod**. Each update translates to an HTTPS invocation of the agent.
+When a Hub Request is updated, the update is dispatched to the Seer Employed Agent via a multi-hop path using **Atropos event bus**: **Signal Exchange → sx-observer → Agent Ingress Gateway → Agent Pods**. Each update translates to an HTTPS invocation of the agent.
+
+**Key Design Points**:
+- Signal Exchange is **unaware of Agent Ingress Gateway** — all routing goes through sx-observer
+- **sx-observer** acts as workbench-level observer, filtering and routing updates
+- **Agent Ingress Gateway** is a Heracles configuration layer (not a separate service)
+- All message routing uses **Atropos** event bus
 
 ---
 
@@ -27,29 +33,52 @@ When a Hub Request is updated, the update is dispatched to the Seer Employed Age
 │   ┌─────────────────┐                                                        │
 │   │ Signal Exchange │                                                        │
 │   │                 │                                                        │
-│   │ 1. Identifies   │                                                        │
-│   │    observers    │                                                        │
-│   │ 2. Routes to    │                                                        │
-│   │    Seer Runtime │                                                        │
-│   │    Service      │                                                        │
+│   │ 1. Publishes to  │                                                        │
+│   │    Atropos       │                                                        │
+│   │    (workbench    │                                                        │
+│   │    topic)        │                                                        │
+│   │ 2. Unaware of    │                                                        │
+│   │    Agent Ingress │                                                        │
+│   │    Gateway       │                                                        │
 │   └────────┬────────┘                                                        │
-│            │ HTTPS                                                           │
+│            │ Atropos: sx.workbench.{workbench_id}.updates                     │
 │            ▼                                                                  │
 │   ┌─────────────────┐                                                        │
-│   │ Seer Runtime    │                                                        │
-│   │ Service         │                                                        │
+│   │ sx-observer     │                                                        │
+│   │ (per workbench) │                                                        │
 │   │                 │                                                        │
-│   │ 1. Validates    │                                                        │
-│   │    request      │                                                        │
-│   │ 2. Identifies   │                                                        │
-│   │    target pod   │                                                        │
-│   │ 3. Routes to    │                                                        │
-│   │    agent        │                                                        │
+│   │ 1. Receives all │                                                        │
+│   │    updates       │                                                        │
+│   │ 2. Stores in     │                                                        │
+│   │    durable queue │                                                        │
+│   │ 3. Filters by    │                                                        │
+│   │    scenario/agent│                                                        │
+│   │ 4. Triggers      │                                                        │
+│   │    scale-up if   │                                                        │
+│   │    needed        │                                                        │
+│   │ 5. Publishes to  │                                                        │
+│   │    Atropos       │                                                        │
+│   │    (agent topic) │                                                        │
 │   └────────┬────────┘                                                        │
-│            │ HTTPS (service mesh)                                            │
+│            │ Atropos: sx.agent.{agent_id}.dispatch                            │
 │            ▼                                                                  │
 │   ┌─────────────────┐                                                        │
-│   │ Agent Pod       │                                                        │
+│   │ Agent Ingress   │                                                        │
+│   │ Gateway         │                                                        │
+│   │ (Heracles Config)│                                                       │
+│   │                 │                                                        │
+│   │ 1. Subscribes to│                                                        │
+│   │    agent topics │                                                        │
+│   │ 2. Routes to     │                                                        │
+│   │    agent pods    │                                                        │
+│   │ 3. Load balances │                                                        │
+│   │    via K8s       │                                                        │
+│   │    Service       │                                                        │
+│   └────────┬────────┘                                                        │
+│            │ HTTPS (K8s Service)                                              │
+│            ▼                                                                  │
+│   ┌─────────────────┐                                                        │
+│   │ Agent Pods      │                                                        │
 │   │                 │                                                        │
 │   │ Raw Agent       │                                                        │
 │   │ Container       │                                                        │
@@ -65,22 +94,47 @@ When a Hub Request is updated, the update is dispatched to the Seer Employed Age
 
 ## Observer Registration
 
-When an Employed Agent is deployed, Seer Runtime Service registers as an **observer** with Signal Exchange:
+When a workbench is set up, **sx-observer** registers as a **workbench-level observer** with Signal Exchange. Signal Exchange does NOT accept subscriptions per scenario or per request — one observer per workbench receives all request updates.
+
+### Workbench-Level Subscription
 
 ```yaml
-# Observer registration
-observer:
-  type: seer-runtime
-  endpoint: https://seer-runtime.olympus.svc/dispatch
-  filters:
-    workbench: acme-disputes
-    scenario: dispute-resolution
-    requestTypes:
-      - NEW_CASE
-      - USER_MESSAGE
-      - TASK_COMPLETED
-      - CONTEXT_UPDATE
+# sx-observer subscription (conceptual)
+subscription:
+  type: workbench-observer
+  workbenchId: acme-disputes
+  atroposTopic: sx.workbench.acme-disputes.updates
 ```
+
+### Agent-Level Filtering
+
+sx-observer filters updates based on:
+- Which scenarios the updates belong to (from request metadata)
+- Which agents are subscribed to those scenarios (from EmploymentSpec `workScope.scenarios`)
+- Request context and agent assignments
+
+```yaml
+# EmploymentSpec defines scenario subscriptions
+spec:
+  workScope:
+    workbench: acme-disputes
+    scenarios:
+      - retail-fraud-triage
+      - wholesale-fraud-review
+```
+
+### Agent Ingress Gateway Subscription
+
+Agent Ingress Gateway subscribes to agent-specific Atropos topics:
+
+```
+Topic: sx.agent.{agent_id}.dispatch
+```
+
+**Key Points**:
+- Signal Exchange only knows about sx-observer (not Agent Ingress Gateway)
+- sx-observer filters and routes to appropriate agents
+- Agent Ingress Gateway subscribes to agent-specific topics
 
 ---
 
@@ -227,27 +281,27 @@ If `context.compiled: true`, the payload includes compiled context:
 }
 ```
 
-### 2. Agent-Initiated Context Assembly
+### 2. Agent-Initiated Context Compilation
 
-If `context.compiled: false`, agent invokes CAE:
+If `context.compiled: false`, agent invokes Context Compilation Service:
 
 ```python
 # Agent code
-from seer_sdk import ContextAssemblyEngine
+from seer_sdk import ContextCompiler
 
-cae = ContextAssemblyEngine.from_environment()
+compiler = ContextCompiler.from_environment()
 
-context = cae.compile(
+# Context Compilation Service automatically selects retrievers
+# based on Training Spec selector criteria matching request update metadata
+context = compiler.compile(
     request_id=invocation.request.request_id,
-    update_id=invocation.update.update_id,
-    retrievers=[
-        "memory.precedent",
-        "memory.case_history",
-        "knowledge.policies"
-    ],
-    token_budget=8000
+    update_id=invocation.update.update_id
+    # Retrievers are automatically selected from Training Spec
+    # based on update metadata (updateType, taskType, contextKeys, etc.)
 )
 ```
+
+**Note**: The Context Compilation Service automatically selects retrievers based on Training Spec retriever configurations that match the request update metadata. Agents can optionally override token budgets, but retriever selection is handled automatically.
 
 ---
 
@@ -294,20 +348,40 @@ Traces are stored in:
 
 ---
 
-## Service Mesh Details
+## Store-and-Forward and Scale-to-Zero
 
-The dispatch uses Atlantis/K8s service mesh:
+### Store-and-Forward
+
+sx-observer implements store-and-forward capability:
+- **Reliable Delivery**: Updates stored in durable queue before forwarding
+- **Scale-to-Zero Support**: Requests stored until agents scale up
+- **Resilience**: Persistent storage ensures updates are not lost
+
+### Scale-to-Zero and Scale-Up
+
+When no requests are pending, agent pods can scale to zero. When requests arrive:
+1. sx-observer stores request in queue
+2. sx-observer checks agent replica count
+3. If replicas == 0, sx-observer triggers scale-up (via Kubernetes HPA)
+4. Once pods are ready, stored requests are dispatched
+
+### Service Mesh Details
+
+The dispatch uses Atlantis/K8s service mesh for final routing:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                      SERVICE MESH ROUTING                                     │
 │                                                                               │
 │   ┌─────────────────┐                                                        │
-│   │ Seer Runtime    │                                                        │
-│   │ Service         │                                                        │
+│   │ Agent Ingress   │                                                        │
+│   │ Gateway         │                                                        │
+│   │ (Heracles)      │                                                        │
 │   │                 │                                                        │
-│   │ K8s Service:    │                                                        │
-│   │ seer-runtime    │                                                        │
+│   │ Path:           │                                                        │
+│   │ /seer/.../      │                                                        │
+│   │ agents/{id}/    │                                                        │
+│   │ dispatch        │                                                        │
 │   └────────┬────────┘                                                        │
 │            │                                                                  │
 │            ▼                                                                  │
@@ -334,11 +408,15 @@ The dispatch uses Atlantis/K8s service mesh:
 ## Related Documentation
 
 - [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) — Observer pattern
+- [Agent Runtime: Signal Exchange Integration](../subsystems/agent-runtime/signal-exchange-integration.md) — sx-observer architecture
+- [Agent Runtime: Agent Ingress Gateway Integration](../subsystems/agent-runtime/agent-ingress-gateway-integration.md) — Agent Ingress Gateway integration
+- [Agent Ingress Gateway](../subsystems/agent-ingress-gateway/README.md) — Agent Ingress Gateway overview
 - [Employed Agent](./employed-agent.md) — Deployment details
-- [Context Assembly](./context-assembly.md) — CAE invocation
+- [Context Assembly](./context-assembly.md) — Context Compilation Service invocation
 - [Runtime & Deployment](../subsystems/agent-runtime/runtime-deployment.md) — Seer runtime
+- [Atropos Event Bus](../../../olympus-hub-docs/05-infrastructure/atropos.md) — Atropos event bus
 
 ---
 
-*Request dispatch bridges Hub's Signal Exchange with Seer's agent runtime, enabling real-time agent invocation.*
+*Request dispatch bridges Hub's Signal Exchange with Seer's agent runtime via sx-observer and Agent Ingress Gateway, enabling reliable, scalable agent invocation with scale-to-zero support.*
 

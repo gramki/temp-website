@@ -281,30 +281,24 @@ Example:
 
 ---
 
-## CAE Integration
+## Context Compilation Service Integration
 
-Context Assembly Engine can pull from Agent Memory:
+Context Compilation Service can pull from Agent Memory as one of its four sources:
 
 ```python
-from seer_sdk import ContextAssemblyEngine
+from seer_sdk import ContextCompiler
 
-cae = ContextAssemblyEngine.from_environment()
+compiler = ContextCompiler.from_environment()
 
-context = cae.compile(
+# Context Compilation Service automatically selects retrievers
+# from Training Spec based on request update metadata
+# Agent Memory is one of the four sources (along with Enterprise Knowledge,
+# Enterprise Memory, and Hub Request Context)
+context = compiler.compile(
     request_id=request.id,
-    retrievers=[
-        {
-            "type": "agent_memory",
-            "store": "session-audit",
-            "query": "recent actions",
-            "limit": 20
-        },
-        {
-            "type": "agent_memory",
-            "store": "case-entities",
-            "keys": ["fraud_assessment", "customer_profile"]
-        }
-    ]
+    update_id=update.id
+    # Retrievers automatically selected from Training Spec
+    # Agent Memory stores are included when configured in Training Spec
 )
 ```
 
@@ -315,7 +309,7 @@ context = cae.compile(
 - [Agent Memory Services](../../../olympus-hub-docs/04-subsystems/memory-services/agent-memory/README.md) — Full specification
 - [Agent Memory SDK](../../../olympus-hub-docs/04-subsystems/memory-services/agent-memory/sdk.md) — SDK reference
 - [Agent Memory Developer Guide](../../../olympus-hub-docs/10-guides/agent-memory-developer-guide.md) — Best practices
-- [Context Assembly](./context-assembly.md) — CAE + Memory integration
+- [Context Assembly](./context-assembly.md) — Context Compilation Service + Memory integration
 
 ---
 

@@ -1,7 +1,7 @@
 # Seer-Hub Integration
 
 > **Status**: 🟡 Draft  
-> **Last Updated**: 2026-01-08
+> **Last Updated**: 2026-01-12
 
 ---
 
@@ -114,21 +114,34 @@ When a Hub Request update reaches a Seer agent:
 │   └───────┬───────┘                                                          │
 │           │                                                                   │
 │           ▼                                                                   │
+│   ┌───────────────┐                                                          │
+│   │ Signal        │                                                          │
+│   │ Exchange      │                                                          │
+│   │               │                                                          │
+│   │ Publishes to  │                                                          │
+│   │ Atropos       │                                                          │
+│   │ (workbench    │                                                          │
+│   │  topic)       │                                                          │
+│   └───────┬───────┘                                                          │
+│           │ Atropos                                                          │
+│           ▼                                                                   │
 │   ┌───────────────┐     ┌───────────────┐     ┌───────────────┐             │
-│   │ Signal        │────►│ Seer Runtime  │────►│ Agent Pod     │             │
-│   │ Exchange      │     │ Service       │     │               │             │
-│   │               │     │ (Observer)    │     │ Raw Agent     │             │
-│   │ Dispatches    │     │               │     │ Container     │             │
-│   │ to observer   │     │ Routes to pod │     │               │             │
+│   │ sx-observer   │────►│ Agent Ingress │────►│ Agent Pods    │             │
+│   │ (per          │     │ Gateway       │     │               │             │
+│   │  workbench)   │     │ (Heracles)    │     │ Raw Agent     │             │
+│   │               │     │               │     │ Container     │             │
+│   │ Filters &     │     │ Routes to     │     │               │             │
+│   │ routes        │     │ pods          │     │ /invoke       │             │
 │   └───────────────┘     └───────────────┘     └───────────────┘             │
 │                                                                               │
 │   K8s/Atlantis Service Mesh Orchestration                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-1. **Signal Exchange** dispatches request update to Seer Runtime Service (registered as observer)
-2. **Seer Runtime Service** routes to the specific pod of the Employed Agent deployment
-3. **Agent Pod** receives HTTPS invocation with request update payload
+1. **Signal Exchange** publishes request update to Atropos (workbench-level topic)
+2. **sx-observer** receives all updates, filters by scenario/agent subscriptions, stores in queue, triggers scale-up if needed, and publishes to agent-specific Atropos topics
+3. **Agent Ingress Gateway** subscribes to agent topics and routes to deployed agent pods via K8s Service
+4. **Agent Pods** receive HTTPS invocation with request update payload
 
 ---
 
@@ -138,8 +151,8 @@ When a Hub Request update reaches a Seer agent:
 |-------------------|---------------|----------------|----------|
 | **Agent Definition** | HubApplicationSpec | TrainingSpec | CRD reference |
 | **Agent Deployment** | ScenarioDeployment | EmploymentSpec | Operator orchestration |
-| **Request Dispatch** | Signal Exchange | Runtime Service | HTTPS (observer pattern) |
-| **Context Assembly** | Memory Services | CAE (SDK/API) | Agent-initiated |
+| **Request Dispatch** | Signal Exchange | sx-observer → Agent Ingress Gateway | Atropos → HTTPS |
+| **Context Compilation** | Memory Services, Knowledge Services, Request Management | Context Compilation Service (SDK/API) | Agent-initiated |
 | **Tool Invocation** | Tool Registry | Direct Tool Dispatcher | Tool protocol |
 | **Memory Access** | Memory Services | Agent Memory SDK | SDK/Tool |
 
@@ -154,9 +167,9 @@ When a Hub Request update reaches a Seer agent:
 | [Raw Agent in Hub Context](./raw-agent.md) | Container requirements, framework flexibility | 🟡 Draft |
 | [Trained Agent as Hub Application](./trained-agent.md) | HubApplicationSpec ↔ TrainingSpec mapping | 🟡 Draft |
 | [Employed Agent as Deployed Application](./employed-agent.md) | ScenarioDeployment ↔ EmploymentSpec | 🟡 Draft |
-| [Request Dispatch](./request-dispatch.md) | SX → Runtime Service → Agent flow | 🟡 Draft |
+| [Request Dispatch](./request-dispatch.md) | Signal Exchange → sx-observer → Agent Ingress Gateway → Agent flow | 🟡 Draft |
 | [Memory Integration](./memory-integration.md) | Agent Memory Services in Seer context | 🟡 Draft |
-| [Context Assembly](./context-assembly.md) | CAE invocation patterns | 🟡 Draft |
+| [Context Assembly](./context-assembly.md) | Context Compilation Service invocation patterns | 🟡 Draft |
 
 ### CRD Specifications
 
@@ -171,7 +184,10 @@ When a Hub Request update reaches a Seer agent:
 
 ### Seer Internals
 - [Agent Lifecycle Manager](../subsystems/agent-lifecycle-manager/README.md) — Employment spec management, delegation chain sync, agent levers, ecosystem integration, directory
-- [Runtime & Deployment](../subsystems/agent-runtime/runtime-deployment.md) — Atlantis runtime
+- [Agent Runtime](../subsystems/agent-runtime/README.md) — Runtime environment, deployment, Signal Exchange integration
+- [Agent Runtime: Signal Exchange Integration](../subsystems/agent-runtime/signal-exchange-integration.md) — sx-observer architecture
+- [Agent Runtime: Agent Ingress Gateway Integration](../subsystems/agent-runtime/agent-ingress-gateway-integration.md) — Agent Ingress Gateway integration
+- [Agent Ingress Gateway](../subsystems/agent-ingress-gateway/README.md) — Agent Ingress Gateway overview
 - [Context Compilation Service](../subsystems/context-compiler/compilation-service.md) — Context compilation service design
 
 ### Hub Components
