@@ -35,20 +35,20 @@ todos:
     status: completed
   - id: sdk-hub-integration-apis-python
     content: Create C2-level design for Python SDK Hub Integration APIs covering tool discovery/calling, Stores, Knowledge Services, Memory Services, Events APIs, and integration patterns
-    status: pending
+    status: completed
   - id: sdk-hub-integration-apis-java
     content: Create C2-level design for Java SDK Hub Integration APIs covering tool discovery/calling, Stores, Knowledge Services, Memory Services, Events APIs, and integration patterns
-    status: pending
+    status: completed
   - id: sdk-framework-apis-python
     content: Create C2-level design for Python SDK Framework Convenience APIs covering LangGraph, Strands, OpenAPI agent builders, maintaining framework-agnostic design principles
-    status: pending
+    status: in_progress
     dependencies:
       - sdk-employment-spec-apis-python
       - sdk-prompt-apis-python
       - sdk-context-compiler-apis-python
   - id: sdk-framework-apis-java
     content: Create C2-level design for Java SDK Framework Convenience APIs covering framework-agnostic patterns, maintaining framework-agnostic design principles
-    status: pending
+    status: in_progress
     dependencies:
       - sdk-employment-spec-apis-java
       - sdk-prompt-apis-java
@@ -181,9 +181,9 @@ Single service with multiple capabilities. Design as one document covering:
 Two language variants for developers building Raw Agents, with separate documentation per variant:
 
 - **Python SDK**: For Python-based Raw Agents (LangChain, LangGraph, Strands, custom Python frameworks)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                - Separate design documents in `seer-agent-sdk/python-sdk/` folder
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                - Separate design documents in `seer-agent-sdk/python-sdk/` folder
 - **Java SDK**: For Java-based Raw Agents (custom Java frameworks)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                - Separate design documents in `seer-agent-sdk/java-sdk/` folder
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                - Separate design documents in `seer-agent-sdk/java-sdk/` folder
 
 Both SDKs provide the same logical API groups (not separate services):
 
