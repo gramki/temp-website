@@ -299,6 +299,7 @@ For detailed configuration, see [Machine Registry](../registry-services/machine-
 - [Ontology - Trigger](../../01-concepts/ontology-reference.md#trigger)
 - [Machine Registry](../registry-services/machine-registry.md)
 - [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md)
+- [Machine Signal Emission Concept](../../02-system-design/implementation-concepts/machine-signal-emission.md) - Implementation concept
 
 ---
 

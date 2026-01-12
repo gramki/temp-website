@@ -435,6 +435,8 @@ Hub ingress endpoints are:
 - [Heracles API Gateway](../04-subsystems/signal-providers/heracles-api-gateway.md) - Webhook configuration
 - [Dia File Gateway](../04-subsystems/signal-providers/dia-file-gateway.md) - SFTP configuration
 - [Signal-Pulling Applications](../04-subsystems/hub-native-utilities/signal-pulling-applications.md) - Pull model applications
+- [Machine Signal Emission Concept](../02-system-design/implementation-concepts/machine-signal-emission.md) - Implementation concept
+- [ADR-0103](../decision-logs/0103-machine-signal-emission.md) - Architecture decision record
 
 ---
 

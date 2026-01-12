@@ -370,6 +370,7 @@ For detailed configuration, see [Machine Registry](../registry-services/machine-
 - [Cipher IAM](../supporting-systems/cipher-iam.md) - Authentication/authorization
 - [Machine Registry](../registry-services/machine-registry.md)
 - [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md)
+- [Machine Signal Emission Concept](../../02-system-design/implementation-concepts/machine-signal-emission.md) - Implementation concept
 
 ---
 

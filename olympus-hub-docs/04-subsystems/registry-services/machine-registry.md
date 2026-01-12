@@ -505,6 +505,7 @@ Provider selection is the Machine's choice and is outside Hub's scope. Machines 
 For detailed configuration examples and protocol specifications, see:
 - [Signal Providers](../signal-providers/README.md)
 - [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md)
+- [Machine Signal Emission Concept](../../02-system-design/implementation-concepts/machine-signal-emission.md) - Implementation concept
 
 ---
 

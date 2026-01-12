@@ -159,7 +159,10 @@ Hub ingress endpoints are provisioned as resources within a subscription and wor
 - **Atropos Topic**: `/hub/{tenant}/{subscription}/{workbench-id}/atropos/{topic-name}`
 - **Dia SFTP**: `sftp://dia.olympus.tech:22/inbound/{workbench-id}/{folder-path}`
 
-For detailed configuration, see [Machine Registry](../registry-services/machine-registry.md) and [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md).
+For detailed configuration, see:
+- [Machine Registry](../registry-services/machine-registry.md) - Machine configuration schemas
+- [Machine Signal Emission Guide](../../10-guides/machine-signal-emission-guide.md) - Step-by-step configuration guide
+- [Machine Signal Emission Concept](../../02-system-design/implementation-concepts/machine-signal-emission.md) - Implementation concept
 
 ## Workbench Trigger Configuration
 
