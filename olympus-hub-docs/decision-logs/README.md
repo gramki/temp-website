@@ -115,6 +115,8 @@ All ADRs follow the standard format:
 | [0091](./0091-git-based-crd-publishing.md) | Git-Based CRD Publishing for DevOps Workbench | Accepted | 2026-01-09 | devops-workbench |
 | [0092](./0092-hub-resources-no-namespace-concept.md) | Hub Resources Do Not Use Namespace Concept | Accepted | 2026-01-11 | CLI, CRD Design |
 | [0103](./0103-machine-signal-emission.md) | Machine Signal Emission Through Signal Providers | Accepted | 2026-01-15 | integration |
+| [0104](./0104-seer-agent-runtime-detailed-design.md) | Seer Agent Runtime Detailed Design | Accepted | 2026-01-12 | seer |
+| [0105](./0105-seer-raw-agent-subsystems-design.md) | Seer Raw Agent Subsystems Design | Accepted | 2026-01-12 | seer |
 
 ---
 
@@ -236,6 +238,8 @@ All ADRs follow the standard format:
 - [0075](./0075-seer-model-gateway-bifrost.md) - Model Gateway based on Bifrost OSS
 - [0076](./0076-seer-observability-watch-based.md) - Agent observability via Olympus Watch
 - [0077](./0077-seer-evaluation-deferred.md) - Agent Evaluation deferred to post-MVP
+- [0104](./0104-seer-agent-runtime-detailed-design.md) - Agent Runtime detailed design: IAM provisioning, authority change detection, Signal Exchange integration
+- [0105](./0105-seer-raw-agent-subsystems-design.md) - Raw Agent subsystems design: Context Compiler, Seer Agent SDK, Raw Agent Lifecycle Manager
 
 ### Agent Directability
 - [0078](./0078-agent-directability-rejection-escalation.md) - Agent Directability via Rejection-Escalation Model
