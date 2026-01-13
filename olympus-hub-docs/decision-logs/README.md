@@ -116,7 +116,14 @@ All ADRs follow the standard format:
 | [0092](./0092-hub-resources-no-namespace-concept.md) | Hub Resources Do Not Use Namespace Concept | Accepted | 2026-01-11 | CLI, CRD Design |
 | [0103](./0103-machine-signal-emission.md) | Machine Signal Emission Through Signal Providers | Accepted | 2026-01-15 | integration |
 | [0104](./0104-seer-agent-runtime-detailed-design.md) | Seer Agent Runtime Detailed Design | Accepted | 2026-01-12 | seer |
-| [0105](./0105-seer-raw-agent-subsystems-design.md) | Seer Raw Agent Subsystems Design | Accepted | 2026-01-12 | seer |
+| [0105](./0105-seer-agent-ingress-gateway-heracles-config.md) | Agent Ingress Gateway as Heracles Configuration Layer | Accepted | 2026-01-12 | seer |
+| [0106](./0106-seer-cipher-iam-extensions-agent-profiles.md) | Cipher IAM Extensions Agent Profile Architecture | Accepted | 2026-01-12 | seer |
+| [0107](./0107-seer-model-gateway-budget-enforcement.md) | Model Gateway Two-Level Budget Enforcement | Accepted | 2026-01-12 | seer |
+| [0108](./0108-seer-ux-architecture-detailed-design.md) | Seer UX Architecture Detailed Design | Accepted | 2026-01-13 | ux-architecture |
+| [0109](./0109-seer-raw-agent-subsystems-design.md) | Seer Raw Agent Subsystems Design | Accepted | 2026-01-12 | seer |
+| [0110](./0110-seer-agent-analytics-data-mart.md) | Seer Agent Analytics as Data Mart (Separate from Runtime Observability) | Accepted | 2026-01-13 | seer |
+| [0111](./0111-seer-supervisor-cronus-integration.md) | Seer Agent Session Supervisor Cronus Integration | Accepted | 2026-01-13 | seer |
+| [0112](./0112-seer-supervisor-dual-mode-architecture.md) | Seer Supervisor Dual-Mode Architecture (Realtime vs Analytical) | Accepted | 2026-01-13 | seer |
 
 ---
 
@@ -239,7 +246,13 @@ All ADRs follow the standard format:
 - [0076](./0076-seer-observability-watch-based.md) - Agent observability via Olympus Watch
 - [0077](./0077-seer-evaluation-deferred.md) - Agent Evaluation deferred to post-MVP
 - [0104](./0104-seer-agent-runtime-detailed-design.md) - Agent Runtime detailed design: IAM provisioning, authority change detection, Signal Exchange integration
-- [0105](./0105-seer-raw-agent-subsystems-design.md) - Raw Agent subsystems design: Context Compiler, Seer Agent SDK, Raw Agent Lifecycle Manager
+- [0105](./0105-seer-agent-ingress-gateway-heracles-config.md) - Agent Ingress Gateway as Heracles Configuration Layer
+- [0106](./0106-seer-cipher-iam-extensions-agent-profiles.md) - Cipher IAM Extensions Agent Profile Architecture
+- [0107](./0107-seer-model-gateway-budget-enforcement.md) - Model Gateway Two-Level Budget Enforcement
+- [0110](./0110-seer-agent-analytics-data-mart.md) - Agent Analytics as data mart (separate from runtime observability)
+- [0111](./0111-seer-supervisor-cronus-integration.md) - Agent Session Supervisor uses Cronus for observations/exceptions
+- [0112](./0112-seer-supervisor-dual-mode-architecture.md) - Supervisor dual-mode architecture (Realtime vs Analytical)
+- [0109](./0109-seer-raw-agent-subsystems-design.md) - Raw Agent subsystems design: Context Compiler, Seer Agent SDK, Raw Agent Lifecycle Manager
 
 ### Agent Directability
 - [0078](./0078-agent-directability-rejection-escalation.md) - Agent Directability via Rejection-Escalation Model

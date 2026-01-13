@@ -41,14 +41,14 @@ flowchart TB
     subgraph ExternalSystems[External Systems]
         AgentAnalytics[Agent Analytics]
         TrainingFeedback[Training Feedback Services]
-        AgentSessionSupervisor[Agent Session Supervisor]
+        AgentSessionSentinel[Agent Session Sentinel]
         SeerOp[Seer Operator]
     end
     
     AgentAnalytics --> SLOT
     SLOT --> SLOM
     HFS --> TrainingFeedback
-    SLOM --> AgentSessionSupervisor
+    SLOM --> AgentSessionSentinel
     HSM --> SeerOp
     HO --> HD
     HL --> HD
@@ -67,7 +67,7 @@ flowchart TB
 ### No Enforcement
 
 - **SLO Manager and Tracking Service only manage and track**—no enforcement
-- **Enforcement handled by supervisors** (if configured) or external systems
+- **Enforcement handled by sentinels** (if configured) or external systems
 - **Tracking and alerting only**
 
 ### Agent Analytics Integration
@@ -78,7 +78,7 @@ flowchart TB
 
 ### Lifecycle Pattern
 
-- **Follows same pattern** as Supervisor lifecycle managers
+- **Follows same pattern** as Sentinel lifecycle managers
 - **Spec Manager handles validation** and structure management
 - **Seer Operator reconciles** CRDs to Kubernetes state
 
@@ -87,5 +87,5 @@ flowchart TB
 ## Related
 
 - [Agent Analytics](../agent-analytics/README.md) — Uses Agent Analytics data mart for SLO evaluation
-- [Agent Session Supervisor](../agent-session-supervisor/README.md) — Can trigger supervisors on SLO deviations (if configured)
+- [Agent Session Sentinel](../agent-session-sentinel/README.md) — Can trigger sentinels on SLO deviations (if configured)
 - [Training Feedback Services](../trained-agent-lifecycle-manager/training-feedback-services.md) — Routes feedback for Training Spec improvements

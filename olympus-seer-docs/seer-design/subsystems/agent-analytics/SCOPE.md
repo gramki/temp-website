@@ -150,7 +150,7 @@ These will be addressed during implementation with common defaults applied.
 | Subsystem | Relationship |
 |-----------|--------------|
 | [Observability Extensions to Watch](../observability-extensions-to-watch/README.md) | Runtime observability (separate subsystem) |
-| [Agent Session Supervisor](../agent-session-supervisor/README.md) | Uses Agent Analytics data mart for analytical supervisors |
+| [Agent Session Sentinel](../agent-session-sentinel/README.md) | Uses Agent Analytics data mart for analytical sentinels |
 | [Agent Health Monitor](../agent-health-monitor/README.md) | Uses Agent Analytics data mart for SLO evaluation |
 | [Seer Sidecar](../seer-sidecar/metrics-service.md) | Metrics source for Operational Data Service |
 | [Model Gateway](../model-gateway/observability.md) | Metrics source for Operational Data Service |

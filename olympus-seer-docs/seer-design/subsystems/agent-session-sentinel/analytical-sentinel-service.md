@@ -1,4 +1,4 @@
-# Analytical Supervisor Service
+# Analytical Sentinel Service
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-13  
@@ -8,9 +8,9 @@
 
 ## Overview
 
-Analytical Supervisor Service runs templated SQL queries on the Agent Analytics data mart periodically to generate Observations and Exceptions. It provides supervisory oversight based on historical patterns and aggregated metrics.
+Analytical Sentinel Service runs templated SQL queries on the Agent Analytics data mart periodically to generate Observations and Exceptions. It provides sentinel oversight based on historical patterns and aggregated metrics.
 
-**Key Principle**: Analytical Supervisor Service operates on analytics data (not real-time events), evaluating templated SQL queries to detect patterns that require supervisory attention.
+**Key Principle**: Analytical Sentinel Service operates on analytics data (not real-time events), evaluating templated SQL queries to detect patterns that require sentinel attention.
 
 ---
 
@@ -18,7 +18,7 @@ Analytical Supervisor Service runs templated SQL queries on the Agent Analytics 
 
 ```mermaid
 flowchart TB
-    subgraph ASS[Analytical Supervisor Service]
+    subgraph ASS[Analytical Sentinel Service]
         QueryScheduler[Query Scheduler]
         SQLExecutor[SQL Executor]
         ResultProcessor[Result Processor]
@@ -44,7 +44,7 @@ flowchart TB
 
 ### Templated SQL Execution
 
-Analytical Supervisor Service executes templated SQL queries on the analytics data mart:
+Analytical Sentinel Service executes templated SQL queries on the analytics data mart:
 
 #### SQL Template Structure
 
@@ -79,7 +79,7 @@ template_variables:
 
 ```mermaid
 sequenceDiagram
-    participant ASS as Analytical Supervisor Service
+    participant ASS as Analytical Sentinel Service
     participant Analytics as Agent Analytics Data Mart
     participant OS as Observation Service
     
@@ -96,7 +96,7 @@ sequenceDiagram
 
 ### Periodic Execution
 
-Analytical Supervisor Service executes queries periodically:
+Analytical Sentinel Service executes queries periodically:
 
 #### Schedule Configuration
 
@@ -119,7 +119,7 @@ analytical_config:
 
 ### Result Processing
 
-Analytical Supervisor Service processes SQL query results:
+Analytical Sentinel Service processes SQL query results:
 
 #### Result Structure
 
@@ -166,7 +166,7 @@ observation_mapping:
 
 ```mermaid
 sequenceDiagram
-    participant ASS as Analytical Supervisor Service
+    participant ASS as Analytical Sentinel Service
     participant Result as Query Result
     participant OS as Observation Service
     
@@ -191,7 +191,7 @@ sequenceDiagram
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Observation Service** | Observation/Exception generation | Generate supervisory observations |
+| **Observation Service** | Observation/Exception generation | Generate sentinel observations |
 
 ---
 
@@ -219,11 +219,11 @@ sequenceDiagram
 
 ## Related Documentation
 
-- [Supervisor Spec Manager](./supervisor-spec-manager.md) — Spec structure and validation
-- [Realtime Supervisor Service](./realtime-supervisor-service.md) — Real-time supervisor (SX events)
+- [Sentinel Spec Manager](./sentinel-spec-manager.md) — Spec structure and validation
+- [Realtime Sentinel Service](./realtime-sentinel-service.md) — Real-time sentinel (SX events)
 - [Observation Service](./observation-service.md) — Observation/Exception generation
 - [Agent Analytics](../agent-analytics/data-mart-service.md) — Analytics data mart source
 
 ---
 
-*Analytical Supervisor Service provides supervisory oversight by running templated SQL queries on the analytics data mart periodically.*
+*Analytical Sentinel Service provides sentinel oversight by running templated SQL queries on the analytics data mart periodically.*

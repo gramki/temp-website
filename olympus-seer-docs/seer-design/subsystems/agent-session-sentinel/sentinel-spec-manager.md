@@ -1,4 +1,4 @@
-# Supervisor Spec Manager
+# Sentinel Spec Manager
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-13  
@@ -8,9 +8,9 @@
 
 ## Overview
 
-Supervisor Spec Manager is the foundational component of the Agent Session Supervisor subsystem. It manages Supervisor Specifications (SupervisorSpec CRDs) that define supervisory policies for agent sessions.
+Sentinel Spec Manager is the foundational component of the Agent Session Sentinel subsystem. It manages Sentinel Specifications (SentinelSpec CRDs) that define sentinel policies for agent sessions.
 
-Supervisor Spec Manager handles spec structure validation, supervisor type configuration (Realtime vs. Analytical), and deployment configuration.
+Sentinel Spec Manager handles spec structure validation, sentinel type configuration (Realtime vs. Analytical), and deployment configuration.
 
 ---
 
@@ -18,23 +18,23 @@ Supervisor Spec Manager handles spec structure validation, supervisor type confi
 
 ```mermaid
 flowchart TB
-    subgraph SSM[Supervisor Spec Manager]
+    subgraph SSM[Sentinel Spec Manager]
         SpecValidation[Spec Structure Validation]
-        SupervisorTypeConfig[Supervisor Type Configuration]
+        SentinelTypeConfig[Sentinel Type Configuration]
         DeploymentConfig[Deployment Configuration]
         StateMgmt[State Management]
     end
     
     subgraph ExternalSystems[External Systems]
         SeerOp[Seer Operator]
-        SD[Supervisor Directory]
-        RTS[Realtime Supervisor Service]
-        ASS[Analytical Supervisor Service]
+        SD[Sentinel Directory]
+        RTS[Realtime Sentinel Service]
+        ASS[Analytical Sentinel Service]
     end
     
     SpecValidation --> SeerOp
-    SupervisorTypeConfig --> RTS
-    SupervisorTypeConfig --> ASS
+    SentinelTypeConfig --> RTS
+    SentinelTypeConfig --> ASS
     DeploymentConfig --> SeerOp
     StateMgmt --> SD
 ```
@@ -43,17 +43,17 @@ flowchart TB
 
 ## Functional Scope
 
-### Supervisor Spec Structure
+### Sentinel Spec Structure
 
-Supervisor Spec Manager validates the complete structure of SupervisorSpec CRDs:
+Sentinel Spec Manager validates the complete structure of SentinelSpec CRDs:
 
 #### Core Components
 
 | Component | Description | Validation Rules |
 |-----------|-------------|------------------|
-| **Supervisor Type** | Realtime or Analytical | Required, must be one of: `realtime`, `analytical` |
-| **Supervisor Name** | Unique identifier | Required, must be unique within workbench |
-| **Target Scope** | Agents/workbenches to supervise | Required, must specify agent_ids or workbench_ids |
+| **Sentinel Type** | Realtime or Analytical | Required, must be one of: `realtime`, `analytical` |
+| **Sentinel Name** | Unique identifier | Required, must be unique within workbench |
+| **Target Scope** | Agents/workbenches to monitor | Required, must specify agent_ids or workbench_ids |
 | **Policy Definition** | OPA policy (Realtime) or SQL template (Analytical) | Required, validated for syntax |
 | **Observation Configuration** | When to generate Observations vs. Exceptions | Required, must specify conditions |
 | **Deployment Configuration** | Deployment CRD reference | Required for deployment |
@@ -62,12 +62,12 @@ Supervisor Spec Manager validates the complete structure of SupervisorSpec CRDs:
 
 ```yaml
 apiVersion: seer.olympus.io/v1
-kind: SupervisorSpec
+kind: SentinelSpec
 metadata:
   name: stuck-agent-detector
   namespace: acme-disputes
 spec:
-  # Supervisor Type (required)
+  # Sentinel Type (required)
   type: realtime  # realtime | analytical
   
   # Target Scope (required)
@@ -79,7 +79,7 @@ spec:
   policy:
     # For Realtime: OPA policy
     opa_policy: |
-      package seer.supervisor.stuck_agent
+      package seer.sentinel.stuck_agent
       
       default allow = false
       
@@ -126,11 +126,11 @@ spec:
 
 ---
 
-### Supervisor Type Configuration
+### Sentinel Type Configuration
 
-Supervisor Spec Manager configures supervisor types:
+Sentinel Spec Manager configures sentinel types:
 
-#### Realtime Supervisor
+#### Realtime Sentinel
 
 | Configuration | Description |
 |---------------|-------------|
@@ -139,7 +139,7 @@ Supervisor Spec Manager configures supervisor types:
 | **Evaluation Trigger** | On SX event arrival |
 | **Output** | Real-time Observations/Exceptions |
 
-#### Analytical Supervisor
+#### Analytical Sentinel
 
 | Configuration | Description |
 |---------------|-------------|
@@ -152,18 +152,18 @@ Supervisor Spec Manager configures supervisor types:
 
 ### Deployment Configuration
 
-Supervisor Spec Manager manages deployment configuration:
+Sentinel Spec Manager manages deployment configuration:
 
 #### Deployment CRD Structure
 
 ```yaml
 apiVersion: seer.olympus.io/v1
-kind: SupervisorDeployment
+kind: SentinelDeployment
 metadata:
   name: stuck-agent-detector-deployment
   namespace: acme-disputes
 spec:
-  supervisor_spec_ref:
+  sentinel_spec_ref:
     name: stuck-agent-detector
     version: "1.0.0"
   
@@ -173,14 +173,14 @@ spec:
       cpu: "100m"
       memory: "256Mi"
     
-    # For Realtime Supervisor
+    # For Realtime Sentinel
     realtime_config:
       event_subscriptions:
         - event_type: "agent_session_update"
           filters:
             workbench_id: "acme-disputes"
     
-    # For Analytical Supervisor
+    # For Analytical Sentinel
     analytical_config:
       schedule: "*/5 * * * *"  # Every 5 minutes
       query_timeout: "30s"
@@ -191,32 +191,32 @@ spec:
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant SSM as Supervisor Spec Manager
+    participant SSM as Sentinel Spec Manager
     participant SeerOp as Seer Operator
-    participant Deployment as Supervisor Deployment
+    participant Deployment as Sentinel Deployment
     
-    User->>SSM: Create SupervisorSpec
+    User->>SSM: Create SentinelSpec
     SSM->>SSM: Validate spec
-    SSM->>SeerOp: Create SupervisorSpec CRD
-    User->>SSM: Create SupervisorDeployment
+    SSM->>SeerOp: Create SentinelSpec CRD
+    User->>SSM: Create SentinelDeployment
     SSM->>SSM: Validate deployment config
-    SSM->>SeerOp: Create SupervisorDeployment CRD
-    SeerOp->>Deployment: Deploy supervisor service
-    Deployment->>Deployment: Supervisor active
+    SSM->>SeerOp: Create SentinelDeployment CRD
+    SeerOp->>Deployment: Deploy sentinel service
+    Deployment->>Deployment: Sentinel active
 ```
 
 ---
 
 ### Spec Validation
 
-Supervisor Spec Manager validates supervisor specs:
+Sentinel Spec Manager validates sentinel specs:
 
 #### Validation Rules
 
 | Validation Type | Description | Action on Failure |
 |-----------------|-------------|-------------------|
 | **Structure Validation** | Required fields present, correct types | Reject spec |
-| **Supervisor Type Validation** | Type is `realtime` or `analytical` | Reject spec |
+| **Sentinel Type Validation** | Type is `realtime` or `analytical` | Reject spec |
 | **Policy Syntax Validation** | OPA policy syntax (Realtime) or SQL syntax (Analytical) | Reject spec |
 | **Target Scope Validation** | Target agents/workbenches exist | Reject spec |
 | **Observation Config Validation** | Observation/Exception conditions valid | Reject spec |
@@ -236,23 +236,23 @@ Supervisor Spec Manager validates supervisor specs:
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Supervisor Directory** | Spec registration | Registry and search |
-| **Realtime Supervisor Service** | Spec configuration | Realtime supervisor execution |
-| **Analytical Supervisor Service** | Spec configuration | Analytical supervisor execution |
-| **Supervisor Operators** | Spec lifecycle | Registration and state transitions |
+| **Sentinel Directory** | Spec registration | Registry and search |
+| **Realtime Sentinel Service** | Spec configuration | Realtime sentinel execution |
+| **Analytical Sentinel Service** | Spec configuration | Analytical sentinel execution |
+| **Sentinel Operators** | Spec lifecycle | Registration and state transitions |
 
 ---
 
 ## Key Design Decisions
 
-### Two Supervisor Types
+### Two Sentinel Types
 
-- **Realtime Supervisor**: Observes SX events, evaluates OPA policies, generates real-time Observations/Exceptions
-- **Analytical Supervisor**: Runs templated SQL on analytics data mart periodically, generates analytical Observations/Exceptions
+- **Realtime Sentinel**: Observes SX events, evaluates OPA policies, generates real-time Observations/Exceptions
+- **Analytical Sentinel**: Runs templated SQL on analytics data mart periodically, generates analytical Observations/Exceptions
 
 ### Deployment Model
 
-- **Supervisors deployed via Deployment CRDs** referencing Spec CRDs
+- **Sentinels deployed via Deployment CRDs** referencing Spec CRDs
 - **Deployment CRD corresponds to Spec CRD** where templatized definition is stored
 - **Clear separation** between spec definition and deployment configuration
 
@@ -266,11 +266,11 @@ Supervisor Spec Manager validates supervisor specs:
 
 ## Related Documentation
 
-- [Realtime Supervisor Service](./realtime-supervisor-service.md) — SX event observation and OPA policy evaluation
-- [Analytical Supervisor Service](./analytical-supervisor-service.md) — SQL template execution on analytics data mart
-- [Supervisor Operators](./supervisor-operators.md) — Lifecycle management and state transitions
-- [Supervisor Directory](./supervisor-directory.md) — Registry and search
+- [Realtime Sentinel Service](./realtime-sentinel-service.md) — SX event observation and OPA policy evaluation
+- [Analytical Sentinel Service](./analytical-sentinel-service.md) — SQL template execution on analytics data mart
+- [Sentinel Operators](./sentinel-operators.md) — Lifecycle management and state transitions
+- [Sentinel Directory](./sentinel-directory.md) — Registry and search
 
 ---
 
-*Supervisor Spec Manager provides the foundation for Agent Session Supervisor by managing supervisor specifications and deployment configuration.*
+*Sentinel Spec Manager provides the foundation for Agent Session Sentinel by managing sentinel specifications and deployment configuration.*

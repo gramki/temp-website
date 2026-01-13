@@ -10,7 +10,7 @@
 
 SLO Manager manages SLO definitions and thresholds for Cost SLOs (ARE), Behavior SLOs (COS), and Feedback SLOs (PA/APO). It provides SLO definition management, threshold configuration, and SLO metadata.
 
-**Key Principle**: SLO Manager manages SLO definitions and thresholds—it does not enforce SLOs. Enforcement is handled by supervisors (if configured) or external systems.
+**Key Principle**: SLO Manager manages SLO definitions and thresholds—it does not enforce SLOs. Enforcement is handled by sentinels (if configured) or external systems.
 
 ---
 
@@ -27,13 +27,13 @@ flowchart TB
     subgraph ExternalSystems[External Systems]
         HSM[Health Spec Manager]
         SLOT[SLO Tracking Service]
-        AgentSessionSupervisor[Agent Session Supervisor]
+        AgentSessionSentinel[Agent Session Sentinel]
     end
     
     HSM --> SLODefinition
     SLODefinition --> ThresholdConfig
     ThresholdConfig --> SLOT
-    SLOT --> AgentSessionSupervisor
+    SLOT --> AgentSessionSentinel
 ```
 
 ---
@@ -139,7 +139,7 @@ slo_metadata:
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
 | **SLO Tracking Service** | SLO threshold API | SLO evaluation thresholds |
-| **Agent Session Supervisor** | SLO deviation trigger | Trigger supervisors on SLO deviations (if configured) |
+| **Agent Session Sentinel** | SLO deviation trigger | Trigger sentinels on SLO deviations (if configured) |
 
 ---
 
@@ -154,7 +154,7 @@ slo_metadata:
 ### No Enforcement
 
 - **SLO Manager only manages definitions and thresholds**—no enforcement
-- **Enforcement handled by supervisors** (if configured) or external systems
+- **Enforcement handled by sentinels** (if configured) or external systems
 - **Tracking only**—SLO Tracking Service tracks deviations
 
 ### Metrics Granularity
@@ -169,7 +169,7 @@ slo_metadata:
 
 - [Health Spec Manager](./health-spec-manager.md) — Spec structure and SLO definitions
 - [SLO Tracking Service](./slo-tracking-service.md) — SLO deviation tracking
-- [Agent Session Supervisor](../agent-session-supervisor/README.md) — Can trigger on SLO deviations
+- [Agent Session Sentinel](../agent-session-sentinel/README.md) — Can trigger on SLO deviations
 
 ---
 

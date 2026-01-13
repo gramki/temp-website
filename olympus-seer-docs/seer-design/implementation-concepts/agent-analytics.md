@@ -119,7 +119,7 @@ Clear separation between Agent Analytics and Observability:
 
 ### Related Systems
 - [Observability Extensions to Watch](../subsystems/observability-extensions-to-watch/README.md) — Runtime observability (separate subsystem)
-- [Agent Session Supervisor](../subsystems/agent-session-supervisor/README.md) — Uses Agent Analytics data mart for analytical supervisors
+- [Agent Session Sentinel](../subsystems/agent-session-sentinel/README.md) — Uses Agent Analytics data mart for analytical sentinels
 - [Agent Health Monitor](../subsystems/agent-health-monitor/README.md) — Uses Agent Analytics data mart for SLO evaluation
 - [Hub Analytics](../../../olympus-hub-docs/04-subsystems/hub-analytics/README.md) — Analogous Hub subsystem
 - [Olympus LakeStack](../../../olympus-hub-docs/05-infrastructure/olympus-lakestack.md) — LakeStack Pontus and Report Center infrastructure

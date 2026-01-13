@@ -1,4 +1,4 @@
-# Supervisor Directory
+# Sentinel Directory
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-13  
@@ -8,9 +8,9 @@
 
 ## Overview
 
-Supervisor Directory is the registry for Supervisor Specs and Deployments. It provides search, version tracking, and deployment status for supervisors.
+Sentinel Directory is the registry for Sentinel Specs and Deployments. It provides search, version tracking, and deployment status for sentinels.
 
-**Key Principle**: Supervisor Directory maintains a searchable index of all supervisors, their versions, deployment status, and associated metadata.
+**Key Principle**: Sentinel Directory maintains a searchable index of all sentinels, their versions, deployment status, and associated metadata.
 
 ---
 
@@ -18,17 +18,17 @@ Supervisor Directory is the registry for Supervisor Specs and Deployments. It pr
 
 ```mermaid
 flowchart TB
-    subgraph SD[Supervisor Directory]
-        Registry[Supervisor Registry]
+    subgraph SD[Sentinel Directory]
+        Registry[Sentinel Registry]
         SearchIndex[Search Index]
         VersionTracker[Version Tracker]
         StatusTracker[Status Tracker]
     end
     
     subgraph ExternalSystems[External Systems]
-        SSM[Supervisor Spec Manager]
-        SO[Supervisor Operators]
-        SL[Supervisor Levers]
+        SSM[Sentinel Spec Manager]
+        SO[Sentinel Operators]
+        SL[Sentinel Levers]
         SeerOp[Seer Operator]
     end
     
@@ -44,17 +44,17 @@ flowchart TB
 
 ## Functional Scope
 
-### Supervisor Registry
+### Sentinel Registry
 
-Supervisor Directory maintains a registry of Supervisor Specs:
+Sentinel Directory maintains a registry of Sentinel Specs:
 
 #### Registry Entry Structure
 
 ```yaml
-supervisor_entry:
-  supervisor_id: "stuck-agent-detector"
-  supervisor_name: "Stuck Agent Detector"
-  supervisor_type: "realtime"  # realtime | analytical
+sentinel_entry:
+  sentinel_id: "stuck-agent-detector"
+  sentinel_name: "Stuck Agent Detector"
+  sentinel_type: "realtime"  # realtime | analytical
   version: "1.0.0"
   workbench_id: "acme-disputes"
   target_scope:
@@ -76,43 +76,43 @@ supervisor_entry:
 
 | Index | Purpose |
 |-------|---------|
-| **By Supervisor ID** | Direct lookup |
-| **By Workbench** | Workbench-scoped supervisors |
-| **By Supervisor Type** | Realtime vs. Analytical |
-| **By State** | Active supervisors |
+| **By Sentinel ID** | Direct lookup |
+| **By Workbench** | Workbench-scoped sentinels |
+| **By Sentinel Type** | Realtime vs. Analytical |
+| **By State** | Active sentinels |
 | **By Deployment Status** | Deployment health |
 
 ---
 
 ### Search & Discovery
 
-Supervisor Directory provides search capabilities:
+Sentinel Directory provides search capabilities:
 
 #### Search Queries
 
 | Query Type | Description | Example |
 |-----------|-------------|---------|
-| **By Workbench** | Find supervisors for a workbench | `workbench_id=acme-disputes` |
-| **By Supervisor Type** | Find realtime or analytical supervisors | `type=realtime` |
-| **By Agent** | Find supervisors targeting an agent | `target_agent_id=fraud-analyst` |
-| **By State** | Find supervisors in a specific state | `state=deployed` |
-| **By Deployment Status** | Find supervisors by deployment health | `deployment_status=healthy` |
+| **By Workbench** | Find sentinels for a workbench | `workbench_id=acme-disputes` |
+| **By Sentinel Type** | Find realtime or analytical sentinels | `type=realtime` |
+| **By Agent** | Find sentinels targeting an agent | `target_agent_id=fraud-analyst` |
+| **By State** | Find sentinels in a specific state | `state=deployed` |
+| **By Deployment Status** | Find sentinels by deployment health | `deployment_status=healthy` |
 
 #### Search Example
 
 ```yaml
 search_query:
   workbench_id: "acme-disputes"
-  supervisor_type: "realtime"
+  sentinel_type: "realtime"
   state: "deployed"
   
 search_results:
-  - supervisor_id: "stuck-agent-detector"
-    supervisor_name: "Stuck Agent Detector"
+  - sentinel_id: "stuck-agent-detector"
+    sentinel_name: "Stuck Agent Detector"
     state: "deployed"
     deployment_status: "healthy"
-  - supervisor_id: "cost-anomaly-detector"
-    supervisor_name: "Cost Anomaly Detector"
+  - sentinel_id: "cost-anomaly-detector"
+    sentinel_name: "Cost Anomaly Detector"
     state: "deployed"
     deployment_status: "healthy"
 ```
@@ -121,13 +121,13 @@ search_results:
 
 ### Version Tracking
 
-Supervisor Directory tracks supervisor versions:
+Sentinel Directory tracks sentinel versions:
 
 #### Version History
 
 ```yaml
 version_history:
-  supervisor_id: "stuck-agent-detector"
+  sentinel_id: "stuck-agent-detector"
   versions:
     - version: "1.0.0"
       state: "deployed"
@@ -148,7 +148,7 @@ version_history:
 
 ### Deployment Status Tracking
 
-Supervisor Directory tracks deployment status:
+Sentinel Directory tracks deployment status:
 
 #### Deployment Status
 
@@ -164,8 +164,8 @@ Supervisor Directory tracks deployment status:
 ```mermaid
 sequenceDiagram
     participant SeerOp as Seer Operator
-    participant SD as Supervisor Directory
-    participant Deployment as Supervisor Deployment
+    participant SD as Sentinel Directory
+    participant Deployment as Sentinel Deployment
     
     SeerOp->>Deployment: Reconcile Deployment CRD
     Deployment->>Deployment: Update replica status
@@ -182,16 +182,16 @@ sequenceDiagram
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Supervisor Spec Manager** | Spec registration API | Register new specs |
-| **Supervisor Operators** | Lifecycle API | Update lifecycle state |
-| **Supervisor Levers** | Status update API | Update runtime status |
+| **Sentinel Spec Manager** | Spec registration API | Register new specs |
+| **Sentinel Operators** | Lifecycle API | Update lifecycle state |
+| **Sentinel Levers** | Status update API | Update runtime status |
 | **Seer Operator** | Deployment status API | Update deployment status |
 
 ### Downstream Integration
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Search Consumers** | Search API | Query supervisor registry |
+| **Search Consumers** | Search API | Query sentinel registry |
 
 ---
 
@@ -199,7 +199,7 @@ sequenceDiagram
 
 ### Registry Model
 
-- **Centralized registry** for all supervisors
+- **Centralized registry** for all sentinels
 - **Searchable indexes** for efficient queries
 - **Version tracking** for spec evolution
 
@@ -211,18 +211,18 @@ sequenceDiagram
 
 ### Discovery Model
 
-- **Workbench-scoped** supervisor discovery
-- **Agent-scoped** supervisor discovery
-- **Type-based** supervisor filtering
+- **Workbench-scoped** sentinel discovery
+- **Agent-scoped** sentinel discovery
+- **Type-based** sentinel filtering
 
 ---
 
 ## Related Documentation
 
-- [Supervisor Spec Manager](./supervisor-spec-manager.md) — Spec structure and registration
-- [Supervisor Operators](./supervisor-operators.md) — Lifecycle management
-- [Supervisor Levers](./supervisor-levers.md) — Runtime controls
+- [Sentinel Spec Manager](./sentinel-spec-manager.md) — Spec structure and registration
+- [Sentinel Operators](./sentinel-operators.md) — Lifecycle management
+- [Sentinel Levers](./sentinel-levers.md) — Runtime controls
 
 ---
 
-*Supervisor Directory provides a searchable registry of Supervisor Specs and Deployments with version tracking and deployment status.*
+*Sentinel Directory provides a searchable registry of Sentinel Specs and Deployments with version tracking and deployment status.*

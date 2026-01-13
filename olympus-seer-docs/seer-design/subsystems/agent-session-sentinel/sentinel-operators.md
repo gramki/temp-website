@@ -1,4 +1,4 @@
-# Supervisor Operators
+# Sentinel Operators
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-13  
@@ -8,9 +8,9 @@
 
 ## Overview
 
-Supervisor Operators manage the lifecycle of Supervisor Specs and Deployments via Seer Operator. They handle registration, validation, versioning, and state transitions for supervisors.
+Sentinel Operators manage the lifecycle of Sentinel Specs and Deployments via Seer Operator. They handle registration, validation, versioning, and state transitions for sentinels.
 
-**Key Principle**: Supervisor Operators coordinate lifecycle management across Supervisor Spec Manager, Supervisor Directory, and Seer Operator, following the same pattern as Trained/Employed Agent lifecycle managers.
+**Key Principle**: Sentinel Operators coordinate lifecycle management across Sentinel Spec Manager, Sentinel Directory, and Seer Operator, following the same pattern as Trained/Employed Agent lifecycle managers.
 
 ---
 
@@ -18,7 +18,7 @@ Supervisor Operators manage the lifecycle of Supervisor Specs and Deployments vi
 
 ```mermaid
 flowchart TB
-    subgraph SO[Supervisor Operators]
+    subgraph SO[Sentinel Operators]
         RegistrationService[Registration Service]
         ValidationOrchestration[Validation Orchestration]
         VersionManagement[Version Management]
@@ -26,11 +26,11 @@ flowchart TB
     end
     
     subgraph ExternalSystems[External Systems]
-        SSM[Supervisor Spec Manager]
-        SD[Supervisor Directory]
+        SSM[Sentinel Spec Manager]
+        SD[Sentinel Directory]
         SeerOp[Seer Operator]
-        RTS[Realtime Supervisor Service]
-        ASS[Analytical Supervisor Service]
+        RTS[Realtime Sentinel Service]
+        ASS[Analytical Sentinel Service]
     end
     
     RegistrationService --> SSM
@@ -47,22 +47,22 @@ flowchart TB
 
 ### Registration Service
 
-Supervisor Operators register new Supervisor Specs:
+Sentinel Operators register new Sentinel Specs:
 
 #### Registration Flow
 
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant SO as Supervisor Operators
-    participant SSM as Supervisor Spec Manager
+    participant SO as Sentinel Operators
+    participant SSM as Sentinel Spec Manager
     participant SeerOp as Seer Operator
-    participant SD as Supervisor Directory
+    participant SD as Sentinel Directory
     
-    User->>SO: Create SupervisorSpec
+    User->>SO: Create SentinelSpec
     SO->>SSM: Validate spec structure
     SSM->>SO: Validation result
-    SO->>SeerOp: Create SupervisorSpec CRD
+    SO->>SeerOp: Create SentinelSpec CRD
     SeerOp->>SeerOp: Register CRD
     SO->>SD: Register in directory
     SD->>SO: Registration complete
@@ -71,32 +71,32 @@ sequenceDiagram
 
 #### Registration Steps
 
-1. **Spec Validation**: Validate spec structure via Supervisor Spec Manager
-2. **CRD Creation**: Create SupervisorSpec CRD via Seer Operator
-3. **Directory Registration**: Register spec in Supervisor Directory
+1. **Spec Validation**: Validate spec structure via Sentinel Spec Manager
+2. **CRD Creation**: Create SentinelSpec CRD via Seer Operator
+3. **Directory Registration**: Register spec in Sentinel Directory
 4. **State Initialization**: Initialize spec state (Drafted)
 
 ---
 
 ### Validation Orchestration
 
-Supervisor Operators orchestrate validation across systems:
+Sentinel Operators orchestrate validation across systems:
 
 #### Validation Checks
 
 | Check | Description | Validated By |
 |-------|-------------|--------------|
-| **Structure Validation** | Spec structure, required fields | Supervisor Spec Manager |
-| **Policy Syntax Validation** | OPA policy syntax (Realtime) or SQL syntax (Analytical) | Supervisor Spec Manager |
-| **Target Scope Validation** | Target agents/workbenches exist | Supervisor Spec Manager |
-| **Deployment Config Validation** | Deployment configuration valid | Supervisor Spec Manager |
+| **Structure Validation** | Spec structure, required fields | Sentinel Spec Manager |
+| **Policy Syntax Validation** | OPA policy syntax (Realtime) or SQL syntax (Analytical) | Sentinel Spec Manager |
+| **Target Scope Validation** | Target agents/workbenches exist | Sentinel Spec Manager |
+| **Deployment Config Validation** | Deployment configuration valid | Sentinel Spec Manager |
 
 #### Validation Flow
 
 ```mermaid
 sequenceDiagram
-    participant SO as Supervisor Operators
-    participant SSM as Supervisor Spec Manager
+    participant SO as Sentinel Operators
+    participant SSM as Sentinel Spec Manager
     participant SeerOp as Seer Operator
     
     SO->>SSM: Validate spec
@@ -112,7 +112,7 @@ sequenceDiagram
 
 ### Version Management
 
-Supervisor Operators manage supervisor versions:
+Sentinel Operators manage sentinel versions:
 
 #### Version Assignment
 
@@ -132,7 +132,7 @@ Supervisor Operators manage supervisor versions:
 
 ### State Transition Service
 
-Supervisor Operators manage supervisor state transitions:
+Sentinel Operators manage sentinel state transitions:
 
 #### Lifecycle States
 
@@ -140,9 +140,9 @@ Supervisor Operators manage supervisor state transitions:
 |-------|-------------|-------------------|
 | **Drafted** | Spec created, not validated | → Validated |
 | **Validated** | Spec validated, ready for deployment | → Deployed, → Archived |
-| **Deployed** | Supervisor deployed and active | → Suspended, → Archived |
-| **Suspended** | Supervisor suspended (temporarily disabled) | → Deployed, → Archived |
-| **Archived** | Supervisor archived (no longer active) | (terminal) |
+| **Deployed** | Sentinel deployed and active | → Suspended, → Archived |
+| **Suspended** | Sentinel suspended (temporarily disabled) | → Deployed, → Archived |
+| **Archived** | Sentinel archived (no longer active) | (terminal) |
 
 #### State Transition Flow
 
@@ -164,10 +164,10 @@ stateDiagram-v2
 | Transition | Condition | Action |
 |-----------|-----------|--------|
 | **Drafted → Validated** | Spec validation passes | Assign version, update CRD status |
-| **Validated → Deployed** | Deployment CRD created | Deploy supervisor service |
-| **Deployed → Suspended** | Suspend lever activated | Stop supervisor service |
-| **Suspended → Deployed** | Resume lever activated | Restart supervisor service |
-| **Any → Archived** | Archive lever activated | Remove supervisor service, mark archived |
+| **Validated → Deployed** | Deployment CRD created | Deploy sentinel service |
+| **Deployed → Suspended** | Suspend lever activated | Stop sentinel service |
+| **Suspended → Deployed** | Resume lever activated | Restart sentinel service |
+| **Any → Archived** | Archive lever activated | Remove sentinel service, mark archived |
 
 ---
 
@@ -177,16 +177,16 @@ stateDiagram-v2
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Supervisor Spec Manager** | Spec validation API | Validate specs before registration |
+| **Sentinel Spec Manager** | Spec validation API | Validate specs before registration |
 | **Seer Operator** | CRD reconciliation | CRD creation and state management |
 
 ### Downstream Integration
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Supervisor Directory** | Spec registration API | Register specs in directory |
-| **Realtime Supervisor Service** | Deployment trigger | Deploy realtime supervisors |
-| **Analytical Supervisor Service** | Deployment trigger | Deploy analytical supervisors |
+| **Sentinel Directory** | Spec registration API | Register specs in directory |
+| **Realtime Sentinel Service** | Deployment trigger | Deploy realtime sentinels |
+| **Analytical Sentinel Service** | Deployment trigger | Deploy analytical sentinels |
 
 ---
 
@@ -200,25 +200,25 @@ stateDiagram-v2
 
 ### Seer Operator Boundary
 
-- **Supervisor Operators coordinate** lifecycle management
+- **Sentinel Operators coordinate** lifecycle management
 - **Seer Operator reconciles** CRDs to Kubernetes state
 - **Clear separation** between business logic and controller logic
 
 ### Deployment Model
 
-- **Deployment CRDs** reference SupervisorSpec CRDs
-- **Deployment triggers** supervisor service deployment
-- **State transitions** control supervisor lifecycle
+- **Deployment CRDs** reference SentinelSpec CRDs
+- **Deployment triggers** sentinel service deployment
+- **State transitions** control sentinel lifecycle
 
 ---
 
 ## Related Documentation
 
-- [Supervisor Spec Manager](./supervisor-spec-manager.md) — Spec structure and validation
-- [Supervisor Levers](./supervisor-levers.md) — Runtime controls and state transitions
-- [Supervisor Directory](./supervisor-directory.md) — Registry and search
+- [Sentinel Spec Manager](./sentinel-spec-manager.md) — Spec structure and validation
+- [Sentinel Levers](./sentinel-levers.md) — Runtime controls and state transitions
+- [Sentinel Directory](./sentinel-directory.md) — Registry and search
 - [Seer Operator](../../hub-integration/training-spec-crd.md) — CRD reconciliation
 
 ---
 
-*Supervisor Operators manage the lifecycle of Supervisor Specs and Deployments via Seer Operator.*
+*Sentinel Operators manage the lifecycle of Sentinel Specs and Deployments via Seer Operator.*

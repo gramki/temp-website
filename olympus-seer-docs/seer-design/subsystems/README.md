@@ -13,7 +13,7 @@ This folder contains design documents for each Olympus Seer subsystem.
 | [Agent Ingress Gateway](./agent-ingress-gateway/README.md) | Subscription lifecycle, subscription-scoped policies, Signal Exchange integration | 🟡 Draft |
 | [Model Gateway](./model-gateway/README.md) | Bifrost-based LLM gateway, routing, fallback, budgets | 🟡 Draft |
 | [Agent Health Monitor](./agent-health-monitor/README.md) | Cost SLOs, behavior SLOs, feedback SLOs, human feedback service | 🟢 Complete |
-| [Agent Session Supervisor](./agent-session-supervisor/README.md) | Supervisory policies, observations, escalations | 🟢 Complete |
+| [Agent Session Sentinel](./agent-session-sentinel/README.md) | Sentinel policies, observations, escalations | 🟢 Complete |
 | [Context Compiler](./context-compiler/README.md) | Context compilation from memory, knowledge, session state | 🟡 Draft |
 | [Seer Agent SDK](./seer-agent-sdk/README.md) | SDK for Raw Agents (employment spec, prompts, context, metrics, tools, memory, knowledge) | 🟡 Draft |
 | [Raw Agent Lifecycle Manager](./raw-agent-lifecycle-manager/README.md) | Raw agent spec, validation, directory, operators, levers | 🟡 Draft |

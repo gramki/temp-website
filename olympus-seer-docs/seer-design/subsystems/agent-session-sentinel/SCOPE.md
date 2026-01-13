@@ -1,4 +1,4 @@
-# Agent Session Supervisor - Scope and Design Status
+# Agent Session Sentinel - Scope and Design Status
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-13
@@ -7,15 +7,15 @@
 
 ## Scope
 
-The **Agent Session Supervisor** subsystem provides supervisory oversight for agent sessions, managing supervisory policies, observations, and escalations. It is responsible for:
+The **Agent Session Sentinel** subsystem provides sentinel oversight for agent sessions, managing sentinel policies, observations, and escalations. It is responsible for:
 
-1. **Supervisor Specification Management** — Spec structure, validation, deployment configuration
-2. **Realtime Supervision** — SX event observation, OPA policy evaluation, real-time observation generation
-3. **Analytical Supervision** — Templated SQL execution on analytics data mart, periodic observation generation
+1. **Sentinel Specification Management** — Spec structure, validation, deployment configuration
+2. **Realtime Sentinel Oversight** — SX event observation, OPA policy evaluation, real-time observation generation
+3. **Analytical Sentinel Oversight** — Templated SQL execution on analytics data mart, periodic observation generation
 4. **Observation Generation** — Cronus Observations/Exceptions generation and routing
 5. **Lifecycle Management** — Registration, validation, versioning, state transitions
 6. **Operational Controls** — Enable/disable, suspend, emergency controls
-7. **Supervisor Registry** — Search, version tracking, deployment status
+7. **Sentinel Registry** — Search, version tracking, deployment status
 
 ---
 
@@ -38,34 +38,34 @@ This design documentation is at **C2 (Container) level** in the C4 architecture 
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Supervisor Spec Manager](./supervisor-spec-manager.md) | Spec structure, validation, deployment configuration | ✅ Complete |
-| [Realtime Supervisor Service](./realtime-supervisor-service.md) | SX event observation, OPA policy evaluation | ✅ Complete |
-| [Analytical Supervisor Service](./analytical-supervisor-service.md) | Templated SQL execution on analytics data mart | ✅ Complete |
+| [Sentinel Spec Manager](./sentinel-spec-manager.md) | Spec structure, validation, deployment configuration | ✅ Complete |
+| [Realtime Sentinel Service](./realtime-sentinel-service.md) | SX event observation, OPA policy evaluation | ✅ Complete |
+| [Analytical Sentinel Service](./analytical-sentinel-service.md) | Templated SQL execution on analytics data mart | ✅ Complete |
 | [Observation Service](./observation-service.md) | Cronus Observations/Exceptions generation | ✅ Complete |
-| [Supervisor Operators](./supervisor-operators.md) | Lifecycle management, state transitions | ✅ Complete |
-| [Supervisor Levers](./supervisor-levers.md) | Runtime controls, enable/disable, suspend | ✅ Complete |
-| [Supervisor Directory](./supervisor-directory.md) | Registry, search, version tracking | ✅ Complete |
+| [Sentinel Operators](./sentinel-operators.md) | Lifecycle management, state transitions | ✅ Complete |
+| [Sentinel Levers](./sentinel-levers.md) | Runtime controls, enable/disable, suspend | ✅ Complete |
+| [Sentinel Directory](./sentinel-directory.md) | Registry, search, version tracking | ✅ Complete |
 
 ---
 
 ## Coverage Summary
 
-### ✅ Supervisor Spec Manager (supervisor-spec-manager.md)
+### ✅ Sentinel Spec Manager (sentinel-spec-manager.md)
 
-- **Supervisor Spec Structure**
-  - Core components (supervisor type, name, target scope, policy definition, observation configuration, deployment configuration)
+- **Sentinel Spec Structure**
+  - Core components (sentinel type, name, target scope, policy definition, observation configuration, deployment configuration)
   - Spec structure validation rules
   - Required fields and field types
   
-- **Supervisor Type Configuration**
-  - Realtime Supervisor (SX events, OPA policies)
-  - Analytical Supervisor (SQL templates, periodic execution)
+- **Sentinel Type Configuration**
+  - Realtime Sentinel (SX events, OPA policies)
+  - Analytical Sentinel (SQL templates, periodic execution)
   
 - **Deployment Configuration**
   - Deployment CRD structure
   - Deployment flow and integration
 
-### ✅ Realtime Supervisor Service (realtime-supervisor-service.md)
+### ✅ Realtime Sentinel Service (realtime-sentinel-service.md)
 
 - **SX Event Observation**
   - Event subscription configuration
@@ -81,7 +81,7 @@ This design documentation is at **C2 (Container) level** in the C4 architecture 
   - Observation conditions
   - Observation generation flow
 
-### ✅ Analytical Supervisor Service (analytical-supervisor-service.md)
+### ✅ Analytical Sentinel Service (analytical-sentinel-service.md)
 
 - **Templated SQL Execution**
   - SQL template structure
@@ -111,7 +111,7 @@ This design documentation is at **C2 (Container) level** in the C4 architecture 
   - Cronus publishing
   - Cronus integration flow
 
-### ✅ Supervisor Operators (supervisor-operators.md)
+### ✅ Sentinel Operators (sentinel-operators.md)
 
 - **Registration Service**
   - Registration flow and steps
@@ -133,7 +133,7 @@ This design documentation is at **C2 (Container) level** in the C4 architecture 
   - State transition rules and enforcement
   - Transition flow diagrams
 
-### ✅ Supervisor Levers (supervisor-levers.md)
+### ✅ Sentinel Levers (sentinel-levers.md)
 
 - **Enable/Disable Control**
   - Enable and disable actions
@@ -147,11 +147,11 @@ This design documentation is at **C2 (Container) level** in the C4 architecture 
   - Emergency disable, suspend, archive
   - Emergency control flow
 
-### ✅ Supervisor Directory (supervisor-directory.md)
+### ✅ Sentinel Directory (sentinel-directory.md)
 
-- **Supervisor Registry**
+- **Sentinel Registry**
   - Registry entry structure
-  - Registry indexes (by supervisor ID, workbench, type, state, deployment status)
+  - Registry indexes (by sentinel ID, workbench, type, state, deployment status)
   
 - **Search & Discovery**
   - Search queries (by workbench, type, agent, state, deployment status)
@@ -171,9 +171,9 @@ This design documentation is at **C2 (Container) level** in the C4 architecture 
 
 | Pattern | Use Case | Components |
 |---------|----------|------------|
-| **CRD-Based** | Control plane changes | SupervisorSpec CRD updates, state transitions |
-| **Event-Driven** | Real-time supervision | SX event observation, policy evaluation |
-| **Periodic** | Analytical supervision | Scheduled SQL execution |
+| **CRD-Based** | Control plane changes | SentinelSpec CRD updates, state transitions |
+| **Event-Driven** | Real-time sentinel oversight | SX event observation, policy evaluation |
+| **Periodic** | Analytical sentinel oversight | Scheduled SQL execution |
 | **Query-Based** | Discovery and search | Directory queries |
 | **Orchestration** | Validation and state management | Operators coordinate validation across systems |
 
@@ -185,7 +185,7 @@ The following implementation details are deferred to the detailed implementation
 
 | Area | Deferred Details |
 |------|------------------|
-| **Data Models** | Detailed SupervisorSpec CRD schema, database schemas |
+| **Data Models** | Detailed SentinelSpec CRD schema, database schemas |
 | **API Specifications** | REST/gRPC endpoints, request/response schemas |
 | **Storage** | Database selection, indexing strategies, retention policies |
 | **OPA Policy Schema** | Complete OPA policy schema, Rego syntax details |
@@ -201,9 +201,9 @@ These will be addressed during implementation with common defaults applied.
 
 | Subsystem | Relationship |
 |-----------|--------------|
-| [Agent Analytics](../agent-analytics/README.md) | Uses Agent Analytics data mart for analytical supervisors |
-| [Agent Health Monitor](../agent-health-monitor/README.md) | Can trigger supervisors on SLO deviations (if configured) |
-| [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) | Observes SX events for realtime supervisors |
+| [Agent Analytics](../agent-analytics/README.md) | Uses Agent Analytics data mart for analytical sentinels |
+| [Agent Health Monitor](../agent-health-monitor/README.md) | Can trigger sentinels on SLO deviations (if configured) |
+| [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) | Observes SX events for realtime sentinels |
 | [Cronus Gateway](../../../olympus-hub-docs/04-subsystems/signal-providers/cronus-business-exceptions.md) | Publishes Observations/Exceptions |
 | [Seer Operator](../../hub-integration/training-spec-crd.md) | CRD reconciliation to Kubernetes state |
 
@@ -216,4 +216,4 @@ These will be addressed during implementation with common defaults applied.
 
 ---
 
-*This scope document reflects the completed C2-level design of the Agent Session Supervisor subsystem.*
+*This scope document reflects the completed C2-level design of the Agent Session Sentinel subsystem.*

@@ -8,7 +8,7 @@
 
 ## Overview
 
-Observation Service generates Cronus Observations and Exceptions based on supervisor policy evaluation results. It integrates with Cronus Gateway to publish Observations/Exceptions to the appropriate Workbenches.
+Observation Service generates Cronus Observations and Exceptions based on sentinel policy evaluation results. It integrates with Cronus Gateway to publish Observations/Exceptions to the appropriate Workbenches.
 
 **Key Principle**: Observation Service uses Hub's Cronus model for Observations and Exceptions—no new model is required. It generates Observations for informational concerns and Exceptions for critical issues requiring action.
 
@@ -25,8 +25,8 @@ flowchart TB
     end
     
     subgraph ExternalSystems[External Systems]
-        RTS[Realtime Supervisor Service]
-        ASS[Analytical Supervisor Service]
+        RTS[Realtime Sentinel Service]
+        ASS[Analytical Sentinel Service]
         Cronus[Cronus Gateway]
     end
     
@@ -59,7 +59,7 @@ observation:
   metadata:
     inactivity_duration: "10 minutes"
     last_activity_time: "2026-01-13T10:25:00Z"
-    supervisor_id: "stuck-agent-detector"
+    sentinel_id: "stuck-agent-detector"
   timestamp: "2026-01-13T10:35:00Z"
 ```
 
@@ -67,12 +67,12 @@ observation:
 
 ```mermaid
 sequenceDiagram
-    participant Supervisor as Supervisor Service
+    participant Sentinel as Sentinel Service
     participant OS as Observation Service
     participant Cronus as Cronus Gateway
     participant Workbench as Workbench
     
-    Supervisor->>OS: Policy evaluation result
+    Sentinel->>OS: Policy evaluation result
     OS->>OS: Build observation
     OS->>Cronus: Publish observation
     Cronus->>Workbench: Route observation
@@ -97,7 +97,7 @@ exception:
   metadata:
     inactivity_duration: "20 minutes"
     last_activity_time: "2026-01-13T10:20:00Z"
-    supervisor_id: "stuck-agent-detector"
+    sentinel_id: "stuck-agent-detector"
   timestamp: "2026-01-13T10:40:00Z"
 ```
 
@@ -105,13 +105,13 @@ exception:
 
 ```mermaid
 sequenceDiagram
-    participant Supervisor as Supervisor Service
+    participant Sentinel as Sentinel Service
     participant OS as Observation Service
     participant Cronus as Cronus Gateway
     participant Workbench as Workbench
     participant RequestMgmt as Request Management
     
-    Supervisor->>OS: Policy evaluation result
+    Sentinel->>OS: Policy evaluation result
     OS->>OS: Build exception
     OS->>Cronus: Publish exception
     Cronus->>Workbench: Route exception
@@ -136,7 +136,7 @@ cronus_publish:
       agent_id: "fraud-analyst-acme-retail"
       session_id: "session-12345"
       inactivity_duration: "20 minutes"
-      supervisor_id: "stuck-agent-detector"
+      sentinel_id: "stuck-agent-detector"
 ```
 
 #### Cronus Integration Flow
@@ -163,8 +163,8 @@ sequenceDiagram
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Realtime Supervisor Service** | Observation/Exception requests | Real-time observation generation |
-| **Analytical Supervisor Service** | Observation/Exception requests | Analytical observation generation |
+| **Realtime Sentinel Service** | Observation/Exception requests | Real-time observation generation |
+| **Analytical Sentinel Service** | Observation/Exception requests | Analytical observation generation |
 
 ### Downstream Integration
 
@@ -186,7 +186,7 @@ sequenceDiagram
 
 - **Observations**: Informational concerns that may be of operational interest
 - **Exceptions**: Critical issues requiring human attention and decision
-- **Condition-based generation** based on supervisor policy results
+- **Condition-based generation** based on sentinel policy results
 
 ### Workbench Routing
 
@@ -198,10 +198,10 @@ sequenceDiagram
 
 ## Related Documentation
 
-- [Realtime Supervisor Service](./realtime-supervisor-service.md) — Real-time observation source
-- [Analytical Supervisor Service](./analytical-supervisor-service.md) — Analytical observation source
+- [Realtime Sentinel Service](./realtime-sentinel-service.md) — Real-time observation source
+- [Analytical Sentinel Service](./analytical-sentinel-service.md) — Analytical observation source
 - [Cronus Business Exceptions](../../../olympus-hub-docs/04-subsystems/signal-providers/cronus-business-exceptions.md) — Hub Cronus model
 
 ---
 
-*Observation Service generates Cronus Observations and Exceptions based on supervisor policy evaluation results.*
+*Observation Service generates Cronus Observations and Exceptions based on sentinel policy evaluation results.*

@@ -1,8 +1,8 @@
-# Editorial Review: Analytics, Supervisor, Health Monitor & Watch Extensions
+# Editorial Review: Analytics, Sentinel, Health Monitor & Watch Extensions
 
 > **Date**: 2026-01-13  
 > **Reviewer**: AI Assistant  
-> **Scope**: All documents created for Agent Analytics, Observability Extensions to Watch, Agent Session Supervisor, and Agent Health Monitor subsystems
+> **Scope**: All documents created for Agent Analytics, Observability Extensions to Watch, Agent Session Sentinel, and Agent Health Monitor subsystems
 
 ---
 
@@ -18,16 +18,16 @@ All documents have been reviewed for consistency, references, and ambiguity. The
 
 ### 1. Broken Relative Path References ✅ FIXED
 
-**Issue**: In `agent-session-supervisor/README.md` and `agent-health-monitor/README.md`, references to sibling subsystems used `./` instead of `../`.
+**Issue**: In `agent-session-sentinel/README.md` and `agent-health-monitor/README.md`, references to sibling subsystems used `./` instead of `../`.
 
 **Files Affected**:
-- `agent-session-supervisor/README.md`
+- `agent-session-sentinel/README.md`
 - `agent-health-monitor/README.md`
 
 **Fix Applied**:
 - Changed `./agent-analytics/README.md` → `../agent-analytics/README.md`
 - Changed `./agent-health-monitor/README.md` → `../agent-health-monitor/README.md`
-- Changed `./agent-session-supervisor/README.md` → `../agent-session-supervisor/README.md`
+- Changed `./agent-session-sentinel/README.md` → `../agent-session-sentinel/README.md`
 - Changed `./trained-agent-lifecycle-manager/training-feedback-services.md` → `../trained-agent-lifecycle-manager/training-feedback-services.md`
 
 ---
@@ -78,7 +78,7 @@ All documents have been reviewed for consistency, references, and ambiguity. The
 **Checked**:
 - ✅ All references to `../agent-analytics/` - Valid
 - ✅ All references to `../agent-health-monitor/` - Valid
-- ✅ All references to `../agent-session-supervisor/` - Valid
+- ✅ All references to `../agent-session-sentinel/` - Valid
 - ✅ All references to `../observability-extensions-to-watch/` - Valid
 - ✅ All references to `../trained-agent-lifecycle-manager/` - Valid
 - ✅ All references to Hub documentation (`../../../olympus-hub-docs/`) - Valid
@@ -113,9 +113,9 @@ All documents have been reviewed for consistency, references, and ambiguity. The
 
 2. **SLO Enforcement** ✅ CLEAR
    - Explicitly stated: "No Enforcement" - SLO Manager and Tracking Service only manage and track
-   - Clear that enforcement is handled by supervisors (if configured) or external systems
+   - Clear that enforcement is handled by sentinels (if configured) or external systems
 
-3. **Supervisor Types** ✅ CLEAR
+3. **Sentinel Types** ✅ CLEAR
    - Clear distinction: Realtime (SX events + OPA) vs. Analytical (SQL on data mart)
    - Both types clearly documented with examples
 

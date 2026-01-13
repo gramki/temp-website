@@ -1,16 +1,16 @@
-# Agent Session Supervision
+# Agent Session Sentinel Oversight
 
 > **Status**: 🟡 Draft — Concept  
 > **Last Updated**: 2026-01-13
 
 ## Overview
 
-Agent Session Supervision provides **supervisory oversight** for agent sessions, managing supervisory policies, observations, and escalations for failed or stuck agents.
+Agent Session Sentinel Oversight provides **sentinel oversight** for agent sessions, managing sentinel policies, observations, and escalations for failed or stuck agents.
 
 **Key Capabilities:**
-- Real-time supervision via Signal Exchange event observation
-- Analytical supervision via Agent Analytics data mart queries
-- OPA policy evaluation for supervisory decisions
+- Real-time sentinel oversight via Signal Exchange event observation
+- Analytical sentinel oversight via Agent Analytics data mart queries
+- OPA policy evaluation for sentinel decisions
 - Observation/Exception generation via Cronus Gateway
 - Workbench routing for Ops Center display
 
@@ -18,14 +18,14 @@ Agent Session Supervision provides **supervisory oversight** for agent sessions,
 
 ## Architecture
 
-Agent Session Supervisor operates in two modes:
+Agent Session Sentinel operates in two modes:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                  AGENT SESSION SUPERVISOR ARCHITECTURE                     │
+│                  AGENT SESSION SENTINEL ARCHITECTURE                      │
 │                                                                              │
 │   ┌──────────────────────┐         ┌──────────────────────┐                 │
-│   │  Realtime Supervisor │         │ Analytical Supervisor│                 │
+│   │  Realtime Sentinel │         │ Analytical Sentinel│                 │
 │   │  • SX event observation│         │  • SQL on analytics data│               │
 │   │  • OPA policy evaluation│        │  • Periodic execution│                 │
 │   └──────────┬───────────┘         └──────────┬───────────┘                 │
@@ -49,17 +49,17 @@ Agent Session Supervisor operates in two modes:
 
 ## Key Principles
 
-- **Two Supervisor Types** — Realtime and Analytical supervisors for different use cases
+- **Two Sentinel Types** — Realtime and Analytical sentinels for different use cases
 - **Cronus Integration** — Uses Hub's existing Observation/Exception model via Cronus Gateway
-- **Deployment Model** — Supervisors deployed via Deployment CRDs referencing Spec CRDs
+- **Deployment Model** — Sentinels deployed via Deployment CRDs referencing Spec CRDs
 - **Lifecycle Pattern** — Follows same pattern as Trained/Employed Agent lifecycle managers
-- **No Enforcement** — Supervisors generate observations; enforcement handled by external systems
+- **No Enforcement** — Sentinels generate observations; enforcement handled by external systems
 
 ---
 
-## Supervisor Types
+## Sentinel Types
 
-### Realtime Supervisor
+### Realtime Sentinel
 
 Observes Signal Exchange events in real-time:
 
@@ -70,7 +70,7 @@ Observes Signal Exchange events in real-time:
 | **Real-time Generation** | Generates Observations/Exceptions immediately |
 | **Use Cases** | Stuck agents, failed requests, policy violations |
 
-### Analytical Supervisor
+### Analytical Sentinel
 
 Runs templated SQL queries on Agent Analytics data mart:
 
@@ -83,14 +83,14 @@ Runs templated SQL queries on Agent Analytics data mart:
 
 ---
 
-## Supervisor Spec Structure
+## Sentinel Spec Structure
 
-Supervisor Specs define supervisory policies:
+Sentinel Specs define sentinel policies:
 
 | Component | Description |
 |-----------|-------------|
-| **Supervisory Policies** | OPA policies for realtime supervisors |
-| **SQL Templates** | Templated SQL queries for analytical supervisors |
+| **Sentinel Policies** | OPA policies for realtime sentinels |
+| **SQL Templates** | Templated SQL queries for analytical sentinels |
 | **Observation Rules** | Rules for generating Observations/Exceptions |
 | **Workbench Routing** | Routing configuration for observations |
 
@@ -111,7 +111,7 @@ Observation Service generates Observations/Exceptions:
 
 ## Cronus Integration
 
-Agent Session Supervisor integrates with Cronus Gateway:
+Agent Session Sentinel integrates with Cronus Gateway:
 
 | Aspect | Description |
 |--------|-------------|
@@ -124,11 +124,11 @@ Agent Session Supervisor integrates with Cronus Gateway:
 
 ## Deployment Model
 
-Supervisors follow a deployment model:
+Sentinels follow a deployment model:
 
 | Component | Description |
 |-----------|-------------|
-| **Spec CRD** | Supervisor Spec CRD defines supervisory policies |
+| **Spec CRD** | Sentinel Spec CRD defines sentinel policies |
 | **Deployment CRD** | Deployment CRD references Spec CRD |
 | **Clear Separation** | Spec definition separate from deployment configuration |
 | **Seer Operator** | Seer Operator reconciles CRDs to Kubernetes state |
@@ -137,19 +137,19 @@ Supervisors follow a deployment model:
 
 ## Related
 
-### Agent Session Supervisor Subsystem
-- [Agent Session Supervisor README](../subsystems/agent-session-supervisor/README.md) — Subsystem overview
-- [Supervisor Spec Manager](../subsystems/agent-session-supervisor/supervisor-spec-manager.md) — Spec structure, validation
-- [Realtime Supervisor Service](../subsystems/agent-session-supervisor/realtime-supervisor-service.md) — SX event observation, OPA evaluation
-- [Analytical Supervisor Service](../subsystems/agent-session-supervisor/analytical-supervisor-service.md) — Templated SQL execution
-- [Observation Service](../subsystems/agent-session-supervisor/observation-service.md) — Cronus Observations/Exceptions generation
+### Agent Session Sentinel Subsystem
+- [Agent Session Sentinel README](../subsystems/agent-session-sentinel/README.md) — Subsystem overview
+- [Sentinel Spec Manager](../subsystems/agent-session-sentinel/sentinel-spec-manager.md) — Spec structure, validation
+- [Realtime Sentinel Service](../subsystems/agent-session-sentinel/realtime-sentinel-service.md) — SX event observation, OPA evaluation
+- [Analytical Sentinel Service](../subsystems/agent-session-sentinel/analytical-sentinel-service.md) — Templated SQL execution
+- [Observation Service](../subsystems/agent-session-sentinel/observation-service.md) — Cronus Observations/Exceptions generation
 
 ### Related Systems
-- [Agent Health Monitor](../subsystems/agent-health-monitor/README.md) — Can trigger supervisors on SLO deviations
-- [Agent Analytics](../subsystems/agent-analytics/README.md) — Uses Agent Analytics data mart for analytical supervisors
-- [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) — SX event source for realtime supervisors
+- [Agent Health Monitor](../subsystems/agent-health-monitor/README.md) — Can trigger sentinels on SLO deviations
+- [Agent Analytics](../subsystems/agent-analytics/README.md) — Uses Agent Analytics data mart for analytical sentinels
+- [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) — SX event source for realtime sentinels
 - [Cronus Gateway](../../../olympus-hub-docs/04-subsystems/signal-providers/cronus-business-exceptions.md) — Observations/Exceptions publishing
 
 ---
 
-*For detailed implementation, see [Agent Session Supervisor README](../subsystems/agent-session-supervisor/README.md).*
+*For detailed implementation, see [Agent Session Sentinel README](../subsystems/agent-session-sentinel/README.md).*

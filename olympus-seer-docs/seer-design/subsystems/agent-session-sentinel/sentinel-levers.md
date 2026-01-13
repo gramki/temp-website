@@ -1,4 +1,4 @@
-# Supervisor Levers
+# Sentinel Levers
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-13  
@@ -8,9 +8,9 @@
 
 ## Overview
 
-Supervisor Levers provide runtime controls for supervisors. They enable/disable supervisors, suspend execution, and provide emergency controls for immediate supervisor management.
+Sentinel Levers provide runtime controls for sentinels. They enable/disable sentinels, suspend execution, and provide emergency controls for immediate sentinel management.
 
-**Key Principle**: Supervisor Levers provide operational controls that affect supervisor execution without modifying supervisor specifications.
+**Key Principle**: Sentinel Levers provide operational controls that affect sentinel execution without modifying sentinel specifications.
 
 ---
 
@@ -18,16 +18,16 @@ Supervisor Levers provide runtime controls for supervisors. They enable/disable 
 
 ```mermaid
 flowchart TB
-    subgraph SL[Supervisor Levers]
+    subgraph SL[Sentinel Levers]
         EnableDisable[Enable/Disable Control]
         SuspendControl[Suspend Control]
         EmergencyControl[Emergency Control]
     end
     
     subgraph ExternalSystems[External Systems]
-        SD[Supervisor Directory]
-        RTS[Realtime Supervisor Service]
-        ASS[Analytical Supervisor Service]
+        SD[Sentinel Directory]
+        RTS[Realtime Sentinel Service]
+        ASS[Analytical Sentinel Service]
         SeerOp[Seer Operator]
     end
     
@@ -46,26 +46,26 @@ flowchart TB
 
 ### Enable/Disable Control
 
-Supervisor Levers enable or disable supervisors:
+Sentinel Levers enable or disable sentinels:
 
 #### Enable Action
 
 ```yaml
 enable_action:
-  supervisor_id: "stuck-agent-detector"
+  sentinel_id: "stuck-agent-detector"
   deployment_id: "stuck-agent-detector-deployment"
   action: "enable"
-  effect: "Resume supervisor execution"
+  effect: "Resume sentinel execution"
 ```
 
 #### Disable Action
 
 ```yaml
 disable_action:
-  supervisor_id: "stuck-agent-detector"
+  sentinel_id: "stuck-agent-detector"
   deployment_id: "stuck-agent-detector-deployment"
   action: "disable"
-  effect: "Stop supervisor execution"
+  effect: "Stop sentinel execution"
 ```
 
 #### Enable/Disable Flow
@@ -73,13 +73,13 @@ disable_action:
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant SL as Supervisor Levers
-    participant SD as Supervisor Directory
-    participant RTS as Realtime Supervisor Service
-    participant ASS as Analytical Supervisor Service
+    participant SL as Sentinel Levers
+    participant SD as Sentinel Directory
+    participant RTS as Realtime Sentinel Service
+    participant ASS as Analytical Sentinel Service
     
-    User->>SL: Enable/Disable supervisor
-    SL->>SD: Update supervisor status
+    User->>SL: Enable/Disable sentinel
+    SL->>SD: Update sentinel status
     SD->>SL: Status updated
     SL->>RTS: Enable/Disable (if realtime)
     SL->>ASS: Enable/Disable (if analytical)
@@ -91,27 +91,27 @@ sequenceDiagram
 
 ### Suspend Control
 
-Supervisor Levers suspend supervisor execution:
+Sentinel Levers suspend sentinel execution:
 
 #### Suspend Action
 
 ```yaml
 suspend_action:
-  supervisor_id: "stuck-agent-detector"
+  sentinel_id: "stuck-agent-detector"
   deployment_id: "stuck-agent-detector-deployment"
   action: "suspend"
   reason: "Maintenance window"
-  effect: "Temporarily stop supervisor execution"
+  effect: "Temporarily stop sentinel execution"
 ```
 
 #### Resume Action
 
 ```yaml
 resume_action:
-  supervisor_id: "stuck-agent-detector"
+  sentinel_id: "stuck-agent-detector"
   deployment_id: "stuck-agent-detector-deployment"
   action: "resume"
-  effect: "Resume supervisor execution"
+  effect: "Resume sentinel execution"
 ```
 
 #### Suspend Flow
@@ -119,35 +119,35 @@ resume_action:
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant SL as Supervisor Levers
+    participant SL as Sentinel Levers
     participant SeerOp as Seer Operator
-    participant Deployment as Supervisor Deployment
+    participant Deployment as Sentinel Deployment
     
-    User->>SL: Suspend supervisor
+    User->>SL: Suspend sentinel
     SL->>SeerOp: Update Deployment CRD
     SeerOp->>Deployment: Scale down to 0 replicas
-    Deployment->>Deployment: Supervisor suspended
-    User->>SL: Resume supervisor
+    Deployment->>Deployment: Sentinel suspended
+    User->>SL: Resume sentinel
     SL->>SeerOp: Update Deployment CRD
     SeerOp->>Deployment: Scale up to configured replicas
-    Deployment->>Deployment: Supervisor resumed
+    Deployment->>Deployment: Sentinel resumed
 ```
 
 ---
 
 ### Emergency Control
 
-Supervisor Levers provide emergency controls:
+Sentinel Levers provide emergency controls:
 
 #### Emergency Disable
 
 ```yaml
 emergency_disable:
-  supervisor_id: "stuck-agent-detector"
+  sentinel_id: "stuck-agent-detector"
   deployment_id: "stuck-agent-detector-deployment"
   action: "emergency_disable"
   reason: "False positive rate too high"
-  effect: "Immediately stop supervisor execution"
+  effect: "Immediately stop sentinel execution"
   bypass_checks: true
 ```
 
@@ -155,24 +155,24 @@ emergency_disable:
 
 | Control | Description | Use Case |
 |---------|-------------|----------|
-| **Emergency Disable** | Immediately disable supervisor | False positives, performance issues |
-| **Emergency Suspend** | Immediately suspend supervisor | Critical bug, security issue |
-| **Emergency Archive** | Immediately archive supervisor | Deprecated supervisor |
+| **Emergency Disable** | Immediately disable sentinel | False positives, performance issues |
+| **Emergency Suspend** | Immediately suspend sentinel | Critical bug, security issue |
+| **Emergency Archive** | Immediately archive sentinel | Deprecated sentinel |
 
 #### Emergency Control Flow
 
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant SL as Supervisor Levers
+    participant SL as Sentinel Levers
     participant SeerOp as Seer Operator
-    participant Deployment as Supervisor Deployment
+    participant Deployment as Sentinel Deployment
     
     User->>SL: Emergency disable
     SL->>SL: Bypass validation checks
     SL->>SeerOp: Immediately update Deployment CRD
     SeerOp->>Deployment: Force scale down
-    Deployment->>Deployment: Supervisor disabled
+    Deployment->>Deployment: Sentinel disabled
 ```
 
 ---
@@ -183,15 +183,15 @@ sequenceDiagram
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Supervisor Directory** | Status update API | Update supervisor status |
+| **Sentinel Directory** | Status update API | Update sentinel status |
 
 ### Downstream Integration
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Seer Operator** | Deployment CRD updates | Control supervisor deployment |
-| **Realtime Supervisor Service** | Enable/disable API | Control realtime supervisor execution |
-| **Analytical Supervisor Service** | Enable/disable API | Control analytical supervisor execution |
+| **Seer Operator** | Deployment CRD updates | Control sentinel deployment |
+| **Realtime Sentinel Service** | Enable/disable API | Control realtime sentinel execution |
+| **Analytical Sentinel Service** | Enable/disable API | Control analytical sentinel execution |
 
 ---
 
@@ -206,8 +206,8 @@ sequenceDiagram
 
 ### State Management
 
-- **Levers update supervisor state** in Supervisor Directory
-- **State transitions** coordinated via Supervisor Operators
+- **Levers update sentinel state** in Sentinel Directory
+- **State transitions** coordinated via Sentinel Operators
 - **Deployment state** managed via Seer Operator
 
 ### Emergency Response
@@ -220,10 +220,10 @@ sequenceDiagram
 
 ## Related Documentation
 
-- [Supervisor Operators](./supervisor-operators.md) — Lifecycle management and state transitions
-- [Supervisor Directory](./supervisor-directory.md) — Registry and status tracking
+- [Sentinel Operators](./sentinel-operators.md) — Lifecycle management and state transitions
+- [Sentinel Directory](./sentinel-directory.md) — Registry and status tracking
 - [Seer Operator](../../hub-integration/training-spec-crd.md) — CRD reconciliation
 
 ---
 
-*Supervisor Levers provide runtime controls for supervisors, enabling operational management without spec modifications.*
+*Sentinel Levers provide runtime controls for sentinels, enabling operational management without spec modifications.*

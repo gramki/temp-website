@@ -1,4 +1,4 @@
-# Realtime Supervisor Service
+# Realtime Sentinel Service
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-13  
@@ -8,9 +8,9 @@
 
 ## Overview
 
-Realtime Supervisor Service observes Signal Exchange (SX) events and evaluates OPA policies to generate real-time Observations and Exceptions. It provides immediate supervisory oversight for agent sessions based on runtime events.
+Realtime Sentinel Service observes Signal Exchange (SX) events and evaluates OPA policies to generate real-time Observations and Exceptions. It provides immediate sentinel oversight for agent sessions based on runtime events.
 
-**Key Principle**: Realtime Supervisor Service operates on SX events in real-time, evaluating OPA policies to detect conditions that require supervisory attention.
+**Key Principle**: Realtime Sentinel Service operates on SX events in real-time, evaluating OPA policies to detect conditions that require sentinel attention.
 
 ---
 
@@ -18,7 +18,7 @@ Realtime Supervisor Service observes Signal Exchange (SX) events and evaluates O
 
 ```mermaid
 flowchart TB
-    subgraph RTS[Realtime Supervisor Service]
+    subgraph RTS[Realtime Sentinel Service]
         EventObserver[Event Observer]
         PolicyEvaluator[OPA Policy Evaluator]
         ObservationGenerator[Observation Generator]
@@ -44,7 +44,7 @@ flowchart TB
 
 ### SX Event Observation
 
-Realtime Supervisor Service observes SX events for agent sessions:
+Realtime Sentinel Service observes SX events for agent sessions:
 
 #### Event Subscription
 
@@ -71,7 +71,7 @@ event_subscriptions:
 ```mermaid
 sequenceDiagram
     participant SX as Signal Exchange
-    participant RTS as Realtime Supervisor Service
+    participant RTS as Realtime Sentinel Service
     participant OPA as OPA Engine
     participant OS as Observation Service
     
@@ -88,7 +88,7 @@ sequenceDiagram
 
 ### OPA Policy Evaluation
 
-Realtime Supervisor Service evaluates OPA policies on SX events:
+Realtime Sentinel Service evaluates OPA policies on SX events:
 
 #### OPA Input Context
 
@@ -116,7 +116,7 @@ opa_input:
 #### OPA Policy Example
 
 ```rego
-package seer.supervisor.stuck_agent
+package seer.sentinel.stuck_agent
 
 default allow = false
 
@@ -139,7 +139,7 @@ exception {
 
 ```mermaid
 sequenceDiagram
-    participant RTS as Realtime Supervisor Service
+    participant RTS as Realtime Sentinel Service
     participant OPA as OPA Engine
     participant Policy as OPA Policy
     
@@ -156,7 +156,7 @@ sequenceDiagram
 
 ### Observation Generation
 
-Realtime Supervisor Service generates Observations and Exceptions based on policy results:
+Realtime Sentinel Service generates Observations and Exceptions based on policy results:
 
 #### Observation Conditions
 
@@ -183,7 +183,7 @@ observation_config:
 
 ```mermaid
 sequenceDiagram
-    participant RTS as Realtime Supervisor Service
+    participant RTS as Realtime Sentinel Service
     participant OS as Observation Service
     participant Cronus as Cronus Gateway
     
@@ -209,7 +209,7 @@ sequenceDiagram
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Observation Service** | Observation/Exception generation | Generate supervisory observations |
+| **Observation Service** | Observation/Exception generation | Generate sentinel observations |
 
 ---
 
@@ -218,7 +218,7 @@ sequenceDiagram
 ### Real-Time Processing
 
 - **Processes SX events in real-time** as they arrive
-- **Low-latency policy evaluation** for immediate supervisory response
+- **Low-latency policy evaluation** for immediate sentinel response
 - **Event-driven architecture** for scalability
 
 ### OPA Policy Model
@@ -237,11 +237,11 @@ sequenceDiagram
 
 ## Related Documentation
 
-- [Supervisor Spec Manager](./supervisor-spec-manager.md) — Spec structure and validation
-- [Analytical Supervisor Service](./analytical-supervisor-service.md) — Analytical supervisor (periodic SQL)
+- [Sentinel Spec Manager](./sentinel-spec-manager.md) — Spec structure and validation
+- [Analytical Sentinel Service](./analytical-sentinel-service.md) — Analytical sentinel (periodic SQL)
 - [Observation Service](./observation-service.md) — Observation/Exception generation
 - [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) — SX event source
 
 ---
 
-*Realtime Supervisor Service provides real-time supervisory oversight by observing SX events and evaluating OPA policies.*
+*Realtime Sentinel Service provides real-time sentinel oversight by observing SX events and evaluating OPA policies.*

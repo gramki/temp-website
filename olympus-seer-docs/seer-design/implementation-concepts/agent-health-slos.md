@@ -48,7 +48,7 @@ Agent Health Monitor uses **Agent Analytics data mart** for SLO evaluation:
 - **Agent Analytics Integration** — Uses Agent Analytics data mart for SLO evaluation
 - **Historical Data** — Leverages historical data for trend analysis and burn rate calculation
 - **Lifecycle Pattern** — Follows same pattern as Supervisor lifecycle managers
-- **Supervisor Integration** — Can trigger supervisors on SLO deviations (if configured)
+- **Sentinel Integration** — Can trigger sentinels on SLO deviations (if configured)
 
 ---
 
@@ -91,13 +91,13 @@ Human Feedback Service collects and routes feedback:
 
 ---
 
-## Supervisor Integration
+## Sentinel Integration
 
-Agent Health Monitor can trigger supervisors on SLO deviations:
+Agent Health Monitor can trigger sentinels on SLO deviations:
 
 | Integration Point | Description |
 |-------------------|-------------|
-| **Agent Session Supervisor** | Trigger supervisors on SLO deviations (if configured) |
+| **Agent Session Sentinel** | Trigger sentinels on SLO deviations (if configured) |
 | **Observation Generation** | Generate Observations/Exceptions via Cronus |
 | **Workbench Routing** | Route observations to appropriate workbenches |
 
@@ -114,7 +114,7 @@ Agent Health Monitor can trigger supervisors on SLO deviations:
 
 ### Related Systems
 - [Agent Analytics](../subsystems/agent-analytics/README.md) — Uses Agent Analytics data mart for SLO evaluation
-- [Agent Session Supervisor](../subsystems/agent-session-supervisor/README.md) — Can trigger supervisors on SLO deviations
+- [Agent Session Sentinel](../subsystems/agent-session-sentinel/README.md) — Can trigger sentinels on SLO deviations
 - [Training Feedback Services](../subsystems/trained-agent-lifecycle-manager/training-feedback-services.md) — Routes feedback for Training Spec improvements
 
 ---

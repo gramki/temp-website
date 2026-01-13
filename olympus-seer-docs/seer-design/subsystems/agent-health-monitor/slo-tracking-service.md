@@ -10,7 +10,7 @@
 
 SLO Tracking Service tracks SLO deviations using the Agent Analytics data mart. It evaluates SLO thresholds, aggregates metrics, and detects deviations that require attention.
 
-**Key Principle**: SLO Tracking Service uses Agent Analytics data mart for SLO evaluation—it does not enforce SLOs. It tracks deviations and can trigger supervisors (if configured).
+**Key Principle**: SLO Tracking Service uses Agent Analytics data mart for SLO evaluation—it does not enforce SLOs. It tracks deviations and can trigger sentinels (if configured).
 
 ---
 
@@ -22,21 +22,21 @@ flowchart TB
         MetricAggregator[Metric Aggregator]
         ThresholdEvaluator[Threshold Evaluator]
         DeviationDetector[Deviation Detector]
-        SupervisorTrigger[Supervisor Trigger]
+        SentinelTrigger[Sentinel Trigger]
     end
     
     subgraph ExternalSystems[External Systems]
         AgentAnalytics[Agent Analytics<br/>Data Mart]
         SLOM[SLO Manager]
-        AgentSessionSupervisor[Agent Session Supervisor]
+        AgentSessionSentinel[Agent Session Sentinel]
     end
     
     AgentAnalytics --> MetricAggregator
     SLOM --> ThresholdEvaluator
     MetricAggregator --> ThresholdEvaluator
     ThresholdEvaluator --> DeviationDetector
-    DeviationDetector --> SupervisorTrigger
-    SupervisorTrigger --> AgentSessionSupervisor
+    DeviationDetector --> SentinelTrigger
+    SentinelTrigger --> AgentSessionSentinel
 ```
 
 ---
@@ -131,45 +131,45 @@ sequenceDiagram
     participant SLOT as SLO Tracking Service
     participant Evaluator as Threshold Evaluator
     participant Detector as Deviation Detector
-    participant Supervisor as Agent Session Supervisor
+    participant Sentinel as Agent Session Sentinel
     
     SLOT->>Evaluator: Evaluation result
     Evaluator->>Detector: Check for deviation
     Detector->>Detector: Calculate burn rate
     Detector->>Detector: Determine deviation type
-    Detector->>Supervisor: Trigger supervisor (if configured)
-    Supervisor->>Supervisor: Generate Observation/Exception
+    Detector->>Sentinel: Trigger sentinel (if configured)
+    Sentinel->>Sentinel: Generate Observation/Exception
 ```
 
 ---
 
-### Supervisor Triggering
+### Sentinel Triggering
 
-SLO Tracking Service can trigger supervisors on SLO deviations:
+SLO Tracking Service can trigger sentinels on SLO deviations:
 
-#### Supervisor Trigger Configuration
+#### Sentinel Trigger Configuration
 
 ```yaml
-supervisor_trigger:
+sentinel_trigger:
   slo_name: "agent_health_score"
   deviation_type: "threshold_breach"
-  supervisor_id: "slo-deviation-supervisor"
+  sentinel_id: "slo-deviation-sentinel"
   trigger_condition: "deviation_percentage > 5%"
 ```
 
-#### Supervisor Trigger Flow
+#### Sentinel Trigger Flow
 
 ```mermaid
 sequenceDiagram
     participant SLOT as SLO Tracking Service
     participant Detector as Deviation Detector
-    participant Supervisor as Agent Session Supervisor
+    participant Sentinel as Agent Session Sentinel
     participant OS as Observation Service
     
     SLOT->>Detector: Deviation detected
     Detector->>Detector: Check trigger conditions
-    Detector->>Supervisor: Trigger supervisor
-    Supervisor->>OS: Generate Observation/Exception
+    Detector->>Sentinel: Trigger sentinel
+    Sentinel->>OS: Generate Observation/Exception
     OS->>OS: Publish to Cronus
 ```
 
@@ -188,7 +188,7 @@ sequenceDiagram
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Agent Session Supervisor** | Supervisor trigger API | Trigger supervisors on SLO deviations (if configured) |
+| **Agent Session Sentinel** | Sentinel trigger API | Trigger sentinels on SLO deviations (if configured) |
 
 ---
 
@@ -203,7 +203,7 @@ sequenceDiagram
 ### No Enforcement
 
 - **SLO Tracking Service only tracks deviations**—no enforcement
-- **Enforcement handled by supervisors** (if configured) or external systems
+- **Enforcement handled by sentinels** (if configured) or external systems
 - **Tracking and alerting only**
 
 ### Burn Rate Alerts
@@ -218,8 +218,8 @@ sequenceDiagram
 
 - [SLO Manager](./slo-manager.md) — SLO definition and threshold management
 - [Agent Analytics](../agent-analytics/data-mart-service.md) — Analytics data mart source
-- [Agent Session Supervisor](../agent-session-supervisor/README.md) — Supervisor triggering
+- [Agent Session Sentinel](../agent-session-sentinel/README.md) — Sentinel triggering
 
 ---
 
-*SLO Tracking Service tracks SLO deviations using Agent Analytics data mart and can trigger supervisors on deviations.*
+*SLO Tracking Service tracks SLO deviations using Agent Analytics data mart and can trigger sentinels on deviations.*
