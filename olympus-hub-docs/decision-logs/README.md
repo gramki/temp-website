@@ -252,6 +252,7 @@ All ADRs follow the standard format:
 ### UX Architecture
 - [0082](./0082-hub-desk-restructuring.md) - Hub Desk Restructuring (Workbench Studio → 3 Desks)
 - [0085](./0085-seer-desk-naming-convention.md) - Seer Desk Naming Convention
+- [0108](./0108-seer-ux-architecture-detailed-design.md) - Seer UX Architecture Detailed Design
 
 ### Personas
 - [0083](./0083-apo-as-hub-persona.md) - Automation Product Owner as Hub Persona
