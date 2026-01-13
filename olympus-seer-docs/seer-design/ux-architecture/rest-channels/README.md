@@ -1,275 +1,205 @@
 # Seer REST Channels
 
-> **Status:** 🔴 Planning  
-> **Last Updated:** 2026-01-13  
-> **Related:** [UX Architecture Overview](../README.md) | [Hub REST Channels](../../../../olympus-hub-docs/06-ux-architecture/tenant-domain/rest-channels.md)
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-13
 
 ---
 
 ## Overview
 
-REST channels provide programmatic access to Seer capabilities. Each persona has a dedicated REST channel scoped to their responsibilities and permissions.
+Seer REST channels provide persona-specific API access for the UX layer. Each desk consumes APIs from its corresponding REST channel, ensuring role-appropriate access and consistent interaction patterns.
 
 ---
 
 ## Architecture
 
-### Hybrid Approach
+### Hybrid Channel Structure
 
-Seer REST channels follow a hybrid approach:
+Seer uses a **hybrid REST channel architecture**:
 
-1. **Hub Channel Extensions** — Some channels extend existing Hub channels with Seer-specific endpoints
-2. **Seer-Native Channels** — Some channels are entirely Seer-specific
-
-| Channel Type | Example | Base Path |
-|--------------|---------|-----------|
-| Hub Extension | AE Channel extends Creator | `/api/creator/v1/seer/...` |
-| Seer Native | APO Channel | `/api/seer/apo/v1/...` |
-
-### Base URL Structure
+1. **Hub-Extended Channels**: Inherit from Hub's REST channels and extend with Seer-specific endpoints
+2. **Seer-Native Channels**: Entirely new channels for Seer-specific capabilities
 
 ```
-https://{tenant}.seer.olympus.io/api/{channel}/v1/...
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         SEER REST CHANNELS                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   HUB-EXTENDED CHANNELS              SEER-NATIVE CHANNELS                   │
+│   ─────────────────────────          ─────────────────────────              │
+│   ┌───────────────────────┐          ┌───────────────────────┐              │
+│   │ APO Channel           │          │ CSA Channel           │              │
+│   │ /api/seer/apo/v1      │          │ /api/seer/csa/v1      │              │
+│   │ (extends Hub APO)     │          │ (Seer-native)         │              │
+│   └───────────────────────┘          └───────────────────────┘              │
+│   ┌───────────────────────┐          ┌───────────────────────┐              │
+│   │ ARE Channel           │          │ COS Channel           │              │
+│   │ /api/seer/are/v1      │          │ /api/seer/cos/v1      │              │
+│   │ (extends Hub ARE)     │          │ (Seer-native)         │              │
+│   └───────────────────────┘          └───────────────────────┘              │
+│   ┌───────────────────────┐          ┌───────────────────────┐              │
+│   │ KMO Channel           │          │ AE Channel            │              │
+│   │ /api/seer/kmo/v1      │          │ /api/seer/ae/v1       │              │
+│   │ (extends Hub KMO)     │          │ (Seer-native)         │              │
+│   └───────────────────────┘          └───────────────────────┘              │
+│                                      ┌───────────────────────┐              │
+│                                      │ ARAO Channel          │              │
+│                                      │ /api/seer/arao/v1     │              │
+│                                      │ (Seer-native)         │              │
+│                                      └───────────────────────┘              │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-| Component | Description |
-|-----------|-------------|
-| `{tenant}` | Tenant identifier |
-| `{channel}` | Persona channel (e.g., `seer/apo`, `seer/are`) |
-| `v1` | API version |
+### MCP Channel Integration
+
+All REST APIs are also exposed as MCP tools, allowing AI assistants to programmatically interact with Seer capabilities:
+
+```
+REST Endpoint                    →  MCP Tool
+─────────────────────────────────   ───────────────────────────
+GET /api/seer/apo/v1/agents      →  seer_apo_list_agents
+GET /api/seer/csa/v1/patterns    →  seer_csa_list_patterns
+POST /api/seer/ae/v1/versions    →  seer_ae_create_version
+```
 
 ---
 
-## Persona Channels
+## Channel Inventory
 
-| Persona | Channel Path | Type | Documentation |
-|---------|--------------|------|---------------|
-| **APO** | `/api/seer/apo/v1` | Seer Native | [APO REST Channel](./apo-rest-channel.md) |
-| **CSA** | `/api/seer/csa/v1` | Seer Native | [CSA REST Channel](./csa-rest-channel.md) |
-| **AE** | `/api/creator/v1/seer` | Hub Extension | [AE REST Channel](./ae-rest-channel.md) |
-| **KMO** | `/api/seer/kmo/v1` | Seer Native | [KMO REST Channel](./kmo-rest-channel.md) |
-| **ARE** | `/api/seer/are/v1` | Seer Native | [ARE REST Channel](./are-rest-channel.md) |
-| **COS** | `/api/seer/cos/v1` | Seer Native | [COS REST Channel](./cos-rest-channel.md) |
-| **ARAO** | `/api/seer/arao/v1` | Seer Native | [ARAO REST Channel](./arao-rest-channel.md) |
+| Channel | Type | Base Path | Desk Served |
+|---------|------|-----------|-------------|
+| [APO Channel](./apo-channel.md) | Hub-Extended | `/api/seer/apo/v1` | Agent Portfolio Desk |
+| [CSA Channel](./csa-channel.md) | Seer-Native | `/api/seer/csa/v1` | Agent Design Desk |
+| [AE Channel](./ae-channel.md) | Seer-Native | `/api/seer/ae/v1` | Agent Development Desk |
+| [KMO Channel](./kmo-channel.md) | Hub-Extended | `/api/seer/kmo/v1` | Knowledge Governance Desk |
+| [ARE Channel](./are-channel.md) | Hub-Extended | `/api/seer/are/v1` | Agent Operations Desk |
+| [COS Channel](./cos-channel.md) | Seer-Native | `/api/seer/cos/v1` | Cognitive Health Desk |
+| [ARAO Channel](./arao-channel.md) | Seer-Native | `/api/seer/arao/v1` | Agent Compliance Desk |
 
 ---
 
-## Common Capabilities
-
-All REST channels share common capabilities:
+## Common Patterns
 
 ### Authentication
 
+All channels use the same authentication mechanism as Hub:
+
 ```http
-Authorization: Bearer {jwt_token}
-X-Tenant-ID: {tenant_id}
-```
-
-- OAuth 2.0 / OIDC authentication
-- JWT tokens with persona claims
-- Tenant context required
-
-### Rate Limiting
-
-| Tier | Requests/Second | Burst |
-|------|-----------------|-------|
-| Standard | 100 | 200 |
-| Premium | 500 | 1000 |
-| Enterprise | Custom | Custom |
-
-Rate limit headers:
-```http
-X-RateLimit-Limit: 100
-X-RateLimit-Remaining: 95
-X-RateLimit-Reset: 1704139200
+Authorization: Bearer <token>
+X-Tenant-ID: <tenant-id>
 ```
 
 ### Pagination
 
-Standard pagination for list endpoints:
+List endpoints support cursor-based pagination:
 
 ```http
-GET /api/seer/apo/v1/agents?page=1&per_page=20
+GET /api/seer/apo/v1/agents?limit=20&cursor=<cursor>
+```
 
-Response:
+Response includes:
+```json
 {
-  "data": [...],
-  "pagination": {
-    "page": 1,
-    "per_page": 20,
-    "total": 100,
-    "total_pages": 5
-  }
+  "items": [...],
+  "next_cursor": "...",
+  "has_more": true
 }
+```
+
+### Filtering
+
+List endpoints support common filtering patterns:
+
+```http
+GET /api/seer/apo/v1/agents?status=active&class=expense-approver
 ```
 
 ### Error Responses
 
-Standard error format:
+Standard error format across all channels:
 
 ```json
 {
   "error": {
-    "code": "AGENT_NOT_FOUND",
-    "message": "Agent with ID 'xyz' not found",
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid agent ID format",
     "details": {
-      "agent_id": "xyz"
-    },
-    "request_id": "req-123"
+      "field": "agent_id",
+      "reason": "Must be UUID format"
+    }
   }
 }
 ```
 
 ---
 
-## Gateway Integration
+## Hub Channel Extension Pattern
 
-### Heracles Gateway
-
-All REST channels route through the Heracles API Gateway:
+For Hub-Extended channels, the extension pattern is:
 
 ```
-Client → Heracles Gateway → Seer API Services
-                ↓
-        Authentication
-        Rate Limiting
-        Request Routing
-        Audit Logging
-```
-
-### Gateway Responsibilities
-
-| Responsibility | Description |
-|----------------|-------------|
-| Authentication | Validate JWT tokens |
-| Authorization | Check persona permissions |
-| Rate Limiting | Enforce request limits |
-| Routing | Direct to appropriate service |
-| Audit | Log all requests |
-
----
-
-## MCP Channel Equivalence
-
-Every REST API is also available via MCP (Model Context Protocol) for AI assistant integration:
-
-| REST Channel | MCP Server |
-|--------------|------------|
-| APO REST | `seer-apo-mcp` |
-| CSA REST | `seer-csa-mcp` |
-| AE REST | `seer-ae-mcp` |
-| KMO REST | `seer-kmo-mcp` |
-| ARE REST | `seer-are-mcp` |
-| COS REST | `seer-cos-mcp` |
-| ARAO REST | `seer-arao-mcp` |
-
-### MCP Tool Mapping
-
-Each REST endpoint maps to an MCP tool:
-
-```
-REST: GET /api/seer/apo/v1/agents/{id}
-MCP:  seer_apo_get_agent(agent_id)
-
-REST: POST /api/seer/apo/v1/autonomy/proposals
-MCP:  seer_apo_create_autonomy_proposal(...)
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│   Hub APO Channel (/api/hub/apo/v1)                                         │
+│   ─────────────────────────────────────────────────────────────────────     │
+│   • Scenario management                                                     │
+│   • Hub Application configuration                                           │
+│   • General portfolio operations                                            │
+│                                                                             │
+│          │                                                                  │
+│          │ extends                                                          │
+│          ▼                                                                  │
+│                                                                             │
+│   Seer APO Channel (/api/seer/apo/v1)                                       │
+│   ─────────────────────────────────────────────────────────────────────     │
+│   • All Hub APO capabilities (proxied)                                      │
+│   • + Agent portfolio operations                                            │
+│   • + Autonomy level management                                             │
+│   • + Business outcome tracking                                             │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Cross-Channel Operations
+## Security
 
-Some operations span multiple channels:
+### Role-Based Access
 
-### Example: Agent Deployment
+Each channel enforces role-based access:
 
-```
-1. AE finalizes agent (AE Channel)
-   POST /api/creator/v1/seer/agents/{id}/versions
+| Channel | Required Role |
+|---------|--------------|
+| APO | `seer:apo` or `hub:apo` |
+| CSA | `seer:csa` |
+| AE | `seer:ae` |
+| KMO | `seer:kmo` or `hub:kmo` |
+| ARE | `seer:are` or `hub:are` |
+| COS | `seer:cos` |
+| ARAO | `seer:arao` |
 
-2. ARE reviews readiness (ARE Channel)
-   POST /api/seer/are/v1/production-gates/{id}/review
+### Cross-Channel Access
 
-3. ARE approves deployment (ARE Channel)
-   POST /api/seer/are/v1/production-gates/{id}/approve
+Some consoles access multiple channels. The Agent Behavior Console, for example, accesses:
+- COS Channel (behavior data)
+- ARE Channel (operational data)
+- AE Channel (agent configuration)
 
-4. AE triggers deployment (AE Channel)
-   POST /api/creator/v1/seer/agents/{id}/deploy
-```
-
----
-
-## Versioning
-
-### Version Strategy
-
-- Major version in URL path (`/v1/`, `/v2/`)
-- Minor versions via content negotiation
-- Deprecation notices 6 months before removal
-
-### Version Headers
-
-```http
-Accept: application/vnd.seer.v1+json
-X-API-Version: 1.2.3
-```
+Access is granted based on user role combination.
 
 ---
 
-## Documentation Standards
+## Document Index
 
-Each REST channel document includes:
-
-1. **Overview** — Channel purpose and scope
-2. **Base Path** — API base URL
-3. **Authentication** — Auth requirements
-4. **Endpoints** — Full endpoint listing
-5. **Request/Response Schemas** — JSON schemas
-6. **Error Codes** — Channel-specific errors
-7. **MCP Equivalence** — MCP tool mapping
-8. **Examples** — Usage examples
+- [APO Channel](./apo-channel.md) - Agent portfolio and autonomy APIs
+- [CSA Channel](./csa-channel.md) - Design patterns and architecture APIs
+- [AE Channel](./ae-channel.md) - Development, testing, and release APIs
+- [KMO Channel](./kmo-channel.md) - Knowledge and memory governance APIs
+- [ARE Channel](./are-channel.md) - Operations, health, and control APIs
+- [COS Channel](./cos-channel.md) - Cognitive health and behavior APIs
+- [ARAO Channel](./arao-channel.md) - Compliance, autonomy, and security APIs
 
 ---
 
-## Hub Integration
-
-### Extending Hub Channels
-
-For Hub extensions, Seer adds endpoints under a `/seer` prefix:
-
-```
-Hub Creator Channel: /api/creator/v1/
-├── scenarios/
-├── components/
-└── seer/           ← Seer extension
-    ├── agents/
-    └── versions/
-```
-
-### Shared Endpoints
-
-Some endpoints are shared with Hub:
-
-| Endpoint | Hub | Seer Extension |
-|----------|-----|----------------|
-| `/scenarios` | Scenario management | Agent binding info |
-| `/knowledge` | Knowledge base | Agent knowledge access |
-| `/users` | User management | Persona mapping |
-
----
-
-## Next Steps
-
-Detailed documentation for each REST channel:
-
-- [ ] [APO REST Channel](./apo-rest-channel.md)
-- [ ] [CSA REST Channel](./csa-rest-channel.md)
-- [ ] [AE REST Channel](./ae-rest-channel.md)
-- [ ] [KMO REST Channel](./kmo-rest-channel.md)
-- [ ] [ARE REST Channel](./are-rest-channel.md)
-- [ ] [COS REST Channel](./cos-rest-channel.md)
-- [ ] [ARAO REST Channel](./arao-rest-channel.md)
-
----
-
-*Status: 🔴 Planning — Structure defined, detailed specs TBD*
+*Status: 🟡 Draft — Structure defined, individual channel specs in development*

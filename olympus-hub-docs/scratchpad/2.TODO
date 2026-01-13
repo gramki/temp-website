@@ -1,9 +1,9 @@
 # Seer overall Todos:
-    Conclude the Personas and their needs
-    Conclude UX Architecture
-    Conclude Subsystems and their capabilities and concepts
-    Conclude OPD - Map all requirements to Personas, Desk, and Consoles
-    Organize Capabilities, Concepts, and Subsystems into a coherent folders
+    ✔ Conclude the Personas and their needs @done(26-01-13 01:00)
+    ✔ Conclude UX Architecture @done(26-01-13 01:00)
+    ✔ Conclude Subsystems and their capabilities and concepts @done(26-01-13 01:00)
+    ✔ Conclude OPD - Map all requirements to Personas, Desk, and Consoles @done(26-01-13 01:00)
+    ✔ Organize Capabilities, Concepts, and Subsystems into a coherent folders @done(26-01-13 01:00)
 
     ## AOS in Understanding anlogies:
         - Scenario as an Agent and Team of Agents; 
@@ -14,8 +14,8 @@
         - Machine as an Agent
 
     ## Seer Persona and Needs:
-        [ ] Enumerate Needs, Journeys, and Capabilities for Seer Personas
-        [ ] Desks
+        ✔ Enumerate Needs, Journeys, and Capabilities for Seer Personas @done(26-01-13 01:01)
+        ✔ Desks @done(26-01-13 01:01)
         [ ] Conclude on Agent Observability 
             (olympus-hub-docs/scratchpad/agent-observability.md)
         [ ] Conclude on Agent Predictability
@@ -34,12 +34,12 @@
             - Levers for ARE
 
     ## Seer Agent Lifeycle:
-        - Steps by Persona
-        - Steps by Desk
-        - How does one ship Raw Agents & Trained agents - Different publishers and different journeys 
-        - How does one Employ an Agent 
-        - How is an Employed agent observed, directed, and controlled? 
-        - Common Observability and Operations interface for an Employed Seer Agent 
+        ✔ Steps by Persona @done(26-01-13 01:01)
+        ✔ Steps by Desk @done(26-01-13 01:01)
+        ✔ How does one ship Raw Agents & Trained agents - Different publishers and different journeys @done(26-01-13 01:01)
+        ✔ How does one Employ an Agent @done(26-01-13 01:01)
+        ✔ How is an Employed agent observed, directed, and controlled? @done(26-01-13 01:01)
+        ✔ Common Observability and Operations interface for an Employed Seer Agent @done(26-01-13 01:01)
 
 # Hub CLI Documentation:
     ✔ CLI for Hub Application Developers @done(26-01-11 17:17)
@@ -71,6 +71,11 @@
         - OPA Policies from Hub Application Specifications and Deployments
         - Quotas
         - Levers
+
+# Hub Composite Applications:
+    - Runtime is Hub
+    - Individual Application is dispatched all updates
+    - No coordination or orchestration; Just all applications are equal participants
 
 # Hub Marketplace:
     ## Subsystem Components:
@@ -126,7 +131,6 @@ Signal Sensory tools of Machines - To Explain Machine can recevie events from Hu
         ✔ Map Hub Workbench to AOS and as Human-AI Team Collaboration Sustrate @done(26-01-07 15:14)
 
     ## Hub and Seer Concepts integration:
-        [ ] Case Automation Model and the Case Automation Engine (Seer Case Automation)
         [ ] Workbench as an Agent in the Tenant Agent Registry
         [ ] Scenario as an Agent in the Tenant Agent Registry
         [ ] Avoiding Circular Loops between Agents
@@ -139,13 +143,11 @@ Signal Sensory tools of Machines - To Explain Machine can recevie events from Hu
         - The Seer Hub Application then delegates the task to the Seer Agent Engine to complete the task.        
 
     ## Workbench as a CAF Memory Provider:
-        [ ] Workbench with Enterprise Memory Storage Services
-        [ ] Enterprise Memory Storage Services as part of Seer
-        [ ] Workbench Enterprise Memory Stores to CAF Memory mapping
-        [ ] Workbench serving as CAF Memory Provider
-        [ ] CAF is module under Hub SaaS Suite;
-        [ ] Decision journaling in CAF
-        [ ] Enterprise Memory Services as moduels under Hub SaaS Suite
+        ✔ Workbench with Enterprise Memory Storage Services @done(26-01-13 01:02)
+        ✔ Workbench Enterprise Memory Stores to CAF Memory mapping @done(26-01-13 01:04)
+        ✔ Workbench serving as CAF Memory Provider @done(26-01-13 01:04)
+        ✔ CAF is module under Hub SaaS Suite; @done(26-01-13 01:04)
+        ✔ Decision journaling in CAF @done(26-01-13 01:04)
 
     ## CAF Integration:
         # Decision Explaination Services (Think and detail this; This is different from decision services provided by Seer; Seer should integrated or align with Decision Explaination Services)
@@ -165,10 +167,10 @@ Signal Sensory tools of Machines - To Explain Machine can recevie events from Hu
 
 
 # Other Systems TODOs:
-    [ ] Expand Cipher - IAM for Agents
-    [ ] Expand Seer - Host of AI Agents
-    [ ] Expand Seer - Hub Connector :: Connector into Task Management System to accept, complete, or assign tasks
-    [ ] ETSL, CAF, Memory Stores integration explained
+    ✔ Expand Cipher - IAM for Agents @done(26-01-13 01:05)
+    ✔ Expand Seer - Host of AI Agents @done(26-01-13 01:05)
+    ✔ Expand Seer - Hub Connector :: Connector into Task Management System to accept, complete, or assign tasks @done(26-01-13 01:05)
+    ✔ ETSL, CAF, Memory Stores integration explained @done(26-01-13 01:05)
 
 # MCP & A2A Support:
     [ ] Out-of-band Content - Resource Management System

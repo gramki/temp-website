@@ -1,6 +1,6 @@
 # Agent Operations Desk
 
-> **Status:** 🔴 Planning  
+> **Status:** 🟡 Draft  
 > **Last Updated:** 2026-01-13  
 > **Primary Persona:** [Agent Reliability Engineer (ARE)](../../../personas-and-needs/roles.md#5-agent-reliability-engineer-are)  
 > **Related:** [ARE Reference](../../../personas-and-needs/are.md) | [Production Readiness](../../../personas-and-needs/needs/production-readiness.md)
@@ -247,4 +247,4 @@ Incidents:
 
 ---
 
-*Status: 🔴 Planning — Overview complete, console specs TBD*
+*Status: 🟡 Draft — Overview and console specifications complete*

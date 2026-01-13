@@ -1,6 +1,6 @@
 # Seer Desks
 
-> **Status:** 🔴 Planning  
+> **Status:** 🟡 Draft  
 > **Last Updated:** 2026-01-13  
 > **Related:** [UX Architecture Overview](../README.md) | [Desk Requirements](../desk-requirements.md)
 
@@ -102,9 +102,7 @@ Some consoles are shared across desks:
 
 | Common Console | Used By | Purpose |
 |----------------|---------|---------|
-| [Agent Behavior Console](../common-consoles/agent-behavior-console.md) | All | Analyze agent reasoning |
-| [Agent Catalog Console](../common-consoles/agent-catalog-console.md) | All | Browse agents |
-| [Alert Console](../common-consoles/alert-console.md) | All | Manage alerts |
+| [Agent Behavior Console](../common-consoles/agent-behavior-console.md) | COS, ARE, AE | Analyze agent reasoning |
 
 ---
 
@@ -133,18 +131,18 @@ Each desk document follows this structure:
 
 ---
 
-## Next Steps
+## Documentation Index
 
 Each desk folder contains detailed documentation:
 
-- [ ] [Agent Portfolio Desk](./agent-portfolio-desk/README.md)
-- [ ] [Agent Design Desk](./agent-design-desk/README.md)
-- [ ] [Agent Development Desk](./agent-development-desk/README.md)
-- [ ] [Knowledge Governance Desk](./knowledge-governance-desk/README.md)
-- [ ] [Agent Operations Desk](./agent-operations-desk/README.md)
-- [ ] [Cognitive Health Desk](./cognitive-health-desk/README.md)
-- [ ] [Agent Compliance Desk](./agent-compliance-desk/README.md)
+- [x] [Agent Portfolio Desk](./agent-portfolio-desk/README.md) — Complete
+- [x] [Agent Design Desk](./agent-design-desk/README.md) — Complete
+- [x] [Agent Development Desk](./agent-development-desk/README.md) — Complete
+- [x] [Knowledge Governance Desk](./knowledge-governance-desk/README.md) — Complete
+- [x] [Agent Operations Desk](./agent-operations-desk/README.md) — Complete
+- [x] [Cognitive Health Desk](./cognitive-health-desk/README.md) — Complete
+- [x] [Agent Compliance Desk](./agent-compliance-desk/README.md) — Complete
 
 ---
 
-*Status: 🔴 Planning — Structure defined, detailed specs in progress*
+*Status: 🟡 Draft — Structure and detailed console specs complete*

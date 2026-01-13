@@ -1,6 +1,6 @@
 # Agent Development Desk
 
-> **Status:** 🔴 Planning  
+> **Status:** 🟡 Draft  
 > **Last Updated:** 2026-01-13  
 > **Primary Persona:** [Agent Engineer (AE)](../../../personas-and-needs/roles.md#3-agent-engineer-ae)  
 > **Related:** [AE Reference](../../../personas-and-needs/ae.md) | [AE Lifecycle Needs](../../../personas-and-needs/needs/ae-lifecycle-coverage.md)
@@ -271,4 +271,4 @@ Tools:
 
 ---
 
-*Status: 🔴 Planning — Overview complete, console specs TBD*
+*Status: 🟡 Draft — Overview and console specifications complete*

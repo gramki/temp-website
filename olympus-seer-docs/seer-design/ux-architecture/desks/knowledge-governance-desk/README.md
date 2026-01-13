@@ -1,6 +1,6 @@
 # Knowledge Governance Desk
 
-> **Status:** 🔴 Planning  
+> **Status:** 🟡 Draft  
 > **Last Updated:** 2026-01-13  
 > **Primary Persona:** [Knowledge & Memory Owner (KMO)](../../../personas-and-needs/roles.md#4-knowledge--memory-owner-kmo)  
 > **Related:** [KMO Reference](../../../personas-and-needs/kmo.md) | [KMO Needs](../../../personas-and-needs/needs/kmo-enterprise-learning.md)
@@ -235,4 +235,4 @@ Learning:
 
 ---
 
-*Status: 🔴 Planning — Overview complete, console specs TBD*
+*Status: 🟡 Draft — Overview and console specifications complete*

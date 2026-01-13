@@ -1,6 +1,6 @@
 # Agent Design Desk
 
-> **Status:** 🔴 Planning  
+> **Status:** 🟡 Draft  
 > **Last Updated:** 2026-01-13  
 > **Primary Persona:** [Cognitive Systems Architect (CSA)](../../../personas-and-needs/roles.md#2-cognitive-systems-architect-csa)  
 > **Related:** [CSA Reference](../../../personas-and-needs/csa.md) | [CSA Needs](../../../personas-and-needs/needs/csa-design-validation.md)
@@ -235,4 +235,4 @@ Validation:
 
 ---
 
-*Status: 🔴 Planning — Overview complete, console specs TBD*
+*Status: 🟡 Draft — Overview and console specifications complete*

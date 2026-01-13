@@ -1,6 +1,6 @@
 # Agent Portfolio Desk
 
-> **Status:** 🔴 Planning  
+> **Status:** 🟡 Draft  
 > **Last Updated:** 2026-01-13  
 > **Primary Persona:** [Automation Product Owner (APO)](../../../personas-and-needs/roles.md#1-automation-product-owner-apo)  
 > **Related:** [APO Reference](../../../personas-and-needs/apo.md) | [APO Needs](../../../personas-and-needs/needs/apo-business-outcomes-and-autonomy.md)
@@ -66,7 +66,7 @@ The Agent Portfolio Desk demonstrates OPDA capabilities for APO:
 | Channel | Capabilities |
 |---------|--------------|
 | **Web UI** | Full desk access via Seer Portal |
-| **REST API** | `/api/seer/apo/v1` — [API Documentation](../../rest-channels/apo-rest-channel.md) |
+| **REST API** | `/api/seer/apo/v1` — [API Documentation](../../rest-channels/apo-channel.md) |
 | **MCP** | `seer-apo-mcp` server for AI assistant integration |
 | **Email** | Notifications, scheduled reports |
 
@@ -185,7 +185,7 @@ Manage autonomy levels and proposals.
 - **Policy History** — Audit trail of autonomy changes
 
 **Key Features:**
-- Autonomy level templates (Full, Suggest, Ask, Watch)
+- Autonomy level templates (L0-L4)
 - Justification builder with risk/value prompts
 - ARAO submission workflow
 - Expiration and re-review tracking
@@ -222,8 +222,8 @@ Autonomy:
   POST   /autonomy/proposals/{id}/submit - Submit to ARAO
 ```
 
-[Full API documentation →](../../rest-channels/apo-rest-channel.md)
+[Full API documentation →](../../rest-channels/apo-channel.md)
 
 ---
 
-*Status: 🔴 Planning — Overview complete, console specs TBD*
+*Status: 🟡 Draft — Overview and console specifications complete*

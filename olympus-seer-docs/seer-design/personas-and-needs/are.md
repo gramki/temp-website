@@ -3,7 +3,7 @@
 > **Status:** Reference Document  
 > **Last Updated:** 2026-01-13  
 > **Related:** [Role Definitions](./roles.md) | [AE Deliverables to ARE](./needs/ae-deliverables-to-are.md)  
-> **Detailed Needs:** [Production Readiness Requirements](./needs/production-readiness.md)
+> **Detailed Needs:** [Production Readiness Requirements](./needs/production-readiness.md) | [Operational Predictability](./needs/are-operational-predictability.md)
 
 ---
 

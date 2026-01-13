@@ -1,13 +1,19 @@
 # Seer UX Architecture
 
-> **Status:** 🔴 Planning  
-> **Last Updated:** 2026-01-09
+> **Status:** 🟡 Draft  
+> **Last Updated:** 2026-01-13
 
 ---
 
 ## Overview
 
 This section defines the user experience architecture for Olympus Seer — the applications, channels, and interaction patterns that enable enterprise personas to design, build, operate, and govern AI Agents and Agent-Oriented Systems.
+
+The UX architecture ensures that Seer Agents are:
+- **Observable** — Transparent reasoning and decision-making
+- **Predictable** — Consistent behavior within defined bounds
+- **Directable** — Responsive to human intervention and guidance
+- **Authority Enforceable** — Operating within approved autonomy levels
 
 ---
 
@@ -36,51 +42,142 @@ Seer UX follows the same (Persona, Channel, Use Case) approach as Hub:
 │     • Seer desks integrate with Hub desks where responsibilities overlap    │
 │     • Consistent patterns between Seer and Hub UX                           │
 │                                                                              │
+│  5. OPDA-ALIGNED                                                            │
+│     • Every desk enables Observable, Predictable, Directable, and           │
+│       Authority Enforceable properties                                      │
+│     • Evidence collection for auditors and compliance                       │
+│                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Architecture Structure
+
+```
+ux-architecture/
+├── README.md                          # This file
+├── desk-requirements.md               # Requirements overview (references details)
+├── seer-and-hub-ux-integration.md     # Hub integration patterns
+│
+├── desks/                             # Persona-specific desks
+│   ├── README.md                      # Desk overview
+│   ├── agent-portfolio-desk/          # APO desk
+│   ├── agent-design-desk/             # CSA desk
+│   ├── agent-development-desk/        # AE desk
+│   ├── knowledge-governance-desk/     # KMO desk
+│   ├── agent-operations-desk/         # ARE desk
+│   ├── cognitive-health-desk/         # COS desk
+│   └── agent-compliance-desk/         # ARAO desk
+│
+├── common-consoles/                   # Shared consoles across desks
+│   ├── README.md                      # Common console overview
+│   └── agent-behavior-console.md      # Shared behavior analysis console
+│
+└── rest-channels/                     # Persona-specific REST APIs
+    ├── README.md                      # REST channel architecture
+    ├── apo-channel.md                 # APO REST API
+    ├── csa-channel.md                 # CSA REST API
+    ├── ae-channel.md                  # AE REST API
+    ├── kmo-channel.md                 # KMO REST API
+    ├── are-channel.md                 # ARE REST API
+    ├── cos-channel.md                 # COS REST API
+    └── arao-channel.md                # ARAO REST API
 ```
 
 ---
 
 ## Desks by Persona
 
-| Persona | Desk | Purpose |
-|---------|------|---------|
-| **APO** | Agent Portfolio Desk | Manage automation portfolio, outcomes, autonomy |
-| **CSA** | Agent Design Desk | Design architectures, validate patterns |
-| **AE** | Agent Development Desk | Build, test, deploy agents |
-| **KMO** | Knowledge Governance Desk | Curate knowledge, govern memory |
-| **ARE** | Agent Operations Desk | Operate safely, monitor health, respond |
-| **COS** | Cognitive Health Desk | Monitor behavior, detect drift, route issues |
-| **ARAO** | Agent Compliance Desk | Approve autonomy, ensure compliance, audit |
+| Persona | Desk | Purpose | Documentation |
+|---------|------|---------|---------------|
+| **APO** | Agent Portfolio Desk | Manage automation portfolio, outcomes, autonomy | [Details](./desks/agent-portfolio-desk/README.md) |
+| **CSA** | Agent Design Desk | Design architectures, validate patterns | [Details](./desks/agent-design-desk/README.md) |
+| **AE** | Agent Development Desk | Build, test, deploy agents | [Details](./desks/agent-development-desk/README.md) |
+| **KMO** | Knowledge Governance Desk | Curate knowledge, govern memory | [Details](./desks/knowledge-governance-desk/README.md) |
+| **ARE** | Agent Operations Desk | Operate safely, monitor health, respond | [Details](./desks/agent-operations-desk/README.md) |
+| **COS** | Cognitive Health Desk | Monitor behavior, detect drift, route issues | [Details](./desks/cognitive-health-desk/README.md) |
+| **ARAO** | Agent Compliance Desk | Approve autonomy, ensure compliance, audit | [Details](./desks/agent-compliance-desk/README.md) |
+
+---
+
+## Common Consoles
+
+| Console | Used By | Purpose |
+|---------|---------|---------|
+| [Agent Behavior Console](./common-consoles/agent-behavior-console.md) | COS, ARE, AE | Deep dive into agent reasoning and behavior |
 
 ---
 
 ## Channel Support
 
-| Channel | Description | Primary Users |
-|---------|-------------|---------------|
-| **Seer Web Portal** | Primary web access for all desks | All |
-| **Seer CLI** | Command-line development and operations | AE, ARE |
-| **Seer MCP Server** | AI assistant integration | AE, CSA |
-| **Seer REST API** | Programmatic access | All (integration) |
-| **Watch Dashboards** | Observability integration | ARE, COS |
-| **Notification Channels** | Slack, Teams, Email, PagerDuty | All |
+| Channel | Description | Primary Users | Documentation |
+|---------|-------------|---------------|---------------|
+| **Seer Web Portal** | Primary web access for all desks | All | Desk READMEs |
+| **Seer CLI** | Command-line development and operations | AE, ARE | TBD |
+| **Seer MCP Server** | AI assistant integration | AE, CSA | TBD |
+| **Seer REST API** | Programmatic access | All (integration) | [REST Channels](./rest-channels/README.md) |
+| **Watch Dashboards** | Observability integration | ARE, COS | [Watch Integration](../subsystems/observability-extensions-to-watch/README.md) |
+| **Notification Channels** | Slack, Teams, Email, PagerDuty | All | TBD |
 
 ---
 
-## Documents
+## Document Index
+
+### Core Documentation
 
 | Document | Description | Status |
 |----------|-------------|--------|
 | [Seer and Hub UX Integration](./seer-and-hub-ux-integration.md) | How Seer desks integrate with Hub Workbenches | 🔴 Planning |
-| [Desk Requirements](./desk-requirements.md) | Requirements for all persona desks | 🔴 Planning |
-| Agent Portfolio Desk | APO desk specification | ⬜ Not Started |
-| Agent Design Desk | CSA desk specification | ⬜ Not Started |
-| Agent Development Desk | AE desk specification | ⬜ Not Started |
-| Knowledge Governance Desk | KMO desk specification | ⬜ Not Started |
-| Agent Operations Desk | ARE desk specification | ⬜ Not Started |
-| Cognitive Health Desk | COS desk specification | ⬜ Not Started |
-| Agent Compliance Desk | ARAO desk specification | ⬜ Not Started |
+| [Desk Requirements](./desk-requirements.md) | Requirements overview for all persona desks | 🟡 Draft |
+
+### Desks
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Desks Overview](./desks/README.md) | Overview of all persona desks | 🟡 Draft |
+| [Agent Portfolio Desk](./desks/agent-portfolio-desk/README.md) | APO desk specification | 🟡 Draft |
+| [Agent Design Desk](./desks/agent-design-desk/README.md) | CSA desk specification | 🟡 Draft |
+| [Agent Development Desk](./desks/agent-development-desk/README.md) | AE desk specification | 🟡 Draft |
+| [Knowledge Governance Desk](./desks/knowledge-governance-desk/README.md) | KMO desk specification | 🟡 Draft |
+| [Agent Operations Desk](./desks/agent-operations-desk/README.md) | ARE desk specification | 🟡 Draft |
+| [Cognitive Health Desk](./desks/cognitive-health-desk/README.md) | COS desk specification | 🟡 Draft |
+| [Agent Compliance Desk](./desks/agent-compliance-desk/README.md) | ARAO desk specification | 🟡 Draft |
+
+### Common Consoles
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Common Consoles Overview](./common-consoles/README.md) | Shared console architecture | 🟡 Draft |
+| [Agent Behavior Console](./common-consoles/agent-behavior-console.md) | Cross-persona behavior analysis | 🟡 Draft |
+
+### REST Channels
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [REST Channels Overview](./rest-channels/README.md) | REST API architecture | 🟡 Draft |
+| [APO Channel](./rest-channels/apo-channel.md) | Portfolio and autonomy APIs | 🟡 Draft |
+| [CSA Channel](./rest-channels/csa-channel.md) | Design and pattern APIs | 🟡 Draft |
+| [AE Channel](./rest-channels/ae-channel.md) | Development and release APIs | 🟡 Draft |
+| [KMO Channel](./rest-channels/kmo-channel.md) | Knowledge and memory APIs | 🟡 Draft |
+| [ARE Channel](./rest-channels/are-channel.md) | Operations and control APIs | 🟡 Draft |
+| [COS Channel](./rest-channels/cos-channel.md) | Cognitive health APIs | 🟡 Draft |
+| [ARAO Channel](./rest-channels/arao-channel.md) | Compliance and security APIs | 🟡 Draft |
+
+---
+
+## OPDA Integration
+
+Every desk contributes to establishing that Seer Agents are Observable, Predictable, Directable, and Authority Enforceable:
+
+| Property | Primary Desks | Capabilities |
+|----------|---------------|--------------|
+| **Observable** | COS, ARE | Trace viewing, reasoning analysis, health metrics |
+| **Predictable** | CSA, AE | Pattern constraints, behavioral tests, baselines |
+| **Directable** | ARE, APO | Kill switches, throttling, priority changes |
+| **Authority Enforceable** | ARAO, APO | Autonomy levels, escalation rules, policy enforcement |
+
+See [OPDA Framework](../agentic-ai-concepts/opda.md) for detailed requirements.
 
 ---
 
@@ -90,8 +187,8 @@ Seer UX follows the same (Persona, Channel, Use Case) approach as Hub:
 - [Hub UX Architecture](../../../olympus-hub-docs/06-ux-architecture/README.md) — Hub UX patterns
 - [Observability Extensions](../subsystems/observability-extensions-to-watch/README.md) — Watch integration
 - [Production Readiness](../personas-and-needs/needs/production-readiness.md) — ARE gate process
+- [OPDA Framework](../agentic-ai-concepts/opda.md) — Observable, Predictable, Directable, Authority Enforceable
 
 ---
 
-*Status: 🔴 Planning — Architecture outlined, detailed specifications pending*
-
+*Status: 🟡 Draft — Detailed specifications complete for all desks, channels, and consoles*

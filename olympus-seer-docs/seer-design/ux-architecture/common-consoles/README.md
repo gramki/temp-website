@@ -1,6 +1,6 @@
 # Common Consoles
 
-> **Status:** 🔴 Planning  
+> **Status:** 🟡 Draft  
 > **Last Updated:** 2026-01-13  
 > **Related:** [UX Architecture Overview](../README.md) | [Desk Requirements](../desk-requirements.md)
 
@@ -36,8 +36,8 @@ Rather than duplicating these across desks, common consoles provide:
 | Console | Description | Documentation |
 |---------|-------------|---------------|
 | **Agent Behavior Console** | Deep analysis of agent reasoning, decisions, and traces | [agent-behavior-console.md](./agent-behavior-console.md) |
-| **Agent Catalog Console** | Browse and search all agents | [agent-catalog-console.md](./agent-catalog-console.md) |
-| **Alert Console** | Manage notifications and alerts | [alert-console.md](./alert-console.md) |
+
+> **Note:** Additional common consoles (Agent Catalog Console, Alert Console) are planned but not yet specified.
 
 ---
 
@@ -168,12 +168,12 @@ Each common console document includes:
 
 ## Next Steps
 
-Detailed documentation for each common console:
+Detailed documentation for common consoles:
 
-- [ ] [Agent Behavior Console](./agent-behavior-console.md) — Detailed specification
-- [ ] [Agent Catalog Console](./agent-catalog-console.md) — Detailed specification  
-- [ ] [Alert Console](./alert-console.md) — Detailed specification
+- [x] [Agent Behavior Console](./agent-behavior-console.md) — Detailed specification complete
+- [ ] Agent Catalog Console — Planned
+- [ ] Alert Console — Planned
 
 ---
 
-*Status: 🔴 Planning — Structure defined, detailed specs TBD*
+*Status: 🟡 Draft — Agent Behavior Console complete, additional consoles planned*
