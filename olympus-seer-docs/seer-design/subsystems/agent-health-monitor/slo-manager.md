@@ -139,7 +139,7 @@ slo_metadata:
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
 | **SLO Tracking Service** | SLO threshold API | SLO evaluation thresholds |
-| **Agent Session Sentinel** | SLO deviation trigger | Trigger sentinels on SLO deviations (if configured) |
+| **Seer Sentinels** | SLO deviation trigger | Trigger sentinels on SLO deviations (if configured) |
 
 ---
 
