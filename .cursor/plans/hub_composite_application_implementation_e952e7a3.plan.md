@@ -417,9 +417,9 @@ spec:
 
 | `10-guides/using-composite-applications.md` | Developer guide with OPA filter examples |
 
-| `decision-logs/0XXX-hub-composite-applications.md` | ADR: Composite application design decision |
+| `decision-logs/0125-hub-composite-applications.md` | ADR: Composite application design decision |
 
-| `decision-logs/0XXX-composite-routing-table-schema.md` | ADR: Routing table multi-app schema |
+| `decision-logs/0126-composite-routing-table-schema.md` | ADR: Routing table multi-app schema |
 
 ### Implementation Concept Updates
 
