@@ -417,13 +417,122 @@ Training Spec Manager manages state transitions for Training Specs:
 
 ---
 
+## Persona Twin Support
+
+### Overview
+
+Training Spec Manager supports **Persona Twins**—personal AI agents that collaborators create to handle delegated tasks. Persona Twins follow the standard Training Spec lifecycle with additional metadata recognition.
+
+### Persona Twin Metadata Validation
+
+Training Spec Manager validates Persona Twin specific metadata fields:
+
+| Field | Type | Validation Rule |
+|-------|------|-----------------|
+| `metadata.labels.persona-twin` | string | Must be `"true"` if present |
+| `spec.metadata.personaTwin` | boolean | If `true`, validates Persona Twin specific fields |
+| `spec.metadata.delegator` | string | Required if `personaTwin: true`; must be valid user reference |
+| `spec.metadata.blueprintSource` | string | Optional; validates blueprint exists if specified |
+
+#### Persona Twin Training Spec Example
+
+```yaml
+apiVersion: seer.olympus.io/v1
+kind: TrainingSpec
+metadata:
+  name: john-smith-assistant
+  namespace: acme-disputes
+  labels:
+    persona-twin: "true"  # Metadata label for recognition
+spec:
+  # Standard Training Spec fields
+  rawAgent:
+    name: assistant-raw
+    version: "^2.0.0"
+  
+  # Persona Twin specific metadata
+  metadata:
+    personaTwin: true
+    delegator: "user:john.smith@acme.com"
+    blueprintSource: "collaborator-assistant-base:1.0.0"
+  
+  # Training configuration
+  knowledge:
+    sources:
+      - type: knowledge-base
+        ref: john-smith-preferences-kb
+  
+  skills:
+    - name: task-triage
+      procedure: procedures/task-triage-v1
+  
+  prompts:
+    system: |
+      You are John's personal task assistant.
+      Help triage and manage tasks efficiently.
+  
+  guardrails:
+    refs:
+      - name: pii-protection
+        version: "^1.0.0"
+```
+
+### Persona Twin Blueprint Source
+
+Persona Twins are typically created from Persona Twin Blueprints. Training Spec Manager validates:
+
+1. **Blueprint existence**: If `blueprintSource` is specified, the referenced blueprint must exist
+2. **Blueprint type**: Source blueprint must be a valid Persona Twin Blueprint (has `personaTwinBlueprint` field)
+3. **Version compatibility**: Blueprint version must be valid and available
+
+#### Blueprint Source Validation Flow
+
+```mermaid
+sequenceDiagram
+    participant Collab as Collaborator
+    participant TSM as Training Spec Manager
+    participant TAD as Trained Agent Directory
+    participant SeerOp as Seer Operator
+    
+    Collab->>TSM: Create TrainingSpec (personaTwin: true)
+    TSM->>TSM: Validate persona-twin label
+    TSM->>TAD: Query blueprintSource
+    TAD-->>TSM: Blueprint metadata
+    TSM->>TSM: Validate blueprint type
+    alt Valid Persona Twin Blueprint
+        TSM->>SeerOp: Publish TrainingSpec
+    else Invalid Blueprint
+        TSM->>Collab: Validation error
+    end
+```
+
+### Persona Twin Validation Rules
+
+| Rule | Description | Error Type |
+|------|-------------|------------|
+| **Label Consistency** | If `spec.metadata.personaTwin: true`, label `persona-twin` must be `"true"` | ValidationError |
+| **Delegator Required** | If `personaTwin: true`, `delegator` must be specified | ValidationError |
+| **Delegator Format** | Delegator must be valid user reference (`user:*` format) | ValidationError |
+| **Blueprint Type** | If specified, blueprint source must be Persona Twin Blueprint | ValidationError |
+| **Non-Developer Creation** | Persona Twins can be created by any collaborator (not just Developers) | N/A (authorization) |
+
+### Key Design Decisions
+
+**Non-Developer Creation**: Unlike standard Training Specs which require Developer persona, Persona Twin Training Specs can be created by any collaborator. This enables the primary use case of personal delegation.
+
+**Blueprint-Based Creation**: While manual Training Spec creation is supported, the typical flow is blueprint-based, which provides signal suggestions and OPA filter templates.
+
+---
+
 ## Related Documentation
 
 - [Training Spec CRD](../../hub-integration/training-spec-crd.md) — Complete CRD schema reference
 - [Trained Agent Directory](./trained-agent-directory.md) — Registry and search capabilities
 - [Raw Agent Lifecycle Manager](../raw-agent-lifecycle-manager/README.md) — Raw Agent capability definitions
 - [Agent Lifecycle Concepts](../../implementation-concepts/agent-lifecycle.md) — Three-layer agent model
+- [Persona Twins](../../implementation-concepts/persona-twins.md) — Persona Twin concept documentation
+- [Persona Twin Blueprint](../../implementation-concepts/persona-twin-blueprint.md) — Blueprint for creating Persona Twins
 
 ---
 
-*Training Spec Manager ensures Training Specs are valid, compatible with Raw Agents, and maintain immutability guarantees for safety-critical components.*
+*Training Spec Manager ensures Training Specs are valid, compatible with Raw Agents, and maintain immutability guarantees for safety-critical components. It supports Persona Twins with dedicated metadata validation.*

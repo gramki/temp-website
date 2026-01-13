@@ -303,6 +303,93 @@ If mismatch:
 
 ---
 
+## Persona Twin Promotion
+
+### Overview
+
+Persona Twins can be promoted to other workbenches using the same promotion mechanism as regular scenarios. When a collaborator promotes their Persona Twin, a new Employed Agent is created in the target workbench.
+
+### Persona Twin Promotion Flow
+
+```
+1. COLLABORATOR REQUEST
+   ┌─────────────────────┐
+   │ Collaborator        │
+   │ requests promotion  │
+   │ of Persona Twin     │
+   └─────────┬───────────┘
+             │
+             ▼
+2. ADMIN APPROVAL (per target workbench)
+   ┌─────────────────────┐
+   │ Target workbench    │
+   │ admin reviews       │
+   │ ├── Training Spec   │
+   │ └── Authority scope │
+   └─────────┬───────────┘
+             │
+             ▼
+3. NEW EMPLOYED AGENT
+   ┌─────────────────────┐
+   │ New Employment Spec │
+   │ created in target   │
+   │ ├── Same Training   │
+   │ ├── New identity    │
+   │ └── New triggers    │
+   └─────────────────────┘
+```
+
+### Multi-Workbench Persona Twins
+
+A Persona Twin can exist in multiple workbenches simultaneously:
+- **Same Training Spec**: The training configuration is shared
+- **Different Identities**: Each workbench has its own Employed Agent
+- **Independent Triggers**: Triggers are configured per workbench
+- **Same Delegator**: Authority delegation remains with original delegator
+
+```yaml
+# Persona Twin in multiple workbenches
+trainingSpec: john-task-assistant  # Shared
+
+workbenches:
+  - name: disputes
+    employedAgent: es-john-task-assistant-disputes
+    triggers:
+      - task assignment (high priority disputes)
+      - daily summary (5 PM)
+      
+  - name: compliance
+    employedAgent: es-john-task-assistant-compliance
+    triggers:
+      - platform notifications (compliance alerts)
+      - weekly report (Friday 3 PM)
+```
+
+### Persona Twin Promotion Request
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: PromotionRequest
+metadata:
+  name: persona-twin-promo-001
+spec:
+  unit:
+    type: persona-twin-scenario
+    scenario_id: john-task-assistant
+    training_spec: john-task-assistant-v1
+    
+  source:
+    workbench: disputes
+    
+  target:
+    workbench: compliance
+    
+  reason: "Need assistant in compliance workbench too"
+  requested_by: john.smith
+```
+
+---
+
 ## Examples
 
 ### Example 1: Scenario Promotion
@@ -319,6 +406,21 @@ hub promote scenario standard-dispute \
 Promotion request created: promo-req-001
 Status: PENDING_APPROVAL
 Awaiting approval from: tenant-admin
+```
+
+### Example 3: Persona Twin Promotion
+
+```bash
+# Collaborator requests Persona Twin promotion
+hub promote persona-twin john-task-assistant \
+  --from disputes \
+  --to compliance \
+  --reason "Need personal assistant in compliance workbench"
+
+# Output:
+Promotion request created: persona-twin-promo-001
+Status: PENDING_APPROVAL
+Awaiting approval from: compliance-admin
 ```
 
 ### Example 2: Cross-Subscription Promotion

@@ -118,6 +118,18 @@ delegation:
 delegation:
   type: bot
   accountable: "user:jane.manager@acme.com"  # Manager is accountable human
+```
+
+**Persona Twin Delegation** — Agent acts as personal delegate of collaborator (delegator and accountable are same):
+
+```yaml
+delegation:
+  type: user
+  delegator: "user:john.smith@acme.com"
+  accountable: "user:john.smith@acme.com"  # Same as delegator for Persona Twins
+  roles: "*"  # Inherits all delegator's roles
+  groups: "*"  # Inherits all delegator's groups
+  personaTwin: true  # Marks as Persona Twin delegation
   # No roles/groups inheritance - base identity only
 ```
 
@@ -400,6 +412,92 @@ sequenceDiagram
 
 ---
 
+## Persona Twin Support
+
+### Overview
+
+Employment Spec Manager supports **Persona Twins**—personal AI agents that collaborators create to delegate their responsibilities. Persona Twins have a specialized authority delegation model where the delegator is also the accountable human.
+
+### Persona Twin Authority Delegation
+
+For Persona Twins, the delegation model is simplified:
+
+| Field | Value | Description |
+|-------|-------|-------------|
+| `type` | `user` | Standard user delegation |
+| `delegator` | User reference | The collaborator creating the twin |
+| `accountable` | Same as delegator | Delegator is accountable for twin's actions |
+| `personaTwin` | `true` | Marks this as Persona Twin delegation |
+
+#### Authority Inheritance
+
+Persona Twins inherit authority from their delegator:
+
+```yaml
+delegation:
+  type: user
+  delegator: "user:john.smith@acme.com"
+  accountable: "user:john.smith@acme.com"
+  personaTwin: true
+  
+  # Authority configuration options
+  roles: "*"      # Wildcard: copies all delegator's roles
+  # OR
+  roles: "analyst,reviewer"  # CSV: specific subset of delegator's roles
+  
+  groups: "*"     # Wildcard: copies all delegator's groups
+  # OR
+  groups: "disputes-team"   # CSV: specific subset of delegator's groups
+  
+  # Optional OPA policies for fine-grained authority control
+  opaPolicies:
+    - pep: "tool-gateway"
+      policyRef: "persona-twin/task-scope-only.rego"
+    - pep: "external-service"
+      policyRef: "persona-twin/no-financial-actions.rego"
+```
+
+### Employment Spec Validation for Persona Twins
+
+Employment Spec Manager validates Persona Twin specific constraints:
+
+| Rule | Validation | Error Type |
+|------|------------|------------|
+| **Training Spec Label** | If Training Spec has `persona-twin` label, Employment Spec must configure Persona Twin delegation | ValidationError |
+| **Delegator Consistency** | Employment Spec delegator must match Training Spec delegator | ValidationError |
+| **Accountable Same as Delegator** | For Persona Twins, `accountable` must equal `delegator` | ValidationError |
+| **Authority Subset** | Delegated roles/groups must be subset of delegator's current authority | AuthorityError |
+
+### Persona Twin Employment Flow
+
+```mermaid
+sequenceDiagram
+    participant Collab as Collaborator
+    participant ESM as Employment Spec Manager
+    participant TALM as Training Spec Manager
+    participant Cipher as Cipher IAM Extensions
+    participant Runtime as Agent Runtime
+    
+    Collab->>ESM: Create Employment Spec (personaTwin: true)
+    ESM->>TALM: Validate Training Spec has persona-twin label
+    ESM->>ESM: Validate delegator consistency
+    ESM->>ESM: Validate accountable = delegator
+    ESM->>Cipher: Create IAM profile (inherits delegator authority)
+    Cipher-->>ESM: IAM profile created
+    ESM->>Runtime: Deploy Persona Twin
+    Runtime-->>Collab: Persona Twin active
+```
+
+### Non-Developer Creation
+
+Unlike standard Employment Specs which require Developer or APO persona, Persona Twin Employment Specs can be created by any collaborator:
+
+- **Authorization**: Collaborator must be member of target workbench
+- **Validation**: Standard authority validation applies (cannot exceed own authority)
+- **Approval**: No admin approval required for self-delegation
+
+---
+
 ## Related Documentation
 
 - [Agent Lifecycle Manager README](./README.md) — Subsystem overview
@@ -407,7 +505,9 @@ sequenceDiagram
 - [Agent Runtime IAM Provisioning](../agent-runtime/iam-provisioning.md) — IAM profile creation
 - [Implementation Concepts: Agent Lifecycle](../../implementation-concepts/agent-lifecycle.md) — Lifecycle concepts
 - [Implementation Concepts: Authority Enforcement](../../implementation-concepts/authority-enforcement.md) — Authority enforcement
+- [Persona Twins](../../implementation-concepts/persona-twins.md) — Persona Twin concept documentation
+- [Cipher IAM Extensions: Authority Delegation](../cipher-iam-extensions/authority-delegation.md) — Authority delegation patterns
 
 ---
 
-*Employment Spec Manager provides the foundation for managing Employed Agent specifications with layered authority controls, resource quotas, fair usage budgets, and delegation chain configuration.*
+*Employment Spec Manager provides the foundation for managing Employed Agent specifications with layered authority controls, resource quotas, fair usage budgets, and delegation chain configuration. It supports Persona Twins with specialized authority delegation.*

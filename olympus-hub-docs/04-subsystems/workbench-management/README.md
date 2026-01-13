@@ -59,6 +59,7 @@ Workbench Management is responsible for:
 │  │  • Tool access permissions                               │    │
 │  │  • DevOps workbench association (signal routing)         │    │
 │  │  • Development workbench reference (feedback flow)       │    │
+│  │  • Context sharing (cross-workbench request hierarchy)   │    │
 │  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -73,6 +74,7 @@ Workbench Management is responsible for:
 | [Scenario Definitions](./scenario-definitions.md) | Scenario configuration | 🔴 Stub |
 | [Trigger Definitions](./trigger-definitions.md) | Trigger configuration | 🔴 Stub |
 | [Application Configuration](./application-configuration.md) | Hub Application setup | 🔴 Stub |
+| [Workbench Context Sharing](./workbench-context-sharing.md) | Cross-workbench parent-child request configuration | ✅ Complete |
 
 ---
 
@@ -87,7 +89,7 @@ workbench:
   tenant_id: string
   
   # Workbench type
-  workbench_type: string     # "business" (default) | "devops"
+  workbench_type: string     # "business" (default) | "devops" | "cogw"
   
   # Domain context
   domain: string             # e.g., "dispute-resolution"
@@ -273,6 +275,7 @@ blueprintReference:
 - [DevOps Workbench Reference](../../02-system-design/implementation-concepts/devops-workbench-reference.md) — Cross-workbench association
 - [Scenario Design Desk](../../06-ux-architecture/tenant-domain/scenario-design-desk.md) — Scenario design UI
 - [Automation Development Desk](../../06-ux-architecture/tenant-domain/automation-development-desk.md) — Application development UI
+- [Persona Twins](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twins.md) — Personal AI agents for collaborator delegation
 
 ---
 

@@ -189,6 +189,57 @@ graph TD
 
 ---
 
+## Persona Twins
+
+**Persona Twins** are a specialized use case of the three-layer agent model, enabling collaborators to create personal AI agents for delegation.
+
+### Three-Layer Model for Persona Twins
+
+| Layer | Persona Twin Implementation |
+|-------|-----------------------------|
+| **Raw Agent** | Standard Raw Agent (e.g., `assistant-raw`) |
+| **Trained Agent** | Training Spec with `persona-twin` label, delegator metadata |
+| **Employed Agent** | Employment Spec with user delegation, delegator = accountable |
+
+### Key Differences from Business Agents
+
+| Aspect | Business Agent | Persona Twin |
+|--------|----------------|--------------|
+| **Created by** | Developer persona | Any collaborator |
+| **Delegation** | Role or user delegation | User delegation (delegator = accountable) |
+| **Visibility** | Typically public | Typically private |
+| **Scenarios** | Business Scenarios | Persona Twin Scenarios |
+| **Triggers** | Business events | Personal events (tasks, notifications, schedules) |
+
+### Persona Twin Lifecycle
+
+```
+1. Collaborator selects Persona Twin Blueprint
+   └── Blueprint provides signal suggestions and OPA filters
+
+2. Training Spec created with persona-twin label
+   └── Delegator metadata captures the collaborator
+
+3. Trained Agent created via standard training
+   └── Tagged in Trained Agent Directory as personaTwin
+
+4. Employment Spec created with user delegation
+   └── delegator = accountable = collaborator
+   └── Authority inherits from delegator
+
+5. Persona Twin Scenario activated
+   └── Triggers respond to delegator's tasks/notifications/schedules
+```
+
+### Related Documentation
+
+- [Persona Twins](./persona-twins.md) — Full Persona Twin concept
+- [Persona Twin Blueprint](./persona-twin-blueprint.md) — Blueprint for creating twins
+- [Training Spec Manager](../subsystems/trained-agent-lifecycle-manager/training-spec-manager.md) — Persona Twin metadata validation
+- [Employment Spec Manager](../subsystems/agent-lifecycle-manager/employment-spec-manager.md) — Persona Twin authority delegation
+
+---
+
 ## Related
 
 ### Cipher IAM Extensions (Identity & Credentials)

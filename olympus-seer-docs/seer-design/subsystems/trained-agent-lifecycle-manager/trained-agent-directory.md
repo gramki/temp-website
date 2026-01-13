@@ -418,13 +418,101 @@ employedAgents:
 
 ---
 
+## Persona Twin Support
+
+### Overview
+
+Trained Agent Directory supports **Persona Twins**—personal AI agents created by collaborators for delegated tasks. The directory indexes Persona Twins alongside standard Training Specs with additional filtering capabilities.
+
+### Persona Twin Filtering
+
+The directory provides dedicated filtering for Persona Twins:
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `personaTwin` | boolean | Filter to show only Persona Twins (`true`) or exclude them (`false`) |
+| `delegator` | string | Filter by delegator (user reference) |
+| `blueprintSource` | string | Filter by source blueprint |
+
+### Persona Twin Registry Entry
+
+Persona Twin Training Specs include additional metadata in their registry entries:
+
+```yaml
+trainedAgentEntry:
+  # Core Identity
+  identity:
+    trainingSpecId: "ts-john-smith-assistant"
+    name: "john-smith-assistant"
+    namespace: "acme-disputes"
+    version: "1.0.0"
+    state: "published"
+  
+  # Raw Agent Reference
+  rawAgent:
+    name: "assistant-raw"
+    version: "^2.0.0"
+  
+  # Persona Twin Metadata
+  personaTwin:
+    isPersonaTwin: true
+    delegator: "user:john.smith@acme.com"
+    blueprintSource: "collaborator-assistant-base:1.0.0"
+  
+  # Training Spec Metadata
+  metadata:
+    displayName: "John's Task Assistant"
+    role: "personal-assistant"
+    domain: "disputes"
+    labels:
+      persona-twin: "true"
+```
+
+### Persona Twin Queries
+
+```yaml
+# Find all Persona Twins in a namespace
+query:
+  type: "list"
+  filter:
+    namespace: "acme-disputes"
+    personaTwin: true
+
+# Find all Persona Twins for a specific delegator
+query:
+  type: "list"
+  filter:
+    delegator: "user:john.smith@acme.com"
+
+# Find Persona Twins from a specific blueprint
+query:
+  type: "list"
+  filter:
+    personaTwin: true
+    blueprintSource: "collaborator-assistant-base"
+```
+
+### Indexing
+
+The directory maintains indexes for Persona Twin discovery:
+
+| Index | Purpose |
+|-------|---------|
+| **By Persona Twin Label** | Quick filtering of all Persona Twins |
+| **By Delegator** | Find all twins for a collaborator |
+| **By Blueprint Source** | Find twins created from a specific blueprint |
+
+---
+
 ## Related Documentation
 
 - [Training Spec Manager](./training-spec-manager.md) — Spec validation and management
 - [Trained Agent Operators](./trained-agent-operators.md) — Lifecycle management
 - [Employed Agent Directory](../agent-lifecycle-manager/employed-agent-directory.md) — Employed Agent registry
 - [Raw Agent Lifecycle Manager](../raw-agent-lifecycle-manager/README.md) — Raw Agent capability definitions
+- [Persona Twins](../../implementation-concepts/persona-twins.md) — Persona Twin concept documentation
+- [Persona Twin Blueprint](../../implementation-concepts/persona-twin-blueprint.md) — Blueprint for creating Persona Twins
 
 ---
 
-*Trained Agent Directory provides comprehensive discovery and query capabilities for Training Specs, enabling developers to find suitable agents and understand dependencies.*
+*Trained Agent Directory provides comprehensive discovery and query capabilities for Training Specs, enabling developers to find suitable agents and understand dependencies. It supports Persona Twin filtering and indexing.*

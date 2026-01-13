@@ -92,6 +92,19 @@ Collaborators
 
 ---
 
+## Persona Twins
+
+Any collaborator in a workbench can create **Persona Twins**—personal AI agents that delegate their responsibilities. Persona Twins can:
+- Respond to tasks assigned to the collaborator
+- Handle platform notifications meant for the collaborator
+- Run on personally configured schedules
+
+Persona Twins follow the standard agent lifecycle (Raw → Trained → Employed) with the collaborator as both delegator and accountable human.
+
+→ See [Persona Twins](../../olympus-seer-docs/seer-design/implementation-concepts/persona-twins.md) for details.
+
+---
+
 ## Usage Context
 
 Use "collaborators" when:

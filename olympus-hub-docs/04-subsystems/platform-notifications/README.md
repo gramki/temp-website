@@ -146,9 +146,93 @@ Platform Notifications uses **Cipher Notification Service (CNS)** for delivery:
 
 ---
 
+---
+
+## Persona Twin Integration
+
+Platform Notifications can trigger Persona Twin Scenarios when notifications are scoped to a workbench and targeted at a delegator.
+
+### Persona Twin Notification Routing
+
+When a platform notification is sent to a user who has a Persona Twin configured:
+
+1. **Notification Sent**: Platform service sends notification to user
+2. **Trigger Check**: Platform Notification Service checks for Persona Twin triggers
+3. **OPA Filter**: If trigger has OPA filter, evaluate policy
+4. **Signal Dispatch**: If allowed, dispatch signal to Signal Exchange
+5. **Request Creation**: Signal Exchange creates Request in Persona Twin Scenario
+
+```
+┌───────────────────┐      ┌───────────────────────────────────────────────────────┐
+│ Platform Service  │      │              PLATFORM NOTIFICATIONS                   │
+│                   │      │                                                       │
+│ • Marketplace     │      │  ┌─────────────────┐     ┌─────────────────────────┐ │
+│ • Subscription    │──────▶│ Notification     │────▶│ Persona Twin Router     │ │
+│ • Operations      │      │  │ Dispatch        │     │                         │ │
+└───────────────────┘      │  └─────────────────┘     │ • Check for triggers    │ │
+                           │                          │ • Evaluate OPA filters  │ │
+                           │                          │ • Dispatch to SE        │ │
+                           │                          └───────────┬─────────────┘ │
+                           │                                      │               │
+                           └──────────────────────────────────────┼───────────────┘
+                                                                  │
+                                                                  ▼
+                           ┌──────────────────────────────────────────────────────┐
+                           │              SIGNAL EXCHANGE                         │
+                           │  ┌─────────────────┐     ┌─────────────────────────┐│
+                           │  │ Trigger         │────▶│ Request Factory         ││
+                           │  │ Evaluator       │     │                         ││
+                           │  └─────────────────┘     │ → Persona Twin Scenario ││
+                           │                          └─────────────────────────┘│
+                           └──────────────────────────────────────────────────────┘
+```
+
+### Persona Twin Notification Trigger Configuration
+
+Collaborators can configure Platform Notification triggers for their Persona Twins:
+
+```yaml
+trigger:
+  type: platform_notification
+  workbench_id: "wb-disputes"
+  
+  platform_notification:
+    recipient: "user:john.smith@acme.com"
+    scope: workbench  # Only workbench-scoped notifications
+    
+    # Optional categories to filter
+    categories:
+      - "high_priority"
+      - "security_alert"
+    
+    # Optional OPA filter for fine-grained control
+    opaFilter: |
+      package persona.twin.notification
+      default allow = false
+      allow {
+        input.payload.notification.category == "security_alert"
+      }
+  
+  scenario_id: "sc-john-notification-handler"
+```
+
+### Workbench-Scoped Notifications
+
+Only workbench-scoped notifications are eligible for Persona Twin routing:
+
+| Scope | Eligible for Persona Twin | Reason |
+|-------|---------------------------|--------|
+| **workbench** | ✅ Yes | Persona Twins operate within workbench context |
+| **subscription** | ❌ No | Too broad scope, admin concern |
+| **platform** | ❌ No | Platform-wide, not personal delegation |
+
+---
+
 ## Related Documentation
 
 - [Notification Services](../notification-services/README.md) — Business domain notifications
 - [Marketplace Subsystem](../marketplace/README.md) — Source of Marketplace events
 - [ADR-0101: Platform Notifications Subsystem](../../decision-logs/0101-platform-notifications-subsystem.md)
+- [Persona Twins](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twins.md) — Persona Twin concept documentation
+- [Trigger Definitions](../workbench-management/trigger-definitions.md) — Persona Twin trigger configuration
 

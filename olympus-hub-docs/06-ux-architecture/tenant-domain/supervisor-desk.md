@@ -225,6 +225,76 @@ Supervisors have a dedicated console for managing and promoting operational feed
 
 ---
 
+## Persona Twins Console
+
+Supervisors can create and manage **Persona Twins** — personal AI agents that handle delegated tasks, notifications, and scheduled activities.
+
+### Persona Twins Section
+
+Within the Supervisor Desk, the Persona Twins console is accessible via Scenarios:
+
+```
+Supervisor Desk
+├── ...
+├── Scenarios
+│   ├── Business Scenarios (operational scenarios)
+│   └── Persona Twins
+│       ├── My Twins (supervisor's personal twins)
+│       │   ├── Task Triage Assistant
+│       │   └── Daily Summary Bot
+│       └── All Twins (admin view)
+└── ...
+```
+
+### Persona Twin Management
+
+| Capability | Description |
+|------------|-------------|
+| **Create Twin** | Create a new Persona Twin from blueprint |
+| **View Activity** | Monitor twin's requests and actions |
+| **Configure Triggers** | Set up task assignment, notification, and schedule triggers |
+| **Manage Authority** | Configure delegation and OPA policies |
+| **Suspend/Resume** | Temporarily disable or re-enable twin |
+
+### Sample Layout
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      PERSONA TWINS CONSOLE                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [+ Create Persona Twin]                                                    │
+│                                                                              │
+│  MY TWINS                                                                   │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │ Twin                    │ Status │ Today │ Last Active │ Actions     │  │
+│  │ ─────────────────────────────────────────────────────────────────────│  │
+│  │ Task Triage Assistant   │ 🟢     │   12  │ 5m ago      │ [Configure] │  │
+│  │ Daily Summary Bot       │ 🟢     │    1  │ 2h ago      │ [Configure] │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+│  RECENT ACTIVITY                                                            │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │ 10:32 AM │ Task Triage Assistant │ Triaged high-priority dispute    │  │
+│  │ 10:28 AM │ Task Triage Assistant │ Gathered context for case #4521  │  │
+│  │ 10:15 AM │ Task Triage Assistant │ Prepared recommendation          │  │
+│  │  5:00 PM │ Daily Summary Bot     │ Generated end-of-day summary     │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Supervisor Use Cases for Persona Twins
+
+| Use Case | Blueprint | Triggers |
+|----------|-----------|----------|
+| Task Triage | Task Triage Assistant | Task assignments (high priority) |
+| End-of-Day Review | Collaborator Assistant | Daily schedule (5 PM) |
+| Escalation Monitor | Compliance Monitor | Platform notifications |
+| Weekly Planning | Collaborator Assistant | Weekly schedule (Monday 9 AM) |
+
+---
+
 ## Related Documentation
 
 - [Supervisor Persona](../../08-personas-and-journeys/personas/supervisor.md)
@@ -233,6 +303,9 @@ Supervisors have a dedicated console for managing and promoting operational feed
 - [Routine Service](../../04-subsystems/hub-native-utilities/routine-service.md)
 - [Hub Analytics](../../04-subsystems/hub-analytics/README.md) — Powers Reports Console
 - [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Production feedback architecture
+- [Persona Twin Creation Guide](../../10-guides/persona-twin-creation-guide.md) — How to create twins
+- [Persona Twin Management Guide](../../10-guides/persona-twin-management-guide.md) — How to manage twins
+- [Persona Twins Concept](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twins.md) — Technical concept
 
 ---
 

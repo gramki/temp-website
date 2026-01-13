@@ -324,6 +324,79 @@ spec:
 
 ---
 
+## Agent Lifecycle Console
+
+The Automation Development Desk includes an **Agent Lifecycle Console** for managing Seer agents, including Persona Twins.
+
+### Agent Lifecycle Views
+
+```
+Automation Development Desk
+├── ...
+├── Agent Lifecycle
+│   ├── Training Specs
+│   │   ├── Business Agents
+│   │   └── Persona Twins (filtered view)
+│   ├── Employed Agents
+│   │   ├── Business Agents
+│   │   └── Persona Twins (filtered view)
+│   └── Blueprints
+│       ├── Agent Blueprints
+│       └── Persona Twin Blueprints
+└── ...
+```
+
+### Persona Twin Filtering
+
+The Agent Lifecycle Console supports filtering to show Persona Twins:
+
+| Filter | Values | Description |
+|--------|--------|-------------|
+| `personaTwin` | `true` / `false` | Show only Persona Twins or exclude them |
+| `delegator` | User reference | Filter by delegator (owner) |
+| `blueprintSource` | Blueprint name | Filter by source blueprint |
+
+### Sample Layout
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      AGENT LIFECYCLE CONSOLE                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  [Trained Agents]  [Employed Agents]  [Blueprints]                          │
+│                                                                              │
+│  Filters:  [Category: All ▼]  [Persona Twin: Yes ▼]  [Search...]           │
+│                                                                              │
+│  TRAINED AGENTS (Persona Twins)                                             │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │ Agent                  │ Delegator      │ Blueprint     │ State      │  │
+│  │ ─────────────────────────────────────────────────────────────────────│  │
+│  │ 🤖 john-task-assistant │ John Smith     │ task-triage   │ Published  │  │
+│  │ 🤖 jane-summary-bot    │ Jane Manager   │ collaborator  │ Published  │  │
+│  │ 🤖 sarah-monitor       │ Sarah Compliance│ compliance   │ Training   │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+│  🤖 = Persona Twin                                                          │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Persona Twin Badge
+
+Persona Twins are displayed with a distinct badge/indicator:
+- **🤖** icon in list views
+- **"Persona Twin"** badge in detail views
+- **Delegator** field prominently displayed
+
+### Persona Twin Creation for Developers
+
+While any collaborator can create Persona Twins from blueprints, developers can also:
+- Create custom Training Specs with advanced configuration
+- Define custom OPA filter policies
+- Create custom Persona Twin Blueprints for the team
+
+---
+
 ## Related Documentation
 
 - [Developer Persona](../../08-personas-and-journeys/personas/developer.md)
@@ -335,6 +408,9 @@ spec:
 - [Marketplace Console](./marketplace-console.md) — Package publishing and subscription
 - [Angelos Framework](../frameworks-and-integrations/angelos-framework.md) — UI component framework
 - [Rhea Runtime](../../04-subsystems/automation-runtimes/rhea-runtime.md) — Hub Application runtime
+- [Persona Twins Concept](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twins.md) — Persona Twin technical concept
+- [Training Spec Manager](../../../olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/training-spec-manager.md) — Training Spec management
+- [Employed Agent Directory](../../../olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/employed-agent-directory.md) — Employed Agent registry
 
 ---
 

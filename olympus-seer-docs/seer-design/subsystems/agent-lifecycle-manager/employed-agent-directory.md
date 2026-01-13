@@ -640,6 +640,120 @@ query:
 
 ---
 
+## Persona Twin Support
+
+### Overview
+
+Employed Agent Directory supports **Persona Twins**—personal AI agents created by collaborators for delegated tasks. The directory indexes Persona Twins alongside standard Employed Agents with additional filtering and query capabilities.
+
+### Persona Twin Filtering
+
+The directory provides dedicated filtering for Persona Twins:
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `personaTwin` | boolean | Filter to show only Persona Twins (`true`) or exclude them (`false`) |
+| `delegator` | string | Filter by delegator (user reference) |
+
+### Persona Twin Profile Extension
+
+Persona Twin Employed Agents include additional metadata in their profiles:
+
+```yaml
+agentProfile:
+  # Core Identity
+  identity:
+    employmentSpecId: "es-john-smith-assistant"
+    name: "john-smith-assistant"
+    namespace: "acme-disputes"
+    state: "active"
+    
+    # Trained Agent Identity
+    trainedAgent:
+      trainingSpecName: "john-smith-assistant"
+      trainingSpecVersion: "1.0.0"
+  
+  # Persona Twin Metadata
+  personaTwin:
+    isPersonaTwin: true
+    delegator: "user:john.smith@acme.com"
+    blueprintSource: "collaborator-assistant-base:1.0.0"
+  
+  # Authority (Persona Twin specific delegation)
+  authority:
+    delegation:
+      type: "user"
+      delegator: "user:john.smith@acme.com"
+      accountable: "user:john.smith@acme.com"  # Same as delegator
+      personaTwin: true
+    ceilings:
+      # Inherited from delegator's authority
+      inherited: true
+    opaPolicies:
+      - pep: "tool-gateway"
+        policyRef: "persona-twin/task-scope-only.rego"
+```
+
+### Persona Twin Queries
+
+```yaml
+# Find all Persona Twins in a workbench
+query:
+  type: "list"
+  filter:
+    workbench: "acme-disputes"
+    personaTwin: true
+
+# Find all Persona Twins for a specific delegator
+query:
+  type: "list"
+  filter:
+    delegator: "user:john.smith@acme.com"
+    personaTwin: true
+
+# Get Persona Twin profile with delegation details
+query:
+  type: "profile"
+  agent: "es-john-smith-assistant"
+  include:
+    - "identity"
+    - "personaTwin"
+    - "authority"
+    - "runtime"
+```
+
+### Accountability for Persona Twins
+
+For Persona Twins, the accountability chain is simplified since delegator = accountable:
+
+```yaml
+accountabilityGraph:
+  agent: "es-john-smith-assistant"
+  personaTwin: true
+  
+  # Upward Chain (Persona Twin → Human)
+  upwardChain:
+    - level: 1
+      type: "delegator_accountable"
+      principal: "user:john.smith@acme.com"
+      role: "Delegator and Accountable"
+      
+  # No downward chain (Persona Twins cannot sub-delegate)
+  downwardChain: []
+```
+
+### Indexing
+
+The directory maintains indexes for Persona Twin discovery:
+
+| Index | Purpose |
+|-------|---------|
+| **By Persona Twin Flag** | Quick filtering of all Persona Twins |
+| **By Delegator** | Find all twins for a collaborator |
+| **By Workbench + Delegator** | Find collaborator's twins in a workbench |
+
+---
+
 ## Related Documentation
 
 - [Agent Lifecycle Manager README](./README.md) — Subsystem overview
@@ -647,7 +761,8 @@ query:
 - [Delegation Chain Sync Service](./delegation-chain-sync-service.md) — Authority synchronization
 - [Agent Levers Service](./agent-levers-service.md) — Enforcement actions
 - [Implementation Concepts: Agent Lifecycle](../../implementation-concepts/agent-lifecycle.md) — Lifecycle concepts
+- [Persona Twins](../../implementation-concepts/persona-twins.md) — Persona Twin concept documentation
 
 ---
 
-*Employed Agent Directory provides comprehensive agent registry with profiles, accountability discovery, change tracking, and dependency analysis for governance and operational visibility.*
+*Employed Agent Directory provides comprehensive agent registry with profiles, accountability discovery, change tracking, and dependency analysis for governance and operational visibility. It supports Persona Twin filtering and specialized accountability tracking.*

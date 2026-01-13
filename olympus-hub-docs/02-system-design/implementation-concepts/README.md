@@ -69,6 +69,13 @@ These implementation concepts are:
 | [Headless Access Service](./headless-access-service.md) | Backend services with channel adapters | ✅ Complete |
 | [Notification Services](./notification-services.md) | User notification subsystem | ✅ Complete |
 
+### Agent Delegation
+
+| Concept | Description | Status |
+|---------|-------------|--------|
+| [Persona Twins](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twins.md) | Personal AI agents for collaborator delegation | 🟡 Draft |
+| [Persona Twin Blueprint](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twin-blueprint.md) | Blueprint for creating Persona Twins | 🟡 Draft |
+
 ### Data Architecture
 
 | Concept | Description | Status |
@@ -95,6 +102,7 @@ These implementation concepts are:
 | [Scenario as Tool](./scenario-as-tool.md) | Scenario exposed as callable tool | ✅ Complete |
 | [Workbench as Machine](./workbench-as-machine.md) | Workbench exposed as Machine to other workbenches | ✅ Complete |
 | [Hub Application as Standalone Tool](./hub-application-as-standalone-tool.md) | Direct tool invocation bypassing SX | ✅ Complete |
+| [Cross-Workbench Context Sharing](./workbench-context-sharing.md) | Parent-child request hierarchy across workbenches | ✅ Complete |
 
 ### DevOps and Lifecycle
 
