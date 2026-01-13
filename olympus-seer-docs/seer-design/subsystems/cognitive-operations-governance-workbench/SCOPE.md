@@ -51,7 +51,7 @@ The Cognitive Operations Governance Workbench (COGW) subsystem provides subscrip
 
 | Subsystem | Relationship |
 |-----------|--------------|
-| [Agent Session Sentinel](../agent-session-sentinel/README.md) | COG Sentinels extend Request Sentinels from this subsystem |
+| [Seer Sentinels](../seer-sentinels/README.md) | COG Sentinels extend Request Sentinels from this subsystem |
 | [Trained Agent Lifecycle Manager](../trained-agent-lifecycle-manager/README.md) | TrainingSpec defines context filtering for COG Sentinels |
 | [Context Compiler](../context-compiler/README.md) | Compiles context for COG Sentinel child requests |
 

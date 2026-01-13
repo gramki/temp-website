@@ -87,5 +87,5 @@ flowchart TB
 ## Related
 
 - [Agent Analytics](../agent-analytics/README.md) — Uses Agent Analytics data mart for SLO evaluation
-- [Agent Session Sentinel](../agent-session-sentinel/README.md) — Can trigger sentinels on SLO deviations (if configured)
+- [Seer Sentinels](../seer-sentinels/README.md) — Can trigger sentinels on SLO deviations (if configured)
 - [Training Feedback Services](../trained-agent-lifecycle-manager/training-feedback-services.md) — Routes feedback for Training Spec improvements

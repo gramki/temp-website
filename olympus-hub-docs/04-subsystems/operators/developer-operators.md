@@ -13,6 +13,8 @@ Developer Operators manage **Automation Specifications** and **Deployment Specif
 | **workbench-developer-operator** | Workbench Deployment Specification |
 | **scenario-developer-operator** | Trigger Specification, Scenario Automation Specification, Scenario Deployment Specification |
 | **hub-application-operator** | Hub Application Specification |
+| **composite-application-operator** | Hub Composite Application Specification (validation) |
+| **composite-deployment-operator** | Hub Composite Application Deployment (child creation, routing table) |
 | **workbench-apm-operator** | Log Alerts, Metric Alerts, Probes, SLO Alerts |
 | **workbench-as-a-machine-operator** | Exposes Workbench as a Machine for other Workbenches |
 | **scenario-as-a-tool-operator** | Exposes Scenario as a Tool |
@@ -429,9 +431,15 @@ spec:
 
   # Hub Application Binding
   application:
+    # Option 1: Single app (existing)
     ref: standard-dispute-application
     version: "2.0.0"
     runtime: seer  # seer | rhea | atlantis | chronoshift
+    
+    # Option 2: Composite (new - mutually exclusive with ref)
+    # composite_ref:
+    #   name: dispute-investigation-composite
+    #   version: "1.0.0"
 
   # Trigger References (defined separately in TriggerSpec)
   triggers:
@@ -853,6 +861,156 @@ spec:
     endpoint: /health
     interval_seconds: 30
     timeout_seconds: 5
+```
+
+---
+
+## Composite Application Operator
+
+### Hub Composite Application Specification
+
+Manages `HubCompositeApplicationSpec` CRDs that group multiple Hub Applications to participate in the same Request.
+
+#### Responsibilities
+
+- Validates composite structure (no circular references)
+- Validates OPA filter syntax
+- Ensures all referenced applications exist
+- No deployment logic (validation only)
+
+#### Example: Dispute Investigation Composite
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: HubCompositeApplicationSpec
+metadata:
+  name: dispute-investigation-composite
+  namespace: acme-disputes
+  labels:
+    hub.olympus.io/workbench: acme-disputes
+spec:
+  display_name: "Dispute Investigation Composite"
+  description: "Multi-agent composite for dispute resolution"
+  
+  applications:
+    - name: risk-agent
+      ref:
+        name: risk-assessment-agent
+        version: "1.0.0"
+      opa_filter:
+        policy: |
+          package composite.filter
+          default allow = false
+          allow { input.update_type == "REQUEST_CREATED" }
+          allow { input.update_type == "DOCUMENT_UPLOADED" }
+    
+    - name: compliance-agent
+      ref:
+        name: compliance-check-agent
+        version: "1.0.0"
+      opa_filter:
+        policy: |
+          package composite.filter
+          default allow = false
+          allow { input.update_type in ["REQUEST_CREATED", "RISK_ASSESSMENT_COMPLETE"] }
+    
+    # Nested composite
+    - name: customer-service-composite
+      composite_ref:
+        name: customer-service-composite
+        version: "1.0.0"
+  
+  metadata:
+    topology_pattern: "blackboard"
+```
+
+#### Validation Rules
+
+1. **No Circular References**: Composite cannot reference itself (directly or indirectly)
+2. **OPA Filter Syntax**: All inline Rego policies must be valid
+3. **Reference Existence**: All `ref` and `composite_ref` targets must exist
+4. **Mutual Exclusivity**: Each application entry must have exactly one of `ref` or `composite_ref`
+
+---
+
+## Composite Deployment Operator
+
+### Hub Composite Application Deployment
+
+Manages `HubCompositeApplicationDeployment` CRDs that represent running composite instances.
+
+#### Responsibilities
+
+1. **Recursive Resolution**: Flattens nested composites to union of all apps
+2. **Child Deployment Creation**: Creates `HubApplicationDeployment` for each constituent app
+3. **Ownership Management**: Sets `ownerReference` on child deployments
+4. **Status Aggregation**: Aggregates child status → composite status
+5. **Routing Table Population**: Populates routing table with flattened app list + OPA filters
+
+#### Resolution Algorithm
+
+```
+resolveComposite(compositeSpec):
+  apps = []
+  for each app in compositeSpec.applications:
+    if app.ref exists:
+      apps.append({
+        name: app.name,
+        spec: lookupHubApplicationSpec(app.ref),
+        opa_filter: app.opa_filter
+      })
+    else if app.composite_ref exists:
+      nested = lookupCompositeSpec(app.composite_ref)
+      apps.extend(resolveComposite(nested))
+  return apps
+```
+
+#### Deployment Flow
+
+```
+ScenarioDeploymentSpec (with composite_ref)
+  └── Composite Deployment Operator
+        ├── Resolve composite recursively
+        ├── Create HubCompositeApplicationDeployment
+        ├── For each app:
+        │     ├── Create HubApplicationDeployment (with ownerRef)
+        │     └── Compile OPA filter
+        └── Populate routing table:
+              scenario_id → [App1 (+ filter), App2 (+ filter), ...]
+```
+
+#### All-or-Nothing Deployment
+
+- If any child `HubApplicationDeployment` fails, mark composite as Failed
+- Rollback all child deployments
+- Composite status reflects worst child status
+
+#### Example: Composite Deployment
+
+```yaml
+apiVersion: hub.olympus.io/v1
+kind: HubCompositeApplicationDeployment
+metadata:
+  name: dispute-investigation-composite-sandbox
+  namespace: acme-disputes
+  labels:
+    hub.olympus.io/workbench-instance: acme-disputes-sandbox
+spec:
+  compositeRef:
+    name: dispute-investigation-composite
+    version: "1.0.0"
+  workbenchInstance:
+    name: acme-disputes-sandbox
+
+status:
+  phase: Running
+  applicationDeployments:
+    - name: risk-agent
+      deploymentRef: risk-agent-deployment-sandbox
+      phase: Running
+    - name: compliance-agent
+      deploymentRef: compliance-agent-deployment-sandbox
+      phase: Running
 ```
 
 ---
@@ -2041,6 +2199,8 @@ spec:
 | ScenarioAutomationSpec | Register triggers, bind tools | Version bump, revalidate | Deactivate triggers |
 | ScenarioDeploymentSpec | Activate scenario, configure queues | Update SLAs, enrollment | Suspend scenario |
 | HubApplicationSpec | Deploy application to runtime | Rolling deploy | Drain and remove |
+| HubCompositeApplicationSpec | Validate structure, check references | Revalidate on changes | No-op (validation only) |
+| HubCompositeApplicationDeployment | Resolve composite, create child deployments, populate routing table | Update children, recompile filters | Remove children, clear routing table |
 | LogAlertSpec | Create alert rules in Watch | Update thresholds, patterns | Remove alert rules |
 | MetricAlertSpec | Create metric alerts in Watch | Update conditions, thresholds | Remove metric alerts |
 | ProbeSpec | Configure probes in Watch | Update schedules, criteria | Remove probes |

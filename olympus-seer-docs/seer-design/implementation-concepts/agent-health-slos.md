@@ -114,7 +114,7 @@ Agent Health Monitor can trigger sentinels on SLO deviations:
 
 ### Related Systems
 - [Agent Analytics](../subsystems/agent-analytics/README.md) — Uses Agent Analytics data mart for SLO evaluation
-- [Agent Session Sentinel](../subsystems/agent-session-sentinel/README.md) — Can trigger sentinels on SLO deviations
+- [Seer Sentinels](../subsystems/seer-sentinels/README.md) — Can trigger sentinels on SLO deviations
 - [Training Feedback Services](../subsystems/trained-agent-lifecycle-manager/training-feedback-services.md) — Routes feedback for Training Spec improvements
 
 ---

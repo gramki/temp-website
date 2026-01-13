@@ -55,6 +55,8 @@ This document provides a quick reference for all Custom Resource Definitions (CR
 | `ScenarioDeploymentSpec` | scenario-developer-operator | Developer | SLAs, queues, activation |
 | `HubApplicationSpec` | hub-application-operator | Developer | Application code and config |
 | `HubApplicationDeployment` | hub-application-operator | (Generated) | Running application instance — parent of runtime resources |
+| `HubCompositeApplicationSpec` | composite-application-operator | Developer | Composite application grouping multiple apps |
+| `HubCompositeApplicationDeployment` | composite-deployment-operator | (Generated) | Running composite instance — parent of child app deployments |
 | `LogAlertSpec` | workbench-apm-operator | Developer | Log-based alerts |
 | `MetricAlertSpec` | workbench-apm-operator | Developer | Metric-based alerts |
 | `ProbeSpec` | workbench-apm-operator | Developer | Health and availability probes |
@@ -314,11 +316,47 @@ spec:
 ```yaml
 spec:
   normative_ref: { name, version }
-  application: { ref, version, runtime }
+  application:
+    # Option 1: Single app (existing)
+    ref: { name, version }
+    # Option 2: Composite (new - mutually exclusive with ref)
+    composite_ref: { name, version }
   triggers: [ { id, signal_source, signal_match, context_transform } ]
   tools: [ { id, tool_ref, permissions } ]
   state_machine: { initial_state, states }
   ai_agent: { model, system_prompt_ref, guardrails }
+```
+
+### HubCompositeApplicationSpec
+```yaml
+spec:
+  display_name: string
+  description: string
+  applications:
+    - name: string  # Local identifier within composite
+      ref: { name, version }  # Reference to HubApplicationSpec
+      composite_ref: { name, version }  # OR reference to nested composite
+      opa_filter:  # Optional OPA filter for update routing
+        policy: string  # Inline Rego policy
+  metadata:
+    topology_pattern: string  # blackboard | pec_loop | market_based | committee
+```
+
+### HubCompositeApplicationDeployment
+```yaml
+spec:
+  compositeRef: { name, version }
+  workbenchInstance: { name }
+  applicationOverrides:  # Optional per-app overrides
+    - name: string
+      resources: { cpu, memory }
+
+status:
+  phase: Pending | Deploying | Running | Failed | Terminating
+  applicationDeployments:
+    - name: string
+      deploymentRef: string
+      phase: string
 ```
 
 ### ScenarioDeploymentSpec

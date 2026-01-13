@@ -218,7 +218,7 @@ sequenceDiagram
 
 - [SLO Manager](./slo-manager.md) — SLO definition and threshold management
 - [Agent Analytics](../agent-analytics/data-mart-service.md) — Analytics data mart source
-- [Agent Session Sentinel](../agent-session-sentinel/README.md) — Sentinel triggering
+- [Seer Sentinels](../seer-sentinels/README.md) — Sentinel triggering
 
 ---
 

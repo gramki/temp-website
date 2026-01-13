@@ -169,7 +169,7 @@ slo_metadata:
 
 - [Health Spec Manager](./health-spec-manager.md) — Spec structure and SLO definitions
 - [SLO Tracking Service](./slo-tracking-service.md) — SLO deviation tracking
-- [Agent Session Sentinel](../agent-session-sentinel/README.md) — Can trigger on SLO deviations
+- [Seer Sentinels](../seer-sentinels/README.md) — Can trigger on SLO deviations
 
 ---
 

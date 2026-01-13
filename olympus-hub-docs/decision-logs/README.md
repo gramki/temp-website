@@ -132,6 +132,8 @@ All ADRs follow the standard format:
 | [0118](./0118-cognitive-operations-governance-workbench-type.md) | Cognitive Operations Governance Workbench Type (COGW) | Accepted | 2026-01-14 | seer, hub-integration |
 | [0119](./0119-cog-sentinel-cross-workbench-enrollment.md) | COG Sentinel Cross-Workbench Enrollment | Accepted | 2026-01-14 | seer, hub-integration |
 | [0120](./0120-cogw-operator-subscription-scope.md) | COGW Operator Subscription Scope | Accepted | 2026-01-14 | seer, hub-integration |
+| [0125](./0125-hub-composite-applications.md) | Hub Composite Applications for multi-agent topologies | Accepted | 2026-01-15 | application-architecture |
+| [0126](./0126-composite-routing-table-schema.md) | Composite Routing Table Schema (multi-app support) | Accepted | 2026-01-15 | signal-exchange |
 
 ---
 
@@ -158,6 +160,7 @@ All ADRs follow the standard format:
 
 ### Composite
 - [0007](./0007-composite-pattern-technology-agnostic.md) - Composite patterns are technology agnostic
+- [0125](./0125-hub-composite-applications.md) - Hub Composite Applications for multi-agent topologies
 
 ### UX
 - [0013](./0013-shared-utility-consoles.md) - Shared utility consoles between Agent and Supervisor
@@ -174,6 +177,7 @@ All ADRs follow the standard format:
 - [0019](./0019-signal-exchange-observer-pattern.md) - Observer pattern for SX module integration
 - [0020](./0020-request-level-granularity.md) - Signal Exchange operates at Request level only
 - [0026](./0026-signal-exchange-reminder-capability.md) - Signal Exchange built-in reminder capability
+- [0126](./0126-composite-routing-table-schema.md) - Composite Routing Table Schema (multi-app support)
 
 ### Notification
 - [0021](./0021-cns-as-delivery-layer.md) - Cipher Notification Service as delivery layer
@@ -281,6 +285,9 @@ All ADRs follow the standard format:
 - [0122](./0122-persona-twin-scenario-isolation.md) - Metadata label + category for Persona Twin Scenario isolation
 - [0123](./0123-persona-twin-trigger-mechanisms.md) - Task assignment, notification, and schedule triggers for Persona Twins
 - [0124](./0124-persona-twin-visibility-controls.md) - Scenario-level public/private visibility for Persona Twins
+
+### Application Architecture
+- [0125](./0125-hub-composite-applications.md) - Hub Composite Applications for multi-agent topologies
 
 ### UX Architecture
 - [0082](./0082-hub-desk-restructuring.md) - Hub Desk Restructuring (Workbench Studio → 3 Desks)

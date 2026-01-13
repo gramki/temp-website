@@ -306,12 +306,62 @@ Updates to persistent memory stores. Applies to Subject Memory, Org Memory, and 
 
 ---
 
+## Composite Application Updates
+
+When a Request is processed by a Composite Application (multiple apps), updates can come from multiple sources concurrently.
+
+### Source App Tracking
+
+Each update in request history includes a `source_app` field identifying which application produced the update:
+
+```json
+{
+  "timestamp": "2026-01-15T10:01:00Z",
+  "source_app": "risk-agent-deployment-sandbox",
+  "update_type": "RISK_ASSESSMENT_COMPLETE",
+  "status": "accepted",
+  "payload": {...}
+}
+```
+
+### Update Conflict Resolution
+
+Multiple apps can update the same request concurrently:
+
+1. **Latest Wins**: Updates are resolved by timestamp - the latest update to reach Signal Exchange wins
+2. **Illegal Updates Rejected**: If an update violates state transition rules (enforced by OPA policy), it is recorded as rejected
+3. **Rejected Updates Tracked**: Rejected updates are recorded in request history with:
+   - `status: "rejected"`
+   - `rejection_reason`: Human-readable explanation
+   - `source_app`: Which app attempted the update
+
+```json
+{
+  "timestamp": "2026-01-15T10:01:05Z",
+  "source_app": "compliance-agent-deployment-sandbox",
+  "update_type": "STATE_UPDATE",
+  "status": "rejected",
+  "rejection_reason": "Invalid state transition: cannot move from ACTIVE to COMPLETED without PENDING",
+  "payload": {...}
+}
+```
+
+### Concurrent Update Handling
+
+- Apps operate independently - no coordination required
+- Each app's updates are tracked separately in history
+- Request state reflects the latest accepted update
+- All updates (accepted and rejected) are preserved for audit
+
+---
+
 ## Request as Session Boundary
 
 The request defines a session boundary for:
 - Scope storage (request-local data)
 - Agent memory scope
 - Audit trail
+- Multiple application sessions (for composite applications)
 - Participant context
 
 ---

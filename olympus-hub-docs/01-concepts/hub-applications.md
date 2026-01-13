@@ -30,6 +30,9 @@ A **Hub Application** represents:
 | **Rhea** | Workflow App | BPMN workflow execution |
 | **ChronoShift** | Durable Workflow App | Long-running durable workflows (Temporal) |
 | **Seer** | Seer Case Orchestration Agent | AI-driven case management and orchestration |
+| **Hub** | Composite Application | Multiple applications participating in same Request |
+
+**Composite Applications** enable multi-agent topologies where multiple Hub Applications coordinate through shared Request state. See [Hub Composite Application](../02-system-design/implementation-concepts/hub-composite-application.md) for details.
 
 ---
 

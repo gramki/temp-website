@@ -294,8 +294,8 @@ audit_entry:
 
 - [COGW Operator](./cogw-operator.md) — Read-only sync mechanism
 - [COG Sentinel Specification](./cog-sentinel-specification.md) — COG Sentinel definition
-- [Sentinel Levers](../agent-session-sentinel/sentinel-levers.md) — Enable/disable controls
-- [Sentinel Directory](../agent-session-sentinel/sentinel-directory.md) — Sentinel visibility
+- [Sentinel Levers](../seer-sentinels/sentinel-levers.md) — Enable/disable controls
+- [Sentinel Directory](../seer-sentinels/sentinel-directory.md) — Sentinel visibility
 
 ---
 

@@ -80,7 +80,7 @@ flowchart TB
 ## Related
 
 - [Observability Extensions to Watch](../observability-extensions-to-watch/README.md) — Runtime observability (separate subsystem)
-- [Agent Session Sentinel](../agent-session-sentinel/README.md) — Uses Agent Analytics data mart for analytical sentinels
+- [Seer Sentinels](../seer-sentinels/README.md) — Uses Agent Analytics data mart for analytical sentinels
 - [Agent Health Monitor](../agent-health-monitor/README.md) — Uses Agent Analytics data mart for SLO evaluation
 - [Hub Analytics](../../../olympus-hub-docs/04-subsystems/hub-analytics/README.md) — Analogous Hub subsystem
 - [Olympus LakeStack](../../../olympus-hub-docs/05-infrastructure/olympus-lakestack.md) — LakeStack Pontus and Report Center infrastructure

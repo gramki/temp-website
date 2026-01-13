@@ -28,7 +28,7 @@ The ontology describes Automation abstractly. Hub Application specifies:
 1. **Packaging**: How automations are containerized and versioned
 2. **Deployment**: How automations are deployed to runtimes
 3. **Communication**: How automations receive and send signals
-4. **Composition**: How automations can be composed (as agents, tools, etc.)
+4. **Composition**: How automations can be composed (as agents, tools, or in [Composite Applications](./hub-composite-application.md))
 
 ---
 
@@ -377,7 +377,9 @@ spec:
 ## References
 
 - [Hub Applications (Ontology)](../../01-concepts/hub-applications.md)
+- [Hub Composite Application](./hub-composite-application.md) - Multi-app participation in same Request
 - [Automation Runtimes Subsystem](../../04-subsystems/automation-runtimes/README.md)
 - [HTTP Tool Calling Application](../../04-subsystems/hub-native-utilities/http-tool-calling-application.md)
 - [ADR-0007: Technology Agnostic](../../decision-logs/0007-composite-pattern-technology-agnostic.md)
+- [ADR-0125: Hub Composite Applications](../../decision-logs/0125-hub-composite-applications.md)
 

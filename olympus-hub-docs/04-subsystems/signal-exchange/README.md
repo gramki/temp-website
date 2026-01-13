@@ -132,11 +132,13 @@ All I/O Gateways are Signal Providers, but not all Signal Providers are I/O Gate
 
 ### Request as Application Session
 
-A **Request** represents a potentially long-running session for a Hub Application:
+A **Request** represents a potentially long-running session for one or more Hub Applications:
+- **Single Application**: One Request → one Application session
+- **Composite Application**: One Request → multiple Application sessions (each app operates independently)
 - Initial signal creates the Request
 - Subsequent signals can update the Request
-- The Application processes the Request over its lifetime
-- The Request tracks the full interaction history
+- The Application(s) process the Request over its lifetime
+- The Request tracks the full interaction history (including source_app for composite updates)
 
 ### Request Hierarchy (Parent-Child Requests)
 
@@ -267,9 +269,10 @@ scenario:
    a. Creates new Request OR
    b. Updates existing Request (for ongoing sessions)
 5. Application Router:
-   a. Determines target Hub Application from Scenario
-   b. Routes Request to Application
-6. Hub Application begins processing
+   a. Determines target Hub Application(s) from Scenario (routing table)
+   b. For single app: Routes Request to Application
+   c. For multiple apps (composite): Routes Request Update to all apps (after OPA filter evaluation)
+6. Hub Application(s) begin processing
 ```
 
 > **Note:** Signal Exchange executes triggers and creates/manages requests. Signal Providers only forward signals in normalized format; they do not execute triggers or create requests.

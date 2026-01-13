@@ -10,6 +10,8 @@
 
 An **Employed Agent** is a Trained Agent granted delegated authority and deployed to serve a specific Scenario. In Hub terms, an Employed Agent corresponds to a **Deployed Hub Application** created during Scenario Deployment.
 
+**Composite Applications**: Employed Agents can be part of [Hub Composite Applications](../../olympus-hub-docs/02-system-design/implementation-concepts/hub-composite-application.md), where multiple agents participate in the same Request. Each agent operates independently with its own session - no code changes needed in Seer.
+
 ---
 
 ## Deployment Flow

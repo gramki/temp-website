@@ -32,9 +32,13 @@ scenario:
   
   # Application binding
   application:
+    # Option 1: Single app (existing)
     automation_system: enum  # atlantis | perseus | rhea | chronoshift | seer
     application_id: string
     application_type: string  # File App, Workflow App, etc.
+    
+    # Option 2: Composite (new - mutually exclusive)
+    # composite_id: string  # Reference to HubCompositeApplicationSpec
   
   # Roles involved
   roles:
@@ -82,6 +86,8 @@ scenario:
   application:
     automation_system: seer
     application_id: "dispute-resolution-agent"
+    # OR for composite:
+    # composite_id: "dispute-investigation-composite"
 ```
 
 ### Persona Twin Scenarios
@@ -249,13 +255,47 @@ GET /workbenches/{workbench_id}/scenarios?category=persona-twin&delegator={curre
 
 ---
 
+## Routing Table Schema
+
+The routing table maps scenarios to applications for Signal Exchange routing. It supports both single-app and multi-app (composite) scenarios:
+
+### Single Application (Existing)
+
+```yaml
+scenario_routing:
+  scenario_id: "dispute-investigation"
+  application:
+    deployment_id: "dispute-handler-sandbox"
+    endpoint: "http://dispute-handler:8080"
+```
+
+### Multiple Applications (Composite)
+
+```yaml
+scenario_routing:
+  scenario_id: "dispute-investigation"
+  applications:
+    - deployment_id: "risk-agent-deployment-sandbox"
+      endpoint: "http://risk-agent:8080"
+      opa_filter: "<compiled Rego policy>"
+    - deployment_id: "compliance-agent-deployment-sandbox"
+      endpoint: "http://compliance-agent:8080"
+      opa_filter: "<compiled Rego policy>"
+```
+
+The routing table is populated by the Composite Deployment Operator when a composite is deployed. See [ADR-0126](../../decision-logs/0126-composite-routing-table-schema.md) for details.
+
+---
+
 ## Related Documentation
 
 - [Workbench Management Overview](./README.md)
 - [Trigger Definitions](./trigger-definitions.md)
 - [Application Configuration](./application-configuration.md)
+- [Hub Composite Application](../../02-system-design/implementation-concepts/hub-composite-application.md) — Composite application pattern
+- [ADR-0126: Composite Routing Table Schema](../../decision-logs/0126-composite-routing-table-schema.md)
 - [Persona Twins](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twins.md) — Persona Twin concept documentation
 
 ---
 
-*Scenario Definitions describe how scenarios are configured, including support for Persona Twin Scenarios with category isolation, visibility controls, and specialized triggers.*
+*Scenario Definitions describe how scenarios are configured, including support for Persona Twin Scenarios with category isolation, visibility controls, and specialized triggers. Composite applications enable multiple apps to participate in the same request.*
