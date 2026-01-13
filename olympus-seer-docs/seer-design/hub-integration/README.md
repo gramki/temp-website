@@ -177,6 +177,8 @@ When a Hub Request update reaches a Seer agent:
 |----------|-------------|--------|
 | [Training Spec CRD](./training-spec-crd.md) | Full TrainingSpec CRD schema | 🟡 Draft |
 | [Employment Spec CRD](./employment-spec-crd.md) | Full EmploymentSpec CRD schema | 🟡 Draft |
+| [Sentinel Scenario Processing](./sentinel-scenario-processing.md) | Hub Operators processing of SentinelScenarioSpec CRDs | 🟢 Complete |
+| [COGW Workbench Integration](./cogw-workbench-integration.md) | COGW workbench type, default COGW, workbench enumeration | 🟢 Complete |
 
 ---
 

@@ -149,9 +149,32 @@ When a Hub Application invokes another Scenario **within the same workbench** (a
 | **Observer Isolation** | Observers see only their specific request's updates |
 | **Depth Limit** | Configurable per workbench (default: 5) |
 
-**Cross-workbench invocations** do NOT create parent-child relationships — invoker must explicitly forward context.
+**Cross-workbench invocations** by default do NOT create parent-child relationships — invoker must explicitly forward context.
 
-→ **Details:** [Request Hierarchy](../request-management/request-hierarchy.md)
+### Cross-Workbench Request Creation
+
+When `WorkbenchContextSharingSpec` is configured on both workbenches, Signal Exchange supports cross-workbench parent-child relationships:
+
+| Aspect | Behavior |
+|--------|----------|
+| **Validation** | Mutual acknowledgment required (both workbenches configure sharing) |
+| **Token Generation** | Access token created for child to access parent context |
+| **Subscription Constraint** | Both workbenches must be in same subscription |
+| **Lifecycle Cascade** | Best-effort propagation with retry |
+
+```
+Cross-Workbench Child Request Creation Flow:
+1. Hub Application invokes scenario in different workbench
+2. Signal Exchange validates WorkbenchContextSharingSpec on both sides
+3. If valid: Generate access token for parent context
+4. Create child request in target workbench with:
+   - parent_request_id
+   - cross_workbench.parent_workbench_id
+   - cross_workbench.ancestor_context_tokens
+5. Dispatch to target workbench's Signal Exchange
+```
+
+→ **Details:** [Request Hierarchy](../request-management/request-hierarchy.md) | [Cross-Workbench Context Sharing](../../02-system-design/implementation-concepts/workbench-context-sharing.md)
 
 ### Message Dispatch vs Request Status
 
@@ -346,6 +369,128 @@ This flow enables **Agent Directability** — the ability for humans to interven
 | **Batch** | Updates aggregated and delivered to observer module periodically |
 
 > **Note:** These patterns describe how Signal Exchange delivers to observer **modules** (like MS Teams integration, Neutrino, dashboards). User-level notification logic is the responsibility of each observer module.
+
+### Request Sentinel Auto-Enrollment
+
+Request Sentinels are a special type of observer that automatically enrolls in requests based on configurable filters. Unlike regular observers that passively receive notifications, Request Sentinels create child requests and actively participate in the request lifecycle.
+
+#### Enrollment on Request Creation
+
+When a new request is created:
+
+```
+1. Signal arrives, Request Factory creates new request
+2. Signal Exchange queries Sentinel Directory for active Request Sentinels in workbench
+3. For each active sentinel:
+   a. Apply scenario_whitelist filter (if configured)
+   b. Apply scenario_blacklist filter (if configured)
+   c. If filters match:
+      - Create child request using sentinel's scenario
+      - Add sentinel's Employed Agent as assignee
+      - Notify sentinel via webhook with request context
+4. Parent request continues normal processing
+5. Sentinel processes in parallel via child request
+```
+
+#### Enrollment on Request Update
+
+Request Sentinels can also enroll on updates to existing requests:
+
+```
+1. Hub Application sends REQUEST_UPDATE to Signal Exchange
+2. Signal Exchange queries for Request Sentinels NOT already enrolled in this request
+3. For each eligible sentinel with on_request_update.enabled: true:
+   a. Evaluate update_filter_policy (OPA Rego) against the update
+   b. Apply scenario filters
+   c. If policy returns true AND filters match:
+      - Create child request using sentinel's scenario
+      - Notify sentinel via webhook
+4. Continue normal REQUEST_UPDATE processing
+```
+
+#### Enrollment Filters
+
+| Filter Type | Description | Evaluation |
+|-------------|-------------|------------|
+| `scenario_whitelist` | Only enroll if parent scenario in list | First (if specified) |
+| `scenario_blacklist` | Never enroll if parent scenario in list | Second |
+| `update_filter_policy` | OPA policy evaluated against REQUEST_UPDATE | For update enrollment only |
+
+#### Sentinel Notification Delivery
+
+Request Sentinels receive notifications via webhook:
+
+```yaml
+sentinel_notification:
+  sentinel_id: "token-usage-governance"
+  child_request_id: "req-child-001"
+  parent_request_id: "req-parent-001"
+  
+  enrollment_context:
+    trigger: "on_request_creation"  # or "on_request_update"
+    scenario_id: "standard-dispute"
+    workbench_id: "acme-disputes"
+  
+  # Full REQUEST_UPDATE DTO
+  update:
+    update_type: "PROGRESS"
+    payload: {...}
+```
+
+**Delivery Characteristics:**
+- Asynchronous webhook delivery
+- No acknowledgment required from sentinel
+- Retry logic per Notification Service guarantees
+- If delivery fails after retries, update is lost (sentinel can detect gaps on next update)
+
+→ See [Sentinel Scenario Processing](../../../olympus-seer-docs/seer-design/hub-integration/sentinel-scenario-processing.md) for full specification.
+
+### COG Sentinel Signal Forwarding
+
+COG Sentinels are Request Sentinels defined in COGW workbenches that operate across multiple target workbenches. Signal forwarding enables COG Sentinels to receive updates from requests in target workbenches.
+
+#### Forwarding Flow
+
+```
+1. Request created/updated in TARGET workbench
+2. Signal Exchange checks registered COG Sentinels for this workbench
+3. For each registered COG Sentinel:
+   a. Apply participation.filters (scenario whitelist/blacklist, OPA policy)
+   b. If filters match:
+      - Forward signal to COGW workbench's Signal Exchange
+      - COGW Signal Exchange creates child request
+      - COG Sentinel notified via webhook in COGW
+4. Child request in COGW has cross-workbench parent reference
+```
+
+#### Cross-Workbench Child Request
+
+```yaml
+child_request:
+  request_id: cog-req-67890
+  workbench_id: acme-cogw  # COGW workbench
+  scenario: token-governance
+  
+  parent:
+    request_id: req-12345
+    workbench_id: production-loans  # Target workbench
+    cross_workbench: true
+    context_token: "jwt-for-context-access"
+```
+
+#### COG Sentinel Registration
+
+COGW Operator registers COG Sentinels with Signal Exchange in target workbenches:
+
+| Registration Field | Description |
+|--------------------|-------------|
+| `sentinel_id` | COG Sentinel identifier |
+| `source_workbench` | COGW workbench ID |
+| `target_workbench` | Target workbench ID |
+| `participation_filters` | Filters from SentinelScenarioAutomationSpec |
+| `forward_endpoint` | COGW Signal Exchange endpoint |
+
+→ See [COGW Signal Forwarding](../../../olympus-seer-docs/seer-design/subsystems/cognitive-operations-governance-workbench/signal-forwarding.md) for details.
 
 ---
 

@@ -21,6 +21,8 @@ This folder contains the design documents for **Olympus Seer** (Seer) — Zeta's
 - [Agent Observability](./subsystems/agent-observability.md) — SDK, Watch integration
 - [Agent Test Runner](./subsystems/agent-test-runner/README.md) — Agent testing, behavior validation, health and safety checks
 - [Model Gateway](./subsystems/model-gateway.md)
+- [Seer Sentinels](./subsystems/seer-sentinels/README.md) — Realtime, Analytical, and Request sentinels for agent oversight
+- [Cognitive Operations Governance Workbench](./subsystems/cognitive-operations-governance-workbench/README.md) — Subscription-wide governance via COG Sentinels
 
 ## Hub Integration
 

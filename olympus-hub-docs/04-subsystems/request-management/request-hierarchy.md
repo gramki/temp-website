@@ -1,7 +1,7 @@
 # Request Hierarchy
 
 > **Status:** ✅ Complete  
-> **Last Updated:** 2026-01-07  
+> **Last Updated:** 2026-01-14  
 > **Parent:** [Request Management](./README.md)
 
 ---
@@ -14,11 +14,12 @@ When a Hub Application invokes another Scenario **within the same workbench** (a
 
 | Principle | Description |
 |-----------|-------------|
-| **Same-Workbench Only** | Parent-child relationships only exist within the same workbench |
-| **Context Inheritance** | Child requests can access parent context via reference |
+| **Same-Workbench Default** | Parent-child relationships exist within the same workbench by default |
+| **Cross-Workbench Extension** | Parent-child can span workbenches with explicit configuration |
+| **Context Inheritance** | Child requests can access parent context via reference (or token for cross-workbench) |
 | **Lifecycle Cascade** | Child requests are completed/cancelled when parent completes/cancels |
 | **Observer Isolation** | Observers see updates for their specific request only |
-| **Depth Limits** | Configurable maximum nesting depth per workbench |
+| **Depth Limits** | Configurable maximum nesting depth per workbench (not global) |
 
 ---
 
@@ -45,13 +46,13 @@ When a Hub Application invokes another Scenario **within the same workbench** (a
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Not Parent-Child (Cross-Workbench)
+### Cross-Workbench Invocations (Default Behavior)
 
-Cross-workbench scenario invocations do **NOT** create parent-child relationships:
+By default, cross-workbench scenario invocations do **NOT** create parent-child relationships:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                   CROSS-WORKBENCH INVOCATION                                 │
+│              CROSS-WORKBENCH INVOCATION (Default — No Context Sharing)       │
 │                                                                              │
 │   Workbench A                           Workbench B                          │
 │   ──────────                           ──────────                            │
@@ -67,6 +68,37 @@ Cross-workbench scenario invocations do **NOT** create parent-child relationship
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+### Cross-Workbench Parent-Child (With Context Sharing)
+
+When both workbenches configure explicit context sharing via `WorkbenchContextSharingSpec`, cross-workbench parent-child relationships **are** supported:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│           CROSS-WORKBENCH INVOCATION (With Context Sharing Configured)       │
+│                                                                              │
+│   Workbench A (Parent)                  Workbench B (Child)                  │
+│   ────────────────────                  ───────────────────                  │
+│                                                                              │
+│   Hub Application ────▶ Invoke Scenario ────▶ Child Request                  │
+│   (Request A)                                 (Request B — IS a child)       │
+│                                                                              │
+│   Request B includes:                                                        │
+│   • parent_request_id: Request A                                             │
+│   • cross_workbench.parent_workbench_id: Workbench A                        │
+│   • cross_workbench.ancestor_context_tokens: [token for WB-A]               │
+│   • Context inheritance via token-based access                               │
+│   • Lifecycle cascade (best-effort)                                          │
+│                                                                              │
+│   Requirements:                                                              │
+│   • Both workbenches must be in same subscription                            │
+│   • WB-A must have child_contexts including WB-B                             │
+│   • WB-B must have parent_contexts including WB-A                            │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+→ See [Cross-Workbench Context Sharing](../../02-system-design/implementation-concepts/workbench-context-sharing.md) for full configuration details.
+
 ---
 
 ## Request Hierarchy Structure
@@ -80,16 +112,36 @@ request:
   workbench_id: "wb-fraud-ops"
   scenario_id: "document-verification"
   
-  # Hierarchy fields
+  # Hierarchy fields (same-workbench)
   hierarchy:
     parent_request_id: "req-parent-001"    # Immediate parent (null if root)
     root_request_id: "req-parent-001"      # Top-level ancestor
     depth: 1                                # 0 = root, 1 = child, 2 = grandchild, etc.
+  
+  # Cross-workbench hierarchy fields (only present for cross-workbench children)
+  cross_workbench:
+    parent_workbench_id: "wb-retail-loans" # Parent's workbench (null if same workbench)
+    root_workbench_id: "wb-retail-loans"   # Root request's workbench
+    global_depth: 2                         # Total depth across all workbenches
+    ancestor_context_tokens:                # Tokens for accessing ancestor contexts
+      - workbench_id: "wb-retail-loans"
+        token: "eyJhbGciOiJSUzI1NiIs..."
+        scope: ["req-root-001", "req-parent-001"]
+        expires_at: "2026-01-15T10:30:00Z"
     
   # Standard fields
   status: "ACTIVE"
   created_at: "2026-01-07T10:15:00Z"
 ```
+
+**Cross-Workbench Fields Explained:**
+
+| Field | Description |
+|-------|-------------|
+| `parent_workbench_id` | Workbench ID of the immediate parent (null if same workbench) |
+| `root_workbench_id` | Workbench ID of the root request in the hierarchy |
+| `global_depth` | Total depth counting across all workbenches (0 = root) |
+| `ancestor_context_tokens` | JWT tokens for accessing ancestor context in each workbench |
 
 ### Hierarchy Relationships
 
@@ -109,7 +161,7 @@ Root Request (depth=0)
 
 ### Configuration
 
-Maximum request hierarchy depth is configurable per workbench:
+Maximum request hierarchy depth is configurable **per workbench**:
 
 ```yaml
 apiVersion: hub.olympus.io/v1
@@ -124,14 +176,39 @@ spec:
     on_violation: reject            # reject | warn_and_reject
 ```
 
+### Per-Workbench vs Global Depth
+
+Depth limits apply **within each workbench**, not globally across workbenches:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    DEPTH LIMITS: PER-WORKBENCH                               │
+│                                                                              │
+│   Workbench A (max_depth: 5)          Workbench B (max_depth: 3)            │
+│   ──────────────────────────          ──────────────────────────            │
+│                                                                              │
+│   Request A-1 (depth: 0)                                                     │
+│   └── Request A-2 (depth: 1)                                                 │
+│       └── Request A-3 (depth: 2) ─── creates cross-WB child ───▶            │
+│                                       Request B-1 (depth: 0, global: 3)     │
+│                                       └── Request B-2 (depth: 1, global: 4)  │
+│                                           └── Request B-3 (depth: 2, global: 5)
+│                                                                              │
+│   • depth resets to 0 when entering new workbench                            │
+│   • global_depth counts total across all workbenches                         │
+│   • Each workbench enforces its own max_depth limit                          │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
 ### Default and Recommendations
 
 | Aspect | Value |
 |--------|-------|
-| **Default max_depth** | 5 |
+| **Default max_depth** | 5 (per workbench) |
 | **Practical recommendation** | ≤5 levels for maintainability |
 | **Minimum** | 1 (at least one level of child requests) |
-| **Maximum** | 10 (platform limit) |
+| **Maximum** | 10 (platform limit per workbench) |
 
 ### Violation Handling
 
@@ -147,6 +224,7 @@ error:
     max_depth: 5
     parent_request_id: "req-12345"
     attempted_scenario: "document-verification"
+    workbench_id: "fraud-ops"
 ```
 
 The invocation **fails** — no child request is created.
@@ -215,7 +293,7 @@ Context records are **immutable**:
 
 ### Get Compiled Context (with Ancestors)
 
-Signal Exchange provides an API to retrieve compiled context including ancestor context:
+Request Lifecycle Manager provides an API to retrieve compiled context including ancestor context:
 
 ```yaml
 # GET /requests/{request_id}/compiled-context
@@ -223,10 +301,12 @@ Signal Exchange provides an API to retrieve compiled context including ancestor 
 
 response:
   request_id: "req-grandchild-001"
+  workbench_id: "fraud-ops"
   
-  # Ancestor chain (root first)
+  # Ancestor chain (root first) — may include cross-workbench ancestors
   ancestor_context:
     - request_id: "req-root-001"
+      workbench_id: "fraud-ops"           # Same workbench
       depth: 0
       context:
         version: "v3"
@@ -235,6 +315,7 @@ response:
         applicable_sops: [...]
     
     - request_id: "req-child-001"
+      workbench_id: "fraud-ops"           # Same workbench
       depth: 1
       context:
         version: "v2"
@@ -244,6 +325,7 @@ response:
   # Current request context
   current_context:
     request_id: "req-grandchild-001"
+    workbench_id: "fraud-ops"
     depth: 2
     context:
       version: "v1"
@@ -257,6 +339,62 @@ response:
     applicable_sops: [...]    # Union of all SOPs
     # Note: On conflict, child values take precedence
 ```
+
+### Cross-Workbench Context Compilation
+
+For requests with cross-workbench ancestors, context is compiled by fetching from each workbench:
+
+```yaml
+# GET /requests/{request_id}/compiled-context
+# Request B-1 in Workbench B with parent A-1 in Workbench A
+
+response:
+  request_id: "req-B-1"
+  workbench_id: "customer-lifecycle-ops"
+  
+  # Ancestor context includes cross-workbench parent
+  ancestor_context:
+    - request_id: "req-A-1"
+      workbench_id: "retail-loans-workbench"  # Different workbench!
+      depth: 0
+      context:
+        version: "v2"
+        verified_facts:
+          - type: customer_identity
+            customer_id: "cust-12345"
+          - type: loan_application
+            loan_amount: 500000
+            loan_purpose: "home_purchase"
+        constraints:
+          - "Loan requires AML clearance"
+  
+  current_context:
+    request_id: "req-B-1"
+    workbench_id: "customer-lifecycle-ops"
+    depth: 0                               # Depth resets in new workbench
+    context:
+      version: "v1"
+      verified_facts: []                   # Initially empty
+```
+
+**How Cross-Workbench Context is Fetched:**
+
+```
+Request Lifecycle Manager (child workbench)
+    │
+    ├── Local context (same-workbench ancestors)
+    │       └── Direct database query
+    │
+    └── Cross-workbench context (per ancestor workbench)
+            └── HTTP call using ancestor_context_token
+                    │
+                    ▼
+            Request Lifecycle Manager (ancestor workbench)
+                    │
+                    └── Validates token, returns context
+```
+
+→ One API call per unique workbench in the ancestor chain.
 
 ### Context Update Notifications
 
@@ -315,6 +453,45 @@ Parent Request: CANCELLED
 | `ACTIVE` → `PENDING` | No cascade — descendants continue processing |
 | `PENDING` → `ACTIVE` | No cascade — descendants continue processing |
 
+### Cross-Workbench Cascade (Best-Effort)
+
+For cross-workbench parent-child relationships, cascade is **best-effort**:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    CROSS-WORKBENCH LIFECYCLE CASCADE                         │
+│                                                                              │
+│   Workbench A                           Workbench B                          │
+│   ──────────                           ──────────                            │
+│                                                                              │
+│   Parent Request                        Child Request                        │
+│   ┌─────────────────┐                   ┌─────────────────┐                  │
+│   │ COMPLETED       │                   │ ACTIVE          │                  │
+│   └────────┬────────┘                   └────────┬────────┘                  │
+│            │                                     │                           │
+│            │  ─── Cascade notification ────────▶ │                           │
+│            │      (async, with retry)            ▼                           │
+│            │                            ┌─────────────────┐                  │
+│            │                            │ COMPLETED       │                  │
+│            │                            │ reason:         │                  │
+│            │                            │ PARENT_COMPLETED│                  │
+│            │                            └─────────────────┘                  │
+│                                                                              │
+│   If cascade fails after retries:                                            │
+│   • Child marked as potentially orphaned                                     │
+│   • Cleanup job will reconcile                                               │
+│   • Access tokens revoked                                                    │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+| Aspect | Same-Workbench | Cross-Workbench |
+|--------|----------------|-----------------|
+| **Semantics** | Synchronous | Asynchronous (best-effort) |
+| **Retry** | Not needed | 3 attempts with exponential backoff |
+| **Failure handling** | Guaranteed | Mark as orphaned for cleanup |
+| **Token revocation** | N/A | Automatic on parent completion |
+
 ### Child Completion Does Not Affect Parent
 
 When a child request completes:
@@ -323,6 +500,104 @@ When a child request completes:
 - Parent request continues processing
 - Parent decides next steps based on child result
 - Child context is **isolated** — does not merge into parent
+
+---
+
+## Request Sentinel Child Requests
+
+Request Sentinels are AI agents that observe and/or participate in requests. When a sentinel enrolls in a request, a child request is created using the sentinel's own scenario.
+
+### Sentinel Child Request Characteristics
+
+| Aspect | Behavior |
+|--------|----------|
+| **Scenario** | Child uses sentinel's scenario (NOT parent's scenario) |
+| **Context Inheritance** | By reference (same as regular child requests) |
+| **Lifecycle Cascade** | Standard cascade applies (parent completion → child completion) |
+| **Observer** | Sentinel is automatically the primary observer of its child request |
+
+### Sentinel Child Request Structure
+
+```yaml
+child_request:
+  id: "req-sentinel-child-001"
+  parent_request_id: "req-parent-001"
+  workbench_id: "acme-disputes"
+  scenario_id: "token-usage-governance"  # Sentinel's scenario, NOT parent's
+  
+  hierarchy:
+    parent_request_id: "req-parent-001"
+    root_request_id: "req-parent-001"
+    depth: 1
+    child_type: "sentinel"  # Distinguishes from tool/agent invocation
+  
+  # Sentinel-specific metadata
+  sentinel_metadata:
+    sentinel_id: "token-usage-governance"
+    participation_mode: "observe_and_participate"
+    enrolled_at: "2026-01-14T10:30:00Z"
+    enrollment_trigger: "on_request_creation"
+  
+  status: "ACTIVE"
+```
+
+### Stale Update Handling
+
+When a parent request completes or is cancelled:
+
+1. All sentinel child requests are marked `COMPLETED` or `CANCELLED` (standard cascade)
+2. Any REQUEST_UPDATE received after completion is **not delivered** to sentinels
+3. Sentinel's child request status reflects parent's terminal status
+
+If a sentinel receives an update for an already-completed child request:
+- The sentinel can detect this via the child request status
+- No action is expected — the monitoring context is closed
+- Any pending actions in the sentinel should be gracefully abandoned
+
+### Multiple Sentinels on Same Request
+
+Multiple Request Sentinels can enroll in the same parent request:
+
+```
+Parent Request (depth=0)
+├── Sentinel Child A (depth=1) — Token Usage Governance
+├── Sentinel Child B (depth=1) — Compliance Monitor
+└── Sentinel Child C (depth=1) — Quality Assurance Sampler
+```
+
+Each sentinel:
+- Has its own independent child request
+- Receives the same REQUEST_UPDATE notifications
+- Operates in isolation from other sentinels
+- Uses its own scenario for processing
+
+### COG Sentinel Child Requests (Cross-Workbench)
+
+COG Sentinels (sentinels defined in COGW workbenches) create child requests across workbench boundaries:
+
+```
+TARGET WORKBENCH (production-loans)        COGW WORKBENCH (acme-cogw)
+─────────────────────────────────          ───────────────────────────
+
+Parent Request (req-12345)                  COG Child Request (cog-req-67890)
+├── scenario: loan-application              ├── scenario: token-governance
+├── depth: 0                                ├── parent:
+│                                           │     request_id: req-12345
+│                                           │     workbench_id: production-loans
+│                                           │     cross_workbench: true
+│                                           │     context_token: "jwt-token"
+│                                           └── depth: 0 (resets in new workbench)
+```
+
+| Aspect | Behavior |
+|--------|----------|
+| **Parent Workbench** | Target workbench where parent request lives |
+| **Child Workbench** | COGW workbench where COG Sentinel is defined |
+| **Context Access** | Via cross-workbench context token (same as Cross-Workbench Context Sharing) |
+| **Lifecycle Cascade** | Best-effort cascade (parent completion → child notification) |
+| **Depth** | Resets in new workbench (per Cross-Workbench Context Sharing) |
+
+→ See [COGW Signal Forwarding](../../../olympus-seer-docs/seer-design/subsystems/cognitive-operations-governance-workbench/signal-forwarding.md) for details.
 
 ---
 
@@ -389,9 +664,11 @@ response:
 
 ## Cross-Workbench Invocations
 
-### No Implicit Context Sharing
+There are two patterns for cross-workbench invocations:
 
-When invoking a scenario in a **different workbench** (via Machine/Tool interface):
+### Pattern 1: No Context Sharing (Default)
+
+When invoking a scenario in a **different workbench** without context sharing configured:
 
 | Aspect | Behavior |
 |--------|----------|
@@ -400,9 +677,7 @@ When invoking a scenario in a **different workbench** (via Machine/Tool interfac
 | **Lifecycle** | Independent — no cascade |
 | **Terminology** | "External invocation" not "child request" |
 
-### Explicit Context Forwarding
-
-The invoker must explicitly include relevant context in the invocation:
+**Explicit Context Forwarding:**
 
 ```python
 # Cross-workbench invocation — must explicitly forward context
@@ -423,12 +698,39 @@ result = await machine_client.invoke(
 )
 ```
 
-### Contract Responsibility
-
 | Actor | Responsibility |
 |-------|----------------|
 | **Publisher** (target workbench) | Defines what context the tool/machine expects in its contract |
 | **Consumer** (invoking workbench) | Explicitly provides required context per contract |
+
+### Pattern 2: With Context Sharing (Configured)
+
+When both workbenches configure `WorkbenchContextSharingSpec`:
+
+| Aspect | Behavior |
+|--------|----------|
+| **Relationship** | Parent-child relationship created |
+| **Context** | Automatic inheritance via access tokens |
+| **Lifecycle** | Cascade (best-effort) |
+| **Terminology** | Cross-workbench "child request" |
+
+**Automatic Context Inheritance:**
+
+```python
+# Cross-workbench invocation with context sharing configured
+# Child automatically inherits parent context via tokens
+result = await scenario_client.invoke(
+    workbench="customer-lifecycle-ops",
+    scenario="aml-clearance-check",
+    input={
+        "customer_id": "cust-12345"
+        # No need to manually forward context!
+        # Child will access parent context via compiled-context API
+    }
+)
+```
+
+→ See [Cross-Workbench Context Sharing](../../02-system-design/implementation-concepts/workbench-context-sharing.md) for configuration.
 
 ---
 
@@ -514,11 +816,14 @@ def complete_request(request_id: str, outcome: RequestOutcome):
 - [Signal Exchange](../signal-exchange/README.md) — Context access APIs
 - [Scenario as a Tool](../../09-composite-systems-and-patterns/scenario-as-a-tool.md) — Tool invocation creating child requests
 - [Scenario as an Agent](../../09-composite-systems-and-patterns/scenario-as-an-agent.md) — Agent invocation creating child requests
-- [Workbench as a Machine](../../09-composite-systems-and-patterns/workbench-as-a-machine.md) — Cross-workbench invocations (no parent-child)
+- [Workbench as a Machine](../../09-composite-systems-and-patterns/workbench-as-a-machine.md) — Cross-workbench invocations (no parent-child by default)
+- [Cross-Workbench Context Sharing](../../02-system-design/implementation-concepts/workbench-context-sharing.md) — Cross-workbench parent-child relationships
+- [Cross-Workbench Context Sharing Guide](../../10-guides/cross-workbench-context-sharing-guide.md) — Step-by-step configuration guide
 
 ---
 
 ## References
 
 - [ADR-0066: Request Hierarchy and Context Inheritance](../../decision-logs/0066-request-hierarchy-context-inheritance.md)
+- [ADR-0115: Cross-Workbench Context Sharing](../../decision-logs/0115-cross-workbench-context-sharing.md)
 

@@ -104,12 +104,25 @@ A **Tenant** represents an organization using Olympus Hub:
 
 ### Subscription Tiers
 
-| Tier | Description |
-|------|-------------|
-| **Starter** | Basic resources, limited quotas |
-| **Professional** | Standard resources, moderate quotas |
-| **Enterprise** | Full resources, high quotas, dedicated support |
-| **Custom** | Tailored configuration |
+| Tier | Description | COGW |
+|------|-------------|------|
+| **Starter** | Basic resources, limited quotas | ❌ Not included |
+| **Professional** | Standard resources, moderate quotas | ✅ Default COGW |
+| **Enterprise** | Full resources, high quotas, dedicated support | ✅ Default COGW + Custom COGWs |
+| **Custom** | Tailored configuration | Configurable |
+
+### Default COGW Creation
+
+Eligible subscriptions automatically receive a default Cognitive Operations Governance Workbench (COGW) at creation:
+
+| Aspect | Behavior |
+|--------|----------|
+| **Trigger** | Subscription creation |
+| **Name** | `<subscription-id>-default-cogw` |
+| **Content** | Standard governance scenarios |
+| **Deletable** | Yes |
+
+> See [COGW Specification](../../../olympus-seer-docs/seer-design/subsystems/cognitive-operations-governance-workbench/cogw-specification.md) for details.
 
 ### Managed Resources
 

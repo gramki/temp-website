@@ -126,6 +126,12 @@ All ADRs follow the standard format:
 | [0112](./0112-seer-supervisor-dual-mode-architecture.md) | Seer Supervisor Dual-Mode Architecture (Realtime vs Analytical) | Accepted | 2026-01-13 | seer |
 | [0113](./0113-seer-agent-session-supervisor-to-sentinel-rename.md) | Seer Agent Session Supervisor to Sentinel Rename | Accepted | 2026-01-13 | seer |
 | [0114](./0114-collaborators-terminology.md) | Collaborators Terminology | Accepted | 2026-01-13 | terminology |
+| [0115](./0115-cross-workbench-context-sharing.md) | Cross-Workbench Context Sharing | Accepted | 2026-01-14 | request-management |
+| [0116](./0116-request-sentinel-type.md) | Request Sentinel Type (AI Agents as Sentinels) | Accepted | 2026-01-14 | seer, hub-integration |
+| [0117](./0117-sentinel-scenario-spec-crds.md) | SentinelScenarioSpec CRD Structure (Three Types) | Accepted | 2026-01-14 | seer, hub-integration |
+| [0118](./0118-cognitive-operations-governance-workbench-type.md) | Cognitive Operations Governance Workbench Type (COGW) | Accepted | 2026-01-14 | seer, hub-integration |
+| [0119](./0119-cog-sentinel-cross-workbench-enrollment.md) | COG Sentinel Cross-Workbench Enrollment | Accepted | 2026-01-14 | seer, hub-integration |
+| [0120](./0120-cogw-operator-subscription-scope.md) | COGW Operator Subscription Scope | Accepted | 2026-01-14 | seer, hub-integration |
 
 ---
 
@@ -239,6 +245,7 @@ All ADRs follow the standard format:
 
 ### Request Management
 - [0066](./0066-request-hierarchy-context-inheritance.md) - Request hierarchy, context inheritance, lifecycle cascade
+- [0115](./0115-cross-workbench-context-sharing.md) - Cross-workbench parent-child relationships with context sharing
 
 ### Seer (AI Runtime)
 - [0072](./0072-seer-guardrails-two-layer-model.md) - Two-layer guardrails: behavioral guidelines + sidecar enforcement
@@ -255,6 +262,11 @@ All ADRs follow the standard format:
 - [0111](./0111-seer-supervisor-cronus-integration.md) - Agent Session Supervisor uses Cronus for observations/exceptions
 - [0112](./0112-seer-supervisor-dual-mode-architecture.md) - Supervisor dual-mode architecture (Realtime vs Analytical)
 - [0109](./0109-seer-raw-agent-subsystems-design.md) - Raw Agent subsystems design: Context Compiler, Seer Agent SDK, Raw Agent Lifecycle Manager
+- [0116](./0116-request-sentinel-type.md) - Request Sentinel Type (AI Agents as Sentinels)
+- [0117](./0117-sentinel-scenario-spec-crds.md) - SentinelScenarioSpec CRD Structure (Three Types)
+- [0118](./0118-cognitive-operations-governance-workbench-type.md) - Cognitive Operations Governance Workbench Type (COGW)
+- [0119](./0119-cog-sentinel-cross-workbench-enrollment.md) - COG Sentinel Cross-Workbench Enrollment
+- [0120](./0120-cogw-operator-subscription-scope.md) - COGW Operator Subscription Scope
 
 ### Agent Directability
 - [0078](./0078-agent-directability-rejection-escalation.md) - Agent Directability via Rejection-Escalation Model
@@ -263,6 +275,12 @@ All ADRs follow the standard format:
 
 ### Workbench Management
 - [0081](./0081-production-feedback-loop.md) - Production Feedback Loop to Development Workbench
+
+### Persona Twins
+- [0121](./0121-persona-twin-blueprint-structure.md) - Persona Twin Blueprint extends Trained Agent Blueprint with signal suggestions
+- [0122](./0122-persona-twin-scenario-isolation.md) - Metadata label + category for Persona Twin Scenario isolation
+- [0123](./0123-persona-twin-trigger-mechanisms.md) - Task assignment, notification, and schedule triggers for Persona Twins
+- [0124](./0124-persona-twin-visibility-controls.md) - Scenario-level public/private visibility for Persona Twins
 
 ### UX Architecture
 - [0082](./0082-hub-desk-restructuring.md) - Hub Desk Restructuring (Workbench Studio → 3 Desks)
