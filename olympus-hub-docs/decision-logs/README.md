@@ -124,6 +124,8 @@ All ADRs follow the standard format:
 | [0110](./0110-seer-agent-analytics-data-mart.md) | Seer Agent Analytics as Data Mart (Separate from Runtime Observability) | Accepted | 2026-01-13 | seer |
 | [0111](./0111-seer-supervisor-cronus-integration.md) | Seer Agent Session Supervisor Cronus Integration | Accepted | 2026-01-13 | seer |
 | [0112](./0112-seer-supervisor-dual-mode-architecture.md) | Seer Supervisor Dual-Mode Architecture (Realtime vs Analytical) | Accepted | 2026-01-13 | seer |
+| [0113](./0113-seer-agent-session-supervisor-to-sentinel-rename.md) | Seer Agent Session Supervisor to Sentinel Rename | Accepted | 2026-01-13 | seer |
+| [0114](./0114-collaborators-terminology.md) | Collaborators Terminology | Accepted | 2026-01-13 | terminology |
 
 ---
 

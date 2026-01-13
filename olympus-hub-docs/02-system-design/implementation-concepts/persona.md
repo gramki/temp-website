@@ -151,6 +151,25 @@ This enables:
 
 ---
 
+## Collaborators vs Business Domain Actors
+
+**Collaborators** is a collective term for all Hub Personas who work within or around a Workbench to configure, operate, or administer Hub capabilities. This includes:
+
+- **Workbench Operations**: Agents, Supervisors
+- **Workbench Designers**: Process Architects, Developers, Automation Product Owners (APO)
+- **Tenant Administration**: Administrators, Auditors
+
+Collaborators are distinguished from **Business Domain Actors** (Business Customers, Business Employees, Business System Actors) whose activities generate Requests but who don't necessarily use Hub as a platform to process them.
+
+| Category | Purpose | Examples |
+|----------|---------|----------|
+| **Collaborators** | Use Hub as a platform to configure, operate, or administer | Agent processing tasks, Supervisor managing queues, Process Architect designing scenarios |
+| **Business Domain Actors** | Generate Requests through business activities | Customer filing dispute, Employee initiating onboarding, System emitting events |
+
+> **See also:** [Collaborators Concept](../../01-concepts/collaborators.md) for detailed definition and scope.
+
+---
+
 ## Behavior
 
 ### Persona-Channel Matrix

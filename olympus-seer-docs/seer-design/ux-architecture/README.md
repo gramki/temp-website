@@ -9,6 +9,8 @@
 
 This section defines the user experience architecture for Olympus Seer — the applications, channels, and interaction patterns that enable enterprise personas to design, build, operate, and govern AI Agents and Agent-Oriented Systems.
 
+> **Note:** Seer personas (APO, CSA, AE, KMO, ARE, COS, ARAO) are **Collaborators** — Hub Personas who work within workbenches to configure, operate, or administer Hub capabilities. They collaborate with Hub personas (Agents, Supervisors, Process Architects, Developers, Administrators, Auditors) within the workbench context. See [Collaborators Concept](../../../olympus-hub-docs/01-concepts/collaborators.md) for details.
+
 The UX architecture ensures that Seer Agents are:
 - **Observable** — Transparent reasoning and decision-making
 - **Predictable** — Consistent behavior within defined bounds

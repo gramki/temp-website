@@ -14,6 +14,9 @@ User Management is responsible for managing all user personas across different s
 | **IAM** | Cipher provides authentication and authorization for all users |
 | **Scopes** | Hub System, Tenant Subscription, Workbench, Tenant Customers |
 | **Domains** | Publisher Domain (Zeta) + Tenant Domains |
+| **Collaborators** | All Hub Personas working in workbench context (excluding Business Domain Actors) |
+
+> **Note:** **Collaborators** are all Hub Personas who work within or around a Workbench to configure, operate, or administer Hub capabilities. This includes Workbench Operations (Agents, Supervisors), Workbench Designers (Process Architects, Developers, APOs), and Tenant Administration (Administrators, Auditors). Collaborators are distinguished from Business Domain Actors (Business Customers, Business Employees, Business System Actors) whose activities generate Requests but don't use Hub as a platform. See [Collaborators Concept](../../01-concepts/collaborators.md) for details.
 
 ---
 
@@ -38,6 +41,8 @@ User Management is responsible for managing all user personas across different s
 │  │Administrator │ │   Process    │ │  Developer   │ │Auditor │  │
 │  │              │ │  Architect   │ │              │ │        │  │
 │  └──────────────┘ └──────────────┘ └──────────────┘ └────────┘  │
+│                                                                  │
+│                    (Tenant Collaborators)                        │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -47,6 +52,8 @@ User Management is responsible for managing all user personas across different s
 │           ┌──────────────┐    ┌──────────────┐                  │
 │           │    Agent     │    │  Supervisor  │                  │
 │           └──────────────┘    └──────────────┘                  │
+│                                                                  │
+│                    (Workbench Collaborators)                     │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -130,14 +137,18 @@ Publisher Domain (Zeta)
 └── Customer Success Executives
 
 Tenant Domain(s)
-├── Administrators
-├── Process Architects
-├── Developers
-├── Auditors
-├── Agents
-├── Supervisors
-└── Customer Users (Self-Serve)
+├── Collaborators (Hub Personas)
+│   ├── Administrators
+│   ├── Process Architects
+│   ├── Developers
+│   ├── Auditors
+│   ├── Agents
+│   └── Supervisors
+└── Business Domain Actors
+    └── Customer Users (Self-Serve)
 ```
+
+> **Note:** Collaborators are all Hub Personas working in workbench context. Business Domain Actors (Business Customers, Business Employees, Business System Actors) are separate and generate Requests but don't use Hub as a platform.
 
 ---
 

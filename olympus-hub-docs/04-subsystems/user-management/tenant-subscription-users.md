@@ -4,6 +4,8 @@
 
 Tenant Subscription Users operate at the subscription level and are responsible for configuring, developing, and auditing the tenant's use of Olympus Hub.
 
+> **Note:** Tenant Subscription Users (Administrators, Process Architects, Developers, Auditors) are **Collaborators** — Hub Personas who work within or around workbenches to configure, operate, or administer Hub capabilities. See [Collaborators Concept](../../01-concepts/collaborators.md) for details.
+
 ---
 
 ## Overview
@@ -157,6 +159,7 @@ Tenants can organize these personas across domains as they prefer:
 ## Related Documentation
 
 - [User Management Overview](./README.md)
+- [Collaborators Concept](../../01-concepts/collaborators.md) — Collective term for Hub Personas in workbench context
 - [Hub System Users](./hub-system-users.md)
 - [Workbench Users](./workbench-users.md)
 - [Workbench Management](../workbench-management/README.md)

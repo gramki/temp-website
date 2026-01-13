@@ -4,6 +4,8 @@
 
 Workbench Users operate within specific workbenches and are responsible for day-to-day operational execution and supervision.
 
+> **Note:** Workbench Users (Agents and Supervisors) are **Collaborators** — Hub Personas who work within workbenches to configure, operate, or administer Hub capabilities. See [Collaborators Concept](../../01-concepts/collaborators.md) for details.
+
 ---
 
 ## Overview
@@ -149,6 +151,7 @@ agent:
 ## Related Documentation
 
 - [User Management Overview](./README.md)
+- [Collaborators Concept](../../01-concepts/collaborators.md) — Collective term for Hub Personas in workbench context
 - [Tenant Subscription Users](./tenant-subscription-users.md)
 - [Tenant Customers](./tenant-customers.md)
 - [Task Management](../task-management/README.md)

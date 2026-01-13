@@ -13,6 +13,18 @@
         - Workbench as an Agent and Team of Agents
         - Machine as an Agent
 
+    ## Seer Persona-Twins:
+        - Personal Scenarios: 
+            - Can be triggered by tasks assigned to them
+            - Can be triggered by platform notifications scoped to the workbench
+            - Can be triggered by personally configured schedules
+        - Personal Scenarios are isolated from Business Scenarios in the Workbench
+        - The visibility of personal scenarios can be set to private - only admin and scenario owner/creator can see them
+        - Authority Delegation and Accountability model for Twins
+        - 
+    ## Sentinels:
+        - Cognitive Operations Governance Workbench
+        - Workbench-local Sentinels can be created in and operate in specific workbenches
     ## Seer Persona and Needs:
         ✔ Enumerate Needs, Journeys, and Capabilities for Seer Personas @done(26-01-13 01:01)
         ✔ Desks @done(26-01-13 01:01)
@@ -76,6 +88,17 @@
     - Runtime is Hub
     - Individual Application is dispatched all updates
     - No coordination or orchestration; Just all applications are equal participants
+
+# Cipher IAM:
+    - Support for 'asscociation' between Identity Profiles
+    - Identity Profile 'assocaition' represent managerial hierarchy, accountability relationships, cost-and-payroll relationships, etc., 
+    - The associations between Identity Profiles should capture relationship-type, effective-from, effective-to, etc.,
+    - A Catalog of Relationship Types is configured per domain. Cardinality, Direction, Associaton Policy, etc., are configured per relationship type.
+    - A Special association type is 'delegate' (from Delegator to Delegatee)
+    - Cipher should capture delegated authority and automatically shrink it when the delegator's authority shrinks.
+    - Subject Groups - Modules should be able to create Subject Groups and assign identities to them
+    - Access Control Policies - Modules should be able to create Access Control Policies 
+    - Access Control Policies could be based on Groups the user is part of in addition to the roles and explicitly assigned privileges; That is, a policy need not declare or register the privileges associated with a user group in Cipher IAM; Cipher IAM will be responsible for enforcing the policies based on the relationships between Identity Profiles.
 
 # Hub Marketplace:
     ## Subsystem Components:

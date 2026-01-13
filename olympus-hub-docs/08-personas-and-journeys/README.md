@@ -29,9 +29,19 @@ Personas are organized into two main categories:
 - **Hub Personas** — People who use Hub as a platform (configure, operate, administer)
 - **Business Domain Actors** — People/systems whose activities generate Requests
 
+### Collaborators
+
+**Collaborators** is a collective term for all Hub Personas who work within or around a Workbench to configure, operate, or administer Hub capabilities. This includes Workbench Operations (Agents, Supervisors), Workbench Designers (Process Architects, Developers, APOs), and Tenant Administration (Administrators, Auditors).
+
+Collaborators are distinguished from **Business Domain Actors** (Business Customers, Business Employees, Business System Actors) whose activities generate Requests but who don't necessarily use Hub as a platform to process them.
+
+> **See also:** [Collaborators Concept](../01-concepts/collaborators.md) for detailed definition and scope.
+
 ---
 
 ### Hub Personas
+
+> **Note:** All Hub Personas (except Hub System personas) are **Collaborators** when working in a workbench context. See [Collaborators](#collaborators) above.
 
 #### Hub System (Publisher Domain)
 
@@ -41,6 +51,8 @@ The Publisher (Zeta) operates the Hub platform itself.
 |---------|------|----------|
 | **SRE** | Deploy, maintain, monitor Hub infrastructure | [sre.md](./personas/sre.md) |
 | **Customer Success** | Onboard tenants, support adoption | [customer-success.md](./personas/customer-success.md) |
+
+> **Note:** Hub System personas (SRE, Customer Success) operate at the platform level and are not typically considered workbench collaborators, though they may interact with workbenches for support purposes.
 
 #### Workbench Designers
 
@@ -175,6 +187,7 @@ Legend: ●● Primary, ● Supporting
 │  │  ├── Supervisor             ├── Administrator                      │    │
 │  │  └── Agent ◄────────────────┼── Auditor                           │    │
 │  │            │                │                                      │    │
+│  │            │                │  (All above are Collaborators)      │    │
 │  └────────────┼────────────────┼──────────────────────────────────────┘    │
 │               │                │                                            │
 │               │   (may overlap)│                                            │
@@ -198,6 +211,7 @@ Legend: ●● Primary, ● Supporting
 ## Related Documentation
 
 - [01-Concepts](../01-concepts/) — What is Hub?
+- [Collaborators Concept](../01-concepts/collaborators.md) — Collective term for Hub Personas in workbench context
 - [04-Subsystems](../04-subsystems/) — How does Hub work?
 - [10-Guides](../10-guides/) — How do I configure Hub?
 

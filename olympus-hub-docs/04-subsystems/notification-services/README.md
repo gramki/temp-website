@@ -2,7 +2,7 @@
 
 > **Status:** 🟡 Draft — Under active development
 
-The Notification Services subsystem provides a single Notification Service that translates Request Updates from Signal Exchange into notifications for respective personas (agents, business users, supervisors, tenant admins) using one or more notification mechanisms (Email, SMS, Push Notification, Webhook) based on Scenario specifications and recipient preferences.
+The Notification Services subsystem provides a single Notification Service that translates Request Updates from Signal Exchange into notifications for respective personas (collaborators and business users) using one or more notification mechanisms (Email, SMS, Push Notification, Webhook) based on Scenario specifications and recipient preferences.
 
 ---
 
@@ -49,13 +49,15 @@ Notification Services is a **single service** with persona-specific handlers. It
 │      ┌───────────┼───────────┐                                    │
 │      │           │           │                                    │
 │      ▼           ▼           ▼                                    │
-│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐                      │
-│  │ Agent │ │Business│ │Super-  │ │Tenant  │                      │
-│  │Handler│ │User    │ │visor   │ │Admin   │                      │
-│  │       │ │Handler │ │Handler │ │Handler │                      │
-│  └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘                      │
-│      │         │         │         │                             │
-│      └─────────┴─────────┴─────────┘                             │
+│  ┌──────────────┐ ┌────────┐                                      │
+│  │Collaborator  │ │Business│                                      │
+│  │Handlers      │ │User    │                                      │
+│  │(Agent,       │ │Handler │                                      │
+│  │Supervisor,   │ │        │                                      │
+│  │Admin, etc.)  │ │        │                                      │
+│  └───┬──────────┘ └───┬───┘                                      │
+│      │                │                                            │
+│      └────────────────┘                                            │
 │                  │                                                │
 │                  ▼                                                │
 │  ┌──────────────────────────────────────────────────────────┐   │

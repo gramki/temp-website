@@ -50,7 +50,7 @@ Each **Workbench** in Hub represents an **Agent-Oriented System (AOS)**.
 | **AOS** | A collection of agents, scenarios, and knowledge working together |
 | **Seer Desks** | Specialized views for designing, building, and operating agents within the AOS |
 
-All stakeholders collaborate **within Workbench scope**. A user may have access to multiple Workbenches, but each desk view is scoped to one Workbench at a time.
+All **collaborators** (Hub Personas working in workbench context) collaborate **within Workbench scope**. A user may have access to multiple Workbenches, but each desk view is scoped to one Workbench at a time.
 
 ---
 

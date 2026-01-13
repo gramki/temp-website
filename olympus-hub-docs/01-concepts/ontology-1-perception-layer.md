@@ -103,7 +103,9 @@ Workbench Blueprint (System-level)
 
 **Example:** "Dispute Workbench" encapsulates everything for handling disputes—scenarios for fraud disputes, billing disputes, ATM disputes; enrolled analysts; registered investigation tools; task queues for dispute analysts.
 
-**See also:** [Domain](#domain), [Scenario](#scenario), [Tool Registry](./ontology-4-automation-layer.md#tool-registry), [Machine Registry](./ontology-4-automation-layer.md#machine-registry), [Task Queue](./ontology-3-execution-layer.md#task-queue)
+**Collaborators:** Workbenches are operated by **Collaborators** — Hub Personas (Agents, Supervisors, Process Architects, Developers, Administrators, Auditors) who work within the workbench to configure, operate, or administer Hub capabilities. Collaborators are distinguished from Business Domain Actors (Business Customers, Business Employees, Business System Actors) whose activities generate Requests but don't use Hub as a platform. See [Collaborators Concept](./collaborators.md) for details.
+
+**See also:** [Domain](#domain), [Scenario](#scenario), [Tool Registry](./ontology-4-automation-layer.md#tool-registry), [Machine Registry](./ontology-4-automation-layer.md#machine-registry), [Task Queue](./ontology-3-execution-layer.md#task-queue), [Collaborators](./collaborators.md)
 
 ---
 

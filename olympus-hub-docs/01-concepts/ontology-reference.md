@@ -170,3 +170,4 @@ Together they form a complete loop: from sensing reality, through norms and duti
 | [ontology-3-execution-layer.md](./ontology-3-execution-layer.md) | Execution Layer concepts |
 | [ontology-4-automation-layer.md](./ontology-4-automation-layer.md) | Automation Layer concepts |
 | [ontology-diagrams.md](./ontology-diagrams.md) | Visual diagrams |
+| [collaborators.md](./collaborators.md) | Platform concept: Hub Personas working in workbench context |
