@@ -1,53 +1,7 @@
 ---
-name: Hub Composite Application Implementation
-overview: Implement Hub Composite Application support with deployment-time resolution. Hub Operators flatten composites into routing tables; Signal Exchange routes to multiple apps per scenario without needing composite awareness.
+name: Hub Composite Application Documentation
+overview: Document Hub Composite Application design with deployment-time resolution. Hub Operators flatten composites into routing tables; Signal Exchange routes to multiple apps per scenario without needing composite awareness.
 todos:
-  - id: crd_composite_spec
-    content: Define HubCompositeApplicationSpec CRD with applications list, OPA filters, nested composite refs
-    status: pending
-  - id: crd_composite_deployment
-    content: Define HubCompositeApplicationDeployment CRD with child ownership and status aggregation
-    status: pending
-  - id: crd_automation_spec
-    content: Update ScenarioAutomationSpec to support composite_ref (mutually exclusive with ref)
-    status: pending
-  - id: operator_composite_app
-    content: Implement Composite Application Operator for spec validation
-    status: pending
-    dependencies:
-      - crd_composite_spec
-  - id: operator_composite_deploy
-    content: Implement Composite Deployment Operator - resolve, create children, populate routing table
-    status: pending
-    dependencies:
-      - crd_composite_deployment
-      - operator_composite_app
-  - id: operator_scenario_deploy
-    content: Update Scenario Deployment Operator to create HubCompositeApplicationDeployment for composite refs
-    status: pending
-    dependencies:
-      - operator_composite_deploy
-  - id: routing_table_schema
-    content: Update routing table schema to support list of apps with OPA filters per scenario
-    status: pending
-  - id: app_router_multiapp
-    content: Update Application Router to handle list of apps from routing table
-    status: pending
-    dependencies:
-      - routing_table_schema
-  - id: app_router_opa
-    content: Add OPA filter evaluation in Application Router before dispatch
-    status: pending
-    dependencies:
-      - app_router_multiapp
-  - id: request_source_app
-    content: Add source_app field to request history and update records
-    status: pending
-  - id: request_conflict
-    content: Implement update conflict resolution (latest wins, rejection tracking)
-    status: pending
-    dependencies:
-      - request_source_app
   - id: doc_concept
     content: Create hub-composite-application.md implementation concept in 02-system-design/implementation-concepts/
     status: completed
