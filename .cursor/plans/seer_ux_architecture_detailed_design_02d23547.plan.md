@@ -7,67 +7,67 @@ todos:
     status: completed
   - id: create-structure
     content: "Create folder structure: desks/, common-consoles/, rest-channels/ subfolders with desk-specific folders"
-    status: in_progress
+    status: completed
     dependencies:
       - review-persona-needs
   - id: agent-behavior-console
     content: Document Agent Behavior Console in common-consoles/ using requirements from scratchpad
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: common-consoles-readme
     content: Create common-consoles/README.md explaining shared consoles and permission model
-    status: pending
+    status: completed
     dependencies:
       - agent-behavior-console
   - id: apo-desk
     content: "Document Agent Portfolio Desk: README + 3 console docs (portfolio, outcomes, autonomy)"
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: csa-desk
     content: "Document Agent Design Desk: README + 3 console docs (design, topology, validation)"
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: ae-desk
     content: "Document Agent Development Desk: README + 3 console docs (development, test, release) with full lifecycle coverage"
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: kmo-desk
     content: "Document Knowledge Governance Desk: README + 3 console docs (knowledge, memory, learning)"
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: are-desk
     content: "Document Agent Operations Desk: README + 3 console docs (health, control, incident)"
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: cos-desk
     content: "Document Cognitive Health Desk: README + 3 console docs (behavior, patterns, issues)"
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: arao-desk
     content: "Document Agent Compliance Desk: README + 3 console docs (autonomy, compliance, security)"
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: rest-channels-overview
     content: Create rest-channels/README.md with Seer REST channel architecture overview
-    status: pending
+    status: completed
     dependencies:
       - create-structure
   - id: rest-channels-personas
     content: Document REST channels for all 7 personas (APO, CSA, AE, KMO, ARE, COS, ARAO)
-    status: pending
+    status: completed
     dependencies:
       - rest-channels-overview
   - id: update-main-readme
     content: Update ux-architecture/README.md with new structure and document index
-    status: pending
+    status: completed
     dependencies:
       - apo-desk
       - csa-desk
@@ -78,12 +78,12 @@ todos:
       - arao-desk
   - id: update-desk-requirements
     content: Update desk-requirements.md to reference detailed docs instead of inline details
-    status: pending
+    status: completed
     dependencies:
       - update-main-readme
   - id: verify-opda
     content: Verify and document OPDA integration in each desk (Observable, Predictable, Directable, Authority Enforceable)
-    status: pending
+    status: completed
     dependencies:
       - apo-desk
       - csa-desk
@@ -94,13 +94,13 @@ todos:
       - arao-desk
   - id: verify-lifecycle
     content: Verify full lifecycle coverage for AE and CSA (feedback → design → implementation → evolution)
-    status: pending
+    status: completed
     dependencies:
       - ae-desk
       - csa-desk
   - id: identify-critical-journeys
     content: Identify top 8 critical journeys for Seer Agent Development, Administration, or Evolution across personas
-    status: pending
+    status: completed
     dependencies:
       - apo-desk
       - csa-desk
@@ -111,7 +111,7 @@ todos:
       - arao-desk
   - id: document-critical-journeys
     content: Document top 8 critical journeys in journeys folder, explaining how they are accomplished using desk capabilities
-    status: pending
+    status: completed
     dependencies:
       - identify-critical-journeys
 ---
@@ -173,13 +173,13 @@ ux-architecture/
 │       └── security-console.md
 └── rest-channels/
     ├── README.md
-    ├── apo-rest-channel.md
-    ├── csa-rest-channel.md
-    ├── ae-rest-channel.md
-    ├── kmo-rest-channel.md
-    ├── are-rest-channel.md
-    ├── cos-rest-channel.md
-    └── arao-rest-channel.md
+    ├── apo-channel.md
+    ├── csa-channel.md
+    ├── ae-channel.md
+    ├── kmo-channel.md
+    ├── are-channel.md
+    ├── cos-channel.md
+    └── arao-channel.md
 ```
 
 ## Implementation Tasks
