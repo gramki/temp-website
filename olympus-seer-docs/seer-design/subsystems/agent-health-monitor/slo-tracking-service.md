@@ -131,7 +131,7 @@ sequenceDiagram
     participant SLOT as SLO Tracking Service
     participant Evaluator as Threshold Evaluator
     participant Detector as Deviation Detector
-    participant Sentinel as Agent Session Sentinel
+    participant Sentinel as Seer Sentinels
     
     SLOT->>Evaluator: Evaluation result
     Evaluator->>Detector: Check for deviation
@@ -163,7 +163,7 @@ sentinel_trigger:
 sequenceDiagram
     participant SLOT as SLO Tracking Service
     participant Detector as Deviation Detector
-    participant Sentinel as Agent Session Sentinel
+    participant Sentinel as Seer Sentinels
     participant OS as Observation Service
     
     SLOT->>Detector: Deviation detected
@@ -188,7 +188,7 @@ sequenceDiagram
 
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
-| **Agent Session Sentinel** | Sentinel trigger API | Trigger sentinels on SLO deviations (if configured) |
+| **Seer Sentinels** | Sentinel trigger API | Trigger sentinels on SLO deviations (if configured) |
 
 ---
 

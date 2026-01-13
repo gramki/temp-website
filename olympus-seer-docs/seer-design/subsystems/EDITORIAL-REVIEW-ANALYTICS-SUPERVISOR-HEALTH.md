@@ -2,7 +2,7 @@
 
 > **Date**: 2026-01-13  
 > **Reviewer**: AI Assistant  
-> **Scope**: All documents created for Agent Analytics, Observability Extensions to Watch, Agent Session Sentinel, and Agent Health Monitor subsystems
+> **Scope**: All documents created for Agent Analytics, Observability Extensions to Watch, Seer Sentinels, and Agent Health Monitor subsystems
 
 ---
 
@@ -18,16 +18,16 @@ All documents have been reviewed for consistency, references, and ambiguity. The
 
 ### 1. Broken Relative Path References ✅ FIXED
 
-**Issue**: In `agent-session-sentinel/README.md` and `agent-health-monitor/README.md`, references to sibling subsystems used `./` instead of `../`.
+**Issue**: In `seer-sentinels/README.md` (formerly `agent-session-sentinel/README.md`) and `agent-health-monitor/README.md`, references to sibling subsystems used `./` instead of `../`.
 
 **Files Affected**:
-- `agent-session-sentinel/README.md`
+- `seer-sentinels/README.md` (formerly `agent-session-sentinel/README.md`)
 - `agent-health-monitor/README.md`
 
 **Fix Applied**:
 - Changed `./agent-analytics/README.md` → `../agent-analytics/README.md`
 - Changed `./agent-health-monitor/README.md` → `../agent-health-monitor/README.md`
-- Changed `./agent-session-sentinel/README.md` → `../agent-session-sentinel/README.md`
+- Changed `./seer-sentinels/README.md` → `../seer-sentinels/README.md` (formerly `agent-session-sentinel`)
 - Changed `./trained-agent-lifecycle-manager/training-feedback-services.md` → `../trained-agent-lifecycle-manager/training-feedback-services.md`
 
 ---
@@ -78,7 +78,7 @@ All documents have been reviewed for consistency, references, and ambiguity. The
 **Checked**:
 - ✅ All references to `../agent-analytics/` - Valid
 - ✅ All references to `../agent-health-monitor/` - Valid
-- ✅ All references to `../agent-session-sentinel/` - Valid
+- ✅ All references to `../seer-sentinels/` - Valid (formerly `agent-session-sentinel`)
 - ✅ All references to `../observability-extensions-to-watch/` - Valid
 - ✅ All references to `../trained-agent-lifecycle-manager/` - Valid
 - ✅ All references to Hub documentation (`../../../olympus-hub-docs/`) - Valid

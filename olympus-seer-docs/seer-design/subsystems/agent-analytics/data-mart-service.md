@@ -197,9 +197,9 @@ Data Mart Service creates data products from data marts for consumption:
 
 | Data Product | Description | Consumers |
 |--------------|-------------|-----------|
-| **Agent Performance Data Product** | Agent performance metrics and health scores | Report Center, Agent Session Sentinel, Agent Health Monitor |
+| **Agent Performance Data Product** | Agent performance metrics and health scores | Report Center, Seer Sentinels, Agent Health Monitor |
 | **Agent Cost Data Product** | Agent cost metrics and budget tracking | Report Center, Agent Health Monitor |
-| **Agent Behavior Data Product** | Agent behavior metrics and compliance status | Report Center, Agent Session Sentinel, Agent Health Monitor |
+| **Agent Behavior Data Product** | Agent behavior metrics and compliance status | Report Center, Seer Sentinels, Agent Health Monitor |
 | **Agent Feedback Data Product** | Agent feedback metrics and ratings | Report Center, Training Feedback Services |
 
 #### Data Product Structure
@@ -302,7 +302,7 @@ flowchart LR
 | Service | Integration Method | Purpose |
 |---------|-------------------|---------|
 | **Report Integration Service** | Report Center catalog | Report access and embedding |
-| **Agent Session Sentinel** | Data product queries | Analytical sentinel queries |
+| **Seer Sentinels** | Data product queries | Analytical sentinel queries |
 | **Agent Health Monitor** | Data product queries | SLO evaluation |
 
 ---

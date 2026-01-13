@@ -296,17 +296,17 @@ Sentinels follow a deployment model:
 
 ## Related
 
-### Agent Session Sentinel Subsystem
-- [Agent Session Sentinel README](../subsystems/agent-session-sentinel/README.md) — Subsystem overview
-- [Sentinel Spec Manager](../subsystems/agent-session-sentinel/sentinel-spec-manager.md) — Spec structure, validation
-- [Realtime Sentinel Service](../subsystems/agent-session-sentinel/realtime-sentinel-service.md) — SX event observation, OPA evaluation
-- [Analytical Sentinel Service](../subsystems/agent-session-sentinel/analytical-sentinel-service.md) — Templated SQL execution
-- [Observation Service](../subsystems/agent-session-sentinel/observation-service.md) — Cronus Observations/Exceptions generation
+### Seer Sentinels Subsystem
+- [Seer Sentinels README](../subsystems/seer-sentinels/README.md) — Subsystem overview
+- [Sentinel Spec Manager](../subsystems/seer-sentinels/sentinel-spec-manager.md) — Spec structure, validation
+- [Realtime Sentinel Service](../subsystems/seer-sentinels/realtime-sentinel-service.md) — SX event observation, OPA evaluation
+- [Analytical Sentinel Service](../subsystems/seer-sentinels/analytical-sentinel-service.md) — Templated SQL execution
+- [Observation Service](../subsystems/seer-sentinels/observation-service.md) — Cronus Observations/Exceptions generation
 
 ### Request Sentinel Documentation
-- [Sentinel Scenario Normative Spec](../subsystems/agent-session-sentinel/sentinel-scenario-normative-spec.md) — Normative requirements
-- [Sentinel Scenario Automation Spec](../subsystems/agent-session-sentinel/sentinel-scenario-automation-spec.md) — Automation with enrollment filters
-- [Sentinel Scenario Deployment Spec](../subsystems/agent-session-sentinel/sentinel-scenario-deployment-spec.md) — Deployment configuration
+- [Sentinel Scenario Normative Spec](../subsystems/seer-sentinels/sentinel-scenario-normative-spec.md) — Normative requirements
+- [Sentinel Scenario Automation Spec](../subsystems/seer-sentinels/sentinel-scenario-automation-spec.md) — Automation with enrollment filters
+- [Sentinel Scenario Deployment Spec](../subsystems/seer-sentinels/sentinel-scenario-deployment-spec.md) — Deployment configuration
 - [Sentinel Scenario Processing](../hub-integration/sentinel-scenario-processing.md) — Hub integration flow
 
 ### Related Systems
@@ -318,4 +318,4 @@ Sentinels follow a deployment model:
 
 ---
 
-*For detailed implementation, see [Agent Session Sentinel README](../subsystems/agent-session-sentinel/README.md).*
+*For detailed implementation, see [Seer Sentinels README](../subsystems/seer-sentinels/README.md).*
