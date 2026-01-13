@@ -60,4 +60,5 @@ Create a session note when:
 |------|-------|---------|
 | [2026-01-06](./2026-01-06-quality-infrastructure.md) | Quality Infrastructure | Templates, cursor rules, design debt, PERIODIC-TODO |
 | [2026-01-11](./2026-01-11-hub-namespace-concept-removal.md) | Hub Namespace Concept Removal | Removed namespace from Hub resources, standardized on workbench instance scoping, fixed inconsistencies across 7 documentation files, created ADR-0092 |
+| [2026-01-13](./2026-01-13-seer-ux-architecture-detailed-design.md) | Seer UX Architecture Detailed Design | Complete UX architecture documentation: 7 desks (21 consoles), 8 critical journeys, 7 REST channels, persona needs pages. 53 files created, 9,427 lines added. |
 
