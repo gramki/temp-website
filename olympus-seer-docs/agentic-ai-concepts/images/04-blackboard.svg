@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
+  <!-- Blackboard/Shared State -->
+  <rect x="150" y="150" width="200" height="120" rx="5" fill="#34495E" stroke="#1C2833" stroke-width="3"/>
+  <text x="250" y="190" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold">Blackboard</text>
+  <text x="250" y="210" text-anchor="middle" fill="white" font-family="Arial" font-size="12">Shared State / Artifacts</text>
+  <text x="250" y="230" text-anchor="middle" fill="white" font-family="Arial" font-size="12">Versioned &amp; Concurrent</text>
+  <text x="250" y="250" text-anchor="middle" fill="white" font-family="Arial" font-size="12">Read/Write Access</text>
+  
+  <!-- Agents around blackboard -->
+  <rect x="50" y="30" width="80" height="50" rx="5" fill="#3498DB" stroke="#21618C" stroke-width="2"/>
+  <text x="90" y="55" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Agent 1</text>
+  
+  <rect x="370" y="30" width="80" height="50" rx="5" fill="#3498DB" stroke="#21618C" stroke-width="2"/>
+  <text x="410" y="55" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Agent 2</text>
+  
+  <rect x="50" y="320" width="80" height="50" rx="5" fill="#3498DB" stroke="#21618C" stroke-width="2"/>
+  <text x="90" y="345" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Agent 3</text>
+  
+  <rect x="370" y="320" width="80" height="50" rx="5" fill="#3498DB" stroke="#21618C" stroke-width="2"/>
+  <text x="410" y="345" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Agent 4</text>
+  
+  <!-- Bidirectional arrows to blackboard -->
+  <line x1="90" y1="80" x2="200" y2="180" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="200" y1="180" x2="90" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <line x1="410" y1="80" x2="300" y2="180" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="300" y1="180" x2="410" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <line x1="90" y1="320" x2="200" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="200" y1="250" x2="90" y2="320" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <line x1="410" y1="320" x2="300" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="300" y1="250" x2="410" y2="320" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow definitions -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+</svg>
