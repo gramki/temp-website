@@ -1,0 +1,68 @@
+=======================================================
+********* PHASE 4 TODOs *********
+=======================================================
+# Hub Knowledge Bank Submodule Explanation:
+    [ ] Ingestion
+    [ ] Storage
+    [ ] Retrieval Mechanisms
+    [ ] Analytics
+
+# Hub Application Runtimes:
+    [ ] Detail out the supported 'Application Blueprints' for each runtime
+    [ ] Detail out the Developer Journey for each Application Blueprint
+    
+
+# UX Architecture:
+    ## Business Customer aka Service Request Interfaces:
+        - Use of Neutrino Channels for Business Customer
+        - Task Solver Components for Subject Tasks
+        - Integration into Neutrino Channels - Mobile, Web, Email, MS Teams, etc.,
+        - TODO: Why is 'User Interaction Channels' focused on just 'customers as subjects'?
+
+    ## Partially Covered (Need Expansion):
+        [ ] Angelos Components & Binders - Detail the event wiring mechanism (how events from one component trigger events in other components within a Page)
+        [ ] Angelos Action Repository - Detail catalog structure, contribution process (tenant developers + pre-built actions), discovery and usage patterns
+        [ ] Task Solver Interface - Specify template structure, how Workbench Developers define custom solver views per task type, read-only vs solver view patterns
+        [ ] Custom Consoles - Detail the building process using Angelos Page Builder, component composition, data binding, deployment lifecycle
+
+# Signal Exchange and Application Interaction Protocol:
+    - Support for MCP 
+    - Support for A2A 
+        
+# Task Management System:
+    [ ] Expand Jira as Task Management System (also service now, etc.)
+    [ ] Expand Jira as I/O Gateway and Jira Task as a signal (also service now, etc.,)
+    
+# Documentation Quality & Onboarding (Backlog):
+    ## Overview Documents (00-overview/):
+        [ ] System Primer - Single ~3 page doc: What is Hub? 5 core concepts, end-to-end request flow
+        [ ] Entity Model - Diagram showing containment (Tenant→Subscription→Workbench→Scenario) and lifecycle (Signal→Trigger→Request→Task)
+        [ ] Glossary - 50-100 terms with precise definitions (Subject, Request, Operation, Scenario, etc.)
+        [ ] Reading Guide - Recommended reading order by persona (Developer, Process Architect, Auditor, etc.)
+        [ ] Decision Log (ADR-style) - Capture rationale for key decisions (Signal Exchange naming, Automation Runtime, etc.)
+        [ ] Expand the architecture section - Hub design concepts, principles, and patterns
+    
+
+    ## Worked Examples (09-examples/):
+        [ ] Service Request Example - End-to-end trace: Customer dispute → Signal → Trigger → Request → Tasks → Completion
+        [ ] Business Request Example - Employee-initiated onboarding or compliance review
+        [ ] System Request Example - Reconciliation failure requiring business resolution
+
+    ## Worked Examples various Hub Applications and Scenarios (placeholder; real applications will suggested later):
+        [ ] File App Example - File processing scenario
+        [ ] Map-Reduce App Example - Data processing scenario
+        [ ] Complex Event App Example - Event processing scenario
+        [ ] Workflow App Example - Workflow processing scenario
+        [ ] Durable Workflow App Example - Durable workflow processing scenario
+        [ ] Seer Case Orchestration Agent Example - Case orchestration scenario
+
+    ## Consistency & Completeness:
+        [ ] Define "done" criteria for document types (stub vs complete: must have overview, schema, integration points, example)
+        [ ] Add anti-patterns/common mistakes to key documents (like Storage FAQ)
+        [ ] Standardize diagram approach (ASCII vs Mermaid) across all docs
+        [ ] Version mark: distinguish v1 scope vs aspirational/future features
+        [ ] Add Collaboration sections to remaining personas (Administrator, Auditor, SRE, Customer Success)
+
+    ## Cross-Cutting:
+        [ ] Periodic consistency review - catch terminology drift across documents
+        [ ] Coverage tracking - ensure Concepts ↔ Subsystems ↔ Guides form complete picture

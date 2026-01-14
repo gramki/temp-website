@@ -31,5 +31,7 @@ This section is organized into the following sub-sections:
 *   **1.7 Building Agents with AI**: The DevOps Workbench pattern.
 *   **1.8 Designed for Enterprise Personas**: How Seer serves specific stakeholders.
 *   **1.9 Persona-Specific Desks**: Purpose-built experiences for each persona.
+*   **1.10 Persona Twins**: Personal AI assistants for delegation.
+*   **1.11 Developer Experience**: SDK-first design for agent development.
 
 ---

@@ -26,5 +26,7 @@ This section is organized into the following sub-sections:
 *   **7.5 Predictability Through Structured Operations**: GitOps, isolation, and guardrails.
 *   **7.6 Directability: Rejection-Based Steering**: Escalation and intervention.
 *   **7.7 Why This Matters**: Enterprise value of runtime observability.
+*   **7.8 Observability Extensions to Watch**: Real-time dashboards and operational tools.
+*   **7.9 Agent Analytics**: Historical data mart for agent operational data.
 
 ---

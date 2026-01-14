@@ -10,6 +10,9 @@ Seer provides structured patterns for agent coordination through Hub's composite
 | **Scenario-as-Agent** | Scenario completes tasks in another scenario's queue | Automated task handling |
 | **Workbench-as-Machine** | Cross-workbench invocation | Domain separation |
 | **Parent-Child Requests** | Nested request hierarchy | Context inheritance |
+| **Hub Composite Applications** | Multiple Hub Applications participate in same Request via shared state (blackboard pattern) | Multi-agent topologies without explicit orchestration |
+
+> *See Section 22 for detailed coverage of Hub Composite Applications, including supported topology patterns (Blackboard, PEC Loop, Market-Based, Role-Specialized Committees).*
 
 ## Scenario-as-Tool
 
@@ -217,6 +220,52 @@ Enables end-to-end traceability across nested operations.
 | Cross-workbench with domain separation | Workbench-as-Machine |
 | Nested operations with context sharing | Parent-Child Requests |
 | Human + AI in same queue | Scenario-as-Agent with mixed enrollment |
+| Multi-agent topologies without explicit orchestration | Hub Composite Applications |
+
+---
+
+## Hub Composite Applications
+
+Hub Composite Applications enable multiple Hub Applications to participate in the same Request, coordinating through shared Request state (blackboard pattern). This pattern supports multi-agent topologies without explicit orchestration, enabling agents to work together on complex problems through shared state rather than explicit message passing.
+
+### How It Works
+
+```
+Request Created
+    ↓
+Multiple Hub Applications Enrolled
+    ├── Application A (Planner)
+    ├── Application B (Executor)
+    └── Application C (Critic)
+            ↓
+    Shared Request State (Blackboard)
+            ↓
+    Applications Coordinate via Updates
+            ↓
+    Request Completed
+```
+
+### When to Use
+
+| ✅ Use When | ❌ Avoid When |
+|-------------|---------------|
+| Multiple agents need to work on same problem | Simple sequential workflow |
+| Coordination via shared state is natural | Tight coupling between agents |
+| Cross-runtime composition needed | Single runtime sufficient |
+| Blackboard, PEC Loop, or Market-Based topology | Explicit orchestration preferred |
+
+### Topology Patterns
+
+Hub Composite Applications support several topology patterns:
+
+| Pattern | Description |
+|---------|-------------|
+| **Blackboard** | Shared memory coordination via Request state |
+| **PEC Loop** | Planner-Executor-Critic via update types |
+| **Market-Based** | Broadcast and bid via request updates |
+| **Role-Specialized Committees** | Multiple perspectives on same request |
+
+> *See Section 22.2 for detailed coverage of these topology patterns.*
 
 ---
 
@@ -224,3 +273,5 @@ Enables end-to-end traceability across nested operations.
 *   `olympus-hub-docs/09-composite-systems-and-patterns/scenario-as-a-tool.md`
 *   `olympus-hub-docs/09-composite-systems-and-patterns/scenario-as-an-agent.md`
 *   `olympus-hub-docs/09-composite-systems-and-patterns/workbench-as-a-machine.md`
+*   `olympus-hub-docs/02-system-design/implementation-concepts/hub-composite-application.md`
+*   Section 22 (Multi-Agent Topologies in Hub) for detailed coverage of Hub Composite Applications

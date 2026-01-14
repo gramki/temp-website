@@ -23,6 +23,10 @@ olympus-seer-docs/why-seer/
 │   ├── 03-memory-requirements/
 │   ├── 04-audit-requirements/
 │   └── 05-building-enterprise-agent/
+│       ├── 05-12-oversight-monitoring-requirements/
+│       ├── 05-13-developer-experience-requirements/
+│       ├── 05-14-multi-agent-topology-requirements/
+│       └── 05-15-collaboration-channel-requirements/
 │
 ├── part-2-how-seer-solves/
 │   ├── _part-overview.md
@@ -38,7 +42,13 @@ olympus-seer-docs/why-seer/
 │   ├── 10-tools-actions-in-seer/
 │   ├── 11-multi-agent-patterns-in-seer/
 │   ├── 12-feedback-learning-in-seer/
-│   └── 13-summary-why-seer/
+│   ├── 13-summary-why-seer/
+│   ├── 19-agent-oversight-monitoring-in-seer/
+│   ├── 20-developer-experience-in-seer/
+│   ├── 21-persona-twins-in-seer/
+│   ├── 22-multi-agent-topologies-in-hub/
+│   ├── 23-collaboration-channels-in-hub/
+│   └── 24-task-management-in-hub/
 │
 ├── appendices/
 │   ├── _appendix-overview.md
@@ -141,10 +151,14 @@ olympus-seer-docs/why-seer/
 | P1-5.9 | Write Multi-Agent Coordination Requirements | `part-1-background/05-building-enterprise-agent/05-9-multi-agent-coordination.md` | ✅ Reviewed | Composite patterns |
 | P1-5.10 | Write Feedback & Learning Requirements | `part-1-background/05-building-enterprise-agent/05-10-feedback-learning-requirements.md` | ✅ Reviewed | Feedback services |
 | P1-5.11 | Write Cost Requirements for Enterprise Agents | `part-1-background/05-building-enterprise-agent/05-11-cost-requirements.md` | ✅ Reviewed | ARE, AHS, CHR |
+| P1-5.12 | Write Agent Oversight & Monitoring Requirements | `part-1-background/05-building-enterprise-agent/05-12-oversight-monitoring-requirements/` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P1-5.13 | Write Developer Experience Requirements | `part-1-background/05-building-enterprise-agent/05-13-developer-experience-requirements/` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P1-5.14 | Write Multi-Agent Topology Requirements | `part-1-background/05-building-enterprise-agent/05-14-multi-agent-topology-requirements/` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P1-5.15 | Write Collaboration Channel Requirements | `part-1-background/05-building-enterprise-agent/05-15-collaboration-channel-requirements/` | ⬜ | See `writing-plan-14-jan-2026.md` |
 
 ---
 
-## Phase 2: Part 2 — How Seer Solves (Sections 1–13)
+## Phase 2: Part 2 — How Seer Solves (Sections 1–13, 19–24)
 
 ### Part 2 Overview
 
@@ -168,6 +182,8 @@ olympus-seer-docs/why-seer/
 | P2-1.7 | Write Building Agents with AI | `part-2-how-seer-solves/01-seer-design-philosophy/01-7-devops-workbench.md` | ✅ Reviewed | `devops-workbench/` |
 | P2-1.8 | Write Designed for Enterprise Personas | `part-2-how-seer-solves/01-seer-design-philosophy/01-8-enterprise-personas.md` | ✅ Reviewed | `personas-and-needs/` |
 | P2-1.9 | Write Persona-Specific Desks | `part-2-how-seer-solves/01-seer-design-philosophy/01-9-persona-specific-desks.md` | ✅ Reviewed | `ux-architecture/` |
+| P2-1.10 | Write Persona Twins: Personal AI Assistants | `part-2-how-seer-solves/01-seer-design-philosophy/01-10-persona-twins.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-1.11 | Write Developer Experience: SDK-First Design | `part-2-how-seer-solves/01-seer-design-philosophy/01-11-developer-experience.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
 
 ---
 
@@ -247,6 +263,8 @@ olympus-seer-docs/why-seer/
 | P2-7.5 | Write Predictability Through Structured Ops | `part-2-how-seer-solves/07-runtime-observability-in-seer/07-5-predictability-structured-ops.md` | ✅ Done | ✅ Reviewed | GitOps, isolation, guardrails |
 | P2-7.6 | Write Directability: Rejection-Based | `part-2-how-seer-solves/07-runtime-observability-in-seer/07-6-directability-rejection.md` | ✅ Done | ✅ Reviewed | Escalation, intervention |
 | P2-7.7 | Write Why This Matters | `part-2-how-seer-solves/07-runtime-observability-in-seer/07-7-why-this-matters.md` | ✅ Done | ✅ Reviewed | Enterprise value |
+| P2-7.8 | Write Observability Extensions to Watch | `part-2-how-seer-solves/07-runtime-observability-in-seer/07-8-observability-extensions-watch.md` | ⬜ | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-7.9 | Write Agent Analytics | `part-2-how-seer-solves/07-runtime-observability-in-seer/07-9-agent-analytics.md` | ⬜ | ⬜ | See `writing-plan-14-jan-2026.md` |
 
 ---
 
@@ -297,7 +315,7 @@ olympus-seer-docs/why-seer/
 | P2-11.0 | Write Section Overview | `part-2-how-seer-solves/11-multi-agent-patterns-in-seer/_section-overview.md` | ✅ Reviewed | Outline §16 |
 | P2-11.1 | Write Agents Work in Teams | `part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-1-agents-work-in-teams.md` | ✅ Reviewed | Collaboration |
 | P2-11.2 | Write Agent Archetypes | `part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-2-agent-archetypes.md` | ✅ Reviewed | Thinker/Doer/Orch/Gov |
-| P2-11.3 | Write Coordination Patterns | `part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-3-coordination-patterns.md` | ✅ Reviewed | S-a-T, S-a-A, W-a-M |
+| P2-11.3 | Write Coordination Patterns | `part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-3-coordination-patterns.md` | ⬜ | See `writing-plan-14-jan-2026.md` | S-a-T, S-a-A, W-a-M, Hub Composite Apps (update needed) |
 | P2-11.4 | Write Handoff Context | `part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-4-handoff-context.md` | ✅ Reviewed | Context transfer |
 | P2-11.5 | Write Human-AI Teaming | `part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-5-human-ai-teaming.md` | ✅ Reviewed | HAT |
 
@@ -324,6 +342,74 @@ olympus-seer-docs/why-seer/
 | P2-13.1 | Write Enterprise Agent Imperative | `part-2-how-seer-solves/13-summary-why-seer/13-1-enterprise-agent-imperative.md` | ✅ Reviewed | Cloud vs Seer |
 | P2-13.2 | Write Seer Value Proposition | `part-2-how-seer-solves/13-summary-why-seer/13-2-seer-value-proposition.md` | ✅ Reviewed | 5 pillars |
 | P2-13.3 | Write Who Should Use Seer | `part-2-how-seer-solves/13-summary-why-seer/13-3-who-should-use-seer.md` | ✅ Reviewed | Target audience |
+
+---
+
+### Section 19: Agent Oversight & Monitoring in Seer
+
+| ID | Task | File | Status | References |
+|----|------|------|--------|------------|
+| P2-19.0 | Write Section Overview | `part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/_section-overview.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-19.1 | Write Seer Sentinels | `part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-1-seer-sentinels.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-19.2 | Write Agent Health Monitor | `part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-2-agent-health-monitor.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-19.3 | Write Agent Analytics | `part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-3-agent-analytics.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-19.4 | Write Observability Extensions to Watch | `part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-4-observability-extensions-watch.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-19.5 | Write Cognitive Operations Governance Workbench | `part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-5-cogw.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+
+---
+
+### Section 20: Developer Experience in Seer
+
+| ID | Task | File | Status | References |
+|----|------|------|--------|------------|
+| P2-20.0 | Write Section Overview | `part-2-how-seer-solves/20-developer-experience-in-seer/_section-overview.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-20.1 | Write Seer Agent SDK | `part-2-how-seer-solves/20-developer-experience-in-seer/20-1-seer-agent-sdk.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-20.2 | Write SDK Capabilities | `part-2-how-seer-solves/20-developer-experience-in-seer/20-2-sdk-capabilities.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-20.3 | Write Development Workflow | `part-2-how-seer-solves/20-developer-experience-in-seer/20-3-development-workflow.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+
+---
+
+### Section 21: Persona Twins in Seer
+
+| ID | Task | File | Status | References |
+|----|------|------|--------|------------|
+| P2-21.0 | Write Section Overview | `part-2-how-seer-solves/21-persona-twins-in-seer/_section-overview.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-21.1 | Write What Are Persona Twins? | `part-2-how-seer-solves/21-persona-twins-in-seer/21-1-what-are-persona-twins.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-21.2 | Write Persona Twin Lifecycle | `part-2-how-seer-solves/21-persona-twins-in-seer/21-2-persona-twin-lifecycle.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-21.3 | Write Use Cases | `part-2-how-seer-solves/21-persona-twins-in-seer/21-3-use-cases.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+
+---
+
+### Section 22: Multi-Agent Topologies in Hub
+
+| ID | Task | File | Status | References |
+|----|------|------|--------|------------|
+| P2-22.0 | Write Section Overview | `part-2-how-seer-solves/22-multi-agent-topologies-in-hub/_section-overview.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-22.1 | Write Hub Composite Applications | `part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-1-hub-composite-applications.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-22.2 | Write Supported Topologies | `part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-2-supported-topologies.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-22.3 | Write Deployment Model | `part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-3-deployment-model.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+
+---
+
+### Section 23: Collaboration Channels in Hub
+
+| ID | Task | File | Status | References |
+|----|------|------|--------|------------|
+| P2-23.0 | Write Section Overview | `part-2-how-seer-solves/23-collaboration-channels-in-hub/_section-overview.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-23.1 | Write MS Teams Integration | `part-2-how-seer-solves/23-collaboration-channels-in-hub/23-1-ms-teams-integration.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-23.2 | Write Observer Pattern | `part-2-how-seer-solves/23-collaboration-channels-in-hub/23-2-observer-pattern.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-23.3 | Write Multi-Channel Access | `part-2-how-seer-solves/23-collaboration-channels-in-hub/23-3-multi-channel-access.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+
+---
+
+### Section 24: Task Management in Hub
+
+| ID | Task | File | Status | References |
+|----|------|------|--------|------------|
+| P2-24.0 | Write Section Overview | `part-2-how-seer-solves/24-task-management-in-hub/_section-overview.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-24.1 | Write Task Lifecycle | `part-2-how-seer-solves/24-task-management-in-hub/24-1-task-lifecycle.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-24.2 | Write Task Allocation | `part-2-how-seer-solves/24-task-management-in-hub/24-2-task-allocation.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
+| P2-24.3 | Write Agent Task Operations | `part-2-how-seer-solves/24-task-management-in-hub/24-3-agent-task-operations.md` | ⬜ | See `writing-plan-14-jan-2026.md` |
 
 ---
 
@@ -357,11 +443,11 @@ olympus-seer-docs/why-seer/
 |-------|----------|-------|--------|
 | **Phase 0: Front Matter** | 1 | 4 | ✅ Complete |
 | **Phase 1: Part 1 (Background)** | 5 | 28 | ✅ Complete |
-| **Phase 2: Part 2 (How Seer Solves)** | 13 | 64 | ✅ Complete |
+| **Phase 2: Part 2 (How Seer Solves)** | 19 | 88 | ⬜ 64/88 Complete, 24 new sections added |
 | **Phase 3: Appendices** | 1 | 5 | ✅ Complete |
 | **Phase 4: Finalization** | - | - | ✅ Complete |
 | **Phase 4: Finalization** | — | 5 | ⬜ 0/5 |
-| **Total** | **20** | **107** | ✅ 17/107 |
+| **Total** | **26** | **131** | ✅ 107/131 Complete, 24 new sections added |
 
 ---
 
@@ -410,6 +496,12 @@ For each file, use the **Per-Section Execution Prompt** from `olympus-hub-docs/s
 | §16 Multi-Agent Patterns | Part 2, Section 11 |
 | §17 Feedback & Learning | Part 2, Section 12 |
 | §18 Summary: Why Seer? | Part 2, Section 13 |
+| §19 Agent Oversight & Monitoring | Part 2, Section 19 |
+| §20 Developer Experience | Part 2, Section 20 |
+| §21 Persona Twins | Part 2, Section 21 |
+| §22 Multi-Agent Topologies in Hub | Part 2, Section 22 |
+| §23 Collaboration Channels in Hub | Part 2, Section 23 |
+| §24 Task Management in Hub | Part 2, Section 24 |
 
 ---
 
@@ -422,4 +514,7 @@ For each file, use the **Per-Section Execution Prompt** from `olympus-hub-docs/s
 | 2026-01-10 | Completed writing: Front Matter (4 files), Part 1 Overview, Sections 1-2 (11 files) | AI |
 | 2026-01-10 | Completed editorial review: All 16 written files reviewed, marked 🔍 Waiting Review | AI |
 | 2026-01-10 | Created `requires-expansion-or-review.md` with minor gaps logged | AI |
+| 2026-01-15 | Updated outline with new sections: Part 1 (5.12-5.15), Part 2 (19-24), Part 2 updates (6.10, 6.11, 12.8, 12.9, 16.3) | AI |
+| 2026-01-15 | Created `writing-plan-14-jan-2026.md` to track new sections | AI |
+| 2026-01-15 | Updated main writing plan to reference new sections | AI |
 

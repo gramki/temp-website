@@ -12,6 +12,7 @@
 | [Agent Development Lifecycle](./agent-development-lifecycle.md) | Engineers, Architects, Stewards | Complete guide to conceiving, training, evaluating, and employing agents |
 | [Agent Lifecycle FAQ](./agent-lifecycle-faq.md) | Architects, Developers | Common questions about agent development, CRDs, and naming conventions |
 | [Guardrails Best Practices](./guardrails-best-practices.md) | Developers, Stewards, Admins | Effective guardrail design, configuration, and governance |
+| [Multi-Agent Topologies](./multi-agent-topologies/README.md) | Architects, Developers | Implementing multi-agent collaboration patterns with Hub and Seer |
 
 ---
 
@@ -46,7 +47,6 @@ See [Agent Lifecycle FAQ](./agent-lifecycle-faq.md) for detailed explanations.
 
 - Context Assembly Patterns
 - Testing and Evaluation Deep Dive
-- Multi-Agent Orchestration Patterns
 
 ---
 

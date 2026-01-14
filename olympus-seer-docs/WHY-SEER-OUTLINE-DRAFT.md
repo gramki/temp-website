@@ -523,6 +523,112 @@ CHR = Total Operational Cost / Agent Health Score (AHS)
 
 ---
 
+### 5.12 Agent Oversight & Monitoring Requirements
+
+#### Why Oversight Is Needed
+- Real-time monitoring: detect anomalies and behavioral drift as they occur
+- Anomaly detection: identify unusual patterns in agent behavior, cost, or outcomes
+- Behavioral drift detection: track when agents deviate from expected patterns
+- Subscription-wide governance: coordinate oversight across multiple workbenches
+
+#### Three Types of Oversight
+- **Realtime Sentinels:** Event-based policy evaluation for immediate detection
+- **Analytical Sentinels:** Historical pattern analysis on aggregated data
+- **Request Sentinels:** Agent participation in other agents' requests for active monitoring
+
+#### SLO Tracking Requirements
+- **Cost SLOs (ARE):** Track cost-to-health ratio, budget utilization, anomaly detection
+- **Behavior SLOs (COS):** Monitor behavioral patterns, drift detection, quality metrics
+- **Feedback SLOs (PA/APO):** Track feedback collection, resolution, and promotion
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/seer-sentinels/README.md`
+- `seer-design/subsystems/agent-health-monitor/README.md`
+- `seer-design/subsystems/agent-analytics/README.md`
+- `seer-design/subsystems/observability-extensions-to-watch/README.md`
+- `seer-design/subsystems/cognitive-operations-governance-workbench/README.md`
+
+---
+
+### 5.13 Developer Experience Requirements
+
+#### SDK Needs for Agent Development
+- Framework-agnostic APIs: work with any agentic framework (LangGraph, Strands, OpenAPI)
+- Multi-language support: consistent APIs across Python and Java
+- Development workflow: local testing, debugging, and CI/CD integration
+
+#### Core SDK Capabilities Required
+- Employment Spec access: retrieve and cache agent configuration
+- Prompt management: A/B testing aware, authority enforcement aware
+- Context compilation: SDK wrappers for context assembly service
+- Observability: metrics, tracing, structured logging, auto-instrumentation
+- Hub integration: tools, memory, knowledge, events APIs
+
+#### Development Workflow Requirements
+- Local development: test agents without full platform deployment
+- CI/CD integration: automated testing and validation
+- Debugging support: observability during development
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/seer-agent-sdk/README.md`
+- `seer-design/implementation-concepts/sdk-development-experience.md`
+
+---
+
+### 5.14 Multi-Agent Topology Requirements
+
+#### Beyond Single-Agent Scenarios
+- Complex business processes require multiple specialized agents
+- Coordination patterns needed: blackboard, PEC loop, market-based, committees
+- Composite application needs: multiple apps operating on same request
+- Cross-runtime composition: Seer + Rhea + Atlantis in one composite
+
+#### Coordination Pattern Requirements
+- **Blackboard:** Shared state coordination without explicit orchestration
+- **PEC Loop:** Planner-Executor-Critic cycles for verification
+- **Market-Based:** Broadcast and bid patterns for dynamic allocation
+- **Role-Specialized Committees:** Multiple perspectives on high-stakes decisions
+
+> *Note: These topology patterns complement the coordination mechanisms (Scenario-as-Tool, Scenario-as-Agent, etc.) described in Section 5.9. Topology patterns define architectural structures, while coordination mechanisms define interaction protocols.*
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/02-system-design/implementation-concepts/hub-composite-application.md`
+- `olympus-seer-docs/agentic-ai-concepts/multi-agent-topologies.md`
+
+---
+
+### 5.15 Collaboration Channel Requirements
+
+#### Channel Diversity Needs
+- Multiple access channels: Web Portal, CLI, MCP Server, REST API, MS Teams
+- Persona-specific channels: each persona needs appropriate access methods
+- Deep linking: navigation between channels and Hub operations
+
+#### Bots as Copilots Concept
+- Me_Bot: personal task and notification management for Agents/Supervisors
+- Ask_Bot: Hub queries for Business Employees
+- Group Orchestration Bot: team collaboration on requests
+
+#### Chat Groups as Collaboration Surfaces
+- One group per request: all collaboration in one place
+- Dynamic membership: assignees join automatically as tasks are created
+- Persistent history: all messages become Request updates for audit
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/04-subsystems/ms-teams-integration/README.md`
+- `olympus-hub-docs/02-system-design/implementation-concepts/observer-pattern.md`
+- `olympus-hub-docs/02-system-design/implementation-concepts/ms-teams-integration.md`
+
+---
+
 # Part 2: How Seer Solves for Enterprise Agents
 
 > *Part 1 established what enterprise agents require. Part 2 shows how Seer + Hub address each requirement with production-grade capabilities.*
@@ -707,14 +813,7 @@ Seer extends Hub's existing desk architecture for operational personas:
 
 #### Multi-Channel Access
 
-| Channel | Primary Users |
-|---------|---------------|
-| **Web Portal** | All personas |
-| **CLI** | AE, ARE |
-| **MCP Server** | AE, CSA (IDE integration) |
-| **REST API** | All (programmatic) |
-| **Watch Dashboards** | ARE, COS |
-| **Collaboration** | All (Slack, Teams, Email) |
+Seer supports multiple access channels optimized for different personas and use cases. See Section 23.3 for detailed channel coverage.
 
 #### Key Value
 > *Each persona gets exactly the tools they need, organized the way they work, accessible through their preferred channel.*
@@ -725,6 +824,41 @@ Seer extends Hub's existing desk architecture for operational personas:
 - `seer-design/ux-architecture/README.md` — Seer UX overview
 - `seer-design/ux-architecture/desk-requirements.md` — Per-persona consoles and journeys
 - `olympus-hub-docs/06-ux-architecture/README.md` — Hub UX architecture (foundation)
+
+---
+
+### 6.10 Persona Twins: Personal AI Assistants
+- **Personal Delegation:** Collaborators create AI agents to delegate their responsibilities
+- **Authority Inheritance:** Twins inherit authority from delegator (same as delegator)
+- **Personal Triggers:** Tasks assigned to delegator, platform notifications, schedules
+- **Privacy:** Private visibility option for personal workflows
+- **Blueprint-Based Creation:** Persona Twin Blueprints enable non-developer creation
+
+> *See Section 21 for detailed coverage of Persona Twins.*
+
+---
+
+**📚 Expand with:**
+- `seer-design/implementation-concepts/persona-twins.md`
+- `seer-design/implementation-concepts/persona-twin-blueprint.md`
+- Section 21 (Persona Twins in Seer) for detailed coverage
+
+---
+
+### 6.11 Developer Experience: SDK-First Design
+- **Framework-Agnostic Approach:** Core SDK APIs work with any agentic framework
+- **Multi-Language Support:** Consistent APIs across Python and Java
+- **Development Workflow:** Local testing, CI/CD integration, debugging support
+- **Hub Integration:** Unified APIs for tools, memory, knowledge, events
+
+> *See Section 20 for detailed coverage of Developer Experience.*
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/seer-agent-sdk/README.md`
+- `seer-design/implementation-concepts/sdk-development-experience.md`
+- Section 20 (Developer Experience in Seer) for detailed coverage
 
 ---
 
@@ -1196,6 +1330,38 @@ CAF records: Override, ContextIntervention, DirectiveResolution
 
 ---
 
+### 12.8 Observability Extensions to Watch
+- **Runtime Observability:** Real-time dashboards for AREs and Cognitive Operations Stewards (distinct from historical analytics)
+- **Persona Dashboards:** AI Platform Engineer, LLMOps Engineer, SRE for Agentic Systems, Security Architect
+- **Operational Tools:** Circuit breakers, load shedding, agent throttling, cost kill-switch
+- **Alert Templates:** Persona-specific alert configurations
+
+> *See Section 19.4 for detailed coverage of Observability Extensions to Watch.*
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/observability-extensions-to-watch/README.md`
+- Section 19.4 (Observability Extensions to Watch) for detailed coverage
+
+---
+
+### 12.9 Agent Analytics
+- **Historical Data Mart:** Agent Analytics is a data mart (analogous to Hub Analytics) that houses operational data for agents
+- **Separation from Observability:** Runtime observability is provided by Observability Extensions to Watch (separate subsystem)
+- **LakeStack Integration:** Uses Pontus infrastructure for data mart construction and storage, leverages ETSL for enterprise-wide semantic consistency
+- **Data Sources:** Watch, Seer Sidecar, Model Gateway, Agent Runtime
+
+> *See Section 19.3 for detailed coverage of Agent Analytics.*
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/agent-analytics/README.md`
+- Section 19.3 (Agent Analytics) for detailed coverage
+
+---
+
 ## 13. Model Gateway in Seer
 
 ### 13.1 The Bifrost Model Gateway
@@ -1455,6 +1621,9 @@ Enterprise processes require multiple specialized agents coordinating with human
 | **Scenario-as-Agent** | Scenario acts as agent in another scenario | Delegation |
 | **Workbench-as-Machine** | Cross-workbench invocation | Domain separation |
 | **Parent-Child Requests** | Nested request hierarchy | Context inheritance |
+| **Hub Composite Applications** | Multiple Hub Applications participate in same Request via shared state (blackboard pattern) | Multi-agent topologies without explicit orchestration |
+
+> *See Section 22 for detailed coverage of Hub Composite Applications, including supported topology patterns (Blackboard, PEC Loop, Market-Based, Role-Specialized Committees).*
 
 ### 16.4 Handoff Context
 When agents transfer work:
@@ -1559,6 +1728,301 @@ Enterprise Knowledge (authoritative policy)
 - Any organization deploying AI agents with consequential decisions
 - Enterprises requiring multi-year agent lifecycle management
 - Organizations needing multi-cloud flexibility
+
+---
+
+## 19. Agent Oversight & Monitoring in Seer
+
+### 19.1 Seer Sentinels
+- **Three Sentinel Types:**
+  - **Realtime Sentinel:** Observes Signal Exchange events, evaluates OPA policies, generates real-time Observations/Exceptions via Cronus
+  - **Analytical Sentinel:** Runs templated SQL on analytics data mart periodically, generates analytical Observations/Exceptions via Cronus
+  - **Request Sentinel:** Operates as Employed Agent in Workbench, observes/participates in requests, creates child requests
+- **OPA Policy Evaluation:** Declarative policies for sentinel behavior
+- **Cronus Integration:** Uses Hub's existing Observation/Exception model
+- **Auto-Enrollment:** Request Sentinels automatically enroll in matching requests
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/seer-sentinels/README.md`
+- `seer-design/subsystems/seer-sentinels/SCOPE.md`
+
+---
+
+### 19.2 Agent Health Monitor
+- **SLO Types by Persona:**
+  - **Cost SLOs (ARE):** Address ARE needs for cost governance
+  - **Behavior SLOs (COS):** Address COS needs for behavior monitoring
+  - **Feedback SLOs (PA/APO):** Address Process Architect and APO needs for feedback tracking
+- **Tracking Without Enforcement:** SLO Manager and Tracking Service only manage and track—no enforcement
+- **Agent Analytics Integration:** Uses Agent Analytics data mart for SLO evaluation
+- **Human Feedback Service:** Feedback collection, routing, metric calculation
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/agent-health-monitor/README.md`
+- `seer-design/subsystems/agent-health-monitor/SCOPE.md`
+
+---
+
+### 19.3 Agent Analytics
+- **Data Mart Model:** Agent Analytics is a data mart (analogous to Hub Analytics) that houses operational data for agents
+- **Separation from Observability:** Runtime observability is provided by Observability Extensions to Watch (separate subsystem)
+- **LakeStack Integration:** Uses Pontus infrastructure for data mart construction and storage, leverages ETSL for enterprise-wide semantic consistency
+- **Data Sources:** Watch, Seer Sidecar, Model Gateway, Agent Runtime
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/agent-analytics/README.md`
+- `seer-design/subsystems/agent-analytics/SCOPE.md`
+
+---
+
+### 19.4 Observability Extensions to Watch
+- **Runtime Observability:** Real-time dashboards for AREs and Cognitive Operations Stewards (distinct from historical analytics)
+- **Persona Dashboards:** AI Platform Engineer, LLMOps Engineer, SRE for Agentic Systems, Security Architect
+- **Operational Tools:** Circuit breakers, load shedding, agent throttling, cost kill-switch
+- **Alert Templates:** Persona-specific alert configurations
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/observability-extensions-to-watch/README.md`
+
+---
+
+### 19.5 Cognitive Operations Governance Workbench (COGW)
+- **Subscription-Wide Governance:** COGW enables subscription-wide cognitive operations governance via cross-workbench COG Sentinels
+- **COGW as Workbench Type:** Distinct workbench type (`workbench_type: "cogw"`) like `devops`
+- **COG Sentinels:** Request Sentinels with cross-workbench targeting via pattern-based matching
+- **Signal Forwarding:** Filtered signal forwarding from target workbenches to COGW
+- **Read-Only Sync:** Sentinel specs synced to target workbenches as read-only
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/cognitive-operations-governance-workbench/README.md`
+- `seer-design/implementation-concepts/cognitive-operations-governance.md`
+
+---
+
+## 20. Developer Experience in Seer
+
+### 20.1 Seer Agent SDK
+- **Framework-Agnostic Design:** Core APIs work with any agentic framework
+- **Multi-Language Support:** Python and Java with consistent logical APIs
+- **API Groups:** Employment Spec, Prompts, Context Compiler, Observability, Hub Integration
+- **Framework Builders:** Optional framework-specific builders for LangGraph, Strands, OpenAPI
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/seer-agent-sdk/README.md`
+- `seer-design/implementation-concepts/sdk-development-experience.md`
+
+---
+
+### 20.2 SDK Capabilities
+- **Employment Spec APIs:** Retrieval, caching, versioning
+- **Prompt APIs:** A/B testing aware, authority enforcement aware, autonomy level-based prompt retrieval
+- **Context Compiler APIs:** SDK wrappers for context compilation service
+- **Observability APIs:** Metrics, tracing, structured logging, auto-instrumentation
+- **Hub Integration APIs:** Tool discovery/calling, Stores, Knowledge Services, Memory Services, Events APIs
+- **Framework APIs:** LangGraph, Strands, OpenAPI agent builders
+
+---
+
+**📚 Expand with:**
+- `seer-design/subsystems/seer-agent-sdk/python-sdk/` (all files)
+- `seer-design/subsystems/seer-agent-sdk/java-sdk/` (all files)
+
+---
+
+### 20.3 Development Workflow
+- **Local Development:** SDK supports local testing without full platform deployment
+- **CI/CD Integration:** Testing framework integration for automated validation
+- **Debugging Support:** Observability during development with metrics, tracing, logging
+
+---
+
+**📚 Expand with:**
+- Section 5.6 (CI/CD Requirements) for workflow context
+- Section 7.4 (CI/CD in Seer) for Seer-specific workflow
+
+---
+
+## 21. Persona Twins in Seer
+
+### 21.1 What Are Persona Twins?
+- **Definition:** AI agents that collaborators create to handle tasks, notifications, and scheduled activities on their behalf
+- **Authority Inheritance:** Twins inherit authority from their delegator (same as delegator)
+- **Personal Triggers:** Tasks assigned to delegator, platform notifications, personally configured schedules
+- **Privacy:** Private visibility option keeps personal workflows confidential
+- **Scope:** Workbench-scoped; one twin per scenario
+
+---
+
+**📚 Expand with:**
+- `seer-design/implementation-concepts/persona-twins.md`
+- `seer-design/implementation-concepts/persona-twin-blueprint.md`
+
+---
+
+### 21.2 Persona Twin Lifecycle
+- **Blueprint-Based Creation:** Persona Twin Blueprints provide signal suggestions and OPA filter templates
+- **Standard Lifecycle:** Raw → Trained → Employed (follows standard agent lifecycle)
+- **Special Recognition:** Metadata labels and category for isolation
+- **Delegator Ownership:** Collaborator owns and manages their twins
+
+---
+
+**📚 Expand with:**
+- `seer-design/implementation-concepts/persona-twin-blueprint.md`
+- Section 7 (Agent Lifecycle) for standard lifecycle context
+
+---
+
+### 21.3 Use Cases
+- **Task Delegation:** Routine tasks handled by twin
+- **Notification Management:** Twin filters and prioritizes notifications
+- **Scheduled Activities:** Twin handles recurring work
+
+---
+
+**📚 Expand with:**
+- Section 21.1 and 21.2 for context
+
+---
+
+## 22. Multi-Agent Topologies in Hub
+
+### 22.1 Hub Composite Applications
+- **Definition:** Specification that groups multiple Hub Applications to participate in the same Request
+- **Multiple Apps per Request:** Applications coordinate through shared Request state (blackboard pattern)
+- **OPA Filters:** Per-app update routing via OPA filter evaluation
+- **Cross-Runtime Composition:** Apps can span multiple runtimes (Seer + Rhea + Atlantis in one composite)
+- **Deployment-Time Resolution:** Composites flattened to app list at deployment time
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/02-system-design/implementation-concepts/hub-composite-application.md`
+- Section 5.14 (Multi-Agent Topology Requirements) for requirements context
+
+---
+
+### 22.2 Supported Topologies
+- **Blackboard:** Shared memory coordination via Request state
+- **PEC Loop:** Planner-Executor-Critic via update types
+- **Market-Based:** Broadcast and bid via request updates
+- **Role-Specialized Committees:** Multiple perspectives on same request
+
+---
+
+**📚 Expand with:**
+- `olympus-seer-docs/agentic-ai-concepts/multi-agent-topologies.md`
+- Section 22.1 for composite context
+
+---
+
+### 22.3 Deployment Model
+- **Deployment-Time Resolution:** Composite Deployment Operator flattens nested composites to union of all apps
+- **Routing Table Population:** Signal Exchange sees flattened app list with OPA filters
+- **Update Conflict Resolution:** Timestamp-based resolution; OPA policy determines legality
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/02-system-design/implementation-concepts/hub-composite-application.md` (deployment section)
+
+---
+
+## 23. Collaboration Channels in Hub
+
+### 23.1 MS Teams Integration
+- **Bots as Copilots:**
+  - **Me_Bot:** Personal task and notification management for Agents/Supervisors
+  - **Ask_Bot:** Query Hub for information for Business Employees
+  - **Group Orchestration Bot:** Team collaboration on requests
+- **Chat Groups as Collaboration Surfaces:** One group per request; all collaboration in one place
+- **Deep Linking:** Hercules Launcher integration for navigation between Teams and Hub
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/04-subsystems/ms-teams-integration/README.md`
+- `olympus-hub-docs/02-system-design/implementation-concepts/ms-teams-integration.md`
+
+---
+
+### 23.2 Observer Pattern
+- **Signal Exchange Integration:** Loose coupling via observer pattern for module integration
+- **Observer Modules:** Notification Services, Task Management, MS Teams, Audit, Analytics
+- **Event Broadcasting:** Async delivery with failure isolation
+- **Subscription-Based Filtering:** Observers specify event types and scope
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/02-system-design/implementation-concepts/observer-pattern.md`
+- `olympus-hub-docs/decision-logs/0019-signal-exchange-observer-pattern.md`
+
+---
+
+### 23.3 Multi-Channel Access
+- **Web Portal:** Primary interface for all personas
+- **CLI:** AE, ARE personas
+- **MCP Server:** AE, CSA (IDE integration)
+- **REST API:** All (programmatic access)
+- **MS Teams:** Collaboration channel
+
+---
+
+**📚 Expand with:**
+- Section 6.9 (Persona-Specific Desks) for channel context
+
+---
+
+## 24. Task Management in Hub
+
+### 24.1 Task Lifecycle
+- **Task Creation:** Hub Applications create tasks via Signal Exchange
+- **Task Assignment:** Task Management allocates to agents via allocation algorithms
+- **Task Queues:** Queue definitions, escalation matrices, special queues
+- **Task Completion:** Outcome tracking, result payloads
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/04-subsystems/task-management/README.md`
+- `olympus-hub-docs/04-subsystems/task-management/task-lifecycle.md`
+
+---
+
+### 24.2 Task Allocation
+- **Allocation Algorithms:** Workload balancing, skill matching
+- **Escalation Mechanisms:** Time-based and rejection-based escalation
+- **Special Queues:** Escalation queues, abandoned task queues
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/04-subsystems/task-management/task-allocation.md`
+
+---
+
+### 24.3 Agent Task Operations
+- **Task Acceptance:** Agents claim tasks
+- **Task Updates:** Progress reporting
+- **Task Completion:** Outcome submission
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/04-subsystems/task-management/agent-task-operations.md`
 
 ---
 

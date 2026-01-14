@@ -1,0 +1,34 @@
+=======================================================
+********* PHASE 3 TODOs *********
+=======================================================
+# Seer Extensions to Hub to be documented:
+    - Machine as an Agent (A utility to invoke machine tools based on intent; Seer Agent facing utility)
+    - Scenario Collection as an Agent (A utility to invoke scenario based on intent; Business Domain User facing utility)
+    - Clarify Seer Agent receiving Signals vs. Hub Agent receiving Signals (Guides & Callouts)
+    - Callout: Various types of Agents
+
+# Topologies of Workbenches:
+    - Blueprint to Workbench Instance Relationship
+    - WB Instance to WB Instance Relationships (Promotion, DevOps, COGW, etc.,)
+
+# Learning Operations:
+    - Patterns from Sentinels into CAF and Enterprise Memory
+    - Pattern and Knowledge promotion Scenarios in COGW
+    - Cross Domain Learning using Sentinels 
+
+# Seer + Hub as a Agentic-Systems platform (not just Enterprise Agent Platform):
+    - Expand Enterprise Agnetic-systems requirements
+    - Identify any gaps
+    - Indentify Subsystems, Capabilities, and Concepts    
+    - Textbook Part-3
+
+# Specialized Hubs:
+    [ ] Outline Olympus Hub's Expected Evolution
+    [ ] Outline Integration Hub
+    [ ] Outline Data Application Hub
+    [ ] Outline Operations Hub
+    [ ] Outline Customer Service & Journeys Hub
+    [ ] Outline Cognition Hub (Ability to create Agents that work on Cases  and Workflows)
+    [ ] Request and Case are Envelope Entities for automations defined across automation engines. Automation engines and AI Agents should be Cognitive Audit Fabric (CAF) aware
+    [ ] *Business Entity Providers*; Should we call this as an applicaiton/system in the Hub realm with a protocol do CRUDS on that entity? This can also encapsulate various views for the entity. 
+
