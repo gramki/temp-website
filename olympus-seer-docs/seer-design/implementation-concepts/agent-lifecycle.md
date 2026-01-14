@@ -44,17 +44,54 @@ A **Raw Agent** is the deployable technical artifact—the software application 
 
 In AOSM terms, a Raw Agent possesses **Abilities** (technical execution capabilities) but has not yet been assigned Knowledge, Skills, Role, or Responsibilities.
 
+### Raw Agent Characteristics
+
+**Artifact Type:**
+- OCI container image
+- Framework-agnostic (LangChain, LangGraph, Strands, CrewAI, custom, etc.)
+- Can be compound (multi-agent internally, but Hub sees as single agent)
+
+**Capabilities:**
+- **Abilities**: Technical execution capabilities (tool calling, orchestration, archetype roles)
+- **Structured Capabilities**: Declared in Raw Agent Spec (not free-form)
+- **Framework Flexibility**: Any agentic framework can be used
+- **Externalized Configuration**: Tools, resources, skills, knowledge bases, guardrails injected at Training/Employment
+
+**Container Requirements:**
+- Required endpoints: `/invoke` (POST), `/health/live`, `/health/ready`, `/health/startup`
+- Environment variables injected by Seer Runtime
+- Health probes for Kubernetes orchestration
+
 **Lifecycle States:**
 ```
-[Developed] → [Built] → [Deployed] → [Running] → [Retired]
+[Developed] → [Built] → [Published] → [Deployed*] → [Retired]
+                                          │
+                                          └── *Deployed via Training/Employment
 ```
+
+**Important**: Raw Agents are **NOT deployable on their own**. They are containers referenced by Training Specs and deployed only as part of Employed Agent instances within workbench environments.
 
 **Cipher IAM Profile:**
 - Profile tagged as `raw-agent` in Cipher IAM Extensions
 - No runtime credentials (not yet employed)
 - Declares supported models, tools, and capabilities
+- Infrastructure identity (vs. delegated identity at Employment)
 
-> **See**: [Profile Tags](../subsystems/cipher-iam-extensions/profile-tags.md) for Raw Agent profile attributes.
+**Raw Agent Spec Components:**
+- Container image reference (registry, repository, tag, digest)
+- Structured/typed capabilities (tool calling, orchestration, archetype roles, prompt tags)
+- Documentation references (for Agent Engineers, Trained Agent developers, Employed Agent developers)
+- Version information (semantic versioning)
+
+**Raw Agent Directory:**
+- Registry of all Raw Agents
+- Capability-based search and discovery
+- Version tracking and compatibility
+- Impact analysis (which Trained/Employed Agents use this Raw Agent)
+
+> **See**: [Profile Tags](../subsystems/cipher-iam-extensions/profile-tags.md) for Raw Agent profile attributes.  
+> **See**: [Raw Agent Lifecycle Manager](../subsystems/raw-agent-lifecycle-manager/README.md) for Raw Agent management.  
+> **See**: [Raw Agent in Hub Context](../hub-integration/raw-agent.md) for Hub integration details.
 
 ---
 

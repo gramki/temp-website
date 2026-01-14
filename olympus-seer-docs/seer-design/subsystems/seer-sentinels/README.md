@@ -99,6 +99,7 @@ flowchart TB
 
 ## Related
 
+- [Sentinels Concept](../../implementation-concepts/sentinels.md) — Sentinel implementation concept
 - [Agent Health Monitor](../agent-health-monitor/README.md) — Can trigger sentinels on SLO deviations (if configured)
 - [Agent Analytics](../agent-analytics/README.md) — Uses Agent Analytics data mart for analytical sentinels
 - [Signal Exchange](../../../olympus-hub-docs/04-subsystems/signal-exchange/README.md) — SX event source for realtime sentinels, auto-enrollment for request sentinels

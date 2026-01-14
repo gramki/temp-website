@@ -100,6 +100,10 @@ Based on `olympus-hub-docs/scratchpad/seer-subsystems.md`:
 - [Cipher IAM Extensions](../cipher-iam-extensions/README.md) - IAM profile provisioning
 - [Seer Sidecar](../seer-sidecar/README.md) - Policy enforcement
 
+## Related Concepts
+
+- [Agent Runtime Concept](../../implementation-concepts/agent-runtime.md) — Runtime execution environment concept
+
 ---
 
 ## Related Hub Documentation

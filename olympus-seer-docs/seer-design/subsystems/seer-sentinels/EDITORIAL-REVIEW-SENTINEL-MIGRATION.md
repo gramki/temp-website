@@ -219,7 +219,7 @@ All references to "Agent Session Supervisor" have been successfully migrated to 
 
 **Cross-Reference Files (13 files):**
 1. `subsystems/README.md`
-2. `implementation-concepts/agent-session-supervision.md`
+2. `implementation-concepts/sentinels.md` (renamed from `agent-session-supervision.md`)
 3. `implementation-concepts/agent-analytics.md`
 4. `implementation-concepts/agent-health-slos.md`
 5. `subsystems/agent-health-monitor/README.md`

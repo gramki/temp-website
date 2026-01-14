@@ -146,6 +146,10 @@ flowchart TB
 
 - [Implementation Concepts: Agent Lifecycle](../../implementation-concepts/agent-lifecycle.md) — Three-layer agent model
 - [Implementation Concepts: Authority Enforcement](../../implementation-concepts/authority-enforcement.md) — Authority enforcement architecture
+- [Implementation Concepts: Agent Levers](../../implementation-concepts/agent-levers.md) — Runtime control mechanisms
+- [Implementation Concepts: Kill Switch & Emergency Controls](../../implementation-concepts/kill-switch-emergency-controls.md) — Emergency controls
+- [Implementation Concepts: Delegation Chains](../../implementation-concepts/delegation-chains.md) — Authority delegation model
+- [Implementation Concepts: Human Accountability](../../implementation-concepts/human-accountability.md) — RASCI accountability
 - [Agent Lifecycle API](../agent-lifecycle-api.md) — REST API for agent lifecycle operations
 
 ---

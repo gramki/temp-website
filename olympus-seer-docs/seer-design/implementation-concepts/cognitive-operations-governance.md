@@ -482,7 +482,7 @@ COGW builds on Cross-Workbench Context Sharing:
 - [Administrative Controls](../subsystems/cognitive-operations-governance-workbench/administrative-controls.md) — Enable/disable controls
 
 ### Related Patterns
-- [Request Sentinel](./agent-session-supervision.md) — Request Sentinel concept
+- [Sentinels](./sentinels.md) — Sentinel concept (including Request Sentinels)
 - [Cross-Workbench Context Sharing](../../../olympus-hub-docs/02-system-design/implementation-concepts/workbench-context-sharing.md) — Context sharing pattern
 - [DevOps Workbench Reference](../../../olympus-hub-docs/02-system-design/implementation-concepts/devops-workbench-reference.md) — Similar workbench type pattern
 

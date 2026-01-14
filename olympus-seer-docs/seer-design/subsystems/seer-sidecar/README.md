@@ -68,6 +68,7 @@ Based on `olympus-hub-docs/scratchpad/seer-subsystems.md`:
 ## Related Documentation
 
 ### Conceptual
+- [Seer Sidecar Concept](../../implementation-concepts/seer-sidecar.md) — Sidecar runtime enforcement concept
 - [Guardrails Concepts](../../implementation-concepts/guardrails.md) — Two-layer model, behavioral guidelines
 - [Authority Enforcement Concepts](../../implementation-concepts/authority-enforcement.md) — Multi-enforcement point architecture
 

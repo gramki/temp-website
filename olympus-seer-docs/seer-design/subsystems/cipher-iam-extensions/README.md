@@ -116,7 +116,9 @@ Cipher IAM Extensions extends the Hub Cipher IAM system to support agent-specifi
 - [Hub Cipher IAM](../../../../olympus-hub-docs/04-subsystems/cipher-iam/README.md) — Core Cipher IAM
 - [Agent Lifecycle](../../implementation-concepts/agent-lifecycle.md) — Lifecycle integration
 - [Authority Enforcement](../../implementation-concepts/authority-enforcement.md) — Enforcement concepts
-- [Delegation Chains](../../why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-2-delegation-chains.md) — Delegation model
+- [Delegation Chains Concept](../../implementation-concepts/delegation-chains.md) — Delegation model implementation concept
+- [Human Accountability Concept](../../implementation-concepts/human-accountability.md) — RASCI accountability implementation concept
+- [Delegation Chains (Why Seer)](../../why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-2-delegation-chains.md) — Conceptual foundation
 
 ---
 
