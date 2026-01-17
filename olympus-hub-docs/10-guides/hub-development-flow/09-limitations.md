@@ -10,7 +10,7 @@ Every design involves trade-offs. This document honestly describes the limitatio
 
 ---
 
-## 1. No Git Branch Support
+## 1. Different Integration Model (Not a Limitation, But a Paradigm Difference)
 
 ### What This Means
 
@@ -19,6 +19,14 @@ Every design involves trade-offs. This document honestly describes the limitatio
 - Concurrent development requires separate workbenches
 - Each subscription has a single Git repository with only a main branch
 
+**Important:** This isn't about capability — both Git branches (with CI/CD) and Hub workbenches provide isolation. The difference is in the **integration model**:
+
+| Aspect | Git + CI/CD | Hub |
+|--------|-------------|-----|
+| **Integration** | Merge-based (branches merge to main) | Promotion-based (artifacts promoted between environments) |
+| **Environment** | Ephemeral (spin up for build/test, tear down) | Persistent (always-available, scale-to-zero when idle) |
+| **Isolation** | ✅ Provided (via branches) | ✅ Provided (via workbenches) |
+
 ### Who This Affects
 
 | Developer Profile | Impact |
@@ -26,16 +34,16 @@ Every design involves trade-offs. This document honestly describes the limitatio
 | Solo developer | ✅ No impact |
 | Small team (2-3) | ⚠️ Minor — workbenches provide similar isolation |
 | Larger team (5+) | ⚠️ Moderate — more workbenches to manage |
-| Coming from GitFlow | 🔴 Significant — different mental model |
+| Coming from GitFlow | 🔴 Significant — different mental model (merge vs. promotion) |
 
 ### The Trade-off
 
 ```
 What you give up:                 What you gain:
 ────────────────                  ──────────────
-Familiar branching                No merge conflicts
-Feature branches                  Complete environment isolation
-Merge-based integration           Explicit promotion-based integration
+Merge-based integration           Promotion-based integration
+Ephemeral environments            Persistent, always-available environments
+Familiar branching workflow       No merge conflicts, simpler model
 ```
 
 ### Mitigation
@@ -57,21 +65,28 @@ Creating a new workbench is heavier than creating a Git branch:
 | `git checkout -b feature-x` | CRD creation |
 | Instant | Provisioning time |
 | No infrastructure | Workbench resources provisioned |
-| No cost | Resource consumption |
+| No cost | Low cost (scale-to-zero when idle) |
+
+**Important context:**
+- Workbenches are **persistent** — state is preserved, making them always-available
+- Infrastructure **scales to zero** when idle — low ongoing cost
+- The overhead is **upfront creation**, not ongoing resource consumption
+- For long-running work, the persistent nature pays off
 
 ### Who This Affects
 
 | Scenario | Impact |
 |----------|--------|
-| Long-running features | ✅ Worth the overhead |
-| Quick experiments | ⚠️ Might be excessive |
-| Frequent context switching | 🔴 Can feel slow |
+| Long-running features | ✅ Worth the overhead — persistent state is valuable |
+| Quick experiments | ⚠️ Might be excessive — use primary DEV workbench instead |
+| Frequent context switching | ⚠️ Can feel slow — but persistent workbenches help resume work quickly |
 
 ### Mitigation
 
 - Use your primary DEV workbench for most work
-- Only create feature workbenches when genuinely needed
+- Only create feature workbenches when genuinely needed (long-running, breaking changes)
 - Template workbenches can speed up creation
+- Remember: workbenches are cost-efficient (scale-to-zero) and persistent (state preserved)
 
 ---
 
@@ -242,8 +257,9 @@ Be honest about fit. Hub may not be ideal for:
 | Scenario | Why It's Challenging |
 |----------|---------------------|
 | **Large teams (10+)** | Workbench management overhead |
-| **Rapid experimentation** | Workbench creation feels heavy |
-| **Complex branching needs** | Only main branch supported |
+| **Rapid experimentation** | Workbench creation feels heavy (though scale-to-zero keeps cost low) |
+| **Prefer merge-based integration** | Hub uses promotion-based integration — this is a paradigm difference, not a weakness |
+| **Prefer local development** | Hub is cloud-based — developers work in cloud workspaces |
 | **Multiple maintained versions** | Single version line assumed |
 | **No approval authority** | Bottleneck on promotions |
 
@@ -253,15 +269,15 @@ Be honest about fit. Hub may not be ideal for:
 
 | Limitation | Trade-off For |
 |------------|---------------|
-| No branches | No merge conflicts, simpler model |
-| Workbench overhead | Complete isolated environments |
-| Unfamiliar model | Compliance-first design |
-| Approval bottleneck | Explicit, auditable gates |
+| Different integration model (promotion vs. merge) | Persistent environments, no merge conflicts, simpler model |
+| Workbench creation overhead | Persistent, always-available environments (scale-to-zero, low cost) |
+| Unfamiliar model | Simpler mental model once learned, benefits for small teams |
+| Approval bottleneck | Explicit, auditable gates (important for compliance when applicable) |
 | Physical copy time | Complete subscription isolation |
 
 ---
 
-> **Bottom line:** Hub's model is optimized for small teams in regulated environments. If that's you, the trade-offs are worth it. If not, evaluate carefully.
+> **Bottom line:** Hub's model is optimized for small teams prioritizing simplicity, especially those leveraging AI-assisted development or operating in regulated environments. The paradigm differences (promotion vs. merge, persistent vs. ephemeral) are trade-offs, not inherent weaknesses. If this context fits you, the trade-offs are worth it. If not, evaluate carefully.
 
 ---
 

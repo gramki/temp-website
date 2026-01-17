@@ -35,6 +35,8 @@ This document collects best practices for working effectively within Hub's devel
 - Small enhancement (use primary DEV)
 - You just want isolation "just in case"
 
+> **Note:** Workbenches are cost-efficient (infrastructure scales to zero when idle) and persistent (state preserved), but there's still upfront creation overhead. Default to your primary DEV workbench unless you genuinely need isolation or persistent state for a feature.
+
 ### Workbench Lifecycle
 
 ```

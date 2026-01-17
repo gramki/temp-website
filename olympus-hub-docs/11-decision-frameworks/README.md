@@ -30,6 +30,18 @@ This section provides **decision frameworks** and **conceptual clarifications** 
 | [Architectural Details](./hub-agent-vs-seer-agent/hub-agent-vs-seer-agent-architectural-details.md) | Developers, Agent Engineers | C2-level architectural details and implementation references | 🟢 Design Complete |
 | [Customer Guide](./hub-agent-vs-seer-agent/hub-agent-vs-seer-agent-customer-guide.md) | CSAs | Customer-facing explanations and decision guidance | 🟢 Design Complete |
 
+### Scenario-Oriented Thinking Documentation Suite
+
+| Document | Audience | Description | Status |
+|----------|----------|-------------|--------|
+| [Scenario-Oriented Thinking](./scenario-oriented-thinking/scenario-oriented-thinking.md) | All | Entry point with overview, reading guide, and decision flowchart | 🟢 Design Complete |
+| [Core Concepts](./scenario-oriented-thinking/scenario-oriented-thinking-core.md) | PAs, Developers | Foundations (DDD/AOSM), concepts, and three specifications | 🟢 Design Complete |
+| [The Core Argument](./scenario-oriented-thinking/scenario-oriented-thinking-argument.md) | All | Central thesis: why normative-first paradigm shift matters | 🟢 Design Complete |
+| [Examples](./scenario-oriented-thinking/scenario-oriented-thinking-examples.md) | All | Concrete use cases (disputes, payments, onboarding, support) | 🟢 Design Complete |
+| [Comparison with Alternatives](./scenario-oriented-thinking/scenario-oriented-thinking-alternatives.md) | All | How this compares to BPM, Low-Code, Temporal, Custom Code | 🟢 Design Complete |
+| [Adoption and Migration](./scenario-oriented-thinking/scenario-oriented-thinking-adoption.md) | All | How to get started and migrate existing processes | 🟢 Design Complete |
+| [Anti-patterns](./scenario-oriented-thinking/scenario-oriented-thinking-anti-patterns.md) | All | When NOT to use and common mistakes to avoid | 🟢 Design Complete |
+
 ---
 
 ## When to Use This Section
