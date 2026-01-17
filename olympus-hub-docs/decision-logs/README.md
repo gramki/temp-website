@@ -134,6 +134,13 @@ All ADRs follow the standard format:
 | [0120](./0120-cogw-operator-subscription-scope.md) | COGW Operator Subscription Scope | Accepted | 2026-01-14 | seer, hub-integration |
 | [0125](./0125-hub-composite-applications.md) | Hub Composite Applications for multi-agent topologies | Accepted | 2026-01-15 | application-architecture |
 | [0126](./0126-composite-routing-table-schema.md) | Composite Routing Table Schema (multi-app support) | Accepted | 2026-01-15 | signal-exchange |
+| [0129](./0129-agent-identity-model.md) | Agent Identity Model (Deployment vs Persona) | Accepted | 2026-01-17 | seer |
+| [0130](./0130-unified-delegation-model.md) | Unified Delegation Model (Scenario-Scoped vs Request-Scoped) | Accepted | 2026-01-17 | seer |
+| [0131](./0131-mcp-server-crd-design.md) | MCP Server CRD Design | Accepted | 2026-01-17 | mcp |
+| [0132](./0132-mcp-template-kinds.md) | MCP Template Kinds | Accepted | 2026-01-17 | mcp |
+| [0133](./0133-mcp-prompt-template-format.md) | MCP Prompt Template Format | Accepted | 2026-01-17 | mcp |
+| [0134](./0134-mcp-directory-service.md) | MCP Directory Service for Collaborators | Accepted | 2026-01-17 | mcp |
+| [0135](./0135-machine-template-passthrough.md) | Machine Template Passthrough Pattern | Accepted | 2026-01-17 | mcp |
 
 ---
 

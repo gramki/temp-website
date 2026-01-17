@@ -377,12 +377,51 @@ Tools for promoting feedback to development workbenches and reviewing incoming f
 
 ---
 
+## MCP Channel vs MCP Server
+
+**Key Distinction:**
+- **MCP Channel** = Platform service (infrastructure) providing MCP protocol infrastructure
+- **MCP Server** = Workbench-scoped CRD (configuration) that exposes Hub capabilities via MCP
+
+MCP Servers are defined as Kubernetes CRDs with template kinds that imply persona and capabilities. The MCP Operator provisions endpoints at the MCP Channel platform service based on MCP Server CRDs.
+
+See [MCP Channel Subsystem](../../04-subsystems/mcp-channel/README.md) for detailed subsystem documentation.
+
+## Template Kinds
+
+MCP Servers use template kinds that fall into two categories:
+
+### Scenario-Based Templates (Request Lifecycle)
+
+| Template Kind | Persona(s) | Tools | Prompts | Resources | Sessions |
+|---------------|------------|-------|---------|-----------|----------|
+| `business-user-template` | Business Customer, Employee, System | Request initiation/participation | Task solvers, guidance | Requests | Yes |
+| `supervisor-template` | Supervisor | Queue mgmt, SLAs, directability | Queue analysis | Queues, escalations | Yes |
+| `agent-template` | Agent (Human/AI) | Task processing, knowledge | Task solvers | Tasks, requests | Yes |
+| `creator-template` | Process Architect, Developer | Scenario design, feedback | Design guides | Scenarios, feedback | Yes |
+| `admin-template` | Administrator | Subscription mgmt | Resource optimization | Workbenches | Yes |
+| `auditor-template` | Auditor | Decision investigation | Investigation guides | Audit trails | Yes |
+
+### Tool-Based Templates (Passthrough)
+
+| Template Kind | Purpose | Tools | Prompts | Resources | Sessions |
+|---------------|---------|-------|---------|-----------|----------|
+| `machine-template` | Expose Machine tools via MCP | From Tool Registry | None | None | Stateless |
+
+See [MCP Server CRD](../../04-subsystems/mcp-channel/mcp-server-crd.md) for CRD specification and [Machine Template](../../04-subsystems/mcp-channel/machine-template.md) for passthrough pattern.
+
 ## Related Documentation
 
+- [MCP Channel Subsystem](../../04-subsystems/mcp-channel/README.md) — Detailed subsystem documentation
+- [MCP Server CRD](../../04-subsystems/mcp-channel/mcp-server-crd.md) — CRD specification
+- [MCP Channel Concept](../../01-concepts/mcp-channel.md) — Concept overview
 - [REST Channels](./rest-channels.md) — RESTful API access for web/mobile/system clients
 - [MCP Router](../../05-infrastructure/mcp-router.md) — Infrastructure component for routing
 - [Heracles Gateway](../../05-infrastructure/heracles-gateway.md) — API Gateway
 - [Tool Registry](../../04-subsystems/registry-services/tool-registry.md) — Tool definitions
+- [ADR-0131: MCP Server CRD Design](../../decision-logs/0131-mcp-server-crd-design.md) — MCP Server CRD design decision
+- [ADR-0132: MCP Template Kinds](../../decision-logs/0132-mcp-template-kinds.md) — Template kinds decision
+- [ADR-0135: Machine Template Passthrough Pattern](../../decision-logs/0135-machine-template-passthrough.md) — machine-template design decision
 - [ADR-0081: Production Feedback Loop](../../decision-logs/0081-production-feedback-loop.md) — Production feedback architecture
 
 ---

@@ -311,6 +311,26 @@ The Tool Registry integrates with MCP Router for agent tool access:
 
 ---
 
+## machine-template MCP Exposure
+
+Tools from the Tool Registry can be exposed via MCP using the `machine-template` MCP Server. This enables stateless tool invocation without request lifecycle overhead.
+
+**Flow:**
+1. Developer creates `machine-template` CRD with tool source (Machine reference or explicit tool list)
+2. MCP Operator queries Tool Registry for tools
+3. Tools registered with MCP Router
+4. MCP Router exposes tools via MCP protocol
+5. Client invokes tools via MCP Router
+6. MCP Router translates to HTTP and invokes via HTTP Tool Calling Application
+
+**Tool Source Options:**
+- **Machine Reference**: Expose all tools from a specific Machine
+- **Explicit Tool List**: Select specific tools by ID
+
+See [Machine Template](../mcp-channel/machine-template.md) for passthrough pattern details and [Guide: Exposing Machine Tools via MCP](../../10-guides/exposing-machine-tools-via-mcp.md) for step-by-step instructions.
+
+---
+
 ## Workbench Tool Access
 
 Each Workbench defines:
@@ -339,8 +359,11 @@ Each Workbench defines:
 
 - [Registry Services Overview](./README.md)
 - [Machine Registry](./machine-registry.md) — Machine definitions and instances
-- [MCP Router](../../05-infrastructure/mcp-orchestrator.md)
+- [MCP Router](../../05-infrastructure/mcp-router.md)
 - [Heracles Gateway](../../05-infrastructure/heracles-gateway.md)
+- [Machine Template](../mcp-channel/machine-template.md) — Passthrough pattern for MCP exposure
+- [Guide: Exposing Machine Tools via MCP](../../10-guides/exposing-machine-tools-via-mcp.md) — Step-by-step guide
+- [ADR-0135: Machine Template Passthrough Pattern](../../decision-logs/0135-machine-template-passthrough.md) — Design decision
 
 ---
 

@@ -316,7 +316,61 @@ The MCP Router works with **MCP Channels** to provide persona-scoped access to H
 | **Discovery** | Filter by channel scope | Define tool catalog |
 | **Routing** | Select channel, forward | Expose tools to Router |
 
-See [MCP Channels](../06-ux-architecture/mcp-channels.md) for channel definitions and capabilities.  
+### MCP Server CRDs
+
+MCP Servers are defined as Kubernetes CRDs with template kinds that imply persona and capabilities. The **MCP Operator** watches MCP Server CRDs and provisions endpoints at the MCP Channel platform service.
+
+**Template Kinds:**
+- Scenario-based templates: `business-user-template`, `supervisor-template`, `agent-template`, `creator-template`, `admin-template`, `auditor-template`
+- Tool-based templates: `machine-template` (passthrough pattern)
+
+**MCP Operator Flow:**
+1. Watches MCP Server CRDs (all template kinds)
+2. Validates CRD structure
+3. Provisions endpoint at MCP Channel: `/mcp/{workbench}/{server-name}`
+4. Registers tools, prompts, resources (per template kind)
+5. Updates CRD status: `Provisioned`
+
+For `machine-template`:
+- Resolves tool source (queries Tool Registry)
+- Registers tools from Tool Registry
+- Configures passthrough routing to HTTP Tool Calling Application
+
+See [MCP Channel Subsystem](../04-subsystems/mcp-channel/README.md) for detailed subsystem documentation and [MCP Server CRD](../04-subsystems/mcp-channel/mcp-server-crd.md) for CRD specification.
+
+### machine-template Passthrough Pattern
+
+For `machine-template` MCP Servers, MCP Router acts as a gateway:
+- **Authentication**: JWT validation
+- **Authorization**: OPA policy evaluation
+- **Protocol Translation**: MCP protocol → HTTP
+- **Passthrough**: Forward to HTTP Tool Calling Application
+
+MCP Router does NOT:
+- Create requests
+- Manage sessions
+- Handle resource subscriptions
+- Compile prompts
+
+See [Machine Template](../04-subsystems/mcp-channel/machine-template.md) for passthrough pattern details and [ADR-0135: Machine Template Passthrough Pattern](../decision-logs/0135-machine-template-passthrough.md) for design decision.
+
+### Prompt Template Format
+
+MCP Router exposes prompts via `prompts/list` and `prompts/get` methods. Prompt templates are structured for semantic and structural equivalence with MCP Router's list-prompts response format.
+
+**Hub stores additional metadata:**
+- `category` (task_solver, guidance, error_handling, progress)
+- `scenario_ref`, `task_type`
+- `template` (full template content with Mustache/Handlebars)
+
+**MCP Router exposes only MCP-compliant fields:**
+- `name`, `description`, `arguments`
+
+Template compilation happens server-side; client receives compiled string.
+
+See [Prompt Templates](../04-subsystems/mcp-channel/prompt-templates.md) for format specification and [ADR-0133: MCP Prompt Template Format](../decision-logs/0133-mcp-prompt-template-format.md) for design decision.
+
+See [MCP Channels](../06-ux-architecture/tenant-domain/mcp-channels.md) for channel definitions and capabilities.  
 
 ---
 

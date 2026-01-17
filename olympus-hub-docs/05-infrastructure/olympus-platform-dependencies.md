@@ -158,7 +158,7 @@ Instead, Hub uses **Ganymede APIs** for:
 ## Related Documentation
 
 - [Heracles Gateway](./heracles-gateway.md) — Hub's MCP gateway
-- [MCP Router](./mcp-orchestrator.md) — Tool orchestration
+- [MCP Router](./mcp-router.md) — Tool orchestration
 - [Ganymede RDBMS](./ganymede-rdbms.md) — Database service details
 - [Callisto KV Store](./callisto-kv-store.md) — Key-value store details
 - [Europa OpenSearch](./europa-opensearch.md) — Search service details
