@@ -40,6 +40,7 @@ See [Signal Provider Interactions](./signal-provider-interactions.md#request-mut
 | **Session Binding** | Bind Request to Application session |
 | **Idempotency** | Prevent duplicate Request creation via idempotency keys |
 | **Request Typing** | Apply correct Request type (Service/Business/System) |
+| **Delegation Context Init** | Initialize delegation context from Channel-attached certificates |
 
 ---
 
@@ -86,12 +87,77 @@ A Request represents a session with a Hub Application:
 
 ---
 
+---
+
+## Delegation Context Initialization
+
+When creating a Request, the Request Factory initializes the delegation context:
+
+### From Channel-Attached Certificates
+
+If the initiating Channel attaches a Delegation Certificate (proactive delegation):
+
+```python
+def initialize_delegation_context(
+    request: Request,
+    initiation_dto: RequestMutationDTO
+) -> None:
+    """Initialize delegation context for new request."""
+    
+    if initiation_dto.delegation_certificates:
+        for cert_ref in initiation_dto.delegation_certificates:
+            request.delegations.certificates.append(
+                DelegationCertificateRef(
+                    id=cert_ref.certificate_id,
+                    template=cert_ref.template,
+                    delegator=cert_ref.delegator,
+                    attached_at=datetime.now(),
+                    expires_at=cert_ref.expires_at,
+                    attachment_type="proactive"
+                )
+            )
+```
+
+### From Parent Request (Child Creation)
+
+When creating a child request, inheritable delegations flow down:
+
+```python
+def inherit_delegation_context(
+    child_request: Request,
+    parent_request: Request
+) -> None:
+    """Inherit delegation context from parent."""
+    
+    for cert in parent_request.delegations.certificates:
+        template = get_template(cert.template)
+        
+        if template.constraints.chainingAllowed:
+            child_request.delegations.certificates.append(
+                DelegationCertificateRef(
+                    id=cert.id,
+                    template=cert.template,
+                    delegator=cert.delegator,
+                    attached_at=datetime.now(),
+                    expires_at=cert.expires_at,
+                    attachment_type="inherited",
+                    source_request_id=parent_request.id
+                )
+            )
+```
+
+→ See [Delegation Context](../request-management/delegation-context.md) for details.
+
+---
+
 ## Related Documentation
 
 - [Signal Exchange Overview](./README.md)
 - [Trigger Evaluator](./trigger-evaluator.md)
 - [Application Router](./application-router.md)
 - [Request Management](../request-management/README.md)
+- [Delegation Context](../request-management/delegation-context.md)
+- [Delegation Handling](./delegation-handling.md)
 
 ---
 

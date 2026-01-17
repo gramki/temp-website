@@ -253,11 +253,37 @@ The SDK automatically instruments Employment Spec access:
 
 ---
 
+## Request-Scoped Delegation Configuration
+
+When an Employment Spec has `requestScoped.enabled: true`, agents can receive additional authority from business users at runtime. The Employment Spec APIs provide access to this configuration.
+
+### Checking Request-Scoped Delegation Status
+
+```python
+# Check if request-scoped delegation is enabled
+spec = await employment_spec.get_current()
+
+if spec.delegation.request_scoped.enabled:
+    print("Request-scoped delegation is enabled")
+    print(f"Allowed templates: {spec.delegation.request_scoped.allowed_templates}")
+    print(f"Chaining policy: {spec.delegation.request_scoped.chaining_policy}")
+    print(f"On denial behavior: {spec.delegation.request_scoped.on_delegation_denied}")
+else:
+    print("Using enterprise delegation only")
+    print(f"Delegation type: {spec.delegation.enterprise.type}")
+```
+
+For runtime delegation operations (requesting authority, getting tokens), see [Delegation APIs](./delegation-apis.md).
+
+---
+
 ## Related Documentation
 
-- [Agent Lifecycle Manager: Employment Spec Manager](../agent-lifecycle-manager/employment-spec-manager.md)
+- [Agent Lifecycle Manager: Employment Spec Manager](../../agent-lifecycle-manager/employment-spec-manager.md)
 - [Employment Spec CRD](../../hub-integration/employment-spec-crd.md)
 - [Python SDK: Overview](../README.md)
+- [Delegation APIs](./delegation-apis.md) — Runtime delegation operations
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — End-to-end design
 
 ---
 

@@ -91,8 +91,9 @@ subscriptions:
 class RequestUpdate:
     request_id: str
     scenario: str
-    update_type: str  # new_request, status_change, data_update, etc.
+    update_type: str  # new_request, status_change, data_update, AUTHORITY_GRANTED, etc.
     payload: dict
+    environment: Optional[dict] = None  # Includes auth.delegations for delegation updates
 
 
 @dataclass
@@ -170,6 +171,7 @@ class RequestFilter:
 ```mermaid
 flowchart TD
     Update[Request Update]
+    CheckType{Update type?}
     GetScenario[Extract scenario from update]
     LookupAgents[Lookup subscribed agents]
     HasAgents{Agents found?}
@@ -177,10 +179,13 @@ flowchart TD
     HasActive{Active agents?}
     CheckAffinity{Request has assigned agent?}
     FilterToAssigned[Filter to assigned agent only]
+    FilterToTarget[Filter to target agent only]
     CreateTargets[Create dispatch targets]
     NoTargets[No targets - log warning]
     
-    Update --> GetScenario
+    Update --> CheckType
+    CheckType -->|AUTHORITY_GRANTED| FilterToTarget
+    CheckType -->|Other| GetScenario
     GetScenario --> LookupAgents
     LookupAgents --> HasAgents
     HasAgents -->|No| NoTargets
@@ -191,6 +196,36 @@ flowchart TD
     CheckAffinity -->|Yes| FilterToAssigned
     CheckAffinity -->|No| CreateTargets
     FilterToAssigned --> CreateTargets
+    FilterToTarget --> CreateTargets
+```
+
+### Authority Grant Routing
+
+`AUTHORITY_GRANTED` updates are routed directly to the specific agent that initiated the `AUTHORITY_REQUEST`:
+
+```python
+def route_authority_grant(update: RequestUpdate) -> List[DispatchTarget]:
+    """Route AUTHORITY_GRANTED update to the requesting agent."""
+    if update.update_type != "AUTHORITY_GRANTED":
+        return []
+    
+    # Extract target agent from payload
+    target_agent_id = update.payload.get("authority_granted", {}).get("agent_id")
+    if not target_agent_id:
+        log.error("AUTHORITY_GRANTED missing agent_id in payload")
+        return []
+    
+    # Find agent subscription
+    agent_sub = self.subscriptions.get_agent(target_agent_id)
+    if not agent_sub or agent_sub.state != SubscriptionState.ACTIVE:
+        log.warning(f"Agent {target_agent_id} not found or inactive for AUTHORITY_GRANTED")
+        return []
+    
+    return [DispatchTarget(
+        agent_id=target_agent_id,
+        topic=agent_sub.topic,
+        update=update
+    )]
 ```
 
 ---
@@ -333,6 +368,8 @@ spec:
 - [Architecture](./architecture.md) — Overall architecture
 - [Subscription Lifecycle](./subscription-lifecycle.md) — Subscription states
 - [Signal Exchange Integration](./signal-exchange-integration.md) — sx-observer details
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — End-to-end delegation design
+- [Signal Exchange: Delegation Handling](../../../../olympus-hub-docs/04-subsystems/signal-exchange/delegation-handling.md) — Token refresh and AUTHORITY_GRANTED processing
 
 ---
 

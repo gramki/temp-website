@@ -158,33 +158,55 @@ spec:
       maxConcurrentCases: 50
 
   # ============================================================
-  # AUTHORITY DELEGATION
+  # AUTHORITY DELEGATION (Two Domains)
   # ============================================================
   delegation:
-    # Delegation model
-    model: role                          # user | role
+    # ----------------------------------------------------------------
+    # ENTERPRISE DELEGATION (Internal Operations)
+    # ----------------------------------------------------------------
+    enterprise:
+      # Delegation model for internal authority
+      model: role                          # user | role | bot | deferred
+      
+      # For role delegation
+      role:
+        name: fraud-analyst
+        namespace: acme-roles
+      
+      # Accountable human (always required)
+      accountable:
+        type: user
+        ref: disputes-supervisor
+        name: "Jane Smith"
+      
+      # Authority constraints (can only restrict, not expand)
+      constraints:
+        maxAutonomousDecision: 5000        # USD
+        requiresApprovalAbove: 5000
+        prohibitedActions:
+          - close_account
+          - reverse_transaction_above_limit
+        approvalRequired:
+          - recommend_refund_above_1000
+          - escalate_to_legal
     
-    # For role delegation
-    role:
-      name: fraud-analyst
-      namespace: acme-roles
-    
-    # Accountable human (always required)
-    accountable:
-      type: user
-      ref: disputes-supervisor
-      name: "Jane Smith"
-    
-    # Authority constraints (can only restrict, not expand)
-    constraints:
-      maxAutonomousDecision: 5000        # USD
-      requiresApprovalAbove: 5000
-      prohibitedActions:
-        - close_account
-        - reverse_transaction_above_limit
-      approvalRequired:
-        - recommend_refund_above_1000
-        - escalate_to_legal
+    # ----------------------------------------------------------------
+    # REQUEST-SCOPED DELEGATION (Business User)
+    # ----------------------------------------------------------------
+    requestScoped:
+      # Enable request-scoped delegation from business users
+      enabled: true
+      
+      # Delegation Templates this employment accepts
+      allowedTemplates:
+        - personal-finance-assistant
+        - view-investments
+      
+      # Chaining policy override (narrower than training spec)
+      chainingPolicy: never               # template-controlled | never | with-approval
+      
+      # Behavior when delegation is denied or times out
+      onDelegationDenied: continue-degraded  # continue-degraded | fail | escalate
 
   # ============================================================
   # OPERATIONAL ENVIRONMENT
@@ -436,6 +458,12 @@ status:
 | `role` | object | ❌ | For role delegation |
 | `accountable` | object | ✅ | Human accountable (always required) |
 | `constraints` | object | ❌ | Authority restrictions |
+| `requestScoped.enabled` | boolean | ❌ | Enable request-scoped delegation |
+| `requestScoped.allowedTemplates` | array | ❌ | Delegation Templates this employment accepts |
+| `requestScoped.chainingPolicy` | string | ❌ | Override for chaining policy |
+| `requestScoped.onDelegationDenied` | string | ❌ | Behavior on denial: `continue-degraded`, `fail`, `escalate` |
+
+See [Request-Scoped Authority Delegation](../implementation-concepts/request-scoped-delegation.md) for the `requestScoped` configuration.
 
 ### spec.operationalEnv.toolBindings
 
@@ -612,6 +640,8 @@ Every action is traceable to:
 - [Employed Agent as Deployed Application](./employed-agent.md) — Hub integration
 - [Training Spec CRD](./training-spec-crd.md) — Training configuration
 - [Request Dispatch](./request-dispatch.md) — Runtime invocation
+- [Request-Scoped Authority Delegation](../implementation-concepts/request-scoped-delegation.md) — End-to-end delegation design
+- [Cipher IAM Extensions: Delegation Templates](../subsystems/cipher-iam-extensions/delegation-templates.md) — Template configuration
 
 ---
 

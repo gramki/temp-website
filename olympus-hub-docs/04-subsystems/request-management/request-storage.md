@@ -46,6 +46,27 @@ request_storage:
       content_type: string
       storage_ref: string
   
+  # Delegation context (request-scoped authority)
+  delegations:
+    certificates:
+      - id: string             # Delegation Certificate ID
+        template: string       # Template name
+        delegator:
+          id: string
+          type: string         # "business-user" | "system"
+        attached_at: datetime
+        expires_at: datetime
+        attachment_type: string  # "proactive" | "reactive" | "inherited"
+        source_request_id: string  # For inherited: parent request
+    
+    pending_requests:
+      - request_id: string
+        template: string
+        requested_by: string   # Agent SPIFFE ID
+        requested_at: datetime
+        timeout_at: datetime
+        status: string         # "pending" | "granted" | "denied" | "timeout"
+  
   # Metadata
   created_at: datetime
   updated_at: datetime
@@ -62,6 +83,18 @@ request_storage:
 | **Context Data** | Shared context across activities | Entity snapshots |
 | **Collected Data** | Data gathered during request | Form responses |
 | **Documents** | Attached documents | Evidence files |
+| **Delegation Context** | Certificates and pending authority requests | Request-scoped delegation |
+
+### Delegation Context
+
+Delegation context stores the request-scoped authority information:
+
+| Component | Description |
+|-----------|-------------|
+| **Certificates** | References to Delegation Certificates in Cipher |
+| **Pending Requests** | Authority requests awaiting user consent |
+
+→ See [Delegation Context](./delegation-context.md) for APIs and lifecycle.
 
 ---
 

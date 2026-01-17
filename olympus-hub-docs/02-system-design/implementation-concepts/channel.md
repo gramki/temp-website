@@ -185,6 +185,49 @@ Example:
 | **Authorization** | Persona-appropriate access enforced |
 | **Capability parity** | Core capabilities available across channels |
 | **Presentation varies** | Same data, channel-appropriate rendering |
+| **Delegation capable** | Channels can facilitate delegation from business users |
+
+---
+
+## Delegation Responsibilities
+
+Channels play a critical role in **Request-Scoped Authority Delegation**, enabling business users to grant agents authority to act on their behalf.
+
+### Channel vs. Signal Provider
+
+| Aspect | Signal Provider | Channel |
+|--------|----------------|---------|
+| **Purpose** | Signal ingestion (events, files, API calls) | User interaction interface |
+| **User Presence** | No user context; machine-to-machine | User is present and can interact |
+| **Delegation Role** | **Cannot delegate** | **Can facilitate delegation** |
+
+### Delegation Capabilities
+
+| Capability | Description |
+|------------|-------------|
+| **Capture Consent** | Present Delegation Template to user, obtain explicit consent |
+| **Request Credentials** | Request Delegation Certificates and Tokens from Cipher IAM Extensions |
+| **Attach to Request** | Include Delegation Certificate/Token in Request initiation |
+| **Handle Authority Requests** | Receive `AUTHORITY_REQUEST` updates, prompt user for consent |
+| **Implicit Fulfillment** | Check existing Delegation Certificates before prompting user |
+
+### Authority Request Flow
+
+```
+Agent needs authority → Sidecar posts AUTHORITY_REQUEST → Signal Exchange routes to Channel
+    → Channel prompts user (or auto-fulfills) → User grants 
+    → Channel requests Certificate from Cipher → Channel requests Token from Cipher
+    → Channel posts AUTHORITY_GRANTED (with token) → Signal Exchange delivers to agent
+```
+
+### Observer Registration
+
+Channels register as **observer modules** with Signal Exchange to receive `REQUEST_UPDATE` messages, including:
+- `AUTHORITY_REQUEST`: Agent requesting delegation
+- `AUTHORITY_GRANTED`: Confirmation of granted authority
+- Other status updates relevant to user interaction
+
+See [Request-Scoped Authority Delegation](../../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md) for complete design details.
 
 ---
 
@@ -285,6 +328,8 @@ Channel: Web Console (Agent Desk)
 | [Persona](./persona.md) | Personas access Hub via Channels |
 | [Headless Access Service](./headless-access-service.md) | Backend for all Channels |
 | [Notification Services](./notification-services.md) | Delivers via Channels |
+| [Request-Scoped Delegation](../../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md) | Channels facilitate delegation |
+| [Observer Pattern](./observer-pattern.md) | Channels are observer modules |
 
 ---
 

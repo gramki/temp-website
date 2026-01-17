@@ -147,6 +147,49 @@ claims:
 
 ---
 
+## Delegation Token Propagation
+
+### Token in Request Headers
+
+When `AUTHORITY_GRANTED` updates are dispatched, delegation tokens are propagated:
+
+```yaml
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: delegation-token-propagation
+spec:
+  plugin: request-transformer
+  config:
+    add:
+      headers:
+        - "X-Seer-Delegation-Token:$(body.environment.auth.delegations[0].token)"
+```
+
+### Token Validation at Ingress
+
+Delegation tokens are validated at the ingress level (optional, for defense in depth):
+
+```yaml
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: delegation-token-validator
+spec:
+  plugin: jwt
+  config:
+    claims_to_verify:
+      - exp
+    key_claim_name: delegation_token
+    secret_is_base64: false
+    # Token validation is advisory; authoritative validation is at Seer Sidecar
+    run_on_preflight: false
+```
+
+> **Note**: Authoritative delegation token validation occurs at the Seer Sidecar's [Delegation Service](../seer-sidecar/delegation-service.md). Ingress validation provides early rejection of obviously invalid tokens.
+
+---
+
 ## TLS Termination
 
 ### TLS Configuration
@@ -306,6 +349,8 @@ kong_upstream_target_health{upstream="fraud-analyst-acme-retail", target="10.0.0
 - [Architecture](./architecture.md) — Overall architecture
 - [Subscription Policies](./subscription-policies.md) — Policy enforcement
 - [Heracles Gateway](../../../../olympus-hub-docs/05-infrastructure/heracles-gateway.md) — Heracles documentation
+- [Seer Sidecar: Delegation Service](../seer-sidecar/delegation-service.md) — Authoritative delegation token validation
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — End-to-end delegation design
 
 ---
 

@@ -501,6 +501,34 @@ When a child request completes:
 - Parent decides next steps based on child result
 - Child context is **isolated** — does not merge into parent
 
+### Authority Request Cascade
+
+When a child request needs delegation authority and no user is present at the child's Channel, the authority request can **cascade to the parent**:
+
+```
+Parent Request (user present at Channel)
+    │
+    ├── Child Request (agent-to-agent, no user)
+    │       │
+    │       └── AUTHORITY_REQUEST ──▶ No user present at child Channel
+    │                                      │
+    │       ◀── CASCADE TO PARENT ─────────┘
+    │
+    └── Parent Channel prompts user
+            │
+            └── AUTHORITY_GRANTED cascades down to child
+```
+
+| Aspect | Same-Workbench | Cross-Workbench |
+|--------|----------------|-----------------|
+| **Mechanism** | Parent Channel receives via observer | Best-effort async notification |
+| **Response** | Certificate attached to both parent and child context | Token generated for child |
+| **Timeout** | Configurable per authority request | Same, plus network latency |
+
+**Delegation Context Inheritance**: When a child request is created, delegation certificates can flow down if the template allows chaining (`chainingAllowed: true`).
+
+→ See [Delegation Context](./delegation-context.md) for storage details.
+
 ---
 
 ## Request Sentinel Child Requests

@@ -106,6 +106,9 @@ Updates to a Request can come from multiple sources and are delivered via the Si
 | **Thought** | Reasoning or rationale comment |
 | **Memo** | Semi-structured note for future reference |
 | **Memory Update** | Subject, Org, or Session memory changes |
+| **Authority Request** | Agent requests delegation authority |
+| **Authority Granted** | Delegation granted (certificate attached) |
+| **Authority Denied** | Delegation denied or timeout |
 
 ---
 

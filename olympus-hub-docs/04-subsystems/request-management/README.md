@@ -19,10 +19,11 @@ Requests are the **standardized representation** of work to be done, created fro
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Request Lifecycle](./request-lifecycle.md) | Request states, updates, session boundary | 🔴 Stub |
+| [Request Lifecycle](./request-lifecycle.md) | Request states, updates, session boundary | 🟡 Draft |
 | [Request Hierarchy](./request-hierarchy.md) | Parent-child requests, context inheritance, lifecycle cascade | ✅ Complete |
 | [Request Storage](./request-storage.md) | Request scope storage | 🔴 Stub |
 | [Request Entity Binding](./request-entity-binding.md) | Request to Business Entity mapping | 🔴 Stub |
+| [Delegation Context](./delegation-context.md) | Request-scoped delegation storage and APIs | ✅ Complete |
 
 ---
 

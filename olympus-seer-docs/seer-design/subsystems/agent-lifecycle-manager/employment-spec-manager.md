@@ -133,6 +133,24 @@ delegation:
   # No roles/groups inheritance - base identity only
 ```
 
+**Deferred (Request-Scoped) Delegation** — Agent receives no enterprise authority at deployment; gets request-scoped authority from business users at runtime:
+
+```yaml
+delegation:
+  enterprise:
+    type: bot
+    accountable: "user:jane.manager@acme.com"  # Accountable human still required
+  requestScoped:
+    enabled: true
+    allowedTemplates:
+      - personal-finance-assistant
+      - view-investments
+    chainingPolicy: never
+    onDelegationDenied: continue-degraded
+```
+
+See [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) for complete design.
+
 #### Authority Inheritance Rules
 
 > The delegated authority at any time is always a subset of what the delegator is currently authorized to do.
@@ -507,6 +525,7 @@ Unlike standard Employment Specs which require Developer or APO persona, Persona
 - [Implementation Concepts: Authority Enforcement](../../implementation-concepts/authority-enforcement.md) — Authority enforcement
 - [Persona Twins](../../implementation-concepts/persona-twins.md) — Persona Twin concept documentation
 - [Cipher IAM Extensions: Authority Delegation](../cipher-iam-extensions/authority-delegation.md) — Authority delegation patterns
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — Business user delegation design
 
 ---
 

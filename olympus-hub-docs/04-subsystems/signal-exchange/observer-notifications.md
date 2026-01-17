@@ -287,11 +287,24 @@ Signal Exchange integrates with these Hub observer modules:
 
 | Observer Module | Responsibility |
 |-----------------|----------------|
+| **Channels** | Handle AUTHORITY_REQUEST for delegation, post updates to users |
 | **Ops Center** | Update dashboards; operators monitor via UI |
 | **Neutrino** | Customer-facing notifications (push, email, SMS) |
 | **MS Teams Module** | Post to chat groups, add/notify agents |
 | **CAF** | Audit trail of request lifecycle |
 | **Atropos** | Event publication for downstream systems |
+
+### Channels as Delegation Observers
+
+Channels are registered as observer modules and receive all REQUEST_UPDATEs for requests they initiated. This enables delegation flows:
+
+| Update Type | Channel Action |
+|-------------|----------------|
+| **AUTHORITY_REQUEST** | Check for existing certificate or prompt user |
+| **AUTHORITY_GRANTED** | Update UI, confirm delegation to user |
+| **AUTHORITY_DENIED** | Update UI, inform user of denial |
+
+→ See [Delegation Handling](./delegation-handling.md) for details.
 
 ### Observer Module Responsibility Chain
 

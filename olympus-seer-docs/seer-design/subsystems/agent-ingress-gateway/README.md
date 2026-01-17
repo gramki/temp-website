@@ -89,6 +89,11 @@ Agent Ingress Gateway is a **Heracles configuration layer** that provides reques
 - Responses do not flow back through Agent Ingress Gateway
 - Simplifies response path and reduces latency
 
+### Delegation Token Propagation
+- `AUTHORITY_GRANTED` updates from Signal Exchange flow through sx-observer to agents
+- Delegation tokens in `environment.auth.delegations` are propagated with request updates
+- Agents receive new/refreshed tokens via standard dispatch path
+
 ---
 
 ## Related Subsystems
@@ -106,6 +111,8 @@ Agent Ingress Gateway is a **Heracles configuration layer** that provides reques
 - [Agent Runtime: Agent Ingress Gateway Integration](../agent-runtime/agent-ingress-gateway-integration.md) — Runtime perspective
 - [Agent Runtime: Signal Exchange Integration](../agent-runtime/signal-exchange-integration.md) — sx-observer details
 - [Heracles Gateway](../../../../olympus-hub-docs/05-infrastructure/heracles-gateway.md) — Heracles documentation
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — End-to-end delegation design
+- [Signal Exchange: Delegation Handling](../../../../olympus-hub-docs/04-subsystems/signal-exchange/delegation-handling.md) — Token refresh and routing
 
 ---
 

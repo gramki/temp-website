@@ -417,12 +417,204 @@ class IAMCircuitBreaker:
 
 ---
 
+---
+
+## Request-Scoped Delegation Integration
+
+### Channel Integration
+
+Channels integrate with Cipher IAM for delegation certificate issuance:
+
+```python
+class ChannelDelegationHandler:
+    """Handles delegation flows in Channels."""
+    
+    async def handle_authority_request(
+        self,
+        request_update: RequestUpdate
+    ) -> AuthorityResponse:
+        """Handle an AUTHORITY_REQUEST from an agent."""
+        
+        authority_request = request_update.payload.authority_request
+        template_name = authority_request.template
+        
+        # Check for existing certificate
+        existing_cert = await self._find_matching_certificate(
+            user_id=request_update.context.user_id,
+            template=template_name,
+            agent_role=authority_request.agent_role
+        )
+        
+        if existing_cert:
+            # Implicit fulfillment - no user prompt needed
+            return await self._fulfill_with_certificate(existing_cert)
+        
+        # Need to prompt user for consent
+        consent = await self._prompt_user_consent(
+            template=template_name,
+            reason=authority_request.reason
+        )
+        
+        if consent.granted:
+            # Issue new certificate
+            certificate = await self.cipher_client.issue_certificate(
+                delegator=consent.user_id,
+                template=template_name,
+                delegate=DelegatePattern(
+                    pattern="role",
+                    value=authority_request.agent_role
+                ),
+                constraints=consent.constraints
+            )
+            
+            return AuthorityResponse(
+                granted=True,
+                certificate_id=certificate.id
+            )
+        else:
+            return AuthorityResponse(
+                granted=False,
+                reason=consent.denial_reason
+            )
+```
+
+### Signal Exchange Integration
+
+Signal Exchange refreshes delegation tokens on each REQUEST_UPDATE delivery:
+
+```python
+class SignalExchangeDelegationHandler:
+    """Handles delegation token refresh in Signal Exchange."""
+    
+    async def prepare_update_delivery(
+        self,
+        request_update: RequestUpdate,
+        target_agent: str
+    ) -> MessageEnvelope:
+        """Prepare update for delivery with fresh delegation tokens."""
+        
+        # Get current certificates for this request
+        certificates = await self._get_request_certificates(
+            request_id=request_update.request_id
+        )
+        
+        # Issue/refresh tokens for target agent
+        delegations = []
+        for cert in certificates:
+            token = await self.cipher_client.issue_delegation_token(
+                certificate=cert,
+                agent_id=target_agent,
+                request_id=request_update.request_id
+            )
+            delegations.append({
+                "token": token.value,
+                "template": cert.template.name,
+                "delegator": cert.delegator.id,
+                "expiresAt": token.expires_at.isoformat()
+            })
+        
+        # Build envelope with fresh tokens
+        return MessageEnvelope(
+            header=request_update.header,
+            payload=request_update.payload,
+            environment={
+                "auth": {
+                    "identity": self._get_agent_identity(target_agent),
+                    "delegations": delegations
+                }
+            }
+        )
+```
+
+### Seer Sidecar Integration
+
+Seer Sidecar performs pre-guardrail delegation checks:
+
+```python
+class SidecarDelegationService:
+    """Delegation service in Seer Sidecar."""
+    
+    async def check_delegation_before_action(
+        self,
+        action: AgentAction,
+        request_context: RequestContext
+    ) -> DelegationCheckResult:
+        """Check if agent has required delegation before action."""
+        
+        required_templates = self._get_required_templates(action)
+        
+        if not required_templates:
+            # Action doesn't require delegation
+            return DelegationCheckResult.not_required()
+        
+        # Check available delegations in context
+        available = request_context.environment.auth.delegations
+        
+        for template in required_templates:
+            matching = [d for d in available if d.template == template]
+            if not matching:
+                # Need to request authority
+                return DelegationCheckResult.authority_needed(
+                    template=template,
+                    reason=f"Action requires {template} delegation"
+                )
+            
+            # Validate the token
+            token = matching[0].token
+            validation = await self.token_validator.validate(
+                token, 
+                request_context.agent_id,
+                action
+            )
+            
+            if not validation.valid:
+                return DelegationCheckResult.invalid_delegation(validation.reason)
+        
+        return DelegationCheckResult.authorized()
+    
+    async def request_authority(
+        self,
+        template: str,
+        reason: str,
+        request_context: RequestContext
+    ) -> AuthorityRequestResult:
+        """Post an AUTHORITY_REQUEST update."""
+        
+        update = RequestUpdate(
+            type="AUTHORITY_REQUEST",
+            payload={
+                "template": template,
+                "reason": reason,
+                "agent_role": request_context.agent_role
+            }
+        )
+        
+        await self.signal_exchange.post_update(
+            request_id=request_context.request_id,
+            update=update
+        )
+        
+        # Wait for response (with timeout)
+        response = await self._wait_for_authority_grant(
+            request_id=request_context.request_id,
+            template=template,
+            timeout=timedelta(minutes=5)
+        )
+        
+        return response
+```
+
+---
+
 ## Related Documentation
 
 - [Seer Operator](../seer-operator/README.md) — Operator details
 - [Agent Runtime](../agent-runtime/README.md) — Runtime details
 - [Agent Profile API](./agent-profile-api.md) — API specification
+- [Delegation Templates](./delegation-templates.md) — Template definitions
+- [Delegation Certificates](./delegation-certificates.md) — Certificate lifecycle
+- [Request-Scoped Delegation](../../implementation-concepts/request-scoped-delegation.md) — Comprehensive design
 
 ---
 
-*Integration Patterns provide consistent approaches for Seer components to interact with Cipher IAM Extensions.*
+*Integration Patterns provide consistent approaches for Seer components to interact with Cipher IAM Extensions, including request-scoped delegation flows.*

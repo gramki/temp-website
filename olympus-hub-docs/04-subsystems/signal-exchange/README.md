@@ -21,6 +21,7 @@ The Signal Exchange is responsible for:
 | **Outbound Routing** | Hub Application Response → Response Transformation → I/O Gateway |
 | **Request Update Capture** | Receive intermediate updates (REQUEST_UPDATE) from long-running Applications |
 | **Observer Notifications** | Dispatch Request Updates to registered observer modules (NOT to agents/tasks directly) |
+| **Delegation Handling** | Route AUTHORITY_REQUEST/GRANTED updates, refresh delegation tokens on delivery |
 | **Flow Control** | Rate limiting, back-pressure, throttling per Scenario |
 | **Store-and-Forward** | Optional buffering and reliable delivery (configurable per Scenario) |
 
@@ -110,6 +111,7 @@ The Signal Exchange is responsible for:
 | [Message Envelope](./message-envelope.md) | Signal Exchange ↔ Hub Application DTOs | 🟡 Draft |
 | [Reminder Capability](./reminder-capability.md) | Time-based reminder scheduling and notifications | 🟡 Draft |
 | [Memory Record Routing](./memory-record-routing.md) | Routing memory records from Request Updates to memory stores | 🟡 Draft |
+| [Delegation Handling](./delegation-handling.md) | Request-scoped delegation token refresh, authority routing | 🟢 Complete |
 | [Trigger Evaluator](./trigger-evaluator.md) | Trigger matching and transformation | 🔴 Stub |
 | [Request Factory](./request-factory.md) | Request creation and updates | 🔴 Stub |
 | [Application Router](./application-router.md) | Routing to Hub Applications | 🔴 Stub |

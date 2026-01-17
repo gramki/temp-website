@@ -17,6 +17,7 @@ Seer Sidecar provides runtime enforcement capabilities for Employed Agents, incl
 | [Guardrail Service](./guardrail-service.md) | Inbound/outbound guardrail execution, per-API configuration | C2 |
 | [Authority Enforcement Service](./authority-enforcement-service.md) | Ceiling enforcement, delegation chain validation | C2 |
 | [Policy Enforcement Service](./policy-enforcement-service.md) | OPA policy evaluation, violation handling | C3 |
+| [Delegation Service](./delegation-service.md) | Request-scoped delegation check, authority request, token injection | C2 |
 | [Resource Quota Service](./resource-quota-service.md) | Agent resource consumption tracking | C2 |
 | [Fair Usage Budget Service](./fair-usage-budget-service.md) | User/customer usage tracking | C2 |
 | [Metrics Service](./metrics-service.md) | Runtime metrics collection and export | C2 |
@@ -60,6 +61,7 @@ Based on `olympus-hub-docs/scratchpad/seer-subsystems.md`:
 - ✅ Metrics collection
 - ✅ Policy enforcement (OPA-based)
 - ✅ Authority enforcement (ceilings, delegation chains)
+- ✅ Request-scoped delegation (pre-guardrail check, authority request, token injection)
 - ✅ Resource quotas (agent resource consumption)
 - ✅ Fair usage budgets (user/customer usage)
 

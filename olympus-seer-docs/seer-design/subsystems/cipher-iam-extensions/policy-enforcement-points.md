@@ -17,13 +17,16 @@ Cipher IAM Extensions supports per-PEP (Policy Enforcement Point) policy configu
 
 Cipher IAM recognizes the following Policy Enforcement Points:
 
-| PEP ID | Description | Subsystem |
-|--------|-------------|-----------|
-| `tool-gateway` | Tool invocation authorization | Tool Gateway |
-| `signal-exchange` | Request/response access control | Signal Exchange |
-| `model-gateway` | LLM access control | Model Gateway |
-| `memory-service` | Agent memory access control | Memory Service |
-| `knowledge-service` | Knowledge base access control | Knowledge Service |
+| PEP ID | Description | Subsystem | Delegation Token |
+|--------|-------------|-----------|------------------|
+| `tool-gateway` | Tool invocation authorization | Tool Gateway | ✅ Validates |
+| `signal-exchange` | Request/response access control | Signal Exchange | ✅ Validates |
+| `model-gateway` | LLM access control | Model Gateway | ❌ Agent identity only |
+| `memory-service` | Agent memory access control | Memory Service | ❌ Agent identity only |
+| `knowledge-service` | Knowledge base access control | Knowledge Service | ❌ Agent identity only |
+| `seer-sidecar` | Pre-guardrail delegation check | Seer Sidecar | ✅ Validates |
+
+**Note**: PEPs marked with ✅ validate Delegation Access Tokens when present. Those marked ❌ use agent identity and enterprise delegation only.
 
 ### PEP Registration API
 
@@ -328,12 +331,152 @@ seer_pep_unknown_total{pep="custom-gateway"} 5
 
 ---
 
+---
+
+## Delegation Token Validation
+
+### Validation at PEPs
+
+PEPs that support delegation tokens validate them using local public key verification:
+
+```python
+class DelegationTokenValidator:
+    """Validates Delegation Access Tokens at PEPs."""
+    
+    def __init__(self, public_key, revocation_cache):
+        self.public_key = public_key
+        self.revocation_cache = revocation_cache
+    
+    async def validate(
+        self,
+        token: str,
+        agent_id: str,
+        request_context: dict
+    ) -> DelegationValidationResult:
+        """Validate a Delegation Access Token."""
+        
+        # Step 1: Verify signature (local, no network call)
+        try:
+            claims = jwt.decode(token, self.public_key, algorithms=["RS256"])
+        except jwt.InvalidTokenError:
+            return DelegationValidationResult.invalid("Signature verification failed")
+        
+        # Step 2: Check expiry
+        if claims["exp"] < datetime.now().timestamp():
+            return DelegationValidationResult.expired()
+        
+        # Step 3: Verify audience binding
+        if claims["aud"] != agent_id:
+            return DelegationValidationResult.invalid("Token not bound to this agent")
+        
+        # Step 4: Check revocation (cached)
+        cert_id = claims["delegation"]["certificate"]
+        if await self.revocation_cache.is_revoked(cert_id):
+            return DelegationValidationResult.revoked()
+        
+        # Step 5: Extract delegation context for policy evaluation
+        return DelegationValidationResult.valid(
+            delegator=claims["sub"],
+            template=claims["delegation"]["template"],
+            permissions=claims["delegation"]["permissions"],
+            constraints=claims["delegation"]["constraints"]
+        )
+```
+
+### Policy Composition with Delegation
+
+When delegated authority is used, **all applicable policies must ALLOW** (AND logic):
+
+```python
+async def evaluate_with_delegation(
+    agent_id: str,
+    delegation_token: str,
+    request_context: dict
+) -> PolicyDecision:
+    """Evaluate policies including delegation context."""
+    
+    # Validate delegation token
+    delegation = await token_validator.validate(
+        delegation_token, 
+        agent_id,
+        request_context
+    )
+    
+    if not delegation.valid:
+        return PolicyDecision.denied(delegation.reason)
+    
+    # Build composite policy input
+    opa_input = {
+        "agent": get_agent_context(agent_id),
+        "delegation": {
+            "delegator": delegation.delegator,
+            "template": delegation.template,
+            "permissions": delegation.permissions,
+            "constraints": delegation.constraints
+        },
+        "request": request_context
+    }
+    
+    # Evaluate all policy layers
+    # All must ALLOW (intersection/AND logic)
+    
+    # 1. Training Spec policies
+    training_result = await evaluate_training_policies(agent_id, opa_input)
+    if not training_result.allow:
+        return PolicyDecision.denied(f"Training policy: {training_result.reason}")
+    
+    # 2. Employment Spec policies
+    employment_result = await evaluate_employment_policies(agent_id, opa_input)
+    if not employment_result.allow:
+        return PolicyDecision.denied(f"Employment policy: {employment_result.reason}")
+    
+    # 3. Delegation Template policies
+    template_result = await evaluate_template_policies(delegation.template, opa_input)
+    if not template_result.allow:
+        return PolicyDecision.denied(f"Template policy: {template_result.reason}")
+    
+    return PolicyDecision.allowed()
+```
+
+### OPA Input with Delegation Context
+
+```rego
+# Example: Tool Gateway policy with delegation
+package tool_gateway
+
+default allow = false
+
+# Allow if agent has direct permission OR delegated permission
+allow {
+    agent_has_permission(input.request.tool)
+}
+
+allow {
+    delegation_has_permission(input.request.tool)
+    delegation_constraints_satisfied(input.request)
+}
+
+delegation_has_permission(tool) {
+    perm := input.delegation.permissions[_]
+    perm.resource == tool
+    perm.actions[_] == input.request.action
+}
+
+delegation_constraints_satisfied(request) {
+    input.delegation.constraints.maxAmount >= request.amount
+}
+```
+
+---
+
 ## Related Documentation
 
 - [Agent Profile API](./agent-profile-api.md) — Profile with policy configuration
 - [Model Gateway Policy](../model-gateway/policy-enforcement.md) — Model Gateway PEP details
 - [OPA Integration](../../../../olympus-hub-docs/05-infrastructure/opa.md) — OPA documentation
+- [Delegation Templates](./delegation-templates.md) — Template policies
+- [Request-Scoped Delegation](../../implementation-concepts/request-scoped-delegation.md) — Comprehensive design
 
 ---
 
-*Policy Enforcement Points provide per-PEP policy configuration with graceful handling of unknown PEPs.*
+*Policy Enforcement Points provide per-PEP policy configuration with delegation token validation and policy composition.*

@@ -24,6 +24,7 @@ Seer Agent SDK provides the SDK for Raw Agents to interact with Seer and Hub ser
 | [Context Compiler APIs](python-sdk/context-compiler-apis.md) | 🟢 Complete | SDK wrappers for context compilation service |
 | [Observability APIs](python-sdk/observability-apis.md) | 🟢 Complete | Metrics, tracing, structured logging, auto-instrumentation |
 | [Hub Integration APIs](python-sdk/hub-integration-apis.md) | 🟢 Complete | Tool discovery/calling, Stores, Knowledge Services, Memory Services, Events APIs |
+| [Delegation APIs](python-sdk/delegation-apis.md) | 🟢 Complete | Request authority, get tokens, delegate to children |
 | [Framework APIs](python-sdk/framework-apis.md) | 🟢 Complete | LangGraph, Strands, OpenAPI agent builders |
 
 ### Java SDK
@@ -35,6 +36,7 @@ Seer Agent SDK provides the SDK for Raw Agents to interact with Seer and Hub ser
 | [Context Compiler APIs](java-sdk/context-compiler-apis.md) | 🟢 Complete | SDK wrappers for context compilation service |
 | [Observability APIs](java-sdk/observability-apis.md) | 🟢 Complete | Metrics, tracing, structured logging, auto-instrumentation |
 | [Hub Integration APIs](java-sdk/hub-integration-apis.md) | 🟢 Complete | Tool discovery/calling, Stores, Knowledge Services, Memory Services, Events APIs |
+| [Delegation APIs](java-sdk/delegation-apis.md) | 🟢 Complete | Request authority, get tokens, delegate to children |
 | [Framework APIs](java-sdk/framework-apis.md) | 🟢 Complete | Framework-agnostic patterns and adapters |
 
 ### Scope and Coverage

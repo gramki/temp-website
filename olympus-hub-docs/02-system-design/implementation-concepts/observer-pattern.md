@@ -82,11 +82,26 @@ Observer pattern enables:
 
 | Observer | Purpose | Events of Interest |
 |----------|---------|-------------------|
+| **Channels** | User interaction, delegation handling | AUTHORITY_REQUEST, all updates for originated requests |
 | **Notification Services** | User notifications | Request created, updated, completed; Task assigned |
 | **Task Management** | Task lifecycle | Request created (for task creation); Request cancelled |
 | **MS Teams Module** | Chat notifications | Mentions, assignments, updates |
 | **Audit Service** | Compliance logging | All events |
 | **Analytics Service** | Metrics collection | All events |
+
+### Channels as Delegation Observers
+
+Channels are a special category of observers that handle request-scoped delegation:
+
+| Responsibility | Description |
+|----------------|-------------|
+| **AUTHORITY_REQUEST** | Receive requests for delegation; prompt user or implicit fulfill |
+| **AUTHORITY_GRANTED** | Post when user grants consent or certificate exists |
+| **AUTHORITY_DENIED** | Post when user denies or request times out |
+
+Unlike other observers, Channels can **respond** to events by posting REQUEST_UPDATEs back to Signal Exchange.
+
+→ See [Request-Scoped Delegation](./request-scoped-delegation.md) for the complete delegation flow.
 
 ### Observer Registration
 

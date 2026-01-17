@@ -128,6 +128,23 @@ Append-only updates enable:
 | **CANCELLED** | Agent/System | Request cancelled |
 | **REMINDER_SET** | Application | Reminder scheduled |
 | **REMINDER_TRIGGERED** | System | Reminder fired |
+| **AUTHORITY_REQUEST** | Agent (Sidecar) | Agent requests delegation authority |
+| **AUTHORITY_GRANTED** | Channel | Delegation granted, certificate attached |
+| **AUTHORITY_DENIED** | Channel | Delegation denied or timeout |
+
+### Delegation Update Types
+
+The delegation-related update types enable request-scoped authority delegation:
+
+| Update | Payload | Flow |
+|--------|---------|------|
+| **AUTHORITY_REQUEST** | `template`, `reason`, `timeout` | Agent → SX → Channel observers |
+| **AUTHORITY_GRANTED** | `certificate_id`, `delegator`, `expires_at` | Channel → SX → Agent |
+| **AUTHORITY_DENIED** | `reason` (user_denied/timeout) | Channel → SX → Agent |
+
+These follow the REMIND pattern — updates are routed through Signal Exchange to observer modules (Channels), which handle user interaction and respond with grant/deny.
+
+→ See [Request-Scoped Delegation](./request-scoped-delegation.md) for details.
 
 ---
 

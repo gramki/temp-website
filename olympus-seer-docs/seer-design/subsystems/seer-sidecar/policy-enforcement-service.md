@@ -107,6 +107,24 @@ AccessContext:
       type: string
     request_id:
       type: string
+    delegation_context:
+      type: object
+      description: Request-scoped delegation context (if present)
+      properties:
+        delegation_token:
+          type: string
+          description: Active Delegation Access Token
+        delegator_id:
+          type: string
+          description: Business user who delegated authority
+        template_ref:
+          type: string
+          description: Delegation Template reference
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Delegated permission scopes
 
 # InboundContext (for /dispatch requests)
 InboundContext:
@@ -456,11 +474,58 @@ Policy evaluations are logged to CAF:
 
 ---
 
+## Request-Scoped Delegation in Policy Evaluation
+
+When a `Delegation Access Token` is present in the request context, the Policy Enforcement Service includes the delegation context in OPA policy evaluation:
+
+```python
+def build_policy_context(request, access_context):
+    """Build OPA policy context including delegation."""
+    context = {
+        "agent": access_context.agent_context,
+        "access": access_context.to_dict(),
+    }
+    
+    # Include delegation context if present
+    if access_context.delegation_context:
+        context["delegation"] = {
+            "delegator_id": access_context.delegation_context.delegator_id,
+            "template_ref": access_context.delegation_context.template_ref,
+            "scopes": access_context.delegation_context.scopes,
+            "claims": extract_token_claims(access_context.delegation_context.delegation_token)
+        }
+    
+    return context
+```
+
+### Delegation-Aware Policies
+
+OPA policies can evaluate delegation context:
+
+```rego
+package seer.policy.delegation
+
+# Allow if action is within delegated scopes
+allow {
+    input.action in input.delegation.scopes
+}
+
+# Allow if delegator has required tier
+allow {
+    input.delegation.claims.customer_segment == "premium"
+    input.action == "priority_support"
+}
+```
+
+---
+
 ## Related Documentation
 
+- [Delegation Service](./delegation-service.md) — Request-scoped delegation management
 - [Authority Enforcement Service](./authority-enforcement-service.md) — Ceiling enforcement
 - [Guardrail Service](./guardrail-service.md) — Request/response enforcement
 - [Authority Enforcement Concepts](../../implementation-concepts/authority-enforcement.md) — Conceptual overview
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — End-to-end delegation design
 - [ADR-0073: Authority Enforcement via OPA](../../../../olympus-hub-docs/decision-logs/0073-seer-authority-enforcement-opa.md)
 
 ---

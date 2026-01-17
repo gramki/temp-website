@@ -15,12 +15,24 @@ Credential Management handles the issuance, injection, and lifecycle of agent cr
 
 ### Agent Credentials
 
-| Credential Type | Purpose | Storage |
-|-----------------|---------|---------|
-| **SPIFFE SVID** | Service identity | SPIRE Agent |
-| **Agent Token** | API authentication | zone-vault |
-| **Virtual Key** | Model Gateway access | zone-vault |
-| **Service Account** | K8s API access | K8s Secret |
+| Credential Type | Purpose | Storage | Scope |
+|-----------------|---------|---------|-------|
+| **SPIFFE SVID** | Service identity | SPIRE Agent | Agent lifetime |
+| **Agent Token** | API authentication | zone-vault | Agent lifetime |
+| **Virtual Key** | Model Gateway access | zone-vault | Agent lifetime |
+| **Service Account** | K8s API access | K8s Secret | Agent lifetime |
+| **Delegation Access Token** | Business user authority | Request context | Request-scoped |
+
+### Delegation Access Token
+
+The **Delegation Access Token** is a request-scoped credential that enables an agent to act on behalf of a business user. Unlike other credentials (which are agent-lifetime), Delegation Access Tokens are:
+
+- Issued per-request from a Delegation Certificate
+- Bound to a single agent (SPIFFE ID)
+- Time-limited (request duration or certificate expiry)
+- JWT format with embedded claims and scopes
+
+See [Delegation Access Token Lifecycle](#delegation-access-token-lifecycle) below for details.
 
 ---
 
@@ -322,12 +334,169 @@ seer_credential_age_seconds{type="virtual_key", profile="fraud-analyst"} 3600
 
 ---
 
+---
+
+## Delegation Access Token Lifecycle
+
+### Token Format
+
+Delegation Access Tokens are JWTs with the following structure:
+
+```json
+{
+  "header": {
+    "alg": "RS256",
+    "typ": "DAT"
+  },
+  "payload": {
+    "iss": "cipher.zeta.tech",
+    "sub": "user-67890",
+    "aud": "spiffe://seer/agents/my-agent",
+    "iat": 1737108000,
+    "exp": 1737151200,
+    "delegation": {
+      "template": "personal-finance-assistant",
+      "certificate": "cert-12345",
+      "requestId": "req-abcdef",
+      "permissions": ["accounts:read", "transfers:create"],
+      "constraints": {
+        "maxAmount": 500
+      }
+    }
+  }
+}
+```
+
+### Token Claims
+
+| Claim | Description |
+|-------|-------------|
+| `sub` | Delegator (business user) identity |
+| `aud` | Specific agent SPIFFE ID (token binding) |
+| `delegation.template` | Template ID that defines authority |
+| `delegation.certificate` | Certificate ID for audit trail |
+| `delegation.requestId` | Request this token is scoped to |
+
+### Token Issuance
+
+```python
+class DelegationAccessTokenIssuer:
+    """Issues Delegation Access Tokens from Certificates."""
+    
+    async def issue_token(
+        self,
+        certificate: DelegationCertificate,
+        agent_id: str,
+        request_id: str
+    ) -> DelegationAccessToken:
+        """Issue a Delegation Access Token for a specific agent and request."""
+        
+        # Validate certificate is active
+        if certificate.status.state != "active":
+            raise InvalidCertificateError(f"Certificate is {certificate.status.state}")
+        
+        # Validate agent matches delegate pattern
+        if not self._agent_matches_delegate(agent_id, certificate.delegate):
+            raise UnauthorizedDelegateError("Agent does not match certificate delegate pattern")
+        
+        # Check revocation
+        if await self._is_revoked(certificate.id):
+            raise RevokedCertificateError("Certificate has been revoked")
+        
+        # Get template for permissions
+        template = await self._get_template(certificate.template)
+        
+        # Build token
+        token = DelegationAccessToken(
+            issuer="cipher.zeta.tech",
+            subject=certificate.delegator.id,
+            audience=agent_id,
+            issued_at=datetime.now(),
+            expires_at=min(
+                certificate.constraints.expiry,
+                datetime.now() + timedelta(hours=24)
+            ),
+            delegation=DelegationClaims(
+                template=template.metadata.name,
+                certificate=certificate.id,
+                request_id=request_id,
+                permissions=template.spec.permissions,
+                constraints=template.spec.constraints
+            )
+        )
+        
+        # Sign token
+        signed = self._sign_token(token)
+        
+        # Update certificate usage
+        await self._increment_usage(certificate.id, agent_id)
+        
+        return signed
+```
+
+### Token Validation
+
+PEPs validate Delegation Access Tokens on each use:
+
+```python
+async def validate_delegation_token(
+    token: str,
+    expected_agent: str
+) -> ValidationResult:
+    """Validate a Delegation Access Token."""
+    
+    # Parse and verify signature
+    try:
+        claims = jwt.decode(token, public_key, algorithms=["RS256"])
+    except jwt.InvalidTokenError as e:
+        return ValidationResult.invalid(f"Token verification failed: {e}")
+    
+    # Check expiry
+    if claims["exp"] < datetime.now().timestamp():
+        return ValidationResult.expired()
+    
+    # Check audience binding
+    if claims["aud"] != expected_agent:
+        return ValidationResult.invalid("Token not bound to this agent")
+    
+    # Check certificate revocation (cached)
+    cert_id = claims["delegation"]["certificate"]
+    if await revocation_cache.is_revoked(cert_id):
+        return ValidationResult.revoked()
+    
+    return ValidationResult.valid(claims)
+```
+
+### Token Placement
+
+Delegation tokens are placed in the message envelope by Signal Exchange:
+
+```yaml
+environment:
+  auth:
+    identity:
+      spiffeId: "spiffe://seer/agents/my-agent"
+      delegationMode: "deferred"
+    delegations:
+      - token: "eyJ..."
+        template: "personal-finance-assistant"
+        delegator: "user-67890"
+        expiresAt: "2026-01-17T22:00:00Z"
+```
+
+Signal Exchange **refreshes** delegations on every REQUEST_UPDATE delivery.
+
+---
+
 ## Related Documentation
 
 - [Architecture](./architecture.md) — SPIFFE integration
 - [Agent Profile API](./agent-profile-api.md) — Credential fields in API
 - [Model Gateway Agent Access](../model-gateway/agent-access.md) — Virtual key usage
+- [Delegation Templates](./delegation-templates.md) — Template definitions
+- [Delegation Certificates](./delegation-certificates.md) — Certificate lifecycle
+- [Request-Scoped Delegation](../../implementation-concepts/request-scoped-delegation.md) — Comprehensive design
 
 ---
 
-*Credential Management provides secure issuance, injection, and lifecycle management for agent credentials.*
+*Credential Management provides secure issuance, injection, and lifecycle management for agent credentials including request-scoped Delegation Access Tokens.*

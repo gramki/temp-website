@@ -273,11 +273,38 @@ The SDK automatically instruments Employment Spec access:
 
 ---
 
+## Request-Scoped Delegation Configuration
+
+When an Employment Spec has `requestScoped.enabled: true`, agents can receive additional authority from business users at runtime. The Employment Spec APIs provide access to this configuration.
+
+### Checking Request-Scoped Delegation Status
+
+```java
+// Check if request-scoped delegation is enabled
+EmploymentSpec spec = employmentSpec.getCurrent().join();
+
+if (spec.getDelegation().getRequestScoped().isEnabled()) {
+    System.out.println("Request-scoped delegation is enabled");
+    System.out.println("Allowed templates: " + spec.getDelegation().getRequestScoped().getAllowedTemplates());
+    System.out.println("Chaining policy: " + spec.getDelegation().getRequestScoped().getChainingPolicy());
+    System.out.println("On denial behavior: " + spec.getDelegation().getRequestScoped().getOnDelegationDenied());
+} else {
+    System.out.println("Using enterprise delegation only");
+    System.out.println("Delegation type: " + spec.getDelegation().getEnterprise().getType());
+}
+```
+
+For runtime delegation operations (requesting authority, getting tokens), see [Delegation APIs](./delegation-apis.md).
+
+---
+
 ## Related Documentation
 
-- [Agent Lifecycle Manager: Employment Spec Manager](../agent-lifecycle-manager/employment-spec-manager.md)
+- [Agent Lifecycle Manager: Employment Spec Manager](../../agent-lifecycle-manager/employment-spec-manager.md)
 - [Employment Spec CRD](../../hub-integration/employment-spec-crd.md)
 - [Java SDK: Overview](../README.md)
+- [Delegation APIs](./delegation-apis.md) — Runtime delegation operations
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — End-to-end design
 
 ---
 

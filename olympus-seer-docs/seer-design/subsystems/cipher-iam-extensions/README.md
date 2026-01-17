@@ -69,10 +69,18 @@ Cipher IAM Extensions extends the Hub Cipher IAM system to support agent-specifi
 | [Profile Tags](./profile-tags.md) | Raw/Trained/Employed agent profile tags | ✅ Complete |
 | [Human Accountability](./human-accountability.md) | Accountable human assignment, audit trail | ✅ Complete |
 | [Policy Enforcement Points](./policy-enforcement-points.md) | PEP registration, policy evaluation (C3) | ✅ Complete |
-| [Credential Management](./credential-management.md) | Credential issuance, injection, virtual keys | ✅ Complete |
+| [Credential Management](./credential-management.md) | Credential issuance, injection, virtual keys, delegation tokens | ✅ Complete |
 | [Internal Implementation](./internal-implementation.md) | Profile storage, policy attachment | ✅ Complete |
-| [Integration Patterns](./integration-patterns.md) | Seer Operator, Agent Runtime integration | ✅ Complete |
+| [Integration Patterns](./integration-patterns.md) | Seer Operator, Agent Runtime, Request-Scoped Delegation | ✅ Complete |
 | [SCOPE.md](./SCOPE.md) | Coverage summary, design status | ✅ Complete |
+
+### Request-Scoped Delegation
+
+| Document | Description | Status |
+|----------|-------------|--------|
+| [Delegation Templates](./delegation-templates.md) | Template CRD, registry, authorization | ✅ Complete |
+| [Delegation Certificates](./delegation-certificates.md) | Certificate lifecycle, issuance, revocation | ✅ Complete |
+| [Business User Profiles](./business-user-profiles.md) | Business user identity, federation, claims | ✅ Complete |
 
 ---
 
@@ -89,9 +97,16 @@ Cipher IAM Extensions extends the Hub Cipher IAM system to support agent-specifi
 - **Employed Agent Profile** — Full identity with delegation chain and policies
 
 ### Authority Delegation Model
-- **User Delegation** — Agent acts on behalf of a specific user
-- **Role Delegation** — Agent inherits from a role
+
+**Enterprise Delegation** (internal operators):
+- **User Delegation** — Agent acts on behalf of a specific enterprise user
+- **Role Delegation** — Agent inherits from an enterprise role
 - **Bot Mode** — Agent has base identity only, no delegation
+
+**Business User Delegation** (end-users via request-scoped delegation):
+- **Request-Scoped Delegation** — Agent acts on behalf of business users per-request
+- Uses Delegation Templates, Certificates, and Access Tokens
+- See [Request-Scoped Delegation](../../implementation-concepts/request-scoped-delegation.md)
 
 ### Policies Per PEP
 - Policies are **per Policy Enforcement Point** (not global)

@@ -13,13 +13,32 @@ Authority delegation defines how agents inherit authority from humans or roles. 
 
 ## Delegation Model
 
-### Delegation Types
+### Two Identity Domains
+
+Cipher IAM supports delegation in two distinct identity domains:
+
+| Domain | Delegation Types | When Configured | Delegator |
+|--------|-----------------|-----------------|-----------|
+| **Enterprise** | User, Role, Bot | Employment time | Internal operators |
+| **Business User** | Request-Scoped | Request time | End-users (customers) |
+
+These are **orthogonal** — an agent may have both simultaneously.
+
+### Enterprise Delegation Types
 
 | Type | Description | Use Case |
 |------|-------------|----------|
-| **User Delegation** | Agent acts on behalf of a specific user | Personal assistant agents |
-| **Role Delegation** | Agent inherits from a role | Team-level agents |
+| **User Delegation** | Agent acts on behalf of a specific enterprise user | Personal assistant agents |
+| **Role Delegation** | Agent inherits from an enterprise role | Team-level agents |
 | **Bot Mode** | Agent has base identity only | Fully automated agents |
+
+### Request-Scoped Delegation (Business Users)
+
+For business user delegation, see:
+- [Delegation Templates](./delegation-templates.md) — What authority can be delegated
+- [Delegation Certificates](./delegation-certificates.md) — User consent representation
+- [Business User Profiles](./business-user-profiles.md) — End-user identity management
+- [Request-Scoped Delegation Concept](../../implementation-concepts/request-scoped-delegation.md) — Full design
 
 ### Delegation Chain
 

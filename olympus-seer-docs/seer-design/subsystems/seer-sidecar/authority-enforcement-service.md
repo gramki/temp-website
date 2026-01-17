@@ -163,6 +163,43 @@ The sidecar can evaluate ceilings on:
 
 ---
 
+## Request-Scoped Delegation Integration
+
+For request-scoped authority delegation (where business users delegate authority to agents), the Authority Enforcement Service works in conjunction with the [Delegation Service](./delegation-service.md).
+
+### Integration Points
+
+| Component | Responsibility |
+|-----------|----------------|
+| **Delegation Service** | Pre-guardrail check for delegated authority, Authority Request initiation |
+| **Authority Enforcement Service** | Ceiling enforcement, delegation chain validation |
+
+### Delegation Token in Ceiling Evaluation
+
+When evaluating authority ceilings, the service considers any active `Delegation Access Token`:
+
+```python
+def evaluate_ceiling(request, action):
+    """Evaluate authority ceiling including delegation context."""
+    # Get base ceilings from Training/Employment Spec
+    base_ceilings = get_spec_ceilings(request.agent_id)
+    
+    # Check for active delegation token
+    delegation_token = request.context.get("delegation_access_token")
+    if delegation_token:
+        # Validate token and extract delegated ceilings
+        delegated_ceilings = validate_and_extract_ceilings(delegation_token)
+        # Apply intersection (most restrictive)
+        effective_ceilings = intersect_ceilings(base_ceilings, delegated_ceilings)
+    else:
+        effective_ceilings = base_ceilings
+    
+    # Evaluate action against effective ceilings
+    return evaluate_against_ceilings(action, effective_ceilings)
+```
+
+---
+
 ## Delegation Chain Enforcement
 
 ### Authority Inheritance
@@ -328,9 +365,11 @@ All ceiling violations are recorded:
 
 ## Related Documentation
 
+- [Delegation Service](./delegation-service.md) — Request-scoped delegation management
 - [Policy Enforcement Service](./policy-enforcement-service.md) — OPA policy evaluation
 - [Guardrail Service](./guardrail-service.md) — Request/response enforcement
 - [Authority Enforcement Concepts](../../implementation-concepts/authority-enforcement.md) — Conceptual overview
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — End-to-end delegation design
 - [Agent Lifecycle Manager](../agent-lifecycle-manager/README.md) — Ceiling configuration
 - [ADR-0073: Authority Enforcement via OPA](../../../../olympus-hub-docs/decision-logs/0073-seer-authority-enforcement-opa.md)
 

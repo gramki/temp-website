@@ -349,6 +349,27 @@ spec:
             - OutcomeRecord
 
   # ============================================================
+  # DELEGATION REQUIREMENTS (Request-Scoped)
+  # ============================================================
+  delegationRequirements:
+    # Request-scoped delegation requirements
+    requestScoped:
+      # Templates this agent type may request/accept
+      templates:
+        - name: personal-finance-assistant
+          required: true                       # Agent cannot operate without this
+        - name: view-investments
+          required: false                      # Optional enhancement
+        - name: low-risk-info-access
+          autoApprove: true                    # System can auto-fulfill (no user prompt)
+      
+      # Behavior when required delegation is unavailable
+      onDelegationUnavailable: degrade         # degrade | fail | escalate
+      
+      # Chaining policy for this agent type
+      chainingPolicy: template-controlled      # template-controlled | never | with-approval
+
+  # ============================================================
   # EVALUATION CONFIGURATION
   # ============================================================
   evaluation:
@@ -465,6 +486,19 @@ status:
 | `compaction` | object | ❌ | For conversation stores |
 | `ragEnabled` | boolean | ❌ | Enable RAG search |
 
+### spec.delegationRequirements
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `requestScoped.templates` | array | ❌ | Delegation Templates this agent may request |
+| `requestScoped.templates[].name` | string | ✅ | Template name |
+| `requestScoped.templates[].required` | boolean | ❌ | If true, agent cannot operate without it |
+| `requestScoped.templates[].autoApprove` | boolean | ❌ | If true, system can auto-fulfill |
+| `requestScoped.onDelegationUnavailable` | string | ❌ | `degrade`, `fail`, or `escalate` |
+| `requestScoped.chainingPolicy` | string | ❌ | `template-controlled`, `never`, `with-approval` |
+
+See [Request-Scoped Authority Delegation](../implementation-concepts/request-scoped-delegation.md) for details.
+
 ---
 
 ## Lifecycle States
@@ -535,6 +569,7 @@ The Hub Operator:
 - [Trained Agent as Hub Application](./trained-agent.md) — Hub integration
 - [Employment Spec CRD](./employment-spec-crd.md) — Deployment configuration
 - [Guardrails](../subsystems/agent-identity-authority.md) — Guardrail framework
+- [Request-Scoped Authority Delegation](../implementation-concepts/request-scoped-delegation.md) — End-to-end delegation design
 
 ---
 

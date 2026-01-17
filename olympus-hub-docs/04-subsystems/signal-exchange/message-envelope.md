@@ -405,15 +405,20 @@ While every Hub Application has access to the base Environment configured for th
     },
     
     "auth": {
+      "identity": {
+        "spiffeId": "spiffe://seer/agents/dispute-agent-01",
+        "delegationMode": "deferred"
+      },
       "access_token": "eyJhbGciOiJS...",
       "token_type": "Bearer",
       "expires_at": "2026-01-04T11:30:00Z",
       "scopes": ["dispute:read", "dispute:write", "account:read"],
       "delegations": [
         {
-          "delegator": "user-99999",
-          "scope": "dispute:write",
-          "expires_at": "2026-01-05T00:00:00Z"
+          "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkRBVCJ9...",
+          "template": "personal-finance-assistant",
+          "delegator": "user-67890",
+          "expiresAt": "2026-01-04T22:00:00Z"
         }
       ]
     },
@@ -457,12 +462,34 @@ While every Hub Application has access to the base Environment configured for th
 |-----------|-------------|
 | **base** | Tenant, subscription, environment, workbench, scenario context |
 | **subject** | User/subject information initiating the request |
-| **auth** | Access tokens, scopes, delegations for downstream calls |
-| **identity** | Agent SPIFFE identity, acting-as relationships |
+| **auth** | Access tokens, scopes, identity, and delegations for downstream calls |
+| **auth.identity** | Agent SPIFFE identity, delegation mode |
+| **auth.delegations** | Request-scoped delegation tokens (business user authority) |
 | **observability** | Trace IDs, buckets, sampling configuration |
 | **feature_flags** | Request-scoped feature flag overrides |
 | **quotas** | Request-scoped quota limits |
 | **routing** | Request-scoped routing preferences |
+
+### auth.delegations Schema
+
+The `auth.delegations` array contains Delegation Access Tokens for request-scoped delegation:
+
+```yaml
+auth:
+  identity:
+    spiffeId: "spiffe://seer/agents/my-agent"
+    delegationMode: "deferred"  # "user" | "role" | "bot" | "deferred"
+  
+  delegations:
+    - token: "eyJ..."        # Delegation Access Token (JWT)
+      template: "personal-finance-assistant"  # Delegation Template name
+      delegator: "user-67890"   # Business user who delegated
+      expiresAt: "2026-01-17T22:00:00Z"  # Token expiry
+```
+
+**Token Refresh**: Signal Exchange refreshes `auth.delegations` on every REQUEST_UPDATE delivery to an agent. Tokens are issued from Delegation Certificates stored in the request's delegation context.
+
+→ See [Delegation Handling](./delegation-handling.md) for details.
 
 > **Note:** The `tenant_id` and `subscription_id` appear in both `envelope.tenant_id`/`envelope.subscription_id` and `environment.base.tenant_id`/`environment.base.subscription_id`. The **envelope fields are the source of truth** — they are set by Signal Exchange based on the normalized signal's header. The `environment.base` fields are provided for convenience and consistency, and should match the envelope values.
 
@@ -580,6 +607,9 @@ REQUEST_UPDATE (from Application)
     ├── MILESTONE          (Checkpoints)
     ├── REMIND             (Schedule a reminder)
     ├── CANCEL_REMINDER    (Cancel a reminder schedule)
+    ├── AUTHORITY_REQUEST  (Request delegation authority)
+    ├── AUTHORITY_GRANTED  (Delegation granted)
+    ├── AUTHORITY_DENIED   (Delegation denied/timeout)
     └── ERROR              (Recoverable errors)
 ```
 

@@ -61,6 +61,7 @@ Training Spec Manager validates the complete structure of TrainingSpec CRDs, ens
 | **Knowledge Base References** | Knowledge base bindings | Knowledge bases validated for existence and accessibility |
 | **Memory Configuration** | Agent Memory and Enterprise Memory patterns | Memory store types validated; compaction strategies validated |
 | **Context Compilation Config** | Retriever configurations with selectors | Selector syntax validated; retriever types validated |
+| **Delegation Requirements** | Request-scoped delegation template requirements | Template references validated; chaining policy validated |
 
 #### Spec Structure Example
 
@@ -532,6 +533,7 @@ sequenceDiagram
 - [Agent Lifecycle Concepts](../../implementation-concepts/agent-lifecycle.md) — Three-layer agent model
 - [Persona Twins](../../implementation-concepts/persona-twins.md) — Persona Twin concept documentation
 - [Persona Twin Blueprint](../../implementation-concepts/persona-twin-blueprint.md) — Blueprint for creating Persona Twins
+- [Request-Scoped Authority Delegation](../../implementation-concepts/request-scoped-delegation.md) — Business user delegation design
 
 ---
 
