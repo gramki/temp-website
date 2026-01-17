@@ -11,6 +11,38 @@ Profile tags provide metadata and categorization for agent profiles at different
 
 ---
 
+## Identity Layer Tags
+
+Employed Agents have **two identity layers**, each with distinct tags:
+
+### Deployment Identity Tags
+
+Tags related to the **Deployment Identity** (SPIFFE-based, infrastructure-level):
+
+| Tag Key | Description | Example |
+|---------|-------------|---------|
+| `spiffe-id` | SPIFFE identity of the running pod | `spiffe://acme.hub.io/seer/agent/.../fraud-analyst-pod-001` |
+| `deployment-id` | Unique identifier for this deployment instance | `fraud-analyst-pod-001` |
+| `pod-namespace` | Kubernetes namespace | `acme-disputes` |
+| `workbench` | Workbench this deployment belongs to | `acme-disputes` |
+
+### Agent Persona Tags
+
+Tags related to the **Agent Persona** (Scenario-derived, business-level):
+
+| Tag Key | Description | Example |
+|---------|-------------|---------|
+| `scenario-persona` | Agent Persona derived from Scenario | `dispute-resolution-agent` |
+| `scenario-ref` | Reference to the Scenario | `dispute-resolution` |
+| `persona-type` | Type of persona (base or sub-persona) | `base` or `sub-persona` |
+| `sub-persona-name` | Name of sub-persona (if Composite Application) | `dispute-analyst-agent` |
+
+**Note**: In Composite Applications, each agent gets its own sub-persona tag (e.g., `dispute-analyst-agent`, `dispute-reviewer-agent`), all deriving from the same base Agent Persona.
+
+> **See**: [ADR-0129: Agent Identity Model](../../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the two-layer identity model.
+
+---
+
 ## Tag Categories
 
 ### Standard Tag Categories
@@ -147,6 +179,16 @@ employedAgent:
       value: "fraud-analyst-acme-retail"
     - key: "spiffe-id"
       value: "spiffe://acme.hub.io/seer/agent/acme-seer-subscription/fraud-analyst-acme-retail"
+    
+    # Agent Persona (Scenario-derived)
+    - key: "scenario-persona"
+      value: "dispute-resolution-agent"
+    - key: "scenario-ref"
+      value: "dispute-resolution"
+    - key: "persona-type"
+      value: "base"  # or "sub-persona" for Composite Applications
+    - key: "sub-persona-name"
+      value: "dispute-analyst-agent"  # Only if persona-type is "sub-persona"
     
     # Lifecycle
     - key: "status"

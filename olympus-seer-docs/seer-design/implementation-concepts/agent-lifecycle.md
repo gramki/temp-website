@@ -125,7 +125,10 @@ An **Employed Agent** is a Trained Agent that has been granted Authority to act 
 In AOSM terms, an Employed Agent has **Authority** and **Autonomy**—it can act on behalf of a principal within defined limits.
 
 **Employment Spec Components:**
-- Authority Delegation (IAM role, scopes, ceilings)
+- Authority Delegation (delegation templates, policies, mode: scenario-scoped or request-scoped)
+  - Employment Spec specifies delegation templates and policies, not identity profile references
+  - Identity profile comes from Scenario (scenario-scoped) or Business User (request-scoped)
+  - See [ADR-0130: Unified Delegation Model](../../../olympus-hub-docs/decision-logs/0130-unified-delegation-model.md)
 - Workbench Assignment (which workbench(s) the agent operates in)
 - Scenario Bindings (which scenarios the agent can participate in)
 - Resource Quotas (compute, memory, token budgets)
@@ -139,11 +142,19 @@ In AOSM terms, an Employed Agent has **Authority** and **Autonomy**—it can act
 
 **Cipher IAM Profile (Full Agent Identity):**
 - Profile tagged as `employed-agent` in Cipher IAM Extensions
-- **SPIFFE Identity**: Unique cryptographic identity (e.g., `spiffe://hub.olympus.io/seer/tenant/{tenant_id}/workbench/{workbench_id}/agent/{agent_id}`)
+- **Deployment Identity (SPIFFE)**: Unique cryptographic identity for the running pod (e.g., `spiffe://hub.olympus.io/seer/tenant/{tenant_id}/workbench/{workbench_id}/agent/{agent_id}`)
+  - OAuth Client equivalent — proves "this request is coming from this specific agent deployment"
+  - Used for mTLS, service mesh authentication (infrastructure-level)
+- **Agent Persona**: Business identity derived from Scenario binding
+  - Represents "who this agent is" in business terms
+  - Carried in Delegation Access Tokens
+  - Stored in Cipher IAM (Scenario references it)
 - **Virtual Key**: Unique key for Model Gateway access, budget tracking, and audit
 - **Policy Attachments**: PEP-specific policies (tool-gateway, model-gateway, signal-exchange)
 - **Accountable Human**: Reference to the Supervisor who delegated authority
 - **Authority Ceiling**: Inherited and narrowed authority from delegation chain
+
+> **See**: [ADR-0129: Agent Identity Model](../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the two-layer identity model (Deployment Identity + Agent Persona).
 
 > **See**: [Credential Management](../subsystems/cipher-iam-extensions/credential-management.md) for virtual key and SPIFFE certificate provisioning.
 

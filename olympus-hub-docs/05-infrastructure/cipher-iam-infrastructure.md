@@ -63,11 +63,54 @@ spiffe://olympus.hub/app/<tenant-id>/<workbench-id>/<app-name>
 
 ### Agent Identity (Bot Identity)
 
-Autonomous agents receive bot identities:
+Autonomous agents have **two-layer identity**:
+
+#### 1. Deployment Identity (SPIFFE)
+
+Infrastructure-level identity of the running agent pod:
 
 ```
-spiffe://olympus.hub/bot/<tenant-id>/<agent-id>
+spiffe://olympus.hub/seer/tenant/<tenant-id>/workbench/<workbench-id>/agent/<agent-id>
 ```
+
+- **Purpose**: mTLS, service mesh authentication (infrastructure-level)
+- **OAuth Analogy**: OAuth Client — proves "this request is coming from this specific agent deployment"
+- **Provisioned by**: SPIRE Agent during pod startup
+- **Lifetime**: Tied to deployment lifecycle (created on deploy, rotated hourly, revoked on undeploy)
+
+#### 2. Agent Persona
+
+Business-level identity derived from Scenario:
+
+- **Source**: Scenario provides the agent's human-like personality and business role
+- **Storage**: Registered in Cipher IAM (Scenario references it)
+- **Purpose**: Business identity for app-to-app interactions, authority delegation, audit attribution
+- **Lifetime**: Tied to Scenario lifecycle (survives redeployments)
+- **OAuth Analogy**: OAuth Principal — the business entity on whose behalf actions are taken
+
+**Identity Relationship**:
+```
+Scenario
+    │
+    │ defines
+    ▼
+Agent Persona (business identity)
+    │
+    │ is deployed as
+    ▼
+Employed Agent Instance
+    │
+    │ has
+    ▼
+Deployment Identity (SPIFFE)
+```
+
+**Delegation Access Tokens** include both identities:
+- `client_id`: Deployment Identity (SPIFFE)
+- `sub`: Agent Persona (business identity)
+- `delegated_by`: Source of authority (Scenario Profile or Business User)
+
+> **See**: [ADR-0129: Agent Identity Model](../decision-logs/0129-agent-identity-model.md) for the complete two-layer identity model.
 
 ---
 

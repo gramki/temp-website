@@ -160,6 +160,13 @@ spec:
   # ============================================================
   # AUTHORITY DELEGATION (Two Domains)
   # ============================================================
+  # 
+  # Unified Delegation Model: Scenario-scoped and request-scoped delegation
+  # use the same mechanism with different modes. Employment Spec specifies
+  # delegation templates and policies, not identity profile references.
+  # Identity profile comes from Scenario (scenario-scoped) or Business User (request-scoped).
+  # See ADR-0130: Unified Delegation Model for details.
+  #
   delegation:
     # ----------------------------------------------------------------
     # ENTERPRISE DELEGATION (Internal Operations)
@@ -193,11 +200,15 @@ spec:
     # ----------------------------------------------------------------
     # REQUEST-SCOPED DELEGATION (Business User)
     # ----------------------------------------------------------------
+    # Part of Unified Delegation Model (see ADR-0130)
+    # Mode: request-scoped (Business User consent)
+    # Alternative: scenario-scoped (Scenario Identity Profile) - use same structure
     requestScoped:
       # Enable request-scoped delegation from business users
       enabled: true
       
       # Delegation Templates this employment accepts
+      # (Same structure for scenario-scoped mode)
       allowedTemplates:
         - personal-finance-assistant
         - view-investments
@@ -207,6 +218,10 @@ spec:
       
       # Behavior when delegation is denied or times out
       onDelegationDenied: continue-degraded  # continue-degraded | fail | escalate
+    
+    # Note: Deployment identity (SPIFFE) is auto-provisioned
+    # Note: Agent Persona comes from Scenario binding (scenario-scoped) or request (request-scoped)
+    # Note: Employment Spec specifies templates/policies, not identity profile references
 
   # ============================================================
   # OPERATIONAL ENVIRONMENT

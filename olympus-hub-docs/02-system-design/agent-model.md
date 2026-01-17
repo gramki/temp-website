@@ -437,12 +437,29 @@ All directability flows from **rejection events**:
 
 ### AI Agent IAM
 
+AI Agents have **two-layer identity**:
+
 | Aspect | Mechanism |
 |--------|-----------|
-| **Identity** | SPIFFE-based identity |
+| **Deployment Identity** | SPIFFE-based identity (OAuth Client equivalent) — infrastructure-level |
+| **Agent Persona** | Scenario-derived business identity — carried in Delegation Access Tokens |
 | **Authorization** | Fine-grained entity/action permissions |
 | **Tool Access** | OAuth-like consent flows |
 | **Credentials** | Secure vault management |
+
+**Deployment Identity (SPIFFE)**:
+- Infrastructure-level identity of the running agent pod
+- OAuth Client equivalent — proves "this request is coming from this specific agent deployment"
+- Used for mTLS, service mesh authentication
+- Auto-provisioned by SPIRE during pod startup
+
+**Agent Persona**:
+- Business-level identity derived from Scenario
+- Represents "who this agent is" in business terms
+- Carried in Delegation Access Tokens (`sub` claim)
+- Stored in Cipher IAM (Scenario references it)
+
+> **See**: [ADR-0129: Agent Identity Model](../decision-logs/0129-agent-identity-model.md) for the complete two-layer identity model.
 
 ### Cross-Agent Authorization
 

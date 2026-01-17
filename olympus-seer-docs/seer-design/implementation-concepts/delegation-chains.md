@@ -10,6 +10,10 @@
 
 Delegation Chains define how authority flows from humans to agents in Seer. They establish traceable, auditable chains of authority delegation where agents inherit permissions from delegators (users or roles) and operate under the accountability of designated humans. Delegation chains implement the Controlled Autonomy principle by ensuring agents can only act within the authority granted by their delegators.
 
+**Identity Model**: Delegation chains track **Agent Persona** (business identity), not Deployment Identity (SPIFFE). The Deployment Identity is the OAuth Client equivalent used for infrastructure authentication. The Agent Persona is the business identity that receives delegated authority.
+
+**Delegation Modes**: Delegation can be **scenario-scoped** (authority from Scenario Identity Profile) or **request-scoped** (authority from Business User consent). Both use the same unified mechanism with different modes. See [ADR-0130: Unified Delegation Model](../../../olympus-hub-docs/decision-logs/0130-unified-delegation-model.md).
+
 ---
 
 ## Ontology Context
@@ -40,7 +44,9 @@ The AOSM ontology defines Controlled Autonomy and RASCI but doesn't specify how 
 
 ## Definition
 
-**Delegation Chains** are traceable sequences of authority delegation from humans (or roles) to agents, where each agent inherits a subset of its delegator's authority and operates under the accountability of a designated human. Delegation chains implement narrowing-only inheritance, real-time synchronization, and complete auditability.
+**Delegation Chains** are traceable sequences of authority delegation from humans (or roles) to **Agent Personas**, where each agent persona inherits a subset of its delegator's authority and operates under the accountability of a designated human. Delegation chains implement narrowing-only inheritance, real-time synchronization, and complete auditability.
+
+**Note**: Delegation chains track **Agent Persona** (business identity), not Deployment Identity (SPIFFE). The Deployment Identity is the OAuth Client equivalent used for infrastructure authentication. The Agent Persona is the business identity that receives delegated authority.
 
 ### Characteristics
 
@@ -89,7 +95,8 @@ The AOSM ontology defines Controlled Autonomy and RASCI but doesn't specify how 
 
 | ADR | Decision |
 |-----|----------|
-| *To be added* | *Delegation chain architecture decisions* |
+| [ADR-0129: Agent Identity Model](../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) | Two-layer identity model (Deployment Identity + Agent Persona) |
+| [ADR-0130: Unified Delegation Model](../../../olympus-hub-docs/decision-logs/0130-unified-delegation-model.md) | Unified delegation model with scenario-scoped and request-scoped modes |
 
 ---
 

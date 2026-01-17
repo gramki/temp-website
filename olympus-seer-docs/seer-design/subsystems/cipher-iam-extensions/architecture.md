@@ -106,11 +106,63 @@ Cipher IAM Extensions **extends** Hub Cipher IAM rather than replacing it:
 
 ---
 
-## SPIFFE Integration
+## Two-Layer Identity Model
+
+Employed Agents have **two distinct identities** that serve different purposes:
+
+### 1. Deployment Identity (SPIFFE ID)
+
+The **Deployment Identity** is the infrastructure-level identity of the running agent pod. It is equivalent to an **OAuth Client** — it proves "this request is coming from this specific agent deployment."
+
+| Aspect | Description |
+|--------|-------------|
+| **What it is** | Cryptographic identity of the deployed Employed Agent instance |
+| **Format** | `spiffe://hub.olympus.io/seer/tenant/{tenant_id}/workbench/{workbench_id}/agent/{agent_id}` |
+| **Provisioned by** | SPIRE Agent during pod startup |
+| **Purpose** | mTLS, service mesh authentication, infrastructure-level authN |
+| **OAuth Analogy** | OAuth Client — the technical caller making requests |
+| **Lifetime** | Tied to deployment lifecycle (created on deploy, rotated hourly, revoked on undeploy) |
+
+### 2. Agent Persona
+
+The **Agent Persona** is the business-level identity derived from the Scenario. It represents "who this agent is" in business terms and is carried in the **Delegation Access Token**.
+
+| Aspect | Description |
+|--------|-------------|
+| **What it is** | Business/persona identity — "who is this agent" in business terms |
+| **Source** | Derived from **Scenario** (Scenario provides the agent's human-like personality) |
+| **Purpose** | App-to-app interactions, authority delegation, audit attribution |
+| **Lifetime** | Tied to Scenario lifecycle (survives redeployments) |
+| **Storage** | Cipher IAM (Scenario references it; operator can create non-existent profiles during deployment) |
+| **OAuth Analogy** | OAuth Principal — the business entity on whose behalf actions are taken |
+
+### Identity Relationship
+
+```
+Scenario
+    │
+    │ defines
+    ▼
+Agent Persona (business identity)
+    │
+    │ is deployed as
+    ▼
+Employed Agent Instance
+    │
+    │ has
+    ▼
+Deployment Identity (SPIFFE)
+```
+
+> **See**: [ADR-0129: Agent Identity Model](../../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the complete architectural decision.
+
+---
+
+## SPIFFE Integration (Deployment Identity)
 
 ### SPIFFE ID Structure
 
-Employed Agents receive SPIFFE identities:
+Employed Agents receive SPIFFE-based Deployment Identities:
 
 ```
 spiffe://{trust_domain}/seer/agent/{subscription}/{agent_code}
@@ -164,6 +216,18 @@ spec:
     matchLabels:
       seer.olympus.io/workbench: "acme-disputes"
 ```
+
+**Note**: SPIFFE ID is the **Deployment Identity** (infrastructure-level), not the Agent Persona (business-level). The Agent Persona is derived from the Scenario and managed separately in Cipher IAM.
+
+### Agent Persona Management
+
+Agent Personas are managed in Cipher IAM:
+
+- **Source**: Derived from Scenario (Scenario provides the agent's human-like personality)
+- **Storage**: Cipher IAM maintains and manages the identity lifecycle
+- **Reference**: Scenario references the Agent Persona in Cipher IAM
+- **Creation**: During deployment, the operator can create non-existent IAM profiles
+- **Binding**: Agent Persona is linked to Deployment Identity via Delegation Access Tokens
 
 ---
 

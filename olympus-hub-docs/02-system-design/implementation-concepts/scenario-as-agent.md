@@ -49,6 +49,43 @@ The ontology treats agents and scenarios separately. This pattern addresses:
 
 ---
 
+## Identity Model
+
+When a Scenario is registered as an Agent, it provides the **Agent Persona** (business identity):
+
+### Agent Persona from Scenario
+
+- **Source**: Scenario defines the agent's human-like personality and business role
+- **Storage**: Registered in Cipher IAM as an Agent Persona
+- **Purpose**: Business identity for app-to-app interactions, authority delegation, audit attribution
+- **Lifetime**: Tied to Scenario lifecycle (survives redeployments)
+
+### ScenarioAsAgent CRD Registration
+
+The ScenarioAsAgent CRD registers the Agent Persona in Cipher IAM:
+
+```yaml
+spec:
+  # Source Scenario (provides Agent Persona)
+  scenario_ref: dispute-automation
+  
+  # Agent Identity (Persona registration)
+  agent:
+    name: dispute-automation-agent  # Agent Persona name
+    display_name: "Dispute Automation Agent"
+    # This persona is registered in Cipher IAM
+```
+
+**Key Points**:
+- Scenario provides the Agent Persona (business identity)
+- ScenarioAsAgent CRD registers this persona in Cipher IAM
+- For Seer Agents, the Deployment Identity (SPIFFE) is added at deployment time
+- The Agent Persona is the "who" in business terms; Deployment Identity is the "which instance"
+
+> **See**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) for the two-layer identity model (Deployment Identity + Agent Persona).
+
+---
+
 ## Rationale
 
 ### Why This Design?

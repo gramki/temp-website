@@ -243,9 +243,13 @@ In AOSM terms, an Employed Agent is a full participant in a Human-AI Team, with 
 | Dimension | Description |
 |-----------|-------------|
 | **Artifact** | Employment Spec (delegation configuration) |
-| **Identity** | Identity in Workforce IAM or Customer IAM |
+| **Identity** | Two-layer identity: Deployment Identity (SPIFFE) + Agent Persona (Scenario-derived) |
+| **Deployment Identity** | SPIFFE-based infrastructure identity (OAuth Client equivalent) |
+| **Agent Persona** | Business identity derived from Scenario, stored in Cipher IAM |
 | **Ownership** | Delegating principal (user, role, or manager) |
 | **Scope** | Specific work context (team, project, customer) |
+
+> **See**: [ADR-0129: Agent Identity Model](../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the two-layer identity model.
 
 ### Employment Spec
 
@@ -256,9 +260,11 @@ The Employment Spec configures how a Trained Agent is deployed with delegated au
 | **Work Scope** | Project/team boundaries, temporal scope, functional scope |
 | **Operational Environment** | Connection strings, credentials, tool endpoints |
 | **Capacity & Resources** | Token limits, API budgets, compute allocation |
-| **Authority Delegation** | User delegation or role delegation model |
+| **Authority Delegation** | Unified delegation model: scenario-scoped or request-scoped modes |
 | **Constraints & Policies** | Action limits, approval requirements, escalation triggers |
 | **Delegator Preferences** | Communication style, decision guidelines |
+
+**Unified Delegation Model**: Employment Spec specifies delegation templates and policies, not identity profile references. Identity profile comes from Scenario (scenario-scoped) or Business User (request-scoped). See [ADR-0130: Unified Delegation Model](../../../olympus-hub-docs/decision-logs/0130-unified-delegation-model.md).
 
 ### Authority Delegation Models
 

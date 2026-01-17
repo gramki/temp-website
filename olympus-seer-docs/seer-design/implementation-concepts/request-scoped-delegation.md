@@ -182,8 +182,9 @@ header:
   
 claims:
   iss: "cipher.zeta.tech"
-  sub: "user-67890"                    # Delegator (business user)
-  aud: "spiffe://seer/agents/my-agent" # Specific agent (delegate)
+  sub: "bill-payment-assistant@acme.hub.io"  # Agent Persona (business identity)
+  client_id: "spiffe://acme.hub.io/seer/agent/acme/bill-payment-pod-001"  # Deployment Identity (SPIFFE)
+  delegated_by: "user-67890"  # Resource Owner (Business User for request-scoped, Scenario Profile for scenario-scoped)
   iat: 1737108000
   exp: 1737151200
   
@@ -196,10 +197,14 @@ claims:
 ```
 
 **Key Properties**:
-- **Bound to single agent**: `aud` claim specifies exactly one agent's SPIFFE ID
+- **Two-Layer Identity**: Includes both `client_id` (Deployment Identity/SPIFFE) and `sub` (Agent Persona)
+- **Bound to single agent**: `client_id` specifies exactly one agent's SPIFFE ID (deployment)
 - **Request-scoped**: Valid only for the specific request
-- **Delegator as subject**: `sub` is the business user, not the agent
+- **Agent Persona as subject**: `sub` is the Agent Persona (Scenario-derived business identity)
+- **Delegator tracked**: `delegated_by` identifies who granted authority (Business User or Scenario Profile)
 - **Traceable**: Links back to certificate for audit
+
+> **See**: [ADR-0129: Agent Identity Model](../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the two-layer identity model.
 
 ---
 
@@ -209,37 +214,47 @@ Request-Scoped Delegation maps to OAuth 2.0 concepts:
 
 | OAuth 2.0 Concept | Request-Scoped Delegation Equivalent |
 |-------------------|--------------------------------------|
-| **Client** | Employed Agent (identified by SPIFFE ID) |
-| **Client Credentials** | Agent's deployment credentials (from EmploymentSpec) |
+| **Client** | Deployment Identity (SPIFFE ID) — OAuth Client equivalent |
+| **Client Credentials** | Agent's deployment credentials (SVID from SPIRE) |
+| **Principal** | Agent Persona (Scenario-derived business identity) |
 | **Resource Owner** | Business User (delegator) |
 | **Authorization Server** | Cipher IAM Extensions |
 | **Scope** | Delegation Template |
 | **Authorization Grant** | Delegation Certificate |
-| **Access Token** | Delegation Access Token |
+| **Access Token** | Delegation Access Token (includes both `client_id` and `sub`) |
 | **Resource Server** | Tool Gateway, External APIs |
 
 ### Agent as OAuth Client
 
-The agent's enterprise identity functions like an **OAuth Client ID**:
+The agent's **Deployment Identity (SPIFFE ID)** functions like an **OAuth Client ID**:
 
 ```
 ┌───────────────────────────────────────────────────────────────────┐
 │                    TASK-SCOPED AGENT PATTERN                       │
 ├───────────────────────────────────────────────────────────────────┤
-│  Enterprise Identity (OAuth "Client")                              │
+│  Deployment Identity (OAuth "Client")                              │
 │  ├── SPIFFE ID: spiffe://seer/agents/bill-payment-assistant       │
-│  ├── Delegation Mode: Bot (minimal internal authority)            │
-│  └── Purpose: Stable identity for routing, audit, accountability  │
+│  ├── Purpose: Infrastructure authentication (mTLS, service mesh)  │
+│  └── OAuth Analogy: Client ID — proves "this request from this pod"│
+├───────────────────────────────────────────────────────────────────┤
+│  Agent Persona (OAuth "Principal")                                 │
+│  ├── Persona: bill-payment-assistant@acme.hub.io                  │
+│  ├── Source: Scenario-derived business identity                    │
+│  └── Purpose: Business authorization, audit, accountability       │
 ├───────────────────────────────────────────────────────────────────┤
 │  Request-Scoped Delegation (OAuth "Access Token")                  │
-│  ├── Delegator: user-12345                                        │
+│  ├── client_id: spiffe://.../bill-payment-assistant (Deployment)  │
+│  ├── sub: bill-payment-assistant@acme.hub.io (Persona)            │
+│  ├── delegated_by: user-12345 (Resource Owner)                    │
 │  ├── Template: pay-bills                                          │
 │  ├── Scope: Execute payments to approved payees                   │
 │  └── Expires: When request completes or after 2 hours             │
 └───────────────────────────────────────────────────────────────────┘
 ```
 
-**Key Insight**: The agent has almost no inherent authority. Its enterprise identity is a "client registration" — it identifies the agent for routing and accountability. All meaningful authority comes from the user's temporary delegation.
+**Key Insight**: The agent has almost no inherent authority. Its Deployment Identity (SPIFFE ID) is the "OAuth Client" — it identifies the deployment for infrastructure authentication. The Agent Persona (Scenario-derived) represents the business identity. All meaningful authority comes from the user's temporary delegation via the Delegation Access Token.
+
+> **See**: [ADR-0129: Agent Identity Model](../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the two-layer identity model.
 
 ---
 
@@ -453,6 +468,52 @@ environment:
 ```
 
 Signal Exchange **refreshes** this section on every REQUEST_UPDATE delivery to ensure revocations are reflected.
+
+### 5.3 Scenario-Scoped Delegation (Alternative Mode)
+
+Request-Scoped Delegation and **Scenario-Scoped Delegation** use the **same unified mechanism** with different modes:
+
+| Aspect | Request-Scoped Mode | Scenario-Scoped Mode |
+|--------|---------------------|----------------------|
+| **Certificate Source** | Business User (via Channel) | Scenario Identity Profile |
+| **Certificate Timing** | Created per-request (when user grants) | Created at deployment |
+| **Token Timing** | Per-request (from Certificate) | Per-request (from Certificate) |
+| **Token Semantics** | Identical | Identical |
+| **Token Structure** | Identical (`client_id`, `sub`, `delegated_by`) | Identical |
+| **Use Case** | Temporary, user-initiated tasks | Long-lived operational agents |
+
+**Key Principle**: Both modes use **hybrid token issuance**:
+- **Certificate** created at source time (deployment for scenario-scoped, request for request-scoped)
+- **Token** always issued per-request from the Certificate
+- Same semantics, different timing of Certificate creation
+
+**Example - Scenario-Scoped Delegation**:
+
+```
+Deployment Time:
+  Scenario Identity Profile → Creates Delegation Certificate
+  Certificate stored, referenced by Employment Spec
+
+Per-Request:
+  Agent receives Request Update
+  Cipher issues Delegation Access Token from Certificate
+  Token includes: client_id (SPIFFE), sub (Agent Persona), delegated_by (Scenario Profile)
+```
+
+**Employment Spec Configuration**:
+
+```yaml
+delegation:
+  unified:
+    mode: scenario-scoped  # or "request-scoped"
+    allowedTemplates:
+      - analyze-disputes
+      - review-analysis
+    # Same structure for both modes
+    # Identity profile comes from Scenario (not specified here)
+```
+
+> **See**: [ADR-0130: Unified Delegation Model](../../../olympus-hub-docs/decision-logs/0130-unified-delegation-model.md) for the complete unified model.
 
 ---
 

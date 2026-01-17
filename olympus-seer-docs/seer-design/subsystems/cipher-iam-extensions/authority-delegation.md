@@ -32,23 +32,45 @@ These are **orthogonal** — an agent may have both simultaneously.
 | **Role Delegation** | Agent inherits from an enterprise role | Team-level agents |
 | **Bot Mode** | Agent has base identity only | Fully automated agents |
 
-### Request-Scoped Delegation (Business Users)
+### Unified Delegation Model (Business Users)
+
+Business user delegation uses a **unified model** with two modes:
+
+| Mode | Certificate Source | Certificate Timing | Token Timing | Use Case |
+|------|-------------------|-------------------|--------------|----------|
+| **Scenario-Scoped** | Scenario Identity Profile | At deployment | Per-request | Long-lived operational agents |
+| **Request-Scoped** | Business User (via Channel) | Per-request | Per-request | Temporary, user-initiated tasks |
+
+**Key Principle**: Both modes use the same mechanism:
+- **Certificate** created at source time (deployment or request)
+- **Token** always issued per-request from the Certificate
+- Same token semantics and structure (includes `client_id`, `sub`, `delegated_by`)
+
+**Employment Spec Configuration**:
+- Specifies delegation templates and policies (not identity profile references)
+- Identity profile comes from Scenario (scenario-scoped) or Business User (request-scoped)
+- Deployment identity (SPIFFE) is auto-provisioned
 
 For business user delegation, see:
 - [Delegation Templates](./delegation-templates.md) — What authority can be delegated
 - [Delegation Certificates](./delegation-certificates.md) — User consent representation
 - [Business User Profiles](./business-user-profiles.md) — End-user identity management
-- [Request-Scoped Delegation Concept](../../implementation-concepts/request-scoped-delegation.md) — Full design
+- [Request-Scoped Delegation Concept](../../implementation-concepts/request-scoped-delegation.md) — Full design (includes scenario-scoped mode)
+- [ADR-0130: Unified Delegation Model](../../../../olympus-hub-docs/decision-logs/0130-unified-delegation-model.md) — Unified model decision
 
 ### Delegation Chain
+
+**Note**: Delegation chains track **Agent Persona** (business identity), not Deployment Identity (SPIFFE). The Deployment Identity is the OAuth Client equivalent and is used for infrastructure authentication.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                        DELEGATION CHAIN                                      │
+│                        (Tracks Agent Persona)                                │
 │                                                                              │
 │   ┌─────────────────────────────────────────────────────────────────────┐   │
 │   │  EMPLOYED AGENT                                                      │   │
-│   │  fraud-analyst-acme-retail                                          │   │
+│   │  Agent Persona: fraud-analyst-acme-retail                           │   │
+│   │  Deployment Identity: spiffe://.../fraud-analyst-pod-001 (SPIFFE)  │   │
 │   └─────────────────────────────────────────────────────────────────────┘   │
 │                                 │                                            │
 │                          delegates from                                      │
@@ -69,6 +91,8 @@ For business user delegation, see:
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+> **See**: [ADR-0129: Agent Identity Model](../../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the two-layer identity model.
 
 ---
 

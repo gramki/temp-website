@@ -30,13 +30,19 @@ When an agent acts, regulators and auditors ask: *Who authorized this?* Agent id
 
 ### Identity Layers
 
-Seer implements identity at multiple layers:
+Seer implements **two-layer identity** for Employed Agents:
 
-| Layer | Identity Type | Purpose |
-|-------|---------------|---------|
-| **Raw Agent** | Infrastructure identity (SPIFFE) | Platform-level authentication |
-| **Trained Agent** | Application identity | Tenant-level identification |
-| **Employed Agent** | Workforce/Customer IAM | Delegation and authority |
+| Layer | Identity Type | Purpose | OAuth Analogy |
+|-------|---------------|---------|---------------|
+| **Deployment Identity** | SPIFFE-based infrastructure identity | mTLS, service mesh authentication | OAuth Client — proves "this request from this pod" |
+| **Agent Persona** | Scenario-derived business identity | Business authorization, audit, delegation chains | OAuth Principal — the business entity on whose behalf actions are taken |
+
+**Lifecycle Progression**:
+- **Raw Agent**: Infrastructure identity (SPIFFE) declared
+- **Trained Agent**: Application identity configured (no runtime credentials)
+- **Employed Agent**: Full two-layer identity (Deployment Identity + Agent Persona)
+
+> **See**: [ADR-0129: Agent Identity Model](../../../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the complete two-layer identity model.
 
 ### Employed Agent Identity
 
@@ -60,11 +66,11 @@ Authority: Subset of Alice's permissions
 
 Agent identity is cryptographically verifiable:
 
-- **SPIFFE SVIDs:** Raw agents receive SPIFFE identity
-- **OAuth Tokens:** Employed agents receive scoped tokens
+- **SPIFFE SVIDs:** Deployment Identity (infrastructure-level) — OAuth Client equivalent
+- **Delegation Access Tokens:** Include both `client_id` (SPIFFE) and `sub` (Agent Persona)
 - **Signed Credentials:** All credentials are cryptographically signed
 
-Verification is possible at any point in the request chain.
+Verification is possible at any point in the request chain. The Deployment Identity (SPIFFE) proves infrastructure authenticity, while the Agent Persona (in tokens) proves business authorization.
 
 ## Identity Lifecycle
 
