@@ -18,7 +18,8 @@ This is a textbook-style documentation of Seer, Zeta's enterprise agent platform
 | **Executives & Decision Makers** | [Preface](./00-front-matter/00-1-preface.md) → [Summary: Why Seer](./part-2-how-seer-solves/13-summary-why-seer/_section-overview.md) |
 | **Enterprise Architects** | [Part 1: Background](./part-1-background/_part-overview.md) (full) |
 | **Developers & Engineers** | [Part 2: How Seer Solves](./part-2-how-seer-solves/_part-overview.md) (full) |
-| **Security & Compliance** | [Identity & Authority](./part-2-how-seer-solves/03-identity-authority-in-seer/_section-overview.md) + [Audit](./part-1-background/04-audit-requirements/_section-overview.md) |
+| **Security & Compliance** | [Identity & Authority](./part-2-how-seer-solves/03-identity-authority-in-seer/_section-overview.md) + [Audit](./part-1-background/04-audit-requirements/_section-overview.md) + [Agent Oversight](./part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/_section-overview.md) |
+| **Developers** | [Developer Experience](./part-2-how-seer-solves/20-developer-experience-in-seer/_section-overview.md) + [SDK Capabilities](./part-2-how-seer-solves/20-developer-experience-in-seer/20-2-sdk-capabilities.md) |
 | **Quick Reference** | [Glossary](./appendices/appendix-a-glossary.md) |
 
 ## Document Structure
@@ -32,7 +33,7 @@ why-seer/
 │   ├── 03-memory-requirements/
 │   ├── 04-audit-requirements/
 │   └── 05-building-enterprise-agent/
-├── part-2-how-seer-solves/    # The Solution (13 sections)
+├── part-2-how-seer-solves/    # The Solution (13 sections + 6 Hub sections)
 │   ├── 01-seer-design-philosophy/
 │   ├── 02-agent-lifecycle-in-seer/
 │   ├── 03-identity-authority-in-seer/
@@ -45,6 +46,12 @@ why-seer/
 │   ├── 10-tools-actions-in-seer/
 │   ├── 11-multi-agent-patterns-in-seer/
 │   ├── 12-feedback-learning-in-seer/
+│   ├── 19-agent-oversight-monitoring-in-seer/
+│   ├── 20-developer-experience-in-seer/
+│   ├── 21-persona-twins-in-seer/
+│   ├── 22-multi-agent-topologies-in-hub/
+│   ├── 23-collaboration-channels-in-hub/
+│   ├── 24-task-management-in-hub/
 │   └── 13-summary-why-seer/
 └── appendices/                # Glossary, References, AOSM Foundations
 ```
@@ -81,6 +88,11 @@ why-seer/
 | **ESPP Taxonomy** | Memory types: Episodic, Semantic, Procedural, Preference | [Section 3.2](./part-1-background/03-memory-requirements/03-2-espp-taxonomy.md) |
 | **CAF** | Cognitive Audit Fabric—enterprise memory control plane | [Section 4.3](./part-1-background/04-audit-requirements/04-3-cognitive-audit-fabric.md) |
 | **Seer + Hub** | Two-system architecture: Agent governance + Operational substrate | [Section 1.1 (P2)](./part-2-how-seer-solves/01-seer-design-philosophy/01-1-two-system-architecture.md) |
+| **Request-Scoped Delegation** | Business users delegate temporary authority to agents | [Section 3.6](./part-2-how-seer-solves/03-identity-authority-in-seer/03-6-request-scoped-delegation.md) |
+| **Agent Persona** | Business identity vs. Deployment Identity (two-layer model) | [Section 3.1](./part-2-how-seer-solves/03-identity-authority-in-seer/03-1-agent-identity.md) |
+| **Hub Composite Applications** | Multi-agent collaboration on shared requests | [Section 22.1](./part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-1-hub-composite-applications.md) |
+| **COGW** | Cognitive Operations Governance Workbench—subscription-wide oversight | [Section 19.5](./part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-5-cogw.md) |
+| **Persona Twins** | Personal AI assistants for individual collaborators | [Section 21.1](./part-2-how-seer-solves/21-persona-twins-in-seer/21-1-what-are-persona-twins.md) |
 
 ## Quick Links
 

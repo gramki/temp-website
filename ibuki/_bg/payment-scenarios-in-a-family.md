@@ -1,4 +1,3 @@
-# Personas
 
 ## Example - the Mehta Family:
 

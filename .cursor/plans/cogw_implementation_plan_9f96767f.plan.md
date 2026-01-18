@@ -133,12 +133,12 @@ flowchart TB
 
 - **Scope**: One operator per subscription (not per COGW)
 - **Responsibilities**:
-        - Watch all COG Sentinels in all COGW workbenches in subscription
-        - Evaluate `cogSpec.workbench_patterns` against subscription workbenches
-        - Create read-only `SentinelScenarioSpec` references in target workbenches
-        - Register COG Sentinels for auto-enrollment in Signal Exchange
-        - Handle updates (automatic sync to all target workbenches)
-        - Handle deletions (remove from target workbenches)
+                - Watch all COG Sentinels in all COGW workbenches in subscription
+                - Evaluate `cogSpec.workbench_patterns` against subscription workbenches
+                - Create read-only `SentinelScenarioSpec` references in target workbenches
+                - Register COG Sentinels for auto-enrollment in Signal Exchange
+                - Handle updates (automatic sync to all target workbenches)
+                - Handle deletions (remove from target workbenches)
 - **Reconciliation Loop**: Watch COG Sentinels, workbenches, subscription changes
 - **Access Scope**: Subscription-level access to enumerate workbenches
 - **Read-only Spec Representation**: Same CRD type with `read-only: true` annotation
@@ -380,11 +380,11 @@ COG Sentinel child requests access parent context via TrainingSpec:
 
 - **C2 (Container)**: Overall subsystem structure, component boundaries, integration points
 - **C3 (Component)**: Critical concepts requiring detailed explanation:
-        - Pattern matching algorithm (sequential evaluation)
-        - Read-only spec representation mechanism
-        - Context filtering via TrainingSpec
-        - Signal forwarding flow
-        - Reconciliation loop logic
+                - Pattern matching algorithm (sequential evaluation)
+                - Read-only spec representation mechanism
+                - Context filtering via TrainingSpec
+                - Signal forwarding flow
+                - Reconciliation loop logic
 
 ## Dependencies
 

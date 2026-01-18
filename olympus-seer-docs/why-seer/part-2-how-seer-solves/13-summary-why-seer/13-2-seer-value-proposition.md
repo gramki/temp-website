@@ -1,8 +1,8 @@
 # 13.2 The Seer Value Proposition
 
-Seer is purpose-built to address the enterprise agent imperative. This section summarizes the five pillars of value that Seer delivers.
+Seer is purpose-built to address the enterprise agent imperative. This section summarizes the eight pillars of value that Seer delivers.
 
-## The Five Pillars
+## The Eight Pillars
 
 ### 1. Accountability
 
@@ -42,8 +42,10 @@ Seer keeps humans in control of agent behavior.
 | **Human Override** | Surgical intervention with full audit trail |
 | **Policy Enforcement** | Runtime enforcement at every decision point |
 | **Cost Governance** | Cost as safety signal with hard limits |
+| **Agent Oversight** | Seer Sentinels monitor agent behavior in real-time |
+| **Cross-Workbench Governance** | COGW enables subscription-wide oversight and policy enforcement |
 
-**The Promise:** Agents operate within strict, defensible boundaries with instant human override available at all times.
+**The Promise:** Agents operate within strict, defensible boundaries with instant human override available at all times, with continuous monitoring and cross-workbench governance.
 
 ### 4. Learning
 
@@ -73,6 +75,44 @@ Seer ensures no vendor lock-in at the semantic layer.
 
 **The Promise:** Enterprise investment in agents is protected regardless of infrastructure choices.
 
+### 6. Developer Experience
+
+Seer provides comprehensive tooling for agent development and deployment.
+
+| Capability | How Seer Delivers |
+|------------|-------------------|
+| **Seer Agent SDK** | Comprehensive APIs for Employment Specs, Prompts, Context Compilation, Observability |
+| **Framework Builders** | Convenience layers for popular Python frameworks |
+| **Development Workflow** | Streamlined path from development to production deployment |
+
+**The Promise:** Developers can build enterprise-grade agents efficiently with production-ready tooling.
+
+### 7. Multi-Agent Capabilities
+
+Seer enables sophisticated multi-agent collaboration patterns.
+
+| Capability | How Seer Delivers |
+|------------|-------------------|
+| **Hub Composite Applications** | Multiple agents collaborate on shared requests with coordinated state |
+| **Multi-Agent Topologies** | Support for Blackboard, PEC Loop, Market-Based, and Role-Specialized Committee patterns |
+| **Persona Twins** | Personal AI assistants for individual collaborators |
+| **Task Management** | Structured task lifecycle, allocation, and agent operations |
+
+**The Promise:** Enterprises can deploy teams of agents that work together effectively while maintaining governance and accountability.
+
+### 8. Collaboration & Integration
+
+Seer integrates with enterprise collaboration tools and provides flexible access patterns.
+
+| Capability | How Seer Delivers |
+|------------|-------------------|
+| **MS Teams Integration** | Native integration with Microsoft Teams for bot-based collaboration |
+| **MCP Server Support** | Expose Hub capabilities to AI assistants (ChatGPT, Claude, Gemini) via Model Context Protocol |
+| **Multi-Channel Access** | Web Portal, CLI, REST API, MS Teams, MCP Server support |
+| **Observer Pattern** | Real-time notifications and updates for stakeholders |
+
+**The Promise:** Agents integrate seamlessly into existing enterprise workflows and collaboration tools.
+
 ## The Value Matrix
 
 | Enterprise Requirement | Without Seer | With Seer |
@@ -83,7 +123,11 @@ Seer ensures no vendor lock-in at the semantic layer.
 | Learning governance | Silent drift risk | Controlled promotion with approval |
 | Multi-cloud strategy | Rewrite for each CSP | Deploy anywhere unchanged |
 | Cost control | Surprise bills | Predictable with hard limits |
-| Human oversight | All or nothing | Surgical intervention |
+| Human oversight | All or nothing | Surgical intervention with real-time monitoring |
+| Multi-agent coordination | Manual orchestration | Structured collaboration patterns |
+| Developer productivity | Custom tooling required | Comprehensive SDK and tooling |
+| Collaboration integration | Separate systems | Native MS Teams, MCP Server support |
+| Cross-workbench governance | Workbench-by-workbench | Subscription-wide COGW oversight |
 
 ## The Core Equation
 
@@ -98,6 +142,9 @@ Hub provides the operational substrate:
 - Memory, knowledge, tools
 - Audit fabric and evidence
 - Signals, workflows, task management
+- Multi-agent topologies and composite applications
+- Collaboration channels (MS Teams, MCP Server)
+- Cross-workbench governance (COGW)
 
 Together, they provide a complete enterprise agent platform.
 

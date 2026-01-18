@@ -53,7 +53,7 @@ Examples of how this model applies:
 - **Salary: Employer → Family Member**  
   - *Entitlement*: Beneficiary = Family Member; Liable = Employer (external)
 
-- **Rent Paid: Household → Landlord**  
+- **Rent Paid: Household → Land lord**  
   - *Obligation*: Liable = Household or Member; Beneficiary = Landlord (external)
 
 - **Rent Received: Tenant → Family**  

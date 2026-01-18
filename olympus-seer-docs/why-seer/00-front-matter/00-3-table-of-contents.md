@@ -190,13 +190,6 @@
 - [12.4 Governed Learning Path](../part-2-how-seer-solves/12-feedback-learning-in-seer/12-4-governed-learning-path.md)
 - [12.5 Why Governed Learning Matters](../part-2-how-seer-solves/12-feedback-learning-in-seer/12-5-why-governed-learning.md)
 
-### Section 13: Summary — Why Seer?
-
-- [Section Overview](../part-2-how-seer-solves/13-summary-why-seer/_section-overview.md)
-- [13.1 The Enterprise Agent Imperative](../part-2-how-seer-solves/13-summary-why-seer/13-1-enterprise-agent-imperative.md)
-- [13.2 The Seer Value Proposition](../part-2-how-seer-solves/13-summary-why-seer/13-2-seer-value-proposition.md)
-- [13.3 Who Should Use Seer](../part-2-how-seer-solves/13-summary-why-seer/13-3-who-should-use-seer.md)
-
 ### Section 19: Agent Oversight & Monitoring in Seer
 
 - [Section Overview](../part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/_section-overview.md)
@@ -241,6 +234,13 @@
 - [24.1 Task Lifecycle](../part-2-how-seer-solves/24-task-management-in-hub/24-1-task-lifecycle.md)
 - [24.2 Task Allocation](../part-2-how-seer-solves/24-task-management-in-hub/24-2-task-allocation.md)
 - [24.3 Agent Task Operations](../part-2-how-seer-solves/24-task-management-in-hub/24-3-agent-task-operations.md)
+
+### Section 13: Summary — Why Seer?
+
+- [Section Overview](../part-2-how-seer-solves/13-summary-why-seer/_section-overview.md)
+- [13.1 The Enterprise Agent Imperative](../part-2-how-seer-solves/13-summary-why-seer/13-1-enterprise-agent-imperative.md)
+- [13.2 The Seer Value Proposition](../part-2-how-seer-solves/13-summary-why-seer/13-2-seer-value-proposition.md)
+- [13.3 Who Should Use Seer](../part-2-how-seer-solves/13-summary-why-seer/13-3-who-should-use-seer.md)
 
 ---
 

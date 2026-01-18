@@ -18,7 +18,7 @@ This section is intended as both a summary for those who have read the complete 
 This section is organized into the following sub-sections:
 
 *   **13.1 The Enterprise Agent Imperative**: The non-negotiable requirements for agents in regulated, consequential environments.
-*   **13.2 The Seer Value Proposition**: The five pillars of value Seer delivers.
+*   **13.2 The Seer Value Proposition**: The eight pillars of value Seer delivers.
 *   **13.3 Who Should Use Seer**: Target audiences and use cases.
 
 ---

@@ -1,15 +1,30 @@
 =======================================================
 ********* PHASE 3 TODOs *********
 =======================================================
-# Seer Extensions to Hub to be documented:
-    - Machine as an Agent (A utility to invoke machine tools based on intent; Seer Agent facing utility)
-    - Scenario Collection as an Agent (A utility to invoke scenario based on intent; Business Domain User facing utility)
-    - Clarify Seer Agent receiving Signals vs. Hub Agent receiving Signals (Guides & Callouts)
-    - Callout: Various types of Agents
+# Hub MCP Interface:
+    ✔ Machine as an Agent (A utility to invoke machine tools based on intent; Seer Agent facing utility) @done(26-01-17 21:08)
+    ✔ MCP Interface for various personas and templates @done(26-01-17 21:08)
 
 # Topologies of Workbenches:
     - Blueprint to Workbench Instance Relationship
     - WB Instance to WB Instance Relationships (Promotion, DevOps, COGW, etc.,)
+
+# Seer Agent Identity Clarification:
+    
+    ✔ SPIFEE ID is the identity of the 'deployment' @done(26-01-17 10:38)
+    ✔ The Scenario provides 'Agent' identity; That is different from the deployment identity. @done(26-01-17 10:38)
+    ✔ Agent identity is to create an access token that could be used in all app to app interactions. @done(26-01-17 10:38)
+    ✔ The SPIFEE ID should be used as a 'client' identity for the agent. @done(26-01-17 10:38)
+    ✔ The current documentation conflates the two identities. @done(26-01-17 10:38)
+    ✔ Ideally the employment spec should have derived or referenced Delegated Authority from Scenario's Identity Profile Owner. @done(26-01-17 10:38)
+    ✔ Only in request scoped delegation, the Scenario may not have identity with authority to delegate. @done(26-01-17 10:38)
+    ✔ The delegation specification should nevertheless be part of EmploymentSpec in case of Scenario-scoped delegation as there could be multiple Employed Agents in a Scenario. @done(26-01-17 10:38)
+
+# Hub - Add placeholders in Channels:
+    - Slack
+    - MS Office Plugin
+    - Google Docs Plugin
+    - Visual Studio Code Plugin
 
 # Learning Operations:
     - Patterns from Sentinels into CAF and Enterprise Memory
@@ -22,6 +37,35 @@
     - Indentify Subsystems, Capabilities, and Concepts    
     - Textbook Part-3
 
+# Blueprint for Multi-agent Topologies:
+    - Blackboard
+    - PEC Loop
+    - Market-Based
+    - Role-Specialized Committees
+    - Hybrid
+    - Multi-domain
+    - Multi-runtime
+    - Multi-tenant
+
+# Seer Agents with request-scoped authority support:
+    olympus-hub-docs/scratchpad/seer-request-scoped-authority-delegation.md
+    ✔ Trained agents assume identity per session @done(26-01-17 10:38)
+    ✔ Scenario invocation is assocaited with a delegated authority token @done(26-01-17 10:38)
+    ✔ Deferred Authority employment model @done(26-01-17 10:38)
+    ✔ Delegatable Authority Template in Cipher; @done(26-01-17 10:38)
+    ✔ Idenity Profile Owner (user) gives a Delegation Certificate referring to the delegate,  delegation authority, and time windows. @done(26-01-17 10:38)
+    ✔ Agent converts Delegation Certificate to a request-scoped authority token with the help of Cipher IAM Extensions. (This token makes delegator as the identity associated with token, with Employed Agent as a client) @done(26-01-17 10:38)
+    ✔ When does a user delegate authority to an agent? @done(26-01-17 10:38)
+    ✔ Hub: @done(26-01-17 10:38)
+        ✔ implementation concepts @done(26-01-17 10:38)
+        ✔ request lifecycle management @done(26-01-17 10:38)
+        ✔ SX @done(26-01-17 10:38)
+        ✔ IAM Extensions @done(26-01-17 10:38)
+        ✔ Channels @done(26-01-17 10:38)
+        ✔ Guides & Callouts @done(26-01-17 10:38)
+        ✔ Personas and Journeys @done(26-01-17 10:38)
+        ✔ Difference between Channel and Signal Provider @done(26-01-17 10:38)
+
 # Specialized Hubs:
     [ ] Outline Olympus Hub's Expected Evolution
     [ ] Outline Integration Hub
@@ -32,3 +76,25 @@
     [ ] Request and Case are Envelope Entities for automations defined across automation engines. Automation engines and AI Agents should be Cognitive Audit Fabric (CAF) aware
     [ ] *Business Entity Providers*; Should we call this as an applicaiton/system in the Hub realm with a protocol do CRUDS on that entity? This can also encapsulate various views for the entity. 
 
+# Modeling Explorative Scenarios in Hub:
+    - 1. Unstructured Creative Work
+        Writing a novel, designing a brand, composing music
+        Why Hub struggles: No signal triggers this. No "request." No entity to operate on. The work is the creation, not a response to a scenario.
+    - 2. Exploratory Research
+        Scientific research, market research, open-ended investigation
+        Why Hub struggles: No signal says "research this now." Outcomes are emergent, not predefined. Can't define a scenario for unknown discoveries.
+    - 3. Pure Ideation/Brainstorming
+        Strategy workshops, innovation sessions
+        Why Hub struggles: Deliberately unstructured. No scenario, no SOPs, no defined outcome. Value is in the divergence, not convergence.
+    - 4. Relationship-Intensive Information Work
+        Sales relationship building, negotiation, mentoring
+        Why Hub struggles: Highly relational, depends on human chemistry. Can't systematize trust-building into procedures.
+    - 5. Real-Time Crisis Decisions
+        Emergency response, novel crises, unprecedented situations
+        Why Hub struggles: No pre-existing scenario. No time for systematic processing. Requires improvisation, not procedure.
+    - 6. Personal Knowledge Management
+        How individuals organize their thoughts, note-taking, personal systems
+        Why Hub struggles: Deeply idiosyncratic. Not collaborative. Not systematizable by an external platform.
+    - 7. Informal Coordination
+        Slack threads, hallway conversations, ad-hoc emails
+        Why Hub struggles: No formal signal. No defined outcome. No entity. Work happens in the interstices.

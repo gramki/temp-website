@@ -189,7 +189,7 @@ This confuses the **map** (how we model) with the **territory** (what the domain
 
 ## Key Insight: Hub Scope Is Broader Than "Operations"
 
-The dated introduction.md frames Hub narrowly around "operations" (ITSM-style). But perspectives.md and system design reveal broader applicability:
+The dated introduction.md frames Hub narrowly around "operations" (ITSM-style). But foundational-beliefs.md and system design reveal broader applicability:
 
 - **Enterprise Workbenches:** Payment Ops, Cloud Ops, Dev Teams
 - **Executive Hubs:** CTO Hub with email, calendar, documents

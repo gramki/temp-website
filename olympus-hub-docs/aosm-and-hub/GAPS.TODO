@@ -1,6 +1,6 @@
 # Consolidated Gaps — AOSM, Hub, and Seer Integration
 # Consolidated from: fraud-case-agent-build-task-list-opus.md, fraud-case-agent-build-task-list-gpt.md, design-gap-analysis.md, aos-hub-journal-story-todo.md
-# Last Updated: 2026-01-08 (Agent Memory complete, deprecated files removed)
+# Last Updated: 2026-01-15 (Reassessed after design progress review)
 # Organization: System → Subsystem → Priority
 
 
@@ -61,7 +61,7 @@
         [x] HUB-CAF-007: Content hashing for replay — all episodic records have content_hash (SHA-256) for immutability and reproducibility
         [~] HUB-CAF-008: Legal holds — REMOVED: covered by retention policies; immutability already provides preservation guarantees
         [~] HUB-CAF-009: CAF as control plane for Knowledge Bank — RESOLVED: CAF does NOT govern Knowledge; CAF is Memory control plane only; Knowledge is governed by ETSL
-        [ ] HUB-CAF-010: CAF explicit implementation of AOSM OPD requirements (Observability, Predictability, Directability)
+        [ ] HUB-CAF-010: CAF explicit implementation of AOSM OPD requirements (Observability, Predictability, Directability) — scratchpad/caf-opd-design-session.md (work in progress; Directability model complete via ADR-0078/0079/0080, Observability/Predictability Q&A pending)
     ## Completed (2026-01-07):
         [x] HUB-CAF-001: Episodic Memory Store — 9 record types (Case, Decision, Evidence, Context, Outcome, Override, Handoff, Hypothesis, IncidentTimeline)
         [x] HUB-CAF-002: CAF-to-Memory-Store Contract — CRD registration, reader/writer protocols, JWS auth
@@ -117,10 +117,10 @@
 
 # Hub — Tool Registry / Direct Tool Dispatcher:
     ## P1 (High):
-        [ ] HUB-TLS-001: Human-in-the-loop checkpoint implementation for high-impact actions — approval flow unclear
+        [ ] HUB-TLS-001: Human-in-the-loop checkpoint implementation for high-impact actions — tool registry has requires_approval/approval_workflow fields; needs explicit task system integration documentation
     ## P2 (Medium):
-        [ ] HUB-TLS-002: Canonical tool registration flow and runtime invocation contract
-        [ ] HUB-TLS-003: Approval workflows (task system hooks, queue routing) for high-risk actions
+        [x] HUB-TLS-002: Canonical tool registration flow and runtime invocation contract — 04-subsystems/registry-services/tool-registry.md (complete: Tool Protocol, Tool, resolution, lifecycle)
+        [ ] HUB-TLS-003: Approval workflows (task system hooks, queue routing) for high-risk actions — approval workflow exists in tool registry and promotion model; needs explicit task queue integration docs
 
 # Hub — Scenario Management / Hub-Seer Integration:
     ## P0 (Blocking):
@@ -132,8 +132,8 @@
 
 # Hub — Task Management / Case Management:
     ## P2 (Medium):
-        [ ] HUB-TSK-001: Case/task management integration — where case state lives in Hub
-        [ ] HUB-TSK-002: Race condition handling for concurrent case updates
+        [ ] HUB-TSK-001: Case/task management integration — Case Records (case_id = request_id) documented; explicit integration doc needed for Request/Task/Case relationship clarity
+        [x] HUB-TSK-002: Race condition handling for concurrent case updates — 04-subsystems/request-management/request-lifecycle.md (Composite Application Updates section: Latest Wins strategy, rejection tracking, source app tracking)
     ## P3 (Low):
         [ ] HUB-TSK-003: Team interdependence patterns (Pooled, Sequential, Reciprocal) — AOSM patterns
 
@@ -189,22 +189,29 @@
 
 # Gap Counts by System:
     Seer:                   0 gaps (0 P0, 0 P1, 0 P2)  # ALL SEER GAPS RESOLVED!
-    Hub:                   10 gaps (0 P0, 0 P1, 5 P2, 5 P3)  # Seer integration complete
+    Hub:                    8 gaps (0 P0, 1 P1, 4 P2, 3 P3)  # 2 resolved: HUB-TLS-002, HUB-TSK-002
     ETSL:                   4 gaps (3 P2, 1 P3)
     AOSM:                   7 gaps (4 P2, 3 P3)
     External:               6 gaps (1 P1, 3 P2, 2 P3)
     --------------------------
-    Total Active:          23 gaps  # Excludes 4 parked
+    Total Active:          21 gaps  # Excludes 4 parked (down from 23)
     Total Parked:           4 gaps  # Seer Agent Evaluation
 
 # Gap Counts by Priority:
     P0 (Blocking):          0 gaps  # All P0s resolved!
-    P1 (High):              1 gap   # External only (CMS API)
-    P2 (Medium):           14 gaps  # Excludes 4 parked Seer Evaluation gaps
-    P3 (Low):               8 gaps
+    P1 (High):              2 gaps  # HUB-TLS-001, EXT-001 (CMS API)
+    P2 (Medium):           12 gaps  # Excludes 4 parked Seer Evaluation gaps (down from 14)
+    P3 (Low):               7 gaps  # Down from 8
     PARKED:                 4 gaps  # Seer Agent Evaluation (deferred)
 
-# Recently Resolved (2026-01-07):
+# Recently Resolved (2026-01-15):
+    ## Tool Registry (Complete):
+        [x] HUB-TLS-002: Canonical tool registration flow and runtime invocation contract — tool-registry.md (Tool Protocol, Tool, resolution, lifecycle, access control, flow control)
+    
+    ## Task Management (Complete):
+        [x] HUB-TSK-002: Race condition handling for concurrent case updates — request-lifecycle.md (Composite Application Updates: Latest Wins strategy, rejection tracking, source app tracking)
+
+# Previously Resolved (2026-01-07):
     ## Episodic Memory Store (Complete):
         [x] HUB-CAF-001: 9 record types (Case, Decision, Evidence, Context, Outcome, Override, Handoff, Hypothesis, IncidentTimeline)
         [x] HUB-CAF-002: Memory Store Contract (CRD registration, reader/writer protocols, JWS auth)
@@ -280,11 +287,12 @@
 
 # Phase 2: Enable Core Features (P1):
     [x] Define Memory Services query/write APIs — DONE: query-api.md, access-tools.md, memory-record-routing.md
-    [ ] Define Knowledge Bank retrieval API
-    [ ] Implement human-in-loop checkpoint pattern
+    [ ] Define Knowledge Bank retrieval API — knowledge-bank.md still stub
+    [ ] Implement human-in-loop checkpoint pattern — tool registry has approval fields; task system integration docs needed
     [x] Specify credential injection for agents — DONE: employment-spec-crd.md (env vars, zone-vault)
     [x] Define CAF Explainer Services API — DONE: explanation-service.md
     [x] Define CAF Memory Store Catalog — DONE: memory-store-catalog.md
+    [x] Tool registration flow — DONE: tool-registry.md (HUB-TLS-002)
 
 # Phase 3: Seer Subsystems (P1-P2) — COMPLETE:
     [x] Agent Lifecycle Service — DONE: agent-lifecycle-service.md
@@ -301,8 +309,9 @@
     [x] Preference Memory Store — DONE: 4 record types + relationships
     [ ] ETSL integration design
     [x] Unified ESPP memory taxonomy — DONE: All 4 memory classes defined
-    [ ] CAF as OPD control plane
-    [ ] Hub Knowledge Services (Knowledge Bank)
+    [ ] CAF as OPD control plane — Directability complete (ADR-0078/0079/0080), Observability/Predictability in progress
+    [ ] Hub Knowledge Services (Knowledge Bank) — all items still stub
+    [x] Race condition handling for concurrent updates — DONE: request-lifecycle.md (HUB-TSK-002)
 
 # PARKED (Deferred):
     [ ] SEER-EVL-001: Agent Evaluation Service API specification

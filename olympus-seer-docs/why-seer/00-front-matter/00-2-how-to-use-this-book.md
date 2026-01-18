@@ -38,13 +38,13 @@ Part 2 demonstrates how Seer addresses each requirement established in Part 1. I
 | **10** | Tools & Actions | Tool registry, access governance, MCP integration |
 | **11** | Multi-Agent Patterns | Archetypes, coordination, handoff, human-AI teaming |
 | **12** | Feedback & Learning | Feedback services, governed learning path |
-| **13** | Summary: Why Seer? | Value proposition, target audience |
 | **19** | Agent Oversight & Monitoring | Sentinels, health monitoring, analytics, COGW |
 | **20** | Developer Experience | Seer Agent SDK, development workflow |
 | **21** | Persona Twins | Personal AI assistants, blueprint-based creation |
 | **22** | Multi-Agent Topologies in Hub | Composite applications, coordination patterns |
 | **23** | Collaboration Channels in Hub | MS Teams, MCP Server, multi-channel access |
 | **24** | Task Management in Hub | Task lifecycle, allocation, agent operations |
+| **13** | Summary: Why Seer? | Value proposition, target audience |
 
 **Reading guidance:** Part 2 can be read sequentially or used as reference material. Each section is self-contained with cross-references to related sections.
 
