@@ -12,7 +12,7 @@ Building automation in Hub involves repetitive, pattern-based activities perform
 
 - **Automation Product Owner**: Triaging ideas, drafting intents, reviewing feedback
 - **Process Architect**: Reviewing intents, drafting scenarios, generating SOPs
-- **Developer**: Scaffolding applications, diagnosing test failures, managing deployments
+- **Developer**: Developing applications, diagnosing test failures, managing deployments
 
 These activities are exactly the kind of work Hub was designed to automate. The question was: **How do we structure automation of the automation development process itself?**
 

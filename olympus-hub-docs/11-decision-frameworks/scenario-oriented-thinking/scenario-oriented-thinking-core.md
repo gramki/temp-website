@@ -160,6 +160,8 @@ Instead of asking: *"What steps does this process have?"*
 
 Ask: *"What situations does my business need to respond to, and how should each be handled?"*
 
+> **The Bridge:** All operations in information-centric work are situations that need attention, decision, or action. Hub models each such operation as a **Scenario** — a goal-oriented definition of what needs to be achieved, not a step-by-step procedure. See [Glossary](../../01-concepts/glossary.md) for foundational terminology.
+
 ### Traditional Process Thinking
 
 ```

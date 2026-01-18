@@ -27,7 +27,7 @@ Each scenario follows the standard Hub pattern:
 │  APO SCENARIOS                PA SCENARIOS              DEVELOPER SCENARIOS │
 │  ─────────────                ────────────              ─────────────────── │
 │                                                                              │
-│  • Idea Triage               • Intent Review           • App Scaffolding    │
+│  • Idea Triage               • Intent Review           • App Development    │
 │  • Intent Drafting           • Scenario Drafting       • Test Diagnosis     │
 │  • Feedback Triage           • SOP Generation          • Build Resolution   │
 │  • Outcome Review            • Normative Validation    • Promotion Review   │
@@ -64,7 +64,7 @@ DevOps scenarios produce CRDs that are **committed to the Business Workbench's G
 | **Scenario Drafting** | `ScenarioNormativeSpec` | PA |
 | **SOP Generation** | `SOPDocumentSpec` | PA |
 | **Normative Validation** | — (validation report) | — |
-| **App Scaffolding** | `HubApplicationSpec`, `ScenarioAutomationSpec`, `TriggerSpec`, Seer Agent Specs if agentic | Developer |
+| **App Development** | `HubApplicationSpec`, `ScenarioAutomationSpec`, `TriggerSpec`, implementation code, Seer Agent Specs if agentic | Developer |
 | **Tool Integration** | `ToolDefinition`, `ToolInstance` | Developer / Admin |
 | **Data Store Provisioning** | `GanymedeStore`, `CallistoStore`, `EuropaStore` | Admin |
 | **Test Diagnosis** | — (diagnosis report) | — |
@@ -389,7 +389,7 @@ spec:
    • git_create_pr(reviewers: ["@pa-team"], labels: ["pa-review", "scenario"])
 6. PA REVIEWS Pull Request in Git UI
 7. PA APPROVES and merges → Operators apply CRD
-8. EMIT scenario.created signal (triggers app-scaffolding)
+8. EMIT scenario.created signal (triggers app-development)
 ```
 
 **AI Agent Tools:**
@@ -474,32 +474,40 @@ tools:
 
 ## Developer Scenarios
 
-### App Scaffolding
+### App Development
 
-**Purpose:** Generate Hub Application skeleton from scenario.
+**Purpose:** Translate Design into working implementation that can be tested.
 
 | Aspect | Detail |
 |--------|--------|
-| **Trigger** | `scenario.created` |
+| **Trigger** | `design.completed` (or `scenario.created`) |
 | **Queue** | `dev-queue` |
-| **Autonomy** | High — generates code, Developer reviews |
-| **Output** | `HubApplicationSpec`, `ScenarioAutomationSpec`, `TriggerSpec` CRDs + code artifacts |
+| **Autonomy** | Configurable via Employment Spec — from scaffolding to full implementation |
+| **Inputs** | References both **Charter** (acceptance criteria, task breakdown) and **Design** (technical specs, SOPs) |
+| **Output** | `HubApplicationSpec`, `ScenarioAutomationSpec`, `TriggerSpec` CRDs + implementation code via Git PR(s) |
+
+> **Note:** This scenario was formerly called "App Scaffolding". The rename reflects the broader capability: AI agents (Claude Code, Copilot Agent, Codex) can propose full implementations, not just scaffolding. The Developer reviews and approves PRs.
+
+**Key Characteristics:**
+- **Goal-oriented:** "Translate Design into working implementation that can be tested"
+- **Task/PR structure:** Flexible, depends on agent capabilities — one PR or multiple
+- **Test feedback loop:** Test failures (from Test Diagnosis) loop back to this scenario for iteration
+- **Autonomy levels:** Configured in Employment Spec, not scenario definition
 
 **Workflow:**
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    APP SCAFFOLDING SCENARIO                                  │
+│                    APP DEVELOPMENT SCENARIO                                  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  1. RECEIVE scenario created event                                          │
+│  1. RECEIVE design completed event                                          │
 │                                                                              │
-│  2. ANALYZE scenario (via {workbench}-gateway):                             │
-│     • Get scenario definition (get_scenario)                               │
-│     • Task types (decision, action, governance)                            │
+│  2. RETRIEVE context (via {workbench}-gateway):                             │
+│     • Get Design: scenario definition, SOPs, technical specs               │
+│     • Get Charter: acceptance criteria, task breakdown                     │
 │     • Automation approach (rule-based, workflow, agentic)                  │
-│     • Tool requirements                                                    │
-│     • Data requirements                                                    │
+│     • Tool requirements, data requirements                                 │
 │                                                                              │
 │  3. SELECT runtime:                                                         │
 │     • Atlantis — rule-based (Drools/DMN)                                   │
@@ -508,29 +516,33 @@ tools:
 │     • Perseus — batch                                                      │
 │     • ChronoShift — durable workflow                                       │
 │                                                                              │
-│  4. COMMIT CRDs to Business Workbench Git (via {workbench}-git):            │
+│  4. DEVELOP implementation:                                                  │
+│     • Generate/write CRDs (HubApplicationSpec, etc.)                       │
+│     • Generate/write implementation code                                   │
+│     • Generate/write tests                                                 │
+│     • (Autonomy level determines depth — scaffolding vs. full impl)        │
+│                                                                              │
+│  5. COMMIT to Business Workbench Git (via {workbench}-git):                 │
 │     • git_create_branch("devops/app-{scenario-name}")                      │
-│     • git_commit_crd("crds/applications/{app}.yaml", HubApplicationSpec)   │
-│     • git_commit_crd("crds/scenarios/{name}-automation.yaml", ...)         │
-│     • git_commit_crd("crds/triggers/{name}.yaml", TriggerSpec)             │
-│     • If agentic: git_commit_crd("crds/seer/{agent}.yaml", TrainingSpec)   │
+│     • git_commit (CRDs + implementation code + tests)                      │
 │     • git_push()                                                           │
 │     • git_create_pr(reviewers: ["@dev-team"], labels: ["dev-review"])      │
+│     • (May create multiple PRs based on task breakdown)                    │
 │                                                                              │
-│  5. COMMIT code artifacts to same branch:                                   │
-│     • Project structure                                                    │
-│     • Entry point and handlers                                             │
-│     • Tool bindings                                                        │
-│     • Test stubs                                                           │
-│                                                                              │
-│  6. Developer REVIEWS Pull Request in Git UI                                │
+│  6. Developer REVIEWS Pull Request(s) in Git UI                             │
 │     • Reviews CRDs and code together                                       │
-│     • Implements business logic in branch                                  │
-│     • Approves and merges                                                  │
+│     • May request changes, provide feedback                                │
+│     • Agent iterates based on feedback (new commits to PR)                 │
+│     • Approves and merges when satisfied                                   │
 │                                                                              │
 │  7. Operators apply CRDs → Hub state updated                                │
 │                                                                              │
-│  8. EMIT application.created signal (triggers CI)                           │
+│  8. EMIT application.created signal (triggers CI/Test)                      │
+│                                                                              │
+│  9. ON TEST FAILURE: Receive test.failed signal → iterate on fix           │
+│     • Test Diagnosis provides failure analysis                             │
+│     • Agent proposes fix PR                                                │
+│     • Loop continues until tests pass                                      │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```

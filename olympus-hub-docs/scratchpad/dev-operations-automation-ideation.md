@@ -312,7 +312,7 @@ This bundle is:
 │  │                                                                      │   │
 │  │  ┌───────────────────────────────────────────────────────────────┐  │   │
 │  │  │ DEVELOPER SCENARIOS                                            │  │   │
-│  │  │ • App Scaffolding   — Generate app skeleton from scenario     │  │   │
+│  │  │ • App Development   — Translate Design into implementation    │  │   │
 │  │  │ • Test Diagnosis    — Analyze failure, suggest fix            │  │   │
 │  │  │ • Build Resolution  — Parse error, suggest resolution         │  │   │
 │  │  │ • Deploy Readiness  — Validate, suggest promotion             │  │   │
@@ -551,7 +551,7 @@ spec:
 | **Intent Review** | PA | `intent.completed` | Medium |
 | **Feedback Triage** | APO | `feedback.promoted` | Medium |
 | **Scenario Drafting** | PA | `charter.created` | Medium |
-| **App Scaffolding** | Developer | `scenario.created` | Low |
+| **App Development** | Developer | `design.completed` | Low |
 
 ### Phase 3: AI Agents
 

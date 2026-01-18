@@ -20,15 +20,15 @@ The DevOps Workbench employs AI agents to assist Automation Product Owners, Proc
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    DEVOPS WORKBENCH AGENTS                                   │
+│                    DEVOPS WORKBENCH AGENTS                                  │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
+│                                                                             │
 │                        ┌─────────────────────────┐                          │
 │                        │    Raw Agent            │                          │
 │                        │    devops-assistant-base│                          │
 │                        │    v1.0.0               │                          │
 │                        └───────────┬─────────────┘                          │
-│                                    │                                         │
+│                                    │                                        │
 │              ┌─────────────────────┼─────────────────────┐                  │
 │              │                     │                     │                  │
 │              ▼                     ▼                     ▼                  │
@@ -43,10 +43,10 @@ The DevOps Workbench employs AI agents to assist Automation Product Owners, Proc
 │   │ Employment Spec     │  │ Employment Spec     │  │ Employment Spec     │ │
 │   │ (per workbench)     │  │ (per workbench)     │  │ (per workbench)     │ │
 │   └─────────────────────┘  └─────────────────────┘  └─────────────────────┘ │
-│                                                                              │
+│                                                                             │
 │   Queue: apo-queue          Queue: pa-queue          Queue: dev-queue       │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -793,7 +793,7 @@ spec:
 
 ## Training Spec: Developer Assistant
 
-The Developer Assistant helps with application scaffolding, test diagnosis, and build resolution.
+The Developer Assistant helps with application development, test diagnosis, and build resolution.
 
 ### TrainingSpec
 
@@ -878,13 +878,14 @@ spec:
       and ready for human review.
     
     skillPrompts:
-      - name: scaffold-application
-        description: "Generate Hub Application from scenario"
+      - name: develop-application
+        description: "Translate Design into working implementation"
         prompt: |
-          When scaffolding an application:
+          When developing an application:
           
-          1. ANALYZE the scenario
-             - Get scenario definition (get_scenario)
+          1. RETRIEVE context
+             - Get Design: scenario definition (get_scenario), SOPs, technical specs
+             - Get Charter: acceptance criteria, task breakdown
              - Identify task types (decision, action, governance)
              - List required tools and machines
              - Note SLA targets
@@ -905,20 +906,31 @@ spec:
              - If agentic: TrainingSpec (crds/seer/{agent}.yaml)
              - If new tools: ToolDefinition (crds/registry/{tool}.yaml)
           
-          4. GENERATE code scaffold
+          4. DEVELOP implementation
+             Based on autonomy level (from Employment Spec):
+             - Low autonomy: Generate scaffolding (structure, stubs)
+             - High autonomy: Generate full implementation code
+             
              Project structure:
              - src/{app_name}/handler.py — Entry point
              - src/{app_name}/tasks/ — Task implementations
              - src/{app_name}/tools.py — Tool bindings
-             - tests/ — Test stubs
+             - tests/ — Test cases (not just stubs if high autonomy)
              - config/ — Configuration files
           
           5. COMMIT to Git
              - git_create_branch("devops/app-{scenario}")
-             - Commit all CRDs and code
+             - Commit all CRDs and implementation code
              - git_create_pr(reviewers: ["@dev-team"])
+             - May create multiple PRs based on task breakdown
+          
+          6. ITERATE on feedback
+             - If Developer requests changes, update PR
+             - If tests fail (test.failed signal), propose fixes
+             - Continue until approved and tests pass
           
           Generate clean, idiomatic code. Follow existing patterns in the codebase.
+          Reference both Design (how) and Charter (what + acceptance criteria).
       
       - name: diagnose-test-failure
         description: "Diagnose test or build failures"
@@ -1239,7 +1251,7 @@ spec:
 |-------|----------------|----------------|-----------|
 | **APO Assistant** | Automation Product Owner | Idea triage, intent drafting, feedback triage | query_knowledge, query_memory, update_idea |
 | **PA Assistant** | Process Architect | Intent review, scenario drafting, SOP generation | git_commit_crd, git_create_pr, list_scenarios |
-| **Dev Assistant** | Developer | App scaffolding, test diagnosis, promotion review | git_commit_file, get_test_results, get_build_logs |
+| **Dev Assistant** | Developer | App development, test diagnosis, promotion review | git_commit_file, get_test_results, get_build_logs |
 
 ---
 

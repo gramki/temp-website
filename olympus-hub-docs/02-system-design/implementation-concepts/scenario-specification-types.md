@@ -6,7 +6,21 @@
 
 ## Overview
 
+A **Scenario** is Hub's model for an operation — a goal-oriented definition of what needs to be achieved, not a step-by-step procedure. All operations in information-centric work are situations that need attention, decision, or action; Hub models each such operation as a Scenario.
+
+### The Conceptual Hierarchy
+
+```
+Information-Centric Work (the realm)
+  └── Operation (a situation needing attention)
+        └── Scenario (Hub's model for the operation)
+              └── Request (an instance of the Scenario)
+                    └── Agent Collaboration (humans and AI working together)
+```
+
 Hub separates Scenario definitions into **three specification types** that align with the ontology layers and persona responsibilities: **Normative** (what ought to be done), **Automation** (how it's automated), and **Deployment** (how it's deployed). This separation enables independent evolution, clear ownership, and a structured development journey.
+
+→ See also: [Glossary](../../01-concepts/glossary.md) for foundational terminology
 
 ---
 

@@ -18,7 +18,7 @@ Building automation is itself an automation problem.
 Every Hub Workbench goes through an Idea → Intent → Charter → Scenario → Application lifecycle. This lifecycle involves:
 - **Automation Product Owner** triaging ideas, drafting intents, reviewing feedback
 - **Process Architect** reviewing intents, drafting scenarios, generating SOPs
-- **Developer** scaffolding applications, diagnosing test failures, managing deployments
+- **Developer** developing applications, diagnosing test failures, managing deployments
 
 These activities are **repetitive, pattern-based, and automatable** — exactly the kind of work Hub was designed to handle.
 
@@ -61,7 +61,7 @@ A **DevOps Workbench (D)** is a Workbench that:
 │                                             │                             │ │
 │  ════▶ Signals via Atropos (A → D)         │ ┌─────────────────────────┐ │ │
 │  ────▶ Resource access via Gateway (D → A) │ │ Developer Scenarios     │ │ │
-│                                             │ │ • App Scaffolding       │ │ │
+│                                             │ │ • App Development       │ │ │
 │                                             │ │ • Test Diagnosis        │ │ │
 │                                             │ │ • Build Resolution      │ │ │
 │                                             │ └─────────────────────────┘ │ │

@@ -1,5 +1,52 @@
 # Olympus Hub - Applicability and Usability Guide
 
+> ⚠️ **REVISION PLANNED** — This document predates the updated vision. A revision is planned to align with the new framing. See outline below.
+
+---
+
+## Planned Revision Outline
+
+This guide will be revised to align with the updated vision:
+
+> **Vision:** To empower organizations to reimagine information-centric work through governed AI-Human collaboration
+
+### Proposed New Structure
+
+**1. When Hub Fits Well**
+- Information-centric work (vs. physical operations)
+- Collaborative problem-solving (Human-Human, Human-AI, AI-AI)
+- Governed operations (audit, compliance, accountability)
+- Multi-agent scenarios requiring coordination
+
+**2. When Hub May Not Fit**
+- Pure physical operations (manufacturing floor, logistics handling)
+- Completely novel, one-time activities with no pattern
+- Simple single-user tools with no collaboration
+
+**3. Assessment Criteria**
+- Does work involve receiving, interpreting, deciding, acting on information?
+- Is there collaboration (human-human, human-AI, or AI-AI)?
+- Is governance important (audit, compliance, accountability)?
+- Would organizational memory and learning improve outcomes over time?
+
+**4. Adoption Paths**
+- Human-Human → Human-AI → AI-AI progression (gradual, not mandatory)
+- Structured → Exploratory work spectrum
+- Workbench-by-workbench rollout
+
+**5. Industry Examples**
+- Financial Services (lending, disputes, compliance)
+- Healthcare Administration (claims, eligibility, care coordination)
+- IT Operations (incidents, changes, service requests)
+- HR and Legal (contracts, policies, cases)
+- Enterprise Knowledge Work (research, analysis, documentation)
+
+---
+
+*The content below is from the previous version and will be revised.*
+
+---
+
 ## Intended Audience
 
 This guide is designed for two primary audiences:

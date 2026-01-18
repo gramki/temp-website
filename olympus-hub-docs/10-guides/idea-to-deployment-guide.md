@@ -139,7 +139,7 @@ flowchart TB
 | **2. Intent** | Automation Product Owner | — | Intent Drafting scenario runs |
 | **3. Charter** | Process Architect | — | Intent Review scenario runs |
 | **4. Design** | Process Architect | CRDs merged to Git | Scenario Drafting scenario runs |
-| **5. Build** | Developer | CRDs + code merged to Git | App Scaffolding scenario runs |
+| **5. Build** | Developer | CRDs + code merged to Git | App Development scenario runs |
 | **6. Test** | Developer | CI runs, tests execute | Test Diagnosis scenario runs (on failure) |
 | **7. Promote** | Developer | Artifacts promoted | Promotion Review scenario runs |
 | **8. Deploy** | Supervisor | Scenario activated | — |
@@ -470,7 +470,7 @@ spec:
 
 **Where it happens:**
 - **Business Workbench:** HubApplicationSpec, ScenarioAutomationSpec, TriggerSpec CRDs + code merged to Git
-- **DevOps Workbench:** App Scaffolding scenario generates artifacts
+- **DevOps Workbench:** App Development scenario generates artifacts
 
 ### What Happens
 
@@ -478,7 +478,7 @@ The Developer implements the scenario using the appropriate runtime. The DevOps 
 
 ```mermaid
 sequenceDiagram
-    participant DW as DevOps Workbench<br/>(App Scaffolding)
+    participant DW as DevOps Workbench<br/>(App Development)
     participant Git as Business Workbench<br/>(Git Repository)
     participant Dev as Developer
     participant Ops as Hub Operators
@@ -490,8 +490,8 @@ sequenceDiagram
     DW->>Git: git_create_branch("devops/app-refund")
     DW->>Git: git_commit (CRDs + code)
     DW->>Git: git_create_pr(reviewers: [Dev])
-    Dev->>Git: Review scaffolding
-    Dev->>Git: Implement business logic
+    Dev->>Git: Review implementation
+    Dev->>Git: Refine or approve
     Dev->>Git: Approve and merge
     Git->>Ops: Operators apply CRDs
     Git->>CI: CI pipeline triggered
@@ -499,7 +499,7 @@ sequenceDiagram
 
 ### AI Agent Contribution (DevOps Workbench)
 
-The App Scaffolding scenario:
+The App Development scenario:
 
 1. **Analyzes** the scenario definition (via `{workbench}-gateway`)
 2. **Selects** appropriate runtime based on task types
@@ -509,18 +509,19 @@ The App Scaffolding scenario:
    - `TriggerSpec` — What signals trigger the scenario
    - For agentic: `TrainingSpec`, `EmploymentSpec` (Seer)
    - If new tools needed: `ToolDefinition`, `ToolInstance`
-4. **Generates** code scaffolding:
+4. **Generates** implementation code (depth depends on autonomy level):
    - Project structure
    - Entry point and handlers
+   - Task implementations
    - Tool bindings
-   - Test stubs
-5. **Commits** all to Git and creates Pull Request
+   - Tests
+5. **Commits** all to Git and creates Pull Request(s)
 
 ### Your Action (Developer)
 
-Review the Pull Request. The AI has generated scaffolding — you need to:
+Review the Pull Request(s). The AI has generated implementation — you need to:
 
-1. **Implement** the actual business logic (rules, workflows, algorithms)
+1. **Review** the code, tests, and CRDs
 2. **Configure** tool bindings with actual endpoints and credentials
 3. **Write** additional tests beyond the stubs
 4. **Approve and merge** when ready
@@ -856,7 +857,7 @@ Review feedback in your Feedback Inbox. For each item:
 | **2. Intent** | Automation Product Owner | Intent Drafting | Draft structure, suggest metrics | DevOps |
 | **3. Charter** | Process Architect | Intent Review | Validate, analyze, flag issues | DevOps |
 | **4. Design** | Process Architect | Scenario Drafting, SOP Generation | Generate CRDs via Git | Both |
-| **5. Build** | Developer | App Scaffolding | Generate code + CRDs via Git | Both |
+| **5. Build** | Developer | App Development | Generate implementation + CRDs via Git | Both |
 | **6. Test** | Developer | Test Diagnosis, Build Resolution | Diagnose failures, suggest fixes | Both |
 | **7. Promote** | Developer | Promotion Review | Validate, generate deployment specs | Both |
 | **8. Deploy** | Supervisor | — | — | Business |
