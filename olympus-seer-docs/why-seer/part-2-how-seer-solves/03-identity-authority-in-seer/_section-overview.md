@@ -23,5 +23,6 @@ This section is organized into the following sub-sections:
 *   **3.3 Authority Ceilings**: Layered limits enforced at runtime.
 *   **3.4 Kill Switch**: Instant authority revocation mechanisms.
 *   **3.5 Cipher IAM Integration**: The partnership between Seer and Cipher.
+*   **3.6 Request-Scoped Authority Delegation**: How business users delegate temporary authority to agents for specific tasks.
 
 ---

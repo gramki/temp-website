@@ -28,21 +28,116 @@ When an agent acts, regulators and auditors ask: *Who authorized this?* Agent id
 
 ## Seer's Agent Identity Model
 
-### Identity Layers
+### The Two-Layer Identity Model
 
-Seer implements **two-layer identity** for Employed Agents:
+Seer implements **two-layer identity** for Employed Agents, clearly separating infrastructure concerns from business concerns:
 
-| Layer | Identity Type | Purpose | OAuth Analogy |
-|-------|---------------|---------|---------------|
-| **Deployment Identity** | SPIFFE-based infrastructure identity | mTLS, service mesh authentication | OAuth Client — proves "this request from this pod" |
-| **Agent Persona** | Scenario-derived business identity | Business authorization, audit, delegation chains | OAuth Principal — the business entity on whose behalf actions are taken |
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         IDENTITY LAYERS                                     │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  BUSINESS/PERSONA LAYER (Agent Persona)                            │    │
+│  │                                                                     │    │
+│  │  • Derived from Scenario                                            │    │
+│  │  • "Dispute Resolution Agent" — recognizable business persona         │    │
+│  │  • Has authority delegated from Scenario's Identity Profile Owner │    │
+│  │  • Used for: access tokens, audit, delegation chains              │    │
+│  │  • Stored in: Cipher IAM (Scenario references it)                │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
+│                                   │                                         │
+│                                   │ presents as                             │
+│                                   ▼                                         │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  INFRASTRUCTURE LAYER (Deployment Identity)                         │    │
+│  │                                                                     │    │
+│  │  • SPIFFE ID (OAuth Client equivalent)                             │    │
+│  │  • "This pod running in this namespace in this cluster"           │    │
+│  │  • Used for: mTLS, service mesh, infrastructure authN              │    │
+│  │  • Acts as "client" presenting the Agent Persona                   │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Why Two Layers?
+
+The separation of Deployment Identity from Agent Persona addresses fundamental differences in lifecycle, purpose, and accountability:
+
+**Different Lifecycles**:
+- **Deployment Identity**: Tied to pod lifecycle — created on deploy, rotated hourly, revoked on undeploy
+- **Agent Persona**: Tied to Scenario lifecycle — survives redeployments, consistent across pod restarts
+
+**Different Purposes**:
+- **Deployment Identity (SPIFFE)**: Infrastructure authentication — proves "this request is coming from this specific agent deployment"
+- **Agent Persona**: Business authorization — represents "who is accountable for this action" in business terms
+
+**OAuth Client Analogy**:
+The two-layer model aligns with standard OAuth 2.0 patterns:
+- **Deployment Identity = OAuth Client**: The infrastructure entity (like a browser or mobile app) that makes requests
+- **Agent Persona = OAuth Principal**: The business entity (like a user account) on whose behalf actions are taken
+- The deployment presents tokens on behalf of the persona, just as an OAuth client presents tokens on behalf of a user
+
+### Identity Layer Details
+
+| Layer | Identity Type | Purpose | OAuth Analogy | Lifecycle |
+|-------|---------------|---------|---------------|-----------|
+| **Deployment Identity** | SPIFFE-based infrastructure identity | mTLS, service mesh authentication, request routing | OAuth Client — proves "this request from this pod" | Pod lifecycle (hours) |
+| **Agent Persona** | Scenario-derived business identity | Business authorization, audit, delegation chains | OAuth Principal — the business entity on whose behalf actions are taken | Scenario lifecycle (months/years) |
 
 **Lifecycle Progression**:
 - **Raw Agent**: Infrastructure identity (SPIFFE) declared
 - **Trained Agent**: Application identity configured (no runtime credentials)
 - **Employed Agent**: Full two-layer identity (Deployment Identity + Agent Persona)
 
-> **See**: [ADR-0129: Agent Identity Model](../../../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the complete two-layer identity model.
+### Token Structure
+
+Delegation Access Tokens include both identities, enabling both infrastructure authentication and business authorization:
+
+```json
+{
+  "sub": "dispute-resolution-agent@acme.hub.io",  // Agent Persona (business identity)
+  "iss": "cipher.hub.olympus.io",
+  "client_id": "spiffe://acme.hub.io/seer/agent/acme/fraud-analyst-pod-001",  // Deployment Identity (infrastructure)
+  "delegated_by": "dispute-scenario-profile",  // Source of authority
+  "scopes": ["disputes:read", "disputes:resolve"],
+  "exp": "2026-01-17T22:00:00Z"
+}
+```
+
+The token structure enables:
+- **Infrastructure verification**: `client_id` (SPIFFE) proves the request comes from a verified deployment
+- **Business authorization**: `sub` (Agent Persona) identifies the business entity accountable for the action
+- **Audit clarity**: Both identities are recorded, but business actions are attributed to the persona
+
+### Identity Flexibility
+
+The two-layer model provides flexibility in deployment and scaling:
+
+**One Deployment, Multiple Personas**:
+A single deployment can serve multiple Agent Personas via different Delegation Access Tokens per request. This enables:
+- Shared infrastructure for multiple scenarios
+- Cost optimization through deployment consolidation
+- Different authority per request while using the same infrastructure
+
+**One Persona, Multiple Deployments**:
+A single Agent Persona can have multiple deployments (multiple pods for scaling). This enables:
+- Horizontal scaling without identity fragmentation
+- High availability through multiple deployment instances
+- Consistent business identity across all deployment instances
+
+### Identity Use Cases
+
+| Use Case | Identity Used | Notes |
+|----------|---------------|-------|
+| **mTLS / Service Mesh** | Deployment Identity (SPIFFE) | Infrastructure authentication — proves request from verified pod |
+| **Access Tokens** | Agent Persona (`sub`) | Business authorization — identifies accountable business entity |
+| **Audit Logs** | Agent Persona | Business accountability — all actions attributed to persona |
+| **Delegation Chains** | Agent Persona | Tracks business authority — who delegated to this persona |
+| **Request Routing** | Deployment Identity (SPIFFE) | Infrastructure routing — routes to correct pod instance |
+| **Composite Applications** | Sub-Personas | Each agent in composite gets distinct sub-persona derived from base persona |
+
+> **See**: [ADR-0129: Agent Identity Model](../../../../../olympus-hub-docs/decision-logs/0129-agent-identity-model.md) for the complete two-layer identity model design decision.
 
 ### Employed Agent Identity
 

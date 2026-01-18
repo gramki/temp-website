@@ -28,7 +28,7 @@ Part 2 demonstrates how Seer addresses each requirement established in Part 1. I
 |---------|-------|---------------------|
 | **1** | Seer's Design Philosophy | Two-system architecture, workbench model, personas |
 | **2** | Agent Lifecycle in Seer | Raw-Trained-Employed model, CI/CD for agents |
-| **3** | Identity & Authority | Agent identity, delegation chains, authority ceilings, kill switches |
+| **3** | Identity & Authority | Agent identity, delegation chains, authority ceilings, kill switches, request-scoped delegation |
 | **4** | Memory, Knowledge & Audit | Three cognitive layers, CAF, governed learning |
 | **5** | Context Assembly | Context compilation, source orchestration, token budgeting |
 | **6** | Governance & Override | Policy enforcement, guardrails, human override |
@@ -39,6 +39,12 @@ Part 2 demonstrates how Seer addresses each requirement established in Part 1. I
 | **11** | Multi-Agent Patterns | Archetypes, coordination, handoff, human-AI teaming |
 | **12** | Feedback & Learning | Feedback services, governed learning path |
 | **13** | Summary: Why Seer? | Value proposition, target audience |
+| **19** | Agent Oversight & Monitoring | Sentinels, health monitoring, analytics, COGW |
+| **20** | Developer Experience | Seer Agent SDK, development workflow |
+| **21** | Persona Twins | Personal AI assistants, blueprint-based creation |
+| **22** | Multi-Agent Topologies in Hub | Composite applications, coordination patterns |
+| **23** | Collaboration Channels in Hub | MS Teams, MCP Server, multi-channel access |
+| **24** | Task Management in Hub | Task lifecycle, allocation, agent operations |
 
 **Reading guidance:** Part 2 can be read sequentially or used as reference material. Each section is self-contained with cross-references to related sections.
 

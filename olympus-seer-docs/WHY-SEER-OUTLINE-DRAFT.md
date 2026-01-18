@@ -949,9 +949,20 @@ Seer supports multiple access channels optimized for different personas and use 
 - Cipher provides the identity infrastructure
 - Delegation chains are verifiable via Cipher credentials
 
+### 8.6 Request-Scoped Authority Delegation
+- Two orthogonal identity domains (Enterprise vs Request-Scoped)
+- OAuth 2.0-inspired model (Client, Resource Owner, Authorization Server, Scope)
+- Core artifacts: Delegation Template, Delegation Certificate, Delegation Access Token
+- Delegation flows: Proactive, Reactive, Implicit, Cascading
+- Policy composition (AND logic across all policies)
+- Channel dependency (only Channels can facilitate)
+
 ---
 
 **📚 Expand with:**
+- `olympus-hub-docs/decision-logs/0127-request-scoped-authority-delegation.md`
+- `olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md`
+- `olympus-hub-docs/decision-logs/0130-unified-delegation-model.md`
 - `seer-design/subsystems/agent-identity-authority.md`
 - `seer-design/subsystems/authority-enforcement.md`
 - `olympus-hub-docs/04-subsystems/supporting-systems/cipher-iam.md`
@@ -1983,6 +1994,26 @@ Enterprise Knowledge (authoritative policy)
 
 **📚 Expand with:**
 - Section 6.9 (Persona-Specific Desks) for channel context
+
+---
+
+### 23.4 MCP Server CRD Design
+- Multiple MCP Servers per workbench capability
+- Template kind implies persona (no explicit persona field)
+- Scenarios automatically include requests
+- OPA-based access control structure
+- MCP Directory Service for discovery
+
+---
+
+**📚 Expand with:**
+- `olympus-hub-docs/decision-logs/0131-mcp-server-crd-design.md`
+- `olympus-hub-docs/decision-logs/0132-mcp-template-kinds.md`
+- `olympus-hub-docs/decision-logs/0134-mcp-directory-service.md`
+- `olympus-hub-docs/04-subsystems/mcp-channel/mcp-server-crd.md`
+- Section 23.3 (Multi-Channel Access) for channel context
+- Section 6.9 (Persona-Specific Desks) for persona context
+- Section 8 (Identity & Authority) for OPA access control context
 
 ---
 

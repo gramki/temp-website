@@ -16,9 +16,85 @@ This subsection describes the Persona Twin lifecycle, from blueprint-based creat
 *   **Extend Trained Agent Blueprints**: Persona Twin Blueprints extend standard Trained Agent Blueprints with persona-specific metadata
 *   **Provide signal suggestions**: Blueprints suggest common signals (task assignment, platform notifications, schedules)
 *   **Provide filter templates**: Blueprints provide OPA filter templates for signal filtering
+*   **Provide schedule suggestions**: Blueprints suggest common schedules (daily summaries, weekly reviews)
 *   **Enable customization**: Collaborators can customize blueprints for their needs
 
 Blueprint-based creation enables non-developers to create Persona Twins without writing specifications from scratch.
+
+### Persona Twin Blueprint Structure
+
+Persona Twin Blueprints extend Trained Agent Blueprints (not a separate CRD) with persona-specific metadata:
+
+**Blueprint Structure**:
+```yaml
+apiVersion: seer.olympus.io/v1
+kind: TrainedAgentBlueprint  # Extends standard blueprint
+metadata:
+  name: personal-assistant-blueprint
+  labels:
+    persona-twin-blueprint: "true"
+spec:
+  # Standard Trained Agent Blueprint fields
+  # (knowledge, skills, guardrails, etc.)
+  
+  # Persona Twin extensions
+  personaTwin:
+    # Signal suggestions
+    signalSuggestions:
+      - type: "task_assignment"
+        description: "Notify when tasks are assigned to you"
+        opaFilterTemplate: |
+          package persona_twin
+          allow { input.event.type == "task_assigned"; input.event.assignee == delegator }
+      
+      - type: "platform_notification"
+        description: "Notify about platform events"
+        opaFilterTemplate: |
+          package persona_twin
+          allow { input.event.type == "platform_notification"; input.event.user == delegator }
+    
+    # Filter suggestions
+    filterSuggestions:
+      - name: "my-tasks-only"
+        description: "Only tasks assigned to me"
+        opaPolicy: |
+          package persona_twin
+          allow { input.task.assignee == delegator }
+      
+      - name: "high-priority-only"
+        description: "Only high-priority items"
+        opaPolicy: |
+          package persona_twin
+          allow { input.priority == "high" }
+    
+    # Schedule suggestions
+    scheduleSuggestions:
+      - name: "daily-summary"
+        description: "Daily summary at 9 AM"
+        schedule: "0 9 * * *"
+        prompt: "Provide a summary of my tasks and notifications"
+      
+      - name: "weekly-review"
+        description: "Weekly review on Fridays"
+        schedule: "0 17 * * 5"
+        prompt: "Review my week and suggest improvements"
+```
+
+**Extension Model**:
+Persona Twin Blueprints extend Trained Agent Blueprints rather than being a separate CRD:
+*   **Same CRD kind**: Uses `TrainedAgentBlueprint` with persona-specific metadata
+*   **Extension field**: `personaTwin` field contains persona-specific extensions
+*   **Backward compatible**: Standard Trained Agent Blueprints work without persona extensions
+*   **Reuse**: Leverages existing Trained Agent Blueprint infrastructure
+
+**Platform-Provided Blueprints**:
+Hub Platform provides subscription blueprints for common use cases:
+*   **Personal Assistant**: Task management, notifications, scheduling
+*   **Knowledge Assistant**: Knowledge search, SOP lookup, policy queries
+*   **Analytics Assistant**: Metrics, reports, trend analysis
+*   **Custom blueprints**: Tenant admins can create custom blueprints
+
+Platform-provided blueprints enable quick twin creation for common use cases.
 
 ### Standard Lifecycle
 

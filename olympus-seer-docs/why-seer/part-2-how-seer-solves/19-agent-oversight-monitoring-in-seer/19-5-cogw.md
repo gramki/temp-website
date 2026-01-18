@@ -30,24 +30,73 @@ COGW as a workbench type ensures that governance capabilities are first-class ci
 
 COG Sentinels enable subscription-wide governance while maintaining the Request Sentinel model for consistency and auditability.
 
-### Signal Forwarding
+### Signal Forwarding Mechanism
 
-**Signal forwarding** is the mechanism by which filtered signals from target workbenches are forwarded to COGW. When a request update occurs in a target workbench:
-1. Signal Exchange evaluates COG Sentinel enrollment filters
-2. If a COG Sentinel matches, the update is forwarded to COGW (subject to filtering)
-3. COG Sentinel receives the update and can observe/participate in the request
+**Signal forwarding** is the mechanism by which filtered signals from target workbenches are forwarded to COGW. The forwarding mechanism operates as follows:
 
-Signal forwarding enables COG Sentinels to observe and participate in requests across workbenches without requiring direct access to target workbench Signal Exchange.
+**Forwarding Flow**:
+```
+Request Update in Target Workbench
+    ↓
+Signal Exchange evaluates COG Sentinel enrollment filters
+    ↓
+If COG Sentinel matches (pattern + enrollment filter):
+    ↓
+Signal Exchange forwards update to COGW Signal Exchange
+    ↓
+COGW Signal Exchange routes to COG Sentinel
+    ↓
+COG Sentinel processes via Employed Agent
+```
 
-### Read-Only Sync
+**Forwarding Characteristics**:
+*   **Filtered forwarding**: Only updates matching COG Sentinel enrollment filters are forwarded
+*   **Pattern-based**: Forwarding triggered by workbench pattern matching
+*   **Asynchronous**: Forwarding is asynchronous, not blocking target workbench processing
+*   **Best-effort**: Forwarding uses best-effort delivery (failures don't block target workbench)
 
-**Read-only sync** is the mechanism by which COG Sentinel specs are synced to target workbenches as read-only specs. This enables:
+**Forwarding Architecture**:
+Signal Exchange in target workbenches forwards updates to COGW Signal Exchange:
+*   **Target workbench Signal Exchange**: Evaluates COG Sentinel patterns and enrollment filters
+*   **COGW Signal Exchange**: Receives forwarded updates and routes to COG Sentinels
+*   **No direct access**: COGW never directly accesses target workbench data or services
+
+Signal forwarding enables COG Sentinels to observe and participate in requests across workbenches without requiring direct access to target workbench Signal Exchange, maintaining workbench boundary isolation.
+
+### Read-Only Sync Process
+
+**Read-only sync** is the mechanism by which COG Sentinel specs are synced to target workbenches as read-only specs. The sync process operates as follows:
+
+**Sync Flow**:
+```
+COG Sentinel Spec Created/Updated in COGW
+    ↓
+COGW Operator identifies target workbenches (pattern matching)
+    ↓
+For each target workbench:
+    ↓
+    Create/Update read-only Sentinel Spec CRD
+    ↓
+    Set metadata: read-only flag, source COGW reference
+    ↓
+    Target workbench admin can enable/disable (not modify)
+```
+
+**Sync Characteristics**:
+*   **Read-only CRDs**: Synced specs are CRDs with read-only metadata flags
 *   **Local enable/disable**: Target workbench admins can enable/disable synced sentinels locally
 *   **No modification**: Target workbench admins cannot modify synced sentinel specs
 *   **Automatic updates**: Updates to COG Sentinel specs propagate to all target workbenches
 *   **Consistency**: Ensures consistent sentinel behavior across workbenches
 
-Read-only sync enables centralized governance while allowing local control over sentinel activation.
+**Sync Architecture**:
+COGW Operator manages read-only sync:
+*   **Pattern evaluation**: Operator evaluates workbench patterns to identify target workbenches
+*   **CRD creation**: Operator creates read-only Sentinel Spec CRDs in target workbenches
+*   **Update propagation**: Operator updates synced CRDs when COG Sentinel specs change
+*   **Reconciliation**: Operator reconciles synced CRDs to ensure consistency
+
+Read-only sync enables centralized governance while allowing local control over sentinel activation, ensuring that COG Sentinels are consistently available across workbenches while respecting workbench autonomy.
 
 ## Conceptual Models / Frameworks
 
@@ -105,15 +154,30 @@ COGW must scale to:
 
 Scalability ensures that COGW works effectively at enterprise scale.
 
-### Operator Requirements
+### COGW Operator Responsibilities
 
-COGW requires a subscription-scoped operator:
+COGW requires a subscription-scoped operator that manages all COGWs in a subscription:
+
+**Operator Responsibilities**:
+*   **Pattern evaluation**: Evaluate workbench patterns to identify target workbenches for each COG Sentinel
+*   **Read-only sync**: Create and maintain read-only Sentinel Spec CRDs in target workbenches
+*   **Reconciliation**: Reconcile synced CRDs to ensure consistency with COG Sentinel specs
+*   **Workbench enumeration**: Enumerate all workbenches in subscription for pattern matching
+*   **Update propagation**: Propagate COG Sentinel spec updates to all target workbenches
+*   **Lifecycle management**: Manage COG Sentinel lifecycle (creation, updates, deletion)
+
+**Operator Architecture**:
 *   **One operator per subscription**: Single operator manages all COGWs in subscription
 *   **Centralized management**: Consistent reconciliation logic across COGWs
-*   **Workbench enumeration**: Operator has access to list all workbenches for pattern matching
-*   **Sync coordination**: Operator coordinates read-only sync to target workbenches
+*   **Subscription-scoped**: Operator has subscription-level access for workbench enumeration
+*   **CRD-based**: Operator manages CRDs in target workbenches (read-only Sentinel Spec CRDs)
 
-Operator requirements ensure that COGW operates correctly and efficiently.
+**Operator Benefits**:
+*   **Consistency**: Ensures consistent COG Sentinel behavior across workbenches
+*   **Efficiency**: Single operator manages all COGWs, reducing operational overhead
+*   **Reliability**: Centralized reconciliation ensures reliable sync
+
+Operator responsibilities ensure that COGW operates correctly and efficiently, maintaining consistency across workbenches while respecting workbench boundaries.
 
 ## Common Misconceptions & Failure Modes
 

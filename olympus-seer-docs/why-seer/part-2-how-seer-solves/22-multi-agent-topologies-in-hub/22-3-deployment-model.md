@@ -28,6 +28,59 @@ Deployment-time resolution ensures that Signal Exchange doesn't need to understa
 
 Signal Exchange uses this routing table to route updates to appropriate apps based on OPA filter evaluation.
 
+### Routing Table Schema
+
+The routing table schema supports both single-app and multi-app scenarios with backward compatibility:
+
+**Single-App Schema** (existing, backward compatible):
+```yaml
+scenario_routing:
+  scenario_id: "dispute-investigation"
+  application:
+    deployment_id: "dispute-handler-sandbox"
+    endpoint: "http://..."
+```
+
+**Multi-App Schema** (new, for composites):
+```yaml
+scenario_routing:
+  scenario_id: "dispute-investigation"
+  applications:
+    - deployment_id: "risk-agent-deployment-sandbox"
+      endpoint: "http://..."
+      opa_filter: "<compiled Rego policy>"
+    - deployment_id: "compliance-agent-deployment-sandbox"
+      endpoint: "http://..."
+      opa_filter: "<compiled Rego policy>"
+```
+
+**Routing Logic**:
+1. If `applications` field exists: route to all apps (after OPA filter evaluation)
+2. If only `application` field exists: existing behavior (direct dispatch)
+
+This schema ensures backward compatibility while enabling multi-app routing for composite applications.
+
+### OPA Filter Compilation and Caching
+
+OPA filters are compiled and cached for performance:
+
+*   **Compilation**: Filters are compiled from Rego policies at deployment time by the Composite Deployment Operator
+*   **Storage**: Compiled filters are stored in the routing table as compiled Rego policies
+*   **Caching**: Compiled filters are cached for performance during routing
+*   **Evaluation**: Application Router evaluates compiled filters for each update
+
+OPA filter compilation and caching ensure that update routing is performant even with complex filter policies.
+
+### Backward Compatibility Guarantee
+
+The routing table schema maintains backward compatibility:
+
+*   **Single-app scenarios unchanged**: Existing single-app scenarios continue to work without modification
+*   **Schema validation**: System ensures exactly one of `application` or `applications` is set
+*   **Signal Exchange unchanged**: Signal Exchange routing logic is backward compatible
+
+Backward compatibility ensures that existing deployments continue to work while new composite applications can be deployed alongside them.
+
 ### Update Conflict Resolution
 
 **Update conflict resolution** handles concurrent updates from multiple apps to the same request:

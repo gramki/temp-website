@@ -51,6 +51,28 @@ OPA filters enable pattern-specific routing: Blackboard patterns route based on 
 
 Cross-runtime composition enables organizations to leverage the strengths of different runtimes while maintaining unified coordination and governance.
 
+### Sub-Personas for Composite Agents
+
+In Hub Composite Applications, each agent in the composite receives its own **sub-persona** derived from the base Agent Persona:
+
+```
+Base Agent Persona: dispute-resolution-agent@acme.hub.io
+    ↓
+Composite Application creates:
+    ├── Sub-Persona: dispute-analyst-agent (derived from base)
+    ├── Sub-Persona: dispute-reviewer-agent (derived from base)
+    └── Sub-Persona: dispute-approver-agent (derived from base)
+```
+
+Each sub-persona has its own distinct identity for delegation and audit, but all derive from the same base Agent Persona. This enables:
+*   **Individual Accountability**: Each agent's actions are attributed to its specific sub-persona
+*   **Shared Authority Source**: All sub-personas inherit from the same base delegation
+*   **Audit Clarity**: Composite application actions can be traced to specific sub-personas while maintaining the base persona context
+
+Sub-personas ensure that each agent in a composite has distinct identity for delegation chains and audit logs, while maintaining the relationship to the base Agent Persona from the Scenario.
+
+> **See**: Section 8.1 (Agent Identity) for the two-layer identity model and Section 8.2 (Delegation Chains) for how sub-personas appear in delegation chains.
+
 ## Conceptual Models / Frameworks
 
 ### The Composite Application Architecture

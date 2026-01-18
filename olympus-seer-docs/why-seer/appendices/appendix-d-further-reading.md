@@ -45,6 +45,10 @@ This appendix provides links to additional documentation for readers who want to
 | `olympus-seer-docs/seer-design/subsystems/authority-enforcement.md` | Authority and ceilings |
 | `olympus-seer-docs/seer-design/subsystems/agent-identity-authority.md` | Identity model |
 | `olympus-seer-docs/seer-design/subsystems/agent-observability.md` | Observability and health |
+| `olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md` | Request-Scoped Authority Delegation |
+| `olympus-seer-docs/seer-design/implementation-concepts/persona-twin-blueprint.md` | Persona Twin Blueprint |
+| `olympus-seer-docs/seer-design/subsystems/seer-sentinels/README.md` | Seer Sentinels |
+| `olympus-seer-docs/seer-design/subsystems/cognitive-operations-governance-workbench/README.md` | COGW design |
 
 ### Hub Integration
 
@@ -83,12 +87,16 @@ This appendix provides links to additional documentation for readers who want to
 | `olympus-hub-docs/04-subsystems/registry-services/tool-registry.md` | Tool registry |
 | `olympus-hub-docs/04-subsystems/task-management/README.md` | Task management |
 | `olympus-hub-docs/04-subsystems/signal-exchange/README.md` | Signal routing |
+| `olympus-hub-docs/04-subsystems/signal-exchange/application-router.md` | Application Router (composite routing) |
+| `olympus-hub-docs/04-subsystems/mcp-channel/mcp-server-crd.md` | MCP Server CRD |
+| `olympus-hub-docs/04-subsystems/mcp-channel/directory-service.md` | MCP Directory Service |
 | `olympus-hub-docs/04-subsystems/feedback-services/README.md` | Feedback capture |
 
 ### Composite Patterns
 
 | Document | Description |
 |----------|-------------|
+| `olympus-hub-docs/02-system-design/implementation-concepts/hub-composite-application.md` | Hub Composite Applications design |
 | `olympus-hub-docs/09-composite-systems-and-patterns/scenario-as-a-tool.md` | Scenario-as-Tool pattern |
 | `olympus-hub-docs/09-composite-systems-and-patterns/scenario-as-an-agent.md` | Scenario-as-Agent pattern |
 | `olympus-hub-docs/09-composite-systems-and-patterns/workbench-as-a-machine.md` | Workbench-as-Machine pattern |
@@ -113,6 +121,29 @@ This appendix provides links to additional documentation for readers who want to
 |-----|-------|
 | `olympus-hub-docs/decision-logs/0072-seer-guardrails-two-layer-model.md` | Guardrails architecture |
 | `olympus-hub-docs/decision-logs/0073-seer-authority-enforcement-opa.md` | Authority enforcement |
+
+### Identity & Authority Decisions
+
+| ADR | Title |
+|-----|-------|
+| `olympus-hub-docs/decision-logs/0127-request-scoped-authority-delegation.md` | Request-Scoped Authority Delegation |
+| `olympus-hub-docs/decision-logs/0129-agent-identity-model.md` | Agent Identity Model (Deployment vs Persona) |
+| `olympus-hub-docs/decision-logs/0130-unified-delegation-model.md` | Unified Delegation Model |
+
+### Collaboration Channels Decisions
+
+| ADR | Title |
+|-----|-------|
+| `olympus-hub-docs/decision-logs/0131-mcp-server-crd-design.md` | MCP Server CRD Design |
+| `olympus-hub-docs/decision-logs/0132-mcp-template-kinds.md` | MCP Template Kinds |
+| `olympus-hub-docs/decision-logs/0134-mcp-directory-service.md` | MCP Directory Service |
+
+### Composite Patterns Decisions
+
+| ADR | Title |
+|-----|-------|
+| `olympus-hub-docs/decision-logs/0125-hub-composite-applications.md` | Hub Composite Applications |
+| `olympus-hub-docs/decision-logs/0126-composite-routing-table-schema.md` | Composite Routing Table Schema |
 
 ### Memory Decisions
 

@@ -19,7 +19,7 @@ This appendix clarifies the division of responsibility between Seer and Hub—tw
 |-----------|-----------|----------|
 | **Core Focus** | Agent identity, lifecycle, behavior | Work routing, execution, outcomes |
 | **Lifecycle** | Raw → Trained → Employed | Request → Operation → Outcome |
-| **Identity** | Agent identity, delegation chains | User identity, access control |
+| **Identity** | Agent identity, delegation chains (enterprise and request-scoped), two-layer identity model | User identity, access control, Channels (facilitate request-scoped delegation) |
 | **Runtime** | Agent execution, model gateway | Signal routing, workflow execution |
 | **Control Plane** | Agent Lifecycle Service, Specs | Workbench Management, Scenarios |
 | **Data Plane** | Guardrail enforcement, context assembly | Memory services, knowledge services, tools |
@@ -33,12 +33,17 @@ This appendix clarifies the division of responsibility between Seer and Hub—tw
 
 #### Agent Identity & Authority
 - Agent identity semantics (Raw, Trained, Employed layers)
+- Two-layer identity model (Deployment Identity vs Agent Persona)
 - Delegation model (how authority flows from humans to agents)
+  - Enterprise delegation (scenario-scoped)
+  - Request-scoped delegation (via Cipher IAM Extensions)
 - Authority ceilings (layered limits and their enforcement)
 - Kill switch logic (when and how to revoke authority)
 
 #### Agent Lifecycle
 - TrainingSpec and EmploymentSpec management
+- Persona Twin lifecycle (Raw → Trained → Employed)
+- Persona Twin Blueprint structure and management
 - Version management with semantic versioning
 - Promotion workflows with approval gates
 - Rollback with state consistency
@@ -86,11 +91,15 @@ This appendix clarifies the division of responsibility between Seer and Hub—tw
 - Tool Registry (protocols, instances)
 - Machine Registry
 - MCP Router
+- MCP Server CRD management and provisioning
+- MCP Directory Service
 - Hub Native Utilities
 
 #### Operational Infrastructure
 - Workbench Management
 - Scenario specifications
+- Hub Composite Applications (multi-agent topologies)
+- COGW (Cognitive Operations Governance Workbench) workbench type
 - Escalation matrices
 - Observer notifications
 
@@ -104,8 +113,11 @@ Seer and Hub integrate at well-defined boundaries:
 | **Tools** | Agent invokes tool | Tool Registry validates, executes |
 | **Audit** | Agent emits records | CAF catalogs, stores, explains |
 | **Identity** | Seer defines semantics | Cipher provides infrastructure |
+| **Delegation** | Request-scoped delegation model (Cipher IAM Extensions) | Channels facilitate user consent and token delivery |
 | **Memory** | Agent Memory SDK | Memory Services stores |
 | **Workbench** | Agent operates within | Workbench provides context |
+| **Collaboration** | Agent SDK supports MCP | MCP Server CRD, MCP Directory Service |
+| **Persona Twins** | Persona Twin lifecycle, blueprints | Persona Twin operations, signal routing |
 
 ## Why Two Systems?
 

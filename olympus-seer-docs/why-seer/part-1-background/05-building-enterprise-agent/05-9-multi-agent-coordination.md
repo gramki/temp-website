@@ -90,6 +90,14 @@ Agents defer to humans at critical decision points:
 
 **Use case:** High-value transactions require human approval before agent execution.
 
+### Composite Applications
+
+Multiple agents participate in the same request without explicit orchestration, coordinating through shared request state (blackboard pattern). This enables topology patterns like Blackboard, Planner-Executor-Critic (PEC Loop), Market-Based, and Role-Specialized Committees.
+
+**Use case:** Multiple specialized agents (risk analyst, compliance reviewer, customer service agent) contribute different perspectives to the same dispute resolution request, coordinating through shared state rather than explicit task assignment.
+
+> **Note:** Composite applications complement the coordination mechanisms described above. Coordination mechanisms (Scenario-as-Tool, Scenario-as-Agent, Workbench-as-Machine) define interaction protocols, while composite applications define architectural patterns for multi-agent topologies. See Section 5.14 (Multi-Agent Topology Requirements) for topology pattern requirements and Section 22 (Multi-Agent Topologies in Hub) for how Hub implements composite applications.
+
 ## The Handoff Problem
 
 When agents transfer work, context must transfer with it. This is the **handoff problem**—ensuring that the receiving agent (or human) has everything needed to continue effectively.

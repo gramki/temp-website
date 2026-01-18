@@ -6,11 +6,21 @@ When an agent acts, a fundamental question arises: *Under whose authority?* Seer
 
 A delegation chain records:
 
-1. **Who delegated:** The principal (user or role) that granted authority
-2. **To whom:** The agent receiving authority
+1. **Who delegated:** The principal (user, role, or Scenario Identity Profile) that granted authority
+2. **To whom:** The Agent Persona receiving authority (not the deployment infrastructure)
 3. **What authority:** The specific permissions delegated
 4. **When:** The time bounds of the delegation
 5. **Under what conditions:** Constraints on the delegation
+
+### Persona-Based Tracking
+
+Delegation chains track **Agent Persona** (business identity), not Deployment Identity (SPIFFE). This ensures:
+
+- **Business Accountability**: Audit logs attribute actions to personas, not infrastructure
+- **Consistency Across Deployments**: Same persona maintains same delegation chain regardless of which pod serves the request
+- **Survival Through Redeployments**: Delegation chains persist when pods are recreated
+
+The Deployment Identity (SPIFFE) is used for infrastructure authentication (mTLS, service mesh), but delegation chains operate at the business layer, tracking who authorized the Agent Persona to act.
 
 ## Delegation Models
 
@@ -77,13 +87,14 @@ Allow or deny
 
 ### Audit Trail
 
-Every delegation is recorded:
+Every delegation is recorded with Agent Persona as the recipient:
 
 ```json
 {
   "event": "delegation_created",
-  "delegator": "sarah.chen@acme.com",
-  "agent": "dispute-analyst-bot@workforce.acme.com",
+  "delegator": "dispute-scenario-profile",  // Scenario Identity Profile or Business User
+  "agent_persona": "dispute-analyst-agent@acme.hub.io",  // Agent Persona (business identity)
+  "deployment_identity": "spiffe://acme.hub.io/seer/agent/acme/analyst-pod-001",  // Deployment Identity (for infrastructure context)
   "authority": ["dispute:read", "dispute:resolve", "refund:request"],
   "constraints": {
     "maxValue": 500,
@@ -94,20 +105,25 @@ Every delegation is recorded:
 }
 ```
 
+The audit record includes both identities for complete traceability, but the delegation chain itself tracks the Agent Persona as the business entity receiving authority.
+
 ### Chain Verification
 
 At any time, the full delegation chain can be verified:
 
 ```
 Action: Refund $200 to customer
-Actor: dispute-analyst-bot
+Actor: dispute-analyst-agent@acme.hub.io (Agent Persona)
+Deployment: spiffe://acme.hub.io/seer/agent/acme/analyst-pod-001 (Deployment Identity)
     ↓
-Delegated by: Dispute Analyst role
+Delegated by: dispute-scenario-profile (Scenario Identity Profile)
     ↓
-Role assigned by: IT Admin
+Scenario owned by: Dispute Operations Team
     ↓
 Manager (Accountable): Sarah Chen
 ```
+
+The chain tracks the Agent Persona through the business hierarchy, while the Deployment Identity provides infrastructure context but does not appear in the delegation chain itself.
 
 ### Regulatory Response
 
@@ -124,12 +140,32 @@ When agents delegate to other agents:
 ### Chain Extension
 
 ```
-Alice
+Alice (Business User)
     ↓ delegates to
-Orchestrator Agent
+Orchestrator Agent Persona
     ↓ delegates to
-Specialist Agent
+Specialist Agent Persona
 ```
+
+Each link in the chain tracks Agent Personas, ensuring business accountability throughout the delegation hierarchy.
+
+### Composite Application Sub-Personas
+
+In Hub Composite Applications, each agent in the composite receives its own **sub-persona** derived from the base Agent Persona:
+
+```
+Base Agent Persona: dispute-resolution-agent@acme.hub.io
+    ↓
+Composite Application creates:
+    ├── Sub-Persona: dispute-analyst-agent (derived from base)
+    ├── Sub-Persona: dispute-reviewer-agent (derived from base)
+    └── Sub-Persona: dispute-approver-agent (derived from base)
+```
+
+Each sub-persona has its own distinct identity for delegation and audit, but all derive from the same base Agent Persona. This enables:
+- **Individual Accountability**: Each agent's actions are attributed to its specific sub-persona
+- **Shared Authority Source**: All sub-personas inherit from the same base delegation
+- **Audit Clarity**: Composite application actions can be traced to specific sub-personas while maintaining the base persona context
 
 ### Authority Narrowing
 
@@ -186,6 +222,11 @@ delegation:
 
 ---
 
+---
+
 **References:**
 *   `aosm-meta-model/raw-trained-employed-agents.md` — Section 3.3 on delegation
 *   `olympus-seer-docs/seer-design/subsystems/authority-enforcement.md`
+*   `olympus-hub-docs/decision-logs/0129-agent-identity-model.md` — Two-layer identity model
+*   Section 8.1 (Agent Identity) — Identity model context
+*   Section 8.6 (Request-Scoped Authority Delegation) — Request-scoped delegation model

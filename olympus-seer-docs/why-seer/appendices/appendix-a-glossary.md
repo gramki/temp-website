@@ -95,5 +95,35 @@ This glossary provides definitions for key terms used throughout this book.
 | **Kill Switch** | Instant authority revocation mechanism, distinct from process termination. |
 | **Cipher IAM** | Olympus's identity and access management system, providing identity infrastructure for agents. |
 | **PEP** | Policy Enforcement Point. A component that evaluates and enforces policies at runtime. |
+| **Request-Scoped Authority Delegation** | Delegation model enabling business users to grant temporary authority to agents for specific tasks, distinct from enterprise delegation. |
+| **Delegation Template** | Defines a package of authority that can be delegated to agents. |
+| **Delegation Certificate** | Represents a user's consent to delegate authority per a template. |
+| **Delegation Access Token** | Request-scoped JWT that an agent uses to perform actions on behalf of the delegator. |
+| **Agent Persona** | Scenario-derived business identity representing "who is accountable" in business terms. |
+| **Deployment Identity** | SPIFFE-based infrastructure identity used for mTLS and service mesh authentication. |
+| **Sub-Persona** | Distinct identity for each agent in a composite application, derived from base Agent Persona. |
+
+## Collaboration Channels
+
+| Term | Definition |
+|------|------------|
+| **MCP Server** | Workbench-scoped CRD that exposes Hub capabilities via Model Context Protocol. |
+| **Template Kind** | CRD kind (e.g., `business-user-template`) that implies persona and capabilities without explicit persona field. |
+
+## Governance & Oversight
+
+| Term | Definition |
+|------|------------|
+| **COGW** | Cognitive Operations Governance Workbench — subscription-wide governance workbench type enabling cross-workbench oversight. |
+| **COG Sentinel** | Request Sentinel with cross-workbench targeting via pattern-based matching. |
+
+## Persona Twins
+
+| Term | Definition |
+|------|------------|
+| **Persona Twin Blueprint** | Extension to Trained Agent Blueprints providing signal suggestions, filter templates, and schedule suggestions for non-developer twin creation. |
+| **Signal Suggestions** | Common signals suggested by Persona Twin Blueprints (task assignment, platform notifications, schedules). |
+| **Filter Suggestions** | OPA filter templates provided by Persona Twin Blueprints for signal filtering. |
+| **Schedule Suggestions** | Common schedules suggested by Persona Twin Blueprints (daily summaries, weekly reviews). |
 
 ---

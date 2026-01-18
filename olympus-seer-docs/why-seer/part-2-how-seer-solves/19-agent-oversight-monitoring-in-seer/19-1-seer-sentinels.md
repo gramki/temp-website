@@ -67,15 +67,54 @@ All sentinel types generate Observations and Exceptions via Hub's Cronus Gateway
 
 Cronus integration provides a unified mechanism for sentinel outputs while maintaining consistency with Hub's existing models.
 
-### Auto-Enrollment
+### Request Sentinel Enrollment Mechanism
 
-Request Sentinels automatically enroll in requests that match their enrollment filters (specified via OPA policies). When a request is created, Signal Exchange evaluates enrollment filters for all Request Sentinels in the workbench, and matching sentinels are automatically enrolled in the request.
+Request Sentinels automatically enroll in requests that match their enrollment filters. The enrollment mechanism operates as follows:
 
+**Enrollment Filters**:
+Request Sentinels specify enrollment filters via OPA policies that evaluate:
+*   **Scenario whitelist/blacklist**: Include or exclude specific scenarios
+*   **Workbench patterns**: Target specific workbenches or workbench patterns
+*   **Request characteristics**: Request type, entity type, priority, etc.
+*   **Agent characteristics**: Which agents are involved in the request
+
+**Enrollment Flow**:
+```
+Request Created
+    ↓
+Signal Exchange queries active Request Sentinels
+    ↓
+Apply scenario whitelist/blacklist filters
+    ↓
+Evaluate OPA enrollment policies
+    ↓
+If match: Create child request for sentinel
+    ↓
+Notify sentinel via webhook (REQUEST_UPDATE)
+    ↓
+Sentinel processes via Employed Agent
+```
+
+**Child Request Creation**:
+When a Request Sentinel matches a request, Signal Exchange creates a child request:
+*   **Child request scenario**: Uses the sentinel's own scenario specification
+*   **Parent request context**: Child request inherits context from parent request
+*   **Sentinel agent**: Child request is assigned to the sentinel's Employed Agent
+*   **Request hierarchy**: Child request is linked to parent request for audit and context
+
+**Webhook Notification**:
+Request Sentinels receive webhook notifications for REQUEST_UPDATE events:
+*   **Notification trigger**: REQUEST_UPDATE events in parent request
+*   **Notification payload**: Includes parent request context and update details
+*   **Sentinel processing**: Sentinel processes notification via its Employed Agent
+*   **Action capability**: Sentinel can create tasks, add memos, escalate, or take other actions
+
+**Auto-Enrollment Benefits**:
 Auto-enrollment enables:
-*   Automatic participation: Sentinels participate in requests without manual configuration
-*   Pattern-based targeting: Sentinels target requests based on patterns (scenario, workbench, agent, etc.)
-*   Dynamic enrollment: Sentinels can be added or removed without affecting existing requests
-*   Scalability: Auto-enrollment scales to many requests and sentinels
+*   **Automatic participation**: Sentinels participate in requests without manual configuration
+*   **Pattern-based targeting**: Sentinels target requests based on patterns (scenario, workbench, agent, etc.)
+*   **Dynamic enrollment**: Sentinels can be added or removed without affecting existing requests
+*   **Scalability**: Auto-enrollment scales to many requests and sentinels
 
 Auto-enrollment ensures that Request Sentinels participate in the right requests without requiring manual configuration for each request.
 

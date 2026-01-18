@@ -104,6 +104,7 @@
 - [3.3 Authority Ceilings](../part-2-how-seer-solves/03-identity-authority-in-seer/03-3-authority-ceilings.md)
 - [3.4 Kill Switch](../part-2-how-seer-solves/03-identity-authority-in-seer/03-4-kill-switch.md)
 - [3.5 Cipher IAM Integration](../part-2-how-seer-solves/03-identity-authority-in-seer/03-5-cipher-iam-integration.md)
+- [3.6 Request-Scoped Authority Delegation](../part-2-how-seer-solves/03-identity-authority-in-seer/03-6-request-scoped-delegation.md)
 
 ### Section 4: Memory, Knowledge & Audit in Seer
 
@@ -195,6 +196,51 @@
 - [13.1 The Enterprise Agent Imperative](../part-2-how-seer-solves/13-summary-why-seer/13-1-enterprise-agent-imperative.md)
 - [13.2 The Seer Value Proposition](../part-2-how-seer-solves/13-summary-why-seer/13-2-seer-value-proposition.md)
 - [13.3 Who Should Use Seer](../part-2-how-seer-solves/13-summary-why-seer/13-3-who-should-use-seer.md)
+
+### Section 19: Agent Oversight & Monitoring in Seer
+
+- [Section Overview](../part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/_section-overview.md)
+- [19.1 Seer Sentinels](../part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-1-seer-sentinels.md)
+- [19.2 Agent Health Monitor](../part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-2-agent-health-monitor.md)
+- [19.3 Agent Analytics](../part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-3-agent-analytics.md)
+- [19.4 Observability Extensions to Watch](../part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-4-observability-extensions-watch.md)
+- [19.5 Cognitive Operations Governance Workbench (COGW)](../part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-5-cogw.md)
+
+### Section 20: Developer Experience in Seer
+
+- [Section Overview](../part-2-how-seer-solves/20-developer-experience-in-seer/_section-overview.md)
+- [20.1 Seer Agent SDK](../part-2-how-seer-solves/20-developer-experience-in-seer/20-1-seer-agent-sdk.md)
+- [20.2 SDK Capabilities](../part-2-how-seer-solves/20-developer-experience-in-seer/20-2-sdk-capabilities.md)
+- [20.3 Development Workflow](../part-2-how-seer-solves/20-developer-experience-in-seer/20-3-development-workflow.md)
+
+### Section 21: Persona Twins in Seer
+
+- [Section Overview](../part-2-how-seer-solves/21-persona-twins-in-seer/_section-overview.md)
+- [21.1 What Are Persona Twins?](../part-2-how-seer-solves/21-persona-twins-in-seer/21-1-what-are-persona-twins.md)
+- [21.2 Persona Twin Lifecycle](../part-2-how-seer-solves/21-persona-twins-in-seer/21-2-persona-twin-lifecycle.md)
+- [21.3 Use Cases](../part-2-how-seer-solves/21-persona-twins-in-seer/21-3-use-cases.md)
+
+### Section 22: Multi-Agent Topologies in Hub
+
+- [Section Overview](../part-2-how-seer-solves/22-multi-agent-topologies-in-hub/_section-overview.md)
+- [22.1 Hub Composite Applications](../part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-1-hub-composite-applications.md)
+- [22.2 Supported Topologies](../part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-2-supported-topologies.md)
+- [22.3 Deployment Model](../part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-3-deployment-model.md)
+
+### Section 23: Collaboration Channels in Hub
+
+- [Section Overview](../part-2-how-seer-solves/23-collaboration-channels-in-hub/_section-overview.md)
+- [23.1 MS Teams Integration](../part-2-how-seer-solves/23-collaboration-channels-in-hub/23-1-ms-teams-integration.md)
+- [23.2 Observer Pattern](../part-2-how-seer-solves/23-collaboration-channels-in-hub/23-2-observer-pattern.md)
+- [23.3 Multi-Channel Access](../part-2-how-seer-solves/23-collaboration-channels-in-hub/23-3-multi-channel-access.md)
+- [23.4 MCP Server CRD Design](../part-2-how-seer-solves/23-collaboration-channels-in-hub/23-4-mcp-server-crd.md)
+
+### Section 24: Task Management in Hub
+
+- [Section Overview](../part-2-how-seer-solves/24-task-management-in-hub/_section-overview.md)
+- [24.1 Task Lifecycle](../part-2-how-seer-solves/24-task-management-in-hub/24-1-task-lifecycle.md)
+- [24.2 Task Allocation](../part-2-how-seer-solves/24-task-management-in-hub/24-2-task-allocation.md)
+- [24.3 Agent Task Operations](../part-2-how-seer-solves/24-task-management-in-hub/24-3-agent-task-operations.md)
 
 ---
 
