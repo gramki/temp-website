@@ -1,414 +1,257 @@
-# Olympus Hub - Applicability and Usability Guide
+# Olympus Hub Applicability Guide
 
-> ⚠️ **REVISION PLANNED** — This document predates the updated vision. A revision is planned to align with the new framing. See outline below.
+> **For Product Management and Sales Teams**
 
----
-
-## Planned Revision Outline
-
-This guide will be revised to align with the updated vision:
-
-> **Vision:** To empower organizations to reimagine information-centric work through governed AI-Human collaboration
-
-### Proposed New Structure
-
-**1. When Hub Fits Well**
-- Information-centric work (vs. physical operations)
-- Collaborative problem-solving (Human-Human, Human-AI, AI-AI)
-- Governed operations (audit, compliance, accountability)
-- Multi-agent scenarios requiring coordination
-
-**2. When Hub May Not Fit**
-- Pure physical operations (manufacturing floor, logistics handling)
-- Completely novel, one-time activities with no pattern
-- Simple single-user tools with no collaboration
-
-**3. Assessment Criteria**
-- Does work involve receiving, interpreting, deciding, acting on information?
-- Is there collaboration (human-human, human-AI, or AI-AI)?
-- Is governance important (audit, compliance, accountability)?
-- Would organizational memory and learning improve outcomes over time?
-
-**4. Adoption Paths**
-- Human-Human → Human-AI → AI-AI progression (gradual, not mandatory)
-- Structured → Exploratory work spectrum
-- Workbench-by-workbench rollout
-
-**5. Industry Examples**
-- Financial Services (lending, disputes, compliance)
-- Healthcare Administration (claims, eligibility, care coordination)
-- IT Operations (incidents, changes, service requests)
-- HR and Legal (contracts, policies, cases)
-- Enterprise Knowledge Work (research, analysis, documentation)
+This guide helps identify where Olympus Hub delivers value, which customer profiles are ideal, and how to position Hub effectively.
 
 ---
 
-*The content below is from the previous version and will be revised.*
+## The Opportunity: Information-Centric Work Is Vast
+
+**Information-centric work** is a vast space — essentially all work where inputs, transformations, and outputs are information rather than physical matter. This includes:
+
+- Processing requests and making decisions
+- Translating requirements into designs or implementations
+- Drafting, reviewing, and approving documents or code
+- Investigating issues and determining root causes
+- Coordinating between parties to resolve problems
+- Research, analysis, and knowledge synthesis
+- Creative work, design, and content creation
+
+Hub's utility is as wide as generic task management systems or document processing systems. The question isn't "Does this qualify as information-centric work?" (most work does), but rather **"Are there reasons Hub would NOT fit?"**
+
+→ See [Glossary — Information-Centric Work](./glossary.md#information-centric-work) for the formal definition.
 
 ---
 
-## Intended Audience
+## Understanding Hub: Platform, Not Out-of-Box Solution
 
-This guide is designed for two primary audiences:
+Hub's broad fitment for information-centric work should not be misunderstood as an out-of-box solution for any specific domain.
 
-**Prospective Customers:**
-- Enterprise decision-makers evaluating Olympus Hub for their organization
-- Operations managers seeking to understand where the platform adds value
-- IT leaders assessing implementation requirements and readiness
-- Business stakeholders looking to understand ROI and business impact
+**The Platform Analogy:**
 
-**Product Management:**
-- Product managers defining Olympus Hub's scope and positioning
-- Sales teams identifying ideal customer profiles and use cases
-- Customer success teams planning implementation strategies
-- Marketing teams developing targeted messaging and content
+Like AWS provides infrastructure for building applications (not ready-made apps), or Salesforce provides a platform for CRM (requiring configuration for each organization), Hub provides an **operational platform** that organizations build on for their specific domains and scenarios.
 
-## Executive Summary
+**What Hub Provides:**
 
-Olympus Hub is designed for enterprises that need to systematically manage, optimize, and scale their operational processes through human-AI collaboration. This guide helps prospective customers and product managers understand where Olympus Hub delivers the most value and how to identify the right use cases for implementation.
+Hub doesn't come with pre-built scenarios for "lending" or "claims processing" or "incident management." Instead, Hub provides:
 
----
+- The infrastructure (context, structure, memory, governance)
+- The modeling framework (Scenarios, Workbenches, Requests)
+- The collaboration capabilities (multi-agent, multi-channel)
+- The automation platform (Hub Applications, Machines, Runtimes)
 
-## Who Should Consider Olympus Hub?
+**Hub Packages: Accelerating Adoption**
 
-### Ideal Customer Profile
+While Hub is a platform, organizations don't always need to build from scratch. The **Hub Marketplace** provides **Hub Packages** — industry and function-specific tailor-made solutions that can be discovered, subscribed to, and deployed.
 
-**Primary Targets:**
-- **Large and medium enterprises** (500+ employees) with complex operational processes
-- **Organizations with multiple business domains** requiring coordinated operations
-- **Companies undergoing digital transformation** and seeking to modernize their operational approaches
-- **Enterprises with compliance requirements** that need systematic process management
-- **Organizations with significant human-AI collaboration** or planning to implement it
+Hub Packages can include:
+- Complete scenarios (e.g., dispute resolution, loan processing, incident response)
+- Workbench templates (e.g., IT Operations Workbench, Claims Processing Workbench)
+- Machine definitions for common integrations
+- Tools and Hub Applications
 
-**Secondary Targets:**
-- **Growing companies** (100-500 employees) with maturing operational needs
-- **Organizations with repetitive, high-volume processes** that could benefit from optimization
-- **Companies with distributed teams** requiring coordinated operational workflows
+Organizations can:
+- **Subscribe to packages** that match their needs and customize them
+- **Build custom solutions** when packages don't fit
+- **Publish their own packages** to share solutions internally or externally
 
-### Organizational Readiness Indicators
+This accelerates adoption while maintaining the flexibility to build custom solutions when needed.
 
-**High Readiness (Immediate Value):**
-- Existing process documentation and SOPs
-- Established roles and responsibilities
-- Clear operational metrics and KPIs
-- Willingness to invest in systematic process improvement
-- Leadership commitment to operational excellence
-
-**Medium Readiness (Pilot Projects):**
-- Some documented processes but inconsistent application
-- Basic role definitions but unclear boundaries
-- Limited operational metrics
-- Open to process standardization
-- Budget for operational improvement initiatives
-
-**Low Readiness (Foundation Building Required):**
-- Ad-hoc processes with minimal documentation
-- Unclear roles and responsibilities
-- No established operational metrics
-- Resistance to process standardization
-- Limited budget for operational improvement
+→ See [Marketplace Subsystem](../04-subsystems/marketplace/README.md) for details.
 
 ---
 
-## Where Olympus Hub Delivers Maximum Value
+## The Assessment Approach: Focus on Exclusions
 
-### 1. **Customer Service and Support Operations**
-**Why it works well:**
-- Clear signal patterns (tickets, calls, escalations)
-- Well-defined roles (agents, supervisors, specialists)
-- Established procedures and workflows
-- Measurable outcomes (resolution time, satisfaction)
+When evaluating fit, focus on exclusions rather than qualifying inclusions. Hub fits most information-centric work unless specific exclusion criteria apply.
 
-**Typical scenarios:**
-- Multi-tier support workflows
-- Escalation management
-- Knowledge base integration
-- Quality assurance processes
+**The Four Dimensions:**
 
-### 2. **IT Operations and DevOps**
-**Why it works well:**
-- Rich signal sources (monitoring, logs, alerts)
-- Clear operational procedures
-- Defined roles and responsibilities
-- Critical need for reliability and consistency
+Most information-centric work naturally meets these dimensions:
 
-**Typical scenarios:**
-- Incident response workflows
-- Change management processes
-- System monitoring and alerting
-- Maintenance and patching procedures
+1. **Information-Centric** — Work involves receiving, interpreting, deciding, and acting on information. *This is true for most work in modern organizations.*
 
-### 3. **Financial and Administrative Operations**
-**Why it works well:**
-- Structured, rule-based processes
-- Clear compliance requirements
-- Well-defined approval workflows
-- Audit trail requirements
+2. **Collaborative** — Multiple agents (human or AI) work together, or would benefit from shared context and coordination. *Most organizational work involves collaboration.*
 
-**Typical scenarios:**
-- Invoice processing and approval
-- Expense management workflows
-- Compliance reporting
-- Financial reconciliation processes
+3. **Governed** — Audit, compliance, accountability, or traceability needs exist. *Most enterprise work has some governance requirements.*
 
-### 4. **HR and People Operations**
-**Why it works well:**
-- Standardized processes (onboarding, offboarding)
-- Clear role definitions
-- Compliance requirements
-- Measurable outcomes
+4. **Learning Value** — Similar situations recur, organizational memory would help, or knowledge accumulation matters. *Most work has patterns and would benefit from memory.*
 
-**Typical scenarios:**
-- Employee onboarding workflows
-- Performance review processes
-- Leave management
-- Policy compliance tracking
-
-### 5. **Sales and Marketing Operations**
-**Why it works well:**
-- Lead qualification processes
-- Campaign management workflows
-- Customer journey mapping
-- Performance tracking
-
-**Typical scenarios:**
-- Lead scoring and routing
-- Campaign execution workflows
-- Customer onboarding processes
-- Sales pipeline management
+**Assessment Approach:** Start by assuming Hub fits, then check for exclusions. If none of the exclusion criteria apply, Hub is likely a good fit.
 
 ---
 
-## Where Olympus Hub May Not Be the Best Fit
+## When Hub Does NOT Fit
 
-### 1. **Pure Creative Work**
-- Artistic creation and design
-- Content creation without standardized processes
-- Research and development without clear procedures
-- Innovation labs and experimental work
+Focus on these exclusions to identify misfits:
 
-### 2. **Highly Unpredictable Environments**
-- Crisis management requiring immediate improvisation
-- Emergency response situations
-- Black swan events and unprecedented situations
-- Rapidly changing markets with no established patterns
+**Pure Physical Operations**
+- Manufacturing floor operations (controlling equipment, handling materials)
+- Warehouse picking and packing (physical manipulation of goods)
+- Logistics handling (loading, unloading, transportation)
+- Physical construction and assembly
 
-### 3. **Small, Informal Organizations**
-- Startups with <50 employees
-- Organizations with minimal process documentation
-- Teams that thrive on ad-hoc approaches
-- Companies with limited operational complexity
+*Note: Even physical businesses have information-centric functions (order processing, customer service, compliance) that Hub supports.*
 
-### 4. **Relationship-Intensive Work**
-- Sales relationship building
-- Partnership development
-- Client relationship management
-- Networking and business development
+**Completely Novel One-Time Activities**
+- Activities with no reusable pattern (won't happen again)
+- No organizational learning value
+- No collaboration need (single person, single task)
+- No governance requirement (no audit, compliance, or accountability needs)
 
----
+*If it's truly one-time with no pattern, no collaboration, and no governance needs, Hub may be overkill.*
 
-## Implementation Readiness Assessment
+**Simple Single-User Tools**
+- Personal productivity tools with no collaboration
+- Standalone applications with no integration to organizational processes
+- No governance needs (no audit or compliance requirements)
+- No organizational memory value (purely personal work)
 
-### Process Maturity Level
+*If it's purely personal with no collaboration or governance needs, Hub may be unnecessary.*
 
-**Level 1: Ad-hoc (Not Ready)**
-- No documented processes
-- Unclear roles and responsibilities
-- No established metrics
-- **Recommendation:** Focus on basic process documentation first
+**No Collaboration or Governance Needs**
+- Work that is purely individual with no coordination
+- No shared context required
+- No audit, compliance, or accountability needs
+- No organizational memory value
 
-**Level 2: Repeatable (Pilot Ready)**
-- Some documented processes
-- Basic role definitions
-- Limited metrics
-- **Recommendation:** Start with pilot projects in well-defined areas
-
-**Level 3: Defined (Good Fit)**
-- Documented processes and procedures
-- Clear roles and responsibilities
-- Established metrics and KPIs
-- **Recommendation:** Full implementation with phased rollout
-
-**Level 4: Managed (Ideal)**
-- Standardized processes across the organization
-- Clear performance metrics
-- Regular process improvement
-- **Recommendation:** Immediate implementation with advanced features
-
-**Level 5: Optimizing (Advanced)**
-- Continuous process improvement
-- Advanced analytics and optimization
-- Proactive problem-solving
-- **Recommendation:** Full implementation with optimization focus
-
-### Organizational Culture Assessment
-
-**Process-Oriented Culture (High Fit):**
-- Values systematic approaches
-- Embraces standardization
-- Focuses on continuous improvement
-- **Implementation:** Full rollout with advanced features
-
-**Balanced Culture (Medium Fit):**
-- Mix of process and flexibility
-- Selective standardization
-- Moderate improvement focus
-- **Implementation:** Phased approach with pilot projects
-
-**Flexibility-Oriented Culture (Low Fit):**
-- Values creativity over process
-- Resists standardization
-- Prefers ad-hoc approaches
-- **Implementation:** Limited scope, focus on high-value areas only
+*If collaboration and governance add no value, simpler tools may suffice.*
 
 ---
 
-## Use Case Prioritization Framework
+## What Hub Supports: The Work Spectrum
 
-### High Priority Use Cases
-**Criteria:**
-- High volume and frequency
-- Clear process patterns
-- Significant business impact
-- Low resistance to change
-- Good data availability
+Hub supports work across the entire spectrum from structured to exploratory:
 
-**Examples:**
-- Customer service ticket resolution
-- IT incident management
-- Invoice processing
-- Employee onboarding
+| Work Type | Hub's Role | Example |
+|-----------|------------|---------|
+| **Structured** | Full automation with oversight | Loan processing, invoice approval |
+| **Semi-structured** | AI assistance with human decisions | Customer escalation, incident triage |
+| **Exploratory** | Context, memory, tools for discovery | Research, investigation |
+| **Creative** | Infrastructure for iteration and collaboration | Design, content creation |
 
-### Medium Priority Use Cases
-**Criteria:**
-- Moderate volume and frequency
-- Some process patterns
-- Moderate business impact
-- Some resistance to change
-- Limited data availability
+**Collaboration Levels:**
 
-**Examples:**
-- Marketing campaign execution
-- Vendor management
-- Performance reviews
-- Compliance reporting
+Organizations can start at any level:
+- **Human-Human** — Hub provides structure, memory, governance (no AI required)
+- **Human-AI** — Progressive enhancement with AI assistance
+- **AI-AI** — Autonomous coordination under governance
 
-### Low Priority Use Cases
-**Criteria:**
-- Low volume and frequency
-- Unclear process patterns
-- Limited business impact
-- High resistance to change
-- Poor data availability
-
-**Examples:**
-- Strategic planning
-- Creative projects
-- Relationship building
-- Crisis management
+*Not a mandatory progression — organizations choose based on readiness and needs.*
 
 ---
 
-## Success Factors and Implementation Guidelines
+## Who Benefits: Customer Profiles
 
-### Critical Success Factors
+**Ideal Customer Characteristics:**
+- Enterprise scale (500+ employees, multi-domain operations)
+- Information-centric functions (even in physical businesses: order processing, customer service, compliance)
+- Governance needs (regulated industries, audit requirements, accountability)
+- AI interest (current initiatives or plans) — *optional, Hub adds value without AI*
 
-1. **Leadership Commitment**
-   - Executive sponsorship
-   - Clear communication of benefits
-   - Resource allocation
-   - Change management support
+**Industry Examples:**
 
-2. **Process Maturity**
-   - Well-documented processes
-   - Clear roles and responsibilities
-   - Established metrics
-   - Regular process review
+| Industry | Why It Fits | Example Scenarios |
+|----------|-------------|-------------------|
+| **Financial Services** | Highly regulated, information-centric, governance-critical | Lending decisions, dispute resolution, compliance reporting, fraud investigation |
+| **Healthcare Administration** | Coordination-intensive, audit-heavy, compliance-driven | Claims processing, eligibility verification, care coordination, prior authorization |
+| **IT Operations** | Signal-rich, governance-critical, incident-driven | Incident response, change management, service requests, security remediation |
+| **Insurance** | Document-intensive, decision-heavy, compliance-focused | Underwriting, claims processing, policy administration, risk assessment |
+| **Professional Services** | Knowledge work, client coordination, deliverable management | Client engagements, project delivery, billing, knowledge management |
+| **Software Development** | Pure information-centric, highly collaborative | Feature development, bug fixes, code review, incident response. See [Hub for Software Development](../scratchpad/0WIP-hub-for-software-development.md) |
 
-3. **User Adoption**
-   - Comprehensive training
-   - User-friendly interface
-   - Clear value proposition
-   - Ongoing support
+**Function Examples:**
 
-4. **Data Quality**
-   - Clean, accurate data
-   - Consistent data formats
-   - Reliable data sources
-   - Regular data validation
-
-### Implementation Phases
-
-**Phase 1: Foundation (Months 1-3)**
-- Process documentation and analysis
-- Role and responsibility mapping
-- Basic system configuration
-- Pilot user training
-
-**Phase 2: Pilot (Months 4-6)**
-- Limited scope implementation
-- User feedback collection
-- Process refinement
-- Performance measurement
-
-**Phase 3: Rollout (Months 7-12)**
-- Expanded implementation
-- Full user training
-- Process optimization
-- Advanced feature deployment
-
-**Phase 4: Optimization (Months 13+)**
-- Continuous improvement
-- Advanced analytics
-- Process automation
-- Performance optimization
+| Function | Why It Fits | Key Characteristics |
+|----------|-------------|---------------------|
+| **Operations** (any domain) | Core use case | Signal-driven, scenario-oriented, governed |
+| **Customer Service** | Signal-driven, governed | Tickets, SLAs, collaboration, knowledge base |
+| **Compliance & Risk** | Governance-critical | Audit trails, decisions, documents, accountability |
+| **HR & Legal** | Document-intensive, compliance | Policies, decisions, coordination |
+| **Finance & Accounting** | Structured, auditable | Rule-based, approval workflows, compliance |
+| **R&D & Innovation** | Context and memory value | Exploratory, collaboration, pattern recognition |
 
 ---
 
-## ROI and Value Proposition
+## How Hub Differs: Competitive Positioning
 
-### Quantifiable Benefits
+**vs. BPM Platforms**
+- **BPM:** Workflow-oriented (defines steps and sequences)
+- **Hub:** Scenario-oriented (defines goals and constraints)
+- **Differentiator:** Goal-oriented thinking, not procedure-oriented
 
-**Operational Efficiency:**
-- 20-40% reduction in process cycle time
-- 15-30% improvement in resource utilization
-- 25-50% reduction in manual errors
-- 30-60% faster onboarding of new team members
+**vs. AI Copilots**
+- **AI Copilots:** Ad-hoc AI assistance, no governance, no organizational memory
+- **Hub:** Governed AI collaboration with structure, memory, and accountability
+- **Differentiator:** Operational infrastructure, not just AI capability
 
-**Quality Improvements:**
-- 40-70% reduction in process variations
-- 20-40% improvement in compliance rates
-- 30-50% reduction in rework
-- 25-45% improvement in customer satisfaction
+**vs. Task Management Tools**
+- **Task Management:** Project tracking, personal productivity
+- **Hub:** Operational platform for information-centric work
+- **Differentiator:** Scenario-oriented operations, not task lists
 
-**Cost Savings:**
-- 15-35% reduction in operational costs
-- 20-40% reduction in training costs
-- 30-60% reduction in process documentation costs
-- 25-50% reduction in audit preparation time
+**vs. Low-Code/No-Code Platforms**
+- **Low-Code:** Application building, form-based workflows
+- **Hub:** Operational platform with scenario-oriented thinking and multi-agent collaboration
+- **Differentiator:** Goal-oriented scenarios, not form-based workflows
 
-### Qualitative Benefits
-
-**Organizational Capabilities:**
-- Improved process visibility and control
-- Enhanced collaboration between teams
-- Better decision-making through data
-- Increased operational agility
-
-**Employee Experience:**
-- Clearer role definitions and expectations
-- Reduced confusion and ambiguity
-- Better tools and resources
-- Improved job satisfaction
+**Key Differentiators:**
+- **Four Pillars:** Context, Structure, Memory, Governance (see [Vision](../00-_why/vision.md))
+- **Scenario-Oriented:** Goals not procedures, constraints not sequences, agent autonomy within boundaries
+- **Multi-Modal Collaboration:** Human-Human, Human-AI, AI-AI — all share context, tools, goals, memory
+- **Persona-Channel Framework:** Persona-focused apps, channel-agnostic access (Web, Teams, MCP, REST)
 
 ---
 
-## Conclusion
+## Getting Started: Adoption Path
 
-Olympus Hub is most valuable for organizations with mature operational processes that are ready to systematize and optimize their human-AI collaboration. The key to success is starting with well-defined, high-value use cases and gradually expanding to more complex scenarios as the organization's process maturity increases.
+**Starting Points:**
 
-The platform's value increases significantly when implemented in organizations that already have some level of process documentation, clear roles and responsibilities, and a culture that values systematic improvement. For organizations that are not yet ready, focusing on building these foundational elements first will ensure better outcomes when implementing Olympus Hub.
+Organizations can begin in different ways:
+- **By Domain:** Pick one Workbench (e.g., IT Operations), prove value, expand
+- **By Modality:** Start Human-Human (no AI required), add AI progressively
+- **By Work Type:** Start structured, extend to exploratory
+
+**The Adoption Path:**
+
+Organizations build on Hub for their specific needs:
+1. **Model Scenarios** — Define goals, roles, and governance for their operations
+2. **Configure Workbenches** — Encapsulate domains with entities, knowledge, and agents
+3. **Build or Integrate** — Create Hub Applications or integrate existing systems via Machines
+4. **Deploy and Evolve** — Start with one Workbench, prove value, expand gradually
+
+**Time to Value:**
+- **Quick Start:** Human-Human collaboration with basic scenarios (weeks)
+- **Full Deployment:** Multi-domain with AI collaboration (months)
+- **Mature Operations:** Optimized, automated, organization-wide (ongoing)
+
+**Readiness Signals:**
+
+**Ready:**
+- Some process documentation exists (even if incomplete)
+- Governance is valued (audit, compliance, accountability)
+- Collaboration challenges exist
+- AI interest (optional — Hub adds value without AI)
+
+**Not Ready:**
+- "We don't need processes" culture (unless governance needs exist)
+- No governance needs (reduces Hub's value significantly)
+- Pure cost-cutting motivation (Hub is transformation, not just efficiency)
+- No collaboration need (Hub's value is in collaboration and learning)
+- Work is purely physical operations with no information-centric functions
 
 ---
 
-*This guide should be reviewed and updated regularly as Olympus Hub evolves and new use cases are identified through customer implementations.*
+## Related Documentation
+
+- [Vision and Mission](../00-_why/vision.md) — Hub's vision and mission statements
+- [Introduction](./introduction.md) — What Hub is and how it works
+- [Glossary](./glossary.md) — Foundational terminology
+- [Hub Architecture](../02-system-design/hub-architecture.md) — System design overview
+- [Marketplace Subsystem](../04-subsystems/marketplace/README.md) — Hub Packages and Marketplace
+- [Hub for Software Development](../scratchpad/0WIP-hub-for-software-development.md) — Industry example
+
+---
+
+*This guide is for internal use by Product Management and Sales teams. For customer-facing materials, see the [Introduction](./introduction.md) and [Vision](../00-_why/vision.md) documents.*
