@@ -199,7 +199,7 @@ Organizations can start at any level:
 **Key Differentiators:**
 - **Four Pillars:** Context, Structure, Memory, Governance (see [Vision](../00-_why/vision.md))
 - **Scenario-Oriented:** Goals not procedures, constraints not sequences, agent autonomy within boundaries
-- **Multi-Modal Collaboration:** Human-Human, Human-AI, AI-AI — all share context, tools, goals, memory
+- **Resolution Spectrum:** Pure automation through human collaboration — all share governance; agents share context, tools, goals, memory when they participate
 - **Persona-Channel Framework:** Persona-focused apps, channel-agnostic access (Web, Teams, MCP, REST)
 
 ---

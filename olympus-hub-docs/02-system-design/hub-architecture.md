@@ -16,7 +16,7 @@ All operations in information-centric work are situations that need attention, d
 |-----------|---------------|
 | **Scenario-Oriented Operations** | Scenarios define goals; Requests are collaboration surfaces; signal-driven execution |
 | **Domain Encapsulation** | Workbenches isolate business domains with their own entities, knowledge, and governance |
-| **Collaboration Model** | Human-Human, Human-AI, AI-AI modalities; Hub Agent as participation pattern |
+| **Resolution Spectrum** | Pure automation through human collaboration; Hub Agent as participation pattern |
 | **Persona-Channel Framework** | Multi-surface access (Web, Teams, MCP, REST); persona-focused applications |
 | **Automation Platform** | Hub Applications codify logic; Machines connect to systems; Runtimes host execution |
 | **Infrastructure Foundation** | Context that grounds, structure that guides, memory that learns, governance that secures trust |
