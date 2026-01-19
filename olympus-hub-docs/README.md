@@ -1,558 +1,289 @@
-# Olympus Hub Documentation
+# Olympus Hub
 
-> **Tracking:** [SPI-18123](https://zeta-saas.atlassian.net/browse/SPI-18123)
-
-Olympus Hub is an operations management platform designed for large and medium enterprises to model, manage, and optimize business operations across any business domain through human-AI collaboration.
+> **To empower organizations to reimagine information-centric work through governed AI-Human collaboration**
 
 ---
 
-## 📚 Documentation Index
+## What Is Hub?
+
+**Olympus Hub** is an operational platform for information-centric work — the work that dominates modern enterprises, where inputs, transformations, and outputs are information rather than physical matter.
+
+Hub provides the infrastructure where humans and AI collaborate as **agents** — not as tool and user, but as team members working together toward shared goals. It's where customer service resolves disputes, where finance reconciles transactions, where IT diagnoses incidents, where compliance reviews cases — all through governed collaboration.
+
+Hub is not a replacement for your existing systems. It's the **operational layer** that makes them work together — providing the context, structure, memory, and governance that turns AI capability into operational value.
+
+---
+
+## The Shift We're Making
+
+Traditional enterprise systems model work as **tasks, records, and procedures**. This works until you try to integrate AI — and discover that AI doesn't fit neatly into task-based workflows.
+
+Hub models work differently:
+
+- **Work is situations that need resolution** — not tasks to execute
+- **Multiple agents collaborate toward goals** — humans, AI, rules, workflows
+- **The organization learns from outcomes** — not just logs them
+
+This is how work actually operates. We've just been modeling it wrong.
+
+When you model work this way, AI integration becomes natural — because the model is already multi-agent, goal-oriented, and learning-focused. Hub provides the infrastructure for this model.
+
+---
+
+## Who Is This For?
+
+| If you're a... | Start with... | Key question answered |
+|----------------|---------------|----------------------|
+| **Executive** evaluating Hub | [Executive Primer](./00-hub-need-and-value/primer-executive.md) | What business value does Hub deliver? |
+| **CIO/CTO** assessing fit | [CIO Primer](./00-hub-need-and-value/primer-cio.md) | Should we adopt Hub? |
+| **Process Architect** | [Process Architect Primer](./00-hub-need-and-value/primer-process-architect.md) | How does Hub model my work? |
+| **Developer** | [Developer Primer](./00-hub-need-and-value/primer-developer.md) | How do I build on Hub? |
+| **Zeta Leadership** | [Strategic Value Primer](./00-hub-need-and-value/primer-strategic-value.md) | Why should Zeta build this? |
+
+---
+
+## Reading Paths
+
+### I want to understand the vision
+
+1. [Vision and Mission](./00-_why/vision.md) — The aspiration and purpose
+2. [Foundational Beliefs](./00-_why/foundational-beliefs.md) — The thinking behind Hub
+3. [Design Philosophy](./02-system-design/hub-design-philosophy.md) — Theoretical foundations
+
+### I want to evaluate Hub for my organization
+
+1. [Executive Primer](./00-hub-need-and-value/primer-executive.md) — Business case and urgency
+2. [CIO Primer](./00-hub-need-and-value/primer-cio.md) — Technical evaluation
+3. [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) — Fit assessment
+
+### I want to model work with Hub
+
+1. [Process Architect Primer](./00-hub-need-and-value/primer-process-architect.md) — Your role and value
+2. [Scenario-Oriented Thinking](./11-decision-frameworks/scenario-oriented-thinking/scenario-oriented-thinking.md) — The design philosophy
+3. [Scenario Specification Types](./02-system-design/implementation-concepts/scenario-specification-types.md) — How scenarios are defined
+
+### I want to build on Hub
+
+1. [Developer Primer](./00-hub-need-and-value/primer-developer.md) — Your role and value
+2. [Hub Architecture](./02-system-design/hub-architecture.md) — How it all fits together
+3. [Hub Development Flow](./10-guides/hub-development-flow/README.md) — How to develop
+
+---
+
+## Core Concepts
+
+### The Operational Pattern
+
+```
+Signal → Trigger → Request → Scenario → Hub Application → Agents → Outcome
+                                              ↑
+                                    (Human, AI, Rules, Workflows)
+```
+
+**Signals** arrive from the environment. **Triggers** match them to **Scenarios**. **Requests** become collaboration surfaces where **Agents** work together toward resolution.
+
+### The Four Pillars
+
+| Pillar | What it provides |
+|--------|------------------|
+| **Context** | Domain knowledge, entity relationships, grounding |
+| **Structure** | Scenarios, triggers, delegation, escalation |
+| **Memory** | Organizational learning that accumulates |
+| **Governance** | Accountability, audit, human oversight |
+
+### Hub + Seer
+
+Two systems, unified purpose:
+
+- **Hub** governs operations — scenarios, requests, collaboration
+- **Seer** governs AI agents — identity, runtime, capabilities
+
+Together: trusted AI-Human collaboration at enterprise scale.
+
+---
+
+## Explore Further
+
+### Why Hub
+- [Vision and Mission](./00-_why/vision.md) — The aspiration
+- [Foundational Beliefs](./00-_why/foundational-beliefs.md) — The thinking
+- [Primers](./00-hub-need-and-value/README.md) — Value propositions by audience
+
+### Concepts
+- [Ontology Reference](./01-concepts/ontology-reference.md) — The conceptual foundation
+- [Glossary](./01-concepts/glossary.md) — Key terminology
+- [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) — Where Hub fits
+
+### Design
+- [Hub Architecture](./02-system-design/hub-architecture.md) — System architecture
+- [Design Philosophy](./02-system-design/hub-design-philosophy.md) — Theoretical foundations
+- [Implementation Concepts](./02-system-design/implementation-concepts/README.md) — Hub-specific concepts
+
+### Guides
+- [Hub Development Flow](./10-guides/hub-development-flow/README.md) — Development model
+- [Idea to Deployment](./10-guides/idea-to-deployment-guide.md) — The 10-stage pipeline
+- [All Guides](./10-guides/README.md) — Complete guide index
+
+---
+
+## Full Documentation Index
+
+### 00 - Why Hub
+
+| Document | Description |
+|----------|-------------|
+| [Vision and Mission](./00-_why/vision.md) | Hub's aspiration and purpose |
+| [Foundational Beliefs](./00-_why/foundational-beliefs.md) | The thinking behind Hub's design |
 
 ### 00 - Hub Need and Value
 
-> **Start Here:** Primers explaining Hub's value proposition for different stakeholders.
-
-| Document | Audience | Status |
-|----------|----------|--------|
-| [Overview](./00-hub-need-and-value/README.md) | All | ✅ Complete |
-| [CIO Primer](./00-hub-need-and-value/primer-cio.md) | Enterprise CIOs, CTOs, Enterprise Architects | ✅ Complete |
-| [Process Architect Primer](./00-hub-need-and-value/primer-process-architect.md) | Process Architects, Business Analysts | ✅ Complete |
-| [Developer Primer](./00-hub-need-and-value/primer-developer.md) | Developers, Solution Architects | ✅ Complete |
-| [Strategic Value Primer](./00-hub-need-and-value/primer-strategic-value.md) | Zeta CTO, Board, Product Leadership | ✅ Complete |
+| Document | Audience |
+|----------|----------|
+| [Overview](./00-hub-need-and-value/README.md) | All |
+| [Executive Primer](./00-hub-need-and-value/primer-executive.md) | Enterprise decision-makers |
+| [CIO Primer](./00-hub-need-and-value/primer-cio.md) | CIOs, CTOs, Enterprise Architects |
+| [Process Architect Primer](./00-hub-need-and-value/primer-process-architect.md) | Process Architects, Business Analysts |
+| [Developer Primer](./00-hub-need-and-value/primer-developer.md) | Developers, Solution Architects |
+| [Strategic Value Primer](./00-hub-need-and-value/primer-strategic-value.md) | Zeta Leadership (internal) |
 
 ### 01 - Core Concepts
 
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Introduction](./01-concepts/introduction.md) | High-level introduction to "Everything is Ops" philosophy | ✅ Complete |
-| [Ontology Reference](./01-concepts/ontology-reference.md) | Four-layer ontology: Perception → Normative → Execution → Automation | ✅ Complete |
-| [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) | Who should use Olympus Hub and where it delivers value | ✅ Complete |
-| [Hub Applications](./01-concepts/hub-applications.md) | Automation artifacts that execute Scenarios | 🔴 Stub |
+| Document | Description |
+|----------|-------------|
+| [Introduction](./01-concepts/introduction.md) | High-level introduction |
+| [Ontology Reference](./01-concepts/ontology-reference.md) | Four-layer ontology |
+| [Glossary](./01-concepts/glossary.md) | Key terminology |
+| [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) | Fit assessment |
+| [Collaborators](./01-concepts/collaborators.md) | Agent collaboration model |
+| [MCP Channel](./01-concepts/mcp-channel.md) | MCP integration |
 
 ### 02 - System Design
 
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Hub Architecture](./02-system-design/hub-architecture.md) | Detailed system architecture: Workbenches, Agents, Signals, Operations | 🟡 WIP |
-| [Implementation Concepts](./02-system-design/implementation-concepts/README.md) | Hub-specific concepts extending the ontology (42 concepts) | 🟡 WIP |
+| Document | Description |
+|----------|-------------|
+| [Hub Architecture](./02-system-design/hub-architecture.md) | System architecture |
+| [Design Philosophy](./02-system-design/hub-design-philosophy.md) | Theoretical foundations |
+| [Implementation Concepts](./02-system-design/implementation-concepts/README.md) | Hub-specific concepts (42+) |
+| [Agent Model](./02-system-design/agent-model.md) | Agent participation patterns |
+| [Views](./02-system-design/views/README.md) | Architectural perspectives |
 
 ### 03 - Operations
 
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Case Management](./03-operations/case-management.md) | Case management in the agentic world | ⚠️ Notes |
-
-*See [06 - UX Architecture](./06-ux-architecture/README.md) for user interaction channels*
+| Document | Description |
+|----------|-------------|
+| [Case Management](./03-operations/case-management.md) | Case management patterns |
 
 ### 04 - Subsystems
 
-> **Expansion Tracking:** See [stubs-todo.md](./stubs-todo.md) for stub expansion progress
-
-#### Signal Exchange (Data Plane)
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/signal-exchange/README.md) | Signal Exchange — routes signals to applications | 🔴 Stub |
-| [Message Envelope](./04-subsystems/signal-exchange/message-envelope.md) | Standard envelope for Application communication | 🔴 Stub |
-| [Trigger Evaluator](./04-subsystems/signal-exchange/trigger-evaluator.md) | Trigger matching and transformation | 🔴 Stub |
-| [Request Factory](./04-subsystems/signal-exchange/request-factory.md) | Request creation and updates | 🔴 Stub |
-| [Application Router](./04-subsystems/signal-exchange/application-router.md) | Routes Requests to Hub Applications | 🔴 Stub |
-| [Response Transformer](./04-subsystems/signal-exchange/response-transformer.md) | Response transformation for I/O Gateways | 🔴 Stub |
-| [Flow Controller](./04-subsystems/signal-exchange/flow-controller.md) | Flow control and store-and-forward | 🔴 Stub |
-| [Observer Notifications](./04-subsystems/signal-exchange/observer-notifications.md) | Async updates and notifications to observers | 🔴 Stub |
-
-#### Workbench Management (Control Plane)
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/workbench-management/README.md) | Workbench Management — Scenario, Trigger, Application definitions | 🔴 Stub |
-| [Workbench Lifecycle](./04-subsystems/workbench-management/workbench-lifecycle.md) | Workbench states and transitions | 🔴 Stub |
-| [Scenario Definitions](./04-subsystems/workbench-management/scenario-definitions.md) | Scenario configuration | 🔴 Stub |
-| [Trigger Definitions](./04-subsystems/workbench-management/trigger-definitions.md) | Trigger configuration | 🔴 Stub |
-| [Application Configuration](./04-subsystems/workbench-management/application-configuration.md) | Hub Application setup | 🔴 Stub |
-
-#### Automation Ideation
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/automation-ideation/README.md) | Idea → Intent → Charter lifecycle | 🟡 Draft |
-| [Idea Management](./04-subsystems/automation-ideation/idea-management.md) | Capture and triage ideas | 🟡 Draft |
-| [Intent Formalization](./04-subsystems/automation-ideation/intent-formalization.md) | APO formalizes business cases | 🟡 Draft |
-| [Charter Acceptance](./04-subsystems/automation-ideation/charter-acceptance.md) | PA accepts, design begins | 🟡 Draft |
-| [Outcome Tracking](./04-subsystems/automation-ideation/outcome-tracking.md) | Measure success, feedback loop | 🟡 Draft |
-
-#### Feedback Services
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/feedback-services/README.md) | Production feedback to development | 🟡 Draft |
-| [Feedback Entities](./04-subsystems/feedback-services/feedback-entities.md) | Problem and Feedback types | 🟡 Draft |
-| [Feedback Promotion](./04-subsystems/feedback-services/feedback-promotion.md) | Promotion flow and lineage | 🟡 Draft |
-| [Feedback Inbox](./04-subsystems/feedback-services/feedback-inbox.md) | APO inbox management | 🟡 Draft |
-| [Resolution Tracking](./04-subsystems/feedback-services/resolution-tracking.md) | Resolution lifecycle | 🟡 Draft |
-
-#### I/O Gateways (Signal Providers)
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/signal-providers/README.md) | I/O Gateway architecture and common responsibilities | 🟡 WIP |
-| [Atropos - Event Bus](./04-subsystems/signal-providers/atropos-event-bus.md) | Event signal gateway (Kafka, RabbitMQ) | 🟡 WIP |
-| [Cronus - Business Exceptions](./04-subsystems/signal-providers/cronus-business-exceptions.md) | Exception and Observation signal gateway | 🟡 WIP |
-| [Heracles - API Gateway](./04-subsystems/signal-providers/heracles-api-gateway.md) | HTTP/REST/MCP signal gateway | 🟡 WIP |
-| [Dia - File Gateway](./04-subsystems/signal-providers/dia-file-gateway.md) | File and batch input gateway | 🟡 WIP |
-| [Kale - Scheduler](./04-subsystems/signal-providers/kale-scheduler.md) | Time-based signal generator | 🟡 WIP |
-| [MS Teams](./04-subsystems/signal-providers/ms-teams-integration.md) | Copilot bots + chat collaboration (see dedicated subsystem) | 🔴 Stub |
-
-#### MS Teams Integration
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/ms-teams-integration/README.md) | MS Teams Integration — Copilots, Chat Groups, Signal Routing | 🟡 WIP |
-| [Bot Architecture](./04-subsystems/ms-teams-integration/bot-architecture.md) | Me_Bot, Ask_Bot, Signal Exchange Bot details | 🟡 WIP |
-| [Chat Group Lifecycle](./04-subsystems/ms-teams-integration/chat-group-lifecycle.md) | Request → Group mapping, membership, archival | 🟡 WIP |
-| [Message Flow](./04-subsystems/ms-teams-integration/message-flow.md) | Signal routing, direct services, responses | 🟡 WIP |
-| [FAQ](./04-subsystems/ms-teams-integration/ms-teams-integration-faq.md) | Design decisions and Q&A | 🟡 WIP |
-
-> **Note:** MS Teams Integration is more than a signal provider — it includes copilot bots for Agents/Supervisors/Business Employees, chat group orchestration for request collaboration, and direct services.
-
-#### Automation Runtimes (Hub Application Hosts)
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/automation-runtimes/README.md) | Automation Runtimes architecture | 🔴 Stub |
-| [Atlantis Runtime](./04-subsystems/automation-runtimes/atlantis-runtime.md) | Knative/KServe container runtime | 🔴 Stub |
-| [Perseus Batch Processing](./04-subsystems/automation-runtimes/perseus-batch-processing.md) | File, Map-Reduce, Complex Event applications | 🔴 Stub |
-| [Rhea Workflow Engine](./04-subsystems/automation-runtimes/rhea-workflow-engine.md) | BPMN workflow host | 🔴 Stub |
-| [ChronoShift Temporal](./04-subsystems/automation-runtimes/chronoshift-temporal.md) | Temporal-based durable workflow host | 🔴 Stub |
-| [Seer Case Automation](./04-subsystems/automation-runtimes/seer-case-automation.md) | Seer Agent Engine as Case Automation Runtime | 🔴 Stub |
-
-#### Memory Services
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/memory-services/README.md) | Memory Services architecture | 🟡 Draft |
-| [Agent Memory](./04-subsystems/memory-services/agent-memory/README.md) | Agent Memory persistence and management | 🟡 Draft |
-| [Enterprise Memory](./04-subsystems/memory-services/enterprise-memory/README.md) | Enterprise Memory persistence and management | 🟡 Draft |
-
-#### Cognitive Audit Fabric (CAF)
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/cognitive-audit-fabric/README.md) | CAF — Enterprise Memory Control Plane | 🔴 Stub |
-| [Decision Records](./04-subsystems/cognitive-audit-fabric/decision-records.md) | Decision journaling and rationale capture | 🔴 Stub |
-| [Explanation Service](./04-subsystems/cognitive-audit-fabric/explanation-service.md) | Explanation generation and narrative assembly | 🔴 Stub |
-| [Evidence Bundles](./04-subsystems/cognitive-audit-fabric/evidence-bundles.md) | Evidence packaging and context preservation | 🔴 Stub |
-
-#### Registry Services
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/registry-services/README.md) | Registry Services architecture | 🔴 Stub |
-| [Tool Registry](./04-subsystems/registry-services/tool-registry.md) | Tool catalog, schemas, permissions | 🔴 Stub |
-| [Machine Registry](./04-subsystems/registry-services/machine-registry.md) | Machine catalog and capabilities | 🔴 Stub |
-| [Environment Registry](./04-subsystems/registry-services/environment-registry.md) | Environment definitions and sandboxes | 🔴 Stub |
-
-#### Knowledge Services
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/knowledge-services/README.md) | Knowledge Services architecture | 🔴 Stub |
-| [Knowledge Bank](./04-subsystems/knowledge-services/knowledge-bank.md) | RAG, ingress pipelines, content retrieval | 🔴 Stub |
-
-#### Task Management
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/task-management/README.md) | Task Management architecture | 🔴 Stub |
-| [Task Queues](./04-subsystems/task-management/task-queues.md) | Task queue definitions and routing | 🔴 Stub |
-| [Task Lifecycle](./04-subsystems/task-management/task-lifecycle.md) | Task states and transitions | 🔴 Stub |
-| [Task Assignment](./04-subsystems/task-management/task-assignment.md) | Assignment to human and AI agents | 🔴 Stub |
-
-#### Request Management
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/request-management/README.md) | Request Management architecture | 🔴 Stub |
-| [Request Lifecycle](./04-subsystems/request-management/request-lifecycle.md) | Request states, updates, session boundary | 🔴 Stub |
-| [Request Storage](./04-subsystems/request-management/request-storage.md) | Request scope storage | 🔴 Stub |
-| [Request Entity Binding](./04-subsystems/request-management/request-entity-binding.md) | Request to Business Entity mapping | 🔴 Stub |
-
-#### Subscription Management
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/subscription-management/README.md) | Tenant administration subsystem | 🔴 Stub |
-| [Tenant Subscription Lifecycle](./04-subsystems/subscription-management/tenant-subscription-lifecycle.md) | Subscription states and transitions | 🔴 Stub |
-| [Resource Management](./04-subsystems/subscription-management/resource-management.md) | Resource allocation and provisioning | 🔴 Stub |
-| [Resource Configuration](./04-subsystems/subscription-management/resource-configuration.md) | Resource configuration per tenant | 🔴 Stub |
-| [Budget Management](./04-subsystems/subscription-management/budget-management.md) | Quotas, limits, usage tracking | 🔴 Stub |
-| [Branding and Themes](./04-subsystems/subscription-management/branding-themes.md) | Tenant customization and white-labeling | 🔴 Stub |
-| [Administrators Management](./04-subsystems/subscription-management/administrators-management.md) | Tenant admin access and permissions | 🔴 Stub |
-
-#### User Management
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/user-management/README.md) | User personas across all scopes | 🔴 Stub |
-| [Hub System Users](./04-subsystems/user-management/hub-system-users.md) | SRE and Customer Success (Publisher Domain) | 🔴 Stub |
-| [Tenant Subscription Users](./04-subsystems/user-management/tenant-subscription-users.md) | Administrators, Architects, Developers, Auditors | 🔴 Stub |
-| [Workbench Users](./04-subsystems/user-management/workbench-users.md) | Agents and Supervisors | 🔴 Stub |
-| [Tenant Customers](./04-subsystems/user-management/tenant-customers.md) | Self-serve users and policies | 🔴 Stub |
-| [Domain Management](./04-subsystems/user-management/domain-management.md) | Publisher and Tenant domains | 🔴 Stub |
-
-#### Hub Native Utilities
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/hub-native-utilities/README.md) | Native utilities overview | 🔴 Stub |
-| [Decision Tools](./04-subsystems/hub-native-utilities/decision-tools.md) | Drools, DMN, JS pure-function decision services (stateless) | 🔴 Stub |
-| [Prediction Tools](./04-subsystems/hub-native-utilities/prediction-tools.md) | ML Models via Elara/Kserve (stateless) | 🔴 Stub |
-| [CAF Integration](./04-subsystems/hub-native-utilities/caf-integration.md) | Automatic CAF compliance for Decision/Prediction tools | 🔴 Stub |
-| [Checklist Service](./04-subsystems/hub-native-utilities/checklist-service.md) | Workbench-scoped scheduled multi-operation governance | 🔴 Stub |
-| [Routine Service](./04-subsystems/hub-native-utilities/routine-service.md) | Agent-scoped scheduled operations (personal or assigned) | 🔴 Stub |
-| [Manual Task Application](./04-subsystems/hub-native-utilities/manual-task-application.md) | Pass-through app for manual tasks (1:1 Request-Task) | 🔴 Stub |
-
-#### Hub Analytics
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./04-subsystems/hub-analytics/README.md) | Operational data, aggregations, and Report Center integration | 🔴 Stub |
-
-> **Note:** Hub Analytics integrates with [Olympus LakeStack](./05-infrastructure/olympus-lakestack.md) for report building, publishing, and dispatching. Reports appear in the Reports Console of Agent Desk, Supervisor Desk, and Steward Desk.
-
-#### Supporting Systems
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Cipher IAM](./04-subsystems/supporting-systems/cipher-iam.md) | Agent identity and authorization (SPIFFE) | ⚠️ Notes |
-| [Hub Application APM](./04-subsystems/supporting-systems/hub-application-apm.md) | Application observability via Olympus Watch | 🔴 Stub |
+| Subsystem | Description |
+|-----------|-------------|
+| [Signal Exchange](./04-subsystems/signal-exchange/README.md) | Signal routing (data plane) |
+| [Workbench Management](./04-subsystems/workbench-management/README.md) | Workbench definitions (control plane) |
+| [Automation Ideation](./04-subsystems/automation-ideation/README.md) | Idea → Intent → Charter |
+| [Feedback Services](./04-subsystems/feedback-services/README.md) | Production feedback loop |
+| [I/O Gateways](./04-subsystems/signal-providers/README.md) | Signal providers |
+| [MS Teams Integration](./04-subsystems/ms-teams-integration/README.md) | Teams collaboration |
+| [Automation Runtimes](./04-subsystems/automation-runtimes/README.md) | Hub Application hosts |
+| [Memory Services](./04-subsystems/memory-services/README.md) | Agent and Enterprise Memory |
+| [Cognitive Audit Fabric](./04-subsystems/cognitive-audit-fabric/README.md) | Decision audit |
+| [Registry Services](./04-subsystems/registry-services/README.md) | Tool, Machine, Environment |
+| [Knowledge Services](./04-subsystems/knowledge-services/README.md) | Enterprise Knowledge |
+| [Task Management](./04-subsystems/task-management/README.md) | Task queues and lifecycle |
+| [Request Management](./04-subsystems/request-management/README.md) | Request lifecycle |
+| [Subscription Management](./04-subsystems/subscription-management/README.md) | Tenant administration |
+| [User Management](./04-subsystems/user-management/README.md) | User personas |
+| [Hub Native Utilities](./04-subsystems/hub-native-utilities/README.md) | Decision tools, routines |
+| [Hub Analytics](./04-subsystems/hub-analytics/README.md) | Operational analytics |
+| [Marketplace](./04-subsystems/marketplace/README.md) | Blueprints and packages |
 
 ### 05 - Infrastructure
 
-> **Note:** Hub is built on the Olympus Platform. Infrastructure primitives (Kubernetes, Kafka, PostgreSQL) are abstracted by platform services. See [Olympus Platform Dependencies](./05-infrastructure/olympus-platform-dependencies.md) for the complete picture.
-
-#### Platform Overview
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Olympus Platform Dependencies](./05-infrastructure/olympus-platform-dependencies.md) | Complete catalog of platform service dependencies | 🟡 WIP |
-
-#### API & Protocol Layer
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Heracles Gateway](./05-infrastructure/heracles-gateway.md) | Kong-based MCP gateway design | ✅ Complete |
-| [MCP Router](./05-infrastructure/mcp-router.md) | Tool orchestration and resource service | ✅ Complete |
-| [Cloudflare Edge](./05-infrastructure/cloudflare-edge.md) | Edge layer, CDN, DDoS protection | 🔴 Stub |
-
-#### Platform Notes
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Traffic Management](./05-infrastructure/traffic-management.md) | Istio, SLIME, Aeraki notes (via Atlantis) | ⚠️ Notes |
-
-#### Identity & Security
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Cipher IAM Infrastructure](./05-infrastructure/cipher-iam-infrastructure.md) | SPIFFE/SPIRE, identity, authentication | 🔴 Stub |
-
-#### Workflow Engine
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Temporal Cluster](./05-infrastructure/temporal-cluster.md) | Durable workflow engine (ChronoShift) | 🔴 Stub |
-
-#### Data Services (Olympus Platform)
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Ganymede RDBMS](./05-infrastructure/ganymede-rdbms.md) | Relational DBaaS — Hub internal + applications | 🔴 Stub |
-| [Callisto KV Store](./05-infrastructure/callisto-kv-store.md) | Key-Value store for applications | 🔴 Stub |
-| [Europa OpenSearch](./05-infrastructure/europa-opensearch.md) | Search and analytics (ELK-as-a-Service) | 🔴 Stub |
-| [Redis Cache](./05-infrastructure/redis-cache.md) | Caching and rate limiting | 🔴 Stub |
-| [Knowledge Bank Infrastructure](./05-infrastructure/knowledge-bank-infrastructure.md) | RAG and knowledge retrieval infrastructure | 🔴 Stub |
-
-#### Observability
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Olympus Watch](./05-infrastructure/olympus-watch.md) | Observability as a service (APM, logs, metrics, traces) | 🔴 Stub |
-
-#### Analytics
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Olympus LakeStack](./05-infrastructure/olympus-lakestack.md) | Analytics platform with Report Center | 🔴 Stub |
+| Document | Description |
+|----------|-------------|
+| [Platform Dependencies](./05-infrastructure/olympus-platform-dependencies.md) | Olympus Platform services |
+| [Heracles Gateway](./05-infrastructure/heracles-gateway.md) | MCP gateway |
+| [MCP Router](./05-infrastructure/mcp-router.md) | Tool orchestration |
+| [Data Services](./05-infrastructure/) | Ganymede, Callisto, Europa |
 
 ### 06 - UX Architecture
 
-> **Design Philosophy:** (Persona, Channel, Use Case) approach with headless access services and channel adapters.
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./06-ux-architecture/README.md) | UX Architecture — meta approach, applications by persona | 🟡 WIP |
-
-#### Applications by Persona
-
-| Application | Persona | Document | Status |
-|-------------|---------|----------|--------|
-| **Hub Control Center** | Tenant Admin | [hub-control-center.md](./06-ux-architecture/hub-control-center.md) | 🔴 Stub |
-| **Publisher Consoles** | SRE (Hub SRE Ops Center), Customer Success (Hub Win Ops Center) | [hub-sre-ops-center.md, hub-win-ops-center.md](./06-ux-architecture/hub-sre-ops-center.md, hub-win-ops-center.md) | 🔴 Stub |
-| **Automation Product Desk** | Automation Product Owner | [automation-product-desk.md](./06-ux-architecture/tenant-domain/automation-product-desk.md) | 🔴 Stub |
-| **Scenario Design Desk** | Process Architect | [scenario-design-desk.md](./06-ux-architecture/tenant-domain/scenario-design-desk.md) | 🔴 Stub |
-| **Automation Development Desk** | Developer | [automation-development-desk.md](./06-ux-architecture/tenant-domain/automation-development-desk.md) | 🔴 Stub |
-| **Hub Home** | Agent, Supervisor | [hub-home.md](./06-ux-architecture/hub-home.md) | 🔴 Stub |
-| **Agent Desk** | Agent | [agent-desk.md](./06-ux-architecture/agent-desk.md) | 🔴 Stub |
-| **Supervisor Desk** | Supervisor | [supervisor-desk.md](./06-ux-architecture/supervisor-desk.md) | 🔴 Stub |
-| **Steward Desk** | Workbench Admin | [steward-desk.md](./06-ux-architecture/steward-desk.md) | 🔴 Stub |
-| **Neutrino** | Business Customer | [neutrino-integration.md](./06-ux-architecture/neutrino-integration.md) | 🔴 Stub |
-
-#### UI Framework & Integration
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [MCP Gateways](./06-ux-architecture/mcp-gateways.md) | MCP architecture for AI integration | 🔴 Stub |
-| [Angelos Framework](./06-ux-architecture/angelos-framework.md) | UI component framework | 🔴 Stub |
-| [Hercules Launcher](./06-ux-architecture/hercules-launcher.md) | Launch URL service for deep linking | 🔴 Stub |
-| [User Interaction Channels](./06-ux-architecture/user-interaction-channels.md) | Subject interaction patterns | ⚠️ Notes |
+| Document | Description |
+|----------|-------------|
+| [Overview](./06-ux-architecture/README.md) | UX meta approach |
+| [Agent Desk](./06-ux-architecture/tenant-domain/agent-desk.md) | Agent application |
+| [Supervisor Desk](./06-ux-architecture/tenant-domain/supervisor-desk.md) | Supervisor application |
+| [Hub Home](./06-ux-architecture/tenant-domain/hub-home.md) | Landing experience |
 
 ### 07 - Data Architecture
 
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./07-data-architecture/README.md) | Data architecture overview | 🟡 WIP |
-| [Storage Architecture](./07-data-architecture/storage-architecture.md) | Layered storage model with selection guide | 🟡 WIP |
-| [Application Data Stores](./07-data-architecture/application-data-stores.md) | Ganymede, Callisto, Europa for applications | 🔴 Stub |
-| [Storage FAQ](./07-data-architecture/storage-faq.md) | Common questions for architects and developers | ✅ Complete |
+| Document | Description |
+|----------|-------------|
+| [Overview](./07-data-architecture/README.md) | Data architecture |
+| [Storage Architecture](./07-data-architecture/storage-architecture.md) | Layered storage model |
 
 ### 08 - Personas and Journeys
 
-> **Purpose:** Who uses Olympus Hub and how they accomplish their objectives.
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./08-personas-and-journeys/README.md) | Persona and journey index, visual summary | 🟡 WIP |
-
-#### Hub Personas
-
-| Category | Personas | Status |
-|----------|----------|--------|
-| **Hub System (Publisher)** | [SRE](./08-personas-and-journeys/personas/sre.md), [Customer Success](./08-personas-and-journeys/personas/customer-success.md) | 🔴 Stub |
-| **Workbench Designers** | [Process Architect](./08-personas-and-journeys/personas/process-architect.md), [Developer](./08-personas-and-journeys/personas/developer.md) | 🔴 Stub |
-| **Workbench Operations** | [Supervisor](./08-personas-and-journeys/personas/supervisor.md), [Agent](./08-personas-and-journeys/personas/agent.md) | 🔴 Stub |
-| **Tenant Administration** | [Administrator](./08-personas-and-journeys/personas/administrator.md), [Auditor](./08-personas-and-journeys/personas/auditor.md) | 🔴 Stub |
-
-#### Business Domain Actors
-
-| Actor | Request Type | Status |
-|-------|--------------|--------|
-| [Business Customer](./08-personas-and-journeys/personas/business-domain/business-customer.md) | Service Request | 🔴 Stub |
-| [Business Employee](./08-personas-and-journeys/personas/business-domain/business-employee.md) | Business Request | 🔴 Stub |
-| [Business System](./08-personas-and-journeys/personas/business-domain/business-system-actor.md) | System Request | 🔴 Stub |
-
-#### Journeys
-
-| Document | Personas Involved | Status |
-|----------|-------------------|--------|
-| [Scenario Development](./08-personas-and-journeys/journeys/scenario-development.md) | Process Architect → Developer → Supervisor | 🟡 WIP |
-| [Workbench Configuration](./08-personas-and-journeys/journeys/workbench-configuration.md) | Administrator → Process Architect → Supervisor | 🔴 Stub |
-| [Request Lifecycle](./08-personas-and-journeys/journeys/request-lifecycle.md) | Business Actor → Signal → Application → Agent | 🔴 Stub |
-| [Audit Investigation](./08-personas-and-journeys/journeys/audit-investigation.md) | Auditor | 🔴 Stub |
+| Document | Description |
+|----------|-------------|
+| [Overview](./08-personas-and-journeys/README.md) | Persona and journey index |
+| [Personas](./08-personas-and-journeys/personas/) | Process Architect, Developer, Supervisor, Agent, etc. |
+| [Journeys](./08-personas-and-journeys/journeys/) | Scenario Development, Request Lifecycle, etc. |
 
 ### 09 - Composite Systems and Patterns
 
-> **Purpose:** Patterns for composing Workbenches, Scenarios, and Applications to create sophisticated solutions.
-
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./09-composite-systems-and-patterns/README.md) | Composite pattern philosophy and index | 🟡 WIP |
-| [Scenario as an Agent](./09-composite-systems-and-patterns/scenario-as-an-agent.md) | Publish Scenario as Agent for task completion | 🟡 WIP |
-
-*Coming soon: Scenario as a Tool, Workbench as a Machine*
+| Document | Description |
+|----------|-------------|
+| [Overview](./09-composite-systems-and-patterns/README.md) | Composite pattern philosophy |
+| [DevOps Workbench](./09-composite-systems-and-patterns/devops-workbench/README.md) | Development automation |
+| [Scenario as Agent](./09-composite-systems-and-patterns/scenario-as-an-agent.md) | Agent composition |
 
 ### 10 - Guides
 
-| Document | Description | Status |
-|----------|-------------|--------|
-| [Overview](./10-guides/README.md) | Guide index and reading order | 🟡 WIP |
-| [Subscription Configuration Guide](./10-guides/subscription-configuration-guide.md) | Complete subscription configuration | 🟡 WIP |
-| [Workbench Setup Guide](./10-guides/workbench-setup-guide.md) | Workbench configuration for a business domain | 🟡 WIP |
-| [Signal Configuration Guide](./10-guides/signal-configuration-guide.md) | Define signals, filters, and triggers | 🟡 WIP |
+| Document | Description |
+|----------|-------------|
+| [Overview](./10-guides/README.md) | Guide index |
+| [Hub Development Flow](./10-guides/hub-development-flow/README.md) | Development model |
+| [Idea to Deployment](./10-guides/idea-to-deployment-guide.md) | 10-stage pipeline |
+| [Workbench Setup](./10-guides/workbench-setup-guide.md) | Workbench configuration |
 
-*Coming soon: Application Development Guide, Integration Guide, Agent Onboarding Guide*
+### 11 - Decision Frameworks
+
+| Document | Description |
+|----------|-------------|
+| [Overview](./11-decision-frameworks/README.md) | Decision framework index |
+| [Scenario-Oriented Thinking](./11-decision-frameworks/scenario-oriented-thinking/scenario-oriented-thinking.md) | Core design approach |
+
+### AOSM and Hub
+
+| Document | Description |
+|----------|-------------|
+| [Overview](./aosm-and-hub/README.md) | AOSM implementation |
+| [AOSM Concepts](./aosm-and-hub/) | Agent-Oriented Systems Modeling |
 
 ### Decision Logs
 
 | Document | Description |
 |----------|-------------|
-| [Decision Log Index](./decision-logs/README.md) | Architecture Decision Records (ADRs) |
-
-### Project Tracking
-
-| Document | Description |
-|----------|-------------|
-| [Todo](./Todo.md) | Outstanding documentation tasks |
-| [Stubs Todo](./stubs-todo.md) | Subsystem stub expansion tracker |
+| [Decision Log Index](./decision-logs/README.md) | Architecture Decision Records |
 
 ---
 
-## 🗺️ Quick Start Reading Order
-
-1. **Start here:** [Introduction](./01-concepts/introduction.md) - Understand "Everything is Ops"
-2. **Deep dive:** [Ontology Reference](./01-concepts/ontology-reference.md) - The conceptual foundation
-3. **Evaluate fit:** [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) - Is Olympus Hub right for you?
-4. **Who uses it:** [Personas and Journeys](./08-personas-and-journeys/README.md) - Actors and workflows
-5. **Technical details:** [Hub Architecture](./02-system-design/hub-architecture.md) - Architecture and components
-
----
-
-## 🏗️ Key Concepts
-
-### The Operational Pattern
-
-```
-Signal → Trigger → Request → Scenario → Hub Application → Activities → Actions
-  │                                          │
-  └──────────────────────────────────────────┘
-           (via Signal Exchange)
-```
-
-### Four-Layer Architecture
-
-| Layer | Question | Concepts |
-|-------|----------|----------|
-| **Perception** | What's happening? | Domain, Environment, Machine, Sensors, Signal, Trigger, Scenario |
-| **Normative** | What ought to be done? | Role, Goal, SOP, Responsibility, Capability, Decision |
-| **Execution** | How is it done? | Procedure, Workflow, Case, Activities, Actions, Agent |
-| **Automation** | How is it codified? | Automation, Automation Runtime, Tools, Actuators |
-
----
-
-## 📁 Folder Structure
-
-```
-olympus-hub-docs/
-├── README.md                    # This file - navigation hub
-├── Todo.md                      # Outstanding tasks
-├── stubs-todo.md                # Stub expansion tracker
-├── assets/                      # Images and diagrams
-│
-├── 00-hub-need-and-value/       # Value proposition primers
-│   ├── README.md
-│   ├── primer-cio.md
-│   ├── primer-process-architect.md
-│   ├── primer-developer.md
-│   └── primer-strategic-value.md
-│
-├── 01-concepts/                 # Conceptual foundations
-│   ├── introduction.md
-│   ├── ontology-reference.md
-│   └── olympus-hub-applicability-guide.md
-│
-├── 02-system-design/            # System architecture
-│   ├── hub-architecture.md
-│   └── implementation-concepts/    # 42 Hub-specific implementation concepts
-│
-├── 03-operations/               # Operational patterns
-│   └── case-management.md
-│
-├── 04-subsystems/               # Hub subsystems
-│   ├── signal-exchange/            # Data plane: signal → application routing
-│   ├── workbench-management/    # Control plane: Workbench definitions
-│   ├── signal-providers/        # I/O Gateways
-│   ├── automation-runtimes/      # Hub Application hosts
-│   ├── memory-services/         # Agent & Enterprise Memory
-│   ├── cognitive-audit-fabric/  # CAF - audit & explanation
-│   ├── registry-services/       # Tool, Machine, Environment registries
-│   ├── knowledge-services/      # Enterprise Knowledge / RAG
-│   ├── task-management/         # Task queues, lifecycle, assignment
-│   ├── request-management/      # Request lifecycle, storage, binding
-│   ├── subscription-management/ # Tenant administration
-│   ├── user-management/         # User personas and domains
-│   ├── hub-analytics/           # Operational analytics & Report Center
-│   └── supporting-systems/      # Cipher IAM
-│
-├── 05-infrastructure/           # Platform infrastructure
-│   ├── olympus-platform-dependencies.md  # Platform services catalog
-│   ├── heracles-gateway.md      # MCP gateway (Kong)
-│   ├── mcp-router.md      # Tool orchestration
-│   ├── cloudflare-edge.md       # Edge layer
-│   ├── traffic-management.md    # Traffic notes (via Atlantis)
-│   ├── cipher-iam-infrastructure.md  # SPIFFE/SPIRE
-│   ├── temporal-cluster.md      # Durable workflows
-│   ├── ganymede-rdbms.md        # Relational DBaaS (Hub + Apps)
-│   ├── callisto-kv-store.md     # Key-value store
-│   ├── europa-opensearch.md     # Search/analytics
-│   ├── redis-cache.md           # Caching
-│   ├── knowledge-bank-infrastructure.md  # RAG infra
-│   ├── olympus-watch.md         # Observability
-│   └── olympus-lakestack.md     # Analytics & Report Center
-│
-├── 06-ux-architecture/          # UX & User Applications
-│   ├── README.md
-│   └── user-interaction-channels.md
-│
-├── 07-data-architecture/        # Data Architecture
-│   ├── README.md
-│   └── storage-architecture.md
-│
-├── 08-personas-and-journeys/    # Personas and Journeys
-│   ├── README.md
-│   ├── personas/
-│   │   ├── process-architect.md     # Workbench Designer
-│   │   ├── developer.md             # Workbench Designer
-│   │   ├── supervisor.md            # Workbench Operations
-│   │   ├── agent.md                 # Workbench Operations
-│   │   ├── administrator.md         # Tenant Administration
-│   │   ├── auditor.md               # Tenant Administration
-│   │   ├── sre.md                   # Hub System (Publisher)
-│   │   ├── customer-success.md      # Hub System (Publisher)
-│   │   └── business-domain/         # Business Domain Actors
-│   │       ├── business-customer.md
-│   │       ├── business-employee.md
-│   │       └── business-system-actor.md
-│   └── journeys/
-│       ├── scenario-development.md
-│       ├── workbench-configuration.md
-│       ├── request-lifecycle.md
-│       └── audit-investigation.md
-│
-├── 09-composite-systems-and-patterns/  # Composite Patterns
-│   ├── README.md
-│   └── scenario-as-an-agent.md
-│
-├── 10-guides/                   # Practical Guides
-│   ├── README.md
-│   ├── subscription-configuration-guide.md
-│   ├── workbench-setup-guide.md
-│   └── signal-configuration-guide.md
-│
-└── decision-logs/               # Architecture Decision Records
-    ├── README.md
-    ├── 0001-signal-normalization.md
-    ├── 0002-scenario-specification-types.md
-    └── ...
-```
-
----
-
-## 🔗 Related Projects
+## Related Projects
 
 | Project | Description |
 |---------|-------------|
-| **Olympus Seer** | AI Agent hosting platform — Agent lifecycle, runtime, and control plane |
+| **Olympus Seer** | AI Agent hosting platform — Agent lifecycle, runtime, control plane |
 | **Neutrino** | Customer interaction channels |
 | **Angelos** | UI component framework |
 | **Cipher** | Identity and Access Management |
 
 ---
 
-## 📝 Document Status Legend
+## Document Status Legend
 
 | Status | Meaning |
 |--------|---------|
 | ✅ Complete | Ready for use |
-| 🟡 WIP | Work in progress, usable but incomplete |
-| ⚠️ Notes | Raw notes, needs structuring |
-| 🔴 Stub | Placeholder only |
+| 🟡 WIP | Work in progress |
+| ⚠️ Notes | Raw notes |
+| 🔴 Stub | Placeholder |

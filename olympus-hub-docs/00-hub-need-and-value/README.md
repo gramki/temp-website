@@ -1,67 +1,64 @@
-# Olympus Hub: Need and Value
+# Hub Value Proposition
 
-> **Purpose:** Primers explaining the value proposition of Olympus Hub for different stakeholders.
+> **To empower organizations to reimagine information-centric work through governed AI-Human collaboration**
 
-===========================================
-> TODO: NEED TO SIGNIFICANTLY ENHANCE THIS SECTION
-> SERVES AS MATTER-OF-FACT START
-===========================================
+---
+
+## The Vision
+
+Hub exists to close the gap between AI capability and operational value. 
+
+AI can reason, decide, and act — but without infrastructure, it remains a demo. Hub provides that infrastructure: the context that grounds AI in your domain, the structure that guides collaboration, the memory that accumulates learning, and the governance that ensures trust.
+
+[Read the full Vision and Mission →](../00-_why/vision.md)
+
+---
+
+## The Mission
+
+> **We build the infrastructure that makes AI-Human collaboration operational: context that grounds, structure that guides, memory that learns, and governance that secures trust.**
+
+These four pillars are what make AI useful — not just capable:
+
+| Pillar | What it provides |
+|--------|------------------|
+| **Context** | Domain knowledge, entity relationships, grounding in your reality |
+| **Structure** | Scenarios, triggers, delegation, escalation patterns |
+| **Memory** | Organizational learning that accumulates across decisions |
+| **Governance** | Accountability, audit, human oversight, trust |
+
 ---
 
 ## Who Should Read These Primers?
 
-| Primer | Audience | Question Answered |
-|--------|----------|-------------------|
-| [CIO Primer](./primer-cio.md) | Enterprise CIOs, CTOs, Enterprise Architects | Should we adopt Hub as our operations platform? |
-| [Process Architect Primer](./primer-process-architect.md) | Process Architects, Business Analysts, BPM Practitioners | Can Hub capture and automate my business processes? |
+Each primer answers a specific question for a specific audience:
+
+| Primer | Audience | Key Question |
+|--------|----------|--------------|
+| [Executive Primer](./primer-executive.md) | Enterprise decision-makers | What business value does Hub deliver? |
+| [CIO Primer](./primer-cio.md) | CIOs, CTOs, Enterprise Architects | Should we adopt Hub as our operations platform? |
+| [Process Architect Primer](./primer-process-architect.md) | Process Architects, Business Analysts | How does Hub model and amplify my work? |
 | [Developer Primer](./primer-developer.md) | Developers, Solution Architects | How do I build applications on Hub? |
-| [Strategic Value Primer](./primer-strategic-value.md) | Zeta CTO, Board, Product Leadership | Why should we build and sell this platform? |
-
----
-
-## The Core Problem
-
-Enterprises struggle with:
-
-1. **Fragmented Operations** — Business processes span multiple systems with no unified view
-2. **Manual Coordination** — Human effort wasted on routing, tracking, and handoffs
-3. **AI Integration Gap** — AI capabilities exist but aren't integrated into operational workflows
-4. **Compliance Burden** — Audit requirements met through after-the-fact documentation
-
----
-
-## The Olympus Hub Solution
-
-**Olympus Hub** is an operations management platform that:
-
-- **Unifies operations** across any business domain
-- **Enables human-AI collaboration** with clear accountability
-- **Provides built-in audit** with explainability
-- **Scales from simple to complex** scenarios
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                       VALUE PROPOSITION                                      │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│   BEFORE HUB                           WITH HUB                              │
-│   ──────────                           ────────                              │
-│                                                                              │
-│   • Processes in spreadsheets          • Scenarios in Workbenches           │
-│   • Manual task routing                • Intelligent task assignment        │
-│   • AI as separate tools               • AI agents as team members          │
-│   • Audit via documentation            • Built-in decision audit            │
-│   • Channel-specific handling          • Channel-agnostic operations        │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+| [Strategic Value Primer](./primer-strategic-value.md) | Zeta Leadership (internal) | Why should Zeta build and sell this platform? |
 
 ---
 
 ## Reading Order
 
-1. **Start with your role** — Read the primer for your persona
-2. **Explore concepts** — [Introduction](../01-concepts/introduction.md) for "Everything is Ops"
-3. **Understand architecture** — [Hub Architecture](../02-system-design/hub-architecture.md) for technical details
-4. **See it in action** — [Personas and Journeys](../08-personas-and-journeys/README.md) for workflows
+**Start with your role** — Read the primer that matches your perspective.
 
+**Then go deeper:**
+
+1. [Foundational Beliefs](../00-_why/foundational-beliefs.md) — The thinking behind Hub
+2. [Vision and Mission](../00-_why/vision.md) — The aspiration and purpose
+3. [Hub Architecture](../02-system-design/hub-architecture.md) — How it all fits together
+
+---
+
+## Related
+
+- [Foundational Beliefs](../00-_why/foundational-beliefs.md) — Why Hub is designed the way it is
+- [Vision and Mission](../00-_why/vision.md) — The aspiration
+- [Introduction](../01-concepts/introduction.md) — High-level overview
+- [Applicability Guide](../01-concepts/olympus-hub-applicability-guide.md) — Where Hub fits
+- [Glossary](../01-concepts/glossary.md) — Key terminology

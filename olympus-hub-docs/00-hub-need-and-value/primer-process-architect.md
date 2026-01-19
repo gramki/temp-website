@@ -1,328 +1,229 @@
-# Process Architect Primer: Hub as Your BPM Solution
+# Process Architect Primer: Your Expertise, Amplified
 
-> **Audience:** Process Architects, Business Analysts, and BPM practitioners evaluating Hub for capturing business process requirements and automating them.
-
----
-
-## Executive Summary
-
-**Olympus Hub** provides a modern approach to business process management where processes become **executable Scenarios** that combine human expertise with AI capabilities. Unlike traditional BPM tools, Hub treats operations holistically—capturing not just the workflow, but the roles, goals, decisions, and knowledge needed for effective execution.
-
-**Key Value:** Your process designs become living, executable operations with built-in flexibility for human judgment and AI assistance.
+> **Audience:** Process Architects, Business Analysts, and BPM practitioners
 
 ---
 
-## The BPM Challenges You Face
+## The Frustration You Know
 
-### The Gap Between Design and Execution
+You've been here before:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    TRADITIONAL BPM CHALLENGE                                 │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│   DESIGN PHASE                         EXECUTION REALITY                     │
-│   ────────────                         ─────────────────                     │
-│                                                                              │
-│   ┌─────────────────────┐             ┌─────────────────────┐               │
-│   │  Process Diagram    │             │  Real Exceptions    │               │
-│   │  (Happy Path)       │             │  Not in Model       │               │
-│   └─────────────────────┘             └─────────────────────┘               │
-│                                                                              │
-│   ┌─────────────────────┐             ┌─────────────────────┐               │
-│   │  Rigid Workflow     │             │  Human Judgment     │               │
-│   │  Steps              │             │  Needed             │               │
-│   └─────────────────────┘             └─────────────────────┘               │
-│                                                                              │
-│   ┌─────────────────────┐             ┌─────────────────────┐               │
-│   │  Document-Based     │             │  Tribal Knowledge   │               │
-│   │  SOPs               │             │  Rules              │               │
-│   └─────────────────────┘             └─────────────────────┘               │
-│                                                                              │
-│   Pain Points:                                                               │
-│   • Processes are too rigid or too vague                                    │
-│   • Edge cases fall outside the model                                       │
-│   • Human expertise isn't captured in the system                            │
-│   • AI can't participate meaningfully                                       │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+- **You design processes; they get lost in translation to IT** — what you envisioned is not what got built
+- **Your knowledge lives in documents nobody reads** — SOPs gather dust while tribal knowledge rules
+- **Edge cases and exceptions defeat your models** — reality is messier than flowcharts
+- **AI is happening around you, not through you** — teams experiment without your designs
+- **You model tasks, but work is really about judgment** — procedures can't capture expertise
 
 ---
 
-## How Hub Approaches Process Management
+## The Shift: From Procedures to Situations
 
-### Scenarios, Not Just Workflows
+Traditional process modeling assumes you can predict every step in advance. Define the flowchart. Assign the tasks. Execute the sequence.
 
-Hub introduces the concept of **Scenarios** — recognizable operational situations that need response. Unlike rigid workflows, Scenarios define:
+But real work doesn't operate that way. Real work is:
 
-| Element | What It Captures |
-|---------|------------------|
-| **Roles** | Who is responsible (not just "a user") |
-| **Goals** | What outcomes we're trying to achieve |
-| **SOPs** | How to handle the situation |
-| **Decision Criteria** | How to make judgment calls |
-| **Compliance** | Regulatory requirements |
+- **Situations that need resolution** — not tasks that need execution
+- **Judgment applied in context** — not procedures followed blindly
+- **Goals achieved through collaboration** — not boxes checked in sequence
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    SCENARIO = COMPLETE OPERATIONAL CONTEXT                   │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│   Scenario: "Standard Dispute Resolution"                                    │
-│                                                                              │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │  NORMATIVE (What ought to be done)                                   │   │
-│   │                                                                      │   │
-│   │  Roles:           Goals:                 SOPs:                       │   │
-│   │  • Dispute Analyst • Resolve in 72h     • SOP-Investigation         │   │
-│   │  • Supervisor      • Fair decision      • SOP-Communication          │   │
-│   │                    • Document findings  • SOP-Decision               │   │
-│   │                                                                      │   │
-│   │  Decision Criteria:                     Compliance:                  │   │
-│   │  • Liability matrix                     • Reg E requirements        │   │
-│   │  • Evidence requirements                • 10-day provisional credit  │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │  AUTOMATION (How it's codified)                                      │   │
-│   │                                                                      │   │
-│   │  Hub Application:  Triggers:              Tools:                     │   │
-│   │  • dispute-handler • dispute.filed        • transaction-lookup      │   │
-│   │                    • document.uploaded    • customer-notification    │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │  DEPLOYMENT (How it's operationalized)                               │   │
-│   │                                                                      │   │
-│   │  Queues:            SLAs:                Agents:                     │   │
-│   │  • tier-1-disputes  • 72h completion     • dispute-analysts pool    │   │
-│   │  • supervisor-queue • 48h warning        • AI dispute agent         │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+This is always how work actually operated. We've just been modeling it wrong.
+
+### What Changes
+
+| Traditional Model | Situation-Oriented Model |
+|-------------------|--------------------------|
+| Define procedures | Define **goals** |
+| Assign tasks | Specify **roles and responsibilities** |
+| Script the happy path | Describe **decision criteria** |
+| Handle exceptions separately | Build in **judgment and escalation** |
+| Hope it gets implemented | **Your design is the system** |
 
 ---
 
-## Value for Process Architects
+## What This Means for You
 
-### 1. Express Process Intent, Not Just Steps
+### Your Designs Become Executable
 
-| Traditional BPM | Hub Approach |
-|-----------------|--------------|
-| "Task 1 → Task 2 → Decision → Task 3" | "Analyst should investigate, document findings, and recommend resolution" |
-| Rigid sequence | Goal-directed with flexibility |
-| Hard to accommodate exceptions | Built-in escalation and judgment |
+In Hub, a **Scenario** is not documentation — it's operational.
 
-### 2. Capture the Complete Picture
+When you define a Scenario, you specify:
+- **Roles** — who is responsible, what are their goals
+- **Decision criteria** — how to make judgment calls
+- **SOPs** — linked procedures that guide agents in real-time
+- **Escalation patterns** — what happens when judgment is needed
+- **Compliance requirements** — regulatory constraints built in
 
-**Your process documentation becomes executable:**
+Your design *is* the system. Not a description of what the system should do — the actual operational definition.
+
+### Your Expertise Becomes Infrastructure
+
+The knowledge you capture doesn't sit in documents. It becomes **operational infrastructure**:
+
+- **Decision criteria you define** guide human and AI agents in the moment
+- **SOPs you write** are referenced in real-time, not filed away
+- **Your knowledge accumulates** as organizational memory
+
+When an agent handles a dispute, they see your SOP. When AI makes a recommendation, it references your decision criteria. Your expertise is operationalized.
+
+### AI Works Through Your Designs
+
+AI doesn't bypass you. It works through the structures you define:
+
+- **You specify when AI can act autonomously** — within your governance
+- **You define escalation patterns** — when AI should defer to humans
+- **AI becomes a team member you design for** — not a tool you react to
+
+The Scenario you design governs how human and AI agents collaborate. AI doesn't exist outside your architecture — it participates within it.
+
+### Your Models Handle Reality
+
+Goal-oriented Scenarios accommodate the messiness of real work:
+
+- Agents apply **judgment within your guardrails** — not rigid sequences
+- **Exceptions don't break the model** — they're anticipated
+- **The model flexes; the intent persists** — goals over procedures
+
+---
+
+## What You Can Now Do
+
+| Before | Now |
+|--------|-----|
+| Document processes | Define **executable Scenarios** |
+| Hope IT implements correctly | **See your design in operation** |
+| Write SOPs nobody reads | SOPs **guide agents in real-time** |
+| Model happy paths | Model **situations with judgment** |
+| React to AI initiatives | **Design human-AI collaboration** |
+| Capture knowledge in documents | Knowledge becomes **operational memory** |
+
+---
+
+## How Hub Works (The Mechanics)
+
+### The Three Specifications
+
+Hub separates concerns cleanly:
+
+| Specification | Owner | Focus |
+|---------------|-------|-------|
+| **Normative Spec** | You (Process Architect) | What ought to be done — roles, goals, SOPs, decisions |
+| **Automation Spec** | Developer | How it's codified — application logic, tool bindings |
+| **Deployment Spec** | Supervisor | How it's operationalized — queues, SLAs, agent enrollment |
+
+You focus on the "what" — the goals, the roles, the judgment criteria. Developers implement the "how." Supervisors configure the deployment.
+
+### A Scenario Example
 
 ```yaml
-# Scenario Normative Specification (Your Design)
 scenario:
-  name: standard-dispute
+  name: standard-dispute-resolution
   
   roles:
     - name: dispute-analyst
       goals:
         - "Investigate dispute within 24 hours"
         - "Document all findings"
-        - "Make fair determination"
+        - "Make fair determination based on evidence"
       responsibilities:
         - "Review transaction history"
         - "Contact customer for clarification"
         - "Gather evidence from merchant"
-        
-  sops:
-    - ref: sop-dispute-investigation
-    - ref: sop-customer-communication
     
   decision_criteria:
     - name: liability-determination
       description: "How to determine who bears liability"
       document_ref: dispute-liability-matrix
       
-  evidence_requirements:
-    - type: transaction-history
-      mandatory: true
-    - type: customer-statement
-      mandatory: true
-    - type: merchant-response
-      mandatory: false
+  sops:
+    - ref: sop-dispute-investigation
+    - ref: sop-customer-communication
+    
+  escalation:
+    - condition: "amount > 5000"
+      escalate_to: supervisor
+    - condition: "fraud_suspected"
+      escalate_to: fraud-specialist
+      
+  compliance:
+    - requirement: "Reg E provisional credit"
+      description: "Issue provisional credit within 10 days if eligible"
 ```
 
-### 3. Enable Human-AI Collaboration
+### Scenarios, Not Workflows
 
-**Design for both human and AI agents:**
+Traditional workflows define sequences. Scenarios define goals.
 
-| Agent Type | What They Handle |
-|------------|------------------|
-| **AI Agent** | Initial triage, data gathering, pattern recognition |
-| **Human Agent** | Judgment calls, customer communication, complex cases |
-| **Supervisor** | Escalations, quality review, exception handling |
-
-Your Scenario design specifies when AI can act autonomously and when human judgment is needed.
-
-### 4. Built-in Flexibility
-
-**Three types of operations for different needs:**
-
-| Type | When to Use | Example |
-|------|-------------|---------|
-| **Procedure** | Deterministic, single-role | Password reset |
-| **Workflow** | Multi-role, predictable flow | Loan approval |
-| **Case** | Non-deterministic, evolving | Dispute investigation |
-
-You choose the right model for each Scenario.
+| Workflow | Scenario |
+|----------|----------|
+| Step 1 → Step 2 → Decision → Step 3 | Goal: Resolve dispute fairly |
+| Rigid sequence | Flexible collaboration toward goal |
+| Prescribes how | Describes what ought to be achieved |
+| Hard to accommodate exceptions | Judgment and escalation built in |
 
 ---
 
-## The Design-to-Execution Flow
+## Your Journey
 
-### Your Journey as Process Architect
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    PROCESS ARCHITECT JOURNEY                                 │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│   1. ANALYZE                           2. DESIGN                             │
-│   ────────                             ────────                              │
-│   Understand the                       Create Scenario                       │
-│   operational situation                Normative Spec                        │
-│                                                                              │
-│   • What triggers this?                • Define roles and goals              │
-│   • Who is involved?                   • Document SOPs                       │
-│   • What decisions are made?           • Specify decision criteria           │
-│   • What are the goals?                • Set compliance requirements         │
-│                                                                              │
-│                           ▼                                                  │
-│                                                                              │
-│   3. HANDOFF                           4. VALIDATE                           │
-│   ────────                             ────────                              │
-│   Developer builds                     Review in staging                     │
-│   automation                           with real scenarios                   │
-│                                                                              │
-│   • Application implementation         • Test edge cases                     │
-│   • Tool integrations                  • Validate with operators            │
-│   • Trigger configurations             • Refine based on feedback            │
-│                                                                              │
-│                           ▼                                                  │
-│                                                                              │
-│   5. OPERATE                           6. EVOLVE                             │
-│   ───────                              ────────                              │
-│   Monitor in                           Update based on                       │
-│   production                           learnings                             │
-│                                                                              │
-│   • Track SLA compliance               • Change Normative Spec              │
-│   • Review decisions                   • Developer updates automation       │
-│   • Gather feedback                    • Promote new version                │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Three-Specification Model
-
-Hub separates process design from implementation:
-
-| Specification | Owner | Focus |
-|---------------|-------|-------|
-| **Normative Spec** | Process Architect (You) | What ought to be done |
-| **Automation Spec** | Developer | How it's codified |
-| **Deployment Spec** | Supervisor | How it's operationalized |
-
-**Benefit:** You focus on the "what" without worrying about the "how." Developers implement your design. Changes to your Normative Spec don't require changing automation code.
-
----
-
-## Comparison with Traditional BPM
-
-| Aspect | Traditional BPM | Hub Approach |
-|--------|-----------------|--------------|
-| **Process Model** | Flowchart with tasks | Scenario with roles, goals, SOPs |
-| **Flexibility** | Rigid paths | Goal-directed with judgment |
-| **Human Role** | Task executor | Goal-oriented agent |
-| **AI Role** | Limited/separate | First-class team member |
-| **Exceptions** | Separate handling | Built-in escalation |
-| **Knowledge** | Separate documents | Linked SOPs and decision criteria |
-| **Audit** | Activity logs | Decision records with explanation |
-
----
-
-## Real-World Scenario Example
-
-### Dispute Resolution Process
-
-**Traditional BPM Approach:**
+### The Design-to-Execution Flow
 
 ```
-Receive Dispute → Assign to Agent → Investigate → Document → Decide → Notify
-```
+ANALYZE                          DESIGN
+────────                         ────────
+Understand the                   Create Scenario
+operational situation            Normative Spec
 
-**Hub Scenario Approach:**
+• What triggers this?            • Define roles and goals
+• Who is involved?               • Document SOPs
+• What decisions are made?       • Specify decision criteria
+• What are the goals?            • Set compliance requirements
 
-```
-SCENARIO: Standard Dispute Resolution
+              ↓
 
-WHEN: Customer files dispute (trigger: dispute.filed)
+HANDOFF                          VALIDATE
+────────                         ────────
+Developer builds                 Review in staging
+automation                       with real scenarios
 
-THEN:
-  ROLES:
-    - Dispute Analyst: Investigate, recommend
-    - Supervisor: Review high-value, approve exceptions
-    
-  GOALS:
-    - Resolve within 72 hours
-    - Fair determination based on evidence
-    - Complete documentation for audit
-    
-  DECISION GUIDANCE:
-    - Use liability matrix for determination
-    - Escalate if value > $5000
-    - Provisional credit per Reg E if eligible
-    
-  AUTOMATION:
-    - AI Agent handles initial data gathering
-    - Human reviews AI recommendation
-    - System enforces evidence requirements
-    
-  COMPLIANCE:
-    - All decisions logged with rationale
-    - Evidence bundle created automatically
+• Application implementation     • Test edge cases
+• Tool integrations              • Validate with operators
+• Trigger configurations         • Refine based on feedback
+
+              ↓
+
+OPERATE                          EVOLVE
+───────                          ────────
+Monitor in                       Update based on
+production                       learnings
+
+• Track SLA compliance           • Change Normative Spec
+• Review decisions               • Developer updates automation
+• Gather feedback                • Promote new version
 ```
 
 ---
 
 ## Getting Started
 
-### Pilot a Single Scenario
+1. **Pick one scenario** — A situation with clear boundaries and measurable outcomes
+2. **Document current state** — How is it handled today? What works? What doesn't?
+3. **Define the Normative Spec** — Roles, goals, SOPs, decision criteria
+4. **Partner with Developer** — They implement the automation
+5. **Configure with Supervisor** — Queues, SLAs, agent enrollment
+6. **See it run** — Your design, operational
 
-1. **Select a scenario** with clear boundaries and measurable outcomes
-2. **Document current state** — How is it handled today?
-3. **Define the Normative Spec** — Roles, goals, SOPs, decisions
-4. **Work with Developer** — They build the automation
-5. **Configure deployment** — Queues, SLAs, agents
-6. **Pilot and refine** — Learn from real execution
+---
 
-### Your Toolkit
+## Deeper Understanding
 
-| Tool | Purpose |
-|------|---------|
-| **Workbench Studio** | Design and configure Scenarios |
-| **SOP Templates** | Structure your procedures |
-| **Decision Matrix Tools** | Define decision criteria |
-| **Simulation Mode** | Test scenarios before production |
+- [Vision and Mission](../00-_why/vision.md) — The larger purpose
+- [Foundational Beliefs](../00-_why/foundational-beliefs.md) — The thinking behind Hub
+- [Scenario-Oriented Thinking](../11-decision-frameworks/scenario-oriented-thinking/scenario-oriented-thinking.md) — The design philosophy
+- [Scenario Specification Types](../02-system-design/implementation-concepts/scenario-specification-types.md) — The three-spec model
 
 ---
 
 ## Next Steps
 
-1. **Understand the ontology** → [Ontology Reference](../01-concepts/ontology-reference.md)
-2. **See Scenario structure** → [Scenario Specification Types](../02-system-design/implementation-concepts/scenario-specification-types.md)
-3. **Follow the journey** → [Scenario Development Journey](../08-personas-and-journeys/journeys/scenario-development.md)
-4. **Try Workbench Studio** → [Workbench Setup Guide](../10-guides/workbench-setup-guide.md)
-
+- [Scenario Development Journey](../08-personas-and-journeys/journeys/scenario-development.md) — The full journey
+- [Glossary](../01-concepts/glossary.md) — Key terminology
+- [Applicability Guide](../01-concepts/olympus-hub-applicability-guide.md) — Where Hub fits

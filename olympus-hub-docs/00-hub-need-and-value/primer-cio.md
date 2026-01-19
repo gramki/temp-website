@@ -1,193 +1,137 @@
-# CIO Primer: Olympus Hub as Your Operations Platform
+# CIO Primer: Hub for Information-Centric Work
 
-> **Audience:** Enterprise CIOs, CTOs, and Enterprise Architects evaluating Hub as a platform for business applications and operations automation.
+> **Audience:** CIOs, CTOs, and Enterprise Architects evaluating Hub as an operational platform
 
 ---
 
 ## Executive Summary
 
-**Olympus Hub** is an operations management platform that enables enterprises to model, manage, and optimize business operations across any domain through human-AI collaboration. It provides a unified framework where business processes become automated, auditable, and AI-augmented—without replacing your existing systems.
+Most of your enterprise's work is **information-centric** — customer service, finance, HR, IT, compliance, knowledge work. This work involves receiving, interpreting, deciding, and acting on information. No physical materials. No manufacturing lines. Just information flowing through situations that need resolution.
 
-**Key Value:** Hub sits above your enterprise systems (ERP, CRM, core banking, etc.) and provides the operational layer that coordinates work across them.
+AI has the capability to transform this work. But capability isn't value. **The bottleneck for enterprise AI is infrastructure, not intelligence.**
 
----
-
-## The Problem You Face
-
-### Fragmented Operations
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    TODAY'S REALITY                                           │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│   ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐                    │
-│   │   ERP   │   │   CRM   │   │ Banking │   │   HR    │                    │
-│   └────┬────┘   └────┬────┘   └────┬────┘   └────┬────┘                    │
-│        │             │             │             │                          │
-│        └─────────────┴──────┬──────┴─────────────┘                          │
-│                             │                                                │
-│                    ┌────────▼────────┐                                      │
-│                    │  HUMAN GLUE     │                                      │
-│                    │  - Spreadsheets │                                      │
-│                    │  - Email chains │                                      │
-│                    │  - Manual checks│                                      │
-│                    └─────────────────┘                                      │
-│                                                                              │
-│   Pain Points:                                                               │
-│   • No unified view of work across systems                                  │
-│   • Manual coordination and routing                                         │
-│   • Inconsistent processes                                                  │
-│   • Audit gaps                                                              │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
-### The AI Integration Challenge
-
-You've invested in AI capabilities, but they're:
-- **Isolated** — AI tools don't integrate with operational workflows
-- **Unaccountable** — No audit trail of AI decisions
-- **Underutilized** — Humans don't know when to engage AI
+Hub provides that infrastructure — the operational platform that makes AI-Human collaboration governed, contextual, and useful.
 
 ---
 
-## How Hub Solves This
+## What Is Information-Centric Work?
 
-### Unified Operations Layer
+**Information-centric work** is work where the primary inputs, transformations, and outputs are information rather than physical matter:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    WITH OLYMPUS HUB                                          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│                    ┌─────────────────────────────────────────────────────┐  │
-│                    │              OLYMPUS HUB                             │  │
-│                    │                                                      │  │
-│                    │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │  │
-│                    │  │ Workbench   │  │ Workbench   │  │ Workbench   │  │  │
-│                    │  │ (Disputes)  │  │ (Orders)    │  │ (HR Ops)    │  │  │
-│                    │  └─────────────┘  └─────────────┘  └─────────────┘  │  │
-│                    │                                                      │  │
-│                    │  • Unified visibility                               │  │
-│                    │  • Automated routing                                │  │
-│                    │  • Human-AI collaboration                           │  │
-│                    │  • Built-in audit                                   │  │
-│                    │                                                      │  │
-│                    └──────────────────────┬──────────────────────────────┘  │
-│                                           │                                  │
-│   ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐                    │
-│   │   ERP   │   │   CRM   │   │ Banking │   │   HR    │                    │
-│   └─────────┘   └─────────┘   └─────────┘   └─────────┘                    │
-│                                                                              │
-│   Your existing systems remain — Hub orchestrates above them                │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+- A customer files a dispute — information arrives, is analyzed, decided, resolved
+- A finance team reconciles transactions — data flows, exceptions surface, judgments are made
+- HR processes an approval — requests, policies, decisions, notifications
+- IT diagnoses an incident — symptoms, hypotheses, actions, resolution
+- Compliance reviews a case — evidence, criteria, determination
+
+**This is most of your enterprise's work.** Manufacturing has production lines. Information-centric work has situations that need attention, decision, and action.
+
+What it's NOT: controlling physical equipment, managing physical supply chains, operating manufacturing floors (though the planning, coordination, and analysis around these activities *is* information-centric).
 
 ---
 
-## Value Proposition
+## Why Information-Centric Work Requires a New Model
 
-### 1. Operational Visibility
+### The Traditional View (and Its Limits)
 
-| Without Hub | With Hub |
-|-------------|----------|
-| Work scattered across systems | Unified dashboards per domain |
-| Status via email/spreadsheets | Real-time request tracking |
-| Manual SLA monitoring | Automated SLA alerting |
+Enterprise systems traditionally model work as:
 
-### 2. Process Standardization
+- **Tasks** — discrete units of work assigned to people
+- **Records** — data stored in systems of record
+- **Procedures** — step-by-step flows that assume perfect foresight
+- **Systems** — applications organized around data entities
 
-| Without Hub | With Hub |
-|-------------|----------|
-| Processes in documents | Processes as executable Scenarios |
-| Tribal knowledge | SOPs linked to operations |
-| Inconsistent execution | Enforced process compliance |
+This works — until you try to integrate AI.
 
-### 3. Intelligent Work Distribution
+When you add AI to task-based workflows:
+- AI becomes another tool to call, not an agent that collaborates
+- Each integration is ad-hoc, with its own context and rules
+- Handoffs between human and AI are undefined
+- Accountability is unclear
+- Learning doesn't accumulate
 
-| Without Hub | With Hub |
-|-------------|----------|
-| Manual task assignment | Skill-based routing |
-| No escalation visibility | Automated escalation chains |
-| Overloaded individuals | Balanced workload distribution |
+**Result:** AI remains isolated, underutilized, unaccountable.
 
-### 4. Human-AI Collaboration
+### The Paradigm Shift
 
-| Without Hub | With Hub |
-|-------------|----------|
-| AI as separate tools | AI agents in the team |
-| Unclear handoffs | Clear delegation and escalation |
-| No AI accountability | Audited AI decisions |
+Hub models work differently:
 
-### 5. Built-in Compliance
+| Traditional Model | Information-Centric Model |
+|-------------------|---------------------------|
+| Work is tasks to execute | Work is **situations that need resolution** |
+| Systems assign tasks | Scenarios define **goals** |
+| AI is a tool to call | AI is an **agent that collaborates** |
+| Human supervises AI | Human and AI **work together** |
+| Audit logs actions | Audit captures **reasoning** |
+| Each system has its own AI | **Unified operational model** across AI and human |
 
-| Without Hub | With Hub |
-|-------------|----------|
-| After-the-fact audit | Real-time decision capture |
-| Manual evidence gathering | Automatic evidence bundles |
-| Explanation via interviews | AI-generated explanations |
+### The Insight
 
----
+Enterprises already do information-centric work. They just model it wrong.
 
-## What Hub Is (and Isn't)
+The right model:
+1. **Signals** arrive from the environment (requests, events, schedules)
+2. **Situations** need attention, decision, or action
+3. **Multiple agents** collaborate toward resolution (human, AI, rules)
+4. **Outcomes** are recorded, explained, learned from
 
-### Hub IS:
-
-✅ **An operations orchestration layer** that coordinates work across systems  
-✅ **A human-AI collaboration platform** with clear accountability  
-✅ **A domain-agnostic framework** that works for any business domain  
-✅ **A multi-tenant platform** with enterprise security  
-
-### Hub IS NOT:
-
-❌ A replacement for your ERP, CRM, or core systems  
-❌ A pure workflow engine (though it includes workflow capabilities)  
-❌ A chatbot platform (though it integrates AI agents)  
-❌ A data warehouse (though it has operational analytics)  
+This model naturally accommodates AI because it's inherently multi-agent, goal-oriented, and learning-focused.
 
 ---
 
-## Architecture at a Glance
+## What Hub Provides
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    OLYMPUS HUB ARCHITECTURE                                  │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│   USER CHANNELS                                                              │
-│   • Web Consoles (Agent Desk, Supervisor Desk)                              │
-│   • MS Teams (Copilot Bots)                                                 │
-│   • Customer Portals                                                        │
-│   • REST/MCP APIs                                                           │
-│                                                                              │
-│   CORE PLATFORM                                                              │
-│   ┌────────────────────────────────────────────────────────────────────┐    │
-│   │  Workbenches (Domain-Specific Operational Environments)            │    │
-│   │  ├── Scenarios (Operational Situations)                            │    │
-│   │  ├── Hub Applications (Automations)                                │    │
-│   │  ├── Task Management (Human & AI assignment)                       │    │
-│   │  └── Data Stores (Isolated per workbench)                          │    │
-│   └────────────────────────────────────────────────────────────────────┘    │
-│                                                                              │
-│   SIGNAL EXCHANGE (Central Routing)                                         │
-│                                                                              │
-│   I/O GATEWAYS (Protocol Adapters)                                          │
-│   • HTTP/REST • Events (Kafka) • Files • Schedules                          │
-│                                                                              │
-│   INTEGRATION                                                                │
-│   ├── Your enterprise systems (ERP, CRM, etc.)                             │
-│   └── AI services (LLMs, prediction models)                                │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+### An Operational Platform for Collaborative Problem-Solving
+
+Hub provides the infrastructure for information-centric work:
+
+| Concept | What it is |
+|---------|------------|
+| **Workbenches** | Domain-specific operational environments (Disputes, Payments, HR Ops) |
+| **Scenarios** | Situations that need resolution — goal-oriented, not procedure-oriented |
+| **Requests** | Collaboration surfaces where agents work together |
+| **Agents** | Humans, AI, rules, workflows — unified participation model |
+
+### Practical Use Cases
+
+Hub fits wherever information-centric work happens:
+
+- **Operations centers** — Payments, claims, service, reconciliation
+- **Case management** — Disputes, compliance, HR, investigations
+- **Knowledge work coordination** — Analysis, review, decisions
+- **AI-augmented processes** — Any scenario where AI can contribute
+
+### The Infrastructure That Makes It Work
+
+Hub provides four foundational capabilities:
+
+| Pillar | What it provides |
+|--------|------------------|
+| **Context** | Domain knowledge, entity relationships, grounding — so agents understand your world |
+| **Structure** | Scenarios, triggers, delegation, escalation — so agents know when and how to engage |
+| **Memory** | Organizational learning that accumulates — so the organization gets smarter |
+| **Governance** | Accountability, audit, human oversight — so collaboration is trustworthy |
 
 ---
 
-## Enterprise Requirements
+## Hub + Seer: The Two-System Architecture
 
-### Security
+Hub doesn't do everything alone. It works with **Seer**, the AI Agent platform:
+
+| System | Governs |
+|--------|---------|
+| **Hub** | Operations — scenarios, requests, collaboration, memory, governance |
+| **Seer** | AI Agents — identity, runtime, capabilities, employment |
+
+Together, they provide trusted AI-Human collaboration at enterprise scale:
+- Hub defines *what work needs to be done* and *how agents collaborate*
+- Seer manages *how AI agents behave* and *what they're capable of*
+
+---
+
+## Enterprise Capabilities
+
+### Security and Compliance
 
 | Requirement | How Hub Addresses |
 |-------------|-------------------|
@@ -196,23 +140,35 @@ You've invested in AI capabilities, but they're:
 | **Multi-tenancy** | Tenant → Subscription → Workbench isolation |
 | **Audit** | Complete action audit trail |
 | **AI Accountability** | Cognitive Audit Fabric for AI decisions |
+| **Agent Lifecycle** | What agents exist, what they can do, what they remember |
 
 ### Compliance
 
 | Requirement | How Hub Addresses |
 |-------------|-------------------|
 | **SOC 2** | Audit trails, access controls, encryption |
-| **GDPR** | Data isolation, consent tracking |
-| **Industry Regs** | Decision explainability via CAF |
+| **GDPR** | Data isolation, consent tracking, PII controls |
+| **Industry Regulations** | Decision explainability via CAF |
 | **Separation of Duties** | DEV/PROD subscription isolation |
 
-### Scalability
+---
 
-| Requirement | How Hub Addresses |
-|-------------|-------------------|
-| **Workload** | Horizontal scaling of all components |
-| **Multi-domain** | Independent Workbenches per domain |
-| **Global** | Multi-region deployment support |
+## What Hub Is (and Isn't)
+
+### Hub IS:
+
+✅ **An operational platform** for governing collaborative work across domains  
+✅ **A human-AI collaboration infrastructure** with unified participation model  
+✅ **A domain-agnostic foundation** that organizations configure for their needs  
+✅ **A multi-tenant platform** with enterprise security  
+
+### Hub IS NOT:
+
+❌ A replacement for your ERP, CRM, or core systems — Hub orchestrates above them  
+❌ A pure workflow engine — though it includes workflow capabilities  
+❌ A chatbot platform — though it integrates AI agents  
+❌ A data warehouse — though it has operational analytics  
+❌ An out-of-box solution — organizations build on Hub for their specific domains  
 
 ---
 
@@ -220,10 +176,10 @@ You've invested in AI capabilities, but they're:
 
 ### Pilot Approach
 
-1. **Identify one domain** — Select a business domain with clear pain points (e.g., Disputes, Customer Service)
+1. **Identify one domain** — Select a business domain with clear pain points
 2. **Define 2-3 scenarios** — Model key operational situations
-3. **Start with human agents** — Validate processes before AI automation
-4. **Measure outcomes** — Track SLA improvement, handling time, quality
+3. **Start with human agents** — Validate the model before AI augmentation
+4. **Measure outcomes** — Track resolution time, quality, compliance
 5. **Expand gradually** — Add AI agents, more scenarios, more domains
 
 ### Typical Timeline
@@ -237,19 +193,9 @@ You've invested in AI capabilities, but they're:
 
 ---
 
-## Why Now?
+## Deeper Understanding
 
-1. **AI is ready** — LLMs can now handle complex operational tasks
-2. **Audit is required** — Regulators demand AI explainability
-3. **Talent is scarce** — Human-AI teams amplify capability
-4. **Competition is digital** — Operational excellence differentiates
-
----
-
-## Next Steps
-
-1. **Explore concepts** → [Introduction to "Everything is Ops"](../01-concepts/introduction.md)
-2. **Assess fit** → [Applicability Guide](../01-concepts/olympus-hub-applicability-guide.md)
-3. **Understand architecture** → [Hub Architecture](../02-system-design/hub-architecture.md)
-4. **See personas** → [Personas and Journeys](../08-personas-and-journeys/README.md)
-
+- [Vision and Mission](../00-_why/vision.md) — The aspiration and purpose
+- [Foundational Beliefs](../00-_why/foundational-beliefs.md) — The thinking behind Hub
+- [Applicability Guide](../01-concepts/olympus-hub-applicability-guide.md) — Fit assessment
+- [Hub Architecture](../02-system-design/hub-architecture.md) — Technical architecture
