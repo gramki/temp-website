@@ -167,11 +167,18 @@ Together: trusted AI-Human collaboration at enterprise scale.
 | [Agent Model](./02-system-design/agent-model.md) | Agent participation patterns |
 | [Views](./02-system-design/views/README.md) | Architectural perspectives |
 
-### 03 - Operations
+### 03 - Information-Centric Work Patterns
 
 | Document | Description |
 |----------|-------------|
-| [Case Management](./03-operations/case-management.md) | Case management patterns |
+| [Overview](./03-information-centric-work/README.md) | Pattern index and introduction |
+| [Queue-Based Work](./03-information-centric-work/queue-based-work.md) | Task stream processing |
+| [Case-Based Work](./03-information-centric-work/case-based-work.md) | Investigation and resolution |
+| [Conversation-Based Work](./03-information-centric-work/conversation-based-work.md) | Dialogue-centered work |
+| [Event-Driven Operations](./03-information-centric-work/event-driven-operations.md) | Signal-triggered response |
+| [Artifact-Centric Work](./03-information-centric-work/artifact-centric-work.md) | Single artifact lifecycle |
+| [Review-Based Work](./03-information-centric-work/review-based-work.md) | Evaluation and assessment |
+| [Generative/Design Work](./03-information-centric-work/generative-design-work.md) | Exploration and selection |
 
 ### 04 - Subsystems
 
