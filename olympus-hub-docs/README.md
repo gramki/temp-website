@@ -8,9 +8,11 @@
 
 **Olympus Hub** is an operational platform for information-centric work — the work that dominates modern enterprises, where inputs, transformations, and outputs are information rather than physical matter.
 
-Hub provides the infrastructure where humans and AI collaborate as **agents** — not as tool and user, but as team members working together toward shared goals. It's where customer service resolves disputes, where finance reconciles transactions, where IT diagnoses incidents, where compliance reviews cases — all through governed collaboration.
+This is where customer service resolves disputes. Where finance reconciles transactions. Where IT diagnoses incidents. Where compliance reviews cases. Where development ships features.
 
-Hub is not a replacement for your existing systems. It's the **operational layer** that makes them work together — providing the context, structure, memory, and governance that turns AI capability into operational value.
+Hub provides the infrastructure where this work gets resolved — whether by machines alone, by humans and AI collaborating, or anything in between. It's not about replacing humans with AI or supervising AI with humans. It's about providing the **context, structure, memory, and governance** that makes any resolution model work.
+
+Hub is not a replacement for your existing systems. It's the **operational layer** that makes them work together.
 
 ---
 
@@ -21,12 +23,30 @@ Traditional enterprise systems model work as **tasks, records, and procedures**.
 Hub models work differently:
 
 - **Work is situations that need resolution** — not tasks to execute
-- **Multiple agents collaborate toward goals** — humans, AI, rules, workflows
+- **Resolution happens across a spectrum** — from pure automation to human collaboration
 - **The organization learns from outcomes** — not just logs them
 
 This is how work actually operates. We've just been modeling it wrong.
 
-When you model work this way, AI integration becomes natural — because the model is already multi-agent, goal-oriented, and learning-focused. Hub provides the infrastructure for this model.
+### Work Patterns
+
+When you look at information-centric work, you see recurring patterns in how attention is applied:
+
+| Pattern | What It Looks Like | Examples |
+|---------|-------------------|----------|
+| **Queue-Based** | Items arrive, get processed, move on | Support tickets, claims, applications |
+| **Case-Based** | Investigation evolves toward resolution | Fraud, incidents, complex disputes |
+| **Event-Driven** | Signals trigger responses | Alerts, thresholds, scheduled actions |
+| **Artifact-Centric** | Something gets created, reviewed, approved | Documents, code, designs |
+| **Conversation-Based** | Dialogue drives toward understanding | Customer inquiries, negotiations |
+| **Review-Based** | Evaluation against criteria | Approvals, audits, quality checks |
+| **Generative/Design** | Exploration, options, selection | Product design, strategy, research |
+
+Real work **composes** these patterns. A loan application starts in a queue, involves artifact review, may escalate to a case, and ends with a review decision.
+
+Hub's Scenario model captures this — goal-oriented, not procedure-oriented, with patterns that can evolve as work progresses.
+
+→ [Information-Centric Work Patterns](./03-information-centric-work/README.md) — Deep dive into patterns and composition
 
 ---
 
@@ -56,6 +76,12 @@ When you model work this way, AI integration becomes natural — because the mod
 2. [CIO Primer](./00-hub-need-and-value/primer-cio.md) — Technical evaluation
 3. [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) — Fit assessment
 
+### I want to understand how Hub models work
+
+1. [Information-Centric Work Patterns](./03-information-centric-work/README.md) — The seven patterns
+2. [Pattern Composition](./03-information-centric-work/pattern-composition.md) — How patterns combine
+3. [Glossary — Resolution Model](./01-concepts/glossary.md#resolution-model) — Who resolves what
+
 ### I want to model work with Hub
 
 1. [Process Architect Primer](./00-hub-need-and-value/primer-process-architect.md) — Your role and value
@@ -75,12 +101,26 @@ When you model work this way, AI integration becomes natural — because the mod
 ### The Operational Pattern
 
 ```
-Signal → Trigger → Request → Scenario → Hub Application → Agents → Outcome
-                                              ↑
-                                    (Human, AI, Rules, Workflows)
+Signal → Trigger → Scenario → Request → Resolution → Outcome
+                                            ↑
+                              (Machines, AI, Humans — as needed)
 ```
 
-**Signals** arrive from the environment. **Triggers** match them to **Scenarios**. **Requests** become collaboration surfaces where **Agents** work together toward resolution.
+**Signals** arrive from the environment. **Triggers** match them to **Scenarios**. **Requests** become collaboration surfaces. **Resolution** happens through the appropriate mix of machines and agents. **Outcomes** feed organizational learning.
+
+### The Resolution Spectrum
+
+Not all work requires agents. Hub supports the full spectrum:
+
+| Resolution Model | Who Participates |
+|------------------|------------------|
+| **Pure Automation** | Machines only |
+| **Automation with Escalation** | Machines + agents for exceptions |
+| **Human-AI Teaming** | Humans and AI throughout |
+| **AI-Autonomous** | AI agents within governance |
+| **Pure Human** | Humans with platform support |
+
+The same governance applies regardless of resolution model.
 
 ### The Four Pillars
 
@@ -95,10 +135,10 @@ Signal → Trigger → Request → Scenario → Hub Application → Agents → O
 
 Two systems, unified purpose:
 
-- **Hub** governs operations — scenarios, requests, collaboration
+- **Hub** governs operations — scenarios, requests, resolution
 - **Seer** governs AI agents — identity, runtime, capabilities
 
-Together: trusted AI-Human collaboration at enterprise scale.
+Together: trusted operations at enterprise scale.
 
 ---
 
@@ -109,10 +149,15 @@ Together: trusted AI-Human collaboration at enterprise scale.
 - [Foundational Beliefs](./00-_why/foundational-beliefs.md) — The thinking
 - [Primers](./00-hub-need-and-value/README.md) — Value propositions by audience
 
+### Work Patterns
+- [Information-Centric Work](./03-information-centric-work/README.md) — The seven patterns
+- [Pattern Composition](./03-information-centric-work/pattern-composition.md) — How patterns combine
+- [Resolution Models](./01-concepts/glossary.md#resolution-model) — Who resolves what
+
 ### Concepts
+- [Introduction](./01-concepts/introduction.md) — High-level overview
 - [Ontology Reference](./01-concepts/ontology-reference.md) — The conceptual foundation
 - [Glossary](./01-concepts/glossary.md) — Key terminology
-- [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) — Where Hub fits
 
 ### Design
 - [Hub Architecture](./02-system-design/hub-architecture.md) — System architecture
@@ -150,9 +195,11 @@ Together: trusted AI-Human collaboration at enterprise scale.
 
 | Document | Description |
 |----------|-------------|
+| [Overview](./01-concepts/README.md) | Concepts section guide and navigation |
 | [Introduction](./01-concepts/introduction.md) | High-level introduction |
 | [Ontology Reference](./01-concepts/ontology-reference.md) | Four-layer ontology |
 | [Glossary](./01-concepts/glossary.md) | Key terminology |
+| [Hub Applications](./01-concepts/hub-applications.md) | Automation artifacts |
 | [Applicability Guide](./01-concepts/olympus-hub-applicability-guide.md) | Fit assessment |
 | [Collaborators](./01-concepts/collaborators.md) | Agent collaboration model |
 | [MCP Channel](./01-concepts/mcp-channel.md) | MCP integration |
@@ -172,6 +219,7 @@ Together: trusted AI-Human collaboration at enterprise scale.
 | Document | Description |
 |----------|-------------|
 | [Overview](./03-information-centric-work/README.md) | Pattern index and introduction |
+| [Pattern Composition](./03-information-centric-work/pattern-composition.md) | How patterns combine in real scenarios |
 | [Queue-Based Work](./03-information-centric-work/queue-based-work.md) | Task stream processing |
 | [Case-Based Work](./03-information-centric-work/case-based-work.md) | Investigation and resolution |
 | [Conversation-Based Work](./03-information-centric-work/conversation-based-work.md) | Dialogue-centered work |
@@ -186,20 +234,26 @@ Together: trusted AI-Human collaboration at enterprise scale.
 |-----------|-------------|
 | [Signal Exchange](./04-subsystems/signal-exchange/README.md) | Signal routing (data plane) |
 | [Workbench Management](./04-subsystems/workbench-management/README.md) | Workbench definitions (control plane) |
-| [Automation Ideation](./04-subsystems/automation-ideation/README.md) | Idea → Intent → Charter |
-| [Feedback Services](./04-subsystems/feedback-services/README.md) | Production feedback loop |
-| [I/O Gateways](./04-subsystems/signal-providers/README.md) | Signal providers |
-| [MS Teams Integration](./04-subsystems/ms-teams-integration/README.md) | Teams collaboration |
-| [Automation Runtimes](./04-subsystems/automation-runtimes/README.md) | Hub Application hosts |
-| [Memory Services](./04-subsystems/memory-services/README.md) | Agent and Enterprise Memory |
-| [Cognitive Audit Fabric](./04-subsystems/cognitive-audit-fabric/README.md) | Decision audit |
-| [Registry Services](./04-subsystems/registry-services/README.md) | Tool, Machine, Environment |
-| [Knowledge Services](./04-subsystems/knowledge-services/README.md) | Enterprise Knowledge |
-| [Task Management](./04-subsystems/task-management/README.md) | Task queues and lifecycle |
 | [Request Management](./04-subsystems/request-management/README.md) | Request lifecycle |
+| [Task Management](./04-subsystems/task-management/README.md) | Task queues and lifecycle |
+| [Automation Runtimes](./04-subsystems/automation-runtimes/README.md) | Hub Application hosts |
+| [Automation Ideation](./04-subsystems/automation-ideation/README.md) | Idea → Intent → Charter |
+| [Artifact Registry](./04-subsystems/artifact-registry/README.md) | Artifact storage, versioning, promotion |
+| [CI Subsystem](./04-subsystems/ci-subsystem/README.md) | Build and test infrastructure |
+| [Memory Services](./04-subsystems/memory-services/README.md) | Agent and Enterprise Memory |
+| [Knowledge Services](./04-subsystems/knowledge-services/README.md) | Enterprise Knowledge |
+| [Registry Services](./04-subsystems/registry-services/README.md) | Tool, Machine, Environment |
+| [Cognitive Audit Fabric](./04-subsystems/cognitive-audit-fabric/README.md) | Decision audit |
+| [Hub Native Utilities](./04-subsystems/hub-native-utilities/README.md) | Decision tools, routines |
+| [Signal Providers](./04-subsystems/signal-providers/README.md) | Signal sources (I/O gateways) |
+| [Feedback Services](./04-subsystems/feedback-services/README.md) | Production feedback loop |
+| [Notification Services](./04-subsystems/notification-services/README.md) | Request update notifications |
+| [Platform Notifications](./04-subsystems/platform-notifications/README.md) | Platform-to-tenant notifications |
+| [MS Teams Integration](./04-subsystems/ms-teams-integration/README.md) | Teams collaboration |
+| [MCP Channel](./04-subsystems/mcp-channel/README.md) | Model Context Protocol integration |
+| [Operators](./04-subsystems/operators/README.md) | GitOps resource management |
 | [Subscription Management](./04-subsystems/subscription-management/README.md) | Tenant administration |
 | [User Management](./04-subsystems/user-management/README.md) | User personas |
-| [Hub Native Utilities](./04-subsystems/hub-native-utilities/README.md) | Decision tools, routines |
 | [Hub Analytics](./04-subsystems/hub-analytics/README.md) | Operational analytics |
 | [Marketplace](./04-subsystems/marketplace/README.md) | Blueprints and packages |
 
