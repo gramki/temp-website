@@ -24,7 +24,7 @@ Hub is an **operational platform** with six dimensions:
 |-----------|------------------|
 | **Scenario-Oriented Operations** | Scenarios define goals; Requests are collaboration surfaces; signal-driven execution |
 | **Domain Encapsulation** | Workbenches isolate business domains with their own entities, knowledge, and governance |
-| **Collaboration Model** | Human-Human, Human-AI, AI-AI modalities; Hub Agent as participation pattern |
+| **Resolution Spectrum** | Pure automation through human collaboration; Hub Agent as participation pattern |
 | **Persona-Channel Framework** | Multi-surface access (Web, Teams, MCP, REST); persona-focused applications |
 | **Automation Platform** | Hub Applications codify logic; Machines connect to systems; Runtimes host execution |
 | **Infrastructure Foundation** | Context that grounds, structure that guides, memory that learns, governance that secures trust |
@@ -88,14 +88,14 @@ Authority definitions, traceable decision records, auditable action logs, compli
 Every operation in Hub follows the same fundamental flow:
 
 ```
-Signal → Trigger → Scenario → Request → Agent Collaboration → Outcome
+Signal → Trigger → Scenario → Request → Resolution (Agent collaboration when required) → Outcome
 ```
 
 1. **Signals** emerge from the environment — events, requests, observations, schedules, or human intent
 2. **Triggers** interpret these signals and determine what should happen
 3. **Scenarios** define the goals to be achieved and the rules of engagement
-4. **Requests** become collaboration surfaces where agents (human and AI) work together
-5. **Agents** collaborate to achieve the scenario's goals, using shared context and tools
+4. **Requests** become collaboration surfaces where agents (human and AI) work together when needed
+5. **Resolution** occurs through agents collaborating (when required) or pure automation, using shared context and tools
 6. **Outcomes** are recorded, decisions are traced, and learning is captured
 
 ### The Four-Layer Ontology
@@ -106,7 +106,7 @@ Hub models work across four interconnected layers:
 |-------|----------|------------------|
 | **Perception** | What's happening? | Signals, Triggers, Scenarios |
 | **Normative** | What ought to be done? | Roles, Goals, SOPs, Responsibilities |
-| **Execution** | How is it done? | Requests, Activities, Actions, Agent collaboration |
+| **Execution** | How is it done? | Requests, Activities, Actions, Agent collaboration (when required) |
 | **Automation** | How is it codified? | Hub Applications, Machines, Tools, Runtimes |
 
 This ontology applies universally — whether you're processing a loan application, responding to a security incident, or managing a customer service case.
@@ -142,37 +142,44 @@ This includes software development, financial services, healthcare administratio
 
 → See [Glossary — Information-Centric Work](./glossary.md#information-centric-work) for the formal definition.
 
-### Collaboration as Operating Model
+### How Work Gets Resolved
 
-Hub treats all agents — human and AI — as participants in the same operational model. Three collaboration modalities are equally valid:
+Hub unifies what enterprises traditionally separate. What's called "integration" (machine-to-machine) and "collaboration" (humans working together) are both ways of getting work done. Hub provides the same infrastructure for all of them.
 
-| Modality | Description |
-|----------|-------------|
-| **Human-Human** | Traditional teamwork — the foundation of enterprise operations |
-| **Human-AI** | Augmented collaboration — humans and AI agents working together |
-| **AI-AI** | Autonomous coordination — AI agents collaborating under governance |
+**The Resolution Spectrum:**
 
-All agents share:
+| Resolution Model | Who Participates | Traditional Term |
+|------------------|------------------|------------------|
+| **Pure Automation** | Machines only | Integration, ETL, batch processing |
+| **Automation with Escalation** | Machines + agents for exceptions | Integration with exception handling |
+| **Human-AI Teaming** | Humans and AI throughout | AI-assisted operations |
+| **AI-Autonomous** | AI agents within governance | Intelligent automation |
+| **Pure Human** | Humans with platform support | Traditional teamwork, collaboration |
+
+Not all work requires agents. Many Scenarios resolve entirely through machines — the "happy path" is pure automation. Agents engage when judgment is needed: business exceptions, authority thresholds, novel situations.
+
+For the full taxonomy, see [Glossary — Resolution Model](./glossary.md#resolution-model).
+
+**When Agents Participate, They Share:**
 
 - **Context** — Same view of the Request and its state
 - **Tools** — Access to the same Machines and capabilities
 - **Goals** — Working toward the same Scenario outcomes
 - **Memory** — Shared knowledge and episodic context
 
-This isn't AI replacing humans or humans supervising AI. It's genuine collaboration — each contributing what they do best, governed by shared rules. And organizations can start with Human-Human collaboration, introducing AI progressively.
+This isn't AI replacing humans or humans supervising AI. It's genuine teaming — each contributing what they do best, governed by shared rules. Organizations can start anywhere on the spectrum and evolve.
 
-### From Structured to Exploratory
+**Across All Work Types:**
 
-Hub supports work across the spectrum:
+| Work Type | Typical Resolution Model |
+|-----------|-------------------------|
+| **Pure automation** | Machine-only, agents for exceptions |
+| **Structured processes** | Automation with checkpoints |
+| **Semi-structured work** | Human-AI teaming |
+| **Exploratory work** | Human-led with AI assistance |
+| **Creative work** | Human collaboration with tool support |
 
-| Work Type | What Hub Provides |
-|-----------|-------------------|
-| **Structured processes** | Full automation with human oversight |
-| **Semi-structured work** | AI assistance with human decision-making |
-| **Exploratory work** | Context, memory, and tools for human-driven discovery |
-| **Creative work** | Infrastructure that supports iteration and collaboration |
-
-The governance model adapts. Structured work may be highly automated; exploratory work may have minimal automation but rich context and memory support.
+The governance model adapts — structured work may be highly automated; exploratory work may have minimal automation but rich context and memory support.
 
 ### Persona-Channel Framework
 

@@ -2,9 +2,7 @@
 
 > **Status:** 🟡 Draft
 
-Hub Applications are the automation artifacts that execute Scenarios within Olympus Hub. Each Automation Runtime provides one or more specialized Hub Application types.
-
-**Cognitive Applications:** Hub Applications that emit tasks, compile context for agents, and produce memory records are termed **Cognitive Applications**. See [Cognitive Application](../02-system-design/implementation-concepts/cognitive-application.md) for details.
+Hub Applications are the automation artifacts that resolve Scenarios within Olympus Hub. Each Automation Runtime provides one or more specialized Hub Application types.
 
 ---
 
@@ -17,7 +15,27 @@ A **Hub Application** represents:
 
 ---
 
-## Hub Application Types by Automation Runtime
+## The Resolution Spectrum
+
+Hub Applications span a spectrum based on how they resolve work:
+
+| Category | Agent Involvement | Examples |
+|----------|-------------------|----------|
+| **Pure Automation** | None — output goes directly to Machines | ETL, rule execution, data transformation |
+| **Automation with Escalation** | Agents handle exceptions only | Reconciliation with conflict resolution |
+| **Cognitive Applications** | Agents are integral — tasks emitted, context compiled, memory produced | Case management, complex decisions |
+
+**Pure Automation Applications** resolve situations entirely through machines. No tasks are emitted to agents; outputs flow directly to the environment.
+
+**Cognitive Applications** emit tasks, compile context for agents, and produce memory records. They represent work where agent judgment is integral, not exceptional. See [Cognitive Application](../02-system-design/implementation-concepts/cognitive-application.md) for details.
+
+**Composite Applications** enable multiple Hub Applications to coordinate through shared Request state, supporting multi-agent topologies. See [Hub Composite Application](../02-system-design/implementation-concepts/hub-composite-application.md) for details.
+
+For the full taxonomy, see [Glossary — Resolution Model](./glossary.md#resolution-model).
+
+---
+
+## Application Types by Runtime
 
 | Automation Runtime | Hub Application Type | Description |
 |-------------------|---------------------|-------------|
@@ -32,11 +50,11 @@ A **Hub Application** represents:
 | **Seer** | Seer Case Orchestration Agent | AI-driven case management and orchestration |
 | **Hub** | Composite Application | Multiple applications participating in same Request |
 
-**Composite Applications** enable multi-agent topologies where multiple Hub Applications coordinate through shared Request state. See [Hub Composite Application](../02-system-design/implementation-concepts/hub-composite-application.md) for details.
-
 ---
 
-## Application Architecture
+## How Applications Work
+
+### Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -70,9 +88,7 @@ A **Hub Application** represents:
 └─────────────────────────────────────────────────────────────────┘
 ```
 
----
-
-## Request as Application Session
+### Request as Application Session
 
 A **Request** represents a potentially long-running session for a Hub Application:
 
@@ -90,9 +106,7 @@ Signal₃ → Request(updated) → Application Session Continues
          Request(completed) ← Application Session Ended
 ```
 
----
-
-## Application Invocation Patterns
+### Invocation Patterns
 
 Different Automation Runtimes have different invocation patterns:
 
@@ -145,4 +159,3 @@ Different Automation Runtimes have different invocation patterns:
 ---
 
 *TODO: Detailed design — application registry, versioning, deployment*
-
