@@ -158,6 +158,8 @@ Hub unifies what enterprises traditionally separate. What's called "integration"
 
 Not all work requires agents. Many Scenarios resolve entirely through machines — the "happy path" is pure automation. Agents engage when judgment is needed: business exceptions, authority thresholds, novel situations.
 
+> **Note:** "Resolution Model" may also be referred to as "Execution Model" in some contexts. Hub uses "Resolution Model" to emphasize the goal-oriented nature of Scenario resolution.
+
 For the full taxonomy, see [Glossary — Resolution Model](./glossary.md#resolution-model).
 
 **When Agents Participate, They Share:**
