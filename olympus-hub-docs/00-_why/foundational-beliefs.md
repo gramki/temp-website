@@ -14,6 +14,8 @@ These are the beliefs about work, AI, and enterprise systems that shaped Hub's d
 
 * **All agents require structure and memory to be effective** — without context, procedures, or accumulated learning, even the most capable agent will flounder.
 
+* **Agency is often needed, but not essential** — many situations are sufficiently repeatable that machines can resolve them entirely. What requires agency evolves: novel situations become understood, understood situations become automatable.
+
 ---
 
 ## On AI in Enterprises

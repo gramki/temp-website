@@ -10,24 +10,26 @@
 
 ## Understanding the Vision
 
-**We believe work should be a collaboration, not a competition — between humans and AI alike.**
+**We believe work should be a collaboration, not a competition — between humans, AI, and machines alike.**
 
-We believe that when AI systems enter the workplace, they should make work better, not just faster. They should augment human judgment, not replace it. They should earn trust through transparency, not demand it through opacity.
+We believe that when AI systems enter the workplace, they should make work better, not just faster. They should augment human judgment where judgment is needed. They should earn trust through transparency, not demand it through opacity.
 
 But here's what we've learned: **AI capability alone isn't enough.**
 
 An AI that can reason brilliantly but knows nothing about your processes is just a clever stranger. An AI that can act decisively but has no memory of past decisions is doomed to repeat mistakes. An AI integrated ad-hoc into a dozen systems creates fragmentation, not transformation.
 
-**What's missing is the infrastructure for AI to become operationally useful:**
+And here's what else we've learned: **Not every operation needs an agent.** Many situations are repeatable — machines can resolve them entirely. The question isn't "human or AI?" It's "what does this situation actually need?"
 
-- **Context** — Domain knowledge, process understanding, entity relationships that ground AI in your reality
-- **Structure** — A systematic model for when AI engages, what it can do, how it escalates, where humans remain in control
+**What's missing is infrastructure that works across the full spectrum:**
+
+- **Context** — Domain knowledge, process understanding, entity relationships that ground every operation in your reality
+- **Structure** — A systematic model for what engages, what it can do, how it escalates, where control resides
 - **Memory** — Organizational learning that accumulates across decisions, requests, and outcomes
-- **Governance** — Clear authority, traceable decisions, auditable actions
+- **Governance** — Clear authority, traceable decisions, auditable actions — whether agents are involved or not
 
 This is the gap Hub fills.
 
-Hub is an operational platform that provides the fabric for genuine AI-Human collaboration. It's where AI agents and human agents share the same context, pursue the same goals, and operate under the same rules. It's where organizations can systematically build the knowledge, process definitions, and governance that make AI *useful* — not just *capable*.
+Hub is an operational platform that provides the fabric for governed operations — from pure machine-to-machine automation to genuine AI-Human collaboration. It's where agents and machines share the same context, pursue the same goals, and operate under the same governance. It's where organizations can systematically build the knowledge, process definitions, and accountability that make operations *trustworthy* — whether resolved by machines, AI, humans, or all of them together.
 
 We focus on information-centric work — banking operations, healthcare administration, IT service management, enterprise knowledge work — because this is where AI can contribute most, and where this infrastructure matters most.
 

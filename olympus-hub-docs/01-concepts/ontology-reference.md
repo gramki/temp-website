@@ -119,7 +119,7 @@ The Execution Layer is where **work actually happens**. Here, normative rules an
 - **Workflows** (deterministic binding of procedures across multiple roles), and
 - **Cases** (non-deterministic, evolving collaborations across roles).
 
-These operations prescribe **activities**, which in turn consist of atomic **actions** performed by **agents**—humans or AI—often collaborating as a **Human–AI Team**.
+These operations prescribe **activities**, which in turn consist of atomic **actions** performed by **agents**—humans or AI—when agent involvement is required, often collaborating as a **Human–AI Team**. Some operations may be fully automated with no agent involvement.
 
 **Example (Banking):**
 - Procedure: Security analyst checks logs, verifies user, resets password.

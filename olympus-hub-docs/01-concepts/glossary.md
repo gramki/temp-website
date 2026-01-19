@@ -50,6 +50,81 @@ Software development is quintessentially information-centric work:
 | **Outputs** | Decisions, records, code | Physical products |
 | **Primary medium** | Information | Matter |
 
+### Agency in Information-Centric Work
+
+When we say "agency is not essential," we refer to Scenario resolution, not Scenario definition. The normative layer — goals, SOPs, decision criteria, escalation rules — always requires cognitive faculties to create. What may not require agency is the resolution of situations that have been observed, learned, or accepted as sufficiently repeatable that machines can handle them. Over time, what requires agency shifts: novel situations become understood, and understood situations become automatable.
+
+**Key points:**
+
+- Many situations in information-centric work are repeatable and can be resolved entirely by machines
+- Agency (human or AI involvement) is often needed for judgment, exceptions, novel situations — but not always
+- Hub provides the same infrastructure (governance, audit, memory) regardless of whether agents are involved
+- Traditional models try to eliminate agents for cost; Hub is agnostic to resolution model
+- The evolution: novel situations → understood → automatable
+
+**Evolution of Agency Requirements:**
+
+```
+Novel Situation          Understood Situation         Automatable Situation
+     │                          │                            │
+     ▼                          ▼                            ▼
+Agency Essential ───────→ Agency Helpful ───────→ Agency Optional
+(Cognitive work)          (Supervision/review)     (Exception only)
+     │                          │                            │
+     └──────────────────────────┴────────────────────────────┘
+                    Learning and formalization
+```
+
+---
+
+## Resolution Model
+
+**Definition:** The pattern of participation between Machines and Agents in resolving a Scenario. It describes *who/what* resolves the work, not *what kind* of work it is (that's the Work Pattern).
+
+> **Note:** This may also be referred to as "Execution Model" in some contexts. Hub uses "Resolution Model" to emphasize the goal-oriented nature of Scenario resolution.
+
+| Resolution Model | Description | Agent Role | Example |
+|------------------|-------------|------------|---------|
+| **Pure Automation** | Machines resolve entirely; no agent involvement | None | ETL job, scheduled report generation |
+| **Automation with Exception Escalation** | Machines resolve; agents engage only for business exceptions | Exception handling | Data reconciliation with conflict resolution |
+| **Automation with Checkpoint Approval** | Machines resolve; agents approve at defined points | Gate approval | Payment batch processing with threshold approval |
+| **Agent-Assisted Automation** | Automation does the work; agents guide, review, or correct | Guidance, review | AI-drafted document with human editing |
+| **Human-AI Teaming** | Human and AI agents collaborate throughout | Co-resolution | Complex case investigation with AI research |
+| **AI-Autonomous** | AI agents operate independently within governance | Primary resolver | Automated customer inquiry resolution |
+| **Human-Supervised AI** | AI proposes; humans approve each action | Approval per action | High-risk financial decisions |
+| **Pure Human Collaboration** | Humans work together; platform provides infrastructure | Primary resolver | Strategy session, creative brainstorming |
+| **Human with Tool Support** | Human resolves; machines provide capabilities on demand | Primary resolver with tools | Analyst using data queries and calculators |
+
+**Machines as Implicit Infrastructure:**
+
+All resolution models may involve Machines providing capabilities (tools, commands, data access). The model describes the primary actors making decisions and driving resolution, not every participant. Machines are infrastructure for resolution, not actors in resolution.
+
+**Resolution Model × Work Pattern:**
+
+Resolution Model describes *who/what* resolves the work. Work Pattern describes *what kind* of work it is. Together, they define how work actually happens:
+- A Queue-Based work pattern can be resolved through Pure Automation (machines process items) or Human-AI Teaming (agents collaborate on complex items)
+- A Case-Based work pattern typically requires Human-AI Teaming or AI-Autonomous resolution, but may include automated segments
+
+---
+
+## Collaboration and Integration — A Terminology Bridge
+
+Hub unifies traditional enterprise concepts under a single collaboration model. This table maps common terminology to Hub's unified view:
+
+| Traditional Term | Traditional Meaning | Hub Equivalent |
+|------------------|---------------------|----------------|
+| **Integration** | Machine-to-Machine communication (APIs, ETL, data sync) | Machine-Machine collaboration |
+| **Collaboration** | Humans working together, or humans with systems | Agent-Agent collaboration |
+| **Orchestration** | Coordinating multiple systems/services | Scenario with multiple Machines and/or Agents |
+| **Workflow** | Human task routing | One resolution pattern within a Scenario |
+
+**Key points:**
+
+- In Hub, all are forms of "collaboration" — entities working together toward a goal
+- What's traditionally called "integration" is Machine-Machine collaboration in Hub
+- Hub provides unified infrastructure regardless of participant types
+- Enterprise architects can see their integration patterns as Hub Scenarios
+
 ---
 
 ## Operation
@@ -92,7 +167,7 @@ This allows natural usage:
 |----------------|---------------|
 | **Goal-oriented** | Defines outcomes to achieve, not steps to follow |
 | **Situation-based** | Represents a recognizable business situation |
-| **Agent-executed** | Humans and AI agents determine how to achieve the goals |
+| **Agent-executed** | Humans and AI agents determine how to achieve the goals (though resolution may not require agents) |
 | **Three specifications** | Normative (what), Automation (how), Deployment (where) |
 
 ### How Scenarios Differ from Workflows
@@ -137,7 +212,7 @@ Hub provides more than infrastructure. It provides:
 |-----------|-----------------|
 | **Scenario-Oriented Operations** | Scenarios define goals; Requests are collaboration surfaces |
 | **Domain Encapsulation** | Workbenches isolate business domains |
-| **Collaboration Model** | Human-Human, Human-AI, AI-AI modalities |
+| **Resolution Spectrum** | Pure automation through human collaboration; see [Resolution Model](#resolution-model) |
 | **Persona-Channel Framework** | Multi-surface access (Web, Teams, MCP, REST) |
 | **Automation Platform** | Hub Applications, Machines, Runtimes |
 | **Infrastructure Foundation** | Context, structure, memory, governance |
