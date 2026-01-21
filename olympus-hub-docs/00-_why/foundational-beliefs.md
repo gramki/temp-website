@@ -8,13 +8,25 @@ These are the beliefs about work, AI, and enterprise systems that shaped Hub's d
 
 * **Information-centric work is inherently multi-agent** — involving humans, machines, and AI in various interaction patterns: delegation, coordination, handoff, review, escalation, and more.
 
-* **Work is about situations that need resolution, not tasks that need execution** — situations require judgment; tasks assume the judgment has already been made.
+* **The natural unit of work is the situation, not the task** — "a loan application arrived" is a situation; "complete step 3" is a task. Situations preserve intent and allow resolution approaches to evolve; tasks assume the path is already known.
 
 * **The line between structured and unstructured work is pragmatic, not fundamental** — it reflects what was feasible to systematize at the time. As feasibility shifts, so does the line.
 
-* **All agents require structure and memory to be effective** — without context, procedures, or accumulated learning, even the most capable agent will flounder.
-
 * **Agency is often needed, but not essential** — many situations are sufficiently repeatable that machines can resolve them entirely. What requires agency evolves: novel situations become understood, understood situations become automatable.
+
+---
+
+## On Enterprise Context
+
+* **Brownfield is the norm, greenfield is the exception** — enterprise AI must assume it's joining an existing ecosystem, not defining one.
+
+* **Work systems should be organized around goals and situations, not records and data** — "System of Record" thinking asks where to store information; the right question is what goals need to be achieved and how people and systems work together to achieve them.
+
+* **Multi-tenancy, security, compliance, and audit must be foundational** — they cannot be added later without fundamental redesign.
+
+* **Security is a constraint on all operations, not a feature of some** — every action, every agent, every data flow must respect security boundaries.
+
+* **Explicit domain boundaries reduce coupling and enable evolution** — shared databases and cross-cutting integrations create dependencies that block independent change.
 
 ---
 
@@ -30,33 +42,31 @@ These are the beliefs about work, AI, and enterprise systems that shaped Hub's d
 
 ---
 
+## On Agents and Agentic Systems
+
+* **All agents require structure and memory to be effective** — without context, procedures, or accumulated learning, even the most capable agent will flounder.
+
+* **Agents and agentic systems are architecturally distinct** — managing many independent agents is not the same as enabling agents to coordinate autonomously under unified policies.
+
+* **Autonomous agents need to understand rules, not just be blocked by them** — checking constraints after the fact is insufficient when agents act on their own.
+
+* **Agent proliferation without governance is worse than microservices sprawl** — memory, policies, authority, and tools each fragment independently, outpacing any attempt to govern them.
+
+* **Integration is the hard problem, not components** — the market has agent tools; what's missing is the connective tissue that makes them work as systems.
+
+* **Agent lifecycle management is as fundamental as software lifecycle management** — without it, organizations cannot answer: what agents exist, what can they do, what do they remember.
+
+* **Debugging agents is epistemic, not operational** — understanding why an agent believed something requires different infrastructure than tracing data flows.
+
+---
+
 ## On Modeling Work
 
 * **Goals, not procedures, should define work** — procedures assume perfect foresight; goals allow adaptation while preserving intent.
 
-* **Business situations are the natural unit of work modeling** — people think in terms of "a loan application arrived" or "an incident occurred," not in flowcharts or data models.
-
 * **Systematic AI integration requires explicit structure** — defined boundaries, named actors, scoped activities, and shared vocabulary. Without these, AI integration remains ad-hoc.
 
 * **Business intent must be preserved as a first-class artifact** — when translated directly to technical artifacts, business intent gets lost.
-
----
-
-## On Enterprise Systems
-
-* **Work systems should be organized around goals and situations, not records and data** — "System of Record" thinking asks where to store information; the right question is what goals need to be achieved and how people and systems work together to achieve them.
-
-* **Explicit domain boundaries reduce coupling and enable evolution** — shared databases and cross-cutting integrations create dependencies that block independent change.
-
-* **Multi-tenancy, security, compliance, and audit must be foundational** — they cannot be added later without fundamental redesign.
-
-* **Security is a constraint on all operations, not a feature of some** — every action, every agent, every data flow must respect security boundaries.
-
----
-
-## On Enterprise Reality
-
-* **Brownfield is the norm, greenfield is the exception** — enterprise AI must assume it's joining an existing ecosystem, not defining one.
 
 ---
 
@@ -82,38 +92,6 @@ These are the beliefs about work, AI, and enterprise systems that shaped Hub's d
 
 ---
 
-## On Platform Design
-
-* **A platform should provide infrastructure, not dictate solutions** — organizations define their own domains, scenarios, and interaction patterns; the platform enables, not prescribes.
-
-* **An operational model that varies by agent type cannot accommodate evolving agent mixes** — the same governance should apply whether work is done by humans, rules, workflows, or AI.
-
-* **People work best in familiar contexts** — governed operations should meet them where they already work, not require them to come elsewhere.
-
----
-
-## On Agent Proliferation
-
-* **Agent proliferation without governance creates entropy worse than microservices sprawl** — memory, reasoning policies, authority, and tool access fragment independently, compounding faster than infrastructure to manage them.
-
-* **Debugging agents is epistemic, not operational** — understanding why an agent believed something requires different infrastructure than tracing data flows.
-
-* **Agent lifecycle management is as fundamental as software lifecycle management** — without it, organizations cannot answer: what agents exist, what can they do, what do they remember.
-
----
-
-## On Agentic Systems
-
-* **Agents and agentic systems are architecturally distinct** — managing many independent agents is not the same as enabling agents to coordinate autonomously under unified policies.
-
-* **Integration is the hard problem, not components** — the market has agent tools; what's missing is the connective tissue that makes them work as systems.
-
-* **Autonomous agents need to understand rules, not just be blocked by them** — checking constraints after the fact is insufficient when agents act on their own.
-
-* **Piecemeal assembly of AI components fails at integration boundaries** — tools from different sources don't share semantics, governance, or memory; integration costs compound faster than capability gains. *(TODO: This articulation needs refinement — it shouldn't imply requiring a uniform stack; the point is about a shared coordination layer.)*
-
----
-
 ## On Enterprise Memory
 
 * **Enterprise Knowledge, Enterprise Memory, and Agent Memory are cognitively distinct** — conflating them produces systems that can retrieve facts but cannot explain decisions or learn from precedent.
@@ -126,21 +104,25 @@ These are the beliefs about work, AI, and enterprise systems that shaped Hub's d
 
 ---
 
-## On Software Development
+## On Platform Design
+
+* **A platform should provide infrastructure, not dictate solutions** — organizations define their own domains, scenarios, and interaction patterns; the platform enables, not prescribes.
+
+* **An operational model that varies by agent type cannot accommodate evolving agent mixes** — the same governance should apply whether work is done by humans, rules, workflows, or AI.
+
+* **People work best in familiar contexts** — governed operations should meet them where they already work, not require them to come elsewhere.
+
+---
+
+## On Creation and Development
 
 * **Software development is quintessentially information-centric work** — all inputs, transformations, and outputs are information; no physical material is involved at any stage.
+
+* **The essential act of development is specifying intent, not manipulating tools** — local IDEs, Git commands, and build scripts are artifacts of a paradigm, not requirements of the work.
 
 * **Context fragmentation is the core challenge in multi-tool, multi-agent development** — each tool has partial context; handoffs lose information; knowledge lives in people's heads.
 
 * **The more autonomous development becomes, the more coordination infrastructure matters** — human developers coordinate implicitly; autonomous agents require explicit coordination fabric.
-
-* **The essential act of development is specifying intent, not manipulating tools** — local IDEs, Git commands, and build scripts are artifacts of a paradigm, not requirements of the work.
-
----
-
-## On the Democratization of Creation
-
-* **Lowering the barrier to creation increases demand for coordination infrastructure** — when more people can create, more creation needs governance, coordination, and context. This isn't compute infrastructure; it's the operational fabric that enables creations to work together.
 
 * **As creation is democratized, the bottleneck shifts from making to coordinating** — the scarce resource becomes not the ability to create, but the system that governs, coordinates, and learns from what gets created. When creation is commoditized, this coordination infrastructure becomes the differentiator.
 
