@@ -11,6 +11,7 @@
 | Document | Description | Audience |
 |----------|-------------|----------|
 | [Hub Architecture](./hub-architecture.md) | Executive overview, core philosophy, and system principles | Everyone |
+| [Hub Design Philosophy](./hub-design-philosophy.md) | Theoretical foundations and design principles | Architects, Designers |
 | [Architecture Layers](./architecture-layers.md) | Four-layer ontology mapping to Hub components | Architects |
 | [Signal Flow](./signal-flow.md) | End-to-end signal processing narrative | Developers, Architects |
 | [Workbench Anatomy](./workbench-anatomy.md) | Internal structure and components of a Workbench | Developers |
@@ -56,11 +57,12 @@ Detailed documentation of individual platform constructs:
 ### For Architects (New to Hub)
 
 1. **[Hub Architecture](./hub-architecture.md)** — Philosophy and principles
-2. **[Architecture Layers](./architecture-layers.md)** — Four-layer mapping
-3. **[Subsystem Map](./subsystem-map.md)** — Subsystem boundaries
-4. **[Security View](./views/security-view.md)** — Security model
-5. **[Deployment View](./views/deployment-view.md)** — Deployment topology
-6. Dive into [Implementation Concepts](./implementation-concepts/README.md) as needed
+2. **[Hub Design Philosophy](./hub-design-philosophy.md)** — Theoretical foundations
+3. **[Architecture Layers](./architecture-layers.md)** — Four-layer mapping
+4. **[Subsystem Map](./subsystem-map.md)** — Subsystem boundaries
+5. **[Security View](./views/security-view.md)** — Security model
+6. **[Deployment View](./views/deployment-view.md)** — Deployment topology
+7. Dive into [Implementation Concepts](./implementation-concepts/README.md) as needed
 
 ### For Developers (Building on Hub)
 
@@ -92,6 +94,7 @@ Detailed documentation of individual platform constructs:
 02-system-design/
 ├── README.md                      ← You are here
 ├── hub-architecture.md            # Executive overview
+├── hub-design-philosophy.md       # Theoretical foundations
 ├── architecture-layers.md         # Four-layer mapping
 ├── signal-flow.md                 # End-to-end signal processing
 ├── workbench-anatomy.md           # Workbench internals

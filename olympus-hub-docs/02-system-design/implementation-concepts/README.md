@@ -74,6 +74,9 @@ These implementation concepts are:
 
 | Concept | Description | Status |
 |---------|-------------|--------|
+| [Agent Delegation](./agent-delegation.md) | Umbrella concept; unified delegation model overview | ✅ Complete |
+| [Scenario-Scoped Delegation](./scenario-scoped-delegation.md) | Authority from Scenario Identity Profile at deployment | ✅ Complete |
+| [Request-Scoped Delegation](./request-scoped-delegation.md) | Authority from Business User consent per-request | ✅ Complete |
 | [Persona Twins](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twins.md) | Personal AI agents for collaborator delegation | 🟡 Draft |
 | [Persona Twin Blueprint](../../../olympus-seer-docs/seer-design/implementation-concepts/persona-twin-blueprint.md) | Blueprint for creating Persona Twins | 🟡 Draft |
 
@@ -94,6 +97,7 @@ These implementation concepts are:
 | [CRD (Custom Resource Definition)](./crd.md) | Declarative configuration model | ✅ Complete |
 | [Operator](./operator.md) | GitOps-based resource reconciliation | ✅ Complete |
 | [Scenario Specification Types](./scenario-specification-types.md) | Normative, Automation, and Deployment specs | ✅ Complete |
+| [Hub Application Deployment](./hub-application-deployment.md) | Runtime instance of a Hub Application in a Workbench | ✅ Complete |
 
 ### Composite Patterns
 
@@ -123,6 +127,7 @@ These implementation concepts are:
 |---------|-------------|--------|
 | [MS Teams Integration](./ms-teams-integration.md) | Persona bots and chat group collaboration | ✅ Complete |
 | [Hercules Launcher](./hercules-launcher.md) | Deep linking service for cross-channel navigation | ✅ Complete |
+| [MCP Server](./mcp-server.md) | Workbench-scoped MCP configuration and endpoints | 🟡 Draft |
 
 ---
 
