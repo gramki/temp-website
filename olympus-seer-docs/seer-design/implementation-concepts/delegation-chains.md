@@ -393,6 +393,8 @@ spec:
 
 | Concept | Relationship |
 |---------|--------------|
+| [Scenario-Scoped Delegation](./scenario-scoped-delegation.md) | Business user delegation with deployment-time authority |
+| [Request-Scoped Delegation](./request-scoped-delegation.md) | Business user delegation with per-request consent |
 | [Agent Identity & Credentials](./agent-identity-credentials.md) | Delegation chains create agent identity |
 | [Authority Enforcement](./authority-enforcement.md) | Delegation chains provide authority for enforcement |
 | [Agent Runtime](./agent-runtime.md) | Runtime respawns agents on authority changes |

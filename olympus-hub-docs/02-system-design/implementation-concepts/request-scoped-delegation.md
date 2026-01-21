@@ -1,14 +1,47 @@
 # Request-Scoped Delegation (Hub Perspective)
 
+> **Category:** Agent Delegation  
 > **Status:** 🟢 Design Complete  
-> **Last Updated:** 2026-01-17  
+> **Last Updated:** 2026-01-21  
 > **Authoritative Source:** [Request-Scoped Delegation (Seer)](../../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md)
 
 ---
 
 ## Overview
 
-Request-Scoped Delegation enables Employed Agents to act on behalf of **business users** (customers, external employees) during a Hub Request. This document describes the Hub-side components and patterns; for the complete design, see the authoritative Seer documentation linked above.
+Request-Scoped Delegation enables Employed Agents to act on behalf of **business users** (customers, external employees) with **temporary, task-bounded authority**. Authority is granted per-request when a user consents via a Channel.
+
+This document describes the Hub-side components and patterns; for the complete design, see the authoritative Seer documentation linked above.
+
+---
+
+## Purpose
+
+| Need | How Request-Scoped Addresses It |
+|------|--------------------------------|
+| **Temporary authority** | Authority expires when request completes; no lingering permissions |
+| **User consent** | Business user explicitly grants permission per-task |
+| **Task isolation** | Authority scoped to specific request; doesn't affect other work |
+| **Customer trust** | Users control what agents can do on their behalf |
+
+**Primary Use Cases:**
+- Personal finance AI paying bills for a customer
+- Family banking assistant transferring money
+- Expense approval bot acting on behalf of employees
+- Any customer-facing agent requiring explicit consent
+
+---
+
+## Contrast with Other Delegation Types
+
+| Aspect | Request-Scoped | Scenario-Scoped | Enterprise (User/Role/Bot) |
+|--------|----------------|-----------------|---------------------------|
+| **Purpose** | Temporary, user-initiated tasks | Long-lived operational agents | Internal operator delegation |
+| **Authority Source** | Business User consent | Scenario Identity Profile | Enterprise IAM |
+| **Certificate Timing** | Per-request | At deployment | N/A (direct inheritance) |
+| **Token Timing** | Per-request | Per-request | N/A |
+| **User Interaction** | Consent via Channel | None required | None required |
+| **Typical Agent** | Customer-facing assistant | Enterprise automation | Employee assistant |
 
 ---
 
@@ -228,10 +261,32 @@ This follows the same pattern as lifecycle cascade in Request Hierarchy.
 
 ## Related Documentation
 
-- [Request-Scoped Delegation (Seer)](../../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md) — **Authoritative source**
-- [Delegation Handling](../../04-subsystems/signal-exchange/delegation-handling.md) — Signal Exchange processing
-- [Delegation Context](../../04-subsystems/request-management/delegation-context.md) — Request-level storage
-- [Channel](./channel.md) — Channel delegation responsibilities
+### Mode Comparison
+
+| Concept | Description |
+|---------|-------------|
+| [Agent Delegation](./agent-delegation.md) | Umbrella concept; unified model overview |
+| [Scenario-Scoped Delegation](./scenario-scoped-delegation.md) | Alternative mode with deployment-time authority |
+
+### Authoritative Source
+
+- [Request-Scoped Delegation (Seer)](../../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md) — Complete design
+
+### Hub Integration
+
+| Concept | Description |
+|---------|-------------|
+| [Delegation Handling](../../04-subsystems/signal-exchange/delegation-handling.md) | Signal Exchange processing |
+| [Delegation Context](../../04-subsystems/request-management/delegation-context.md) | Request-level storage |
+| [Channel](./channel.md) | Channel delegation responsibilities |
+| [Observer Pattern](./observer-pattern.md) | Channels as delegation observers |
+
+### Decision Records
+
+| ADR | Decision |
+|-----|----------|
+| [ADR-0127](../../decision-logs/0127-request-scoped-authority-delegation.md) | Request-Scoped Authority Delegation |
+| [ADR-0130](../../decision-logs/0130-unified-delegation-model.md) | Unified Delegation Model |
 
 ---
 

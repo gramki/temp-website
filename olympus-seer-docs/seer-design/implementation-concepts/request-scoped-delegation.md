@@ -738,6 +738,9 @@ Request-Scoped Delegation extends Hub's existing request context:
 - [Message Envelope](../../../olympus-hub-docs/04-subsystems/signal-exchange/message-envelope.md)
 - [Channels](../../../olympus-hub-docs/02-system-design/implementation-concepts/channel.md)
 
+### Mode Comparison
+- [Scenario-Scoped Delegation](./scenario-scoped-delegation.md) — Alternative mode with deployment-time authority
+
 ### Seer Documentation
 - [Delegation Chains](./delegation-chains.md)
 - [Authority Enforcement](./authority-enforcement.md)
