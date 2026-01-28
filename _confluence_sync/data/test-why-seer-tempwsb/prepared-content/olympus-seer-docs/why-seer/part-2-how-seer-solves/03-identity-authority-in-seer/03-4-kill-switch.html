@@ -1,0 +1,204 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-4-kill-switch.md -->
+<!-- Title: 3.4 Kill Switch -->
+<!-- Content Hash: c5272ea82fb7923cc9dcf5f19c81fcb860f4901d8e2f79512331f78591eb72f2 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">34-kill-switch</ac:parameter></ac:structured-macro>3.4 Kill Switch</h1>
+<p>The kill switch is a critical safety mechanism that provides instant authority revocation for enterprise agents. Unlike process termination, which merely stops execution, the kill switch revokes the agent's authority to act—a semantic-level intervention that is independent of infrastructure.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">kill-switch-vs-process-termination</ac:parameter></ac:structured-macro>Kill Switch vs. Process Termination</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Process Termination</th>
+<th>Kill Switch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What it does</strong></td>
+<td>Stops the running container</td>
+<td>Revokes agent's authority</td>
+</tr>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Single instance</td>
+<td>All instances of the agent</td>
+</tr>
+<tr>
+<td><strong>Effect</strong></td>
+<td>Process restarts with same authority</td>
+<td>Agent cannot act even if restarted</td>
+</tr>
+<tr>
+<td><strong>Control</strong></td>
+<td>Infrastructure team</td>
+<td>Platform/Security team</td>
+</tr>
+<tr>
+<td><strong>Speed</strong></td>
+<td>Depends on orchestrator</td>
+<td>Immediate (policy-level)</td>
+</tr>
+</tbody>
+</table>
+<p>A killed process with unchanged authority will resume acting when restarted. A kill switch ensures the agent cannot act regardless of infrastructure state.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">how-the-kill-switch-works</ac:parameter></ac:structured-macro>How the Kill Switch Works</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authority-revocation</ac:parameter></ac:structured-macro>Authority Revocation</h3>
+<p>When the kill switch is activated:</p>
+<ol>
+<li><strong>Immediate Policy Update:</strong> Agent's authority is revoked in Cipher IAM</li>
+<li><strong>PEP Enforcement:</strong> All Policy Enforcement Points immediately reject the agent's requests</li>
+<li><strong>Token Invalidation:</strong> All outstanding tokens for the agent are invalidated</li>
+<li><strong>Audit Recording:</strong> Kill switch activation is recorded in CAF</li>
+</ol>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">propagation</ac:parameter></ac:structured-macro>Propagation</h3>
+<p>Authority revocation propagates through all channels:</p>
+<pre class="codehilite"><code>Kill Switch Activated
+    ↓
+Cipher IAM: Agent marked as revoked
+    ↓ (seconds)
+All PEPs: Reject agent's requests
+    ↓ (seconds)
+External Systems (via Cipher SDK): Reject agent's credentials
+    ↓
+Audit: Full record of revocation
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">in-flight-operations</ac:parameter></ac:structured-macro>In-Flight Operations</h3>
+<p>When the kill switch is activated, in-flight operations are handled:</p>
+<table>
+<thead>
+<tr>
+<th>Operation State</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Not yet started</strong></td>
+<td>Rejected immediately</td>
+</tr>
+<tr>
+<td><strong>In progress (read-only)</strong></td>
+<td>May complete; no further actions</td>
+</tr>
+<tr>
+<td><strong>In progress (mutating)</strong></td>
+<td>Blocked at next PEP check</td>
+</tr>
+<tr>
+<td><strong>Committed</strong></td>
+<td>Already complete; recorded in audit</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">kill-switch-controls</ac:parameter></ac:structured-macro>Kill Switch Controls</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">who-can-activate</ac:parameter></ac:structured-macro>Who Can Activate</h3>
+<p>Kill switch activation requires appropriate authority:</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ARE (Agent Reliability Engineer)</strong></td>
+<td>Agents in their operational domain</td>
+</tr>
+<tr>
+<td><strong>Security Team</strong></td>
+<td>All agents</td>
+</tr>
+<tr>
+<td><strong>Manager (Accountable)</strong></td>
+<td>Agents they manage</td>
+</tr>
+<tr>
+<td><strong>Platform Admin</strong></td>
+<td>Emergency override for all</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">activation-channels</ac:parameter></ac:structured-macro>Activation Channels</h3>
+<p>The kill switch can be activated through multiple channels:</p>
+<ul>
+<li><strong>Agent Operations Desk:</strong> UI button for operators</li>
+<li><strong>CLI:</strong> <code>seer kill-switch activate --agent &lt;agent-id&gt;</code></li>
+<li><strong>API:</strong> REST endpoint for automation</li>
+<li><strong>Watch Alert:</strong> Automated response to critical alerts</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">confirmation-requirements</ac:parameter></ac:structured-macro>Confirmation Requirements</h3>
+<p>For non-emergency situations, kill switch requires confirmation:</p>
+<pre class="codehilite"><code class="language-yaml">killSwitchPolicy:
+  requireConfirmation: true
+  confirmationTimeout: 30s  # Auto-cancel if not confirmed
+  emergencyBypass:
+    roles: [security-incident-responder]
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">kill-switch-governance</ac:parameter></ac:structured-macro>Kill Switch Governance</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">audit-trail</ac:parameter></ac:structured-macro>Audit Trail</h3>
+<p>All kill switch operations are fully audited:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;event&quot;: &quot;kill_switch_activated&quot;,
+  &quot;agent&quot;: &quot;dispute-analyst-bot&quot;,
+  &quot;activatedBy&quot;: &quot;are@acme.com&quot;,
+  &quot;reason&quot;: &quot;Anomalous behavior detected&quot;,
+  &quot;timestamp&quot;: &quot;2026-01-10T15:30:00Z&quot;,
+  &quot;scope&quot;: &quot;all_instances&quot;,
+  &quot;inFlightOperations&quot;: 3,
+  &quot;inFlightHandling&quot;: &quot;blocked&quot;
+}
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">recovery</ac:parameter></ac:structured-macro>Recovery</h3>
+<p>After investigation, agents can be restored:</p>
+<pre class="codehilite"><code class="language-yaml"># Recovery request
+apiVersion: seer.olympus.io/v1
+kind: KillSwitchRecovery
+metadata:
+  name: dispute-analyst-recovery
+spec:
+  agent: dispute-analyst-bot
+  requestedBy: are@acme.com
+  reason: &quot;Investigation complete, root cause addressed&quot;
+  approvals:
+    - role: security
+      required: true
+    - role: manager
+      required: true
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">post-mortem</ac:parameter></ac:structured-macro>Post-Mortem</h3>
+<p>Kill switch activations trigger post-mortem processes:</p>
+<ul>
+<li>Why was activation necessary?</li>
+<li>What was the agent doing?</li>
+<li>How can prevention be improved?</li>
+<li>Should guardrails be strengthened?</li>
+</ul>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">platform-independence</ac:parameter></ac:structured-macro>Platform Independence</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">csp-independence</ac:parameter></ac:structured-macro>CSP Independence</h3>
+<p>The kill switch operates at the Seer platform level, independent of cloud infrastructure:</p>
+<ul>
+<li>Works the same on AWS, Azure, GCP</li>
+<li>Does not depend on CSP-specific features</li>
+<li>Remains effective across infrastructure failures</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-framework-independence</ac:parameter></ac:structured-macro>Agent Framework Independence</h3>
+<p>The kill switch works regardless of agent implementation:</p>
+<ul>
+<li>Raw Agent framework (LangChain, CrewAI, etc.)</li>
+<li>Deployment model (container, serverless)</li>
+<li>Runtime environment</li>
+</ul>
+<p>Authority revocation happens at the policy layer, above implementation details.</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/agent-identity-authority.md</code><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/authority-enforcement.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-4-kill-switch.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

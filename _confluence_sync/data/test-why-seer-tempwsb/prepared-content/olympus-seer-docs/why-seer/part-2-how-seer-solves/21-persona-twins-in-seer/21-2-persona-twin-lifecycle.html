@@ -1,0 +1,221 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/21-persona-twins-in-seer/21-2-persona-twin-lifecycle.md -->
+<!-- Title: 21.2 Persona Twin Lifecycle -->
+<!-- Content Hash: 748357127cca7ad2789a9b81f5e80dcdd827be1d279016c524df9b1fcedf9f0c -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">212-persona-twin-lifecycle</ac:parameter></ac:structured-macro>21.2 Persona Twin Lifecycle</h1>
+<p>Persona Twins follow the standard three-layer agent lifecycle (Raw → Trained → Employed) established in Section 7, with special recognition, isolation, and trigger mechanisms that distinguish them from business agents. Twins are created from Persona Twin Blueprints that provide signal suggestions and OPA filter templates, enabling non-developers to create personal AI assistants.</p>
+<p>This subsection describes how Persona Twins are created, trained, and employed using blueprints, how they are recognized and isolated from business agents, and how delegators own and manage their twins throughout the lifecycle.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection describes the Persona Twin lifecycle, from blueprint-based creation through training and employment. It explains how Persona Twin Blueprints enable non-developer creation, how twins follow the standard agent lifecycle with special recognition, and how delegators own and manage their twins.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-concepts-definitions</ac:parameter></ac:structured-macro>Core Concepts &amp; Definitions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">blueprint-based-creation</ac:parameter></ac:structured-macro>Blueprint-Based Creation</h3>
+<p><strong>Blueprint-based creation</strong> enables collaborators to create Persona Twins by selecting from Persona Twin Blueprints that provide signal suggestions and OPA filter templates. Blueprints:<br />
+*   <strong>Extend Trained Agent Blueprints</strong>: Persona Twin Blueprints extend standard Trained Agent Blueprints with persona-specific metadata<br />
+*   <strong>Provide signal suggestions</strong>: Blueprints suggest common signals (task assignment, platform notifications, schedules)<br />
+*   <strong>Provide filter templates</strong>: Blueprints provide OPA filter templates for signal filtering<br />
+*   <strong>Provide schedule suggestions</strong>: Blueprints suggest common schedules (daily summaries, weekly reviews)<br />
+*   <strong>Enable customization</strong>: Collaborators can customize blueprints for their needs</p>
+<p>Blueprint-based creation enables non-developers to create Persona Twins without writing specifications from scratch.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">persona-twin-blueprint-structure</ac:parameter></ac:structured-macro>Persona Twin Blueprint Structure</h3>
+<p>Persona Twin Blueprints extend Trained Agent Blueprints (not a separate CRD) with persona-specific metadata:</p>
+<p><strong>Blueprint Structure</strong>:</p>
+<pre class="codehilite"><code class="language-yaml">apiVersion: seer.olympus.io/v1
+kind: TrainedAgentBlueprint  # Extends standard blueprint
+metadata:
+  name: personal-assistant-blueprint
+  labels:
+    persona-twin-blueprint: &quot;true&quot;
+spec:
+  # Standard Trained Agent Blueprint fields
+  # (knowledge, skills, guardrails, etc.)
+
+  # Persona Twin extensions
+  personaTwin:
+    # Signal suggestions
+    signalSuggestions:
+      - type: &quot;task_assignment&quot;
+        description: &quot;Notify when tasks are assigned to you&quot;
+        opaFilterTemplate: |
+          package persona_twin
+          allow { input.event.type == &quot;task_assigned&quot;; input.event.assignee == delegator }
+
+      - type: &quot;platform_notification&quot;
+        description: &quot;Notify about platform events&quot;
+        opaFilterTemplate: |
+          package persona_twin
+          allow { input.event.type == &quot;platform_notification&quot;; input.event.user == delegator }
+
+    # Filter suggestions
+    filterSuggestions:
+      - name: &quot;my-tasks-only&quot;
+        description: &quot;Only tasks assigned to me&quot;
+        opaPolicy: |
+          package persona_twin
+          allow { input.task.assignee == delegator }
+
+      - name: &quot;high-priority-only&quot;
+        description: &quot;Only high-priority items&quot;
+        opaPolicy: |
+          package persona_twin
+          allow { input.priority == &quot;high&quot; }
+
+    # Schedule suggestions
+    scheduleSuggestions:
+      - name: &quot;daily-summary&quot;
+        description: &quot;Daily summary at 9 AM&quot;
+        schedule: &quot;0 9 * * *&quot;
+        prompt: &quot;Provide a summary of my tasks and notifications&quot;
+
+      - name: &quot;weekly-review&quot;
+        description: &quot;Weekly review on Fridays&quot;
+        schedule: &quot;0 17 * * 5&quot;
+        prompt: &quot;Review my week and suggest improvements&quot;
+</code></pre>
+
+<p><strong>Extension Model</strong>:<br />
+Persona Twin Blueprints extend Trained Agent Blueprints rather than being a separate CRD:<br />
+*   <strong>Same CRD kind</strong>: Uses <code>TrainedAgentBlueprint</code> with persona-specific metadata<br />
+*   <strong>Extension field</strong>: <code>personaTwin</code> field contains persona-specific extensions<br />
+*   <strong>Backward compatible</strong>: Standard Trained Agent Blueprints work without persona extensions<br />
+*   <strong>Reuse</strong>: Leverages existing Trained Agent Blueprint infrastructure</p>
+<p><strong>Platform-Provided Blueprints</strong>:<br />
+Hub Platform provides subscription blueprints for common use cases:<br />
+*   <strong>Personal Assistant</strong>: Task management, notifications, scheduling<br />
+*   <strong>Knowledge Assistant</strong>: Knowledge search, SOP lookup, policy queries<br />
+*   <strong>Analytics Assistant</strong>: Metrics, reports, trend analysis<br />
+*   <strong>Custom blueprints</strong>: Tenant admins can create custom blueprints</p>
+<p>Platform-provided blueprints enable quick twin creation for common use cases.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">standard-lifecycle</ac:parameter></ac:structured-macro>Standard Lifecycle</h3>
+<p><strong>Persona Twins follow the standard agent lifecycle</strong> (Raw → Trained → Employed) established in Section 7:<br />
+*   <strong>Raw Agent</strong>: Container image with capabilities (deployable artifact)<br />
+*   <strong>Trained Agent</strong>: Configured via Training Spec (knowledge, skills, guardrails) based on blueprint<br />
+*   <strong>Employed Agent</strong>: Delegated via Employment Spec (authority for specific context)</p>
+<p>The standard lifecycle ensures that Persona Twins maintain the same governance, audit, and operational controls as business agents.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">special-recognition</ac:parameter></ac:structured-macro>Special Recognition</h3>
+<p><strong>Special recognition</strong> distinguishes Persona Twins from business agents through metadata labels and category:<br />
+*   <strong>Metadata labels</strong>: <code>persona-twin: "true"</code> label for recognition<br />
+*   <strong>Category isolation</strong>: <code>category: "persona-twin"</code> for filtering and isolation<br />
+*   <strong>Delegator metadata</strong>: <code>delegator</code> field identifies the collaborator who created the twin<br />
+*   <strong>Directory filtering</strong>: Directory queries support <code>personaTwin</code> filter</p>
+<p>Special recognition enables the platform to distinguish Persona Twins from business agents while maintaining standard lifecycle processes.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">delegator-ownership</ac:parameter></ac:structured-macro>Delegator Ownership</h3>
+<p><strong>Delegator ownership</strong> means that the collaborator who creates a Persona Twin owns and manages it throughout its lifecycle:<br />
+*   <strong>Creation</strong>: Delegator creates twin from blueprint<br />
+*   <strong>Configuration</strong>: Delegator configures signals, filters, and schedules<br />
+*   <strong>Training</strong>: Delegator trains twin in workbench<br />
+*   <strong>Employment</strong>: Delegator deploys twin (creates Employment Spec)<br />
+*   <strong>Management</strong>: Delegator manages twin (enable/disable, update, revoke)</p>
+<p>Delegator ownership ensures that collaborators have full control over their personal AI assistants.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conceptual-models-frameworks</ac:parameter></ac:structured-macro>Conceptual Models / Frameworks</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-persona-twin-lifecycle-model</ac:parameter></ac:structured-macro>The Persona Twin Lifecycle Model</h3>
+<p>Persona Twins follow the standard lifecycle with special recognition:</p>
+<pre class="codehilite"><code>Blueprint Selection
+    ↓
+Training Spec Creation (from blueprint)
+    ├── Signal suggestions applied
+    ├── Filter templates applied
+    └── Customizations added
+    ↓
+Training (Raw → Trained)
+    ├── Standard training process
+    └── Special recognition (labels, category)
+    ↓
+Employment (Trained → Employed)
+    ├── Authority delegation (from delegator)
+    ├── Trigger activation
+    └── Visibility configuration
+    ↓
+Operation
+    ├── Responds to personal triggers
+    ├── Operates within delegator authority
+    └── Maintains audit trail
+</code></pre>
+
+<p>The lifecycle follows standard processes while maintaining special recognition and delegator ownership.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-blueprint-to-twin-model</ac:parameter></ac:structured-macro>The Blueprint-to-Twin Model</h3>
+<p>Blueprints enable twin creation:</p>
+<pre class="codehilite"><code>Persona Twin Blueprint
+    ├── Signal Suggestions
+    │   ├── Task assignment
+    │   ├── Platform notifications
+    │   └── Schedules
+    ├── Filter Templates
+    │   ├── OPA policies for filtering
+    │   └── Customizable by collaborator
+    └── Training Configuration
+        ├── Skills, knowledge, prompts
+        └── Guardrails
+            ↓
+Collaborator Customization
+    ├── Select signals
+    ├── Apply filters
+    ├── Configure schedules
+    └── Customize training
+            ↓
+Training Spec Creation
+    └── Standard lifecycle continues
+</code></pre>
+
+<p>Blueprints provide starting configurations that collaborators customize for their needs.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">systemic-and-enterprise-considerations</ac:parameter></ac:structured-macro>Systemic and Enterprise Considerations</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">blueprint-management</ac:parameter></ac:structured-macro>Blueprint Management</h3>
+<p>Persona Twin Blueprints must be managed:<br />
+*   <strong>Platform blueprints</strong>: Hub Platform provides default blueprints<br />
+*   <strong>Custom blueprints</strong>: Tenant admins can create custom blueprints<br />
+*   <strong>Versioning</strong>: Blueprints are versioned and immutable once published<br />
+*   <strong>Deprecation</strong>: Deprecated blueprints should be marked and eventually removed</p>
+<p>Blueprint management ensures that collaborators have access to current, supported blueprints.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lifecycle-consistency</ac:parameter></ac:structured-macro>Lifecycle Consistency</h3>
+<p>Persona Twins must maintain lifecycle consistency:<br />
+*   <strong>Standard processes</strong>: Twins follow standard training and employment processes<br />
+*   <strong>Governance compliance</strong>: Twins maintain governance, audit, and policy compliance<br />
+*   <strong>Operational controls</strong>: Twins support standard operational controls (kill switches, throttling, etc.)<br />
+*   <strong>Lifecycle transitions</strong>: Twins follow standard lifecycle state transitions</p>
+<p>Lifecycle consistency ensures that Persona Twins maintain enterprise standards while enabling personal productivity.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">resource-management</ac:parameter></ac:structured-macro>Resource Management</h3>
+<p>Persona Twins must be managed for resource consumption:<br />
+*   <strong>Proliferation monitoring</strong>: Monitor twin proliferation to manage resource consumption<br />
+*   <strong>Quotas</strong>: Set quotas to manage resource consumption per twin<br />
+*   <strong>Fair usage</strong>: Enforce fair usage policies to prevent resource abuse<br />
+*   <strong>Directory visibility</strong>: Directory filtering enables admin visibility into twin proliferation</p>
+<p>Resource management ensures that Persona Twins don't consume excessive resources.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions-failure-modes</ac:parameter></ac:structured-macro>Common Misconceptions &amp; Failure Modes</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-blueprints-are-required</ac:parameter></ac:structured-macro>Misconception: Blueprints Are Required</h3>
+<p>Some organizations assume that blueprints are required for Persona Twin creation. However, blueprints are convenience mechanisms; collaborators can create twins manually if needed.</p>
+<p><strong>Failure mode</strong>: Organizations assume that twin creation requires blueprints, limiting flexibility for advanced use cases.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-twins-dont-follow-standard-lifecycle</ac:parameter></ac:structured-macro>Misconception: Twins Don't Follow Standard Lifecycle</h3>
+<p>Some organizations assume that Persona Twins follow a different lifecycle than business agents. However, twins follow the standard lifecycle with special recognition, not a different lifecycle.</p>
+<p><strong>Failure mode</strong>: Organizations expect different lifecycle processes for twins, leading to confusion and inconsistent governance.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-delegators-cant-manage-twins</ac:parameter></ac:structured-macro>Misconception: Delegators Can't Manage Twins</h3>
+<p>Some organizations assume that only admins can manage Persona Twins. However, delegators own and manage their twins throughout the lifecycle.</p>
+<p><strong>Failure mode</strong>: Organizations restrict twin management to admins, reducing delegator control and productivity.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">blueprint-strategy</ac:parameter></ac:structured-macro>Blueprint Strategy</h3>
+<p>Organizations should develop a blueprint strategy that:<br />
+*   <strong>Provides common blueprints</strong>: Provide blueprints for common personal productivity use cases<br />
+*   <strong>Enables customization</strong>: Enable collaborators to customize blueprints for their needs<br />
+*   <strong>Maintains best practices</strong>: Encode best practices in blueprint configurations<br />
+*   <strong>Supports evolution</strong>: Support blueprint evolution as needs change</p>
+<p>Blueprint strategy directly impacts twin creation efficiency and effectiveness.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lifecycle-management</ac:parameter></ac:structured-macro>Lifecycle Management</h3>
+<p>Organizations should manage Persona Twin lifecycle with:<br />
+*   <strong>Standard processes</strong>: Use standard training and employment processes<br />
+*   <strong>Governance integration</strong>: Integrate twins into governance processes<br />
+*   <strong>Operational controls</strong>: Apply standard operational controls to twins<br />
+*   <strong>Lifecycle monitoring</strong>: Monitor twin lifecycle for issues and optimization</p>
+<p>Lifecycle management ensures that Persona Twins maintain enterprise standards.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 7 (Agent Lifecycle)</strong>: Describes the standard agent lifecycle that Persona Twins follow</li>
+<li><strong>Section 21.1 (What Are Persona Twins?)</strong>: Defines Persona Twins and their characteristics</li>
+<li><strong>Section 21.3 (Use Cases)</strong>: Describes use cases for Persona Twins</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>seer-design/implementation-concepts/persona-twin-blueprint.md</code> — Persona Twin Blueprint concept</li>
+<li><code>seer-design/implementation-concepts/persona-twins.md</code> — Persona Twins concept</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 038aba3 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/038aba3/olympus-seer-docs/why-seer/part-2-how-seer-solves/21-persona-twins-in-seer/21-2-persona-twin-lifecycle.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

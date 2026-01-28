@@ -1,0 +1,243 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/05-context-assembly-in-seer/05-1-context-assembly-engine.md -->
+<!-- Title: 5.1 The Context Assembly Engine -->
+<!-- Content Hash: 297892d6d76f710ce4b17c12d6e7f58e05ee9a5493b220aaf92ee8a03c071778 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">51-the-context-assembly-engine</ac:parameter></ac:structured-macro>5.1 The Context Assembly Engine</h1>
+<p>The Context Assembly Engine is Seer's core subsystem for building reproducible, auditable reasoning contexts. It transforms the principles of context compilation (Part 1, Section 5.3) into a production-grade implementation.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-the-engine-does</ac:parameter></ac:structured-macro>What the Engine Does</h2>
+<p>For every reasoning step, the Context Assembly Engine:</p>
+<ol>
+<li>Receives a request with goal and constraints</li>
+<li>Orchestrates retrieval from appropriate sources</li>
+<li>Filters, deduplicates, and resolves conflicts</li>
+<li>Allocates token budgets across sections</li>
+<li>Assembles a structured context frame</li>
+<li>Logs provenance for audit</li>
+</ol>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">architecture</ac:parameter></ac:structured-macro>Architecture</h2>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────┐
+│               CONTEXT ASSEMBLY ENGINE                        │
+│                                                              │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │                  REQUEST HANDLER                   │    │
+│   │   • Receives request with goal and constraints     │    │
+│   │   • Identifies task type and required sources      │    │
+│   └────────────────────────┬──────────────────────────┘    │
+│                            │                                │
+│   ┌────────────────────────▼──────────────────────────┐    │
+│   │               SOURCE ORCHESTRATOR                  │    │
+│   │                                                    │    │
+│   │   ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────┐ │    │
+│   │   │Knowledge │ │Enterprise│ │Operational│ │Agent │ │    │
+│   │   │Services  │ │ Memory   │ │  Data    │ │Memory│ │    │
+│   │   └────┬─────┘ └────┬─────┘ └────┬─────┘ └──┬───┘ │    │
+│   │        └──────────┬─┴───────────┬┘          │     │    │
+│   │                   │             │           │     │    │
+│   └───────────────────┼─────────────┼───────────┼─────┘    │
+│                       │             │           │          │
+│   ┌───────────────────▼─────────────▼───────────▼─────┐    │
+│   │              FILTER &amp; CONFLICT RESOLVER           │    │
+│   │   • Deduplication    • Access control             │    │
+│   │   • Relevance filter • Precedence rules           │    │
+│   └────────────────────────┬──────────────────────────┘    │
+│                            │                                │
+│   ┌────────────────────────▼──────────────────────────┐    │
+│   │                 TOKEN BUDGET MANAGER              │    │
+│   │   • Allocate by section • Truncation strategies   │    │
+│   └────────────────────────┬──────────────────────────┘    │
+│                            │                                │
+│   ┌────────────────────────▼──────────────────────────┐    │
+│   │                  FRAME ASSEMBLER                  │    │
+│   │   • Structure output • Format sections            │    │
+│   └────────────────────────┬──────────────────────────┘    │
+│                            │                                │
+│   ┌────────────────────────▼──────────────────────────┐    │
+│   │                PROVENANCE LOGGER                  │    │
+│   │   • Record inclusions • Record exclusions         │    │
+│   │   • Version tracking  • Audit trail               │    │
+│   └───────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-compilation-pipeline</ac:parameter></ac:structured-macro>The Compilation Pipeline</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">step-1-request-analysis</ac:parameter></ac:structured-macro>Step 1: Request Analysis</h3>
+<p>The engine receives a request and analyzes requirements:</p>
+<pre class="codehilite"><code class="language-yaml">assembly_request:
+  goal: &quot;Decide refund eligibility for dispute case-12345&quot;
+  task_type: decision
+  agent: dispute-analyst-tier1
+  session: session-abc123
+  constraints:
+    max_tokens: 8000
+    sources_required:
+      - knowledge
+      - enterprise_memory
+      - operational_data
+      - agent_memory
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">step-2-source-selection</ac:parameter></ac:structured-macro>Step 2: Source Selection</h3>
+<p>Based on task type, the engine determines which sources to query:</p>
+<table>
+<thead>
+<tr>
+<th>Task Type</th>
+<th>Knowledge</th>
+<th>Enterprise Memory</th>
+<th>Operational</th>
+<th>Agent Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decision</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>Information</td>
+<td>Required</td>
+<td>Optional</td>
+<td>Required</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>Conversation</td>
+<td>Optional</td>
+<td>Optional</td>
+<td>Optional</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>Procedure</td>
+<td>Required</td>
+<td>Optional</td>
+<td>Optional</td>
+<td>Required</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">step-3-parallel-retrieval</ac:parameter></ac:structured-macro>Step 3: Parallel Retrieval</h3>
+<p>The Source Orchestrator queries sources in parallel:</p>
+<pre class="codehilite"><code class="language-python">results = await asyncio.gather(
+    knowledge_service.retrieve(query, filters),
+    enterprise_memory.retrieve_precedent(case_type),
+    operational_data.get_current_state(entity_ids),
+    agent_memory.get_session_context(session_id)
+)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">step-4-filter-and-resolve</ac:parameter></ac:structured-macro>Step 4: Filter and Resolve</h3>
+<p>Retrieved candidates are filtered and conflicts resolved:</p>
+<pre class="codehilite"><code class="language-yaml">filter_results:
+  total_candidates: 47
+  after_dedup: 32
+  after_relevance: 18
+  after_access_control: 18
+
+conflict_resolution:
+  - conflict: &quot;Refund limit policy vs. manager preference&quot;
+    resolution: &quot;Enterprise Knowledge takes precedence&quot;
+    applied: knowledge_bank_policy
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">step-5-budget-allocation</ac:parameter></ac:structured-macro>Step 5: Budget Allocation</h3>
+<p>Token budget is allocated across sections:</p>
+<pre class="codehilite"><code class="language-yaml">budget_allocation:
+  total: 8000
+  sections:
+    constraints: 500 (fixed)
+    goal: 200 (fixed)
+    ground_truth_facts: 2500
+    recent_episodes: 1500
+    preferences: 300
+    procedures: 1500
+    working_state: 1500
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">step-6-frame-assembly</ac:parameter></ac:structured-macro>Step 6: Frame Assembly</h3>
+<p>The structured context frame is assembled:</p>
+<pre class="codehilite"><code class="language-yaml">context_frame:
+  constraints:
+    - &quot;Max refund without approval: $500&quot;
+    - &quot;Tools allowed: [get_transaction, get_customer_history, approve_refund]&quot;
+
+  goal:
+    objective: &quot;Determine refund eligibility&quot;
+    required_output: &quot;Decision with rationale&quot;
+
+  ground_truth_facts:
+    - source: knowledge_bank
+      content: &quot;Dispute must be filed within 60 days&quot;
+      provenance: dispute-policy-v3.2
+    - source: operational_data
+      content: &quot;Transaction amount: $450, Date: 2025-12-20&quot;
+      provenance: transaction-service
+
+  recent_episodes:
+    - source: enterprise_memory
+      content: &quot;Similar case approved (case-11234) - merchant error confirmed&quot;
+      provenance: decision-record-dr-xyz
+
+  preferences:
+    - source: agent_memory
+      content: &quot;Customer prefers email communication&quot;
+
+  procedures:
+    - source: knowledge_bank
+      content: &quot;Step 1: Verify transaction details...&quot;
+      provenance: dispute-workflow-v2.1
+
+  working_state:
+    - extracted_entities: [txn-12345, cust-67890]
+    - current_step: verify_eligibility
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">step-7-provenance-logging</ac:parameter></ac:structured-macro>Step 7: Provenance Logging</h3>
+<p>Everything is logged for audit:</p>
+<pre class="codehilite"><code class="language-yaml">provenance_log:
+  assembly_id: &quot;ctx-assembly-789&quot;
+  timestamp: 2026-01-10T14:30:00Z
+
+  sources_queried:
+    - knowledge_bank: 3 queries, 12 chunks returned, 5 included
+    - enterprise_memory: 2 queries, 8 records returned, 2 included
+    - operational_data: 1 query, transaction details returned
+    - agent_memory: session context, 4 entities
+
+  exclusions:
+    - item: &quot;Outdated policy v2.1&quot;
+      reason: &quot;Superseded by v3.2&quot;
+    - item: &quot;Unrelated case precedent&quot;
+      reason: &quot;Below relevance threshold&quot;
+
+  token_usage:
+    allocated: 8000
+    used: 7234
+
+  frame_version: &quot;ctx-frame-v1&quot;
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">reproducibility</ac:parameter></ac:structured-macro>Reproducibility</h2>
+<p>The engine enables exact reproduction of historical contexts:</p>
+<pre class="codehilite"><code class="language-python"># Reproduce context for audit
+historical_context = context_engine.reproduce(
+    assembly_id=&quot;ctx-assembly-789&quot;
+)
+# Returns: exact context frame as it was at decision time
+</code></pre>
+
+<p>This is essential for:<br />
+- Regulatory response ("What did the agent know?")<br />
+- Incident investigation ("Why did it decide that?")<br />
+- Model validation ("Are contexts consistent?")</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/context-assembly-engine.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-3-context-compilation.md</code><br />
+*   <code>olympus-seer-docs/agentic-ai-concepts/agent-memory/context-building.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/05-context-assembly-in-seer/05-1-context-assembly-engine.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

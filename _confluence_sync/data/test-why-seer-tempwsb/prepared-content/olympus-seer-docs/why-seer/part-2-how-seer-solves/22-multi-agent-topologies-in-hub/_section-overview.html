@@ -1,0 +1,36 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/22-multi-agent-topologies-in-hub/_section-overview.md -->
+<!-- Title: Section 22: Multi-Agent Topologies in Hub — Overview -->
+<!-- Content Hash: bfd3d1c9ebd602c267291592c1adbd19c2bc8123362f4e1f84e67ffc72fc8114 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-22-multi-agent-topologies-in-hub-overview</ac:parameter></ac:structured-macro>Section 22: Multi-Agent Topologies in Hub — Overview</h1>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-section</ac:parameter></ac:structured-macro>Purpose of this Section</h2>
+<p>This section demonstrates how Hub implements the multi-agent topology requirements established in Section 5.14. Complex business processes require multiple specialized agents working together, coordinating through shared state rather than explicit task assignment. Hub Composite Applications enable multiple Hub Applications to participate in the same Request, supporting topology patterns like Blackboard, Planner-Executor-Critic (PEC Loop), Market-Based, and Role-Specialized Committees.</p>
+<p>Hub Composite Applications extend Hub's application model to support sophisticated multi-agent collaboration while maintaining governance, observability, and operational controls. They enable cross-runtime composition, allowing agents from different runtimes (Seer, Rhea, Atlantis) to collaborate on the same request.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-questions-addressed</ac:parameter></ac:structured-macro>Core Questions Addressed</h2>
+<ul>
+<li>How do Hub Composite Applications enable multiple agents to operate on the same request?</li>
+<li>What topology patterns do Hub Composite Applications support?</li>
+<li>How does deployment-time resolution work for composite applications?</li>
+<li>How do OPA filters route updates to appropriate agents?</li>
+</ul>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">structure-of-this-section</ac:parameter></ac:structured-macro>Structure of this Section</h2>
+<p>This section is organized into the following sub-sections:</p>
+<ul>
+<li><strong>22.1 Hub Composite Applications</strong>: Definition, multiple apps per request, OPA filters, and cross-runtime composition.</li>
+<li><strong>22.2 Supported Topologies</strong>: Blackboard, PEC Loop, Market-Based, and Role-Specialized Committees patterns.</li>
+<li><strong>22.3 Deployment Model</strong>: Deployment-time resolution, routing table population, and update conflict resolution.</li>
+</ul>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">relationship-to-other-sections</ac:parameter></ac:structured-macro>Relationship to Other Sections</h2>
+<p>This section implements:</p>
+<ul>
+<li><strong>Section 5.14 (Multi-Agent Topology Requirements)</strong>: Implements all topology pattern requirements.</li>
+</ul>
+<p>This section integrates with:</p>
+<ul>
+<li><strong>Section 16.3 (Coordination Patterns in Hub)</strong>: Hub Composite Applications are a coordination pattern.</li>
+<li><strong>Section 12.4 (Deep Observability)</strong>: Composite applications maintain observability across all participating agents.</li>
+</ul>
+<hr />
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-2-how-seer-solves/22-multi-agent-topologies-in-hub/_section-overview.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

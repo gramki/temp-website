@@ -1,0 +1,273 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/06-governance-override-in-seer/06-2-guardrails.md -->
+<!-- Title: 6.2 Guardrails -->
+<!-- Content Hash: 28586fce7c4846c0204efe1ca0b860a8784b496d3ee246ab04c1f5c1d2832a39 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">62-guardrails</ac:parameter></ac:structured-macro>6.2 Guardrails</h1>
+<p>Guardrails are safety mechanisms that constrain agent behavior to acceptable boundaries. Unlike policies that govern <em>what</em> an agent can do, guardrails focus on <em>how</em> the agent behaves—preventing harmful, inappropriate, or non-compliant outputs regardless of intent.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">types-of-guardrails</ac:parameter></ac:structured-macro>Types of Guardrails</h2>
+<table>
+<thead>
+<tr>
+<th>Guardrail Type</th>
+<th>What It Protects Against</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input guardrails</strong></td>
+<td>Malicious or inappropriate inputs</td>
+<td>Prompt injection, jailbreak attempts</td>
+</tr>
+<tr>
+<td><strong>Output guardrails</strong></td>
+<td>Harmful or non-compliant outputs</td>
+<td>PII exposure, prohibited content</td>
+</tr>
+<tr>
+<td><strong>Behavioral guardrails</strong></td>
+<td>Unsafe behavioral patterns</td>
+<td>Infinite loops, excessive tool calls</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">guardrail-architecture</ac:parameter></ac:structured-macro>Guardrail Architecture</h2>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────┐
+│                   GUARDRAIL LAYERS                           │
+│                                                              │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │              INPUT GUARDRAILS                      │    │
+│   │                                                    │    │
+│   │   User Input → Validation → Sanitization → Pass    │    │
+│   │                                                    │    │
+│   │   • Prompt injection detection                     │    │
+│   │   • Jailbreak pattern detection                    │    │
+│   │   • Input length limits                            │    │
+│   │   • PII detection and handling                     │    │
+│   └───────────────────────────────────────────────────┘    │
+│                            │                                │
+│                            ▼                                │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │           BEHAVIORAL GUARDRAILS                    │    │
+│   │                                                    │    │
+│   │   Agent Operation → Monitoring → Intervention      │    │
+│   │                                                    │    │
+│   │   • Loop detection                                 │    │
+│   │   • Tool call rate limiting                        │    │
+│   │   • Cost ceiling enforcement                       │    │
+│   │   • Timeout enforcement                            │    │
+│   └───────────────────────────────────────────────────┘    │
+│                            │                                │
+│                            ▼                                │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │             OUTPUT GUARDRAILS                      │    │
+│   │                                                    │    │
+│   │   Agent Output → Check → Remediate → Deliver       │    │
+│   │                                                    │    │
+│   │   • PII redaction                                  │    │
+│   │   • Prohibited content blocking                    │    │
+│   │   • Factuality check (if enabled)                  │    │
+│   │   • Required disclosures                           │    │
+│   └───────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">input-guardrails</ac:parameter></ac:structured-macro>Input Guardrails</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">prompt-injection-detection</ac:parameter></ac:structured-macro>Prompt Injection Detection</h3>
+<p>Detect attempts to override system instructions:</p>
+<pre class="codehilite"><code class="language-yaml">input_guardrail:
+  name: prompt-injection-detector
+  type: pattern_detection
+
+  patterns:
+    - &quot;ignore previous instructions&quot;
+    - &quot;disregard your training&quot;
+    - &quot;you are now&quot;
+    - regex: &quot;system:\\s*&quot;
+
+  on_detection:
+    action: block
+    log_to: caf
+    response: &quot;I cannot process that request.&quot;
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">jailbreak-detection</ac:parameter></ac:structured-macro>Jailbreak Detection</h3>
+<p>Detect attempts to bypass safety constraints:</p>
+<pre class="codehilite"><code class="language-yaml">input_guardrail:
+  name: jailbreak-detector
+  type: classifier
+  model: jailbreak-classifier-v1
+  threshold: 0.8
+
+  on_detection:
+    action: block
+    log_to: caf
+    alert: security-team
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pii-handling</ac:parameter></ac:structured-macro>PII Handling</h3>
+<p>Handle personal data in inputs:</p>
+<pre class="codehilite"><code class="language-yaml">input_guardrail:
+  name: pii-handler
+  type: pii_detection
+
+  categories:
+    - ssn: mask
+    - email: allow
+    - phone: mask
+    - credit_card: block
+
+  on_detection:
+    action: apply_handling
+    log_to: caf
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">behavioral-guardrails</ac:parameter></ac:structured-macro>Behavioral Guardrails</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">loop-detection</ac:parameter></ac:structured-macro>Loop Detection</h3>
+<p>Prevent infinite reasoning loops:</p>
+<pre class="codehilite"><code class="language-yaml">behavioral_guardrail:
+  name: loop-detector
+
+  triggers:
+    - same_tool_call_count: 3  # Same tool called 3 times
+    - total_turns: 20          # Max 20 reasoning turns
+    - no_progress_turns: 5     # 5 turns with no forward progress
+
+  on_trigger:
+    action: escalate_to_human
+    log_to: caf
+    message: &quot;Agent appears stuck in loop&quot;
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">tool-rate-limiting</ac:parameter></ac:structured-macro>Tool Rate Limiting</h3>
+<p>Prevent excessive tool usage:</p>
+<pre class="codehilite"><code class="language-yaml">behavioral_guardrail:
+  name: tool-rate-limiter
+
+  limits:
+    - tool: &quot;*&quot;
+      max_per_minute: 30
+    - tool: &quot;expensive_api&quot;
+      max_per_minute: 5
+
+  on_exceed:
+    action: throttle
+    log_to: caf
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-ceiling</ac:parameter></ac:structured-macro>Cost Ceiling</h3>
+<p>Enforce cost limits:</p>
+<pre class="codehilite"><code class="language-yaml">behavioral_guardrail:
+  name: cost-ceiling
+
+  ceilings:
+    per_request: 10.00
+    per_hour: 100.00
+    per_day: 500.00
+
+  on_exceed:
+    action: terminate_and_alert
+    log_to: caf
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">output-guardrails</ac:parameter></ac:structured-macro>Output Guardrails</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pii-redaction</ac:parameter></ac:structured-macro>PII Redaction</h3>
+<p>Prevent PII in outputs:</p>
+<pre class="codehilite"><code class="language-yaml">output_guardrail:
+  name: pii-redactor
+
+  detect:
+    - ssn
+    - credit_card
+    - email (if not explicitly requested)
+
+  action: redact
+  replacement: &quot;[REDACTED]&quot;
+  log_to: caf
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">prohibited-content</ac:parameter></ac:structured-macro>Prohibited Content</h3>
+<p>Block inappropriate content:</p>
+<pre class="codehilite"><code class="language-yaml">output_guardrail:
+  name: content-blocker
+  type: classifier
+  model: content-safety-classifier
+
+  categories:
+    - hate_speech: block
+    - violence: block
+    - adult_content: block
+    - self_harm: block
+
+  on_detection:
+    action: block
+    fallback_response: &quot;I cannot provide that information.&quot;
+    log_to: caf
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">required-disclosures</ac:parameter></ac:structured-macro>Required Disclosures</h3>
+<p>Ensure mandatory statements are included:</p>
+<pre class="codehilite"><code class="language-yaml">output_guardrail:
+  name: disclosure-checker
+
+  required_when:
+    - action_type: financial_advice
+      disclosure: &quot;This is not personalized financial advice...&quot;
+    - action_type: dispute_decision
+      disclosure: &quot;You have the right to appeal...&quot;
+
+  on_missing:
+    action: append_disclosure
+    log_to: caf
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">guardrail-immutability</ac:parameter></ac:structured-macro>Guardrail Immutability</h2>
+<p>Guardrails defined in Training Spec cannot be relaxed at Employment:</p>
+<pre class="codehilite"><code class="language-yaml">training_spec:
+  guardrails:
+    input:
+      - prompt_injection_detection: required
+      - jailbreak_detection: required
+    output:
+      - pii_redaction: required
+    behavioral:
+      - cost_ceiling: 50.00  # Max $50 per request
+
+employment_spec:
+  guardrails:
+    behavioral:
+      - cost_ceiling: 25.00  # Can reduce to $25
+      # Cannot set to $100 - would exceed training ceiling
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">guardrail-audit</ac:parameter></ac:structured-macro>Guardrail Audit</h2>
+<p>All guardrail evaluations are logged:</p>
+<pre class="codehilite"><code class="language-yaml">guardrail_audit:
+  timestamp: 2026-01-10T14:30:00Z
+  request_id: req-abc123
+
+  input_guardrails:
+    - name: prompt-injection-detector
+      result: pass
+    - name: jailbreak-detector
+      result: pass
+
+  behavioral_guardrails:
+    - name: loop-detector
+      turns_so_far: 3
+      result: pass
+
+  output_guardrails:
+    - name: pii-redactor
+      detected: 1 email
+      action: redacted
+      result: remediated
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/guardrails.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-2-immutability-principle.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/06-governance-override-in-seer/06-2-guardrails.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

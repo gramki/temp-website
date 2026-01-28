@@ -1,0 +1,180 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/08-model-gateway-in-seer/08-1-bifrost-gateway.md -->
+<!-- Title: 8.1 The Bifrost Model Gateway -->
+<!-- Content Hash: f2d79715c9f0da1ff7ff2fb61dbff443c7c415cc803680197d8da5c0e5e55ab0 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">81-the-bifrost-model-gateway</ac:parameter></ac:structured-macro>8.1 The Bifrost Model Gateway</h1>
+<p>Bifrost is Seer's Model Gateway—a unified access layer for Large Language Models (LLMs) and Small Language Models (SLMs) across multiple providers. It abstracts away provider differences while adding enterprise capabilities like routing, fallback, and governance.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">why-bifrost</ac:parameter></ac:structured-macro>Why Bifrost</h2>
+<table>
+<thead>
+<tr>
+<th>Challenge</th>
+<th>Without Gateway</th>
+<th>With Bifrost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Provider lock-in</strong></td>
+<td>Tied to one vendor</td>
+<td>Switch freely</td>
+</tr>
+<tr>
+<td><strong>API differences</strong></td>
+<td>Code changes per provider</td>
+<td>Unified interface</td>
+</tr>
+<tr>
+<td><strong>Credentials</strong></td>
+<td>Scattered, hard to manage</td>
+<td>Centralized</td>
+</tr>
+<tr>
+<td><strong>Cost tracking</strong></td>
+<td>Manual aggregation</td>
+<td>Automatic attribution</td>
+</tr>
+<tr>
+<td><strong>Fallback</strong></td>
+<td>Custom implementation</td>
+<td>Built-in</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">architecture</ac:parameter></ac:structured-macro>Architecture</h2>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────┐
+│                   BIFROST MODEL GATEWAY                      │
+│                                                              │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │                  UNIFIED API                       │    │
+│   │   OpenAI-compatible interface                      │    │
+│   │   • /v1/chat/completions                           │    │
+│   │   • /v1/embeddings                                 │    │
+│   └────────────────────────┬──────────────────────────┘    │
+│                            │                                │
+│   ┌────────────────────────▼──────────────────────────┐    │
+│   │               REQUEST PROCESSING                   │    │
+│   │                                                    │    │
+│   │   Auth → Policy → Route → Transform → Execute      │    │
+│   └────────────────────────┬──────────────────────────┘    │
+│                            │                                │
+│   ┌────────────────────────▼──────────────────────────┐    │
+│   │                  PROVIDER LAYER                    │    │
+│   │                                                    │    │
+│   │   ┌──────────┐ ┌──────────┐ ┌──────────┐         │    │
+│   │   │ OpenAI   │ │Anthropic │ │ Bedrock  │ ...     │    │
+│   │   └──────────┘ └──────────┘ └──────────┘         │    │
+│   │   ┌──────────┐ ┌──────────┐ ┌──────────┐         │    │
+│   │   │  Azure   │ │  Google  │ │ Custom   │ ...     │    │
+│   │   └──────────┘ └──────────┘ └──────────┘         │    │
+│   └───────────────────────────────────────────────────┘    │
+│                                                              │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │                  OBSERVABILITY                     │    │
+│   │   Metrics • Logs • Traces • Cost Tracking          │    │
+│   └───────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-components</ac:parameter></ac:structured-macro>Key Components</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">unified-api</ac:parameter></ac:structured-macro>Unified API</h3>
+<p>Agents interact with a single OpenAI-compatible API:</p>
+<pre class="codehilite"><code class="language-python"># Agent code - same regardless of underlying provider
+response = await model_client.chat_completion(
+    model=&quot;dispute-analyst-primary&quot;,  # Logical model name
+    messages=[...],
+    max_tokens=1000
+)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">model-registry</ac:parameter></ac:structured-macro>Model Registry</h3>
+<p>Logical model names map to physical providers:</p>
+<pre class="codehilite"><code class="language-yaml">model_registry:
+  dispute-analyst-primary:
+    provider: anthropic
+    model: claude-3.5-sonnet
+    fallback: dispute-analyst-fallback
+
+  dispute-analyst-fallback:
+    provider: openai
+    model: gpt-4o
+    fallback: dispute-analyst-minimal
+
+  dispute-analyst-minimal:
+    provider: bedrock
+    model: claude-3-haiku
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">request-pipeline</ac:parameter></ac:structured-macro>Request Pipeline</h3>
+<p>Every request flows through:</p>
+<ol>
+<li><strong>Authentication</strong>: Verify agent identity</li>
+<li><strong>Authorization</strong>: Check model access policy</li>
+<li><strong>Budget check</strong>: Verify cost ceiling not exceeded</li>
+<li><strong>Routing</strong>: Select target model</li>
+<li><strong>Transformation</strong>: Adapt to provider API</li>
+<li><strong>Execution</strong>: Call provider</li>
+<li><strong>Logging</strong>: Record metrics and costs</li>
+</ol>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">provider-adapters</ac:parameter></ac:structured-macro>Provider Adapters</h3>
+<p>Adapters normalize provider differences:</p>
+<pre class="codehilite"><code class="language-yaml">providers:
+  anthropic:
+    adapter: anthropic-claude
+    auth: api_key
+    endpoint: https://api.anthropic.com
+
+  bedrock:
+    adapter: aws-bedrock
+    auth: iam_role
+    region: us-east-1
+
+  azure_openai:
+    adapter: azure-openai
+    auth: azure_ad
+    endpoint: ${AZURE_ENDPOINT}
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">credential-management</ac:parameter></ac:structured-macro>Credential Management</h2>
+<p>Credentials are managed centrally:</p>
+<pre class="codehilite"><code class="language-yaml">credential_management:
+  storage: kubernetes_secrets
+  rotation: automatic
+  access:
+    - agents: via_gateway_only
+    - operators: via_admin_console
+
+  isolation:
+    - per_tenant
+    - per_workbench (optional)
+</code></pre>
+
+<p>Agents never see raw credentials:</p>
+<pre class="codehilite"><code class="language-yaml">agent_access:
+  model_gateway: internal-gateway.seer.svc
+  auth: agent_identity (SPIFFE)
+  # No API keys in agent config
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">high-availability</ac:parameter></ac:structured-macro>High Availability</h2>
+<p>Bifrost is designed for production reliability:</p>
+<pre class="codehilite"><code class="language-yaml">high_availability:
+  replicas: 3
+  load_balancing: round_robin
+  health_checks:
+    - liveness: /health
+    - readiness: /ready
+
+  provider_health:
+    - monitor: response_time
+    - monitor: error_rate
+    - action: automatic_failover
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/model-gateway.md</code><br />
+*   <code>olympus-hub-docs/decision-logs/0075-seer-model-gateway-bifrost.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/08-model-gateway-in-seer/08-1-bifrost-gateway.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

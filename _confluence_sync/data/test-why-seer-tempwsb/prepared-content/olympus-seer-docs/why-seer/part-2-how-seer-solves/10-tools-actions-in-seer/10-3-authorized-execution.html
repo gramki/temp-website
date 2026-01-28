@@ -1,0 +1,180 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/10-tools-actions-in-seer/10-3-authorized-execution.md -->
+<!-- Title: 10.3 Authorized Execution -->
+<!-- Content Hash: 992398f27ef89f99d82351bd95a4fd9300c40232d3375b7e3e75b3c2a26bec3e -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">103-authorized-execution</ac:parameter></ac:structured-macro>10.3 Authorized Execution</h1>
+<p>Every tool invocation is authorized before execution. Seer enforces access control, validates parameters, applies rate limits, and executes in a sandboxed environment.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authorization-flow</ac:parameter></ac:structured-macro>Authorization Flow</h2>
+<pre class="codehilite"><code>Agent requests tool invocation
+    │
+    ▼
+┌───────────────────────────────────────┐
+│          AUTHORIZATION CHECKS          │
+│                                        │
+│  1. Agent identity verified            │
+│  2. Tool in agent's allowlist?         │
+│  3. Workbench access valid?            │
+│  4. Operation allowed by authority?    │
+│  5. Rate limits not exceeded?          │
+│  6. Parameters within constraints?     │
+└───────────────────────────────────────┘
+    │
+    ├── Any check fails → Denied (logged)
+    │
+    ▼
+┌───────────────────────────────────────┐
+│          SANDBOXED EXECUTION           │
+│                                        │
+│  • Credential injection                │
+│  • Request transformation              │
+│  • Timeout enforcement                 │
+│  • Response sanitization               │
+└───────────────────────────────────────┘
+    │
+    ▼
+Result returned to agent
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">access-control</ac:parameter></ac:structured-macro>Access Control</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-allowlist</ac:parameter></ac:structured-macro>Agent Allowlist</h3>
+<p>Agents can only use tools explicitly allowed:</p>
+<pre class="codehilite"><code class="language-yaml">training_spec:
+  tools:
+    allowed:
+      - get-transaction-details
+      - get-customer-history
+      - approve-refund (with constraints)
+      - send-notification
+
+    denied:
+      - delete-customer
+      - access-audit-log
+      - admin-operations
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">operation-level-control</ac:parameter></ac:structured-macro>Operation-Level Control</h3>
+<p>Within a tool, control specific operations:</p>
+<pre class="codehilite"><code class="language-yaml">tool_access:
+  tool: transaction-service
+
+  operations:
+    - operation: get_transaction
+      access: allowed
+
+    - operation: update_transaction
+      access: denied
+
+    - operation: refund_transaction
+      access: conditional
+      condition: amount &lt;= 500
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">workbench-scoping</ac:parameter></ac:structured-macro>Workbench Scoping</h3>
+<p>Tools bound to specific workbenches:</p>
+<pre class="codehilite"><code class="language-yaml">tool_instance:
+  name: acme-refund-api
+
+  access:
+    workbenches:
+      - dispute-ops-prod
+      - fraud-ops-prod
+
+    denied_workbenches:
+      - marketing-ops  # No access to refund from marketing
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">parameter-validation</ac:parameter></ac:structured-macro>Parameter Validation</h2>
+<p>Parameters validated against schema and constraints:</p>
+<pre class="codehilite"><code class="language-yaml">parameter_validation:
+  tool: approve-refund
+
+  constraints:
+    amount:
+      max: 500  # Agent authority ceiling
+
+    reason:
+      required: true
+      min_length: 10
+
+  on_violation:
+    action: reject
+    log: true
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">rate-limiting</ac:parameter></ac:structured-macro>Rate Limiting</h2>
+<p>Prevent abuse and overload:</p>
+<pre class="codehilite"><code class="language-yaml">rate_limits:
+  per_agent:
+    tool: approve-refund
+    max_per_minute: 10
+    max_per_hour: 100
+
+  per_tool_instance:
+    tool: transaction-service
+    max_per_minute: 1000  # Backend capacity
+
+  on_exceed:
+    action: queue_or_reject
+    backoff: exponential
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sandboxed-execution</ac:parameter></ac:structured-macro>Sandboxed Execution</h2>
+<p>Tools execute in isolated environment:</p>
+<pre class="codehilite"><code class="language-yaml">sandbox:
+  network:
+    - only allowed endpoints
+    - no arbitrary outbound
+
+  credentials:
+    - injected at runtime
+    - not visible to agent
+
+  timeout:
+    - hard limit: 60s
+    - configurable per tool
+
+  response:
+    - size limited
+    - sanitized (no secrets)
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">execution-record</ac:parameter></ac:structured-macro>Execution Record</h2>
+<p>Every invocation is recorded:</p>
+<pre class="codehilite"><code class="language-yaml">tool_invocation_record:
+  invocation_id: &quot;inv-xyz789&quot;
+  timestamp: 2026-01-10T14:30:00Z
+
+  agent:
+    identity: dispute-analyst-tier1
+    employment_spec: dispute-analyst-acme-prod
+
+  tool:
+    protocol: approve-refund
+    instance: acme-refund-api
+
+  request:
+    case_id: case-12345
+    amount: 450
+    reason: &quot;Merchant error confirmed&quot;
+
+  authorization:
+    allowlist_check: passed
+    authority_check: passed (450 &lt;= 500)
+    rate_limit_check: passed (5/10 per minute)
+
+  execution:
+    latency_ms: 234
+    status: success
+
+  response:
+    refund_id: ref-abc123
+    status: approved
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/authority-enforcement.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-8-tool-action-requirements.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/10-tools-actions-in-seer/10-3-authorized-execution.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

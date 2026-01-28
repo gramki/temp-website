@@ -1,0 +1,107 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/04-audit-requirements/_section-overview.md -->
+<!-- Title: Section 4: Audit Requirements for Enterprise Agents — Overview -->
+<!-- Content Hash: 24c6784c8cf0a2fde75ec8551efd30d7c4c31d78ad884a8be1cad6a03596b54d -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-4-audit-requirements-for-enterprise-agents</ac:parameter></ac:structured-macro>Section 4: Audit Requirements for Enterprise Agents — Overview</h1>
+<p><em>What regulatory-grade audit requires and how it differs from operational logging.</em></p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-section</ac:parameter></ac:structured-macro>Purpose of This Section</h2>
+<p>This section addresses one of the most consequential differences between enterprise agents and consumer or business agents: the requirement for regulatory-grade audit. When an enterprise agent makes a decision that affects a customer, an employee, or a business outcome, the organization must be able to explain and defend that decision—potentially years later, to regulators, courts, or customers.</p>
+<p>This is not a "nice to have" feature. In regulated industries such as banking, insurance, and healthcare, the inability to explain AI-assisted decisions creates unacceptable legal and regulatory exposure. The EU AI Act explicitly requires high-risk AI systems to provide traceability and human-understandable explanations. OCC SR 11-7 requires documented decision processes for model-assisted decisions. Fair lending laws require adverse action explanations that can be produced on demand.</p>
+<p>Yet many organizations approach this requirement by extending their existing logging infrastructure—adding more logs, increasing retention periods, building dashboards. This approach fundamentally misunderstands what audit requires. Audit is not logging with longer retention. It is a distinct discipline with different artifacts, different guarantees, and different consumers.</p>
+<p>This section establishes what regulatory-grade audit actually requires: the regulatory context that drives these requirements, why audit is not logging, what the Cognitive Audit Fabric provides as a conceptual framework, how immutability and tamper evidence work, and why explanations must be tailored to multiple audiences.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">subsections</ac:parameter></ac:structured-macro>Subsections</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">41-the-regulatory-reality</ac:parameter></ac:structured-macro>4.1 The Regulatory Reality</h3>
+<p>This subsection establishes the regulatory context that makes audit a non-optional requirement for enterprise agents. It covers OCC SR 11-7 (model risk management), the EU AI Act (high-risk AI systems), fair lending requirements (adverse action explanations), and the fundamental question regulators are asking.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4723900495"/><ac:plain-text-link-body><![CDATA[4.1 The Regulatory Reality]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">42-audit-is-not-logging</ac:parameter></ac:structured-macro>4.2 Audit Is Not Logging</h3>
+<p>This subsection distinguishes between operational logging (debugging aid, mutable, rotated) and enterprise audit (evidentiary record, immutable, retained). It explains why extending logging infrastructure does not satisfy audit requirements and what the differences are in purpose, consumers, guarantees, and lifecycle.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4724817933"/><ac:plain-text-link-body><![CDATA[4.2 Audit Is Not Logging]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">43-the-cognitive-audit-fabric</ac:parameter></ac:structured-macro>4.3 The Cognitive Audit Fabric</h3>
+<p>This subsection introduces the Cognitive Audit Fabric (CAF) as the enterprise memory control plane—a federated auditability layer for cognitive systems. It describes the core record types (decision records, evidence bundles, context snapshots, outcome records, override records) and the services CAF provides.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4724785165"/><ac:plain-text-link-body><![CDATA[4.3 The Cognitive Audit Fabric]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">44-immutability-and-tamper-evidence</ac:parameter></ac:structured-macro>4.4 Immutability and Tamper Evidence</h3>
+<p>This subsection explains the technical mechanisms that make audit records trustworthy: append-only storage, cryptographic content hashing, chain linking, and correction via new records. It establishes why these mechanisms are essential for regulatory defensibility.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4723834973"/><ac:plain-text-link-body><![CDATA[4.4 Immutability and Tamper Evidence]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">45-multi-audience-explanations</ac:parameter></ac:structured-macro>4.5 Multi-Audience Explanations</h3>
+<p>This subsection addresses the requirement to explain the same decision differently to different audiences: customers (plain language, empathetic), operators (technical, actionable), and regulators (complete, defensible). It describes how the Explanation Service generates audience-appropriate explanations from the same underlying records.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4726292503"/><ac:plain-text-link-body><![CDATA[4.5 Multi-Audience Explanations]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-concepts-introduced</ac:parameter></ac:structured-macro>Key Concepts Introduced</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audit</strong></td>
+<td>Evidentiary records that can be used to reconstruct and defend decisions, as opposed to operational logs for debugging</td>
+</tr>
+<tr>
+<td><strong>Decision Record</strong></td>
+<td>Structured documentation of a decision including what was decided, what alternatives existed, what evidence was considered, and what reasoning was applied</td>
+</tr>
+<tr>
+<td><strong>Evidence Bundle</strong></td>
+<td>Package of context that was available at decision time, enabling reconstruction of what the agent knew</td>
+</tr>
+<tr>
+<td><strong>Cognitive Audit Fabric (CAF)</strong></td>
+<td>Enterprise memory control plane that governs how memory is captured, linked, explained, and audited</td>
+</tr>
+<tr>
+<td><strong>Immutability</strong></td>
+<td>Property of records that prevents modification after creation; corrections made via new records</td>
+</tr>
+<tr>
+<td><strong>Tamper Evidence</strong></td>
+<td>Cryptographic mechanisms (hashing, chain linking) that reveal any unauthorized modification</td>
+</tr>
+<tr>
+<td><strong>Multi-Audience Explanation</strong></td>
+<td>Capability to generate appropriate explanations for different consumers (customer, operator, regulator)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">prerequisites</ac:parameter></ac:structured-macro>Prerequisites</h2>
+<p>This section assumes familiarity with:</p>
+<ul>
+<li>The accountability gap in enterprise agents (Section 2.2)</li>
+<li>The memory taxonomy and governance imperatives (Section 3)</li>
+<li>Why enterprise agents face different requirements than consumer agents (Section 2.1)</li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">relationship-to-other-sections</ac:parameter></ac:structured-macro>Relationship to Other Sections</h2>
+<p><strong>Section 3 (Memory Requirements)</strong> provides the foundation for this section. The ESPP memory taxonomy, particularly episodic memory, is the substrate on which audit is built. CAF is the control plane for enterprise memory.</p>
+<p><strong>Section 5 (Building an Enterprise Agent)</strong> references audit requirements when discussing context compilation, the four sources of agent knowledge, and CI/CD for enterprise agents.</p>
+<p><strong>Part 2, Section 4 (Memory, Knowledge &amp; Audit in Seer)</strong> demonstrates how Seer and Hub implement the audit requirements established here, including the specific record types and the Explanation Service.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<p>For detailed implementation specifications, see:</p>
+<ul>
+<li><code>olympus-hub-docs/04-subsystems/cognitive-audit-fabric/README.md</code> — CAF architecture</li>
+<li><code>olympus-hub-docs/04-subsystems/cognitive-audit-fabric/explanation-service.md</code> — Explanation generation</li>
+<li><code>olympus-hub-docs/04-subsystems/cognitive-audit-fabric/episodic-memory-store/</code> — Record schemas</li>
+<li><code>caf-requirement-and-approach/caf-requirement.md</code> — CAF requirement basis</li>
+<li><code>olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md</code> — Implementation concept</li>
+</ul>
+<hr />
+<p><em>Audit is the mechanism by which enterprises answer the question: "Can you prove this decision was reasonable?" This section establishes what that requires.</em></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-1-background/04-audit-requirements/_section-overview.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

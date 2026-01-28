@@ -1,0 +1,199 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-8-tool-action-requirements.md -->
+<!-- Title: 5.8 Tool & Action Requirements -->
+<!-- Content Hash: 682dfe82d44bb01e69fdd21033f834ef1b5db833c4c4f742d77632e735c3db2b -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">58-tool-action-requirements</ac:parameter></ac:structured-macro>5.8 Tool &amp; Action Requirements</h1>
+<p>An agent that can only think but cannot act has limited enterprise value. The true power of AI agents lies in their ability to interact with the world—executing transactions, updating records, sending communications, invoking services. However, in enterprise environments, these actions are consequential: they move money, affect customers, and create legal obligations. Safe, governed tool use is therefore a critical requirement for enterprise agent platforms.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">why-tools-are-critical</ac:parameter></ac:structured-macro>Why Tools Are Critical</h2>
+<p>Enterprise agents need to:<br />
+- Query databases and retrieve information<br />
+- Update records in business systems<br />
+- Send notifications and communications<br />
+- Invoke external services and APIs<br />
+- Trigger workflows and processes<br />
+- Execute financial transactions</p>
+<p>Without these capabilities, agents remain advisory systems rather than operational participants.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-risk-of-ungoverned-tool-use</ac:parameter></ac:structured-macro>The Risk of Ungoverned Tool Use</h2>
+<p>Ungoverned tool access creates significant enterprise risk:</p>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unauthorized access</strong></td>
+<td>Agent queries systems beyond its authorization</td>
+</tr>
+<tr>
+<td><strong>Unintended side effects</strong></td>
+<td>Agent modifies data it should only read</td>
+</tr>
+<tr>
+<td><strong>Financial exposure</strong></td>
+<td>Agent executes transactions without proper approval</td>
+</tr>
+<tr>
+<td><strong>Compliance violations</strong></td>
+<td>Agent accesses data in violation of regulations</td>
+</tr>
+<tr>
+<td><strong>Audit gaps</strong></td>
+<td>Tool invocations are not recorded for later review</td>
+</tr>
+<tr>
+<td><strong>Security breaches</strong></td>
+<td>Agent credentials are compromised and misused</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-requirements-for-enterprise-tool-governance</ac:parameter></ac:structured-macro>Core Requirements for Enterprise Tool Governance</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-tool-registry</ac:parameter></ac:structured-macro>1. Tool Registry</h3>
+<p>All tools available to agents must be registered in a central catalog:</p>
+<p><strong>Registry contents:</strong><br />
+- Tool schemas (inputs, outputs, parameters)<br />
+- Tool descriptions (purpose, usage patterns)<br />
+- Access policies (who can use this tool, under what conditions)<br />
+- Rate limits and quotas<br />
+- Dependency information<br />
+- Version history</p>
+<p><strong>Benefits:</strong><br />
+- Discovery: Agents and developers know what tools exist<br />
+- Governance: Access can be controlled and audited<br />
+- Standardization: Consistent tool definitions across the platform</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-protocol-vs-instance</ac:parameter></ac:structured-macro>2. Protocol vs. Instance</h3>
+<p>Enterprise tool governance requires a two-level model:</p>
+<p><strong>Tool Protocol (Abstract)</strong><br />
+- Defines the schema and semantics of a tool<br />
+- No credentials or endpoint bindings<br />
+- Reusable across deployments<br />
+- Example: <code>get-account</code> (OpenAPI specification)</p>
+<p><strong>Tool Instance (Concrete)</strong><br />
+- Binds a protocol to a specific machine/endpoint<br />
+- Contains credentials (resolved at runtime)<br />
+- Has access policies applied<br />
+- Example: <code>acme-get-account</code> bound to Acme's core banking system</p>
+<p>This separation enables:<br />
+- Training on protocols without exposing production credentials<br />
+- Multiple instances of the same protocol for different environments<br />
+- Governance at both the protocol and instance levels</p>
+<pre class="codehilite"><code>Tool Protocol (abstract)    →    Tool Instance (concrete)
+  get-account (OpenAPI)           acme-get-account
+  - Schema, parameters            - Bound to machine
+  - No credentials                - Credentials resolved
+                                  - Access policies applied
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-access-policies</ac:parameter></ac:structured-macro>3. Access Policies</h3>
+<p>Tool access must be controlled at multiple levels:</p>
+<table>
+<thead>
+<tr>
+<th>Policy Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Role-based</strong></td>
+<td>Only certain agent roles can access this tool</td>
+</tr>
+<tr>
+<td><strong>Approval-gated</strong></td>
+<td>Certain tool uses require human approval</td>
+</tr>
+<tr>
+<td><strong>Rate-limited</strong></td>
+<td>Maximum invocations per time period</td>
+</tr>
+<tr>
+<td><strong>Value-limited</strong></td>
+<td>Maximum transaction value per invocation</td>
+</tr>
+<tr>
+<td><strong>Context-restricted</strong></td>
+<td>Tool only available in certain scenarios</td>
+</tr>
+</tbody>
+</table>
+<p>Policies should be composable: an agent might have role-based access to a tool, but still require approval for high-value transactions.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-execution-sandboxing</ac:parameter></ac:structured-macro>4. Execution Sandboxing</h3>
+<p>Tool execution should occur in controlled environments:</p>
+<p><strong>Sandboxing capabilities:</strong><br />
+- Prevent unintended side effects<br />
+- Isolate agent execution from other agents<br />
+- Limit resource consumption<br />
+- Enforce timeout and retry policies<br />
+- Enable simulation/dry-run modes</p>
+<p><strong>Read vs. write separation:</strong><br />
+- Read-only tools have different governance than write tools<br />
+- Destructive operations require additional safeguards<br />
+- Idempotency requirements for retryable tools</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-tool-call-audit</ac:parameter></ac:structured-macro>5. Tool Call Audit</h3>
+<p>Every tool invocation must be recorded:</p>
+<p><strong>Audit record contents:</strong><br />
+- Tool identifier (protocol and instance)<br />
+- Invoking agent identity<br />
+- Input parameters (with PII handling)<br />
+- Output results (with PII handling)<br />
+- Timing information (request, execution, response)<br />
+- Success/failure status<br />
+- Error details if applicable</p>
+<p><strong>Audit requirements:</strong><br />
+- Tamper-evident storage<br />
+- Long-term retention (matching enterprise memory policies)<br />
+- Queryable for investigation<br />
+- Linkable to decision records in CAF</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enterprise-vs-consumer-tool-use</ac:parameter></ac:structured-macro>Enterprise vs. Consumer Tool Use</h2>
+<table>
+<thead>
+<tr>
+<th>Consumer</th>
+<th>Enterprise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Call any API</td>
+<td>Only registered, approved tools</td>
+</tr>
+<tr>
+<td>Best-effort execution</td>
+<td>Sandboxed, audited execution</td>
+</tr>
+<tr>
+<td>User accepts risk</td>
+<td>Organization must defend actions</td>
+</tr>
+<tr>
+<td>Implicit trust</td>
+<td>Explicit authorization required</td>
+</tr>
+<tr>
+<td>Minimal logging</td>
+<td>Comprehensive audit trail</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">tool-training-requirements</ac:parameter></ac:structured-macro>Tool Training Requirements</h2>
+<p>Agents must be trained on tools they will use:</p>
+<p><strong>Training includes:</strong><br />
+- Tool schemas and usage patterns<br />
+- When to use each tool (decision criteria)<br />
+- How to handle tool errors and failures<br />
+- Rate limiting and retry strategies<br />
+- Combining tools for complex operations</p>
+<p><strong>Training validation:</strong><br />
+- Sandbox testing with realistic scenarios<br />
+- Verification that agents use tools appropriately<br />
+- Testing error handling and edge cases<br />
+- Validation against access policies</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/WHY-SEER-OUTLINE-DRAFT.md</code> — Section 5.8<br />
+*   <code>olympus-hub-docs/04-subsystems/registry-services/tool-registry.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-8-tool-action-requirements.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

@@ -1,0 +1,124 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/20-developer-experience-in-seer/20-3-development-workflow.md -->
+<!-- Title: 20.3 Development Workflow -->
+<!-- Content Hash: b803290f1676209428d76751cb6d069d8e37ca95741173fec4efd01ac92f8968 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">203-development-workflow</ac:parameter></ac:structured-macro>20.3 Development Workflow</h1>
+<p>Seer Agent SDK supports development workflows that enable local testing, CI/CD integration, and debugging—capabilities that enable efficient agent development without requiring full platform deployment for every test. The SDK provides local development support, CI/CD integration capabilities, and debugging support through observability instrumentation.</p>
+<p>This subsection describes how Seer Agent SDK supports the development workflow requirements established in Section 5.13.3. It explains local development support, CI/CD integration, and debugging capabilities that enable developers to develop and test agents efficiently before production deployment.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection describes how Seer Agent SDK supports development workflows. It explains local development support that enables testing without full platform deployment, CI/CD integration that enables automated testing and validation, and debugging support that enables observability during development.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-concepts-definitions</ac:parameter></ac:structured-macro>Core Concepts &amp; Definitions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">local-development-support</ac:parameter></ac:structured-macro>Local Development Support</h3>
+<p><strong>Local development support</strong> enables developers to develop and test agents locally using SDKs and mock services. Seer Agent SDK supports local development by:<br />
+*   <strong>Local SDK execution</strong>: SDKs work in local development environments<br />
+*   <strong>Mock service support</strong>: SDKs support mock services for local testing when platform is unavailable<br />
+*   <strong>Configuration management</strong>: Local configuration for Employment Specs, Training Specs, and service endpoints<br />
+*   <strong>Isolated testing</strong>: Test agents in isolation without affecting other agents or workbenches</p>
+<p>Local development support enables developers to iterate rapidly, test changes immediately, and validate agent behavior before deploying to production environments.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cicd-integration</ac:parameter></ac:structured-macro>CI/CD Integration</h3>
+<p><strong>CI/CD integration</strong> enables organizations to integrate agent development with continuous integration and continuous deployment pipelines for automated testing and validation. Seer Agent SDK supports CI/CD integration by:<br />
+*   <strong>Automated testing</strong>: Test agents automatically in CI/CD pipelines<br />
+*   <strong>Spec validation</strong>: Validate Employment Specs and Training Specs automatically<br />
+*   <strong>Behavioral validation</strong>: Validate agent behavior against baselines and requirements<br />
+*   <strong>Quality gates</strong>: Enforce quality gates before deployment</p>
+<p>CI/CD integration enables organizations to validate agent changes automatically and deploy agents reliably.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">debugging-support</ac:parameter></ac:structured-macro>Debugging Support</h3>
+<p><strong>Debugging support</strong> enables developers to observe and understand agent behavior during development through observability instrumentation, logging, tracing, and metrics. Seer Agent SDK provides debugging support through:<br />
+*   <strong>Observability during development</strong>: Metrics, tracing, and logging available during development<br />
+*   <strong>Reasoning visibility</strong>: Visibility into agent reasoning and decision-making<br />
+*   <strong>Context inspection</strong>: Ability to inspect compiled context and service interactions<br />
+*   <strong>Error diagnosis</strong>: Clear error messages and diagnostic information</p>
+<p>Debugging support enables developers to efficiently diagnose problems and understand agent behavior during development.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conceptual-models-frameworks</ac:parameter></ac:structured-macro>Conceptual Models / Frameworks</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-development-workflow-model</ac:parameter></ac:structured-macro>The Development Workflow Model</h3>
+<p>Development workflows operate in three phases:</p>
+<ol>
+<li><strong>Local Development</strong>: Developers develop and test agents locally using SDKs and mock services</li>
+<li><strong>CI/CD Validation</strong>: Automated testing and validation in CI/CD pipelines</li>
+<li><strong>Production Deployment</strong>: Deployment to production environments after validation</li>
+</ol>
+<p>Each phase provides different capabilities and constraints, enabling efficient development while maintaining quality and governance.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-mock-service-model</ac:parameter></ac:structured-macro>The Mock Service Model</h3>
+<p>Local development uses mock services:<br />
+*   <strong>Employment Spec mocks</strong>: Local Employment Specs for testing<br />
+*   <strong>Training Spec mocks</strong>: Local Training Specs for testing<br />
+*   <strong>Context Compiler mocks</strong>: Local context compilation for testing<br />
+*   <strong>Hub service mocks</strong>: Local mocks for Tool Gateway, Memory Services, Knowledge Services</p>
+<p>Mock services enable local testing without requiring platform deployment, significantly improving development efficiency.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-cicd-pipeline-model</ac:parameter></ac:structured-macro>The CI/CD Pipeline Model</h3>
+<p>CI/CD pipelines for agents include:<br />
+*   <strong>Code validation</strong>: Validate agent code (syntax, style, security)<br />
+*   <strong>Spec validation</strong>: Validate Employment Specs and Training Specs<br />
+*   <strong>Behavioral testing</strong>: Test agent behavior against baselines<br />
+*   <strong>Integration testing</strong>: Test agent integration with Seer and Hub services<br />
+*   <strong>Quality gates</strong>: Enforce quality gates before deployment</p>
+<p>CI/CD pipelines enable automated validation and reliable deployment.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">systemic-and-enterprise-considerations</ac:parameter></ac:structured-macro>Systemic and Enterprise Considerations</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">development-efficiency</ac:parameter></ac:structured-macro>Development Efficiency</h3>
+<p>Development workflows directly impact development efficiency:<br />
+*   <strong>Rapid iteration</strong>: Local development enables rapid iteration without deployment overhead<br />
+*   <strong>Automated validation</strong>: CI/CD integration enables automated validation without manual testing<br />
+*   <strong>Efficient debugging</strong>: Debugging support enables efficient problem diagnosis</p>
+<p>Poor development workflows significantly reduce development efficiency and increase time-to-market.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">quality-assurance</ac:parameter></ac:structured-macro>Quality Assurance</h3>
+<p>Development workflows must support quality assurance:<br />
+*   <strong>Automated testing</strong>: CI/CD integration enables automated testing<br />
+*   <strong>Behavioral validation</strong>: Validate agent behavior against requirements<br />
+*   <strong>Quality gates</strong>: Enforce quality gates before deployment</p>
+<p>Quality assurance is essential for enterprise deployments where agent failures have significant consequences.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance-and-compliance</ac:parameter></ac:structured-macro>Governance and Compliance</h3>
+<p>Development workflows must maintain governance and compliance:<br />
+*   <strong>Spec validation</strong>: Validate Employment Specs and Training Specs for compliance<br />
+*   <strong>Audit trail</strong>: Maintain audit trail of development and testing activities<br />
+*   <strong>Approval gates</strong>: Require approval gates for production deployment</p>
+<p>Governance and compliance are non-negotiable for enterprise deployments.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions-failure-modes</ac:parameter></ac:structured-macro>Common Misconceptions &amp; Failure Modes</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-local-development-is-not-necessary</ac:parameter></ac:structured-macro>Misconception: Local Development Is Not Necessary</h3>
+<p>Some organizations assume that agents can be developed directly in production environments. However, production development is inefficient, risky, and prevents rapid iteration.</p>
+<p><strong>Failure mode</strong>: Organizations develop agents in production, reducing development efficiency and increasing risk.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-cicd-is-not-applicable-to-agents</ac:parameter></ac:structured-macro>Misconception: CI/CD Is Not Applicable to Agents</h3>
+<p>Some organizations assume that CI/CD practices don't apply to agents because of their non-deterministic nature. However, CI/CD is essential for agents, requiring behavioral testing rather than output matching.</p>
+<p><strong>Failure mode</strong>: Organizations skip CI/CD for agents, leading to quality problems and deployment risks.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-debugging-is-not-important</ac:parameter></ac:structured-macro>Misconception: Debugging Is Not Important</h3>
+<p>Some developers assume that debugging support is not important for agents. However, debugging is essential for understanding agent behavior, diagnosing problems, and validating correctness.</p>
+<p><strong>Failure mode</strong>: Developers skip debugging support, making problem diagnosis difficult or impossible.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">development-workflow-design</ac:parameter></ac:structured-macro>Development Workflow Design</h3>
+<p>Organizations should design development workflows that:<br />
+*   <strong>Support local development</strong>: Enable developers to test agents locally<br />
+*   <strong>Integrate with CI/CD</strong>: Enable automated testing and validation<br />
+*   <strong>Provide debugging support</strong>: Enable observability during development<br />
+*   <strong>Minimize deployment overhead</strong>: Reduce the need for full platform deployment during development</p>
+<p>Well-designed development workflows significantly improve developer productivity and agent quality.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">mock-service-strategy</ac:parameter></ac:structured-macro>Mock Service Strategy</h3>
+<p>Organizations should develop a mock service strategy that:<br />
+*   <strong>Provides comprehensive mocks</strong>: Mock all Seer and Hub services needed for local development<br />
+*   <strong>Maintains API compatibility</strong>: Mocks maintain API compatibility with real services<br />
+*   <strong>Supports configuration</strong>: Mocks support configuration for different test scenarios<br />
+*   <strong>Enables offline development</strong>: Mocks enable development when platform is unavailable</p>
+<p>Mock service strategy directly impacts local development efficiency.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cicd-pipeline-design</ac:parameter></ac:structured-macro>CI/CD Pipeline Design</h3>
+<p>Organizations should design CI/CD pipelines that:<br />
+*   <strong>Validate agent code</strong>: Test agent code for syntax, style, and security<br />
+*   <strong>Validate specs</strong>: Validate Employment Specs and Training Specs<br />
+*   <strong>Test behavior</strong>: Test agent behavior against baselines and requirements<br />
+*   <strong>Enforce quality gates</strong>: Require quality gates before deployment<br />
+*   <strong>Automate deployment</strong>: Automate deployment when tests pass</p>
+<p>CI/CD pipeline design directly impacts deployment reliability and quality.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 5.6 (CI/CD for Enterprise Agents)</strong>: Establishes CI/CD requirements that development workflows must support</li>
+<li><strong>Section 5.13.3 (Development Workflow Requirements)</strong>: Establishes the development workflow requirements that Seer Agent SDK implements</li>
+<li><strong>Section 7.4 (CI/CD in Seer)</strong>: Describes Seer-specific CI/CD capabilities</li>
+<li><strong>Section 20.1 (Seer Agent SDK)</strong>: Describes the SDK architecture that supports development workflows</li>
+<li><strong>Section 20.2 (SDK Capabilities)</strong>: Describes SDK capabilities that support development workflows</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>seer-design/implementation-concepts/sdk-development-experience.md</code> — SDK development experience concept</li>
+<li><code>seer-design/subsystems/seer-agent-sdk/README.md</code> — Seer Agent SDK design</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-2-how-seer-solves/20-developer-experience-in-seer/20-3-development-workflow.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

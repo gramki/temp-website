@@ -1,0 +1,377 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/04-audit-requirements/04-5-multi-audience-explanations.md -->
+<!-- Title: 4.5 Multi-Audience Explanations -->
+<!-- Content Hash: 18dc8ddc4052a57a3ab82562bae95d9501ace1d58472c6295aaba8053a6d6363 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">45-multi-audience-explanations</ac:parameter></ac:structured-macro>4.5 Multi-Audience Explanations</h1>
+<p><em>Generating appropriate explanations for customers, operators, and regulators.</em></p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose</ac:parameter></ac:structured-macro>Purpose</h2>
+<p>This subsection addresses a critical audit capability: the ability to explain the same decision differently to different audiences. A customer asking "Why was my application denied?" needs a different explanation than an operator investigating a complaint or a regulator examining decision patterns. The underlying decision is the same, but the explanation must be tailored to the audience's needs, expertise, and legal context.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-multi-audience-problem</ac:parameter></ac:structured-macro>The Multi-Audience Problem</h2>
+<p>Enterprise agent decisions have multiple stakeholders, each with different needs:</p>
+<table>
+<thead>
+<tr>
+<th>Audience</th>
+<th>Question</th>
+<th>Needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer</strong></td>
+<td>"Why did this happen to me?"</td>
+<td>Plain language, empathy, next steps</td>
+</tr>
+<tr>
+<td><strong>Operator</strong></td>
+<td>"What went wrong and how do I fix it?"</td>
+<td>Technical detail, actionable information</td>
+</tr>
+<tr>
+<td><strong>Regulator</strong></td>
+<td>"Was this decision reasonable and compliant?"</td>
+<td>Complete evidence, policy alignment, defensibility</td>
+</tr>
+</tbody>
+</table>
+<p>A single explanation format cannot serve all these audiences:</p>
+<ul>
+<li>Technical explanations confuse customers</li>
+<li>Customer-friendly explanations lack regulatory rigor</li>
+<li>Regulatory explanations are not actionable for operators</li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">audience-profiles</ac:parameter></ac:structured-macro>Audience Profiles</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">customer-audience</ac:parameter></ac:structured-macro>Customer Audience</h3>
+<p><strong>Context</strong>: The customer received a decision that affects them and wants to understand why.</p>
+<table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Language</strong></td>
+<td>Plain, accessible (8th-grade reading level)</td>
+</tr>
+<tr>
+<td><strong>Tone</strong></td>
+<td>Empathetic, respectful</td>
+</tr>
+<tr>
+<td><strong>Content</strong></td>
+<td>Key factors, not technical details</td>
+</tr>
+<tr>
+<td><strong>Framing</strong></td>
+<td>What this means for them</td>
+</tr>
+<tr>
+<td><strong>Actions</strong></td>
+<td>Clear next steps</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example customer explanation</strong>:</p>
+<blockquote>
+<p><em>"Hi Sarah,</em></p>
+<p><em>We reviewed your refund request and approved it. We verified your purchase from December 15 and confirmed the issue you reported. Your refund of $45.00 will appear in your account within 3-5 business days.</em></p>
+<p><em>If you have questions, please contact us."</em></p>
+</blockquote>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">operator-audience</ac:parameter></ac:structured-macro>Operator Audience</h3>
+<p><strong>Context</strong>: An operator needs to understand a decision for investigation, quality assurance, or issue resolution.</p>
+<table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Language</strong></td>
+<td>Technical, precise</td>
+</tr>
+<tr>
+<td><strong>Tone</strong></td>
+<td>Neutral, informative</td>
+</tr>
+<tr>
+<td><strong>Content</strong></td>
+<td>Full factor breakdown, model details, context</td>
+</tr>
+<tr>
+<td><strong>Framing</strong></td>
+<td>What the system did and why</td>
+</tr>
+<tr>
+<td><strong>Actions</strong></td>
+<td>What can be investigated or changed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example operator explanation</strong>:</p>
+<blockquote>
+<p><em>"Decision ID: dec-12345</em></p>
+<p><em>Decision: approve_refund (confidence: 0.87)</em></p>
+<p><em>Factors:</em><br />
+- <em>Purchase verified: ✓ (weight: 0.40)</em><br />
+- <em>No prior disputes: Clean history (weight: 0.30)</em><br />
+- <em>Amount reasonable: $45.00 (weight: 0.30)</em></p>
+<p><em>Evidence bundle: evd-001</em><br />
+<em>Policy: refund-policy-v2.3, Section 4.2</em></p>
+<p><em>No overrides. Within autonomous authority bounds."</em></p>
+</blockquote>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">regulator-audience</ac:parameter></ac:structured-macro>Regulator Audience</h3>
+<p><strong>Context</strong>: A regulator is examining the decision for compliance, fairness, or as part of an investigation.</p>
+<table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Language</strong></td>
+<td>Formal, precise, compliance-oriented</td>
+</tr>
+<tr>
+<td><strong>Tone</strong></td>
+<td>Neutral, complete</td>
+</tr>
+<tr>
+<td><strong>Content</strong></td>
+<td>Full evidence chain, policy references, alternatives considered</td>
+</tr>
+<tr>
+<td><strong>Framing</strong></td>
+<td>Demonstrating reasonableness</td>
+</tr>
+<tr>
+<td><strong>Actions</strong></td>
+<td>How to retrieve additional evidence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example regulator explanation</strong>:</p>
+<blockquote>
+<p><em>"Decision Record: dec-12345</em></p>
+<p><em>Date: January 7, 2026, 14:30 UTC</em></p>
+<p><em>Summary: Automated refund approval decision made by Agent fraud-resolution-agent-v2.1 within Workbench dispute-resolution.</em></p>
+<p><em>Decision Basis: Decision was based on 3 weighted factors with combined confidence of 87%. Threshold for autonomous approval: 80%.</em></p>
+<p><em>Evidence Chain: 4 evidence items linked (transaction verification, customer history, policy lookup, risk assessment). All evidence captured at decision time and preserved in evidence bundle evd-001.</em></p>
+<p><em>Policy Alignment: Decision aligns with Refund Policy v2.3, Section 4.2 (automatic approval criteria for verified purchases under $100 with clean history).</em></p>
+<p><em>Human Oversight: No human override applied. Decision was within autonomous authority bounds defined in EmploymentSpec.</em></p>
+<p><em>Evidence Manifest: [Attached]</em></p>
+<p><em>Export Formats Available: PDF, JSON, XML"</em></p>
+</blockquote>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-explanation-service</ac:parameter></ac:structured-macro>The Explanation Service</h2>
+<p>Multi-audience explanations are generated by the <strong>Explanation Service</strong>, a CAF component that transforms decision records into audience-appropriate narratives.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">architecture</ac:parameter></ac:structured-macro>Architecture</h3>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────────────────────┐
+│                           EXPLANATION SERVICE                                │
+│                                                                              │
+│   ┌───────────────────────────────────────────────────────────────────┐     │
+│   │                     TEMPLATE REGISTRY                              │     │
+│   │                                                                    │     │
+│   │   Audience: customer  → Template: empathetic, plain language      │     │
+│   │   Audience: operator  → Template: technical, actionable           │     │
+│   │   Audience: regulator → Template: complete, defensible            │     │
+│   │   Audience: executive → Template: summary, business-oriented      │     │
+│   │                                                                    │     │
+│   └───────────────────────────────────────────────────────────────────┘     │
+│                                    │                                         │
+│                                    ▼                                         │
+│   ┌───────────────────────────────────────────────────────────────────┐     │
+│   │                    EXPLANATION ENGINE                              │     │
+│   │                                                                    │     │
+│   │   1. Retrieve decision record + evidence bundle                   │     │
+│   │   2. Select audience template                                      │     │
+│   │   3. Apply field semantics (labels, formatting)                   │     │
+│   │   4. Evaluate significance rules (alerts)                         │     │
+│   │   5. Generate narrative                                            │     │
+│   │   6. (Optional) Polish with LLM                                    │     │
+│   │                                                                    │     │
+│   └───────────────────────────────────────────────────────────────────┘     │
+│                                    │                                         │
+│                                    ▼                                         │
+│   ┌───────────────────────────────────────────────────────────────────┐     │
+│   │                    EXPLANATION OUTPUT                              │     │
+│   │                                                                    │     │
+│   │   • Structured JSON (programmatic consumption)                     │     │
+│   │   • Natural language narrative (human reading)                     │     │
+│   │   • Compliance document (audit/regulatory)                         │     │
+│   │   • Customer communication (dispute response)                      │     │
+│   │                                                                    │     │
+│   └───────────────────────────────────────────────────────────────────┘     │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">semantic-explainers</ac:parameter></ac:structured-macro>Semantic Explainers</h3>
+<p>Each content schema includes <strong>semantic explainer</strong> metadata that guides explanation generation:</p>
+<pre class="codehilite"><code class="language-yaml">semantic_explainer:
+  templates:
+    customer:
+      summary: &quot;We {{decision.action | customer_friendly}} based on {{factors | count}} factors.&quot;
+      detail: &quot;{{narrative | customer_friendly}}&quot;
+
+    technical:
+      summary: &quot;Decision: {{decision.action}} (confidence: {{confidence | percent}})&quot;
+      factors: &quot;{{factors | technical_format}}&quot;
+
+    audit:
+      summary: &quot;Decision record {{id}} documents {{decision.action}} on {{timestamp | datetime}}.&quot;
+      evidence_chain: &quot;{{evidence_count}} evidence items linked.&quot;
+
+  field_semantics:
+    decision.confidence:
+      label: &quot;Confidence&quot;
+      description: &quot;Certainty level of the decision&quot;
+      display_format: &quot;percent&quot;
+
+    factors:
+      label: &quot;Decision Factors&quot;
+      description: &quot;Elements that influenced the decision&quot;
+</code></pre>
+
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">explanation-types</ac:parameter></ac:structured-macro>Explanation Types</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">decision-explanation</ac:parameter></ac:structured-macro>Decision Explanation</h3>
+<p><em>"Why was this decision made?"</em></p>
+<p>Components:<br />
+- What was decided<br />
+- What factors contributed<br />
+- What evidence was considered<br />
+- What the outcome means</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">counterfactual-explanation</ac:parameter></ac:structured-macro>Counterfactual Explanation</h3>
+<p><em>"What would have happened if...?"</em></p>
+<p>Components:<br />
+- What conditions would change the decision<br />
+- Which factor is most influential<br />
+- How stable is the decision</p>
+<p><strong>Example</strong>:</p>
+<blockquote>
+<p><em>"If confidence had exceeded 90%, this could have been auto-approved without human review. Without purchase verification, confidence would drop to ~52%, likely triggering escalation."</em></p>
+</blockquote>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">case-explanation</ac:parameter></ac:structured-macro>Case Explanation</h3>
+<p><em>"What happened with this case from start to finish?"</em></p>
+<p>Components:<br />
+- Timeline of events<br />
+- Key decisions made<br />
+- Outcome and resolution</p>
+<p>This requires traversing multiple records linked by <code>case_id</code>.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">quality-requirements</ac:parameter></ac:structured-macro>Quality Requirements</h2>
+<p>Explanations must meet quality standards:</p>
+<table>
+<thead>
+<tr>
+<th>Quality Dimension</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Completeness</strong></td>
+<td>All required elements present for the audience</td>
+</tr>
+<tr>
+<td><strong>Accuracy</strong></td>
+<td>Faithful to the underlying decision record</td>
+</tr>
+<tr>
+<td><strong>Clarity</strong></td>
+<td>Understandable by the target audience</td>
+</tr>
+<tr>
+<td><strong>Actionability</strong></td>
+<td>Includes next steps where appropriate</td>
+</tr>
+<tr>
+<td><strong>Consistency</strong></td>
+<td>Similar decisions get similar explanations</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">audience-specific-quality</ac:parameter></ac:structured-macro>Audience-Specific Quality</h3>
+<table>
+<thead>
+<tr>
+<th>Audience</th>
+<th>Quality Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer</strong></td>
+<td>Empathy, clarity, actionability</td>
+</tr>
+<tr>
+<td><strong>Operator</strong></td>
+<td>Technical accuracy, completeness, actionability</td>
+</tr>
+<tr>
+<td><strong>Regulator</strong></td>
+<td>Completeness, policy alignment, defensibility</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions</ac:parameter></ac:structured-macro>Common Misconceptions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-1-one-explanation-fits-all</ac:parameter></ac:structured-macro>Misconception 1: "One Explanation Fits All"</h3>
+<p><strong>The error</strong>: Generate one explanation and use it everywhere.</p>
+<p><strong>Why it fails</strong>: Technical explanations alienate customers. Customer explanations lack regulatory rigor. Operators need different information than executives.</p>
+<p><strong>The fix</strong>: Design multi-audience explanation from the start.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-2-explanations-are-just-formatting</ac:parameter></ac:structured-macro>Misconception 2: "Explanations Are Just Formatting"</h3>
+<p><strong>The error</strong>: The same content with different formatting.</p>
+<p><strong>Why it fails</strong>: Different audiences need different content, not just different styling. A customer doesn't need to see model weights. A regulator does need to see policy references.</p>
+<p><strong>The fix</strong>: Templates select and emphasize different content, not just format it differently.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-3-llm-generated-explanations-are-suf</ac:parameter></ac:structured-macro>Misconception 3: "LLM-Generated Explanations Are Sufficient"</h3>
+<p><strong>The error</strong>: Just ask an LLM to explain the decision.</p>
+<p><strong>Why it fails</strong>: LLM-generated explanations may not reflect the actual decision basis. They may hallucinate factors or omit important elements.</p>
+<p><strong>The fix</strong>: Use structured templates grounded in actual decision records. LLM can polish language but should not invent content.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">for-enterprise-architects</ac:parameter></ac:structured-macro>For Enterprise Architects</h3>
+<ol>
+<li>Design explanation capability into the audit architecture</li>
+<li>Define audience profiles and their specific needs</li>
+<li>Create template registries for each content type</li>
+<li>Plan for explanation quality metrics</li>
+</ol>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">for-agent-developers</ac:parameter></ac:structured-macro>For Agent Developers</h3>
+<ol>
+<li>Ensure decision records contain all explainable factors</li>
+<li>Use clear, labellable factor names</li>
+<li>Include outcome linkage for context</li>
+<li>Test explanations for all audiences</li>
+</ol>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">for-compliance-officers</ac:parameter></ac:structured-macro>For Compliance Officers</h3>
+<ol>
+<li>Verify explanations are accurate to decision records</li>
+<li>Test customer explanations for readability</li>
+<li>Verify regulator explanations include all required elements</li>
+<li>Audit explanation consistency</li>
+</ol>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 4.3</strong>: The Explanation Service is part of CAF</li>
+<li><strong>Section 4.2</strong>: Why real-time explanations differ from reconstructed ones</li>
+<li><strong>Part 2, Section 4</strong>: How Seer implements the Explanation Service</li>
+</ul>
+<p>For implementation details, see:<br />
+- <code>olympus-hub-docs/04-subsystems/cognitive-audit-fabric/explanation-service.md</code><br />
+- <code>olympus-hub-docs/04-subsystems/cognitive-audit-fabric/record-content-schema-registry.md</code></p>
+<hr />
+<p><em>The same decision requires different explanations for different audiences. Multi-audience explanation capability is essential for customer communication, operator support, and regulatory compliance.</em></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-1-background/04-audit-requirements/04-5-multi-audience-explanations.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

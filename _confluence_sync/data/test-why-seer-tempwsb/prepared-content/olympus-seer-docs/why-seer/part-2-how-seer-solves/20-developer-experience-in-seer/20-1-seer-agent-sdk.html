@@ -1,0 +1,120 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/20-developer-experience-in-seer/20-1-seer-agent-sdk.md -->
+<!-- Title: 20.1 Seer Agent SDK -->
+<!-- Content Hash: a1a63ca52d2b1f52ae203f41494670a5433841499a6d898cccb22ec549356fc7 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">201-seer-agent-sdk</ac:parameter></ac:structured-macro>20.1 Seer Agent SDK</h1>
+<p>Seer Agent SDK provides the SDK for Raw Agents to interact with Seer and Hub services. The SDK is available in two language variants (Python and Java), both providing the same logical API groups with language-appropriate idioms. The SDK provides framework-agnostic core APIs that work with any agentic framework, with optional framework-specific builders for popular Python frameworks (LangGraph, Strands, OpenAPI).</p>
+<p>Seer Agent SDK addresses the framework-agnostic and multi-language requirements established in Section 5.13.1, enabling developers to choose their preferred frameworks and languages while maintaining consistent access to Seer and Hub capabilities.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection describes the architecture and design principles of Seer Agent SDK. It explains the framework-agnostic design, multi-language support, API groups, and framework builders. It also describes how the SDK enables developers to work with any agentic framework while providing convenience layers for popular frameworks.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-concepts-definitions</ac:parameter></ac:structured-macro>Core Concepts &amp; Definitions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">framework-agnostic-core-apis</ac:parameter></ac:structured-macro>Framework-Agnostic Core APIs</h3>
+<p><strong>Framework-agnostic core APIs</strong> are SDK APIs that work with any agentic framework (LangGraph, Strands, OpenAPI, custom frameworks) without requiring framework-specific implementations. Framework-agnostic APIs enable developers to:<br />
+*   Choose their preferred framework without lock-in<br />
+*   Use core APIs with any framework or build custom integrations<br />
+*   Switch frameworks as needs evolve without rewriting agent code</p>
+<p>Framework-agnostic APIs provide core capabilities (Employment Spec access, prompt management, context compilation, observability, Hub integration) that work independently of frameworks.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">multi-language-support</ac:parameter></ac:structured-macro>Multi-Language Support</h3>
+<p><strong>Multi-language support</strong> is the provision of SDKs in multiple programming languages (Python, Java) with consistent logical APIs and language-appropriate idioms. Multi-language support enables:<br />
+*   <strong>Language flexibility</strong>: Organizations can develop agents in their preferred languages<br />
+*   <strong>API consistency</strong>: Same logical API groups across languages<br />
+*   <strong>Language idioms</strong>: Language-appropriate idioms for better developer experience<br />
+*   <strong>Feature parity</strong>: Equivalent functionality across languages</p>
+<p>Multi-language support is essential because different organizations prefer different languages, and some agentic frameworks are language-specific.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">api-groups</ac:parameter></ac:structured-macro>API Groups</h3>
+<p>Seer Agent SDK organizes capabilities into logical API groups:<br />
+*   <strong>Employment Spec APIs</strong>: Retrieve, cache, and access Employment Specifications<br />
+*   <strong>Prompt APIs</strong>: Retrieve prompts with A/B testing, authority enforcement, and autonomy level support<br />
+*   <strong>Context Compiler APIs</strong>: Compile context from Enterprise Knowledge, Enterprise Memory, Agent Memory, and Hub Request Context<br />
+*   <strong>Observability APIs</strong>: Metrics, tracing, structured logging, auto-instrumentation<br />
+*   <strong>Hub Integration APIs</strong>: Tool discovery/calling, Stores, Knowledge Services, Memory Services, Events APIs</p>
+<p>These API groups provide comprehensive capabilities for agent development while maintaining clear organization and consistency.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">framework-builders</ac:parameter></ac:structured-macro>Framework Builders</h3>
+<p><strong>Framework builders</strong> are optional convenience layers that provide framework-specific builders for popular Python frameworks (LangGraph, Strands, OpenAPI). Framework builders:<br />
+*   Simplify common patterns for popular frameworks<br />
+*   Provide framework-specific idioms and patterns<br />
+*   Are optional—developers can use core APIs directly<br />
+*   Do not create framework lock-in—core APIs remain framework-agnostic</p>
+<p>Framework builders enable developers to use popular frameworks more easily while maintaining the flexibility to use core APIs with any framework.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conceptual-models-frameworks</ac:parameter></ac:structured-macro>Conceptual Models / Frameworks</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-sdk-architecture-model</ac:parameter></ac:structured-macro>The SDK Architecture Model</h3>
+<p>Seer Agent SDK provides a layered architecture:</p>
+<pre class="codehilite"><code>Agent Application (LangGraph, Strands, OpenAPI, Custom)
+    ↑
+Framework Builders (Optional: LangGraph, Strands, OpenAPI)
+    ↑
+Core SDK APIs (Framework-Agnostic)
+    ├── Employment Spec APIs
+    ├── Prompt APIs
+    ├── Context Compiler APIs
+    ├── Observability APIs
+    └── Hub Integration APIs
+    ↑
+Seer &amp; Hub Services
+</code></pre>
+
+<p>This layered architecture enables framework flexibility while providing convenience for popular frameworks.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-multi-language-consistency-model</ac:parameter></ac:structured-macro>The Multi-Language Consistency Model</h3>
+<p>Multi-language SDKs maintain consistency through:<br />
+*   <strong>Logical API groups</strong>: Same API groups across languages<br />
+*   <strong>Capability parity</strong>: Equivalent functionality across languages<br />
+*   <strong>Language idioms</strong>: Language-appropriate idioms while maintaining logical consistency</p>
+<p>This model enables developers to switch languages or work across languages while maintaining familiarity with SDK capabilities.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">systemic-and-enterprise-considerations</ac:parameter></ac:structured-macro>Systemic and Enterprise Considerations</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">framework-ecosystem-support</ac:parameter></ac:structured-macro>Framework Ecosystem Support</h3>
+<p>Seer Agent SDK must support diverse framework ecosystems:<br />
+*   <strong>Python frameworks</strong>: LangGraph, LangChain, Strands, AutoGen, CrewAI<br />
+*   <strong>Java frameworks</strong>: Custom frameworks, Spring-based agents<br />
+*   <strong>OpenAPI frameworks</strong>: Framework-agnostic OpenAPI-based agents</p>
+<p>Framework-agnostic core APIs enable support for this diversity without requiring framework-specific implementations for every framework.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">language-preferences</ac:parameter></ac:structured-macro>Language Preferences</h3>
+<p>Different organizations prefer different languages:<br />
+*   <strong>Python</strong>: Dominant in AI/ML ecosystem, preferred for data science teams<br />
+*   <strong>Java</strong>: Required for enterprise Java applications, preferred for backend services</p>
+<p>SDKs must support multiple languages to enable broad adoption across organizations with different language preferences.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">developer-productivity</ac:parameter></ac:structured-macro>Developer Productivity</h3>
+<p>SDK design directly impacts developer productivity:<br />
+*   <strong>API simplicity</strong>: Simple, intuitive APIs reduce learning curve<br />
+*   <strong>Consistency</strong>: Consistent APIs across capabilities and languages reduce cognitive load<br />
+*   <strong>Documentation</strong>: Well-documented APIs with examples improve developer experience<br />
+*   <strong>Error handling</strong>: Clear error messages and handling improve debugging efficiency</p>
+<p>Developer productivity directly impacts agent development efficiency and adoption.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions-failure-modes</ac:parameter></ac:structured-macro>Common Misconceptions &amp; Failure Modes</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-framework-specific-sdks-are-better</ac:parameter></ac:structured-macro>Misconception: Framework-Specific SDKs Are Better</h3>
+<p>Some developers assume that framework-specific SDKs (e.g., LangGraph-only SDK) are better than framework-agnostic SDKs. However, framework-specific SDKs create lock-in and prevent organizations from using multiple frameworks or switching frameworks as needs evolve.</p>
+<p><strong>Failure mode</strong>: Organizations adopt framework-specific SDKs, creating lock-in that prevents framework flexibility and limits future options.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-single-language-sdks-are-sufficient</ac:parameter></ac:structured-macro>Misconception: Single-Language SDKs Are Sufficient</h3>
+<p>Some organizations assume that single-language SDKs (typically Python-only) are sufficient. However, enterprise organizations often require multiple languages, and some frameworks are language-specific.</p>
+<p><strong>Failure mode</strong>: Organizations adopt single-language SDKs, forcing teams to use languages they don't prefer or preventing adoption in language-specific environments.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-framework-builders-create-lock-in</ac:parameter></ac:structured-macro>Misconception: Framework Builders Create Lock-In</h3>
+<p>Some developers assume that framework builders create framework lock-in. However, framework builders are optional convenience layers; core APIs remain framework-agnostic, enabling developers to switch frameworks or use core APIs directly.</p>
+<p><strong>Failure mode</strong>: Developers avoid framework builders, missing convenience benefits, or assume lock-in, avoiding framework builders unnecessarily.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sdk-selection</ac:parameter></ac:structured-macro>SDK Selection</h3>
+<p>Organizations should select SDKs based on:<br />
+*   <strong>Framework support</strong>: Does the SDK support the frameworks the organization uses?<br />
+*   <strong>Language support</strong>: Does the SDK support the languages the organization prefers?<br />
+*   <strong>API consistency</strong>: Are APIs consistent across languages and frameworks?<br />
+*   <strong>Developer experience</strong>: Does the SDK provide good developer experience?</p>
+<p>SDK selection directly impacts developer productivity and agent development efficiency.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">framework-strategy</ac:parameter></ac:structured-macro>Framework Strategy</h3>
+<p>Organizations should develop a framework strategy that:<br />
+*   <strong>Supports multiple frameworks</strong>: Enables teams to choose frameworks that fit their needs<br />
+*   <strong>Avoids lock-in</strong>: Uses framework-agnostic APIs to prevent framework lock-in<br />
+*   <strong>Leverages convenience</strong>: Uses framework builders when they provide value without creating lock-in</p>
+<p>Framework strategy directly impacts long-term flexibility and developer satisfaction.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 5.13.1 (SDK Needs for Agent Development)</strong>: Establishes the framework-agnostic and multi-language requirements that Seer Agent SDK addresses</li>
+<li><strong>Section 20.2 (SDK Capabilities)</strong>: Describes the specific SDK capabilities</li>
+<li><strong>Section 20.3 (Development Workflow)</strong>: Describes how the SDK supports development workflows</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>seer-design/subsystems/seer-agent-sdk/README.md</code> — Seer Agent SDK design</li>
+<li><code>seer-design/implementation-concepts/sdk-development-experience.md</code> — SDK development experience concept</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-2-how-seer-solves/20-developer-experience-in-seer/20-1-seer-agent-sdk.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

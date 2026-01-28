@@ -1,0 +1,146 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-2-enterprise-knowledge.md -->
+<!-- Title: 4.2 Enterprise Knowledge in Seer -->
+<!-- Content Hash: b426500f60b6c6f2e6d8ba1c3f67d430863159ef22552edde1289b8b8dce51ad -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">42-enterprise-knowledge-in-seer</ac:parameter></ac:structured-macro>4.2 Enterprise Knowledge in Seer</h1>
+<p>Enterprise Knowledge is the authoritative source of organizational truth that grounds agent reasoning. Seer integrates with Hub's knowledge services to ensure agents operate from curated, versioned, and governed information sources.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-enterprise-knowledge-provides</ac:parameter></ac:structured-macro>What Enterprise Knowledge Provides</h2>
+<p>Enterprise Knowledge answers the question: <strong>"What is correct/required/true?"</strong></p>
+<table>
+<thead>
+<tr>
+<th>Knowledge Type</th>
+<th>Examples</th>
+<th>Agent Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Policies</strong></td>
+<td>Dispute escalation rules, approval thresholds</td>
+<td>Compliance constraints</td>
+</tr>
+<tr>
+<td><strong>Procedures</strong></td>
+<td>Standard operating procedures, playbooks</td>
+<td>Guided workflows</td>
+</tr>
+<tr>
+<td><strong>Reference data</strong></td>
+<td>Product catalogs, fee schedules, entity definitions</td>
+<td>Factual grounding</td>
+</tr>
+<tr>
+<td><strong>Regulatory requirements</strong></td>
+<td>Disclosures, hold periods, consent requirements</td>
+<td>Mandatory actions</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">knowledge-services-architecture</ac:parameter></ac:structured-macro>Knowledge Services Architecture</h2>
+<p>Hub's Knowledge Services provide the infrastructure for Enterprise Knowledge:</p>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────┐
+│                   KNOWLEDGE SERVICES                         │
+│                                                              │
+│   ┌───────────────────┐    ┌───────────────────────────┐   │
+│   │   KNOWLEDGE BANK  │    │   ETSL (Enterprise        │   │
+│   │                   │    │   Temporal Semantic Layer)│   │
+│   │   • Documents     │    │                           │   │
+│   │   • Procedures    │    │   • Asserted facts        │   │
+│   │   • RAG-indexed   │    │   • Business rules        │   │
+│   │   • Versioned     │    │   • Time-aware validity   │   │
+│   │                   │    │   • Authority-qualified   │   │
+│   └───────────────────┘    └───────────────────────────┘   │
+│                                                              │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │                  COMMON CAPABILITIES                  │  │
+│   │                                                       │  │
+│   │  • Semantic search (vector similarity)               │  │
+│   │  • Symbolic filters (metadata, tags)                 │  │
+│   │  • Provenance tracking                               │  │
+│   │  • Access control (workbench-scoped)                 │  │
+│   └─────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">knowledge-bank</ac:parameter></ac:structured-macro>Knowledge Bank</h2>
+<p>The Knowledge Bank provides document-based knowledge for RAG (Retrieval-Augmented Generation):</p>
+<ul>
+<li><strong>Documents:</strong> Policies, procedures, guides, reference materials</li>
+<li><strong>Indexing:</strong> Vector embeddings for semantic search</li>
+<li><strong>Versioning:</strong> Full version history with effective dates</li>
+<li><strong>Provenance:</strong> Source attribution for retrieved content</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-access-pattern</ac:parameter></ac:structured-macro>Agent Access Pattern</h3>
+<pre class="codehilite"><code class="language-python"># Agent retrieves knowledge via context compilation
+knowledge = seer.context.retrieve_knowledge(
+    query=&quot;What is the dispute escalation policy?&quot;,
+    workbench=&quot;fraud-ops-prod&quot;,
+    filters={&quot;document_type&quot;: &quot;policy&quot;},
+    max_chunks=5
+)
+# Returns: ranked chunks with provenance
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enterprise-temporal-semantic-layer-etsl</ac:parameter></ac:structured-macro>Enterprise Temporal Semantic Layer (ETSL)</h2>
+<p>ETSL provides structured, time-aware semantic knowledge:</p>
+<ul>
+<li><strong>Asserted facts:</strong> "Product X has fee Y" (valid from date A to date B)</li>
+<li><strong>Business rules:</strong> "Transactions over $10,000 require manager approval"</li>
+<li><strong>Constraints:</strong> "Customer cannot have more than 3 disputes per month"</li>
+<li><strong>Temporal validity:</strong> Facts have effective dates and can be superseded</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">why-temporal-matters</ac:parameter></ac:structured-macro>Why Temporal Matters</h3>
+<p>Enterprise knowledge changes over time:<br />
+- Fee schedules change quarterly<br />
+- Policies are updated<br />
+- Regulatory requirements evolve</p>
+<p>ETSL tracks <em>when</em> facts are valid, enabling:<br />
+- Point-in-time queries ("What was the policy on January 1?")<br />
+- Audit reconstruction ("What rules applied when this decision was made?")<br />
+- Future-dated assertions ("New policy takes effect next month")</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">integration-with-seer</ac:parameter></ac:structured-macro>Integration with Seer</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">context-compilation</ac:parameter></ac:structured-macro>Context Compilation</h3>
+<p>Seer's Context Assembly Engine retrieves knowledge as part of context compilation:</p>
+<pre class="codehilite"><code class="language-yaml">context_frame:
+  constraints:
+    - source: etsl
+      content: &quot;Max refund without approval: $500&quot;
+
+  ground_truth_facts:
+    - source: knowledge_bank
+      content: &quot;Dispute must be filed within 60 days of transaction&quot;
+      provenance:
+        document: &quot;dispute-policy-v3.2&quot;
+        section: &quot;Filing Requirements&quot;
+        retrieved_at: 2026-01-10T10:00:00Z
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">knowledge-precedence</ac:parameter></ac:structured-macro>Knowledge Precedence</h3>
+<p>Enterprise Knowledge takes precedence over other sources:</p>
+<pre class="codehilite"><code>1. System constraints (highest) — Platform guardrails
+2. Enterprise Knowledge         — Authoritative policy
+3. Enterprise Memory            — Historical precedent
+4. Agent Memory (lowest)        — Session preferences
+</code></pre>
+
+<p>An agent's session preferences cannot override enterprise policy.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance</ac:parameter></ac:structured-macro>Governance</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">write-access</ac:parameter></ac:structured-macro>Write Access</h3>
+<p>Enterprise Knowledge is write-protected:<br />
+- Only authorized governance processes can add/modify content<br />
+- Changes require approval workflows<br />
+- All modifications are versioned and audited</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">read-access</ac:parameter></ac:structured-macro>Read Access</h3>
+<p>Agents access Enterprise Knowledge through governed tools:<br />
+- Scoped to workbench<br />
+- Retrieval is logged<br />
+- Provenance is attached to retrieved content</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/04-subsystems/knowledge-services/README.md</code><br />
+*   <code>olympus-hub-docs/pontus/etsl/</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-4-four-sources.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-2-enterprise-knowledge.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

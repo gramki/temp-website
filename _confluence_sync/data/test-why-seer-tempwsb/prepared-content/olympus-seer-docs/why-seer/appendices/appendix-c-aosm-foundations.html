@@ -1,0 +1,329 @@
+<!-- File: olympus-seer-docs/why-seer/appendices/appendix-c-aosm-foundations.md -->
+<!-- Title: Appendix C: AOSM Foundations -->
+<!-- Content Hash: fd42ed0cfcbbd0f745cb89bfa9a8a0fe0c7b8d9d84cb17417a9f1e8d52f34902 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">appendix-c-aosm-foundations</ac:parameter></ac:structured-macro>Appendix C: AOSM Foundations</h1>
+<p>Seer's design is grounded in <strong>Agent-Oriented Systems Modeling (AOSM)</strong>, Zeta's meta-model for agent-oriented enterprises. This appendix provides background on the key AOSM concepts that inform Seer's architecture.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-is-aosm</ac:parameter></ac:structured-macro>What is AOSM?</h2>
+<p>AOSM is a conceptual framework for designing enterprise systems where AI agents and humans collaborate. It provides:</p>
+<ul>
+<li><strong>Vocabulary:</strong> Consistent terminology for agent-related concepts</li>
+<li><strong>Models:</strong> Frameworks for understanding agent behavior and governance</li>
+<li><strong>Patterns:</strong> Reusable approaches to common agent design challenges</li>
+<li><strong>Principles:</strong> Foundational rules that govern agent-human collaboration</li>
+</ul>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-aosm-concepts</ac:parameter></ac:structured-macro>Key AOSM Concepts</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ksa-knowledge-skills-abilities</ac:parameter></ac:structured-macro>KSA: Knowledge, Skills, Abilities</h3>
+<p>What agents know and can do.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Definition</th>
+<th>Seer Mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Knowledge</strong></td>
+<td>What the agent knows (facts, policies, procedures)</td>
+<td>Knowledge bindings in TrainingSpec</td>
+</tr>
+<tr>
+<td><strong>Skills</strong></td>
+<td>What the agent can do (capabilities, tool use)</td>
+<td>Skill configurations in TrainingSpec</td>
+</tr>
+<tr>
+<td><strong>Abilities</strong></td>
+<td>The agent's capacity to apply skills effectively</td>
+<td>Guardrails and authority in Specs</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pida-perceive-interpret-decide-act</ac:parameter></ac:structured-macro>PIDA: Perceive, Interpret, Decide, Act</h3>
+<p>The cycle of agent behavior.</p>
+<pre class="codehilite"><code>Perceive → Interpret → Decide → Act
+    ↑                            ↓
+    └────────── Feedback ────────┘
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Description</th>
+<th>Seer Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Perceive</strong></td>
+<td>Receive input from environment</td>
+<td>Signal intake, context assembly</td>
+</tr>
+<tr>
+<td><strong>Interpret</strong></td>
+<td>Understand meaning and relevance</td>
+<td>LLM reasoning with knowledge</td>
+</tr>
+<tr>
+<td><strong>Decide</strong></td>
+<td>Choose action based on goals and constraints</td>
+<td>Decision with guardrails</td>
+</tr>
+<tr>
+<td><strong>Act</strong></td>
+<td>Execute chosen action</td>
+<td>Tool invocation with audit</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">opd-observability-predictability-directability</ac:parameter></ac:structured-macro>OPD: Observability, Predictability, Directability</h3>
+<p>The three properties that distinguish enterprise-ready agents.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Definition</th>
+<th>Seer Delivery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Observability</strong></td>
+<td>Agent behavior is inspectable</td>
+<td>Full audit trail, decision records, explanations</td>
+</tr>
+<tr>
+<td><strong>Predictability</strong></td>
+<td>Agent behaves within known bounds</td>
+<td>Immutable guardrails, authority ceilings</td>
+</tr>
+<tr>
+<td><strong>Directability</strong></td>
+<td>Humans can steer agent behavior</td>
+<td>Override, kill switch, escalation</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">rasci-accountability-model</ac:parameter></ac:structured-macro>RASCI: Accountability Model</h3>
+<p>Who is responsible for what.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Definition</th>
+<th>Application to Agents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Responsible</strong></td>
+<td>Does the work</td>
+<td>Agent performs the task</td>
+</tr>
+<tr>
+<td><strong>Accountable</strong></td>
+<td>Ultimately answerable</td>
+<td><strong>Always a human</strong></td>
+</tr>
+<tr>
+<td><strong>Supporting</strong></td>
+<td>Helps complete the work</td>
+<td>Other agents, tools</td>
+</tr>
+<tr>
+<td><strong>Consulted</strong></td>
+<td>Provides input</td>
+<td>Policies, precedents</td>
+</tr>
+<tr>
+<td><strong>Informed</strong></td>
+<td>Notified of outcomes</td>
+<td>Stakeholders, audit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical Principle:</strong> Agents can be Responsible, but humans are always Accountable.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">controlled-autonomy</ac:parameter></ac:structured-macro>Controlled Autonomy</h3>
+<p>Agents act only within bounds set by accountable humans.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authority</strong></td>
+<td>What the agent is permitted to do</td>
+</tr>
+<tr>
+<td><strong>Availability</strong></td>
+<td>When the agent can act</td>
+</tr>
+<tr>
+<td><strong>Capability</strong></td>
+<td>What the agent can technically do</td>
+</tr>
+<tr>
+<td><strong>Capacity</strong></td>
+<td>How much the agent can handle</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Autonomy = Authority ∩ Availability ∩ Capability ∩ Capacity</strong></p>
+<p>An agent can only act when all four components are satisfied.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">human-ai-team-hat</ac:parameter></ac:structured-macro>Human-AI Team (HAT)</h3>
+<p>Coordinated collaboration between humans and AI agents.</p>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shared Context</strong></td>
+<td>Humans and AI operate in the same operational context</td>
+</tr>
+<tr>
+<td><strong>Task Interoperability</strong></td>
+<td>Same task queues serve both humans and AI</td>
+</tr>
+<tr>
+<td><strong>Seamless Handoff</strong></td>
+<td>Work transfers smoothly between humans and AI</td>
+</tr>
+<tr>
+<td><strong>Human Oversight</strong></td>
+<td>Humans supervise and can override AI</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-archetypes</ac:parameter></ac:structured-macro>Agent Archetypes</h2>
+<p>AOSM defines four functional perspectives for agents:</p>
+<table>
+<thead>
+<tr>
+<th>Archetype</th>
+<th>Function</th>
+<th>Rejectable Artifacts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thinker</strong></td>
+<td>Reasoning, decisions</td>
+<td>Decision Request, Decision Result</td>
+</tr>
+<tr>
+<td><strong>Doer</strong></td>
+<td>Executing actions</td>
+<td>Action Request, Action Result</td>
+</tr>
+<tr>
+<td><strong>Orchestrator</strong></td>
+<td>Assigning work</td>
+<td>Task Assignment</td>
+</tr>
+<tr>
+<td><strong>Governor</strong></td>
+<td>Observing, auditing</td>
+<td>None (observations are facts)</td>
+</tr>
+</tbody>
+</table>
+<p>These are perspectives, not exclusive categories—a single agent may embody multiple archetypes.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-raw-trained-employed-model</ac:parameter></ac:structured-macro>The Raw-Trained-Employed Model</h2>
+<p>AOSM's three-layer agent lifecycle model:</p>
+<pre class="codehilite"><code>Raw Agent (Capabilities)
+    ↓ + TrainingSpec
+Trained Agent (Knowledge + Skills + Guardrails)
+    ↓ + EmploymentSpec
+Employed Agent (Delegated Authority)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What It Adds</th>
+<th>Who Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Raw</strong></td>
+<td>Technical capabilities</td>
+<td>Developer</td>
+</tr>
+<tr>
+<td><strong>Trained</strong></td>
+<td>Domain configuration</td>
+<td>Domain Lead + Security</td>
+</tr>
+<tr>
+<td><strong>Employed</strong></td>
+<td>Authority delegation</td>
+<td>Manager</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">immutability-principle</ac:parameter></ac:structured-macro>Immutability Principle</h3>
+<p>Guardrails defined at training cannot be relaxed at employment. Each layer can add constraints but never remove them.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">how-aosm-informs-seer</ac:parameter></ac:structured-macro>How AOSM Informs Seer</h2>
+<table>
+<thead>
+<tr>
+<th>AOSM Concept</th>
+<th>Seer Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>KSA</strong></td>
+<td>TrainingSpec defines knowledge and skills</td>
+</tr>
+<tr>
+<td><strong>PIDA</strong></td>
+<td>Agent runtime implements the behavior cycle</td>
+</tr>
+<tr>
+<td><strong>OPD</strong></td>
+<td>Full observability, guardrails, override capability</td>
+</tr>
+<tr>
+<td><strong>RASCI</strong></td>
+<td>Manager assignment, delegation chains</td>
+</tr>
+<tr>
+<td><strong>Controlled Autonomy</strong></td>
+<td>Authority ceilings, kill switch</td>
+</tr>
+<tr>
+<td><strong>HAT</strong></td>
+<td>Task queue integration, human collaboration</td>
+</tr>
+<tr>
+<td><strong>Archetypes</strong></td>
+<td>Role-based governance and routing</td>
+</tr>
+<tr>
+<td><strong>Lifecycle Model</strong></td>
+<td>Raw → Trained → Employed progression</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>aosm-meta-model/agent-oriented-system.md</code><br />
+*   <code>aosm-meta-model/raw-trained-employed-agents.md</code><br />
+*   <code>aosm-meta-model/controlled-autonomy.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/appendices/appendix-c-aosm-foundations.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

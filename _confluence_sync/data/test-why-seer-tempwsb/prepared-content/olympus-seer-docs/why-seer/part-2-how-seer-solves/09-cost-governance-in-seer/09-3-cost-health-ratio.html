@@ -1,0 +1,191 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/09-cost-governance-in-seer/09-3-cost-health-ratio.md -->
+<!-- Title: 9.3 Cost-to-Health Ratio -->
+<!-- Content Hash: 9013a28941b3a00d5a1cfdc839deecfb3fd1c46832e09da94fe71606c31e48ea -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">93-cost-to-health-ratio</ac:parameter></ac:structured-macro>9.3 Cost-to-Health Ratio</h1>
+<p>Cost in isolation is incomplete. An agent that's cheap but wrong is worse than one that's expensive but correct. The Cost-to-Health Ratio (CHR) provides a balanced view of operational efficiency.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-chr-measures</ac:parameter></ac:structured-macro>What CHR Measures</h2>
+<pre class="codehilite"><code>CHR = Total Operational Cost / Agent Health Score (AHS)
+</code></pre>
+
+<p>Where:<br />
+- <strong>Cost</strong>: All operational expenses (model, tools, infrastructure)<br />
+- <strong>AHS</strong>: Composite score of accuracy, success rate, compliance, satisfaction</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-health-score-ahs</ac:parameter></ac:structured-macro>Agent Health Score (AHS)</h2>
+<p>AHS is a composite metric (0.0 to 1.0):</p>
+<pre class="codehilite"><code class="language-yaml">agent_health_score:
+  components:
+    accuracy:
+      weight: 0.30
+      source: outcome_feedback
+      definition: &quot;Decisions later validated as correct&quot;
+
+    success_rate:
+      weight: 0.25
+      source: completion_metrics
+      definition: &quot;Requests completed without error/escalation&quot;
+
+    compliance:
+      weight: 0.25
+      source: policy_enforcement
+      definition: &quot;Actions compliant with policy&quot;
+
+    user_satisfaction:
+      weight: 0.20
+      source: explicit_feedback
+      definition: &quot;User ratings and override rate&quot;
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">interpreting-chr</ac:parameter></ac:structured-macro>Interpreting CHR</h2>
+<table>
+<thead>
+<tr>
+<th>CHR Pattern</th>
+<th>Meaning</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Low CHR, High AHS</strong></td>
+<td>Efficient and effective</td>
+<td>Maintain, replicate</td>
+</tr>
+<tr>
+<td><strong>High CHR, High AHS</strong></td>
+<td>Expensive but effective</td>
+<td>Optimize cost</td>
+</tr>
+<tr>
+<td><strong>Low CHR, Low AHS</strong></td>
+<td>Cheap failures</td>
+<td>Fix quality first</td>
+</tr>
+<tr>
+<td><strong>High CHR, Low AHS</strong></td>
+<td>Crisis</td>
+<td>Immediate intervention</td>
+</tr>
+<tr>
+<td><strong>Rising CHR, Stable AHS</strong></td>
+<td>Efficiency declining</td>
+<td>Investigate cost drivers</td>
+</tr>
+<tr>
+<td><strong>Falling CHR, Stable AHS</strong></td>
+<td>Efficiency improving</td>
+<td>Continue optimizing</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">chr-in-practice</ac:parameter></ac:structured-macro>CHR in Practice</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-comparison</ac:parameter></ac:structured-macro>Agent Comparison</h3>
+<pre class="codehilite"><code class="language-yaml">agent_chr_comparison:
+  agent_a:
+    daily_cost: 100
+    ahs: 0.90
+    chr: 111.11
+    assessment: &quot;Efficient and effective&quot;
+
+  agent_b:
+    daily_cost: 50
+    ahs: 0.60
+    chr: 83.33
+    assessment: &quot;Cheap but low quality - misleading efficiency&quot;
+
+  agent_c:
+    daily_cost: 150
+    ahs: 0.95
+    chr: 157.89
+    assessment: &quot;Higher cost but best quality&quot;
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">chr-trend-analysis</ac:parameter></ac:structured-macro>CHR Trend Analysis</h3>
+<pre class="codehilite"><code class="language-yaml">chr_trend:
+  agent: dispute-analyst-tier1
+  period: 30_days
+
+  data_points:
+    - week_1: {cost: 700, ahs: 0.85, chr: 823}
+    - week_2: {cost: 750, ahs: 0.87, chr: 862}
+    - week_3: {cost: 720, ahs: 0.88, chr: 818}
+    - week_4: {cost: 680, ahs: 0.90, chr: 756}
+
+  trend: improving (CHR decreasing, AHS increasing)
+
+  interpretation: &quot;Quality improvements reducing rework costs&quot;
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">using-chr-for-decisions</ac:parameter></ac:structured-macro>Using CHR for Decisions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">model-selection</ac:parameter></ac:structured-macro>Model Selection</h3>
+<pre class="codehilite"><code class="language-yaml">model_selection_by_chr:
+  options:
+    - model: claude-3.5-sonnet
+      estimated_cost: 0.05
+      estimated_ahs: 0.92
+      estimated_chr: 0.054
+
+    - model: gpt-4o-mini
+      estimated_cost: 0.01
+      estimated_ahs: 0.75
+      estimated_chr: 0.013
+
+  decision:
+    if: task_requires_high_accuracy
+    then: claude-3.5-sonnet (lower CHR despite higher cost)
+    else: evaluate based on task requirements
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">optimization-targets</ac:parameter></ac:structured-macro>Optimization Targets</h3>
+<pre class="codehilite"><code class="language-yaml">chr_optimization:
+  current_chr: 125
+  target_chr: 100
+
+  strategies:
+    reduce_cost:
+      - use_cheaper_models_for_simple_tasks
+      - improve_prompt_efficiency
+      - reduce_retries
+      estimated_impact: -15%
+
+    improve_health:
+      - better_training_data
+      - refined_guardrails
+      - reduced_error_rate
+      estimated_impact: +10%
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">chr-dashboard</ac:parameter></ac:structured-macro>CHR Dashboard</h2>
+<pre class="codehilite"><code class="language-yaml">chr_dashboard:
+  panels:
+    - name: CHR Overview
+      type: gauge
+      metrics: [current_chr, trend, target]
+
+    - name: CHR by Agent
+      type: scatter_plot
+      x: cost
+      y: ahs
+      size: request_volume
+
+    - name: CHR Trend
+      type: line_chart
+      metrics: [chr_over_time, cost_over_time, ahs_over_time]
+
+    - name: CHR Analysis
+      type: table
+      metrics: [agents_sorted_by_chr, improvement_recommendations]
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-insight</ac:parameter></ac:structured-macro>Key Insight</h2>
+<blockquote>
+<p><strong>Minimizing cost without considering health leads to cheap failures. Optimizing CHR leads to efficient quality.</strong></p>
+</blockquote>
+<p>The goal is not lowest cost—it's lowest cost <em>per unit of value delivered</em>.</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-11-cost-requirements.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-2-how-seer-solves/07-runtime-observability-in-seer/07-3-observability.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/09-cost-governance-in-seer/09-3-cost-health-ratio.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

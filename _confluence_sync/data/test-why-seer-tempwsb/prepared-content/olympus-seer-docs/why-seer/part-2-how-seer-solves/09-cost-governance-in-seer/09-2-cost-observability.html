@@ -1,0 +1,195 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/09-cost-governance-in-seer/09-2-cost-observability.md -->
+<!-- Title: 9.2 Cost Observability -->
+<!-- Content Hash: 1ed27259d9d0d9c13b20ea6ae6979e4a8a31a642ada619e8174f41ca7177185f -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">92-cost-observability</ac:parameter></ac:structured-macro>9.2 Cost Observability</h1>
+<p>Seer provides comprehensive visibility into agent costs—where money is spent, by whom, and why. This enables optimization, accountability, and anomaly detection.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">whats-tracked</ac:parameter></ac:structured-macro>What's Tracked</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">per-request-costs</ac:parameter></ac:structured-macro>Per-Request Costs</h3>
+<p>Every agent request records:</p>
+<pre class="codehilite"><code class="language-yaml">request_cost:
+  request_id: req-abc123
+  timestamp: 2026-01-10T14:30:00Z
+
+  model_costs:
+    - call: 1
+      model: claude-3.5-sonnet
+      prompt_tokens: 1234
+      completion_tokens: 567
+      cost: 0.0122
+
+    - call: 2
+      model: claude-3.5-sonnet
+      prompt_tokens: 890
+      completion_tokens: 234
+      cost: 0.0062
+
+  tool_costs:
+    - tool: get_transaction_details
+      cost: 0.001
+
+    - tool: check_fraud_score
+      cost: 0.01
+
+  total_cost: 0.0294
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">attribution</ac:parameter></ac:structured-macro>Attribution</h3>
+<p>Costs attributed across dimensions:</p>
+<pre class="codehilite"><code class="language-yaml">attribution:
+  organizational:
+    tenant: acme
+    business_unit: operations
+    cost_center: CC-12345
+
+  technical:
+    workbench: dispute-ops-prod
+    agent: dispute-analyst-tier1
+    agent_version: 2.1.0
+
+  operational:
+    scenario: dispute_resolution
+    case_id: case-12345
+    request_type: decision
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-metrics</ac:parameter></ac:structured-macro>Cost Metrics</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">real-time-metrics</ac:parameter></ac:structured-macro>Real-Time Metrics</h3>
+<pre class="codehilite"><code class="language-yaml">real_time_metrics:
+  current:
+    - cost_per_minute
+    - cost_per_hour_projected
+    - requests_per_minute
+    - average_cost_per_request
+
+  trending:
+    - cost_vs_yesterday
+    - cost_vs_last_week
+    - cost_vs_baseline
+
+  budgets:
+    - utilization_by_agent
+    - utilization_by_workbench
+    - utilization_by_tenant
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">aggregated-metrics</ac:parameter></ac:structured-macro>Aggregated Metrics</h3>
+<pre class="codehilite"><code class="language-yaml">aggregated_metrics:
+  daily:
+    - total_cost
+    - cost_by_model
+    - cost_by_agent
+    - cost_by_workbench
+    - cost_per_decision
+    - cost_per_successful_outcome
+
+  monthly:
+    - total_cost
+    - cost_trend
+    - efficiency_trend
+    - budget_performance
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-dashboard</ac:parameter></ac:structured-macro>Cost Dashboard</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">operator-view</ac:parameter></ac:structured-macro>Operator View</h3>
+<pre class="codehilite"><code class="language-yaml">operator_dashboard:
+  panels:
+    - name: Current Spend
+      type: gauge
+      metrics: [hourly_cost, daily_cost, monthly_projection]
+      thresholds: [warning, critical]
+
+    - name: Budget Status
+      type: bar_chart
+      metrics: [budget_by_level, remaining_by_level]
+
+    - name: Cost Trend
+      type: line_chart
+      metrics: [cost_per_hour, 7_day_trend]
+
+    - name: Top Consumers
+      type: table
+      metrics: [agent_cost_ranking, workbench_cost_ranking]
+
+    - name: Anomalies
+      type: alert_list
+      metrics: [cost_spikes, budget_warnings]
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">business-view</ac:parameter></ac:structured-macro>Business View</h3>
+<pre class="codehilite"><code class="language-yaml">business_dashboard:
+  panels:
+    - name: Monthly Cost Summary
+      type: summary
+      metrics: [total_cost, vs_budget, vs_last_month]
+
+    - name: Cost by Business Unit
+      type: pie_chart
+      metrics: [cost_by_cost_center]
+
+    - name: Cost per Transaction
+      type: metric
+      metrics: [average_cost_per_decision, trend]
+
+    - name: ROI Indicators
+      type: table
+      metrics: [cost_per_outcome, value_generated]
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-reports</ac:parameter></ac:structured-macro>Cost Reports</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">automated-reports</ac:parameter></ac:structured-macro>Automated Reports</h3>
+<pre class="codehilite"><code class="language-yaml">automated_reports:
+  daily:
+    recipients: [agent_operators]
+    content: [summary, anomalies, top_consumers]
+
+  weekly:
+    recipients: [are_team, business_owners]
+    content: [trends, budget_status, optimization_recommendations]
+
+  monthly:
+    recipients: [finance, business_owners]
+    content: [full_breakdown, chargeback, projections]
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">on-demand-analysis</ac:parameter></ac:structured-macro>On-Demand Analysis</h3>
+<pre class="codehilite"><code class="language-yaml">analysis_queries:
+  - &quot;Cost by agent for last 7 days&quot;
+  - &quot;Cost breakdown for case-12345&quot;
+  - &quot;Highest cost requests today&quot;
+  - &quot;Cost trend for dispute-analyst agents&quot;
+  - &quot;Token efficiency by model&quot;
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">anomaly-detection</ac:parameter></ac:structured-macro>Anomaly Detection</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">baseline-learning</ac:parameter></ac:structured-macro>Baseline Learning</h3>
+<pre class="codehilite"><code class="language-yaml">baseline:
+  learning_period: 14_days
+  metrics:
+    - cost_per_request_by_agent
+    - cost_per_hour_by_workbench
+    - token_per_request_by_task_type
+
+  update: daily_rolling
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">anomaly-identification</ac:parameter></ac:structured-macro>Anomaly Identification</h3>
+<pre class="codehilite"><code class="language-yaml">anomaly_detection:
+  methods:
+    - z_score: threshold &gt; 3
+    - percent_change: threshold &gt; 100%
+    - rate_change: threshold &gt; 5x
+
+  alert_on:
+    - single_request_anomaly
+    - agent_hourly_anomaly
+    - workbench_daily_anomaly
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/model-gateway.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-2-how-seer-solves/07-runtime-observability-in-seer/07-3-observability.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/09-cost-governance-in-seer/09-2-cost-observability.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

@@ -1,0 +1,254 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/05-context-assembly-in-seer/05-4-knowledge-services.md -->
+<!-- Title: 5.4 Knowledge Services (RAG) -->
+<!-- Content Hash: 7f356c46ae5e6896402199af8f6d89de53bd99364d1440f1acdcb14c808aadaf -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">54-knowledge-services-rag</ac:parameter></ac:structured-macro>5.4 Knowledge Services (RAG)</h1>
+<p>Knowledge Services provide Enterprise Knowledge retrieval capabilities for context assembly. This is Seer's integration with Hub's Knowledge Bank and ETSL for RAG (Retrieval-Augmented Generation) operations.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-knowledge-services-provide</ac:parameter></ac:structured-macro>What Knowledge Services Provide</h2>
+<p>Knowledge Services answer: <strong>"What does the organization say is true, correct, or required?"</strong></p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Semantic search</strong></td>
+<td>Vector similarity across documents</td>
+</tr>
+<tr>
+<td><strong>Hybrid retrieval</strong></td>
+<td>Combine semantic + keyword + filters</td>
+</tr>
+<tr>
+<td><strong>Versioning</strong></td>
+<td>Retrieve from specific document versions</td>
+</tr>
+<tr>
+<td><strong>Provenance</strong></td>
+<td>Track source, version, and retrieval metadata</td>
+</tr>
+<tr>
+<td><strong>Access control</strong></td>
+<td>Workbench-scoped document access</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">architecture</ac:parameter></ac:structured-macro>Architecture</h2>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────┐
+│                    KNOWLEDGE SERVICES                        │
+│                                                              │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │               RETRIEVAL API                        │    │
+│   │   • Query parsing    • Result ranking              │    │
+│   │   • Filter handling  • Provenance attachment       │    │
+│   └────────────────────────┬──────────────────────────┘    │
+│                            │                                │
+│         ┌──────────────────┴──────────────────┐             │
+│         ▼                                     ▼             │
+│   ┌───────────────────┐         ┌───────────────────┐      │
+│   │   KNOWLEDGE BANK  │         │       ETSL        │      │
+│   │                   │         │                   │      │
+│   │   • Documents     │         │   • Facts         │      │
+│   │   • Policies      │         │   • Rules         │      │
+│   │   • Procedures    │         │   • Constraints   │      │
+│   │   • Guides        │         │   • Time-aware    │      │
+│   │                   │         │                   │      │
+│   │   Vector index    │         │   Structured      │      │
+│   │   (embeddings)    │         │   queries         │      │
+│   └───────────────────┘         └───────────────────┘      │
+│                                                              │
+│   Storage: Olympus Europa (OpenSearch) + Vector index        │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">retrieval-patterns</ac:parameter></ac:structured-macro>Retrieval Patterns</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pattern-1-semantic-search</ac:parameter></ac:structured-macro>Pattern 1: Semantic Search</h3>
+<p>Find documents by meaning:</p>
+<pre class="codehilite"><code class="language-python">results = await knowledge_service.search(
+    workbench=&quot;dispute-ops-prod&quot;,
+    query=&quot;What is the refund eligibility policy?&quot;,
+    filters={
+        &quot;document_type&quot;: [&quot;policy&quot;, &quot;procedure&quot;]
+    },
+    max_chunks=5
+)
+
+# Returns ranked chunks with scores
+for chunk in results:
+    print(f&quot;Score: {chunk.score}, Doc: {chunk.document_id}&quot;)
+    print(f&quot;Content: {chunk.content[:200]}...&quot;)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pattern-2-hybrid-search</ac:parameter></ac:structured-macro>Pattern 2: Hybrid Search</h3>
+<p>Combine semantic + keyword + filters:</p>
+<pre class="codehilite"><code class="language-python">results = await knowledge_service.hybrid_search(
+    workbench=&quot;dispute-ops-prod&quot;,
+    semantic_query=&quot;refund eligibility requirements&quot;,
+    keyword_query=&quot;60 days filing deadline&quot;,
+    filters={
+        &quot;document_type&quot;: &quot;policy&quot;,
+        &quot;effective_date&quot;: {&quot;lte&quot;: &quot;2026-01-10&quot;}
+    },
+    weights={
+        &quot;semantic&quot;: 0.7,
+        &quot;keyword&quot;: 0.3
+    }
+)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pattern-3-specific-document-retrieval</ac:parameter></ac:structured-macro>Pattern 3: Specific Document Retrieval</h3>
+<p>Get exact document or section:</p>
+<pre class="codehilite"><code class="language-python">document = await knowledge_service.get_document(
+    document_id=&quot;dispute-policy-v3.2&quot;,
+    sections=[&quot;eligibility&quot;, &quot;timelines&quot;]
+)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pattern-4-point-in-time-retrieval</ac:parameter></ac:structured-macro>Pattern 4: Point-in-Time Retrieval</h3>
+<p>Retrieve knowledge as it was at a specific time:</p>
+<pre class="codehilite"><code class="language-python"># What was the policy when this decision was made?
+historical_policy = await knowledge_service.search(
+    workbench=&quot;dispute-ops-prod&quot;,
+    query=&quot;refund eligibility&quot;,
+    as_of=&quot;2025-12-15T10:00:00Z&quot;  # Point in time
+)
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">etsl-integration</ac:parameter></ac:structured-macro>ETSL Integration</h2>
+<p>ETSL provides structured, time-aware knowledge:</p>
+<pre class="codehilite"><code class="language-python"># Query ETSL for applicable rules
+rules = await etsl.query(
+    workbench=&quot;dispute-ops-prod&quot;,
+    query={
+        &quot;type&quot;: &quot;rule&quot;,
+        &quot;applies_to&quot;: &quot;refund_decision&quot;,
+        &quot;effective_at&quot;: &quot;2026-01-10&quot;
+    }
+)
+
+# Returns structured rules
+for rule in rules:
+    print(f&quot;Rule: {rule.statement}&quot;)
+    print(f&quot;Authority: {rule.authority}&quot;)
+    print(f&quot;Effective: {rule.effective_from} to {rule.effective_to}&quot;)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">why-etsl-matters</ac:parameter></ac:structured-macro>Why ETSL Matters</h3>
+<table>
+<thead>
+<tr>
+<th>Knowledge Bank</th>
+<th>ETSL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Document-based</td>
+<td>Structured assertions</td>
+</tr>
+<tr>
+<td>Semantic search</td>
+<td>Exact matching</td>
+</tr>
+<tr>
+<td>Unstructured text</td>
+<td>Typed facts and rules</td>
+</tr>
+<tr>
+<td>Point-in-time via versioning</td>
+<td>Native temporal validity</td>
+</tr>
+</tbody>
+</table>
+<p>Use cases:<br />
+- <strong>Knowledge Bank:</strong> Policy documents, procedures, guides<br />
+- <strong>ETSL:</strong> Business rules, constraints, temporal facts</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">provenance-tracking</ac:parameter></ac:structured-macro>Provenance Tracking</h2>
+<p>Every retrieval includes provenance:</p>
+<pre class="codehilite"><code class="language-yaml">retrieval_result:
+  chunk_id: &quot;kb-chunk-123&quot;
+  content: &quot;Disputes must be filed within 60 days of the transaction date...&quot;
+
+  provenance:
+    document_id: &quot;dispute-policy-v3.2&quot;
+    document_title: &quot;Customer Dispute Policy&quot;
+    version: &quot;3.2&quot;
+    effective_date: &quot;2025-01-01&quot;
+    section: &quot;Filing Requirements&quot;
+    page: 12
+    paragraph: 3
+
+  retrieval_metadata:
+    query: &quot;refund eligibility policy&quot;
+    score: 0.92
+    method: hybrid
+    retrieved_at: &quot;2026-01-10T14:30:00Z&quot;
+    workbench: &quot;dispute-ops-prod&quot;
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">context-frame-integration</ac:parameter></ac:structured-macro>Context Frame Integration</h2>
+<p>Knowledge results are formatted for context frames:</p>
+<pre class="codehilite"><code class="language-yaml">context_frame:
+  ground_truth_facts:
+    - source: knowledge_bank
+      content: &quot;Disputes must be filed within 60 days of the transaction date&quot;
+      provenance:
+        document: dispute-policy-v3.2
+        section: Filing Requirements
+        version: 3.2
+        retrieved_at: 2026-01-10T14:30:00Z
+      confidence: 0.92
+
+    - source: etsl
+      content: &quot;Max refund without approval: $500&quot;
+      provenance:
+        rule_id: refund-limit-rule-001
+        authority: finance-policy-committee
+        effective_from: 2025-01-01
+      confidence: 1.0  # Exact match from ETSL
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">access-control</ac:parameter></ac:structured-macro>Access Control</h2>
+<p>Knowledge access is workbench-scoped:</p>
+<pre class="codehilite"><code class="language-yaml">access_policy:
+  workbench: dispute-ops-prod
+
+  document_access:
+    - document_type: policy
+      access: read
+    - document_type: internal_procedure
+      access: read
+    - document_type: confidential
+      access: denied
+
+  on_denial:
+    log_to: caf
+    return_error: &quot;Document access denied&quot;
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">caching-and-freshness</ac:parameter></ac:structured-macro>Caching and Freshness</h2>
+<p>Knowledge retrieval balances freshness and performance:</p>
+<pre class="codehilite"><code class="language-yaml">cache_policy:
+  knowledge_bank:
+    ttl: 5m  # Cache for 5 minutes
+    invalidate_on: document_update
+
+  etsl:
+    ttl: 1m  # Shorter for time-sensitive rules
+    invalidate_on: rule_update
+
+  point_in_time:
+    ttl: 24h  # Historical queries can be cached longer
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/04-subsystems/knowledge-services/README.md</code><br />
+*   <code>olympus-hub-docs/pontus/etsl/</code><br />
+*   <code>olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-2-enterprise-knowledge.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/05-context-assembly-in-seer/05-4-knowledge-services.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

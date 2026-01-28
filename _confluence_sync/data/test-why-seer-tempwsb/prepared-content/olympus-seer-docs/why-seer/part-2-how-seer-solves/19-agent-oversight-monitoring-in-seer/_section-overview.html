@@ -1,0 +1,40 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/_section-overview.md -->
+<!-- Title: Section 19: Agent Oversight & Monitoring in Seer — Overview -->
+<!-- Content Hash: 6eb74417c037842bd7dfecf0aa96b971f50d51b751c9ea1c6051dd32e4f79851 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-19-agent-oversight-monitoring-in-seer-over</ac:parameter></ac:structured-macro>Section 19: Agent Oversight &amp; Monitoring in Seer — Overview</h1>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-section</ac:parameter></ac:structured-macro>Purpose of this Section</h2>
+<p>This section demonstrates how Seer implements the oversight and monitoring requirements established in Section 5.12. Enterprise AI agents require continuous oversight to detect anomalies, prevent behavioral drift, and maintain operational control. Seer provides comprehensive oversight capabilities through Seer Sentinels, Agent Health Monitor, Agent Analytics, Observability Extensions to Watch, and Cognitive Operations Governance Workbench.</p>
+<p>Unlike traditional application monitoring that focuses on system health, Seer's oversight mechanisms understand agent behavior, evaluate policies, detect patterns, and enable intervention. These capabilities address the three types of oversight established in Section 5.12: realtime event-based detection, analytical pattern detection, and request-based active intervention.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-questions-addressed</ac:parameter></ac:structured-macro>Core Questions Addressed</h2>
+<ul>
+<li>How does Seer implement the three types of oversight (Realtime, Analytical, Request Sentinels)?</li>
+<li>How does Agent Health Monitor track SLOs across cost, behavior, and feedback dimensions?</li>
+<li>How does Agent Analytics provide historical data for pattern analysis and drift detection?</li>
+<li>How do Observability Extensions to Watch provide runtime observability for operational personas?</li>
+<li>How does Cognitive Operations Governance Workbench enable subscription-wide governance?</li>
+</ul>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">structure-of-this-section</ac:parameter></ac:structured-macro>Structure of this Section</h2>
+<p>This section is organized into the following sub-sections:</p>
+<ul>
+<li><strong>19.1 Seer Sentinels</strong>: Implementing three sentinel types (Realtime, Analytical, Request) with OPA policy evaluation and Cronus integration.</li>
+<li><strong>19.2 Agent Health Monitor</strong>: Tracking SLOs (Cost, Behavior, Feedback) by persona without enforcement.</li>
+<li><strong>19.3 Agent Analytics</strong>: Providing historical data mart for analytics and pattern detection.</li>
+<li><strong>19.4 Observability Extensions to Watch</strong>: Providing runtime observability extensions to Olympus Watch.</li>
+<li><strong>19.5 Cognitive Operations Governance Workbench (COGW)</strong>: Enabling subscription-wide governance via cross-workbench COG Sentinels.</li>
+</ul>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">relationship-to-other-sections</ac:parameter></ac:structured-macro>Relationship to Other Sections</h2>
+<p>This section implements:</p>
+<ul>
+<li><strong>Section 5.12 (Agent Oversight &amp; Monitoring Requirements)</strong>: Implements all three types of oversight and SLO tracking requirements.</li>
+</ul>
+<p>This section integrates with:</p>
+<ul>
+<li><strong>Section 12.6 (Directability)</strong>: Sentinels can trigger interventions based on policy evaluation.</li>
+<li><strong>Section 14 (Cost Governance)</strong>: Cost SLOs integrate with cost governance mechanisms.</li>
+<li><strong>Section 6.2 (Workbench Model)</strong>: COGW extends the workbench model for subscription-wide governance.</li>
+</ul>
+<hr />
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/_section-overview.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

@@ -1,0 +1,194 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/10-tools-actions-in-seer/10-4-tool-audit.md -->
+<!-- Title: 10.4 Tool Audit -->
+<!-- Content Hash: 43f42977d61863b3639bbab0b4949b833f431eb9c38d721f574815bcfa5edda5 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">104-tool-audit</ac:parameter></ac:structured-macro>10.4 Tool Audit</h1>
+<p>Every tool invocation is recorded in the Cognitive Audit Fabric. This creates a complete, immutable record of all agent actions—essential for compliance, debugging, and accountability.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">whats-recorded</ac:parameter></ac:structured-macro>What's Recorded</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Details Captured</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Who</strong></td>
+<td>Agent identity, delegation chain</td>
+</tr>
+<tr>
+<td><strong>What</strong></td>
+<td>Tool, operation, parameters</td>
+</tr>
+<tr>
+<td><strong>When</strong></td>
+<td>Timestamp, duration</td>
+</tr>
+<tr>
+<td><strong>Result</strong></td>
+<td>Success/failure, response</td>
+</tr>
+<tr>
+<td><strong>Context</strong></td>
+<td>Case, request, policies applied</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">audit-record-structure</ac:parameter></ac:structured-macro>Audit Record Structure</h2>
+<pre class="codehilite"><code class="language-yaml">tool_audit_record:
+  record_id: &quot;tar-xyz789&quot;
+  record_type: tool_invocation
+  timestamp: 2026-01-10T14:30:00Z
+
+  # Who
+  agent:
+    identity: dispute-analyst-tier1
+    employment_spec: dispute-analyst-acme-prod
+    delegator: manager@acme.com
+    delegation_id: del-456
+
+  # What
+  tool:
+    protocol: approve-refund
+    protocol_version: 2.0.0
+    instance: acme-refund-api
+    operation: create_refund
+
+  # Parameters (PII-safe)
+  request:
+    case_id: case-12345
+    amount: 450
+    reason: &quot;Merchant error confirmed&quot;
+    # Note: No customer PII in audit record
+
+  # Result
+  response:
+    status: success
+    refund_id: ref-abc123
+    refund_status: approved
+
+  # Timing
+  timing:
+    invoked_at: 2026-01-10T14:30:00.123Z
+    completed_at: 2026-01-10T14:30:00.357Z
+    duration_ms: 234
+
+  # Authorization
+  authorization:
+    policies_evaluated:
+      - tool-allowlist: passed
+      - authority-ceiling: passed (450 &lt;= 500)
+      - rate-limit: passed
+
+  # Context
+  context:
+    request_id: req-abc123
+    case_id: case-12345
+    decision_record_ref: dr-def456
+    trace_id: trace-ghi789
+
+  hub_metadata:
+    tenant_id: acme
+    workbench_id: dispute-ops-prod
+    content_hash: sha256:abc123...
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">integration-with-caf</ac:parameter></ac:structured-macro>Integration with CAF</h2>
+<p>Tool records link to other CAF records:</p>
+<pre class="codehilite"><code>Decision Record (dr-def456)
+    │
+    ├── Evidence Bundle (what agent knew)
+    │
+    ├── Tool Invocation (tar-xyz789) ← This record
+    │       └── Result of action
+    │
+    └── Outcome Record (what happened after)
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">audit-queries</ac:parameter></ac:structured-macro>Audit Queries</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">by-agent</ac:parameter></ac:structured-macro>By Agent</h3>
+<pre class="codehilite"><code class="language-yaml">query:
+  type: tool_invocations
+  filters:
+    agent: dispute-analyst-tier1
+    time_range: last_24h
+
+  returns:
+    - 47 invocations
+    - 45 successful, 2 failed
+    - tools: [approve-refund (23), get-transaction (24)]
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">by-case</ac:parameter></ac:structured-macro>By Case</h3>
+<pre class="codehilite"><code class="language-yaml">query:
+  type: tool_invocations
+  filters:
+    case_id: case-12345
+
+  returns:
+    - get-transaction-details: success (14:28:00)
+    - get-customer-history: success (14:28:30)
+    - approve-refund: success (14:30:00)
+    - send-notification: success (14:30:15)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">by-tool</ac:parameter></ac:structured-macro>By Tool</h3>
+<pre class="codehilite"><code class="language-yaml">query:
+  type: tool_invocations
+  filters:
+    tool: approve-refund
+    time_range: last_7d
+    status: failed
+
+  returns:
+    - 12 failed invocations
+    - reasons: [authority_exceeded (5), backend_error (4), timeout (3)]
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">audit-for-compliance</ac:parameter></ac:structured-macro>Audit for Compliance</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">regulatory-response</ac:parameter></ac:structured-macro>Regulatory Response</h3>
+<p>When regulator asks "Show all actions this agent took for customer X":</p>
+<pre class="codehilite"><code class="language-python"># Note: Query by entity reference, not PII
+actions = await caf.query_tools(
+    entity_refs=[&quot;cust-12345&quot;],
+    time_range=(&quot;2025-01-01&quot;, &quot;2025-12-31&quot;)
+)
+
+# Returns all tool invocations affecting this customer
+# With full context and decision linkage
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">investigation</ac:parameter></ac:structured-macro>Investigation</h3>
+<p>When investigating unexpected behavior:</p>
+<pre class="codehilite"><code class="language-python"># What did agent do in this request?
+request_actions = await caf.query_tools(
+    request_id=&quot;req-abc123&quot;
+)
+
+# Returns: ordered list of tool invocations
+# With parameters, responses, and timing
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">audit-retention</ac:parameter></ac:structured-macro>Audit Retention</h2>
+<p>Tool audit records follow CAF retention:</p>
+<pre class="codehilite"><code class="language-yaml">retention:
+  tool_audit_records:
+    default: 7_years
+
+    legal_hold:
+      applies_when: case_under_investigation
+      retention: indefinite
+
+    pii_handling:
+      - no_pii_in_audit_records
+      - entity_references_only
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/04-subsystems/cognitive-audit-fabric/README.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-5-cognitive-audit-fabric.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/10-tools-actions-in-seer/10-4-tool-audit.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

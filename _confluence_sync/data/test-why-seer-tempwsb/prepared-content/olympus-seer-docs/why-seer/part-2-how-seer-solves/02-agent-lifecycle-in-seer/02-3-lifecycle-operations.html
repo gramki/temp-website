@@ -1,0 +1,283 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/02-agent-lifecycle-in-seer/02-3-lifecycle-operations.md -->
+<!-- Title: 2.3 Lifecycle Operations -->
+<!-- Content Hash: e309bfa5d7bddc1ce5eeffbb733cfc3492cd50f9aec99f6ba45ef95601b3f0c6 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">23-lifecycle-operations</ac:parameter></ac:structured-macro>2.3 Lifecycle Operations</h1>
+<p>Seer provides comprehensive lifecycle operations for managing agents as first-class products. This section details version management, promotion workflows, rollback procedures, and retirement processes.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">version-management</ac:parameter></ac:structured-macro>Version Management</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">semantic-versioning</ac:parameter></ac:structured-macro>Semantic Versioning</h3>
+<p>All Seer specifications follow semantic versioning:</p>
+<table>
+<thead>
+<tr>
+<th>Version Component</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Major</strong></td>
+<td>Breaking changes—incompatible with previous behavior</td>
+</tr>
+<tr>
+<td><strong>Minor</strong></td>
+<td>New features—backward-compatible additions</td>
+</tr>
+<tr>
+<td><strong>Patch</strong></td>
+<td>Bug fixes—backward-compatible corrections</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">version-expression</ac:parameter></ac:structured-macro>Version Expression</h3>
+<pre class="codehilite"><code>raw:v2.4.1/trained:v1.7.0/employed:v3.2.0
+</code></pre>
+
+<p>This complete version expression identifies the exact configuration of an Employed Agent.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">version-constraints</ac:parameter></ac:structured-macro>Version Constraints</h3>
+<p>Specifications reference dependencies with version constraints:</p>
+<pre class="codehilite"><code class="language-yaml">trainedAgent:
+  name: dispute-analyst-training
+  versionConstraint: &quot;~1.7.0&quot;  # Allows 1.7.x but not 1.8.0
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Constraint</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>^1.7.0</code></td>
+<td>Any 1.x where x &gt;= 7</td>
+</tr>
+<tr>
+<td><code>~1.7.0</code></td>
+<td>Any 1.7.x</td>
+</tr>
+<tr>
+<td><code>1.7.0</code></td>
+<td>Exactly 1.7.0</td>
+</tr>
+<tr>
+<td><code>&gt;=1.7.0</code></td>
+<td>1.7.0 or higher</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">promotion-workflows</ac:parameter></ac:structured-macro>Promotion Workflows</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">environment-stages</ac:parameter></ac:structured-macro>Environment Stages</h3>
+<p>Agents progress through defined stages:</p>
+<pre class="codehilite"><code>Development → Testing → Staging → Production
+</code></pre>
+
+<p>Each stage has different characteristics:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Data</th>
+<th>Authority</th>
+<th>Approval Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Development</strong></td>
+<td>Synthetic</td>
+<td>None</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Testing</strong></td>
+<td>Evaluation datasets</td>
+<td>Limited</td>
+<td>AE</td>
+</tr>
+<tr>
+<td><strong>Staging</strong></td>
+<td>Production-like</td>
+<td>Restricted</td>
+<td>AE + ARE</td>
+</tr>
+<tr>
+<td><strong>Production</strong></td>
+<td>Real</td>
+<td>Full</td>
+<td>AE + ARE + ARAO</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">approval-gates</ac:parameter></ac:structured-macro>Approval Gates</h3>
+<p>Promotion requires persona-specific approvals:</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Approver</th>
+<th>Validates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Technical</strong></td>
+<td>Agent Engineer (AE)</td>
+<td>Functionality, tests passing</td>
+</tr>
+<tr>
+<td><strong>Production Readiness</strong></td>
+<td>Agent Reliability Engineer (ARE)</td>
+<td>Observability, runbooks, controls</td>
+</tr>
+<tr>
+<td><strong>Autonomy</strong></td>
+<td>AI Risk &amp; Audit Owner (ARAO)</td>
+<td>Authority levels, compliance</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">promotion-workflow</ac:parameter></ac:structured-macro>Promotion Workflow</h3>
+<pre class="codehilite"><code class="language-yaml">apiVersion: seer.olympus.io/v1
+kind: PromotionRequest
+metadata:
+  name: dispute-analyst-to-production
+spec:
+  source:
+    environment: staging
+    employmentSpec: dispute-analyst-acme-staging
+    version: 3.1.0
+  target:
+    environment: production
+    employmentSpec: dispute-analyst-acme-production
+    version: 3.2.0
+  approvals:
+    required:
+      - role: agent-engineer
+        status: approved
+        by: alice@acme.com
+        at: 2026-01-10T14:00:00Z
+      - role: are
+        status: pending
+      - role: arao
+        status: pending
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">rollback-procedures</ac:parameter></ac:structured-macro>Rollback Procedures</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">rollback-philosophy</ac:parameter></ac:structured-macro>Rollback Philosophy</h3>
+<p>In Seer, rollback creates a new version rather than reverting:<br />
+- Audit continuity is maintained<br />
+- In-flight operations are handled gracefully<br />
+- Memory accumulated during bad version is addressed</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">rollback-process</ac:parameter></ac:structured-macro>Rollback Process</h3>
+<ol>
+<li><strong>Initiate Rollback:</strong> Operator requests rollback to specific previous version</li>
+<li><strong>In-Flight Handling:</strong> System determines handling for active operations</li>
+<li><strong>New Version Creation:</strong> Rollback creates new version record</li>
+<li><strong>Authority Transfer:</strong> Delegations are updated for new version</li>
+<li><strong>Activation:</strong> New version becomes active</li>
+<li><strong>Audit Recording:</strong> Complete audit trail of rollback</li>
+</ol>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">in-flight-operation-handling</ac:parameter></ac:structured-macro>In-Flight Operation Handling</h3>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Description</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Complete</strong></td>
+<td>Let active operations finish with old version</td>
+<td>Low-risk, short operations</td>
+</tr>
+<tr>
+<td><strong>Transition</strong></td>
+<td>Transfer operations to new version mid-stream</td>
+<td>Medium-risk, resumable operations</td>
+</tr>
+<tr>
+<td><strong>Abort</strong></td>
+<td>Cancel active operations</td>
+<td>High-risk, safety concerns</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">rollback-with-memory-considerations</ac:parameter></ac:structured-macro>Rollback with Memory Considerations</h3>
+<p>During the bad version's operation:<br />
+- Memory may have been written<br />
+- Learned patterns may be incorrect<br />
+- Preferences may have been recorded</p>
+<p>Rollback must address these:<br />
+- Flag memory from affected period<br />
+- Quarantine or invalidate learned patterns<br />
+- Review preferences for corruption</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">retirement-procedures</ac:parameter></ac:structured-macro>Retirement Procedures</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">retirement-stages</ac:parameter></ac:structured-macro>Retirement Stages</h3>
+<pre class="codehilite"><code>Active → Deprecated → Retired → Archived
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Active</strong></td>
+<td>Fully operational</td>
+</tr>
+<tr>
+<td><strong>Deprecated</strong></td>
+<td>Operational but discouraged; warnings generated</td>
+</tr>
+<tr>
+<td><strong>Retired</strong></td>
+<td>No new work accepted; existing work completes</td>
+</tr>
+<tr>
+<td><strong>Archived</strong></td>
+<td>No operations; records preserved</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">deprecation-notice</ac:parameter></ac:structured-macro>Deprecation Notice</h3>
+<pre class="codehilite"><code class="language-yaml">apiVersion: seer.olympus.io/v1
+kind: DeprecationNotice
+metadata:
+  name: dispute-analyst-v1-deprecation
+spec:
+  target:
+    type: TrainingSpec
+    name: dispute-analyst-training
+    version: &quot;1.x&quot;
+  notice:
+    effectiveDate: 2026-02-01
+    retirementDate: 2026-03-01
+    reason: &quot;Superseded by v2.x with improved guardrails&quot;
+    migration:
+      recommendedVersion: &quot;2.x&quot;
+      migrationGuide: docs/migration-v1-to-v2.md
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">retirement-workflow</ac:parameter></ac:structured-macro>Retirement Workflow</h3>
+<ol>
+<li><strong>Deprecation Announcement:</strong> Notice published with timeline</li>
+<li><strong>Warning Period:</strong> Deprecated agents continue working with warnings</li>
+<li><strong>Retirement:</strong> No new work accepted</li>
+<li><strong>Grace Period:</strong> Existing work completes</li>
+<li><strong>Archive:</strong> Agent moved to archived state</li>
+<li><strong>Record Preservation:</strong> All records retained per retention policy</li>
+</ol>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>aosm-meta-model/raw-trained-employed-agents.md</code><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/README.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 549fd47 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/549fd47/olympus-seer-docs/why-seer/part-2-how-seer-solves/02-agent-lifecycle-in-seer/02-3-lifecycle-operations.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

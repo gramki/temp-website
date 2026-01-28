@@ -1,0 +1,325 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-4-handoff-context.md -->
+<!-- Title: 11.4 Handoff Context -->
+<!-- Content Hash: 64632550a11e655670f882f6b506531f35b2a1e9b7baf7a82088350a6bc055dc -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">114-handoff-context</ac:parameter></ac:structured-macro>11.4 Handoff Context</h1>
+<p>When agents transfer work to other agents, context must transfer with it. Seer provides structured handoff context mechanisms that preserve state, maintain auditability, and ensure the receiving agent has what it needs to continue.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-handoff-problem</ac:parameter></ac:structured-macro>The Handoff Problem</h2>
+<p>When Agent A transfers work to Agent B:</p>
+<table>
+<thead>
+<tr>
+<th>Challenge</th>
+<th>Consequence if Unaddressed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lost context</strong></td>
+<td>Agent B starts from scratch</td>
+</tr>
+<tr>
+<td><strong>Incomplete state</strong></td>
+<td>Agent B makes decisions without full picture</td>
+</tr>
+<tr>
+<td><strong>No audit trail</strong></td>
+<td>Transfer is invisible to auditors</td>
+</tr>
+<tr>
+<td><strong>Implicit assumptions</strong></td>
+<td>Agent B inherits unstated assumptions</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">handoff-context-records</ac:parameter></ac:structured-macro>Handoff Context Records</h2>
+<p>Seer uses structured <strong>HandoffContext</strong> records (part of CAF Episodic Memory) to capture transfers:</p>
+<pre class="codehilite"><code class="language-yaml">handoff_context:
+  id: &quot;hc-12345&quot;
+  case_id: &quot;req-001&quot;
+
+  # Who is handing off
+  source:
+    agent_id: &quot;dispute-triage-bot&quot;
+    agent_type: &quot;employed_agent&quot;
+    scenario_id: &quot;dispute-triage&quot;
+
+  # Who is receiving
+  target:
+    agent_id: &quot;dispute-analyst-bot&quot;
+    agent_type: &quot;employed_agent&quot;
+    scenario_id: &quot;dispute-resolution&quot;
+
+  # What is being transferred
+  context:
+    # State summary
+    summary: &quot;Dispute pre-qualified for standard processing&quot;
+
+    # Key decisions made
+    decisions_made:
+      - decision_id: &quot;dec-001&quot;
+        summary: &quot;Dispute categorized as unauthorized transaction&quot;
+
+    # Open items
+    open_items:
+      - &quot;Document verification pending&quot;
+      - &quot;Customer callback scheduled&quot;
+
+    # Recommendations
+    recommendations:
+      - &quot;Priority handling due to customer tier&quot;
+
+  # Metadata
+  timestamp: &quot;2026-01-10T14:30:00Z&quot;
+  reason: &quot;Triage complete, escalating to analyst&quot;
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">context-components</ac:parameter></ac:structured-macro>Context Components</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">mandatory-elements</ac:parameter></ac:structured-macro>Mandatory Elements</h3>
+<p>Every handoff must include:</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source agent</strong></td>
+<td>Who is handing off</td>
+</tr>
+<tr>
+<td><strong>Target agent</strong></td>
+<td>Who is receiving</td>
+</tr>
+<tr>
+<td><strong>Case binding</strong></td>
+<td>Which case this relates to</td>
+</tr>
+<tr>
+<td><strong>Timestamp</strong></td>
+<td>When the handoff occurred</td>
+</tr>
+<tr>
+<td><strong>Reason</strong></td>
+<td>Why the handoff is happening</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">recommended-elements</ac:parameter></ac:structured-macro>Recommended Elements</h3>
+<p>For complete context:</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Summary</strong></td>
+<td>Human-readable summary of state</td>
+</tr>
+<tr>
+<td><strong>Decisions made</strong></td>
+<td>What has been decided</td>
+</tr>
+<tr>
+<td><strong>Open items</strong></td>
+<td>What remains to be done</td>
+</tr>
+<tr>
+<td><strong>Recommendations</strong></td>
+<td>Suggestions for the receiver</td>
+</tr>
+<tr>
+<td><strong>Entity references</strong></td>
+<td>Key entities involved</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">optional-elements</ac:parameter></ac:structured-macro>Optional Elements</h3>
+<p>Depending on context:</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Document references</strong></td>
+<td>Relevant documents</td>
+</tr>
+<tr>
+<td><strong>Conversation history</strong></td>
+<td>Key conversation points</td>
+</tr>
+<tr>
+<td><strong>Tool outputs</strong></td>
+<td>Results of tool invocations</td>
+</tr>
+<tr>
+<td><strong>Working hypotheses</strong></td>
+<td>Current thinking (not yet decided)</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">handoff-patterns</ac:parameter></ac:structured-macro>Handoff Patterns</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sequential-handoff</ac:parameter></ac:structured-macro>Sequential Handoff</h3>
+<p>Linear transfer from one agent to the next:</p>
+<pre class="codehilite"><code>Agent A → Agent B → Agent C
+         ↓         ↓
+      HandoffContext records
+</code></pre>
+
+<p>Each transition creates a new HandoffContext record.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">parallel-handoff</ac:parameter></ac:structured-macro>Parallel Handoff</h3>
+<p>One agent hands off to multiple:</p>
+<pre class="codehilite"><code>Agent A → Agent B (document review)
+       → Agent C (customer contact)
+       → Agent D (policy check)
+</code></pre>
+
+<p>Separate HandoffContext for each receiver.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">escalation-handoff</ac:parameter></ac:structured-macro>Escalation Handoff</h3>
+<p>Agent escalates to human or senior agent:</p>
+<pre class="codehilite"><code>Agent A (AI)
+    ↓ cannot resolve
+Agent B (Human Supervisor)
+</code></pre>
+
+<p>HandoffContext includes:<br />
+- Why escalation is needed<br />
+- What was tried<br />
+- Confidence levels</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">return-handoff</ac:parameter></ac:structured-macro>Return Handoff</h3>
+<p>Work returns after specialized processing:</p>
+<pre class="codehilite"><code>Agent A → Agent B (specialist) → Agent A
+              ↓                    ↓
+        HandoffContext      ReturnContext
+</code></pre>
+
+<p>Return includes specialist findings.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance</ac:parameter></ac:structured-macro>Governance</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">immutability</ac:parameter></ac:structured-macro>Immutability</h3>
+<p>Handoff records are immutable:<br />
+- Once created, cannot be modified<br />
+- Content-hashed for integrity<br />
+- Part of CAF audit trail</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">access-control</ac:parameter></ac:structured-macro>Access Control</h3>
+<p>Handoff records follow access policies:</p>
+<pre class="codehilite"><code class="language-yaml">access_policy:
+  handoff_context:
+    read:
+      - source_agent
+      - target_agent
+      - supervisors
+      - auditors
+    write:
+      - source_agent  # Only creator can write
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">retention</ac:parameter></ac:structured-macro>Retention</h3>
+<p>Handoff records retained per enterprise policy:<br />
+- Minimum 7 years for regulatory compliance<br />
+- Part of case evidence bundle</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">context-assembly-integration</ac:parameter></ac:structured-macro>Context Assembly Integration</h2>
+<p>The Context Assembly Engine uses handoff records:</p>
+<pre class="codehilite"><code>Context Assembly
+    ↓
+Retrieves HandoffContext for current case
+    ↓
+Includes relevant handoff summaries in agent context
+    ↓
+Agent has full handoff history available
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">priority-handling</ac:parameter></ac:structured-macro>Priority Handling</h3>
+<p>Multiple handoff records are prioritized:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Most recent handoff</td>
+<td>Highest</td>
+</tr>
+<tr>
+<td>Earlier handoffs</td>
+<td>Context/history</td>
+</tr>
+<tr>
+<td>Cross-workbench handoffs</td>
+<td>Explicit inclusion required</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">best-practices</ac:parameter></ac:structured-macro>Best Practices</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">for-handing-off-agents</ac:parameter></ac:structured-macro>For Handing-Off Agents</h3>
+<table>
+<thead>
+<tr>
+<th>Practice</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Include summary</strong></td>
+<td>Receiving agent may not read all details</td>
+</tr>
+<tr>
+<td><strong>List open items</strong></td>
+<td>Clear what remains</td>
+</tr>
+<tr>
+<td><strong>State what was tried</strong></td>
+<td>Avoid redundant work</td>
+</tr>
+<tr>
+<td><strong>Reference decisions</strong></td>
+<td>Don't repeat rationale</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">for-receiving-agents</ac:parameter></ac:structured-macro>For Receiving Agents</h3>
+<table>
+<thead>
+<tr>
+<th>Practice</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Acknowledge receipt</strong></td>
+<td>Auditable acceptance</td>
+</tr>
+<tr>
+<td><strong>Review handoff context</strong></td>
+<td>Understand prior state</td>
+</tr>
+<tr>
+<td><strong>Continue audit trail</strong></td>
+<td>Link new records to handoff</td>
+</tr>
+<tr>
+<td><strong>Don't duplicate</strong></td>
+<td>Reference prior decisions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/04-subsystems/cognitive-audit-fabric/episodic-memory-store/handoff-context.md</code><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/context-assembly-engine.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-4-handoff-context.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

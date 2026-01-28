@@ -1,0 +1,103 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/03-memory-requirements/_section-overview.md -->
+<!-- Title: Section 3: Memory Requirements for Enterprise Agents — Overview -->
+<!-- Content Hash: 374a910408aed70f39937e6af17dd9397e1279f696f3f34502f1b469a148f5ca -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-3-memory-requirements-for-enterprise-agent</ac:parameter></ac:structured-macro>Section 3: Memory Requirements for Enterprise Agents — Overview</h1>
+<p><em>Why memory governance is essential, and what taxonomy and lifecycle controls enterprise agents require.</em></p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-section</ac:parameter></ac:structured-macro>Purpose of This Section</h2>
+<p>This section addresses one of the most commonly misunderstood aspects of enterprise AI agents: the distinction between memory and context, and the governance requirements that memory imposes on enterprise systems.</p>
+<p>Many organizations approach agent memory as an extension of retrieval-augmented generation (RAG)—a mechanism for fetching relevant documents and inserting them into prompts. This perspective, while technically accurate for a narrow class of use cases, fundamentally misunderstands what memory means for agents that operate over extended time horizons in regulated environments.</p>
+<p>Enterprise agents are not stateless. They accumulate experience, learn from outcomes, adapt to user preferences, and refine their procedures based on operational feedback. This accumulated cognition is memory—and unlike context, memory persists beyond individual interactions, crosses agent boundaries, and becomes subject to the same governance requirements that apply to any enterprise data asset.</p>
+<p>This section establishes the foundational requirements that enterprise memory systems must satisfy: what types of memory exist, how they differ in purpose and governance, what isolation and retention requirements apply, and how learning must be controlled to prevent silent policy drift.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">subsections</ac:parameter></ac:structured-macro>Subsections</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">31-why-memory-is-not-just-context</ac:parameter></ac:structured-macro>3.1 Why Memory Is Not Just Context</h3>
+<p>This subsection establishes the fundamental distinction between memory (what the agent retains over time) and context (what the agent is thinking with right now). It explains why treating memory as "enhanced RAG" leads to governance failures and operational surprises.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4725866503"/><ac:plain-text-link-body><![CDATA[3.1 Why Memory Is Not Just Context]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">32-the-memory-taxonomy-espp</ac:parameter></ac:structured-macro>3.2 The Memory Taxonomy (ESPP)</h3>
+<p>This subsection introduces the four-type memory taxonomy—Episodic, Semantic, Procedural, and Preference—that provides a conceptual framework for understanding what agents remember and why. Each memory type serves a distinct cognitive purpose and carries different governance implications.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4725506059"/><ac:plain-text-link-body><![CDATA[3.2 The Memory Taxonomy (ESPP)]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">33-organizational-vs-operational-memory</ac:parameter></ac:structured-macro>3.3 Organizational vs. Operational Memory</h3>
+<p>This subsection distinguishes between organizational memory (long-lived, cross-agent, for institutional learning and audit) and operational memory (session-scoped, for in-flight operations). This distinction is critical for understanding data governance boundaries and retention policies.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4725899316"/><ac:plain-text-link-body><![CDATA[3.3 Organizational vs. Operational Memory]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">34-memory-governance-imperatives</ac:parameter></ac:structured-macro>3.4 Memory Governance Imperatives</h3>
+<p>This subsection establishes the non-negotiable governance requirements that enterprise memory systems must satisfy: tenant and customer isolation, regulatory retention periods, right-to-erasure compliance, and the prohibition of personally identifiable information in audit records.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4726259739"/><ac:plain-text-link-body><![CDATA[3.4 Memory Governance Imperatives]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">35-the-learning-imperative</ac:parameter></ac:structured-macro>3.5 The Learning Imperative</h3>
+<p>This subsection addresses why agents must learn from experience—and why that learning must be governed. It introduces the controlled promotion path from operational feedback through agent memory to enterprise memory to authoritative knowledge, with human approval gates at each transition.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4724654088"/><ac:plain-text-link-body><![CDATA[3.5 The Learning Imperative]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-concepts-introduced</ac:parameter></ac:structured-macro>Key Concepts Introduced</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Memory</strong></td>
+<td>Information the agent chooses to retain across interactions because it may be useful later</td>
+</tr>
+<tr>
+<td><strong>Context</strong></td>
+<td>Ephemeral working state assembled for a single reasoning step or turn</td>
+</tr>
+<tr>
+<td><strong>ESPP Taxonomy</strong></td>
+<td>Four memory types: Episodic (what happened), Semantic (what we know), Procedural (how to act), Preference (how to personalize)</td>
+</tr>
+<tr>
+<td><strong>Enterprise Memory</strong></td>
+<td>Organizational-scope memory with 7+ year retention, no PII, immutable records</td>
+</tr>
+<tr>
+<td><strong>Agent Memory</strong></td>
+<td>Session/request-scope memory for operational continuity, PII permitted</td>
+</tr>
+<tr>
+<td><strong>Controlled Promotion</strong></td>
+<td>Governed pathway for learnings to move from agent memory to enterprise knowledge</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">prerequisites</ac:parameter></ac:structured-macro>Prerequisites</h2>
+<p>This section assumes familiarity with:</p>
+<ul>
+<li>The distinction between enterprise and consumer agents (Section 2)</li>
+<li>The OPD triad and why enterprise agents require observability (Section 1.3)</li>
+<li>The core modules of an enterprise agent platform (Section 1.4)</li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">relationship-to-other-sections</ac:parameter></ac:structured-macro>Relationship to Other Sections</h2>
+<p><strong>Section 4 (Audit Requirements)</strong> builds directly on this section's memory concepts. The Cognitive Audit Fabric (CAF) is the control plane for Enterprise Memory, and understanding memory types is prerequisite to understanding audit record types.</p>
+<p><strong>Section 5 (Building an Enterprise Agent)</strong> references this section's memory taxonomy when discussing context compilation and the four sources of agent knowledge.</p>
+<p><strong>Part 2, Section 4 (Memory, Knowledge &amp; Audit in Seer)</strong> demonstrates how Seer and Hub implement the memory requirements established here.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<p>For detailed implementation specifications, see:</p>
+<ul>
+<li><code>olympus-hub-docs/04-subsystems/memory-services/README.md</code> — Hub Memory Services architecture</li>
+<li><code>olympus-hub-docs/04-subsystems/memory-services/enterprise-memory/</code> — Enterprise Memory implementation</li>
+<li><code>olympus-hub-docs/04-subsystems/memory-services/agent-memory/</code> — Agent Memory implementation</li>
+<li><code>olympus-seer-docs/agentic-ai-concepts/agent-memory/agent-memory-management.md</code> — Conceptual primer</li>
+<li><code>olympus-seer-docs/agentic-ai-concepts/agent-memory/knowledge-memory-context-session.md</code> — Foundational distinctions</li>
+</ul>
+<hr />
+<p><em>Memory is not storage—it is controlled cognition over time. This section establishes what that control requires in an enterprise context.</em></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-1-background/03-memory-requirements/_section-overview.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

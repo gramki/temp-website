@@ -1,0 +1,189 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-3-enterprise-memory.md -->
+<!-- Title: 4.3 Enterprise Memory in Seer -->
+<!-- Content Hash: f2d1d212b2391f3bb98ecb4a7c7e7f68be9ef1b3937fba79bc7646f18958e581 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">43-enterprise-memory-in-seer</ac:parameter></ac:structured-macro>4.3 Enterprise Memory in Seer</h1>
+<p>Enterprise Memory captures the organization's experiential record—what happened, what was decided, and what was learned. It provides the foundation for institutional learning and regulatory-grade audit.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-enterprise-memory-captures</ac:parameter></ac:structured-macro>What Enterprise Memory Captures</h2>
+<p>Enterprise Memory answers the question: <strong>"What happened and why?"</strong></p>
+<table>
+<thead>
+<tr>
+<th>Record Type</th>
+<th>What It Captures</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Decision Records</strong></td>
+<td>Agent decisions with rationale</td>
+<td>Audit, precedent, learning</td>
+</tr>
+<tr>
+<td><strong>Outcome Records</strong></td>
+<td>Results of decisions</td>
+<td>Feedback, evaluation</td>
+</tr>
+<tr>
+<td><strong>Override Records</strong></td>
+<td>Human interventions and reasons</td>
+<td>Audit, improvement</td>
+</tr>
+<tr>
+<td><strong>Hypothesis Records</strong></td>
+<td>Patterns observed across cases</td>
+<td>Institutional learning</td>
+</tr>
+<tr>
+<td><strong>Case Records</strong></td>
+<td>Case lifecycle and state</td>
+<td>Case continuity</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enterprise-memory-architecture</ac:parameter></ac:structured-macro>Enterprise Memory Architecture</h2>
+<p>Hub's Enterprise Memory uses the ESPP taxonomy (Episodic, Semantic, Procedural, Preference):</p>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────┐
+│                   ENTERPRISE MEMORY                          │
+│                                                              │
+│   ┌─────────────────┐    ┌─────────────────────────────┐   │
+│   │    EPISODIC     │    │        SEMANTIC             │   │
+│   │                 │    │                             │   │
+│   │  • Decisions    │    │  • Patterns (hypotheses)    │   │
+│   │  • Outcomes     │    │  • Entity beliefs           │   │
+│   │  • Overrides    │    │  • Learned constraints      │   │
+│   │  • Handoffs     │    │  • Relationship beliefs     │   │
+│   └─────────────────┘    └─────────────────────────────┘   │
+│                                                              │
+│   ┌─────────────────┐    ┌─────────────────────────────┐   │
+│   │   PROCEDURAL    │    │        PREFERENCE           │   │
+│   │                 │    │                             │   │
+│   │  • Learned      │    │  • User preferences         │   │
+│   │    skills       │    │  • Agent behaviors          │   │
+│   │  • Procedures   │    │  • Interaction patterns     │   │
+│   │  • Action seqs  │    │                             │   │
+│   └─────────────────┘    └─────────────────────────────┘   │
+│                                                              │
+│   Storage: Olympus Europa (OpenSearch)                       │
+│   Retention: 7+ years │ PII: Prohibited │ Immutable          │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">writing-to-enterprise-memory</ac:parameter></ac:structured-macro>Writing to Enterprise Memory</h2>
+<p>Agents write to Enterprise Memory via the Signal Exchange, not directly:</p>
+<pre class="codehilite"><code>Agent Decision
+     │
+     ▼
+Signal Exchange (routing)
+     │
+     ├──→ Episodic Store (decision record)
+     │
+     └──→ CAF (audit cataloging)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">why-indirect-write</ac:parameter></ac:structured-macro>Why Indirect Write?</h3>
+<ul>
+<li><strong>Governance:</strong> Signal Exchange enforces write policies</li>
+<li><strong>Routing:</strong> Records are classified and routed appropriately</li>
+<li><strong>Audit:</strong> All writes are logged and attributed</li>
+<li><strong>Consistency:</strong> Standard format and validation</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">decision-record-example</ac:parameter></ac:structured-macro>Decision Record Example</h3>
+<pre class="codehilite"><code class="language-yaml">decision_record:
+  record_id: &quot;dr-a1b2c3d4&quot;
+  case_id: &quot;case-12345&quot;
+
+  decision:
+    type: refund_approved
+    value: 450
+
+  rationale:
+    summary: &quot;Approved based on clear merchant error and customer history&quot;
+    factors:
+      - factor: merchant_error_confirmed
+        weight: high
+        evidence_ref: evidence-789
+      - factor: customer_dispute_history
+        weight: medium
+        evidence_ref: evidence-790
+
+  context_snapshot_ref: &quot;cs-xyz789&quot;
+
+  agent:
+    employment_spec: dispute-analyst-tier1-acme-production
+    identity: dispute-analyst-tier1
+
+  delegator:
+    principal: manager@acme.com
+    delegation_id: del-456
+
+  hub_metadata:
+    tenant_id: acme
+    workbench_id: dispute-ops-prod
+    created_at: 2026-01-10T14:30:00Z
+    content_hash: sha256:abc123...
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">reading-from-enterprise-memory</ac:parameter></ac:structured-macro>Reading from Enterprise Memory</h2>
+<p>Agents read Enterprise Memory for precedent and context:</p>
+<pre class="codehilite"><code class="language-python"># Retrieve similar past decisions
+precedents = seer.memory.retrieve_precedent(
+    case_type=&quot;merchant_dispute&quot;,
+    customer_segment=&quot;retail&quot;,
+    similarity_threshold=0.8,
+    max_results=5
+)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">use-cases</ac:parameter></ac:structured-macro>Use Cases</h3>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>What Agent Retrieves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Precedent lookup</strong></td>
+<td>Similar past decisions and outcomes</td>
+</tr>
+<tr>
+<td><strong>Customer history</strong></td>
+<td>Prior interactions (via entity references)</td>
+</tr>
+<tr>
+<td><strong>Pattern detection</strong></td>
+<td>Recurring issues or behaviors</td>
+</tr>
+<tr>
+<td><strong>Outcome prediction</strong></td>
+<td>What happened in similar situations</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-governance-properties</ac:parameter></ac:structured-macro>Key Governance Properties</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">immutability</ac:parameter></ac:structured-macro>Immutability</h3>
+<p>Records cannot be modified after creation:<br />
+- Errors corrected via new amendment records<br />
+- Original record preserved with correction reference<br />
+- Full audit trail maintained</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">no-pii</ac:parameter></ac:structured-macro>No PII</h3>
+<p>Enterprise Memory uses entity references, not direct PII:<br />
+- <code>customer-id: cust-12345</code> instead of name/email<br />
+- Enables 7+ year retention without privacy conflicts<br />
+- Supports right-to-erasure (reference is deleted, memory preserved)</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">long-retention</ac:parameter></ac:structured-macro>Long Retention</h3>
+<p>Episodic records retained 7+ years:<br />
+- Regulatory compliance (OCC, EU AI Act, Fair Lending)<br />
+- Audit and legal discovery<br />
+- Institutional learning over time</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/04-subsystems/memory-services/enterprise-memory/README.md</code><br />
+*   <code>olympus-hub-docs/04-subsystems/memory-services/shared/espp-taxonomy.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/03-memory-requirements/03-3-org-vs-op-memory.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-3-enterprise-memory.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

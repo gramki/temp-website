@@ -1,0 +1,227 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/07-runtime-observability-in-seer/07-2-graceful-degradation.md -->
+<!-- Title: 7.2 Graceful Degradation -->
+<!-- Content Hash: d083353ab622e07e284bddf2072f6be1c310f6bd046503f8df49f380a0ce2695 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">72-graceful-degradation</ac:parameter></ac:structured-macro>7.2 Graceful Degradation</h1>
+<p>Enterprise agents must handle failures without catastrophic outcomes. Graceful degradation ensures that when components fail, agents reduce capability rather than fail completely, maintaining user experience and operational continuity.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">types-of-failures</ac:parameter></ac:structured-macro>Types of Failures</h2>
+<table>
+<thead>
+<tr>
+<th>Failure Type</th>
+<th>Example</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Model unavailable</strong></td>
+<td>LLM provider outage</td>
+<td>Cannot reason</td>
+</tr>
+<tr>
+<td><strong>Tool failure</strong></td>
+<td>External API error</td>
+<td>Cannot act</td>
+</tr>
+<tr>
+<td><strong>Memory unavailable</strong></td>
+<td>Hub service down</td>
+<td>Cannot remember</td>
+</tr>
+<tr>
+<td><strong>Rate limiting</strong></td>
+<td>Exceeded quotas</td>
+<td>Throttled</td>
+</tr>
+<tr>
+<td><strong>Timeout</strong></td>
+<td>Slow response</td>
+<td>Delayed</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">degradation-strategies</ac:parameter></ac:structured-macro>Degradation Strategies</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">strategy-1-model-fallback</ac:parameter></ac:structured-macro>Strategy 1: Model Fallback</h3>
+<p>When primary model is unavailable:</p>
+<pre class="codehilite"><code class="language-yaml">model_fallback:
+  primary: claude-3.5-sonnet
+  fallback_chain:
+    - model: gpt-4o
+      conditions:
+        - primary_unavailable
+        - primary_latency &gt; 10s
+
+    - model: claude-3-haiku
+      conditions:
+        - all_above_unavailable
+      limitations:
+        - complex_reasoning: degraded
+        - notify_user: true
+
+    - model: none
+      conditions:
+        - all_above_unavailable
+      action: escalate_to_human
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">strategy-2-reduced-capability</ac:parameter></ac:structured-macro>Strategy 2: Reduced Capability</h3>
+<p>When tools fail, reduce scope:</p>
+<pre class="codehilite"><code class="language-yaml">capability_degradation:
+  normal:
+    - retrieve_knowledge
+    - query_memory
+    - invoke_tools
+    - execute_actions
+
+  degraded_tool_failure:
+    - retrieve_knowledge
+    - query_memory
+    # Tools unavailable
+    limitations:
+      - cannot_execute_actions
+      - provide_guidance_only
+    notify_user: true
+
+  degraded_memory_failure:
+    - retrieve_knowledge
+    # Memory unavailable
+    limitations:
+      - no_precedent_lookup
+      - no_personalization
+    notify_user: true
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">strategy-3-queue-and-retry</ac:parameter></ac:structured-macro>Strategy 3: Queue and Retry</h3>
+<p>For transient failures:</p>
+<pre class="codehilite"><code class="language-yaml">retry_strategy:
+  model_calls:
+    max_retries: 3
+    backoff: exponential
+    initial_delay: 1s
+    max_delay: 30s
+
+  tool_calls:
+    max_retries: 2
+    backoff: linear
+    initial_delay: 2s
+
+  on_exhausted:
+    action: fallback_or_escalate
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">strategy-4-cached-responses</ac:parameter></ac:structured-macro>Strategy 4: Cached Responses</h3>
+<p>Use cached knowledge when live retrieval fails:</p>
+<pre class="codehilite"><code class="language-yaml">cache_fallback:
+  knowledge_retrieval:
+    on_failure: use_cache_if_fresh
+    max_cache_age: 1h
+
+  operational_data:
+    on_failure: use_cache_with_warning
+    max_cache_age: 5m
+    warn_user: &quot;Using data from 5 minutes ago&quot;
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">degradation-notification</ac:parameter></ac:structured-macro>Degradation Notification</h2>
+<p>Users and operators are informed of degraded state:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">user-notification</ac:parameter></ac:structured-macro>User Notification</h3>
+<pre class="codehilite"><code class="language-yaml">user_notification:
+  degraded_mode:
+    template: |
+      I'm currently operating with reduced capabilities due to 
+      {reason}. I can still help with {available_capabilities}, 
+      but {limitations}. Would you like to proceed or speak 
+      with a human agent?
+
+  examples:
+    tool_failure:
+      reason: &quot;a temporary system issue&quot;
+      available_capabilities: &quot;answering questions about your account&quot;
+      limitations: &quot;I cannot make changes right now&quot;
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">operator-alert</ac:parameter></ac:structured-macro>Operator Alert</h3>
+<pre class="codehilite"><code class="language-yaml">operator_alert:
+  degraded_mode:
+    severity: warning
+    channels: [pagerduty, slack]
+    message: |
+      Agent {agent_id} entered degraded mode.
+      Reason: {failure_type}
+      Impact: {affected_capabilities}
+      Duration: {degraded_since}
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">degradation-audit</ac:parameter></ac:structured-macro>Degradation Audit</h2>
+<p>All degradation events are logged:</p>
+<pre class="codehilite"><code class="language-yaml">degradation_event:
+  timestamp: 2026-01-10T14:30:00Z
+  agent: dispute-analyst-tier1
+
+  trigger:
+    type: model_unavailable
+    details: &quot;claude-3.5-sonnet: 503 Service Unavailable&quot;
+
+  degradation:
+    from: full_capability
+    to: fallback_model
+    fallback_model: gpt-4o
+
+  impact:
+    requests_affected: 12
+    capabilities_reduced: []  # None with gpt-4o fallback
+
+  recovery:
+    timestamp: 2026-01-10T14:35:00Z
+    duration: 5m
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">health-states</ac:parameter></ac:structured-macro>Health States</h2>
+<p>Agents report their health state:</p>
+<pre class="codehilite"><code class="language-yaml">health_states:
+  healthy:
+    definition: &quot;All capabilities available&quot;
+    indicator: green
+
+  degraded:
+    definition: &quot;Some capabilities reduced&quot;
+    indicator: yellow
+    details: [which_degraded]
+
+  impaired:
+    definition: &quot;Critical capabilities unavailable&quot;
+    indicator: orange
+    action: consider_escalation
+
+  unavailable:
+    definition: &quot;Cannot serve requests&quot;
+    indicator: red
+    action: route_to_human
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">circuit-breaker</ac:parameter></ac:structured-macro>Circuit Breaker</h2>
+<p>Prevent cascading failures:</p>
+<pre class="codehilite"><code class="language-yaml">circuit_breaker:
+  tool_calls:
+    failure_threshold: 5  # Failures before open
+    success_threshold: 3  # Successes before close
+    timeout: 30s          # Time before half-open
+
+  states:
+    closed: &quot;Normal operation&quot;
+    open: &quot;Rejecting calls, fast fail&quot;
+    half_open: &quot;Testing if recovered&quot;
+
+  on_open:
+    action: use_fallback
+    notify: operators
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/model-gateway.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/02-enterprise-agents-different/02-3-opd-triad.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/07-runtime-observability-in-seer/07-2-graceful-degradation.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

@@ -1,0 +1,409 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/02-why-enterprise-agents-different/02-3-authority-question.md -->
+<!-- Title: 2.3 The Authority Question -->
+<!-- Content Hash: d8097c3ee3599ff310a2f5fae66df55912f933bab7e729e8b93608067b48e215 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">23-the-authority-question</ac:parameter></ac:structured-macro>2.3 The Authority Question</h1>
+<blockquote>
+<p><strong>Part 1, Section 2, Chapter 3</strong><br />
+<strong>Outline Reference:</strong> §2.3</p>
+</blockquote>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-chapter</ac:parameter></ac:structured-macro>Purpose of This Chapter</h2>
+<p>This chapter addresses the fundamental question of agent authority: not whether an agent <em>can</em> act, but who authorized it to act and within what bounds. It introduces the concepts of authority ceilings, delegation models, and controlled autonomy.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-fundamental-distinction</ac:parameter></ac:structured-macro>The Fundamental Distinction</h2>
+<p>The question for enterprise agents is not:</p>
+<blockquote>
+<p><em>Can the agent perform this action?</em></p>
+</blockquote>
+<p>The question is:</p>
+<blockquote>
+<p><em>Who authorized the agent to perform this action?</em></p>
+</blockquote>
+<p>This distinction separates <strong>capability</strong> from <strong>authority</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Capability</strong></td>
+<td>What the agent can do</td>
+<td>The agent can call the account closure API</td>
+</tr>
+<tr>
+<td><strong>Authority</strong></td>
+<td>What the agent is permitted to do</td>
+<td>The agent is authorized to close accounts under $10,000 with documented reason</td>
+</tr>
+</tbody>
+</table>
+<p>An agent may have the capability to perform actions it lacks the authority to perform. Enterprise governance ensures that capability does not imply permission.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authority-vs-access-control</ac:parameter></ac:structured-macro>Authority vs. Access Control</h2>
+<p>Traditional access control answers: <em>Can this service call this API?</em></p>
+<p>Authority control answers: <em>Is this agent permitted to make this business decision?</em></p>
+<table>
+<thead>
+<tr>
+<th>Access Control</th>
+<th>Authority Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Binary: allowed/denied</td>
+<td>Graduated: full/limited/none</td>
+</tr>
+<tr>
+<td>Technical boundary</td>
+<td>Business boundary</td>
+</tr>
+<tr>
+<td>Permission to invoke</td>
+<td>Permission to decide</td>
+</tr>
+<tr>
+<td>Static configuration</td>
+<td>Context-dependent</td>
+</tr>
+<tr>
+<td>Service-level</td>
+<td>Agent-level, decision-level</td>
+</tr>
+</tbody>
+</table>
+<p>Access control protects resources. Authority control governs decisions.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-four-components-of-autonomy</ac:parameter></ac:structured-macro>The Four Components of Autonomy</h2>
+<p>For an agent to act autonomously, it requires all four components (Stevenson et al., 2023):</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Definition</th>
+<th>Enterprise Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authority</strong></td>
+<td>The right to select or perform an action free from external control</td>
+<td>Must be explicitly delegated</td>
+</tr>
+<tr>
+<td><strong>Availability</strong></td>
+<td>Being present and able to perform the activities</td>
+<td>Must be operationally reliable</td>
+</tr>
+<tr>
+<td><strong>Capability</strong></td>
+<td>Having the knowledge, skills, and abilities to perform</td>
+<td>Must be trained and equipped</td>
+</tr>
+<tr>
+<td><strong>Capacity</strong></td>
+<td>Having resources available under specific circumstances</td>
+<td>Must have budget, compute, access</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Autonomy = Authority + Availability + Capability + Capacity</strong></p>
+<p>If any component is missing, the agent cannot act autonomously. Enterprise platforms must manage all four, but Authority is the governance concern—the others are operational concerns.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">controlled-autonomy</ac:parameter></ac:structured-macro>Controlled Autonomy</h2>
+<p>Enterprise agents operate under <strong>controlled autonomy</strong>:</p>
+<blockquote>
+<p>The agent should act autonomously only to the extent that it is beneficial to the physical entity (e.g., human) who is responsible for controlling it.</p>
+</blockquote>
+<p>This principle has several implications:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">autonomy-is-bounded</ac:parameter></ac:structured-macro>Autonomy Is Bounded</h3>
+<p>Agents operate within explicit boundaries set by accountable humans. They do not acquire authority through capability alone.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authority-is-delegated-not-assumed</ac:parameter></ac:structured-macro>Authority Is Delegated, Not Assumed</h3>
+<p>Authority flows from humans to agents through explicit delegation, not through implicit capability.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">humans-remain-accountable</ac:parameter></ac:structured-macro>Humans Remain Accountable</h3>
+<p>Even when agents act autonomously, humans remain accountable for the outcomes. Controlled autonomy means the human's control is delegated, not abdicated.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authority-can-be-revoked</ac:parameter></ac:structured-macro>Authority Can Be Revoked</h3>
+<p>Delegated authority can be revoked at any time. Kill switches and authority revocation are not optional features—they are essential to controlled autonomy.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authority-ceilings</ac:parameter></ac:structured-macro>Authority Ceilings</h2>
+<p><strong>Authority ceilings</strong> define what an agent may NOT do, regardless of capability or request:</p>
+<table>
+<thead>
+<tr>
+<th>Ceiling Type</th>
+<th>Example</th>
+<th>Enforcement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Value limits</strong></td>
+<td>Cannot approve transactions over $10,000</td>
+<td>Hard limit, no exceptions</td>
+</tr>
+<tr>
+<td><strong>Action prohibitions</strong></td>
+<td>Cannot close accounts</td>
+<td>Action blocked</td>
+</tr>
+<tr>
+<td><strong>Scope limits</strong></td>
+<td>Cannot operate outside assigned workbench</td>
+<td>Context enforcement</td>
+</tr>
+<tr>
+<td><strong>Temporal limits</strong></td>
+<td>Cannot operate outside business hours</td>
+<td>Time-based enforcement</td>
+</tr>
+</tbody>
+</table>
+<p>Authority ceilings are:<br />
+- <strong>Immutable</strong> at the enforcement level (cannot be overridden by the agent)<br />
+- <strong>Layered</strong> (policy → agent class → agent instance → request context)<br />
+- <strong>Audited</strong> (all ceiling checks are recorded)</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ceiling-layers</ac:parameter></ac:structured-macro>Ceiling Layers</h3>
+<p>Authority is constrained at multiple layers:</p>
+<pre class="codehilite"><code>┌──────────────────────────────────────────────┐
+│           ORGANIZATIONAL POLICY              │
+│   &quot;No AI agent may approve loans &gt; $100K&quot;    │
+└──────────────────────────────────────────────┘
+                      │
+                      ▼
+┌──────────────────────────────────────────────┐
+│              AGENT CLASS                     │
+│   &quot;Lending agents limited to $50K&quot;           │
+└──────────────────────────────────────────────┘
+                      │
+                      ▼
+┌──────────────────────────────────────────────┐
+│           AGENT INSTANCE                     │
+│   &quot;This agent limited to $25K&quot;               │
+└──────────────────────────────────────────────┘
+                      │
+                      ▼
+┌──────────────────────────────────────────────┐
+│          REQUEST CONTEXT                     │
+│   &quot;This request limited to $10K&quot;             │
+└──────────────────────────────────────────────┘
+</code></pre>
+
+<p>Each layer can narrow authority but never expand it. If organizational policy limits to $100K, no agent instance can exceed that limit regardless of its configuration.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">delegation-models</ac:parameter></ac:structured-macro>Delegation Models</h2>
+<p>Authority flows from humans to agents through delegation:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">explicit-delegation</ac:parameter></ac:structured-macro>Explicit Delegation</h3>
+<p>Authority is granted through formal specification:</p>
+<pre class="codehilite"><code class="language-yaml">employmentSpec:
+  delegatedBy: &quot;chief-credit-officer&quot;
+  delegatedOn: &quot;2024-03-15&quot;
+  authority:
+    actions:
+      - type: &quot;loan-decision&quot;
+        ceiling: 25000
+        conditions:
+          - &quot;credit-score &gt;= 680&quot;
+          - &quot;debt-ratio &lt; 0.40&quot;
+    prohibited:
+      - &quot;modify-credit-policy&quot;
+      - &quot;override-denial&quot;
+</code></pre>
+
+<p>This specification:<br />
+- Names the delegating authority<br />
+- Records when delegation occurred<br />
+- Specifies what authority is granted<br />
+- Specifies what is prohibited<br />
+- Defines conditions on authority</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">chain-of-delegation</ac:parameter></ac:structured-macro>Chain of Delegation</h3>
+<p>Delegation chains trace authority back to its source:</p>
+<pre class="codehilite"><code>Agent Authority
+    ↑ delegated by
+Employment Specification
+    ↑ approved by
+Chief Credit Officer
+    ↑ authority granted by
+Board Credit Policy
+    ↑ approved by
+Board of Directors
+</code></pre>
+
+<p>Every link in this chain is auditable.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">delegation-constraints</ac:parameter></ac:structured-macro>Delegation Constraints</h3>
+<p>Delegation is subject to constraints:</p>
+<table>
+<thead>
+<tr>
+<th>Constraint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Non-expansion</strong></td>
+<td>Cannot delegate more authority than you have</td>
+</tr>
+<tr>
+<td><strong>Traceability</strong></td>
+<td>All delegations must be recorded</td>
+</tr>
+<tr>
+<td><strong>Revocability</strong></td>
+<td>All delegations can be revoked</td>
+</tr>
+<tr>
+<td><strong>Temporal bounds</strong></td>
+<td>Delegations may have expiration</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-immutability-principle</ac:parameter></ac:structured-macro>The Immutability Principle</h2>
+<p>Enterprise agent platforms enforce an immutability principle for authority:</p>
+<blockquote>
+<p><strong>Guardrails defined at training cannot be relaxed at employment.</strong></p>
+</blockquote>
+<p>This means:</p>
+<ul>
+<li>If a trained agent is restricted from an action, employment cannot enable it</li>
+<li>Employment can add restrictions but never remove them</li>
+<li>Authority ceilings are cumulative, never subtractive</li>
+</ul>
+<p>This principle creates defensible boundaries:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Can Restrict</th>
+<th>Can Enable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Training</strong></td>
+<td>Yes</td>
+<td>Yes (base capability)</td>
+</tr>
+<tr>
+<td><strong>Employment</strong></td>
+<td>Yes</td>
+<td>No (cannot override training)</td>
+</tr>
+<tr>
+<td><strong>Request Context</strong></td>
+<td>Yes</td>
+<td>No (cannot override employment)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">kill-switches</ac:parameter></ac:structured-macro>Kill Switches</h2>
+<p>Authority must be revocable instantly:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-kill-switches-do</ac:parameter></ac:structured-macro>What Kill Switches Do</h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authority revocation</strong></td>
+<td>Agent loses permission to act (not just process termination)</td>
+</tr>
+<tr>
+<td><strong>Immediate effect</strong></td>
+<td>No pending actions complete after revocation</td>
+</tr>
+<tr>
+<td><strong>Platform-controlled</strong></td>
+<td>Independent of the agent's own code or state</td>
+</tr>
+<tr>
+<td><strong>Audited</strong></td>
+<td>All revocations are recorded with reason</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">when-kill-switches-are-used</ac:parameter></ac:structured-macro>When Kill Switches Are Used</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unexpected behavior</strong></td>
+<td>Revoke authority pending investigation</td>
+</tr>
+<tr>
+<td><strong>Policy violation</strong></td>
+<td>Revoke authority, escalate for review</td>
+</tr>
+<tr>
+<td><strong>Security incident</strong></td>
+<td>Revoke authority, preserve evidence</td>
+</tr>
+<tr>
+<td><strong>Regulatory request</strong></td>
+<td>Revoke authority, produce records</td>
+</tr>
+</tbody>
+</table>
+<p>Kill switches are not punishment—they are control mechanisms that preserve human oversight.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions</ac:parameter></ac:structured-macro>Common Misconceptions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">access-control-is-sufficient</ac:parameter></ac:structured-macro>"Access control is sufficient"</h3>
+<p>Access control prevents unauthorized API calls. Authority control prevents unauthorized decisions. An agent may have access to an API but lack authority to make the business decision that would trigger that API call.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">we-can-trust-the-agent-to-stay-within-bounds</ac:parameter></ac:structured-macro>"We can trust the agent to stay within bounds"</h3>
+<p>Trust is not a governance mechanism. Agents may produce unexpected outputs due to prompt injection, model drift, or edge cases. Authority ceilings enforce bounds regardless of agent behavior.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authority-limits-reduce-agent-usefulness</ac:parameter></ac:structured-macro>"Authority limits reduce agent usefulness"</h3>
+<p>Authority limits define the agent's scope—within that scope, the agent operates with full capability. Limits create clarity about what the agent can and cannot do, enabling trust within bounds.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">kill-switches-are-emergency-measures</ac:parameter></ac:structured-macro>"Kill switches are emergency measures"</h3>
+<p>Kill switches may be used for routine authority management—not just emergencies. Revoking authority pending investigation, adjusting authority based on performance, or transitioning authority during upgrades are all normal uses.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Chapter 2.2</strong> (The Accountability Gap) establishes why authority must trace to accountable humans</li>
+<li><strong>Chapter 2.4</strong> (The Irreversibility Problem) explains why authority limits matter for consequential actions</li>
+<li><strong>Section 5.1</strong> (The Agent Lifecycle) describes how authority is configured through Training and Employment specs</li>
+<li><strong>Part 2, Section 3</strong> (Identity &amp; Authority in Seer) shows how Seer implements authority models</li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-takeaways</ac:parameter></ac:structured-macro>Key Takeaways</h2>
+<ol>
+<li>
+<p>The authority question is not "can the agent act?" but "who authorized the agent to act?"</p>
+</li>
+<li>
+<p>Authority is distinct from capability—capability enables action; authority permits it.</p>
+</li>
+<li>
+<p>Controlled autonomy means agents act within explicit bounds set by accountable humans.</p>
+</li>
+<li>
+<p>Authority ceilings define what agents may never do, regardless of capability.</p>
+</li>
+<li>
+<p>Authority is delegated through explicit specification, creating auditable chains.</p>
+</li>
+<li>
+<p>The immutability principle ensures training guardrails cannot be relaxed at employment.</p>
+</li>
+<li>
+<p>Kill switches enable instant authority revocation—an essential control mechanism.</p>
+</li>
+</ol>
+<hr />
+<p><strong>Reference:</strong> <code>aosm-meta-model/agent-oriented-system.md</code> (Authority and Autonomy sections), <code>aosm-meta-model/raw-trained-employed-agents.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-1-background/02-why-enterprise-agents-different/02-3-authority-question.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

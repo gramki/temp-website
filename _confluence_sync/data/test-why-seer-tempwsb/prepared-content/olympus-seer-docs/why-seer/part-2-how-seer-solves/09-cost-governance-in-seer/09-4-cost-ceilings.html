@@ -1,0 +1,217 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/09-cost-governance-in-seer/09-4-cost-ceilings.md -->
+<!-- Title: 9.4 Cost Ceilings & Enforcement -->
+<!-- Content Hash: 5d894fb7f567a20acc64ae72aa4353a00cc0eede58bb9e464e1a1735b2271581 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">94-cost-ceilings-enforcement</ac:parameter></ac:structured-macro>9.4 Cost Ceilings &amp; Enforcement</h1>
+<p>Cost ceilings are hard limits that prevent runaway spending. Unlike soft budgets that alert, ceilings enforce—blocking requests that would exceed limits.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ceiling-hierarchy</ac:parameter></ac:structured-macro>Ceiling Hierarchy</h2>
+<pre class="codehilite"><code class="language-yaml">cost_ceiling_hierarchy:
+  platform:
+    daily: 1000000
+    description: &quot;Platform-wide emergency limit&quot;
+
+  tenant:
+    daily: 50000
+    monthly: 500000
+    description: &quot;Per-tenant allocation&quot;
+
+  workbench:
+    daily: 5000
+    monthly: 50000
+    description: &quot;Per-workbench allocation&quot;
+
+  agent:
+    daily: 500
+    per_request: 25
+    description: &quot;Per-agent limits&quot;
+</code></pre>
+
+<p>Most restrictive ceiling applies at each level.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ceiling-types</ac:parameter></ac:structured-macro>Ceiling Types</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">time-based-ceilings</ac:parameter></ac:structured-macro>Time-Based Ceilings</h3>
+<pre class="codehilite"><code class="language-yaml">time_based:
+  per_minute:
+    enabled: true
+    limit: 50
+    action: throttle
+
+  per_hour:
+    enabled: true
+    limit: 500
+    action: alert_then_throttle
+
+  per_day:
+    enabled: true
+    limit: 5000
+    action: block_new_requests
+
+  per_month:
+    enabled: true
+    limit: 100000
+    action: block_new_requests
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">per-request-ceilings</ac:parameter></ac:structured-macro>Per-Request Ceilings</h3>
+<pre class="codehilite"><code class="language-yaml">per_request:
+  hard_limit: 25
+  action: terminate_request
+
+  warning_threshold: 15
+  action: log_and_monitor
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enforcement-mechanism</ac:parameter></ac:structured-macro>Enforcement Mechanism</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pre-request-check</ac:parameter></ac:structured-macro>Pre-Request Check</h3>
+<pre class="codehilite"><code class="language-python">def check_cost_ceiling(request, agent):
+    estimated_cost = estimate_cost(request)
+
+    # Check per-request ceiling
+    if estimated_cost &gt; agent.per_request_ceiling:
+        return CeilingExceeded(&quot;Request too expensive&quot;)
+
+    # Check daily ceiling
+    if agent.spent_today + estimated_cost &gt; agent.daily_ceiling:
+        return CeilingExceeded(&quot;Daily ceiling would be exceeded&quot;)
+
+    # Check workbench ceiling
+    if workbench.spent_today + estimated_cost &gt; workbench.daily_ceiling:
+        return CeilingExceeded(&quot;Workbench ceiling would be exceeded&quot;)
+
+    return CeilingOK(remaining=calculate_remaining())
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">in-flight-monitoring</ac:parameter></ac:structured-macro>In-Flight Monitoring</h3>
+<pre class="codehilite"><code class="language-yaml">in_flight_monitoring:
+  check_interval: per_model_call
+
+  actions:
+    - if: cost &gt; 50% of per_request_limit
+      then: log_warning
+
+    - if: cost &gt; 75% of per_request_limit
+      then: simplify_next_turn (use cheaper model)
+
+    - if: cost &gt; 100% of per_request_limit
+      then: terminate_gracefully
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">actions-on-ceiling-breach</ac:parameter></ac:structured-macro>Actions on Ceiling Breach</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">graduated-response</ac:parameter></ac:structured-macro>Graduated Response</h3>
+<pre class="codehilite"><code class="language-yaml">ceiling_actions:
+  soft_threshold_80:
+    actions:
+      - alert: operators
+      - log: warning
+      - continue: yes
+
+  soft_threshold_95:
+    actions:
+      - alert: operators + management
+      - throttle: new_requests
+      - continue: in_flight
+
+  hard_ceiling_100:
+    actions:
+      - alert: all_stakeholders
+      - block: new_requests
+      - complete: in_flight (with limit)
+      - fallback: cheaper_model (if configured)
+
+  emergency_150:
+    actions:
+      - alert: critical
+      - kill_switch: consider
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">fallback-strategies</ac:parameter></ac:structured-macro>Fallback Strategies</h3>
+<pre class="codehilite"><code class="language-yaml">fallback_on_ceiling:
+  model_downgrade:
+    from: claude-3.5-sonnet
+    to: gpt-4o-mini
+    notify_user: true
+
+  capability_reduction:
+    disable:
+      - complex_reasoning
+      - multi_turn_exploration
+    enable:
+      - simple_responses
+      - human_escalation
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ceiling-audit</ac:parameter></ac:structured-macro>Ceiling Audit</h2>
+<p>All ceiling events are logged:</p>
+<pre class="codehilite"><code class="language-yaml">ceiling_event:
+  timestamp: 2026-01-10T14:30:00Z
+
+  ceiling:
+    type: daily
+    level: agent
+    limit: 500
+    current: 485
+
+  request:
+    agent: dispute-analyst-tier1
+    estimated_cost: 25
+    would_exceed: true
+
+  action:
+    taken: blocked
+    reason: &quot;Would exceed daily agent ceiling&quot;
+    notification: sent_to_operators
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">budget-vs-ceiling</ac:parameter></ac:structured-macro>Budget vs. Ceiling</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Budget</th>
+<th>Ceiling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Planning and tracking</td>
+<td>Safety limit</td>
+</tr>
+<tr>
+<td><strong>Enforcement</strong></td>
+<td>Alert on exceed</td>
+<td>Block on exceed</td>
+</tr>
+<tr>
+<td><strong>Flexibility</strong></td>
+<td>Can be increased</td>
+<td>Requires approval</td>
+</tr>
+<tr>
+<td><strong>Response</strong></td>
+<td>Operational</td>
+<td>Emergency</td>
+</tr>
+</tbody>
+</table>
+<pre class="codehilite"><code class="language-yaml">example:
+  agent: dispute-analyst-tier1
+
+  budget:
+    daily: 400
+    action_on_exceed: alert
+
+  ceiling:
+    daily: 500
+    action_on_exceed: block
+
+  # Agent can exceed budget (alert only)
+  # Agent cannot exceed ceiling (blocked)
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-11-cost-requirements.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-3-authority-ceilings.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/09-cost-governance-in-seer/09-4-cost-ceilings.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

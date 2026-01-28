@@ -1,0 +1,149 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-9-multi-agent-coordination.md -->
+<!-- Title: 5.9 Multi-Agent Coordination Requirements -->
+<!-- Content Hash: 14f29edb0a3cb5cbeb5fc247e804b22e8ad1bf1fe8de61299a416e3e0c0a1ce2 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">59-multi-agent-coordination-requirements</ac:parameter></ac:structured-macro>5.9 Multi-Agent Coordination Requirements</h1>
+<p>Complex business processes rarely fit within the capabilities of a single agent. Just as human organizations divide work across specialized roles, enterprise AI deployments benefit from multiple agents collaborating to achieve outcomes. This section addresses why multi-agent coordination is necessary and what requirements it imposes on enterprise agent platforms.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">why-agents-work-in-teams</ac:parameter></ac:structured-macro>Why Agents Work in Teams</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">specialization</ac:parameter></ac:structured-macro>Specialization</h3>
+<p>Different tasks require different capabilities:<br />
+- Deep reasoning for complex analysis<br />
+- Rapid response for customer interaction<br />
+- Careful verification for compliance review<br />
+- Efficient execution for high-volume processing</p>
+<p>A single agent optimized for all tasks would be mediocre at each. Specialization enables excellence.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">separation-of-concerns</ac:parameter></ac:structured-macro>Separation of Concerns</h3>
+<p>Governance requirements often mandate separation:<br />
+- The agent that recommends should not be the agent that approves<br />
+- The agent that processes should not be the agent that audits<br />
+- Authority boundaries require distinct agent identities</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">scale-and-resilience</ac:parameter></ac:structured-macro>Scale and Resilience</h3>
+<p>Large workloads require parallel processing:<br />
+- Multiple agents handling concurrent requests<br />
+- Failover to backup agents when primary agents are unavailable<br />
+- Load balancing across agent instances</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">human-ai-teaming</ac:parameter></ac:structured-macro>Human-AI Teaming</h3>
+<p>Enterprise agents rarely operate in isolation from humans. Coordination patterns must support:<br />
+- Handoff from agent to human at decision points<br />
+- Human oversight of agent activities<br />
+- Escalation when agent confidence is low<br />
+- Collaborative work between humans and agents</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-archetypes</ac:parameter></ac:structured-macro>Agent Archetypes</h2>
+<p>While agents can be highly specialized, four archetypal functions recur across enterprise deployments:</p>
+<table>
+<thead>
+<tr>
+<th>Archetype</th>
+<th>Function</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thinker</strong></td>
+<td>Reasoning and decision-making</td>
+<td>Analyst, Recommender, Classifier</td>
+</tr>
+<tr>
+<td><strong>Doer</strong></td>
+<td>Executing actions and processing</td>
+<td>Processor, Executor, Integrator</td>
+</tr>
+<tr>
+<td><strong>Orchestrator</strong></td>
+<td>Assigning work and coordinating</td>
+<td>Supervisor, Dispatcher, Scheduler</td>
+</tr>
+<tr>
+<td><strong>Governor</strong></td>
+<td>Observing and auditing</td>
+<td>Monitor, Compliance Checker, Auditor</td>
+</tr>
+</tbody>
+</table>
+<p>These are perspectives, not exclusive roles. A single agent may perform multiple functions depending on context.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">coordination-patterns</ac:parameter></ac:structured-macro>Coordination Patterns</h2>
+<p>Enterprise agent platforms must support multiple coordination patterns:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">scenario-as-tool</ac:parameter></ac:structured-macro>Scenario-as-Tool</h3>
+<p>One scenario invokes another as a callable tool:<br />
+- Modular automation with clear boundaries<br />
+- Invoking scenario has access to invoked scenario's output<br />
+- Each scenario maintains its own governance</p>
+<p><strong>Use case:</strong> A fraud investigation scenario invokes a customer lookup scenario as a tool.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">scenario-as-agent</ac:parameter></ac:structured-macro>Scenario-as-Agent</h3>
+<p>A scenario acts as an agent within another scenario's task queue:<br />
+- The invoked scenario becomes a participant<br />
+- Full delegation semantics apply<br />
+- Work is assigned through standard task management</p>
+<p><strong>Use case:</strong> A specialized analysis agent is assigned work by an orchestrating scenario.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">workbench-as-machine</ac:parameter></ac:structured-macro>Workbench-as-Machine</h3>
+<p>Cross-workbench invocation enables domain separation:<br />
+- One workbench exposes tools to another<br />
+- Clear ownership and governance boundaries<br />
+- Different security domains can interact safely</p>
+<p><strong>Use case:</strong> A disputes workbench invokes tools from a payments workbench.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">human-in-loop</ac:parameter></ac:structured-macro>Human-in-Loop</h3>
+<p>Agents defer to humans at critical decision points:<br />
+- Configurable escalation criteria<br />
+- Context transfer to human operators<br />
+- Decision recording for audit<br />
+- Return of control after human decision</p>
+<p><strong>Use case:</strong> High-value transactions require human approval before agent execution.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">composite-applications</ac:parameter></ac:structured-macro>Composite Applications</h3>
+<p>Multiple agents participate in the same request without explicit orchestration, coordinating through shared request state (blackboard pattern). This enables topology patterns like Blackboard, Planner-Executor-Critic (PEC Loop), Market-Based, and Role-Specialized Committees.</p>
+<p><strong>Use case:</strong> Multiple specialized agents (risk analyst, compliance reviewer, customer service agent) contribute different perspectives to the same dispute resolution request, coordinating through shared state rather than explicit task assignment.</p>
+<blockquote>
+<p><strong>Note:</strong> Composite applications complement the coordination mechanisms described above. Coordination mechanisms (Scenario-as-Tool, Scenario-as-Agent, Workbench-as-Machine) define interaction protocols, while composite applications define architectural patterns for multi-agent topologies. See Section 5.14 (Multi-Agent Topology Requirements) for topology pattern requirements and Section 22 (Multi-Agent Topologies in Hub) for how Hub implements composite applications.</p>
+</blockquote>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-handoff-problem</ac:parameter></ac:structured-macro>The Handoff Problem</h2>
+<p>When agents transfer work, context must transfer with it. This is the <strong>handoff problem</strong>—ensuring that the receiving agent (or human) has everything needed to continue effectively.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">handoff-requirements</ac:parameter></ac:structured-macro>Handoff Requirements</h3>
+<p>Handoff context must be:</p>
+<p><strong>Complete:</strong> All state relevant to the work:<br />
+- Current task status and history<br />
+- Relevant memory and knowledge<br />
+- Tool outputs and intermediate results<br />
+- Conversation context if applicable</p>
+<p><strong>Auditable:</strong> Recorded in the Cognitive Audit Fabric:<br />
+- What was handed off<br />
+- From whom to whom<br />
+- When and why<br />
+- What authority was transferred</p>
+<p><strong>Secure:</strong> Appropriate access controls:<br />
+- Receiving agent authorized for this work<br />
+- Sensitive data appropriately scoped<br />
+- Credentials not exposed in handoff</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">handoff-anti-patterns</ac:parameter></ac:structured-macro>Handoff Anti-Patterns</h3>
+<ul>
+<li><strong>Context loss:</strong> Receiving agent must re-derive information the previous agent already had</li>
+<li><strong>Authority leakage:</strong> Handoff grants more authority than necessary</li>
+<li><strong>Audit gaps:</strong> Handoff not recorded, creating accountability questions</li>
+<li><strong>Incompatible context:</strong> Receiving agent cannot interpret the transferred context</li>
+</ul>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">coordination-governance</ac:parameter></ac:structured-macro>Coordination Governance</h2>
+<p>Multi-agent coordination introduces governance challenges:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">delegation-chains</ac:parameter></ac:structured-macro>Delegation Chains</h3>
+<p>When Agent A delegates to Agent B:<br />
+- Authority flows from A to B<br />
+- B's actions are attributable to A's delegation<br />
+- The delegation chain must be traceable for audit</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">shared-state</ac:parameter></ac:structured-macro>Shared State</h3>
+<p>When agents share memory or working state:<br />
+- Isolation requirements must be defined<br />
+- Concurrent access must be managed<br />
+- Ownership of shared state must be clear</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">collective-responsibility</ac:parameter></ac:structured-macro>Collective Responsibility</h3>
+<p>When multiple agents contribute to an outcome:<br />
+- Who is accountable for the collective decision?<br />
+- How are individual contributions attributed?<br />
+- What happens when agents disagree?</p>
+<p>Enterprise platforms must provide governance mechanisms for these scenarios, ensuring that multi-agent coordination does not create accountability gaps.</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/09-composite-systems-and-patterns/scenario-as-a-tool.md</code><br />
+*   <code>olympus-hub-docs/09-composite-systems-and-patterns/scenario-as-an-agent.md</code><br />
+*   <code>olympus-hub-docs/09-composite-systems-and-patterns/workbench-as-a-machine.md</code><br />
+*   <code>aosm-meta-model/raw-trained-employed-agents.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 038aba3 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/038aba3/olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-9-multi-agent-coordination.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

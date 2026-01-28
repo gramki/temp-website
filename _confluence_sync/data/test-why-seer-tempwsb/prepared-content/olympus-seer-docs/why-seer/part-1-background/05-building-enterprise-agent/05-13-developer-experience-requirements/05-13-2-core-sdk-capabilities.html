@@ -1,0 +1,173 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-13-developer-experience-requirements/05-13-2-core-sdk-capabilities.md -->
+<!-- Title: 5.13.2 Core SDK Capabilities Required -->
+<!-- Content Hash: c1145a62ea5016fdccd0831d024e3dfbc16efa19777bfe4146c7ec8f08d2b842 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5132-core-sdk-capabilities-required</ac:parameter></ac:structured-macro>5.13.2 Core SDK Capabilities Required</h1>
+<p>Enterprise AI agent development requires SDKs that provide comprehensive capabilities for interacting with Seer and Hub services. These capabilities must support employment spec access, prompt management, context compilation, observability instrumentation, and Hub service integration—all while maintaining framework independence and language consistency.</p>
+<p>This subsection defines the core SDK capabilities required for agent development: Employment Spec access for agent configuration, prompt management with A/B testing and authority enforcement awareness, context compilation for assembling reasoning context, observability for metrics, tracing, and logging, and Hub integration for tools, memory, knowledge, and events.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection establishes the specific SDK capabilities required for enterprise AI agent development. It defines each capability area, explains why each is necessary, and describes how they enable efficient agent development while maintaining governance and operational controls.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-concepts-definitions</ac:parameter></ac:structured-macro>Core Concepts &amp; Definitions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">employment-spec-access</ac:parameter></ac:structured-macro>Employment Spec Access</h3>
+<p><strong>Employment Spec access</strong> is the SDK capability to retrieve, cache, and access Employment Specifications that define agent authority, work scope, resource quotas, tool bindings, and operational environment configuration. Employment Spec access enables agents to understand their delegated authority and operational constraints at runtime.</p>
+<p>Employment Spec access must provide:<br />
+*   <strong>Spec retrieval</strong>: Retrieve Employment Spec for current agent instance<br />
+*   <strong>Caching</strong>: Cache Employment Specs locally for performance<br />
+*   <strong>Versioning</strong>: Handle Employment Spec versioning and updates<br />
+*   <strong>Automatic refresh</strong>: Refresh cached specs when updates occur</p>
+<p>Without Employment Spec access, agents cannot understand their authority boundaries or operational constraints, leading to policy violations or incorrect behavior.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">prompt-management</ac:parameter></ac:structured-macro>Prompt Management</h3>
+<p><strong>Prompt management</strong> is the SDK capability to retrieve prompts from Training Specifications with support for A/B testing, authority enforcement awareness, and autonomy level-based selection. Prompt management enables agents to use appropriate prompts based on their autonomy level and participate in A/B testing experiments.</p>
+<p>Prompt management must provide:<br />
+*   <strong>A/B testing awareness</strong>: Automatically select A/B testing variants based on configured experiments<br />
+*   <strong>Authority enforcement awareness</strong>: Prompts respect authority constraints and guardrails<br />
+*   <strong>Autonomy level-based selection</strong>: Prompts tagged with autonomy levels (Full, Suggest, Ask, Watch) are selected based on current agent autonomy level<br />
+*   <strong>Prompt versioning</strong>: Handle prompt versioning and updates</p>
+<p>Without prompt management, agents cannot use appropriate prompts for their autonomy level or participate in A/B testing, limiting their effectiveness and preventing experimentation.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">context-compilation</ac:parameter></ac:structured-macro>Context Compilation</h3>
+<p><strong>Context compilation</strong> is the SDK capability to compile reasoning context from Enterprise Knowledge, Enterprise Memory, Agent Memory, and Hub Request Context using SDK wrappers for the context compilation service. Context compilation enables agents to assemble the information they need for reasoning and decision-making.</p>
+<p>Context compilation must provide:<br />
+*   <strong>Four-source model</strong>: Compile context from Enterprise Knowledge, Enterprise Memory, Agent Memory, and Hub Request Context<br />
+*   <strong>SDK wrappers</strong>: SDK wrappers for context compilation service that abstract away service complexity<br />
+*   <strong>Caching</strong>: Cache compiled context for performance when appropriate<br />
+*   <strong>Versioning</strong>: Handle knowledge and memory versioning</p>
+<p>Without context compilation, agents cannot assemble the context they need for reasoning, leading to poor decision quality or incomplete information.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">observability</ac:parameter></ac:structured-macro>Observability</h3>
+<p><strong>Observability</strong> is the SDK capability to instrument agents with metrics, tracing, structured logging, and auto-instrumentation for LLM calls, tool invocations, and memory operations. Observability enables developers and operators to understand agent behavior during development and production.</p>
+<p>Observability must provide:<br />
+*   <strong>Metrics</strong>: Custom business metrics in Prometheus format<br />
+*   <strong>Tracing</strong>: Distributed tracing via OpenTelemetry<br />
+*   <strong>Structured logging</strong>: Structured JSON logging with PII redaction<br />
+*   <strong>Auto-instrumentation</strong>: Automatic instrumentation for LLM calls, tool invocations, memory operations</p>
+<p>Without observability, developers and operators cannot understand agent behavior, making debugging and operational monitoring impossible.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">hub-integration</ac:parameter></ac:structured-macro>Hub Integration</h3>
+<p><strong>Hub integration</strong> is the SDK capability to interact with Hub services for tools, memory, knowledge, and events. Hub integration enables agents to use tools, access memory and knowledge, and publish events through Hub's governed services.</p>
+<p>Hub integration must provide:<br />
+*   <strong>Tool discovery/calling</strong>: Discover and call tools via Hub Tool Gateway<br />
+*   <strong>Stores access</strong>: Access Hub Stores (Workbench Data Store, etc.)<br />
+*   <strong>Knowledge Services</strong>: Access Enterprise Knowledge via Knowledge Services<br />
+*   <strong>Memory Services</strong>: Access Enterprise Memory and Agent Memory via Memory Services<br />
+*   <strong>Events</strong>: Publish events via Signal Exchange</p>
+<p>Without Hub integration, agents cannot use tools, access memory or knowledge, or publish events, severely limiting their capabilities.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conceptual-models-frameworks</ac:parameter></ac:structured-macro>Conceptual Models / Frameworks</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-sdk-capability-model</ac:parameter></ac:structured-macro>The SDK Capability Model</h3>
+<p>SDK capabilities form a layered model:</p>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────┐
+│              Agent Application                          │
+└─────────────────────────────────────────────────────────┘
+                        ↑
+┌─────────────────────────────────────────────────────────┐
+│              SDK Capabilities                           │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │ Employment   │  │   Prompt     │  │   Context    │ │
+│  │ Spec Access  │  │  Management  │  │ Compilation │ │
+│  └──────────────┘  └──────────────┘  └──────────────┘ │
+│  ┌──────────────┐  ┌──────────────┐                   │
+│  │Observability │  │ Hub          │                   │
+│  │              │  │ Integration  │                   │
+│  └──────────────┘  └──────────────┘                   │
+└─────────────────────────────────────────────────────────┘
+                        ↑
+┌─────────────────────────────────────────────────────────┐
+│              Seer &amp; Hub Services                       │
+│  (Agent Lifecycle Manager, Context Compiler, Tool      │
+│   Gateway, Memory Services, Knowledge Services)         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+
+<p>Each capability provides specific functionality while working together to enable comprehensive agent development.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-autonomy-level-model</ac:parameter></ac:structured-macro>The Autonomy Level Model</h3>
+<p>Prompt management uses an autonomy level model:</p>
+<ul>
+<li><strong>Full</strong>: Full autonomy (agent makes decisions independently)</li>
+<li><strong>Suggest</strong>: Suggest mode (agent suggests, human approves)</li>
+<li><strong>Ask</strong>: Ask mode (agent asks before acting)</li>
+<li><strong>Watch</strong>: Watch mode (agent observes, human acts)</li>
+</ul>
+<p>Prompts are tagged with autonomy levels and selected based on the current agent's autonomy level (determined from Employment Spec). Prompts tagged at a level can be used at that level or lower levels.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">systemic-and-enterprise-considerations</ac:parameter></ac:structured-macro>Systemic and Enterprise Considerations</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">performance-requirements</ac:parameter></ac:structured-macro>Performance Requirements</h3>
+<p>SDK capabilities must be performant:</p>
+<ul>
+<li><strong>Caching</strong>: Employment Specs and prompts must be cached to avoid repeated service calls</li>
+<li><strong>Efficient compilation</strong>: Context compilation must be efficient, avoiding unnecessary data retrieval</li>
+<li><strong>Minimal overhead</strong>: Observability instrumentation must add minimal overhead to agent execution</li>
+<li><strong>Connection pooling</strong>: Hub integration must use connection pooling for efficient service access</li>
+</ul>
+<p>Performance directly impacts agent responsiveness and resource utilization.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">security-and-governance</ac:parameter></ac:structured-macro>Security and Governance</h3>
+<p>SDK capabilities must maintain security and governance:</p>
+<ul>
+<li><strong>Authentication</strong>: All service access must be authenticated</li>
+<li><strong>Authorization</strong>: Access must respect authority constraints and guardrails</li>
+<li><strong>PII redaction</strong>: Observability must redact PII according to workbench policies</li>
+<li><strong>Audit trail</strong>: All service access must be auditable</li>
+</ul>
+<p>Security and governance are non-negotiable for enterprise deployments.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">versioning-and-compatibility</ac:parameter></ac:structured-macro>Versioning and Compatibility</h3>
+<p>SDK capabilities must handle versioning:</p>
+<ul>
+<li><strong>Spec versioning</strong>: Employment Specs and Training Specs are versioned</li>
+<li><strong>API versioning</strong>: SDK APIs must handle service API versioning</li>
+<li><strong>Backward compatibility</strong>: SDK updates must maintain backward compatibility when possible</li>
+<li><strong>Migration support</strong>: SDK must support migration when breaking changes occur</li>
+</ul>
+<p>Versioning enables safe updates and rollbacks.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions-failure-modes</ac:parameter></ac:structured-macro>Common Misconceptions &amp; Failure Modes</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-direct-service-access-is-sufficient</ac:parameter></ac:structured-macro>Misconception: Direct Service Access Is Sufficient</h3>
+<p>Some developers assume that direct service access (REST APIs, gRPC) is sufficient without SDKs. However, direct access requires developers to handle authentication, caching, versioning, observability instrumentation, and error handling—complexity that SDKs abstract away.</p>
+<p><strong>Failure mode</strong>: Developers access services directly, increasing development complexity and reducing productivity.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-observability-is-optional</ac:parameter></ac:structured-macro>Misconception: Observability Is Optional</h3>
+<p>Some developers assume that observability is optional during development. However, observability is essential for understanding agent behavior, debugging issues, and validating agent correctness.</p>
+<p><strong>Failure mode</strong>: Developers skip observability, making debugging and validation difficult or impossible.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-context-compilation-is-simple</ac:parameter></ac:structured-macro>Misconception: Context Compilation Is Simple</h3>
+<p>Some developers assume that context compilation is simply retrieving data from various sources. However, context compilation requires understanding the four-source model, handling versioning, managing caching, and assembling context efficiently.</p>
+<p><strong>Failure mode</strong>: Developers implement ad-hoc context assembly, leading to incomplete context, performance problems, or incorrect reasoning.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sdk-design-principles</ac:parameter></ac:structured-macro>SDK Design Principles</h3>
+<p>SDKs should be designed with:</p>
+<ul>
+<li><strong>Simplicity</strong>: APIs should be simple and intuitive</li>
+<li><strong>Consistency</strong>: APIs should be consistent across capabilities and languages</li>
+<li><strong>Performance</strong>: APIs should be performant with appropriate caching</li>
+<li><strong>Error handling</strong>: APIs should provide clear error messages and handling</li>
+<li><strong>Documentation</strong>: APIs should be well-documented with examples</li>
+</ul>
+<p>SDK design directly impacts developer productivity and satisfaction.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">capability-integration</ac:parameter></ac:structured-macro>Capability Integration</h3>
+<p>SDK capabilities must work together:</p>
+<ul>
+<li><strong>Employment Spec informs prompts</strong>: Employment Spec determines autonomy level, which informs prompt selection</li>
+<li><strong>Context compilation uses knowledge/memory</strong>: Context compilation retrieves data from Knowledge Services and Memory Services</li>
+<li><strong>Observability tracks all operations</strong>: Observability instruments all SDK operations</li>
+<li><strong>Hub integration enables tools</strong>: Hub integration enables tool discovery and calling</li>
+</ul>
+<p>Capability integration enables comprehensive agent functionality.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">development-workflow-integration</ac:parameter></ac:structured-macro>Development Workflow Integration</h3>
+<p>SDK capabilities must support development workflows:</p>
+<ul>
+<li><strong>Local development</strong>: SDKs must work in local development environments</li>
+<li><strong>Mock services</strong>: SDKs should support mock services for local testing</li>
+<li><strong>CI/CD integration</strong>: SDKs must support CI/CD testing and validation</li>
+<li><strong>Debugging support</strong>: SDKs must provide debugging support through observability</li>
+</ul>
+<p>Development workflow integration enables efficient agent development.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 5.13.1 (SDK Needs for Agent Development)</strong>: Establishes the framework-agnostic and multi-language requirements that these capabilities address</li>
+<li><strong>Section 5.13.3 (Development Workflow Requirements)</strong>: Describes how these capabilities support development workflows</li>
+<li><strong>Section 20.2 (SDK Capabilities)</strong>: Describes how Seer implements these capabilities in the Seer Agent SDK</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>seer-design/subsystems/seer-agent-sdk/README.md</code> — Seer Agent SDK design</li>
+<li><code>seer-design/subsystems/seer-agent-sdk/python-sdk/employment-spec-apis.md</code> — Employment Spec APIs</li>
+<li><code>seer-design/subsystems/seer-agent-sdk/python-sdk/prompt-apis.md</code> — Prompt APIs</li>
+<li><code>seer-design/subsystems/seer-agent-sdk/python-sdk/context-compiler-apis.md</code> — Context Compiler APIs</li>
+<li><code>seer-design/subsystems/seer-agent-sdk/python-sdk/observability-apis.md</code> — Observability APIs</li>
+<li><code>seer-design/subsystems/seer-agent-sdk/python-sdk/hub-integration-apis.md</code> — Hub Integration APIs</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-13-developer-experience-requirements/05-13-2-core-sdk-capabilities.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

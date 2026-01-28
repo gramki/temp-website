@@ -1,0 +1,152 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-2-agent-health-monitor.md -->
+<!-- Title: 19.2 Agent Health Monitor -->
+<!-- Content Hash: b9b2578b0be8b884aa64964218a03e661296d238224d1a4ecfbd42c3566f729b -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">192-agent-health-monitor</ac:parameter></ac:structured-macro>19.2 Agent Health Monitor</h1>
+<p>Agent Health Monitor implements the SLO tracking requirements established in Section 5.12.3. It tracks Service Level Objectives (SLOs) across three dimensions—Cost SLOs for Agent Reliability Engineers (ARE), Behavior SLOs for Cognitive Operations Stewards (COS), and Feedback SLOs for Process Architects (PA) and Agent Product Owners (APO)—without enforcing thresholds.</p>
+<p>Agent Health Monitor provides persona-specific SLO tracking that enables different personas to monitor the aspects of agent health that matter to their roles while maintaining a unified operational health model. SLO tracking identifies deviations from targets, but enforcement (if required) is handled by sentinels or external systems.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection describes how Seer implements SLO tracking through Agent Health Monitor. It explains how SLOs are defined, how they are evaluated using Agent Analytics data marts, and how deviations are tracked and reported. It also describes the Human Feedback Service that collects and routes feedback for Feedback SLO calculation.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-concepts-definitions</ac:parameter></ac:structured-macro>Core Concepts &amp; Definitions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">slo-tracking-without-enforcement</ac:parameter></ac:structured-macro>SLO Tracking Without Enforcement</h3>
+<p>Agent Health Monitor tracks SLOs but does not enforce them. This separation enables organizations to:<br />
+*   Track SLOs without automatically triggering enforcement actions<br />
+*   Configure sentinels to trigger on SLO deviations (if desired)<br />
+*   Handle SLO deviations through appropriate mechanisms (sentinels, human intervention, external systems)</p>
+<p>SLO Manager and SLO Tracking Service only manage and track—no enforcement. Enforcement is handled by sentinels (if configured) or external systems.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-slos-are</ac:parameter></ac:structured-macro>Cost SLOs (ARE)</h3>
+<p><strong>Cost SLOs</strong> track cost-related metrics for Agent Reliability Engineers (ARE), enabling AREs to monitor agent cost efficiency, budget utilization, and cost anomalies. Cost SLOs track metrics such as:<br />
+*   Cost-to-health ratio: The relationship between cost and agent health/effectiveness<br />
+*   Budget utilization: Percentage of allocated budget consumed over time periods<br />
+*   Cost anomalies: Unusual cost patterns that deviate from historical baselines<br />
+*   Cost per successful task: Average cost per task that completes successfully<br />
+*   Cost velocity: Rate of cost accumulation over time</p>
+<p>Cost SLOs use Agent Analytics data marts for evaluation, comparing current metrics to SLO targets and historical baselines.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">behavior-slos-cos</ac:parameter></ac:structured-macro>Behavior SLOs (COS)</h3>
+<p><strong>Behavior SLOs</strong> track behavioral metrics for Cognitive Operations Stewards (COS), enabling COSs to monitor agent behavioral patterns, detect drift, and assess quality metrics. Behavior SLOs track metrics such as:<br />
+*   Behavioral patterns: Consistency in decision-making, reasoning patterns, tool usage patterns<br />
+*   Drift detection: Gradual changes in behavior over time compared to established baselines<br />
+*   Quality metrics: Success rates, error rates, user satisfaction indicators<br />
+*   Policy compliance: Adherence to policies, guardrail violations, authority ceiling compliance</p>
+<p>Behavior SLOs enable COSs to detect behavioral problems that may not manifest as immediate failures but gradually degrade agent performance or violate policies.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">feedback-slos-paapo</ac:parameter></ac:structured-macro>Feedback SLOs (PA/APO)</h3>
+<p><strong>Feedback SLOs</strong> track feedback-related metrics for Process Architects (PA) and Agent Product Owners (APO), enabling PAs and APOs to monitor feedback collection, resolution, and promotion effectiveness. Feedback SLOs track metrics such as:<br />
+*   Feedback collection rates: Percentage of agent interactions that generate feedback<br />
+*   Feedback resolution rates: Percentage of feedback items that are resolved<br />
+*   Feedback promotion rates: Percentage of feedback that is promoted to training improvements<br />
+*   Feedback quality: Relevance and usefulness of collected feedback</p>
+<p>Feedback SLOs use the Human Feedback Service to collect feedback and calculate metrics.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">human-feedback-service</ac:parameter></ac:structured-macro>Human Feedback Service</h3>
+<p><strong>Human Feedback Service</strong> collects feedback from various sources, routes feedback to appropriate destinations (Training Feedback Services, agent behavior systems, etc.), and calculates feedback metrics for SLO evaluation. The Human Feedback Service:<br />
+*   Collects explicit feedback (user ratings, corrections)<br />
+*   Collects implicit feedback (user actions, outcomes)<br />
+*   Routes feedback to Training Spec improvements, agent behavior systems, or other destinations<br />
+*   Calculates feedback metrics (user satisfaction, override rate, feedback rating, escalation rate)</p>
+<p>The Human Feedback Service enables Feedback SLO tracking and supports the feedback and learning requirements established in Section 5.10.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conceptual-models-frameworks</ac:parameter></ac:structured-macro>Conceptual Models / Frameworks</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-slo-tracking-model</ac:parameter></ac:structured-macro>The SLO Tracking Model</h3>
+<p>SLO tracking operates on a three-phase model:</p>
+<ol>
+<li><strong>SLO Definition</strong>: SLOs are defined with targets, thresholds, and evaluation criteria in Health Specs</li>
+<li><strong>SLO Evaluation</strong>: SLOs are evaluated periodically (or continuously) against Agent Analytics data marts</li>
+<li><strong>SLO Reporting</strong>: SLO deviations are reported to appropriate personas and may trigger sentinel actions</li>
+</ol>
+<p>SLO tracking uses Agent Analytics data marts for historical data, enabling trend analysis and baseline comparison.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-persona-specific-slo-model</ac:parameter></ac:structured-macro>The Persona-Specific SLO Model</h3>
+<p>Different personas require different SLO views:</p>
+<table>
+<thead>
+<tr>
+<th>Persona</th>
+<th>SLO Type</th>
+<th>Primary Metrics</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ARE</strong></td>
+<td>Cost SLOs</td>
+<td>Cost-to-health ratio, budget utilization, cost anomalies</td>
+<td>Monitor cost efficiency and budget compliance</td>
+</tr>
+<tr>
+<td><strong>COS</strong></td>
+<td>Behavior SLOs</td>
+<td>Behavioral patterns, drift detection, quality metrics</td>
+<td>Monitor behavioral consistency and quality</td>
+</tr>
+<tr>
+<td><strong>PA/APO</strong></td>
+<td>Feedback SLOs</td>
+<td>Feedback collection, resolution, promotion rates</td>
+<td>Monitor learning effectiveness and feedback mechanisms</td>
+</tr>
+</tbody>
+</table>
+<p>While personas focus on their specific SLO types, all SLOs contribute to a unified operational health assessment.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">systemic-and-enterprise-considerations</ac:parameter></ac:structured-macro>Systemic and Enterprise Considerations</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">data-requirements</ac:parameter></ac:structured-macro>Data Requirements</h3>
+<p>SLO tracking requires:<br />
+*   <strong>Historical data</strong>: Agent Analytics data marts must maintain sufficient historical data for baseline comparison and trend analysis<br />
+*   <strong>Real-time data</strong>: Some SLOs (particularly cost SLOs) may require near-real-time data for timely detection<br />
+*   <strong>Aggregated data</strong>: SLO evaluation requires efficient aggregation of operational data across agents, workbenches, and time periods</p>
+<p>Agent Analytics data marts must be designed to support efficient SLO evaluation queries while maintaining data freshness appropriate for each SLO type.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">performance-considerations</ac:parameter></ac:structured-macro>Performance Considerations</h3>
+<p>SLO evaluation must be efficient:<br />
+*   <strong>Incremental evaluation</strong>: SLOs should be evaluated incrementally rather than recalculating from scratch each time<br />
+*   <strong>Caching</strong>: SLO evaluation results should be cached to avoid redundant calculations<br />
+*   <strong>Parallel evaluation</strong>: Multiple SLOs should be evaluated in parallel to minimize latency</p>
+<p>SLO tracking should not impact agent performance or request processing latency.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">integration-with-sentinels</ac:parameter></ac:structured-macro>Integration with Sentinels</h3>
+<p>SLO tracking integrates with sentinels:<br />
+*   <strong>SLO deviations can trigger sentinels</strong>: If configured, SLO deviations can trigger Realtime or Analytical Sentinels to generate Observations or Exceptions<br />
+*   <strong>Sentinels can evaluate SLOs</strong>: Sentinels can use SLO evaluation results in their policy logic<br />
+*   <strong>SLO tracking is independent</strong>: SLO tracking operates independently of sentinels, enabling organizations to track SLOs without requiring sentinel deployment</p>
+<p>This integration enables organizations to use SLOs as triggers for automated oversight while maintaining flexibility in how SLO deviations are handled.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions-failure-modes</ac:parameter></ac:structured-macro>Common Misconceptions &amp; Failure Modes</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-slos-are-enforcement-mechanisms</ac:parameter></ac:structured-macro>Misconception: SLOs Are Enforcement Mechanisms</h3>
+<p>Some organizations assume that SLOs automatically enforce thresholds, similar to cost ceilings or budget limits. However, SLOs are tracking mechanisms that identify deviations; enforcement (if required) is handled by sentinels or external systems.</p>
+<p><strong>Failure mode</strong>: Organizations expect SLOs to automatically halt agent execution when thresholds are breached, leading to confusion when agents continue operating despite SLO breaches.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-one-slo-type-is-sufficient</ac:parameter></ac:structured-macro>Misconception: One SLO Type Is Sufficient</h3>
+<p>Some organizations assume that one SLO type (typically cost SLOs) is sufficient. However, different personas require different SLO types to monitor the aspects of agent health that matter to their roles.</p>
+<p><strong>Failure mode</strong>: Organizations deploy only cost SLOs, missing behavioral problems and feedback issues that require different monitoring approaches.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-slos-replace-sentinels</ac:parameter></ac:structured-macro>Misconception: SLOs Replace Sentinels</h3>
+<p>Some organizations assume that SLO tracking can replace sentinel oversight. While SLOs provide structured health monitoring, sentinels provide policy evaluation, anomaly detection, and active intervention capabilities that SLOs do not provide.</p>
+<p><strong>Failure mode</strong>: Organizations deploy SLO tracking without sentinels, missing problems that require policy evaluation or active intervention rather than just metric tracking.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">slo-definition-process</ac:parameter></ac:structured-macro>SLO Definition Process</h3>
+<p>Organizations should define SLOs through a structured process:<br />
+1. Identify metrics that matter for each persona and use case<br />
+2. Establish baselines by collecting historical data<br />
+3. Set targets based on baselines and business requirements<br />
+4. Define thresholds (warning, breach, critical) for each SLO<br />
+5. Configure evaluation frequency and data sources<br />
+6. Integrate with sentinels (if desired) for automated oversight</p>
+<p>SLOs should be defined iteratively, starting with critical metrics and expanding based on operational experience.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">slo-monitoring-and-response</ac:parameter></ac:structured-macro>SLO Monitoring and Response</h3>
+<p>Organizations must establish processes for monitoring and responding to SLO deviations:<br />
+*   <strong>Monitoring dashboards</strong>: Provide persona-specific dashboards that display SLO status and deviations<br />
+*   <strong>Alerting mechanisms</strong>: Configure alerts for SLO breaches that require immediate attention<br />
+*   <strong>Response procedures</strong>: Define procedures for responding to SLO deviations, including escalation paths<br />
+*   <strong>Review processes</strong>: Establish periodic review processes to assess SLO effectiveness and adjust targets</p>
+<p>SLO monitoring should be integrated into operational workflows, not treated as a separate activity.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 5.12.3 (SLO Tracking Requirements)</strong>: Establishes the SLO tracking requirements that Agent Health Monitor implements</li>
+<li><strong>Section 19.1 (Seer Sentinels)</strong>: Describes how sentinels can be triggered by SLO deviations</li>
+<li><strong>Section 19.3 (Agent Analytics)</strong>: Describes the Agent Analytics data mart that SLO tracking uses</li>
+<li><strong>Section 14 (Cost Governance)</strong>: Describes cost governance mechanisms that Cost SLOs track</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>seer-design/subsystems/agent-health-monitor/README.md</code> — Agent Health Monitor design</li>
+<li><code>seer-design/subsystems/agent-health-monitor/SCOPE.md</code> — Agent Health Monitor scope</li>
+<li><code>seer-design/subsystems/agent-health-monitor/slo-manager.md</code> — SLO Manager design</li>
+<li><code>seer-design/subsystems/agent-health-monitor/slo-tracking-service.md</code> — SLO Tracking Service design</li>
+<li><code>seer-design/subsystems/agent-health-monitor/human-feedback-service.md</code> — Human Feedback Service design</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-2-how-seer-solves/19-agent-oversight-monitoring-in-seer/19-2-agent-health-monitor.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

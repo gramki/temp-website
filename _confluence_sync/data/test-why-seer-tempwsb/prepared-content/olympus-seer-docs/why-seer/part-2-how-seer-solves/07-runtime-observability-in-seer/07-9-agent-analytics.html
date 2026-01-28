@@ -1,0 +1,152 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/07-runtime-observability-in-seer/07-9-agent-analytics.md -->
+<!-- Title: 7.9 Agent Analytics -->
+<!-- Content Hash: bde8ce76f163df4d1c5b12962367b5104e306f77fdb83b7e872013a69dad8ceb -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">79-agent-analytics</ac:parameter></ac:structured-macro>7.9 Agent Analytics</h1>
+<p>Seer provides <strong>Agent Analytics</strong>—a purpose-built data mart for historical operational data pertaining to enterprise AI agents. Agent Analytics supports retrospective analysis of agent performance, cost, behavior, and compliance over time, enabling long-term trend analysis, reporting, and the detection of subtle patterns that are critical for governance, optimization, and compliance.</p>
+<p>Agent Analytics addresses the historical analysis requirements established in Section 5.12, providing the data foundation for SLO tracking, behavioral drift detection, and compliance reporting. It is distinct from runtime observability, which provides real-time insights into current agent operations.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection introduces Agent Analytics as a key component of Seer's historical analysis strategy. It explains how Agent Analytics functions as a data mart, its separation from runtime observability, and its integration with the broader Olympus LakeStack for enterprise-wide semantic consistency.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">historical-data-mart</ac:parameter></ac:structured-macro>Historical Data Mart</h2>
+<p>Agent Analytics is fundamentally a <strong>data mart</strong> designed to house comprehensive historical operational data for agents:</p>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent Performance Data</strong></td>
+<td>Success rates, failure rates, latency, throughput</td>
+</tr>
+<tr>
+<td><strong>Cost Data</strong></td>
+<td>Token usage, API call costs, compute costs, cost-to-health ratios</td>
+</tr>
+<tr>
+<td><strong>Behavioral Data</strong></td>
+<td>Decision paths, tool invocation sequences, prompt variations, guardrail hits</td>
+</tr>
+<tr>
+<td><strong>Feedback Data</strong></td>
+<td>User ratings, override events, escalation patterns</td>
+</tr>
+<tr>
+<td><strong>Compliance Data</strong></td>
+<td>Policy violation records, audit trail summaries</td>
+</tr>
+</tbody>
+</table>
+<p>This data is aggregated and structured for efficient querying and reporting, enabling long-term trend analysis and retrospective investigations.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">separation-from-runtime-observability</ac:parameter></ac:structured-macro>Separation from Runtime Observability</h2>
+<p>A critical design decision is the <strong>clear separation of Agent Analytics from runtime observability</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Agent Analytics</th>
+<th>Observability Extensions to Watch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Temporal Focus</strong></td>
+<td>Historical, trends over time</td>
+<td>Real-time, current state</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Long-term analysis, reporting, compliance</td>
+<td>Immediate operational monitoring, debugging</td>
+</tr>
+<tr>
+<td><strong>Data Source</strong></td>
+<td>Aggregated data mart</td>
+<td>Live event streams, metrics, logs</td>
+</tr>
+<tr>
+<td><strong>Persona</strong></td>
+<td>PA, APO, Business Analysts</td>
+<td>ARE, COS, SRE for Agentic Systems</td>
+</tr>
+</tbody>
+</table>
+<p>This separation ensures that each system is optimized for its specific purpose, preventing the conflation of real-time operational alerts with long-term business intelligence.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lakestack-integration</ac:parameter></ac:structured-macro>LakeStack Integration</h2>
+<p>Agent Analytics is built to seamlessly integrate with the broader Olympus LakeStack:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Integration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pontus Infrastructure</strong></td>
+<td>Utilizes Pontus for scalable data ingestion, storage, and processing</td>
+</tr>
+<tr>
+<td><strong>ETSL (Enterprise Semantic Layer)</strong></td>
+<td>Leverages ETSL to ensure semantic consistency with other enterprise data</td>
+</tr>
+<tr>
+<td><strong>Report Center</strong></td>
+<td>Publishes curated data products and reports to Report Center for business users</td>
+</tr>
+</tbody>
+</table>
+<p>This integration ensures that agent data is not siloed but becomes a first-class citizen within the enterprise's overall data strategy.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">data-sources</ac:parameter></ac:structured-macro>Data Sources</h2>
+<p>Agent Analytics collects data from various critical sources:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Data Provided</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Olympus Watch</strong></td>
+<td>Aggregated metrics and logs from the core observability platform</td>
+</tr>
+<tr>
+<td><strong>Seer Sidecar</strong></td>
+<td>Detailed agent-level telemetry, including internal reasoning steps, prompt usage, memory interactions</td>
+</tr>
+<tr>
+<td><strong>Model Gateway</strong></td>
+<td>Data on LLM calls, token usage, model latency, cost attribution</td>
+</tr>
+<tr>
+<td><strong>Agent Runtime</strong></td>
+<td>Information on agent session lifecycle, task execution, and outcomes</td>
+</tr>
+</tbody>
+</table>
+<p>These sources provide comprehensive operational data for historical analysis.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<p>Agent Analytics provides the foundation for:<br />
+*   <strong>Data-Driven Governance</strong>: Enables objective, evidence-based decision-making for agent policies and operations<br />
+*   <strong>Performance Optimization</strong>: Identifies areas for agent improvement, cost reduction, and efficiency gains<br />
+*   <strong>Compliance and Audit Reporting</strong>: Provides the necessary historical data for regulatory reporting and internal audits<br />
+*   <strong>Behavioral Trend Analysis</strong>: Detects subtle shifts in agent behavior over time, informing retraining and policy updates<br />
+*   <strong>Unified Enterprise View</strong>: Integrates agent data into the broader enterprise data landscape via LakeStack</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 19.3 (Agent Analytics)</strong>: Detailed coverage of Agent Analytics, including architecture, data mart model, and LakeStack integration</li>
+<li><strong>Section 19.4 (Observability Extensions to Watch)</strong>: Explains the distinction between historical analytics (this section) and runtime observability</li>
+<li><strong>Section 19.2 (Agent Health Monitor)</strong>: Agent Analytics serves as the primary data source for SLO evaluation</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>seer-design/subsystems/agent-analytics/README.md</code> — Agent Analytics design</li>
+<li><code>olympus-hub-docs/05-infrastructure/olympus-lakestack.md</code> — Olympus LakeStack infrastructure</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-2-how-seer-solves/07-runtime-observability-in-seer/07-9-agent-analytics.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

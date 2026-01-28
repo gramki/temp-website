@@ -1,0 +1,161 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-1-three-cognitive-layers.md -->
+<!-- Title: 4.1 The Three Cognitive Layers -->
+<!-- Content Hash: 82a5be37017feee2315262c7ecf8b64f5b42a6bfa56b89d41c264aed1fdec838 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">41-the-three-cognitive-layers</ac:parameter></ac:structured-macro>4.1 The Three Cognitive Layers</h1>
+<p>Enterprise AI agents operate across three distinct cognitive layers, each serving a different purpose and governed differently. Understanding these layers is fundamental to designing agents that are both effective and compliant.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">overview-of-the-three-layers</ac:parameter></ac:structured-macro>Overview of the Three Layers</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What It Contains</th>
+<th>Purpose</th>
+<th>Governance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enterprise Knowledge</strong></td>
+<td>Authoritative facts, policies, procedures</td>
+<td>Ground agent reasoning in organizational truth</td>
+<td>Curated, versioned, formally approved</td>
+</tr>
+<tr>
+<td><strong>Enterprise Memory</strong></td>
+<td>Decision records, outcomes, learned patterns</td>
+<td>Enable institutional learning and audit</td>
+<td>Immutable, 7+ year retention, no PII</td>
+</tr>
+<tr>
+<td><strong>Agent Memory</strong></td>
+<td>Session state, conversation, working hypotheses</td>
+<td>Support in-flight operations</td>
+<td>Ephemeral, session-scoped, PII permitted</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enterprise-knowledge-what-is-true</ac:parameter></ac:structured-macro>Enterprise Knowledge: What is True</h2>
+<p>Enterprise Knowledge represents the organization's codified, authoritative understanding of how things should work:</p>
+<ul>
+<li><strong>Regulatory requirements</strong> — What compliance mandates</li>
+<li><strong>Business policies</strong> — What the organization has decided</li>
+<li><strong>Standard procedures</strong> — How work should be done</li>
+<li><strong>Reference data</strong> — Product catalogs, pricing rules, entity definitions</li>
+</ul>
+<p><strong>Key Characteristics:</strong><br />
+- <strong>Normative:</strong> Dictates correct behavior<br />
+- <strong>Curated:</strong> Undergoes formal review and approval<br />
+- <strong>Versioned:</strong> Changes are tracked with full history<br />
+- <strong>PII-free:</strong> Contains no personally identifiable information</p>
+<p><strong>Agent Use:</strong> Grounds reasoning in authoritative guidance, ensuring compliance and consistency.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enterprise-memory-what-happened</ac:parameter></ac:structured-macro>Enterprise Memory: What Happened</h2>
+<p>Enterprise Memory captures the organization's experiential record—what actually occurred and what was learned:</p>
+<ul>
+<li><strong>Decision records</strong> — What was decided and why</li>
+<li><strong>Outcome records</strong> — What happened as a result</li>
+<li><strong>Override records</strong> — When and why humans intervened</li>
+<li><strong>Learned patterns</strong> — Hypotheses derived from operational experience</li>
+</ul>
+<p><strong>Key Characteristics:</strong><br />
+- <strong>Experiential:</strong> Records actual events and outcomes<br />
+- <strong>Immutable:</strong> Append-only, cannot be modified after creation<br />
+- <strong>Long-retained:</strong> 7+ years for regulatory compliance<br />
+- <strong>PII-free:</strong> Uses entity references, not direct PII</p>
+<p><strong>Agent Use:</strong> Precedent lookup, understanding historical context, informing risk assessment.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-memory-what-the-agent-is-working-with-now</ac:parameter></ac:structured-macro>Agent Memory: What the Agent is Working With Now</h2>
+<p>Agent Memory supports the agent's immediate operational needs within a session:</p>
+<ul>
+<li><strong>Conversation history</strong> — Recent turns in the current interaction</li>
+<li><strong>Session state</strong> — Extracted entities, working hypotheses, intermediate results</li>
+<li><strong>Preferences</strong> — User preferences for this session</li>
+<li><strong>Tool results</strong> — Outputs from recent tool invocations</li>
+</ul>
+<p><strong>Key Characteristics:</strong><br />
+- <strong>Ephemeral:</strong> Session or request-scoped<br />
+- <strong>Mutable:</strong> Can be updated during session<br />
+- <strong>PII-permitted:</strong> Can contain PII within session boundaries<br />
+- <strong>Framework-native:</strong> Uses patterns natural to the agent framework</p>
+<p><strong>Agent Use:</strong> Maintaining conversational flow, tracking intermediate reasoning, personalizing responses.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">relationship-between-layers</ac:parameter></ac:structured-macro>Relationship Between Layers</h2>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────┐
+│                   ENTERPRISE KNOWLEDGE                       │
+│                                                              │
+│   What is TRUE — Authoritative, Curated, Versioned          │
+│                                                              │
+│   Agents READ; only authorized humans/processes WRITE        │
+└─────────────────────────────────────────────────────────────┘
+                              ▲
+                              │ Governed promotion
+                              │ (with human approval)
+┌─────────────────────────────────────────────────────────────┐
+│                   ENTERPRISE MEMORY                          │
+│                                                              │
+│   What HAPPENED — Experiential, Immutable, Auditable        │
+│                                                              │
+│   Agents WRITE (decisions, outcomes); READ for precedent     │
+└─────────────────────────────────────────────────────────────┘
+                              ▲
+                              │ Explicit write
+                              │ (via Signal Exchange)
+┌─────────────────────────────────────────────────────────────┐
+│                     AGENT MEMORY                             │
+│                                                              │
+│   What agent is WORKING WITH — Ephemeral, Session-scoped    │
+│                                                              │
+│   Agents READ/WRITE freely within session                    │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance-boundaries</ac:parameter></ac:structured-macro>Governance Boundaries</h2>
+<table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Enterprise Knowledge</th>
+<th>Enterprise Memory</th>
+<th>Agent Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Write access</strong></td>
+<td>Governance-controlled</td>
+<td>Signal Exchange</td>
+<td>Direct SDK</td>
+</tr>
+<tr>
+<td><strong>Retention</strong></td>
+<td>Indefinite (versioned)</td>
+<td>7+ years</td>
+<td>Session + days</td>
+</tr>
+<tr>
+<td><strong>PII policy</strong></td>
+<td>Prohibited</td>
+<td>Prohibited</td>
+<td>Permitted (session)</td>
+</tr>
+<tr>
+<td><strong>Cross-agent visibility</strong></td>
+<td>Shared (workbench)</td>
+<td>Shared (workbench)</td>
+<td>Isolated (agent)</td>
+</tr>
+<tr>
+<td><strong>Auditability</strong></td>
+<td>Version history</td>
+<td>CAF immutable records</td>
+<td>Minimal</td>
+</tr>
+</tbody>
+</table>
+<p>These three layers work together to provide agents with the right information at the right time, under appropriate governance for each type of data.</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/04-subsystems/memory-services/README.md</code><br />
+*   <code>olympus-seer-docs/agentic-ai-concepts/agent-memory/knowledge-memory-context-session.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/03-memory-requirements/_section-overview.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-1-three-cognitive-layers.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

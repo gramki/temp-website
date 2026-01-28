@@ -1,0 +1,197 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/08-model-gateway-in-seer/08-3-intelligent-routing.md -->
+<!-- Title: 8.3 Intelligent Routing -->
+<!-- Content Hash: 6c90cad8177f212ce27aca4e05e9a863081668f522d8bb7895311ea6872990ae -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">83-intelligent-routing</ac:parameter></ac:structured-macro>8.3 Intelligent Routing</h1>
+<p>Bifrost can route requests to different models based on task characteristics, cost constraints, latency requirements, and other factors. This enables optimization without changing agent code.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">routing-dimensions</ac:parameter></ac:structured-macro>Routing Dimensions</h2>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Optimization</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Task type</strong></td>
+<td>Capability matching</td>
+<td>Complex reasoning → large model</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Cost optimization</td>
+<td>Simple query → cheaper model</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Speed optimization</td>
+<td>Interactive → faster model</td>
+</tr>
+<tr>
+<td><strong>Load</strong></td>
+<td>Availability</td>
+<td>Overloaded → alternative</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">task-based-routing</ac:parameter></ac:structured-macro>Task-Based Routing</h2>
+<p>Route based on task complexity:</p>
+<pre class="codehilite"><code class="language-yaml">task_routing:
+  rules:
+    - name: complex_reasoning
+      condition:
+        task_type: decision
+        complexity: high
+      route_to: claude-3.5-sonnet
+
+    - name: simple_classification
+      condition:
+        task_type: classification
+      route_to: gpt-4o-mini
+
+    - name: summarization
+      condition:
+        task_type: summarization
+      route_to: claude-3-haiku
+
+    - name: default
+      route_to: gpt-4o
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">task-detection</ac:parameter></ac:structured-macro>Task Detection</h3>
+<p>Tasks can be explicitly labeled or inferred:</p>
+<pre class="codehilite"><code class="language-python"># Explicit task labeling
+response = await gateway.chat_completion(
+    model=&quot;auto&quot;,
+    messages=[...],
+    metadata={&quot;task_type&quot;: &quot;decision&quot;, &quot;complexity&quot;: &quot;high&quot;}
+)
+
+# Inferred from context
+# Gateway analyzes prompt to determine task
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-aware-routing</ac:parameter></ac:structured-macro>Cost-Aware Routing</h2>
+<p>Route to minimize costs while meeting requirements:</p>
+<pre class="codehilite"><code class="language-yaml">cost_routing:
+  strategy: minimize_cost
+
+  constraints:
+    quality_floor: 0.9  # Don't sacrifice too much quality
+    latency_ceiling: 5s
+
+  model_costs:
+    claude-3.5-sonnet:
+      input: 0.003  # per 1K tokens
+      output: 0.015
+      quality: 0.95
+
+    gpt-4o-mini:
+      input: 0.00015
+      output: 0.0006
+      quality: 0.85
+
+    claude-3-haiku:
+      input: 0.00025
+      output: 0.00125
+      quality: 0.80
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-optimization-algorithm</ac:parameter></ac:structured-macro>Cost Optimization Algorithm</h3>
+<pre class="codehilite"><code>For each request:
+1. Estimate token count
+2. Calculate cost per model
+3. Filter models meeting quality floor
+4. Filter models meeting latency ceiling
+5. Select lowest cost model
+6. Route request
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">latency-aware-routing</ac:parameter></ac:structured-macro>Latency-Aware Routing</h2>
+<p>Route for speed when needed:</p>
+<pre class="codehilite"><code class="language-yaml">latency_routing:
+  interactive_mode:
+    condition: metadata.interactive == true
+    preference:
+      - model: gpt-4o-mini
+        max_latency: 1s
+      - model: claude-3-haiku
+        max_latency: 1.5s
+
+  batch_mode:
+    condition: metadata.batch == true
+    preference:
+      - model: claude-3.5-sonnet  # Best quality, latency acceptable
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">load-aware-routing</ac:parameter></ac:structured-macro>Load-Aware Routing</h2>
+<p>Route around overloaded providers:</p>
+<pre class="codehilite"><code class="language-yaml">load_routing:
+  health_checks:
+    interval: 10s
+    threshold:
+      error_rate: 0.1
+      latency_p95: 3s
+
+  routing:
+    - if: provider.health &lt; 0.8
+      action: reduce_traffic_50%
+
+    - if: provider.health &lt; 0.5
+      action: route_to_fallback
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ab-testing</ac:parameter></ac:structured-macro>A/B Testing</h2>
+<p>Route for experimentation:</p>
+<pre class="codehilite"><code class="language-yaml">ab_test:
+  name: new_model_evaluation
+
+  traffic_split:
+    control:
+      model: claude-3.5-sonnet
+      percent: 80
+    treatment:
+      model: gpt-4o
+      percent: 20
+
+  metrics:
+    - quality_score
+    - latency
+    - cost
+    - user_satisfaction
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">routing-audit</ac:parameter></ac:structured-macro>Routing Audit</h2>
+<p>All routing decisions are logged:</p>
+<pre class="codehilite"><code class="language-yaml">routing_decision:
+  request_id: req-abc123
+  timestamp: 2026-01-10T14:30:00Z
+
+  request:
+    agent: dispute-analyst-tier1
+    task_type: decision
+    estimated_tokens: 2500
+
+  routing:
+    strategy: cost_aware
+    candidates:
+      - model: claude-3.5-sonnet
+        estimated_cost: 0.05
+        meets_quality: true
+        meets_latency: true
+      - model: gpt-4o-mini
+        estimated_cost: 0.01
+        meets_quality: false  # Below quality floor
+
+    selected: claude-3.5-sonnet
+    reason: &quot;Cheapest meeting all constraints&quot;
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/model-gateway.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/08-model-gateway-in-seer/08-3-intelligent-routing.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

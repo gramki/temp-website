@@ -1,0 +1,292 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-7-immutability-governance.md -->
+<!-- Title: 4.7 Immutability & Data Governance -->
+<!-- Content Hash: e37f1cf4713b77f99ffc0e356a5157082021c716bfe3428ad8c919ae7246fa9a -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">47-immutability-data-governance</ac:parameter></ac:structured-macro>4.7 Immutability &amp; Data Governance</h1>
+<p>Enterprise Memory must satisfy stringent data governance requirements: immutability for audit defensibility, PII prohibition for long-term retention, and compliant right-to-erasure handling. This section details how Seer and Hub implement these requirements.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">why-these-constraints-matter</ac:parameter></ac:structured-macro>Why These Constraints Matter</h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Business Driver</th>
+<th>Regulatory Driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Immutability</strong></td>
+<td>Audit defensibility</td>
+<td>Tamper-evident records for regulators</td>
+</tr>
+<tr>
+<td><strong>No PII</strong></td>
+<td>7+ year retention</td>
+<td>GDPR/CCPA erasure compatibility</td>
+</tr>
+<tr>
+<td><strong>Right to erasure</strong></td>
+<td>Customer trust</td>
+<td>Legal obligation</td>
+</tr>
+<tr>
+<td><strong>Retention periods</strong></td>
+<td>Institutional learning</td>
+<td>Regulatory mandates</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">immutability</ac:parameter></ac:structured-macro>Immutability</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">principle</ac:parameter></ac:structured-macro>Principle</h3>
+<p>Enterprise Memory records are <strong>append-only</strong>:<br />
+- Once written, records cannot be modified<br />
+- Corrections are made via new amendment records<br />
+- Original record is preserved and linked to correction</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">implementation</ac:parameter></ac:structured-macro>Implementation</h3>
+<pre class="codehilite"><code class="language-yaml">decision_record:
+  record_id: &quot;dr-original-123&quot;
+  content_hash: &quot;sha256:abc123...&quot;  # Computed at creation
+
+  # If this record needs correction:
+amendment_record:
+  record_id: &quot;dr-amendment-456&quot;
+  amends: &quot;dr-original-123&quot;
+  reason: &quot;Rationale summary was incomplete&quot;
+  corrected_fields:
+    rationale.summary: &quot;Updated summary with complete reasoning&quot;
+  content_hash: &quot;sha256:def456...&quot;
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">chain-linking</ac:parameter></ac:structured-macro>Chain Linking</h3>
+<p>Records can be cryptographically linked:</p>
+<pre class="codehilite"><code>Record 1 → hash₁
+Record 2 → hash₂ = hash(content₂ + hash₁)
+Record 3 → hash₃ = hash(content₃ + hash₂)
+</code></pre>
+
+<p>Any modification to earlier records breaks the chain, providing tamper evidence.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">storage-backend</ac:parameter></ac:structured-macro>Storage Backend</h3>
+<p>Enterprise Memory uses Olympus Europa (OpenSearch) with:<br />
+- Write-once index settings<br />
+- No update/delete API exposure<br />
+- Audit logging of all operations</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pii-prohibition</ac:parameter></ac:structured-macro>PII Prohibition</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">principle</ac:parameter></ac:structured-macro>Principle</h3>
+<p>Enterprise Memory contains <strong>no direct PII</strong>:<br />
+- Uses entity references instead of personal data<br />
+- Enables 7+ year retention without privacy conflicts<br />
+- Supports right-to-erasure via reference deletion</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">entity-reference-pattern</ac:parameter></ac:structured-macro>Entity Reference Pattern</h3>
+<p>Instead of:</p>
+<pre class="codehilite"><code class="language-yaml"># BAD: Direct PII
+customer_name: &quot;John Smith&quot;
+customer_email: &quot;john@example.com&quot;
+</code></pre>
+
+<p>Use:</p>
+<pre class="codehilite"><code class="language-yaml"># GOOD: Entity reference
+customer_ref: &quot;cust-12345&quot;
+# Resolution via Customer Service (not in memory)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-can-be-stored</ac:parameter></ac:structured-macro>What Can Be Stored</h3>
+<table>
+<thead>
+<tr>
+<th>Allowed</th>
+<th>Not Allowed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entity references (IDs)</td>
+<td>Names, addresses, emails</td>
+</tr>
+<tr>
+<td>Business facts</td>
+<td>Personal identifiers</td>
+</tr>
+<tr>
+<td>Decision rationale</td>
+<td>Personal data in rationale</td>
+</tr>
+<tr>
+<td>Outcome categories</td>
+<td>Individual-identifying outcomes</td>
+</tr>
+<tr>
+<td>Anonymized patterns</td>
+<td>PII patterns</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pii-detection</ac:parameter></ac:structured-macro>PII Detection</h3>
+<p>CAF enforces PII prohibition:</p>
+<pre class="codehilite"><code class="language-yaml">caf_policy:
+  memory:
+    enterprise_memory:
+      pii_detection: enabled
+      on_pii_detected: reject
+      patterns:
+        - email
+        - phone
+        - ssn
+        - credit_card
+        - name_patterns
+</code></pre>
+
+<p>Records containing detected PII are rejected at write time.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">right-to-erasure</ac:parameter></ac:structured-macro>Right to Erasure</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-challenge</ac:parameter></ac:structured-macro>The Challenge</h3>
+<p>GDPR/CCPA require organizations to delete personal data on request. But:<br />
+- Enterprise Memory must be retained 7+ years<br />
+- Audit records must be immutable</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-solution-referential-erasure</ac:parameter></ac:structured-macro>The Solution: Referential Erasure</h3>
+<ol>
+<li><strong>Enterprise Memory contains no PII</strong> — only entity references</li>
+<li><strong>Entity Reference Service holds the mapping</strong> — <code>cust-12345</code> → "John Smith"</li>
+<li><strong>On erasure request</strong> — delete the mapping, not the memory</li>
+<li><strong>Result</strong> — Memory records remain for audit, but cannot be linked to individual</li>
+</ol>
+<pre class="codehilite"><code>BEFORE ERASURE:
+┌─────────────────────┐     ┌─────────────────────────┐
+│ Enterprise Memory   │     │ Entity Reference Service │
+│                     │     │                         │
+│ customer_ref:       │────▶│ cust-12345 → John Smith │
+│ cust-12345          │     │                         │
+└─────────────────────┘     └─────────────────────────┘
+
+AFTER ERASURE:
+┌─────────────────────┐     ┌─────────────────────────┐
+│ Enterprise Memory   │     │ Entity Reference Service │
+│                     │     │                         │
+│ customer_ref:       │────▶│ cust-12345 → [DELETED]  │
+│ cust-12345          │     │                         │
+└─────────────────────┘     └─────────────────────────┘
+
+Memory retained; personal data erased.
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">erasure-workflow</ac:parameter></ac:structured-macro>Erasure Workflow</h3>
+<pre class="codehilite"><code class="language-yaml">erasure_request:
+  request_id: &quot;erase-789&quot;
+  subject: &quot;john@example.com&quot;
+  timestamp: 2026-01-10T10:00:00Z
+
+erasure_execution:
+  # Step 1: Identify entity references
+  entity_refs_found:
+    - cust-12345
+    - contact-67890
+
+  # Step 2: Delete reference mappings
+  mappings_deleted:
+    - cust-12345: deleted
+    - contact-67890: deleted
+
+  # Step 3: Log erasure
+  erasure_log:
+    request_id: &quot;erase-789&quot;
+    completed_at: 2026-01-10T10:05:00Z
+    entity_refs_erased: 2
+    memory_records_preserved: 47
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">retention-policies</ac:parameter></ac:structured-macro>Retention Policies</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enterprise-memory</ac:parameter></ac:structured-macro>Enterprise Memory</h3>
+<table>
+<thead>
+<tr>
+<th>Memory Class</th>
+<th>Default Retention</th>
+<th>Legal Hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Episodic</strong></td>
+<td>7 years</td>
+<td>Indefinite if hold applies</td>
+</tr>
+<tr>
+<td><strong>Semantic</strong></td>
+<td>5 years</td>
+<td>Indefinite if hold applies</td>
+</tr>
+<tr>
+<td><strong>Procedural</strong></td>
+<td>3 years</td>
+<td>Indefinite if hold applies</td>
+</tr>
+<tr>
+<td><strong>Preference</strong></td>
+<td>2 years</td>
+<td>Indefinite if hold applies</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-memory</ac:parameter></ac:structured-macro>Agent Memory</h3>
+<table>
+<thead>
+<tr>
+<th>Storage Type</th>
+<th>Default Retention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Conversation</strong></td>
+<td>Session + 48 hours</td>
+</tr>
+<tr>
+<td><strong>KV Store</strong></td>
+<td>Session + 24 hours</td>
+</tr>
+<tr>
+<td><strong>Log Service</strong></td>
+<td>Session + 72 hours</td>
+</tr>
+<tr>
+<td><strong>Document Store</strong></td>
+<td>Session + 7 days</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">legal-hold</ac:parameter></ac:structured-macro>Legal Hold</h3>
+<p>Records can be placed on legal hold:</p>
+<pre class="codehilite"><code class="language-yaml">legal_hold:
+  hold_id: &quot;lh-litigation-001&quot;
+  scope:
+    case_ids: [case-12345, case-12346]
+    date_range:
+      from: 2025-01-01
+      to: 2025-12-31
+  expires: never  # Until explicitly released
+
+  effect:
+    - retention policies suspended
+    - deletion prohibited
+    - modification prohibited
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">audit-trail</ac:parameter></ac:structured-macro>Audit Trail</h2>
+<p>All governance operations are logged:</p>
+<pre class="codehilite"><code class="language-yaml">governance_audit:
+  operation: erasure_executed
+  request_id: &quot;erase-789&quot;
+  timestamp: 2026-01-10T10:05:00Z
+  actor: &quot;data-protection-officer@acme.com&quot;
+  affected_refs: [&quot;cust-12345&quot;, &quot;contact-67890&quot;]
+  memory_records_preserved: 47
+  compliance_note: &quot;GDPR Article 17 request fulfilled&quot;
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/04-subsystems/memory-services/enterprise-memory/retention-policy.md</code><br />
+*   <code>olympus-hub-docs/04-subsystems/memory-services/shared/pii-policy.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/03-memory-requirements/03-4-governance-imperatives.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/04-audit-requirements/04-4-immutability-tamper-evidence.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/04-memory-knowledge-audit-in-seer/04-7-immutability-governance.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

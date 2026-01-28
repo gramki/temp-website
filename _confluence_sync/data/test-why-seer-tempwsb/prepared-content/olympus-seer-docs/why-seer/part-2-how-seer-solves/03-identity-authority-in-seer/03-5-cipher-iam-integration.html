@@ -1,0 +1,269 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-5-cipher-iam-integration.md -->
+<!-- Title: 3.5 Cipher IAM Integration -->
+<!-- Content Hash: 7aa00a1d6aae0e075382ee6ba03ec17df3e7e8e567587747a686627d990e80a2 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">35-cipher-iam-integration</ac:parameter></ac:structured-macro>3.5 Cipher IAM Integration</h1>
+<p>Seer's identity and authority capabilities are built in partnership with Cipher, Olympus's identity and access management system. This section clarifies the division of responsibilities and integration patterns.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">division-of-responsibilities</ac:parameter></ac:structured-macro>Division of Responsibilities</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-seer-defines</ac:parameter></ac:structured-macro>What Seer Defines</h3>
+<p>Seer defines the <strong>agent identity framework</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Seer Responsibility</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent Identity Semantics</strong></td>
+<td>What agent identity means (Raw, Trained, Employed layers)</td>
+</tr>
+<tr>
+<td><strong>Delegation Model</strong></td>
+<td>How authority flows from humans to agents</td>
+</tr>
+<tr>
+<td><strong>Authority Ceilings</strong></td>
+<td>Layered limits and their semantics</td>
+</tr>
+<tr>
+<td><strong>Kill Switch Logic</strong></td>
+<td>When and how to revoke authority</td>
+</tr>
+<tr>
+<td><strong>Integration Patterns</strong></td>
+<td>How agents authenticate and authorize</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-cipher-provides</ac:parameter></ac:structured-macro>What Cipher Provides</h3>
+<p>Cipher provides the <strong>identity infrastructure</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Cipher Responsibility</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Principal Storage</strong></td>
+<td>Registry of all identities (users, services, agents)</td>
+</tr>
+<tr>
+<td><strong>Credential Issuance</strong></td>
+<td>Creating and managing tokens, keys, certificates</td>
+</tr>
+<tr>
+<td><strong>Policy Evaluation</strong></td>
+<td>OPA-based policy enforcement</td>
+</tr>
+<tr>
+<td><strong>PEP Infrastructure</strong></td>
+<td>Policy Enforcement Points across systems</td>
+</tr>
+<tr>
+<td><strong>Audit Infrastructure</strong></td>
+<td>Logging all identity operations</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-registration-in-cipher</ac:parameter></ac:structured-macro>Agent Registration in Cipher</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enrollment-process</ac:parameter></ac:structured-macro>Enrollment Process</h3>
+<p>Agents are enrolled in Cipher at each lifecycle stage:</p>
+<pre class="codehilite"><code>Raw Agent Deployed
+    ↓
+Register in Cipher with infrastructure identity (SPIFFE)
+    ↓
+Training Spec Applied
+    ↓
+Register application identity
+    ↓
+Employment Spec Applied
+    ↓
+Register workforce/customer identity
+    ↓
+Grant delegated authority
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">registration-records</ac:parameter></ac:structured-macro>Registration Records</h3>
+<p>Cipher maintains agent records:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;principal&quot;: &quot;dispute-analyst-bot@workforce.acme.com&quot;,
+  &quot;type&quot;: &quot;employed_agent&quot;,
+  &quot;tenant&quot;: &quot;acme&quot;,
+  &quot;training_spec&quot;: &quot;dispute-analyst-training:v1.7.0&quot;,
+  &quot;employment_spec&quot;: &quot;dispute-analyst-acme-production:v3.2.0&quot;,
+  &quot;delegation&quot;: {
+    &quot;from&quot;: &quot;dispute-analyst-role&quot;,
+    &quot;manager&quot;: &quot;sarah.chen@acme.com&quot;,
+    &quot;authority&quot;: [&quot;dispute:*&quot;, &quot;refund:request&quot;],
+    &quot;ceilings&quot;: {
+      &quot;maxDecisionValue&quot;: 5000
+    }
+  },
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;created&quot;: &quot;2026-01-10T14:00:00Z&quot;
+}
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authentication-flow</ac:parameter></ac:structured-macro>Authentication Flow</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-system-authentication</ac:parameter></ac:structured-macro>Agent → System Authentication</h3>
+<p>When an agent accesses a system:</p>
+<pre class="codehilite"><code>Agent presents credentials (token/SVID)
+    ↓
+System validates with Cipher
+    ↓
+Cipher returns:
+  - Principal identity
+  - Delegation chain
+  - Current authority
+  - Ceiling limits
+    ↓
+System applies authorization
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">credential-types</ac:parameter></ac:structured-macro>Credential Types</h3>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Credential Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Within Kubernetes</strong></td>
+<td>SPIFFE SVID</td>
+</tr>
+<tr>
+<td><strong>Hub Services</strong></td>
+<td>OAuth Bearer Token</td>
+</tr>
+<tr>
+<td><strong>External APIs</strong></td>
+<td>Per-service credentials</td>
+</tr>
+<tr>
+<td><strong>Human Interaction</strong></td>
+<td>Session-bound token</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authorization-flow</ac:parameter></ac:structured-macro>Authorization Flow</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-enforcement</ac:parameter></ac:structured-macro>Policy Enforcement</h3>
+<p>Every agent action goes through Cipher PEPs:</p>
+<pre class="codehilite"><code>Agent requests: &quot;Approve refund $750 for customer X&quot;
+    ↓
+PEP extracts:
+  - Agent identity
+  - Requested action
+  - Resource (customer X)
+  - Context (amount, time, etc.)
+    ↓
+PEP queries Cipher:
+  - Is agent authorized for action?
+  - What are the ceiling limits?
+  - Is delegator still authorized?
+    ↓
+PEP applies OPA policy
+    ↓
+Allow, Deny, or Route to Approval
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-composition</ac:parameter></ac:structured-macro>Policy Composition</h3>
+<p>Policies combine multiple sources:</p>
+<pre class="codehilite"><code class="language-rego">package seer.authorization
+
+# Final decision combines all sources
+allow {
+    org_policy_allows
+    training_ceiling_allows
+    employment_ceiling_allows
+    delegator_still_authorized
+    not kill_switch_active
+}
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">delegation-chain-verification</ac:parameter></ac:structured-macro>Delegation Chain Verification</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">real-time-verification</ac:parameter></ac:structured-macro>Real-Time Verification</h3>
+<p>Cipher verifies delegation chains in real-time:</p>
+<pre class="codehilite"><code>Agent requests action
+    ↓
+Cipher traces delegation:
+  Agent ← Role ← Role Assignment ← IT Admin
+    ↓
+Cipher verifies each link:
+  - Agent: active, not killed
+  - Role: still assigned to agent
+  - Role Assignment: still valid
+  - IT Admin: still authorized
+    ↓
+If any link broken → Deny
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authority-inheritance</ac:parameter></ac:structured-macro>Authority Inheritance</h3>
+<p>When a delegator's authority changes:</p>
+<pre class="codehilite"><code>Sarah loses &quot;refund:approve&quot; permission
+    ↓
+Cipher updates delegation graph
+    ↓
+All agents delegated from Sarah:
+  - Immediately lose &quot;refund:approve&quot;
+  - No manual intervention needed
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">multi-tenant-support</ac:parameter></ac:structured-macro>Multi-Tenant Support</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">tenant-isolation</ac:parameter></ac:structured-macro>Tenant Isolation</h3>
+<p>Cipher provides tenant isolation for agent identity:</p>
+<ul>
+<li>Agents in one tenant cannot authenticate as another tenant's agent</li>
+<li>Cross-tenant access requires explicit federation</li>
+<li>Tenant-specific policies apply automatically</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sandbox-support</ac:parameter></ac:structured-macro>Sandbox Support</h3>
+<p>Within a tenant, Cipher supports sandboxes:</p>
+<pre class="codehilite"><code class="language-yaml"># Agent can only access its designated sandbox
+agentScope:
+  tenant: acme
+  sandbox: disputes-production
+  accessibleSandboxes:
+    - disputes-production
+    - disputes-staging  # if needed
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">integration-patterns</ac:parameter></ac:structured-macro>Integration Patterns</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sdks</ac:parameter></ac:structured-macro>SDKs</h3>
+<p>Cipher provides SDKs for agent integration:</p>
+<pre class="codehilite"><code class="language-python">from cipher import CipherClient
+
+# Agent authenticates
+cipher = CipherClient.from_environment()
+token = cipher.get_agent_token()
+
+# Agent checks authority
+if cipher.is_authorized(&quot;refund:approve&quot;, amount=750):
+    process_refund()
+else:
+    request_approval()
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sidecars</ac:parameter></ac:structured-macro>Sidecars</h3>
+<p>For non-SDK environments, Cipher provides sidecars:</p>
+<pre class="codehilite"><code class="language-yaml"># Cipher sidecar in agent pod
+containers:
+  - name: agent
+    # Agent container
+  - name: cipher-sidecar
+    image: cipher/pep-sidecar
+    # Intercepts and authorizes requests
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-hub-docs/04-subsystems/supporting-systems/cipher-iam.md</code><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/agent-identity-authority.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-5-cipher-iam-integration.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

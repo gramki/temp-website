@@ -1,0 +1,633 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/01-what-is-enterprise-agent-platform/01-5-cloud-platforms-gaps.md -->
+<!-- Title: 1.5 What Cloud Platforms Provide (and Don't) -->
+<!-- Content Hash: 4fc12d0a4a8993a0ae4de7820399a3c4d34e83b98c73ae58326204f1f3593dae -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">15-what-cloud-platforms-provide-and-dont</ac:parameter></ac:structured-macro>1.5 What Cloud Platforms Provide (and Don't)</h1>
+<blockquote>
+<p><strong>Part 1, Section 1, Chapter 5</strong><br />
+<strong>Outline Reference:</strong> §1.5</p>
+</blockquote>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-chapter</ac:parameter></ac:structured-macro>Purpose of This Chapter</h2>
+<p>This chapter provides a direct comparison of what cloud-managed AI platforms provide versus what enterprise agent platforms must provide. The goal is to give readers a concrete framework for evaluating platform capabilities and identifying gaps.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-cloud-platforms-provide</ac:parameter></ac:structured-macro>What Cloud Platforms Provide</h2>
+<p>Cloud-managed AI platforms excel at providing infrastructure for AI workloads:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">compute-and-scaling</ac:parameter></ac:structured-macro>Compute and Scaling</h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Elastic compute</strong></td>
+<td>Automatic scaling based on demand</td>
+</tr>
+<tr>
+<td><strong>GPU/TPU access</strong></td>
+<td>Specialized hardware for model inference</td>
+</tr>
+<tr>
+<td><strong>Container orchestration</strong></td>
+<td>Kubernetes-based deployment and management</td>
+</tr>
+<tr>
+<td><strong>Serverless functions</strong></td>
+<td>Event-driven compute without infrastructure management</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">model-access-and-inference</ac:parameter></ac:structured-macro>Model Access and Inference</h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Managed model endpoints</strong></td>
+<td>Hosted LLM APIs with high availability</td>
+</tr>
+<tr>
+<td><strong>Model fine-tuning</strong></td>
+<td>Customization of base models</td>
+</tr>
+<tr>
+<td><strong>Embedding services</strong></td>
+<td>Vector generation for semantic search</td>
+</tr>
+<tr>
+<td><strong>Model selection</strong></td>
+<td>Access to multiple model families</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">data-and-storage</ac:parameter></ac:structured-macro>Data and Storage</h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vector databases</strong></td>
+<td>Specialized storage for embedding-based retrieval</td>
+</tr>
+<tr>
+<td><strong>Object storage</strong></td>
+<td>Blob storage for documents and artifacts</td>
+</tr>
+<tr>
+<td><strong>Managed databases</strong></td>
+<td>Relational and NoSQL data stores</td>
+</tr>
+<tr>
+<td><strong>Caching</strong></td>
+<td>In-memory caching for performance</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">operational-tooling</ac:parameter></ac:structured-macro>Operational Tooling</h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Logging</strong></td>
+<td>Centralized log aggregation and search</td>
+</tr>
+<tr>
+<td><strong>Metrics</strong></td>
+<td>Performance and resource utilization monitoring</td>
+</tr>
+<tr>
+<td><strong>Tracing</strong></td>
+<td>Distributed request tracing</td>
+</tr>
+<tr>
+<td><strong>Alerting</strong></td>
+<td>Threshold-based notifications</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">developer-experience</ac:parameter></ac:structured-macro>Developer Experience</h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SDKs and APIs</strong></td>
+<td>Language-specific development kits</td>
+</tr>
+<tr>
+<td><strong>Prompt playgrounds</strong></td>
+<td>Interactive prompt testing</td>
+</tr>
+<tr>
+<td><strong>Deployment automation</strong></td>
+<td>CI/CD integration</td>
+</tr>
+<tr>
+<td><strong>Documentation</strong></td>
+<td>Comprehensive reference materials</td>
+</tr>
+</tbody>
+</table>
+<p>These capabilities are valuable and necessary. Cloud platforms have invested heavily in making AI workloads accessible, scalable, and reliable.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-cloud-platforms-dont-provide</ac:parameter></ac:structured-macro>What Cloud Platforms Don't Provide</h2>
+<p>Cloud platforms, despite their capabilities, do not address the governance requirements that enterprise agents face:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">accountability-frameworks</ac:parameter></ac:structured-macro>Accountability Frameworks</h3>
+<table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent identity</strong></td>
+<td>Agents lack identity distinct from the calling service or user</td>
+</tr>
+<tr>
+<td><strong>Delegation chains</strong></td>
+<td>No concept of who authorized an agent to act</td>
+</tr>
+<tr>
+<td><strong>Accountability modeling</strong></td>
+<td>No framework for tracing decisions to accountable humans</td>
+</tr>
+<tr>
+<td><strong>RASCI support</strong></td>
+<td>No distinction between Responsible and Accountable roles</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">authority-models</ac:parameter></ac:structured-macro>Authority Models</h3>
+<table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authority ceilings</strong></td>
+<td>Access control exists, but not authority limits on business decisions</td>
+</tr>
+<tr>
+<td><strong>Delegation semantics</strong></td>
+<td>No model for how authority flows from humans to agents</td>
+</tr>
+<tr>
+<td><strong>Controlled autonomy</strong></td>
+<td>No concept of bounded agent independence</td>
+</tr>
+<tr>
+<td><strong>Authority lifecycle</strong></td>
+<td>No revocation or expiration of delegated authority</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">memory-governance</ac:parameter></ac:structured-macro>Memory Governance</h3>
+<table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Memory classification</strong></td>
+<td>Storage exists, but not typed memory (ESPP)</td>
+</tr>
+<tr>
+<td><strong>Retention policies</strong></td>
+<td>Log rotation exists, but not compliance-driven retention</td>
+</tr>
+<tr>
+<td><strong>Memory isolation</strong></td>
+<td>Tenant isolation exists, but not per-customer or per-agent memory boundaries</td>
+</tr>
+<tr>
+<td><strong>Controlled promotion</strong></td>
+<td>No governance for when learnings become organizational knowledge</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">regulatory-grade-audit</ac:parameter></ac:structured-macro>Regulatory-Grade Audit</h3>
+<table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Decision records</strong></td>
+<td>Logs capture events, not decisions with rationale</td>
+</tr>
+<tr>
+<td><strong>Context snapshots</strong></td>
+<td>No preservation of what information was available at decision time</td>
+</tr>
+<tr>
+<td><strong>Immutable evidence</strong></td>
+<td>Logs may be rotated; no append-only evidentiary records</td>
+</tr>
+<tr>
+<td><strong>Multi-audience explanations</strong></td>
+<td>No explanation service for customers, operators, and regulators</td>
+</tr>
+<tr>
+<td><strong>7+ year retention</strong></td>
+<td>Log retention measured in months, not years</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">human-override-mechanisms</ac:parameter></ac:structured-macro>Human Override Mechanisms</h3>
+<table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Surgical intervention</strong></td>
+<td>Kill switches terminate processes; no decision-level override</td>
+</tr>
+<tr>
+<td><strong>Escalation workflows</strong></td>
+<td>No structured paths from agent to human</td>
+</tr>
+<tr>
+<td><strong>Intervention audit</strong></td>
+<td>No record of when and why humans intervened</td>
+</tr>
+<tr>
+<td><strong>Graduated control</strong></td>
+<td>Binary on/off, not graduated intervention levels</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">direct-comparison-matrix</ac:parameter></ac:structured-macro>Direct Comparison Matrix</h2>
+<p>The following matrix compares cloud-managed and enterprise agent platforms across the core modules:</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Cloud-Managed Platform</th>
+<th>Enterprise Agent Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary Goal</strong></td>
+<td>Execution &amp; scale</td>
+<td>Control &amp; trust</td>
+</tr>
+<tr>
+<td><strong>Agent Identity</strong></td>
+<td>Implicit (service identity)</td>
+<td>Explicit, first-class</td>
+</tr>
+<tr>
+<td><strong>Authority Model</strong></td>
+<td>Access control (IAM)</td>
+<td>Delegation chains, ceilings</td>
+</tr>
+<tr>
+<td><strong>Memory Governance</strong></td>
+<td>Storage</td>
+<td>Policy-driven, typed</td>
+</tr>
+<tr>
+<td><strong>Knowledge Provenance</strong></td>
+<td>Optional</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td><strong>Auditability</strong></td>
+<td>Logs (debug-oriented)</td>
+<td>Decision-grade records</td>
+</tr>
+<tr>
+<td><strong>Explainability</strong></td>
+<td>Reconstructed</td>
+<td>Real-time, multi-audience</td>
+</tr>
+<tr>
+<td><strong>Human Override</strong></td>
+<td>Kill switch</td>
+<td>Surgical, graduated</td>
+</tr>
+<tr>
+<td><strong>Lifecycle Management</strong></td>
+<td>Basic deployment</td>
+<td>Enterprise-grade versioning</td>
+</tr>
+<tr>
+<td><strong>Regulatory Readiness</strong></td>
+<td>Low</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">gap-analysis-by-enterprise-requirement</ac:parameter></ac:structured-macro>Gap Analysis by Enterprise Requirement</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">requirement-we-must-know-who-authorized-this-agent</ac:parameter></ac:structured-macro>Requirement: "We must know who authorized this agent's decision"</h3>
+<table>
+<thead>
+<tr>
+<th>Cloud Platform Reality</th>
+<th>Enterprise Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent acts as the service; no delegation concept</td>
+<td>Explicit delegation from human to agent</td>
+</tr>
+<tr>
+<td>No distinction between caller and agent identity</td>
+<td>Agent has own identity with authority bounds</td>
+</tr>
+<tr>
+<td>Authorization checked at API level</td>
+<td>Authority checked at decision level</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gap:</strong> Accountability framework</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">requirement-we-must-explain-this-decision-to-a-reg</ac:parameter></ac:structured-macro>Requirement: "We must explain this decision to a regulator years from now"</h3>
+<table>
+<thead>
+<tr>
+<th>Cloud Platform Reality</th>
+<th>Enterprise Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logs rotated after 90 days</td>
+<td>Records retained 7+ years</td>
+</tr>
+<tr>
+<td>Logs capture what happened</td>
+<td>Records capture why with context</td>
+</tr>
+<tr>
+<td>Explanations reconstructed from logs</td>
+<td>Explanations captured in real-time</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gap:</strong> Regulatory-grade audit</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">requirement-we-must-ensure-the-agent-cannot-exceed</ac:parameter></ac:structured-macro>Requirement: "We must ensure the agent cannot exceed its authority"</h3>
+<table>
+<thead>
+<tr>
+<th>Cloud Platform Reality</th>
+<th>Enterprise Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access control limits API access</td>
+<td>Authority ceilings limit business decisions</td>
+</tr>
+<tr>
+<td>Permissions are binary (allowed/denied)</td>
+<td>Authority is graduated and contextual</td>
+</tr>
+<tr>
+<td>No concept of "may do X but never Y"</td>
+<td>Explicit constraints regardless of capability</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gap:</strong> Authority model</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">requirement-we-must-control-what-the-agent-remembe</ac:parameter></ac:structured-macro>Requirement: "We must control what the agent remembers"</h3>
+<table>
+<thead>
+<tr>
+<th>Cloud Platform Reality</th>
+<th>Enterprise Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storage is available</td>
+<td>Memory is classified and governed</td>
+</tr>
+<tr>
+<td>Retention is uniform</td>
+<td>Retention varies by memory type</td>
+</tr>
+<tr>
+<td>No promotion controls</td>
+<td>Learnings require approval to become knowledge</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gap:</strong> Memory governance</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">requirement-we-must-override-agent-decisions-witho</ac:parameter></ac:structured-macro>Requirement: "We must override agent decisions without halting operations"</h3>
+<table>
+<thead>
+<tr>
+<th>Cloud Platform Reality</th>
+<th>Enterprise Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kill switch terminates the process</td>
+<td>Override changes specific decisions</td>
+</tr>
+<tr>
+<td>Restart with new configuration</td>
+<td>Adjust in-flight operations</td>
+</tr>
+<tr>
+<td>No intervention record</td>
+<td>Full audit of human actions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gap:</strong> Graduated override</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">why-the-gaps-exist</ac:parameter></ac:structured-macro>Why the Gaps Exist</h2>
+<p>The gaps between cloud platforms and enterprise requirements are not oversights. They reflect different design priorities:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cloud-platforms-optimize-for</ac:parameter></ac:structured-macro>Cloud Platforms Optimize For:</h3>
+<ul>
+<li><strong>Developer velocity:</strong> Minimize friction to get from idea to deployment</li>
+<li><strong>Operational simplicity:</strong> Abstract away complexity; managed services</li>
+<li><strong>Scale:</strong> Handle any volume of requests efficiently</li>
+<li><strong>Cost efficiency:</strong> Pay only for what you use; optimize resource utilization</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enterprise-agent-requirements-demand</ac:parameter></ac:structured-macro>Enterprise Agent Requirements Demand:</h3>
+<ul>
+<li><strong>Governance rigor:</strong> Explicit controls that may slow deployment</li>
+<li><strong>Operational transparency:</strong> Visibility into every aspect of agent behavior</li>
+<li><strong>Controlled scope:</strong> Limits on what agents may do, even if technically possible</li>
+<li><strong>Long-term defensibility:</strong> Records and explanations that survive years</li>
+</ul>
+<p>These priorities often conflict. Developer velocity favors implicit defaults; governance rigor requires explicit configuration. Operational simplicity hides complexity; transparency exposes it.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">addressing-the-gaps</ac:parameter></ac:structured-macro>Addressing the Gaps</h2>
+<p>Organizations have three options for addressing the gaps:</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">option-1-build-custom-governance-layers</ac:parameter></ac:structured-macro>Option 1: Build Custom Governance Layers</h3>
+<p>Organizations can build governance capabilities on top of cloud platforms:</p>
+<table>
+<thead>
+<tr>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control over design decisions</td>
+<td>Significant engineering investment</td>
+</tr>
+<tr>
+<td>Tailored to specific requirements</td>
+<td>Ongoing maintenance burden</td>
+</tr>
+<tr>
+<td>No new vendor dependency</td>
+<td>Requires deep domain expertise</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">option-2-accept-limited-governance</ac:parameter></ac:structured-macro>Option 2: Accept Limited Governance</h3>
+<p>Organizations can deploy agents with reduced governance:</p>
+<table>
+<thead>
+<tr>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Faster time to deployment</td>
+<td>Regulatory and compliance risk</td>
+</tr>
+<tr>
+<td>Lower initial investment</td>
+<td>Limited to low-stakes use cases</td>
+</tr>
+<tr>
+<td>Simpler architecture</td>
+<td>Cannot scale to enterprise-critical processes</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">option-3-adopt-enterprise-agent-platforms</ac:parameter></ac:structured-macro>Option 3: Adopt Enterprise Agent Platforms</h3>
+<p>Organizations can use purpose-built platforms:</p>
+<table>
+<thead>
+<tr>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Governance capabilities built-in</td>
+<td>New platform dependency</td>
+</tr>
+<tr>
+<td>Domain expertise encoded</td>
+<td>Integration effort</td>
+</tr>
+<tr>
+<td>Community of practice</td>
+<td>Learning curve</td>
+</tr>
+</tbody>
+</table>
+<p>The appropriate choice depends on organizational risk tolerance, use case criticality, and available expertise.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions</ac:parameter></ac:structured-macro>Common Misconceptions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cloud-platforms-are-adding-these-capabilities</ac:parameter></ac:structured-macro>"Cloud platforms are adding these capabilities"</h3>
+<p>Cloud providers do add governance features incrementally. However, governance designed from first principles differs from governance retrofitted onto execution infrastructure. Coherent governance requires designing the platform around accountability, not adding accountability to a platform designed for execution.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">we-can-use-cloud-guardrails-for-governance</ac:parameter></ac:structured-macro>"We can use cloud guardrails for governance"</h3>
+<p>Cloud guardrails (e.g., content filtering, safety checks) address a subset of governance requirements—specifically, output safety. They do not address authority, accountability, audit, or override requirements.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">enterprise-governance-is-only-for-regulated-indust</ac:parameter></ac:structured-macro>"Enterprise governance is only for regulated industries"</h3>
+<p>While regulated industries have explicit governance requirements, any organization deploying agents that make consequential decisions faces the same underlying challenges. The difference is whether the consequences of governance failures manifest as regulatory penalties or as operational failures, customer harm, and reputational damage.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">for-platform-selection</ac:parameter></ac:structured-macro>For Platform Selection</h3>
+<p>Evaluate cloud platforms and enterprise platforms as complementary, not alternatives:</p>
+<ul>
+<li>Use cloud platforms for execution infrastructure</li>
+<li>Use enterprise platforms for governance and lifecycle</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">for-architecture-design</ac:parameter></ac:structured-macro>For Architecture Design</h3>
+<p>Design architectures that separate execution concerns from governance concerns:</p>
+<ul>
+<li>Agent execution may use cloud compute</li>
+<li>Agent governance must use enterprise controls</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">for-risk-assessment</ac:parameter></ac:structured-macro>For Risk Assessment</h3>
+<p>Map agent use cases to governance requirements:</p>
+<ul>
+<li>Low-stakes, experimental → Cloud platform may suffice</li>
+<li>Consequential, production → Enterprise governance required</li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Chapter 1.1</strong> (Beyond Cloud-Managed AI) establishes why the distinction matters</li>
+<li><strong>Chapter 1.4</strong> (Core Modules) details what enterprise platforms must provide</li>
+<li><strong>Section 2</strong> (Why Enterprise Agents Are Different) explores the requirements driving these gaps</li>
+<li><strong>Part 2</strong> demonstrates how Seer addresses each gap</li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-takeaways</ac:parameter></ac:structured-macro>Key Takeaways</h2>
+<ol>
+<li>
+<p>Cloud platforms provide essential execution infrastructure: compute, models, storage, and operational tooling.</p>
+</li>
+<li>
+<p>Cloud platforms do not provide accountability, authority, memory governance, regulatory-grade audit, or graduated override.</p>
+</li>
+<li>
+<p>The gaps reflect different design priorities, not oversights—cloud platforms optimize for execution; enterprise requirements demand governance.</p>
+</li>
+<li>
+<p>Organizations must build custom governance, accept limited governance, or adopt enterprise platforms.</p>
+</li>
+<li>
+<p>Cloud and enterprise platforms are complementary layers, not alternatives.</p>
+</li>
+</ol>
+<hr />
+<p><strong>Reference:</strong> <code>olympus-seer-docs/agentic-ai-concepts/enterprise-agent-platform.md</code> (Sections 3-4), <code>market-study/enterprise-gaps/</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-1-background/01-what-is-enterprise-agent-platform/01-5-cloud-platforms-gaps.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

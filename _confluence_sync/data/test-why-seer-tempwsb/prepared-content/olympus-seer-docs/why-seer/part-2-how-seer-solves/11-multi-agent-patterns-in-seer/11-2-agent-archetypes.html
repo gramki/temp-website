@@ -1,0 +1,290 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-2-agent-archetypes.md -->
+<!-- Title: 11.2 Agent Archetypes -->
+<!-- Content Hash: fbea97ebef2d0ef7c681916b060bb4e50664915f2837829118e86681f11402ff -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">112-agent-archetypes</ac:parameter></ac:structured-macro>11.2 Agent Archetypes</h1>
+<p>Seer categorizes agents into four functional archetypes based on what they do in the collaboration. These are perspectives, not exclusive categories—a single agent may wear multiple hats depending on context.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-four-archetypes</ac:parameter></ac:structured-macro>The Four Archetypes</h2>
+<table>
+<thead>
+<tr>
+<th>Archetype</th>
+<th>Primary Function</th>
+<th>Question Answered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thinker</strong></td>
+<td>Reasoning and decisions</td>
+<td><em>What should be done?</em></td>
+</tr>
+<tr>
+<td><strong>Doer</strong></td>
+<td>Executing actions</td>
+<td><em>How do I do it?</em></td>
+</tr>
+<tr>
+<td><strong>Orchestrator</strong></td>
+<td>Assigning and coordinating work</td>
+<td><em>Who should do what?</em></td>
+</tr>
+<tr>
+<td><strong>Governor</strong></td>
+<td>Observing and auditing</td>
+<td><em>Is this appropriate?</em></td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">thinker</ac:parameter></ac:structured-macro>Thinker</h2>
+<p>The Thinker archetype focuses on reasoning, analysis, and decision-making.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">characteristics</ac:parameter></ac:structured-macro>Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core function</strong></td>
+<td>Analyze information, form judgments, make decisions</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td>Context, evidence, policies, precedents</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td>Decisions, recommendations, assessments</td>
+</tr>
+<tr>
+<td><strong>Rejectable artifacts</strong></td>
+<td>Decision Request, Decision Result</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">examples</ac:parameter></ac:structured-macro>Examples</h3>
+<ul>
+<li><strong>Document Analyst:</strong> Reviews documents, determines authenticity</li>
+<li><strong>Risk Assessor:</strong> Evaluates risk factors, provides risk score</li>
+<li><strong>Eligibility Checker:</strong> Applies policy rules to determine eligibility</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance</ac:parameter></ac:structured-macro>Governance</h3>
+<p>Thinkers are subject to:<br />
+- Authority ceilings on decision values<br />
+- Approval requirements for high-stakes decisions<br />
+- Audit logging of all decisions with rationale</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">doer</ac:parameter></ac:structured-macro>Doer</h2>
+<p>The Doer archetype focuses on executing actions and producing tangible results.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">characteristics</ac:parameter></ac:structured-macro>Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core function</strong></td>
+<td>Execute actions, invoke tools, produce results</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td>Instructions, parameters, context</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td>Action results, side effects</td>
+</tr>
+<tr>
+<td><strong>Rejectable artifacts</strong></td>
+<td>Action Request, Action Result</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">examples</ac:parameter></ac:structured-macro>Examples</h3>
+<ul>
+<li><strong>Notification Sender:</strong> Sends emails, SMS, or push notifications</li>
+<li><strong>Data Updater:</strong> Updates records in operational systems</li>
+<li><strong>Report Generator:</strong> Creates formatted reports</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance</ac:parameter></ac:structured-macro>Governance</h3>
+<p>Doers are subject to:<br />
+- Tool access policies (which tools can be invoked)<br />
+- Rate limits (how often actions can be taken)<br />
+- Approval gates for sensitive actions</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">orchestrator</ac:parameter></ac:structured-macro>Orchestrator</h2>
+<p>The Orchestrator archetype focuses on coordinating work across multiple agents.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">characteristics</ac:parameter></ac:structured-macro>Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core function</strong></td>
+<td>Assign tasks, coordinate agents, manage workflow</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td>Goals, agent capabilities, current state</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td>Task assignments, workflow updates</td>
+</tr>
+<tr>
+<td><strong>Rejectable artifacts</strong></td>
+<td>Task Assignment</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">examples</ac:parameter></ac:structured-macro>Examples</h3>
+<ul>
+<li><strong>Case Orchestrator:</strong> Manages a case through its lifecycle</li>
+<li><strong>Workflow Coordinator:</strong> Coordinates multi-step processes</li>
+<li><strong>Dispatch Agent:</strong> Routes work to appropriate specialists</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance</ac:parameter></ac:structured-macro>Governance</h3>
+<p>Orchestrators are subject to:<br />
+- Delegation limits (who they can assign work to)<br />
+- Scope boundaries (which scenarios they manage)<br />
+- Audit of all assignments and coordination decisions</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governor</ac:parameter></ac:structured-macro>Governor</h2>
+<p>The Governor archetype focuses on observation, auditing, and compliance.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">characteristics</ac:parameter></ac:structured-macro>Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core function</strong></td>
+<td>Monitor, audit, flag issues</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td>Observations, records, policies</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td>Observations, alerts, flags (non-rejectable)</td>
+</tr>
+<tr>
+<td><strong>Rejectable artifacts</strong></td>
+<td>None—observations are facts</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">examples</ac:parameter></ac:structured-macro>Examples</h3>
+<ul>
+<li><strong>Compliance Monitor:</strong> Watches for policy violations</li>
+<li><strong>Quality Auditor:</strong> Samples decisions for quality review</li>
+<li><strong>Drift Detector:</strong> Monitors for behavioral drift</li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance</ac:parameter></ac:structured-macro>Governance</h3>
+<p>Governors are subject to:<br />
+- Read-only access (cannot modify data)<br />
+- Observation scope limits<br />
+- Audit of observation and flagging activities</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">archetype-combinations</ac:parameter></ac:structured-macro>Archetype Combinations</h2>
+<p>A single agent may embody multiple archetypes:</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Primary</th>
+<th>Secondary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dispute Analyst</strong></td>
+<td>Thinker</td>
+<td>Doer (sends notifications)</td>
+</tr>
+<tr>
+<td><strong>Case Manager</strong></td>
+<td>Orchestrator</td>
+<td>Thinker (decides priorities)</td>
+</tr>
+<tr>
+<td><strong>Supervisor Bot</strong></td>
+<td>Governor</td>
+<td>Orchestrator (escalates)</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conflict-resolution</ac:parameter></ac:structured-macro>Conflict Resolution</h3>
+<p>When archetypes conflict, governance rules apply:</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Orchestrator assigns to self</td>
+<td>Prevented by policy (conflicts of interest)</td>
+</tr>
+<tr>
+<td>Governor modifies data</td>
+<td>Prevented by access controls</td>
+</tr>
+<tr>
+<td>Thinker bypasses Orchestrator</td>
+<td>Task management routes all work</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">archetype-specific-desk-access</ac:parameter></ac:structured-macro>Archetype-Specific Desk Access</h2>
+<p>Each archetype has different desk access needs:</p>
+<table>
+<thead>
+<tr>
+<th>Archetype</th>
+<th>Primary Desk</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thinker</strong></td>
+<td>Agent Desk</td>
+<td>Access to context, tools, decisions</td>
+</tr>
+<tr>
+<td><strong>Doer</strong></td>
+<td>Agent Desk</td>
+<td>Access to tools, execution</td>
+</tr>
+<tr>
+<td><strong>Orchestrator</strong></td>
+<td>Supervisor Desk</td>
+<td>Queue management, assignments</td>
+</tr>
+<tr>
+<td><strong>Governor</strong></td>
+<td>Compliance Desk</td>
+<td>Audit access, observation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/WHY-SEER-OUTLINE-DRAFT.md</code> — Section 5.9, Agent Archetypes<br />
+*   <code>olympus-hub-docs/04-subsystems/task-management/README.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/11-multi-agent-patterns-in-seer/11-2-agent-archetypes.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

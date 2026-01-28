@@ -1,0 +1,225 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/06-governance-override-in-seer/06-1-policy-enforcement.md -->
+<!-- Title: 6.1 Policy Enforcement -->
+<!-- Content Hash: f3a667a8a69cfc697692c826a02c480e363d8d245b5c4ef5f53a73b1fe1e8706 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">61-policy-enforcement</ac:parameter></ac:structured-macro>6.1 Policy Enforcement</h1>
+<p>Policy enforcement is the mechanism by which Seer ensures agent behavior complies with organizational rules, regulatory requirements, and delegated authority boundaries. Unlike advisory guidance, policy enforcement is binding—actions that violate policy are blocked.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">what-policy-enforcement-covers</ac:parameter></ac:structured-macro>What Policy Enforcement Covers</h2>
+<table>
+<thead>
+<tr>
+<th>Policy Type</th>
+<th>What It Governs</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authority policies</strong></td>
+<td>What agent can decide/act on</td>
+<td>Max refund amount</td>
+</tr>
+<tr>
+<td><strong>Access policies</strong></td>
+<td>What agent can access</td>
+<td>Customer data, tools</td>
+</tr>
+<tr>
+<td><strong>Content policies</strong></td>
+<td>What agent can say/produce</td>
+<td>PII handling, tone</td>
+</tr>
+<tr>
+<td><strong>Behavioral policies</strong></td>
+<td>How agent should behave</td>
+<td>Escalation triggers</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-enforcement-architecture</ac:parameter></ac:structured-macro>Policy Enforcement Architecture</h2>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────┐
+│               POLICY ENFORCEMENT ARCHITECTURE                │
+│                                                              │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │                 POLICY ENGINE                      │    │
+│   │                                                    │    │
+│   │   Policy Store → Policy Evaluation → Decision      │    │
+│   │                                                    │    │
+│   └────────────────────────┬──────────────────────────┘    │
+│                            │                                │
+│   ┌────────────────────────▼──────────────────────────┐    │
+│   │            POLICY ENFORCEMENT POINTS               │    │
+│   │                                                    │    │
+│   │   ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐    │    │
+│   │   │Context │ │ Tool   │ │ Model  │ │Output  │    │    │
+│   │   │Assembly│ │Invoke  │ │Request │ │Delivery│    │    │
+│   │   │  PEP   │ │  PEP   │ │  PEP   │ │  PEP   │    │    │
+│   │   └────────┘ └────────┘ └────────┘ └────────┘    │    │
+│   └───────────────────────────────────────────────────┘    │
+│                                                              │
+│   ┌───────────────────────────────────────────────────┐    │
+│   │                 AUDIT LOGGING                      │    │
+│   │   All policy decisions logged to CAF               │    │
+│   └───────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-store</ac:parameter></ac:structured-macro>Policy Store</h2>
+<p>Policies are defined declaratively and stored centrally:</p>
+<pre class="codehilite"><code class="language-yaml">policy:
+  name: dispute-analyst-authority
+  applies_to:
+    agent_class: dispute-analyst
+    workbench: dispute-ops-prod
+
+  rules:
+    - name: max-refund-limit
+      type: authority_ceiling
+      condition: action.type == &quot;refund&quot;
+      constraint: action.amount &lt;= 500
+      on_violation: deny
+
+    - name: require-human-for-complex
+      type: escalation
+      condition: case.complexity == &quot;high&quot;
+      action: require_human_approval
+
+    - name: no-pii-in-response
+      type: content
+      condition: output.contains_pii == true
+      action: redact_and_warn
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-evaluation</ac:parameter></ac:structured-macro>Policy Evaluation</h2>
+<p>At each enforcement point, policies are evaluated:</p>
+<pre class="codehilite"><code class="language-python">def evaluate_policy(action, context, policies):
+    applicable = filter_applicable(policies, action, context)
+
+    for policy in applicable:
+        result = policy.evaluate(action, context)
+
+        if result.decision == &quot;deny&quot;:
+            log_to_caf(policy, action, &quot;denied&quot;)
+            return PolicyDenied(policy, result.reason)
+
+        if result.decision == &quot;require_approval&quot;:
+            log_to_caf(policy, action, &quot;approval_required&quot;)
+            return ApprovalRequired(policy, result.approvers)
+
+    log_to_caf(policies, action, &quot;allowed&quot;)
+    return PolicyAllowed()
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-enforcement-points-peps</ac:parameter></ac:structured-macro>Policy Enforcement Points (PEPs)</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">context-assembly-pep</ac:parameter></ac:structured-macro>Context Assembly PEP</h3>
+<p>Controls what information enters context:</p>
+<pre class="codehilite"><code class="language-yaml">context_pep:
+  checks:
+    - no_unauthorized_data_access
+    - no_cross_tenant_data
+    - no_pii_in_constraint_sections
+
+  on_violation:
+    action: exclude_item
+    log: caf
+    alert: optional
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">tool-invocation-pep</ac:parameter></ac:structured-macro>Tool Invocation PEP</h3>
+<p>Controls which tools can be called:</p>
+<pre class="codehilite"><code class="language-yaml">tool_pep:
+  checks:
+    - tool_in_agent_allowlist
+    - parameters_within_limits
+    - rate_limits_not_exceeded
+
+  on_violation:
+    action: block_invocation
+    log: caf
+    return_error: &quot;Tool access denied&quot;
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">model-request-pep</ac:parameter></ac:structured-macro>Model Request PEP</h3>
+<p>Controls model access:</p>
+<pre class="codehilite"><code class="language-yaml">model_pep:
+  checks:
+    - agent_authorized_for_model
+    - budget_not_exceeded
+    - prompt_within_length_limits
+
+  on_violation:
+    action: block_or_downgrade
+    log: caf
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">output-delivery-pep</ac:parameter></ac:structured-macro>Output Delivery PEP</h3>
+<p>Controls what goes to end users:</p>
+<pre class="codehilite"><code class="language-yaml">output_pep:
+  checks:
+    - no_pii_exposed
+    - no_prohibited_content
+    - required_disclosures_present
+
+  on_violation:
+    action: redact_or_block
+    log: caf
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-decision-audit</ac:parameter></ac:structured-macro>Policy Decision Audit</h2>
+<p>All policy evaluations are logged:</p>
+<pre class="codehilite"><code class="language-yaml">policy_audit:
+  timestamp: 2026-01-10T14:30:00Z
+  agent: dispute-analyst-tier1
+  action: execute-refund
+
+  policies_evaluated:
+    - policy: max-refund-limit
+      result: allow
+      reason: &quot;Amount $450 &lt;= limit $500&quot;
+
+    - policy: require-human-for-complex
+      result: not_applicable
+      reason: &quot;Case complexity: normal&quot;
+
+  final_decision: allow
+  logged_to: caf
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-versioning</ac:parameter></ac:structured-macro>Policy Versioning</h2>
+<p>Policies are versioned for audit reconstruction:</p>
+<pre class="codehilite"><code class="language-yaml">policy_version:
+  policy: dispute-analyst-authority
+  version: 2.3
+  effective_from: 2026-01-01
+  effective_to: null  # Current
+
+  changes_from_previous:
+    - rule: max-refund-limit
+      old_value: 300
+      new_value: 500
+      approved_by: policy-committee
+      approval_date: 2025-12-15
+</code></pre>
+
+<p>When reconstructing past decisions:</p>
+<pre class="codehilite"><code class="language-python"># What policies applied when this decision was made?
+applicable_policies = policy_store.get_at(
+    decision_timestamp=&quot;2025-12-15T10:00:00Z&quot;
+)
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-conflicts</ac:parameter></ac:structured-macro>Policy Conflicts</h2>
+<p>When policies conflict, precedence rules apply:</p>
+<pre class="codehilite"><code>1. Deny always wins over Allow
+2. More specific policy wins over general
+3. Newer policy wins when same specificity
+4. Training spec wins over employment spec for guardrails
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/authority-enforcement.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-2-immutability-principle.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/06-governance-override-in-seer/06-1-policy-enforcement.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

@@ -1,0 +1,306 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/24-task-management-in-hub/24-1-task-lifecycle.md -->
+<!-- Title: 24.1 Task Lifecycle -->
+<!-- Content Hash: 92338b551d64fd7ce024e5aacd1a34f5aefec28cb1c635f9889b9b5a7d5bb489 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">241-task-lifecycle</ac:parameter></ac:structured-macro>24.1 Task Lifecycle</h1>
+<p>Task Management handles the lifecycle of tasks—units of work delegated to agents (human and AI) within a workbench. Tasks move through states from creation to completion, with transitions triggered by agent actions, allocation algorithms, and system events. Task lifecycle management ensures that work is tracked comprehensively, SLAs are monitored, and outcomes are captured for audit and downstream processing.</p>
+<p>Task lifecycle is a foundational capability that enables Hub Applications to orchestrate work by delegating tasks to agents, tracking progress, and capturing outcomes. Task lifecycle management integrates with Signal Exchange for observability, Notification Services for agent notifications, and Hub Applications for outcome processing.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection describes how Hub manages task lifecycle. It explains task creation, task states and transitions, SLA tracking, outcome capture, and how tasks integrate with Hub Requests and Signal Exchange.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-concepts-definitions</ac:parameter></ac:structured-macro>Core Concepts &amp; Definitions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">task</ac:parameter></ac:structured-macro>Task</h3>
+<p>A <strong>Task</strong> is a unit of work to be completed by one or more agents within a Request context. Tasks:<br />
+*   <strong>Belong to Request</strong>: Every task is scoped to a Request<br />
+*   <strong>Are Typed</strong>: Task type is defined in Scenario; each type has a creation template<br />
+*   <strong>Are Queue-Attributed</strong>: Always attributed to exactly one Task Queue<br />
+*   <strong>Support Multi-Assignee</strong>: Can have multiple assignees across escalation levels<br />
+*   <strong>Follow First-to-Complete Wins</strong>: Any assignee can mark complete</p>
+<p>Tasks are the primary mechanism for delegating work to agents within Hub.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">task-states</ac:parameter></ac:structured-macro>Task States</h3>
+<p><strong>Task states</strong> represent the current status of a task in its lifecycle:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PENDING</strong></td>
+<td>Task created, awaiting allocation to agent(s)</td>
+</tr>
+<tr>
+<td><strong>ASSIGNED</strong></td>
+<td>Agent(s) allocated, work not yet started</td>
+</tr>
+<tr>
+<td><strong>IN_PROGRESS</strong></td>
+<td>Agent actively working on the task</td>
+</tr>
+<tr>
+<td><strong>ON_HOLD</strong></td>
+<td>Paused, waiting for external input or action</td>
+</tr>
+<tr>
+<td><strong>COMPLETED</strong></td>
+<td>Successfully finished by an assignee</td>
+</tr>
+<tr>
+<td><strong>ABANDONED</strong></td>
+<td>Agent opted out without reassigning; returns to PENDING for reallocation</td>
+</tr>
+<tr>
+<td><strong>CANCELLED</strong></td>
+<td>Terminated without completion (by request cancellation or explicit action)</td>
+</tr>
+</tbody>
+</table>
+<p>Task states enable tracking of task progress and status.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">task-creation</ac:parameter></ac:structured-macro>Task Creation</h3>
+<p><strong>Task creation</strong> is the process by which Hub Applications create tasks via Signal Exchange:</p>
+<pre class="codehilite"><code>Hub Application                    Signal Exchange               Task Management
+      │                                  │                              │
+      │ ─── CREATE_TASK ───────────────&gt; │                              │
+      │                                  │ ──── Observe Task ─────────&gt; │
+      │                                  │                              │
+      │                                  │ &lt;─── Assign to Agent ─────── │
+      │                                  │                              │
+      │ &lt;── TASK_STATUS_CHANGED ──────── │                              │
+</code></pre>
+
+<p>Tasks are created with a task type, queue assignment, payload, and SLA configuration.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">task-outcome</ac:parameter></ac:structured-macro>Task Outcome</h3>
+<p><strong>Task outcome</strong> is the result captured when a task reaches COMPLETED state:</p>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>success</strong></td>
+<td>Task completed successfully as intended</td>
+</tr>
+<tr>
+<td><strong>rejected</strong></td>
+<td>Task rejected by agent (e.g., not applicable, duplicate)</td>
+</tr>
+<tr>
+<td><strong>partial</strong></td>
+<td>Partially completed; may require follow-up</td>
+</tr>
+<tr>
+<td><strong>deferred</strong></td>
+<td>Deferred to later; creates new task or reminder</td>
+</tr>
+<tr>
+<td><strong>escalated_out</strong></td>
+<td>Moved outside Hub (e.g., to external system)</td>
+</tr>
+</tbody>
+</table>
+<p>Task outcomes enable downstream processing and audit.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conceptual-models-frameworks</ac:parameter></ac:structured-macro>Conceptual Models / Frameworks</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-task-lifecycle-model</ac:parameter></ac:structured-macro>The Task Lifecycle Model</h3>
+<p>Tasks move through states:</p>
+<pre class="codehilite"><code>                              ┌─────────────┐
+                              │   PENDING   │
+                              │             │
+                              │ Awaiting    │
+                              │ allocation  │
+                              └──────┬──────┘
+                                     │
+                         ┌───────────┴───────────┐
+                         │                       │
+                         ▼                       ▼
+                  ┌─────────────┐         ┌─────────────┐
+                  │  ASSIGNED   │         │  CANCELLED  │
+                  │             │         │             │
+                  │ Agent(s)    │         │ Terminated  │
+                  │ allocated   │         │ before      │
+                  │             │         │ completion  │
+                  └──────┬──────┘         └─────────────┘
+                         │                       ▲
+                         ▼                       │
+                  ┌─────────────┐                │
+                  │ IN_PROGRESS │────────────────┤
+                  │             │                │
+                  │ Agent       │                │
+                  │ working     │                │
+                  └──────┬──────┘                │
+                         │                       │
+           ┌─────────────┼─────────────┐         │
+           │             │             │         │
+           ▼             ▼             ▼         │
+    ┌─────────────┐ ┌─────────┐ ┌───────────┐    │
+    │  COMPLETED  │ │ ON_HOLD │ │ ABANDONED │────┘
+    │             │ │         │ └───────────┘
+    │ Successfully│ │ Waiting │       │
+    │ finished    │ │ for     │       ▼
+    └─────────────┘ │ external│ ┌───────────┐
+                    │ input   │ │  PENDING  │
+                    └────┬────┘ │ (re-queue)│
+                         │      └───────────┘
+                         ▼
+                  ┌─────────────┐
+                  │ IN_PROGRESS │
+                  └─────────────┘
+</code></pre>
+
+<p>This model ensures that tasks are tracked comprehensively throughout their lifecycle.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-task-creation-template-model</ac:parameter></ac:structured-macro>The Task Creation Template Model</h3>
+<p>Each task type in a Scenario has a <strong>Task Creation Template</strong> that defines:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;task_type_id&quot;: &quot;verify-kyc-documents&quot;,
+  &quot;scenario_id&quot;: &quot;dispute-resolution&quot;,
+
+  &quot;display&quot;: {
+    &quot;name&quot;: &quot;Verify KYC Documents&quot;,
+    &quot;description&quot;: &quot;Verify customer identity documents&quot;,
+    &quot;icon&quot;: &quot;document-check&quot;
+  },
+
+  &quot;creation_schema&quot;: {
+    &quot;required_fields&quot;: [&quot;customer_id&quot;, &quot;document_types&quot;],
+    &quot;optional_fields&quot;: [&quot;instructions&quot;, &quot;priority_override&quot;]
+  },
+
+  &quot;defaults&quot;: {
+    &quot;queue_id&quot;: &quot;doc-verification-queue&quot;,
+    &quot;sla&quot;: {
+      &quot;response_minutes&quot;: 60,
+      &quot;resolution_minutes&quot;: 240
+    }
+  },
+
+  &quot;permissions&quot;: {
+    &quot;can_create&quot;: [&quot;hub_application&quot;, &quot;supervisor&quot;, &quot;agent&quot;],
+    &quot;can_abandon&quot;: true,
+    &quot;can_reassign&quot;: [&quot;same_level&quot;, &quot;higher_level&quot;]
+  }
+}
+</code></pre>
+
+<p>Task Creation Templates ensure consistent task creation and configuration.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">systemic-and-enterprise-considerations</ac:parameter></ac:structured-macro>Systemic and Enterprise Considerations</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">task-creation-sources</ac:parameter></ac:structured-macro>Task Creation Sources</h3>
+<p>Tasks can be created by:<br />
+*   <strong>Hub Applications</strong>: Applications create tasks via Signal Exchange as part of request processing<br />
+*   <strong>Agents</strong>: Agents can create tasks for delegation or escalation<br />
+*   <strong>Supervisors</strong>: Supervisors can create tasks for manual assignment<br />
+*   <strong>External Systems</strong>: External systems can create tasks via REST API</p>
+<p>Task creation sources enable flexible work orchestration.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sla-tracking</ac:parameter></ac:structured-macro>SLA Tracking</h3>
+<p>Task Management tracks Service Level Agreements (SLAs) for tasks:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Response SLA</strong></td>
+<td>Time from PENDING to IN_PROGRESS</td>
+</tr>
+<tr>
+<td><strong>Resolution SLA</strong></td>
+<td>Time from PENDING to COMPLETED</td>
+</tr>
+<tr>
+<td><strong>Touch Time</strong></td>
+<td>Actual time spent in IN_PROGRESS (excluding ON_HOLD)</td>
+</tr>
+</tbody>
+</table>
+<p>SLA tracking enables monitoring of task performance and agent productivity.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sla-events</ac:parameter></ac:structured-macro>SLA Events</h3>
+<p>Task Management generates SLA events:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SLA_WARNING</strong></td>
+<td>Approaching SLA breach (configurable threshold)</td>
+</tr>
+<tr>
+<td><strong>SLA_BREACHED</strong></td>
+<td>SLA time exceeded</td>
+</tr>
+</tbody>
+</table>
+<p>SLA events enable proactive intervention and escalation.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">request-cancellation-cascade</ac:parameter></ac:structured-macro>Request Cancellation Cascade</h3>
+<p>When a Request is cancelled:<br />
+*   <strong>All tasks</strong> are automatically cancelled (regardless of current state)<br />
+*   <strong>All assignees</strong> are notified<br />
+*   Tasks in <strong>IN_PROGRESS</strong> state are cancelled; any completion submitted after cancellation is <strong>ignored</strong><br />
+*   No provision for agents to save work before cancellation</p>
+<p>Request cancellation cascade ensures that cancelled requests don't leave orphaned tasks.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">escalation-during-lifecycle</ac:parameter></ac:structured-macro>Escalation During Lifecycle</h3>
+<p>Escalation is <strong>orthogonal to state</strong>—it adds assignees without changing the task state:</p>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────────────────────┐
+│                              TASK STATE: IN_PROGRESS                         │
+│                                                                              │
+│  Escalation Level 0                     Escalation Level 1                   │
+│  ┌─────────────────────────┐            ┌─────────────────────────┐          │
+│  │ Assignee: agent-alice   │  ────────&gt; │ Assignee: agent-bob     │          │
+│  │ Assigned: 10:00:00      │  Threshold │ Assigned: 12:00:00      │          │
+│  │ Status: Working         │  Exceeded  │ Status: Monitoring      │          │
+│  └─────────────────────────┘            └─────────────────────────┘          │
+│                                                                              │
+│  Both agents remain assignees. Either can complete the task.                 │
+│  Higher-level agent may nudge lower-level agent.                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<p>Escalation enables multi-level assignment without disrupting task state.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions-failure-modes</ac:parameter></ac:structured-macro>Common Misconceptions &amp; Failure Modes</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-tasks-are-agent-inboxes</ac:parameter></ac:structured-macro>Misconception: Tasks Are Agent Inboxes</h3>
+<p>Some organizations assume that tasks are agent inboxes. However, tasks are units of work that can be assigned to multiple agents across escalation levels, and agents can work on tasks from multiple queues.</p>
+<p><strong>Failure mode</strong>: Organizations design task queues as agent inboxes, limiting flexibility and scalability.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-task-state-and-escalation-are-couple</ac:parameter></ac:structured-macro>Misconception: Task State and Escalation Are Coupled</h3>
+<p>Some organizations assume that task state changes when escalation occurs. However, escalation is orthogonal to state—it adds assignees without changing state.</p>
+<p><strong>Failure mode</strong>: Organizations design systems where escalation changes task state, causing confusion and breaking workflows.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-abandoned-tasks-are-lost</ac:parameter></ac:structured-macro>Misconception: Abandoned Tasks Are Lost</h3>
+<p>Some organizations assume that abandoned tasks are lost. However, abandoned tasks return to PENDING for reallocation, and the abandon action is recorded for audit.</p>
+<p><strong>Failure mode</strong>: Organizations avoid task abandonment, forcing agents to complete tasks they cannot handle, reducing productivity and quality.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">task-design</ac:parameter></ac:structured-macro>Task Design</h3>
+<p>Organizations should design tasks that:<br />
+*   <strong>Are Atomic</strong>: Each task represents a single, complete unit of work<br />
+*   <strong>Have Clear Outcomes</strong>: Task outcomes are well-defined and measurable<br />
+*   <strong>Support Escalation</strong>: Tasks support multi-level assignment for complex work<br />
+*   <strong>Include Context</strong>: Tasks include sufficient context for agent decision-making</p>
+<p>Task design directly impacts agent productivity and work quality.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sla-configuration</ac:parameter></ac:structured-macro>SLA Configuration</h3>
+<p>Organizations should configure SLAs that:<br />
+*   <strong>Match Work Complexity</strong>: SLAs reflect the complexity and urgency of work<br />
+*   <strong>Enable Proactive Intervention</strong>: SLA warnings enable proactive intervention before breach<br />
+*   <strong>Support Escalation</strong>: SLA thresholds align with escalation thresholds<br />
+*   <strong>Account for Hold Time</strong>: SLA configuration accounts for ON_HOLD time appropriately</p>
+<p>SLA configuration directly impacts agent productivity and customer satisfaction.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 24.2 (Task Allocation)</strong>: Describes how tasks are allocated to agents</li>
+<li><strong>Section 24.3 (Agent Task Operations)</strong>: Describes how agents work on tasks</li>
+<li><strong>Section 12.4 (Deep Observability)</strong>: Describes how Signal Exchange provides task observability</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>olympus-hub-docs/04-subsystems/task-management/README.md</code> — Task Management design</li>
+<li><code>olympus-hub-docs/04-subsystems/task-management/task-lifecycle.md</code> — Task lifecycle design</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-2-how-seer-solves/24-task-management-in-hub/24-1-task-lifecycle.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

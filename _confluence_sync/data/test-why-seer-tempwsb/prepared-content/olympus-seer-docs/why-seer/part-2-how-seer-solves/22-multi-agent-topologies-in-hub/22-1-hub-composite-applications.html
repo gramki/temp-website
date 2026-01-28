@@ -1,0 +1,148 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-1-hub-composite-applications.md -->
+<!-- Title: 22.1 Hub Composite Applications -->
+<!-- Content Hash: 2ca271f956d7c797d136f2660468a22157bf9491406ffb6433462a8e0175c984 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">221-hub-composite-applications</ac:parameter></ac:structured-macro>22.1 Hub Composite Applications</h1>
+<p>Hub Composite Applications enable multiple Hub Applications to participate in the same Request without explicit orchestration. Applications coordinate through shared Request state (blackboard pattern) rather than task assignment, supporting multi-agent topologies like Blackboard, Planner-Executor-Critic (PEC Loop), Market-Based, and Role-Specialized Committees.</p>
+<p>Hub Composite Applications address the composite application requirements established in Section 5.14.1, enabling multiple specialized agents to collaborate on complex business processes while maintaining governance, observability, and operational controls.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection describes how Hub implements composite applications. It explains how multiple applications participate in the same request, how OPA filters route updates to appropriate applications, how applications coordinate through shared state, and how cross-runtime composition enables agents from different runtimes to collaborate.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-concepts-definitions</ac:parameter></ac:structured-macro>Core Concepts &amp; Definitions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">hub-composite-application-definition</ac:parameter></ac:structured-macro>Hub Composite Application Definition</h3>
+<p><strong>Hub Composite Application</strong> is a specification that groups multiple Hub Applications to participate in the same Request. Each application:<br />
+*   Receives Request Updates from Signal Exchange (subject to OPA filters)<br />
+*   Operates independently with its own session<br />
+*   Can create tasks, produce updates, and modify request state<br />
+*   Coordinates implicitly through shared Request state (blackboard pattern)</p>
+<p>Composite applications enable sophisticated multi-agent collaboration without requiring explicit orchestration or workflow engines.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">multiple-apps-per-request</ac:parameter></ac:structured-macro>Multiple Apps per Request</h3>
+<p><strong>Multiple apps per request</strong> means that multiple Hub Applications can operate on the same Request simultaneously. This enables:<br />
+*   <strong>Parallel perspectives</strong>: Multiple agents can contribute different perspectives to the same request<br />
+*   <strong>Specialized expertise</strong>: Different agents can contribute their specialized expertise<br />
+*   <strong>Dynamic coordination</strong>: Agents coordinate through shared state rather than explicit messaging<br />
+*   <strong>Cross-runtime composition</strong>: Apps can span multiple runtimes (Seer, Rhea, Atlantis)</p>
+<p>Multiple apps per request enable sophisticated multi-agent collaboration patterns that single-app scenarios cannot support.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">opa-filters-for-update-routing</ac:parameter></ac:structured-macro>OPA Filters for Update Routing</h3>
+<p><strong>OPA filters</strong> determine which applications receive which request updates. When a Request Update arrives:<br />
+1. Application Router looks up scenario in routing table<br />
+2. If scenario has multiple apps (composite):<br />
+   - For each app, evaluate OPA filter<br />
+   - If filter allows, dispatch update to app<br />
+3. If scenario has single app (standard):<br />
+   - Existing behavior (direct dispatch)</p>
+<p>OPA filters enable pattern-specific routing: Blackboard patterns route based on update type and state, PEC Loop patterns route PLAN_CREATED to Executor, EXECUTION_COMPLETE to Critic, etc.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-runtime-composition</ac:parameter></ac:structured-macro>Cross-Runtime Composition</h3>
+<p><strong>Cross-runtime composition</strong> enables agents from different runtimes (Seer, Rhea, Atlantis, Perseus) to participate in the same composite application. This enables:<br />
+*   <strong>Runtime selection</strong>: Organizations can use the best runtime for each agent type<br />
+*   <strong>Technology diversity</strong>: Different agents can use different technologies<br />
+*   <strong>Unified coordination</strong>: All agents coordinate through shared Request state regardless of runtime</p>
+<p>Cross-runtime composition enables organizations to leverage the strengths of different runtimes while maintaining unified coordination and governance.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sub-personas-for-composite-agents</ac:parameter></ac:structured-macro>Sub-Personas for Composite Agents</h3>
+<p>In Hub Composite Applications, each agent in the composite receives its own <strong>sub-persona</strong> derived from the base Agent Persona:</p>
+<pre class="codehilite"><code>Base Agent Persona: dispute-resolution-agent@acme.hub.io
+    ↓
+Composite Application creates:
+    ├── Sub-Persona: dispute-analyst-agent (derived from base)
+    ├── Sub-Persona: dispute-reviewer-agent (derived from base)
+    └── Sub-Persona: dispute-approver-agent (derived from base)
+</code></pre>
+
+<p>Each sub-persona has its own distinct identity for delegation and audit, but all derive from the same base Agent Persona. This enables:<br />
+*   <strong>Individual Accountability</strong>: Each agent's actions are attributed to its specific sub-persona<br />
+*   <strong>Shared Authority Source</strong>: All sub-personas inherit from the same base delegation<br />
+*   <strong>Audit Clarity</strong>: Composite application actions can be traced to specific sub-personas while maintaining the base persona context</p>
+<p>Sub-personas ensure that each agent in a composite has distinct identity for delegation chains and audit logs, while maintaining the relationship to the base Agent Persona from the Scenario.</p>
+<blockquote>
+<p><strong>See</strong>: Section 8.1 (Agent Identity) for the two-layer identity model and Section 8.2 (Delegation Chains) for how sub-personas appear in delegation chains.</p>
+</blockquote>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conceptual-models-frameworks</ac:parameter></ac:structured-macro>Conceptual Models / Frameworks</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-composite-application-architecture</ac:parameter></ac:structured-macro>The Composite Application Architecture</h3>
+<p>Composite applications group multiple agents:</p>
+<pre class="codehilite"><code>Hub Composite Application Specification
+    ├── Risk Agent (Seer)
+    ├── Compliance Agent (Seer)
+    ├── Customer Service Agent (Seer)
+    └── Document Analyzer (Atlantis)
+            ↓
+    Shared Request State (Blackboard)
+    ├── Request Updates
+    ├── Tasks
+    ├── Decisions
+    └── Artifacts
+</code></pre>
+
+<p>All agents in the composite operate on the same Request, coordinating through shared state.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-update-routing-model</ac:parameter></ac:structured-macro>The Update Routing Model</h3>
+<p>OPA filters route updates to appropriate agents:</p>
+<pre class="codehilite"><code>Request Update
+    ↓
+Application Router (Signal Exchange)
+    ↓
+OPA Filter Evaluation (per app)
+    ├── Risk Agent (if filter allows)
+    ├── Compliance Agent (if filter allows)
+    ├── Customer Service Agent (if filter allows)
+    └── Document Analyzer (if filter allows)
+</code></pre>
+
+<p>OPA filters enable pattern-specific routing while maintaining flexibility.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">systemic-and-enterprise-considerations</ac:parameter></ac:structured-macro>Systemic and Enterprise Considerations</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">deployment-time-resolution</ac:parameter></ac:structured-macro>Deployment-Time Resolution</h3>
+<p>Composites are resolved at deployment time by the Composite Deployment Operator:<br />
+1. <strong>Recursive Resolution</strong>: Flattens nested composites to union of all apps<br />
+2. <strong>Child Deployment Creation</strong>: Creates <code>HubApplicationDeployment</code> for each app<br />
+3. <strong>Routing Table Population</strong>: Populates routing table with flattened app list + OPA filters</p>
+<p>Signal Exchange doesn't know about composites—it just sees "Scenario X has apps [A, B, C] with filters [F1, F2, F3]". This ensures that composite applications work seamlessly with existing Hub infrastructure.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">update-conflict-resolution</ac:parameter></ac:structured-macro>Update Conflict Resolution</h3>
+<p>Multiple apps can update the same request concurrently:<br />
+*   <strong>Latest wins</strong>: Timestamp-based resolution<br />
+*   <strong>Illegal updates rejected</strong>: OPA policy determines legality<br />
+*   <strong>Rejected updates recorded</strong>: History includes rejection reason and source app</p>
+<p>Update conflict resolution ensures that composite applications maintain request state consistency while allowing parallel updates.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">governance-requirements</ac:parameter></ac:structured-macro>Governance Requirements</h3>
+<p>Composite applications must maintain governance:<br />
+*   <strong>Authority enforcement</strong>: All apps must respect authority constraints<br />
+*   <strong>Audit trail</strong>: All coordination actions must be auditable<br />
+*   <strong>Policy compliance</strong>: Coordination must comply with policies<br />
+*   <strong>Observability</strong>: Coordination must be observable for monitoring</p>
+<p>Governance ensures that composite applications maintain enterprise standards.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions-failure-modes</ac:parameter></ac:structured-macro>Common Misconceptions &amp; Failure Modes</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-composites-require-explicit-orchestr</ac:parameter></ac:structured-macro>Misconception: Composites Require Explicit Orchestration</h3>
+<p>Some organizations assume that composite applications require explicit orchestration (workflow engines, task assignment). However, composites coordinate through shared state and OPA filters, not explicit orchestration.</p>
+<p><strong>Failure mode</strong>: Organizations add explicit orchestration to composites, reducing flexibility and increasing complexity.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-all-apps-must-be-same-runtime</ac:parameter></ac:structured-macro>Misconception: All Apps Must Be Same Runtime</h3>
+<p>Some organizations assume that all apps in a composite must be from the same runtime. However, composites support cross-runtime composition, enabling agents from different runtimes to collaborate.</p>
+<p><strong>Failure mode</strong>: Organizations limit composites to single runtimes, preventing them from leveraging the best runtime for each agent type.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-composites-are-just-multiple-apps</ac:parameter></ac:structured-macro>Misconception: Composites Are Just Multiple Apps</h3>
+<p>Some organizations assume that composite applications are just multiple apps without special coordination. However, composites provide shared state coordination, OPA filter routing, and cross-runtime composition that multiple independent apps don't provide.</p>
+<p><strong>Failure mode</strong>: Organizations try to coordinate multiple independent apps manually, missing the benefits of composite applications.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">composite-design</ac:parameter></ac:structured-macro>Composite Design</h3>
+<p>Organizations should design composites that:<br />
+*   <strong>Identify agent roles</strong>: Define which agents participate and their roles<br />
+*   <strong>Design update routing</strong>: Design OPA filters for pattern-specific routing<br />
+*   <strong>Plan state management</strong>: Plan how agents coordinate through shared state<br />
+*   <strong>Consider cross-runtime</strong>: Consider which runtimes to use for which agents</p>
+<p>Composite design directly impacts coordination effectiveness and governance compliance.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">pattern-selection</ac:parameter></ac:structured-macro>Pattern Selection</h3>
+<p>Organizations should select topology patterns that:<br />
+*   <strong>Match process characteristics</strong>: Select patterns that match process needs<br />
+*   <strong>Enable effective coordination</strong>: Select patterns that enable effective coordination<br />
+*   <strong>Maintain governance</strong>: Select patterns that maintain governance requirements<br />
+*   <strong>Support scalability</strong>: Select patterns that scale to process needs</p>
+<p>Pattern selection directly impacts coordination effectiveness and system scalability.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 5.14.1 (Beyond Single-Agent Scenarios)</strong>: Establishes the need for composite applications</li>
+<li><strong>Section 5.14.2 (Coordination Pattern Requirements)</strong>: Establishes topology pattern requirements</li>
+<li><strong>Section 16.3 (Coordination Patterns in Hub)</strong>: Describes Hub Composite Applications as a coordination pattern</li>
+<li><strong>Section 22.2 (Supported Topologies)</strong>: Describes the specific topology patterns that composites support</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>olympus-hub-docs/02-system-design/implementation-concepts/hub-composite-application.md</code> — Hub Composite Application design</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 038aba3 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/038aba3/olympus-seer-docs/why-seer/part-2-how-seer-solves/22-multi-agent-topologies-in-hub/22-1-hub-composite-applications.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

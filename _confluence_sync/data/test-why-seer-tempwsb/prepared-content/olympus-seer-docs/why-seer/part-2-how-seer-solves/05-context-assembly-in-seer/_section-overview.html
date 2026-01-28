@@ -1,0 +1,29 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/05-context-assembly-in-seer/_section-overview.md -->
+<!-- Title: Section 5: Context Assembly in Seer — Overview -->
+<!-- Content Hash: 821f695bacba2f7e46ddb13a081e493e7c2c789b543b3a6985b5e2e7544d22c5 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-5-context-assembly-in-seer-overview</ac:parameter></ac:structured-macro>Section 5: Context Assembly in Seer — Overview</h1>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-section</ac:parameter></ac:structured-macro>Purpose of this Section</h2>
+<p>This section demonstrates how Seer's Context Assembly Engine builds reproducible, auditable reasoning contexts for enterprise agents. Part 1, Section 5.3 established the principles of context compilation; this section shows how Seer implements those principles with production-grade capabilities.</p>
+<p>Context assembly is the process of compiling the ephemeral working set an agent reasons with for each step. Rather than simply concatenating information into prompts, Seer deliberately selects, filters, orders, and structures information from multiple sources—ensuring predictability, auditability, and safety.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-questions-addressed</ac:parameter></ac:structured-macro>Core Questions Addressed</h2>
+<ul>
+<li>What is the Context Assembly Engine, and how does it work?</li>
+<li>How does Seer orchestrate retrieval from the four sources (Knowledge, Memory, Operational Data, Agent Memory)?</li>
+<li>How are token budgets managed across different context sections?</li>
+<li>How does Seer integrate with Knowledge Services for RAG-based retrieval?</li>
+<li>How are precedence rules applied when sources conflict?</li>
+<li>How is context provenance logged for audit and reproducibility?</li>
+</ul>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">structure-of-this-section</ac:parameter></ac:structured-macro>Structure of this Section</h2>
+<p>This section is organized into the following sub-sections:</p>
+<ul>
+<li><strong>5.1 The Context Assembly Engine</strong>: Architecture and compilation pipeline.</li>
+<li><strong>5.2 Source Orchestration</strong>: Retrieving from the four sources with appropriate governance.</li>
+<li><strong>5.3 Token Budgeting &amp; Truncation</strong>: Managing context window limits effectively.</li>
+<li><strong>5.4 Knowledge Services (RAG)</strong>: Integration with Hub's knowledge retrieval.</li>
+</ul>
+<hr />
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/05-context-assembly-in-seer/_section-overview.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

@@ -1,0 +1,196 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-12-oversight-monitoring-requirements/05-12-2-three-types-oversight.md -->
+<!-- Title: 5.12.2 Three Types of Oversight -->
+<!-- Content Hash: 2d99512773d3b6a5e10c2884f16904a4797ff969702db2bb6026074129b2b574 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5122-three-types-of-oversight</ac:parameter></ac:structured-macro>5.12.2 Three Types of Oversight</h1>
+<p>Enterprise AI agents require oversight mechanisms that operate at different time scales and with different operational models. A single type of oversight is insufficient because different problems manifest differently: some require immediate detection, others require pattern analysis over time, and still others require active agent participation to observe and intervene.</p>
+<p>This subsection defines three distinct types of oversight mechanisms—Realtime Sentinels, Analytical Sentinels, and Request Sentinels—and explains when each is appropriate. These three types complement each other, providing comprehensive coverage of the oversight requirements established in Section 5.12.1.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-this-subsection</ac:parameter></ac:structured-macro>Purpose of this Subsection</h2>
+<p>This subsection establishes the three-layer oversight model for enterprise AI agents. It defines each sentinel type, explains their operational models, and describes the problems each type is designed to detect. It also explains how the three types work together to provide comprehensive oversight coverage.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">core-concepts-definitions</ac:parameter></ac:structured-macro>Core Concepts &amp; Definitions</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">realtime-sentinels</ac:parameter></ac:structured-macro>Realtime Sentinels</h3>
+<p><strong>Realtime Sentinels</strong> are event-based policy evaluation mechanisms that observe Signal Exchange events as they occur and evaluate Open Policy Agent (OPA) policies to generate real-time Observations and Exceptions. Realtime Sentinels operate on event streams, providing immediate detection and alerting for conditions that require sentinel attention.</p>
+<p>Realtime Sentinels observe events such as:<br />
+*   Agent session state changes (e.g., agent becomes stuck, session times out)<br />
+*   Agent request state changes (e.g., request fails, request exceeds timeout)<br />
+*   Guardrail violations (e.g., agent attempts to violate guardrail constraints)<br />
+*   Policy violations (e.g., agent attempts to violate policy rules)<br />
+*   Cost anomalies (e.g., cost accumulation exceeds thresholds)</p>
+<p>Realtime Sentinels evaluate OPA policies on these events, generating Observations (warnings) or Exceptions (critical issues) that are routed to appropriate personas via Cronus Gateway (Hub's business exception model).</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">analytical-sentinels</ac:parameter></ac:structured-macro>Analytical Sentinels</h3>
+<p><strong>Analytical Sentinels</strong> are historical pattern analysis mechanisms that run templated SQL queries on analytics data marts periodically (e.g., hourly, daily) to identify trends, drift, and long-term issues. Analytical Sentinels operate on aggregated historical data, providing pattern-based detection that complements real-time detection.</p>
+<p>Analytical Sentinels analyze:<br />
+*   <strong>Cost trends</strong>: Gradual increases in cost per task, budget utilization trends, cost efficiency degradation<br />
+*   <strong>Behavioral patterns</strong>: Changes in agent decision patterns, quality metrics over time, user satisfaction trends<br />
+*   <strong>Drift detection</strong>: Comparison of current behavior to historical baselines, identification of gradual behavioral changes<br />
+*   <strong>Cross-agent patterns</strong>: Identification of patterns that span multiple agents or workbenches</p>
+<p>Analytical Sentinels execute templated SQL queries against Agent Analytics data marts, generating Observations or Exceptions based on query results. Unlike Realtime Sentinels, which operate on event streams, Analytical Sentinels operate on aggregated data, enabling detection of patterns that may not be apparent in individual events.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">request-sentinels</ac:parameter></ac:structured-macro>Request Sentinels</h3>
+<p><strong>Request Sentinels</strong> are active agent participation mechanisms where sentinel agents enroll in other agents' requests to observe and participate in real-time. Request Sentinels operate as Employed Agents in Workbenches, automatically enrolling in requests that match their enrollment filters (specified via OPA policies).</p>
+<p>Request Sentinels enable:<br />
+*   <strong>Active monitoring</strong>: Sentinel agents observe request processing in real-time, not just after the fact<br />
+*   <strong>Intervention capability</strong>: Sentinel agents can create child requests, escalate issues, or take corrective actions<br />
+*   <strong>Context-aware oversight</strong>: Sentinel agents have access to the full request context, enabling sophisticated policy evaluation<br />
+*   <strong>Multi-agent coordination</strong>: Sentinel agents can coordinate with other agents to resolve issues</p>
+<p>Request Sentinels differ from Realtime and Analytical Sentinels in that they operate as agents themselves, participating in the request lifecycle rather than just observing it. This enables active intervention and coordination that passive observation cannot provide.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">conceptual-models-frameworks</ac:parameter></ac:structured-macro>Conceptual Models / Frameworks</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-three-layer-oversight-architecture</ac:parameter></ac:structured-macro>The Three-Layer Oversight Architecture</h3>
+<p>The three sentinel types form a layered architecture:</p>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────┐
+│              Request Sentinels (Active Layer)            │
+│  Agent participation, intervention, coordination         │
+└─────────────────────────────────────────────────────────┘
+                        ↑
+┌─────────────────────────────────────────────────────────┐
+│          Analytical Sentinels (Pattern Layer)            │
+│  Historical analysis, trend detection, drift analysis   │
+└─────────────────────────────────────────────────────────┘
+                        ↑
+┌─────────────────────────────────────────────────────────┐
+│          Realtime Sentinels (Event Layer)                │
+│  Event-based policy evaluation, immediate detection      │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+
+<p>Each layer serves different purposes:<br />
+*   <strong>Event Layer (Realtime)</strong>: Catches immediate problems as they occur<br />
+*   <strong>Pattern Layer (Analytical)</strong>: Identifies trends and gradual changes over time<br />
+*   <strong>Active Layer (Request)</strong>: Enables intervention and coordination for complex issues</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">operational-model-comparison</ac:parameter></ac:structured-macro>Operational Model Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Realtime Sentinels</th>
+<th>Analytical Sentinels</th>
+<th>Request Sentinels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Operation Model</strong></td>
+<td>Observe SX events</td>
+<td>Query analytics data mart</td>
+<td>Enroll as agent in requests</td>
+</tr>
+<tr>
+<td><strong>Time Scale</strong></td>
+<td>Real-time (seconds)</td>
+<td>Periodic (hours/days)</td>
+<td>Real-time (during request)</td>
+</tr>
+<tr>
+<td><strong>Data Source</strong></td>
+<td>Signal Exchange events</td>
+<td>Agent Analytics data mart</td>
+<td>Request context</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Cronus Observations/Exceptions</td>
+<td>Cronus Observations/Exceptions</td>
+<td>Child requests, agent actions</td>
+</tr>
+<tr>
+<td><strong>Integration</strong></td>
+<td>Seer internal</td>
+<td>Seer internal</td>
+<td>Hub Request model</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Immediate anomaly detection</td>
+<td>Trend and drift detection</td>
+<td>Active intervention</td>
+</tr>
+</tbody>
+</table>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-evaluation-model</ac:parameter></ac:structured-macro>Policy Evaluation Model</h3>
+<p>All three sentinel types use OPA (Open Policy Agent) for policy evaluation, but with different input contexts:</p>
+<ul>
+<li><strong>Realtime Sentinels</strong>: Evaluate policies on SX event data (event type, agent context, session state, timestamps)</li>
+<li><strong>Analytical Sentinels</strong>: Evaluate policies on aggregated analytics data (cost trends, behavioral metrics, historical comparisons)</li>
+<li><strong>Request Sentinels</strong>: Evaluate policies on request context (request state, agent actions, tool invocations, decision points)</li>
+</ul>
+<p>This unified policy evaluation model enables consistent policy expression across all three sentinel types while allowing each type to operate on the data most relevant to its purpose.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">systemic-and-enterprise-considerations</ac:parameter></ac:structured-macro>Systemic and Enterprise Considerations</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">performance-and-scalability</ac:parameter></ac:structured-macro>Performance and Scalability</h3>
+<p>Each sentinel type has different performance characteristics:</p>
+<ul>
+<li><strong>Realtime Sentinels</strong>: Must handle high event volumes (thousands of events per second) with low latency (milliseconds to seconds)</li>
+<li><strong>Analytical Sentinels</strong>: Must efficiently query large data marts (millions of records) with acceptable query latency (seconds to minutes)</li>
+<li><strong>Request Sentinels</strong>: Must operate within request processing time constraints, adding minimal overhead to request processing</li>
+</ul>
+<p>Oversight mechanisms must be designed to scale without impacting agent performance or request processing latency.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">integration-with-hub-models</ac:parameter></ac:structured-macro>Integration with Hub Models</h3>
+<p>All three sentinel types integrate with Hub's existing models:</p>
+<ul>
+<li><strong>Realtime and Analytical Sentinels</strong>: Generate Observations and Exceptions via Cronus Gateway, using Hub's existing Observation/Exception model</li>
+<li><strong>Request Sentinels</strong>: Operate as Employed Agents, using Hub's Request model and creating child requests for intervention</li>
+</ul>
+<p>This integration ensures that oversight mechanisms leverage existing Hub infrastructure rather than creating parallel systems.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">deployment-model</ac:parameter></ac:structured-macro>Deployment Model</h3>
+<p>Sentinels are deployed via Deployment CRDs (Custom Resource Definitions) that reference Spec CRDs (Specification CRDs):</p>
+<ul>
+<li><strong>Spec CRDs</strong>: Define the sentinel specification (policy, filters, evaluation criteria) in a templatized, versioned format</li>
+<li><strong>Deployment CRDs</strong>: Define the deployment configuration (which workbenches, which agents, enable/disable state)</li>
+</ul>
+<p>This separation enables sentinel specifications to be defined once and deployed multiple times with different configurations, supporting reuse and consistency across deployments.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">common-misconceptions-failure-modes</ac:parameter></ac:structured-macro>Common Misconceptions &amp; Failure Modes</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-one-sentinel-type-is-sufficient</ac:parameter></ac:structured-macro>Misconception: One Sentinel Type Is Sufficient</h3>
+<p>Some organizations assume that one sentinel type (typically Realtime Sentinels) is sufficient for all oversight needs. In reality, each sentinel type detects different classes of problems:</p>
+<ul>
+<li>Realtime Sentinels miss gradual trends that Analytical Sentinels detect</li>
+<li>Analytical Sentinels miss immediate crises that Realtime Sentinels detect</li>
+<li>Both Realtime and Analytical Sentinels are passive observers that cannot actively intervene, which Request Sentinels enable</li>
+</ul>
+<p><strong>Failure mode</strong>: Organizations deploy only one sentinel type, missing problems that require a different detection mechanism.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-request-sentinels-replace-realtime-s</ac:parameter></ac:structured-macro>Misconception: Request Sentinels Replace Realtime Sentinels</h3>
+<p>Some organizations assume that Request Sentinels, being more sophisticated, can replace Realtime Sentinels. However, Request Sentinels operate only on requests that match their enrollment filters, while Realtime Sentinels observe all events. Request Sentinels also add overhead to request processing, making them unsuitable for high-volume, low-latency detection.</p>
+<p><strong>Failure mode</strong>: Organizations deploy only Request Sentinels, missing events that don't match enrollment filters or adding excessive overhead to request processing.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">misconception-analytical-sentinels-are-just-report</ac:parameter></ac:structured-macro>Misconception: Analytical Sentinels Are Just Reports</h3>
+<p>Some organizations treat Analytical Sentinels as reporting mechanisms rather than oversight mechanisms. While Analytical Sentinels do generate reports, they also generate Observations and Exceptions that trigger alerts and interventions, just like Realtime Sentinels.</p>
+<p><strong>Failure mode</strong>: Organizations deploy Analytical Sentinels for reporting only, missing opportunities for proactive intervention based on trend analysis.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">practical-implications</ac:parameter></ac:structured-macro>Practical Implications</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sentinel-selection-criteria</ac:parameter></ac:structured-macro>Sentinel Selection Criteria</h3>
+<p>Organizations should deploy sentinels based on the problems they need to detect:</p>
+<ul>
+<li><strong>Deploy Realtime Sentinels for</strong>: Immediate anomaly detection, policy violation detection, cost anomaly detection, stuck agent detection</li>
+<li><strong>Deploy Analytical Sentinels for</strong>: Cost trend analysis, behavioral drift detection, quality degradation detection, cross-agent pattern detection</li>
+<li><strong>Deploy Request Sentinels for</strong>: Active intervention, complex policy evaluation requiring request context, coordination with other agents</li>
+</ul>
+<p>Most organizations will deploy all three types, with different sentinels addressing different aspects of oversight.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">policy-design-considerations</ac:parameter></ac:structured-macro>Policy Design Considerations</h3>
+<p>Policy design must consider the operational model of each sentinel type:</p>
+<ul>
+<li><strong>Realtime Sentinel policies</strong>: Must be fast to evaluate (milliseconds), operate on event data, and avoid complex aggregations</li>
+<li><strong>Analytical Sentinel policies</strong>: Can use complex SQL queries and aggregations, operate on historical data, and tolerate longer evaluation times</li>
+<li><strong>Request Sentinel policies</strong>: Must operate within request processing time constraints, have access to full request context, and enable agent actions</li>
+</ul>
+<p>Policies should be designed to leverage the strengths of each sentinel type while avoiding their limitations.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-and-resource-considerations</ac:parameter></ac:structured-macro>Cost and Resource Considerations</h3>
+<p>Each sentinel type has different resource requirements:</p>
+<ul>
+<li><strong>Realtime Sentinels</strong>: Require high-throughput event processing infrastructure</li>
+<li><strong>Analytical Sentinels</strong>: Require data mart infrastructure and query processing capacity</li>
+<li><strong>Request Sentinels</strong>: Require agent runtime capacity and add overhead to request processing</li>
+</ul>
+<p>Organizations must provision appropriate infrastructure for each sentinel type they deploy.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cross-references</ac:parameter></ac:structured-macro>Cross-References</h2>
+<ul>
+<li><strong>Section 5.12.1 (Why Oversight Is Needed)</strong>: Establishes the fundamental need for oversight that these three types address</li>
+<li><strong>Section 19.1 (Seer Sentinels)</strong>: Describes how Seer implements these three sentinel types</li>
+<li><strong>Section 19.5 (Cognitive Operations Governance Workbench)</strong>: Describes how COG Sentinels (a type of Request Sentinel) enable subscription-wide governance</li>
+</ul>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><code>seer-design/subsystems/seer-sentinels/README.md</code> — Seer Sentinels design</li>
+<li><code>seer-design/subsystems/seer-sentinels/SCOPE.md</code> — Seer Sentinels scope and key decisions</li>
+<li><code>seer-design/subsystems/seer-sentinels/realtime-sentinel-service.md</code> — Realtime Sentinel Service design</li>
+<li><code>seer-design/subsystems/seer-sentinels/analytical-sentinel-service.md</code> — Analytical Sentinel Service design</li>
+<li><code>seer-design/implementation-concepts/sentinels.md</code> — Sentinel implementation concept</li>
+</ul>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 6378dee | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/6378dee/olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-12-oversight-monitoring-requirements/05-12-2-three-types-oversight.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

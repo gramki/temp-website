@@ -1,0 +1,144 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-4-four-sources.md -->
+<!-- Title: 5.4 The Four Sources -->
+<!-- Content Hash: f88a17f534953dc2a4967bd08e70897bddf02f6cf5b0c10e7389a33471d65bd7 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">54-the-four-sources</ac:parameter></ac:structured-macro>5.4 The Four Sources</h1>
+<p>Enterprise agents draw on multiple sources of information to reason and act. A common source of confusion—and a frequent cause of system failures—is conflating these sources or misunderstanding their proper roles. This section establishes a clear taxonomy of the four primary sources and the cognitive questions each answers.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-foundational-principle</ac:parameter></ac:structured-macro>The Foundational Principle</h2>
+<blockquote>
+<p><strong>Classify information by its cognitive role, not by the storage system or the colloquial word people use.</strong></p>
+</blockquote>
+<p>The same database can hold multiple cognitive categories. A "knowledge base" can contain content that is not authoritative knowledge. A warehouse can store facts that are derived artifacts, not institutional memory. Clear classification enables proper governance and appropriate use.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-four-sources-defined</ac:parameter></ac:structured-macro>The Four Sources Defined</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-enterprise-knowledge-what-is-true-correct-requir</ac:parameter></ac:structured-macro>1. Enterprise Knowledge: What Is True / Correct / Required</h3>
+<p><strong>Definition:</strong> Enterprise Knowledge consists of codified, curated, asserted truths that the organization recognizes as authoritative. It represents the normative layer—what <em>should</em> happen, what is <em>correct</em>, what is <em>required</em>.</p>
+<p><strong>Characteristics:</strong><br />
+- Governed lifecycle: draft → review → approved → deprecated<br />
+- Versioned with change tracking<br />
+- Source of normative guidance<br />
+- Explicitly managed and curated</p>
+<p><strong>Examples:</strong><br />
+- Policies and regulations<br />
+- Standard operating procedures (SOPs)<br />
+- Reference data and definitions<br />
+- Regulatory requirements<br />
+- Business rules and decision criteria</p>
+<p><strong>Where it should live:</strong> Governed knowledge layer—document repositories, knowledge graphs, knowledge services.</p>
+<p><strong>Agent use:</strong> Grounding decisions in authoritative guidance; ensuring compliance with organizational requirements.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-enterprise-memory-what-happened-and-why</ac:parameter></ac:structured-macro>2. Enterprise Memory: What Happened and Why</h3>
+<p><strong>Definition:</strong> Enterprise Memory is the institutional record of what occurred, why it occurred, and what was learned from it. It represents the experiential layer—the organization's accumulated experience.</p>
+<p><strong>Characteristics:</strong><br />
+- Immutable and append-only (for episodic records)<br />
+- Case-bound and time-ordered<br />
+- No PII (entity references only)<br />
+- Long-retained (7+ years for compliance)<br />
+- Follows ESPP taxonomy (Episodic, Semantic, Procedural, Preference)</p>
+<p><strong>Examples:</strong><br />
+- Decision records and rationale<br />
+- Override histories and their outcomes<br />
+- Incident timelines and resolutions<br />
+- Outcome records linking decisions to results<br />
+- Learned patterns and validated hypotheses</p>
+<p><strong>Where it should live:</strong> Memory services, case systems, audit stores—append-only with provenance.</p>
+<p><strong>Agent use:</strong> Precedent lookup; learning from past outcomes; supporting audit and investigation.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-operational-data-what-is-the-current-state</ac:parameter></ac:structured-macro>3. Operational Data: What Is the Current State</h3>
+<p><strong>Definition:</strong> Operational Data represents the current state of business operations and event history as maintained by operational systems. It is the transactional layer—what <em>is</em> happening right now.</p>
+<p><strong>Characteristics:</strong><br />
+- Authoritative for current operational state<br />
+- Typically mutable (reflects real-time changes)<br />
+- May contain PII (subject to appropriate controls)<br />
+- Event history alongside current state</p>
+<p><strong>Examples:</strong><br />
+- Transaction ledgers and account balances<br />
+- Case management status and SLAs<br />
+- Customer records and interaction history<br />
+- Inventory levels and order status<br />
+- Real-time metrics and sensor readings</p>
+<p><strong>Where it should live:</strong> Business applications, OLTP databases, operational APIs.</p>
+<p><strong>Agent use:</strong> Understanding current context; accessing real-time information needed for decisions.</p>
+<p><strong>Key caution:</strong> Authority for operational state does not automatically make something knowledge or memory. An account balance is operational state; it becomes memory only when recorded as part of a decision record.</p>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-agent-memory-how-should-i-act-now</ac:parameter></ac:structured-macro>4. Agent Memory: How Should I Act Now</h3>
+<p><strong>Definition:</strong> Agent Memory is session-scoped or request-scoped memory that supports operational continuity and tactical decision-making. It represents the working layer—the agent's immediate context and transient learnings.</p>
+<p><strong>Characteristics:</strong><br />
+- Ephemeral: session-lived or short retention<br />
+- PII-allowed: can contain personal data within session scope<br />
+- Mutable: can be updated during session<br />
+- Not authoritative: cannot silently become policy</p>
+<p><strong>Examples:</strong><br />
+- Current conversation context<br />
+- User preferences within the session<br />
+- Results of recent tool calls<br />
+- Working hypotheses under investigation<br />
+- Intermediate reasoning steps</p>
+<p><strong>Where it should live:</strong> Agent memory services, session stores.</p>
+<p><strong>Agent use:</strong> In-flight operations; personalization; context continuity.</p>
+<p><strong>Key caution:</strong> Agent memory is not enterprise truth. It must not silently become policy or influence other agents without governed promotion.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">comparison-of-the-four-sources</ac:parameter></ac:structured-macro>Comparison of the Four Sources</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Question Answered</th>
+<th>Scope</th>
+<th>Governance</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enterprise Knowledge</strong></td>
+<td>What is true/correct/required?</td>
+<td>Organizational</td>
+<td>High: curated, versioned, approved</td>
+<td>Version-controlled</td>
+</tr>
+<tr>
+<td><strong>Enterprise Memory</strong></td>
+<td>What happened and why?</td>
+<td>Organizational</td>
+<td>High: immutable, audited</td>
+<td>Append-only</td>
+</tr>
+<tr>
+<td><strong>Operational Data</strong></td>
+<td>What is the current state?</td>
+<td>Operational</td>
+<td>Medium: application-level</td>
+<td>Real-time mutable</td>
+</tr>
+<tr>
+<td><strong>Agent Memory</strong></td>
+<td>How should I act now?</td>
+<td>Session/Request</td>
+<td>Low: operational</td>
+<td>Freely mutable</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">the-promotion-path</ac:parameter></ac:structured-macro>The Promotion Path</h2>
+<p>Information can move between sources, but only through governed processes:</p>
+<pre class="codehilite"><code>Agent Memory (transient observations)
+    ↓ (pattern detection, validation)
+Enterprise Memory - Semantic (hypotheses, beliefs)
+    ↓ (human validation, approval)
+Enterprise Knowledge (authoritative policy)
+</code></pre>
+
+<p>This promotion path ensures that learnings from operational experience can become institutional knowledge without silently changing policy.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">using-all-sources-together</ac:parameter></ac:structured-macro>Using All Sources Together</h2>
+<p>When designing an agent, the context compiler should explicitly draw from each source for its appropriate cognitive role:</p>
+<ol>
+<li><strong>Enterprise Knowledge</strong> provides normative constraints and factual grounding.</li>
+<li><strong>Enterprise Memory</strong> provides precedent and institutional context.</li>
+<li><strong>Operational Data</strong> provides current state and real-time facts.</li>
+<li><strong>Agent Memory</strong> provides session continuity and tactical context.</li>
+</ol>
+<p>The structured context frame (see Section 5.3) organizes these sources appropriately, with clear precedence when conflicts arise.</p>
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/agentic-ai-concepts/designing-an-agent.md</code><br />
+*   <code>olympus-seer-docs/agentic-ai-concepts/agent-memory/knowledge-memory-context-session.md</code><br />
+*   <code>olympus-hub-docs/04-subsystems/memory-services/README.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-1-background/05-building-enterprise-agent/05-4-four-sources.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

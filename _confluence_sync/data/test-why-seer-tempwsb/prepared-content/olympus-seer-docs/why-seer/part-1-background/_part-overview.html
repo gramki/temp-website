@@ -1,0 +1,160 @@
+<!-- File: olympus-seer-docs/why-seer/part-1-background/_part-overview.md -->
+<!-- Title: Part 1: Background — Overview -->
+<!-- Content Hash: cf4eceb6f0ab67c045a480f5f77bcab291f6cf350f2d71b0f8a4d990c19e84c4 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-1-background-overview</ac:parameter></ac:structured-macro>Part 1: Background — Overview</h1>
+<p><em>Understanding the problem space: What enterprise agent platforms require and why.</em></p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-of-part-1</ac:parameter></ac:structured-macro>Purpose of Part 1</h2>
+<p>Part 1 establishes the foundational understanding necessary to evaluate enterprise AI agent platforms. Before examining how any specific platform addresses enterprise requirements, readers must first understand what those requirements are and why they arise.</p>
+<p>This part answers the question: <em>What must an enterprise agent platform provide, and why do these requirements exist?</em></p>
+<p>The chapters that follow proceed from first principles. They do not assume prior exposure to enterprise agent platforms or agent-oriented systems design. Instead, they build a comprehensive vocabulary and conceptual framework that Part 2 will use to demonstrate how Seer addresses each requirement.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-structure</ac:parameter></ac:structured-macro>Part Structure</h2>
+<p>Part 1 consists of five sections, each addressing a distinct aspect of the problem space:</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Title</th>
+<th>Central Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>What Is an Enterprise Agent Platform?</td>
+<td>What distinguishes enterprise platforms from cloud-managed AI, and what modules must they provide?</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Why Enterprise Agents Are Different</td>
+<td>How do enterprise agents differ from consumer and business agents, and what accountability and authority requirements arise?</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Memory Requirements for Enterprise Agents</td>
+<td>Why is memory governance essential, and what taxonomy and lifecycle controls are required?</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Audit Requirements for Enterprise Agents</td>
+<td>What does regulatory-grade audit require, and how does it differ from operational logging?</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>Building an Enterprise Agent</td>
+<td>What lifecycle, context assembly, tools, coordination, and governance patterns are needed to construct production-grade agents?</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sections-in-this-part</ac:parameter></ac:structured-macro>Sections in This Part</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-1-what-is-an-enterprise-agent-platform</ac:parameter></ac:structured-macro>Section 1: What Is an Enterprise Agent Platform?</h3>
+<p>This section defines the category. It distinguishes enterprise agent platforms from cloud-managed AI services, introduces the OPD triad (Observability, Predictability, Directability) as the defining properties of enterprise-ready agents, and enumerates the core modules that every enterprise platform must provide.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4726751239"/><ac:plain-text-link-body><![CDATA[Section Overview]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4726259717"/><ac:plain-text-link-body><![CDATA[1.1 Beyond Cloud-Managed AI]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724424724"/><ac:plain-text-link-body><![CDATA[1.2 The Governed Operating Layer]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725604360"/><ac:plain-text-link-body><![CDATA[1.3 The OPD Triad]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724850697"/><ac:plain-text-link-body><![CDATA[1.4 Core Modules Every Enterprise Platform Needs]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725899294"/><ac:plain-text-link-body><![CDATA[1.5 What Cloud Platforms Provide (and Don't)]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-2-why-enterprise-agents-are-different</ac:parameter></ac:structured-macro>Section 2: Why Enterprise Agents Are Different</h3>
+<p>This section explains why enterprise agents face requirements that consumer and business agents do not. It covers the accountability gap, the authority question, and the irreversibility problem—the foundational challenges that shape enterprise agent design.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4725309450"/><ac:plain-text-link-body><![CDATA[Section Overview]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4726227658"/><ac:plain-text-link-body><![CDATA[2.1 Consumer vs. Business vs. Enterprise Agents]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725637136"/><ac:plain-text-link-body><![CDATA[2.2 The Accountability Gap]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4726390797"/><ac:plain-text-link-body><![CDATA[2.3 The Authority Question]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724555784"/><ac:plain-text-link-body><![CDATA[2.4 The Irreversibility Problem]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-3-memory-requirements-for-enterprise-agent</ac:parameter></ac:structured-macro>Section 3: Memory Requirements for Enterprise Agents</h3>
+<p>This section addresses why memory management is a first-class concern for enterprise agents. It introduces the ESPP memory taxonomy (Episodic, Semantic, Procedural, Preference), distinguishes organizational from operational memory, and establishes the governance imperatives that enterprise memory systems must satisfy.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4726751261"/><ac:plain-text-link-body><![CDATA[Section Overview]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725866503"/><ac:plain-text-link-body><![CDATA[3.1 Why Memory Is Not Just Context]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725506059"/><ac:plain-text-link-body><![CDATA[3.2 The Memory Taxonomy (ESPP)]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725899316"/><ac:plain-text-link-body><![CDATA[3.3 Organizational vs. Operational Memory]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4726259739"/><ac:plain-text-link-body><![CDATA[3.4 Memory Governance Imperatives]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724654088"/><ac:plain-text-link-body><![CDATA[3.5 The Learning Imperative]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-4-audit-requirements-for-enterprise-agents</ac:parameter></ac:structured-macro>Section 4: Audit Requirements for Enterprise Agents</h3>
+<p>This section explains why audit is a distinct discipline from logging, introduces the regulatory requirements that drive audit capabilities, and describes the Cognitive Audit Fabric as a conceptual framework for decision-grade evidence management.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4726456328"/><ac:plain-text-link-body><![CDATA[Section Overview]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4723900495"/><ac:plain-text-link-body><![CDATA[4.1 The Regulatory Reality]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724817933"/><ac:plain-text-link-body><![CDATA[4.2 Audit Is Not Logging]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724785165"/><ac:plain-text-link-body><![CDATA[4.3 The Cognitive Audit Fabric]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4723834973"/><ac:plain-text-link-body><![CDATA[4.4 Immutability and Tamper Evidence]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4726292503"/><ac:plain-text-link-body><![CDATA[4.5 Multi-Audience Explanations]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">section-5-building-an-enterprise-agent</ac:parameter></ac:structured-macro>Section 5: Building an Enterprise Agent</h3>
+<p>This section addresses the practical requirements for constructing enterprise agents. It covers the agent lifecycle (Raw, Trained, Employed), context compilation, the four sources of agent knowledge, common anti-patterns, CI/CD for agents, model provider independence, tool and action requirements, multi-agent coordination, feedback and learning, and cost governance.</p>
+<ul>
+<li><ac:link><ri:page ri:page-id="4725374982"/><ac:plain-text-link-body><![CDATA[Section Overview]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725014547"/><ac:plain-text-link-body><![CDATA[5.1 The Agent Lifecycle]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724719635"/><ac:plain-text-link-body><![CDATA[5.2 The Immutability Principle]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724883465"/><ac:plain-text-link-body><![CDATA[5.3 Context Compilation]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725145607"/><ac:plain-text-link-body><![CDATA[5.4 The Four Sources]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725309472"/><ac:plain-text-link-body><![CDATA[5.5 Common Anti-Patterns]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4726325256"/><ac:plain-text-link-body><![CDATA[5.6 CI/CD for Enterprise Agents]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725112892"/><ac:plain-text-link-body><![CDATA[5.7 Model Provider Independence]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724129840"/><ac:plain-text-link-body><![CDATA[5.8 Tool &amp; Action Requirements]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4724424746"/><ac:plain-text-link-body><![CDATA[5.9 Multi-Agent Coordination Requirements]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4726685710"/><ac:plain-text-link-body><![CDATA[5.10 Feedback &amp; Learning Requirements]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:page-id="4725997582"/><ac:plain-text-link-body><![CDATA[5.11 Cost Requirements for Enterprise Agents]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">key-concepts-introduced-in-part-1</ac:parameter></ac:structured-macro>Key Concepts Introduced in Part 1</h2>
+<p>Part 1 establishes the following foundational concepts that are used throughout the book:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>First Introduced</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enterprise Agent Platform</strong></td>
+<td>Section 1.1</td>
+<td>A governed operating layer above models and infrastructure that enables organizations to deploy agents with accountability, auditability, and control</td>
+</tr>
+<tr>
+<td><strong>OPD Triad</strong></td>
+<td>Section 1.3</td>
+<td>The three properties—Observability, Predictability, Directability—that make agents enterprise-ready</td>
+</tr>
+<tr>
+<td><strong>ESPP Taxonomy</strong></td>
+<td>Section 3.2</td>
+<td>The four memory types: Episodic, Semantic, Procedural, Preference</td>
+</tr>
+<tr>
+<td><strong>Cognitive Audit Fabric (CAF)</strong></td>
+<td>Section 4.3</td>
+<td>The enterprise memory control plane for decision-grade audit records</td>
+</tr>
+<tr>
+<td><strong>Raw, Trained, Employed</strong></td>
+<td>Section 5.1</td>
+<td>The three-layer agent lifecycle model</td>
+</tr>
+</tbody>
+</table>
+<p>These concepts form the vocabulary for Part 2, where each is realized in Seer's design.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">reading-guidance</ac:parameter></ac:structured-macro>Reading Guidance</h2>
+<p><strong>For comprehensive understanding:</strong> Read Part 1 sequentially before proceeding to Part 2.</p>
+<p><strong>For specific requirements:</strong> Use the section index above to navigate to topics of interest, then follow cross-references to related material.</p>
+<p><strong>For evaluation preparation:</strong> Sections 1 and 5 are most relevant for preparing platform evaluation criteria.</p>
+<hr />
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">proceeding-to-content</ac:parameter></ac:structured-macro>Proceeding to Content</h2>
+<p>Begin with <ac:link><ri:page ri:page-id="4726751239"/><ac:plain-text-link-body><![CDATA[Section 1: What Is an Enterprise Agent Platform?]]></ac:plain-text-link-body></ac:link> to establish the foundational understanding that subsequent sections build upon.</p>
+<hr />
+<p><em>Part 1 establishes requirements; Part 2 demonstrates solutions. Understanding the problem space is prerequisite to evaluating how any platform addresses it.</em></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-1-background/_part-overview.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>

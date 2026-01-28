@@ -1,0 +1,287 @@
+<!-- File: olympus-seer-docs/why-seer/part-2-how-seer-solves/07-runtime-observability-in-seer/07-3-observability.md -->
+<!-- Title: 7.3 Observability -->
+<!-- Content Hash: 6e0dc663216aa25386bb3c05cfd1fb25afd625bb21f9fb710dccc69932647990 -->
+<!-- Parent ID: 4725899274 -->
+
+<h1><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">73-observability</ac:parameter></ac:structured-macro>7.3 Observability</h1>
+<p>Observability for AI agents extends beyond traditional metrics. Seer provides purpose-built observability that understands agent behavior—reasoning patterns, decision quality, and cognitive health—not just system metrics.</p>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">observability-pillars</ac:parameter></ac:structured-macro>Observability Pillars</h2>
+<table>
+<thead>
+<tr>
+<th>Pillar</th>
+<th>What It Provides</th>
+<th>Agent-Specific Aspects</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Metrics</strong></td>
+<td>Quantitative measurements</td>
+<td>Token usage, decision rates, health scores</td>
+</tr>
+<tr>
+<td><strong>Logs</strong></td>
+<td>Event records</td>
+<td>Reasoning steps, tool calls, policy decisions</td>
+</tr>
+<tr>
+<td><strong>Traces</strong></td>
+<td>Request flow</td>
+<td>Context assembly, model calls, action execution</td>
+</tr>
+</tbody>
+</table>
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">metrics</ac:parameter></ac:structured-macro>Metrics</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">agent-health-score-ahs</ac:parameter></ac:structured-macro>Agent Health Score (AHS)</h3>
+<p>Composite metric reflecting overall agent health:</p>
+<pre class="codehilite"><code class="language-yaml">agent_health_score:
+  components:
+    accuracy:
+      weight: 0.3
+      source: outcome_feedback
+
+    success_rate:
+      weight: 0.25
+      source: completion_rate
+
+    compliance:
+      weight: 0.25
+      source: policy_adherence
+
+    user_satisfaction:
+      weight: 0.2
+      source: explicit_feedback
+
+  calculation: weighted_average
+  range: 0.0 - 1.0
+
+  thresholds:
+    healthy: &gt;= 0.8
+    warning: 0.6 - 0.8
+    critical: &lt; 0.6
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">operational-metrics</ac:parameter></ac:structured-macro>Operational Metrics</h3>
+<pre class="codehilite"><code class="language-yaml">operational_metrics:
+  throughput:
+    - requests_per_second
+    - decisions_per_hour
+    - actions_per_day
+
+  latency:
+    - p50_response_time
+    - p95_response_time
+    - p99_response_time
+    - model_latency
+    - tool_latency
+
+  errors:
+    - error_rate
+    - failure_by_type
+    - retry_rate
+
+  resources:
+    - cpu_utilization
+    - memory_utilization
+    - gpu_utilization (if applicable)
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cognitive-metrics</ac:parameter></ac:structured-macro>Cognitive Metrics</h3>
+<pre class="codehilite"><code class="language-yaml">cognitive_metrics:
+  reasoning:
+    - average_reasoning_turns
+    - reasoning_loop_rate
+    - stuck_detection_rate
+
+  context:
+    - average_context_tokens
+    - token_budget_utilization
+    - retrieval_relevance_score
+
+  decisions:
+    - decision_confidence_distribution
+    - escalation_rate
+    - override_rate
+
+  learning:
+    - feedback_incorporation_rate
+    - pattern_detection_rate
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cost-metrics</ac:parameter></ac:structured-macro>Cost Metrics</h3>
+<pre class="codehilite"><code class="language-yaml">cost_metrics:
+  token_usage:
+    - input_tokens_per_request
+    - output_tokens_per_request
+    - total_tokens_per_request
+
+  cost:
+    - cost_per_request
+    - cost_per_decision
+    - cost_per_hour
+    - cost_per_day
+
+  efficiency:
+    - cost_to_health_ratio (CHR)
+    - cost_per_successful_outcome
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">logs</ac:parameter></ac:structured-macro>Logs</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">structured-logging</ac:parameter></ac:structured-macro>Structured Logging</h3>
+<p>All agent events are logged with structure:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;timestamp&quot;: &quot;2026-01-10T14:30:00Z&quot;,
+  &quot;level&quot;: &quot;info&quot;,
+  &quot;agent&quot;: &quot;dispute-analyst-tier1&quot;,
+  &quot;request_id&quot;: &quot;req-abc123&quot;,
+  &quot;trace_id&quot;: &quot;trace-xyz789&quot;,
+
+  &quot;event&quot;: &quot;decision_made&quot;,
+  &quot;decision&quot;: {
+    &quot;type&quot;: &quot;refund_approved&quot;,
+    &quot;amount&quot;: 450,
+    &quot;confidence&quot;: 0.87
+  },
+
+  &quot;context&quot;: {
+    &quot;case_id&quot;: &quot;case-12345&quot;,
+    &quot;reasoning_turns&quot;: 3,
+    &quot;tools_used&quot;: [&quot;get_transaction&quot;, &quot;check_policy&quot;],
+    &quot;knowledge_retrieved&quot;: 4
+  },
+
+  &quot;policy&quot;: {
+    &quot;evaluated&quot;: [&quot;max-refund-limit&quot;, &quot;escalation-rules&quot;],
+    &quot;decisions&quot;: [&quot;allow&quot;, &quot;not_applicable&quot;]
+  }
+}
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">log-categories</ac:parameter></ac:structured-macro>Log Categories</h3>
+<pre class="codehilite"><code class="language-yaml">log_categories:
+  reasoning:
+    - reasoning_step_started
+    - reasoning_step_completed
+    - reasoning_loop_detected
+
+  context:
+    - context_assembly_started
+    - source_queried
+    - context_assembled
+
+  tools:
+    - tool_invoked
+    - tool_succeeded
+    - tool_failed
+
+  decisions:
+    - decision_made
+    - decision_escalated
+    - decision_overridden
+
+  governance:
+    - policy_evaluated
+    - guardrail_triggered
+    - authority_checked
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">traces</ac:parameter></ac:structured-macro>Traces</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">distributed-tracing</ac:parameter></ac:structured-macro>Distributed Tracing</h3>
+<p>Seer uses OpenTelemetry for distributed tracing:</p>
+<pre class="codehilite"><code class="language-yaml">trace_structure:
+  root_span: agent_request
+
+  child_spans:
+    - name: context_assembly
+      children:
+        - knowledge_retrieval
+        - memory_query
+        - operational_data_fetch
+        - agent_memory_load
+
+    - name: reasoning_loop
+      children:
+        - reasoning_turn_1
+        - reasoning_turn_2
+        - tool_invocation
+        - reasoning_turn_3
+
+    - name: decision_making
+      children:
+        - policy_evaluation
+        - authority_check
+        - decision_record_creation
+
+    - name: action_execution
+      children:
+        - tool_call
+        - result_processing
+        - output_delivery
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">trace-example</ac:parameter></ac:structured-macro>Trace Example</h3>
+<pre class="codehilite"><code>agent_request (500ms)
+├── context_assembly (150ms)
+│   ├── knowledge_retrieval (80ms)
+│   ├── memory_query (40ms)
+│   └── agent_memory_load (30ms)
+├── reasoning_loop (280ms)
+│   ├── reasoning_turn_1 (50ms)
+│   ├── tool_invocation: get_transaction (30ms)
+│   ├── reasoning_turn_2 (60ms)
+│   └── reasoning_turn_3 (40ms)
+├── decision_making (50ms)
+│   ├── policy_evaluation (20ms)
+│   └── decision_record (30ms)
+└── action_execution (20ms)
+    └── tool_call: approve_refund (20ms)
+</code></pre>
+
+<h2><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">dashboards</ac:parameter></ac:structured-macro>Dashboards</h2>
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">operator-dashboard</ac:parameter></ac:structured-macro>Operator Dashboard</h3>
+<pre class="codehilite"><code class="language-yaml">operator_dashboard:
+  panels:
+    - name: Agent Health Overview
+      metrics: [ahs_by_agent, healthy_degraded_impaired_counts]
+
+    - name: Request Volume
+      metrics: [requests_per_second, by_agent, by_workbench]
+
+    - name: Latency
+      metrics: [p50, p95, p99, by_component]
+
+    - name: Errors
+      metrics: [error_rate, errors_by_type, recent_errors]
+
+    - name: Cost
+      metrics: [cost_per_hour, cost_by_agent, chr_trend]
+
+    - name: Governance
+      metrics: [escalation_rate, override_rate, policy_denials]
+</code></pre>
+
+<h3><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">alerting</ac:parameter></ac:structured-macro>Alerting</h3>
+<pre class="codehilite"><code class="language-yaml">alerts:
+  - name: agent_health_critical
+    condition: ahs &lt; 0.6 for 5m
+    severity: critical
+    channels: [pagerduty]
+
+  - name: high_escalation_rate
+    condition: escalation_rate &gt; 0.3 for 15m
+    severity: warning
+    channels: [slack]
+
+  - name: cost_anomaly
+    condition: cost_per_hour &gt; 2x baseline
+    severity: warning
+    channels: [slack, email]
+</code></pre>
+
+<hr />
+<p><strong>References:</strong><br />
+*   <code>olympus-seer-docs/seer-design/subsystems/observability.md</code><br />
+*   <code>olympus-seer-docs/why-seer/part-1-background/02-enterprise-agents-different/02-3-opd-triad.md</code></p>
+
+<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p><strong>Source:</strong> Commit: 3505542 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/3505542/olympus-seer-docs/why-seer/part-2-how-seer-solves/07-runtime-observability-in-seer/07-3-observability.md">View on GitHub</a></p></ac:rich-text-body></ac:structured-macro></p>
