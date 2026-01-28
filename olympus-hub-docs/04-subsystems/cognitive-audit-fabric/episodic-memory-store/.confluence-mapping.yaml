@@ -1,0 +1,4 @@
+# Confluence title mapping for pages that conflict
+pages:
+  hypothesis-records.md: "Hypothesis Records (Episodic Memory)"
+  record-relationships.md: "Record Relationships (Episodic Memory)"

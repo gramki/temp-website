@@ -1,0 +1,7 @@
+# Confluence title mapping for pages that conflict
+pages:
+  episodic-memory.md: "Agent Episodic Memory"
+  preference-memory.md: "Agent Preference Memory"
+  procedural-memory.md: "Agent Procedural Memory"
+  semantic-memory.md: "Agent Semantic Memory"
+  governance.md: "Agent Memory Governance"

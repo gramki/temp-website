@@ -1,0 +1,3 @@
+# Confluence title mapping for pages that conflict with olympus-hub-docs
+pages:
+  introduction.md: "Olympus Seer Introduction"

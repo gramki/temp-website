@@ -1,0 +1,5 @@
+# Confluence title mapping to avoid conflicts with olympus-seer-docs journeys
+folder_title: "Hub Journeys"
+
+pages:
+  request-lifecycle.md: "Hub Request Lifecycle Journey"

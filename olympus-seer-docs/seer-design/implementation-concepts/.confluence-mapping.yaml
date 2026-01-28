@@ -1,0 +1,12 @@
+# Confluence title mapping to avoid conflicts with olympus-hub-docs/02-system-design/implementation-concepts
+folder_title: "Seer Implementation Concepts"
+
+pages:
+  # Pages that exist in both Hub and Seer implementation-concepts
+  request-scoped-delegation.md: "Seer Request-Scoped Delegation"
+  scenario-scoped-delegation.md: "Seer Scenario-Scoped Delegation"
+  context-assembly.md: "Seer Context Assembly"
+  agent-observability.md: "Seer Agent Observability Concept"
+  guardrails.md: "Seer Guardrails Concept"
+  authority-enforcement.md: "Seer Authority Enforcement Concept"
+  human-accountability.md: "Seer Human Accountability Concept"

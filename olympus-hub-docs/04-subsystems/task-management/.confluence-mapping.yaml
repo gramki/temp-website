@@ -1,0 +1,4 @@
+# Confluence title mapping for pages that conflict
+pages:
+  task-allocation.md: "Task Allocation (Subsystem)"
+  open-points.md: "Task Management Open Points"

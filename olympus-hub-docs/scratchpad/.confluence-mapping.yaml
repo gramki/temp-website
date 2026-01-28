@@ -1,0 +1,7 @@
+# Confluence title mapping to avoid conflicts with olympus-seer-docs scratchpad
+folder_title: "Hub Scratchpad"
+
+pages:
+  agent-directability.md: "Hub Agent Directability (Draft)"
+  agent-observability.md: "Hub Agent Observability (Draft)"
+  multi-agent-topologies.md: "Hub Multi-Agent Topologies (Draft)"

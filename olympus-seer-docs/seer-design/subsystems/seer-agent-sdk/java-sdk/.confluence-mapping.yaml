@@ -1,0 +1,9 @@
+# Confluence title mapping for pages that conflict with python-sdk
+pages:
+  context-compiler-apis.md: "Java SDK Context Compiler APIs"
+  delegation-apis.md: "Java SDK Delegation APIs"
+  employment-spec-apis.md: "Java SDK Employment Spec APIs"
+  framework-apis.md: "Java SDK Framework APIs"
+  hub-integration-apis.md: "Java SDK Hub Integration APIs"
+  observability-apis.md: "Java SDK Observability APIs"
+  prompt-apis.md: "Java SDK Prompt APIs"

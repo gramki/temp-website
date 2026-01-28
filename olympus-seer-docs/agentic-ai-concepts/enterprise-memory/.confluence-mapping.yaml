@@ -1,0 +1,6 @@
+# Confluence title mapping for pages that conflict
+pages:
+  episodic-memory.md: "Enterprise Episodic Memory"
+  preference-memory.md: "Enterprise Preference Memory"
+  procedural-memory.md: "Enterprise Procedural Memory"
+  semantic-memory.md: "Enterprise Semantic Memory"

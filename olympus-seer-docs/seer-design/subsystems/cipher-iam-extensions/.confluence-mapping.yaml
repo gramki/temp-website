@@ -1,0 +1,4 @@
+# Confluence title mapping for pages that conflict
+pages:
+  architecture.md: "Cipher IAM Extensions Architecture"
+  human-accountability.md: "Cipher Human Accountability"

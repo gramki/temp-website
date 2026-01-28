@@ -1,0 +1,7 @@
+# Confluence title mapping to avoid conflicts with olympus-seer-docs/seer-design/implementation-concepts
+folder_title: "Hub Implementation Concepts"
+
+pages:
+  # Pages that exist in both Hub and Seer implementation-concepts
+  request-scoped-delegation.md: "Hub Request-Scoped Delegation"
+  scenario-scoped-delegation.md: "Hub Scenario-Scoped Delegation"

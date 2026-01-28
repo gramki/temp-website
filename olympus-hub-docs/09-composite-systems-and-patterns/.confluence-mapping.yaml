@@ -1,0 +1,3 @@
+# Confluence title mapping for pages that conflict
+pages:
+  hub-application-as-standalone-tool.md: "Hub Application as Standalone Tool (Pattern)"

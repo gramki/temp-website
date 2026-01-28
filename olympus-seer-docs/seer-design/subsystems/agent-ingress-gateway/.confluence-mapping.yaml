@@ -1,0 +1,4 @@
+# Confluence title mapping for pages that conflict
+pages:
+  architecture.md: "Agent Ingress Gateway Architecture"
+  signal-exchange-integration.md: "Ingress Gateway Signal Exchange Integration"
