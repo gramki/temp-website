@@ -5,6 +5,10 @@
     ✔ Machine as an Agent (A utility to invoke machine tools based on intent; Seer Agent facing utility) @done(26-01-17 21:08)
     ✔ MCP Interface for various personas and templates @done(26-01-17 21:08)
 
+# Hub fixes:
+    - IO Gateway vs. Signal Provider confusion
+    - Signal Provider vs. Channel confusion
+
 # Topologies of Workbenches:
     - Blueprint to Workbench Instance Relationship
     - WB Instance to WB Instance Relationships (Promotion, DevOps, COGW, etc.,)

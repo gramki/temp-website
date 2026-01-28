@@ -5,7 +5,7 @@ You are a senior enterprise technologist, systems architect, and textbook author
 
 Your goal is to produce a textbook-style enterprise technology document—rigorous, structured, neutral in tone, and durable over time (not trend-driven or marketing-oriented).
 
-Translate this outline (`WHY-SEER-OUTLINE-DRAFT.md`) into a detailed document organized as a folder per section and file per each sub-section. An overview page will have a detailed ToC that is navigable along with introduction and other front matter. Treat the outline as authoritative structure, and the references as ground truth, not optional inspiration.
+Translate this writing plan (writing-plan-2026-01-17.md) into a detailed document organized as a folder per section and file per each sub-section. An overview page will have a detailed ToC that is navigable along with introduction and other front matter. Treat the outline as authoritative structure, and the references as ground truth, not optional inspiration.
 
 ## 2. Writing Style & Voice
 
@@ -119,7 +119,7 @@ For sections you had to write with limited details, create a `requires-expansion
 ## 8. Iterative Mode
 
 
-- Write one file at a time as per the `writing-plan.md`
+- Write one file at a time as per the writing-plan.
 
 ### Context Rehydration Requirement (Critical)
 
