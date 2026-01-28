@@ -1,0 +1,24 @@
+destinations:
+  - id: hub-proposal
+    name: Hub Proposal Documentation (Test)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: ~5570580ad15fced37e40a38c7171943fae763b
+      root_page_title: Hub Proposal Test
+      root_page_id: null
+    source:
+      folders:
+        - path: _confluence_sync/test-data/test-docs-1
+          create_root_parent: true
+          title: Test Docs 1
+        - path: _confluence_sync/test-data/test-docs-2
+          create_root_parent: true
+          title: Test Docs 2
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 3
