@@ -1,0 +1,129 @@
+destinations:
+  - id: hub-docs
+    name: Olympus Hub Documentation
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: ~5570580ad15fced37e40a38c7171943fae763b
+      root_page_title: Olympus Hub Docs
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-hub-docs
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: test-why-seer
+    name: Test - Why Seer (Small)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: ~5570580ad15fced37e40a38c7171943fae763b
+      root_page_title: Test - Why Seer - 22 Jan 2026
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-seer-docs/why-seer
+          create_root_parent: true
+          title: Why Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: hub-proposal
+    name: Hub Proposal Documentation
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: ~5570580ad15fced37e40a38c7171943fae763b
+      root_page_title: Hub Proposal
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-hub-docs
+          create_root_parent: true
+          title: Olympus Hub
+        - path: olympus-seer-docs
+          create_root_parent: true
+          title: Olympus Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: hub-proposal-space
+    name: Hub Proposal Documentation
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: TEMPHP
+      root_page_title: Hub Proposal
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-hub-docs
+          create_root_parent: true
+          title: Olympus Hub
+        - path: olympus-seer-docs
+          create_root_parent: true
+          title: Olympus Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: test-why-seer-tempwsb
+    name: Test - Why Seer (TEMPWSB Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: TEMPWSB
+      root_page_title: Test - Why Seer - 22 Jan 2026
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-seer-docs/why-seer
+          create_root_parent: true
+          title: Why Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: hub-proposal-temphub
+    name: Hub Proposal (TEMPHUBX Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: TEMPHUBX
+      root_page_title: Hub Proposal
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-hub-docs
+          create_root_parent: true
+          title: Olympus Hub
+        - path: olympus-seer-docs
+          create_root_parent: true
+          title: Olympus Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
