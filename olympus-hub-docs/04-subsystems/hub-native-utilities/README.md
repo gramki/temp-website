@@ -1,4 +1,4 @@
-# Hub Native Utilities
+# Hub Native Utilities (Subsystem)
 
 > **Status:** 🔴 Stub — Placeholder for expansion
 

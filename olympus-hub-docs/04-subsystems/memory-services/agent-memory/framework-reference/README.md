@@ -1,4 +1,4 @@
-# Framework Reference — Agent Memory Patterns
+# Agent Memory Framework Reference (Hub Subsystem)
 
 > **Status**: 🟢 Reference  
 > **Last Updated**: 2026-01-08  

@@ -1,4 +1,4 @@
-# MS Teams Integration
+# MS Teams Integration (Subsystem)
 
 > **Status:** 🟡 WIP — Architecture and FAQ documented, detailed specs pending
 

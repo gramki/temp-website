@@ -165,9 +165,18 @@ This document profiles key technology decision makers organized by bank segment,
 | **CMO** | Brand, acquisition, martech | Salesforce, Adobe, Braze, The Trade Desk | $200M - $800M |
 | **COO** | Operations, automation | UiPath, Pega, ABBYY, nCino, Genesys | $300M - $1B |
 | **CHRO** | Talent, employee experience | Workday, Cornerstone, ServiceNow HR | $50M - $200M |
-| **Head of Cards/Payments** | Card issuing, payments | FIS, Fiserv, TSYS, custom builds | $200M - $800M |
-| **Head of Wealth/Private Banking** | Wealth platforms | Aladdin, Temenos WealthSuite, SEI | $100M - $500M |
-| **Head of Commercial Banking** | Commercial lending, treasury | nCino, Finastra, AvidXchange | $100M - $400M |
+| **Head of Cards/Payments** | Card issuing, payments | Custom-built + Visa/Mastercard, TSYS (Global Payments), FIS, Fiserv | $200M - $800M |
+| **Head of Merchant Services** | Card acquiring, merchant processing | Custom + Fiserv, FIS, Chase Paymentech (JPM) | Revenue share + volume |
+| **Head of Payments (ACH/Wire/RTP)** | Payment rails, real-time payments | FedLine (Federal Reserve), The Clearing House (RTP), FedNow, custom | Direct Fed access + network fees |
+| **Head of Global Payments** | Cross-border, international | SWIFT, custom, Visa B2B Connect, Mastercard Send | Network fees + custom |
+| **Treasurer** | Treasury operations, cash management | Custom, Kyriba, FIS, Finastra | $20M - $100M |
+| **Head of Consumer Lending** | Personal loans, auto, student | Custom-built, Blend, Finastra | $20M - $100M+ |
+| **Head of Mortgage** | Mortgage origination, servicing | Custom + Ellie Mae (ICE), Black Knight | $50M - $300M |
+| **Head of Loan Operations** | Loan servicing, collections | Black Knight (MSP), custom, Fiserv | $20M - $100M |
+| **Head of Wealth/Private Banking** | Wealth platforms, private banking | BlackRock Aladdin, custom, Temenos WealthSuite | $100M - $500M |
+| **Head of Commercial Banking** | Commercial lending, treasury services | Custom, Finastra (Fusion), nCino, Kyriba | $100M - $400M |
+| **Head of Trade Finance** | Trade finance, letters of credit | Custom, Finastra, CGI, SWIFT | $30M - $150M |
+| **Head of Markets Technology** | Capital markets, investment banking | Custom, Bloomberg, Refinitiv, Murex, Calypso | $100M - $500M+ |
 | **CISO** | Security operations | CrowdStrike, Palo Alto, Splunk, Recorded Future | $100M - $400M |
 
 ---
@@ -293,8 +302,16 @@ This document profiles key technology decision makers organized by bank segment,
 | **CMO** | Marketing, Acquisition | Salesforce Marketing Cloud, Adobe, Braze | $30M - $150M |
 | **COO** | Operations, Automation | UiPath, Pega, nCino, Genesys | $40M - $200M |
 | **Chief Data Officer** | Data, Analytics | Collibra, Tableau, Informatica | $30M - $150M |
-| **Head of Cards/Payments** | Cards, Payments | FIS, Fiserv, Zeta, Marqeta | $30M - $150M |
-| **Head of Wealth** | Wealth Management | Orion, eMoney, Envestnet, SEI | $20M - $100M |
+| **Treasurer** | Treasury operations, ACH/Wire | FedLine, Fiserv, FIS, Jack Henry | $5M - $30M |
+| **Head of Cards** | Card issuing | FIS, Fiserv, TSYS/Global Payments, Zeta | $20M - $100M |
+| **Head of Treasury/Payments** | Card acquiring, merchant services | Fiserv (Clover), FIS (Worldpay), Elavon | $10M - $50M + revenue |
+| **Head of Intl Banking** | Cross-border payments, trade finance | SWIFT, correspondent banking, Finastra, CGI | Network fees + $5M - $30M |
+| **EVP Consumer Lending** | Personal loans, auto, student | nCino, Blend, Fiserv, FIS | $5M - $40M |
+| **SVP Mortgage** | Mortgage origination, servicing | ICE Mortgage (Encompass), Black Knight | $10M - $80M |
+| **VP Loan Operations** | Loan servicing, collections | Black Knight, Sagent (Fiserv), nCino | $5M - $40M |
+| **EVP Commercial** | Commercial lending | nCino, Finastra, Moody's Analytics | $10M - $50M |
+| **Head of Treasury** | Treasury management services | Fiserv, FIS, Kyriba, GTreasury | $5M - $30M |
+| **Head of Wealth** | Wealth Management | SEI, Orion, Envestnet, SS&C | $20M - $100M |
 | **Head of Commercial** | Commercial Banking | nCino, Finastra | $20M - $100M |
 | **CISO** | Security | CrowdStrike, Palo Alto, Recorded Future | $20M - $80M |
 
@@ -419,8 +436,16 @@ This document profiles key technology decision makers organized by bank segment,
 |------|-----------|------------------------|---------------|
 | **CMO** | Marketing | Salesforce, HubSpot, Braze | $5M - $30M |
 | **COO** | Operations | nCino, UiPath, ABBYY | $10M - $60M |
+| **CFO** | Finance, Treasury, ACH/Wire | Core provider (FIS, Fiserv, Jack Henry), Fiserv ACH | $1M - $10M |
+| **Treasurer** | Treasury operations | Correspondent relationships, SWIFT, Wise Business | Correspondent fees |
 | **Head of Retail Banking** | Branch, Retail | NCR, Diebold Nixdorf, Verint | $10M - $50M |
-| **Head of Cards** | Cards | FIS, Fiserv, via core provider | $5M - $30M |
+| **Head of Cards** | Card issuing | Fiserv (First Data), FIS, Jack Henry | $5M - $30M |
+| **Head of Treasury** | Card acquiring, merchant services | Fiserv, FIS, Elavon, TSYS | $2M - $20M |
+| **VP Treasury Services** | Treasury management | Core provider, AvidXchange | $1M - $8M |
+| **SVP Lending** | Consumer lending | nCino, Finastra (LaserPro), Baker Hill | $2M - $15M |
+| **VP Mortgage** | Mortgage origination | ICE Mortgage, Black Knight, Finastra | $3M - $25M |
+| **VP Operations** | Loan servicing | Core provider, Sagent, Fiserv | $1M - $10M |
+| **SVP Commercial** | Commercial lending | nCino, Baker Hill, Abrigo | $2M - $15M |
 | **Head of Lending** | Mortgage, Consumer | Blend, Encompass, nCino | $10M - $50M |
 | **Head of Commercial** | Commercial Banking | nCino, Finastra, AvidXchange | $5M - $30M |
 | **Head of HR** | HRIS, Talent | Workday, ADP, UKG | $3M - $15M |
@@ -494,6 +519,11 @@ This document profiles key technology decision makers organized by bank segment,
 | Treasury/ALM | Empyrean, ZM Financial, QwickRate | 3-5 years | $50K - $400K/year |
 | CECL/Allowance | Abrigo, MST, Moody's | 3-5 years | $50K - $400K/year |
 | Vendor Management | Venminder, Ncontracts | 2-3 years | $30K - $150K/year |
+| **ACH/Wire Processing** | Core provider bundled | Bundled | Included |
+| **Card Acquiring** | Core provider partnership, Elavon, FIS | Revenue share | Revenue share |
+| **Real-Time Payments (RTP/FedNow)** | Core provider | Early adoption | Bundled |
+| **Deposit Pricing** | Core provider, QwickRate | 3-5 years | $50K - $300K/year |
+| **Treasury Management** | Core provider, limited | Bundled | Bundled |
 
 **Buying Behavior:** Approves all significant tech spend. ROI and cost savings are key. Prefers bundled solutions from core provider.
 
@@ -507,7 +537,9 @@ This document profiles key technology decision makers organized by bank segment,
 
 | Software/SaaS Category | Example Vendors | Purchase Frequency | Budget Range |
 |------------------------|-----------------|-------------------|--------------|
+| **Card Issuing** | Core provider add-on, Fiserv, FIS | 5-7 years | $500K - $5M |
 | Loan Origination System | Abrigo, Baker Hill, Finastra (LaserPro) | 5-7 years | $200K - $2M |
+| **Loan Servicing** | Core provider integrated | Bundled | Bundled |
 | Document Management | Laserfiche, DocuWare, Hyland | 5-7 years | $100K - $800K |
 | Workflow/BPM | Laserfiche, ProcessMaker | 3-5 years | $50K - $400K |
 | eSignature | DocuSign, Adobe Sign | 2-3 years | $30K - $200K/year |
@@ -532,6 +564,9 @@ This document profiles key technology decision makers organized by bank segment,
 
 | Software/SaaS Category | Example Vendors | Purchase Frequency | Budget Range |
 |------------------------|-----------------|-------------------|--------------|
+| **Consumer Lending** | Abrigo, Baker Hill, core provider | 5-7 years | $200K - $3M |
+| **Commercial Lending** | Abrigo, Baker Hill, core provider | 5-7 years | $100K - $2M |
+| **Mortgage Lending** | Ellie Mae, Calyx, Byte | 5-7 years | $100K - $2M |
 | Credit Analysis/Spreading | Moody's, Abrigo, Sageworks | 3-5 years | $100K - $800K/year |
 | Loan Review | Abrigo, CRA Wiz, core add-ons | 3-5 years | $50K - $400K/year |
 | AML/BSA | Verafin, Abrigo, core provider | 3-5 years | $200K - $2M |
@@ -587,7 +622,15 @@ This document profiles key technology decision makers organized by bank segment,
 | Internet Banking | Core provider | 5-7 years | Bundled |
 | Accounting/GL | Core integrated, QuickBooks | 7-10 years | $20K - $150K |
 | Budgeting | Excel, Planful (rarely) | Ongoing | $0 - $50K |
+| **Card Issuing** | Core provider add-on, Fiserv, FIS | 5-7 years | Bundled or $50K - $500K |
+| **Card Acquiring** | Core provider partnership | Revenue share | Revenue share |
+| **ACH/Wire** | Core provider bundled | Bundled | Bundled |
+| **Real-Time Payments** | Core provider | Early adoption | Bundled |
+| **Account Opening** | Core provider, Mantl, Narmi | 2-3 years | $100K - $1M |
 | Loan Origination | Abrigo, core module, Finastra | 5-7 years | $50K - $400K |
+| **Consumer/Commercial Lending** | Abrigo, Baker Hill, core provider | 5-7 years | $50K - $400K |
+| **Mortgage** | Ellie Mae, Calyx, Byte | 5-7 years | $50K - $400K |
+| **Loan Servicing** | Core provider integrated | Bundled | Bundled |
 | AML/BSA | Verafin, Abrigo, core module | 3-5 years | $50K - $500K |
 | Fraud Detection | Core provider module | 2-3 years | $20K - $200K |
 | Compliance | Ncontracts, Wolters Kluwer, ICBA tools | 2-3 years | $30K - $200K |
@@ -655,6 +698,8 @@ This document profiles key technology decision makers organized by bank segment,
 | Core Processing | Symitar (Jack Henry), Corelation, Fiserv | 10-15 years | $5M - $50M |
 | Digital Banking | Q2, Alkami, NCR, MeridianLink | 5-7 years | $2M - $20M |
 | Mobile Banking | Q2, Alkami, Narmi | 3-5 years | $1M - $10M |
+| **ACH/Wire** | Core provider, Corporate CU networks | Bundled | Bundled |
+| **Real-Time Payments** | Core provider, CUSO partnerships | Early adoption | Bundled |
 | Cloud Infrastructure | AWS, Azure, Jack Henry Cloud | 3-5 years | $1M - $10M/year |
 | Cybersecurity | CrowdStrike, Palo Alto, managed | 2-3 years | $500K - $5M/year |
 | IT Service Management | ServiceNow, Freshservice | 3-5 years | $200K - $2M/year |
@@ -691,6 +736,41 @@ This document profiles key technology decision makers organized by bank segment,
 | Digital Marketing | Salesforce, HubSpot | 2-3 years | $100K - $1.5M/year |
 
 **Buying Behavior:** Member experience is paramount. Willing to invest in digital differentiation. Often early adopters of fintech partnerships.
+
+---
+
+### VP Cards / Head of Card Services
+**Typical Title:** VP Cards, VP Card Services, Director of Card Products  
+**Reports To:** CEO or COO  
+**Team Size:** 5 - 50  
+**Annual Budget:** $500K - $10M
+
+| Software/SaaS Category | Example Vendors | Purchase Frequency | Budget Range |
+|------------------------|-----------------|-------------------|--------------|
+| Card Issuing | PSCU (CUSO), Fiserv, CO-OP Financial Services | 5-7 years | $500K - $10M |
+| Card Acquiring | PSCU, CO-OP, Fiserv partnerships | Revenue share | Revenue share |
+| Card Management | Card Valet, core provider | 3-5 years | $50K - $500K |
+| Fraud Detection | PSCU, Fiserv, Verafin | 2-3 years | $100K - $1.5M/year |
+
+**Buying Behavior:** CUSO partnerships (PSCU, CO-OP) are primary. Cooperative model provides scale and pricing benefits.
+
+---
+
+### VP Lending / Head of Lending
+**Typical Title:** VP Lending, VP Member Lending, Director of Lending  
+**Reports To:** CEO or COO  
+**Team Size:** 10 - 100  
+**Annual Budget:** $200K - $5M
+
+| Software/SaaS Category | Example Vendors | Purchase Frequency | Budget Range |
+|------------------------|-----------------|-------------------|--------------|
+| Consumer Lending | Origence (CUSO), MeridianLink, LoansPQ | 5-7 years | $200K - $5M |
+| Mortgage Lending | MeridianLink, Ellie Mae | 5-7 years | $100K - $3M |
+| Business Lending | Origence, nCino (smaller deployments) | 5-7 years | $100K - $1M |
+| Loan Servicing | CUSO services, core provider | Bundled | $100K - $2M |
+| Collections | FICO, Latitude, core module | 3-5 years | $50K - $500K |
+
+**Buying Behavior:** CUSO solutions (Origence) are preferred for consumer lending. Credit union-focused vendors dominate.
 
 ---
 
@@ -787,9 +867,13 @@ This document profiles key technology decision makers organized by bank segment,
 | Software/SaaS Category | Example Vendors | Purchase Frequency | Budget Range |
 |------------------------|-----------------|-------------------|--------------|
 | Cloud Infrastructure | AWS, GCP (primary choice) | Annual (multi-year) | $5M - $50M/year |
-| Banking-as-a-Service/Core | Zeta, Galileo, Synapse, Unit | 3-5 years | $2M - $30M+/year |
-| Card Issuing/Processing | Zeta, Marqeta, Galileo, i2c | 3-5 years | $1M - $20M + per-txn |
+| **Core Banking/BaaS** | Zeta, Galileo, Thought Machine, Mambu, Synapse, Unit | 3-5 years | $2M - $30M+/year |
+| **Card Issuing/Processing** | Zeta, Marqeta, Galileo, i2c, Lithic | 3-5 years | $1M - $20M + per-txn |
+| **ACH/Wire** | Plaid, Dwolla, Synapse, Modern Treasury, partner bank | Per-transaction | Per-transaction |
+| **Real-Time Payments** | Partner bank + API layer | Via sponsor bank | Via sponsor bank |
+| **Cross-Border Payments** | Wise, Airwallex, Currencycloud, Nium | 2-3 years | API + FX spread |
 | Payment Rails | Tabapay, Plaid, Cross River | 2-3 years | $1M - $10M + per-txn |
+| **Account Opening** | Alloy, Socure, Persona, custom | 2-3 years | $300K - $5M |
 | Fraud/Risk | Sardine, Unit21, Alloy, Socure | 2-3 years | $500K - $8M/year |
 | Identity/KYC | Alloy, Plaid Identity, Socure | 2-3 years | $500K - $5M/year |
 | Container/Kubernetes | GKE, EKS, self-managed K8s | 2-3 years | $500K - $5M/year |
@@ -820,6 +904,9 @@ This document profiles key technology decision makers organized by bank segment,
 | User Research | UserTesting, Maze | Annual | $50K - $300K/year |
 | Push/In-App | Braze, Iterable, OneSignal | Annual-2 years | $200K - $2M/year |
 | PFM/Insights | Plaid, MX, custom | 2-3 years | $200K - $2M/year |
+| **Consumer Lending** | LoanPro, Blend, custom | 2-3 years | $500K - $5M |
+| **Mortgage** | Blend, Maxwell, custom | 2-3 years | $500K - $10M |
+| **Wealth/Investing** | Alpaca, DriveWealth, Apex | 2-3 years | Per-account + trading |
 | Credit Building | Credit-focused partnerships | 2-3 years | Revenue share |
 | Design Tools | Figma, Framer | Annual | $30K - $200K/year |
 | Roadmapping | Linear, Notion, ProductPlan | Annual | $20K - $100K/year |

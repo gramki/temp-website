@@ -1,4 +1,4 @@
-# MCP Channel
+# MCP Channel (Subsystem)
 
 > **Status:** 🟡 Draft — Under active development  
 > **Last Updated:** 2026-01-17

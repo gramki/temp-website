@@ -1,4 +1,4 @@
-# CI Subsystem
+# CI Subsystem (Subsystem)
 
 > **Status:** 🟡 WIP — Core concepts defined
 

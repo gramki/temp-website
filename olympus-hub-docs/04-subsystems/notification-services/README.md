@@ -1,4 +1,4 @@
-# Notification Services
+# Notification Services (Subsystem)
 
 > **Status:** 🟡 Draft — Under active development
 

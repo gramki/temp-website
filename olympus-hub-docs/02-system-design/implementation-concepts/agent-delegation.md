@@ -113,10 +113,17 @@ Business user delegation uses a **unified model** with two modes that share iden
 | **Identity Domain** | Enterprise IAM | Federated business user identity |
 | **Configured When** | Employment time | Deployment (scenario-scoped) or per-request (request-scoped) |
 | **Authority Source** | Delegator's IAM roles/groups | Delegation Template + User consent |
-| **Inheritance** | Real-time shrinking with delegator | Fixed per certificate |
+| **Inheritance** | Real-time shrinking with delegator | Shrinks with delegator; eventual consistency |
 | **Certificate** | Not used (direct IAM inheritance) | Required (represents consent) |
-| **Accountability** | Designated accountable human | Delegator (business user) |
+| **Accountability** | Designated accountable human | Layered: business user (action) + enterprise (agent) |
 | **Use Case** | Internal operations, employee assistants | Customer-facing agents, external user tasks |
+
+**Notes on Business User Delegation:**
+
+- **Inheritance**: Both models exhibit eventual consistency. If a business user's authority shrinks (e.g., account suspended), the effective authority of their delegation shrinks accordingly.
+- **Layered Accountability**: Business user delegation has two accountability layers:
+  1. **Action accountability** — The business user (delegator) is accountable for the actions they authorized
+  2. **Agent accountability** — The enterprise (via designated accountable human) is accountable for the agent's behavior, since the enterprise provides the agent
 
 **Combining Both Domains:**
 

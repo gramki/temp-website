@@ -1,4 +1,4 @@
-# Ontology of Human–AI Team Operations
+# Ontology Reference (Before Refactor)
 
 This reference explains every concept in the ontology and how they relate.  
 Core runtime lifecycle (strict, no shortcuts): **[Signal](#signal) → [Trigger](#trigger) → [Scenario](#scenario) → [Automation](#automation) → [Operation](#operation-abstract) → [Activity](#activity) → [Action](#action)**.

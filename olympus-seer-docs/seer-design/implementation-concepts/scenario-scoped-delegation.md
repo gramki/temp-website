@@ -54,10 +54,12 @@ Scenario-scoped delegation addresses the need for **operational agents with stab
 | **Identity Domain** | Business User (via Scenario Profile) | Enterprise IAM |
 | **Delegator** | Scenario Identity Profile | Enterprise user or role |
 | **Mechanism** | Delegation Certificate + Token | Direct IAM inheritance |
-| **Real-Time Sync** | No (fixed at deployment) | Yes (shrinks with delegator) |
-| **Accountable Human** | Via Scenario | Via Employment Spec |
+| **Authority Sync** | Eventual consistency (shrinks with delegator) | Real-time (shrinks with delegator) |
+| **Accountable Human** | Layered: Scenario Profile (action) + Enterprise (agent) | Via Employment Spec |
 
 **Key Insight:** Scenario-scoped delegation uses the **business user delegation mechanism** (Templates, Certificates, Tokens) but with authority granted by the **enterprise** at deployment time rather than by an end-user at request time.
+
+**Layered Accountability:** While the Scenario Identity Profile is accountable for actions authorized under the delegation, the enterprise (via designated accountable human) remains accountable for the agent's behavior itself.
 
 ---
 

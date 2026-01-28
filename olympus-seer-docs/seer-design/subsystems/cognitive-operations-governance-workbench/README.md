@@ -1,4 +1,4 @@
-# Cognitive Operations Governance Workbench
+# Cognitive Operations Governance Workbench (Subsystem)
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-14

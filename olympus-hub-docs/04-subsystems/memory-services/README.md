@@ -1,4 +1,4 @@
-# Memory Services
+# Memory Services (Subsystem)
 
 > **Status:** 🟡 Draft — Under active development
 

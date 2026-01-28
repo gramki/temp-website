@@ -40,8 +40,12 @@ This document describes the Hub-side components and patterns; for the complete d
 | **Authority Source** | Scenario Identity Profile | Business User consent | Enterprise IAM |
 | **Certificate Timing** | At deployment | Per-request | N/A (direct inheritance) |
 | **Token Timing** | Per-request | Per-request | N/A |
+| **Authority Sync** | Eventual consistency | Eventual consistency | Real-time |
+| **Accountability** | Layered: Scenario Profile + Enterprise | Layered: Business User + Enterprise | Designated accountable human |
 | **User Interaction** | None required | Consent via Channel | None required |
 | **Typical Agent** | Enterprise automation | Customer-facing assistant | Employee assistant |
+
+**Note on Layered Accountability:** The Scenario Identity Profile is accountable for actions authorized under the delegation, while the enterprise (via designated accountable human) remains accountable for the agent's behavior itself.
 
 ---
 

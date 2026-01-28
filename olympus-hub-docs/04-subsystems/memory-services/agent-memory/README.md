@@ -1,4 +1,4 @@
-# Agent Memory Services
+# Agent Memory (Hub Subsystem)
 
 > **Status**: 🟡 Draft  
 > **Last Updated**: 2026-01-08  

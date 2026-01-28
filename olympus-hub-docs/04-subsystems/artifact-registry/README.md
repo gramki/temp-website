@@ -1,4 +1,4 @@
-# Artifact Registry
+# Artifact Registry (Subsystem)
 
 > **Status:** 🟡 WIP — Core concepts defined
 

@@ -1,4 +1,4 @@
-# Model Gateway
+# Model Gateway (Subsystem)
 
 > **Status**: 🟢 Design Complete  
 > **Last Updated**: 2026-01-12

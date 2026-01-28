@@ -40,8 +40,12 @@ This document describes the Hub-side components and patterns; for the complete d
 | **Authority Source** | Business User consent | Scenario Identity Profile | Enterprise IAM |
 | **Certificate Timing** | Per-request | At deployment | N/A (direct inheritance) |
 | **Token Timing** | Per-request | Per-request | N/A |
+| **Authority Sync** | Eventual consistency | Eventual consistency | Real-time |
+| **Accountability** | Layered: Business User + Enterprise | Layered: Scenario Profile + Enterprise | Designated accountable human |
 | **User Interaction** | Consent via Channel | None required | None required |
 | **Typical Agent** | Customer-facing assistant | Enterprise automation | Employee assistant |
+
+**Note on Layered Accountability:** The business user (delegator) is accountable for actions they authorized, while the enterprise (via designated accountable human) remains accountable for the agent's behavior itself.
 
 ---
 
