@@ -127,3 +127,43 @@ destinations:
       github_repo_override: null
       dry_run: false
       parallel_threads: 12
+
+  - id: ple-cto
+    name: Product Line Engineering (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Product Line Engineering
+      root_page_id: null
+    source:
+      folders:
+        - path: org-8.0/product-line-engineering
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: domain-products-with-ddd-cto
+    name: Domain Products with DDD (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Domain Products with DDD
+      root_page_id: null
+    source:
+      folders:
+        - path: org-8.0/domain-products-with-ddd
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
