@@ -6,7 +6,7 @@ A guide for **Developers** and **Principal Engineers** on implementing Domain-Dr
 
 ## When to use this guide
 
-Use this guide when **implementing or reviewing domain products with Spring Boot**—when you need a clear path from product requirements (use cases, value streams) to design and code, and when you want to keep the domain explicit, testable, and independent of framework or persistence details. For organizational context on product lines, domain engineering, and team structure, see the [Product Line Engineering](../product-line-engineering/README.md) documentation.
+Use this guide when **implementing or reviewing domain products with Spring Boot**—when you need a clear path from product requirements (use cases, value streams) to design and code, and when you want to keep the domain explicit, testable, and independent of framework or persistence details. 
 
 ---
 
@@ -17,13 +17,13 @@ Use this guide when **implementing or reviewing domain products with Spring Boot
 
 ---
 
-## For junior developers
+## New to DDD?
 
 > **Start here.** Read sections **01 → 02 → 03 → 05** in order before you code. Keep [02 DDD concepts](02-ddd-concepts.md) open as a reference—you will need the definitions of aggregate, Domain Service, Application Service, and Repository often.
 
 > **Prerequisites.** You should be comfortable with Java, Spring Boot basics (e.g. `@Service`, dependency injection), and SQL/JDBC. You do **not** need prior DDD experience; the guide introduces the concepts. If terms like "invariant," "aggregate root," or "ubiquitous language" are new, they are defined in [02 DDD concepts](02-ddd-concepts.md).
 
-> **Who can help.** For **domain questions** (what is an Order? what rules apply?): talk to your product or domain expert. For **boundary and deployment** (is this one app or two?): ask your Principal Engineer or tech lead. For **implementation** (where does this class go? how do I test it?): use [05 Spring Boot mapping](05-spring-boot-mapping.md), [06 Anemic domain](06-anemic-domain.md), and [08 Testability](08-testability-and-testing-patterns.md), and pair with a senior developer if stuck.
+> **Who can help.** For **domain questions** (what is an Order? what rules apply?): talk to your product or domain expert. For **boundary and deployment** (is this one app or two?): ask your Principal Engineer or tech lead. For **implementation** (where does this class go? how do I test it?): use [05 Spring Boot mapping](05-spring-boot-mapping.md), [06 Anemic domain](06-anemic-domain.md), and [08 Testability](08-testability-and-testing-patterns.md), and pair with a teammate if stuck.
 
 > **Common pitfalls.** (1) Putting business logic in the Application Service instead of the aggregate—see [06 Anemic domain](06-anemic-domain.md). (2) Confusing a DDD "Domain Service" with a microservice—they are not the same; see [05 Spring Boot mapping](05-spring-boot-mapping.md). (3) Adding Spring annotations (e.g. `@Component`) to domain classes—keep the domain package plain Java; see [05 Spring Boot mapping](05-spring-boot-mapping.md) and [07 Risks and mitigations](07-risks-and-mitigations.md).
 

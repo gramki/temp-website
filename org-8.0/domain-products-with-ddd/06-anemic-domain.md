@@ -2,7 +2,7 @@
 
 This section explains what an **anemic domain** is, why it is a common and slippery slope, and how to keep a **rich domain** so that behavior and invariants live in the right place. It gives stringent guidelines and a code-review checklist.
 
-> **For junior developers.** It's easy to put all logic in "services" and leave entities as getters/setters—that's anemic. The rule: **behavior and rules live on the aggregate or entity** (e.g. `order.addLineItem(...)`), and the Application Service only **orchestrates** (load, call domain, save, publish). Use the **Code review checklist** at the end of this section before you submit your code.
+> **New to DDD?** It's easy to put all logic in "services" and leave entities as getters/setters—that's anemic. The rule: **behavior and rules live on the aggregate or entity** (e.g. `order.addLineItem(...)`), and the Application Service only **orchestrates** (load, call domain, save, publish). Use the **Code review checklist** at the end of this section before you submit your code.
 
 ---
 

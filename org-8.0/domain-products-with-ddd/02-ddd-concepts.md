@@ -2,7 +2,7 @@
 
 This section defines the core building blocks of Domain-Driven Design (DDD) used in this guide. The terms here are the single definition source for the rest of the guide.
 
-> **For junior developers.** New to DDD? Read this section once, then keep it open as a reference while you work. When you see "aggregate," "Domain Service," or "Repository" in later sections, come back here for the definition. The table at the end is a quick lookup.
+> **New to DDD?** Read this section once, then keep it open as a reference while you work. When you see "aggregate," "Domain Service," or "Repository" in later sections, come back here for the definition. The table at the end is a quick lookup.
 
 ---
 

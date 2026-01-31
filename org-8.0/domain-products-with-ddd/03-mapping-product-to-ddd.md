@@ -2,7 +2,7 @@
 
 This section explains how product requirements—use cases and value streams—map to DDD concepts. It gives a practitioner path from product or feature docs to bounded contexts, application services, and the domain model.
 
-> **For junior developers.** When you get a user story or use case, use the tables below: **nouns** (Order, Claim, etc.) become entities or aggregate roots; **verbs** (Submit, Approve) become methods on aggregates or Domain Services; the **flow** is implemented by an Application Service that loads, calls domain, saves, and publishes events. If you're unsure which bounded context owns the story, ask your tech lead or Principal Engineer—see [04 One app per domain](04-one-app-per-domain.md).
+> **New to DDD?** When you get a user story or use case, use the tables below: **nouns** (Order, Claim, etc.) become entities or aggregate roots; **verbs** (Submit, Approve) become methods on aggregates or Domain Services; the **flow** is implemented by an Application Service that loads, calls domain, saves, and publishes events. If you're unsure which bounded context owns the story, ask your tech lead or Principal Engineer—see [04 One app per domain](04-one-app-per-domain.md).
 
 ---
 

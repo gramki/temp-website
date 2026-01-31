@@ -2,7 +2,7 @@
 
 This section explains why testability matters when implementing DDD with Spring Boot, and gives patterns for unit and integration testing so that the domain stays fast and simple to test and the application and infrastructure are covered appropriately.
 
-> **For junior developers.** Test the **domain** (aggregates, value objects, domain services) with **no Spring and no database**—just plain Java and JUnit. Test the **application service** with mocks for the repository and event publisher. Use integration tests only for the repository (real DB) and for full flows when needed. If your domain tests need `@SpringBootTest` or a database, the domain likely has framework or persistence in it—refactor so the domain stays plain Java; see [05 Spring Boot mapping](05-spring-boot-mapping.md) and [07 Risks and mitigations](07-risks-and-mitigations.md).
+> **New to DDD?** Test the **domain** (aggregates, value objects, domain services) with **no Spring and no database**—just plain Java and JUnit. Test the **application service** with mocks for the repository and event publisher. Use integration tests only for the repository (real DB) and for full flows when needed. If your domain tests need `@SpringBootTest` or a database, the domain likely has framework or persistence in it—refactor so the domain stays plain Java; see [05 Spring Boot mapping](05-spring-boot-mapping.md) and [07 Risks and mitigations](07-risks-and-mitigations.md).
 
 ---
 
