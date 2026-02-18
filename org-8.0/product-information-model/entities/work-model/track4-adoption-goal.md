@@ -1,36 +1,15 @@
-# Adoption Goal
+# Adoption Goal (Deprecated)
 
-**Model:** Work Model
-**Track:** Track 4: The Win Track (Value Realization)
-**Owner:** Customer Success, Product Marketing
+**Status:** Deprecated — see DR-016
 
-## Definition
+## Deprecation Notice
 
-Measurable usage targets — quantitative goals that track whether the shipped product is being adopted and generating the expected value.
+The Adoption Goal entity has been eliminated. Targets (time-bound, quantitative measures of Win Outcome progress) are now **embedded in Initiatives** as Key Results, following the OKR pattern. See the updated Initiative entity (`entities/definition-model/dim1-initiative.md`) for details.
 
-## Purpose
+**Rationale:**
+- "Adoption" was stage-specific (only Activation), but targets span all AAARRR stages
+- "Goal" conflicted with Objectives (Dim 1), creating hierarchy confusion
+- Targets are naturally attributes of the coordination construct (Initiative), not independent entities
+- Win Reviews assess Initiative target progress directly
 
-Connects the Win Track to the Business Dimensions (2 and 3) by setting concrete adoption targets. Adoption Goals measure whether the product is achieving its intended business outcomes.
-
-## Fields
-
-| Field | Type | Description |
-|---|---|---|
-| _To be refined._ | | |
-
-## Statuses
-
-| Status | Description |
-|---|---|
-| _To be refined._ | |
-
-## Relationships
-
-| Direction | Related Entity | Relationship |
-|---|---|---|
-| Measures | Business KPI (Dim 2) | Adoption Goal tracks a Business KPI |
-| Measures | Business Outcome (Dim 3) | Adoption Goal validates a Business Outcome |
-
-## Example
-
-"Reach 50,000 FX transactions this quarter."
+See DR-016 for the full decision record.

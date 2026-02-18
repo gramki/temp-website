@@ -13,7 +13,7 @@ entities/
 │   ├── dim1-portfolio.md             ← Thin reference entity (not owned by UPIM)
 │   ├── dim1-strategic-theme.md        ← Portfolio or Product scope; persistent cross-horizon direction
 │   ├── dim1-objective.md              ← Now references Theme + External Constraints
-│   ├── dim1-initiative.md             ← Now has External Constraints
+│   ├── dim1-initiative.md             ← Now has Lever Mix, Embedded Targets, and cross-track Win Track relationships
 │   ├── dim1-customer-release.md
 │   ├── dim1-problem.md
 │   ├── dim1-need.md
@@ -22,7 +22,13 @@ entities/
 │   ├── dim1-pdr.md
 │   ├── dim1-psd.md
 │   ├── dim2-business-model.md
-│   ├── ...
+│   ├── dim2-win-stakeholder.md          ← AAARRR roles; engaged with segments
+│   ├── dim2-win-outcome.md              ← Per AAARRR stage, per segment success definition
+│   ├── dim2-delivery-friction.md        ← Endured by Win Stakeholder; vendor-side pain
+│   ├── dim2-pricing-tier.md             ← Targets segments; contains features; priced along value metrics
+│   ├── dim2-value-metric.md             ← Pricing axis; revenue scaling mechanism
+│   ├── dim2-business-kpi.md             ← AAARRR-staged; Revenue/Cost/Activity types
+│   ├── dim2-win-barrier.md              ← 8 types; aggrieved party is Win Stakeholder or vendor
 │   ├── dim3-customer-segment.md
 │   ├── dim3-buying-persona.md         ← Roles: Economic, Technical, User, Coach/Champion
 │   ├── dim3-business-outcome.md
@@ -30,6 +36,19 @@ entities/
 │   ├── dim3-customer-promise.md       ← Subtypes: Value Proposition, Service Commitment, Compliance Posture
 │   ├── dim3-customer-value-metric.md  ← Subtypes: ROI, Service Level, Compliance
 │   ├── dim3-adoption-barrier.md       ← 8 types; may challenge Customer Promises
+│   ├── dim4-user-persona.md           ← Role archetype; has Jobs, endures Pains
+│   ├── dim4-job.md                    ← JTBD — bridges Dim 4 (intent) → Dim 8 (structure) → Dim 3 (justification)
+│   ├── dim4-ux-channel.md             ← Typed by (Interaction Modality, Engagement Mode); implemented by HI Module
+│   ├── dim4-user-journey.md           ← Path to accomplish Job through Channel; cross-channel references
+│   ├── dim4-touchpoint.md             ← DEPRECATED — Touchpoints are Build Track work artifacts, not Def Model entities
+│   ├── dim6-developer-persona.md       ← Human building integrations; distinct from Dim 4 User Persona
+│   ├── dim6-programmatic-user-persona.md ← Application/system consuming API at runtime (non-human)
+│   ├── dim6-api-module.md             ← Protocol-agnostic programmatic surface; structurally a Dim 8 Module
+│   ├── dim6-integration-module.md     ← Pre-built bridge/connector to specific external systems
+│   ├── dim6-extension-module.md       ← Plugin/hook/workflow extension framework
+│   ├── dim6-sdk-library-module.md     ← Language-specific client (Client-Distributed topology)
+│   ├── dim6-api-operation.md          ← Named contractual operation (Command/Query/Event/Callback/Batch) with SLOs
+│   ├── dim6-api-compatibility-contract.md ← Module-level versioning and stability commitment
 │   ├── ...
 │   ├── dim8-value-stream.md           ← Horizontal composition across modules
 │   ├── ...
@@ -49,6 +68,7 @@ entities/
     ├── track1-prototype-spike.md
     ├── track1-specification-task.md
     ├── track1-modeling-task.md         ← Produces Definition Model updates (Dims 2–9)
+    ├── track1-signal-monitoring.md      ← Continuous signal pipeline and discovery velocity monitoring
     ├── track2-release-planning-task.md
     ├── track2-milestone-planning-task.md
     ├── track2-iteration-planning-task.md
@@ -58,17 +78,25 @@ entities/
     ├── track2-bug.md
     ├── track2-module-version.md       ← Build Track output
     ├── track2-product-version.md      ← Build Track output
+    ├── track2-build-monitoring.md       ← Continuous build health and quality monitoring
     ├── track3-deployment-planning-task.md
     ├── track3-capacity-planning-task.md
     ├── track3-deployment.md
     ├── track3-incident.md
     ├── track3-change-request.md
     ├── track3-maintenance-task.md
-    ├── track4-gtm-planning-task.md
-    ├── track4-customer-rollout-planning-task.md
-    ├── track4-implementation-onboarding.md
-    ├── track4-adoption-goal.md
-    └── track4-feedback.md
+    ├── track3-system-monitoring.md       ← Continuous infrastructure and SLA monitoring
+    ├── track4-win-planning.md            ← Parent: 5 lever-specific planning subtypes
+    ├── track4-gtm-planning-task.md       ← Subtype of Win Planning (GTM lever)
+    ├── track4-customer-rollout-planning-task.md ← Superseded by Customer Release Planning
+    ├── track4-win-enablement.md           ← Parent: 4 enablement subtypes (GTM, Sales Enablement, CS, Partner)
+    ├── track4-win-engagement.md            ← Parent: 7 engagement subtypes (account + segment + partner + revenue ops)
+    ├── track4-implementation-onboarding.md ← Subtype of Win Engagement (Activation)
+    ├── track4-win-case.md                 ← Reactive: Query, Service Request, Complaint, Escalation
+    ├── track4-win-review.md               ← Structured assessment → produces Feedback + target progress
+    ├── track4-win-monitoring.md            ← Continuous customer health and revenue monitoring
+    ├── track4-adoption-goal.md            ← DEPRECATED — targets now embedded in Initiatives
+    └── track4-feedback.md                 ← Transitional artifact produced by Win Reviews
 ```
 
 ## Naming Convention
@@ -81,7 +109,7 @@ Each file is named: `<prefix>-<entity-name>.md`
 
 ## File Template
 
-Every entity file follows this structure:
+Every entity file follows this structure. **Core sections** (Definition through Example) are required. **Execution sections** (Outputs/Artifacts through Guidance Reference) are added incrementally as each track is detailed — see `draft-work-execution-framework.md` for the framework and phasing plan.
 
 ```markdown
 # Entity Name
@@ -120,6 +148,32 @@ Why this entity exists in the model — what gap it fills, what it enables.
 ## Example
 
 A concrete example using the reference product (B2B Core Payment Gateway — Cross-Border Payouts).
+
+## Outputs / Artifacts (Work Model entities only)
+
+What structured outputs this work produces. Each artifact is typed using the taxonomy from
+the Work Execution Framework (Decision, Evidence, Specification, Delivery, Assessment).
+
+| Artifact | Category | Description | Downstream Consumer |
+|---|---|---|---|
+| ... | ... | ... | ... |
+
+## Definition of Done (Work Model entities only)
+
+When this work is complete — entry criteria, exit criteria, and artifact checklist.
+
+| Component | Criteria |
+|---|---|
+| Entry Criteria | What must be true before this work can start |
+| Exit Criteria | What must be true for this work to be considered complete |
+| Artifact Checklist | Which artifacts must be produced before "done" |
+
+## Guidance Reference (Work Model entities only)
+
+Reference to Operating Model playbook/guideline for navigating this work from initiation
+to completion. Content lives in the Operating Model; this section provides the pointer.
+
+_See: [Operating Model reference — to be developed]_
 ```
 
 ## Maintenance Guidelines

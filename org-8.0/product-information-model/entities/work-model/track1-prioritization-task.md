@@ -32,6 +32,7 @@ Makes the prioritization and association work explicit. Signals may exist indepe
 | Evaluates | Need (Dim 1) | Prioritization Task evaluates and ranks Needs |
 | Evaluates | Opportunity (Dim 1) | Prioritization Task evaluates and ranks Opportunities |
 | Associates to | Initiative (Dim 1) | Prioritization Task associates Signals to Initiatives |
+| Informed by | Signal Monitoring (Track 1) | Signal Monitoring may surface need for re-prioritization when backlog or velocity thresholds are breached |
 
 ## Example
 

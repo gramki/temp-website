@@ -484,3 +484,300 @@ They co-constrain. They co-evolve. Forcing one "above" the other distorts the re
 See DR-014 for the full decision record.
 
 ---
+
+### Q28: Why restructure Dimension 2 as the Vendor Value Dimension (Why It Wins) with an AAARRR lens?
+
+The original Dimension 2 ("Business Value — Vendor Economics") had 4 shell entities (Business Model, Pricing Tier, Value Metric, Business KPI) with no fields, no statuses, and no cross-dimensional relationships. It modeled the product as a simple financial vehicle — "how we price" — ignoring the full complexity of how the vendor succeeds commercially.
+
+**The challenge:** For complex enterprise B2B products, the vendor's path from signed contract to revenue realization involves an elaborate, multi-stakeholder journey — Pre-Sales, Implementation, Go-Live, Revenue Realization, Optimization, Renewal. This journey is not self-evident; it requires the same discovery and investigation mindset as the customer's buying journey (Dim 3).
+
+**The AAARRR lens (Awareness, Acquisition, Activation, Retention, Revenue, Referral)** provides the lifecycle framework. Each stage has:
+- Different **Win Stakeholders** responsible (analog of Buying Personas)
+- Different **Win Outcomes** defining success (analog of Business Outcomes)
+- Different **Delivery Frictions** that the vendor suffers (analog of Pains)
+- Different **Win Barriers** that structurally block success (analog of Adoption Barriers)
+- Different **Business KPIs** measuring performance (analog of Customer Value Metrics)
+
+The restructured Dim 2 now mirrors Dim 3's analytical depth, with **Customer Segment (Dim 3) as the shared anchor** between the two dimensions — the same segment that has Buying Personas and Pains also has Win Stakeholders and Delivery Frictions.
+
+See DR-015 for the full decision record.
+
+---
+
+### Q29: Why introduce Win Stakeholder as a Dim 2 entity? Isn't that an Operating Model concern?
+
+Win Stakeholders are **functional archetypes**, not organizational roles. The distinction:
+- **Operating Model (future):** "We have 3 Pre-Sales Engineers in LATAM, reporting to VP Sales" — organizational reality
+- **Dim 2 (Definition Model):** "The product's commercial success requires a Pre-Sales Engineer role that demonstrates technical fit during Acquisition" — functional requirement
+
+A startup may have one person covering Pre-Sales, Implementation, and CS. The Win Stakeholder model still distinguishes the three functions because they have different concerns, different frictions, and different success criteria. When the startup hires, the Win Stakeholder model tells them *what roles the product's commercial model requires*.
+
+Win Stakeholders also serve as the "who endures" anchor for Delivery Frictions (paralleling how User Persona is the "who endures" anchor for Pain in Dim 3) and the "who's responsible" anchor for Win Outcomes. Without them, vendor-side frictions and outcomes are abstract — "the vendor suffers" has no human face.
+
+---
+
+### Q30: Why do all Dim 2 changes require PDRs?
+
+Dim 2 entities define the product's commercial model — how the vendor generates revenue, what success looks like, and what pricing the market sees. Changes to these entities have direct commercial consequences:
+
+- Changing a **Pricing Tier** affects active customers and sales motions
+- Changing a **Business KPI target** affects resource allocation and team incentives
+- Adding a **Win Barrier** may trigger strategic reprioritization
+- Documenting a **Delivery Friction** creates pressure to invest in fixes
+
+These are not casual updates. Every Dim 2 change follows one of two governed paths:
+
+1. **Deliberation → PDR → Modeling Task:** For strategic design (pricing strategy, AAARRR target-setting, Win Outcome definition). Win Stakeholders participate in Deliberations; the PM/PMM authors entities through Modeling Tasks.
+
+2. **Signal → Discovery → PDR → Modeling Task:** For field observations (Delivery Frictions, Win Barriers). Win Stakeholders observe and file Signals; Discovery investigates; PDR records the decision; Modeling Task updates Dim 2.
+
+The PDR requirement ensures traceability — "why did we change the LATAM pricing tier?" has a referenceable answer — and prevents ad-hoc modifications to the commercial model.
+
+---
+
+### Q31: Why does Win Outcome carry "Achievement Levers" and what is the Lever Portfolio?
+
+Not all Win Outcomes are advanced by product capabilities alone. An Awareness Win Outcome ("80% brand recall in LATAM fintech CFOs") is barely moved by product features — the lever is GTM (marketing campaigns, analyst relations). An Acquisition Win Outcome ("close LATAM deals in 90 days") depends heavily on Sales Enablement (competitive battlecards, POC tooling). Without explicitly identifying the levers at modeling time, organizations default to building features when the actual lever may be a sales enablement program.
+
+The **Lever Portfolio** is a finite, referenceable set of categorical levers defined on the Business Model entity (Dim 2). Five standard categories: **Product** (Build Track), **GTM** (Win Track), **Sales Enablement** (Win Track), **Customer Success** (Win Track), **Operational** (Operating Model). The portfolio varies by product — a developer API might not have a Sales Enablement lever. Initiatives reference the Lever Portfolio when declaring their lever mix.
+
+Each Win Outcome declares its **Achievement Levers** (primary/secondary) from the portfolio. This forces the question: "Is this primarily a product problem, a GTM problem, or both?" The answer shapes what kinds of Initiatives and Win Track work are needed.
+
+See DR-015 (Dim 2 restructure, where Lever Portfolio is defined) and DR-016 (Win Track lever alignment).
+
+---
+
+### Q32: Why did Initiative evolve from "Discovery program" to "cross-track coordination construct"?
+
+Originally, Initiative was defined as a mechanism for grouping Signals for discovery, implying a flow: Initiative → Discovery → PSD → Build. The Dim 2 restructure (DR-015) and the lever discussion (DR-016) revealed that an Initiative like "LATAM Enterprise Market Entry" drives work across *all four tracks* — product development (Build), GTM execution (Win), sales enablement (Win), CS programs (Win), infrastructure (Run), and potentially organizational changes (Operating Model).
+
+Three additions make the cross-track nature explicit:
+
+1. **Lever Mix** — weighted allocation (e.g., Product 40%, GTM 25%, SE 20%, CS 15%). Tells downstream planners how much investment each track needs.
+2. **Embedded Targets** — time-bound, quantitative measures per Win Outcome, like OKR Key Results. Assessed by Win Reviews.
+3. **Cross-track work alignment** — Win Track entities (Planning, Enablement, Engagement) reference the Initiative they advance.
+
+Objectives remain lever-agnostic. The lever mix is an Initiative-level concern, keeping strategy → execution separation clean.
+
+See DR-017 for the full decision record.
+
+---
+
+### Q33: Why were targets embedded in Initiatives rather than kept as a standalone "Adoption Goal" entity?
+
+Three problems with standalone Adoption Goal:
+
+1. **"Adoption" is stage-specific.** Only Activation is about "adoption." Awareness targets ("80% brand recall"), Revenue targets ("$2M MRR"), and Acquisition targets ("15 deals closed") are not adoption. The name misrepresented the entity's scope.
+
+2. **"Goal" conflicts with Objectives.** Objectives are goals. Adding another "goal" entity created hierarchy confusion — is an Adoption Goal above or below an Objective?
+
+3. **Targets are attributes, not independent entities.** In the OKR model, Key Results are not standalone — they're embedded in the Objective they measure. Similarly, targets belong in the Initiative that drives toward them. They're set during planning, tracked during execution, and assessed during Win Reviews — always in the context of their Initiative.
+
+Eliminating the standalone entity simplifies the model and follows the OKR pattern: Initiative (with embedded targets) parallels Objective (with Key Results).
+
+---
+
+### Q34: Why does the Win Track have six categories instead of the original three?
+
+The original Win Track had three buckets: Planning (GTM, Rollout), Execution (Implementation), and Measurement (Adoption Goal, Feedback). This missed several critical classes of work:
+
+| Category | What was missing |
+|---|---|
+| **Enablement** (Equip) | Building reusable assets — battlecards, demo environments, playbooks. This one-to-many work is fundamentally different from engagement (one-to-one). |
+| **Engagement** (Execute, expanded) | Pre-sales (POC, demo, RFP), Retention (health intervention, renewal), Expansion (upsell), Segment-level (webinars, workshops). Only Implementation/Onboarding existed. |
+| **Win Case** (Respond) | Reactive, customer-initiated work — queries, complaints, escalations. This is where Service Commitments are tested and Cost-to-Serve is measured. |
+| **Win Review** (Assess) | Structured assessment producing Feedback. Without it, observations "appeared" with no traceable review event. Parallels Deliberation in Discovery Track. |
+
+The Enablement vs. Engagement distinction is particularly important: Sales Enablement (building a battlecard) is fundamentally different from Pre-sales (using that battlecard in a POC for Prospect X). One is one-to-many preparation; the other is one-to-one execution. Conflating them makes enablement investment invisible.
+
+See DR-016 for the full decision record.
+
+---
+
+### Q35: Why is Win Case separate from Run Track Incident?
+
+They serve different audiences and track different concerns:
+
+| | Win Case | Run Track Incident |
+|---|---|---|
+| **Initiated by** | Customer or prospect | Monitoring system or internal team |
+| **Perspective** | Customer-facing ("my payouts are delayed") | System-facing ("API latency spiked to 5s") |
+| **Handled by** | Win Stakeholders (Support, CS) | SRE, DevOps |
+| **Tests** | Service Commitments (Dim 3) | Operational SLAs (Dim 7) |
+| **Measures** | Cost-to-Serve, CSAT (Dim 2 KPIs) | MTTR, Availability (Dim 7 metrics) |
+
+A Win Case may *trigger* a Run Track Incident (customer reports a problem that turns out to be infrastructure), but the two are tracked independently. The Win Case tracks the customer interaction and satisfaction; the Incident tracks the technical resolution.
+
+"Complaint" was chosen over "Problem" as a Win Case type because (a) "Problem" is already a Signal type in Dim 1, and (b) "Complaint" accurately describes customer-expressed dissatisfaction, whereas ITSM "Problem" means root cause analysis of recurring incidents — a technical, internal activity.
+
+---
+
+### Q36: Why is Feedback an artifact rather than a work item?
+
+A work item is something someone *does* — it has a status lifecycle representing progress (Planned → In Progress → Done). Feedback is something someone *produces* during a Win Review. You do a QBR and *produce* Feedback records, just as you do a Deliberation and *produce* a PDR.
+
+Feedback is a **transitional artifact**: born in the Win Track, consumed by the Discovery Track when promoted to a Signal. The lifecycle is: observation occurs during Win Review → recorded as Feedback → reviewed → either promoted to Signal (warrants Discovery investigation) or archived (noise, already known, no action needed).
+
+This parallels the PDR pattern: Deliberation (work) → PDR (artifact). Win Review (work) → Feedback (artifact). The work entity is traceable; the artifact captures the output.
+
+Win Review also produces a second output: **Initiative target progress updates** — quantitative assessment against embedded targets. Together, the qualitative (Feedback) and quantitative (target progress) outputs give a complete picture.
+
+---
+
+### Q37: Why introduce a Work Execution Framework? Isn't this Operating Model territory?
+
+Three execution dimensions were missing from the Work Model: (1) what artifacts each work type produces, (2) when the work is done (Definition of Done), and (3) how to navigate the work (playbooks/guidance). The first two are information model concerns — artifacts and completion criteria are properties of the work itself, not team-specific practices. A Win Review *always* produces Feedback and target progress updates, regardless of which team runs it.
+
+The third dimension — guidance — is genuinely Operating Model territory. Playbooks vary by team, product, and organizational maturity. The Work Model captures the *structure* of guidance (what a playbook should cover: triggers, activities, decision points, pitfalls) but not the *content* (the actual procedures). Entity files reference Operating Model playbooks; they don't contain them.
+
+The framework also introduces an **artifact taxonomy** (Decision, Evidence, Specification, Delivery, Assessment) and the distinction between **transitional** artifacts (born in one track, consumed by another — like PSD, Feedback) and **terminal** artifacts (consumed within their own track). This makes cross-track handoff contracts explicit.
+
+See DR-018 for the full decision record.
+
+---
+
+### Q38: Why add monitoring as a work entity in every track?
+
+Every track has continuous monitoring work that triggers reactive work (Incidents, Bugs, Win Engagements, Prioritization re-evaluation) and feeds periodic assessment (Win Review, Deliberation, Release Planning). That work was implicit — teams monitored dashboards and alerts, but the Work Model didn't represent it. Adding Signal Monitoring (Track 1), Build Monitoring (Track 2), System Monitoring (Track 3), and Win Monitoring (Track 4) makes the pattern explicit: same structure (scope, metrics, thresholds, cadence, owner; outputs: alert/trigger, report/dashboard), track-specific scope. Run Track's System Monitoring is the most established in practice (SRE/DevOps); it is now modeled. Win Monitoring includes revenue monitoring — tracking revenue metrics and surfacing signals when targets are missed. See DR-019.
+
+---
+
+### Q39: Why Partner Enablement and Partner Engagement instead of a separate "partner track"?
+
+Partners are intermediaries (Awareness, Acquisition); they need enablement and engagement distinct from internal sales and from customers. Modeling them as subtypes of Win Enablement and Win Engagement keeps one Win Track: partner work is still "value realization" work, just directed at partners instead of end customers. Partner Enablement (partner demo environments, co-marketing kits, certification) uses the GTM lever and is distinct from Sales Enablement (internal teams). Partner Engagement (onboarding, co-selling, pipeline management) is account-level (one partner); it references external PRM. Engagement Planning explicitly includes partner prioritization and sequencing. See DR-019.
+
+---
+
+### Q40: What is Revenue Operations Engagement and how does it differ from Expansion Engagement?
+
+**Revenue Operations Engagement** is account-level, customer-facing work to ensure *committed* revenue is realized: invoicing/billing communication, collections follow-up, renewal processing, revenue recognition coordination with Finance. It advances Revenue Win Outcomes (e.g., on-time collection, renewal rate). **Expansion Engagement** is upsell/cross-sell — growing account value. Both are Revenue-stage work; one secures and collects, the other grows. Billing disputes are handled as Win Case (Complaint). Revenue *monitoring* (tracking NRR, pipeline, churn signals) is covered by Win Monitoring, not by Revenue Operations Engagement. See DR-019.
+
+---
+
+### Q41: Why don't Dim 2 and Dim 3 entities link to each other?
+
+Dim 2 (Vendor Value) and Dim 3 (Customer Value) use the same analytical pattern — stakeholder, outcome, suffering, impediment, metric — but model opposite perspectives. Win Outcome (vendor target) and Business Outcome (buyer target) are not equivalents; a vendor's Win Outcome might be "acquire 50 LATAM accounts" while the buyer's Business Outcome is "reduce FX costs." Delivery Friction (vendor suffering) and Pain (customer suffering) affect different people through different mechanisms. Win Barrier and Adoption Barrier are distinct impediments; where an Adoption Barrier causes a Win Barrier, the link flows through the Signal pipeline (Dim 1), not a direct entity relationship. Both dimensions connect through **Customer Segment** — the shared anchor. Adding pairwise cross-dimensional links would overstate conceptual parallels as operational relationships.
+
+---
+
+### Q42: Why do Dim 2/3 entities link to Dim 8 (structural dimension)?
+
+Several Dim 2 and Dim 3 entities benefit from traceability to the product's structural topology (Dim 8). Win Outcome's Achievement Levers say *what kind* of effort advances it; the Dim 8 link says *which product structure* supports it. Delivery Friction's Dim 8 link enables structural root-cause analysis ("this friction is rooted in the FX Module's integration capability"). Win Barrier and Adoption Barrier Dim 8 links identify product gaps. These links are **optional** — pure GTM Win Outcomes, operational Delivery Frictions, and Financial/Contractual barriers have no product root. But when the link exists, making it explicit enables impact analysis across the strategy-to-structure boundary.
+
+---
+
+### Q43: Why is competitive intelligence a structured field on Customer Segment rather than a standalone entity?
+
+Competitive positioning is always segment-scoped — you may be a leader in one segment and a new entrant in another. A "Competitor" entity would need scoping to segments anyway, creating a segment-competitor matrix that adds complexity without adding structural insight. The Competitive Context sub-structure on Customer Segment captures the structural positioning: key competitors, position (Leader/Challenger/Niche/New Entrant), primary threats (referencing Competitive-type Win Barriers), key differentiators, and incumbent/status quo. Detailed competitive intelligence (battlecards, positioning guides, win/loss playbooks) is Operating Model / Sales Enablement content — not Definition Model entities. Value Proposition already carries per-promise competitive detail (Primary Alternative, Key Differentiator).
+
+---
+
+### Q44: Why does Business Outcome carry Buyer's Internal KPI separately from Customer Value Metric?
+
+Customer Value Metric measures whether the *vendor's promise* is being fulfilled: "Did we deliver 99.9% uptime?" "Did we reduce transaction cost by 60%?" The vendor defines these metrics and tracks them. Buyer's Internal KPI is how the *purchasing organization* measures whether the investment paid off — what the CFO reports to the board. "Cross-border payment cost as a percentage of revenue" is the buyer's KPI; "60% cost reduction" is the vendor's promise metric. They may correlate but they're different measurements, owned by different parties, used for different purposes. Buyer's Internal KPI, paired with Current Baseline, establishes the "before → after" narrative critical for sales positioning, renewal justification, and case study creation.
+
+---
+
+### Q45: Why is Job (JTBD) a standalone entity rather than a field on User Persona?
+
+Jobs are reusable across Personas — an AP Clerk and a Treasury Analyst may share the job "Verify FX rate applied." A field on Persona would duplicate this shared job. More importantly, Job is the structural bridge between three dimensions: user intent (Dim 4 — Persona has Job), product structure (Dim 8 — Job is enabled by Value Stream / Capability), and buyer justification (Dim 3 — Job contributes to Business Outcome). Without a standalone entity, these cross-dimensional relationships have no anchor. Job also gives User Journey its purpose — a Journey *accomplishes* a Job; without the Job entity, "why does this Journey exist?" has no formal answer. See DR-020.
+
+---
+
+### Q46: Why deprecate Touchpoint from the Definition Model?
+
+Touchpoints (specific UI elements — buttons, dropdowns, forms) are implementation-level artifacts that change with every sprint. The Definition Model captures structural product truth — entities that persist across releases. Touchpoints are below this waterline. They belong in Build Track work artifacts: PSDs specify UI behavior for a module, Prototypes validate journey flows, and design specifications detail UI component inventories. The Definition Model captures down to **User Journey** (a named, purposeful flow); everything below is work artifact territory. This keeps the model maintainable — no team would sustain an entity catalog of individual buttons and dropdowns. See DR-020.
+
+---
+
+### Q47: How does UX Channel relate to Human-Interactive Module (Dim 8)?
+
+One-to-one. A UX Channel is the experiential definition (Dim 4) — "through what medium does the user access the product?" A Human-Interactive Module is the structural realization (Dim 8) — "what bounded technical context delivers that channel?" Each Channel is implemented by one HI Module; each HI Module implements one Channel. The module archetype taxonomy already defines Human-Interactive as an interaction boundary; UX Channel refines it with two sub-axes: Interaction Modality (Web, Mobile, Chat, Voice, Email, CLI) and Engagement Mode (Self-serve, Assisted, Managed). The Channel carries experiential characteristics and Journey references; the HI Module carries Capabilities, Features, and technical implementation. See DR-020.
+
+---
+
+### Q48: Why two axes for UX Channel (Interaction Modality × Engagement Mode)?
+
+Because they are orthogonal. A Web channel can be Self-serve (customer dashboard), Assisted (co-browsing with support agent), or Managed (agent acts on behalf of customer). A Chat channel can be Self-serve (chatbot) or Assisted (live agent). The Modality axis captures *technology constraints* (screen size, synchronicity, input method). The Engagement Mode axis captures *service model* (who acts — user alone, user + agent, agent on behalf of user). Each combination produces distinct UX constraints, Win Track implications, and HI Module requirements. A product defines which cells in this matrix it occupies; most products serve a subset. See DR-020.
+
+---
+
+### Q49: How is multi-channel journey continuity modeled?
+
+Two lightweight mechanisms, both as reference fields on User Journey: (1) **Journey Equivalence** — references to journeys in other channels that accomplish the same Job. "Initiate and approve payout" (Web) is equivalent to "Approve payout" (Mobile) — same Job, different channel, user picks one. (2) **Journey Continuity** — references to journeys in other channels that this journey can hand off to or receive from. "Request payout approval" (Email) is continuable to "Approve payout" (Mobile) — user starts on email, finishes on mobile. Both are simple reference fields — no unified cross-channel flow model, no new entities. The Definition Model doesn't model the cross-channel handoff mechanism (that's implementation); it records that the possibility exists. See DR-020.
+
+---
+
+### Q50: How does Job map to Value Stream vs. Capability (Dim 8)?
+
+Both relationships exist at different granularity levels. Job → Value Stream is the primary structural mapping: "Process a cross-border payout" maps to the "Cross-Border Payout Processing" Value Stream. A Value Stream may serve multiple Jobs across different Personas (AP Clerk processes, Treasury Analyst verifies, Compliance Officer audits — same stream, different jobs). Job → Capability is a direct mapping for simpler jobs that don't require a full end-to-end flow: "Check my FX rate lock status" → "Automated Rate Locking" Capability. Since Value Stream already traverses Capabilities, Job → Capability is derivable from Job → Value Stream → Capability. But direct Job → Capability links are useful for capability-scoped jobs that don't involve cross-module flows. Both are many-to-many. See DR-020.
+
+---
+
+### Q51: Why is "Embedded" an Interaction Modality rather than a Dim 6 (extensibility) concern?
+
+A component being technically embeddable (iframe, SDK, web component) is a Dim 6 / Build Track concern. But a product *deciding* that certain journeys should be embeddable in customer or third-party applications is a channel-level strategic decision. It requires its own HI Module, its own journey design (fragment, not full flow), and its own UX constraints (vendor controls the component, not the host page; must be self-contained). "Payment Widget" is a UX Channel — typed as Embedded + Self-serve — just as "Customer Dashboard" is typed as Web + Self-serve. Both are product access mechanisms; Embedded ones happen to be hosted in someone else's application. The Dim 6 extensibility dimension captures the *programmatic interface* that delivers the embeddable component (API, SDK); the Dim 4 Channel captures the *experiential surface* the user interacts with. See DR-020.
+
+---
+
+### Q52: Why does User Journey reference both Value Stream and Capability (Dim 8)?
+
+Value Stream traversal tells you "which end-to-end flow does this journey follow?" — it's the broad structural mapping. Capability engagement tells you "which specific product abilities are required at each step?" — it's the finer-grained mapping. Both are valuable for different analyses. If a Capability changes (e.g., "OFAC Screening" adds new required fields), Value Stream traversal alone doesn't tell you which Journeys are affected. Capability engagement directly answers: "Initiate and approve a payout" and "Generate compliance audit report" both engage OFAC Screening — both need journey review. Value Stream traversal identifies the flow; Capability engagement identifies the structural dependencies within the flow.
+
+---
+
+### Q53: Why are Developer Persona and Programmatic User Persona in Dim 6 rather than Dim 4?
+
+Dim 4 and Dim 6 represent fundamentally different interaction paradigms. Dim 4 is visual/experiential — its vocabulary (Journey, Channel, Touchpoint, experience attributes) describes how humans navigate a product's UI. Dim 6 is programmatic/contractual — developers read docs, write code, test in sandboxes, iterate over days. Programmatic User Personas are non-human systems (customer's ERP, partner middleware) with throughput requirements and SLA expectations — they cannot meaningfully carry Dim 4 fields like "Frustrations" or "Preferred Channel." The same human may appear in both dimensions: an Integration Engineer is a Dim 4 Persona when using the Developer Portal and a Dim 6 Developer Persona when writing API integration code. This correctly reflects two interaction surfaces with different design concerns. See DR-021.
+
+---
+
+### Q54: Why is extensibility a deliberate product strategy, not an incidental API property?
+
+Every distributed module has internal APIs. If every module with an API appeared in Dim 6, the dimension would flood with implementation detail. Dim 6 exists only when there is a deliberate, demand-driven strategy to make capabilities externally consumable for well-understood use cases. "Our module has REST APIs" is Dim 5/Dim 8. "We will design, build, and maintain a Payments API surface for customers integrating payment processing into their ERP systems" is Dim 6. The distinction is demand-driven (ecosystem need, PDR-level decision) vs. supply-driven (architecture happenstance). See DR-021.
+
+---
+
+### Q55: Why are Dim 6 modules structurally Dim 8 modules rather than a parallel hierarchy?
+
+A Dim 6 API Module is a Dim 8 module — it sits in the Product → Module → Capability → Feature hierarchy, has a bounded context, archetype, Dim 5 internals, and Build Track versioning. Creating a separate Dim 6 hierarchy would duplicate relationship management and obscure the compositional link between Dim 6 surfaces and underlying Dim 8 capabilities. What makes a module a "Dim 6 module" is its purpose (external extensibility), its composition pattern (curating capabilities from other modules), and its specialized concerns (Developer Personas, API contracts, versioning commitments). This parallels Dim 4: Human-Interactive modules are Dim 8 modules carrying Dim 4 concerns. See DR-021.
+
+---
+
+### Q56: Why three core module types (API, Extension, SDK) plus Integration Module, rather than a single "API Product" entity?
+
+Each type represents a genuinely different product decision. API Module is a protocol-agnostic programmatic surface (REST, batch/SFTP, Kafka, webhooks, gRPC, GraphQL are all delivery mechanisms within one module). Extension Module provides a plugin/hook framework for third parties to extend product behavior (sandboxing, permission model, marketplace). SDK/Library Module wraps API surfaces in language-specific idioms (dependency management, code generation, testing support).
+
+Integration Module was initially defined as "APIs bundled for a scenario," which overlapped heavily with API Module. The sharpened distinction: Integration Module is a **pre-built bridge/connector** between the product and a specific external system or system category (e.g., "SAP Connector," "Salesforce Adapter," "ERP Integration"). It includes data mappings, protocol translations, and workflow adapters — not just "our APIs" but "the glue between us and your system." If a product doesn't ship connectors to specific external systems, it has API Modules but no Integration Modules. Collapsing all types into one entity would lose distinctions that drive architecture, documentation, governance, and versioning strategy. See DR-021.
+
+---
+
+### Q57: How does Client-Distributed deployment topology differ from Vendor-Hosted?
+
+Vendor-Hosted modules (monolith or distributed microservices) are deployed and operated in the vendor's infrastructure. Client-Distributed modules are built by the vendor but deployed in the consumer's environment — mobile apps (app stores → user devices), PWAs (CDN → user browsers), SDKs (package registries → customer codebases), CLI tools (package managers → developer machines), embedded widgets (CDN → customer web apps). Both are structurally valid Dim 8 modules with full entity structure (Capabilities, Features, Dim 5 internals, Build Track versioning). Their Dim 7 (Operational) footprint differs: CI/CD + distribution channel + version adoption tracking rather than clusters and containers. See DR-021.
+
+---
+
+### Q58: Why a unified API Operation entity rather than separate Endpoint and Event entities?
+
+Both endpoints and events are named, versioned, contractual commitments belonging to an API Module, consumed by the same Developer and Programmatic User Personas, subject to the same API Compatibility Contract. The boundary blurs in practice: a "Create Payment" submitted via Kafka is a command message; a "payment.settled" status retrieved via polling is a query. The transport mechanism makes the endpoint/event distinction a protocol concern, not a structural one. A single entity with a pattern classification (Command, Query, Event, Callback, Batch) preserves the analytical distinction — "what events do we publish?" is a pattern filter — while keeping one entity, one relationship set, one place in the Module → Operation hierarchy. This parallels Win Case (subtypes: Query, Service Request, Complaint, Escalation) and Signal (subtypes: Problem, Need, Opportunity). See DR-021.
+
+---
+
+### Q59: Why SLOs on API Operations rather than Payload Schema in the Definition Model?
+
+Payload Schema (specific field definitions for request/response payloads) follows the same granularity pattern as Touchpoints in Dim 4 — it changes frequently with each version and belongs in PSD/Build artifacts. SLOs, by contrast, are strategic commitments: "Create Payment has p99 < 500ms and 99.95% availability" is a product promise that drives architecture, capacity planning, pricing tiers, and customer contracts. SLOs are the Dim 6 analog of experience attributes in Dim 4 — the qualitative (or quantitative) promise about what consumers can expect. They connect richly to Customer Promise (Dim 3) via SLAs, API Compatibility Contract (performance stability across versions), and Win Monitoring (SLO compliance tracking). The Definition Model captures what the product commits to; the schema details live below the waterline. See DR-021.
+
+---
+
+### Q60: Why is Batch a distinct interaction pattern alongside Command, Query, Event, and Callback?
+
+Batch operations have genuinely different SLO profiles, error semantics, and consumer workflows from per-request interactions. SLOs focus on processing window and throughput rather than per-request latency. Error handling involves partial success, rejection reports, and reconciliation — not atomic success/failure. Consumer workflow is multi-step (prepare → upload → wait → download results), not request-response. Batch has natural bidirectionality: inbound (consumer submits bulk data) and outbound (product generates bulk reports). Treating batch as "many Commands bundled" would misrepresent these differences and leave batch SLOs unmodeled. See DR-021.
+
+---
+
+### Q61: Why is Integration Module a connector/adapter rather than another API surface?
+
+The original proposal defined Integration Module as "APIs bundled for a scenario," which overlapped heavily with API Module (both use-case-oriented, both compose from Dim 8 modules, both expose programmatic interfaces). The sharpened distinction: Integration Module is a **pre-built bridge** to a specific external system — it includes data mappings, protocol translations, workflow adapters, and connectors between the product's model and the target system's model. API Module says "here's our interface"; Integration Module says "here's a ready-made bridge between us and SAP/Salesforce/your ERP." The design concerns diverge: data format translation, protocol bridging, polling vs. push, conflict resolution, target-system-specific error handling. If a product doesn't ship connectors, it has API Modules but no Integration Modules. See DR-021.
+
+---

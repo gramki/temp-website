@@ -45,11 +45,11 @@ Deliberation may directly produce a PDR — "the product council deliberated and
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Input | Signal (Dim 1) | May deliberate on Signals (exploration mode) |
-| Input | Idea (Dim 1) | May deliberate on Ideas (evaluation mode) |
-| Input | Research Task / Experiment / Prototype (Track 1) | May consume evidence from prior validation work |
-| Output | Idea (Dim 1) | May generate Ideas (exploration mode) |
-| Output | PDR (Dim 1) | May produce a PDR (evaluation mode — Go/Kill/Pivot) |
+| Consumes | Signal (Dim 1) | May deliberate on Signals (exploration mode) |
+| Consumes | Idea (Dim 1) | May deliberate on Ideas (evaluation mode) |
+| Consumes | Research Task / Experiment / Prototype (Track 1) | May consume evidence from prior validation work |
+| Produces | Idea (Dim 1) | May generate Ideas (exploration mode) |
+| Produces | PDR (Dim 1) | May produce a PDR (evaluation mode — Go/Kill/Pivot) |
 | Sibling | Signal Exploration Task (Track 1) | Both can generate Ideas from Signals |
 | May trigger | Modeling Task (Track 1) | Deliberation outcomes may require Definition Model updates |
 
@@ -61,6 +61,9 @@ Deliberation may directly produce a PDR — "the product council deliberated and
 | "Cross-functional brainstorm: batch payout automation" | Exploration | PM, 3 Engineers, UX, CSM | 4 candidate Ideas generated, 2 selected for validation |
 | "Architecture review: unified adapter framework" | Evaluation | CTO, 2 Staff Engineers, PM | PDR: Approve unified adapter approach, timeline constraints noted |
 | "Customer advisory board: H2 roadmap input" | Both | 5 Enterprise customers, PM, VP Product | 3 new Signals captured, 2 existing Ideas validated by customer demand |
+| "Channel strategy: mobile app investment" | Evaluation | CPO, VP Eng, UX Lead, PM | PDR: Approve Mobile + Self-serve channel for approvals; UX Channel and HI Module scoped |
+| "API strategy: external Payments API investment" | Evaluation | CPO, VP Eng, API Platform PM, Solutions Arch | PDR: Approve Cross-Border Payments API Module; scope operations, SLO targets, versioning strategy |
+| "SDK investment: which languages and generation strategy?" | Evaluation | API Platform PM, DevRel, 2 Staff Engineers | PDR: Approve Python and Java SDKs, hand-crafted; defer Go and auto-gen approach to next cycle |
 
 ## Notes
 

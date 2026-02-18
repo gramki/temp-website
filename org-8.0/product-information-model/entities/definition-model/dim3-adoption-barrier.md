@@ -37,7 +37,7 @@ Understanding barriers is as important as understanding outcomes. A product can 
 | Description | Text | What the barrier is and why it prevents adoption |
 | Severity | Enum | `Blocker` (cannot adopt) / `Friction` (can adopt but with difficulty) |
 | Challenges Promise | List of References (Dim 3) | Which Customer Promise(s) this barrier undermines or contradicts |
-| _Other fields to be refined._ | | |
+| Structural Root (Dim 8) | List of References (Dim 8) | When the barrier points to a product gap, which Capability or Feature is missing or insufficient. Enables product-level impact analysis. Optional — non-product barriers (Contractual, Cultural, Financial) typically have no product root. |
 
 ## Statuses
 
@@ -56,13 +56,14 @@ Understanding barriers is as important as understanding outcomes. A product can 
 | May surface as | Signal (Dim 1) | Barrier may generate a Problem or Need Signal |
 | May inform | Initiative (Dim 1) | Overcoming a barrier may become an Initiative |
 | Work Model | Modeling Task (Track 1) | Modeling Tasks identify and document barriers |
+| Structural root | Capability / Feature (Dim 8) | When barrier points to a product gap, identifies the missing or insufficient product structure |
 
 ## Examples
 
-- "LATAM enterprises require local data residency for regulatory compliance" (Regulatory, Blocker) — **challenges** Compliance Posture "GDPR compliant"
-- "Mid-market companies lack IT staff for API integration — need self-service onboarding" (Technical, Friction) — **challenges** Value Proposition "Get started in under 24 hours"
-- "Existing customers have sunk cost in Competitor X's reporting suite" (Competitive, Friction)
-- "Mid-market budget ceiling of $50K/year; product minimum starts at $75K" (Financial, Blocker)
-- "3-year contract with incumbent; early termination penalty of $200K" (Contractual, Blocker)
-- "10 years of transaction history in proprietary format — estimated 6-month migration" (Data, Friction)
-- "Risk-averse institution requires 12-month PoC before enterprise commitment" (Cultural, Friction)
+- "LATAM enterprises require local data residency for regulatory compliance" (Regulatory, Blocker) — **challenges** Compliance Posture "GDPR compliant" — **structural root:** Data Storage — Regional Residency (Capability — missing)
+- "Mid-market companies lack IT staff for API integration — need self-service onboarding" (Technical, Friction) — **challenges** Value Proposition "Get started in under 24 hours" — **structural root:** Self-Service Onboarding (Value Stream — insufficient)
+- "Existing customers have sunk cost in Competitor X's reporting suite" (Competitive, Friction) — no product root
+- "Mid-market budget ceiling of $50K/year; product minimum starts at $75K" (Financial, Blocker) — no product root
+- "3-year contract with incumbent; early termination penalty of $200K" (Contractual, Blocker) — no product root
+- "10 years of transaction history in proprietary format — estimated 6-month migration" (Data, Friction) — **structural root:** Data Migration (Capability — insufficient)
+- "Risk-averse institution requires 12-month PoC before enterprise commitment" (Cultural, Friction) — **structural root:** Sandbox / Demo Environment (Capability)

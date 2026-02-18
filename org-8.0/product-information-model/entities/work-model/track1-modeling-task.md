@@ -1,7 +1,7 @@
 # Modeling Task
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Intelligence)
+**Track:** Track 1: The Discovery Track (Learning)
 **Owner:** Product Manager, Product Owner
 
 ## Definition
@@ -51,8 +51,18 @@ Modeling Tasks make this knowledge work explicit and plannable:
 | Modeling Task | Target Dim | Target Entity | Triggered By |
 |---|---|---|---|
 | "Define LATAM AP Clerk user persona" | Dim 4 | User Persona | Research Task findings from user interviews |
+| "Identify AP Clerk's cross-border payout jobs (JTBD)" | Dim 4 | Job | Research Task findings from contextual inquiry |
+| "Define Web + Self-serve channel for customer dashboard" | Dim 4 | UX Channel | Deliberation on channel strategy → PDR |
+| "Design 'Initiate and approve payout' journey (Web)" | Dim 4 | User Journey | Specification Task — PSD for Dashboard Web Module |
 | "Map Cross-Border Payout Processing value stream" | Dim 8 | Value Stream | PDR approving LATAM expansion initiative |
 | "Design LATAM Enterprise pricing tier" | Dim 2 | Pricing Tier | PDR on segment-specific packaging |
 | "Document LGPD compliance posture for Brazil" | Dim 3 | Compliance Posture | PDR on LATAM regulatory requirements |
 | "Add settlement_currency field to Payment_Record" | Dim 9 | Data Entity / Attribute | Research Task on settlement reporting needs |
 | "Define LATAM Enterprise customer segment" | Dim 3 | Customer Segment | Initiative scoping for LATAM market entry |
+| "Define Partner Integration Engineer developer persona" | Dim 6 | Developer Persona | Research Task — developer experience interviews |
+| "Define Customer Treasury System programmatic user persona" | Dim 6 | Programmatic User Persona | Research Task — integration requirements analysis |
+| "Design Cross-Border Payments API Module with operations and SLOs" | Dim 6 | API Module, API Operation | PDR approving external API strategy |
+| "Define API Compatibility Contract for Payments API v2" | Dim 6 | API Compatibility Contract | Deliberation on versioning strategy → PDR |
+| "Define SAP ERP Integration Module scope and data mappings" | Dim 6 | Integration Module | PDR approving SAP connector initiative |
+| "Define Compliance Workflow Extension points and governance" | Dim 6 | Extension Module | Research Task — customer custom-rules requirements |
+| "Define Python Payments SDK scope and generation strategy" | Dim 6 | SDK/Library Module | Deliberation on SDK investment → PDR |

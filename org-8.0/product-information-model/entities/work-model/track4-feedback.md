@@ -2,35 +2,80 @@
 
 **Model:** Work Model
 **Track:** Track 4: The Win Track (Value Realization)
+**Category:** Artifact
 **Owner:** Customer Success, Product Marketing
 
 ## Definition
 
-Structured collection of customer satisfaction or friction — formal input from customers about their experience with the product.
+A transitional artifact — the structured observation record produced by Win Reviews. Feedback captures qualitative findings from structured assessments (QBRs, Win/Loss Analyses, Post-Implementation Reviews, etc.) and serves as the bridge between the Win Track and the Discovery Track.
+
+Feedback is **not** a work item — it is an output of Win Review activity. It records what was observed, by whom, and with what severity, then enters a promotion pipeline where it may become a Signal in Dim 1 or be archived.
+
+**Two feedback channels:**
+
+1. **Customer Feedback** → Observations about customer experience captured during Win Reviews. A Feedback item may produce a **Problem** Signal (limitation/gap in existing product) or a **Need** Signal (request for missing capability). A *pattern* of customer Feedback may also inspire an Opportunity Signal, though Opportunities are created by internal stakeholders who analyze the patterns.
+
+2. **Win Stakeholder Feedback** → Win Stakeholders (Pre-Sales Engineers, Implementation Consultants, CS Managers, Account Managers) observe Delivery Frictions and Win Barriers in the field. These observations enter the Signal pipeline as **Problem** or **Opportunity** Signals in Dim 1, which Discovery then investigates and may translate into Dim 2 entity updates (Delivery Friction documented, Win Barrier identified) through PDR-triggered Modeling Tasks.
 
 ## Purpose
 
-Closes the loop between the Win Track and the Discovery Track. Feedback is the mechanism by which real-world customer experience generates new Signals in Dimension 1, restarting the discovery cycle. A Feedback item may produce a **Problem** Signal (limitation/gap in existing product) or a **Need** Signal (request for missing capability). A *pattern* of Feedback may also inspire an Opportunity Signal, though Opportunities are created by internal stakeholders who analyze the Feedback — the Feedback itself does not directly produce Opportunities.
+Closes the loop between the Win Track and the Discovery Track. Feedback is the primary mechanism by which real-world experience generates new Signals in Dimension 1, restarting the discovery cycle.
+
+**Transitional nature:** Feedback is born in the Win Track (produced by Win Reviews) and consumed by the Discovery Track (when promoted to a Signal). Not every Feedback becomes a Signal — some observations are informational, confirming existing understanding without requiring action. The promotion decision is made during Discovery Track triage.
+
+Without Feedback:
+- Customer experience post-launch is invisible to the product team
+- Vendor-side operational frictions observed by Win Stakeholders have no formal entry point into Discovery
+- The model has no mechanism for continuous improvement based on field reality
+- Win Review findings have no structured output format
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| _To be refined._ | | |
+| Title | String | Brief description of the feedback |
+| Source Type | Enum | `Customer` / `Win Stakeholder` |
+| Source | Text | Who provided the feedback (customer name, Win Stakeholder role) |
+| Win Review | Reference (Track 4) | Which Win Review produced this Feedback |
+| Customer Segment | Reference (Dim 3) | Which segment the feedback pertains to |
+| AAARRR Stage | Enum | Which stage of the vendor lifecycle the feedback relates to (if applicable) |
+| Content | Text | The feedback itself — what was observed, what was said |
+| Severity | Enum | `Critical` / `Major` / `Minor` / `Informational` |
+| Signal Produced | Reference (Dim 1) | The Signal (Problem/Need/Opportunity) created from this feedback, if promoted |
+| _Other fields to be refined._ | | |
 
 ## Statuses
 
 | Status | Description |
 |---|---|
-| _To be refined._ | |
+| Captured | Feedback has been recorded as part of a Win Review but not yet reviewed for promotion |
+| Reviewed | Feedback has been reviewed; promotion decision made (Signal created or archived) |
+| Promoted | Signal created from this Feedback — observation has entered the Discovery pipeline |
+| Archived | Feedback was reviewed and deemed informational — no Signal required |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Produces | Problem (Dim 1) | Feedback may loop back as a new Problem (limitation/gap in existing product) |
-| Produces | Need (Dim 1) | Feedback may loop back as a new Need (request for missing capability) |
+| Produced by | Win Review (Track 4) | Feedback is an output of Win Review activity |
+| Produces | Problem (Dim 1) | Customer Feedback may be promoted to a Problem Signal |
+| Produces | Need (Dim 1) | Customer Feedback may be promoted to a Need Signal |
+| Inspires | Opportunity (Dim 1) | Patterns in Feedback may inspire Opportunity Signals (created by internal stakeholders) |
+| Observed by | Win Stakeholder (Dim 2) | Win Stakeholder Feedback surfaces vendor-side frictions and barriers |
+| Scoped to | Customer Segment (Dim 3) | Feedback pertains to a specific segment |
+| May inform | Delivery Friction (Dim 2) | Win Stakeholder observations may lead to Delivery Friction documentation (via Signal → PDR → Modeling Task) |
+| May inform | Win Barrier (Dim 2) | Win Stakeholder observations may lead to Win Barrier identification (via Signal → PDR → Modeling Task) |
+| Generated by | Win Case (Track 4) | Win Case patterns or individual cases may generate Feedback |
+| May reference | API Module (Dim 6) | Feedback may relate to API capabilities, performance, or developer experience |
 
-## Example
+## Examples
 
-"Enterprise client reports FX rate-lock expiry window (24h) is too short for multi-approver workflows." → maps to a Problem at the Feature level.
+| Source Type | Win Review | Feedback | AAARRR Stage | Signal Produced |
+|---|---|---|---|---|
+| Customer | Q3 LATAM Enterprise QBR | "FX rate-lock expiry window (24h) is too short for multi-approver workflows" | Retention | Problem: Feature-level limitation |
+| Customer | Q3 LATAM Enterprise QBR | "We need batch payout file upload via SFTP" | Retention | Need: Missing capability |
+| Win Stakeholder (Pre-Sales) | Banco Nacional Win/Loss Analysis | "POC took 6 weeks — sandbox doesn't support LATAM currencies" | Acquisition | Opportunity: "Reduce POC time by adding LATAM sandbox support" |
+| Win Stakeholder (Implementation) | GlobalPay SA Post-Implementation Review | "Custom FX provider integration cost $80K and took 60 days" | Activation | Opportunity: "Build standard LATAM FX adapter to reduce implementation cost" |
+| Win Stakeholder (CS Manager) | Q3 LATAM Case Pattern Review | "Competitor offered free trial to our renewal prospect — we lost the deal" | Retention | Problem: "No competitive retention tool for at-risk accounts" |
+| Win Stakeholder (Developer Relations) | Q3 API adoption review | "Python SDK pagination is confusing — developers ask for list_all() helper" | Activation | Need: SDK ergonomics improvement (references Cross-Border Payments API Module) |
+| Customer | Q3 LATAM Enterprise QBR | "Dashboard load times are fine — no issues with reporting" | Retention | *(Archived — informational, no action needed)* |

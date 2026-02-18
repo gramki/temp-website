@@ -67,12 +67,12 @@ The Definition Model describes **what the product is** — its complete structur
 
 | Tier | Dimensions | What it covers |
 |---|---|---|
-| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives, signals, ideas, decisions, specifications |
-| **Business & Market** | Dim 2: Vendor Economics | Business model, pricing, value metrics, KPIs |
+| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), signals, ideas, decisions, specifications |
+| **Business & Market** | Dim 2: Vendor Value (Why It Wins) | Win stakeholders, win outcomes (with achievement levers), delivery friction, business model (with lever portfolio), pricing tiers, value metrics, business KPIs, win barriers — across AAARRR lifecycle |
 | | Dim 3: Customer Value | Customer segments, buying personas, outcomes, pains, promises, metrics, barriers |
-| **Technical Execution** | Dim 4: User-Centric (Experience) | User personas, journeys, touchpoints |
+| **Technical Execution** | Dim 4: User-Centric (Experience) | User personas, jobs (JTBD), UX channels (modality × engagement mode), user journeys. Touchpoints deprecated to work artifacts. |
 | | Dim 5: Technical & Architectural | Subsystems, components, functions |
-| | Dim 6: Ecosystem & Extensibility | APIs, endpoints, schemas |
+| | Dim 6: Ecosystem & Extensibility | Developer personas, programmatic user personas, API/Integration/Extension/SDK modules, API operations (Command/Query/Event/Callback/Batch with SLOs), API compatibility contracts. Deliberate extensibility strategy, not incidental APIs. |
 | | Dim 7: Operational (Runtime) | Environments, clusters, containers |
 | **Bridge (Taxonomy)** | Dim 8: Structural (Topology) | Products, modules, capabilities, features, value streams |
 | | Dim 9: Data & Information | Data domains, entities, attributes, states |
@@ -87,12 +87,13 @@ The Work Model describes **what work exists** — the entities, artifacts, and s
 
 | Track | Goal | Primary Owner | Key Entities |
 |---|---|---|---|
-| **Track 1: Discovery** (Learning) | Set strategic direction, explore signals, validate ideas, author specifications | Product Management, UX Research | Objective Setting Task, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task |
-| **Track 2: Build** (Construction) | Plan releases, write code, produce quality-gated artifacts | Tech Lead, Developers, QA | Epic, User Story, Technical Task, Bug, Module Version, Product Version |
-| **Track 3: Run** (Stability) | Plan deployments, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task |
-| **Track 4: Win** (Value Realization) | Drive adoption, ensure shipped product achieves business metrics | Customer Success, Product Marketing | Implementation/Onboarding, Adoption Goal, Feedback |
+| **Track 1: Discovery** (Learning) | Set strategic direction, explore signals, validate ideas, author specifications | Product Management, UX Research | Objective Setting Task, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, Signal Monitoring |
+| **Track 2: Build** (Construction) | Plan releases, write code, produce quality-gated artifacts | Tech Lead, Developers, QA | Epic, User Story, Technical Task, Bug, Module Version, Product Version, Build Monitoring |
+| **Track 3: Run** (Stability) | Plan deployments, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, System Monitoring |
+| **Track 4: Win** (Value Realization) | Plan, equip, execute, respond, assess, monitor across AAARRR lifecycle to achieve Win Outcomes | Customer Success, Product Marketing, Sales, Support | Win Planning (5 subtypes), Win Enablement (4 subtypes), Win Engagement (7 subtypes), Win Case, Win Review → Feedback, Win Monitoring |
 
 **Reference document:** `draft-work-model.md`
+**Execution framework:** `draft-work-execution-framework.md` — artifacts, definition of done, and guidance patterns for all work entities
 
 ---
 
@@ -118,12 +119,14 @@ product-information-model/
 ├── README.md                         ← This file (PIM architecture overview)
 ├── draft-definition-model.md         ← Definition Model reference document
 ├── draft-work-model.md               ← Work Model reference document
+├── draft-work-execution-framework.md ← Work execution dimensions: artifacts, DoD, guidance
 ├── draft-modeling-faqs.md            ← Design decisions and rationale (Q&A format)
+├── narrative-seeds.md                ← Connective insights and perspectives for future narrative docs
 ├── entities/                         ← One file per entity (canonical detail)
 │   ├── README.md                     ← Entity catalog structure and conventions
 │   ├── definition-model/             ← Entities from the 9 Dimensions
 │   │   ├── dim1-*.md                 ← Strategy Dimension entities
-│   │   ├── dim2-*.md                 ← Vendor Economics entities
+│   │   ├── dim2-*.md                 ← Vendor Value (Why It Wins) entities
 │   │   ├── dim3-*.md                 ← Customer Value entities
 │   │   ├── dim4-*.md through dim9-*.md
 │   │   └── psd-templates/            ← PSD templates by module archetype
@@ -151,7 +154,9 @@ product-information-model/
 
 5. **Decision traceability.** The chain Signal → Idea → PDR → PSD provides full traceability from observation through reasoning to specification. No gaps, no implicit decisions. (See FAQ Q6, DR-013.)
 
-6. **Operating Model deferred, not omitted.** Coordination and organizational design are explicitly scoped out of the Work Model — they belong to the Operating Model, which will be developed separately.
+6. **Initiative as cross-track coordination.** Initiatives drive work across all four tracks, not just Discovery → Build. They carry a lever mix (weighted from the Business Model's Lever Portfolio) and embedded targets (like OKR Key Results). This makes cross-track investment explicit. (See FAQ Q32, DR-017.)
+
+7. **Operating Model deferred, not omitted.** Coordination and organizational design are explicitly scoped out of the Work Model — they belong to the Operating Model, which will be developed separately.
 
 ---
 

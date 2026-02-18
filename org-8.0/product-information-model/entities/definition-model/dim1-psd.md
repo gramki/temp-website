@@ -53,15 +53,18 @@ Always required. The "table of contents" of the change.
 | Features Retired | List | Features being removed, with retirement rationale |
 | Cross-Module Dependencies | List of References | Other Modules affected, with nature of dependency |
 
-### Section 2: Business Impact — Vendor Economics (Dimension 2)
+### Section 2: Vendor Value Impact (Dimension 2)
 
 | Field | Type | Description |
 |---|---|---|
-| Pricing / Packaging Implications | Text | Which tiers include the new features? Is a new tier needed? |
-| Value Metric Changes | Text | Does this change the pricing axis? |
-| KPI Impact Projections | Text | Expected effect on vendor Business KPIs |
+| Win Outcome Implications | Text | Which Win Outcomes (per AAARRR stage, per segment) does this change affect? Does it enable a new Win Outcome or strengthen an existing one? |
+| Win Stakeholder Impact | Text | Which Win Stakeholders are affected? Does this change their workflow, tools, or concerns? (e.g., Pre-Sales Engineer gets new demo capability; Implementation Consultant gets self-service onboarding) |
+| Delivery Friction Impact | Text | Does this change mitigate any known Delivery Frictions? Which Win Stakeholders benefit? |
+| Pricing / Packaging Implications | Text | Which Pricing Tiers include the new features? Is a new tier needed? Does the Value Metric change? |
+| Business KPI Impact | Text | Expected effect on vendor Business KPIs — Revenue, Cost, and Activity. Include AAARRR stage context. |
+| Win Barrier Impact | Text | Does this change mitigate any known Win Barriers? |
 
-*Depth by product archetype: Deep for Enterprise SaaS (complex pricing), Deep for Developer Platform (usage-based), Medium for Consumer App.*
+*Depth by product archetype: Deep for Enterprise SaaS (complex pricing, multi-stakeholder AAARRR), Deep for Developer Platform (usage-based, self-serve activation), Medium for Consumer App.*
 
 ### Section 3: Customer Value Impact (Dimension 3)
 
@@ -102,8 +105,8 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| New / Modified Endpoints | List of References (Dim 6) | API endpoints or event topics added or changed |
-| Payload Schema Changes | Text | Schema diffs, with breaking-change assessment |
+| New / Modified API Operations | List of References (Dim 6) | API Operations (Command, Query, Event, Callback, Batch) added or changed; SLO targets |
+| API Contract Changes | Text | Contract diffs (request/response semantics, SLO changes), breaking-change assessment. Payload schema details are Build Track artifacts. |
 | Backward Compatibility Plan | Text | Versioning strategy, deprecation timeline |
 | Webhook / Event Contract Changes | Text | New events, modified payloads, removed events |
 

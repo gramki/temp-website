@@ -49,7 +49,7 @@
 
 ---
 
-## Section 2: Business Impact — Vendor Economics — Dimension 2 [Depth: per product archetype]
+## Section 2: Vendor Value Impact — Dimension 2 [Depth: per product archetype]
 
 *Adjust depth based on product archetype: Deep for Developer Platform (usage-based metering), Deep for Enterprise SaaS, Medium for Consumer App.*
 
@@ -81,11 +81,17 @@
 
 **Affected User Personas:**
 
+**Affected Jobs (JTBD):**
+- Which Jobs are accomplished, modified, or newly enabled (if applicable — e.g., developer portal, admin console)
+
+**Affected UX Channels:**
+- Which Channels are impacted (if applicable — e.g., Embedded widgets powered by this API, CLI tools, developer portal)
+
 **New / Modified User Journeys:**
 
-**Touchpoint Specifications:**
+**Touchpoint Specifications (Build Track work artifacts):**
 
-*If no UX impact, state: "No impact — this module is a headless API service."*
+*If no UX impact, state: "No impact — this module is a headless API service." Note: if this module powers an Embedded channel (widget/plugin), specify the affected UX Channel and Journeys above.*
 
 ---
 
@@ -113,27 +119,46 @@
 
 ## Section 6: Ecosystem & Extensibility Impact — Dimension 6 [Deep]
 
-*This is the primary specification surface for Programmatic-Interactive modules. Be thorough.*
+*This is the primary specification surface for Programmatic-Interactive modules. Be thorough. This section captures the deliberate extensibility surface — the named operations, personas, and contracts that external consumers depend on. Only applicable when this module carries Dim 6 concerns (external-facing extensibility). If this module is purely internal, state: "No Dim 6 impact — this module is not part of the product's external extensibility surface."*
 
-**New / Modified Endpoints:**
-- Method, path, description
+**Affected Developer Personas:**
+- Which Developer Personas use this module's API surface
+- Impact on their integration workflow (new capabilities, breaking changes, migration effort)
+
+**Affected Programmatic User Personas:**
+- Which applications/systems consume this API at runtime
+- Impact on their runtime behavior (new integration paths, SLO changes, volume implications)
+
+**New / Modified API Operations:**
+
+*For each operation, specify:*
+- Operation name and interaction pattern (Command / Query / Event / Callback / Batch)
+- Description of what the operation does
+- SLO targets (pattern-appropriate):
+  - Command/Query: availability, latency (p50/p95/p99), throughput
+  - Event/Callback: delivery guarantee, delivery latency, ordering
+  - Batch: processing window, throughput, completeness
+- Idempotency: yes/no and mechanism
 - Authentication/authorization requirements
 
-**Payload Schema Changes:**
-- Request schema (with field types, required/optional, validation rules)
-- Response schema (with field types, envelope structure)
+**Payload Schema Details (Build Track artifacts):**
+- Request schema (field types, required/optional, validation rules)
+- Response schema (field types, envelope structure)
 - Error response schema (error codes, messages)
+
+*Note: Payload schemas are Build Track work artifacts. Include them here for implementation specification but they are not Definition Model entities.*
+
+**API Compatibility Contract Impact:**
 - **Breaking change assessment:** Does this change break existing consumers?
-
-**Backward Compatibility Plan:**
-- API versioning strategy (URL path, header, query param)
-- Deprecation timeline for old versions
+- Versioning strategy (URL path, header, query param)
+- Deprecation timeline for affected operations
 - Migration guide for consumers
+- Performance stability: do SLO targets change from previous version?
 
-**Webhook / Event Contract Changes:**
-- New event topics
-- Modified payloads
-- Delivery guarantees (at-least-once, exactly-once)
+**SDK / Integration Module Impact:**
+- Which SDK/Library Modules need updates
+- Which Integration Modules are affected
+- Auto-generation feasibility for SDK changes
 
 ---
 

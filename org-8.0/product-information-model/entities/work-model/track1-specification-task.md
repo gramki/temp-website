@@ -33,4 +33,4 @@ Makes the PSD-authoring work explicit in the Work Model. A validated Idea does n
 
 ## Example
 
-"Define webhook payload contract with Platform team." "Write acceptance criteria for FX module."
+"Define webhook payload contract with Platform team." "Write acceptance criteria for FX module." "Author PSD for Cross-Border Payments API Module — define API Operations, SLO targets, and Compatibility Contract for v2 launch."

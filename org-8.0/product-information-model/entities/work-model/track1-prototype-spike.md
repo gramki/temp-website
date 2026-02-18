@@ -31,6 +31,9 @@ Enables learning-by-doing within the Discovery Track. Prototypes test desirabili
 | Tests | Idea (Dim 1) | Prototype/Spike tests an Idea's feasibility or desirability |
 | Referenced by | Product Decision Record (Dim 1) | PDR cites this Prototype/Spike as evidence |
 
-## Example
+## Examples
 
-"Figma mockup of the FX rate-lock confirmation flow." "Technical spike: can we get sub-200ms FX quotes from provider X?"
+- "Figma mockup of the FX rate-lock confirmation flow." (validates Journey design — Dim 4)
+- "Technical spike: can we get sub-200ms FX quotes from provider X?"
+- "Clickable prototype of mobile approval journey — tests Job 'Approve payout' in Mobile + Self-serve channel" (validates Journey + Channel combination — Dim 4)
+- "SDK ergonomics spike: build sample Python integration for Create Payment and payment.settled webhook — validate developer experience before committing to hand-crafted SDK" (validates Dim 6 SDK design choices)

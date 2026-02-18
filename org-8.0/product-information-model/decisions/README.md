@@ -34,5 +34,12 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-012 | Dimension 3 Comprehensiveness Refinements — Buying Committee, Pain, Barrier Types | Accepted | 2026-02-15 |
 | DR-013 | Dimension 1 Comprehensiveness Refinements — Theme, Signal Lifecycle, Idea/PDR Fields | Accepted | 2026-02-15 |
 | DR-014 | Three-Model Architecture — Definition, Work, Operating (consolidation of 4 to 3) | Accepted | 2026-02-15 |
+| DR-015 | Restructure Dim 2 as The Vendor Value Dimension (Why It Wins) — AAARRR lens, Win entities | Accepted | 2026-02-15 |
+| DR-016 | Win Track Restructure — Six Categories, Initiative-Embedded Targets, Win Review, Win Case | Accepted | 2026-02-16 |
+| DR-017 | Initiative Evolves to Cross-Track Coordination Construct with Lever Mix and Embedded Targets | Accepted | 2026-02-16 |
+| DR-018 | Introduce Work Execution Framework — Artifacts, Definition of Done, and Guidance Patterns | Accepted | 2026-02-15 |
+| DR-019 | Cross-Track Monitoring and Win Track Gap Remediation | Accepted | 2026-02-15 |
+| DR-020 | Dimension 4 Expansion — User-Centric Dimension with JTBD, UX Channel, and Touchpoint Deprecation | Accepted | 2026-02-15 |
+| DR-021 | Dimension 6 Expansion — Ecosystem & Extensibility with Personas, Module Types, and Deliberate Extensibility | Accepted | 2026-02-15 |
 
 ---

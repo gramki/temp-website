@@ -64,6 +64,7 @@ Draft ──[approved by leadership]──► Active
 |---|---|---|
 | Upstream | Strategic Theme (Dim 1) | Objective may advance a Strategic Theme (optional) |
 | Downstream | Initiative (Dim 1) | Objective is pursued through Initiative(s) |
+| Targets | Win Outcome (Dim 2) | Objective may target specific Win Outcomes (per AAARRR stage, per segment) |
 | Work Model | Objective Setting Task (Track 1) | Objective Setting Tasks produce/refine Objectives |
 
 ## Example

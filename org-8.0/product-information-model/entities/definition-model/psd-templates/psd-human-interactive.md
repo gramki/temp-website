@@ -49,7 +49,7 @@
 
 ---
 
-## Section 2: Business Impact — Vendor Economics — Dimension 2 [Depth: per product archetype]
+## Section 2: Vendor Value Impact — Dimension 2 [Depth: per product archetype]
 
 *Adjust depth based on product archetype: Deep for Enterprise SaaS, Deep for Developer Platform, Medium for Consumer App.*
 
@@ -79,17 +79,33 @@
 
 **Affected User Personas:**
 
+**Affected Jobs (JTBD):**
+- Which Jobs are accomplished, modified, or newly enabled by this change
+
+**Affected UX Channels:**
+- Which Channels are impacted (specify Interaction Modality × Engagement Mode)
+- If a new Channel is being introduced, reference the governing PDR
+
 **New / Modified User Journeys:**
 - Journey name: End-to-end flow description
+- Job(s) accomplished by each journey
+- Channel each journey is experienced through
+- Capabilities engaged (list the Dim 8 Capabilities each journey step requires)
+- Cross-channel references: equivalent journeys in other channels, continuity handoff points
 
-**Touchpoint Specifications:**
+**Touchpoint Specifications (Build Track work artifacts):**
 - Wireframes / mockups (attach or link)
 - Interaction flows (step-by-step)
 - UI copy and microcopy
 - Error states and edge cases
 
+> *Note: Touchpoints are Build Track work artifacts, not Definition Model entities (see DR-020). The Definition Model captures down to User Journey; screen-level detail is specified here and implemented in the Build Track.*
+
+**Experience Attributes (encouraged for HI Module features):**
+- For each feature, consider documenting: simplicity, ease, delight, control, speed, discoverability, error tolerance
+
 **Accessibility Considerations:**
-- WCAG compliance level
+- WCAG compliance level (should align with UX Channel's Accessibility Standard field)
 - Screen reader behavior
 - Keyboard navigation
 - Color contrast and visual accessibility

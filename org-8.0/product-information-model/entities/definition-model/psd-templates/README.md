@@ -23,8 +23,8 @@ Each template provides the full PSD structure with **section depth guidance** ca
 |---|---|---|---|
 | 0. Header & Traceability | Required | Required | Required |
 | 1. Structural Impact (Dim 8) | Required | Required | Required |
-| 2. Vendor Economics (Dim 2) | Per product archetype | Per product archetype | Per product archetype |
-| 3. Customer ROI (Dim 3) | Per product archetype | Per product archetype | Per product archetype |
+| 2. Vendor Value (Dim 2) | Per product archetype | Per product archetype | Per product archetype |
+| 3. Customer Value (Dim 3) | Per product archetype | Per product archetype | Per product archetype |
 | 4. UX (Dim 4) | **Deep** | Light | N/A |
 | 5. Technical (Dim 5) | Medium | **Deep** | **Deep** |
 | 6. Extensibility (Dim 6) | Light | **Deep** | Medium |

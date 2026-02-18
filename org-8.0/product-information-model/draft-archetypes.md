@@ -73,16 +73,20 @@ How do data and commands enter and exit this specific module?
 
 #### Dimension 2: The Deployment Topology (Packaging Axis)
 
-How is the compiled code for this module packaged and pushed to production?
+How is the compiled code for this module packaged and deployed?
 
 * **Single-Deployable Unit (Monolith):** The module's logic, UI (if applicable), and data access layer are tightly coupled and deployed as one unified artifact.
 * **Multi-Deployable Unit (Distributed):** The module is broken into smaller, independently deployable artifacts that communicate over a network (Microservices, Serverless Functions/FaaS, micro-frontends).
+* **Client-Distributed:** The module is built by the vendor but deployed/instantiated in the consumer's environment — user devices, user browsers, customer codebases, or customer web applications. Distributed through a channel (app store, package registry, CDN) rather than deployed to vendor infrastructure. Dim 7 (Operational) footprint is lighter: CI/CD + distribution channel + version adoption tracking rather than clusters and containers. Examples: mobile apps (app stores → user devices), PWAs (CDN → user browsers), SDKs (package registries → customer codebases), embedded widgets (CDN → customer web apps), CLI tools (package managers → developer machines). See DR-021.
 
 **Example Module Archetypes:**
 
 * *Web Client:* (Human-Interactive + Distributed Micro-frontend).
 * *Public API Gateway:* (Programmatic-Interactive + Distributed Microservice).
 * *Daily Ledger Reconciliation:* (Reactive/Background + Single-Deployable Monolith).
+* *Mobile App:* (Human-Interactive + Client-Distributed).
+* *Python SDK:* (Programmatic-Interactive + Client-Distributed).
+* *Embeddable Payment Widget:* (Human-Interactive + Client-Distributed).
 
 ---
 

@@ -76,7 +76,9 @@ New ──[PM reviews, confirms legitimacy]──► Triaged
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Downstream | Idea (Dim 1) | Opportunity spawns Idea(s) — one Opportunity may generate multiple candidate hypotheses |
-| Aligns with | Business KPI (Dim 2) | Opportunity targets improvement in vendor Business KPIs |
+| Targets | Business KPI (Dim 2) | Opportunity targets improvement in vendor Business KPIs |
+| References | Delivery Friction (Dim 2) | Opportunity may aim to address a known Delivery Friction |
+| References | Win Barrier (Dim 2) | Opportunity may aim to overcome a known Win Barrier |
 | Work Model | Signal Exploration Task (Track 1) | Signal Exploration Tasks investigate this Opportunity |
 | Work Model | Research Task (Track 1) | Research Tasks may gather targeted evidence about this Opportunity |
 | Work Model | Deliberation (Track 1) | Deliberations may discuss this Opportunity |

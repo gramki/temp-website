@@ -51,15 +51,15 @@ The three Signal types are classified by origin, nature, and beneficiary lens. T
 **Strategic Entities**
 
 * **Objective:** A strategic goal over a defined planning horizon. Objectives answer "where are we going?" and are set by executive and product leadership. They provide the top-level filter for all downstream prioritization. Objectives may optionally belong to a Strategic Theme for cross-horizon continuity; not every Objective requires a Theme.
-* *Structure/Relationship:*  Objective may advance  Strategic Theme (optional).  Objective is pursued through  Initiative(s).
+* *Structure/Relationship:*  Objective may advance  Strategic Theme (optional).  Objective is pursued through  Initiative(s).  Objective may target  Win Outcome(s) (Dim 2).
 * *Status Lifecycle:* `Draft` → `Active` → `Achieved` / `Deferred`.
 * *Example:* "Expand cross-border payment coverage to LATAM markets by end of H2 2026." (Theme: "LATAM Market Leadership")
 
 
-* **Initiative:** A strategic program to advance one or more Objectives. An Initiative is the prioritization vehicle that associates Signals (Problems, Needs, Opportunities) for discovery. Signals may exist independently before being associated with an Initiative during a planning cycle.
-* *Structure/Relationship:*  Initiative advances  Objective(s).  Initiative ← associated →  {Problem, Need, Opportunity} (many-to-many).  Initiative → Customer Release(s).
+* **Initiative:** A cross-track strategic program to advance one or more Objectives. An Initiative is the coordination construct that associates Signals for discovery, targets Win Outcomes, declares a **Lever Mix** (weighted from the Business Model's Lever Portfolio), and carries **embedded Targets** (like Key Results in an OKR). Initiatives drive work across all four tracks — not just Discovery → Build. A "LATAM Enterprise Market Entry" Initiative with lever mix Product 40% / GTM 25% / Sales Enablement 20% / CS 15% tells downstream planners that the Win Track needs as much investment as the Build Track.
+* *Structure/Relationship:*  Initiative advances  Objective(s).  Initiative ← associated →  {Problem, Need, Opportunity} (many-to-many).  Initiative targets  Win Outcome(s) (Dim 2).  Initiative declares  Lever Mix (from Business Model's Lever Portfolio).  Initiative carries  embedded Targets (per Win Outcome, time-bound, quantitative).  Initiative → Customer Release(s).  Win Track planning, enablement, and engagement work aligns to Initiatives.  Win Reviews assess Initiative target progress.
 * *Status Lifecycle:* `Proposed` → `Approved` → `In Progress` → `Completed` / `Cancelled`.
-* *Example:* "LATAM Currency Expansion — enable FX payouts in BRL, MXN, COP, and CLP."
+* *Example:* "LATAM Enterprise Market Entry" — Lever Mix: Product 40%, GTM 25%, Sales Enablement 20%, CS 15%. Targets: "Q3: 15 LATAM Enterprise deals closed", "Q3: 85% activation within 30 days", "Q3: CAC below $25K."
 
 
 * **Customer Release:** A named, business-scoped delivery of capabilities made available to customers based on business and customer needs. A Customer Release bundles the outcomes of one or more Initiatives into a coherent customer-facing delivery. Customer Releases use **names** (not version numbers) to emphasize their business identity and decouple from technical versioning. The term "Customer Release" follows the SAFe / Continuous Delivery convention: the business act of making functionality available to users, decoupled from deployment.
@@ -112,27 +112,56 @@ The three Signal types are classified by origin, nature, and beneficiary lens. T
 
 ### TIER 2: BUSINESS & MARKET
 
-*Owned by Product Marketing and Executives. This tier models the product strictly as a financial vehicle.*
+*Owned by Product Marketing, Sales Leadership, and Executives. This tier models the product as a commercial vehicle — how the vendor wins across the full AAARRR lifecycle (Awareness, Acquisition, Activation, Retention, Revenue, Referral).*
 
-#### Dimension 2: Business Value Dimension (Vendor Economics)
+#### Dimension 2: The Vendor Value Dimension (Why It Wins)
 
-This dimension models how the organization building the software generates revenue.
+This dimension models the complete vendor-side AAARRR lifecycle — who's involved in making the product succeed commercially, what winning looks like at each stage, what frictions the vendor faces, how revenue is structured, how success is measured, and what barriers impede the vendor. All entities are scoped directly or transitively to Customer Segments (Dim 3), making Customer Segment the shared anchor between "Why Buy" (Dim 3) and "Why It Wins" (Dim 2).
 
-* **Business Model:** The fundamental revenue engine.
-* *Example:* Transaction-based B2B SaaS.
+> **Governance Note:** Any change to Dim 2 entities requires a corresponding PDR — whether originating from a Deliberation (strategic pricing design, AAARRR target-setting) or from the Signal pipeline (field observations of friction/barriers → Discovery → PDR). Win Stakeholders contribute observations as Signals and participate in Deliberations, but the PM/PMM is the Dim 2 modeler through Modeling Tasks.
 
-
-* **Pricing Tier / Package:** A bundled offering sold to a specific market segment.
-* *Structure/Relationship:*  Package contains  Features.
-* *Example:* The "Enterprise Volume Plan."
+* **Business Model:** The fundamental revenue engine that describes how the vendor generates income from this product. Lightweight structural root — all other Dim 2 entities derive from the Business Model. The Business Model also defines the product's **Lever Portfolio** — the finite, referenceable set of levers available to advance Win Outcomes. Levers are categorized as: **Product** (feature development → Build Track), **GTM** (marketing, pricing communication, partnership execution → Win Track), **Sales Enablement** (competitive tools, training → Win Track), **Customer Success** (onboarding, retention, expansion programs → Win Track), **Operational** (internal process, hiring → Operating Model). The lever portfolio varies by product — a developer API platform may not have a Sales Enablement lever; an enterprise SaaS product may use all five. Initiatives reference the lever portfolio when declaring their lever mix.
+* *Structure/Relationship:*  Business Model defines the frame for  Pricing Tier(s) and  Value Metric(s).  Business Model defines the  Lever Portfolio referenced by Win Outcomes and Initiatives.
+* *Example:* Transaction-based B2B SaaS (primary: per-transaction fees; secondary: FX markup; tertiary: implementation services). Lever Portfolio: Product, GTM, Sales Enablement, Customer Success, Operational.
 
 
-* **Value Metric (Pricing Axis):** The strict unit of measurement that dictates cost.
-* *Example:* 0.5% flat fee per successful transaction + 1% markup on the baseline FX rate.
+* **Win Stakeholder:** A role in the vendor's AAARRR journey — a specific function that engages with customers or prospects to make the product commercially successful. Each Win Stakeholder has distinct concerns, friction points, and success criteria at their stage(s) of the lifecycle. Win Stakeholders are not organizational roles (those belong in the Operating Model) — they are functional archetypes that the product's commercial success depends on.
+* *Structure/Relationship:*  Win Stakeholder is engaged with  Customer Segment(s).  Win Stakeholder endures  Delivery Friction(s).  Win Stakeholder is responsible for  Win Outcome(s).
+* *AAARRR Stage Examples:* Awareness (Marketing Manager, Developer Advocate), Acquisition (Account Executive, Pre-Sales Engineer, Solution Architect), Activation (Implementation Consultant, CS Manager), Retention (CS Manager, Support Engineer), Revenue (Account Manager, Finance/Billing), Referral (CS Manager, Marketing Manager).
+* *Example:* Pre-Sales Engineer — engaged with LATAM Enterprise segment; key concerns: POC success, integration feasibility, technical fit demonstration.
 
 
-* **Business KPI:** The internal health metric for the vendor.
-* *Example:* Total Payment Volume (TPV) and Gross FX Margin.
+* **Win Outcome:** What success looks like for the vendor at a specific AAARRR stage for a specific Customer Segment. Not a time-bound Objective (Dim 1) but a structural definition of "what winning means here." Objectives and Initiatives (Dim 1) reference Win Outcomes as targets. Each Win Outcome carries **Achievement Levers** — categorized from the Business Model's Lever Portfolio — that identify what kinds of effort can advance it. This forces the question at modeling time: "Is this primarily a product problem, a GTM problem, or both?" Without explicit levers, organizations default to building features when the actual lever may be sales enablement or marketing.
+* *Structure/Relationship:*  Win Outcome is scoped to  Customer Segment(s).  Win Outcome is evidenced by  Business KPI(s).  Win Outcome is the responsibility of  Win Stakeholder(s).  Win Outcome declares  Achievement Lever(s) from the Business Model's Lever Portfolio.  Win Outcome is enabled by  Value Stream(s) / Capability(ies) (Dim 8) when Product is a lever.  Objective / Initiative (Dim 1) may reference  Win Outcome(s) as targets.  Delivery Friction may undermine  Win Outcome.
+* *Example:* "LATAM Enterprise — Activation: Customer processes first live cross-border transaction within 30 days of contract signing." Achievement Levers: Product (primary — self-service onboarding flow), Customer Success (secondary — LATAM implementation playbook).
+
+
+* **Delivery Friction:** A specific, concrete suffering or inefficiency experienced by a Win Stakeholder in the vendor's AAARRR journey. Delivery Frictions are discoverable, not self-evident — they surface through field experience and must be investigated, not assumed. Together with Win Outcome, Delivery Friction forms the complete "Why It Wins" picture — the vendor wants the outcome (strategic), but the friction makes it *hard* (operational).
+* *Structure/Relationship:*  Delivery Friction is endured by  Win Stakeholder(s).  Delivery Friction is scoped to  Customer Segment(s) (transitively through Win Stakeholder or directly).  Delivery Friction undermines  Win Outcome(s).  Delivery Friction may be rooted in  Module(s) / Capability(ies) (Dim 8) when the friction has a product root cause.  Delivery Friction may surface as an Opportunity or Problem Signal in Dim 1.
+* *Example:* "Implementation Consultant spends 60 days on custom FX provider integration per LATAM Enterprise customer — $80K per-customer cost, delays go-live beyond 30-day target."
+
+
+* **Pricing Tier / Package:** A bundled commercial offering targeting a specific Customer Segment. A Package groups Features (Dim 8) into a marketable unit with associated pricing structured around Value Metrics.
+* *Structure/Relationship:*  Pricing Tier targets  Customer Segment(s) (Dim 3).  Pricing Tier contains  Feature(s) (Dim 8).  Pricing Tier is priced along  Value Metric(s).  Pricing Tier operates within the  Business Model.  Win Barrier may challenge  Pricing Tier.
+* *Status Lifecycle:* `Draft` → `Active` → `Deprecated` / `Retired`.
+* *Example:* "Enterprise Volume Plan" — targets LATAM Enterprise and US Enterprise segments; includes cross-border payouts, batch processing, dedicated support; priced at 0.5% per transaction + FX markup.
+
+
+* **Value Metric (Pricing Axis):** The unit of measurement along which revenue scales. Defines the commercial mechanism that ties product usage to revenue generation. A product may have multiple Value Metrics across different Pricing Tiers.
+* *Structure/Relationship:*  Value Metric is used by  Pricing Tier(s).  Value Metric is defined by the  Business Model.
+* *Example:* Per-transaction fee (0.5% flat), FX markup (1% on baseline rate), monthly platform fee ($5K/month for Enterprise).
+
+
+* **Business KPI:** A quantitative measure of the product's commercial health at a specific AAARRR stage. Business KPIs are typed (Revenue, Cost, Activity) and carry explicit targets, thresholds, and measurement cadence. The Definition Model captures metric definitions and targets — actual measured values are operational state.
+* *Structure/Relationship:*  Business KPI evidences  Win Outcome(s).  Business KPI is scoped to  Customer Segment(s) (transitively through Win Outcome).  Opportunity Signal (Dim 1) may target improvement of a  Business KPI.
+* *KPI Types:* **Revenue** (ACV, MRR, LTV, Net Revenue Retention), **Cost** (CAC, Implementation Cost, Cost-to-Serve, Infrastructure Cost per Customer), **Activity** (Activation Rate, Time-to-First-Value, NPS, Churn Rate, Referral Rate).
+* *Example:* "Customer Acquisition Cost (CAC) — LATAM Enterprise: target <$25K, threshold $40K, measured monthly, owner VP Sales. AAARRR stage: Acquisition."
+
+
+* **Win Barrier:** A known structural impediment that prevents the vendor from achieving a Win Outcome for a given Customer Segment. Always articulated with the aggrieved party as a Win Stakeholder or the vendor generally. Distinct from Adoption Barrier (Dim 3): Adoption Barrier captures the customer's impediment to purchasing or adopting; Win Barrier captures the vendor's impediment to winning commercially.
+* *Types:* Competitive, Technical, Regulatory, Operational, Financial, Contractual, Resource, Market.
+* *Structure/Relationship:*  Win Barrier blocks  Win Outcome(s).  Win Barrier affects  Win Stakeholder(s) or the vendor.  Win Barrier is scoped to  Customer Segment(s).  Win Barrier may challenge  Pricing Tier.  Win Barrier may have a structural root in  Capability / Feature (Dim 8) when the barrier points to a product gap.  Win Barrier may surface as a Signal in Dim 1.
+* *Example:* "Competitor offers 30-day free trial; our minimum commitment is annual — blocks Acquisition Win Outcome for US Mid-Market. Aggrieved: Account Executive."
 
 
 
@@ -142,9 +171,9 @@ This dimension models the complete "Why Buy" logic for the purchasing organizati
 
 > **TCO Note (parked for later):** Total Cost of Ownership — what it costs the customer to adopt and operate the product (integration, training, migration, ongoing operational overhead) — is a recognized gap. TCO is distinct from vendor pricing (Dim 2) and directly inputs the ROI calculation. The right anchoring point (Customer Promise? Customer Segment?) and qualification approach need further discussion. Parked for a future refinement cycle.
 
-* **Customer Segment:** A defined group of potential buyers sharing common characteristics — industry vertical, company size, geography, maturity stage. Segments have distinct buying personas, outcomes, pains, promise expectations, and adoption patterns. All other Dim 3 entities are anchored to one or more Customer Segments.
-* *Structure/Relationship:*  Segment has  Buying Persona(s).  Segment has  Pain(s).  Segment is promised  Customer Promise(s).  Segment is blocked by  Adoption Barrier(s).
-* *Example:* "LATAM Enterprise (500+ employees, cross-border payables)" vs. "US Mid-Market (100–499 employees, domestic payables)."
+* **Customer Segment:** A defined group of potential buyers sharing common characteristics — industry vertical, company size, geography, maturity stage. Segments have distinct buyer personas, outcomes, pains, promise expectations, and adoption patterns. All other Dim 3 entities are anchored to one or more Customer Segments. Customer Segment also carries **Buying Motion** (PLG / SLG / Hybrid), **Segment Size (TAM)**, **Revenue Potential**, **Strategic Priority**, and a **Competitive Context** (key competitors, competitive position, primary threats, differentiators, incumbent/status quo) — making it the structural home for segment-level commercial planning and competitive intelligence.
+* *Structure/Relationship:*  Segment has  Buying Persona(s).  Segment has  Pain(s).  Segment is promised  Customer Promise(s).  Segment is blocked by  Adoption Barrier(s).  Segment is scoped by  Win Outcome(s) (Dim 2).  Segment's Competitive Context references  Competitive-type Win Barrier(s) (Dim 2).
+* *Example:* "LATAM Enterprise (500+ employees, cross-border payables, SLG buying motion, ~2,000 TAM, $500K+ ACV, Primary priority)" vs. "US Mid-Market (100–499 employees, Hybrid buying motion, ~15,000 TAM, $30K–50K ACV, Secondary priority)."
 
 
 * **Buying Persona:** A role within the purchasing organization's buying committee that influences or decides the purchase. Each Buying Persona represents a distinct evaluation lens. Role types: **Economic Buyer** (budget holder — evaluates ROI), **Technical Buyer** (IT/Eng — evaluates integration, security, architecture), **User Buyer** (department head — evaluates usability, team adoption), **Coach/Champion** (internal advocate — navigates buying process). Buying Personas *care about* Pains even if they don't personally endure them.
@@ -152,9 +181,9 @@ This dimension models the complete "Why Buy" logic for the purchasing organizati
 * *Example:* CFO (Economic), CTO (Technical), AP Ops Manager (User), Treasury Director (Coach) at LATAM Enterprise.
 
 
-* **Business Outcome:** The macro-level benefit the buyer needs to achieve — the buyer's "job to be done" at a strategic level. Business Outcomes are what the Buying Persona (typically Economic Buyer) uses to justify the purchase internally.
+* **Business Outcome:** The macro-level benefit the buyer needs to achieve — the buyer's "job to be done" at a strategic level. Business Outcomes are what the Buying Persona (typically Economic Buyer) uses to justify the purchase internally. Each Business Outcome carries a **Buyer's Internal KPI** (how the purchasing organization measures this outcome — distinct from Customer Value Metric, which measures the vendor's promise) and a **Current Baseline** (the buyer's starting state, establishing the "before" for ROI).
 * *Structure/Relationship:*  Business Outcome is pursued by  Buying Persona (Economic Buyer).  Business Outcome is addressed by  Value Proposition (Customer Promise subtype).
-* *Example:* "Eliminate manual FX hedging and reduce cross-border wire fees."
+* *Example:* "Eliminate manual FX hedging and reduce cross-border wire fees" — Buyer's KPI: cross-border payment cost as % of revenue (reported quarterly); Current Baseline: $6.25/transaction, 3 FX systems, 4 hours/day manual reconciliation.
 
 
 * **Pain:** A specific, concrete suffering or frustration experienced by a User Persona (Dim 4) in their current workflow. Pains are *endured* by users but *cared about* by Buying Personas, who are motivated to purchase a solution that relieves them. Together with Business Outcome, Pain forms the complete "Why Buy" motivation — the buyer wants the outcome (strategic), but the pain makes it feel *urgent* (visceral).
@@ -193,8 +222,8 @@ This dimension models the complete "Why Buy" logic for the purchasing organizati
 
 
 * **Adoption Barrier:** A known impediment to purchase or adoption within a segment. Types: Regulatory, Technical, Organizational, Competitive, Financial, Contractual, Data, Cultural. Barriers may directly challenge or undermine a Customer Promise — exposing gaps between what the product promises and what prevents the customer from realizing that promise. Understanding barriers informs discovery prioritization — a barrier may surface as a Signal (Problem or Need) in Dim 1.
-* *Structure/Relationship:*  Adoption Barrier blocks  Customer Segment.  Adoption Barrier may challenge  Customer Promise.
-* *Example:* "LATAM enterprises require local data residency" (Regulatory, Blocker — challenges Compliance Posture "GDPR compliant").
+* *Structure/Relationship:*  Adoption Barrier blocks  Customer Segment.  Adoption Barrier may challenge  Customer Promise.  Adoption Barrier may have a structural root in  Capability / Feature (Dim 8) when the barrier points to a product gap.
+* *Example:* "LATAM enterprises require local data residency" (Regulatory, Blocker — challenges Compliance Posture "GDPR compliant" — structural root: Data Storage — Regional Residency capability, missing).
 
 
 
@@ -204,19 +233,28 @@ This dimension models the complete "Why Buy" logic for the purchasing organizati
 
 #### Dimension 4: The User-Centric Dimension (Experience)
 
-This dimension maps human interactions for UI-driven modules.
+This dimension models the complete user experience surface — who uses the product, what they need to accomplish, how they access the product, and what paths they follow. All Dim 4 entities are discovered and formalized through the Discovery Track (Research Tasks, Deliberations, Prototypes, PSDs). Dim 4 connects upward to Dim 3 (Persona endures Pain, Job contributes to Business Outcome) and downward to Dim 8 (Job maps to Value Streams/Capabilities, Channel is implemented by Human-Interactive Module).
 
-* **User Persona:** The human interacting with the system.
-* *Example:* Accounts Payable (AP) Clerk.
+* **User Persona:** A role archetype that uses the product's Human-Interactive Modules. Distinct from Buying Persona (Dim 3), which represents purchase decision-makers. User Personas *endure* Pains (Dim 3) and *have* Jobs to be done. Multiple User Personas may exist within the same Customer Segment — they interact with different parts of the product for different reasons.
+* *Structure/Relationship:*  User Persona endures  Pain(s) (Dim 3).  User Persona has  Job(s) (Dim 4).  User Persona follows  User Journey(s) (Dim 4).  Buying Persona (Dim 3) cares about  User Persona's Pains.
+* *Example:* AP Clerk — endures "4 hours/day manual FX reconciliation"; has Jobs: "Process a cross-border payout," "Verify FX rate applied."
 
+* **Job (JTBD):** What the User Persona needs to accomplish — the user-level "job to be done." A Job is a functional, emotional, or social goal that the product must enable. Jobs bridge user intent (Dim 4) to product structure (Dim 8) and buyer justification (Dim 3). Jobs are reusable across Personas — different personas may share the same functional job but approach it through different Journeys and Channels.
+* *Structure/Relationship:*  Job is pursued by  User Persona(s) (Dim 4).  Job is accomplished through  User Journey(s) (Dim 4).  Job is enabled by  Value Stream(s) / Capability(ies) (Dim 8).  Job contributes to  Business Outcome(s) (Dim 3).
+* *Example:* "Process a cross-border payout without errors" — pursued by AP Clerk; enabled by Value Stream "Cross-Border Payout Processing"; contributes to Business Outcome "Eliminate manual FX hedging."
 
-* **User Journey:** The end-to-end path to achieve a goal.
-* *Structure/Relationship:*  Journey contains  Touchpoints.
-* *Example:* Initiating and approving a cross-border invoice payment.
+* **UX Channel:** The access mechanism through which a Persona reaches the product, typed by two orthogonal axes: **Interaction Modality** (Web, Mobile, Chat, Voice, Email, CLI) and **Engagement Mode** (Self-serve, Assisted, Managed). Each UX Channel is implemented by exactly one Human-Interactive Module (Dim 8). Channel investment decisions are PDR-level strategic choices.
+* *Structure/Relationship:*  UX Channel is implemented by  Human-Interactive Module (Dim 8).  UX Channel supports  User Journey(s) (Dim 4).
+* *Interaction Modality:* Web (browser), Mobile (native app), Chat (conversational), Voice (IVR/assistant), Email (asynchronous), CLI (developer-facing), Embedded (widget/plugin/component hosted in customer's or third-party application — a deliberate product strategy to make journeys embeddable).
+* *Engagement Mode:* Self-serve (user acts independently), Assisted (user + agent collaborate), Managed (agent acts on behalf of user).
+* *Status Lifecycle:* `Proposed` → `Approved` → `Active` → `Deprecated` → `Retired`.
+* *Example:* "Web + Self-serve" (customer dashboard, implemented by Dashboard Web Module) vs. "Chat + Assisted" (live agent support, implemented by Support Chat Module).
 
+* **User Journey:** The end-to-end path a User Persona follows to accomplish a Job through a specific UX Channel. The same Job may have different Journeys across different Channels — "Approve a cross-border payout" has a Web Journey (full form) and a Mobile Journey (simplified approval). Journeys carry cross-channel references: **equivalence** (same Job, different Channel — independent alternatives) and **continuity** (sequential handoff across Channels).
+* *Structure/Relationship:*  User Journey accomplishes  Job(s) (Dim 4).  User Journey is followed by  User Persona(s) (Dim 4).  User Journey is experienced through  UX Channel (Dim 4).  User Journey traverses  Value Stream(s) (Dim 8).  User Journey engages  Capability(ies) (Dim 8).  User Journey may be equivalent to / continuable from  other User Journeys (cross-channel).
+* *Example:* "Initiate and approve a cross-border payout" (Web + Self-serve) — AP Clerk follows this Journey to accomplish Job "Process a cross-border payout"; traverses Value Stream "Cross-Border Payout Processing"; equivalent to "Approve payout" (Mobile + Self-serve); continuable from "Request payout approval" (Email + Self-serve).
 
-* **Touchpoint / UI Element:** The specific interface interaction.
-* *Example:* The "Target Currency" dropdown and the "Lock Rate" confirmation button.
+> **Touchpoint Note:** Touchpoints (specific UI elements — buttons, dropdowns, forms) are below the Definition Model's waterline. They are Build Track work artifacts (design specs, wireframes, UI component inventories) produced during PSD authoring and prototyping. The Definition Model captures down to User Journey; screen-level detail lives in work artifacts. See `dim4-touchpoint.md` (deprecated).
 
 
 
@@ -241,19 +279,51 @@ This dimension maps the codebase structure and processing logic (aligned with C4
 
 #### Dimension 6: The Ecosystem & Extensibility Dimension (Platform)
 
-This dimension maps the programmatic boundaries for API-driven modules.
+This dimension captures a product's **deliberate extensibility strategy** — the programmatic surfaces, personas, and contracts through which external developers, applications, and systems consume and extend product capabilities. Dim 6 entities exist only when there is a strategic decision to make capabilities externally consumable for well-understood use cases (demand-driven from ecosystem, not incidental API exposure). See DR-021.
 
-* **Interface Type:** The technological method of communication.
-* *Example:* RESTful API and Asynchronous Webhooks.
+**Personas:**
 
+* **Developer Persona:** The human building integrations — integration engineers, partner developers, internal platform developers. Concerns: API ergonomics, documentation quality, SDK completeness, error clarity, backward compatibility. Distinct from Dim 4 User Persona (different interaction paradigm, different quality criteria). The same human may appear in both: a Dim 4 Persona when using the Developer Portal, a Dim 6 Developer Persona when writing API integration code.
+* *Example:* "Partner Integration Engineer" — builds card issuing integration for co-branded programs; needs sandbox environment, clear error codes, and versioning stability.
 
-* **Endpoint / Event Topic:** The programmatic address or trigger.
-* *Structure/Relationship:*  Endpoint triggers  Functions (Dimension 5).
-* *Example:* `POST /v1/payments/cross-border` and `payment.cleared` webhook.
+* **Programmatic User Persona:** The application or system consuming the API at runtime — a customer's ERP, partner's middleware, third-party app. Non-human consumer with throughput needs, SLA dependencies, and error-handling expectations.
+* *Example:* "Customer Treasury Management System" — submits cross-border payment batches via SFTP, requires settlement confirmations within 30 minutes, processes 50K transactions/day.
 
+**Module Types (all are Dim 8 modules carrying Dim 6 concerns):**
 
-* **Payload Schema:** The strict data contract sent or received.
-* *Example:* JSON payload requiring `amount`, `source_currency`, and `target_currency`.
+* **API Module:** A named, versioned, protocol-agnostic programmatic surface for external consumption. Encompasses REST, gRPC, batch/file (SFTP), event streams (Kafka), webhooks, GraphQL — all as delivery mechanisms within one module. Composes capabilities from one or more Dim 8 modules. Identity defined by use case and contract, not transport.
+* *Structure/Relationship:* Composes capabilities from Dim 8 Module(s). Serves Developer Persona(s) and Programmatic User Persona(s). Governed by API Compatibility Contract. Contains API Operation(s).
+* *Example:* "Cross-Border Payments API" — exposes Create Payment (REST + Kafka command), Get Rate Quote (REST query), payment.settled (webhook event), Daily Settlement Report (SFTP batch).
+
+* **Integration Module:** A pre-built bridge between the product and a specific external system or system category. Includes data mappings, protocol translations, workflow adapters, and connectors — not just "our APIs" but the glue that translates between the product's model and the target system's model. If a product doesn't ship connectors to specific external systems, it has API Modules but no Integration Modules.
+* *Structure/Relationship:* Bridges to specific external system(s). Relies on API Module(s) and other Dim 8 Module(s).
+* *Example:* "SAP ERP Integration Module" — provides pre-built data mappings between product payment entities and SAP FI document types, BAPI adapters, and IDoc templates.
+
+* **Extension Module:** A framework enabling third parties to extend product behavior — plugins, hooks, custom workflows. Provides governed extensibility points.
+* *Structure/Relationship:* Exposes extensibility points from Dim 8 Module(s). Governed by Extension API contract.
+* *Example:* "Compliance Workflow Extension" — enables customers to inject custom screening rules and approval chains into the payment processing pipeline.
+
+* **SDK/Library Module:** A language-specific client providing idiomatic access to API Modules. Client-Distributed deployment topology (package registry → customer's codebase).
+* *Structure/Relationship:* Wraps API Module(s). Published via package registry.
+* *Example:* "Python Payments SDK" — wraps Cross-Border Payments API with typed models, automatic retry, and async/await support.
+
+**Operations and Contracts:**
+
+* **API Operation:** A named, versioned, contractual programmatic operation within an API Module. Classified by interaction pattern (Command, Query, Event, Callback, Batch), each with distinct SLO profiles. The atomic unit of programmatic capability that consumers depend on. Specific URL paths, HTTP methods, Kafka topic names, and payload schemas are PSD/Build territory — the Definition Model captures the operation's identity, pattern, and performance commitments.
+* *Fields:* Name, Version, Pattern (Command / Query / Event / Callback / Batch), Description, SLOs (pattern-appropriate: latency/availability/throughput for Command/Query; delivery guarantee/latency/ordering for Event/Callback; processing window/throughput/completeness for Batch).
+* *Structure/Relationship:* Belongs to API Module. May map to one or more Capabilities (Dim 8). SLOs feed Customer Promise SLAs (Dim 3). Monitored by Win Monitoring (Track 4) and System Monitoring (Track 3).
+* *Example:* "Create Payment" (Command, p99 < 500ms, 99.95% availability, 10K calls/min) and "payment.settled" (Event, at-least-once delivery, < 30s delivery latency, ordered per payment).
+
+* **API Compatibility Contract:** The module-level versioning and backward-compatibility commitment. Captures the product's promise to Developer and Programmatic Personas about stability — the Dim 6 analog of Customer Promise (Dim 3) for programmatic consumers.
+* *Fields:* Versioning Strategy (semantic versioning, URL path, header), Deprecation Policy (sunset period, notification mechanism), Breaking Change Policy, Performance Stability Commitment (SLO degradation limits across versions).
+* *Structure/Relationship:* Governs API Module. Referenced by Developer Persona(s). Assessed by Win Review (Track 4).
+* *Example:* "v1 supported until 2027-12; breaking changes require major version bump with 6-month migration window; deprecated operations get 12-month sunset; SLOs guaranteed within 20% of published targets across minor versions."
+
+**Deprecated from original Dim 6:**
+
+* ~~**Interface Type**~~ — Subsumed by protocol-agnostic API Module. Becomes a field on the module ("Supported Protocols: REST, Kafka, SFTP"), not a standalone entity.
+* ~~**Endpoint / Event Topic**~~ — Replaced by unified API Operation with pattern classification.
+* ~~**Payload Schema**~~ — Demoted to PSD/Build artifact (too granular for Definition Model, same pattern as Touchpoint deprecation in Dim 4).
 
 
 

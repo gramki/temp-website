@@ -40,7 +40,8 @@ Customer Release is a cross-cutting entity whose lifecycle spans multiple Work M
 |---|---|---|
 | Upstream | Initiative (Dim 1) | Customer Release advances Initiative(s) (many-to-many) |
 | References | Product Version (Work Model) | Customer Release references Product Version(s) — the certified compositions that underpin the delivery |
-| Work Model | Release Planning Task (Track 2) | Release Planning Tasks scope the Customer Release |
+| Work Model | Initiative Scoping Task (Track 1) | Customer Release may be defined as part of Initiative scoping (strategic planning) |
+| Work Model | Release Planning Task (Track 2) | Release Planning Tasks scope the Customer Release (technical content, PSDs, timeline) |
 | Work Model | Deployment Planning Task (Track 3) | Deployment Planning Tasks ensure required Module Versions are deployed |
 | Work Model | Go-to-Market Planning Task (Track 4) | GTM Planning Tasks prepare the launch |
 | Work Model | Customer Rollout Planning Task (Track 4) | Rollout Planning Tasks plan phased customer delivery |

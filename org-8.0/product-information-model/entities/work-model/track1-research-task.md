@@ -43,8 +43,12 @@ Research Task is distinct from **Signal Exploration Task**, which is the diverge
 | Sibling | Experiment (Track 1) | Both produce evidence for Idea Validation |
 | Sibling | Prototype / Spike (Track 1) | Both produce evidence for Idea Validation |
 
-## Example
+## Examples
 
 - "Conduct 5 user interviews on FX rate-lock workflow to validate Idea: one-click FX lock"
 - "Pull usage data to quantify batch payout demand (for Idea: CSV/SFTP batch ingestion)"
 - "Run competitor API analysis: how does Competitor X handle multi-currency settlement?"
+- "Contextual inquiry with LATAM AP Clerks — identify Jobs (JTBD), validate Persona hypothesis, document current workflow frustrations" (Dim 4 — User Persona + Job discovery)
+- "Diary study with Treasury Analysts — map daily FX monitoring jobs and channel preferences" (Dim 4 — Job + Channel preference discovery)
+- "Developer experience study: interview 8 integration engineers on API onboarding friction, time-to-first-call, and SDK preferences" (Dim 6 — Developer Persona discovery)
+- "Integration requirements analysis: survey 12 enterprise customers on system-to-system integration patterns, volume profiles, and SLO expectations" (Dim 6 — Programmatic User Persona discovery)

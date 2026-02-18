@@ -56,7 +56,7 @@
 
 ---
 
-## Section 2: Business Impact — Vendor Economics — Dimension 2 [Depth: per product archetype]
+## Section 2: Vendor Value Impact — Dimension 2 [Depth: per product archetype]
 
 *Background modules often affect cost structures (compute, storage) more than pricing directly.*
 
@@ -84,7 +84,7 @@
 
 *Reactive/Background modules typically have no direct user interaction.*
 
-*State: "No direct UX impact — this module operates asynchronously without user-facing interfaces." If there is an admin/monitoring dashboard, describe it briefly.*
+*State: "No direct UX impact — this module operates asynchronously without user-facing interfaces." If there is an admin/monitoring dashboard, describe it briefly. If this module's outputs surface in a User Journey (e.g., async notification triggers an Email channel journey, or batch results appear in a Web dashboard), reference the affected Jobs, Channels, and Journeys.*
 
 ---
 

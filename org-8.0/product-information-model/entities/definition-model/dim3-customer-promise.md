@@ -100,6 +100,8 @@ Certifies that the product meets regulatory, security, or industry standards. Co
 | Overlaps (SC) | Operational Dimension (Dim 7) | Service Commitment overlaps with Dim 7 infrastructure |
 | Influences (CP) | Capability (Dim 8) | Compliance Posture influences Capabilities |
 | Work Model | Modeling Task (Track 1) | Modeling Tasks define/refine Customer Promises |
+| Assessed by | Win Review (Track 4) | Win Reviews assess whether Customer Promises are being fulfilled |
+| Tested by | Win Case (Track 4) | Win Case complaints test whether Service Commitments are being met |
 | Justified by | PDR (Dim 1) | Significant promise changes are justified by a PDR |
 
 ## Example

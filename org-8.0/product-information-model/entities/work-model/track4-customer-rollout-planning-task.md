@@ -1,4 +1,8 @@
-# Customer Rollout Planning Task
+# Customer Rollout Planning Task (Superseded)
+
+> **Note:** Customer Rollout Planning Task has been superseded by **Customer Release Planning**, a subtype of Win Planning. See `track4-win-planning.md`. Customer Release Planning broadens the scope to include segment sequencing, market readiness, and Win Stakeholder preparation in addition to rollout.
+
+**Status:** Superseded — see `track4-win-planning.md`
 
 **Model:** Work Model
 **Track:** Track 4: The Win Track (Value Realization)
