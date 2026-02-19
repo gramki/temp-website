@@ -1,0 +1,186 @@
+
+# Operating Model — Deferred Items and TODOs
+
+Items accumulated from Definition Model and Work Model discussions that are explicitly scoped for the Operating Model. Organized by facet (Coordination, Organization) and by source concern.
+
+---
+
+## 1. Internal Structure and Naming
+
+The Operating Model's internal structure (subdivision terminology, entity catalog) is deliberately unnamed. "Coordination" and "Organization" are working labels, not architectural terms. The naming will emerge through modeling work, as it did for the Definition Model (9 Dimensions) and Work Model (5 Tracks).
+
+    ☐ Determine the Operating Model's internal subdivision pattern
+    ☐ Decide if a third facet exists beyond Coordination and Organization
+    ☐ Earn the structural metaphor through iterative modeling (don't prematurely name)
+
+See: DR-014, README.md (Operating Model section), FAQ Q28
+
+---
+
+## 2. Coordination Facet:
+
+### 2.1 Ceremonies and Cadences:
+
+    ☐ Define ceremonies for each Work Model track:
+        ☐ Discovery Track: Signal Review, Prioritization Review, Deliberation scheduling, Initiative Review
+        ☐ Build Track: Sprint Planning, Release Planning ceremonies, Architecture Review Board
+        ☐ Run Track: Deployment review, Incident review, Change Advisory Board
+        ☐ Win Track: QBR cadence, Pipeline review, Win/Loss review scheduling, Engagement prioritization
+        ☐ Evolve Track: Evolution cycle kick-off, Evolve Review scheduling, Definition review ceremonies
+    ☐ Define cross-track coordination ceremonies (e.g., Customer Release readiness review spanning Build/Run/Win)
+    ☐ Define decision-making rhythms — who decides what, at what cadence, with what authority
+
+### 2.2 Planning Cadences:
+
+    ☐ Define planning cadence for each track (the Work Model defines planning entities but not when/how often they run)
+    ☐ Address Win Track's continuous flow (kanban) — planning is periodic but work item size is independent of planning cadence
+    ☐ Address Evolve Track's periodic review cycles — typically quarterly or aligned to organizational change events
+
+---
+
+## 3. Organization Facet:
+
+### 3.1 Roles and Responsibilities:
+
+    ☐ Map Win Stakeholders (Dim 2 functional archetypes) to organizational roles
+        - Dim 2 defines "the product's commercial success requires a Pre-Sales Engineer role"
+        - Operating Model defines "we have 3 Pre-Sales Engineers in LATAM, reporting to VP Sales"
+        - See FAQ Q29
+    ☐ Define organizational roles for each Work Model track owner:
+        - Discovery: Product Manager, UX Researcher, Executive Leadership
+        - Build: Tech Lead, Developers, QA
+        - Run: DevOps, SRE
+        - Win: Customer Success, Product Marketing, Sales, Support
+        - Evolve: Process Leads, Product Ops, Engineering Managers
+    ☐ Define RACI or equivalent for cross-track work (especially Customer Release lifecycle)
+    ☐ Define who owns the Operational lever (internal process, tooling, automation, hiring) — this lever maps to Operating Model, not a specific track
+
+### 3.2 Team Structures:
+
+    ☐ Define team structure patterns (cross-functional squads, functional teams, matrix)
+    ☐ Address how one person may cover multiple Win Stakeholder roles (startup scenario) vs. specialized roles (enterprise scenario)
+    ☐ Define team composition guidance for each track
+
+### 3.3 Skills and Training:
+
+    ☐ Define PM skill profiles — what competencies are needed for Definition Model management
+    ☐ Define skill profiles for each track's primary owner role
+    ☐ Define training programs and certification (distinct from customer-facing education in Win Track)
+    ☐ Define onboarding guidance for new team members per track
+
+### 3.4 Tools and Resources:
+
+    ☐ Define tooling standards (project management, artifact repositories, monitoring dashboards)
+    ☐ Define resource allocation patterns per track
+
+---
+
+## 4. Guidance Content (Playbooks and Procedures)
+
+The Work Model defines the *structure* of guidance (what a playbook should cover). The Operating Model owns the *content* — actual procedures, templates, and methodology. Each work entity file has a `## Guidance Reference` section pointing to Operating Model playbooks.
+
+### 4.1 Discovery Track Playbooks:
+
+    ☐ Signal Exploration playbook (triggers, activities, decision points, pitfalls)
+    ☐ Deliberation playbook (preparation, facilitation, decision recording)
+    ☐ Research Task playbook (methodology selection, bias management, evidence standards)
+    ☐ Experiment playbook (hypothesis framing, sample sizing, pass/fail criteria)
+    ☐ Specification Task playbook (cross-dimensional review process, PSD quality checklist)
+    ☐ Modeling Task playbook (entity creation workflow, relationship validation, FAQ updates)
+    ☐ Prioritization playbook (scoring methodology, association criteria, trade-off frameworks)
+
+### 4.2 Build Track Playbooks:
+
+    ☐ Release Planning playbook
+    ☐ Iteration Planning playbook
+    ☐ Code review guidelines
+    ☐ Quality gate definitions and enforcement procedures
+    ☐ Bug triage and resolution workflow
+
+### 4.3 Run Track Playbooks:
+
+    ☐ Deployment runbook template and authoring guidelines
+    ☐ Incident management playbook (severity classification, escalation, post-mortem process)
+    ☐ Change management playbook (approval workflow, risk assessment, rollback procedures)
+    ☐ Capacity planning playbook
+
+### 4.4 Win Track Playbooks:
+
+    ☐ GTM launch playbook
+    ☐ Sales enablement asset creation guidelines
+    ☐ Onboarding/Implementation playbook template
+    ☐ QBR preparation and execution playbook
+    ☐ Win/Loss analysis playbook
+    ☐ Win Case resolution playbook (per type: Query, Service Request, Complaint, Escalation)
+    ☐ Partner engagement playbook
+    ☐ Revenue operations playbook
+    ☐ Competitive battlecard creation and maintenance guidelines
+
+### 4.5 Evolve Track Playbooks:
+
+    ☐ Evolve Planning playbook (cycle scoping, prioritization of process improvements)
+    ☐ Evolve Review playbook (per type: Process Effectiveness, Artifact Quality, Guidance Adequacy, Cross-Track Handoff)
+    ☐ Evolve Definition Task playbook (entity authoring, assessment criteria design, DoD design)
+
+### 4.6 Cross-Track Guidance:  
+
+    ☐ Customer Release lifecycle coordination playbook (Discovery → Build → Run → Win)
+    ☐ Feedback → Signal promotion criteria and workflow
+    ☐ PSD → Build handoff checklist and quality expectations
+    ☐ Evolve Findings → Definition Task conversion workflow
+
+---
+
+## 5. Instance-Level DoD Extensions:
+
+The Work Model defines entity-level DoD (applies to all instances of a work entity type). The Operating Model defines instance-level DoD extensions — context-specific criteria that teams add.
+
+    ☐ Define how teams extend entity-level DoD with instance-level criteria
+    ☐ Provide templates for instance-level DoD per track
+    ☐ Define governance for DoD extensions (who can add, who validates)
+
+---
+
+## 6. Competitive Intelligence Content:
+
+Detailed competitive intelligence (battlecards, positioning guides, win/loss playbooks) is Operating Model / Sales Enablement content. The Definition Model captures structural positioning via Customer Segment's Competitive Context field.
+
+    ☐ Define competitive battlecard template and maintenance cadence
+    ☐ Define competitive positioning guide structure per segment
+    ☐ Define win/loss analysis methodology and data collection process
+
+---
+
+## 7. Operational Lever Execution:
+
+The Business Model's Lever Portfolio includes an "Operational" lever (internal process, tooling, automation, hiring). This lever maps to the Operating Model, not a specific track. Initiatives with an Operational lever component drive Operating Model changes.
+
+    ☐ Define how Initiatives with Operational lever weight translate to Operating Model work
+    ☐ Define the feedback loop between Operational lever outcomes and Initiative target progress
+    ☐ Clarify the relationship between Operational lever work and Evolve Track work (process improvement vs. operational improvement)
+
+---
+
+## 8. Track 5 (Evolve) Outputs That Land in Operating Model:    
+
+Track 5 is the structural bridge — it produces outputs that modify both the Work Model and the Operating Model. The Operating Model must be ready to receive:
+
+    ☐ Guidance structure templates produced by Evolve Definition Tasks
+    ☐ Ceremony definitions produced by Evolve Definition Tasks
+    ☐ Role descriptions produced by Evolve Definition Tasks
+    ☐ Define how the Operating Model versions/tracks changes received from Track 5
+
+---
+
+## Sources:
+
+This TODO was compiled from deferred items across:
+- draft-work-model.md (Scope Boundary Note)
+- draft-work-execution-framework.md (Guidance Pattern, DoD Granularity, Boundary with Operating Model)
+- README.md (Operating Model section, Design Principle 7)
+- draft-definition-model.md (Win Stakeholder, Business Model Lever Portfolio)
+- narrative-seeds.md (Three-model architecture session, Work Execution Framework session, Track 5 session)
+- draft-modeling-faqs.md (Q28, Q29, Q31, Q37, Q44, Q64)
+- DR-014, DR-018, DR-022
+
+---

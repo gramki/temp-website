@@ -41,5 +41,6 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-019 | Cross-Track Monitoring and Win Track Gap Remediation | Accepted | 2026-02-15 |
 | DR-020 | Dimension 4 Expansion — User-Centric Dimension with JTBD, UX Channel, and Touchpoint Deprecation | Accepted | 2026-02-15 |
 | DR-021 | Dimension 6 Expansion — Ecosystem & Extensibility with Personas, Module Types, and Deliberate Extensibility | Accepted | 2026-02-15 |
+| DR-022 | Track 5: Evolve (Process Evolution) and Artifact Type Catalog | Accepted | 2026-02-19 |
 
 ---

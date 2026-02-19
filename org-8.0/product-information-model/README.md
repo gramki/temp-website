@@ -29,7 +29,7 @@ The UPIM is structured as three models, each building on the one below:
 │                       Work Model                                │
 │                                                                 │
 │  What work EXISTS — entities, artifacts, state transitions      │
-│  Structured as 4 Tracks: Discovery, Build, Run, Win             │
+│  Structured as 5 Tracks: Discovery, Build, Run, Win, Evolve     │
 ├─────────────────────────────────────────────────────────────────┤
 │                    Definition Model                              │
 │                                                                 │
@@ -81,9 +81,9 @@ The Definition Model describes **what the product is** — its complete structur
 
 ---
 
-## The Work Model (4 Tracks)
+## The Work Model (5 Tracks)
 
-The Work Model describes **what work exists** — the entities, artifacts, and state transitions that represent how maker roles organize their daily work to mutate the 9 Dimensions. Each track owns its own planning work alongside its core activities.
+The Work Model describes **what work exists** — the entities, artifacts, and state transitions that represent how maker roles organize their daily work to mutate the 9 Dimensions — and to evolve the Work Model and Operating Model themselves. Each track owns its own planning work alongside its core activities.
 
 | Track | Goal | Primary Owner | Key Entities |
 |---|---|---|---|
@@ -91,9 +91,10 @@ The Work Model describes **what work exists** — the entities, artifacts, and s
 | **Track 2: Build** (Construction) | Plan releases, write code, produce quality-gated artifacts | Tech Lead, Developers, QA | Epic, User Story, Technical Task, Bug, Module Version, Product Version, Build Monitoring |
 | **Track 3: Run** (Stability) | Plan deployments, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, System Monitoring |
 | **Track 4: Win** (Value Realization) | Plan, equip, execute, respond, assess, monitor across AAARRR lifecycle to achieve Win Outcomes | Customer Success, Product Marketing, Sales, Support | Win Planning (5 subtypes), Win Enablement (4 subtypes), Win Engagement (7 subtypes), Win Case, Win Review → Feedback, Win Monitoring |
+| **Track 5: Evolve** (Process Evolution) | Assess, define, and refine Work Model and Operating Model — entity definitions, artifact types, DoD criteria, guidance structures | Process Leads, Product Ops, Engineering Managers | Evolve Planning, Evolve Review → Evolve Findings, Evolve Definition Task, Evolve Monitoring |
 
 **Reference document:** `draft-work-model.md`
-**Execution framework:** `draft-work-execution-framework.md` — artifacts, definition of done, and guidance patterns for all work entities
+**Execution framework:** `draft-work-execution-framework.md` — artifacts, artifact type catalog with assessment criteria, definition of done, and guidance patterns for all work entities
 
 ---
 
@@ -108,7 +109,7 @@ The Operating Model describes **how the organization executes** — the coordina
 
 These facets are **co-designed** — every coordination choice implies organizational requirements, and every organizational reality constrains coordination options. They are not layered; they are entangled.
 
-> **Status:** The Operating Model's internal structure (subdivision terminology, entity catalog) will emerge from the modeling work. The Definition Model has 9 Dimensions and the Work Model has 4 Tracks — the Operating Model's organizational pattern will earn its name when we build it out.
+> **Status:** The Operating Model's internal structure (subdivision terminology, entity catalog) will emerge from the modeling work. The Definition Model has 9 Dimensions and the Work Model has 5 Tracks — the Operating Model's organizational pattern will earn its name when we build it out. Track 5 (Evolve) is the structural bridge between the Work Model and Operating Model — it is the only track whose outputs directly modify both models.
 
 ---
 
@@ -130,11 +131,12 @@ product-information-model/
 │   │   ├── dim3-*.md                 ← Customer Value entities
 │   │   ├── dim4-*.md through dim9-*.md
 │   │   └── psd-templates/            ← PSD templates by module archetype
-│   └── work-model/                   ← Entities from the 4 Tracks
+│   └── work-model/                   ← Entities from the 5 Tracks
 │       ├── track1-*.md               ← Discovery Track entities
 │       ├── track2-*.md               ← Build Track entities
 │       ├── track3-*.md               ← Run Track entities
-│       └── track4-*.md               ← Win Track entities
+│       ├── track4-*.md               ← Win Track entities
+│       └── track5-*.md               ← Evolve Track entities
 └── decisions/                        ← Decision records (ADR format)
     ├── README.md                     ← Decision record index
     └── DR-*.md                       ← Individual decision records
@@ -148,15 +150,17 @@ product-information-model/
 
 2. **Signal, not requirement.** Inputs to the Discovery Track are Signals — observations that warrant attention, not commitments to deliver. This fosters investigation over fulfillment. (See FAQ Q16, DR-006.)
 
-3. **Each track owns its planning.** Rather than a separate "Plan Track," planning work is distributed — Discovery plans Objectives/Initiatives, Build plans Releases/Iterations, Run plans Deployments, Win plans GTM. (See DR-002.)
+3. **Each track owns its planning.** Rather than a separate "Plan Track," planning work is distributed — Discovery plans Objectives/Initiatives, Build plans Releases/Iterations, Run plans Deployments, Win plans GTM, Evolve plans process evolution cycles. (See DR-002.)
 
 4. **Cross-dimensional specifications.** PSDs are cross-dimensional impact assessments, not just feature specs. Every PSD acknowledges implications across all 9 Dimensions. (See FAQ Q9.)
 
 5. **Decision traceability.** The chain Signal → Idea → PDR → PSD provides full traceability from observation through reasoning to specification. No gaps, no implicit decisions. (See FAQ Q6, DR-013.)
 
-6. **Initiative as cross-track coordination.** Initiatives drive work across all four tracks, not just Discovery → Build. They carry a lever mix (weighted from the Business Model's Lever Portfolio) and embedded targets (like OKR Key Results). This makes cross-track investment explicit. (See FAQ Q32, DR-017.)
+6. **Initiative as cross-track coordination.** Initiatives drive work across all five tracks, not just Discovery → Build. They carry a lever mix (weighted from the Business Model's Lever Portfolio) and embedded targets (like OKR Key Results). This makes cross-track investment explicit. (See FAQ Q32, DR-017.)
 
 7. **Operating Model deferred, not omitted.** Coordination and organizational design are explicitly scoped out of the Work Model — they belong to the Operating Model, which will be developed separately.
+
+8. **Self-evolving model.** The Work Model explicitly accounts for its own evolution through Track 5: Evolve. A model that cannot evolve is dead. Track 5 is the only track whose outputs directly modify both the Work Model and the Operating Model. (See FAQ Q62, DR-022.)
 
 ---
 

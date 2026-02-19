@@ -6,7 +6,7 @@ The Work Model defines **what work exists** — entity types, state transitions,
 2. **Definition of Done** — when is this work complete, and what quality gates must it pass?
 3. **Guidance** — what playbooks, guidelines, and decision frameworks help navigate this work from initiation to completion?
 
-This framework establishes the systematic approach for capturing these dimensions across all four tracks. The framework is part of the Work Model (not the Operating Model), because artifacts and completion criteria are properties of the work itself — they are information model concerns, not organizational design concerns.
+This framework establishes the systematic approach for capturing these dimensions across all five tracks. The framework is part of the Work Model (not the Operating Model), because artifacts and completion criteria are properties of the work itself — they are information model concerns, not organizational design concerns.
 
 > **Boundary with Operating Model:** Artifacts and Definition of Done describe *what the work produces* and *when it's done*. Playbooks and guidelines describe *how to do the work well*. The former belongs here (Work Model). The latter is a reference from here to the Operating Model, where team practices, tooling, and execution methodology live. This framework captures the *structure* of guidance (what a playbook should cover) but not the *content* (that is Operating Model territory, developed per-team).
 
@@ -47,6 +47,94 @@ Not all artifacts pass through every state. A Module Version goes `Building → 
 |---|---|---|
 | **Transitional** | Born in one track, consumed by another. The artifact's primary value is in *crossing a boundary*. | Feedback (Win → Discovery), PSD (Discovery → Build), Deployment runbook (Build → Run) |
 | **Terminal** | Consumed within the same track or by external systems. The artifact's primary value is *within its context*. | Module Version (Build output), Enablement asset (Win internal), Post-mortem (Run internal) |
+
+---
+
+## 1b. Artifact Type Catalog
+
+The five artifact categories above (Decision, Evidence, Specification, Delivery, Assessment) are top-level classifications. Within each category, specific **named artifact types** exist per track — each with a description and **assessment criteria** that define what a good instance of that artifact looks like.
+
+Assessment criteria serve two purposes: (1) they define quality expectations for artifact producers, and (2) they provide the evaluation basis for Evolve Reviews (Track 5) when assessing artifact quality across tracks.
+
+> **Scope note:** Assessment criteria below are initial/skeletal. They will be refined iteratively as each track is detailed through the Work Execution Framework phasing plan. Track 5 (Evolve) owns the work of refining these criteria over time.
+
+### Decision Artifacts
+
+| Type | Track | Description | Assessment Criteria |
+|---|---|---|---|
+| PDR (Product Decision Record) | Discovery | Recorded decision with context, rationale, consequences, and stakeholder acknowledgment | Alternatives considered and documented; consequences stated (positive and negative); all affected dimensions identified; stakeholders acknowledged |
+| Prioritization Rationale | Discovery | Ranked signal list with scoring methodology and association decisions | Scoring criteria transparent and consistently applied; all active Signals considered; association decisions justified against Initiative alignment |
+| Change Record | Run | Recorded production change with approval chain and verification | Approval chain complete; rollback plan documented; verification results recorded; compliance window respected |
+| Win/Loss Analysis Finding | Win | Post-deal decision analysis identifying contributing factors | Both win and loss factors identified; product vs. non-product attribution explicit; actionable patterns extracted; competitive intelligence captured |
+| Evolve Definition Change Record | Evolve | Recorded change to Work Model or Operating Model definition with rationale | Change rationale references findings or improvement objectives; affected tracks identified; backward compatibility considered |
+
+### Evidence Artifacts
+
+| Type | Track | Description | Assessment Criteria |
+|---|---|---|---|
+| Exploration Findings | Discovery | Context, root causes, affected segments, and patterns from Signal investigation | Multiple root causes considered; affected segments identified; patterns linked to adjacent Signals; Ideas are hypothesis-framed |
+| Research Findings | Discovery | Data, interview summaries, and analysis for/against a hypothesis | Research question clearly stated; methodology appropriate; evidence directly addresses hypothesis; bias acknowledged |
+| Experiment Results | Discovery | Hypothesis, method, measurements, and pass/fail assessment | Pass/fail criteria defined before execution; sample size and duration justified; measurements reproducible; conclusions follow from data |
+| Prototype/Spike Findings | Discovery | Feasibility or desirability evidence from throwaway artifacts | Assumption tested is explicit; findings distinguish feasibility from desirability; limitations of prototype acknowledged |
+| Proposal/SOW | Win | Pre-sales proposal or statement of work for a prospect | Scope aligned to prospect's stated needs; pricing consistent with Pricing Tier (Dim 2); technical feasibility confirmed; timeline realistic |
+| POC Results | Win | Proof-of-concept evaluation summary | Success criteria defined upfront; results measured against criteria; technical and business evaluation separated; next steps clear |
+| Monitoring Alert/Report | All | Threshold breach notification or periodic health dashboard | Alert condition clearly defined; data source identified; false positive rate acceptable; escalation path specified |
+| Evolve Findings | Evolve | Structured observations from process effectiveness, artifact quality, or guidance adequacy reviews | Finding type classified; severity justified with evidence; affected track(s) identified; recommendation actionable |
+
+### Specification Artifacts
+
+| Type | Track | Description | Assessment Criteria |
+|---|---|---|---|
+| Objective Definition | Discovery | Strategic objective for a planning horizon (Dim 1 entity update) | Measurable; time-bound; aligned to Strategic Theme; achievable within planning horizon |
+| Initiative Definition | Discovery | Initiative scope with lever mix, targets, and Signal associations (Dim 1 entity update) | Lever mix totals 100%; embedded targets are measurable; associated Signals identified; cross-track implications stated |
+| PSD (Product Specification Document) | Discovery | Engineering specification for module changes | Cross-dimensional review completed; acceptance criteria testable; affected modules identified; Dim 6 contract implications addressed (if applicable) |
+| Definition Model Entity Update | Discovery | Evolution of entities in Dims 2–9 via Modeling Task | Entity fields complete; relationships bidirectionally consistent; examples provided; FAQ updated if design decision involved |
+| Release Plan | Build | Scope, timeline, milestones, team allocation, risk assessment | All included PSDs/Initiatives listed; milestone criteria defined; risks identified with mitigations; team capacity validated |
+| Milestone Definition | Build | Checkpoint criteria with entry/exit gates | Entry and exit criteria testable; dependencies identified; verification steps defined |
+| Iteration Plan | Build | Story/task assignments and capacity allocation | Capacity validated against team availability; stories sized; dependencies sequenced |
+| Deployment Runbook | Run | Environments, rollout strategy, rollback plan, verification steps | All target environments listed; rollback procedure tested; verification steps automated where possible; compliance windows noted |
+| Capacity Forecast | Run | Projected load, scaling requirements, infrastructure plan | Load projections based on Customer Release scope; scaling triggers defined; cost implications stated |
+| Market Delivery Plan | Win | Segment sequencing, readiness criteria, coordination checklist | Segment sequencing justified; readiness criteria testable; coordination with Build/Run Track confirmed |
+| GTM Launch Plan | Win | Messaging, deliverables list, stakeholder enablement checklist | Messaging aligned to Customer Promise (Dim 3); all enablement assets identified; launch timeline synchronized with deployment |
+| Enablement Program Plan | Win | Asset inventory, training schedule, competitive program scope | Asset gaps identified; training schedule realistic; competitive positioning current |
+| CS Program Plan | Win | Onboarding playbook scope, retention program design, QBR cadence | Segment coverage complete; health score model defined; expansion triggers identified |
+| Engagement Priority List | Win | Prospect/customer/segment ranking, sequencing, resource allocation | Ranking criteria transparent; resource allocation feasible; Initiative alignment stated |
+| Evolution Cycle Plan | Evolve | Scope, objectives, timeline, and participants for an evolution cycle | Scope specific (named tracks/entities/artifacts); objectives measurable; participants confirmed; timeline realistic |
+| Entity/Artifact Definition | Evolve | New or updated work entity definition, artifact type definition, or DoD criteria | Fields complete; statuses defined; relationships bidirectional; assessment criteria stated (for artifacts); examples provided |
+| Guidance Structure Template | Evolve | Playbook or ceremony definition structure for Operating Model | All guidance sections covered; decision points identified; quality considerations specific; common pitfalls evidence-based |
+
+### Delivery Artifacts
+
+| Type | Track | Description | Assessment Criteria |
+|---|---|---|---|
+| Working Software Increment | Build | Code changes with acceptance test results (User Story output) | Acceptance criteria met; unit tests pass; code reviewed; for HI Modules: UI touchpoint implementation verified |
+| Epic Completion | Build | Completed capability with all stories delivered | All stories accepted; integration tests pass; acceptance criteria met end-to-end |
+| Bug Fix | Build | Root cause analysis, fix verification, regression test results | Root cause identified; fix verified; regression tests added; no new defects introduced |
+| Module Version | Build | Versioned, quality-gated module artifact | All quality gates passed (tests, security scan, code review); version follows semver; release notes complete |
+| Product Version | Build | Verified/certified composition of Module Versions (BOM) | Declared BOM compatible; Resolved BOM tested together; integration/certification tests pass |
+| Deployment Record | Run | What was deployed, where, when, verification results | Environment and version recorded; verification results documented; rollback status confirmed |
+| Maintenance Record | Run | What maintenance was done, verification results | Work completed as specified; verification results recorded; no service impact (or impact documented) |
+| GTM Enablement Asset | Win | Marketing collateral, positioning docs, campaign assets | Messaging consistent with Customer Promise (Dim 3); segment-appropriate; reviewed by Product Marketing |
+| Sales Enablement Asset | Win | Battlecards, demo environments, ROI calculators, playbooks | Competitive positioning current; demo data realistic; ROI model validated; training materials reviewed |
+| CS Enablement Asset | Win | Onboarding playbooks, health score models, QBR templates, education assets | Segment-specific; health score thresholds validated; education content accurate and current |
+| Partner Enablement Asset | Win | Partner demo environments, co-marketing kits, partner training | Partner-appropriate (not internal jargon); certification criteria clear; co-marketing approved |
+
+### Assessment Artifacts
+
+| Type | Track | Description | Assessment Criteria |
+|---|---|---|---|
+| Post-mortem | Run | Timeline, root cause, impact assessment, corrective actions, prevention measures | Root cause identified (not just symptoms); impact quantified; corrective actions assigned with owners; prevention measures systemic |
+| Go-live Checklist Completion | Win | Integration verification, configuration validation, handoff summary | All checklist items verified; integration tests passed; customer sign-off obtained |
+| Health Intervention Record | Win | Customer health assessment, intervention actions, outcome | Health signals documented; intervention timely; outcome measured; follow-up scheduled if unresolved |
+| Renewal/Churn Record | Win | Renewal outcome or churn analysis | Renewal terms documented; churn root causes identified (if churned); product vs. non-product attribution explicit |
+| Campaign/Event Results | Win | Reach, engagement metrics, conversion outcomes | Metrics against targets; segment reach measured; conversion funnel documented; lessons captured |
+| Partner Outcome Record | Win | Partner onboarding outcome, co-sell results, pipeline contribution | Onboarding milestones tracked; pipeline contribution quantified; partnership health assessed |
+| Revenue Operations Record | Win | Billing/collections status, renewal processing, revenue recognition | Invoice accuracy verified; collections status current; revenue recognition compliant |
+| Win Case Resolution Record | Win | Issue description, resolution steps, time-to-resolution, CSAT | Resolution complete; root cause documented (for Complaints); time-to-resolution within SLA; CSAT captured |
+| Feedback | Win | Qualitative observations and pattern analyses from Win Reviews | Observation specific and evidence-based; patterns supported by data; promotion decision justified |
+| Target Progress Update | Win | Quantitative assessment against Initiative embedded targets | Metrics current; variance explained; forecast updated; Business KPI and Customer Value Metric status included |
+| QBR Summary | Win | Quarterly business review assessment | Win Outcome progress assessed; Customer Promise fulfillment reviewed; next-quarter priorities identified |
+| Evolve Review Report | Evolve | Process effectiveness, artifact quality, or guidance adequacy assessment | Scope stated; evidence cited; findings classified by type and severity; recommendations actionable |
 
 ---
 
@@ -120,6 +208,15 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Win Case** | Resolution record — issue description, resolution steps, time-to-resolution, CSAT score | Assessment | Terminal (patterns → Win Review) | _To be detailed._ |
 | **Win Review** | Feedback (qualitative) + Target progress updates (quantitative) | Evidence + Assessment | Transitional (Feedback → Discovery) | **Entity files exist** (`track4-win-review.md`, `track4-feedback.md`) |
 | **Win Monitoring** | Alert/trigger (when threshold breached), health/revenue report/dashboard | Evidence + Assessment | Terminal (triggers Win Engagement, Win Case escalation, Win Review) | **Entity file exists** (`track4-win-monitoring.md`) |
+
+### Track 5: Evolve Track
+
+| Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
+|---|---|---|---|---|
+| **Evolve Planning** | Evolution cycle plan — scope, objectives, timeline, participants | Specification | Terminal (Evolve internal) | **Entity file exists** (`track5-evolve-planning.md`) |
+| **Evolve Review** | Evolve Findings — process gaps, artifact quality issues, guidance deficiencies | Evidence + Assessment | Transitional (→ Evolve Definition Task, or → Discovery as Signal) | **Entity file exists** (`track5-evolve-review.md`) |
+| **Evolve Definition Task** | Updated entity files, artifact type definitions, DoD criteria, guidance structures, Decision Records | Specification + Decision | Transitional (→ Work Model, Operating Model) | **Entity file exists** (`track5-evolve-definition-task.md`) |
+| **Evolve Monitoring** | Alert/trigger (when threshold breached), process health report/dashboard | Evidence + Assessment | Terminal (triggers Evolve Review, Evolve Planning) | **Entity file exists** (`track5-evolve-monitoring.md`) |
 
 ---
 
@@ -225,14 +322,15 @@ The framework is designed for incremental development:
 
 | Phase | Scope | What Gets Produced |
 |---|---|---|
-| **Phase 0 (this document)** | Framework structure, artifact taxonomy, cross-track inventory, DoD/Guidance patterns | Framework document; entity template extension |
+| **Phase 0 (this document)** | Framework structure, artifact taxonomy, artifact type catalog, cross-track inventory, DoD/Guidance patterns | Framework document; entity template extension; artifact type catalog with assessment criteria |
 | **Phase 1: Discovery Track** | Detail artifacts, DoD, and guidance structure for all Discovery Track entities | Updated entity files; Track 1 framework view |
 | **Phase 2: Build Track** | Detail artifacts, DoD, and guidance structure for all Build Track entities | Updated entity files; Track 2 framework view |
 | **Phase 3: Run Track** | Detail artifacts, DoD, and guidance structure for all Run Track entities | Updated entity files; Track 3 framework view |
 | **Phase 4: Win Track** | Detail artifacts, DoD, and guidance structure for all Win Track entities | Updated entity files; Track 4 framework view |
-| **Phase 5: Cross-track integration** | Verify all cross-track handoffs; validate transitional artifact flows end-to-end | Cross-track artifact flow diagram; handoff contract validation |
+| **Phase 5: Evolve Track** | Detail artifacts, DoD, and guidance structure for all Evolve Track entities | Updated entity files; Track 5 framework view |
+| **Phase 6: Cross-track integration** | Verify all cross-track handoffs; validate transitional artifact flows end-to-end | Cross-track artifact flow diagram; handoff contract validation |
 
-Tracks may be detailed in any order. Each phase is self-contained — detailing one track does not require detailing another first (though cross-track handoff validation in Phase 5 requires all four tracks).
+Tracks may be detailed in any order. Each phase is self-contained — detailing one track does not require detailing another first (though cross-track handoff validation in Phase 6 requires all five tracks).
 
 ---
 

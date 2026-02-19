@@ -77,7 +77,7 @@ Every ordering felt wrong because the wrong architectural pattern was being appl
 
 ### The naming discipline
 
-Each model's internal subdivision earned its name through modeling work. The Definition Model has 9 Dimensions (because we modeled 9 independent axes). The Work Model has 4 Tracks (because we identified 4 parallel streams). The Operating Model's internal structure is deliberately unnamed — "Coordination" and "Organization" are working labels, not architectural terms. Premature naming would be like calling Dimension 3 "The ROI Dimension" before discovering it's about the full buying committee, pain, promises, and barriers.
+Each model's internal subdivision earned its name through modeling work. The Definition Model has 9 Dimensions (because we modeled 9 independent axes). The Work Model has 5 Tracks (because we identified 5 parallel streams — four for product work, one for process evolution). The Operating Model's internal structure is deliberately unnamed — "Coordination" and "Organization" are working labels, not architectural terms. Premature naming would be like calling Dimension 3 "The ROI Dimension" before discovering it's about the full buying committee, pain, promises, and barriers.
 
 ### The dependency chain reads bottom-to-top
 
@@ -636,5 +636,39 @@ Batch is a genuinely distinct pattern, not "many Commands bundled together." Its
 ### Interface Type and Payload Schema demoted — not standalone entities
 
 **Interface Type** (REST, gRPC, Webhook, etc.) was a standalone entity in the original Dim 6. Since API Module is protocol-agnostic — REST, batch/SFTP, Kafka, webhooks, gRPC, GraphQL are all delivery mechanisms — Interface Type becomes a field on the module ("Supported Protocols"), not a first-class entity. **Payload Schema** is demoted to PSD/Build territory (see above). Both follow the same principle: the Definition Model captures strategic commitments and structural identity; implementation and schema details live below the waterline.
+
+---
+
+## Session: Track 5 — Evolve (Process Evolution) and Artifact Type Catalog
+
+_Date: 2026-02-19_
+
+### A model that cannot evolve is dead
+
+The Work Model defines what work exists. But who defines the Work Model? Without explicit modeling of this meta-work, the model stagnates — it captures a snapshot of how work was organized at the time of its creation, but cannot adapt as the product, organization, and market change. A model that doesn't account for its own evolution is dead right out of the gate. The Evolve Track makes process evolution a first-class concern with the same structural rigor as Discovery, Build, Run, and Win.
+
+### Process evolution is foundational work, not overhead
+
+There is a temptation to view process evolution as optional overhead — "we'll improve our processes when we have time." This inverts the dependency: process quality directly affects the quality of every artifact produced by every track. A poorly defined DoD for PSDs means poorly specified builds. A missing playbook for Signal Exploration means inconsistent discovery. Process evolution is not something you do after the "real work" — it is work that makes all other work effective. This is why it earns a dedicated track rather than being buried in per-track "housekeeping."
+
+### Track vs. bridge: structural form follows structural reality
+
+Initial discussion explored modeling process evolution as a "bridge" between the Work Model and Operating Model — a lighter-weight architectural concept. But when you list what this "bridge" needs (goals, entity types, artifacts, participants, a lifecycle, assessment mechanisms, monitoring), you've described a track. Calling it something other than "track" invents new terminology that gives it less structural rigor. The bridge *relationship* is real — Track 5 is the only track that directly modifies both the Work Model and the Operating Model — but the structural *form* is a track.
+
+### Evolve Findings parallel Feedback — transitional artifacts that bridge assessment and action
+
+Win Review produces Feedback; Evolve Review produces Evolve Findings. Both are structured observation records that cross a boundary: Feedback flows from Win Track to Discovery Track (when promoted to Signal); Evolve Findings flow from Evolve Track to Evolve Definition Tasks (when actioned) or to Discovery Track (when a process gap reveals a product gap). The pattern is consistent: assessment produces structured observations, which are consumed by downstream work. Not every observation warrants action — the "Archived with rationale" path is as important as the "Actioned" path.
+
+### Artifact assessment criteria belong in the Work Model
+
+Assessment criteria define what a good instance of an artifact type looks like — "a PDR must include alternatives considered," "a Module Version must pass vulnerability scan." These are properties of the artifact type, not of the team producing it. A poorly reasoned PDR is poor regardless of which team authored it. This makes assessment criteria a Work Model concern (intrinsic to the information model), not an Operating Model concern (team practices). The Operating Model may define *how* teams achieve these criteria (review ceremonies, checklists, tooling), but the criteria themselves are stable across teams.
+
+### Named artifact types make the taxonomy actionable
+
+The five artifact categories (Decision, Evidence, Specification, Delivery, Assessment) are necessary but insufficient. Telling a PM that Deliberation produces a "Decision Artifact" is true but unhelpful — they need to know it produces a PDR with specific quality expectations. Named types per track with assessment criteria bridge the gap between taxonomy and practice. They also provide the evaluation basis for Evolve Reviews — you can't assess artifact quality without knowing what "quality" means for each type.
+
+### Track 5 is the mechanism for its own evolution
+
+A natural question arises: "Who evolves Track 5?" The answer is Track 5 itself — Evolve Reviews can assess Evolve Track entity definitions, Evolve Definition Tasks can update Evolve Track DoD criteria. This is not circular; it is self-referential in the same way that a compiler can compile itself. The first version of Track 5 is bootstrapped (defined through the initial modeling work); subsequent versions are evolved through Track 5's own mechanisms.
 
 ---

@@ -479,7 +479,7 @@ They co-constrain. They co-evolve. Forcing one "above" the other distorts the re
 | **Work Model** | Definition Model | What work exists? (entities, artifacts, state transitions) |
 | **Definition Model** | — (foundation) | What is the product? (9 Dimensions) |
 
-**Internal structure deferred:** The Definition Model has 9 Dimensions and the Work Model has 4 Tracks — both terms earned through iterative modeling. The Operating Model's subdivision pattern will emerge when we detail it. We know it covers Coordination and Organization; we don't yet know if a third facet exists, or what the right structural metaphor is. Premature naming would be like calling Dimension 3 "The ROI Dimension" before discovering it's about the full buying committee, pain, promises, and barriers.
+**Internal structure deferred:** The Definition Model has 9 Dimensions and the Work Model has 5 Tracks — both terms earned through iterative modeling. The Operating Model's subdivision pattern will emerge when we detail it. We know it covers Coordination and Organization; we don't yet know if a third facet exists, or what the right structural metaphor is. Premature naming would be like calling Dimension 3 "The ROI Dimension" before discovering it's about the full buying committee, pain, promises, and barriers.
 
 See DR-014 for the full decision record.
 
@@ -779,5 +779,29 @@ Batch operations have genuinely different SLO profiles, error semantics, and con
 ### Q61: Why is Integration Module a connector/adapter rather than another API surface?
 
 The original proposal defined Integration Module as "APIs bundled for a scenario," which overlapped heavily with API Module (both use-case-oriented, both compose from Dim 8 modules, both expose programmatic interfaces). The sharpened distinction: Integration Module is a **pre-built bridge** to a specific external system — it includes data mappings, protocol translations, workflow adapters, and connectors between the product's model and the target system's model. API Module says "here's our interface"; Integration Module says "here's a ready-made bridge between us and SAP/Salesforce/your ERP." The design concerns diverge: data format translation, protocol bridging, polling vs. push, conflict resolution, target-system-specific error handling. If a product doesn't ship connectors, it has API Modules but no Integration Modules. See DR-021.
+
+---
+
+### Q62: Why a dedicated Evolve Track instead of per-track evolution entities?
+
+Each track already has monitoring entities (Signal Monitoring, Build Monitoring, System Monitoring, Win Monitoring), but these monitor *domain outcomes* — signal pipeline health, build quality, system uptime, customer health. They do not monitor *process effectiveness* — whether entity definitions serve their purpose, whether DoD criteria are followed, whether artifacts meet quality standards. Process evolution also crosses track boundaries: a poorly defined PSD (Discovery Track process issue) causes build failures (Build Track symptom); a missing Feedback promotion path (Win Track process issue) means customer insights never reach Discovery. A dedicated Evolve Track can assess the whole system, not just one track's domain health. Per-track evolution entities would fragment this cross-cutting concern. See DR-022.
+
+---
+
+### Q63: Why is Track 5 called "Evolve" and not "Process" or "Improve"?
+
+"Evolve" parallels the active-verb naming pattern of existing tracks — Discovery (discover), Build (build), Run (run), Win (win), Evolve (evolve). "Process" is a noun describing *what* is evolved, not *what the track does*. "Improve" implies the current state is always deficient; "Evolve" acknowledges that process changes may be *adaptations* to new circumstances (new product dimensions, new organizational structures, market shifts) rather than corrections of deficiencies. Evolution is neutral — it includes refinement, extension, deprecation, and restructuring. See DR-022.
+
+---
+
+### Q64: How does the Evolve Track connect Work Model and Operating Model?
+
+Tracks 1–4 produce outputs that modify the Definition Model (Modeling Task updates Dims 2–9, Specification Task produces PSDs) or external systems (Deployment deploys to infrastructure, Win Engagement updates CRM). Track 5 is the only track whose outputs directly modify the Work Model itself (entity definitions, artifact types, DoD criteria, assessment criteria) AND the Operating Model (guidance structures, ceremony definitions, role descriptions). This makes Track 5 the structural bridge between the two models — the mechanism by which the three-model architecture (Definition → Work → Operating) stays coherent as it evolves. The bridge relationship is real; the structural form is a track. See DR-022.
+
+---
+
+### Q65: Why assessment criteria on artifact types rather than just Definition of Done?
+
+DoD defines when a *work entity* is complete — "this Deliberation is done when a PDR is produced and stakeholders have acknowledged." Assessment criteria define what makes a *specific artifact* good — "a PDR must include alternatives considered, consequences stated, and affected dimensions identified." These are complementary but distinct: DoD ensures the right artifacts are produced; assessment criteria ensure those artifacts are produced *well*. Without assessment criteria, a team can satisfy DoD (produce a PDR) while producing a poor artifact (a PDR with no alternatives considered). Assessment criteria close this gap. They belong in the Work Model (as properties of the artifact type) rather than the Operating Model (as team practices) because a poorly reasoned PDR is poor regardless of which team produced it. See DR-022.
 
 ---

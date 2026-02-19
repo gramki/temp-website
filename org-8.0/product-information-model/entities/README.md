@@ -57,7 +57,7 @@ entities/
 │       ├── psd-human-interactive.md
 │       ├── psd-programmatic-interactive.md
 │       └── psd-reactive-background.md
-└── work-model/                ← Entities from the 4 Tracks (how the product MOVES)
+└── work-model/                ← Entities from the 5 Tracks (how the product MOVES)
     ├── track1-objective-setting-task.md
     ├── track1-initiative-scoping-task.md
     ├── track1-prioritization-task.md
@@ -96,7 +96,12 @@ entities/
     ├── track4-win-review.md               ← Structured assessment → produces Feedback + target progress
     ├── track4-win-monitoring.md            ← Continuous customer health and revenue monitoring
     ├── track4-adoption-goal.md            ← DEPRECATED — targets now embedded in Initiatives
-    └── track4-feedback.md                 ← Transitional artifact produced by Win Reviews
+    ├── track4-feedback.md                 ← Transitional artifact produced by Win Reviews
+    ├── track5-evolve-planning.md          ← Evolution cycle scoping and prioritization
+    ├── track5-evolve-review.md            ← Structured assessment of process effectiveness and artifact quality
+    ├── track5-evolve-definition-task.md   ← Core meta-work: create/update entity, artifact, DoD, and guidance definitions
+    ├── track5-evolve-monitoring.md        ← Continuous process adherence and artifact quality monitoring
+    └── track5-evolve-findings.md          ← Transitional artifact produced by Evolve Reviews
 ```
 
 ## Naming Convention
@@ -104,7 +109,7 @@ entities/
 Each file is named: `<prefix>-<entity-name>.md`
 
 - **Definition Model prefix:** `dim<N>-` where N is the dimension number (1–9).
-- **Work Model prefix:** `track<N>-` where N is the track number (1–4).
+- **Work Model prefix:** `track<N>-` where N is the track number (1–5).
 - **Entity name:** Lowercase kebab-case (e.g., `research-task`, `payload-schema`).
 
 ## File Template

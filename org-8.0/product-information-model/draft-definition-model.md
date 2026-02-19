@@ -3,7 +3,7 @@ Here is the comprehensive, clean-slate reference document. I have re-architected
 This document defines the **Unified Product Information Model (UPIM)** — a three-model architecture:
 
 1. **Definition Model** — What the product *is* (9 Dimensions)
-2. **Work Model** — What work *exists* to move the product (4 Tracks)
+2. **Work Model** — What work *exists* to move the product (5 Tracks)
 3. **Operating Model** — How the organization *executes* (Coordination + Organization) — covered separately
 
 This document covers the **Definition Model**. See `draft-work-model.md` for the Work Model. See the PIM Architecture README for the full three-model stack.
@@ -56,7 +56,7 @@ The three Signal types are classified by origin, nature, and beneficiary lens. T
 * *Example:* "Expand cross-border payment coverage to LATAM markets by end of H2 2026." (Theme: "LATAM Market Leadership")
 
 
-* **Initiative:** A cross-track strategic program to advance one or more Objectives. An Initiative is the coordination construct that associates Signals for discovery, targets Win Outcomes, declares a **Lever Mix** (weighted from the Business Model's Lever Portfolio), and carries **embedded Targets** (like Key Results in an OKR). Initiatives drive work across all four tracks — not just Discovery → Build. A "LATAM Enterprise Market Entry" Initiative with lever mix Product 40% / GTM 25% / Sales Enablement 20% / CS 15% tells downstream planners that the Win Track needs as much investment as the Build Track.
+* **Initiative:** A cross-track strategic program to advance one or more Objectives. An Initiative is the coordination construct that associates Signals for discovery, targets Win Outcomes, declares a **Lever Mix** (weighted from the Business Model's Lever Portfolio), and carries **embedded Targets** (like Key Results in an OKR). Initiatives drive work across all tracks — not just Discovery → Build. A "LATAM Enterprise Market Entry" Initiative with lever mix Product 40% / GTM 25% / Sales Enablement 20% / CS 15% tells downstream planners that the Win Track needs as much investment as the Build Track.
 * *Structure/Relationship:*  Initiative advances  Objective(s).  Initiative ← associated →  {Problem, Need, Opportunity} (many-to-many).  Initiative targets  Win Outcome(s) (Dim 2).  Initiative declares  Lever Mix (from Business Model's Lever Portfolio).  Initiative carries  embedded Targets (per Win Outcome, time-bound, quantitative).  Initiative → Customer Release(s).  Win Track planning, enablement, and engagement work aligns to Initiatives.  Win Reviews assess Initiative target progress.
 * *Status Lifecycle:* `Proposed` → `Approved` → `In Progress` → `Completed` / `Cancelled`.
 * *Example:* "LATAM Enterprise Market Entry" — Lever Mix: Product 40%, GTM 25%, Sales Enablement 20%, CS 15%. Targets: "Q3: 15 LATAM Enterprise deals closed", "Q3: 85% activation within 30 days", "Q3: CAC below $25K."

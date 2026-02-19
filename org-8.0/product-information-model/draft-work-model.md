@@ -1,7 +1,7 @@
 
-## PART II: THE WORK MODEL (THE 4 TRACKS)
+## PART II: THE WORK MODEL (THE 5 TRACKS)
 
-While the 9 Dimensions define the *Definition Model* of the product, the 4 Tracks define the *motion*. This is how Maker Roles (PMs, Devs, CS) organize their daily work to mutate the 9 Dimensions. Each track owns its own planning work alongside its core activities.
+While the 9 Dimensions define the *Definition Model* of the product, the 5 Tracks define the *motion*. This is how Maker Roles (PMs, Devs, CS, Process Leads) organize their daily work to mutate the 9 Dimensions — and to evolve the Work Model and Operating Model themselves. Each track owns its own planning work alongside its core activities.
 
 > **Scope Boundary Note:** The Work Model deliberately describes **what work exists** — entities, artifacts, and state transitions. It does NOT cover:
 >
@@ -12,7 +12,9 @@ While the 9 Dimensions define the *Definition Model* of the product, the 4 Track
 >
 > These concerns belong to the **Operating Model** — the third model in the UPIM architecture, sitting above the Work Model. The Operating Model covers both coordination and organizational design as entangled facets of how the org executes. It depends on the Work Model (you must know what work entities exist before you can design ceremonies and roles around them) but is a separate modeling concern. See the PIM Architecture README for the full three-model stack.
 >
-> **Work Execution Framework:** The Work Model *does* capture three execution dimensions for each work entity: (1) what artifacts it produces, (2) its Definition of Done (entry/exit criteria, artifact checklist), and (3) references to Operating Model guidance. See `draft-work-execution-framework.md` for the framework, artifact taxonomy, and cross-track inventory.
+> **Work Execution Framework:** The Work Model *does* capture three execution dimensions for each work entity: (1) what artifacts it produces, (2) its Definition of Done (entry/exit criteria, artifact checklist), and (3) references to Operating Model guidance. See `draft-work-execution-framework.md` for the framework, artifact taxonomy, artifact type catalog, and cross-track inventory.
+>
+> **Self-evolution:** The Work Model explicitly accounts for its own evolution through **Track 5: Evolve**. This is the only track whose outputs directly modify both the Work Model (entity/artifact definitions, DoD criteria) and the Operating Model (guidance content, ceremonies, roles). A model that cannot evolve is dead; Track 5 ensures the model stays alive.
 
 ### Track 1: The Discovery Track (Learning)
 
@@ -178,6 +180,49 @@ Win Review produces two outputs:
 Feedback is a structured observation record produced by Win Reviews. It is an **artifact**, not a work item — you do a Win Review and *produce* Feedback, just as you do a Deliberation and *produce* a PDR. Feedback captures customer observations, Win Stakeholder observations, and pattern analyses.
 
 Feedback is a **transitional artifact**: born in the Win Track, consumed by the Discovery Track when promoted to a Signal. Not every observation becomes a Signal — Feedback is the raw, structured record; Signal is the qualified, investigation-worthy version. Feedback that doesn't warrant a Signal is archived with rationale.
+
+
+
+### Track 5: The Evolve Track (Process Evolution)
+
+* **Goal:** Continuously assess, define, and refine the Work Model and Operating Model — work entity definitions, artifact type definitions, DoD criteria, guidance structures, and organizational practices. Ensure the model stays current and effective as the product, organization, and market evolve.
+* **Primary Owner:** Process Leads, Product Ops, Engineering Managers.
+* **Bridge characteristic:** The Evolve Track is the only track whose outputs directly modify both the Work Model (entity/artifact definitions, DoD criteria, assessment criteria) and the Operating Model (guidance content, ceremony definitions, role descriptions). It is the structural bridge between the two models.
+* **Operational Model:** The Evolve Track operates in **periodic review cycles** — evolution work is triggered by scheduled reviews, by Evolve Monitoring alerts, or by cross-track retrospectives. The cadence is typically quarterly or aligned to major organizational change events, but individual definition tasks may be executed continuously.
+
+The Evolve Track has four entity types and one transitional artifact: **Plan, Assess, Define, Monitor, and Learn.**
+
+#### Evolve Monitoring (Monitor — continuous vigilance)
+
+Evolve Monitoring is continuous tracking of process adherence, artifact quality trends, DoD compliance rates, and guidance usage across all tracks. It surfaces when processes are not followed, when artifact quality degrades, when DoD criteria are routinely skipped, or when guidance is outdated or unused. Triggers: Evolve Review scheduling, Evolve Planning input. (e.g., "Monitor Discovery Track DoD compliance — alert when >20% of PSDs skip cross-dimensional review; track artifact quality scores quarterly").
+
+#### Evolve Planning (Plan — evolution cycle scoping)
+
+Evolve Planning is work to plan evolution cycles: which processes to review, which artifact types to define or refine, which guidance to develop, and which cross-track handoffs to audit. Aligns to strategic or operational improvement objectives. (e.g., "Q3 Evolve cycle: review Win Track artifact quality, define DoD for 5 Discovery Track entities, develop Build Track onboarding playbook").
+
+Evolve Planning carries: scope (which tracks/entities/artifacts), improvement objectives, timeline, participants.
+
+#### Evolve Review (Assess — structured assessment)
+
+Evolve Review is a structured assessment of current process effectiveness, artifact quality, and guidance adequacy. It is the Evolve Track's equivalent of Win Review (Track 4) and Deliberation (Track 1) — a collaborative, judgment-based assessment that produces structured findings.
+
+  * **Evolve Review types:** Process Effectiveness Review (is the process achieving its goal?), Artifact Quality Review (are artifacts meeting assessment criteria?), Guidance Adequacy Review (is guidance current, complete, and used?), Cross-Track Handoff Review (are transitional artifacts flowing correctly across track boundaries?).
+
+Evolve Review produces **Evolve Findings** — structured observations, gap analyses, and improvement recommendations. Evolve Findings may feed Evolve Definition Tasks (process changes) or, when a process gap reveals a product-level issue, may be promoted to a Signal in the Discovery Track.
+
+#### Evolve Definition Task (Define — meta-work)
+
+Evolve Definition Task is the core meta-work entity — the work of creating or updating: (a) Work Model entity definitions (fields, statuses, relationships), (b) artifact type definitions and assessment criteria, (c) DoD criteria (entry/exit criteria, artifact checklists), (d) Operating Model guidance structures (playbook templates, ceremony definitions, role descriptions). This is where the model evolves.
+
+An Evolve Definition Task may be triggered by Evolve Findings (a review identified a gap), by Evolve Planning (a planned improvement), or by a new track/entity introduction. (e.g., "Define DoD for Win Engagement entities", "Add assessment criteria for Build Track Delivery Artifacts", "Update Discovery Track playbook template for Signal Exploration", "Define Evolve Track entity files for new Track 5").
+
+Status lifecycle: `Planned` → `In Progress` → `Reviewed` → `Applied`.
+
+#### Evolve Findings (Learn — transitional artifact)
+
+Evolve Findings is a structured observation record produced by Evolve Reviews. It is an **artifact**, not a work item — you do an Evolve Review and *produce* Evolve Findings, just as you do a Win Review and *produce* Feedback. Evolve Findings capture process gaps, artifact quality issues, guidance deficiencies, and cross-track handoff failures.
+
+Evolve Findings is a **transitional artifact**: born in the Evolve Track, consumed by the Evolve Track itself (Evolve Definition Task acts on findings) or by the Discovery Track when a process gap reveals a product-level Signal. Not every finding leads to a change — findings that don't warrant action are archived with rationale.
 
 
 

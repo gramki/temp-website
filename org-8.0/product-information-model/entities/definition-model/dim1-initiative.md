@@ -6,7 +6,7 @@
 
 ## Definition
 
-A cross-track strategic program to advance one or more Objectives. An Initiative is the coordination construct that associates Signals for discovery, targets Win Outcomes, declares a Lever Mix (weighted from the Business Model's Lever Portfolio), and carries embedded Targets (like Key Results in an OKR). Initiatives drive work across all four tracks — not just Discovery → Build.
+A cross-track strategic program to advance one or more Objectives. An Initiative is the coordination construct that associates Signals for discovery, targets Win Outcomes, declares a Lever Mix (weighted from the Business Model's Lever Portfolio), and carries embedded Targets (like Key Results in an OKR). Initiatives drive work across all tracks — not just Discovery → Build.
 
 ## Purpose
 
