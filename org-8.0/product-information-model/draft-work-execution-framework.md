@@ -21,7 +21,7 @@ Every work entity in the Work Model produces one or more structured outputs. The
 | **Decision Artifact** | A recorded decision with context, rationale, and consequences. Captures *why* a choice was made. | PDR, Win/Loss Analysis finding, Prioritization rationale |
 | **Evidence Artifact** | Data, findings, or observations that inform decisions. Captures *what was learned*. | Research findings, Experiment results, Feedback, Case pattern analysis |
 | **Specification Artifact** | A detailed description of what should be built, changed, or delivered. Captures *what to do*. | PSD, Release plan, Deployment runbook, GTM launch plan, Onboarding plan |
-| **Delivery Artifact** | A versioned, quality-gated output that moves toward or reaches a customer. Captures *what was built*. | Module Version, Product Version, Enablement asset, Campaign asset |
+| **Delivery Artifact** | A versioned, quality-gated output that moves toward or reaches a customer. Captures *what was built*. | System Version, Module Version, Product Version, Enablement asset, Campaign asset |
 | **Assessment Artifact** | A structured evaluation of results against targets or criteria. Captures *how it went*. | Post-mortem, QBR summary, Post-implementation review, Target progress update |
 
 ### Artifact Lifecycle Pattern
@@ -39,14 +39,14 @@ Created → Reviewed → Accepted/Revised → Consumed/Archived
 - **Consumed** — the artifact is used by downstream work (e.g., PSD consumed by Build Track; Feedback promoted to Signal)
 - **Archived** — the artifact is no longer active but retained for reference
 
-Not all artifacts pass through every state. A Module Version goes `Building → Released` (its own lifecycle). Feedback goes `Captured → Reviewed → Promoted/Archived`. The pattern provides a common vocabulary, not a mandatory sequence.
+Not all artifacts pass through every state. A System Version goes `Building → Released` (its own lifecycle). A Module Version goes `Integrating → Verified`. Feedback goes `Captured → Reviewed → Promoted/Archived`. The pattern provides a common vocabulary, not a mandatory sequence.
 
 ### Transitional vs. Terminal Artifacts
 
 | Type | Behavior | Examples |
 |---|---|---|
 | **Transitional** | Born in one track, consumed by another. The artifact's primary value is in *crossing a boundary*. | Feedback (Win → Discovery), PSD (Discovery → Build), Deployment runbook (Build → Run) |
-| **Terminal** | Consumed within the same track or by external systems. The artifact's primary value is *within its context*. | Module Version (Build output), Enablement asset (Win internal), Post-mortem (Run internal) |
+| **Terminal** | Consumed within the same track or by external systems. The artifact's primary value is *within its context*. | Module Version (integration verification), Enablement asset (Win internal), Post-mortem (Run internal) |
 
 ---
 
@@ -62,7 +62,9 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 
 | Type | Track | Description | Assessment Criteria |
 |---|---|---|---|
-| PDR (Product Decision Record) | Discovery | Recorded decision with context, rationale, consequences, and stakeholder acknowledgment | Alternatives considered and documented; consequences stated (positive and negative); all affected dimensions identified; stakeholders acknowledged |
+| PDR (Product Decision Record) | Discovery | Recorded product decision with context, rationale, consequences, and stakeholder acknowledgment | Alternatives considered and documented; consequences stated (positive and negative); all affected dimensions identified; stakeholders acknowledged |
+| ADR (Architecture Decision Record) | Discovery, Build | Recorded technical/architectural decision with context, decision, consequences (Dim 5 entity). May be triggered by PDR or independent. | Context describes forces at play; decision is specific and actionable; consequences include both positive and negative; affected Systems identified; quality attributes addressed stated |
+| ODR (Operations Decision Record) | Discovery, Run | Recorded operational/infrastructure decision with context, decision, consequences (Dim 7 entity). May be triggered by PDR, ADR, or independent. Scope: cloud provider/services, deployment strategy, data governance/archival, DR/BCP, compliance zones, capacity, cost optimization. | Context describes operational forces; decision is specific and actionable; consequences include both positive and negative; affected Environments and Systems identified; category classified; quality attributes addressed stated |
 | Prioritization Rationale | Discovery | Ranked signal list with scoring methodology and association decisions | Scoring criteria transparent and consistently applied; all active Signals considered; association decisions justified against Initiative alignment |
 | Change Record | Run | Recorded production change with approval chain and verification | Approval chain complete; rollback plan documented; verification results recorded; compliance window respected |
 | Win/Loss Analysis Finding | Win | Post-deal decision analysis identifying contributing factors | Both win and loss factors identified; product vs. non-product attribution explicit; actionable patterns extracted; competitive intelligence captured |
@@ -107,12 +109,16 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 
 | Type | Track | Description | Assessment Criteria |
 |---|---|---|---|
-| Working Software Increment | Build | Code changes with acceptance test results (User Story output) | Acceptance criteria met; unit tests pass; code reviewed; for HI Modules: UI touchpoint implementation verified |
-| Epic Completion | Build | Completed capability with all stories delivered | All stories accepted; integration tests pass; acceptance criteria met end-to-end |
-| Bug Fix | Build | Root cause analysis, fix verification, regression test results | Root cause identified; fix verified; regression tests added; no new defects introduced |
-| Module Version | Build | Versioned, quality-gated module artifact | All quality gates passed (tests, security scan, code review); version follows semver; release notes complete |
-| Product Version | Build | Verified/certified composition of Module Versions (BOM) | Declared BOM compatible; Resolved BOM tested together; integration/certification tests pass |
+| Working Software Increment | Build | Code changes with acceptance test results (Story output) | Acceptance criteria met; unit tests pass; code reviewed; for HI Modules: UI touchpoint implementation verified |
+| Epic Completion | Build | Completed capability with all Stories delivered (Module-scoped) | All Stories accepted; acceptance criteria met end-to-end |
+| Bug Fix | Build | Root cause analysis, fix verification, regression test results | Root cause identified; fix verified; regression tests added; no new defects introduced; provenance documented |
+| System Version | Build | Versioned, quality-gated artifact of a System (Dim 5) — atomic deployment unit. Build+Run shared vocabulary. | All quality gates passed (tests, security scan, performance benchmark, static analysis, dependency audit); version follows semver; release notes complete |
+| Module Version | Build | Composite system: integration-verified composition of System Versions for a Module (Dim 8) — integrated deployment unit + integration verification. Build+Run+Product shared vocabulary. | Integration contracts validated; integration test suite passes; all constituent System Versions released; binding configuration defined |
+| Product Version | Build | Highest-order composite system: certified composition of Module Versions (BOM) — complete deployment unit + certification. Ubiquitous language across all teams and customers. | Declared BOM compatible; Resolved BOM tested together; end-to-end tests pass; compliance/security certification complete |
+| Module Package | Run | Deployable composition: Module Version + operational System Versions + operational configuration — integrated deployment unit | Module Version verified; all operational System Versions released; operational configuration validated; target environment(s) specified |
+| Product Package | Run | Highest-order deployable: Product Version + Module Packages + cross-module operational wiring — complete deployment unit | Product Version certified; all Module Packages ready; cross-module operational wiring validated |
 | Deployment Record | Run | What was deployed, where, when, verification results | Environment and version recorded; verification results documented; rollback status confirmed |
+| Tenant Provisioning Record | Run | What tenant was provisioned, in which environment, for which customer, with what purpose and configuration | Customer and segment identified; tenant purpose documented; isolation level verified; SLO tier assigned; initial health check passed |
 | Maintenance Record | Run | What maintenance was done, verification results | Work completed as specified; verification results recorded; no service impact (or impact documented) |
 | GTM Enablement Asset | Win | Marketing collateral, positioning docs, campaign assets | Messaging consistent with Customer Promise (Dim 3); segment-appropriate; reviewed by Product Marketing |
 | Sales Enablement Asset | Win | Battlecards, demo environments, ROI calculators, playbooks | Competitive positioning current; demo data realistic; ROI model validated; training materials reviewed |
@@ -150,28 +156,33 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Initiative Scoping Task** | Initiative definition (Dim 1 entity update) with lever mix and targets | Specification | Terminal (Dim 1) | Captured via Dim 1 entity |
 | **Prioritization Task** | Prioritization rationale — ranked signal list with scoring and association decisions | Decision | Terminal | _To be detailed._ |
 | **Signal Exploration Task** | Exploration findings — context, root causes, affected segments, patterns; Idea(s) generated | Evidence + Specification | Transitional (→ Ideas) | _To be detailed._ |
-| **Deliberation** | PDR — Product Decision Record | Decision | Transitional (→ Build, Definition Model) | **Entity file exists** (`dim1-pdr.md`) |
+| **Deliberation** | PDR — Product Decision Record; ADR — Architecture Decision Record (when scope is technical/architectural); ODR — Operations Decision Record (when scope is operational/infrastructure) | Decision | Transitional (→ Build, Run, Definition Model) | **Entity files exist** (`dim1-pdr.md`, `dim5-adr.md`, `dim7-odr.md`) |
 | **Research Task** | Research findings — evidence for/against a hypothesis, data, interview summaries | Evidence | Terminal (informs Deliberation) | _To be detailed._ |
 | **Experiment** | Experiment results — hypothesis, method, measurements, pass/fail assessment | Evidence | Terminal (informs Deliberation) | _To be detailed._ |
 | **Prototype / Spike** | Prototype artifact or spike findings — what was learned about feasibility or desirability | Evidence + Delivery | Terminal (informs Deliberation) | _To be detailed._ |
 | **Specification Task** | PSD — Product Specification Document (includes UI journey specifications and touchpoint detail for HI Modules) | Specification | Transitional (→ Build Track) | **Entity file exists** (`dim1-psd.md`) |
-| **Modeling Task** | Definition Model entity updates (Dims 2–9, including Dim 6 personas, modules, operations, contracts) | Specification | Transitional (→ Definition Model) | Captured via entity files |
+| **Modeling Task** | Definition Model entity updates (Dims 2–9, including Dim 5 systems, components, dependencies, interaction flows, and Dim 6 personas, modules, operations, contracts) | Specification | Transitional (→ Definition Model) | Captured via entity files |
 | **Signal Monitoring** | Alert/trigger (when threshold breached), pipeline report/dashboard | Evidence + Assessment | Terminal (triggers Prioritization, Deliberation) | **Entity file exists** (`track1-signal-monitoring.md`) |
 
 ### Track 2: Build Track
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
-| **Release Planning Task** | Release plan — scope, timeline, milestones, team allocation, risk assessment | Specification | Terminal (internal planning) | _To be detailed._ |
-| **Milestone Planning Task** | Milestone definition — checkpoint criteria, entry/exit gates | Specification | Terminal (internal planning) | _To be detailed._ |
-| **Iteration Planning Task** | Iteration plan — story/task assignments, capacity allocation | Specification | Terminal (internal planning) | _To be detailed._ |
-| **Epic** | Completed epic — acceptance criteria met, stories delivered | Delivery | Terminal | _To be detailed._ |
-| **User Story** | Working software increment, acceptance test results; for HI Modules includes UI touchpoint implementation (screens, forms, interactions) | Delivery | Terminal | _To be detailed._ |
-| **Technical Task** | Code changes, test results, technical documentation updates | Delivery | Terminal | _To be detailed._ |
-| **Bug** | Bug fix — root cause analysis, fix verification, regression test results | Delivery + Evidence | Terminal | _To be detailed._ |
-| **Module Version** | Versioned, quality-gated module artifact | Delivery | Transitional (→ Run Track) | **Entity file exists** (`track2-module-version.md`) |
-| **Product Version** | Verified/certified composition of Module Versions (BOM) | Delivery | Transitional (→ Run Track) | **Entity file exists** (`track2-product-version.md`) |
-| **Build Monitoring** | Alert/trigger (when threshold breached), quality report/dashboard | Evidence + Assessment | Terminal (triggers Bug, Maintenance Task, planning) | **Entity file exists** (`track2-build-monitoring.md`) |
+| **Release Planning Task** | Release plan — scope, timeline, milestones, team allocation, risk assessment; Epic and Integration Epic identification | Specification | Terminal (internal planning) | **Entity file exists** (`track2-release-planning-task.md`) |
+| **Milestone Planning Task** | Milestone definition — checkpoint criteria, entry/exit gates, cross-Epic dependency gating, integration verification gates | Specification | Terminal (internal planning) | **Entity file exists** (`track2-milestone-planning-task.md`) |
+| **Iteration Planning Task** | Iteration plan — Story/Integration Story/Technical Task assignments, capacity allocation | Specification | Terminal (internal planning) | **Entity file exists** (`track2-iteration-planning-task.md`) |
+| **Epic** | Completed Epic — acceptance criteria met, all Stories delivered (Module-scoped, Dim 8) | Delivery | Terminal | **Entity file exists** (`track2-epic.md`) |
+| **Story** | Working software increment, acceptance test results; for HI Modules includes UI touchpoint implementation (Module-scoped, Dim 8) | Delivery | Terminal | **Entity file exists** (`track2-story.md`) |
+| **Technical Task** | Code changes, test results, technical documentation updates (System/Component-scoped, Dim 5). Serves Build Track Stories, Integration Stories, and Run Track Run Stories. | Delivery | Terminal | **Entity file exists** (`track2-technical-task.md`) |
+| **Bug** | Bug fix — root cause analysis, fix verification, regression test results. Provenance: Build / Run / Win | Delivery + Evidence | Terminal | **Entity file exists** (`track2-bug.md`) |
+| **Integration Epic** | Verified cross-System integration; integration contracts; contributes to Module Version verification | Delivery | Terminal | **Entity file exists** (`track2-integration-epic.md`) |
+| **Integration Story** | Integration contracts (API schemas, event schemas), integration test suites | Delivery + Evidence | Terminal | **Entity file exists** (`track2-integration-story.md`) |
+| **Design Deliberation** | ADR(s) — architectural decisions emerging during build work | Decision | Transitional (→ Definition Model, Dim 5) | **Entity file exists** (`track2-design-deliberation.md`) |
+| **System Version** | Versioned, quality-gated artifact of a System (Dim 5) — atomic deployment unit | Delivery | Transitional (→ Run Track) | **Entity file exists** (`track2-system-version.md`) |
+| **Module Version** | Composite system: integration-verified composition of System Versions for a Module (Dim 8) — integrated deployment unit + integration verification; Build+Run+Product shared vocabulary | Delivery | Transitional (→ Run Track for Module Package enrichment) | **Entity file exists** (`track2-module-version.md`) |
+| **Product Version** | Highest-order composite system: certified composition of Module Versions (BOM) — complete deployment unit + certification; ubiquitous language across all teams and customers | Delivery | Transitional (→ Run Track for Product Package enrichment, → Win Track) | **Entity file exists** (`track2-product-version.md`) |
+| **Technical Debt Item** | Documented technical debt — debt category, impact, resolution path | Evidence | Terminal (resolved via Epic or Story) | **Entity file exists** (`track2-technical-debt-item.md`) |
+| **Build Monitoring** | Alert/trigger (when threshold breached), quality report/dashboard | Evidence + Assessment | Terminal (triggers Bug, Technical Debt Item, planning) | **Entity file exists** (`track2-build-monitoring.md`) |
 
 ### Track 3: Run Track
 
@@ -179,11 +190,17 @@ The following inventory identifies key artifacts produced by each track. This is
 |---|---|---|---|---|
 | **Deployment Planning Task** | Deployment runbook — environments, rollout strategy, rollback plan, verification steps | Specification | Terminal (operational) | _To be detailed._ |
 | **Capacity Planning Task** | Capacity forecast — projected load, scaling requirements, infrastructure plan | Specification | Terminal (operational) | _To be detailed._ |
-| **Deployment** | Deployment record — what was deployed, where, when, verification results | Delivery | Terminal | _To be detailed._ |
-| **Incident** | Post-mortem — timeline, root cause, impact assessment, corrective actions, prevention measures | Assessment + Evidence | Transitional (→ Discovery as Signal, if systemic) | _To be detailed._ |
+| **Run Epic** | Completed operational engineering capability — operational System Versions, Module Package contribution (Module-scoped) | Delivery | Terminal | **Entity file exists** (`track3-run-epic.md`) |
+| **Run Story** | Operational System Version — versioned artifact of an operational System (e.g., probe, reconciler) | Delivery | Terminal | **Entity file exists** (`track3-run-story.md`) |
+| **Deployment** | Deployment record — what was deployed (System Version, Module Package, or Product Package), where, when, verification results | Delivery | Terminal | _To be detailed._ |
+| **Incident** | Post-mortem — timeline, root cause, impact assessment, corrective actions, prevention measures | Assessment + Evidence | Transitional (→ Discovery as Signal, if systemic; → Run Epic, if operational tooling gap) | _To be detailed._ |
 | **Change Request** | Change record — what changed, approval chain, verification, rollback status | Decision | Terminal | _To be detailed._ |
 | **Maintenance Task** | Maintenance record — what was done, verification results | Delivery | Terminal | _To be detailed._ |
-| **System Monitoring** | Alert/trigger (when threshold breached), SLA report/dashboard | Evidence + Assessment | Terminal (triggers Incident, Change Request, Capacity Planning) | **Entity file exists** (`track3-system-monitoring.md`) |
+| **Tenant** | Tenant provisioning record — customer, environment, purpose, configuration, SLO tier; Tenant lifecycle events (scale, suspend, decommission) | Delivery | Terminal (operational) | _To be detailed._ |
+| **Module Package** | Deployable composition: Module Version + operational System Versions + operational configuration — integrated deployment unit | Delivery | Transitional (→ Deployment, → Product Package) | **Entity file exists** (`track3-module-package.md`) |
+| **Product Package** | Highest-order deployable: Product Version + Module Packages + cross-module operational wiring — complete deployment unit | Delivery | Transitional (→ Deployment) | **Entity file exists** (`track3-product-package.md`) |
+| **(Run-originated ODR)** | Operations Decision Record — operational decisions emerging from Run Deliberations within Run Epics | Decision | Transitional (→ Definition Model, Dim 7) | **Entity file exists** (`dim7-odr.md`) |
+| **System Monitoring** | Alert/trigger (when threshold breached), SLA report/dashboard, Tenant health report, Operational Target compliance report | Evidence + Assessment | Terminal (triggers Incident, Change Request, Capacity Planning, Run Epic) | **Entity file exists** (`track3-system-monitoring.md`) |
 
 ### Track 4: Win Track
 

@@ -48,7 +48,30 @@ entities/
 │   ├── dim6-extension-module.md       ← Plugin/hook/workflow extension framework
 │   ├── dim6-sdk-library-module.md     ← Language-specific client (Client-Distributed topology)
 │   ├── dim6-api-operation.md          ← Named contractual operation (Command/Query/Event/Callback/Batch) with SLOs
+│   ├── dim5-subsystem.md                 ← DEPRECATED — subsumed by dim5-system.md (DR-024)
+│   ├── dim5-class-component.md           ← DEPRECATED — below waterline; PSD/Build Track artifact (DR-024)
+│   ├── dim5-function-method.md           ← DEPRECATED — below waterline; PSD/Build Track artifact (DR-024)
+│   ├── dim5-architecture-model.md        ← Root entity: architectural style, principles, technology strategy
+│   ├── dim5-system.md                    ← Deployable technical unit; many-to-many with Module (Dim 8)
+│   ├── dim5-component.md                 ← Architectural building block within a System
+│   ├── dim5-dependency.md                ← External system/service/resource the product depends on
+│   ├── dim5-interaction-flow.md       ← Technical realization of Value Streams; inter-system communication
+│   ├── dim5-adr.md                       ← Architecture Decision Record; technical counterpart of PDR
+│   ├── dim5-technical-knowledge-base.md  ← Per-System documentation coverage and currency assessment
 │   ├── dim6-api-compatibility-contract.md ← Module-level versioning and stability commitment
+│   ├── dim7-environment.md              ← DEPRECATED — superseded by dim7-deployment-environment.md (DR-023)
+│   ├── dim7-cluster-host.md             ← DEPRECATED — below waterline; PSD/Run Track artifact (DR-023)
+│   ├── dim7-container-process.md        ← DEPRECATED — below waterline; PSD/Run Track artifact (DR-023)
+│   ├── dim7-infrastructure-model.md     ← Root entity: hosting strategy, tenancy architecture, cost model
+│   ├── dim7-operational-persona.md      ← Functional archetype who operates the product (quality-taxonomy typed)
+│   ├── dim7-operational-job.md          ← Operational JTBD — bridges Dim 7 (intent) → Dim 8 (structure)
+│   ├── dim7-operational-journey.md      ← End-to-end path through operational modules for a job
+│   ├── dim7-deployment-environment.md   ← Named, typed infrastructure target with vendor purpose
+│   ├── dim7-operational-target.md       ← Infrastructure-level SLO with achievement levers
+│   ├── dim7-operational-constraint.md   ← Non-negotiable infrastructure requirement (regulation, compliance)
+│   ├── dim7-operational-pain.md         ← Concrete operational suffering endured by Operational Personas
+│   ├── dim7-operational-readiness.md    ← Per-System × per-environment operational acceptance assessment
+│   ├── dim7-odr.md                     ← Operations Decision Record; operational counterpart of PDR/ADR (DR-025)
 │   ├── ...
 │   ├── dim8-value-stream.md           ← Horizontal composition across modules
 │   ├── ...
@@ -69,22 +92,31 @@ entities/
     ├── track1-specification-task.md
     ├── track1-modeling-task.md         ← Produces Definition Model updates (Dims 2–9)
     ├── track1-signal-monitoring.md      ← Continuous signal pipeline and discovery velocity monitoring
-    ├── track2-release-planning-task.md
-    ├── track2-milestone-planning-task.md
-    ├── track2-iteration-planning-task.md
-    ├── track2-epic.md
-    ├── track2-user-story.md
-    ├── track2-technical-task.md
-    ├── track2-bug.md
-    ├── track2-module-version.md       ← Build Track output
-    ├── track2-product-version.md      ← Build Track output
+    ├── track2-release-planning-task.md  ← Identifies Epics and Integration Epics from PSDs
+    ├── track2-milestone-planning-task.md ← Cross-Epic dependency gating, integration verification gates
+    ├── track2-iteration-planning-task.md ← Assigns Stories, Integration Stories, Technical Tasks to sprints
+    ├── track2-epic.md                   ← Module-scoped (Dim 8), decomposed from PSD
+    ├── track2-story.md                  ← Module-scoped (Dim 8), unit of work within an Epic (renamed from User Story)
+    ├── track2-technical-task.md          ← System/Component-scoped (Dim 5), implements Stories
+    ├── track2-bug.md                    ← Provenance: Build / Run / Win
+    ├── track2-integration-epic.md       ← Cross-System integration work, references PSD-derived Epics
+    ├── track2-integration-story.md      ← Unit of integration work, produces contracts and test suites
+    ├── track2-design-deliberation.md    ← Build Track's ADR production mechanism
+    ├── track2-system-version.md         ← Build Track artifact: atomic deployment unit (renamed from Module Version)
+    ├── track2-module-version.md         ← Build Track artifact: integration-verified composition of System Versions
+    ├── track2-product-version.md        ← Build Track artifact: certified composition of Module Versions
+    ├── track2-technical-debt-item.md    ← Build Track artifact: documented technical debt
     ├── track2-build-monitoring.md       ← Continuous build health and quality monitoring
     ├── track3-deployment-planning-task.md
     ├── track3-capacity-planning-task.md
+    ├── track3-run-epic.md                ← Module-scoped operational engineering work (Run Track as engineering track)
+    ├── track3-run-story.md               ← Unit of operational engineering work within a Run Epic
     ├── track3-deployment.md
     ├── track3-incident.md
     ├── track3-change-request.md
     ├── track3-maintenance-task.md
+    ├── track3-module-package.md           ← Run Track artifact: integrated deployment unit (Module Version + operational systems + config)
+    ├── track3-product-package.md          ← Run Track artifact: complete deployment unit (Product Version + Module Packages + cross-module ops)
     ├── track3-system-monitoring.md       ← Continuous infrastructure and SLA monitoring
     ├── track4-win-planning.md            ← Parent: 5 lever-specific planning subtypes
     ├── track4-gtm-planning-task.md       ← Subtype of Win Planning (GTM lever)

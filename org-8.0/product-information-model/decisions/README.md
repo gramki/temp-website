@@ -23,8 +23,8 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-001 | Add Strategic Entities (Objective, Initiative) to Dimension 1 | Accepted | 2026-02-15 |
 | DR-002 | Distribute Planning Work Across All Four Tracks | Accepted | 2026-02-15 |
 | DR-003 | Customer Release as Named Business Delivery Entity | Accepted | 2026-02-15 |
-| DR-004 | Three-Layer Versioning: Module Version, Product Version, Customer Release | Accepted | 2026-02-15 |
-| DR-005 | Deployment Tracked Per-Environment, Not as Version Status | Accepted | 2026-02-15 |
+| DR-004 | Three-Layer Versioning: System Version, Module Version, Product Version (updated by DR-026) | Accepted | 2026-02-15 |
+| DR-005 | Deployment Tracked Per-Environment, Not as Version Status (updated by DR-026) | Accepted | 2026-02-15 |
 | DR-006 | "Signal" as Collective Term for Problem, Need, Opportunity | Accepted | 2026-02-15 |
 | DR-007 | Restructure Dimension 3 as the Customer Value Dimension | Accepted | 2026-02-15 |
 | DR-008 | Introduce Value Stream as a Dim 8 Entity | Accepted | 2026-02-15 |
@@ -42,5 +42,10 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-020 | Dimension 4 Expansion — User-Centric Dimension with JTBD, UX Channel, and Touchpoint Deprecation | Accepted | 2026-02-15 |
 | DR-021 | Dimension 6 Expansion — Ecosystem & Extensibility with Personas, Module Types, and Deliberate Extensibility | Accepted | 2026-02-15 |
 | DR-022 | Track 5: Evolve (Process Evolution) and Artifact Type Catalog | Accepted | 2026-02-19 |
+| DR-023 | Dimension 7 Expansion — Operational Dimension with 9 Entities, Tenant in Run Track, Scope Widenings | Accepted | 2026-02-15 |
+| DR-024 | Dimension 5 Expansion — Technical & Architectural Dimension with 7 Entities, ADR, Dim 8/Dim 5 Duality | Accepted | 2026-02-15 |
+| DR-025 | Operations Decision Record (ODR) — Completing the Decision Record Triad (PDR/ADR/ODR) | Accepted | 2026-02-15 |
+| DR-026 | Build Track Detailing — Work Entity/Artifact Distinction, Scoping Corrections, Three-Tier Versioning | Accepted | 2026-02-15 |
+| DR-027 | Composition Levels, Module Package, and Run Track Engineering | Accepted | 2026-02-15 |
 
 ---

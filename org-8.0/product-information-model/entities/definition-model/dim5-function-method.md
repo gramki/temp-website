@@ -1,4 +1,6 @@
-# Function / Method
+# ~~Function / Method~~ (DEPRECATED)
+
+> **DEPRECATED** — Below the Definition Model waterline. Executable code blocks are PSD/Build Track artifacts. Same deprecation pattern as Touchpoint (Dim 4), Payload Schema (Dim 6), Container/Process (Dim 7). See DR-024.
 
 **Model:** Definition Model
 **Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)

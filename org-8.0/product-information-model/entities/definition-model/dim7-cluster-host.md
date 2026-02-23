@@ -1,4 +1,6 @@
-# Cluster / Host
+# ~~Cluster / Host~~ (DEPRECATED)
+
+> **DEPRECATED** — Below the Definition Model waterline. Specific compute infrastructure (Kubernetes clusters, VM hosts) belongs in PSD/Run Track artifacts. Same deprecation pattern as Touchpoint (Dim 4) and Payload Schema (Dim 6). See DR-023.
 
 **Model:** Definition Model
 **Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)

@@ -66,6 +66,7 @@ Makes the reactive, responsive work of Win Teams visible in the model. Without W
 | Assessed by | Win Review (Track 4) | Case patterns are assessed by Win Reviews (Case Pattern Review type) |
 | May generate | Feedback (Track 4) | Patterns or individual cases may produce Feedback that enters the Signal pipeline |
 | References | API Operation (Dim 6) | Cases may relate to specific API operations (SLO breaches, contract issues) |
+| May produce | Bug (Track 2) | Complaints/escalations may reveal product defects (provenance: Win) |
 
 ## Examples
 

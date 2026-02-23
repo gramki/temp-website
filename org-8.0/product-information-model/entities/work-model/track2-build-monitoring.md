@@ -19,18 +19,18 @@ Makes the continuous oversight of build and quality health explicit. Without Bui
 - Technical debt accumulates without systematic visibility
 - Velocity trends are not tracked for release forecasting
 
-**Triggers downstream work:** Bug creation, Maintenance Task, Release Planning adjustment, Iteration Planning rebalancing.
+**Triggers downstream work:** Bug creation, Technical Debt Item creation, Release Planning adjustment, Iteration Planning rebalancing.
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| Scope | Text | What is being monitored (e.g., "FX module CI pipeline", "All modules — integration test pass rate") |
+| Scope | Text | What is being monitored (e.g., "fx-service CI pipeline", "All Systems — integration test pass rate") |
 | Metrics Tracked | List (text) | Build pass/fail rate, test coverage, defect rate, cycle time, technical debt indicators |
 | Thresholds / Alerts | List (text) | When does monitoring trigger action (e.g., "Build failure 3 consecutive runs", "Coverage drop below 80%") |
 | Cadence | Enum | `Continuous` / `Daily` / `Weekly` |
 | Owner | String | Role/person responsible for watching |
-| Module(s) / Customer Release | Reference | Which module(s) or release this monitoring supports (if scoped) |
+| System(s) / Customer Release | Reference | Which System(s) (Dim 5) or Customer Release this monitoring supports (if scoped) |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -45,7 +45,7 @@ Makes the continuous oversight of build and quality health explicit. Without Bui
 
 | Artifact | Category | Description | Downstream Consumer |
 |---|---|---|---|
-| Alert / Trigger | Evidence | When threshold is breached — prompts Bug creation, Maintenance Task, or planning adjustment | Bug, Maintenance Task, Release Planning Task |
+| Alert / Trigger | Evidence | When threshold is breached — prompts Bug creation, Technical Debt Item creation, or planning adjustment | Bug, Technical Debt Item, Release Planning Task |
 | Quality Report / Dashboard | Assessment | Periodic snapshot of build health, coverage, velocity | Release Planning, Milestone review |
 
 ## Relationships
@@ -53,10 +53,11 @@ Makes the continuous oversight of build and quality health explicit. Without Bui
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | May trigger | Bug (Track 2) | Monitoring surfaces defects requiring resolution |
+| May trigger | Technical Debt Item (Track 2) | Monitoring may surface technical debt requiring documentation |
 | May trigger | Maintenance Task (Track 3) | Monitoring may surface infra or hygiene work |
 | Informs | Release Planning Task (Track 2) | Velocity and quality trends inform release scope |
 | Informs | Milestone Planning Task (Track 2) | Quality gates inform milestone criteria |
 
 ## Example
 
-"Monitor payments-service and fx-engine CI — continuous; alert on build failure or integration test pass rate below 95%. Weekly quality report: coverage trend, defect rate. Owner: Tech Lead. Feeds sprint review and release planning."
+"Monitor payments-service and fx-service CI — continuous; alert on build failure or integration test pass rate below 95%. Weekly quality report: coverage trend, defect rate. Owner: Tech Lead. Feeds sprint review and release planning."

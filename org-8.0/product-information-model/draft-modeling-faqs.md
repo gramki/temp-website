@@ -146,9 +146,9 @@ SAFe and the Continuous Delivery community explicitly **decouple "release" from 
 
 The UPIM follows this convention but uses **"Customer Release"** to make the distinction unambiguous:
 - **"Customer Release"** = the business act of making capabilities available to customers (Definition Model, Dim 1)
-- **"Module Version with status Released"** = a versioned build artifact that has passed quality gates (Work Model, Build Track output)
+- **"System Version with status Released"** = a versioned build artifact that has passed quality gates (Work Model, Build Track output)
 
-The qualifier "Customer" eliminates any collision — no one will confuse "Customer Release: LATAM Expansion" with "payments-service v2.3.3 released to artifact registry."
+The qualifier "Customer" eliminates any collision — no one will confuse "Customer Release: LATAM Expansion" with "payments-service v2.3.3 (System Version) released to artifact registry."
 
 **Why names instead of version numbers?** Customer Releases use descriptive names (e.g., "LATAM Expansion", "Project Mercury") rather than semver or numbered versions because:
 1. **Business identity:** Names convey what the release delivers; "Release 3.2" is meaningless to business stakeholders.
@@ -157,54 +157,58 @@ The qualifier "Customer" eliminates any collision — no one will confuse "Custo
 
 ---
 
-### Q13: Why distinguish Module Version, Product Version, and Customer Release as three separate concepts?
+### Q13: Why distinguish System Version, Module Version, Product Version, and Customer Release as four separate concepts?
 
-These three concepts operate at different levels and serve different purposes:
+These four concepts operate at different levels and serve different purposes. See also DR-026 for the three-tier versioning model.
 
 | Concept | Level | Nature | Versioning | Owner |
 |---|---|---|---|---|
-| **Module Version** | Per-module | Continuously produced CI/CD output | Semver | Build Track |
-| **Product Version** | Product-wide | Verified composition (BOM) of compatible Module Versions | Semver | Build Track |
+| **System Version** | Per-system | Continuously produced CI/CD output — atomic deployment unit | Semver | Build Track |
+| **Module Version** | Per-module | Integration-verified composition of System Versions — integrated deployment unit + integration verification | Semver | Build Track |
+| **Product Version** | Product-wide | Certified composition of compatible Module Versions (BOM) — complete deployment unit + certification | Semver | Build Track |
 | **Customer Release** | Business | Named delivery of capabilities to customers | Named (no versions) | Discovery + Win Track |
 
-**Why all three are necessary:**
-- Without **Module Version**, there is no granular tracking of what each module's CI/CD pipeline produces.
+**Why all four are necessary:**
+- Without **System Version**, there is no granular tracking of what each System's CI/CD pipeline produces, and no deployment unit for the Run Track.
+- Without **Module Version**, there is no integration verification layer — you jump from individual System testing to full-product testing (an O(n²) problem). Module Version proves that the Systems implementing a Module (Dim 8) work together.
 - Without **Product Version**, there is no way to certify that a specific composition of Module Versions is compatible, tested, and reproducible. This causes real problems: composition integrity failures, inability to reference "the product" for documentation/compliance, and difficulty reproducing production states.
 - Without **Customer Release**, there is no business-level planning construct that bundles outcomes of Initiatives into a coherent customer-facing delivery, decoupled from technical versioning.
 
-**Module Version and Product Version are Work Model entities** (Build Track outputs) because they are *results* of engineering progress, not planned upfront. In CI/CD, versions are routinely and continuously incremented — they are byproducts of the build process. **Customer Release is a Definition Model entity** (Dimension 1, Strategy) because it is a business planning construct that is deliberately scoped, named, and scheduled.
+**System Version, Module Version, and Product Version are Work Model artifacts** (Build Track outputs) because they are *results* of engineering progress, not planned upfront. In CI/CD, versions are routinely and continuously incremented — they are byproducts of the build process. **Customer Release is a Definition Model entity** (Dimension 1, Strategy) because it is a business planning construct that is deliberately scoped, named, and scheduled.
+
+**Each artifact tier is a composite system and a communication bridge.** Module Version and Product Version are not just verification checkpoints — they are systems in their own right, with emergent operational properties at each composition level (end-to-end latency, integrated failure modes, cross-module workflows). They are also communication bridges at progressively broader organizational scope: System Version is the shared vocabulary between Build and Run teams; Module Version bridges Build, Run, and Product teams (PMs, SREs, and engineers all reference "Payments Module v4.1"); Product Version is the ubiquitous language across all teams and customers (Win teams, compliance, customers all reference "Product v3.2"). See `versioning-alternatives-analysis.md` for how alternative approaches address these challenges.
 
 ---
 
 ### Q14: Why does Product Version use a Bill of Materials (BOM) with version ranges?
 
-Product Versions declare compatible version ranges for constituent modules (Declared BOM) rather than pinning specific versions. This follows established dependency management conventions:
+Product Versions declare compatible version ranges for constituent Module Versions (Declared BOM) rather than pinning specific versions. This follows established dependency management conventions:
 
 - `^2.3.0` — compatible with any 2.x.x (minor/patch changes OK)
 - `~1.8.0` — compatible with any 1.8.x (patch changes OK)
 - `>=4.1.0 <5.0.0` — explicit range
 
 A Product Version has two facets:
-- **Declared BOM:** Compatible ranges (like `package.json`)
-- **Resolved BOM:** Specific versions tested and certified together (like `package-lock.json`)
+- **Declared BOM:** Compatible Module Version ranges (like `package.json`)
+- **Resolved BOM:** Specific Module Versions tested and certified together (like `package-lock.json`), each containing its constituent System Versions
 
-This allows flexibility — a Module Version patch (e.g., `payments-service v2.3.4` fixing a security issue) can be adopted without re-certifying the entire Product Version, as long as it falls within the declared range. The Resolved BOM records exactly what was tested for reproducibility.
+This allows flexibility — a Module Version update (e.g., `Payments Module v2.3.1` with a new System Version `payments-service v2.3.4` fixing a security issue) can be adopted without full Product-level re-certification, as long as it falls within the declared range. The Resolved BOM records exactly what was tested for reproducibility.
 
 ---
 
-### Q15: Why is Deployment tracked per-environment rather than as a status of the Module Version?
+### Q15: Why is Deployment tracked per-environment rather than as a status of the System Version?
 
-A single Module Version (e.g., `payments-service v2.3.3`) may need to be deployed to multiple environments: staging, production-us, production-eu, production-ap, disaster recovery. These deployments happen at different times, with different strategies (canary, blue-green, rolling), and may have different outcomes (succeeded in prod-us, pending in prod-eu).
+A single System Version (e.g., `payments-service v2.3.3`) may need to be deployed to multiple environments: staging, production-us, production-eu, production-ap, disaster recovery. These deployments happen at different times, with different strategies (canary, blue-green, rolling), and may have different outcomes (succeeded in prod-us, pending in prod-eu).
 
-Modeling "Deployed" as a status of the Module Version would imply a binary state — either deployed or not — which doesn't reflect reality. Instead, Deployment is modeled as a **Run Track entity** with per-environment tracking:
+Modeling "Deployed" as a status of the System Version would imply a binary state — either deployed or not — which doesn't reflect reality. Instead, Deployment is modeled as a **Run Track entity** with per-environment tracking:
 
-| Module Version | Environment | Status | Strategy | Timestamp |
+| System Version | Environment | Status | Strategy | Timestamp |
 |---|---|---|---|---|
 | payments-service v2.3.3 | staging | Succeeded | Direct | 2026-02-10 |
 | payments-service v2.3.3 | production-us | Succeeded | Canary | 2026-02-12 |
 | payments-service v2.3.3 | production-eu | Planned | Rolling | — |
 
-This correctly models the operational reality and supports the decoupling of deployment from release — a Module Version can be deployed (even to production) without being part of an activated Customer Release (e.g., behind a feature flag).
+This correctly models the operational reality and supports the decoupling of deployment from release — a System Version can be deployed (even to production) without being part of an activated Customer Release (e.g., behind a feature flag). See DR-026.
 
 ---
 
@@ -803,5 +807,230 @@ Tracks 1–4 produce outputs that modify the Definition Model (Modeling Task upd
 ### Q65: Why assessment criteria on artifact types rather than just Definition of Done?
 
 DoD defines when a *work entity* is complete — "this Deliberation is done when a PDR is produced and stakeholders have acknowledged." Assessment criteria define what makes a *specific artifact* good — "a PDR must include alternatives considered, consequences stated, and affected dimensions identified." These are complementary but distinct: DoD ensures the right artifacts are produced; assessment criteria ensure those artifacts are produced *well*. Without assessment criteria, a team can satisfy DoD (produce a PDR) while producing a poor artifact (a PDR with no alternatives considered). Assessment criteria close this gap. They belong in the Work Model (as properties of the artifact type) rather than the Operating Model (as team practices) because a poorly reasoned PDR is poor regardless of which team produced it. See DR-022.
+
+---
+
+### Q66: Why does Dim 7 need its own Operational Persona, Job, and Journey instead of widening Dim 4?
+
+Dim 4 is the "User-Centric Dimension" — it models the *customer's* experience. Dim 7 is the "Operational Dimension" — it models the *vendor's* infrastructure reality. They share the same analytical pattern (persona → job → journey → module) but serve different domains with different stakeholders, concerns, quality criteria, and relationships. Operational Job connects to SLOs and Run Track work; JTBD connects to Business Outcomes and Value Streams. Merging them would dilute both: Dim 4's user-centric focus would absorb operational concerns it doesn't own, and operational jobs would lose their connections to Operational Targets and Deployment Environments. This follows the same principle that keeps Delivery Friction (Dim 2) independent from Pain (Dim 3) and Developer Persona (Dim 6) independent from User Persona (Dim 4). Structural parallels inform design but do not create shared entities. See DR-023.
+
+---
+
+### Q67: Why is Tenant a Run Track work entity rather than a Dim 7 Definition Model entity?
+
+A Tenant is something that is provisioned, configured, monitored, scaled, and eventually decommissioned — it is the result of operational work, not a structural definition. The Definition Model captures "what the product IS" (including that it supports multi-tenancy, via Tenancy Architecture on Infrastructure Model and Deployment Environment). The Run Track captures "what work EXISTS" to create and manage individual tenants within that architecture. This follows the standard Definition → Work separation: Dim 8 defines Capability, Build Track implements it; Dim 2 defines Win Outcome, Win Track achieves it; Dim 7 defines Deployment Environment with Tenancy Architecture, Run Track manages Tenants within it. Additionally, Tenant carries the customer-facing purpose (Production, UAT, Sandbox), cleanly separating it from the environment's vendor purpose — a design that requires Tenant to be a distinct operational entity, not a field on the Definition Model's Deployment Environment. See DR-023.
+
+---
+
+### Q68: Why is Operational Quality a taxonomy not an entity set?
+
+Reliability, Performance, Security, Compliance, Cost Efficiency, Observability, Scalability — initially proposed as standalone "Operational Quality Attribute" entities. Reconsidered because they are a categorization framework, not individual entities with fields, statuses, and lifecycles. The parallel is AAARRR in Dim 2: Awareness, Acquisition, Activation, Retention, Revenue, Referral are not individual entities — they are a classification axis used to type Win Outcomes, Win Stakeholders, and Business KPIs. Similarly, the quality taxonomy types Operational Targets (Availability SLO, Cost SLO), Operational Personas (Reliability Operator, Security Operator), Operational Constraints (Compliance Boundary, Security Standard), and Operational Pains (by quality domain). The vocabulary appears as enumerated types on entities, not as standalone rows. See DR-023.
+
+---
+
+### Q69: Why does Operational Target carry Achievement Levers?
+
+Without achievement levers, Operational Targets exist in isolation — "99.99% availability" is a number without a strategy for achieving it. Achievement Levers (Product or Operational) force the question at modeling time: "Is this primarily a product engineering problem (build circuit breakers, improve error handling) or an operational problem (add redundancy, improve incident procedures), or both?" This parallels Win Outcome (Dim 2), which carries Achievement Levers from the Business Model's Lever Portfolio. Making Operational Targets lever-aware connects Dim 7 into the Initiative/Objective planning cycle: an Initiative with Operational lever weight drives Run Track and Operating Model work to improve operational targets; Operational Pains feed the Signal pipeline, driving Initiatives with appropriate lever mixes. Without this connection, operational improvements happen outside the strategic planning framework. See DR-023.
+
+---
+
+### Q70: What is the relationship between Dim 7 Operational Target, Dim 6 API Operation SLOs, and Dim 3 Service Commitment?
+
+Three layers of the same commitment, progressively more specific: **Service Commitment (Dim 3)** is the customer-facing SLA — "99.9% uptime" promised in the contract. **API Operation SLO (Dim 6)** is the per-operation target — "Create Payment: 99.95% availability, p99 < 500ms" committed to Developer and Programmatic User Personas. **Operational Target (Dim 7)** is the infrastructure-level objective — "payments-service compute availability 99.99% in Production US-East" that backs both higher layers. Each layer has different owners (Commercial/PM → API/Platform → SRE/DevOps), different measurement points (contract → API gateway → infrastructure), and different remediation paths. The Definition Model captures all three as distinct entities with explicit "backs" relationships. Actual measured values are operational state tracked by System Monitoring (Track 3). See DR-023.
+
+---
+
+### Q71: Why deprecate Cluster/Host and Container/Process?
+
+Cluster/Host and Container/Process are at a specific technology level (Kubernetes clusters, Docker containers) that may not apply universally, and they lacked strategic framing — no relationships, no fields, no lifecycle. By the same waterline logic that deprecated Touchpoint (Dim 4) and Payload Schema (Dim 6): the Definition Model captures strategic operational decisions (environments, targets, constraints, readiness); specific compute infrastructure choices (cluster sizing, container configuration, pod specs) belong in PSD/Run Track artifacts. The expanded Deployment Environment entity captures the strategic infrastructure decisions that Environment originally hinted at; the specifics of how compute is organized within an environment are work artifacts. See DR-023.
+
+---
+
+### Q72: How are infrastructure cost targets modeled?
+
+Cost is modeled through three complementary entities rather than a dedicated FinOps entity: **Infrastructure Model** carries a Cost Model field — the overall cost strategy (reserved instances, spot, committed spend, cost allocation approach). **Operational Target** of type Cost sets specific targets — "infrastructure cost per 1K transactions < $0.50" or "cloud spend growth must not exceed 1.5x traffic growth." **Operational Pain** surfaces cost suffering — "cloud spend grew 3x while traffic grew 1.5x, $200K/month over budget." This connects to Dim 2: Business KPI of type Cost includes "Infrastructure Cost per Customer" — the commercial view of the same cost reality. The Dim 7 Operational Target (Cost) is the infrastructure-level objective; the Dim 2 Business KPI (Cost) is the commercial-level metric derived from it. See DR-023.
+
+---
+
+### Q73: Why Operational Readiness at System scope rather than in Evolve Track?
+
+Evolve Track (Track 5) assesses *process* effectiveness: "Are our entity definitions serving their purpose? Are DoD criteria followed? Are artifacts meeting quality standards?" Operational Readiness assesses *System* readiness: "Is this System ready for production in this environment?" Different scope (System vs. process), different assessors (Run Track ops team vs. Process Leads), different triggers (deployment planning vs. quarterly review cycles), different criteria (observability, security, performance vs. DoD compliance, artifact quality). Operational Readiness criteria are a Definition Model concern because "what makes a System production-ready" is a product-level standard — it applies regardless of which team operates it. The assessment work (evaluating a specific System against criteria) is Run Track activity. Module-level readiness ("is the Payments capability ready?") is a derived view that aggregates across constituent Systems. See DR-023, DR-026.
+
+---
+
+### Q74: Why reframe Dim 5 from code structure to technical model?
+
+The original Dim 5 entities (Subsystem/Service, Class/Component, Function/Method) mapped to C4 architecture levels but at the wrong abstraction for the Definition Model. Code-level structure (classes, functions) is below the waterline — same principle that deprecated Touchpoint (Dim 4), Payload Schema (Dim 6), and Cluster/Host (Dim 7). Meanwhile, the product's actual technical model — its architectural strategy, systems, technology choices, dependencies, and interaction flows — had no representation. The reframe elevates Dim 5 from "how the code is organized" to "how the product is architected" — the right level for a Definition Model that captures strategic technical decisions, not implementation details. See DR-024.
+
+---
+
+### Q75: What is the Dim 8 / Dim 5 duality and why does the model need both?
+
+Dim 8 (Structural/Topology) provides the *functional* view: Product → Module → Capability → Feature, with Value Streams flowing horizontally. Dim 5 (Technical & Architectural) provides the *technical* view: Architecture Model → System → Component, with Interaction Flows showing how Systems communicate. Same product, two lenses, different audiences. Dim 8 serves PM and business stakeholders ("the product has a Payments Module with Cross-Border Payments capability"). Dim 5 serves architects and engineering leadership ("Payments is implemented by payments-service in Java/Spring Boot, communicating via Kafka events, depending on PostgreSQL"). Neither is complete without the other — Dim 8 alone can't answer "which systems need to change to add this capability?" and Dim 5 alone can't answer "what business capabilities does this system serve?" The explicit many-to-many mapping between them makes this relationship traceable. See DR-024.
+
+---
+
+### Q76: Why is System-to-Module mapping many-to-many?
+
+Functional decomposition (Modules — what the product does) and technical decomposition (Systems — how the product is built) are independent. A Dim 8 Module "Payments" may be implemented by multiple Systems (payments-api, payments-processor, payments-scheduler — different deployment units serving one functional domain). A shared Dim 5 System (notification-service) may serve multiple Modules (Payments, Compliance, Onboarding — one technical service supporting many functional domains). Forcing 1:1 alignment would either fragment Modules into too-granular functional units (creating a "Notification Module" just because a notification-service exists) or bloat Systems into monolithic technical units (cramming all payments logic into one service). The many-to-many mapping reflects reality and enables impact analysis in both directions. See DR-024.
+
+---
+
+### Q77: Why ADR as a separate entity from PDR?
+
+PDR (Dim 1) captures *product* decisions: "Go on LATAM market," "Add mobile channel," "Adopt event-driven architecture" (when the decision is product-strategic). ADR (Dim 5) captures *technical/architectural* decisions: "Use PostgreSQL for transactional data," "Split payments monolith into three services," "Adopt OpenTelemetry for tracing." Different dimensions (Dim 1 vs. Dim 5), different audiences (PM vs. architect), different governance (product deliberation vs. architecture review), different lifecycles (PDR: Draft → Final → Superseded; ADR: Proposed → Accepted → Deprecated → Superseded). They cross-reference each other: PDR triggers ADR(s) when product decisions have architectural implications; ADR constrains PDR when architectural reality limits product options. Together they provide full decision traceability from product strategy through technical implementation. Merging them would overload PDR with technical detail and dilute its product-level focus. See DR-024.
+
+---
+
+### Q78: Why are technology choices fields rather than standalone entities?
+
+A technology choice has two parts: WHAT was chosen (the technology) and WHY it was chosen (the rationale). The "what" naturally lives as fields on System and Component — language, framework, runtime, data store, protocols are properties of the technical unit. The "why" naturally lives in ADRs — the decision record explains the context, alternatives considered, and trade-offs. A standalone "Technology Choice" entity would duplicate both: it would restate the technology (already on the System) and the rationale (already in the ADR). The UPIM avoids entities that don't carry their own independent fields, statuses, and lifecycle. Technology stack fields make choices visible; ADRs make the reasoning traceable. See DR-024.
+
+---
+
+### Q79: Why deprecate Subsystem/Service, Class/Component, Function/Method?
+
+Subsystem/Service is subsumed by the expanded System entity — same concept (deployable technical unit) but with technology stack fields, many-to-many Module mapping, Deployment Environment reference, and a full relationship set. Class/Component (code-level classes and modules) and Function/Method (executable code blocks) are below the Definition Model waterline by the same logic that deprecated Touchpoint (Dim 4), Payload Schema (Dim 6), Cluster/Host (Dim 7), and Container/Process (Dim 7). The Definition Model captures strategic technical decisions visible in architecture diagrams; code-level structure belongs in PSD specifications and Build Track artifacts. The new Component entity (Dim 5) replaces Class/Component at the architectural level — significant building blocks within Systems (processing engines, adapters, rule evaluators), not code-level classes. See DR-024.
+
+---
+
+### Q80: Why Technical Knowledge Base as a per-System assessment?
+
+Documentation gaps are operational and commercial risks. A System with no runbook means the Run Team relies on tribal knowledge for incident response. A System with stale integration guide means the Win Team gives prospects inaccurate technical information. Making these gaps visible in the Definition Model (rather than as implicit Work Model concerns) gives them strategic weight. The per-System assessment pattern parallels Operational Readiness (Dim 7, per-System × per-Environment): both are single-instance-per-scope assessments with quality dimensions and coverage status. Technical Knowledge Base covers knowledge dimensions (architecture docs, runbooks, release notes, integration guides, Win technical guides, troubleshooting playbooks); Operational Readiness covers operational dimensions (observability, security, performance, operability, DR, compliance). The actual documents are Work Model artifacts — Build Track produces them, Run Track and Win Track consume them. Technical Knowledge Base tracks "does the knowledge exist and is it current?" — an assessment, not the knowledge itself. See DR-024.
+
+---
+
+### Q81: Why introduce ODR as a separate decision record from PDR and ADR?
+
+PDR (Dim 1) captures product strategy decisions; ADR (Dim 5) captures architectural/technical decisions; ODR (Dim 7) captures operational/infrastructure decisions. Each has a different audience (PM vs. architect vs. SRE), different governance (product council vs. architecture review vs. operations review), and different scope (what to do vs. how to build vs. how to run). Operational decisions like "choose AWS MSK over self-managed Kafka," "archive transaction data to Glacier after 24 months," or "adopt blue-green deployment for payment services" don't fit in PDR (not product strategy) or ADR (not architecture design-time). They are operational, runtime decisions with their own context, alternatives, and consequences. The three-record triad provides complete decision traceability across the product lifecycle. See DR-025.
+
+---
+
+### Q82: What is the PDR → ADR → ODR trigger chain?
+
+Decisions cascade across levels, each refining the previous with domain-specific expertise. "Go on LATAM market" (PDR) triggers "Deploy LATAM services in sa-east-1 with event-driven architecture" (ADR) triggers "LGPD-compliant encryption, MSK 3-AZ, dedicated tenancy for Tier-1 banks, 4-hour RTO" (ODR). The chain also works in reverse as constraints: an ODR ("4-hour RTO") constrains ADR choices ("active-active isn't justified"), and an ADR ("batch architecture") constrains PDR options ("can't offer real-time FX"). Each record type has four relationship patterns: triggered by upstream, exists independently, triggers downstream, constrains upstream. See DR-025.
+
+---
+
+### Q83: Why do data governance and archival decisions belong in ODR (Dim 7) rather than Dim 9?
+
+Dim 9 (Data & Information, to be detailed) will capture the structural/domain view of data — what data the product manages and makes available, domain boundaries, ownership, schema, relationships. ODR captures the operational aspects — retention periods, archival policies, encryption requirements, access control models, backup strategies. These are runtime decisions about how data is governed, not structural decisions about what data exists. The split mirrors the Dim 8 / Dim 5 pattern: Dim 8 defines functional structure, Dim 5 defines technical realization. Similarly, Dim 9 will define data structure, ODR governs data operationally. See DR-025.
+
+---
+
+### Q84: Why does ODR have dual provenance (Discovery Track + Run Track)?
+
+Some operational decisions are strategic and planned: cloud provider selection, tenancy architecture, initial DR strategy — these originate from Discovery Track Deliberations during product strategy work. Other operational decisions emerge from operational experience: changing deployment strategy after incident patterns, increasing data retention after regulatory change, adjusting capacity after load testing — these originate from Run Track work. Both paths produce the same Dim 7 entity; provenance is tracked through relationships. This gives the Run Track its own decision-making capability, paralleling Build Track's ADR production (DR-024). Previously, only Discovery (PDR) and Build (ADR) tracks formally produced decision records. See DR-025.
+
+---
+
+### Q85: Why are Epics Module-scoped (Dim 8) and Technical Tasks System-scoped (Dim 5)?
+
+This reflects how work is actually planned and implemented. PMs and Tech Leads plan at the Module level ("Build the FX Rate Locking feature for the FX Module") — Modules are functional boundaries meaningful to product stakeholders. Developers implement at the System level ("Implement gRPC endpoint in fx-service") — Systems are deployable technical units meaningful to engineers. The Module-to-System many-to-many mapping means a single Story (Module-scoped) may spawn Technical Tasks in multiple Systems. This is natural: a functional increment ("lock FX rate for 24 hours") often requires changes in several Systems (fx-service for rate locking, payments-service for rate lock client, Redis for TTL). Stories bridge the two: they speak Module language but are implemented by System-scoped Technical Tasks. See DR-026.
+
+---
+
+### Q86: Why three-tier versioning (System Version → Module Version → Product Version)?
+
+The original two-tier model (Module Version → Product Version) had two problems. First, "Module Version" was misnamed — the Build Track builds Systems (Dim 5), not Modules (Dim 8). `payments-service v2.3.3` is a System Version. Second, there was no integration verification layer between individual System Versions and the full Product Version. The three-tier model addresses three distinct needs:
+
+**Verification and deployment scope:** (1) Systems are built and deployed independently as System Versions (atomic deployment unit); (2) Systems within a Module are verified to work together as Module Versions and deployed as Module Packages (integrated deployment unit); (3) the full product composition is certified as a Product Version and deployed as a Product Package (complete deployment unit). All three tiers are deployable at their composition level. Module-scoped verification is O(k) within a Module rather than O(n²) across all Systems.
+
+**Composite system nature:** Each tier is a system in its own right. Module Version is a composite system with emergent properties (end-to-end latency, integrated failure modes, cross-system data consistency) that do not exist at the individual System level. Product Version is a higher-order composite system with product-level emergent properties (end-to-end user journeys, cross-module workflows, product-wide compliance posture). All three tiers are operable and observable — they are not verification checkpoints.
+
+**Communication bridge:** Each tier provides a shared vocabulary at progressively broader organizational scope. System Version is the Build+Run vocabulary (engineers + SREs). Module Version bridges Build+Run+Product — PMs reason in Modules ("Payments capability v4.1"), SREs monitor integrated capability health, Build teams know which Systems compose it. Product Version is the ubiquitous language across all teams and customers — Win teams, compliance, and customers all reference "Product v3.2." Without these tiers, cross-functional teams resort to ad-hoc translation between service names, feature names, and marketing labels.
+
+See DR-026. See also `versioning-alternatives-analysis.md` for how alternative approaches (monorepo, contract testing, GitOps, release trains) address these challenges and where they leave gaps.
+
+---
+
+### Q87: Why are Integration Epic and Integration Story separate entities from regular Epics and Stories?
+
+Integration work has fundamentally different characteristics from feature work: it spans multiple Systems (potentially from different Modules), it validates Interaction Flows (Dim 5) end-to-end, and it produces integration contracts and test suites rather than feature code. Conflating integration work into feature Epics hides the cross-cutting nature from planning — integration "issues" surface late and delay releases. Separate entities make integration work visible from Release Planning onward. Integration Epics reference the PSD-derived Epics/Stories they integrate, maintaining traceability to feature work. The integration output (verified contracts, test suites) feeds Module Version verification. See DR-026.
+
+---
+
+### Q88: Why is Design Deliberation distinct from Discovery Track Deliberation?
+
+Both produce ADRs, but the scope and context differ. Discovery Track Deliberation is strategic — it addresses questions that shape the product's direction ("should we adopt event sourcing?", "should we support multi-currency?") and may produce PDRs, ADRs, or ODRs. Design Deliberation is tactical — it addresses questions that arise during implementation ("should we use gRPC or REST for this specific service-to-service call?", "how should we handle cache invalidation?"). Design Deliberation makes architectural decision-making during build work explicit and traceable. Without it, implementation-time ADRs have no structured origin — they exist but "came from nowhere." The ADR entity (Dim 5) is the same regardless of provenance; the deliberation process differs. See DR-026.
+
+---
+
+### Q89: Why is Technical Debt a work artifact, not a work entity?
+
+Technical Debt Items are *things produced by work* — documentation of accumulated shortcomings discovered during development. They are not *work to be done* in themselves. When debt is prioritized for resolution, it is addressed through existing work entities: an Epic (if the debt is significant, e.g., "migrate from synchronous to async bank integration") or a Story (if the debt is contained). This prevents proliferating work entity types — debt resolution uses the same planning and tracking mechanisms as feature work. The artifact captures the debt's existence, category, impact, and resolution path; the Epic/Story captures the resolution work. See DR-026.
+
+---
+
+### Q90: Why does Bug have a provenance field (Build / Run / Win)?
+
+Bugs originate from three distinct sources, and each source implies different traceability needs. Build-provenance Bugs are found during development (unit testing, code review, Story implementation) — they trace to Stories and Technical Tasks. Run-provenance Bugs originate from production Incidents — they trace to Incident records (Track 3), enabling "how often do incidents produce bugs?" analysis. Win-provenance Bugs originate from customer complaints or escalations in Win Cases (Track 4) — they trace to Win Case records, enabling "how often do customer complaints reveal product defects?" analysis. Without provenance, all three categories are indistinguishable, and cross-Track feedback loops are broken. See DR-026.
+
+---
+
+### Q91: Why rename "Interaction Pattern" to "Interaction Flow" (Dim 5)?
+
+"Pattern" connotes an abstract, reusable template — something you *could* apply. But the entity's structure (ordered steps, source-to-target Systems, protocols, timeouts, error handling) describes concrete, sequential execution: *what actually happens* when a Value Stream is technically realized. "Flow" conveys committed motion, not abstract possibility. It also creates clean linguistic symmetry: Value Stream (Dim 8) describes the functional flow; Interaction Flow (Dim 5) describes the technical flow. Same motion, different lens. The Dim 6 concept of "interaction pattern" (Command, Query, Event, Callback, Batch) — used for API Operation classification — is unaffected; that usage describes the *style* of a single operation, not a multi-System execution path.
+
+---
+
+### Q92: Why do Epics/Stories feel like specification entities while Technical Tasks feel like execution entities?
+
+Because the Build Track naturally contains two layers. The **specification/commitment layer** — Epics, Stories, Integration Epics, Integration Stories — defines *what* to build in Module (Dim 8) language. These entities carry product intent (decomposed from PSDs), acceptance criteria, and Module-scoped scope. They are defined and prioritized by PMs and Tech Leads. The **execution layer** — Technical Tasks — defines *how* to implement in System/Component (Dim 5) language. These entities are assigned to individual developers, scoped to specific Systems, and speak engineering language (write code, write tests, configure infrastructure).
+
+This two-layer structure is a strength, not a deficiency. Story sits at the junction: it speaks Module language ("lock FX rate for 24 hours") but decomposes into System-scoped Technical Tasks ("implement rate-lock endpoint in fx-service," "add rate-lock event to Kafka topic," "write integration test for rate-lock timeout"). The layer boundary is where functional specification meets technical execution. Note that the two layers are *not* separate tracks — they are both within the Build Track. The specification layer narrows PSDs into committed scope; the execution layer implements that commitment through engineering work. See DR-027 (C8).
+
+---
+
+### Q93: How do we distinguish System, Module, and Product as "systems"?
+
+Through **Composition Levels** — a formal hierarchy of deployable systems:
+
+| Composition Level | Entity | What it is | Deployment Granularity |
+|---|---|---|---|
+| **Atomic** | System (Dim 5) | An independently buildable, deployable, operable technical unit | System Version → deployed directly |
+| **Integrated** | Module (Dim 8) | A composite system of Systems with emergent operational properties | Module Package → deployed as integrated unit |
+| **Complete** | Product | The highest-order composite system of Modules | Product Package → deployed as complete unit |
+
+"System" without qualification always refers to the Dim 5 atomic level — the System entity. When we say "Module Version is a composite system" or "Product Version is a higher-order composite system," we use "system" in the **systems-thinking sense**: a whole composed of interacting parts with emergent properties that don't exist at the constituent level. Module Version has end-to-end latency, integrated failure modes, and cross-system data consistency. Product Version has end-to-end user journeys, cross-module workflows, and product-wide compliance posture. These emergent properties make Module and Product operationally real — SREs monitor them, PMs reason about them, customers experience them.
+
+The composition-level framing prevents confusion: Technical Tasks are scoped to **atomic** Systems (Dim 5). Module Packages are **integrated** deployment units. Product Packages are **complete** deployment units. The word "system" appears at all three levels, but each level has its own distinct entity name and composition semantics. See DR-027 (C1).
+
+---
+
+### Q94: Why is Module Package a separate entity from Module Version?
+
+Because what is *deployed* is richer than what is *built*. Module Version is a Build Track artifact — it certifies that product System Versions integrate correctly within a Module boundary, with binding configuration that constrains the composition to its legal form. But the Run Track adds operational systems (custom probes, reconciliation jobs, cert rotation automation, environment-specific adapters) and operational configuration (monitoring thresholds, scaling policies, alerting rules) before deployment. Module Package captures this enrichment as a distinct entity.
+
+Without Module Package, two things go wrong:
+1. **Operational systems are invisible.** The probes, reconcilers, and automation scripts that SREs build have no composition entity. They exist as loose deployments alongside product systems, with no formal relationship to the Module they serve.
+2. **Module Version becomes overloaded.** If we put operational systems and environment-specific configuration on Module Version, we conflate build-time concerns (integration verification, binding configuration) with run-time concerns (operational enrichment, environment targeting). Build Track produces Module Version; Run Track produces Module Package — clean ownership boundary.
+
+The naming also reflects the semantic: Module Version is a *version* (a verified snapshot of the composition). Module Package is a *package* (an enriched, deployable bundle). Versions are verified; packages are deployed. See DR-027.
+
+---
+
+### Q95: Why does the Run Track have its own Epics and Stories?
+
+Because the Run Track is an engineering track, not just an operational track. Custom probes, reconciliation jobs, cert rotation automation — these are legitimate Systems (Dim 5) with code, repos, CI/CD pipelines, tests, and System Versions. Building them requires the same work decomposition as product engineering: scope the work (Run Epic, Module-scoped), break it into increments (Run Story), implement with Technical Tasks scoped to operational Systems.
+
+Run Epics mirror Build Track Epics: they are Module-scoped (Dim 8), produce System Versions, and can be planned and tracked. But they differ in three ways:
+1. **Purpose.** Build Track Epics deliver product functionality (serving end-user Personas). Run Epics deliver operational capability (serving Operational Personas).
+2. **Trigger.** Build Track Epics are decomposed from PSDs. Run Epics are triggered by Operational Readiness gaps, Incidents, improvement initiatives, or new Module Version readiness.
+3. **Decision artifact.** Build Track Design Deliberations produce ADRs (Dim 5). Run Track Deliberations produce ODRs (Dim 7).
+
+Without Run Epics and Run Stories, operational engineering work is informal and invisible. SRE time is conflated with incident response — there is no distinction between "operate existing systems" and "build new operational systems." This matters for capacity planning (how much SRE time goes to engineering vs. operations), for skill profiles (SREs who build operational systems need development skills), and for organizational design (should operational engineering be a separate squad or embedded within SRE?). See DR-027.
+
+---
+
+### Q96: Why are Modules flat (no Module-within-Module nesting)?
+
+The Product → Module → Capability → Feature hierarchy is deliberately one level deep at the Module tier. Modules are direct children of Product with no self-referential nesting. This is a structural simplicity choice with three motivations:
+
+**Composition model clarity.** The three-tier versioning model (System Version → Module Version → Product Version) maps cleanly to the flat hierarchy: System Versions are atomic deployables, Module Versions compose System Versions within one Module, Product Versions compose Module Versions. If Modules could nest, a fourth tier would emerge (child Module Version → parent Module Version), complicating integration verification, deployment coordination, and the communication-bridge semantics that make Module Version useful across Build, Run, and Product teams.
+
+**Decomposition discipline.** When a Module feels too large, the answer is to split it into peer Modules — not to introduce sub-modules. "Payments" containing both domestic and cross-border concerns is better modeled as two peer Modules ("Domestic Payments," "Cross-Border Payments") than as a parent "Payments" with two children. Peer Modules have independent versioning, independent integration verification, and independent Module Packages. A parent Module would need to compose its children, adding structural complexity with little informational gain.
+
+**Grouping belongs elsewhere.** If teams need to group related Modules for organizational purposes ("the Payments domain includes Domestic Payments, Cross-Border Payments, and Settlement Modules"), that grouping belongs in the Operating Model (domain ownership, team structure) or as a lightweight tagging mechanism — not as structural nesting in the Definition Model. The Definition Model captures what the product *is*; organizational grouping captures how the org *thinks about* the product.
 
 ---

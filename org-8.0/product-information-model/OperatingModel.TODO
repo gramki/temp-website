@@ -5,7 +5,7 @@ Items accumulated from Definition Model and Work Model discussions that are expl
 
 ---
 
-## 1. Internal Structure and Naming
+## 1. Internal Structure and Naming:
 
 The Operating Model's internal structure (subdivision terminology, entity catalog) is deliberately unnamed. "Coordination" and "Organization" are working labels, not architectural terms. The naming will emerge through modeling work, as it did for the Definition Model (9 Dimensions) and Work Model (5 Tracks).
 
@@ -25,10 +25,14 @@ See: DR-014, README.md (Operating Model section), FAQ Q28
         ☐ Discovery Track: Signal Review, Prioritization Review, Deliberation scheduling, Initiative Review
         ☐ Build Track: Sprint Planning, Release Planning ceremonies, Architecture Review Board
         ☐ Run Track: Deployment review, Incident review, Change Advisory Board
+            ☐ Run Track engineering ceremonies: Run Epic planning, Run Sprint planning, operational system readiness review (DR-027)
         ☐ Win Track: QBR cadence, Pipeline review, Win/Loss review scheduling, Engagement prioritization
         ☐ Evolve Track: Evolution cycle kick-off, Evolve Review scheduling, Definition review ceremonies
     ☐ Define cross-track coordination ceremonies (e.g., Customer Release readiness review spanning Build/Run/Win)
     ☐ Define decision-making rhythms — who decides what, at what cadence, with what authority
+    ☐ Module Package assembly review ceremony — cross Build+Run coordination: when is Module Version ready for Run Track enrichment? Who decides? (DR-027)
+    ☐ Cross-track handoff ceremony: Build Track → Run Track handoff of Module Version for enrichment into Module Package (DR-027)
+    ☐ Composition-level deployment coordination: who decides to deploy at atomic (System Version) vs. integrated (Module Package) vs. complete (Product Package) level? (DR-027)
 
 ### 2.2 Planning Cadences:
 
@@ -49,22 +53,27 @@ See: DR-014, README.md (Operating Model section), FAQ Q28
     ☐ Define organizational roles for each Work Model track owner:
         - Discovery: Product Manager, UX Researcher, Executive Leadership
         - Build: Tech Lead, Developers, QA
-        - Run: DevOps, SRE
+        - Run: DevOps, SRE, Platform Engineering
         - Win: Customer Success, Product Marketing, Sales, Support
         - Evolve: Process Leads, Product Ops, Engineering Managers
     ☐ Define RACI or equivalent for cross-track work (especially Customer Release lifecycle)
     ☐ Define who owns the Operational lever (internal process, tooling, automation, hiring) — this lever maps to Operating Model, not a specific track
+    ☐ Run Track dual role: SRE as operator AND engineer — define when Run Track work is "operate existing systems" vs. "build new operational systems" (DR-027)
+    ☐ Ownership model for operational Systems: which team owns payments-healthcheck? SRE team? Platform team? Payments team? (DR-027)
+    ☐ Define RACI for Module Package assembly (Build Track produces Module Version → Run Track enriches into Module Package → who approves?) (DR-027)
 
 ### 3.2 Team Structures:
 
     ☐ Define team structure patterns (cross-functional squads, functional teams, matrix)
     ☐ Address how one person may cover multiple Win Stakeholder roles (startup scenario) vs. specialized roles (enterprise scenario)
     ☐ Define team composition guidance for each track
+    ☐ Team structure guidance for Run Track engineering: separate operational engineering squad vs. embedded SRE model (DR-027)
 
 ### 3.3 Skills and Training:
 
     ☐ Define PM skill profiles — what competencies are needed for Definition Model management
     ☐ Define skill profiles for each track's primary owner role
+    ☐ Skill profiles for Run Track engineering: SREs who build operational systems need development skills (coding, testing, CI/CD) in addition to operational skills (DR-027)
     ☐ Define training programs and certification (distinct from customer-facing education in Win Track)
     ☐ Define onboarding guidance for new team members per track
 
@@ -103,6 +112,10 @@ The Work Model defines the *structure* of guidance (what a playbook should cover
     ☐ Incident management playbook (severity classification, escalation, post-mortem process)
     ☐ Change management playbook (approval workflow, risk assessment, rollback procedures)
     ☐ Capacity planning playbook
+    ☐ Module Package assembly playbook — how to enrich Module Version with operational systems and configuration (DR-027)
+    ☐ Operational system development guidelines — coding standards, testing requirements for probes, scheduled jobs, automation scripts (DR-027)
+    ☐ Run Epic planning playbook — scoping, trigger identification, acceptance criteria for operational engineering work (DR-027)
+    ☐ Legal composition validation playbook — verifying that binding configuration constrains the composition correctly (DR-027)
 
 ### 4.4 Win Track Playbooks:
 
@@ -128,6 +141,8 @@ The Work Model defines the *structure* of guidance (what a playbook should cover
     ☐ Feedback → Signal promotion criteria and workflow
     ☐ PSD → Build handoff checklist and quality expectations
     ☐ Evolve Findings → Definition Task conversion workflow
+    ☐ Build → Run composition handoff checklist — Module Version → Module Package enrichment process, readiness criteria, sign-off workflow (DR-027)
+    ☐ Composition-level deployment decision framework — when to deploy at atomic (System Version) vs. integrated (Module Package) vs. complete (Product Package) level; decision criteria, risk assessment, rollback implications (DR-027)
 
 ---
 
@@ -181,6 +196,6 @@ This TODO was compiled from deferred items across:
 - draft-definition-model.md (Win Stakeholder, Business Model Lever Portfolio)
 - narrative-seeds.md (Three-model architecture session, Work Execution Framework session, Track 5 session)
 - draft-modeling-faqs.md (Q28, Q29, Q31, Q37, Q44, Q64)
-- DR-014, DR-018, DR-022
+- DR-014, DR-018, DR-022, DR-027
 
 ---

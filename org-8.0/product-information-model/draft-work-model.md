@@ -43,7 +43,9 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
 
 * **Output Entities:**
   * **Specification Task:** A granular PSD-authoring action — scoping modules, writing acceptance criteria, coordinating feasibility with engineering, decomposing into shippable increments. Represents the substantial work between a validated Idea and a shipped PSD (e.g., "Define webhook payload contract with Platform team", "Write acceptance criteria for FX module").
-  * **Modeling Task:** Work to evolve Definition Model entities in any dimension (Dims 2–9) based on discovery findings. Modeling Tasks produce updates to the product's self-description — customer segments, buyer personas, business outcomes, customer promises, value streams, capabilities, data domains, and more. Dim 6 (Ecosystem & Extensibility) modeling includes Developer Personas, Programmatic User Personas, API Modules, API Operations and SLOs, and API Compatibility Contracts. A Modeling Task may be triggered by a PDR (a decision affecting a dimension) or by ongoing product knowledge maintenance. (e.g., "Define LATAM AP Clerk user persona", "Map Cross-Border Payout Processing value stream", "Design LATAM pricing tier structure", "Define Developer Persona", "Design API Module with operations and SLOs", "Model API Compatibility Contract for Payments API v2").
+  * **Modeling Task:** Work to evolve Definition Model entities in any dimension (Dims 2–9) based on discovery findings. Modeling Tasks produce updates to the product's self-description — customer segments, buyer personas, business outcomes, customer promises, value streams, capabilities, data domains, and more. Dim 5 (Technical & Architectural) modeling includes Systems, Components, Dependencies, Interaction Flows, and Technical Knowledge Base assessments. Dim 6 (Ecosystem & Extensibility) modeling includes Developer Personas, Programmatic User Personas, API Modules, API Operations and SLOs, and API Compatibility Contracts. A Modeling Task may be triggered by a PDR (a decision affecting a dimension) or by ongoing product knowledge maintenance. (e.g., "Define LATAM AP Clerk user persona", "Map Cross-Border Payout Processing value stream", "Design LATAM pricing tier structure", "Define Developer Persona", "Design API Module with operations and SLOs", "Model API Compatibility Contract for Payments API v2", "Document payments-service System with Module mapping and tech stack", "Assess payments-service Technical Knowledge Base").
+  * **Note on ADR production:** Deliberation may produce Architecture Decision Records (ADRs, Dim 5) in addition to or instead of PDRs (Dim 1). When the Deliberation scope is a technical/architectural question ("should we adopt event sourcing?"), the output is an ADR. When the scope is a product question that has architectural implications, both a PDR and one or more ADRs may be produced. See DR-024.
+  * **Note on ODR production:** Deliberation may also produce Operations Decision Records (ODRs, Dim 7) for strategic infrastructure and operational decisions. When the Deliberation scope is an operational question ("which cloud provider for LATAM?", "what data archival policy?"), the output is an ODR. A single product decision (PDR) may cascade to both ADRs and ODRs: "Go on LATAM" → ADR (architecture for LATAM services) + ODR (LGPD compliance hosting, data residency). See DR-025.
 
 * **Monitoring Entities:**
   * **Signal Monitoring:** Continuous tracking of signal pipeline health, trend analysis across Signals, discovery velocity metrics. Surfaces when signal backlog grows, when themes shift, when discovery capacity is mismatched. Triggers: Prioritization Task re-evaluation, new Signal creation, Deliberation scheduling. (e.g., "Monitor LATAM Initiative signal pipeline — daily scan; alert when backlog > 20 or Signal aged > 60 days").
@@ -52,52 +54,81 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
 
 ### Track 2: The Build Track (Construction)
 
-* **Goal:** Plan releases and iterations, take validated PSDs, write high-quality code, and continuously produce Module Versions as stable, quality-gated artifacts.
+* **Goal:** Plan releases and iterations, take validated PSDs, decompose them into Module-scoped Epics and System-scoped Technical Tasks, and continuously produce System Versions, Module Versions, and Product Versions through a three-tier versioning model.
 * **Primary Owner:** Tech Lead, Developers, QA.
 
+> **Work Entities vs. Work Artifacts:** The Build Track distinguishes between *work entities* (work to be done — Epic, Story, Technical Task, Bug, Integration Epic, Integration Story) and *work artifacts* (things produced by work — System Version, Module Version, Product Version, ADR, Technical Debt Item). Work entities are planned, assigned, and tracked through status lifecycles. Work artifacts are *results* — they emerge from completed work.
+>
+> **Module scope vs. System scope:** Epics and Stories are Module-scoped (Dim 8) — they speak the functional language ("Build FX Rate Locking" for the FX Module). Technical Tasks are System/Component-scoped (Dim 5) — they speak the engineering language ("Implement gRPC endpoint in fx-service"). This reflects reality: PMs and Tech Leads plan in Module terms; developers implement in System terms. The Module-to-System many-to-many mapping means a single Story may spawn Technical Tasks in multiple Systems. See DR-026.
+
 * **Planning Entities:**
-  * **Release Planning Task:** Work to scope a Customer Release — which PSDs/Initiatives are included, timeline, milestones, team allocation. (e.g., "Plan Customer Release 'LATAM Expansion': scope to LATAM initiative PSDs, target mid-Q3 ship date").
-  * **Milestone Planning Task:** Work to define checkpoints within a Customer Release with clear entry/exit criteria. (e.g., "Define 'API Complete' milestone — all cross-border endpoints passing integration tests").
-  * **Iteration Planning Task:** Work to assign Epics/Stories to a time-boxed iteration, balance capacity. (e.g., "Sprint 14 planning: allocate FX rate-lock stories, account for team PTO").
+  * **Release Planning Task:** Work to scope a Customer Release — which PSDs/Initiatives are included, timeline, milestones, team allocation. Release Planning decomposes PSDs into Epics (one per affected Module) and identifies Integration Epics (cross-System integration work). (e.g., "Plan Customer Release 'LATAM Expansion': scope to LATAM initiative PSDs, target mid-Q3 ship date; identify 5 Epics across 3 Modules, 2 Integration Epics").
+  * **Milestone Planning Task:** Work to define checkpoints within a Customer Release with clear entry/exit criteria, cross-Epic dependency gating, and integration verification gates. (e.g., "Define 'API Complete' milestone — all cross-border endpoints passing integration tests; 'Integration Verified' milestone — Payments and FX Module Versions verified").
+  * **Iteration Planning Task:** Work to assign Stories, Integration Stories, and Technical Tasks to a time-boxed iteration, balance capacity, and identify cross-System dependencies. (e.g., "Sprint 14 planning: allocate FX rate-lock Stories, assign Technical Tasks to fx-service and payments-service developers").
 
-* **Build Entities:**
-  * **Epic:** A large, committed capability decomposed from a PSD (e.g., "Build Cross-Border API").
-  * **User Story:** An Agile requirement delivering specific value (e.g., "As an AP Clerk, I want to lock the FX rate for 24 hours").
-  * **Technical Task:** A granular engineering step (e.g., "Write unit test for `calculateConversion()`").
-  * **Bug:** Unplanned defect resolution.
+* **Work Entities (work to be done):**
+  * **Epic:** A large, committed body of work decomposed from a PSD, scoped to a single Module (Dim 8). A cross-Module PSD results in multiple Epics — one per affected Module. (e.g., "Build Real-Time FX Rate Locking" for the FX Module).
+  * **Story:** A unit of work within an Epic, Module-scoped (Dim 8). Not necessarily user-facing — can be functional, technical, or enablement. Implemented by Technical Tasks. (e.g., "Lock FX rate for 24 hours", "Set up Kafka consumer for payment events"). *Renamed from User Story.*
+  * **Technical Task:** A granular engineering step scoped to a System (Dim 5) and optionally a Component. Serves Build Track Stories and Integration Stories, as well as Run Track Run Stories (for operational system engineering). The most granular work entity. (e.g., "Implement gRPC GetRate endpoint in fx-service", "Add Kafka consumer in payments-service").
+  * **Bug:** Unplanned defect resolution with **provenance**: `Build` (discovered during development), `Run` (originated from Incident, Track 3), or `Win` (originated from Win Case, Track 4). Provenance enables cross-Track traceability.
+  * **Integration Epic:** Cross-System integration work, emerging from Release Planning when PSD-derived Epics require their Systems to interoperate. References the PSD-derived Epic(s)/Story(ies) being integrated and validates Interaction Flows (Dim 5). (e.g., "Integrate Payments↔FX Rate Locking Flow").
+  * **Integration Story:** A unit of integration work within an Integration Epic. Produces integration contracts (API schemas, event schemas) and integration test suites. (e.g., "Validate gRPC contract: payments-service → fx-service GetRate").
+  * **Design Deliberation:** A collaborative technical discussion during build work that produces ADR(s) (Dim 5). Narrower scope than Discovery Track Deliberation — focused on implementation-time architectural questions. (e.g., "gRPC vs REST for fx-service ↔ payments-service" → ADR-031).
 
-* **Build Track Outputs:**
-  * **Module Version:** A versioned, quality-gated artifact of a specific module, continuously produced by CI/CD pipelines. Module Versions are *results* of engineering progress, not planned entities — they are routinely and continuously incremented. A Module Version with status `Released` has passed all quality gates and is available for deployment. Composite artifacts (like Product Version) may refer to constituent Module Versions using semver compatibility ranges rather than pinned versions.
+* **Work Artifacts (things produced by work):**
+  * **System Version:** A versioned, quality-gated artifact of a single System (Dim 5), continuously produced by CI/CD pipelines. The **atomic deployment unit** — the Run Track deploys System Versions independently. Module Version and Product Version are also deployable (via Module Package and Product Package), but System Version is the atomic, independently deployable unit. Carries quality gate results (test coverage, security scan, performance benchmarks) that feed Operational Readiness (Dim 7).
     * *Status Lifecycle:* `Building` → `Released` (quality gates passed, available for deployment).
-    * *Example:* `payments-service v2.3.3`, `fx-engine v1.8.1`.
-  * **Product Version:** A verified, certified composition of compatible Module Versions — the Bill of Materials (BOM) for the product. A Product Version declares compatible version ranges for constituent modules (Declared BOM) and records the specific versions tested together (Resolved BOM). Like Module Versions, Product Versions are results of build and integration work, not planned entities.
-    * *Declared BOM:* Compatible version ranges (e.g., `payments-service ^2.3.0`, `fx-engine ~1.8.0`).
-    * *Resolved BOM:* Specific versions tested and certified together.
-    * *Status Lifecycle:* `Assembling` → `Verified` (integration tests pass) → `Certified` (all quality gates, compliance, security).
-    * *Example:* `Product v3.2.0` = {payments-service v2.3.3, fx-engine v1.8.1, merchant-portal v4.1.1}.
+    * *Example:* `payments-service v2.3.3`, `fx-service v1.8.1`.
+  * **Module Version:** A **composite system** — an integration-verified composition of System Versions for a Module (Dim 8). The **integrated deployment unit** and **integration verification unit** — proves that the Systems implementing a Module work together, and serves as the basis for the Run Track's Module Package (the deployable enriched composition). Has emergent operational properties (end-to-end latency, integrated failure modes) that do not exist at the individual System level. Serves as the shared vocabulary between Build, Run, and Product teams. Contains integration contracts, integration test suites, and binding configuration. Produced by Integration Epic/Story work.
+    * *Status Lifecycle:* `Integrating` → `Verified` (integration contracts validated, integration tests pass).
+    * *Example:* `Payments Module v2.3.0` = {payments-service v2.3.3, payment-gateway v1.2.1}.
+  * **Product Version:** The **highest-order composite system** — a certified composition of compatible Module Versions (BOM) for the product. The **complete deployment unit** and **certification unit** — end-to-end test suite validates the full product composition, and serves as the basis for the Run Track's Product Package (the highest-order deployable). The **ubiquitous language** across all teams and customers — Win teams, compliance, and customers all reference Product Version.
+    * *Declared BOM:* Compatible version ranges (e.g., `Payments Module ^2.3.0`, `FX Module ~1.8.0`).
+    * *Resolved BOM:* Specific Module Versions certified together (each containing its System Versions).
+    * *Status Lifecycle:* `Assembling` → `Verified` (end-to-end tests pass) → `Certified` (all quality gates, compliance, security).
+    * *Example:* `Product v3.2.0` = {Payments Module v2.3.0, FX Module v1.8.0, Compliance Module v3.1.0}.
+  * **Architecture Decision Record (ADR):** Architectural decisions produced by Design Deliberation during build work. Both Discovery-originated ADRs (from Deliberation) and Build-originated ADRs (from Design Deliberation) produce the same Dim 5 entity. See DR-024.
+  * **Technical Debt Item:** A documented instance of accumulated technical debt. When prioritized, resolved via an Epic (if significant) or a Story (if contained). (e.g., "payments-service: synchronous bank calls should be async" → Epic "Async Bank Integration").
 
 * **Monitoring Entities:**
-  * **Build Monitoring:** Continuous tracking of build health (CI/CD pipeline), quality metrics (test coverage, defect rates, tech debt), velocity trends. Surfaces when quality degrades, when builds destabilize, when technical debt accumulates. Triggers: Bug creation, Maintenance Task, Release Planning adjustment. (e.g., "Monitor payments-service and fx-engine CI — alert on build failure or integration pass rate < 95%").
+  * **Build Monitoring:** Continuous tracking of build health (CI/CD pipeline), quality metrics (test coverage, defect rates, tech debt), velocity trends. Surfaces when quality degrades, when builds destabilize, when technical debt accumulates. Triggers: Bug creation, Technical Debt Item creation, Release Planning adjustment. (e.g., "Monitor payments-service and fx-service CI — alert on build failure or integration pass rate < 95%").
 
 
 
 ### Track 3: The Run Track (Stability & Operations)
 
-* **Goal:** Plan deployments, ensure infrastructure readiness, and maintain SLA/uptime requirements in the Operational Dimension.
-* **Primary Owner:** DevOps, Site Reliability Engineers (SRE).
+* **Goal:** Plan deployments, ensure infrastructure readiness, maintain SLA/uptime requirements in the Operational Dimension (Dim 7), manage tenant lifecycle within Deployment Environments, and **engineer operational systems** that enrich Build Track artifacts into deployable compositions.
+* **Primary Owner:** DevOps, Site Reliability Engineers (SRE), Platform Engineering.
+* **Dim 7 Connection:** The Run Track is the operational arm of Dimension 7. Where Dim 7 defines *what the operational reality needs to be* (Infrastructure Model, Deployment Environments, Operational Targets, Operational Readiness), the Run Track does *the work to maintain and manage it* — deploying System Versions, managing tenants, responding to incidents, and monitoring system health. Operational Pains (Dim 7) surface through Run Track experience and become Signals (Dim 1).
+
+> **Run Track as engineering track.** The Run Track is not just an operational track — it is also an engineering track. Custom probes, reconciliation jobs, cert rotation automation, environment-specific adapters — these are legitimate Systems (Dim 5) with code, repos, CI/CD pipelines, tests, and System Versions. They serve Operational Personas (Dim 7) and are built through Run Track engineering work (Run Epics, Run Stories, Technical Tasks). The operational System Versions produced by this engineering work enrich Module Versions into Module Packages — deployable compositions that include both product systems (from the Build Track) and operational systems (from the Run Track). Run Deliberations produce ODRs (Dim 7), not ADRs (Dim 5).
 
 * **Planning Entities:**
-  * **Deployment Planning Task:** Work to plan a Module Version deployment — environments, rollout strategy, rollback plan, deployment windows. Deployment is tracked per-environment (a single Module Version may be deployed to staging, production-us, production-eu at different times). (e.g., "Plan payments-service v2.3.3 deployment: canary to 5% → 25% → 100% over 72 hours, PCI audit window avoidance").
+  * **Deployment Planning Task:** Work to plan a deployment — at the atomic level (System Version), integrated level (Module Package), or complete level (Product Package) — to specific environments, with rollout strategy, rollback plan, and deployment windows. Deployment is tracked per-environment. (e.g., "Plan Payments Module Package v2.3.0-latam deployment: canary to 5% → 25% → 100% over 72 hours, PCI audit window avoidance").
   * **Capacity Planning Task:** Work to forecast infrastructure needs based on projected load from upcoming Customer Releases. (e.g., "Forecast FX microservice scaling needs: LATAM launch expected to 3x transaction volume").
+
+* **Engineering Entities (Run Track as engineering track):**
+  * **Run Epic:** A large body of operational engineering work scoped to a single Module (Dim 8). Produces operational System Versions that contribute to Module Packages. Triggered by Operational Readiness gaps, Incidents, operational improvement initiatives, or new Module Version readiness. Run Deliberations within Run Epics produce ODRs. (e.g., "Build comprehensive health monitoring for Payments Module").
+  * **Run Story:** A unit of operational engineering work within a Run Epic. Describes a functional increment of operational capability. Implemented by Technical Tasks scoped to operational Systems (Dim 5). (e.g., "Create synthetic payment probe for BRL corridor end-to-end path verification").
 
 * **Operational Entities:**
   * **Incident:** Unplanned service degradation (e.g., "FX API latency spiked to 5000ms").
   * **Change Request:** A scheduled production alteration (e.g., "Migrate Payment DB to larger instance").
   * **Maintenance Task:** Routine preventative work (e.g., "Rotate bank API vault secrets").
-  * **Deployment:** The operational act of installing a specific Module Version into a specific environment. Deployments are tracked per-environment — a Module Version is not "deployed" in absolute terms; it is deployed *somewhere*. (e.g., "Deploy payments-service v2.3.3 to production-us").
+  * **Deployment:** The operational act of deploying to a specific environment. Deployments operate at three composition levels: **atomic** (a single System Version to an environment), **integrated** (a Module Package to an environment), or **complete** (a Product Package to an environment). (e.g., "Deploy Payments Module Package v2.3.0-latam to production-latam").
+  * **Tenant:** A logical isolation unit within a Deployment Environment (Dim 7), belonging to a Customer (instance of Customer Segment, Dim 3), with a customer-facing purpose. Tenants are provisioned, configured, monitored, scaled, and eventually decommissioned as Run Track operational work. A single Customer may have multiple Tenants in the same environment (e.g., one for production use, one for UAT). The Deployment Environment defines the infrastructure; the Tenant defines the customer's logical slice within it. (e.g., "Provision Tenant 'itau-prod' in Production LATAM for Banco Itaú — purpose: Production, isolation: dedicated schema, SLO tier: Enterprise").
+    * *Tenant Purpose:* `Production` / `UAT` / `Sandbox` / `Trial` / `DR` — the customer-facing purpose, distinct from the environment's vendor purpose.
+    * *Status Lifecycle:* `Requested` → `Provisioning` → `Active` → `Suspended` → `Decommissioning` → `Retired`.
+
+* **Work Artifacts (things produced by Run Track work):**
+  * **Module Package:** A deployable composition enriched by the Run Track — combining a Module Version (Build Track artifact) with operational System Versions and operational configuration. Module Package is the **integrated deployment unit**. The Run Track's counterpart to the Build Track's Module Version: where Module Version certifies integration, Module Package ensures operational completeness. (e.g., "Payments Module Package v2.3.0-latam = {Payments Module v2.3.0 + payments-healthcheck v1.2.0 + payment-reconciler v2.1.0 + LATAM operational config}").
+    * *Status Lifecycle:* `Assembling` → `Ready` → `Deployed`.
+  * **Product Package:** The highest-order deployable — combining a Product Version (Build Track artifact) with Module Packages and cross-module operational wiring. Product Package is the **complete deployment unit**. (e.g., "Product Package v3.2.0-latam = {Product v3.2.0 + Payments Module Package v2.3.0-latam + FX Module Package v1.8.0-latam + ...}").
+    * *Status Lifecycle:* `Assembling` → `Ready` → `Deployed`.
+  * **Operations Decision Record (ODR):** Operational decisions that emerge during Run Track work — deployment strategy changes driven by incident patterns, data governance decisions driven by regulatory changes, cloud service selection driven by operational experience, capacity and scaling decisions driven by performance data — are recorded as ODRs (Dim 7). Run-originated ODRs arise from operational experience (Run Deliberations within Run Epics). Both Discovery and Run ODRs produce the same Dim 7 entity. See DR-025.
 
 * **Monitoring Entities:**
-  * **System Monitoring:** Continuous tracking of infrastructure health, SLA/uptime metrics, capacity utilization, performance baselines. Surfaces when thresholds are breached, when capacity is strained, when SLAs are at risk. Triggers: Incident creation, Change Request, Capacity Planning adjustment. (e.g., "Monitor production-us API — alert on P95 latency > 300ms or availability < 99.9%").
+  * **System Monitoring:** Continuous tracking of infrastructure health, SLA/uptime metrics, capacity utilization, performance baselines, Operational Target (Dim 7) compliance, and Tenant health. Surfaces when thresholds are breached, when capacity is strained, when SLAs are at risk, or when Tenant-level metrics degrade. Triggers: Incident creation, Change Request, Capacity Planning adjustment, Run Epic creation. (e.g., "Monitor production-us API — alert on P95 latency > 300ms or availability < 99.9%; monitor Tenant health — alert on Tenant-level error rate > 1%").
 
 
 
@@ -235,10 +266,10 @@ A **Customer Release** (Definition Model, Dimension 1) is a cross-cutting entity
 | Track | Contribution |
 |---|---|
 | **Discovery Track** | Strategic planning defines Customer Releases as part of Initiative scoping |
-| **Build Track** | Release Planning scopes which PSDs/Initiatives are included; build work produces Module Versions and Product Versions |
-| **Run Track** | Deployment Planning ensures all required Module Versions are deployed to target environments |
+| **Build Track** | Release Planning scopes which PSDs/Initiatives are included; build work produces System Versions, Module Versions, and Product Versions |
+| **Run Track** | Run Track enriches Module Versions into Module Packages (adding operational systems and configuration), assembles Product Packages, and deploys them to target environments |
 | **Win Track** | Customer Release Planning coordinates market delivery; GTM Planning prepares launch messaging; the Win Track **activates** the Customer Release through engagement, enablement, and reactive support |
 
-A Customer Release becomes `Launched` when all required Module Versions are deployed (Run Track confirms) AND the business activates the release (Win Track executes Customer Release Planning and GTM Planning).
+A Customer Release becomes `Launched` when all required Module Packages (or Product Package) are deployed to target environments (Run Track confirms) AND the business activates the release (Win Track executes Customer Release Planning and GTM Planning).
 
 ---

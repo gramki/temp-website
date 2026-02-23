@@ -1,4 +1,6 @@
-# Environment
+# ~~Environment~~ (DEPRECATED)
+
+> **DEPRECATED** — Superseded by **Deployment Environment** (`dim7-deployment-environment.md`), which adds vendor purpose, tenancy architecture, compliance zone, scale policy, and full relationship set. See DR-023.
 
 **Model:** Definition Model
 **Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)

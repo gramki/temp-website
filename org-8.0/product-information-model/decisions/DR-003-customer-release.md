@@ -21,7 +21,7 @@ Additionally, the question arose whether this entity should carry version number
 
 1. Introduce **"Customer Release"** as the business delivery entity in the Definition Model (Dimension 1, Strategy).
 2. Customer Releases use **descriptive names** (e.g., "LATAM Expansion", "Project Mercury"), not version numbers or semver.
-3. DevOps artifact versioning continues to use "released" freely — a Module Version with status `Released` is a versioned artifact that passed quality gates. The term "artifact release version" is acceptable.
+3. DevOps artifact versioning continues to use "released" freely — a System Version with status `Released` is a versioned artifact that passed quality gates. The term "artifact release version" is acceptable.
 
 ## Rationale
 

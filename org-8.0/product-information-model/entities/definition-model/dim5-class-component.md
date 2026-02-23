@@ -1,4 +1,6 @@
-# Class / Component
+# ~~Class / Component~~ (DEPRECATED)
+
+> **DEPRECATED** — Below the Definition Model waterline. Code-level structure (classes, modules, packages) belongs in PSD/Build Track artifacts. Same deprecation pattern as Touchpoint (Dim 4), Payload Schema (Dim 6), Cluster/Host (Dim 7). See DR-024.
 
 **Model:** Definition Model
 **Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)

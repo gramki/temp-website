@@ -1,4 +1,6 @@
-# Subsystem / Service
+# ~~Subsystem / Service~~ (DEPRECATED)
+
+> **DEPRECATED** — Subsumed by **System** (`dim5-system.md`), which adds technology stack fields, many-to-many Module mapping, Deployment Environment reference, and full relationship set. See DR-024.
 
 **Model:** Definition Model
 **Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)

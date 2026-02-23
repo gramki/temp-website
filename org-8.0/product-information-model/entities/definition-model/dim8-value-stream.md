@@ -55,6 +55,7 @@ Value Streams and User Journeys often align but are not identical — a Value St
 | Mapped by | Value Proposition (Dim 3) | Outcome-based Value Propositions map to Value Stream(s) |
 | Measured by | Customer Value Metric / ROI (Dim 3) | End-to-end flow metrics measure Value Stream performance |
 | Experienced through | User Journey (Dim 4) | Value Stream is experienced through User Journey(s) |
+| Realized by | Interaction Flow(s) (Dim 5) | Value Stream's technical realization — how Systems communicate to fulfill this flow |
 | Work Model | Modeling Task (Track 1) | Modeling Tasks map and refine Value Streams |
 
 ## Example

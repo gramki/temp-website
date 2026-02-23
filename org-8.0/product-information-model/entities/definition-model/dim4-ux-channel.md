@@ -6,16 +6,18 @@
 
 ## Definition
 
-The access mechanism through which a User Persona reaches the product, typed by two orthogonal axes: **Interaction Modality** (by technology) and **Engagement Mode** (by service model). Each UX Channel is implemented by exactly one Human-Interactive Module (Dim 8). A product defines which cells in the Modality × Mode matrix it occupies; most products serve a subset.
+The access mechanism through which a human persona reaches the product, typed by two orthogonal axes: **Interaction Modality** (by technology) and **Engagement Mode** (by service model). Each UX Channel is implemented by exactly one Human-Interactive Module (Dim 8). A product defines which cells in the Modality × Mode matrix it occupies; most products serve a subset.
+
+UX Channels serve **all human personas** — Dim 4 User Personas and Dim 7 Operational Personas. An SRE uses Web dashboards, receives Email alerts, runs CLI commands, gets Voice/IVR escalation calls, and uses Mobile apps for on-call — the same interaction modalities and engagement modes. The channel taxonomy is universal for any human accessing the product. UX Channel is defined in Dim 4 (the natural home for human experience concepts) but referenced cross-dimensionally by Dim 7 Operational Journeys. See DR-023.
 
 ## Purpose
 
 UX Channel answers "through what medium does the persona access the product?" This is a strategic product decision — each channel requires a dedicated Human-Interactive Module, with its own capabilities, features, and technical implementation. Without UX Channel:
 - The distinction between "what the product can do" (Capabilities) and "how the user accesses it" (Channel) is implicit
-- Channel investment decisions ("should we build a mobile app?") have no entity to anchor to
-- Journey design has no context — a web journey and a mobile journey for the same Job have fundamentally different constraints
+- Channel investment decisions ("should we build a mobile app?" or "should we build an operational CLI?") have no entity to anchor to
+- Journey design has no context — a web journey and a mobile journey for the same Job (user or operational) have fundamentally different constraints
 
-**Channel investment is a PDR-level decision.** Building a new channel means building a new HI Module — it's a significant investment in design, engineering, and ongoing maintenance. UX Channels carry a lifecycle and are governed through Discovery (Deliberation → PDR).
+**Channel investment is a PDR-level decision.** Building a new channel means building a new HI Module — it's a significant investment in design, engineering, and ongoing maintenance. UX Channels carry a lifecycle and are governed through Discovery (Deliberation → PDR). This applies equally to customer-facing channels and operational channels.
 
 ## Interaction Modality (by technology)
 
@@ -66,7 +68,9 @@ UX Channel answers "through what medium does the persona access the product?" Th
 |---|---|---|
 | Implemented by | Human-Interactive Module (Dim 8) | One-to-one: each Channel is implemented by one HI Module |
 | Supports | User Journey (Dim 4) | Channel supports one or more Journeys |
-| Used by | User Persona (Dim 4) | Personas access the product through this Channel |
+| Used by | User Persona (Dim 4) | User Personas access the product through this Channel |
+| Used by | Operational Persona (Dim 7) | Operational Personas access the product through this Channel (cross-dimensional) |
+| Referenced by | Operational Journey (Dim 7) | Operational Journeys are experienced through UX Channels |
 | Justified by | PDR (Dim 1) | Channel investment is justified by a PDR |
 | Work Model | Deliberation (Track 1) | Channel decisions emerge from Deliberations |
 | Work Model | Specification Task (Track 1) | PSDs specify Channel's HI Module |
@@ -84,3 +88,6 @@ UX Channel answers "through what medium does the persona access the product?" Th
 | Payment Chatbot | Chat | Self-serve | Chatbot Module | AP Clerk | Proposed |
 | Payment Widget | Embedded | Self-serve | Payment Widget Module | Customer's End-User (via customer's app) | Active |
 | Salesforce Plugin | Embedded | Self-serve | Salesforce Integration Module | Account Executive (via Salesforce) | Active |
+| Monitoring Dashboard | Web | Self-serve | Monitoring Dashboard Module | Reliability Operator (Dim 7) | Active |
+| On-Call Alerts | Email + Voice | Self-serve | Alert Notification Module | Reliability Operator (Dim 7) | Active |
+| Ops CLI | CLI | Self-serve | Ops CLI Module | Platform Operator, Reliability Operator (Dim 7) | Active |

@@ -1,5 +1,13 @@
 
---------------------------------
+# Product Line Engineering has two sub-functional subsets:
+    - Domain Engineering - Advance the Domain Capabilities
+    - Win Engineering- Advance the Win Capabilities (Win Enablement)
+
+# Engagement Engineering has three sub-functional subsets:
+    - Solution Engineering - Compose a solution for a customer using one or more Product Lines
+    - Studio Engineering - Build customer-specific apps, portals, back-office tools, etc. (usually customer's IP)
+    - Pre-sales Engineering - Build Proposals and Proof of Concepts for prospects and customers using one or more Product Lines
+    --------------------------------
 
 # Validation Criteria for all Artifacts in the Definition Model
 
@@ -35,16 +43,34 @@
 ✔ @done(26-02-16 03:50)
 ✔ Effectiveness and Efficiency of the Product? @done(26-02-16 03:50)
 
+# User Centric Dimension:
+    ✔ Disocvery, Deliberatin, PDRs @done(26-02-18 10:18)
+    ✔ User Personas, JTBD, User Journeys, User Touchpoints @done(26-02-18 10:18)
+    ✔ Channels, Modules, Capabilities, Features @done(26-02-18 10:18)
+    ✔ Embeddable Components, Widgets, and Plugins @done(26-02-18 10:18)
+    ✔ Enumeration of Channel Types (By Technology: Web, Mobile, Chat, Voice, Email, etc.) @done(26-02-18 10:18)
+    ✔ Enumeration of Channel Types (By Service Model: Self-serve, Assisted, and Managed Services) @done(26-02-18 10:18)
+
+# Technical and Architectural Dimension:
+    ☐ Subsystems, Components, Functions
+    ☐ Integration Patterns
+    ☐ Operations and Automation Patterns
+    ☐ Operations Experience
+    ☐ System Operations Experience
+    ☐ Goverened by Standards, Patterns, and Templates
+    ☐ Defined by Domain and Technical Architects
+
 # Win Track:
-    - Works on Customer Releases
-    - Works on recruiting customers for Beta Testing (customer onboarding)
-    - Review and approve product capability maturity level (alpha, beta, gamma, etc.)
-    - Receives Queries, Requests, Feedback, and other signals from the Customers, Win Stakeholders, and other stakeholders
-    - Works on Go, Kill, and Pivot decisions for Capabilities
-    - Maintains a Rollout Acceptance Criteria for each kind of Capability (API, Report, Dashboard, etc.) covering Kill Switches, Feature Flags, and Canary Rollout Controls applicable at Deployment level and a tenant level
-    - Maintains a Observability Acceptance Criteria for each kind of Value Stream and Capability covering Adoption, Usage, and Customer Promise Fulfillment Metrics
-    - Onboards, Activates, and Retains Customers
-    - Reviews the Win Outcomes evolution and provides necessary feedback
+    ✔ Works on Customer Releases @done(26-02-18 10:19)
+    ✔ Receives Queries, Requests, Feedback, and other signals from the Customers, Win Stakeholders, and other stakeholders @done(26-02-18 10:19)
+    ✔ Onboards, Activates, and Retains Customers @done(26-02-18 10:20)
+    ✔ Reviews the Win Outcomes evolution and provides necessary feedback @done(26-02-18 10:19)
+    ☐ Works on recruiting customers for Beta Testing (customer onboarding)
+    ☐ Review and approve product capability maturity level (alpha, beta, gamma, etc.)
+    ☐ Works on Go, Kill, and Pivot decisions for Capabilities
+    ☐ Maintains a Rollout Acceptance Criteria for each kind of Capability (API, Report, Dashboard, etc.) covering Kill Switches, Feature Flags, and Canary Rollout Controls applicable at Deployment level and a tenant level
+    ☐ Maintains a Observability Acceptance Criteria for each kind of Value Stream and Capability covering Adoption, Usage, and Customer Promise Fulfillment Metrics
+
 
 # Run Track:
     - Works on Deployable Artifacts (Modules, Products, etc.)

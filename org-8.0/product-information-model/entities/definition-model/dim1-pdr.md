@@ -69,6 +69,8 @@ Draft ──[evidence assembled, decision          Draft ──[abandoned before
 |---|---|---|
 | Upstream | Idea (Dim 1) | PDR validates/kills Idea(s) — may correspond to multiple Ideas |
 | Downstream | PSD (Dim 1) | PDR justifies PSD(s) — a single PDR may justify multiple PSDs across different modules |
+| Downstream | ADR(s) (Dim 5) | PDR may trigger Architecture Decision Records for technical/architectural decisions required to implement the product decision |
+| Downstream | ODR(s) (Dim 7) | PDR may trigger Operations Decision Records for infrastructure/operational decisions required to support the product decision |
 | Downstream | Modeling Task (Track 1) | PDR may trigger Modeling Tasks for Definition Model updates |
 | Downstream | Initiative (Dim 1) | PDR may trigger or refine Initiatives |
 | Evidence | Research Task (Track 1) | PDR references Research Tasks as evidence |

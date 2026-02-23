@@ -71,9 +71,9 @@ The Definition Model describes **what the product is** — its complete structur
 | **Business & Market** | Dim 2: Vendor Value (Why It Wins) | Win stakeholders, win outcomes (with achievement levers), delivery friction, business model (with lever portfolio), pricing tiers, value metrics, business KPIs, win barriers — across AAARRR lifecycle |
 | | Dim 3: Customer Value | Customer segments, buying personas, outcomes, pains, promises, metrics, barriers |
 | **Technical Execution** | Dim 4: User-Centric (Experience) | User personas, jobs (JTBD), UX channels (modality × engagement mode), user journeys. Touchpoints deprecated to work artifacts. |
-| | Dim 5: Technical & Architectural | Subsystems, components, functions |
-| | Dim 6: Ecosystem & Extensibility | Developer personas, programmatic user personas, API/Integration/Extension/SDK modules, API operations (Command/Query/Event/Callback/Batch with SLOs), API compatibility contracts. Deliberate extensibility strategy, not incidental APIs. |
-| | Dim 7: Operational (Runtime) | Environments, clusters, containers |
+| | Dim 5: Technical & Architectural | Architecture model, systems (many-to-many with Dim 8 modules), components, dependencies, interaction flows, architecture decision records (ADR), technical knowledge base. Technical counterpart to Dim 8's functional view. See DR-024. |
+| | Dim 6: Ecosystem & Extensibility | Developer personas, programmatic user personas, API/Integration/Extension/SDK modules, API operations (Command/Query/Event/Callback/Batch with SLOs), API compatibility contracts. Deliberate extensibility strategy, not incidental APIs. Integration Modules also serve Operational Personas (DR-023). |
+| | Dim 7: Operational (Runtime & DevOps) | Infrastructure model, operational personas (quality-taxonomy archetypes), operational jobs, operational journeys, deployment environments, operational targets (SLOs with achievement levers), operational constraints, operational pains, operational readiness, operations decision records (ODR). Completes the PDR/ADR/ODR decision record triad. See DR-023, DR-025. |
 | **Bridge (Taxonomy)** | Dim 8: Structural (Topology) | Products, modules, capabilities, features, value streams |
 | | Dim 9: Data & Information | Data domains, entities, attributes, states |
 
@@ -88,8 +88,8 @@ The Work Model describes **what work exists** — the entities, artifacts, and s
 | Track | Goal | Primary Owner | Key Entities |
 |---|---|---|---|
 | **Track 1: Discovery** (Learning) | Set strategic direction, explore signals, validate ideas, author specifications | Product Management, UX Research | Objective Setting Task, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, Signal Monitoring |
-| **Track 2: Build** (Construction) | Plan releases, write code, produce quality-gated artifacts | Tech Lead, Developers, QA | Epic, User Story, Technical Task, Bug, Module Version, Product Version, Build Monitoring |
-| **Track 3: Run** (Stability) | Plan deployments, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, System Monitoring |
+| **Track 2: Build** (Construction) | Plan releases, decompose PSDs into Module-scoped Epics and System-scoped Tasks, produce three-tier versioned artifacts | Tech Lead, Developers, QA | Epic, Story, Technical Task, Bug, Integration Epic, Integration Story, Design Deliberation, System Version, Module Version, Product Version, Technical Debt Item, Build Monitoring |
+| **Track 3: Run** (Stability) | Plan deployments, manage tenants, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, Tenant, System Monitoring |
 | **Track 4: Win** (Value Realization) | Plan, equip, execute, respond, assess, monitor across AAARRR lifecycle to achieve Win Outcomes | Customer Success, Product Marketing, Sales, Support | Win Planning (5 subtypes), Win Enablement (4 subtypes), Win Engagement (7 subtypes), Win Case, Win Review → Feedback, Win Monitoring |
 | **Track 5: Evolve** (Process Evolution) | Assess, define, and refine Work Model and Operating Model — entity definitions, artifact types, DoD criteria, guidance structures | Process Leads, Product Ops, Engineering Managers | Evolve Planning, Evolve Review → Evolve Findings, Evolve Definition Task, Evolve Monitoring |
 

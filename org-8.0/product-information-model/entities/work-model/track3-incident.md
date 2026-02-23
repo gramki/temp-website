@@ -28,8 +28,9 @@ Captures urgent, unplanned operational work. Incidents require immediate respons
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| May produce | Bug (Track 2) | Incident investigation may reveal a Bug |
+| May produce | Bug (Track 2) | Incident investigation may reveal a Bug (provenance: Run) |
 | May produce | Problem (Dim 1) | Recurring incidents may surface a new Problem |
+| May trigger | Run Epic (Track 3) | Post-mortem findings may trigger operational engineering work (e.g., missing probes, insufficient automation) |
 
 ## Example
 

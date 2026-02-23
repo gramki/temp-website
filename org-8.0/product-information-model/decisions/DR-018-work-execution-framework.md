@@ -31,7 +31,7 @@ All work outputs are classified as: **Decision** (recorded choices with rational
 
 ### 3. Distinguish transitional from terminal artifacts
 
-Transitional artifacts are born in one track and consumed by another (PSD: Discovery → Build; Module Version: Build → Run; Feedback: Win → Discovery). Terminal artifacts are consumed within their own track or by external systems. This distinction identifies integration points and handoff contracts.
+Transitional artifacts are born in one track and consumed by another (PSD: Discovery → Build; System Version: Build → Run; Feedback: Win → Discovery). Terminal artifacts are consumed within their own track or by external systems. This distinction identifies integration points and handoff contracts.
 
 ### 4. Define common DoD structure: entry criteria, exit criteria, artifact checklist
 

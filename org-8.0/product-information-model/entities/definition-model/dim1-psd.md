@@ -94,7 +94,7 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| New / Modified Subsystems | List of References (Dim 5) | Services added or changed |
+| New / Modified Systems | List of References (Dim 5) | Systems added or changed (see `dim5-system.md`) |
 | Key Component Specifications | Text | Behavioral contracts for critical components |
 | Architecture Decision Records | List of References | ADRs for significant technical choices |
 | Performance Requirements | Text | Latency, throughput, resource bounds |
@@ -120,6 +120,7 @@ Always required. The "table of contents" of the change.
 | Security & Compliance Implications | Text | PCI, SOC2, GDPR, data residency |
 | Deployment Strategy | Text | Feature flags, canary, blue-green |
 | Monitoring & Alerting | Text | New SLIs/SLOs, dashboards, alert rules |
+| Operations Decision Records | List of References | ODRs for significant operational choices (see `dim7-odr.md`) |
 
 *Depth by module archetype: Light for Human-Interactive, Medium for Programmatic-Interactive, **Deep** for Reactive/Background.*
 
