@@ -31,6 +31,10 @@ Captures the strategic infrastructure decisions about where the product runs and
 | Compliance Zone | Text | Compliance standards enforced in this environment (e.g., "PCI-DSS Level 1," "LGPD data residency") |
 | Scale Policy | Text | Scaling behavior for this environment (e.g., "auto-scale 3–12 nodes," "fixed 2 nodes") |
 | Hosted Modules | List of References (Dim 8) | Which modules are deployed in this environment |
+| Change Windows | Text | When changes are permitted in this environment (e.g., "weekdays 10am-4pm EST," "24/7 with approval") |
+| Freeze Periods | Text | When changes are prohibited (e.g., "PCI audit weeks," "end-of-quarter processing freeze," "holiday blackout Dec 20-Jan 5") |
+| Cycle Cadence | Text | Recurring change cycle pattern (e.g., "2-week change cycles with 3-day freeze before cycle end," "continuous") |
+| Override Rules | Text | Conditions under which change windows and freeze periods can be overridden (e.g., "Emergency-Technical changes exempt from freeze with VP approval") |
 
 ## Statuses
 
@@ -57,7 +61,9 @@ Captures the strategic infrastructure decisions about where the product runs and
 | Scoped by | Operational Readiness (Dim 7) | System readiness is assessed per-environment |
 | Justified by | PDR (Dim 1) | New environment provisioning is justified by PDRs |
 | Decisions | ODR(s) (Dim 7) | Operational decisions affecting this environment are recorded as ODRs |
-| Work Model | Deployment (Track 3) | Deployments target this environment |
+| Targeted by | SDD / MDD / PDD (Track 3) | Deployment descriptors target this environment with environment-specific deployment specifications |
+| Targeted by | Station(s) (Dim 7) | Stations within Deployment Trains target this environment as a governance checkpoint |
+| Work Model | Deployment Task (Track 3) | Deployment Tasks apply descriptors to this environment |
 | Work Model | Capacity Planning Task (Track 3) | Capacity is planned per-environment |
 
 ## Examples

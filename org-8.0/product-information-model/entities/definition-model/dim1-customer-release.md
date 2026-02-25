@@ -40,10 +40,12 @@ Customer Release is a cross-cutting entity whose lifecycle spans multiple Work M
 |---|---|---|
 | Upstream | Initiative (Dim 1) | Customer Release advances Initiative(s) (many-to-many) |
 | References | Product Version (Work Model) | Customer Release references Product Version(s) — the certified compositions that underpin the delivery |
-| Deployed via | Product Package (Track 3) | Customer Release is deployed via Product Package(s) — the operationally complete deployable compositions |
+| Deployed via | PDD (Track 3) | Customer Release is deployed via PDD(s) — environment-specific deployment specifications that reference Product Package Version(s) |
+| May span | Deployment Train(s) (Dim 7) | A Customer Release may span multiple Deployment Trains when different modules follow different promotion paths |
+| Governed by | Change Request(s) (Track 3) | Deployment-related changes for this release are governed by Change Requests scoped to Deployment Trains |
 | Work Model | Initiative Scoping Task (Track 1) | Customer Release may be defined as part of Initiative scoping (strategic planning) |
 | Work Model | Release Planning Task (Track 2) | Release Planning Tasks scope the Customer Release (technical content, PSDs, timeline) |
-| Work Model | Deployment Planning Task (Track 3) | Deployment Planning Tasks ensure required deployables (System Versions, Module Packages, or Product Packages) are deployed |
+| Work Model | Deployment Planning Task (Track 3) | Deployment Planning Tasks produce deployment descriptors (SDD/MDD/PDD versions) for required deployables |
 | Work Model | Go-to-Market Planning Task (Track 4) | GTM Planning Tasks prepare the launch |
 | Work Model | Customer Rollout Planning Task (Track 4) | Rollout Planning Tasks plan phased customer delivery |
 

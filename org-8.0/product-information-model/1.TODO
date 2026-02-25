@@ -1,15 +1,62 @@
 
-# Product Line Engineering has two sub-functional subsets:
-    - Domain Engineering - Advance the Domain Capabilities
-    - Win Engineering- Advance the Win Capabilities (Win Enablement)
+# Items from VP Review:
 
-# Engagement Engineering has three sub-functional subsets:
-    - Solution Engineering - Compose a solution for a customer using one or more Product Lines
-    - Studio Engineering - Build customer-specific apps, portals, back-office tools, etc. (usually customer's IP)
-    - Pre-sales Engineering - Build Proposals and Proof of Concepts for prospects and customers using one or more Product Lines
+    ## High Priority:
+        ✔ Feature Flags / Feature Toggles — Resolved: Reframed. "Feature flag" is not a single modeling entity. Release toggles are part of deployment workflow (MDD scripts). Experiment toggles are part of Experiment entity. Ops toggles are operational configuration (MDD environment config). Entitlement toggles (Capability Activation Policy) are Pricing Tier (Dim 2) → Capability (Dim 8) relationships, enforced at runtime. The mechanism is not a UPIM entity — the concerns are already distributed across existing entities. @done
+        ☐ Hotfix / Emergency Fix Path — P0 Bug from Run-provenance Incident needs explicit fast-path: Incident → Bug → emergency Technical Task → System Version → immediate Deployment, bypassing sprint boundaries. Model the fast-path workflow with different quality gate tolerances, hotfix branch patterns, and expedited review.
+        ☐ Incident entity file is skeletal — Fields and Statuses are "_To be refined_". Incident is the primary trigger for Bug (provenance: Run), Run Epic (operational engineering), and cross-track feedback to Discovery (Signal). Detail this entity file.
+        ✔ Deployment Planning Task entity file is skeletal — Resolved: Elevated to detailed entity in DR-028. Now produces SDD/MDD/PDD versions. Fields, Statuses, and Relationships fully specified. @done
+        ✔ Change Request entity file missing — Resolved: Elevated from skeletal to detailed entity in DR-029. Entity file `track3-change-request.md` now has fields (Type, Scope, Justification, CAB Decision), statuses (Submitted, Approved, In Progress, Complete), and relationships (scoped to Deployment Train/Station, contains Deployment Plans, Verification Tasks). @done
+        ☐ Maintenance Task entity file missing — described in draft-work-model.md and cross-track inventory but no entity file exists. Create entity file.
+
+
+    ## Medium Priority:
+        ✔ DR-026 S16 contradicts DR-027 C2 — Annotated DR-026 S16 with blockquote noting it was refined by DR-027 C2/C3/C4. @done
+        ✔ Technical Task track ownership — Resolved: Technical Task is a per-track concept. Created `track3-technical-task.md` for Run Track. Updated `track2-technical-task.md` to remove Run Story references. Updated all referencing documents. @done
+        ☐ Rollback not modeled as structured workflow — currently a status on Deployment artifact (Active → Rolled Back). DR-029 establishes that rollback is a new Deployment Task applying a previous descriptor version, producing a new Deployment record. However, cascading rollback (Module Package Version rollback → constituent System Version rollbacks, dependency-aware rollforward) is not yet modeled. Consider structured rollback workflow as future work.
+        ☐ Post-mortem under-modeled — appears as artifact of Incident in work execution framework, but Incident itself is skeletal. Model post-mortem as structured output of Incident with defined fields (timeline, root cause, impact, corrective actions, prevention measures).
+        ☐ Continuous deployment mode not well-supported — planning entities (Release Planning, Milestone Planning) assume cadenced delivery. Teams deploying 20x/day need Module Version verification and Product Version certification as continuous-integration-level activities, not milestone-gated. Acknowledge CD operating mode explicitly.
+        ✔ Environment promotion path not explicit — Resolved: DR-029 introduces Deployment Train (Dim 7) as a reusable promotion path with Stations (Dim 7) as checkpoints. Each Station targets a Deployment Environment with entry/exit criteria, approval requirements, and soak times. Change Requests scope to Trains/Stations. @done
+        ✔ Module Package Operational System Version reference — Resolved: Operational System Versions are the same System Version entity type, produced by Run Track engineering. Removed "(Track 2/3)" notation from all entity files. @done
+
+    ## Low Priority:
+        ✔ Run Track engineering velocity not monitored — Resolved: Created `track3-run-engineering-monitoring.md` as the Run Track's counterpart to Build Monitoring. Monitors operational system CI/CD health, Run Epic/Story velocity, and engineering quality. @done
+        ☐ Non-functional requirements traceability thin — performance, security, accessibility addressed via quality gates but no traceability chain from requirement origin (PSD, Operational Target in Dim 7) through verification (System Version gate, Module Version test, Product Version certification).
+        ✔ "System Monitoring" scope — Resolved: Kept the name but updated definition to acknowledge broader scope (Module Packages, Product Packages, Tenant health, cross-module wiring). Added scope note blockquote. @done
+        ☐ External dependency management — third-party libraries, external APIs, cloud service dependencies not modeled as entities. Dependency events (SDK upgrade, API deprecation) trigger significant work. Quality gate on System Version exists but dependency entity itself is absent from Dim 5.
+        ☐ Cross-Module Technical Task coordination — a Story may spawn Technical Tasks in multiple Systems owned by different teams. Coordination pattern is partly Operating Model concern but Work Model could acknowledge it.
+        ☐ Security and compliance workflow — security scanning is a quality gate, but penetration testing, threat modeling, security review of Design Deliberation outcomes, vulnerability management as ongoing work are not explicitly modeled.
+    
+
+
+# Connect Product Line Engineering and Work Model, Operating Model:
+    ## Product Line Engineering has two sub-functional subsets:
+        - Domain Engineering - Advance the Domain Capabilities
+        - Win Engineering- Advance the Win Capabilities (Win Enablement)
+
+    ## Engagement Engineering has three sub-functional subsets:
+        - Solution Engineering - Compose a solution for a customer using one or more Product Lines
+        - Studio Engineering - Build customer-specific apps, portals, back-office tools, etc. (usually customer's IP)
+        - Pre-sales Engineering - Build Proposals and Proof of Concepts for prospects and customers using one or more Product Lines
     --------------------------------
 
+
+# Notes:
+    - Integrated, Verfied Module Versions and their Packages are deployable. Atomic Systems are not deployable. Atomic Systems are the building blocks of the Integrated, Verfied Module Versions and their Packages.
+    - The modules may go through continuous integration and deployment pipelines to produce the Integrated, Verfied Module Versions and their Packages. These pipelines are part of the Operating Model.
+
+    - Atomic System Version update -> Module Version update -> Module Package Update -> Module Deployment Definition update -> Module Deployment -> Module Deployment Verification -> Module Deployment Release 
+    - If a Module Deployment is not acceptable because Deployed products will become incompatible, the Module Deployment is not permitted.
+
+    - Run and Win Tracks also have engineering work that produces atomic systems that could enhance modle and porduct packages.
+    - SREs and Win Engineering teams should be able to contribute to Module and Product Versions and Packages as part of their work.
+    - If so, how do we determine where to place which capability under? May be, the Win Track should primarily add capabilities to the Product Packages?
+    - Customer Products have specific Modules and Products as well. Therefore, they will have Module Versions, Product Versions, Module Packages, and Product Packages as well.
+
+    - Data Migration and Schema Changes. In enterprise systems, database schema changes and data migrations are a significant category of engineering work that often requires coordination across Systems and careful rollout planning (rollback of schema changes is harder than code rollback). The model doesn't explicitly address this — it would likely be a Story or Technical Task, but the unique rollout/rollback characteristics of schema changes might warrant acknowledgment.
+
 # Validation Criteria for all Artifacts in the Definition Model
+
 
 # Modeling Task:
     - Template for modeling task
@@ -254,3 +301,7 @@ Discovery Work (Research Tasks, Experiments, Prototypes/Spikes)
 ```
 
 Does this framing capture what you're after — the dual output (PSD + Definition Update), the broadened PDR, and the new Definition Task as the work entity? Or should we zoom further into specific dimensions to refine which entities truly need this treatment?
+
+
+
+====

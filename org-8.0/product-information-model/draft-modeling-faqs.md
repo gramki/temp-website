@@ -176,7 +176,7 @@ These four concepts operate at different levels and serve different purposes. Se
 
 **System Version, Module Version, and Product Version are Work Model artifacts** (Build Track outputs) because they are *results* of engineering progress, not planned upfront. In CI/CD, versions are routinely and continuously incremented — they are byproducts of the build process. **Customer Release is a Definition Model entity** (Dimension 1, Strategy) because it is a business planning construct that is deliberately scoped, named, and scheduled.
 
-**Each artifact tier is a composite system and a communication bridge.** Module Version and Product Version are not just verification checkpoints — they are systems in their own right, with emergent operational properties at each composition level (end-to-end latency, integrated failure modes, cross-module workflows). They are also communication bridges at progressively broader organizational scope: System Version is the shared vocabulary between Build and Run teams; Module Version bridges Build, Run, and Product teams (PMs, SREs, and engineers all reference "Payments Module v4.1"); Product Version is the ubiquitous language across all teams and customers (Win teams, compliance, customers all reference "Product v3.2"). See `versioning-alternatives-analysis.md` for how alternative approaches address these challenges.
+**Each artifact tier is a composite system and a communication bridge.** Module Version and Product Version are not just verification checkpoints — they are systems in their own right, with emergent operational properties at each composition level (end-to-end latency, integrated failure modes, cross-module workflows). They are also communication bridges at progressively broader organizational scope: System Version is the shared vocabulary between Build and Run teams; Module Version bridges Build, Run, and Product teams (PMs, SREs, and engineers all reference "Payments Module v4.1"); Product Version is the ubiquitous language across all teams and customers (Win teams, compliance, customers all reference "Product v3.2"). See `stories/versioning-alternatives-analysis.md` for how alternative approaches address these challenges.
 
 ---
 
@@ -209,6 +209,8 @@ Modeling "Deployed" as a status of the System Version would imply a binary state
 | payments-service v2.3.3 | production-eu | Planned | Rolling | — |
 
 This correctly models the operational reality and supports the decoupling of deployment from release — a System Version can be deployed (even to production) without being part of an activated Customer Release (e.g., behind a feature flag). See DR-026.
+
+> **DR-029 update:** Deployment is now an artifact (records that a descriptor was applied); the work is performed by Deployment Task. See DR-029.
 
 ---
 
@@ -934,13 +936,15 @@ This reflects how work is actually planned and implemented. PMs and Tech Leads p
 
 The original two-tier model (Module Version → Product Version) had two problems. First, "Module Version" was misnamed — the Build Track builds Systems (Dim 5), not Modules (Dim 8). `payments-service v2.3.3` is a System Version. Second, there was no integration verification layer between individual System Versions and the full Product Version. The three-tier model addresses three distinct needs:
 
-**Verification and deployment scope:** (1) Systems are built and deployed independently as System Versions (atomic deployment unit); (2) Systems within a Module are verified to work together as Module Versions and deployed as Module Packages (integrated deployment unit); (3) the full product composition is certified as a Product Version and deployed as a Product Package (complete deployment unit). All three tiers are deployable at their composition level. Module-scoped verification is O(k) within a Module rather than O(n²) across all Systems.
+**Verification and deployment scope:** (1) Systems are built and deployed independently as System Versions via SDDs (atomic deployment unit); (2) Systems within a Module are verified to work together as Module Versions and deployed as Module Packages via MDDs (integrated deployment unit); (3) the full product composition is certified as a Product Version and deployed as a Product Package via PDDs (complete deployment unit). All three tiers are deployable at their composition level. Module-scoped verification is O(k) within a Module rather than O(n²) across all Systems.
 
 **Composite system nature:** Each tier is a system in its own right. Module Version is a composite system with emergent properties (end-to-end latency, integrated failure modes, cross-system data consistency) that do not exist at the individual System level. Product Version is a higher-order composite system with product-level emergent properties (end-to-end user journeys, cross-module workflows, product-wide compliance posture). All three tiers are operable and observable — they are not verification checkpoints.
 
 **Communication bridge:** Each tier provides a shared vocabulary at progressively broader organizational scope. System Version is the Build+Run vocabulary (engineers + SREs). Module Version bridges Build+Run+Product — PMs reason in Modules ("Payments capability v4.1"), SREs monitor integrated capability health, Build teams know which Systems compose it. Product Version is the ubiquitous language across all teams and customers — Win teams, compliance, and customers all reference "Product v3.2." Without these tiers, cross-functional teams resort to ad-hoc translation between service names, feature names, and marketing labels.
 
-See DR-026. See also `versioning-alternatives-analysis.md` for how alternative approaches (monorepo, contract testing, GitOps, release trains) address these challenges and where they leave gaps.
+See DR-026. See also `stories/versioning-alternatives-analysis.md` for how alternative approaches (monorepo, contract testing, GitOps, release trains) address these challenges and where they leave gaps.
+
+> **DR-029 update:** Module Package → Module Package Version; Product Package → Product Package Version (Work Model artifacts). Deployment is refactored as an artifact produced by Deployment Task. See DR-029.
 
 ---
 
@@ -988,9 +992,9 @@ Through **Composition Levels** — a formal hierarchy of deployable systems:
 
 | Composition Level | Entity | What it is | Deployment Granularity |
 |---|---|---|---|
-| **Atomic** | System (Dim 5) | An independently buildable, deployable, operable technical unit | System Version → deployed directly |
-| **Integrated** | Module (Dim 8) | A composite system of Systems with emergent operational properties | Module Package → deployed as integrated unit |
-| **Complete** | Product | The highest-order composite system of Modules | Product Package → deployed as complete unit |
+| **Atomic** | System (Dim 5) | An independently buildable, deployable, operable technical unit | System Version → deployed via SDD |
+| **Integrated** | Module (Dim 8) | A composite system of Systems with emergent operational properties | Module Package → deployed via MDD |
+| **Complete** | Product | The highest-order composite system of Modules | Product Package → deployed via PDD |
 
 "System" without qualification always refers to the Dim 5 atomic level — the System entity. When we say "Module Version is a composite system" or "Product Version is a higher-order composite system," we use "system" in the **systems-thinking sense**: a whole composed of interacting parts with emergent properties that don't exist at the constituent level. Module Version has end-to-end latency, integrated failure modes, and cross-system data consistency. Product Version has end-to-end user journeys, cross-module workflows, and product-wide compliance posture. These emergent properties make Module and Product operationally real — SREs monitor them, PMs reason about them, customers experience them.
 
@@ -1000,19 +1004,21 @@ The composition-level framing prevents confusion: Technical Tasks are scoped to 
 
 ### Q94: Why is Module Package a separate entity from Module Version?
 
-Because what is *deployed* is richer than what is *built*. Module Version is a Build Track artifact — it certifies that product System Versions integrate correctly within a Module boundary, with binding configuration that constrains the composition to its legal form. But the Run Track adds operational systems (custom probes, reconciliation jobs, cert rotation automation, environment-specific adapters) and operational configuration (monitoring thresholds, scaling policies, alerting rules) before deployment. Module Package captures this enrichment as a distinct entity.
+Because what is *deployed* includes both the tenant-serving assembly (Module Version) and operator-facing support systems (Module Package Version). Module Version is a Build Track artifact — it certifies that product System Versions integrate correctly within a Module boundary, with binding configuration that constrains the composition to its legal form. The Run Track adds operator-facing systems (custom probes, reconciliation jobs, dashboards, log shippers, cert rotation automation) and operational wiring (probe-to-system mappings, automation triggers, operational service mesh routes) to produce Module Package Version — an environment-independent deployable composition. Environment-specific configuration (monitoring thresholds, scaling policies, deployment scripts) is specified separately in the MDD (Module Deployment Descriptor), which references the Module Package and targets a specific environment. See DR-028.
 
 Without Module Package, two things go wrong:
 1. **Operational systems are invisible.** The probes, reconcilers, and automation scripts that SREs build have no composition entity. They exist as loose deployments alongside product systems, with no formal relationship to the Module they serve.
-2. **Module Version becomes overloaded.** If we put operational systems and environment-specific configuration on Module Version, we conflate build-time concerns (integration verification, binding configuration) with run-time concerns (operational enrichment, environment targeting). Build Track produces Module Version; Run Track produces Module Package — clean ownership boundary.
+2. **Module Version becomes overloaded.** If we put operational systems on Module Version, we conflate build-time concerns (integration verification, binding configuration) with run-time concerns (operator-facing systems). Build Track produces Module Version; Run Track produces Module Package — clean ownership boundary.
 
 The naming also reflects the semantic: Module Version is a *version* (a verified snapshot of the composition). Module Package is a *package* (an enriched, deployable bundle). Versions are verified; packages are deployed. See DR-027.
+
+> **DR-029 update:** Module Package is now a Dim 7 specification; the Work Model artifact is renamed Module Package Version.
 
 ---
 
 ### Q95: Why does the Run Track have its own Epics and Stories?
 
-Because the Run Track is an engineering track, not just an operational track. Custom probes, reconciliation jobs, cert rotation automation — these are legitimate Systems (Dim 5) with code, repos, CI/CD pipelines, tests, and System Versions. Building them requires the same work decomposition as product engineering: scope the work (Run Epic, Module-scoped), break it into increments (Run Story), implement with Technical Tasks scoped to operational Systems.
+Because the Run Track is an engineering track, not just an operational track. Custom probes, reconciliation jobs, cert rotation automation — these are legitimate Systems (Dim 5) with code, repos, CI/CD pipelines, tests, and System Versions. Building them requires the same work decomposition as product engineering: scope the work (Run Epic, Module-scoped), break it into increments (Run Story), implement with Run Track Technical Tasks scoped to operational Systems. Technical Task is a per-track concept — each engineering track owns its Technical Tasks with the same entity structure but distinct track ownership.
 
 Run Epics mirror Build Track Epics: they are Module-scoped (Dim 8), produce System Versions, and can be planned and tracked. But they differ in three ways:
 1. **Purpose.** Build Track Epics deliver product functionality (serving end-user Personas). Run Epics deliver operational capability (serving Operational Personas).
@@ -1023,7 +1029,22 @@ Without Run Epics and Run Stories, operational engineering work is informal and 
 
 ---
 
-### Q96: Why are Modules flat (no Module-within-Module nesting)?
+### Q96: Why are deployment descriptors (SDD, MDD, PDD) separate from Module Package and Product Package?
+
+Because *what is deployed* and *how it is deployed to a specific environment* are different concerns that change at different rates. Module Package defines the composition (Module Version + operational systems + operational wiring) — this is environment-independent and changes when operational systems change. The MDD defines how that composition is deployed to a specific environment (resource sizing, monitoring thresholds, deployment scripts, runtime artifact references) — this changes when deployment configuration changes, even when the Module Package has not changed.
+
+Without this separation, three problems arise:
+1. **Version confusion.** A monitoring threshold change in production-latam is not a Module Package change (no new systems, no new wiring), but there is no entity to version deployment configuration independently.
+2. **Environment coupling.** A Module Package targeting production-latam cannot be reused for production-us without creating a separate Package, even though the composition is identical.
+3. **Missing deployment logic.** Pre-rollout scripts (database migrations), validation scripts (health checks), and rollback scripts (state restoration) have no structured home — they exist alongside deployments, not within a versioned specification.
+
+The separation yields three independent version streams at the integrated level: Module Version (functional — what product code changes), Module Package (operational — what operational systems are included), MDD (deployment — how it deploys to this environment). Each evolves on its own timeline. See DR-028. See also `stories/deployment-artifacts-analysis.md` for the full four-layer model.
+
+> **DR-029 update:** Deployment descriptors are now applied by Deployment Tasks (not Deployments). See DR-029.
+
+---
+
+### Q97: Why are Modules flat (no Module-within-Module nesting)?
 
 The Product → Module → Capability → Feature hierarchy is deliberately one level deep at the Module tier. Modules are direct children of Product with no self-referential nesting. This is a structural simplicity choice with three motivations:
 
@@ -1032,5 +1053,35 @@ The Product → Module → Capability → Feature hierarchy is deliberately one 
 **Decomposition discipline.** When a Module feels too large, the answer is to split it into peer Modules — not to introduce sub-modules. "Payments" containing both domestic and cross-border concerns is better modeled as two peer Modules ("Domestic Payments," "Cross-Border Payments") than as a parent "Payments" with two children. Peer Modules have independent versioning, independent integration verification, and independent Module Packages. A parent Module would need to compose its children, adding structural complexity with little informational gain.
 
 **Grouping belongs elsewhere.** If teams need to group related Modules for organizational purposes ("the Payments domain includes Domestic Payments, Cross-Border Payments, and Settlement Modules"), that grouping belongs in the Operating Model (domain ownership, team structure) or as a lightweight tagging mechanism — not as structural nesting in the Definition Model. The Definition Model captures what the product *is*; organizational grouping captures how the org *thinks about* the product.
+
+---
+
+### Q98: Why is Module Package both a Definition Model entity and a Work Model artifact?
+
+Module Package (Dim 7) is the specification/template — it defines which operational systems and wiring enrich a Module. Module Package Version (Track 3) is the versioned instance — specific System Versions assembled at a specific point in time. This follows the same Definition → Work pattern as Module (Dim 8) → Module Version (Track 2), and Product (Dim 8) → Product Version (Track 2). The specification is stable and reusable; the version is specific and changing. The specification lives in Dim 7 (not Dim 8) because package composition is an operator-facing concern (probes, dashboards, reconcilers — not tenant-serving systems), not visible to customers. See DR-029, D1-D3.
+
+---
+
+### Q99: Why is Deployment an artifact and not a work entity?
+
+A Deployment records that something happened — a descriptor was applied to an environment, producing a result. It is not work to be done. The "work to be done" is the Deployment Task (Ready → Executing → Complete/Failed). The Deployment (artifact) has durable statuses (Active → Superseded → Rolled Back) that persist long after the task completes. This separation is consistent with every other track: Specification Task produces PSD (not the task itself), Research Task produces evidence (not the task itself). See DR-029, D7-D8.
+
+---
+
+### Q100: Why are Change Requests only for deployment-related changes?
+
+Change Requests govern the formal change management workflow: approval → deployment planning → deployment execution → verification → completion. This workflow is specific to applying deployment descriptors to environments. Maintenance Tasks may need change management, but through different processes (they don't require Deployment Plans, Deployment Tasks, or Verification Tasks). Keeping Change Requests scoped to deployment-related changes prevents the entity from becoming a catch-all that dilutes its precision. See DR-029, D12.
+
+---
+
+### Q101: How does a Deployment Train relate to a Customer Release?
+
+A single Customer Release may span multiple Deployment Trains when different modules follow different promotion paths. For example, an "LATAM Expansion" release might include payment modules on a PCI Regulated Train (72h soak, CAB approval) and a marketing portal on a Fast-Track Train (automated promotion, no soak). The Customer Release is the commercial unit; the Deployment Train is the operational promotion unit. They are associated but not constrained to a 1:1 relationship. See DR-029, D13.
+
+---
+
+### Q102: Why is Verification Task standalone rather than a subtype?
+
+Verification Task is distinct from Maintenance Task (recurring/preventative), Run Track Technical Task (serves Run Stories), and Deployment Task (applies descriptors). Making it a subtype under a generic "Operational Task" would blur these distinct responsibilities. Verification Tasks produce evidence, are required for Change Request closure, and are created during Deployment Planning or added directly to Change Requests. Their lifecycle and purpose are specific enough to warrant a standalone entity. See DR-029, D9.
 
 ---

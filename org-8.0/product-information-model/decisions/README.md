@@ -46,6 +46,8 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-024 | Dimension 5 Expansion — Technical & Architectural Dimension with 7 Entities, ADR, Dim 8/Dim 5 Duality | Accepted | 2026-02-15 |
 | DR-025 | Operations Decision Record (ODR) — Completing the Decision Record Triad (PDR/ADR/ODR) | Accepted | 2026-02-15 |
 | DR-026 | Build Track Detailing — Work Entity/Artifact Distinction, Scoping Corrections, Three-Tier Versioning | Accepted | 2026-02-15 |
-| DR-027 | Composition Levels, Module Package, and Run Track Engineering | Accepted | 2026-02-15 |
+| DR-027 | Composition Levels, Module Package, and Run Track Engineering (refined by DR-029) | Accepted | 2026-02-15 |
+| DR-028 | Deployment Descriptors — SDD, MDD, PDD (refined by DR-029) | Accepted | 2026-02-15 |
+| DR-029 | Change-to-Deployment Workflow Redesign — Deployment Train, Station, Change Request, Package Specs, Deployment Task/Artifact Split | Accepted | 2026-02-15 |
 
 ---

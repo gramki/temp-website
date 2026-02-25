@@ -256,17 +256,19 @@ UPIM's model introduces three artifact tiers, each of which is a **composite sys
 
 All three tiers are deployable — not just verifiable:
 
-| Deployment Level | Build Track Artifact | Run Track Artifact | What Gets Deployed |
-|---|---|---|---|
-| **Atomic** | System Version | (deployed directly) | A single System to a specific environment |
-| **Integrated** | Module Version | **Module Package** | Module Version + operational System Versions + operational configuration |
-| **Complete** | Product Version | **Product Package** | Product Version + Module Packages + cross-module operational wiring |
+| Deployment Level | Build Track Artifact | Run Track Artifact | Deployment Descriptor | What Gets Applied |
+|---|---|---|---|---|
+| **Atomic** | System Version | (deployed directly) | **SDD** | Environment-specific System Version deployment specification |
+| **Integrated** | Module Version | **Module Package Version** | **MDD** | Environment-specific Module Package Version deployment specification (composes SDDs) |
+| **Complete** | Product Version | **Product Package Version** | **PDD** | Environment-specific Product Package Version deployment specification (composes MDDs) |
 
-System Version is the **atomic deployment unit** — it is deployed directly by the Run Track. Module Package is the **integrated deployment unit** — the Run Track enriches Module Version with operational systems (probes, automation, reconcilers) and environment-specific configuration. Product Package is the **complete deployment unit** — the Run Track assembles Module Packages with cross-module operational wiring for full product deployment.
+System Version is the **atomic deployment unit** — deployed via SDD (System Deployment Descriptor). Module Package Version is the **integrated deployment unit** — the Run Track adds operator-facing systems (probes, automation, reconcilers, dashboards, log shippers) and operational wiring to Module Version; deployed via MDD (Module Deployment Descriptor). Product Package Version is the **complete deployment unit** — the Run Track assembles Module Package Versions with cross-module operational wiring; deployed via PDD (Product Deployment Descriptor).
+
+Module Package Version and Product Package Version are **environment-independent** — they define *what* is deployed. Deployment descriptors (SDD, MDD, PDD) define *how* and *where* — environment-specific configuration, deployment scripts, and runtime artifact references. This separation enables a single Module Package Version to be deployed to multiple environments via different MDDs, and supports three independent version streams at the integrated level: Module Version (functional), Module Package Version (operator-facing systems), MDD (deployment progression). See `deployment-artifacts-analysis.md` (same folder) for the full four-layer model and rationale. **DR-029** introduces Deployment Train and Station as structured promotion path entities for deployment workflows.
 
 ### Binding Configuration: Legal Composition
 
-Module Version includes a **binding configuration** that constrains the composition to its legal form. This is not mere wiring — it represents scoped, deliberate build-time choices: which adapter variant to include, which protocol version to bind, which capability set to activate. Not all possible combinations of System Versions are valid. The binding configuration determines what this composition is intended to deliver and what it is not. Environment-independent (environment-specific configuration is applied at Module Package level by the Run Track).
+Module Version includes a **binding configuration** that constrains the composition to its legal form. This is not mere wiring — it represents scoped, deliberate build-time choices: which adapter variant to include, which protocol version to bind, which capability set to activate. Not all possible combinations of System Versions are valid. The binding configuration determines what this composition is intended to deliver and what it is not. Environment-independent (environment-specific configuration is applied at the deployment descriptor level — MDD — by the Run Track).
 
 ### The Run Track as Engineering Track
 
@@ -277,7 +279,7 @@ The deployed composition is richer than the built composition. The Run Track is 
 - **Cert rotation automation** — automated certificate lifecycle management
 - **Environment-specific adapters** — adapters for region-specific infrastructure
 
-These operational Systems are legitimate Dim 5 Systems with code, repos, CI/CD pipelines, tests, and System Versions. They serve Operational Personas (Dim 7) and are built through the Run Track's own Epic/Story/Task hierarchy (Run Epics and Run Stories). The Run Track's operational System Versions enrich Module Versions into Module Packages — the deployable composition is a collaboration between Build Track (product systems) and Run Track (operational systems).
+These operational Systems are legitimate Dim 5 Systems with code, repos, CI/CD pipelines, tests, and System Versions. They serve Operational Personas (Dim 7) and are built through the Run Track's own Epic/Story/Task hierarchy (Run Epics and Run Stories). The Run Track's operational System Versions enrich Module Versions into Module Package Versions — the deployable composition is a collaboration between Build Track (product systems) and Run Track (operational systems).
 
 **Environment-specific work is not just configuration.** A common misconception is that the difference between a Module Version and what's deployed is "just config." In practice, the Run Track may introduce code — operational subsystems — per environment. LATAM production may need a custom payment probe that exercises BRL corridors. US production may need a different reconciliation schedule against different bank file formats. These are code artifacts, not configuration values.
 

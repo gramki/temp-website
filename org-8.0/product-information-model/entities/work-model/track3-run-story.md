@@ -42,8 +42,8 @@ Provides granular decomposition of operational engineering work. Without Run Sto
 | Belongs to | Run Epic (Track 3) | Run Story is a unit of work within a Run Epic |
 | Scoped to | Module (Dim 8) | Inherited from parent Run Epic |
 | Targets | Operational System (Dim 5) | Run Story targets a specific operational System |
-| Implemented by | Technical Task(s) (Track 2/3) | Run Story is implemented by Technical Tasks scoped to the operational System |
-| Produces | Operational System Version (Track 2) | Run Story work produces a versioned artifact of the operational System |
+| Implemented by | Technical Task(s) (Track 3) | Run Story is implemented by Run Track Technical Tasks scoped to the operational System |
+| Produces | Operational System Version | Run Story work produces a versioned artifact of the operational System (System Version entity) |
 
 ## Examples
 

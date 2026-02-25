@@ -6,13 +6,13 @@
 
 ## Definition
 
-A large body of operational engineering work scoped to a single Module (Dim 8), producing operational System Versions that contribute to Module Packages. Run Epics are the Run Track's counterpart to Build Track Epics — they define committed operational engineering scope. Where Build Track Epics deliver product functionality, Run Epics deliver **operational capability**: monitoring, automation, resilience, and environment-specific operational systems.
+A large body of operational engineering work scoped to a single Module (Dim 8), producing operational System Versions that contribute to Module Package Versions. Run Epics are the Run Track's counterpart to Build Track Epics — they define committed operational engineering scope. Where Build Track Epics deliver product functionality, Run Epics deliver **operational capability**: monitoring, automation, resilience, and environment-specific operational systems.
 
 Run Epics may be triggered by:
 - **Operational Readiness gaps** — a System's Operational Readiness assessment (Dim 7) reveals missing probes, insufficient automation, or inadequate monitoring
 - **Incidents** — a post-mortem identifies operational tooling deficiencies (e.g., "we lacked synthetic probes for the LATAM payment corridor")
 - **Operational improvement initiatives** — proactive investment in operational excellence (e.g., "reduce operational toil for Payments Module by 50%")
-- **New Module Version readiness** — the Build Track produces a new Module Version that needs Run Track enrichment into a Module Package
+- **New Module Version readiness** — the Build Track produces a new Module Version that needs Run Track enrichment into a Module Package Version
 
 Run Deliberations within Run Epic work produce **ODRs** (Dim 7), not ADRs (Dim 5). ODRs record operational decisions — probe strategy, automation approach, monitoring architecture — that emerge during operational engineering.
 
@@ -22,7 +22,7 @@ Run Deliberations within Run Epic work produce **ODRs** (Dim 7), not ADRs (Dim 5
 
 Makes operational engineering work visible and plannable. Without Run Epics:
 - Operational system development (probes, automation, reconcilers) is informal and untracked
-- The relationship between operational investment and Module Package readiness is invisible
+- The relationship between operational investment and Module Package Version readiness is invisible
 - SRE engineering time is conflated with operational incident response — no distinction between "build operational systems" and "operate existing systems"
 - Operational improvement initiatives have no structured work decomposition
 
@@ -34,7 +34,7 @@ Makes operational engineering work visible and plannable. Without Run Epics:
 | Module | Reference (Dim 8) | Which Module this Run Epic targets (same Module-scoping as Build Track Epics) |
 | Trigger | Enum + Reference | What triggered this work: `Readiness Gap` (ref: Operational Readiness), `Incident` (ref: Incident), `Improvement Initiative`, `Module Version Readiness` (ref: Module Version) |
 | Operational Systems Targeted | List of References (Dim 5) | Which operational Systems (Dim 5) this Epic will build or enhance |
-| Target Module Package | Reference (Track 3) | Which Module Package this Epic's work contributes to (if applicable) |
+| Target Module Package Version | Reference (Track 3) | Which Module Package Version this Epic's work contributes to (if applicable) |
 | Acceptance Criteria | Text | What "done" looks like for this operational engineering effort |
 
 ## Statuses
@@ -43,7 +43,7 @@ Makes operational engineering work visible and plannable. Without Run Epics:
 |---|---|
 | Planned | Run Epic identified and scoped; not yet started |
 | In Progress | Run Stories and Technical Tasks actively being worked |
-| Done | All Run Stories delivered; operational System Versions produced; Module Package contribution complete |
+| Done | All Run Stories delivered; operational System Versions produced; Module Package Version contribution complete |
 
 ## Relationships
 
@@ -51,8 +51,8 @@ Makes operational engineering work visible and plannable. Without Run Epics:
 |---|---|---|
 | Scoped to | Module (Dim 8) | Run Epic is scoped to a single Module |
 | Decomposes into | Run Story(ies) (Track 3) | Run Epic decomposes into Run Stories |
-| Produces | Operational System Version(s) (Track 2) | Run Epic work produces operational System Versions |
-| Contributes to | Module Package (Track 3) | Run Epic's operational System Versions enrich a Module Package |
+| Produces | Operational System Version(s) | Run Epic work produces operational System Versions (same System Version entity type) |
+| Contributes to | Module Package Version (Track 3) | Run Epic's operational System Versions enrich a Module Package Version |
 | Triggered by | Operational Readiness (Dim 7) | Readiness gaps trigger Run Epics |
 | Triggered by | Incident (Track 3) | Post-mortem findings trigger Run Epics |
 | May produce | ODR(s) (Dim 7) | Run Deliberations within Run Epic work produce ODRs |

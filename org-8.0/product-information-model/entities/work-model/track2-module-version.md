@@ -6,14 +6,17 @@
 
 ## Definition
 
-A **composite system** — an integration-verified composition of System Versions for a Module (Dim 8). Module Version is not merely a verification record; it is a system in its own right, with emergent operational properties (end-to-end latency across the Module's Systems, integrated failure modes, cross-system data consistency) that do not exist at the individual System level. Module Version is the second tier of the three-tier versioning model: System Version (atomic deployment) → **Module Version (integrated deployment + integration verification)** → Product Version (complete deployment + certification). Module Version is the **integrated deployment unit** — the Run Track enriches it with operational System Versions and configuration to produce a Module Package, which is deployed to environments. See DR-026, DR-027.
+A **composite system** — an integration-verified composition of System Versions for a Module (Dim 8). Module Version is not merely a verification record; it is a system in its own right, with emergent operational properties (end-to-end latency across the Module's Systems, integrated failure modes, cross-system data consistency) that do not exist at the individual System level. Module Version is the second tier of the three-tier versioning model: System Version (atomic deployment) → **Module Version (integrated deployment + integration verification)** → Product Version (complete deployment + certification). Module Version is the **integrated deployment unit** — the Run Track enriches it with operational System Versions and wiring to produce a Module Package Version (environment-independent), which is deployed to environments via MDDs (Module Deployment Descriptors). See DR-026, DR-027, DR-028, DR-029.
 
 A Module Version contains:
-- **System Versions** — the specific versions of each System that implements this Module
+- **Product System Versions** — the specific versions of each System that implements this Module's domain capabilities (e.g., payments-service, payment-gateway)
+- **Tenant lifecycle System Versions** — Systems that manage the tenant subscription lifecycle within this Module: provisioning, activation, configuration by tier, change/upgrade/downgrade, and termination (e.g., subscription-manager, tenant-provisioning-service, tier-configuration-service)
 - **Integration contracts** — validated API schemas, event schemas, data contracts between those Systems
 - **Integration test suite** — the test suite that verified interoperability between those Systems
 
 Module Versions are *artifacts* produced by verified Integration Epics and Integration Stories. They are not planned entities — they emerge when the Systems composing a Module are verified to work together.
+
+> **Module Version is a functionally complete, commercially viable assembly.** It includes everything needed to serve tenants: product logic, tenant subscription lifecycle management (provisioning, activation, configuration by tier, upgrade/downgrade, termination), commercialization logic, and integration adapters. What it does NOT include is the Run Track's operational support tooling (probes, dashboards, reconcilers, log shippers, automated maintenance jobs). Those operator-facing systems are added by the Module Package Version.
 
 > **Module Version as communication bridge.** Module Version serves as the shared vocabulary between Build, Run, and Product teams. Product managers reason in Modules: "Payments capability v4.1 includes the new compliance flow." SREs monitor integrated capability health: "Payments Module v4.1 is healthy in LATAM." Build teams know which Systems compose it: "Payments Module v4.1 = {payments-service v2.3.3, payment-gateway v1.2.1}." Without Module Version, these teams have no common reference point — engineers speak System names, PMs speak feature names, and SREs translate between the two ad hoc.
 >
@@ -40,7 +43,7 @@ Bridges the gap between individual System Versions and the Product Version — a
 | System Versions | Map | Specific System Versions composing this Module Version (e.g., `{payments-service: v2.3.3, payment-gateway: v1.2.1}`) |
 | Integration Contracts | List of Text/Reference | Validated API schemas, event schemas, data contracts |
 | Integration Test Suite | Reference + Results | Integration test suite and pass/fail results |
-| Binding Configuration | Structured Config | The wiring and composition constraints that make this composition operational: service mesh routes, event topic bindings, orchestration definitions, adapter selections, protocol version bindings, and capability activation flags. Defines the **legal composition** — which combinations of System Versions are valid, which capabilities are activated, and what behavior is expected. Environment-independent (environment-specific configuration is applied at Module Package level by the Run Track). |
+| Binding Configuration | Structured Config | The wiring and composition constraints that make this composition operational: service mesh routes, event topic bindings, orchestration definitions, adapter selections, protocol version bindings, and capability activation flags. Defines the **legal composition** — which combinations of System Versions are valid, which capabilities are activated, and what behavior is expected. Environment-independent (environment-specific configuration is applied at the MDD level — Module Deployment Descriptor — by the Run Track). |
 | Verification Date | DateTime | When integration verification completed |
 | Integration Epic | Reference (Track 2) | Integration Epic that produced this verification (if applicable) |
 
@@ -60,7 +63,7 @@ Bridges the gap between individual System Versions and the Product Version — a
 | Produced by | Integration Epic (Track 2) | Integration Epic work produces Module Version verification |
 | Produced by | Integration Story(ies) (Track 2) | Integration Stories contribute contracts and tests |
 | Composed into | Product Version (Track 2) | Module Versions compose a Product Version |
-| Enriched into | Module Package (Track 3) | Run Track enriches Module Version with operational System Versions and configuration to produce a Module Package |
+| Enriched into | Module Package Version (Track 3) | Run Track adds operator-facing System Versions (probes, reconcilers, dashboards) and operational wiring to produce a Module Package Version (environment-independent), which instantiates a Module Package specification (Dim 7) |
 
 ## Examples
 
@@ -100,5 +103,7 @@ Binding Configuration:
 ```
 
 > **Binding Configuration and legal composition.** Module Version's binding configuration is not mere wiring — it represents **scoped, constrained, and deliberate** build-time choices. When the Build Track composes System Versions into a Module Version, it determines: which adapter variant to include (e.g., provider-x-adapter, not provider-y), which protocol version to bind (gRPC v2, not v1), which capability to activate (rate-lock enabled, batch disabled). Not all possible combinations of System Versions are valid — some are incompatible, some would produce unexpected functionality, some would violate regulatory constraints. The binding configuration constrains the composition to its **legal form**: the set of choices that make this composition intended, tested, and safe. This is analogous to compile-time feature flags or conditional dependency inclusion — the composition is a deliberate selection, not an unconstrained assembly. Environment-specific operational configuration (which environment to target, which probes to attach, which monitoring thresholds to set) is handled separately at the Module Package level by the Run Track.
+
+> **Module vs. Package boundary.** Module Version includes all Systems that **serve tenants** — product logic, tenant subscription lifecycle (provisioning, activation, change, upgrade, downgrade, termination), commercialization logic, and integration adapters. Module Package Version adds Systems that **serve operators** — observability probes, dashboards, automated maintenance jobs, health checks, reconcilers, and log shippers. If a System participates in a tenant-facing workflow, it belongs in the Module Version. If it participates only in an operator-facing workflow (monitoring, alerting, maintenance), it belongs in the Module Package Version.
 
 ---

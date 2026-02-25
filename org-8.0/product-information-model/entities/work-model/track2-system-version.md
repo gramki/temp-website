@@ -8,7 +8,7 @@
 
 A versioned, quality-gated artifact of a single System (Dim 5), continuously produced by CI/CD pipelines. System Versions are *results* of engineering progress, not planned entities — they are routinely and continuously incremented as Technical Tasks flow through the pipeline. A System Version with status `Released` has passed all quality gates and is available for deployment.
 
-System Version is the **atomic deployment unit** — the Run Track deploys System Versions to Deployment Environments (Dim 7). It is the first tier of the three-tier versioning model: System Version (atomic deployment) → Module Version (integrated deployment + integration verification) → Product Version (complete deployment + certification). Module Version and Product Version are also deployable (via Module Package and Product Package, enriched by the Run Track), but System Version is the atomic, independently deployable unit. See DR-026, DR-027.
+System Version is the **atomic deployment unit** — the Run Track deploys System Versions to Deployment Environments (Dim 7) via SDDs (System Deployment Descriptors). It is the first tier of the three-tier versioning model: System Version (atomic deployment) → Module Version (integrated deployment + integration verification) → Product Version (complete deployment + certification). Module Version and Product Version are also deployable (via Module Package Version and Product Package Version, enriched by the Run Track, deployed via MDD and PDD respectively), but System Version is the atomic, independently deployable unit. See DR-026, DR-027, DR-028.
 
 > **Renamed from Module Version:** The Build Track builds Systems (Dim 5), not Modules (Dim 8). Engineers produce `payments-service v2.3.3` (a System Version), not "Payments Module v2.3.3." Modules are functional boundaries (Dim 8); Systems are the deployable technical units (Dim 5). The many-to-many System-to-Module mapping means a single System Version may contribute to multiple Module Versions.
 
@@ -53,7 +53,8 @@ Captures the deployable output of Build Track work. Without System Versions:
 |---|---|---|
 | Belongs to | System (Dim 5) | System Version is a versioned artifact of a System |
 | Composed into | Module Version (Track 2) | System Versions compose a Module Version (integration verification) |
-| Deployed by | Deployment (Track 3) | System Versions are deployed to environments by the Run Track |
+| Described by | SDD (Track 3) | System Version's environment-specific deployment is specified by SDD(s) |
+| Deployed by | Deployment Task (Track 3) | System Versions are deployed to environments by Deployment Tasks applying SDD versions |
 | Contains | Technical Task(s) (Track 2) | System Version includes completed Technical Tasks |
 | Contains | Bug fix(es) (Track 2) | System Version includes Bug fixes |
 | Reflects in | Operational Readiness (Dim 7) | Quality gate results feed Operational Readiness assessment |

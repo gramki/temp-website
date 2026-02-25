@@ -6,7 +6,7 @@
 
 ## Definition
 
-The **highest-order composite system** in the versioning model — a certified composition of compatible Module Versions representing the full product. A Product Version has its own emergent properties (end-to-end user journeys, cross-module workflows, product-wide availability and compliance posture) that do not exist at the Module or System level. It declares compatible version ranges for constituent Module Versions (Declared BOM) and records the specific Module Versions tested together (Resolved BOM). Product Versions are the third and final tier of the three-tier versioning model: System Version (atomic deployment) → Module Version (integrated deployment + integration verification) → **Product Version (complete deployment + certification)**. Product Version is the **complete deployment unit** — the Run Track enriches it with Module Packages and cross-module operational wiring to produce a Product Package, which is the highest-order deployable. See DR-026, DR-027.
+The **highest-order composite system** in the versioning model — a certified composition of compatible Module Versions representing the full product. A Product Version has its own emergent properties (end-to-end user journeys, cross-module workflows, product-wide availability and compliance posture) that do not exist at the Module or System level. It declares compatible version ranges for constituent Module Versions (Declared BOM) and records the specific Module Versions tested together (Resolved BOM). Product Versions are the third and final tier of the three-tier versioning model: System Version (atomic deployment) → Module Version (integrated deployment + integration verification) → **Product Version (complete deployment + certification)**. Product Version is the **complete deployment unit** — the Run Track enriches it with Module Package Versions and cross-module operational wiring to produce a Product Package Version (environment-independent), which is deployed via PDDs (Product Deployment Descriptors). See DR-026, DR-027, DR-028, DR-029.
 
 Product Versions are results of integration and certification work, not planned entities. They emerge when Module Versions are composed and pass end-to-end certification.
 
@@ -54,7 +54,7 @@ Product Version solves these by providing a certified BOM and a shared vocabular
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Composes | Module Version(s) (Track 2) | Product Version composes Module Versions via BOM |
-| Enriched into | Product Package (Track 3) | Run Track enriches Product Version with Module Packages and cross-module operational wiring to produce a Product Package |
+| Enriched into | Product Package Version (Track 3) | Run Track enriches Product Version with Module Package Versions and cross-module operational wiring to produce a Product Package Version (environment-independent), which instantiates a Product Package specification (Dim 7) |
 | Referenced by | Customer Release (Dim 1) | Customer Releases reference Product Version(s) |
 | Supersedes | Product Version (Track 2) | Each Product Version supersedes the previous |
 

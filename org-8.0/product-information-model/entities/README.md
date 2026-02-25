@@ -72,6 +72,10 @@ entities/
 │   ├── dim7-operational-pain.md         ← Concrete operational suffering endured by Operational Personas
 │   ├── dim7-operational-readiness.md    ← Per-System × per-environment operational acceptance assessment
 │   ├── dim7-odr.md                     ← Operations Decision Record; operational counterpart of PDR/ADR (DR-025)
+│   ├── dim7-module-package.md        ← Composition spec: which operational systems and wiring enrich a Module (Dim 8)
+│   ├── dim7-product-package.md       ← Composition spec: which Module Packages and cross-module wiring compose a product
+│   ├── dim7-deployment-train.md      ← Reusable promotion path with contractual and governance significance
+│   ├── dim7-station.md               ← Checkpoint within a Deployment Train targeting a Deployment Environment
 │   ├── ...
 │   ├── dim8-value-stream.md           ← Horizontal composition across modules
 │   ├── ...
@@ -97,7 +101,7 @@ entities/
     ├── track2-iteration-planning-task.md ← Assigns Stories, Integration Stories, Technical Tasks to sprints
     ├── track2-epic.md                   ← Module-scoped (Dim 8), decomposed from PSD
     ├── track2-story.md                  ← Module-scoped (Dim 8), unit of work within an Epic (renamed from User Story)
-    ├── track2-technical-task.md          ← System/Component-scoped (Dim 5), implements Stories
+    ├── track2-technical-task.md          ← System/Component-scoped (Dim 5), implements Stories and Integration Stories
     ├── track2-bug.md                    ← Provenance: Build / Run / Win
     ├── track2-integration-epic.md       ← Cross-System integration work, references PSD-derived Epics
     ├── track2-integration-story.md      ← Unit of integration work, produces contracts and test suites
@@ -109,15 +113,24 @@ entities/
     ├── track2-build-monitoring.md       ← Continuous build health and quality monitoring
     ├── track3-deployment-planning-task.md
     ├── track3-capacity-planning-task.md
+    ├── track3-deployment-plan.md          ← Deliberation activity: scopes rollout, produces planning tasks, drills, verification tasks
     ├── track3-run-epic.md                ← Module-scoped operational engineering work (Run Track as engineering track)
     ├── track3-run-story.md               ← Unit of operational engineering work within a Run Epic
-    ├── track3-deployment.md
+    ├── track3-technical-task.md          ← System/Component-scoped (Dim 5), implements Run Stories (per-track Technical Task)
+    ├── track3-deployment.md              ← Run Track artifact: durable record that a descriptor was applied to an environment (DR-029)
+    ├── track3-deployment-task.md          ← Work entity: applies a deployment descriptor to an environment, produces Deployment record
+    ├── track3-verification-task.md        ← Post-deployment verification work (standalone, required for Change Request closure)
+    ├── track3-deployment-drill-task.md    ← Optional rehearsal of a Deployment Plan in non-production environment
     ├── track3-incident.md
-    ├── track3-change-request.md
+    ├── track3-change-request.md          ← Change management envelope for deployment-related changes, scoped to Train/Station (DR-029)
     ├── track3-maintenance-task.md
-    ├── track3-module-package.md           ← Run Track artifact: integrated deployment unit (Module Version + operational systems + config)
-    ├── track3-product-package.md          ← Run Track artifact: complete deployment unit (Product Version + Module Packages + cross-module ops)
-    ├── track3-system-monitoring.md       ← Continuous infrastructure and SLA monitoring
+    ├── track3-module-package-version.md   ← Run Track artifact: environment-independent integrated deployable — instantiates Module Package spec (Dim 7)
+    ├── track3-product-package-version.md  ← Run Track artifact: environment-independent complete deployable — instantiates Product Package spec (Dim 7)
+    ├── track3-sdd.md                      ← Deployment descriptor: environment-specific System Version deployment specification
+    ├── track3-mdd.md                      ← Deployment descriptor: environment-specific Module Package deployment specification (composes SDDs)
+    ├── track3-pdd.md                      ← Deployment descriptor: environment-specific Product Package deployment specification (composes MDDs)
+    ├── track3-system-monitoring.md       ← Continuous operational health monitoring across all composition levels
+    ├── track3-run-engineering-monitoring.md ← Continuous Run Track engineering health monitoring (counterpart to Build Monitoring)
     ├── track4-win-planning.md            ← Parent: 5 lever-specific planning subtypes
     ├── track4-gtm-planning-task.md       ← Subtype of Win Planning (GTM lever)
     ├── track4-customer-rollout-planning-task.md ← Superseded by Customer Release Planning

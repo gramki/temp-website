@@ -1,8 +1,9 @@
 # DR-027: Composition Levels, Module Package, and Run Track Engineering
 
-**Status:** Accepted
+**Status:** Accepted (refined by DR-029)
 **Date:** 2026-02-15
 **Related FAQ:** Q92, Q93, Q94, Q95
+**Refined by:** DR-029 — Module Package and Product Package split into Definition Model specifications (Dim 7) + Work Model versioned instances (renamed Module Package Version, Product Package Version)
 
 ## Context
 
@@ -12,7 +13,7 @@ After the Build Track detailing (DR-026), several conceptual gaps were identifie
 
 2. **Environment-specific work is not just configuration.** The Run Track introduces code — operational subsystems (probes, reconcilers, automation) — per environment. These are legitimate Systems (Dim 5) with code, repos, and System Versions. The Run Track is an engineering track, not just an operational track.
 
-3. **The deployed composition is richer than the built composition.** Module Version (Build Track artifact) is verified but not operationally complete. What's deployed includes operational systems and environment-specific configuration. There was no entity to represent this enriched, deployable composition.
+3. **The deployed composition is richer than the built composition.** Module Version (Build Track artifact) is verified but lacks operator-facing observability and maintenance tooling. What's deployed includes operator-facing systems and environment-specific configuration. There was no entity to represent this enriched, deployable composition.
 
 4. **The Run Track lacked work decomposition entities.** While the Build Track had Epics, Stories, and Technical Tasks for engineering work, the Run Track had no equivalent for its operational engineering work. Operational system development was informal and invisible.
 
@@ -38,9 +39,11 @@ After the Build Track detailing (DR-026), several conceptual gaps were identifie
 
 ### C3: Module Package (Run Track Artifact)
 
+> **Refined by DR-028 (D4).** This decision introduced Module Package with operational configuration as a field. DR-028 refined this: Module Package is now **environment-independent** (Module Version + operational System Versions + operational wiring). Environment-specific configuration (monitoring thresholds, scaling policies, deployment scripts) moved to the MDD (Module Deployment Descriptor). The intent of C3 (clean ownership: Build Track produces Module Version, Run Track produces Module Package) remains valid.
+
 **Decision:** Introduce Module Package as a Run Track artifact: Module Version + operational System Versions + operational configuration. The integrated deployment unit.
 
-**Rationale:** What is deployed to an environment is richer than what the Build Track produces. The Run Track enriches Module Version with operational systems (probes, reconcilers, automation) and environment-specific configuration. Module Package captures this enrichment as a distinct entity with clean ownership: Build Track produces Module Version, Run Track produces Module Package.
+**Rationale:** What is deployed to an environment is richer than what the Build Track produces. The Run Track adds operator-facing systems (probes, reconcilers, dashboards, log shippers, automation) to Module Version. Module Package captures these additions as a distinct entity with clean ownership: Build Track produces Module Version, Run Track produces Module Package.
 
 ### C4: Product Package (Run Track Artifact)
 
@@ -52,7 +55,7 @@ After the Build Track detailing (DR-026), several conceptual gaps were identifie
 
 **Decision:** Introduce Run Epic (Module-scoped) and Run Story as Run Track work entities for operational engineering work. Run Epics produce operational System Versions. Run Deliberations produce ODRs.
 
-**Rationale:** The Run Track builds operational Systems — probes, reconcilers, automation. This engineering work needs the same decomposition as product engineering: Epic → Story → Technical Task. Without Run Epics and Run Stories, operational engineering is informal and invisible, conflated with incident response and maintenance.
+**Rationale:** The Run Track builds operational Systems — probes, reconcilers, automation. This engineering work needs the same decomposition as product engineering: Epic → Story → Technical Task. Without Run Epics and Run Stories, operational engineering is informal and invisible, conflated with incident response and maintenance. Technical Task is a per-track concept — the Run Track has its own Technical Tasks serving Run Stories, with the same entity structure but distinct track ownership.
 
 ### C6: Binding Configuration on Module Version
 

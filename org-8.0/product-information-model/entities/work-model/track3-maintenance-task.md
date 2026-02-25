@@ -28,7 +28,9 @@ Captures planned, recurring operational hygiene. Unlike Change Requests (which a
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Maintains | Environment (Dim 7) | Maintenance Task keeps an Environment healthy |
+| Maintains | Deployment Environment (Dim 7) | Maintenance Task keeps a Deployment Environment healthy |
+| May be created by | Deployment Planning Task (Track 3) | Deployment Planning may discover maintenance prerequisites |
+| May be created by | Deployment Plan (Track 3) | Deployment Plan deliberation may identify maintenance needs |
 
 ## Example
 

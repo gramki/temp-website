@@ -6,7 +6,9 @@
 
 ## Definition
 
-A granular engineering step scoped to a specific System (Dim 5) and optionally a Component (Dim 5) — the most granular work entity in both the Build Track and Run Track. Technical Tasks represent the actual developer-level work: writing code, writing tests, configuring infrastructure, implementing contracts, fixing defects. Technical Tasks serve Build Track Stories and Integration Stories, as well as Run Track Run Stories (for operational system engineering). See DR-026, DR-027.
+A granular engineering step scoped to a specific System (Dim 5) and optionally a Component (Dim 5). Technical Tasks represent the actual developer-level work: writing code, writing tests, configuring infrastructure, implementing contracts, fixing defects. Build Track Technical Tasks serve Stories and Integration Stories. See DR-026.
+
+> **Technical Task is a per-track concept.** Each engineering track has its own Technical Tasks with the same entity structure but distinct track ownership. The Build Track's Technical Tasks serve Stories and Integration Stories (product engineering). The Run Track has its own Technical Tasks serving Run Stories (operational engineering). The Win Track may have Technical Tasks in the future (win engineering automation). This avoids cross-track borrowing and keeps ownership clean.
 
 **System/Component scope, not Module scope:** Technical Tasks speak the System language ("Implement gRPC endpoint in fx-service," "Add Kafka consumer in payments-service"). They are the bridge from functional intent (Stories, Module-scoped) to technical implementation (Systems, Dim 5). A single Story may spawn Technical Tasks in multiple Systems because the Module-to-System mapping is many-to-many. See DR-026.
 
@@ -46,7 +48,6 @@ Captures the actual engineering work that produces System Versions. Without Tech
 |---|---|---|
 | Implements | Story (Track 2) | Technical Task implements a Story |
 | Implements | Integration Story (Track 2) | Technical Task implements an Integration Story |
-| Implements | Run Story (Track 3) | Technical Task implements a Run Story (operational system engineering) |
 | Scoped to | System (Dim 5) | Task is implemented within a specific System |
 | Scoped to | Component (Dim 5) | Task may target a specific Component within the System (optional) |
 | Included in | System Version (Track 2) | Completed Task is included in the next System Version |

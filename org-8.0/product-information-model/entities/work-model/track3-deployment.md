@@ -1,55 +1,64 @@
 # Deployment
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Track 3: The Run Track (Stability & Operations) — Artifact
 **Owner:** DevOps, Site Reliability Engineers (SRE)
 
 ## Definition
 
-The operational act of deploying to a specific environment. Deployments are tracked **per-environment** and operate at three **composition levels**: **atomic** (a single System Version), **integrated** (a Module Package), or **complete** (a Product Package). A deployment is not "deployed" in absolute terms; it is deployed *somewhere*, at a specific composition level.
+A durable record that a deployment descriptor was applied to a specific environment — the work artifact produced by a Deployment Task. A Deployment records *what* was deployed (descriptor version), *where* (environment), *when* (timestamp), *by whom* (deployer), and *how it went* (result). Deployments operate at three **composition levels**: **atomic** (SDD applied), **integrated** (MDD applied), or **complete** (PDD applied).
 
-> **Three deployment levels (DR-027):** The Run Track deploys at three granularities. **Atomic:** a single System Version (Dim 5) to an environment — the most common deployment unit. **Integrated:** a Module Package (Module Version enriched with operational System Versions and configuration) to an environment — used when Module-level coordinated deployment is needed. **Complete:** a Product Package (Product Version enriched with Module Packages and cross-module operational wiring) to an environment — used for full product releases. The composition level is a deployment-planning decision. See DR-026 (System Version as atomic deployment unit), DR-027 (Module Package and Product Package).
+Deployment is an **artifact**, not a work entity. The *work* of deploying is a Deployment Task; the *record* of having deployed is a Deployment. This follows the pattern established throughout the Work Model: work entities produce work artifacts (Specification Task → PSD, Deployment Planning Task → SDD/MDD/PDD, Deployment Task → Deployment).
+
+> **Deployment applies descriptors, not artifacts directly (DR-028, refined by DR-029).** The descriptor version determines *what* is deployed *how* — the deployable artifact (System Version, Module Package Version, Product Package Version) is referenced indirectly through the descriptor. See DR-026 (System Version as atomic deployment unit), DR-027 (Module Package and Product Package), DR-028 (deployment descriptors), DR-029 (Deployment refactored from work entity to artifact).
 
 ## Purpose
 
-Deployment is the link between quality-gated Build/Run Track artifacts and running production systems. It is a distinct concept from a Customer Release (the business act of making functionality available to customers). An artifact can be deployed (code running in production) without being released to customers — enabling dark launches, feature flags, and canary rollouts. The Customer Release becomes `Launched` only when all required deployments (Module Packages or Product Package) are complete AND the business activates the release.
+Deployment is the durable link between quality-gated Build/Run Track artifacts and running production systems. It is a distinct concept from a Customer Release (the business act of making functionality available to customers). An artifact can be deployed (code running in production) without being released to customers — enabling dark launches, feature flags, and canary rollouts. The Customer Release becomes `Launched` only when all required deployments (MDD or PDD applications) are complete AND the business activates the release.
+
+As an artifact, the Deployment record provides:
+- An auditable history of what is running in each environment
+- The basis for supersession tracking (which deployment replaced which)
+- Evidence for compliance and change management audit trails
+- The anchor for rollback decisions (roll back to a previous Deployment's descriptor version)
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
 | Composition Level | Enum | `Atomic` / `Integrated` / `Complete` — the deployment granularity |
-| Deployable | Reference (Track 2/3) | The artifact being deployed: System Version (atomic), Module Package (integrated), or Product Package (complete) |
-| Environment | Reference (Dim 7) | The target Deployment Environment |
-| Deployment Strategy | Enum | `Canary` / `Blue-Green` / `Rolling` / `Direct` |
+| Descriptor | Reference | The descriptor version that was applied: SDD version (atomic), MDD version (integrated), or PDD version (complete) |
+| Environment | Reference (Dim 7) | The Deployment Environment where the descriptor was applied |
+| Deployment Strategy | Enum | `Canary` / `Blue-Green` / `Rolling` / `Direct` — the strategy used |
 | Deployment Timestamp | DateTime | When the deployment was executed |
-| Rollback Plan | Text | Steps to revert if deployment fails |
-| Verification Results | Text | Post-deployment verification results |
 | Deployer | String | Person or automation that executed the deployment |
+| Deployment Task | Reference (Track 3) | The Deployment Task that produced this record (provenance) |
+| Previous Deployment | Reference (Track 3) | The Deployment record this one supersedes (if any) |
 
 ## Statuses
 
 | Status | Description |
 |---|---|
-| Planned | Deployment is scheduled but not yet executed |
-| In Progress | Deployment is being executed |
-| Succeeded | Deployable artifact is running in the target environment |
-| Failed | Deployment failed — rollback may be in progress |
-| Rolled Back | Deployment was reverted to the previous version |
+| Active | This deployment is the current running state in the target environment |
+| Superseded | This deployment has been replaced by a newer Deployment in the same environment |
+| Rolled Back | This deployment was reverted — a rollback Deployment Task produced a new Deployment record pointing to a previous descriptor version |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Deploys | System Version (Track 2) | Deployment installs a System Version (atomic level) |
-| Deploys | Module Package (Track 3) | Deployment installs a Module Package (integrated level) |
-| Deploys | Product Package (Track 3) | Deployment installs a Product Package (complete level) |
-| Targets | Deployment Environment (Dim 7) | Deployment targets a specific environment |
+| Produced by | Deployment Task (Track 3) | Deployment record is produced by a Deployment Task |
+| Records application of | SDD version (Track 3) | Deployment records an SDD version application (atomic level) |
+| Records application of | MDD version (Track 3) | Deployment records an MDD version application (integrated level) |
+| Records application of | PDD version (Track 3) | Deployment records a PDD version application (complete level) |
+| Targets | Deployment Environment (Dim 7) | Deployment records which environment the descriptor was applied to |
+| Supersedes | Deployment (Track 3) | A newer Deployment supersedes the previous one in the same environment |
 | Enables | Customer Release (Dim 1) | Successful deployments enable Customer Release activation |
-| Informed by | Operational Readiness (Dim 7) | Deployment decisions consider readiness status |
 
-## Example
+## Examples
 
-- **Atomic:** "Deploy payments-service v2.3.3 to production-us." Tracked separately from "Deploy payments-service v2.3.3 to production-eu."
-- **Integrated:** "Deploy Payments Module Package v2.3.0-latam to production-latam." Includes product System Versions + operational System Versions + operational config.
-- **Complete:** "Deploy Product Package v3.2.0-latam to production-latam." Includes all Module Packages + cross-module operational wiring.
+- **Active Deployment (Integrated):** "Payments MDD v3.1 applied to production-latam at 2026-02-12T14:30:00Z by deploy-pipeline. Status: Active. Supersedes: Deployment of Payments MDD v3.0 (now Superseded)."
+- **Rolled Back Deployment:** "Payments MDD v3.1 applied to production-latam. Status: Rolled Back. A rollback Deployment Task applied Payments MDD v3.0 (the previous version), producing a new Active Deployment."
+- **Atomic Deployment:** "payments-service SDD v1.2 applied to production-us at 2026-02-11T10:00:00Z. Status: Active."
+
+---

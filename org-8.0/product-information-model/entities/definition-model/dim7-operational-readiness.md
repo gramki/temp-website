@@ -62,7 +62,9 @@ Captures the operational acceptance criteria that every System must meet before 
 | Assessed by | Run Track activities (Track 3) | Readiness assessment is Run Track operational work |
 | Triggers | Run Epic (Track 3) | Readiness gaps trigger Run Epics for operational engineering work (e.g., missing probes, insufficient automation) |
 | Context from | Infrastructure Model (Dim 7) | Infrastructure Model determines which criteria are relevant |
-| Informs | Deployment (Track 3) | Deployment decisions consider readiness status |
+| Informs | Deployment Plan (Track 3) | Deployment Plan deliberation considers readiness status |
+| Informs | Deployment Task (Track 3) | Deployment execution considers readiness status |
+| Informs | MDD (Track 3) | Readiness status informs whether an MDD should be created for a given environment and what operational prerequisites exist |
 | Fed by | System Version (Track 2) | System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness assessment |
 
 ## Example
