@@ -1,4 +1,4 @@
-# ETSL Guidance for Semantic Model Architects  
+# ETSL Guidance for Semantic Model Architects  (Semantic Model)
 ## Designing Semantic Models That Can Be Reliably Enforced
 
 ---

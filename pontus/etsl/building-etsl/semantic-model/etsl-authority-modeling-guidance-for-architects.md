@@ -1,4 +1,4 @@
-# ETSL Guidance for Semantic Model Architects  
+# ETSL Guidance for Semantic Model Architects  (Authority Modeling)
 ## Modeling Authority in Enterprise Truth & Semantics Layer (ETSL)
 
 ---
