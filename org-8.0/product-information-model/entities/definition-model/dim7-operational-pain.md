@@ -46,6 +46,7 @@ Analogous to Pain (Dim 3) and Delivery Friction (Dim 2). Operational Pain captur
 | Endured by | Operational Persona (Dim 7) | Operational Personas experience this pain in their operational work |
 | Scoped to | Deployment Environment (Dim 7) | Pain is associated with specific environments |
 | Undermines | Operational Target (Dim 7) | Pain makes targets harder to achieve |
+| Evidenced by | Incident (Track 3, artifact) | Recurring incident patterns are concrete evidence for Operational Pains — e.g., "manual cert rotation causes 2 SEV-1 incidents per quarter" |
 | May surface as | Signal — Problem or Opportunity (Dim 1) | Operational observations of pain become Signals for Discovery |
 | Work Model | Modeling Task (Track 1) | Modeling Tasks document Operational Pains in Dim 7 |
 | Rooted in | Module / Capability (Dim 8) | When pain has a product root cause, identifies the structural source |

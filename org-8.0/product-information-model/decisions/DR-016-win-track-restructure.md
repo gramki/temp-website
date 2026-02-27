@@ -26,7 +26,7 @@ Customer Release Planning (Product lever), GTM Planning, Sales Enablement Planni
 ### 3. Win Enablement as parent entity with 3 subtypes
 GTM Enablement, Sales Enablement Asset, CS Enablement. One-to-many asset/program creation.
 
-### 4. Win Engagement as parent entity with 5 subtypes
+### 4. Win Activity as parent entity with 5 subtypes
 Pre-sales Engagement (account, Acquisition), Implementation/Onboarding (account, Activation — existing, now subtype), Retention Engagement (account, Retention), Expansion Engagement (account, Revenue), Segment Engagement (segment-level, any stage — covers both pre-sale and post-sale).
 
 ### 5. Win Case for reactive work

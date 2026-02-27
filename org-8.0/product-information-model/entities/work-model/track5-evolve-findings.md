@@ -19,7 +19,7 @@ Evolve Findings is the Evolve Track's analog of Feedback (Track 4 → Track 1). 
 
 | Field | Type | Description |
 |---|---|---|
-| Name | String | Descriptive summary (e.g., "Win Engagement DoD gap — missing integration verification") |
+| Name | String | Descriptive summary (e.g., "Win Activity DoD gap — missing integration verification") |
 | Source Review | Reference | The Evolve Review that produced this finding |
 | Finding Type | Enum | `Process Gap` (entity/flow not serving purpose), `Artifact Quality Issue` (artifacts below criteria), `Guidance Deficiency` (guidance missing/outdated/unused), `Handoff Failure` (transitional artifact not flowing), `Structural Gap` (missing entity or artifact type) |
 | Severity | Enum | `Critical` (process failure causing measurable harm), `High` (consistent quality gap), `Medium` (improvement opportunity), `Low` (minor refinement) |
@@ -58,14 +58,14 @@ Not every finding leads to action. Findings that don't warrant changes are archi
 
 ## Example
 
-**Name:** "Win Engagement DoD gap — missing integration verification"
+**Name:** "Win Activity DoD gap — missing integration verification"
 **Source Review:** Q3 Win Track Artifact Quality Review
 **Finding Type:** Artifact Quality Issue
 **Severity:** High
 **Affected Track(s):** Track 4: Win
-**Affected Entity/Artifact:** Implementation/Onboarding (Win Engagement subtype)
+**Affected Entity/Artifact:** Implementation/Onboarding (Win Activity subtype)
 **Evidence:** 35% of Implementation/Onboarding records closed without integration verification step; 3 post-implementation escalations traced to unverified integrations in Q2
 **Recommendation:** Define DoD for Implementation/Onboarding with mandatory integration verification checklist; add "Integration Verification Report" as a required artifact
-**Status:** Actioned → Evolve Definition Task "Define DoD for Win Engagement entities"
+**Status:** Actioned → Evolve Definition Task "Define DoD for Win Activity entities"
 
 ---

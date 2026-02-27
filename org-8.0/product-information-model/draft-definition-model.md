@@ -198,7 +198,7 @@ This dimension models the complete "Why Buy" logic for the purchasing organizati
     * *Ability-mapped example:* "Real-time FX rate locking for 24 hours" → relieves Pain "15% rate expiry on transactions" → maps to Capability "Automated Rate Locking."
 
   * **Service Commitment** (subtype): Guarantees reliability, performance, and support levels. Includes availability SLA, performance SLA, support SLA, data SLA, and breach remedies. Overlaps with Dim 7 (Operational) — Dim 3 captures the customer-facing commitment; Dim 7 captures the infrastructure that delivers it.
-    * *Example:* "99.9% API uptime, sub-200ms P95 latency, P1 incidents: 15-minute response."
+    * *Example:* "99.9% API uptime, sub-200ms P95 latency, SEV-1 incidents: 15-minute response."
 
   * **Compliance Posture** (subtype): Certifies that the product meets regulatory, security, or industry standards. Compliance goes beyond operations — it is a core aspect of the product that influences many capabilities (Dim 8). It is an essential customer trust element in the buying decision.
     * *Example:* "PCI-DSS Level 1 certified, SOC 2 Type II audited, GDPR compliant."
@@ -213,7 +213,7 @@ This dimension models the complete "Why Buy" logic for the purchasing organizati
     * *Capability-mapped examples:* Feature performance ("FX rate locked within 200ms"), coverage ("35+ supported currencies").
 
   * **Service Level Metric** (subtype): Measures Service Commitment guarantees.
-    * *Examples:* Uptime (target 99.9%, SLA threshold 99.5%), P95 latency, mean time to resolve P1 incidents.
+    * *Examples:* Uptime (target 99.9%, SLA threshold 99.5%), P95 latency, mean time to resolve SEV-1 incidents.
 
   * **Compliance Metric** (subtype): Measures Compliance Posture adherence.
     * *Examples:* Audit pass/fail, certification validity period, vulnerability remediation time.
@@ -380,7 +380,7 @@ This dimension captures the product's **operational reality** — how it is host
 
 * **Operational Journey:** The end-to-end path an Operational Persona follows to accomplish an Operational Job, traversing operational modules and integration modules. Journeys trace through both native operational modules (admin consoles, deployment dashboards) and integration modules to third-party ops tooling (Datadog, PagerDuty, Terraform). Independent from User Journey (Dim 4) — same structural concept, different domain.
 * *Structure/Relationship:*  Operational Journey accomplishes  Operational Job(s) (Dim 7).  Operational Journey is followed by  Operational Persona(s) (Dim 7).  Operational Journey traverses  Module(s) (Dim 8).  Operational Journey is experienced through  UX Channel(s) (Dim 4, cross-dimensional reference).  Operational Journey engages  Capability(ies) (Dim 8).
-* *Example:* "Diagnose and resolve a P1 incident" — Reliability Operator follows this Journey: Monitoring Dashboard (Web) → alert triggers PagerDuty (Integration Module, Email/Voice) → Log Aggregator (Web) → Deployment Console (Web) → rollback via CLI (CLI) → post-mortem tool (Web). Traverses modules: Monitoring Module, PagerDuty Integration Module, Log Module, Deployment Module.
+* *Example:* "Diagnose and resolve a SEV-1 incident" — Reliability Operator follows this Journey: Monitoring Dashboard (Web) → alert triggers PagerDuty (Integration Module, Email/Voice) → Log Aggregator (Web) → Deployment Console (Web) → rollback via CLI (CLI) → post-incident review tool (Web). Traverses modules: Monitoring Module, PagerDuty Integration Module, Log Module, Deployment Module.
 
 * **Deployment Environment:** A named, typed, vendor-operated infrastructure target where modules are deployed and tenants are provisioned. Expanded from the original skeletal "Environment." The Deployment Environment carries the vendor's operational purpose — customer-facing purpose lives on the Tenant (Run Track entity). The Tenancy Architecture (inherited from Infrastructure Model or overridden) defines how customer isolation is organized within this environment.
 * *Structure/Relationship:*  Deployment Environment is defined by  Infrastructure Model (Dim 7).  Deployment Environment hosts  Module(s) (Dim 8).  Deployment Environment is constrained by  Operational Constraint(s) (Dim 7).  Deployment Environment has  Operational Target(s) (Dim 7).  Deployment Environment is operated by  Operational Persona(s) (Dim 7).  Deployment Environment hosts  Tenant(s) (Run Track, Track 3).  Deployment Environment is targeted by  SDD / MDD / PDD (Track 3) — deployment descriptors specify environment-specific deployment configuration.  Deployment Environment is targeted by  Station(s) (Dim 7) within Deployment Trains.

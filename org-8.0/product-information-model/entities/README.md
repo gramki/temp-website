@@ -121,7 +121,10 @@ entities/
     ├── track3-deployment-task.md          ← Work entity: applies a deployment descriptor to an environment, produces Deployment record
     ├── track3-verification-task.md        ← Post-deployment verification work (standalone, required for Change Request closure)
     ├── track3-deployment-drill-task.md    ← Optional rehearsal of a Deployment Plan in non-production environment
-    ├── track3-incident.md
+    ├── track3-incident.md                 ← Work artifact (observation record): unplanned service degradation; SEV-0..4; correlation, SLA breach, response/resolution times (DR-030)
+    ├── track3-incident-response-task.md   ← Work entity: triage, investigate, resolve an Incident; DoD is service restored to SLO-compliant state (DR-030)
+    ├── track3-post-incident-review.md     ← Deliberation entity: structured post-incident learning; mandatory for SEV-0/1/2; produces Post-Incident Report (DR-030)
+    ├── track3-customer-communication-task.md ← Work entity: incident communication to affected parties; Run Track owns, Win Track consumes (DR-030)
     ├── track3-change-request.md          ← Change management envelope for deployment-related changes, scoped to Train/Station (DR-029)
     ├── track3-maintenance-task.md
     ├── track3-module-package-version.md   ← Run Track artifact: environment-independent integrated deployable — instantiates Module Package spec (Dim 7)
@@ -135,8 +138,8 @@ entities/
     ├── track4-gtm-planning-task.md       ← Subtype of Win Planning (GTM lever)
     ├── track4-customer-rollout-planning-task.md ← Superseded by Customer Release Planning
     ├── track4-win-enablement.md           ← Parent: 4 enablement subtypes (GTM, Sales Enablement, CS, Partner)
-    ├── track4-win-engagement.md            ← Parent: 7 engagement subtypes (account + segment + partner + revenue ops)
-    ├── track4-implementation-onboarding.md ← Subtype of Win Engagement (Activation)
+    ├── track4-win-activity.md            ← Parent: 7 engagement subtypes (account + segment + partner + revenue ops)
+    ├── track4-implementation-onboarding.md ← Subtype of Win Activity (Activation)
     ├── track4-win-case.md                 ← Reactive: Query, Service Request, Complaint, Escalation
     ├── track4-win-review.md               ← Structured assessment → produces Feedback + target progress
     ├── track4-win-monitoring.md            ← Continuous customer health and revenue monitoring

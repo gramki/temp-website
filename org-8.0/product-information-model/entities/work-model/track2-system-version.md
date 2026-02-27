@@ -12,6 +12,8 @@ System Version is the **atomic deployment unit** — the Run Track deploys Syste
 
 > **Renamed from Module Version:** The Build Track builds Systems (Dim 5), not Modules (Dim 8). Engineers produce `payments-service v2.3.3` (a System Version), not "Payments Module v2.3.3." Modules are functional boundaries (Dim 8); Systems are the deployable technical units (Dim 5). The many-to-many System-to-Module mapping means a single System Version may contribute to multiple Module Versions.
 
+> **Emergency gate profile.** System Versions produced for P0 Bugs (typically Run-provenance SEV-0/SEV-1 Incidents) may use the `Emergency` gate profile, which requires only peer review, security scan, and smoke tests — deferring full regression suite, performance benchmarks, and static analysis. The deferred gates must be passed by a subsequent Standard System Version; the originating Bug tracks this obligation via its `Deferred Gate Obligation` field (see DR-031 D2, D3). Non-negotiable gates (peer review, security scan, smoke tests) are chosen based on risk of harm: they prevent introducing new defects and confirm the fix works. Deferrable gates (regression, benchmarks) confirm the fix doesn't break anything else — important, but the risk is lower for a narrowly scoped hotfix.
+
 ## Purpose
 
 Captures the deployable output of Build Track work. Without System Versions:
@@ -37,6 +39,7 @@ Captures the deployable output of Build Track work. Without System Versions:
 | Quality Gate — Performance Benchmark | Text | Latency, throughput, resource benchmarks vs. baseline |
 | Quality Gate — Static Analysis | Enum + Text | `Pass` / `Fail`; code quality findings |
 | Quality Gate — Dependency Audit | Enum + Text | `Pass` / `Fail`; known vulnerabilities in dependencies |
+| Gate Profile | Enum | `Standard` / `Emergency`. Standard = all gates required. Emergency = peer review + security scan + smoke tests required; full regression + performance benchmarks + static analysis deferred. See DR-031 D2. |
 | Release Notes | Text | What changed — features, fixes, breaking changes |
 | Included Work | List of References (Track 2) | Technical Tasks, Bug fixes included in this version |
 

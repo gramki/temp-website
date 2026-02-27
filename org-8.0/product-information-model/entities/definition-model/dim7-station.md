@@ -27,7 +27,7 @@ Captures the governance and quality gates at each step of a Deployment Train. Wi
 | Deployment Environment | Reference (Dim 7) | The target Deployment Environment for this station |
 | Sequence Position | Integer | Position in the Deployment Train's ordered list (1-based) |
 | Entry Criteria | Text | What must be true before a deployment can enter this station (e.g., "previous station soak complete," "all integration tests pass") |
-| Exit / Promotion Criteria | Text | What must be verified before promotion to the next station (e.g., "72-hour soak with zero P1 incidents," "canary metrics within SLO thresholds") |
+| Exit / Promotion Criteria | Text | What must be verified before promotion to the next station (e.g., "72-hour soak with zero SEV-1 incidents," "canary metrics within SLO thresholds") |
 | Approval Requirements | Text | Who must approve promotion from this station (e.g., "automated," "CAB approval," "LATAM compliance officer sign-off") |
 | Soak Time | Duration | Minimum stabilization window before promotion (e.g., "72 hours," "1 week," "none") |
 | Verification Requirements | Text | What verification tasks must pass at this station (e.g., "smoke tests," "integration tests," "SLA verification," "compliance audit") |
@@ -61,7 +61,7 @@ Station: Staging Gate
 │   ├── Previous station (Development) CI pass
 │   └── All unit and integration tests green
 ├── Exit / Promotion Criteria:
-│   ├── 72-hour soak with zero P1 incidents
+│   ├── 72-hour soak with zero SEV-1 incidents
 │   ├── Integration test suite pass rate ≥ 99%
 │   ├── Security scan: no critical/high vulnerabilities
 │   └── Performance regression: P95 latency within 10% of baseline
@@ -83,7 +83,7 @@ Station: Production LATAM Gate
 ├── Exit / Promotion Criteria:
 │   ├── Canary metrics within SLO thresholds at 5%, 25%, 100%
 │   ├── LATAM-specific compliance checks pass (LGPD data residency, Central Bank reporting)
-│   └── Zero P1/P2 incidents during canary progression
+│   └── Zero SEV-1/SEV-2 incidents during canary progression
 ├── Approval Requirements: CAB approval + LATAM compliance officer sign-off
 ├── Soak Time: 1 week at 100% traffic
 └── Verification Requirements: Smoke tests, LATAM compliance audit, SLA verification, business metric validation

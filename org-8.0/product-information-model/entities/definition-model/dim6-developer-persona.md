@@ -37,7 +37,7 @@ Captures who the product's programmatic surfaces are designed for, enabling API 
 | Informs | API Operation (Dim 6) | Drives operation design and SLO targets |
 | Referenced by | API Compatibility Contract (Dim 6) | Contract commitments are promises to this persona |
 | Discovery | Research Task (Track 1) | Developer needs studied via research |
-| Win | Win Engagement (Track 4) | Developer community, partner enablement |
+| Win | Win Activity (Track 4) | Developer community, partner enablement |
 
 ## Example
 

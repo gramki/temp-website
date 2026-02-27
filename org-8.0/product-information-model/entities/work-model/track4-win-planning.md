@@ -60,7 +60,7 @@ Makes Win Track planning work explicit and lever-aligned. Without Win Planning:
 | Targets | Win Outcome (Dim 2) | Win Planning targets specific Win Outcomes |
 | Activates | Lever (structural) | Win Planning activates specific levers |
 | Drives | Win Enablement (Track 4) | Win Planning drives creation of enablement assets and programs |
-| Drives | Win Engagement (Track 4) | Win Planning drives engagement activities |
+| Drives | Win Activity (Track 4) | Win Planning drives engagement activities |
 | Coordinates with | Release Planning Task (Track 2) | Customer Release Planning coordinates with Build Track's Release Planning Task |
 | Scoped to | Customer Segment (Dim 3) | Win Planning is scoped to specific segments |
 

@@ -53,7 +53,8 @@ Makes the continuous oversight of production and infrastructure explicit as a wo
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| May trigger | Incident (Track 3) | Monitoring surfaces service degradation |
+| Produces | Incident (Track 3, artifact) | Monitoring produces Incident records when service degradation is detected |
+| Triggers | Incident Response Task (Track 3) | Incident creation triggers response work |
 | May trigger | Change Request (Track 3) | Monitoring may surface need for capacity or config change |
 | May trigger | Run Epic (Track 3) | Monitoring may reveal operational tooling gaps requiring engineering |
 | Informs | Capacity Planning Task (Track 3) | Utilization and growth trends inform capacity forecasts |

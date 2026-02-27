@@ -1,20 +1,20 @@
-# Platform Architecture & Practice Council Charter
+# Platform Architecture Council Charter
 
 ## Purpose and Authority
 
-The **Platform Architecture & Practice Council (PAPC)** is a single body that serves two modes:
+The **Platform Architecture Council (PAC)** is a single body that serves two modes:
 
 1. **Practice Mode** — Monthly, advisory: knowledge sharing, case reviews, pattern extraction, and best-practice development.
 2. **Governance Mode** — Ad-hoc, decision authority: architectural disputes, standards decisions, escalation resolution, and variability governance.
 
-The Council does not replace Domain Team or Win Engineering accountability; it provides alignment, dispute resolution, and governance across the product line.
+The Council does not replace Product Line Squad or Engagement Engineering accountability; it provides alignment, dispute resolution, and governance across the product line.
 
 ---
 
 ## Membership
 
-- **Senior/Principal Engineers** from Domain Teams (nominated or appointed per team)
-- **Solution Architects** from the Solution Architecture team
+- **Senior/Principal Engineers** from Product Line Squads (nominated or appointed per team)
+- **Engagement Architects** (assigned via ERC)
 
 Membership is stable enough to build continuity; it may be refreshed periodically (e.g. annually) to reflect role changes and growth.
 
@@ -30,7 +30,7 @@ Membership is stable enough to build continuity; it may be refreshed periodicall
 
 **Typical agenda:**
 
-- Knowledge sharing across engagements and domains
+- Knowledge sharing across Engagements and domains
 - Case reviews: what worked, what didn’t, what to reuse
 - Pattern extraction: common approaches that could become archetype updates or platform improvements
 - Best-practice development: standards, playbooks, DoD refinements
@@ -48,11 +48,11 @@ Membership is stable enough to build continuity; it may be refreshed periodicall
 
 **Triggers:**
 
-- Architectural dispute between Domain Teams and Win Engineering (or between engagements)
+- Architectural dispute between Product Line Squads and Engagement Engineering (or between engagements)
 - Change to platform or solution architecture standards
 - New or deprecated configuration points or options (variability governance)
-- Escalation from Domain Maintainers (e.g. repeated quality or scope issues)
-- Escalation from Engagement Leads or Solution Architects (e.g. scope vs. platform boundary)
+- Escalation from Product Line Maintainers (e.g. repeated quality or scope issues)
+- Escalation from Engineering Leads (ELs) or Engagement Architects (e.g. scope vs. platform boundary)
 
 **Process:**
 
@@ -69,7 +69,7 @@ Membership is stable enough to build continuity; it may be refreshed periodicall
 ## Decision Documentation and Enforcement
 
 - **Decisions** (especially in Governance Mode) are recorded in a designated place (e.g. wiki, repo, decision log) with: date, context, decision, rationale, and owner for follow-up.
-- **Enforcement** is through Domain Maintainers (for PRs and platform standards), Solution Architects (for archetypes and variability), and Engagement Leads (for delivery scope). Council does not enforce day-to-day; it sets the rules and resolves exceptions.
+- **Enforcement** is through Product Line Maintainers (for PRs and platform standards), Engagement Architects (for archetypes and variability), and Engineering Leads (ELs, for squad delivery scope). Council does not enforce day-to-day; it sets the rules and resolves exceptions.
 
 ---
 
@@ -81,17 +81,30 @@ The Council owns **variability governance**:
 - Approving new configuration points or options when engagements need them
 - Deprecating unused or harmful options (with migration path)
 - Resolving conflicts when engagements need incompatible variants
-- Feeding back to Domain Teams and Solution Architecture for platform or archetype changes
+- Feeding back to Product Line Squads and Engagement Architects for platform or archetype changes
 
-Solution Architects document variability per engagement; Council governs the **model** and the **exceptions**. See [Variability Management](../framework/variability-management.md).
+Engagement Architects document variability per Engagement; Council governs the **model** and the **exceptions**. See [Variability Management](../framework/variability-management.md).
 
 ---
 
-## Relationship to Domain Teams and Win Engineering
+## Relationship to Product Line Squads and Engagement Engineering
 
-- **Domain Teams** — Council sets or endorses platform-level standards; Domain Maintainers enforce them. Council resolves disputes that Maintainers cannot resolve.
-- **Win Engineering** — Council sets or endorses solution-level standards and variability; Solution Architects and Engagement Leads apply them. Council resolves disputes that affect multiple engagements or the product line.
-- **Escalation path** — Domain Maintainers, Solution Architects, and Engagement Leads can escalate to Council when they need a binding decision or when local agreement cannot be reached.
+- **Product Line Squads** — Council sets or endorses platform-level standards; Product Line Maintainers enforce them. Council resolves disputes that Maintainers cannot resolve.
+- **Engagement Engineering** — Council sets or endorses solution-level standards and variability; Engagement Architects and ELs/EPMs apply them. Council resolves disputes that affect multiple Engagements or the product line.
+- **Escalation path** — Product Line Maintainers, Engagement Architects, and ELs/EPMs can escalate to Council when they need a binding decision or when local agreement cannot be reached.
+
+---
+
+## Relationship to ERC and PAC
+
+The Platform Architecture Council (PAC — this Council) and the Engagement Readiness Council (ERC) are complementary governance bodies:
+
+- **PAC** governs architecture standards, practice sharing, pattern extraction, variability, and inner source quality. Its members are engineers and architects.
+- **ERC** governs the Engagement pipeline: readiness assessments, role assignments (EA, EPM, AVA), and capacity coordination through the Portfolio Program Manager (PPM).
+
+PAC sets the technical rules; ERC ensures Engagements start with the right people and ingredients. Both feed into each other: PAC patterns improve archetype quality that ERC uses for readiness; ERC delivery learnings feed PAC practice reviews.
+
+See the [Engagement Operating Model Guide](../../engagement/README.md) for ERC details.
 
 ---
 
@@ -100,4 +113,5 @@ Solution Architects document variability per engagement; Council governs the **m
 - [PLE Overview](../framework/ple-overview.md)
 - [Variability Management](../framework/variability-management.md)
 - [Inner Source Guidelines](inner-source-guidelines.md)
-- [Solution Architect Role](../roles/solution-architect.md)
+- [Engagement Architect Role](../roles/engagement-architect.md)
+- [Engagement Operating Model Guide](../../engagement/README.md) — ERC, role structure

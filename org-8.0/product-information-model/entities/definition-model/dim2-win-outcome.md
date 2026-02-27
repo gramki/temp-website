@@ -50,7 +50,7 @@ Analogous to Business Outcome (Dim 3), which captures what the *customer* needs 
 | Blocked by | Win Barrier (Dim 2) | Win Barriers structurally prevent achieving Win Outcomes |
 | Referenced by | Objective (Dim 1) | Objectives target specific Win Outcomes |
 | Targeted by | Initiative (Dim 1) | Initiatives target Win Outcomes with lever mix and embedded targets |
-| Advanced by | Win Engagement (Track 4) | Win Engagements advance specific Win Outcomes |
+| Advanced by | Win Activity (Track 4) | Win Activities advance specific Win Outcomes |
 | Supported by | Win Enablement (Track 4) | Win Enablement assets support achieving Win Outcomes |
 | Assessed by | Win Review (Track 4) | Win Reviews assess progress toward Win Outcomes |
 | Enabled by | Value Stream / Capability (Dim 8) | When Product is an Achievement Lever, identifies which product structures support this outcome |

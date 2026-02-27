@@ -22,7 +22,7 @@ Every work entity in the Work Model produces one or more structured outputs. The
 | **Evidence Artifact** | Data, findings, or observations that inform decisions. Captures *what was learned*. | Research findings, Experiment results, Feedback, Case pattern analysis |
 | **Specification Artifact** | A detailed description of what should be built, changed, or delivered. Captures *what to do*. | PSD, Release plan, Deployment runbook, GTM launch plan, Onboarding plan |
 | **Delivery Artifact** | A versioned, quality-gated output that moves toward or reaches a customer. Captures *what was built*. | System Version, Module Version, Product Version, Module Package Version, Product Package Version, Deployment (record), Enablement asset, Campaign asset |
-| **Assessment Artifact** | A structured evaluation of results against targets or criteria. Captures *how it went*. | Post-mortem, QBR summary, Post-implementation review, Target progress update |
+| **Assessment Artifact** | A structured evaluation of results against targets or criteria. Captures *how it went*. | Post-Incident Report, QBR summary, Post-implementation review, Target progress update |
 
 ### Artifact Lifecycle Pattern
 
@@ -46,7 +46,7 @@ Not all artifacts pass through every state. A System Version goes `Building → 
 | Type | Behavior | Examples |
 |---|---|---|
 | **Transitional** | Born in one track, consumed by another. The artifact's primary value is in *crossing a boundary*. | Feedback (Win → Discovery), PSD (Discovery → Build), Deployment runbook (Build → Run) |
-| **Terminal** | Consumed within the same track or by external systems. The artifact's primary value is *within its context*. | Module Version (integration verification), Enablement asset (Win internal), Post-mortem (Run internal) |
+| **Terminal** | Consumed within the same track or by external systems. The artifact's primary value is *within its context*. | Module Version (integration verification), Enablement asset (Win internal), Post-Incident Report (Run internal — consumed by planning and Definition Model) |
 
 ---
 
@@ -112,7 +112,7 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 | Working Software Increment | Build | Code changes with acceptance test results (Story output) | Acceptance criteria met; unit tests pass; code reviewed; for HI Modules: UI touchpoint implementation verified |
 | Epic Completion | Build | Completed capability with all Stories delivered (Module-scoped) | All Stories accepted; acceptance criteria met end-to-end |
 | Bug Fix | Build | Root cause analysis, fix verification, regression test results | Root cause identified; fix verified; regression tests added; no new defects introduced; provenance documented |
-| System Version | Build | Versioned, quality-gated artifact of a System (Dim 5) — atomic deployment unit. Build+Run shared vocabulary. | All quality gates passed (tests, security scan, performance benchmark, static analysis, dependency audit); version follows semver; release notes complete |
+| System Version | Build | Versioned, quality-gated artifact of a System (Dim 5) — atomic deployment unit. Build+Run shared vocabulary. Gate Profile: Standard (all gates) or Emergency (peer review + security scan + smoke tests; regression + benchmarks deferred — DR-031). | Standard: all quality gates passed. Emergency: non-negotiable gates passed; deferred gates tracked via originating Bug's Deferred Gate Obligation field; version follows semver; release notes complete |
 | Module Version | Build | Composite system: integration-verified composition of System Versions for a Module (Dim 8) — integrated deployment unit + integration verification. Build+Run+Product shared vocabulary. | Integration contracts validated; integration test suite passes; all constituent System Versions released; binding configuration defined |
 | Product Version | Build | Highest-order composite system: certified composition of Module Versions (BOM) — complete deployment unit + certification. Ubiquitous language across all teams and customers. | Declared BOM compatible; Resolved BOM tested together; end-to-end tests pass; compliance/security certification complete |
 | Module Package Version | Run | Environment-independent composition: Module Version + operator-facing System Versions + operational wiring — integrated deployment artifact | Module Version verified; all operational System Versions released; operational wiring validated; environment-independent |
@@ -132,7 +132,9 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 
 | Type | Track | Description | Assessment Criteria |
 |---|---|---|---|
-| Post-mortem | Run | Timeline, root cause, impact assessment, corrective actions, prevention measures | Root cause identified (not just symptoms); impact quantified; corrective actions assigned with owners; prevention measures systemic |
+| Post-Incident Report | Run | Timeline reconstruction, final root cause analysis, contributing factors, quantified impact, corrective actions with owners and deadlines, lessons learned. Produced by Post-Incident Review. | Root cause identified (not just symptoms); contributing factors are systemic (not individual blame); impact quantified (tenants, duration, revenue, SLA breach); corrective actions assigned with owners and deadlines; prevention measures systemic; communication effectiveness assessed |
+| Incident Record | Run | Observation record of service degradation: severity, detection source, affected systems/modules/environments/tenants, customer impact, SLA breach, response/resolution times, correlation fields | Severity classified (SEV-0..4); affected scope identified; SLA breach determination explicit; response/resolution times measured; parent/related/caused-by correlation completed where applicable |
+| Customer Communication Record | Run | Chronological record of incident communications: channels, audience, content summaries, resolution summary (external), follow-up commitments | Communication timely relative to incident progression; channels appropriate for audience; resolution summary accurate and customer-appropriate; all committed follow-ups tracked |
 | Go-live Checklist Completion | Win | Integration verification, configuration validation, handoff summary | All checklist items verified; integration tests passed; customer sign-off obtained |
 | Health Intervention Record | Win | Customer health assessment, intervention actions, outcome | Health signals documented; intervention timely; outcome measured; follow-up scheduled if unresolved |
 | Renewal/Churn Record | Win | Renewal outcome or churn analysis | Renewal terms documented; churn root causes identified (if churned); product vs. non-product attribution explicit |
@@ -197,7 +199,10 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Run Story** | Operational System Version — versioned artifact of an operational System (e.g., probe, reconciler) | Delivery | Terminal | **Entity file exists** (`track3-run-story.md`) |
 | **Technical Task (Run Track)** | Code changes, test results, documentation updates for operational Systems (System/Component-scoped, Dim 5). Serves Run Stories. Same entity structure as Build Track Technical Tasks, distinct track ownership. | Delivery | Terminal | **Entity file exists** (`track3-technical-task.md`) |
 | **Deployment** | Deployment record (artifact) — which descriptor (SDD/MDD/PDD version) was applied, to which environment, when, by whom. Produced by a Deployment Task. | Delivery | Terminal | **Entity file exists** (`track3-deployment.md`) |
-| **Incident** | Post-mortem — timeline, root cause, impact assessment, corrective actions, prevention measures | Assessment + Evidence | Transitional (→ Discovery as Signal, if systemic; → Run Epic, if operational tooling gap) | _To be detailed._ |
+| **Incident (Artifact)** | Incident record — observation of service degradation: severity (SEV-0..4), detection source, affected systems/modules/environments/tenants, customer impact, SLA breach, response/resolution times, correlation (parent/related/caused-by) | Evidence | Terminal (observation record; triggers work entities) | **Entity file exists** (`track3-incident.md`) |
+| **Incident Response Task** | Resolution summary, workaround documentation; may produce Bug (Track 2), Signal (Track 1), emergency Change Request (Track 3) | Delivery + Evidence | Transitional (→ Bug, → Signal, → Change Request) | **Entity file exists** (`track3-incident-response-task.md`) |
+| **Post-Incident Review** | Post-Incident Report — timeline reconstruction, final RCA, contributing factors, quantified impact, corrective actions with owners. Routes follow-ups to Build (Bug), Run (Run Epic, Maintenance), Discovery (Signal), Evolve (Finding), Definition Model (ODR) | Assessment | Transitional (→ multiple tracks) | **Entity file exists** (`track3-post-incident-review.md`) |
+| **Customer Communication Task** | Incident communication record — status updates issued, channels used, audience reached, resolution summary (external), follow-up commitments | Evidence | Terminal | **Entity file exists** (`track3-customer-communication-task.md`) |
 | **Change Request** | Change record — what changed, approval chain, verification, rollback status | Decision | Terminal | _To be detailed._ |
 | **Maintenance Task** | Maintenance record — what was done, verification results | Delivery | Terminal | _To be detailed._ |
 | **Tenant** | Tenant provisioning record — customer, environment, purpose, configuration, SLO tier; Tenant lifecycle events (scale, suspend, decommission) | Delivery | Terminal (operational) | _To be detailed._ |
@@ -236,7 +241,7 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Revenue Operations Engagement** | Billing/collections record, renewal outcome, revenue recognition status | Assessment | Terminal | _To be detailed._ |
 | **Win Case** | Resolution record — issue description, resolution steps, time-to-resolution, CSAT score | Assessment | Terminal (patterns → Win Review) | _To be detailed._ |
 | **Win Review** | Feedback (qualitative) + Target progress updates (quantitative) | Evidence + Assessment | Transitional (Feedback → Discovery) | **Entity files exist** (`track4-win-review.md`, `track4-feedback.md`) |
-| **Win Monitoring** | Alert/trigger (when threshold breached), health/revenue report/dashboard | Evidence + Assessment | Terminal (triggers Win Engagement, Win Case escalation, Win Review) | **Entity file exists** (`track4-win-monitoring.md`) |
+| **Win Monitoring** | Alert/trigger (when threshold breached), health/revenue report/dashboard | Evidence + Assessment | Terminal (triggers Win Activity, Win Case escalation, Win Review) | **Entity file exists** (`track4-win-monitoring.md`) |
 
 ### Track 5: Evolve Track
 

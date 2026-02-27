@@ -67,7 +67,7 @@ Verification Task: "SLA Verification — Payments MDD v3.1 → production-latam"
 │   ├── P95 latency < 300ms for 24h post-deployment
 │   ├── Availability ≥ 99.99% for 24h post-deployment
 │   ├── Error rate < 0.1% for 24h post-deployment
-│   └── Zero P1 incidents during verification window
+│   └── Zero SEV-1 incidents during verification window
 ├── Status: Passed
 ├── Evidence: "Datadog dashboard link; P95 latency avg 187ms; availability 99.997%; error rate 0.03%"
 └── Verified At: 2026-02-14T10:00:00Z

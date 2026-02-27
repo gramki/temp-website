@@ -10,6 +10,8 @@ A granular engineering step scoped to a specific System (Dim 5) and optionally a
 
 > **Technical Task is a per-track concept.** Each engineering track has its own Technical Tasks with the same entity structure but distinct track ownership. The Build Track's Technical Tasks serve Stories and Integration Stories (product engineering). The Run Track has its own Technical Tasks serving Run Stories (operational engineering). The Win Track may have Technical Tasks in the future (win engineering automation). This avoids cross-track borrowing and keeps ownership clean.
 
+> **Sprint bypass for P0 Bugs.** Technical Tasks serving P0 Bugs inherit sprint-bypass priority — they are allocated immediately outside normal sprint capacity. No structural field change is needed; the urgency is derived from the parent Bug's P0 priority. The resulting System Version may use the Emergency gate profile. See DR-031 D1.
+
 **System/Component scope, not Module scope:** Technical Tasks speak the System language ("Implement gRPC endpoint in fx-service," "Add Kafka consumer in payments-service"). They are the bridge from functional intent (Stories, Module-scoped) to technical implementation (Systems, Dim 5). A single Story may spawn Technical Tasks in multiple Systems because the Module-to-System mapping is many-to-many. See DR-026.
 
 ## Purpose

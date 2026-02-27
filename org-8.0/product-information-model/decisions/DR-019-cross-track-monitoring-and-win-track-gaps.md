@@ -24,24 +24,24 @@ A gap analysis of the Win Track (and the Work Model generally) identified four a
 - **Track 1: Signal Monitoring** — Continuous tracking of signal pipeline health, discovery velocity, theme trends. Triggers: Prioritization re-evaluation, Signal creation, Deliberation scheduling.
 - **Track 2: Build Monitoring** — Continuous tracking of build health, quality metrics, velocity. Triggers: Bug creation, Maintenance Task, Release Planning adjustment.
 - **Track 3: System Monitoring** — Continuous tracking of infrastructure health, SLA/uptime, capacity. Triggers: Incident creation, Change Request, Capacity Planning adjustment.
-- **Track 4: Win Monitoring** — Continuous tracking of customer health, revenue metrics, competitive intelligence, Customer Promise fulfillment. Includes revenue monitoring. Triggers: Win Engagement creation, Win Case escalation, Win Review preparation.
+- **Track 4: Win Monitoring** — Continuous tracking of customer health, revenue metrics, competitive intelligence, Customer Promise fulfillment. Includes revenue monitoring. Triggers: Win Activity creation, Win Case escalation, Win Review preparation.
 
 Each monitoring entity has scope, metrics tracked, thresholds/alerts, cadence, owner, and produces Alert/Trigger and Report/Dashboard artifacts.
 
 ### 2. Add Partner Enablement and Partner Engagement to the Win Track
 
 - **Partner Enablement** (subtype of Win Enablement) — Partner demo environments, co-marketing kits, partner training, certification programs, partner playbooks. Distinct from Sales Enablement (internal teams). Uses GTM lever.
-- **Partner Engagement** (subtype of Win Engagement) — Partner onboarding, co-selling, partner account management, partner pipeline management. Account-level (one partner). References external PRM.
+- **Partner Engagement** (subtype of Win Activity) — Partner onboarding, co-selling, partner account management, partner pipeline management. Account-level (one partner). References external PRM.
 - **Engagement Planning** scope extended to explicitly include partner prioritization and sequencing.
 
 ### 3. Add Revenue Operations Engagement and rely on Win Monitoring for revenue intelligence
 
-- **Revenue Operations Engagement** (subtype of Win Engagement) — Account-level, customer-facing work: invoicing/billing communication, collections, renewal processing, revenue recognition coordination. Advances Revenue Win Outcomes. Billing disputes remain Win Case (Complaint).
+- **Revenue Operations Engagement** (subtype of Win Activity) — Account-level, customer-facing work: invoicing/billing communication, collections, renewal processing, revenue recognition coordination. Advances Revenue Win Outcomes. Billing disputes remain Win Case (Complaint).
 - **Revenue monitoring** — Covered by Win Monitoring (revenue metrics, pipeline, NRR, churn signals). When targets are missed, Win Monitoring surfaces the signal; Win Review or Feedback → Signal may follow.
 
 ### 4. Add PLG/self-service conceptual notes (no new entities)
 
-- Win Engagement entity and draft-work-model.md updated with a note: for segments where the Product lever dominates, engagement subtypes shift from human execution to monitoring + exception-based intervention; Win Monitoring becomes primary; Build Track delivers the in-product "Win" experience.
+- Win Activity entity and draft-work-model.md updated with a note: for segments where the Product lever dominates, engagement subtypes shift from human execution to monitoring + exception-based intervention; Win Monitoring becomes primary; Build Track delivers the in-product "Win" experience.
 
 ### 5. Clarify that advocacy encompasses customer education
 
@@ -49,9 +49,9 @@ Each monitoring entity has scope, metrics tracked, thresholds/alerts, cadence, o
 
 ## Rationale
 
-- **Monitoring in every track** — The same pattern (continuous vigilance → triggers reactive work, feeds periodic assessment) applies across Discovery, Build, Run, and Win. Making it explicit prevents the work from being invisible and clarifies how Incidents, Bugs, Win Engagements, and Prioritization get triggered.
+- **Monitoring in every track** — The same pattern (continuous vigilance → triggers reactive work, feeds periodic assessment) applies across Discovery, Build, Run, and Win. Making it explicit prevents the work from being invisible and clarifies how Incidents, Bugs, Win Activities, and Prioritization get triggered.
 - **Partner work as subtypes** — Partners are intermediaries; they need enablement and engagement distinct from customers and from internal sales. Subtyping under existing parents keeps the model coherent and avoids a separate "partner track."
-- **Revenue Operations as engagement** — Revenue realization work is account-level and customer-facing (invoicing, collections, renewals). It advances Revenue Win Outcomes. Modeling it as a Win Engagement subtype is consistent with other account-level work; billing disputes stay in Win Case.
+- **Revenue Operations as engagement** — Revenue realization work is account-level and customer-facing (invoicing, collections, renewals). It advances Revenue Win Outcomes. Modeling it as a Win Activity subtype is consistent with other account-level work; billing disputes stay in Win Case.
 - **PLG as interpretation, not new structure** — The same subtypes apply; only the balance of human vs. product-mediated execution changes. A note suffices.
 - **Education under advocacy** — Advocacy already included programs and materials; customer education (training, certification) fits as both enablement assets and segment engagement delivery. Explicit mention avoids a separate "customer education" entity.
 
@@ -65,5 +65,5 @@ Each monitoring entity has scope, metrics tracked, thresholds/alerts, cadence, o
 - Customer education is clearly in scope under advocacy.
 
 ### Negative
-- Win Engagement and Win Enablement have more subtypes; entity tables are longer.
+- Win Activity and Win Enablement have more subtypes; entity tables are longer.
 - Monitoring entities are new and will need incremental detailing (artifacts, DoD) per the Work Execution Framework.

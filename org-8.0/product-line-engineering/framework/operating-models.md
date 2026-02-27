@@ -2,9 +2,9 @@
 
 ## Overview
 
-After a Customer Solution goes live, **who operates and maintains it** is defined by the **operating model** chosen for that engagement. Zeta defines three operating models. The choice is made during scoping and documented in the engagement contract.
+After a Customer Product goes live, **who operates and maintains it** is defined by the **operating model** chosen for that engagement. Zeta defines three operating models. The choice is made during scoping and documented in the Engagement contract.
 
-**Non-negotiable:** **Platform operations are always Zeta.** Olympus, Tachyon, and other domain platforms are always run and operated by Zeta (SRE). What varies is who operates and maintains the **Customer Solution** layer (configuration, integrations, customer-specific components).
+**Non-negotiable:** **Platform operations are always Zeta.** Olympus, Tachyon, and other Product Line platforms are always run and operated by Zeta (SRE). What varies is who operates and maintains the **Customer Product** layer (configuration, integrations, customer-specific components).
 
 ---
 
@@ -16,15 +16,15 @@ After a Customer Solution goes live, **who operates and maintains it** is define
 | **Co-Managed** | Zeta | Shared (Zeta + Customer) | Customer or Zeta (per contract) | Zeta | Customer or Zeta (per contract) |
 | **Customer-Operated** | Zeta | Customer | Customer | Zeta (escalation) | Customer |
 
-**Platform operations** — Runtime, monitoring, patching, capacity for the domain platforms. Always Zeta.
+**Platform operations** — Runtime, monitoring, patching, capacity for the Product Line platforms. Always Zeta.
 
-**Customer Solution operations** — Configuration changes, integration maintenance, incident response for the solution layer, and feature enhancements. Varies by model.
+**Customer Product operations** — Configuration changes, integration maintenance, incident response for the solution layer, and feature enhancements. Varies by model.
 
 ---
 
 ## Fully Managed
 
-**Description:** Zeta operates and maintains the entire Customer Solution. Customer consumes outcomes; they do not operate or change configuration/integrations themselves.
+**Description:** Zeta operates and maintains the entire Customer Product. Customer consumes outcomes; they do not operate or change configuration/integrations themselves.
 
 **Typical use:** Customer wants a turnkey solution; they have limited in-house ops or prefer to focus on business outcomes.
 
@@ -60,7 +60,7 @@ After a Customer Solution goes live, **who operates and maintains it** is define
 
 ## Customer-Operated
 
-**Description:** Zeta operates the platform only; customer operates and maintains the Customer Solution layer (config, integrations, enhancements). Zeta provides escalation and support (e.g. platform issues, upgrades).
+**Description:** Zeta operates the platform only; customer operates and maintains the Customer Product layer (config, integrations, enhancements). Zeta provides escalation and support (e.g. platform issues, upgrades).
 
 **Typical use:** Customer has strong in-house ops and wants to own solution-layer operations; they rely on Zeta for platform reliability and support.
 
@@ -76,31 +76,31 @@ After a Customer Solution goes live, **who operates and maintains it** is define
 
 ---
 
-## How to Select Operating Model During Scoping
+## How to Select Operating Model During Initiate
 
 - **Customer capability** — Can they operate config, integrations, and incidents? Do they want to?
 - **Customer preference** — Turnkey vs. co-managed vs. customer-operated.
 - **Commercial and risk** — Pricing, liability, and support scope align with the chosen model.
 - **Engagement contract** — Model is documented in the SoW; responsibility matrix is explicit.
 
-Solution Architect and Engagement Lead agree with the customer on the operating model before or early in delivery; it drives handover and run-team design.
+Engagement Architect and EPM agree with the customer on the operating model before or early in delivery; it drives handover and run-team design.
 
 ---
 
 ## Transition and Handover Criteria
 
-When the Win Engineering Team transitions the Customer Solution to steady state:
+When the Customer Product Squad transitions the Customer Product to steady state:
 
 - **Fully Managed** — Handover to Zeta run team (or existing SRE/ops); run team has playbooks, escalation matrix, and access; customer is not expected to operate.
 - **Co-Managed** — Handover to Zeta run team and customer per contract; responsibilities and handover checklist are clear for both.
 - **Customer-Operated** — Handover to customer with documentation, runbooks, and escalation path; Zeta retains platform ops and support per contract.
 
-**Handover criteria** (customize per engagement): documentation complete, operational readiness criteria met, runbooks and escalation matrix in place, operating model responsibilities signed off.
+**Handover criteria** (customize per Engagement): documentation complete, operational readiness criteria met, runbooks and escalation matrix in place, operating model responsibilities signed off.
 
 ---
 
 ## References
 
-- [Engagement Lifecycle](../processes/engagement-lifecycle.md) — Scoping and transition phases
-- [Win Engineering](win-engineering.md) — What Win Engineering delivers
+- [Engagement Lifecycle](../processes/engagement-lifecycle.md) — Initiate and Transfer phases
+- [Engagement Engineering](engagement-engineering.md) — What Engagement Engineering delivers
 - [Stakeholder Concerns](../adoption/stakeholder-concerns.md) — SRE/ops concerns and mitigations

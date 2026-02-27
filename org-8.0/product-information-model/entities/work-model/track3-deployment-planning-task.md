@@ -51,6 +51,7 @@ Makes deployment planning explicit in the Run Track. Deploying to production is 
 | May produce | Verification Task(s) (Track 3) | Planning may produce Verification Tasks for post-deployment validation |
 | May produce | Maintenance Task(s) (Track 3) | Planning may discover maintenance prerequisites |
 | Considers | Operational Readiness (Dim 7) | Planning considers environment readiness status |
+| Informed by | Incident history (Track 3) | Incident history for affected Module/System informs deployment risk assessment — a Module with recent SEV-1 incidents may warrant a more cautious strategy (canary, drill) or block promotion |
 | Supports | Customer Release (Dim 1) | Deployment planning ensures Customer Release's deployable compositions are deployed |
 
 ## Examples

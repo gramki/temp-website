@@ -12,7 +12,7 @@ A Change Request is **successfully completed** when all Deployment Tasks AND all
 
 Change Requests govern **deployment-related changes only**. Maintenance Tasks (routine preventative work) may go through their own change processes but are not governed by Change Requests. The scoping of Change Requests to deployment-related changes ensures they serve their primary purpose: providing the auditable, approval-gated envelope for code and configuration changes to production environments.
 
-> **Three Change Request types.** Standard changes follow the normal promotion path through a Deployment Train. Emergency-Technical changes arise from Incidents (P0 Bug → emergency fix → immediate deployment), bypassing normal cadences with documented waivers. Emergency-Business changes arise from business exigencies (e.g., campaign deadlines, festival-day feature rollouts), fast-tracking through a compressed train or abbreviated soak times with explicit ODR justification. See DR-029 D11.
+> **Three Change Request types.** Standard changes follow the normal promotion path through a Deployment Train. Emergency-Technical changes arise from Incidents (SEV-0/SEV-1 → emergency fix → immediate deployment), bypassing normal cadences with documented waivers. Emergency-Business changes arise from business exigencies (e.g., campaign deadlines, festival-day feature rollouts), fast-tracking through a compressed train or abbreviated soak times with explicit ODR justification. See DR-029 D11.
 >
 > **Scoping to Train or Station.** A Change Request scoped to a Train means the change will progress through the full promotion path. A Change Request scoped to a specific Station means the change targets only that station's environment — useful for environment-specific fixes, targeted rollbacks, or station-level hotfixes. Transitively, scoping to a station implies scoping to a package or deployment descriptor at that station.
 
@@ -64,7 +64,7 @@ Without Change Requests:
 | Contains | Deployment Plan(s) (Track 3) | Change Request contains the Deployment Plan(s) that scope the rollout |
 | Contains | Verification Task(s) (Track 3) | Change Request contains Verification Tasks (created by planning or added independently) |
 | May reference | Customer Release (Dim 1) | Change Request may support a Customer Release's deployment needs |
-| May originate from | Incident (Track 3) | Emergency-Technical changes may originate from an Incident |
+| May originate from | Incident (Track 3, artifact) | Emergency-Technical changes may originate from an Incident; triggered via Incident Response Task |
 | May originate from | Release Planning Task (Track 2) | Emergency-Business changes may originate from accelerated Release Plans |
 | Respects | Deployment Environment Change Cycle (Dim 7) | Change Request timing respects the target environment's change windows and freeze periods |
 

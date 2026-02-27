@@ -49,5 +49,7 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-027 | Composition Levels, Module Package, and Run Track Engineering (refined by DR-029) | Accepted | 2026-02-15 |
 | DR-028 | Deployment Descriptors — SDD, MDD, PDD (refined by DR-029) | Accepted | 2026-02-15 |
 | DR-029 | Change-to-Deployment Workflow Redesign — Deployment Train, Station, Change Request, Package Specs, Deployment Task/Artifact Split | Accepted | 2026-02-15 |
+| DR-030 | Incident Management Refactor — ITSM-Aligned Artifact/Entity Separation, SEV Model, PIR, Communication, Correlation | Accepted | 2026-02-25 |
+| DR-031 | Hotfix / Emergency Fix Path — P0 Sprint Bypass, Emergency Gate Profile, Deferred-Gate Obligation | Accepted | 2026-02-25 |
 
 ---

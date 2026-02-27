@@ -10,7 +10,7 @@ A large body of operational engineering work scoped to a single Module (Dim 8), 
 
 Run Epics may be triggered by:
 - **Operational Readiness gaps** — a System's Operational Readiness assessment (Dim 7) reveals missing probes, insufficient automation, or inadequate monitoring
-- **Incidents** — a post-mortem identifies operational tooling deficiencies (e.g., "we lacked synthetic probes for the LATAM payment corridor")
+- **Post-Incident Reviews** — a PIR identifies operational tooling deficiencies (e.g., "we lacked synthetic probes for the LATAM payment corridor")
 - **Operational improvement initiatives** — proactive investment in operational excellence (e.g., "reduce operational toil for Payments Module by 50%")
 - **New Module Version readiness** — the Build Track produces a new Module Version that needs Run Track enrichment into a Module Package Version
 
@@ -32,7 +32,7 @@ Makes operational engineering work visible and plannable. Without Run Epics:
 |---|---|---|
 | Name | String | Descriptive name (e.g., "Build comprehensive health monitoring for Payments Module") |
 | Module | Reference (Dim 8) | Which Module this Run Epic targets (same Module-scoping as Build Track Epics) |
-| Trigger | Enum + Reference | What triggered this work: `Readiness Gap` (ref: Operational Readiness), `Incident` (ref: Incident), `Improvement Initiative`, `Module Version Readiness` (ref: Module Version) |
+| Trigger | Enum + Reference | What triggered this work: `Readiness Gap` (ref: Operational Readiness), `Post-Incident Review` (ref: PIR / Incident), `Incident Pattern` (ref: Incident history), `Improvement Initiative`, `Module Version Readiness` (ref: Module Version) |
 | Operational Systems Targeted | List of References (Dim 5) | Which operational Systems (Dim 5) this Epic will build or enhance |
 | Target Module Package Version | Reference (Track 3) | Which Module Package Version this Epic's work contributes to (if applicable) |
 | Acceptance Criteria | Text | What "done" looks like for this operational engineering effort |
@@ -54,7 +54,8 @@ Makes operational engineering work visible and plannable. Without Run Epics:
 | Produces | Operational System Version(s) | Run Epic work produces operational System Versions (same System Version entity type) |
 | Contributes to | Module Package Version (Track 3) | Run Epic's operational System Versions enrich a Module Package Version |
 | Triggered by | Operational Readiness (Dim 7) | Readiness gaps trigger Run Epics |
-| Triggered by | Incident (Track 3) | Post-mortem findings trigger Run Epics |
+| Triggered by | Post-Incident Review (Track 3) | PIR corrective actions trigger Run Epics |
+| Informed by | Incident history (Track 3) | Incident patterns inform Run Epic scoping and prioritization |
 | May produce | ODR(s) (Dim 7) | Run Deliberations within Run Epic work produce ODRs |
 
 ## Examples
@@ -62,7 +63,7 @@ Makes operational engineering work visible and plannable. Without Run Epics:
 | Run Epic | Module | Trigger | Operational Systems | Status |
 |---|---|---|---|---|
 | Build comprehensive health monitoring for Payments Module | Payments | Readiness Gap: payments-service lacks synthetic probes for LATAM corridors | payments-healthcheck (new), payment-reconciler (enhance) | In Progress |
-| Automate cert rotation for FX Module | FX | Incident: INC-2341 (expired cert caused 2-hour FX outage) | fx-cert-rotator (new) | Planned |
+| Automate cert rotation for FX Module | FX | Post-Incident Review: PIR for INC-2341 (expired cert caused 2-hour FX outage) | fx-cert-rotator (new) | Planned |
 | Reduce operational toil for Compliance Module — LATAM | Compliance | Improvement Initiative: Q2 operational excellence | compliance-audit-reporter (new), compliance-alert-tuner (new) | Planned |
 
 ---

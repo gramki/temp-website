@@ -65,11 +65,12 @@ Provides structured reflection on Win Track results. Without Win Reviews:
 |---|---|---|
 | Produces | Feedback (Track 4) | Win Review produces Feedback artifacts (qualitative observations) |
 | Assesses | Initiative (Dim 1) | Win Review assesses Initiative target progress and updates quantitative measures |
-| Assesses | Win Engagement (Track 4) | Win Review assesses the results of Win Engagements |
+| Assesses | Win Activity (Track 4) | Win Review assesses the results of Win Activities |
 | Assesses | Win Enablement (Track 4) | Campaign/Program Reviews assess enablement asset and program effectiveness |
 | Assesses | Win Case (Track 4) | Case Pattern Reviews assess Win Case patterns |
 | Assesses | Customer Promise (Dim 3) | Win Review assesses whether Customer Promises (Value Propositions, Service Commitments, Compliance Posture) are being fulfilled |
 | References | Customer Value Metric (Dim 3) | Win Review references Customer Value Metrics as evidence of promise fulfillment |
+| Consumes | Incident summaries (Track 3) | Win Reviews may consume summarized incident communication (from Customer Communication Task outputs) when assessing Customer Promise fulfillment — the Run Track owns incident communication, the Win Track consumes summarized/enhanced views |
 | Participants are | Win Stakeholder (Dim 2) | Win Stakeholders participate in reviews |
 | Scoped to | Customer Segment (Dim 3) | Win Review is scoped to a customer or segment |
 | Assesses | API Module (Dim 6) | Win Review assesses API adoption, developer satisfaction, and SLO compliance |

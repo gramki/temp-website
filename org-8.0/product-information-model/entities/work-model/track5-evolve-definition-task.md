@@ -16,7 +16,7 @@ The Work Model and Operating Model are living documents that must evolve as the 
 
 | Field | Type | Description |
 |---|---|---|
-| Name | String | Descriptive name (e.g., "Define DoD for Win Engagement entities") |
+| Name | String | Descriptive name (e.g., "Define DoD for Win Activity entities") |
 | Definition Scope | Enum | `Work Entity Definition`, `Artifact Type Definition`, `DoD Criteria`, `Guidance Structure`, `Assessment Criteria`, `Track Introduction` |
 | Target Track(s) | List | Which track(s) the definition change affects |
 | Target Entity/Artifact | Reference | Specific entity types or artifact types being defined or updated |
@@ -57,13 +57,13 @@ The Work Model and Operating Model are living documents that must evolve as the 
 
 ## Example
 
-**Name:** "Define DoD for Win Engagement entities"
+**Name:** "Define DoD for Win Activity entities"
 **Definition Scope:** DoD Criteria
 **Target Track(s):** Track 4: Win
-**Target Entity/Artifact:** Win Engagement (all 7 subtypes)
+**Target Entity/Artifact:** Win Activity (all 7 subtypes)
 **Change Type:** New
 **Triggered by:** Evolve Findings from "Q3 Win Track Artifact Quality Review" — finding: Implementation/Onboarding missing integration verification in 35% of cases
-**Rationale:** Win Engagement entities currently have no formal DoD. The absence leads to inconsistent quality — some engagements are closed without complete artifacts. Defining DoD ensures all subtypes have explicit exit criteria and artifact checklists.
+**Rationale:** Win Activity entities currently have no formal DoD. The absence leads to inconsistent quality — some engagements are closed without complete artifacts. Defining DoD ensures all subtypes have explicit exit criteria and artifact checklists.
 **Output:** 7 updated entity files with DoD sections; updated Work Execution Framework artifact inventory
 
 ---

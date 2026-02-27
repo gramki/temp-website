@@ -40,8 +40,8 @@ Measures Service Commitment guarantees.
 *Examples:*
 - Actual uptime vs. SLA: "99.95% actual vs. 99.9% committed"
 - P95 latency: "180ms actual vs. 200ms committed"
-- Incident response time: "12-minute average P1 response vs. 15-minute SLA"
-- Mean time to resolution: "3.2 hours average vs. 4-hour SLA"
+- Incident response time: "12-minute average SEV-1 response vs. 15-minute SLA"
+- Mean time to resolution: "3.2 hours average SEV-1 MTTR vs. 4-hour SLA"
 
 ### Compliance Metric (subtype)
 
@@ -77,6 +77,7 @@ _Not applicable — metrics are continuously measured. Metric definitions may be
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Upstream | Customer Promise (Dim 3) | Customer Value Metric evidences a Customer Promise |
+| Fed by | Incident (Track 3, artifact) | Incident response/resolution times feed Service Level Metric actuals (e.g., "SEV-1 incident MTTR: 3.2 hours vs. 4-hour SLA") |
 | Work Model | Modeling Task (Track 1) | Modeling Tasks define metric targets and measurement methods |
 
 ## Example

@@ -23,7 +23,7 @@ Without Operational Journeys:
 
 | Field | Type | Description |
 |---|---|---|
-| Name | Text | Descriptive journey name (e.g., "Diagnose and resolve a P1 incident") |
+| Name | Text | Descriptive journey name (e.g., "Diagnose and resolve a SEV-1 incident") |
 | Accomplishes | Reference (Dim 7) | Which Operational Job(s) this journey accomplishes |
 | Followed by | List of References (Dim 7) | Which Operational Persona(s) follow this journey |
 | Traverses | List of References (Dim 8) | Which Module(s) are traversed (in order) |
@@ -45,8 +45,8 @@ Without Operational Journeys:
 
 ## Example
 
-**"Diagnose and resolve a P1 incident"**
-- Accomplishes: "Diagnose and resolve a P1 incident within SLO"
+**"Diagnose and resolve a SEV-1 incident"**
+- Accomplishes: "Diagnose and resolve a SEV-1 incident within SLO"
 - Followed by: Reliability Operator
 - Journey steps:
   1. Alert triggers via PagerDuty Integration Module → Email + Voice/IVR (on-call notification)
@@ -55,8 +55,8 @@ Without Operational Journeys:
   4. If rollback needed: open Deployment Console (Web + Self-serve) → initiate rollback
   5. If config change needed: use Ops CLI (CLI + Self-serve) → apply fix
   6. Verify resolution via Monitoring Dashboard
-  7. Create post-mortem in Incident Management Module (Web + Self-serve)
+  7. Create Post-Incident Report in Incident Management Module (Web + Self-serve)
 - Traverses: PagerDuty Integration Module, Monitoring Module, Log Module, Deployment Module, Ops CLI Module, Incident Module
-- Capabilities Engaged: Alert Routing, Metric Visualization, Log Search, Canary Deployment/Rollback, Configuration Management, Post-Mortem Authoring
+- Capabilities Engaged: Alert Routing, Metric Visualization, Log Search, Canary Deployment/Rollback, Configuration Management, Post-Incident Report Authoring
 
 ---

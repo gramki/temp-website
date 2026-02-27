@@ -22,9 +22,9 @@ This archetype describes solutions for **lending** (retail, business, or both). 
 
 ## How to Use
 
-1. **Scoping** — Solution Architect selects this archetype (or adapts it) for engagements that fit lending solutions.
-2. **Deliver** — Win Engineering Team uses blueprint, cookbook, and playbook to configure platforms and build extensions.
-3. **Variability** — Solution Architect documents configuration decisions per engagement per [Variability Management](../../framework/variability-management.md).
+1. **Initiate** — Engagement Architect selects this archetype (or adapts it) for Engagements that fit lending solutions.
+2. **Build** — Customer Product Squad uses blueprint, cookbook, and playbook to configure platforms and build extensions.
+3. **Variability** — Engagement Architect documents configuration decisions per Engagement per [Variability Management](../../framework/variability-management.md).
 4. **Feedback** — At transition, propose archetype updates; Council reviews.
 
 ---

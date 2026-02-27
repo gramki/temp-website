@@ -644,13 +644,13 @@ See DR-018 for the full decision record.
 
 ### Q38: Why add monitoring as a work entity in every track?
 
-Every track has continuous monitoring work that triggers reactive work (Incidents, Bugs, Win Engagements, Prioritization re-evaluation) and feeds periodic assessment (Win Review, Deliberation, Release Planning). That work was implicit — teams monitored dashboards and alerts, but the Work Model didn't represent it. Adding Signal Monitoring (Track 1), Build Monitoring (Track 2), System Monitoring (Track 3), and Win Monitoring (Track 4) makes the pattern explicit: same structure (scope, metrics, thresholds, cadence, owner; outputs: alert/trigger, report/dashboard), track-specific scope. Run Track's System Monitoring is the most established in practice (SRE/DevOps); it is now modeled. Win Monitoring includes revenue monitoring — tracking revenue metrics and surfacing signals when targets are missed. See DR-019.
+Every track has continuous monitoring work that triggers reactive work (Incidents, Bugs, Win Activities, Prioritization re-evaluation) and feeds periodic assessment (Win Review, Deliberation, Release Planning). That work was implicit — teams monitored dashboards and alerts, but the Work Model didn't represent it. Adding Signal Monitoring (Track 1), Build Monitoring (Track 2), System Monitoring (Track 3), and Win Monitoring (Track 4) makes the pattern explicit: same structure (scope, metrics, thresholds, cadence, owner; outputs: alert/trigger, report/dashboard), track-specific scope. Run Track's System Monitoring is the most established in practice (SRE/DevOps); it is now modeled. Win Monitoring includes revenue monitoring — tracking revenue metrics and surfacing signals when targets are missed. See DR-019.
 
 ---
 
 ### Q39: Why Partner Enablement and Partner Engagement instead of a separate "partner track"?
 
-Partners are intermediaries (Awareness, Acquisition); they need enablement and engagement distinct from internal sales and from customers. Modeling them as subtypes of Win Enablement and Win Engagement keeps one Win Track: partner work is still "value realization" work, just directed at partners instead of end customers. Partner Enablement (partner demo environments, co-marketing kits, certification) uses the GTM lever and is distinct from Sales Enablement (internal teams). Partner Engagement (onboarding, co-selling, pipeline management) is account-level (one partner); it references external PRM. Engagement Planning explicitly includes partner prioritization and sequencing. See DR-019.
+Partners are intermediaries (Awareness, Acquisition); they need enablement and engagement distinct from internal sales and from customers. Modeling them as subtypes of Win Enablement and Win Activity keeps one Win Track: partner work is still "value realization" work, just directed at partners instead of end customers. Partner Enablement (partner demo environments, co-marketing kits, certification) uses the GTM lever and is distinct from Sales Enablement (internal teams). Partner Engagement (onboarding, co-selling, pipeline management) is account-level (one partner); it references external PRM. Engagement Planning explicitly includes partner prioritization and sequencing. See DR-019.
 
 ---
 
@@ -802,7 +802,7 @@ Each track already has monitoring entities (Signal Monitoring, Build Monitoring,
 
 ### Q64: How does the Evolve Track connect Work Model and Operating Model?
 
-Tracks 1–4 produce outputs that modify the Definition Model (Modeling Task updates Dims 2–9, Specification Task produces PSDs) or external systems (Deployment deploys to infrastructure, Win Engagement updates CRM). Track 5 is the only track whose outputs directly modify the Work Model itself (entity definitions, artifact types, DoD criteria, assessment criteria) AND the Operating Model (guidance structures, ceremony definitions, role descriptions). This makes Track 5 the structural bridge between the two models — the mechanism by which the three-model architecture (Definition → Work → Operating) stays coherent as it evolves. The bridge relationship is real; the structural form is a track. See DR-022.
+Tracks 1–4 produce outputs that modify the Definition Model (Modeling Task updates Dims 2–9, Specification Task produces PSDs) or external systems (Deployment deploys to infrastructure, Win Activity updates CRM). Track 5 is the only track whose outputs directly modify the Work Model itself (entity definitions, artifact types, DoD criteria, assessment criteria) AND the Operating Model (guidance structures, ceremony definitions, role descriptions). This makes Track 5 the structural bridge between the two models — the mechanism by which the three-model architecture (Definition → Work → Operating) stays coherent as it evolves. The bridge relationship is real; the structural form is a track. See DR-022.
 
 ---
 
@@ -1083,5 +1083,47 @@ A single Customer Release may span multiple Deployment Trains when different mod
 ### Q102: Why is Verification Task standalone rather than a subtype?
 
 Verification Task is distinct from Maintenance Task (recurring/preventative), Run Track Technical Task (serves Run Stories), and Deployment Task (applies descriptors). Making it a subtype under a generic "Operational Task" would blur these distinct responsibilities. Verification Tasks produce evidence, are required for Change Request closure, and are created during Deployment Planning or added directly to Change Requests. Their lifecycle and purpose are specific enough to warrant a standalone entity. See DR-029, D9.
+
+---
+
+### Q103: Why is Incident a work artifact and not a work entity?
+
+An Incident records *what happened* — unplanned service degradation. It is an observation, not a task. The work of *handling* the incident is modeled by Incident Response Task (triage-through-resolution), Post-Incident Review (structured learning), and Customer Communication Task (stakeholder communication). This parallels the Deployment pattern (DR-029): Deployment Task (work entity) produces Deployment (artifact/record). The separation enables: (1) independent assessment of what happened vs. how well the organization responded, (2) incident correlation (parent/child) at the artifact level without conflating with response work, (3) the Incident artifact as a referenceable evidence entity for SLA breach tracking, error budget consumption, and readiness assessment. See DR-030, D1.
+
+---
+
+### Q104: How do incidents feed back into Run Track planning?
+
+Incident history is a first-class input to three Run Track planning entities:
+
+1. **Deployment Planning Task** — incident history for a Module/System informs deployment risk assessment. A Module with recent SEV-1 incidents may warrant a more cautious deployment strategy (canary, drill) or may block promotion at a Station.
+2. **Capacity Planning Task** — capacity-related incidents (resource saturation, throttling failures) directly inform capacity forecasting and scaling requirements.
+3. **Run Epic scoping** — incident patterns inform operational engineering prioritization. "3 SEV-2 incidents from manual cert rotation" justifies an automation Run Epic without waiting for Discovery to process it as a Signal.
+
+This is in addition to Post-Incident Review (backward-looking learning) and Discovery Track (systemic pattern recognition). Run Track planning looks forward operationally. See DR-030, D10.
+
+---
+
+### Q105: Why SEV-0 through SEV-4 instead of P1/P2/P3?
+
+P1/P2 is overloaded across organizations — some use P for priority, some for severity. SEV-N is unambiguous: it labels severity specifically. SEV-0 is reserved for total service outage (all tenants affected, no workaround), providing a level above SEV-1 for catastrophic events. The Work Model defines default severity definitions; the Operating Model may refine them for the organization's context. See DR-030, D2.
+
+---
+
+### Q106: Who owns incident communication — Run Track or Win Track?
+
+The Run Track owns incident communication via Customer Communication Task because SRE/DevOps has real-time technical context (blast radius, mitigation progress, ETA). Status page updates, affected-tenant notifications, and resolution summaries are produced by the Run Track. The Win Track consumes summarized or enhanced views of incidents in their regular communication routines — Win Reviews, QBRs, and proactive customer outreach. The Win Track does not duplicate incident communication; it references Run Track outputs. See DR-030, D7.
+
+---
+
+### Q107: How do hotfixes flow through the model?
+
+A SEV-0/SEV-1 Incident triggers an Incident Response Task (DR-030) which may produce a Bug (provenance: Run). This Bug defaults to P0 at triage, which signals sprint-boundary bypass — the Technical Task is allocated immediately outside normal sprint capacity.
+
+The resulting System Version uses the **Emergency gate profile** (DR-031): peer review, security scan, and smoke tests are non-negotiable; full regression, performance benchmarks, and static analysis may be deferred. The System Version is then deployed via an **Emergency-Technical Change Request** (DR-029) with abbreviated soak times and documented waivers.
+
+The critical safeguard is the **deferred-gate obligation**: the Bug stays at `Fixed` (not `Closed`) until a subsequent Standard System Version passes all deferred gates. This prevents emergency hotfixes from permanently lowering quality standards. The full chain is: Incident → IRT → Bug (P0) → Technical Task → System Version (Emergency) → SDD → Emergency-Technical CR → Deployment Task → Deployment → Verification Task.
+
+The hotfix branch strategy (branch from release tag, cherry-pick to main, etc.) is an Operating Model concern — the Work Model captures the `Git Reference` on System Version but does not prescribe branching.
 
 ---

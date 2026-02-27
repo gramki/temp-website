@@ -35,7 +35,7 @@ ODR covers: Cloud Provider & Services, Deployment Strategy, Tenancy & Isolation,
 
 ### D4: ODR has dual provenance — Discovery and Run
 
-ODRs can be produced by both the Discovery Track (Deliberation-driven — strategic infrastructure planning like cloud provider selection) and the Run Track (operationally-driven — decisions emerging from operational experience, incident post-mortems, capacity reviews). Both paths produce the same Dim 7 entity.
+ODRs can be produced by both the Discovery Track (Deliberation-driven — strategic infrastructure planning like cloud provider selection) and the Run Track (operationally-driven — decisions emerging from operational experience, Post-Incident Reviews, capacity reviews). Both paths produce the same Dim 7 entity.
 
 ### D5: Data governance and archival as ODR scope, not Dim 9
 

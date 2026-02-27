@@ -109,7 +109,10 @@ The Work Model defines the *structure* of guidance (what a playbook should cover
 ### 4.3 Run Track Playbooks:
 
     ☐ Deployment runbook template and authoring guidelines
-    ☐ Incident management playbook (severity classification, escalation, post-mortem process)
+    ☐ Incident management playbook (SEV-0..4 severity classification, escalation L1/L2/L3, Post-Incident Review process — DR-030)
+    ☐ Hotfix branch strategy — define branching pattern for emergency fixes (branch from release tag vs. cherry-pick from main vs. direct to main). Depends on repo structure and release model. DR-031 D4 defers this to Operating Model.
+    ☐ Expedited review ceremony — define how P0 Bug code reviews are handled outside normal hours (on-call reviewer, async review, pair programming). DR-031 D1 states P0 = sprint bypass; Operating Model defines the mechanism.
+    ☐ Deferred-gate follow-up process — define cadence and ownership for resolving deferred-gate obligations on Emergency System Versions. Who monitors Bugs stuck at `Fixed` with outstanding deferred gates? DR-031 D3.
     ☐ Change management playbook (approval workflow, risk assessment, rollback procedures)
     ☐ Capacity planning playbook
     ☐ Module Package assembly playbook — how to enrich Module Version with operational systems and configuration (DR-027)
@@ -199,3 +202,10 @@ This TODO was compiled from deferred items across:
 - DR-014, DR-018, DR-022, DR-027
 
 ---
+
+## To be Detailed:
+    - Systems have Reviewers and Contributors
+    - Squads pickup Initiatives to contribute to and work across all systems they need to enhance or build
+    - Squads are reviewed for necessary skills and training to contribute to the Initiatives they pickup
+    - Members of the squad may also be reviewers of systems they are not contributing to under the current Initiatives they are not part of
+    - Systems are owned by Architects and Reviewers, whereas the Squads are managed by the Tech Leads and Engineering Managers

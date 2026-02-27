@@ -7,7 +7,7 @@
 
 ## Definition
 
-Continuous tracking of customer health (adoption, usage, NPS), revenue metrics (pipeline, NRR, churn signals), competitive intelligence, and Customer Promise fulfillment metrics. Win Monitoring sits between periodic assessment (Win Review) and reactive work (Win Case, Win Engagement) — it surfaces at-risk accounts, expansion opportunities, competitive threats, and promise gaps before they become crises.
+Continuous tracking of customer health (adoption, usage, NPS), revenue metrics (pipeline, NRR, churn signals), competitive intelligence, and Customer Promise fulfillment metrics. Win Monitoring sits between periodic assessment (Win Review) and reactive work (Win Case, Win Activity) — it surfaces at-risk accounts, expansion opportunities, competitive threats, and promise gaps before they become crises.
 
 Win Monitoring is the Win Track's instantiation of the cross-track monitoring pattern. It includes **revenue monitoring** — tracking revenue metrics and surfacing signals when targets are missed — which feeds Win Review and may trigger Retention or Expansion Engagement.
 
@@ -19,7 +19,7 @@ Makes the continuous oversight of commercial and customer health explicit. Witho
 - Competitive threats and Customer Promise gaps surface only through Win Cases
 - Revenue target misses are visible only at review time
 
-**Triggers downstream work:** Win Engagement creation (Retention, Expansion), Win Case escalation, Win Review preparation, Feedback → Signal when patterns warrant Discovery investigation.
+**Triggers downstream work:** Win Activity creation (Retention, Expansion), Win Case escalation, Win Review preparation, Feedback → Signal when patterns warrant Discovery investigation.
 
 ## Fields
 
@@ -46,14 +46,14 @@ Makes the continuous oversight of commercial and customer health explicit. Witho
 
 | Artifact | Category | Description | Downstream Consumer |
 |---|---|---|---|
-| Alert / Trigger | Evidence | When threshold is breached — prompts Win Engagement, Win Case escalation, or Win Review | Win Engagement, Win Review |
+| Alert / Trigger | Evidence | When threshold is breached — prompts Win Activity, Win Case escalation, or Win Review | Win Activity, Win Review |
 | Health / Revenue Report / Dashboard | Assessment | Periodic snapshot of customer health, revenue metrics, promise fulfillment | Win Review preparation, Initiative target tracking |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| May trigger | Win Engagement (Track 4) | Monitoring surfaces need for Retention or Expansion engagement |
+| May trigger | Win Activity (Track 4) | Monitoring surfaces need for Retention or Expansion engagement |
 | May trigger | Win Case (Track 4) | Monitoring may surface need for case escalation |
 | Feeds | Win Review (Track 4) | Dashboards and reports feed Win Review preparation |
 | May produce | Feedback (Track 4) | Patterns may become Feedback and then Signal |

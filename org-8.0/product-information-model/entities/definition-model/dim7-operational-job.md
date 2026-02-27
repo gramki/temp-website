@@ -46,7 +46,7 @@ Without Operational Jobs:
 | Operational Job | Quality Domain | Pursued by | Enabled by (Dim 8) | Measured against | Run Track Entity |
 |---|---|---|---|---|---|
 | "Deploy a release safely to production without service disruption" | Platform | Platform Operator | Release Management (Value Stream), Canary Deployment (Capability) | Zero-downtime deployments; rollback within 5 min | Deployment |
-| "Diagnose and resolve a P1 incident within SLO" | Reliability | Reliability Operator | Incident Management (Value Stream), Root Cause Analysis (Capability) | MTTR < 30 min for P1; zero cascading failures | Incident |
+| "Diagnose and resolve a SEV-1 incident within SLO" | Reliability | Reliability Operator | Incident Management (Value Stream), Root Cause Analysis (Capability) | MTTR < 30 min for SEV-1; zero cascading failures | Incident Response Task |
 | "Rotate encryption keys without downtime" | Security | Security Operator | Key Management (Capability), Automated Key Rotation (Capability) | Zero expired certificates; rotation < 5 min | Maintenance Task |
 | "Scale infrastructure for expected load within budget" | Scalability, Cost | Platform Operator | Capacity Management (Value Stream), Auto-Scale (Capability) | Cost growth < 1.5x traffic growth; no capacity-induced outages | Capacity Planning |
 | "Restore service from backup within RTO" | Reliability | Data Operator, Reliability Operator | Disaster Recovery (Value Stream), Point-in-Time Recovery (Capability) | RTO < 4 hours; RPO < 1 hour; data integrity verified | Maintenance Task |

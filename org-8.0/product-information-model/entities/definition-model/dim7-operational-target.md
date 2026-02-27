@@ -54,6 +54,7 @@ Analogous to Win Outcome (Dim 2), which captures what commercial success looks l
 | Delivers | API Operation SLOs (Dim 6) | Operational Targets back per-operation performance commitments |
 | Scoped to | Module (Dim 8) + Deployment Environment (Dim 7) | Target applies to a specific module in a specific environment |
 | Monitored by | System Monitoring (Track 3) | Runtime performance tracked against target |
+| Consumed by | Incident (Track 3, artifact) | Incidents consume error budget against Operational Targets — every incident erodes the margin toward breach |
 | Responsibility of | Operational Persona (Dim 7) | Operational Personas own specific targets |
 | Undermined by | Operational Pain (Dim 7) | Operational Pains make targets harder to achieve |
 | Referenced by | Operational Readiness (Dim 7) | Readiness criteria reference target compliance |
@@ -69,7 +70,7 @@ Analogous to Win Outcome (Dim 2), which captures what commercial success looks l
 | "Create Payment latency — Prod US-East" | Latency | Module-level | p99 < 500ms | p99 < 800ms | Request duration at API gateway, per-request | Product (primary — query optimization, caching), Operational (secondary — right-size compute) |
 | "Production US-East compute availability" | Availability | Environment-level | 99.99% | 99.95% | Node health checks, 1-min intervals | Operational (primary — auto-healing, multi-AZ), Product (secondary — health check endpoints) |
 | "Infrastructure cost per 1K transactions" | Cost | Product-level | < $0.50 | < $0.75 | Monthly compute + data transfer cost / transaction count | Operational (primary — right-sizing, reserved instances), Product (secondary — code efficiency) |
-| "P1 incident MTTR" | Recovery | Product-level | < 30 min | < 60 min | Incident open-to-resolved duration for Severity 1 | Product (primary — observability tooling, automated diagnostics), Operational (secondary — incident response procedures) |
+| "SEV-1 incident MTTR" | Recovery | Product-level | < 30 min | < 60 min | Incident open-to-resolved duration for SEV-1 | Product (primary — observability tooling, automated diagnostics), Operational (secondary — incident response procedures) |
 | "Vulnerability remediation time" | Security | Product-level | < 72 hours (critical) | < 1 week | Time from CVE disclosure to patched deployment | Product (primary — dependency management, automated scanning), Operational (secondary — expedited deployment process) |
 
 ---

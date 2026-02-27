@@ -156,9 +156,19 @@ Key properties:
 
 ### Emergency-Technical Flow (from Incident)
 
+The emergency flow spans two tracks with complementary fast-paths:
+
+**Build Track fast-path (DR-031):**
 ```
-Incident → P0 Bug → emergency System Version → SDD
-  ↓
+Incident (SEV-0/SEV-1) → Incident Response Task → Bug (P0, Run provenance)
+  → Technical Task (sprint bypass, immediate allocation)
+    → System Version (Emergency gate profile: peer review + security scan + smoke tests;
+       full regression + benchmarks deferred)
+      → SDD
+```
+
+**Run Track fast-path (DR-029):**
+```
 Change Request (Emergency-Technical)
   - Abbreviated soak times
   - Documented waiver for bypassed stations
@@ -168,6 +178,8 @@ Deployment Task → Deployment → Verification Task
   ↓
 Change Request Complete
 ```
+
+**Deferred-gate obligation (DR-031):** The Bug stays at `Fixed` (not `Closed`) until a subsequent Standard System Version passes all deferred quality gates. This prevents emergency hotfixes from permanently lowering quality standards.
 
 ### Emergency-Business Flow (from Release Plan acceleration)
 
@@ -247,7 +259,7 @@ A rollback is a new Deployment Task that produces a new Deployment record pointi
 | Type | Trigger | Governance | Example |
 |---|---|---|---|
 | **Standard** | Release Plan, Module Package Version ready | Full Train traversal, CAB approval | "Deploy Payments v2.3.0 through PCI Regulated Train" |
-| **Emergency-Technical** | Incident, P0 Bug | Abbreviated soak, documented waivers for bypassed stations | "Hotfix for payment processing failure in production-latam" |
+| **Emergency-Technical** | Incident, SEV-0/SEV-1 Bug | Abbreviated soak, documented waivers for bypassed stations | "Hotfix for payment processing failure in production-latam" |
 | **Emergency-Business** | Business exigency, campaign deadline | Compressed Train, fast-track stations, ODR documenting waiver | "Accelerate FX feature for LATAM campaign launch" |
 
 ### Scope

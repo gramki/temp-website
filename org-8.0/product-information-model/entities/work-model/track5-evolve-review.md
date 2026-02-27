@@ -56,7 +56,7 @@ Tracks 1–4 produce work and artifacts but do not systematically assess whether
 
 **Name:** "Q3 Win Track Artifact Quality Review"
 **Review Type:** Artifact Quality
-**Scope:** Win Track — Win Engagement artifacts (all 7 subtypes), Win Case resolution records
+**Scope:** Win Track — Win Activity artifacts (all 7 subtypes), Win Case resolution records
 **Assessment Period:** April 1 – June 30, 2026
 **Participants:** Product Ops Lead, Win Track Process Owner, CS Manager, Support Lead
 **Evidence Sources:** 50-item artifact sample (stratified by subtype), Win Monitoring quality scores, CS team retrospective notes

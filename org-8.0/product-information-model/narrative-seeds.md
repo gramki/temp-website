@@ -360,7 +360,7 @@ Without explicit promise assessment in Win Reviews, the Win Track only measures 
 
 ### Feedback is an artifact, not a work item
 
-Feedback was reclassified from a "Win entity" to an **artifact** produced by Win Reviews. You don't "do" a Feedback — you do a Win Review and *produce* Feedback records. Feedback is to Win Engagements/Reviews what a PDR is to a Deliberation: the record produced by the work, not the work itself.
+Feedback was reclassified from a "Win entity" to an **artifact** produced by Win Reviews. You don't "do" a Feedback — you do a Win Review and *produce* Feedback records. Feedback is to Win Activities/Reviews what a PDR is to a Deliberation: the record produced by the work, not the work itself.
 
 Feedback is a transitional artifact: born in the Win Track, consumed by the Discovery Track when promoted to a Signal. Not every customer observation becomes a Signal. Feedback is the raw, structured observation; Signal is the qualified, investigation-worthy version.
 
@@ -405,7 +405,7 @@ The Run Track has its own reactive entities (Incident, Change Request) for infra
 
 ### Segment-level engagement exists both pre-sale and post-sale
 
-Win Engagement isn't always one-to-one. Awareness campaigns, feature workshops, advocacy events, and customer webinars are segment-level engagements. Post-sale segment engagement (feature awareness webinars, capability workshops) is a significant class of work that sits alongside account-level engagements.
+Win Activity isn't always one-to-one. Awareness campaigns, feature workshops, advocacy events, and customer webinars are segment-level engagements. Post-sale segment engagement (feature awareness webinars, capability workshops) is a significant class of work that sits alongside account-level engagements.
 
 ### The Win Track operates in continuous flow (kanban), not sprints
 
@@ -453,7 +453,7 @@ Every track has ongoing monitoring work that sits between periodic assessment (R
 
 ### Partner/channel work is distinct from internal sales and customer engagement
 
-Partners are intermediaries in the AAARRR journey (Awareness, Acquisition). They need enablement (partner demo environments, co-marketing kits, certification) and engagement (partner onboarding, co-selling, pipeline management) that is distinct from Sales Enablement (which equips *internal* teams) and from customer-facing Win Engagement. Partner Enablement and Partner Engagement were added as subtypes; Engagement Planning scope was extended to include partner prioritization and sequencing. References external PRM (Partner Relationship Management).
+Partners are intermediaries in the AAARRR journey (Awareness, Acquisition). They need enablement (partner demo environments, co-marketing kits, certification) and engagement (partner onboarding, co-selling, pipeline management) that is distinct from Sales Enablement (which equips *internal* teams) and from customer-facing Win Activity. Partner Enablement and Partner Engagement were added as subtypes; Engagement Planning scope was extended to include partner prioritization and sequencing. References external PRM (Partner Relationship Management).
 
 ### Revenue realization is both operations and intelligence
 
@@ -461,7 +461,7 @@ Revenue Realization is an essential signal for Dim 2. Two additions: (1) **Reven
 
 ### PLG segments shift Win Track from execution to monitoring
 
-For segments where the Product lever dominates (self-service onboarding, free trial, in-product expansion), the same Win Engagement subtypes apply but the balance shifts. Implementation/Onboarding becomes in-product; Win Track monitors funnels and intervenes on stuck accounts. Pre-sales becomes trial/sandbox; Win Track monitors conversion. The Build Track effectively does "Win" work (self-service flows, in-product upsell). Win Monitoring becomes the primary Win Track activity; human engagement is for exceptions. No new entities — a conceptual note suffices.
+For segments where the Product lever dominates (self-service onboarding, free trial, in-product expansion), the same Win Activity subtypes apply but the balance shifts. Implementation/Onboarding becomes in-product; Win Track monitors funnels and intervenes on stuck accounts. Pre-sales becomes trial/sandbox; Win Track monitors conversion. The Build Track effectively does "Win" work (self-service flows, in-product upsell). Win Monitoring becomes the primary Win Track activity; human engagement is for exceptions. No new entities — a conceptual note suffices.
 
 ### Advocacy encompasses customer education
 
@@ -712,7 +712,7 @@ Initial proposal listed SRE, Platform Engineer, DevOps Engineer as distinct arch
 
 ### Operational Persona JTBDs exist in both Definition and Work Models
 
-The Run Track work entities (Deployment, Incident, Change Request, Maintenance Task) are the instantiation of operational jobs — individual deployments, individual incident resolutions. But the definition of what those jobs ARE belongs in the Definition Model as Operational Job, because those definitions drive product investment decisions: "Deploy a release safely" requires a Deployment Console (Dim 8 module); "Resolve a P1 incident within SLO" requires a Monitoring Dashboard (Dim 8 module). Without Operational Job in the Definition Model, operational tooling becomes accidental rather than intentional — built because "we needed something" rather than because "we identified this operational job and designed a capability to serve it." The chain mirrors Dim 4: Operational Persona → Operational Job → enabled by Value Stream/Capability (Dim 8).
+The Run Track work entities (Deployment, Incident, Change Request, Maintenance Task) are the instantiation of operational jobs — individual deployments, individual incident resolutions. But the definition of what those jobs ARE belongs in the Definition Model as Operational Job, because those definitions drive product investment decisions: "Deploy a release safely" requires a Deployment Console (Dim 8 module); "Resolve a SEV-1 incident within SLO" requires a Monitoring Dashboard (Dim 8 module). Without Operational Job in the Definition Model, operational tooling becomes accidental rather than intentional — built because "we needed something" rather than because "we identified this operational job and designed a capability to serve it." The chain mirrors Dim 4: Operational Persona → Operational Job → enabled by Value Stream/Capability (Dim 8).
 
 ### Third-party ops tools are the product's integrated solution for operations
 
@@ -917,5 +917,41 @@ The boundary is about ownership and provenance, not about who benefits. Everythi
 ## Seed 5: Verification Task: making post-deployment verification auditable work
 
 Verification after deployment is not a check-the-box afterthought — it is a first-class work entity with criteria, evidence, and pass/fail results. Verification Tasks make the post-deployment phase visible, trackable, and auditable. They can be smoke tests ("can the service respond?"), SLA verification ("P95 latency < 300ms for 24 hours"), compliance checks ("PCI scan passes"), or business validation ("payment corridor active for BRL"). They are created during Deployment Planning (proactive) or added directly to Change Requests (reactive). Change Request closure requires all Verification Tasks to pass.
+
+## Seed 6: Incident as artifact: separating the observation from the response
+
+An Incident is not work — it is an observation. Something went wrong: a latency spike, a database failover, an error rate surge. The Incident record captures *what happened* with structured fields for severity (SEV-0..4), affected scope (Systems, Modules, Environments, Tenants), customer impact, SLA breach, and timeline. It does not capture what anyone did about it.
+
+This separation parallels the Deployment pattern (DR-029): a Deployment Task (work entity) produces a Deployment (artifact/record). Similarly, System Monitoring alerts, operator observations, or Win Case complaints produce Incident records, and Incident Response Tasks respond to them. The benefit is the same: you can independently assess what happened and how well the organization responded.
+
+Three work entities handle the incident lifecycle:
+
+1. **Incident Response Task** — triage, investigate, mitigate, resolve. Its DoD is "service restored to SLO-compliant state" — root cause fix is not its job. Root cause fix is downstream: a Bug for the Build Track, a Run Epic for operational tooling, a Signal for Discovery.
+
+2. **Post-Incident Review** — the Run Track's deliberation entity. Parallels Discovery Deliberation and Win Review. Produces the Post-Incident Report (durable knowledge artifact) and routes corrective actions to appropriate tracks. SEV-0, SEV-1, and SEV-2 incidents require PIR; the Operating Model may adjust this threshold.
+
+3. **Customer Communication Task** — status page updates, tenant notifications, resolution summaries. Run Track owns this because SRE/DevOps has real-time technical context. Win Track consumes summarized views in QBRs and Win Reviews.
+
+The Incident artifact is not just a historical record — it is a live evidence entity that feeds multiple assessment loops:
+
+- **SLA breach tracking:** Each incident evaluates whether Service Commitments (Dim 3) were breached. This feeds Customer Value Metrics.
+- **Error budget consumption:** Each incident erodes Operational Targets (Dim 7). Over time, incident history reveals whether targets are achievable.
+- **Readiness assessment:** Incident patterns per System x Environment reveal Operational Readiness (Dim 7) gaps — "payments-service has 3 SEV-1s in LATAM but zero in NA."
+- **Operational Pain evidence:** Recurring incident patterns are concrete evidence for Operational Pains (Dim 7).
+- **Run Track planning:** Incident history informs Deployment Planning (deployment risk), Capacity Planning (capacity incidents), and Run Epic scoping (operational tooling gaps) — not just PIR and Discovery.
+
+Incident correlation prevents inflated counts: a Parent Incident (database failover) with child incidents (FX latency, payment timeouts, settlement delays) is 1 root cause, not 4 incidents. The Caused By field closes the deployment-to-incident loop: "this SEV-2 was caused by Payments MDD v3.1 deployment to LATAM."
+
+## Seed 7: Hotfix as a named pattern: P0 Bug to Emergency System Version
+
+A SEV-0 incident at 2 AM needs a code fix in production within hours, not days. The UPIM models this as a **named pattern** spanning Build and Run tracks, not a separate workflow.
+
+The fast-path uses the same entities as standard work but with explicit conventions: P0 Bug → sprint bypass → Technical Task (immediate allocation) → System Version (Emergency gate profile) → SDD → Emergency-Technical Change Request (abbreviated soak, documented waivers) → Deployment Task → Deployment → Verification Task.
+
+Two complementary fast-paths in different tracks make this work. The Build Track fast-path (DR-031) answers "how fast do we fix?" — P0 means sprint bypass, Emergency gate profile means peer review + security scan + smoke tests are non-negotiable but full regression and performance benchmarks are deferred. The Run Track fast-path (DR-029) answers "how fast do we deploy?" — Emergency-Technical CR means abbreviated soak and documented waivers. Neither is sufficient alone.
+
+The critical constraint is the **deferred-gate obligation**: an Emergency System Version is not the end of the story. The originating Bug stays at `Fixed` (not `Closed`) until a subsequent Standard System Version passes all deferred gates. This prevents "we shipped it as an emergency, full tests never ran" from becoming permanent technical debt. The Bug entity is the natural tracker — it already stays open until the defect is fully resolved and verified.
+
+This pattern is convention-based, not structurally enforced. P0 = sprint bypass is a convention that teams must know and honor. The Emergency gate profile is recorded on System Version (auditable), and the deferred-gate obligation is tracked on Bug (queryable). The Operating Model determines the sprint-bypass mechanism (interrupt capacity, dedicated on-call) and the hotfix branch strategy (branch from release tag, cherry-pick to main).
 
 ---

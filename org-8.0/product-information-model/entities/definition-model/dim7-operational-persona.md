@@ -51,7 +51,7 @@ Captures who operates the product and what their needs are, enabling operational
 
 | Archetype | Quality Domain | Key Concerns | Typical Modules |
 |---|---|---|---|
-| **Reliability Operator** | Reliability, Observability | Availability, incident response, SLO compliance, error budgets, post-mortems | Monitoring Dashboard, Alerting System, Incident Management Tool |
+| **Reliability Operator** | Reliability, Observability | Availability, incident response, SLO compliance, error budgets, Post-Incident Reviews | Monitoring Dashboard, Alerting System, Incident Management Tool |
 | **Security Operator** | Security, Compliance | Security posture, vulnerability management, access control, key management, audit trails | Security Console, Key Management Module, Audit Dashboard |
 | **Platform Operator** | Platform, Scalability | Deployment infrastructure, CI/CD, environment provisioning, developer experience, capacity | Deployment Console, CI/CD Dashboard, Environment Manager |
 | **Data Operator** | Data, Compliance | Data integrity, backup/restore, migration, schema management, data residency | Database Admin Console, Backup Manager, Migration Tool |

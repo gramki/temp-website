@@ -1,10 +1,10 @@
 # Implementation / Onboarding
 
-> **Note:** Implementation / Onboarding is a subtype of Win Engagement. See `track4-win-engagement.md` for the parent entity and other subtypes.
+> **Note:** Implementation / Onboarding is a subtype of Win Activity. See `track4-win-activity.md` for the parent entity and other subtypes.
 
 **Model:** Work Model
 **Track:** Track 4: The Win Track (Value Realization)
-**Category:** Engagement
+**Category:** Activity
 **Owner:** Customer Success, Sales, Implementation Consultants
 
 ## Definition
@@ -31,7 +31,7 @@ Captures the per-customer activation work. Implementation/Onboarding is where th
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Subtype of | Win Engagement | Implementation / Onboarding is a subtype of Win Engagement |
+| Subtype of | Win Activity | Implementation / Onboarding is a subtype of Win Activity |
 | Activates | Customer Segment (Dim 3) | Onboarding activates a customer within the target segment |
 | Advances | Win Outcome (Dim 2) | Implementation advances Activation Win Outcomes |
 | Performed by | Win Stakeholder (Dim 2) | Implementation is performed by Win Stakeholders (e.g., Implementation Consultants) |

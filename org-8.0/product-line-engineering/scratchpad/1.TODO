@@ -1,0 +1,64 @@
+<>
+
+
+# Explain Roles:
+    - People Success Team
+    - Principle Engineers
+    - Solution Architects
+    - Domain Architects
+    - Technical Architects
+    - Engineering Managers
+    - Engagement Leads
+    - Domain Engineers
+    - Integration Engineers
+    - QA Engineers
+    - Domain Analysts
+    - Product Managers
+    - Solution Managers
+
+# Explain Processes:
+    - Engagement Lifecycle
+    - Domain Product Development Lifecycle:
+        - Product Capability Management
+        - Variability Management
+        - Idea Lifecycle
+        - Product Iteration Lifecycle
+        - Release Management
+        - Rollout Management
+        - Subscription Management
+        - Adoption Management
+     
+    - Solution (Tenant Product) Development Lifecycle
+        - Release Management
+        - Rollout Management
+
+    - Team Composition
+    - Rotation Model
+    - Knowledge Capture
+    - Inner Source Management
+    - Tech Debt Management
+
+
+    Anemic domain -- Needs a thorough explaination.
+
+    > Feedback: Define “subdomain” and “bounded context” in your context map: ownership, consistency boundary, and deployment unit. Use that to decide “one app per X” and stick to it so you don’t end up with 50 tiny services or one monolith.
+
+This needs clarification
+
+Write a detailed section on Testability and Testing Patterns.
+
+# Explainability Roles:
+- Anti-fragility
+- Idiot-proofing
+- Regression Suite Engineering
+- Robustness
+- Reliability
+- Cost and Efficiency
+- Release Engineering and Deployment Engineering
+- Operability (SRE and Tenant Admin)
+
+# Reward and Recognition:
+
+# Key Engagement Check-ins (from Key Program Check-in)
+# Key 
+

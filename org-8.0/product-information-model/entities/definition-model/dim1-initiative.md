@@ -71,7 +71,7 @@ Approved ──[abandoned before work starts]──► Cancelled
 | Declares | Lever Mix (Business Model Dim 2) | Initiative declares lever allocation from Business Model's Lever Portfolio |
 | Drives | Win Planning (Track 4) | Win Track planning aligns to Initiative |
 | Drives | Win Enablement (Track 4) | Win Track enablement aligns to Initiative |
-| Drives | Win Engagement (Track 4) | Win Track engagement aligns to Initiative |
+| Drives | Win Activity (Track 4) | Win Track engagement aligns to Initiative |
 | Assessed by | Win Review (Track 4) | Win Reviews assess Initiative target progress |
 
 ## Example

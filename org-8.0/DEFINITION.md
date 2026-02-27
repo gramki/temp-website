@@ -12,6 +12,86 @@ Objectives:
 * Maturity teams are the maintaners and reviewrs of all the changes to the SaaS
 * Sales/GTM Alignment to reality of the Product Suite - Who we are ready for and What we are ready for (and who & what we are not ready for) 
 
+## Macro Themes (Why This Transformation)
+* [The strategic shifts that necessitate the redesign]
+
+## Models
+
+### Business Model
+* Strategy, Vision, Mission
+* Culture & Values
+* Leadership Principles
+* Customer World Model
+* Product Information Model (UPIM)
+* Platform & Technology Strategy
+* GTM Model
+* Commercial Model
+* Risk, Compliance & Security Posture
+
+### Operating Model
+* Engagement Operating Model
+* Studio Operating Model
+* PLE Operating Model
+* Delivery Methodology (PLE, Engagement, Studio, Run)
+
+### Delivery Methodology (place holder)
+* Product Line Engineering
+* Solution or Customer Product Engineering
+* Studio Engineering
+* Run Engineering
+* Engagement Delivery (Engineering)
+* Engagement Factory
+* StarWorld Engineering
+
+
+### Governance Model
+* Decision Rights Framework
+* Investment Governance
+* Architecture Governance (PAC)
+* Portfolio Governance (ERC)
+* Escalation Topology
+
+### Financial Model
+* Cost Structure & Attribution
+* Investment Model (Platform vs. Engagement vs. New)
+* Revenue & Margin Model
+* Transparency & Reporting
+
+### Talent Model
+* Functions, Roles, Competencies
+* Career Paths (depth vs. breadth)
+* Training & Development
+* Assessment & Feedback
+* Rewards & Recognition
+* AI-era Talent Strategy
+
+### Org Model
+* GTM OUs
+* Assembly OUs
+* Acceleration & Operations OUs
+* Corporate / Shared Services
+* Executive Management
+* Dual-Axis Reporting Design
+* Capacity Management (Bench, Reserve, Rotation)
+
+### Performance Model
+* Business Outcome Metrics
+* Operating Model Health Metrics
+* Customer Outcome Metrics
+* Leading vs. Lagging Indicators
+
+
+## Macro Themes
+
+
+## Org
+* Talent Strategy for AI World
+* Dual Axis Reporting
+* Mandatory Engagmeent Exposure and Egnagement Lead/Customer Feedback
+* Capability, Capacity, and Competency Management Council
+
+## Definition Model, Work Model, Operation Model
+UPIM Applied to - Product Line, Customer Product, Studio Product
 
 
 Bench/Reserve should be visible
@@ -22,53 +102,6 @@ Foundry and Olympus should serve as cost centers; Conclude the matter; We are no
 GTM teams' sponsorship of Modules, Capabilities should be clearly called out; This should be an investment decision justified by future revenues or other strategic investment decisions
 
 We are not ready for Tenant Developers. Should we be ready for Tenant Developers?
-
-
-## Transformat as-as-a Solution-first Business
-
-Practice Areas
-
-
-* Payments (Issuance): 
-** By Rails: Card Networks (Visa, Mastercard, Rupay, AmEx, NYCE), Private Networks, Interbank Networks, Real-time Payments (UPI, RTP, FedNow)
-** By Instruments: Cards (Visa, Mastercard, Rupay, AmEx), Private Label Cards, Digital Native Instruments
-** By Technologies: Tokenization, Tap & Pay, 3DS 2.0,  
-** By Products:
-*** Credit: 
-*** Prepaid: GPR, Gift, NCMC, ....
-*** Commercial Cards: Expense, Benefits, Health Benefits, .....
-*** Forex Cards: 
-*** Payments Hub: 
-
-* Payments (Acquiring): 
-** By Rails: Open Loop Card Networks, Closed Loop Card Networks, Debit to Account, ACH,  
-** By Instruments: Cards, Accounts, Tokens, Mandates/Standing Instructions
-** By Technologies: CoF, HCE, Push Provisioning
-** By Products:
-*** Wallets: Merchant Wallet, PSP Wallet
-*** Gateways: Merchant Checkout, PSP Checkout 
-*** Merchant Management: Onboarding, Terminal Management, QR Management*, Current Accounts, Clearing, Reconciliation, Invoicing and Statements, Settlements and Disbursements, Dispute Management
-
-* Banking: 
-* Deposits: CASA/DDA, Term/Time Deposits
-* Unsecured Lending:
-* Secured Lending:
-* CLM: Customer
-* Limit: Limit Management Systems 
-* Treasury
-* Asset Liability Management
-
-
-Agentic Banking
-* Agents: 
-- Servicing 
-- Relationship Management 
-
-* Family Banking
-
-
-Agentic Bank Operations
-* 
 
 
 

@@ -54,7 +54,7 @@ Makes the one-to-many enablement work of Win Teams explicit. Without Win Enablem
 |---|---|---|
 | Aligned to | Initiative (Dim 1) | Win Enablement is aligned to one or more Initiatives |
 | Used by | Win Stakeholder (Dim 2) | Win Stakeholders use enablement assets in their work |
-| Supports | Win Engagement (Track 4) | Enablement assets are used in specific engagements |
+| Supports | Win Activity (Track 4) | Enablement assets are used in specific engagements |
 | Driven by | Win Planning (Track 4) | Win Planning drives the creation of enablement assets |
 | Assessed by | Win Review (Track 4) | Campaign/Program Reviews assess enablement effectiveness |
 | Serves | Developer Persona (Dim 6) | Developer-facing enablement assets (API docs, SDK guides, sandbox environments, developer training) |

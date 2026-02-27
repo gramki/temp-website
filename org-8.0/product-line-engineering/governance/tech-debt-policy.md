@@ -2,7 +2,7 @@
 
 ## Purpose
 
-When a PR to a domain platform does not fully meet the [Definition of Done](inner-source-guidelines.md#definition-of-done) but there is strong timeline pressure (e.g. engagement deadline), we use a **soft gate**: the PR may be merged with **tech debt** tagging. This policy defines when that is allowed, how tech debt is tracked, and how it is remediated. The goal is to balance delivery speed with platform quality; tech debt is the exception, not the norm.
+When a PR to a Product Line platform does not fully meet the [Definition of Done](inner-source-guidelines.md#definition-of-done) but there is strong timeline pressure (e.g. Engagement deadline), we use a **soft gate**: the PR may be merged with **tech debt** tagging. This policy defines when that is allowed, how tech debt is tracked, and how it is remediated. The goal is to balance delivery speed with platform quality; tech debt is the exception, not the norm.
 
 ---
 
@@ -12,7 +12,7 @@ A PR may be merged **without** full DoD compliance only if:
 
 1. **Timeline pressure is real** — Engagement deadline or customer commitment cannot be moved without material impact, and improving the PR to full DoD would exceed available time.
 2. **Tech debt is tagged** — The merge is explicitly tagged as tech debt (e.g. label, ticket, or comment) with: description of what’s missing, owner for remediation, and target remediation date.
-3. **Domain Maintainer and (if needed) Council agree** — Maintainer accepts the merge with tech debt; if the gap is large or contentious, Council is consulted.
+3. **Product Line Maintainer and (if needed) Council agree** — Maintainer accepts the merge with tech debt; if the gap is large or contentious, Council is consulted.
 4. **Remediation is scheduled** — A remediation ticket (or equivalent) is created and assigned; it is tracked until closed.
 
 **Not allowed:** Merging without DoD and without tech debt tagging and remediation plan. That undermines platform quality and is not acceptable.
@@ -22,16 +22,16 @@ A PR may be merged **without** full DoD compliance only if:
 ## Tech Debt Tagging and Tracking
 
 - **Tag at merge time** — Use a consistent tag/label (e.g. `tech-debt`) and a short description of what’s missing (e.g. "Missing tests for X," "Documentation deferred").
-- **Remediation ticket** — Create a ticket (or equivalent) with: link to PR/commit, description of debt, owner (Domain Team or agreed party), target date.
-- **Central view** — Maintain a list or dashboard of open tech debt items (e.g. by platform or by engagement) so Council and Domain Teams can prioritize.
-- **Review cadence** — Council or Domain Teams review tech debt periodically (e.g. monthly or quarterly); aging or high-impact items are escalated.
+- **Remediation ticket** — Create a ticket (or equivalent) with: link to PR/commit, description of debt, owner (Product Line Squad or agreed party), target date.
+- **Central view** — Maintain a list or dashboard of open tech debt items (e.g. by platform or by engagement) so Council and Product Line Squads can prioritize.
+- **Review cadence** — Council or Product Line Squads review tech debt periodically (e.g. monthly or quarterly); aging or high-impact items are escalated.
 
 ---
 
 ## Remediation Expectations
 
-- **Timeframe** — Target remediation within a defined window (e.g. 4–8 weeks after merge, or next platform release cycle). Exact SLA is set by Council or Domain Team.
-- **Ownership** — Remediation is owned by the Domain Team (or by the Win Engineering Team if agreed and feasible). Default is Domain Team so platform quality stays with platform owners.
+- **Timeframe** — Target remediation within a defined window (e.g. 4–8 weeks after merge, or next platform release cycle). Exact SLA is set by Council or Product Line Squad.
+- **Ownership** — Remediation is owned by the Product Line Squad (or by the Customer Product Squad if agreed and feasible). Default is Product Line Squad so platform quality stays with platform owners.
 - **Closure** — When remediation is done (tests added, docs updated, etc.), the tech debt ticket is closed and the tag/label is removed (or marked resolved).
 
 ---
@@ -46,7 +46,7 @@ A PR may be merged **without** full DoD compliance only if:
 
 ## Reserved Capacity for Remediation
 
-Domain Teams should reserve some capacity for tech debt remediation so that accepted debt does not pile up indefinitely. The exact percentage or allocation is set by Domain Team and Engineering Leadership; the principle is that accepting tech debt implies commitment to remediate it.
+Product Line Squads should reserve some capacity for tech debt remediation so that accepted debt does not pile up indefinitely. The exact percentage or allocation is set by Product Line Squad and Engineering Leadership; the principle is that accepting tech debt implies commitment to remediate it.
 
 ---
 
@@ -60,9 +60,9 @@ If:
 
 then:
 
-1. **Domain Maintainers** raise to Domain Team lead and Council.
+1. **Product Line Maintainers** raise to Product Line Squad lead and Council.
 2. **Council** reviews and may: tighten DoD, shorten remediation SLA, restrict what can be accepted as tech debt, or escalate to Engineering Leadership.
-3. **Engineering Leadership** may impose process changes (e.g. mandatory review of tech debt at engagement retrospectives, or capacity reservation for remediation).
+3. **Engineering Leadership** may impose process changes (e.g. mandatory review of tech debt at Engagement retrospectives, or capacity reservation for remediation).
 
 ---
 
@@ -70,4 +70,4 @@ then:
 
 - [Inner Source Guidelines](inner-source-guidelines.md) — DoD, soft gate, PR flow
 - [Council Charter](council-charter.md) — Council’s governance role
-- [Domain Maintainer Role](../roles/domain-maintainer.md) — Maintainer authority and escalation
+- [Product Line Maintainer Role](../roles/product-line-maintainer.md) — Maintainer authority and escalation

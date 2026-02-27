@@ -1,23 +1,23 @@
-# Win Engagement
+# Win Activity
 
 **Model:** Work Model
 **Track:** Track 4: The Win Track (Value Realization)
-**Category:** Engagement
+**Category:** Activity
 **Owner:** Sales, Pre-Sales Engineering, Customer Success, Account Management, Product Marketing
 
 ## Definition
 
-Win Engagement is the proactive, customer-facing execution work that advances Win Outcomes across the AAARRR lifecycle. It is the parent entity for all engagement subtypes — the hands-on work of winning, activating, retaining, and expanding customers.
+Win Activity is the proactive, customer-facing execution work that advances Win Outcomes across the AAARRR lifecycle. It is the parent entity for all engagement subtypes — the hands-on work of winning, activating, retaining, and expanding customers.
 
-**PLG / self-service segments:** For segments where the Product lever dominates (e.g., self-service onboarding, free trial, in-product expansion), Win Engagement subtypes operate differently. "Implementation/Onboarding" becomes in-product self-service; the Win Track monitors completion funnels and intervenes on stuck accounts. "Pre-sales Engagement" becomes free trial or sandbox; Win Track monitors conversion and intervenes on high-value prospects. The Build Track effectively does "Win" work for these segments (building self-service flows, in-product upsell prompts). Win Monitoring becomes the primary Win Track activity — continuous funnel monitoring — with human engagement reserved for exceptions. The same subtypes apply; the balance shifts from human execution to monitoring + exception-based intervention.
+**PLG / self-service segments:** For segments where the Product lever dominates (e.g., self-service onboarding, free trial, in-product expansion), Win Activity subtypes operate differently. "Implementation/Onboarding" becomes in-product self-service; the Win Track monitors completion funnels and intervenes on stuck accounts. "Pre-sales Engagement" becomes free trial or sandbox; Win Track monitors conversion and intervenes on high-value prospects. The Build Track effectively does "Win" work for these segments (building self-service flows, in-product upsell prompts). Win Monitoring becomes the primary Win Track activity — continuous funnel monitoring — with human engagement reserved for exceptions. The same subtypes apply; the balance shifts from human execution to monitoring + exception-based intervention.
 
-Win Engagements operate at two granularities:
+Win Activities operate at two granularities:
 - **Account-level** (one-to-one) — work directed at a single customer or prospect account
 - **Segment-level** (one-to-segment) — work directed at a customer segment, applicable both pre-sale and post-sale
 
 ## Purpose
 
-Makes customer-facing execution work explicit in the Win Track. Without Win Engagement, the model captures *what winning looks like* (Dim 2) and *what to plan* (Win Planning) but not *the actual work of engaging customers and prospects*. Win Engagement is where value realization happens — through POCs, onboarding, health interventions, upsell conversations, and segment-wide programs.
+Makes customer-facing execution work explicit in the Win Track. Without Win Activity, the model captures *what winning looks like* (Dim 2) and *what to plan* (Win Planning) but not *the actual work of engaging customers and prospects*. Win Activity is where value realization happens — through POCs, onboarding, health interventions, upsell conversations, and segment-wide programs.
 
 The seven subtypes cover the full AAARRR lifecycle:
 
@@ -121,10 +121,10 @@ Status lifecycle varies by subtype:
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Advances | Win Outcome (Dim 2) | Win Engagement advances specific Win Outcomes |
-| Aligned to | Initiative (Dim 1) | Win Engagement aligns to strategic Initiatives |
-| Performed by | Win Stakeholder (Dim 2) | Win Engagement is performed by Win Stakeholders |
-| Uses | Win Enablement | Win Engagement uses enablement assets (decks, demos, playbooks) |
+| Advances | Win Outcome (Dim 2) | Win Activity advances specific Win Outcomes |
+| Aligned to | Initiative (Dim 1) | Win Activity aligns to strategic Initiatives |
+| Performed by | Win Stakeholder (Dim 2) | Win Activity is performed by Win Stakeholders |
+| Uses | Win Enablement | Win Activity uses enablement assets (decks, demos, playbooks) |
 | Scoped to | Customer Segment (Dim 3) | Segment Engagements target a specific Customer Segment |
 | References | CRM Deal / Opportunity (External) | Pre-sales Engagements reference external CRM records |
 | References | PRM Partner (External) | Partner Engagements reference external PRM (Partner Relationship Management) records |

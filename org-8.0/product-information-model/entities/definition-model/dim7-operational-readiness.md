@@ -65,7 +65,9 @@ Captures the operational acceptance criteria that every System must meet before 
 | Informs | Deployment Plan (Track 3) | Deployment Plan deliberation considers readiness status |
 | Informs | Deployment Task (Track 3) | Deployment execution considers readiness status |
 | Informs | MDD (Track 3) | Readiness status informs whether an MDD should be created for a given environment and what operational prerequisites exist |
+| Informed by | Incident history (Track 3) | Incident patterns per System x Environment reveal readiness gaps — e.g., a System with recurring SEV-1 incidents in one environment but not another indicates environment-specific readiness issues |
 | Fed by | System Version (Track 2) | System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness assessment |
+| Updated by | Post-Incident Review (Track 3) | PIR findings may downgrade readiness posture for affected System x Environment |
 
 ## Example
 

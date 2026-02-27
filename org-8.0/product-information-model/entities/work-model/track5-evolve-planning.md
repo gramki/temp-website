@@ -48,7 +48,7 @@ Without deliberate planning, process evolution happens reactively (only when som
 
 **Name:** "Q3 2026 Process Evolution Cycle"
 **Scope:** Win Track (all entity DoDs), Discovery Track (artifact quality review), Cross-Track (PSD → Build handoff audit)
-**Improvement Objectives:** (1) Define DoD for all 7 Win Engagement subtypes, (2) Review and update PSD template based on Build Track feedback, (3) Audit Feedback → Signal promotion rate
+**Improvement Objectives:** (1) Define DoD for all 7 Win Activity subtypes, (2) Review and update PSD template based on Build Track feedback, (3) Audit Feedback → Signal promotion rate
 **Timeline:** July 1 – September 15, 2026
 **Participants:** Product Ops Lead, Win Track Process Owner, Discovery Track PM Lead, Build Track Tech Lead
 **Triggered by:** Scheduled (quarterly)

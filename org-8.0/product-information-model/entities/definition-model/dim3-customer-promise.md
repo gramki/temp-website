@@ -52,7 +52,7 @@ Guarantees reliability, performance, and support levels to the customer. The cus
 | Data SLA | String | Backup frequency, retention, recovery objectives (RPO/RTO) |
 | Remedies | Text | What happens when the SLA is breached (credits, penalties) |
 
-*Example:* "99.9% API uptime, sub-200ms P95 latency, P1 incidents: 15-minute response, 4-hour resolution. Breach remedy: 5% monthly credit per 0.1% downtime."
+*Example:* "99.9% API uptime, sub-200ms P95 latency, SEV-1 incidents: 15-minute response, 4-hour resolution. Breach remedy: 5% monthly credit per 0.1% downtime."
 
 ### Compliance Posture
 
@@ -102,6 +102,7 @@ Certifies that the product meets regulatory, security, or industry standards. Co
 | Work Model | Modeling Task (Track 1) | Modeling Tasks define/refine Customer Promises |
 | Assessed by | Win Review (Track 4) | Win Reviews assess whether Customer Promises are being fulfilled |
 | Tested by | Win Case (Track 4) | Win Case complaints test whether Service Commitments are being met |
+| Tested by | Incident (Track 3, artifact) | Incidents test whether Service Commitments are being met — every SEV-0/1/2 incident evaluates SLA breach |
 | Justified by | PDR (Dim 1) | Significant promise changes are justified by a PDR |
 
 ## Example
