@@ -30,12 +30,18 @@ One doc per functional track. Organised by **seniority level** (from the designa
 
 ### Role Coaching (roles/)
 
-One doc per Engagement role. Covers:
+One doc per Engagement role. Each doc opens with a brief **Introduction** (purpose, scope, position in hierarchy, functional track) making it nearly self-sufficient, followed by eight sections:
 
-- **Success in the role** — first 90 days, what "good" looks like, key relationships, how to provide and receive performance input across the dual axis.
-- **Expected interactions, tensions, and how to navigate** — who you work with routinely, where legitimate tensions arise, and how to handle them within the model's governance.
-- **Escalation: dos and don'ts** — when and to whom to escalate, what to do before escalating, what not to do.
-- **Further learning** — internal links and curated external references.
+1. **Empowerment** — what authority the role carries, what decisions it can make, what it cannot override.
+2. **Assignment** — how the role is assigned (ERC / EO / PPM), at which formation stage, typical scope.
+3. **Ambition** — first 90 days, what "great" looks like, career trajectory.
+4. **Commitments** — SLA-based delivery commitments across applicable dimensions (Quality, Predictability, Velocity, Fitment, Cost), with contractual connection tiered by role.
+5. **Collaboration** — key relationships and interaction tensions with navigation guidance.
+6. **Management** — dual-axis reporting, how performance input flows.
+7. **Accountability** — escalation model, dos and don'ts, what happens when commitments are missed.
+8. **Objectives in Perspective** — how the role's objectives fit within the broader Engagement and organisational context.
+
+Plus **Further Learning** — internal links and curated external references.
 
 ---
 

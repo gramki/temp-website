@@ -101,7 +101,7 @@ The delivery function in this model is distinctive: it exists at the intersectio
 | *Nexus Framework* — Bittner et al. ([scrum.org](https://www.scrum.org/resources/scaling-scrum)) | Multi-team Scrum at scale; applicable to Scrum Master coordination across 2-3 squads and EPM-level cross-squad process |
 | *Team Topologies* — Skelton & Pais ([teamtopologies.com](https://teamtopologies.com/book)) | Squad interaction modes applicable to understanding CP/Studio/PL/Verification squad relationships |
 | *Practical Customer Success Management* — Adams ([Amazon](https://www.amazon.com/Practical-Customer-Success-Management-Scientist/dp/0367183390)) | Customer success framework directly applicable to the Engagement Success function that EPM owns |
-| *Making the Matrix Work* — Hall ([Nicholas Brealey](https://www.nicholasbrealey.com/making-the-matrix-work)) | Matrix organisation dynamics; directly applicable to the dual-axis reporting model and EPM's position at the intersection of multiple authorities |
+| *Making the Matrix Work* — Hall ([Nicholas Brealey](https://www.hachette.co.uk/titles/kevan-hall/making-the-matrix-work/9781904838425/)) | Matrix organisation dynamics; directly applicable to the dual-axis reporting model and EPM's position at the intersection of multiple authorities |
 
 ---
 

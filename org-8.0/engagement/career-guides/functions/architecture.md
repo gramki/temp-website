@@ -109,9 +109,9 @@ Both EA and AVA operate at the **architecture** level. AVA is not a test manager
 
 | Resource | Why Relevant |
 |----------|--------------|
-| *Software Architecture in Practice* — Bass, Clements, Kazman, 4th ed. ([Pearson](https://www.pearson.com/en-us/subject-catalog/p/software-architecture-in-practice/P200000009471/)) | Comprehensive architecture quality attributes and evaluation methods; directly applicable to EA gap analysis and multi-PL architecture |
+| *Software Architecture in Practice* — Bass, Clements, Kazman, 4th ed. ([Pearson](https://www.pearson.com/en-us/subject-catalog/p/software-architecture-in-practice/P200000000111/9780137468218)) | Comprehensive architecture quality attributes and evaluation methods; directly applicable to EA gap analysis and multi-PL architecture |
 | *Just Enough Software Architecture* — Fairbanks ([georgefairbanks.com](https://www.georgefairbanks.com/e-book/)) | Risk-driven thinking for calibrating architecture depth per Engagement — essential for EA role |
-| *Solution Architecture Foundations* — Hewitt ([Packt](https://www.packtpub.com/en-us/product/solution-architecture-foundations-9781838820688)) | Solution architecture practice aligned with the EA's synthesis role (business + technical + operational) |
+| *Solution Architecture Foundations* — Lovatt ([BCS](https://www.amazon.com/Solution-Architecture-Foundations-Mark-Lovatt/dp/1780175655)) | Solution architecture practice aligned with the EA's synthesis role (business + technical + operational) |
 | *Solution vs. Software Architecture* — DZone ([dzone.com](https://dzone.com/articles/solution-architecture-vs-software-architecture)) | Concise distinction between solution and software architecture — helps architects articulate the difference to engineers |
 | *Enterprise Integration Patterns* — Hohpe & Woolf ([enterpriseintegrationpatterns.com](https://www.enterpriseintegrationpatterns.com/)) | Integration pattern catalogue; directly applicable to the cross-PL integration designs EA must produce |
 | *Software Product Line Engineering* — Pohl, Böckle, van der Linden ([Springer](https://link.springer.com/book/10.1007/978-3-662-03764-7)) | Rigorous PLE and variability management treatment; relevant to archetype design and variability documentation |

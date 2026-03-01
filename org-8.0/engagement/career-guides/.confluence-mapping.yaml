@@ -1,0 +1,4 @@
+# Resolve Confluence folder title conflict: "Roles" also exists under Product Line Engineering.
+# This mapping gives the career-guides/roles folder a distinct title in space Z8.
+folders:
+  roles: "Career Guide Roles"

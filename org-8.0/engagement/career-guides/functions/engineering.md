@@ -76,7 +76,7 @@ This guide helps engineers at every level understand what is expected of them wi
 - **On the job:** Take multi-Engagement assignments. Seniority at this level is demonstrated by breadth across Engagement contexts, not just depth in one platform. Ask your Engineering Manager to sequence assignments that build cross-PL exposure.
 - **Feedback:** Request feedback from EA and AVA (not just EL) after each Engagement — they see your architecture-level judgment, which is critical if you are considering a cross-track jump into Architecture.
 - **Knowledge sharing:** Lead a PAC Practice Mode session on a pattern you discovered or refined in an Engagement. Contribute to archetype documentation updates.
-- **External reading:** *Software Product Lines: Practices and Patterns* (Clements & Northrop) — [link](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=5765) — foundational treatment of product line engineering and variability management, directly relevant to the "extend, don't fork" discipline and inner source contribution decisions.
+- **External reading:** *Software Product Lines: Practices and Patterns* (Clements & Northrop) — [link](https://www.informit.com/store/software-product-lines-practices-and-patterns-9780201703320) — foundational treatment of product line engineering and variability management, directly relevant to the "extend, don't fork" discipline and inner source contribution decisions.
 
 ---
 
@@ -92,7 +92,7 @@ This guide helps engineers at every level understand what is expected of them wi
 
 - **EA or AVA** on Engagements of medium complexity. **Senior squad engineer or technical lead** on complex Engagements where Architecture function members play EA/AVA.
 - **Challenge:** The EA role demands more than technical depth — it requires functional, commercial, and operational synthesis. A Staff Engineer playing EA must understand why the customer chose a particular operating model, what the archetype covers vs. what the customer needs beyond it, and how inner source contributions affect the Product Line roadmap. This is architecture thinking applied from an engineering home.
-- **Challenge:** When playing AVA, the hardest moment is exercising release-block authority under commercial and delivery pressure. The authority is independent — Client Partner, EO, and EPM cannot override it. Be prepared to defend a release block with certification evidence and to document the governance event if EO overrides.
+- **Challenge:** When playing AVA, the hardest moment is exercising release-block authority under commercial and delivery pressure. The authority is independent — EA, EL, EPM, and Client Partner cannot override it. EO can override, but only as a documented governance event. Be prepared to defend a release block with certification evidence.
 
 ### How to Learn
 
@@ -152,7 +152,7 @@ See the [EL Role Coaching Guide](../roles/engineering-lead.md) for role-specific
 
 | Resource | Why Relevant |
 |----------|--------------|
-| *Software Product Lines: Practices and Patterns* — Clements & Northrop ([SEI](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=5765)) | Foundational treatment of product line engineering; explains the variability management and "extend, don't fork" discipline that engineers practice daily |
+| *Software Product Lines: Practices and Patterns* — Clements & Northrop ([SEI](https://www.informit.com/store/software-product-lines-practices-and-patterns-9780201703320)) | Foundational treatment of product line engineering; explains the variability management and "extend, don't fork" discipline that engineers practice daily |
 | *Inner Source Patterns* — InnerSource Commons ([innersourcecommons.org](https://innersourcecommons.org/learn/patterns/)) | Practical patterns for cross-team contribution directly applicable to the PL Maintainer / Engagement contributor relationship |
 | *Team Topologies* — Skelton & Pais ([teamtopologies.com](https://teamtopologies.com/book)) | Explains squad interaction modes (collaboration, X-as-a-Service, facilitation) that map to the PL/CP/Studio/Verification squad structure |
 | *Just Enough Software Architecture* — Fairbanks ([georgefairbanks.com](https://www.georgefairbanks.com/e-book/)) | Risk-driven architecture thinking for engineers who play EA/AVA — helps calibrate "how much architecture is enough" per Engagement |

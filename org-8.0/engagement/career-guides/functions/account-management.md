@@ -97,7 +97,7 @@ The specific designation ladder for Account Management is organisationally defin
 | Resource | Why Relevant |
 |----------|--------------|
 | *The Trusted Advisor* — Maister, Green, Galford ([trustedadvisor.com](https://trustedadvisor.com/books/the-trusted-advisor)) | Trust-based relationship framework; directly applicable to Client Partner's advisory stance and the trust-building CPAs must develop |
-| *Handbook of Strategic Account Management* — Wilson & Woodburn ([Wiley](https://www.wiley.com/en-us/Handbook+of+Strategic+Account+Management-p-9781118509081)) | Strategic account management practices; applicable to Client Partner's per-client scope, portfolio management, and multi-Engagement coordination |
+| *Handbook of Strategic Account Management* — Wilson & Woodburn ([Wiley](https://www.wiley.com/en-us/Handbook+of+Strategic+Account+Management%3A+A+Comprehensive+Resource-p-9781118509074)) | Strategic account management practices; applicable to Client Partner's per-client scope, portfolio management, and multi-Engagement coordination |
 | *Practical Customer Success Management* — Adams ([Amazon](https://www.amazon.com/Practical-Customer-Success-Management-Scientist/dp/0367183390)) | Customer success framework; applicable to understanding the Engagement Success outcomes that Client Partners must support alongside EPMs |
 
 ---
