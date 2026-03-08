@@ -149,17 +149,18 @@ You may be given one or more of the following:
 
 Use these five files as your evaluation standards. Each file is comprehensive and self-contained for its domain. Apply the relevant files based on the input type.
 
-### `enterprise-ui-main-rules.mdc` (v2.0)
+### `enterprise-ui-main-rules.mdc` (v3.0)
 **Use for:** evaluating any individual screen or UI component.
-**Covers:** 24 rule categories with 80+ rules including:
-- Workflow state (WS1-6), Action design (AD1-5), Information hierarchy (IH1-4)
-- Form design (FD1-6), Copy and labels (CL1-5), Error handling (ER1-5)
-- Navigation (NV1-4), Data tables (DT1-6), Notifications (NF1-4)
-- Modals (MD1-3), Empty/loading states (EL1-3), Dashboards (DS1-3)
-- Automation transparency (AT1-3), Auditability (AU1-3), Help (HG1-4)
-- Performance (PF1-3), Workflow continuity (WC1-3), Cognitive load (CG1-3)
+**Covers:** 20 rule categories with 69 rules focused on individual screen evaluation:
+- Workflow state (WS1-6), Action design (AD1-5), Information hierarchy (IH1-3)
+- Form design (FD1-6), Copy and labels (CL1-3), Error handling (ER1-5)
+- Navigation (NV1-4), Notifications (NF1-4), Modals (MD1-3)
+- Empty/loading states (EL1-3), Automation transparency (AT1-3)
+- Auditability (AU1-3), Help (HG1-4), Performance (PF1-3)
+- Workflow continuity (WC1-3), Cognitive load (CG1-3)
 - Accessibility (AC1-4), Role/permissions (RP1-2), Consistency (CP1-3)
-- Data visualization (DV1-2), Search (SD1-2), Print/export (PE1-2)
+- Print/export (PE1-2)
+- Cross-references to specialized files for data tables, search, dashboards, and copy
 
 ### `flow-evaluation.mdc` (v2.0)
 **Use for:** evaluating end-to-end multi-step workflows and journeys.
@@ -189,7 +190,7 @@ Use these five files as your evaluation standards. Each file is comprehensive an
 ### `dashboard-metrics.mdc` (v1.0)
 **Use for:** evaluating operational dashboards, KPI displays, and metric screens.
 **Covers:** 14 rule categories with 46 rules including:
-- Metric selection (MS1-6), Data freshness (DT1-4), KPI display (KD1-4)
+- Metric selection (MS1-6), Data freshness (DF1-4), KPI display (KD1-4)
 - Charts (CV1-6), Trends (TT1-3), Drill-down (DD1-3), Layout (LC1-4)
 - Filters (FI1-3), Alerts (AE1-3), Comparison (CB1-3), Personalization (PC1-2)
 - Real-time monitoring (RT1-3), Export (PX1-2)

@@ -224,7 +224,7 @@ Severity: Minor
 
 # 5. Data Freshness and Trust Rules
 
-RULE DT1 — Data freshness must be visible on every dashboard
+RULE DF1 — Data freshness must be visible on every dashboard
 
 Users must know how current the data is. Stale data presented as current can drive wrong decisions.
 
@@ -241,7 +241,7 @@ Bad: No timestamp anywhere. The user cannot tell if these numbers are from today
 
 Severity: Critical — stale data displayed as current is actively dangerous.
 
-RULE DT2 — Data load errors must be clearly surfaced
+RULE DF2 — Data load errors must be clearly surfaced
 
 What happens when the dashboard cannot load data or a metric fails to calculate?
 
@@ -257,7 +257,7 @@ Bad: One metric fails to load and shows "0". The user thinks there are zero pend
 
 Severity: Critical
 
-RULE DT3 — Calculation methodology must be transparent
+RULE DF3 — Calculation methodology must be transparent
 
 What to look for:
 - Can users access how each metric is calculated?
@@ -267,7 +267,7 @@ What to look for:
 
 Severity: Major
 
-RULE DT4 — Data freshness should match the dashboard type
+RULE DF4 — Data freshness should match the dashboard type
 
 What to look for:
 - Operational dashboards: data should be real-time or near-real-time (< 5 minutes)
@@ -829,7 +829,7 @@ One-paragraph summary of dashboard quality, highlighting strengths and critical 
 | Category                        | Score | Key Findings                               |
 |---------------------------------|-------|--------------------------------------------|
 | Metric Selection (MS)           | X/5   | [1-line summary]                           |
-| Data Freshness & Trust (DT)     | X/5   | [1-line summary]                           |
+| Data Freshness & Trust (DF)     | X/5   | [1-line summary]                           |
 | KPI Display (KD)                | X/5   | [1-line summary]                           |
 | Charts & Visualization (CV)     | X/5   | [1-line summary]                           |
 | Trends & Time Series (TT)       | X/5   | [1-line summary]                           |
@@ -918,10 +918,10 @@ If a user looks at a dashboard number and asks "So what?" — that metric has no
 | MS4     | Not too many metrics at once                       | Major    |
 | MS5     | Metrics precisely defined                          | Major    |
 | MS6     | Vanity metrics avoided                             | Minor    |
-| DT1     | Data freshness visible                             | Critical |
-| DT2     | Data load errors clearly surfaced                  | Critical |
-| DT3     | Calculation methodology transparent                | Major    |
-| DT4     | Data freshness matches dashboard type              | Major    |
+| DF1     | Data freshness visible                             | Critical |
+| DF2     | Data load errors clearly surfaced                  | Critical |
+| DF3     | Calculation methodology transparent                | Major    |
+| DF4     | Data freshness matches dashboard type              | Major    |
 | KD1     | KPI cards scannable format                         | Major    |
 | KD2     | KPI values formatted for readability               | Major    |
 | KD3     | Color coding consistent and accessible             | Major    |
