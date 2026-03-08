@@ -69,7 +69,7 @@
     - Users:
         - Business Operations Teams
         - Portfolio Management Teams
-        - Developers
+        - Developers (Engineering Teams)
         - Customer Servicing Agents
 
 
@@ -123,7 +123,7 @@
     - SLSA Compliant CI
 
 # The Zeta Frameworks Leverage:
-## Business Capabilities (Product Frameworks):
+## Business Capabilities (Product Lifecycle Management Framework):
     - Bundle Blueprints
     - Product Factory, Product Family, Programs, Policies, Overrides, and Artifacts
     - Product Lifecycle Operations - Workflows, Automation, and Governance
@@ -136,7 +136,7 @@
     - Upgrade, Downgrade, and Renewal Orchestration
     - Product Analytics (AAARRR)
 
-## Business Capabilities (CLCM Frameworks):
+## Business Capabilities (Customer Lifecycle Management Framework):
     - Customer Master Data Management
     - Customer Activity Repository, Streams 
     - Customer Activity Accounting and Change Orchestration
@@ -156,7 +156,7 @@
 ## Developer Capabilities - Digital Experiences & Servicing Frameworks:
     - Content Management and Serving System (Hercules)
     - Components and Extension Framework (Hercules, Angelos)
-    - Consumer-friendly Mobile & Web Experiences (Neutrion/Bolt/Angelos)
+    - Consumer-friendly Mobile & Web Experiences (Neutrino/Bolt/Angelos)
     - Service Request Framework (Discovery, Initiation, Tracking, History)
     - Service Portal (Self-serve, Assisted, and Agentic)
     - Agent-native Experiences
@@ -177,7 +177,7 @@
 ### Tachyon Payment Aggregator Services
 ### Tachyon CLM
 ### Tachyon Loans
-### Neutrion Credit Cards
+### Neutrino Credit Cards
 ### Electron Benefits
 ### Electron Expense Cards
 ### Electron Purchase Cards
