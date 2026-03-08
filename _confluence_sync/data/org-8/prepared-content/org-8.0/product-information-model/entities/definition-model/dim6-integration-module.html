@@ -1,0 +1,120 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim6-integration-module.md -->
+<!-- Title: Integration Module -->
+<!-- Content Hash: 82eda310765f29d1793a74d2a7d1fa41c841a517620b0e6dfd542e06dfd22bdd -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="integration-module">Integration Module</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension / Track:</strong> Dimension 6: Ecosystem &amp; Extensibility (Platform)<br />
+<strong>Owner:</strong> Product Management (API/Platform), Solutions Architecture</p>
+<h2 id="definition">Definition</h2>
+<p>An Integration Module is a pre-built bridge between the product and a specific external system or system category. It includes not just APIs but also data mappings, protocol translations, workflow adapters, and connectors that translate between the product's model and the target system's model. An Integration Module is structurally a Dim 8 Module carrying Dim 6 concerns.</p>
+<p>Integration Modules serve <strong>all persona types</strong> — Developer Personas and Programmatic User Personas (Dim 6) for customer/partner system integrations, AND <strong>Operational Personas (Dim 7)</strong> for third-party ops tooling integrations. When the product ships a Datadog exporter, PagerDuty webhook integration, or Terraform provider, those are Integration Modules deliberately built for the Operations team — no different from an SAP connector built for a customer's ERP team. See DR-023.</p>
+<p>The distinction from API Module: API Module says "here's our programmatic interface"; Integration Module says "here's a ready-made bridge between us and your system." If a product doesn't ship connectors to specific external systems, it has API Modules but no Integration Modules — a valid product decision.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Reduces integration effort for customers, partners, and the operations team by providing pre-built connectors to specific external systems. The "external system" may be a customer's system (SAP, Salesforce), a partner's middleware, or a third-party operational tool (Datadog, PagerDuty, Terraform, Grafana). Without Integration Modules, every consumer — including the vendor's own operations team — must build their own translation layer.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Text</td>
+<td>Module name (e.g., "SAP ERP Integration," "Salesforce Connector")</td>
+</tr>
+<tr>
+<td>Target System(s)</td>
+<td>Text</td>
+<td>Specific external system or system category this bridges to</td>
+</tr>
+<tr>
+<td>Bridge Direction</td>
+<td>Enum</td>
+<td>Inbound / Outbound / Bidirectional</td>
+</tr>
+<tr>
+<td>Data Mappings</td>
+<td>Text</td>
+<td>Summary of entity/field mappings between product and target system</td>
+</tr>
+<tr>
+<td>Protocol Support</td>
+<td>List</td>
+<td>Protocols used for target system communication (BAPI, IDoc, REST, SOAP, etc.)</td>
+</tr>
+<tr>
+<td>Relies On</td>
+<td>Reference(s)</td>
+<td>API Module(s) and other Dim 8 Module(s) whose capabilities this composes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Is a</td>
+<td>Module (Dim 8)</td>
+<td>Structurally a Dim 8 Module with Dim 6 connector concerns</td>
+</tr>
+<tr>
+<td>Relies on</td>
+<td>API Module (Dim 6)</td>
+<td>Uses API Module operations for product-side interaction</td>
+</tr>
+<tr>
+<td>Relies on</td>
+<td>Module(s) (Dim 8)</td>
+<td>Composes capabilities from underlying modules</td>
+</tr>
+<tr>
+<td>Serves</td>
+<td>Developer Persona (Dim 6)</td>
+<td>Developers configuring or extending the connector</td>
+</tr>
+<tr>
+<td>Serves</td>
+<td>Programmatic User Persona (Dim 6)</td>
+<td>Target system consuming/providing data at runtime</td>
+</tr>
+<tr>
+<td>Serves</td>
+<td>Operational Persona (Dim 7)</td>
+<td>Operations team using third-party ops tools via this connector</td>
+</tr>
+<tr>
+<td>Referenced by</td>
+<td>Operational Journey (Dim 7)</td>
+<td>Operational Journeys may traverse integration modules to third-party ops tools</td>
+</tr>
+<tr>
+<td>Governed by</td>
+<td>API Compatibility Contract (Dim 6)</td>
+<td>Connector versioning and stability commitments</td>
+</tr>
+<tr>
+<td>Assessed by</td>
+<td>Win Review (Track 4)</td>
+<td>Integration health and adoption reviewed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>"SAP ERP Integration Module"</strong> (customer-facing) — Provides pre-built data mappings between product payment entities and SAP FI document types. Includes BAPI adapters for real-time posting and IDoc templates for batch exchange. Bidirectional: inbound (SAP payment instructions → product) and outbound (product settlement confirmations → SAP). Relies on Cross-Border Payments API Module for product-side operations. Target system: SAP S/4HANA and ECC 6.0. Serves: Developer Persona, Programmatic User Persona.</p>
+<p><strong>"Datadog Observability Integration Module"</strong> (operations-facing) — Exports product metrics, traces, and logs to Datadog for centralized observability. Includes pre-built Datadog dashboards for key SLIs, alert templates for Operational Targets, and service catalog integration. Outbound: product metrics/traces → Datadog. Relies on Monitoring Module (Dim 8) for metric collection. Target system: Datadog. Serves: Reliability Operator (Dim 7). Referenced by Operational Journey "Diagnose and resolve a SEV-1 incident."</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/definition-model/dim6-integration-module.md">View on GitHub</a></p>

@@ -1,0 +1,152 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track4-gtm-planning-task.md -->
+<!-- Title: GTM Planning -->
+<!-- Content Hash: 4edf5df7afc339ed9c54ff4305c8e9bd5d024f8ceda9b24f4f318d081c13fb0a -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="gtm-planning">GTM Planning</h1>
+<blockquote>
+<p><strong>Note:</strong> GTM Planning is a subtype of Win Planning. See <code>track4-win-planning.md</code> for the parent entity and other subtypes. (File retains legacy filename <code>track4-gtm-planning-task.md</code> for backward compatibility.)</p>
+</blockquote>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 4: The Win Track (Value Realization)<br />
+<strong>Category:</strong> Planning<br />
+<strong>Owner:</strong> Product Marketing, Sales, Customer Success</p>
+<h2 id="definition">Definition</h2>
+<p>Work to prepare launch messaging, pricing communication, partnership execution, marketing campaigns, channel strategy, and customer communication for a Customer Release. Includes sales decks, webinars, help center articles, pricing page updates, internal enablement, and Win Stakeholder preparation.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Makes the go-to-market preparation work explicit in the Win Track. A Customer Release requires deliberate GTM effort — the business doesn't just "flip a switch." Sales teams need enablement, marketing needs messaging, support needs documentation, customers need communication, and Win Stakeholders across all AAARRR stages need preparation.</p>
+<p><strong>Dim 2 connection:</strong> GTM Planning Tasks reference Dim 2 entities to ensure commercial coherence:<br />
+- Which <strong>Win Outcomes</strong> does this launch target? (e.g., Acquisition, Activation outcomes for LATAM Enterprise)<br />
+- Which <strong>Pricing Tiers</strong> are affected? (e.g., new LATAM Enterprise tier, modifications to existing Enterprise Volume Plan)<br />
+- Which <strong>Win Stakeholders</strong> need enablement? (e.g., Pre-Sales Engineers need LATAM demo environment, Account Executives need new pricing deck)<br />
+- Which <strong>Win Barriers</strong> should GTM materials address? (e.g., competitor free trial → emphasize value in messaging)</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title</td>
+<td>String</td>
+<td>Brief description of the GTM work</td>
+</tr>
+<tr>
+<td>Customer Release</td>
+<td>Reference (Dim 1)</td>
+<td>Which Customer Release this GTM work prepares for</td>
+</tr>
+<tr>
+<td>Target Win Outcomes</td>
+<td>List of References (Dim 2)</td>
+<td>Which Win Outcomes this launch targets</td>
+</tr>
+<tr>
+<td>Affected Pricing Tiers</td>
+<td>List of References (Dim 2)</td>
+<td>Which Pricing Tiers are involved</td>
+</tr>
+<tr>
+<td>Win Stakeholders to enable</td>
+<td>List of References (Dim 2)</td>
+<td>Which Win Stakeholders need preparation</td>
+</tr>
+<tr>
+<td>Deliverables</td>
+<td>List (text)</td>
+<td>Specific outputs — sales deck, webinar, help articles, pricing page, etc.</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned</td>
+<td>GTM work is scoped but not started</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>GTM materials and enablement are being created</td>
+</tr>
+<tr>
+<td>Ready</td>
+<td>All GTM materials are complete; Win Stakeholders are enabled</td>
+</tr>
+<tr>
+<td>Launched</td>
+<td>Customer Release has been activated with GTM support</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subtype of</td>
+<td>Win Planning (Track 4)</td>
+<td>GTM Planning is a subtype of Win Planning</td>
+</tr>
+<tr>
+<td>Advances</td>
+<td>Initiative (Dim 1)</td>
+<td>GTM Planning advances one or more Initiatives</td>
+</tr>
+<tr>
+<td>Prepares for</td>
+<td>Customer Release (Dim 1)</td>
+<td>GTM Planning Tasks prepare the launch of a Customer Release</td>
+</tr>
+<tr>
+<td>Targets</td>
+<td>Win Outcome (Dim 2)</td>
+<td>GTM work targets specific Win Outcomes</td>
+</tr>
+<tr>
+<td>References</td>
+<td>Pricing Tier (Dim 2)</td>
+<td>GTM work may involve pricing/packaging communication</td>
+</tr>
+<tr>
+<td>Enables</td>
+<td>Win Stakeholder (Dim 2)</td>
+<td>GTM work enables Win Stakeholders with materials and training</td>
+</tr>
+<tr>
+<td>Addresses</td>
+<td>Win Barrier (Dim 2)</td>
+<td>GTM messaging may proactively address known Win Barriers</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>"Prepare LATAM Expansion launch"<br />
+- Customer Release: "LATAM Expansion"<br />
+- Target Win Outcomes: Acquisition (close LATAM deals in 90 days), Activation (first transaction in 30 days)<br />
+- Affected Pricing Tiers: Enterprise Volume Plan (LATAM currencies added), new LATAM Starter tier<br />
+- Win Stakeholders to enable: Account Executives (pricing deck), Pre-Sales Engineers (LATAM demo environment), Implementation Consultants (LATAM onboarding guide)<br />
+- Deliverables: Sales deck, customer webinar, help center articles (5), pricing page update, internal enablement session, competitive battle card (addresses "competitor free trial" Win Barrier)</p>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/work-model/track4-gtm-planning-task.md">View on GitHub</a></p>

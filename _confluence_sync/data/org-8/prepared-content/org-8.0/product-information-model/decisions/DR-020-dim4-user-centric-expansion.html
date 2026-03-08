@@ -1,0 +1,55 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-020-dim4-user-centric-expansion.md -->
+<!-- Title: DR-020: Dimension 4 Expansion — User-Centric Dimension with JTBD, UX Channel, and Touchpoint Deprecation -->
+<!-- Content Hash: 19d41c8ad0fb6b32b2aefca41f1dd137e9a238aab9b0a636b66691ec55450ce3 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-020-dimension-4-expansion-user-centric-dimensio">DR-020: Dimension 4 Expansion — User-Centric Dimension with JTBD, UX Channel, and Touchpoint Deprecation</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>Dimension 4 (User-Centric / Experience) was the thinnest dimension in the UPIM — three stub entities (User Persona, User Journey, Touchpoint) with <code>_To be refined._</code> fields. The dimension lacked:<br />
+- A structural link between what users need (intent) and what the product provides (Dim 8)<br />
+- A model for how users access the product (channels with modality and service model characteristics)<br />
+- Clear guidance on what is Definition Model-level vs. work artifact-level granularity<br />
+- Cross-dimensional connections to Dim 3 (buyer justification) and Dim 8 (product structure)</p>
+<p>The Discovery process produces Dim 4 entities — they are hypothesized, validated, and formalized through Research Tasks, Deliberations, Prototypes, and Modeling Tasks.</p>
+<h2 id="decision">Decision</h2>
+<h3 id="d1-introduce-job-jtbd-as-a-standalone-entity">D1: Introduce Job (JTBD) as a standalone entity</h3>
+<p>Job captures the user-level "job to be done" — what the User Persona needs to accomplish. Standalone (not a field on Persona) because: Jobs are reusable across Personas, Jobs bridge Dim 4 → Dim 8 → Dim 3, and Jobs give User Journeys their structural purpose.</p>
+<h3 id="d2-introduce-ux-channel-as-a-typed-entity">D2: Introduce UX Channel as a typed entity</h3>
+<p>UX Channel is the access mechanism, typed by two orthogonal axes:<br />
+- <strong>Interaction Modality</strong> (by technology): Web, Mobile, Chat, Voice, Email, CLI<br />
+- <strong>Engagement Mode</strong> (by service model): Self-serve, Assisted, Managed</p>
+<p>Each UX Channel is implemented by exactly one Human-Interactive Module (Dim 8). Channel investment is a PDR-level decision.</p>
+<h3 id="d3-deprecate-touchpoint-from-the-definition-model">D3: Deprecate Touchpoint from the Definition Model</h3>
+<p>Touchpoints (specific UI elements) are implementation-level artifacts that change with every sprint. They belong in Build Track work artifacts (PSDs, prototypes, design specifications). The Definition Model captures down to User Journey; screen-level detail lives in work artifacts.</p>
+<h3 id="d4-expand-user-persona-with-jtbd-linkage">D4: Expand User Persona with JTBD linkage</h3>
+<p>User Persona gains: Jobs (JTBD), Technical Proficiency, Frequency of Use, Customer Segment scoping, and explicit Pain (Dim 3) relationship.</p>
+<h3 id="d5-expand-user-journey-with-cross-channel-referenc">D5: Expand User Journey with cross-channel references</h3>
+<p>User Journey gains: Job reference (what it accomplishes), Channel reference (where it's experienced), Value Stream traversal (how it maps to product structure), Journey Equivalence (same Job, different Channel), and Journey Continuity (sequential handoff across Channels).</p>
+<h3 id="d6-establish-job-dim-8-dual-mapping">D6: Establish Job → Dim 8 dual mapping</h3>
+<p>Job → Value Stream is the primary structural mapping (end-to-end flow). Job → Capability is a direct mapping for simpler, capability-scoped jobs. Both are many-to-many. A Value Stream may serve multiple Jobs across different Personas.</p>
+<h3 id="d7-experience-attributes-as-guidance-not-structure">D7: Experience attributes as guidance, not structured fields</h3>
+<p>Features within Human-Interactive Modules are encouraged to specify experience attributes (simplicity, ease, delight, control, speed, discoverability, error tolerance) as guidance in the HI Module feature template. Not mandatory structured fields — lightweight hints that seed experiential thinking.</p>
+<h2 id="rationale">Rationale</h2>
+<ul>
+<li><strong>Job as bridge entity</strong> resolves the structural gap between "what users need" (Dim 4) and "what the product can do" (Dim 8), while connecting to "why the buyer pays" (Dim 3).</li>
+<li><strong>UX Channel with two axes</strong> provides a complete, orthogonal classification. The Modality axis captures technology constraints; the Engagement Mode axis captures service model. Their intersection produces distinct UX and HI Module requirements.</li>
+<li><strong>Touchpoint deprecation</strong> keeps the Definition Model at a sustainable granularity level. The model captures structural truth that persists across releases; UI elements don't qualify.</li>
+<li><strong>Cross-channel journey references</strong> solve multi-channel continuity without complex flow modeling. Two simple reference types (equivalence, continuity) are sufficient.</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<p><strong>Positive:</strong><br />
+- Dim 4 now has cross-dimensional links to Dim 3 (Persona → Pain, Job → Business Outcome), Dim 8 (Job → Value Stream/Capability, Channel → HI Module), and Dim 1 (Channel → PDR)<br />
+- User research findings have structured entities to populate — Jobs, Personas, Journeys<br />
+- Channel portfolio decisions are governed entities with lifecycle<br />
+- The entity count is manageable: 4 entities (Persona, Job, Channel, Journey) vs. the original 3 stubs</p>
+<p><strong>Negative:</strong><br />
+- Job is a new entity concept that teams may initially conflate with User Story (Build Track) or Business Outcome (Dim 3) — clear documentation distinguishes them<br />
+- UX Channel creates a naming overlap with marketing "channels" — the UPIM term is specifically about product access mechanisms<br />
+- Touchpoint deprecation means existing references to Touchpoints in PSDs or design docs need to be understood as work artifacts, not Definition Model entities</p>
+<p><strong>Migration:</strong><br />
+- <code>dim4-touchpoint.md</code> is deprecated with a notice pointing to the Work Execution Framework<br />
+- Existing PSD templates that reference "Touchpoints" continue to work — Touchpoints are valid work artifacts, just not Definition Model entities</p>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/decisions/DR-020-dim4-user-centric-expansion.md">View on GitHub</a></p>

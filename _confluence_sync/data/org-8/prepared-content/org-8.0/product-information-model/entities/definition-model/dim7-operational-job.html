@@ -1,0 +1,160 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim7-operational-job.md -->
+<!-- Title: Operational Job -->
+<!-- Content Hash: 6fb4780c6024742f7b4fca43d17f33289eaff26d0e5bcc768e1c1e8d700cadfb -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="operational-job">Operational Job</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 7: The Operational Dimension (Runtime &amp; DevOps)<br />
+<strong>Owner:</strong> Engineering Leadership, Platform Engineering, DevOps Leadership</p>
+<h2 id="definition">Definition</h2>
+<p>What the Operational Persona needs to accomplish through the product's operational tooling — the operational "job to be done." Operational Jobs bridge operational intent (Dim 7) to product structure (Dim 8): they explain WHY operational modules exist and WHAT capabilities they must provide. Independent from Job (JTBD) in Dim 4 — same analytical pattern (persona → job → journey), different domain (operational reality vs. user experience).</p>
+<p>The Run Track work entities (Deployment, Incident, Change Request, Maintenance Task) are the instantiation of Operational Jobs — individual deployments, individual incident resolutions. The Definition Model captures the job definition and its structural enablers; the Work Model captures the work of executing them.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Without Operational Jobs:<br />
+- Operational modules are built without traceability to operational needs — "we built a monitoring dashboard" but can't explain what job it serves<br />
+- The product's operational capability investment is invisible — no entity traces from operational need → structural capability → feature<br />
+- Operational journey design has no anchor — you can't design a journey if you don't know what job it accomplishes</p>
+<p><strong>Discovery process:</strong> Operational Jobs are identified through operational experience, field research with Operational Personas, and analysis of Run Track work patterns. They are formally documented in Dim 7 through Modeling Tasks.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Text</td>
+<td>Job statement (verb-led, outcome-focused, e.g., "Deploy a release safely to production")</td>
+</tr>
+<tr>
+<td>Quality Domain</td>
+<td>Enum</td>
+<td>Primary quality taxonomy area this job serves</td>
+</tr>
+<tr>
+<td>Pursued by</td>
+<td>List of References (Dim 7)</td>
+<td>Which Operational Persona(s) pursue this job</td>
+</tr>
+<tr>
+<td>Enabled by</td>
+<td>List of References (Dim 8)</td>
+<td>Which Value Stream(s) or Capability(ies) enable this job</td>
+</tr>
+<tr>
+<td>Measured against</td>
+<td>List of References (Dim 7)</td>
+<td>Which Operational Target(s) define success for this job</td>
+</tr>
+<tr>
+<td>Run Track Instantiation</td>
+<td>Text</td>
+<td>Which Run Track work entity type corresponds to this job (e.g., Deployment, Incident)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pursued by</td>
+<td>Operational Persona (Dim 7)</td>
+<td>Operational Personas pursue this job</td>
+</tr>
+<tr>
+<td>Accomplished through</td>
+<td>Operational Journey (Dim 7)</td>
+<td>Operational Jobs are accomplished through journeys</td>
+</tr>
+<tr>
+<td>Enabled by</td>
+<td>Value Stream / Capability (Dim 8)</td>
+<td>Structural entities that deliver this operational capability</td>
+</tr>
+<tr>
+<td>Measured against</td>
+<td>Operational Target (Dim 7)</td>
+<td>Operational Targets define success criteria for this job</td>
+</tr>
+<tr>
+<td>Instantiated by</td>
+<td>Run Track work entities (Track 3)</td>
+<td>Deployment, Incident, Change Request, Maintenance Task are instances</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Modeling Task (Track 1)</td>
+<td>Operational Jobs are documented through Modeling Tasks</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Operational Job</th>
+<th>Quality Domain</th>
+<th>Pursued by</th>
+<th>Enabled by (Dim 8)</th>
+<th>Measured against</th>
+<th>Run Track Entity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Deploy a release safely to production without service disruption"</td>
+<td>Platform</td>
+<td>Platform Operator</td>
+<td>Release Management (Value Stream), Canary Deployment (Capability)</td>
+<td>Zero-downtime deployments; rollback within 5 min</td>
+<td>Deployment</td>
+</tr>
+<tr>
+<td>"Diagnose and resolve a SEV-1 incident within SLO"</td>
+<td>Reliability</td>
+<td>Reliability Operator</td>
+<td>Incident Management (Value Stream), Root Cause Analysis (Capability)</td>
+<td>MTTR &lt; 30 min for SEV-1; zero cascading failures</td>
+<td>Incident Response Task</td>
+</tr>
+<tr>
+<td>"Rotate encryption keys without downtime"</td>
+<td>Security</td>
+<td>Security Operator</td>
+<td>Key Management (Capability), Automated Key Rotation (Capability)</td>
+<td>Zero expired certificates; rotation &lt; 5 min</td>
+<td>Maintenance Task</td>
+</tr>
+<tr>
+<td>"Scale infrastructure for expected load within budget"</td>
+<td>Scalability, Cost</td>
+<td>Platform Operator</td>
+<td>Capacity Management (Value Stream), Auto-Scale (Capability)</td>
+<td>Cost growth &lt; 1.5x traffic growth; no capacity-induced outages</td>
+<td>Capacity Planning</td>
+</tr>
+<tr>
+<td>"Restore service from backup within RTO"</td>
+<td>Reliability</td>
+<td>Data Operator, Reliability Operator</td>
+<td>Disaster Recovery (Value Stream), Point-in-Time Recovery (Capability)</td>
+<td>RTO &lt; 4 hours; RPO &lt; 1 hour; data integrity verified</td>
+<td>Maintenance Task</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/definition-model/dim7-operational-job.md">View on GitHub</a></p>

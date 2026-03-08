@@ -1,0 +1,123 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/psd-templates/README.md -->
+<!-- Title: PSD Templates by Module Archetype -->
+<!-- Content Hash: c0d394133c1f7b28ac0c7c4deb23673cba7882edb7d7f1c65caa2dc00a36e566 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="psd-templates-by-module-archetype">PSD Templates by Module Archetype</h1>
+<p>Each template provides the full PSD structure with <strong>section depth guidance</strong> calibrated to the module's interaction boundary. Sections marked <strong>Deep</strong> are the primary specification surfaces for that archetype and must be thorough. Sections marked <strong>Light</strong> may be brief or state "No impact." Sections marked <strong>Required</strong> apply equally to all archetypes.</p>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Module Archetype</th>
+<th>Primary Specification Surfaces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>psd-human-interactive.md</code></td>
+<td>Human-Interactive (Synchronous UI)</td>
+<td>UX (Dim 4), Structural (Dim 8)</td>
+</tr>
+<tr>
+<td><code>psd-programmatic-interactive.md</code></td>
+<td>Programmatic-Interactive (Synchronous M2M)</td>
+<td>Extensibility (Dim 6), Technical (Dim 5)</td>
+</tr>
+<tr>
+<td><code>psd-reactive-background.md</code></td>
+<td>Reactive / Background (Asynchronous)</td>
+<td>Technical (Dim 5), Operational (Dim 7), Data (Dim 9)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Identify the target module's archetype (from <code>draft-archetypes.md</code>).</li>
+<li>Copy the matching template.</li>
+<li>Fill in all <strong>Required</strong> and <strong>Deep</strong> sections thoroughly.</li>
+<li>Fill in <strong>Medium</strong> sections with relevant details.</li>
+<li>For <strong>Light</strong> sections, provide a brief assessment or state "No impact" with justification.</li>
+<li>Adjust business sections (Dims 2–3) depth based on the <strong>product archetype</strong> (see guidance in each template).</li>
+</ol>
+<h2 id="section-depth-matrix">Section Depth Matrix</h2>
+<table>
+<thead>
+<tr>
+<th>PSD Section</th>
+<th>Human-Interactive</th>
+<th>Programmatic-Interactive</th>
+<th>Reactive/Background</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0. Header &amp; Traceability</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>1. Structural Impact (Dim 8)</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>2. Vendor Value (Dim 2)</td>
+<td>Per product archetype</td>
+<td>Per product archetype</td>
+<td>Per product archetype</td>
+</tr>
+<tr>
+<td>3. Customer Value (Dim 3)</td>
+<td>Per product archetype</td>
+<td>Per product archetype</td>
+<td>Per product archetype</td>
+</tr>
+<tr>
+<td>4. UX (Dim 4)</td>
+<td><strong>Deep</strong></td>
+<td>Light</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>5. Technical (Dim 5)</td>
+<td>Medium</td>
+<td><strong>Deep</strong></td>
+<td><strong>Deep</strong></td>
+</tr>
+<tr>
+<td>6. Extensibility (Dim 6)</td>
+<td>Light</td>
+<td><strong>Deep</strong></td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>7. Operational (Dim 7)</td>
+<td>Light</td>
+<td>Medium</td>
+<td><strong>Deep</strong></td>
+</tr>
+<tr>
+<td>8. Data (Dim 9)</td>
+<td>Medium</td>
+<td>Medium</td>
+<td><strong>Deep</strong></td>
+</tr>
+<tr>
+<td>9. Acceptance Criteria</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>10. Epic Decomposition</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/psd-templates/README.md">View on GitHub</a></p>

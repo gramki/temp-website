@@ -1,0 +1,268 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim5-system.md -->
+<!-- Title: System -->
+<!-- Content Hash: a3bd536bd68b1dd7c53d0b6bdbe8f20500e459d2eb1274315e74f311230c018c -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="system">System</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 5: The Technical &amp; Architectural Dimension (Engineering)<br />
+<strong>Owner:</strong> Tech Leads, Engineering Leadership</p>
+<h2 id="definition">Definition</h2>
+<p>A named, independently deployable technical unit that implements one or more Dim 8 Modules. The technical counterpart to Module (Dim 8). Where Module captures the functional boundary ("Payments"), System captures the technical boundary ("payments-service"). The mapping is many-to-many: a Module may be implemented by multiple Systems; a shared System may serve multiple Modules. This reflects reality — functional decomposition and technical decomposition are independent.</p>
+<p>Supersedes the original skeletal "Subsystem / Service" entity, which lacked technology stack fields, Module mapping, deployment references, and a full relationship set.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Captures the product's technical decomposition — what deployable units exist, what technology they use, and how they map to functional modules. Without Systems:<br />
+- The product's technical architecture is invisible in the Definition Model — only the functional view (Dim 8) exists<br />
+- Deployment Environments (Dim 7) have no technical unit to host — "deploy to production" has no artifact to deploy<br />
+- Dependencies have no consumer — "we depend on PostgreSQL" has no System that depends on it<br />
+- Architecture diagrams, sequence diagrams, and data flow diagrams have no anchoring entity</p>
+<p><strong>Dim 8 / Dim 5 mapping:</strong> The explicit many-to-many mapping between Systems and Modules makes the functional-to-technical relationship visible. This is critical for impact analysis: "if payments-service is down, which Modules are affected?" and "to add a Capability to the Payments Module, which Systems need to change?"</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>System name (e.g., "payments-service," "fx-engine," "notification-service")</td>
+</tr>
+<tr>
+<td>Technology Stack — Language</td>
+<td>String</td>
+<td>Primary programming language(s) (e.g., "Java 21," "Python 3.12")</td>
+</tr>
+<tr>
+<td>Technology Stack — Framework</td>
+<td>String</td>
+<td>Primary framework(s) (e.g., "Spring Boot 3.2," "FastAPI")</td>
+</tr>
+<tr>
+<td>Technology Stack — Runtime</td>
+<td>String</td>
+<td>Runtime environment (e.g., "JVM 21," "Docker / ECS," "AWS Lambda")</td>
+</tr>
+<tr>
+<td>Data Store(s)</td>
+<td>List</td>
+<td>Owned data stores with technology (e.g., "PostgreSQL 15 — transactional data," "Redis 7 — rate cache")</td>
+</tr>
+<tr>
+<td>Communication Protocols</td>
+<td>List</td>
+<td>How this System communicates (e.g., "REST (inbound)," "gRPC (to fx-service)," "Kafka (produce/consume)")</td>
+</tr>
+<tr>
+<td>Module Mapping</td>
+<td>List of References (Dim 8)</td>
+<td>Which Dim 8 Module(s) this System implements (many-to-many)</td>
+</tr>
+<tr>
+<td>Purpose / Serving Persona(s)</td>
+<td>List of References (Dim 4)</td>
+<td>Which Persona(s) this System serves — determines the System's primary purpose. Product Systems serve End-User Personas (Dim 4) or Developer/Programmatic Personas (Dim 6). Operational Systems serve Operational Personas (Dim 7). A System may serve multiple Personas.</td>
+</tr>
+<tr>
+<td>Repository Reference</td>
+<td>String</td>
+<td>Source code repository identifier</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned</td>
+<td>System has been designed (ADR produced) but not yet built</td>
+</tr>
+<tr>
+<td>In Development</td>
+<td>System is being built (Build Track work in progress)</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>System is deployed and operational in at least one environment</td>
+</tr>
+<tr>
+<td>Deprecated</td>
+<td>System is being phased out (replacement identified, migration in progress)</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>System has been fully decommissioned</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Implements</td>
+<td>Module(s) (Dim 8)</td>
+<td>System implements one or more functional Modules (many-to-many)</td>
+</tr>
+<tr>
+<td>Contains</td>
+<td>Component(s) (Dim 5)</td>
+<td>System contains architectural Components</td>
+</tr>
+<tr>
+<td>Depends on</td>
+<td>Dependency(ies) (Dim 5)</td>
+<td>System depends on external services and infrastructure resources</td>
+</tr>
+<tr>
+<td>Deployed to</td>
+<td>Deployment Environment(s) (Dim 7)</td>
+<td>System is deployed to specific environments</td>
+</tr>
+<tr>
+<td>Participates in</td>
+<td>Interaction Flow(s) (Dim 5)</td>
+<td>System participates in inter-system Interaction Flows</td>
+</tr>
+<tr>
+<td>Has</td>
+<td>Technical Knowledge Base (Dim 5)</td>
+<td>System has a documentation coverage assessment</td>
+</tr>
+<tr>
+<td>Decisions</td>
+<td>ADR(s) (Dim 5)</td>
+<td>Architectural decisions affecting this System are recorded as ADRs</td>
+</tr>
+<tr>
+<td>Produces</td>
+<td>System Version (Track 2)</td>
+<td>Build Track produces versioned, quality-gated artifacts from this System</td>
+</tr>
+<tr>
+<td>Discussed in</td>
+<td>Design Deliberation (Track 2)</td>
+<td>Architectural questions about this System are resolved through Design Deliberation</td>
+</tr>
+<tr>
+<td>Serves</td>
+<td>Persona(s) (Dim 4) / Operational Persona(s) (Dim 7)</td>
+<td>System serves specific Personas — determines purpose</td>
+</tr>
+<tr>
+<td>Context</td>
+<td>Architecture Model (Dim 5)</td>
+<td>System exists within the Architecture Model's frame</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Tech Stack</th>
+<th>Data Store</th>
+<th>Protocols</th>
+<th>Implements (Dim 8)</th>
+<th>Purpose / Serving Persona(s)</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>payments-service</td>
+<td>Java 21 / Spring Boot 3.2</td>
+<td>PostgreSQL 15</td>
+<td>REST (in), Kafka (produce/consume)</td>
+<td>Payments Module (primary), Settlement Module (partial)</td>
+<td>AP Clerk, Treasury Manager (End-User Personas)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>fx-service</td>
+<td>Java 21 / Spring Boot 3.2</td>
+<td>Redis 7 (rate cache)</td>
+<td>gRPC (in), REST (to rate providers)</td>
+<td>FX Module</td>
+<td>AP Clerk, Treasury Manager (End-User Personas)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>compliance-service</td>
+<td>Java 21 / Spring Boot 3.2</td>
+<td>PostgreSQL 15</td>
+<td>Kafka (consume), REST (to screening providers)</td>
+<td>Compliance Module</td>
+<td>Compliance Officer (End-User Persona)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>notification-service</td>
+<td>Python 3.12 / FastAPI</td>
+<td>Redis 7 (queue)</td>
+<td>Kafka (consume), SMTP, SMS API</td>
+<td>Payments Module, Compliance Module, Onboarding Module (shared)</td>
+<td>AP Clerk, Compliance Officer (End-User Personas)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>bank-adapter</td>
+<td>Java 21 / Spring Boot 3.2</td>
+<td>—</td>
+<td>REST (in/out), SFTP (batch files)</td>
+<td>Payments Module, Settlement Module</td>
+<td>AP Clerk (End-User Persona)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>analytics-service</td>
+<td>Python 3.12 / FastAPI</td>
+<td>ClickHouse</td>
+<td>Kafka (consume), REST (out)</td>
+<td>Analytics Module</td>
+<td>Analyst (End-User Persona)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>payments-healthcheck</td>
+<td>Go 1.22</td>
+<td>—</td>
+<td>HTTP (out, synthetic probes)</td>
+<td>Payments Module (operational)</td>
+<td>SRE / Platform Operator (Operational Persona)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>payment-reconciler</td>
+<td>Python 3.12</td>
+<td>—</td>
+<td>Kafka (consume), PostgreSQL (read)</td>
+<td>Payments Module (operational)</td>
+<td>SRE / Platform Operator (Operational Persona)</td>
+<td>Active</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Product Systems vs. Operational Systems.</strong> Product Systems (payments-service, fx-service, etc.) serve end-user Personas — they deliver product functionality. Operational Systems (payments-healthcheck, payment-reconciler) serve Operational Personas (SRE, Platform Operator) — they deliver operational capability. Both are legitimate Systems with code, repos, CI/CD pipelines, tests, and System Versions. They differ in purpose (who they serve) and provenance (Build Track vs. Run Track engineering). The Purpose field makes this distinction explicit through Persona references rather than a static enum.</p>
+</blockquote>
+<hr />
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/entities/definition-model/dim5-system.md">View on GitHub</a></p>

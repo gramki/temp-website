@@ -1,0 +1,568 @@
+<!-- File: org-8.0/what-we-sell/the-hub-way/enablement/08-ontology-alignment.md -->
+<!-- Title: 08 - The Hub Way and the Olympus Hub Ontology -->
+<!-- Content Hash: 4e12fe896ccc2b7837984695f164a4c46924aea307e7a37dd282376211f87bda -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="the-hub-way-and-the-olympus-hub-ontology">The Hub Way and the Olympus Hub Ontology</h1>
+<p>This document explains how The Hub Way framework relates to the Olympus Hub ontology. It is written for architects and engineers who need to understand the theoretical fit, what The Hub Way extends versus what it leaves unchanged, and how to apply both frameworks together.</p>
+<hr />
+<h2 id="1-the-four-layer-ontology-recap">1. The Four-Layer Ontology Recap</h2>
+<p>Olympus Hub's ontology organizes Human-AI Team Operations into four layers. Each layer answers a distinct question:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Question</th>
+<th>Key Concepts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Perception</strong></td>
+<td>What's happening?</td>
+<td>Domain, Workbench, Signal, Trigger, Scenario</td>
+</tr>
+<tr>
+<td><strong>Normative</strong></td>
+<td>What ought to be done?</td>
+<td>Role, Goal, SOP, Capability, Decision Criteria</td>
+</tr>
+<tr>
+<td><strong>Execution</strong></td>
+<td>How is it done?</td>
+<td>Operation (Procedure, Workflow, Case), Activity, Task, Agent</td>
+</tr>
+<tr>
+<td><strong>Automation</strong></td>
+<td>How is it codified?</td>
+<td>Automation, Runtime, Tools, Registries</td>
+</tr>
+</tbody>
+</table>
+<h3 id="layer-summary">Layer Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Perception</strong></td>
+<td>Observes and interprets reality. Signals from the environment are interpreted by Triggers into Scenarios. Descriptive, not prescriptive.</td>
+</tr>
+<tr>
+<td><strong>Normative</strong></td>
+<td>Defines standards, rules, and goals. Roles, Goals, SOPs, Capabilities, and Decision Criteria shape expected behavior.</td>
+</tr>
+<tr>
+<td><strong>Execution</strong></td>
+<td>Where work happens. Operations (Procedure, Workflow, Case) prescribe Activities; Activities become Tasks delegated to Agents when agent involvement is required.</td>
+</tr>
+<tr>
+<td><strong>Automation</strong></td>
+<td>Codified definitions of operations. Automations are software representations of procedures, workflows, or cases. Automation Runtime instantiates and supervises live operations.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="core-runtime-lifecycle">Core Runtime Lifecycle</h3>
+<p>The ontology defines a strict runtime flow:</p>
+<pre class="codehilite"><code>Signal → Trigger → Scenario → Automation → Operation → Activity → Action
+</code></pre>
+
+<p>This lifecycle is invariant. Every piece of work in Hub flows through this sequence.</p>
+<hr />
+<h2 id="2-what-the-hub-way-adds">2. What The Hub Way Adds</h2>
+<p>The Hub Way introduces four dimensions that the ontology does not explicitly address:</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>The Hub Way Concept</th>
+<th>Ontology Gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Work classification by purpose and trigger origin</strong></td>
+<td>Streams and Loops</td>
+<td>The ontology models <em>what</em> work is (Scenario, Operation) and <em>how</em> it executes, but not <em>why</em> the work exists or where the trigger originates.</td>
+</tr>
+<tr>
+<td><strong>Collaboration surface modeling</strong></td>
+<td>Channels</td>
+<td>The ontology does not explicitly address how users interact with the system across different interfaces.</td>
+</tr>
+<tr>
+<td><strong>Collaborator structuring</strong></td>
+<td>Teams</td>
+<td>The ontology defines Agent types but does not make agent organization a modeling concern. The Hub Way elevates Team composition as a domain-level decision.</td>
+</tr>
+<tr>
+<td><strong>Tool availability as modeling concern</strong></td>
+<td>Machines</td>
+<td>The ontology defines Machine/Tool/Command abstractly. The Hub Way makes which Machines a Hub needs a domain-level modeling decision.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-these-dimensions-matter">Why These Dimensions Matter</h3>
+<ul>
+<li><strong>Streams and Loops</strong> answer: "Why does this work exist? Is it driven by an external commitment or by internal discipline?" This classification affects how work is designed, measured, and audited.</li>
+<li><strong>Channels</strong> answer: "Through what do collaborators participate?" Different interfaces (web, chat, API, MCP) have different interaction models, identity requirements, and delegation flows.</li>
+</ul>
+<hr />
+<h2 id="3-how-the-hub-way-is-orthogonal">3. How The Hub Way Is Orthogonal</h2>
+<p>The Hub Way <strong>extends</strong> the ontology; it does <strong>not</strong> modify it. This is critical.</p>
+<h3 id="execution-model-untouched">Execution Model Untouched</h3>
+<table>
+<thead>
+<tr>
+<th>Ontology Element</th>
+<th>The Hub Way Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal → Trigger → Scenario → Automation → Operation → Activity → Action</td>
+<td>Unchanged. Both Streams and Loops execute through this lifecycle.</td>
+</tr>
+<tr>
+<td>Scenario</td>
+<td>Remains the atomic unit of work. The Hub Way classifies Scenarios by trigger origin; it does not replace Scenario.</td>
+</tr>
+<tr>
+<td>Workbench</td>
+<td>Remains the container for domain encapsulation. Hub maps to Workbench.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="work-patterns-apply-to-both-streams-and-loops">Work Patterns Apply to Both Streams and Loops</h3>
+<p>The seven Work Patterns are available to both Stream Scenarios and Loop Scenarios:</p>
+<table>
+<thead>
+<tr>
+<th>Work Pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Queue-Based</td>
+<td>Serial processing of work items with SLAs</td>
+</tr>
+<tr>
+<td>Case-Based</td>
+<td>Non-deterministic, collaborative resolution</td>
+</tr>
+<tr>
+<td>Event-Driven</td>
+<td>Signal-triggered response</td>
+</tr>
+<tr>
+<td>Conversation-Based</td>
+<td>Real-time exchange toward understanding</td>
+</tr>
+<tr>
+<td>Artifact-Centric</td>
+<td>Single artifact: draft → review → approve</td>
+</tr>
+<tr>
+<td>Review-Based</td>
+<td>Assessing artifacts, decisions, or outcomes</td>
+</tr>
+<tr>
+<td>Generative/Design</td>
+<td>Diverge → create variants → select → converge</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resolution-models-apply-uniformly">Resolution Models Apply Uniformly</h3>
+<p>All nine Resolution Models apply to both Stream and Loop Scenarios:</p>
+<table>
+<thead>
+<tr>
+<th>Resolution Model</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pure Automation</td>
+<td>Machines resolve entirely; no agent involvement</td>
+</tr>
+<tr>
+<td>Automation with Exception Escalation</td>
+<td>Machines resolve; agents engage only for business exceptions</td>
+</tr>
+<tr>
+<td>Automation with Checkpoint Approval</td>
+<td>Machines resolve; agents approve at defined points</td>
+</tr>
+<tr>
+<td>Agent-Assisted Automation</td>
+<td>Automation does the work; agents guide, review, or correct</td>
+</tr>
+<tr>
+<td>Human-AI Teaming</td>
+<td>Human and AI agents collaborate throughout</td>
+</tr>
+<tr>
+<td>AI-Autonomous</td>
+<td>AI agents operate independently within governance</td>
+</tr>
+<tr>
+<td>Human-Supervised AI</td>
+<td>AI proposes; humans approve each action</td>
+</tr>
+<tr>
+<td>Pure Human Collaboration</td>
+<td>Humans work together; platform provides infrastructure</td>
+</tr>
+<tr>
+<td>Human with Tool Support</td>
+<td>Human resolves; machines provide capabilities on demand</td>
+</tr>
+</tbody>
+</table>
+<h3 id="agent-model-unchanged">Agent Model Unchanged</h3>
+<p>The ontology's Agent types remain:</p>
+<table>
+<thead>
+<tr>
+<th>Agent Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Human</td>
+<td>Human agent</td>
+</tr>
+<tr>
+<td>AI Agent</td>
+<td>AI-driven agent</td>
+</tr>
+<tr>
+<td>Rule-Based Agent</td>
+<td>Deterministic rule execution</td>
+</tr>
+<tr>
+<td>Workflow Agent</td>
+<td>Workflow-driven automation</td>
+</tr>
+</tbody>
+</table>
+<p>The Hub Way does not introduce new agent types or change how agents participate in Scenarios.</p>
+<h3 id="teams-and-the-agent-model">Teams and the Agent Model</h3>
+<p>The Hub Way's Team concept uses the ontology's Agent types unchanged but elevates <strong>agent organization</strong> as a first-class modeling concern. The ontology answers 'what types of agents exist?' The Hub Way asks 'how are agents organized to resolve this Hub's Scenarios?' — skill-based pools, task queues, escalation matrices, mixed human-AI teams.</p>
+<p><strong>Application-Agent Convergence</strong>: When the runtime is Seer, the Hub Application IS an AI Agent — the Seer Case Orchestration Agent. This agent is simultaneously the Scenario orchestrator (Application role) and a Team member (Agent role). The distinction between 'what orchestrates the work' and 'who resolves the work' collapses. This convergence is natural within the ontology — the Agent type is unchanged; the deployment context is new.</p>
+<h3 id="persona-channel-architecture-already-exists">Persona-Channel Architecture Already Exists</h3>
+<p>Hub already has Persona (platform-level user archetype) and Channel (interaction interface) as implementation concepts. The Hub Way elevates <strong>Channel</strong> to a first-class modeling concern at the Hub level. The Persona-Channel architecture is not new; The Hub Way makes Channel a domain modeling decision, not just a platform configuration.</p>
+<hr />
+<h2 id="4-the-trigger-boundary-as-the-defining-classificat">4. The Trigger Boundary as the Defining Classification</h2>
+<p>The classification of work into Streams and Loops rests on one rule:</p>
+<table>
+<thead>
+<tr>
+<th>Trigger Origin</th>
+<th>Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>External trigger</strong> (crosses Hub boundary inward)</td>
+<td>Stream</td>
+</tr>
+<tr>
+<td><strong>Internal trigger</strong> (originates within Hub)</td>
+<td>Loop</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-does-not-determine-classification">What Does Not Determine Classification</h3>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Why It Doesn't Determine Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type of work</td>
+<td>Both Streams and Loops can be analytical, computational, case-based, or event-driven.</td>
+</tr>
+<tr>
+<td>Execution model</td>
+<td>Both use the same lifecycle: Signal → Trigger → Scenario → Automation → Operation → Activity → Action.</td>
+</tr>
+<tr>
+<td>Work Pattern</td>
+<td>Queue-Based, Case-Based, Event-Driven, etc. apply to both.</td>
+</tr>
+<tr>
+<td>Resolution Model</td>
+<td>Pure Automation through Pure Human Collaboration apply to both.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-does-determine-classification">What Does Determine Classification</h3>
+<p><strong>The trigger origin.</strong> Where does the work originate?</p>
+<ul>
+<li>Customer applies for credit card → external → Stream</li>
+<li>Partner submits payment → external → Stream</li>
+<li>Regulator requests filing → external → Stream</li>
+<li>Scheduled interest computation runs → internal → Loop</li>
+<li>Reconciliation batch executes → internal → Loop</li>
+<li>Fraud monitoring detects anomaly → internal → Loop (even if it later triggers a new Stream)</li>
+</ul>
+<hr />
+<h2 id="5-where-the-hub-way-sits-conceptually">5. Where The Hub Way Sits Conceptually</h2>
+<p>The Hub Way operates at the <strong>Perception Layer</strong> level. It enriches Domain and Workbench with additional modeling dimensions:</p>
+<table>
+<thead>
+<tr>
+<th>The Hub Way Dimension</th>
+<th>Ontology Layer</th>
+<th>Enrichment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Work classification (Stream/Loop)</td>
+<td>Perception</td>
+<td>Adds "why does this work exist?" and "where does the trigger originate?" to Domain/Workbench modeling.</td>
+</tr>
+<tr>
+<td>Collaboration surface (Channel)</td>
+<td>Perception (gap fill)</td>
+<td>Adds "through what do collaborators participate?" to domain modeling.</td>
+</tr>
+<tr>
+<td>Collaborator structuring (Team)</td>
+<td>Execution</td>
+<td>Adds "how are agents organized to resolve Scenarios?" to domain modeling.</td>
+</tr>
+<tr>
+<td>Tool availability (Machine)</td>
+<td>Automation</td>
+<td>Adds "what Machines and Tools does this Hub need?" to domain modeling.</td>
+</tr>
+</tbody>
+</table>
+<p><ac:image ac:align="center" ac:border="false"><ri:url ri:value="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAEwCAYAAACZoyciAAAACXBIWXMAAAsTAAALEwEAmpwYAAAESUlEQVR4nO3VwQ3AIBDAsNL9dz5mIB+EZE+QX9bMzAcAh/7bAQC8yUAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgGQDWCgGXAaG704AAAAASUVORK5CYII="/></ac:image></p>
+
+<p>The Hub Way does not add new layers. It extends the modeling vocabulary across existing layers.</p>
+<hr />
+<h2 id="6-bridging-to-work-patterns-and-resolution-models">6. Bridging to Work Patterns and Resolution Models</h2>
+<p>While The Hub Way says "everything is a Scenario," the ontology differentiates Scenarios through <strong>Work Patterns</strong> and <strong>Resolution Models</strong>. Modelers should profile both Stream Scenarios and Loop Scenarios with these attributes.</p>
+<h3 id="why-profiling-matters">Why Profiling Matters</h3>
+<ul>
+<li><strong>Work Pattern</strong> describes the nature of the situation (queue processing, case investigation, event reaction, etc.).</li>
+<li><strong>Resolution Model</strong> describes who resolves it (pure automation, human-AI teaming, etc.).</li>
+</ul>
+<p>Together they define how work actually happens. A Stream Scenario and a Loop Scenario can share the same Work Pattern and Resolution Model; the Stream/Loop classification is orthogonal.</p>
+<h3 id="example-scenario-profiling">Example Scenario Profiling</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Stream or Loop</th>
+<th>Work Pattern</th>
+<th>Resolution Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Payment authorization</td>
+<td>Stream</td>
+<td>Event-Driven</td>
+<td>Pure Automation</td>
+</tr>
+<tr>
+<td>Credit card application</td>
+<td>Stream</td>
+<td>Case-Based</td>
+<td>Human-AI Teaming</td>
+</tr>
+<tr>
+<td>Fraud investigation</td>
+<td>Stream</td>
+<td>Case-Based</td>
+<td>Human-AI Teaming</td>
+</tr>
+<tr>
+<td>Interest computation</td>
+<td>Loop</td>
+<td>Queue-Based</td>
+<td>Pure Automation</td>
+</tr>
+<tr>
+<td>Daily reconciliation</td>
+<td>Loop</td>
+<td>Queue-Based</td>
+<td>Automation with Exception Escalation</td>
+</tr>
+<tr>
+<td>Compliance monitoring</td>
+<td>Loop</td>
+<td>Event-Driven</td>
+<td>Human-Supervised AI</td>
+</tr>
+</tbody>
+</table>
+<h3 id="design-guidance">Design Guidance</h3>
+<p>When modeling a Scenario:</p>
+<ol>
+<li><strong>Classify by trigger</strong>: External → Stream; Internal → Loop.</li>
+<li><strong>Select Work Pattern</strong>: What kind of situation is this? Queue, Case, Event, Artifact, Review, Conversation, or Generative?</li>
+<li><strong>Select Resolution Model</strong>: Who resolves it? Pure Automation, Human-AI Teaming, or something in between?</li>
+</ol>
+<p>All three dimensions are independent. A Loop can be Case-Based with Human-AI Teaming. A Stream can be Event-Driven with Pure Automation.</p>
+<hr />
+<h2 id="7-channels-and-the-ontology">7. Channels and the Ontology</h2>
+<h3 id="the-ontology-gap">The Ontology Gap</h3>
+<p>The ontology does not explicitly address how users interact with the system across different interfaces. The Channel concept in Hub fills this gap.</p>
+<h3 id="what-the-ontology-covers">What the Ontology Covers</h3>
+<table>
+<thead>
+<tr>
+<th>Ontology Concept</th>
+<th>Implementation</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent (Human)</td>
+<td>User + Channel</td>
+<td>Agents interact via Channels</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>Channel-specific interaction</td>
+<td>Actions taken through Channel interface</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-channels-address">What Channels Address</h3>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Channel Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-surface access</td>
+<td>Same user, different devices (web, mobile, chat)</td>
+</tr>
+<tr>
+<td>Context optimization</td>
+<td>Right interface for each context</td>
+</tr>
+<tr>
+<td>AI integration</td>
+<td>AI assistants as first-class channel (MCP)</td>
+</tr>
+<tr>
+<td>API access</td>
+<td>Programmatic interaction (REST)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hubs-existing-persona-channel-architecture">Hub's Existing Persona-Channel Architecture</h3>
+<p>Hub already has:</p>
+<ul>
+<li><strong>Persona</strong>: Platform-level user archetype (Agent, Supervisor, Process Architect, etc.)</li>
+<li><strong>Channel</strong>: Interaction interface (Web Console, MS Teams, MCP, REST API)</li>
+</ul>
+<p>Channels are implementation concepts that enable multi-surface interaction. The Hub Way elevates <strong>Channel</strong> to a first-class modeling concern at the Hub level. Domain modelers should consciously decide which Channels are available for a Hub's Scenarios.</p>
+<h3 id="channel-vs-channel-product">Channel vs Channel Product</h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Scope</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Channel</strong></td>
+<td>Hub-scoped</td>
+<td>One Hub's view of collaboration for a persona. Configured per Workbench.</td>
+</tr>
+<tr>
+<td><strong>Channel Product</strong></td>
+<td>Organization-scoped</td>
+<td>Composes Channels from multiple Hubs into a cohesive persona experience. Delivered through Neutrino.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-summary-mapping-table">8. Summary Mapping Table</h2>
+<table>
+<thead>
+<tr>
+<th>The Hub Way Concept</th>
+<th>Ontology Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hub</strong></td>
+<td>Workbench (Perception Layer). Domain encapsulation.</td>
+</tr>
+<tr>
+<td><strong>Stream</strong></td>
+<td>Work classification by external trigger. Extends Perception Layer.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>Work classification by internal trigger. Extends Perception Layer.</td>
+</tr>
+<tr>
+<td><strong>Channel</strong></td>
+<td>Fills ontology gap for interaction surfaces. Elevates existing Hub Channel to modeling concern.</td>
+</tr>
+<tr>
+<td><strong>Scenario</strong></td>
+<td>Scenario (Perception Layer). Unchanged.</td>
+</tr>
+<tr>
+<td><strong>Stream Trace</strong></td>
+<td>Leverages Cognitive Audit Fabric. Post-facto observable record of how a commitment was fulfilled.</td>
+</tr>
+<tr>
+<td><strong>Channel Product</strong></td>
+<td>Organization-scoped composite. Neutrino, above Hub.</td>
+</tr>
+<tr>
+<td><strong>Team</strong></td>
+<td>Agent Pools, Task Queues, HAT (Execution Layer). Elevates agent organization as modeling concern.</td>
+</tr>
+<tr>
+<td><strong>Machine</strong></td>
+<td>Machine Registry, Tool Registry (Automation Layer). Elevates tool availability as modeling concern.</td>
+</tr>
+<tr>
+<td><strong>Application</strong></td>
+<td>Hub Application on Runtime (Automation Layer). When Seer, Application = AI Agent.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-documents">Related Documents</h2>
+<ul>
+<li><ac:link><ri:page ri:content-title="The Hub Way"/><ac:plain-text-link-body><![CDATA[The Hub Way Framework Reference]]></ac:plain-text-link-body></ac:link> — authoritative definitions</li>
+<li><a href="../../../../olympus-hub-docs/01-concepts/ontology-reference.md">Olympus Hub Ontology Reference</a> — four-layer ontology</li>
+<li><a href="../../../../olympus-hub-docs/03-information-centric-work/README.md">Information-Centric Work Patterns</a> — Work Patterns and Resolution Models</li>
+<li><ac:link><ri:page ri:content-title="09 - Implementing The Hub Way in Olympus Hub"/><ac:plain-text-link-body><![CDATA[Implementing The Hub Way in Olympus Hub]]></ac:plain-text-link-body></ac:link> — translating models to configuration</li>
+<li><ac:link><ri:page ri:content-title="06 - Modeling Teams"/><ac:plain-text-link-body><![CDATA[Modeling Teams]]></ac:plain-text-link-body></ac:link> — Teams and agent organization</li>
+<li><ac:link><ri:page ri:content-title="07 - Modeling Machines"/><ac:plain-text-link-body><![CDATA[Modeling Machines]]></ac:plain-text-link-body></ac:link> — Machines, Tools, and Applications</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d42e04b | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d42e04b/org-8.0/what-we-sell/the-hub-way/enablement/08-ontology-alignment.md">View on GitHub</a></p>

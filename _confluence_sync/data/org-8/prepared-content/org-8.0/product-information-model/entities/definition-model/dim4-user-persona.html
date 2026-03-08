@@ -1,0 +1,179 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim4-user-persona.md -->
+<!-- Title: User Persona -->
+<!-- Content Hash: 6aeda6acb1a4f095016045936ed1ab4673a64fb88e0b009fb6f015424044bc60 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="user-persona">User Persona</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 4: The User-Centric Dimension (Experience)<br />
+<strong>Owner:</strong> UX Designers, Product Management</p>
+<h2 id="definition">Definition</h2>
+<p>A role archetype that uses the product's Human-Interactive Modules. A User Persona represents a distinct type of human who interacts with the product — their context, goals, frustrations, technical proficiency, and jobs to be done. User Personas are <em>users</em> of the product; they are distinct from Buying Personas (Dim 3), who are <em>purchasers</em> of the product.</p>
+<p><strong>Role Basis:</strong> Personas are defined by <strong>product role</strong> (what they do in the product — "Approver," "Analyst," "Admin") or <strong>business domain role</strong> (what they do in their organization — "AP Clerk," "Compliance Officer," "Treasury Analyst"). Both are valid bases. Product role personas emphasize the functional relationship with the product; business domain role personas emphasize the real-world context and jobs. Most personas combine both: "AP Clerk" is a business domain role, but their product role is "Payment Initiator." The product's RBAC (role-based access control) mapping — which features and journeys are available to which product roles — is a Dim 8 / implementation concern, not a Dim 4 entity.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Anchors the Experience dimension by identifying <em>who</em> interacts with the product. Without User Personas:<br />
+- Jobs, Journeys, and Channels have no one to design for — they float without a subject<br />
+- Pain (Dim 3) has no one to endure it — Pain is "endured by User Persona, cared about by Buying Persona"<br />
+- Feature experience attributes (simplicity, delight, control) have no reference point — what delights an AP Clerk may frustrate a developer</p>
+<p><strong>Distinction from Buying Persona (Dim 3):</strong> A Buying Persona decides to purchase; a User Persona uses the product. They may overlap (a CFO who both approves budget and uses the executive dashboard) but often diverge (the CFO approves; the AP Clerk uses daily). User Personas endure Pains; Buying Personas <em>care about</em> those Pains.</p>
+<p><strong>Discovery provenance:</strong> User Personas are hypothesized during Signal Exploration, validated through Research Tasks (user interviews, contextual inquiry), and formalized through Modeling Tasks triggered by PDRs.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive role name (e.g., "AP Clerk," "Treasury Analyst")</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Text</td>
+<td>Who this persona is — role context, daily responsibilities, organizational position</td>
+</tr>
+<tr>
+<td>Customer Segment(s)</td>
+<td>List of References (Dim 3)</td>
+<td>Which segments this persona exists in (an AP Clerk at LATAM Enterprise vs. US Mid-Market may differ)</td>
+</tr>
+<tr>
+<td>Goals</td>
+<td>Text</td>
+<td>What this persona wants to achieve when using the product</td>
+</tr>
+<tr>
+<td>Frustrations</td>
+<td>Text</td>
+<td>What makes this persona's current experience painful or inefficient</td>
+</tr>
+<tr>
+<td>Technical Proficiency</td>
+<td>Enum</td>
+<td><code>Non-technical</code> / <code>Technical</code> / <code>Developer</code> — influences channel preference and feature complexity tolerance</td>
+</tr>
+<tr>
+<td>Frequency of Use</td>
+<td>Enum</td>
+<td><code>Daily</code> / <code>Weekly</code> / <code>Occasional</code> / <code>Rare</code> — influences journey design (power user vs. infrequent visitor)</td>
+</tr>
+<tr>
+<td>Jobs (JTBD)</td>
+<td>List of References (Dim 4)</td>
+<td>The Jobs this persona needs to accomplish</td>
+</tr>
+<tr>
+<td>Preferred Channel(s)</td>
+<td>List of References (Dim 4)</td>
+<td>Which UX Channel(s) this persona prefers or primarily uses. Influences channel investment priority and journey design.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<p><em>Not applicable — User Persona is a structural descriptor. Changes are governed through PDRs (e.g., "We've identified a new persona: Compliance Auditor").</em></p>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Has</td>
+<td>Job (Dim 4)</td>
+<td>Persona has Jobs to be done</td>
+</tr>
+<tr>
+<td>Follows</td>
+<td>User Journey (Dim 4)</td>
+<td>Persona follows Journeys to accomplish Jobs</td>
+</tr>
+<tr>
+<td>Prefers</td>
+<td>UX Channel (Dim 4)</td>
+<td>Persona prefers specific Channel(s)</td>
+</tr>
+<tr>
+<td>Endures</td>
+<td>Pain (Dim 3)</td>
+<td>Persona endures Pains (which Buying Personas care about)</td>
+</tr>
+<tr>
+<td>Belongs to</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Persona exists within Customer Segment(s)</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Research Task (Track 1)</td>
+<td>Research Tasks validate Persona hypotheses</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Modeling Task (Track 1)</td>
+<td>Modeling Tasks formalize Personas in Dim 4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Persona</th>
+<th>Segment</th>
+<th>Goals</th>
+<th>Frustrations</th>
+<th>Proficiency</th>
+<th>Frequency</th>
+<th>Jobs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AP Clerk</td>
+<td>LATAM Enterprise</td>
+<td>Process payouts accurately and quickly</td>
+<td>Manual reconciliation, multiple systems, FX confusion</td>
+<td>Non-technical</td>
+<td>Daily</td>
+<td>"Process cross-border payout," "Verify FX rate applied"</td>
+</tr>
+<tr>
+<td>Treasury Analyst</td>
+<td>LATAM Enterprise</td>
+<td>Monitor FX exposure, optimize currency timing</td>
+<td>Fragmented data, no real-time visibility, manual reporting</td>
+<td>Technical</td>
+<td>Daily</td>
+<td>"Analyze FX exposure," "Generate treasury report"</td>
+</tr>
+<tr>
+<td>Compliance Officer</td>
+<td>LATAM Enterprise</td>
+<td>Ensure regulatory compliance for all transactions</td>
+<td>Manual OFAC screening, audit trail gaps</td>
+<td>Technical</td>
+<td>Weekly</td>
+<td>"Verify OFAC screening completed," "Generate compliance audit report"</td>
+</tr>
+<tr>
+<td>Finance Admin</td>
+<td>US Mid-Market</td>
+<td>Set up and manage payment workflows</td>
+<td>Complex setup, no self-service, needs vendor support</td>
+<td>Non-technical</td>
+<td>Occasional</td>
+<td>"Configure payment rules," "Manage user permissions"</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim4-user-persona.md">View on GitHub</a></p>

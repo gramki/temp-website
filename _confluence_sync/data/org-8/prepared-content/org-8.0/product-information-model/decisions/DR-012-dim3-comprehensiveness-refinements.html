@@ -1,0 +1,71 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-012-dim3-comprehensiveness-refinements.md -->
+<!-- Title: DR-012: Dimension 3 Comprehensiveness Refinements — Buying Committee, Pain, Barrier Types -->
+<!-- Content Hash: ccdaba9dfbd97a6df48d4d9bdb01aa9feaeeea5459a67b5f73fb712cda39f0c1 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-012-dimension-3-comprehensiveness-refinements-b">DR-012: Dimension 3 Comprehensiveness Refinements — Buying Committee, Pain, Barrier Types</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>A critical review of Dimension 3 (The Customer Value Dimension) identified several gaps in the model's comprehensiveness:</p>
+<ol>
+<li>
+<p><strong>Narrow buyer representation.</strong> Only the Economic Buyer (budget holder) was modeled. In enterprise B2B, a buying committee with multiple roles evaluates the product — Technical Buyer (integration/security), User Buyer (usability/adoption), Coach/Champion (internal advocacy). Deals often stall at non-economic evaluations.</p>
+</li>
+<li>
+<p><strong>Missing Pains.</strong> The JTBD mapping was incomplete. Business Outcome captured the buyer's strategic job, but user-level pains — the visceral, daily suffering that makes the buying decision <em>urgent</em> — were implicit. The distinction between "who endures" (user) and "who cares" (buyer) was not modeled.</p>
+</li>
+<li>
+<p><strong>Incomplete barrier types.</strong> Only 4 types (Regulatory, Technical, Organizational, Competitive) existed. Financial, Contractual, Data, and Cultural barriers were being misclassified.</p>
+</li>
+<li>
+<p><strong>Missing Barrier → Promise relationship.</strong> Barriers could undermine Customer Promises, but this tension was invisible.</p>
+</li>
+<li>
+<p><strong>Customer Value Metric had "Actual" values.</strong> Actual measured values are operational state, not product definition. The Definition Model should capture targets and thresholds only.</p>
+</li>
+<li>
+<p><strong>TCO gap.</strong> Total Cost of Ownership was identified as a gap but deferred — the right anchoring point needs further discussion.</p>
+</li>
+</ol>
+<h2 id="decisions">Decisions</h2>
+<h3 id="1-rename-economic-buyer-persona-buying-persona-wit">1. Rename Economic Buyer Persona → Buying Persona with role types</h3>
+<p>The entity now has a <code>Role Type</code> field: Economic Buyer, Technical Buyer, User Buyer, Coach/Champion. Each role has different evaluation criteria, key concerns, and Pains they care about. One entity with role types (rather than four separate entities) keeps the model compact.</p>
+<h3 id="2-introduce-pain-as-a-dim-3-entity">2. Introduce Pain as a Dim 3 entity</h3>
+<p>Pain captures user-level suffering in the current workflow:<br />
+- <strong>Endured by</strong> User Persona (Dim 4) — who experiences it<br />
+- <strong>Cared about by</strong> Buying Persona (Dim 3) — who is motivated to solve it<br />
+- <strong>Relieved by</strong> Value Proposition (Dim 3) — how the product addresses it</p>
+<p>This completes the JTBD mapping: Business Outcome (buyer's job) + Pain (user's suffering) → Value Proposition (value delivered).</p>
+<h3 id="3-expand-adoption-barrier-to-8-types-barrier-promi">3. Expand Adoption Barrier to 8 types + Barrier → Promise relationship</h3>
+<p>New types: Financial, Contractual, Data, Cultural (added to existing Regulatory, Technical, Organizational, Competitive). New relationship: Barrier "challenges" Customer Promise — exposing gaps between what the product promises and what prevents adoption.</p>
+<h3 id="4-refine-customer-value-metric-drop-actual-add-sla">4. Refine Customer Value Metric: drop Actual, add SLA Threshold</h3>
+<p>The Definition Model captures Target (aspirational/promised value) and SLA Threshold (contractual minimum before breach). Actual measured values are operational state tracked at runtime, not part of the product's self-description.</p>
+<h3 id="5-park-tco-for-later">5. Park TCO for later</h3>
+<p>TCO is acknowledged as a gap. The anchoring point (Customer Segment? Customer Promise?) and qualification approach need further discussion.</p>
+<h2 id="rationale">Rationale</h2>
+<ul>
+<li><strong>Complete buying committee coverage</strong> enables role-specific messaging, identifies where deals stall, and connects Pains to the people who care about them</li>
+<li><strong>Pain + Business Outcome</strong> provides both strategic justification (buyer) and visceral urgency (user), matching how enterprise purchases are actually motivated</li>
+<li><strong>Expanded barrier types</strong> prevent misclassification and capture the full spectrum of adoption impediments</li>
+<li><strong>Barrier → Promise relationship</strong> exposes contradictions between commitments and reality — a direct input to discovery prioritization</li>
+<li><strong>Target + SLA Threshold</strong> maintains the Definition/Work Model boundary — "what we promise" vs. "what we measured"</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<h3 id="positive">Positive</h3>
+<ul>
+<li>Complete JTBD mapping (Buyer's Job → Business Outcome, User's Pain → Pain, Value delivered → VP, User's Job → User Journey Dim 4)</li>
+<li>Buying committee visibility — Technical Buyer and User Buyer influence is now capturable</li>
+<li>Pain entity connects Dim 3 (buying logic) to Dim 4 (user experience) through User Persona</li>
+<li>Barrier analysis is richer — 8 types + explicit challenge to Customer Promises</li>
+<li>Clean Definition/Work boundary for metrics</li>
+</ul>
+<h3 id="negative">Negative</h3>
+<ul>
+<li>Dim 3 now has 7 entities (up from 6) — one more than before, though still well-scoped</li>
+<li>Buying Persona with 4 role types requires more upfront modeling work per segment</li>
+<li>Pain granularity needs governance — too granular becomes a feature list, too abstract loses sales value</li>
+<li>TCO remains unresolved (parked)</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: bde5503 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/bde5503/org-8.0/product-information-model/decisions/DR-012-dim3-comprehensiveness-refinements.md">View on GitHub</a></p>

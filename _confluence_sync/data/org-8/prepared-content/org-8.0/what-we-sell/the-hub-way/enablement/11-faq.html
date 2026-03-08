@@ -1,0 +1,100 @@
+<!-- File: org-8.0/what-we-sell/the-hub-way/enablement/11-faq.md -->
+<!-- Title: 11 - FAQ -->
+<!-- Content Hash: 9ddeac3da058e33ff3ba589818fa496d3d115589f23eee1b876cf3d7cdc00b76 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="faq">FAQ</h1>
+<p>Audience: All.</p>
+<hr />
+<h2 id="classification-questions">Classification Questions</h2>
+<h3 id="how-do-i-know-if-something-is-a-stream-or-a-loop">How do I know if something is a Stream or a Loop?</h3>
+<p>Apply the trigger-origin rule: Did something from outside the Hub cause this work? Stream. Did something inside the Hub cause this work? Loop. Don't classify by work type (analytical, transactional, etc.) — classify by where the trigger came from.</p>
+<h3 id="what-about-standing-obligations-like-keep-accounts">What about standing obligations like "keep accounts accessible"?</h3>
+<p>That's an objective, not a piece of work. Objectives decompose into actionable Streams and Loops. "Keep accounts accessible" becomes: System Health Monitoring (Loop — internal discipline), Incident Response (Stream — triggered when an outage creates external commitments), Account Recovery (Stream — triggered when a specific customer is affected). The Hub Way classifies work, not objectives.</p>
+<h3 id="what-if-a-regulatory-change-arrives-stream-or-loop">What if a regulatory change arrives — Stream or Loop?</h3>
+<p>The change itself is an external trigger arriving at a Compliance Hub — that's a Stream (Regulatory Change Stream). The resulting policy updates that need to be propagated to other Hubs may be modeled as Streams in a DevOps Hub or an operational change management Hub. Each Hub sees a clear trigger at its own boundary.</p>
+<h3 id="can-a-loop-trigger-a-stream">Can a Loop trigger a Stream?</h3>
+<p>Yes. This is expected and desirable. When internal discipline reveals something requiring an external commitment (fraud detected → customer notification, compliance violation → remediation), the Loop triggers a new Stream. This boundary crossing IS the business reality — it should be visible, auditable, and governed. Don't try to hide it.</p>
+<h3 id="can-work-be-both-a-stream-and-a-loop">Can work be both a Stream and a Loop?</h3>
+<p>No. The trigger-origin rule is binary. But a Scenario (the execution unit) could theoretically serve both a Stream and a Loop if modeled that way — this is a modeling choice, not a framework ambiguity.</p>
+<h3 id="what-is-the-difference-between-what-mandates-the-w">What is the difference between "what mandates the work" and "what triggers the work"?</h3>
+<p>A regulatory mandate may require quarterly compliance checks. The mandate comes from outside (regulator), but the work is triggered internally by the Hub's own compliance schedule. The trigger origin is internal → it's a Loop. The mandate explains WHY the Loop exists, but doesn't make it a Stream.</p>
+<hr />
+<h2 id="boundary-questions">Boundary Questions</h2>
+<h3 id="how-do-i-decide-hub-boundaries">How do I decide Hub boundaries?</h3>
+<p>Follow DDD bounded context practices. The Hub Way inherits, doesn't replace them. Use existing heuristics: Context Maps, event-storming, team cognitive load, Conway's Law alignment. A Hub should have a recognizable business domain name — "Payments," "Credit Card," not "Processing Hub."</p>
+<h3 id="when-should-i-create-an-aggregation-hub">When should I create an aggregation Hub?</h3>
+<p>When cross-cutting analysis (compliance, fraud, customer intelligence) needs to span multiple product Hubs. The aggregation Hub's Loops consume data from product Hubs. It may also have its own Streams (regulatory filings, audit responses).</p>
+<h3 id="how-do-i-know-my-boundaries-are-wrong">How do I know my boundaries are wrong?</h3>
+<p>Warning signs:</p>
+<ul>
+<li><strong>Hub Boundary Churn:</strong> constantly reorganizing Hubs</li>
+<li><strong>Streams that don't share any Loops or Channels:</strong> may be two Hubs forced together</li>
+<li><strong>God Hub:</strong> too many unrelated Streams and Loops</li>
+<li><strong>Mirror Hubs:</strong> two Hubs sharing all their Streams</li>
+<li><strong>Empty Hub:</strong> Streams but no Loops — not a real bounded domain</li>
+<li><strong>Island Hub:</strong> no cross-Hub connections</li>
+</ul>
+<hr />
+<h2 id="channel-questions">Channel Questions</h2>
+<h3 id="how-is-a-channel-different-from-a-ui">How is a Channel different from a UI?</h3>
+<p>A Channel embodies identity, authentication, access control, and interaction model — not just visual presentation. A UI is one possible presentation within a Channel. An API Channel has no UI at all. An MCP Channel is AI-native. A voice Channel is telephony-based.</p>
+<h3 id="what-about-a-mobile-app-that-spans-multiple-hubs">What about a mobile app that spans multiple Hubs?</h3>
+<p>That's a Channel Product — an Organization-scoped composite experience delivered through the Neutrino suite. It composes Channels from multiple Hubs (Payments, Credit Cards, Servicing) into a single cohesive experience for a persona. A Hub's Channel is Hub-scoped; a Channel Product is Organization-scoped.</p>
+<h3 id="who-decides-which-channels-a-hub-needs">Who decides which Channels a Hub needs?</h3>
+<p>Domain modelers, based on the personas who interact with the Hub and their interaction paradigms. Start with: who are the personas? What interaction model suits each? Task-oriented (desk), conversational (chat/voice), programmatic (API), AI-native (MCP)?</p>
+<hr />
+<h2 id="team-questions">Team Questions</h2>
+<h3 id="how-do-teams-differ-from-personas">How do Teams differ from Personas?</h3>
+<p>Personas are interaction archetypes — they define how someone interacts with the Hub (customer experience, agent workflow, supervisor oversight). Teams are the specific agents enrolled to resolve work. A Persona determines what Channels are available; a Team determines who is assigned to Scenarios. The same person can be part of multiple Teams and interact through different Persona-Channel combinations.</p>
+<h3 id="do-teams-change-when-we-automate">Do Teams change when we automate?</h3>
+<p>Yes — Team composition evolves as the dial moves. A dispute investigation Team today might be three human analysts and an AI assistant. Next year, it might be one human supervisor and two AI agents. The Stream and Loop models stay the same; the Team changes. This is by design: the model separates what work exists from who resolves it.</p>
+<h3 id="are-teams-hub-scoped">Are Teams Hub-scoped?</h3>
+<p>Yes, Teams are enrolled per Workbench. An individual agent (human or AI) may be enrolled in multiple Workbenches, but their Team membership is Hub-scoped. Cross-Hub Streams coordinate across Teams in different Hubs, but each Hub manages its own enrollment.</p>
+<h3 id="what-happens-in-pure-automation-is-there-a-team">What happens in Pure Automation — is there a Team?</h3>
+<p>In Pure Automation, there is no human Team. The Hub Application invokes Machine Tools directly without delegating tasks to agents. The "team" is effectively the Machines and the orchestrating Application. When the Application is a Seer Case Orchestration Agent, the AI agent is both the orchestrator and the sole Team member.</p>
+<hr />
+<h2 id="machine-questions">Machine Questions</h2>
+<h3 id="how-is-a-machine-different-from-a-channel">How is a Machine different from a Channel?</h3>
+<p>Both are Hub-relative concepts. A Channel is how collaborators interact with this Hub — the participation surface. A Machine is a system this Hub uses for Tools — the capability source. Another Hub can be both: the Payments Hub might be a Machine to the Credit Card Hub (providing payment tools) and also have its own Channels that Credit Card Hub's Channel Product composes.</p>
+<h3 id="does-changing-a-machine-affect-streams-and-loops">Does changing a Machine affect Streams and Loops?</h3>
+<p>No. The Tool contract is the stable interface. If the bank replaces its fraud engine with a new vendor, the Machine registration changes but the Streams and Loops that use fraud scoring tools remain unchanged. This is why The Hub Way models work around Tool contracts, not system identity.</p>
+<h3 id="what-about-ai-agents-as-applications">What about AI Agents as Applications?</h3>
+<p>When the runtime is Seer, the Hub Application IS an AI Agent — the Seer Case Orchestration Agent. This agent perceives the situation, decides what to do, and acts through the Tools available from Machines. It is simultaneously a Team member (resolving the Scenario) and the Application (orchestrating the resolution). This is the Application-Agent convergence described in the Teams and Machines enablement docs.</p>
+<h3 id="can-a-hub-be-a-machine-to-another-hub">Can a Hub be a Machine to another Hub?</h3>
+<p>Yes. This is the Hub-as-Machine pattern (Workbench-as-Machine in Olympus Hub). A Hub can expose Tools that other Hubs consume. For example, a Shared Validation Services Hub might provide validation Tools consumed by Payments, Credit Card, and Merchant Hubs. The consuming Hub registers the providing Hub as a Machine in its Machine Registry.</p>
+<hr />
+<h2 id="scope-questions">Scope Questions</h2>
+<h3 id="does-the-hub-way-cover-data-architecture">Does The Hub Way cover data architecture?</h3>
+<p>No. The Hub Way is an operational work modeling framework. Data architecture, product architecture, commercial architecture, integration governance, and temporal architecture are complementary concerns. The Hub Way doesn't replace or address them.</p>
+<h3 id="does-the-hub-way-replace-ddd-or-aosm">Does The Hub Way replace DDD or AOSM?</h3>
+<p>No. It extends both. Hub = Bounded Context (DDD). Scenario = AOSM execution model. The Hub Way adds work classification (Stream/Loop) and collaboration surfaces (Channel). A DDD practitioner should recognize every Hub Way concept as consistent with their existing practice, plus additional dimensions.</p>
+<hr />
+<h2 id="modeling-pitfalls">Modeling Pitfalls</h2>
+<h3 id="dont-model-objectives-as-streams">Don't model objectives as Streams</h3>
+<p>"Maintain customer satisfaction" is an objective. Decompose it into actionable Streams (Complaint Resolution) and Loops (Customer Satisfaction Analytics) first.</p>
+<h3 id="dont-skip-stream-trace-design">Don't skip Stream Trace design</h3>
+<p>In banking, you can't audit what you can't observe. Every Stream should have a designed Trace — not just runtime logs, but a purposeful record of commitment fulfillment.</p>
+<h3 id="dont-create-loops-with-no-consumers">Don't create Loops with no consumers</h3>
+<p>Every Loop should produce something someone uses — reports that are read, alerts that are acted on, corrections that are applied. If nothing changes because the Loop ran, it's the Inert Loop anti-pattern.</p>
+<h3 id="dont-classify-by-work-type">Don't classify by work type</h3>
+<p>"This is analytical work, so it's a Loop." Wrong. Some analytical work is triggered externally (audit request → Stream). Classify by trigger origin, not by what the work does.</p>
+<h3 id="dont-confuse-what-mandates-the-work-with-what-trig">Don't confuse "what mandates the work" with "what triggers the work"</h3>
+<p>A regulation mandates compliance checks. But if the bank's own schedule initiates them, they're Loops. The mandate explains why; the trigger origin determines classification.</p>
+<h3 id="dont-build-channels-without-considering-personas">Don't build Channels without considering personas</h3>
+<p>Start with who interacts with the Hub, not what technology is available. Different personas have different interaction paradigms — forcing all personas through one Channel is the Monolith Channel anti-pattern.</p>
+<hr />
+<h2 id="related-documents">Related Documents</h2>
+<ul>
+<li><ac:link><ri:page ri:content-title="The Hub Way"/><ac:plain-text-link-body><![CDATA[The Hub Way Framework Reference]]></ac:plain-text-link-body></ac:link> — authoritative definitions</li>
+<li><ac:link><ri:page ri:content-title="01 - Framework and Rationale"/><ac:plain-text-link-body><![CDATA[Framework and Rationale]]></ac:plain-text-link-body></ac:link> — design principles and scope</li>
+<li><ac:link><ri:page ri:content-title="02 - Modeling Streams"/><ac:plain-text-link-body><![CDATA[Modeling Streams]]></ac:plain-text-link-body></ac:link> — Stream anti-patterns and heuristics</li>
+<li><ac:link><ri:page ri:content-title="03 - Modeling Loops"/><ac:plain-text-link-body><![CDATA[Modeling Loops]]></ac:plain-text-link-body></ac:link> — Loop anti-patterns and heuristics</li>
+<li><ac:link><ri:page ri:content-title="04 - Modeling Hubs"/><ac:plain-text-link-body><![CDATA[Modeling Hubs]]></ac:plain-text-link-body></ac:link> — Hub anti-patterns and heuristics</li>
+<li><ac:link><ri:page ri:content-title="05 - Modeling Channels"/><ac:plain-text-link-body><![CDATA[Modeling Channels]]></ac:plain-text-link-body></ac:link> — Channel anti-patterns and heuristics</li>
+<li><ac:link><ri:page ri:content-title="06 - Modeling Teams"/><ac:plain-text-link-body><![CDATA[Modeling Teams]]></ac:plain-text-link-body></ac:link> — Team anti-patterns and heuristics</li>
+<li><ac:link><ri:page ri:content-title="07 - Modeling Machines"/><ac:plain-text-link-body><![CDATA[Modeling Machines]]></ac:plain-text-link-body></ac:link> — Machine anti-patterns and heuristics</li>
+<li><ac:link><ri:page ri:content-title="10 - Worked Examples"/><ac:plain-text-link-body><![CDATA[Worked Examples]]></ac:plain-text-link-body></ac:link> — anti-pattern avoidance in practice</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d42e04b | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d42e04b/org-8.0/what-we-sell/the-hub-way/enablement/11-faq.md">View on GitHub</a></p>

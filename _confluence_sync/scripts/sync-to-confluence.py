@@ -31,6 +31,7 @@ import sys
 import json
 import re
 import argparse
+from collections import defaultdict
 from pathlib import Path
 from typing import Dict, Optional, List, Tuple, Any
 from dataclasses import dataclass
@@ -45,7 +46,7 @@ try:
     from sync_state import load_sync_state, get_page_history, update_page_history, update_destination_metadata, compute_content_hash, find_by_signature, get_metadata_file_path, compact_sync_state, get_destination_data_dir
     from git_utils import get_current_commit_hash, get_file_commit_hash, get_file_commit_date, get_file_github_url, get_github_repo_url, get_repo_root as get_git_repo_root
     from report_generator import SyncResult, generate_sync_report, save_report_to_file
-    from content_preparer import ContentPreparer, PreparedContent
+    from content_preparer import ContentPreparer, PreparedContent, _numeric_prefix_and_rest
     from confluence_sync import ConfluenceSync, ParentPageNotFoundError, DuplicateTitleError, PageNotFoundError, TitleConflictError, HierarchyValidationError
     from orphan_handler import OrphanHandler
     from attachment_handler import AttachmentHandler
@@ -176,7 +177,8 @@ def sync_destination(
     data_dir: Optional[Path] = None,
     dry_run_override: Optional[bool] = None,
     cache_prepared: bool = False,
-    force_update: bool = False
+    force_update: bool = False,
+    scope_folder: Optional[str] = None,
 ) -> List[SyncResult]:
     """
     Sync a destination to Confluence.
@@ -201,6 +203,8 @@ def sync_destination(
         dry_run_override: Override dry_run setting from config
         cache_prepared: If True, cache prepared content to disk for debugging
         force_update: If True, force update all pages even if content unchanged
+        scope_folder: If set, sync only this folder and its descendants (path relative to repo root,
+            e.g. org-8.0/what-we-sell/the-hub-way). Orphan detection is skipped when scoped.
         
     Returns:
         List of SyncResult objects for each synced file
@@ -268,7 +272,8 @@ def sync_destination(
             repo_root=repo_root,
             github_repo_url=get_github_repo_url(repo_root, github_repo_override) if add_git_metadata else None,
             add_git_metadata=add_git_metadata,
-            attachment_handler=None  # No attachments in dry-run
+            attachment_handler=None,  # No attachments in dry-run
+            confluence_base_url=confluence_sync.base_url,
         )
         
         # Get root page ID for validation
@@ -313,6 +318,19 @@ def sync_destination(
             all_prepared_contents.extend(folder_prepared)
             all_folder_pages.extend(folder_directory_pages)
             parent_id_map.update(folder_parent_map)
+        
+        # Optional: limit to a single folder (same as non-dry-run)
+        if scope_folder:
+            scope_prefix = scope_folder.strip('/')
+            if scope_prefix:
+                def under_scope_file(p):
+                    return (p.file_key == scope_prefix or p.file_key.startswith(scope_prefix + '/'))
+                def under_scope_folder(f):
+                    fk = f.get('folder_key', '')
+                    return (fk == scope_prefix or fk.startswith(scope_prefix + '/') or scope_prefix.startswith(fk + '/'))
+                all_prepared_contents = [p for p in all_prepared_contents if under_scope_file(p)]
+                all_folder_pages = [f for f in all_folder_pages if under_scope_folder(f)]
+                print(f"  ℹ Scoped to folder '{scope_prefix}': {len(all_prepared_contents)} files, {len(all_folder_pages)} folders")
         
         print(f"\n✓ Prepared {len(all_prepared_contents)} files and {len(all_folder_pages)} folders")
         
@@ -537,7 +555,8 @@ def sync_destination(
             repo_root=repo_root,
             github_repo_url=github_repo_url,
             add_git_metadata=add_git_metadata,
-            attachment_handler=attachment_handler
+            attachment_handler=attachment_handler,
+            confluence_base_url=confluence_sync.base_url,
         )
         
         # Find or create root page
@@ -582,7 +601,7 @@ def sync_destination(
             
             # Create root page using storage format
             root_content = f"# {root_page_title}\n\n*Root page for synced documentation*"
-            root_storage = preparer.markdown_to_storage_format(root_content, None, repo_root, repo_commit_hash if add_git_metadata else None)
+            root_storage, _ = preparer.markdown_to_storage_format(root_content, None, repo_root, repo_commit_hash if add_git_metadata else None)
             root_hash = compute_content_hash(root_storage)
             
             try:
@@ -642,6 +661,7 @@ def sync_destination(
                         file_to_title[normalized_path] = page_title
         
         # Also build from Markdown files (for new files not yet in sync state)
+        # Use same numeric-prefix title logic as content_preparer for consistency
         for folder_config in source_config['folders']:
             folder_path = repo_root / folder_config['path']
             if folder_path.exists():
@@ -668,8 +688,19 @@ def sync_destination(
                                     break
                             if not title:
                                 title = md_file.stem.replace('_', ' ').replace('-', ' ').title()
+                            # Match preparer: if this dir has numbered files and this file has prefix, use "NN - Title"
+                            parent_dir = md_file.parent
+                            siblings = list(parent_dir.glob('*.md'))
+                            has_numbered = any(_numeric_prefix_and_rest(p.stem) for p in siblings if not p.name.startswith('.'))
+                            if has_numbered:
+                                parsed = _numeric_prefix_and_rest(md_file.stem)
+                                if parsed:
+                                    prefix_str, rest_stem = parsed
+                                    stem_as_title = md_file.stem.replace('_', ' ').replace('-', ' ').title()
+                                    suffix = rest_stem.replace('_', ' ').replace('-', ' ').title() if title == stem_as_title else title
+                                    title = f"{prefix_str} - {suffix}"
                             file_to_title[rel_path] = title
-                    except:
+                    except Exception:
                         pass
         
         preparer.file_to_title = file_to_title
@@ -738,6 +769,22 @@ def sync_destination(
         
         progress.complete_step('Preparing content')
         print(f"\n✓ Prepared {len(all_prepared_contents)} files for syncing")
+        
+        # Optional: limit sync to a single folder (and its descendants)
+        if scope_folder:
+            scope_prefix = scope_folder.strip('/')
+            if scope_prefix:
+                def under_scope_file(p):
+                    return (p.file_key == scope_prefix or
+                            p.file_key.startswith(scope_prefix + '/'))
+                def under_scope_folder(f):
+                    fk = f.get('folder_key', '')
+                    return (fk == scope_prefix or fk.startswith(scope_prefix + '/') or
+                            scope_prefix.startswith(fk + '/'))
+                all_prepared_contents = [p for p in all_prepared_contents if under_scope_file(p)]
+                dir_pages = getattr(sync_destination, '_all_directory_pages', [])
+                sync_destination._all_directory_pages = [f for f in dir_pages if under_scope_folder(f)]
+                print(f"  ℹ Scoped to folder '{scope_prefix}': {len(all_prepared_contents)} files, {len(sync_destination._all_directory_pages)} folders")
         
         # Cache prepared content to disk if requested
         if cache_prepared:
@@ -1119,6 +1166,12 @@ def sync_destination(
                         if attachment_name:
                             attachment_count += 1
                             print(f"  ✓ Uploaded: {image_path.name} to page '{prepared.title}'")
+                # Upload Mermaid-rendered PNGs as attachments (referenced by image macro in body)
+                if getattr(prepared, 'mermaid_attachments', None):
+                    for filename, png_bytes in prepared.mermaid_attachments:
+                        if attachment_handler.upload_attachment_from_bytes(prepared.page_id, filename, png_bytes):
+                            attachment_count += 1
+                            print(f"  ✓ Uploaded: {filename} to page '{prepared.title}'")
         
         if attachment_count > 0:
             print(f"  ✓ Uploaded {attachment_count} attachment(s)")
@@ -1161,60 +1214,95 @@ def sync_destination(
         # Phase 3: Handle orphaned pages and folders (files/directories deleted from repo)
         # Orphaned items are pages/folders in Confluence that no longer exist in source
         # Only items tracked in sync state are deleted (manually created content is preserved)
-        print("\n[Phase 3] Detecting and deleting orphaned pages and folders...")
-        discovered_file_keys = {prepared.file_key for prepared in all_prepared_contents}
-        renamed_old_paths = {prepared.renamed_from for prepared in all_prepared_contents if prepared.renamed_from}
-        discovered_folder_keys = {f['folder_key'] for f in all_folder_pages}
-        
-        orphan_handler = OrphanHandler(confluence_sync)
-        orphan_pages, orphan_folders = orphan_handler.find_orphans(
-            sync_state, 
-            discovered_file_keys, 
-            renamed_old_paths,
-            discovered_folder_keys
-        )
-        
-        total_orphans = len(orphan_pages) + len(orphan_folders)
-        if total_orphans > 0:
-            print(f"  Found {len(orphan_pages)} orphaned page(s) and {len(orphan_folders)} orphaned folder(s)")
-            deleted_paths = orphan_handler.delete_orphans(orphan_pages, orphan_folders)
-            print(f"  ✓ Deleted {len(deleted_paths)} orphaned item(s)")
-            
-            # Mark deleted orphans in state (by appending entries with null id)
-            # Note: JSONL is append-only, so we mark as deleted rather than removing
-            for deleted_path in deleted_paths:
-                # Find the orphan entry
-                orphan_entry = next((o for o in orphan_pages + orphan_folders if o['path'] == deleted_path), None)
-                if orphan_entry:
-                    if orphan_entry.get('type') == 'folder':
-                        # Mark folder as deleted
-                        from sync_state import append_folder_history
-                        append_folder_history(
-                            destination_id,
-                            deleted_path,
-                            source_folder=None,  # Will be extracted from path if needed
-                            folder_id=None,  # Mark as deleted
-                            folder_title=orphan_entry.get('folder_title'),
-                            parent_id=None,
-                            status='deleted',
-                            data_dir=data_dir
-                        )
-                    else:
-                        # Mark page as deleted
-                        from sync_state import append_page_history
-                        append_page_history(
-                            destination_id,
-                            deleted_path,
-                            source_folder=None,  # Will be extracted from path if needed
-                            page_id=None,  # Mark as deleted
-                            page_title=orphan_entry.get('page_title'),
-                            sync_status='deleted',
-                            content_hash=None,
-                            version=None,
-                            data_dir=data_dir
-                        )
+        # Skip when scope_folder is set (partial sync) so we don't delete content outside the scope
+        if scope_folder:
+            print("\n[Phase 3] Skipped (partial sync: --folder scope; no orphan detection)")
         else:
-            print("  No orphaned pages or folders found")
+            print("\n[Phase 3] Detecting and deleting orphaned pages and folders...")
+            discovered_file_keys = {prepared.file_key for prepared in all_prepared_contents}
+            renamed_old_paths = {prepared.renamed_from for prepared in all_prepared_contents if prepared.renamed_from}
+            discovered_folder_keys = {f['folder_key'] for f in all_folder_pages}
+            
+            orphan_handler = OrphanHandler(confluence_sync)
+            orphan_pages, orphan_folders = orphan_handler.find_orphans(
+                sync_state, 
+                discovered_file_keys, 
+                renamed_old_paths,
+                discovered_folder_keys
+            )
+            
+            total_orphans = len(orphan_pages) + len(orphan_folders)
+            if total_orphans > 0:
+                print(f"  Found {len(orphan_pages)} orphaned page(s) and {len(orphan_folders)} orphaned folder(s)")
+                deleted_paths = orphan_handler.delete_orphans(orphan_pages, orphan_folders)
+                print(f"  ✓ Deleted {len(deleted_paths)} orphaned item(s)")
+                
+                # Mark deleted orphans in state (by appending entries with null id)
+                # Note: JSONL is append-only, so we mark as deleted rather than removing
+                for deleted_path in deleted_paths:
+                    # Find the orphan entry
+                    orphan_entry = next((o for o in orphan_pages + orphan_folders if o['path'] == deleted_path), None)
+                    if orphan_entry:
+                        if orphan_entry.get('type') == 'folder':
+                            # Mark folder as deleted
+                            from sync_state import append_folder_history
+                            append_folder_history(
+                                destination_id,
+                                deleted_path,
+                                source_folder=None,  # Will be extracted from path if needed
+                                folder_id=None,  # Mark as deleted
+                                folder_title=orphan_entry.get('folder_title'),
+                                parent_id=None,
+                                status='deleted',
+                                data_dir=data_dir
+                            )
+                        else:
+                            # Mark page as deleted
+                            from sync_state import append_page_history
+                            append_page_history(
+                                destination_id,
+                                deleted_path,
+                                source_folder=None,  # Will be extracted from path if needed
+                                page_id=None,  # Mark as deleted
+                                page_title=orphan_entry.get('page_title'),
+                                sync_status='deleted',
+                                content_hash=None,
+                                version=None,
+                                data_dir=data_dir
+                            )
+            else:
+                print("  No orphaned pages or folders found")
+        
+        # Phase 3.5: Delete old-format pages (titles without numeric prefix) when we now use prefix-in-title
+        # So that e.g. "Prologue" is removed after we've synced "00 - Prologue" for the same file
+        parent_to_prepared = defaultdict(list)
+        for p in all_prepared_contents:
+            if p.parent_id and (p.page_id or getattr(p, 'legacy_title', None)):
+                parent_to_prepared[p.parent_id].append(p)
+        stale_deleted = 0
+        for parent_id, prepared_list in parent_to_prepared.items():
+            legacy_titles = {p.legacy_title for p in prepared_list if getattr(p, 'legacy_title', None)}
+            if not legacy_titles:
+                continue
+            synced_page_ids = {str(p.page_id) for p in prepared_list if p.page_id}
+            try:
+                child_pages = confluence_sync.list_child_pages_under_parent(parent_id)
+            except Exception as e:
+                continue
+            for child in child_pages:
+                cid = str(child.get('id', ''))
+                ctitle = (child.get('title') or '').strip()
+                if not cid or cid in synced_page_ids:
+                    continue
+                if ctitle in legacy_titles:
+                    try:
+                        if confluence_sync.delete_page_v2(cid):
+                            stale_deleted += 1
+                            print(f"  ✓ Deleted old-format page (stale title): '{ctitle}' (ID: {cid})")
+                    except Exception as e:
+                        print(f"  ⚠ Could not delete stale title page '{ctitle}': {e}")
+        if stale_deleted:
+            print(f"  ✓ Deleted {stale_deleted} old-format page(s) (numeric-prefix title migration)")
         
         print(f"\n✓ Sync completed for destination '{destination_id}'")
         print(f"  Processed {len(results)} files")
@@ -1246,6 +1334,9 @@ Examples:
   
   # Dry run for a destination
   %(prog)s --destination hub-docs --dry-run
+  
+  # Sync only a subfolder (e.g. the-hub-way within org-8)
+  %(prog)s --destination org-8 --folder org-8.0/what-we-sell/the-hub-way
   
   # Use custom config file
   %(prog)s --config path/to/config.yaml --destination hub-docs
@@ -1303,6 +1394,12 @@ Examples:
         '--force-update',
         action='store_true',
         help='Force update all pages regardless of content hash (useful after link fix or format changes)'
+    )
+    
+    parser.add_argument(
+        '--folder',
+        metavar='PATH',
+        help='Sync only this folder and its descendants (path relative to repo root, e.g. org-8.0/what-we-sell/the-hub-way). Orphan detection is skipped for partial sync.'
     )
     
     args = parser.parse_args()
@@ -1369,7 +1466,8 @@ Examples:
                 data_dir=data_dir,
                 dry_run_override=args.dry_run if args.dry_run else None,
                 cache_prepared=args.cache_prepared if hasattr(args, 'cache_prepared') else False,
-                force_update=args.force_update if hasattr(args, 'force_update') else False
+                force_update=args.force_update if hasattr(args, 'force_update') else False,
+                scope_folder=getattr(args, 'folder', None),
             )
             all_results[dest_id] = results
             

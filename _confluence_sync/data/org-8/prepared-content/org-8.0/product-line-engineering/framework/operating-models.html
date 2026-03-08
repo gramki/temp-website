@@ -1,0 +1,117 @@
+<!-- File: org-8.0/product-line-engineering/framework/operating-models.md -->
+<!-- Title: Operating Models -->
+<!-- Content Hash: c286c936f1ab2dc44e19eaf570a1bc510b60f2c40c0073d3f53568ed8003c452 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="operating-models">Operating Models</h1>
+<h2 id="overview">Overview</h2>
+<p>After a Customer Product goes live, <strong>who operates and maintains it</strong> is defined by the <strong>operating model</strong> chosen for that engagement. Zeta defines three operating models. The choice is made during scoping and documented in the Engagement contract.</p>
+<p><strong>Non-negotiable:</strong> <strong>Platform operations are always Zeta.</strong> Olympus, Tachyon, and other Product Line platforms are always run and operated by Zeta (SRE). What varies is who operates and maintains the <strong>Customer Product</strong> layer (configuration, integrations, customer-specific components).</p>
+<hr />
+<h2 id="the-three-operating-models">The Three Operating Models</h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Platform Ops</th>
+<th>Config Changes</th>
+<th>Integration Maintenance</th>
+<th>Incident Response</th>
+<th>Feature Enhancements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fully Managed</strong></td>
+<td>Zeta</td>
+<td>Zeta</td>
+<td>Zeta</td>
+<td>Zeta</td>
+<td>Zeta</td>
+</tr>
+<tr>
+<td><strong>Co-Managed</strong></td>
+<td>Zeta</td>
+<td>Shared (Zeta + Customer)</td>
+<td>Customer or Zeta (per contract)</td>
+<td>Zeta</td>
+<td>Customer or Zeta (per contract)</td>
+</tr>
+<tr>
+<td><strong>Customer-Operated</strong></td>
+<td>Zeta</td>
+<td>Customer</td>
+<td>Customer</td>
+<td>Zeta (escalation)</td>
+<td>Customer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Platform operations</strong> — Runtime, monitoring, patching, capacity for the Product Line platforms. Always Zeta.</p>
+<p><strong>Customer Product operations</strong> — Configuration changes, integration maintenance, incident response for the solution layer, and feature enhancements. Varies by model.</p>
+<hr />
+<h2 id="fully-managed">Fully Managed</h2>
+<p><strong>Description:</strong> Zeta operates and maintains the entire Customer Product. Customer consumes outcomes; they do not operate or change configuration/integrations themselves.</p>
+<p><strong>Typical use:</strong> Customer wants a turnkey solution; they have limited in-house ops or prefer to focus on business outcomes.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li>Platform ops: Zeta (SRE)</li>
+<li>Config changes: Zeta</li>
+<li>Integration maintenance: Zeta</li>
+<li>Incident response: Zeta</li>
+<li>Feature enhancements: Zeta (per contract/change process)</li>
+</ul>
+<p><strong>Contract:</strong> Defines scope of “fully managed,” change process, SLAs, and escalation.</p>
+<hr />
+<h2 id="co-managed">Co-Managed</h2>
+<p><strong>Description:</strong> Zeta operates the platform; customer and Zeta share or split responsibility for configuration, integrations, incidents, and enhancements per contract.</p>
+<p><strong>Typical use:</strong> Customer has some in-house capability; they want to own certain changes (e.g. config, integrations) while Zeta handles platform and escalation.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li>Platform ops: Zeta (SRE)</li>
+<li>Config changes: Shared (defined in contract)</li>
+<li>Integration maintenance: Customer or Zeta (per contract)</li>
+<li>Incident response: Zeta (e.g. platform and L2); customer may do L1 or specific areas</li>
+<li>Feature enhancements: Customer or Zeta (per contract)</li>
+</ul>
+<p><strong>Contract:</strong> Clearly defines which responsibilities are Zeta vs. customer; escalation path; change and release process.</p>
+<hr />
+<h2 id="customer-operated">Customer-Operated</h2>
+<p><strong>Description:</strong> Zeta operates the platform only; customer operates and maintains the Customer Product layer (config, integrations, enhancements). Zeta provides escalation and support (e.g. platform issues, upgrades).</p>
+<p><strong>Typical use:</strong> Customer has strong in-house ops and wants to own solution-layer operations; they rely on Zeta for platform reliability and support.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li>Platform ops: Zeta (SRE)</li>
+<li>Config changes: Customer</li>
+<li>Integration maintenance: Customer</li>
+<li>Incident response: Zeta for platform; customer for solution layer; Zeta escalation path defined</li>
+<li>Feature enhancements: Customer</li>
+</ul>
+<p><strong>Contract:</strong> Defines platform SLAs, escalation path, support scope, and upgrade/maintenance process. Clarifies that solution-layer operations are customer-owned.</p>
+<hr />
+<h2 id="how-to-select-operating-model-during-initiate">How to Select Operating Model During Initiate</h2>
+<ul>
+<li><strong>Customer capability</strong> — Can they operate config, integrations, and incidents? Do they want to?</li>
+<li><strong>Customer preference</strong> — Turnkey vs. co-managed vs. customer-operated.</li>
+<li><strong>Commercial and risk</strong> — Pricing, liability, and support scope align with the chosen model.</li>
+<li><strong>Engagement contract</strong> — Model is documented in the SoW; responsibility matrix is explicit.</li>
+</ul>
+<p>Engagement Architect and EPM agree with the customer on the operating model before or early in delivery; it drives handover and run-team design.</p>
+<hr />
+<h2 id="transition-and-handover-criteria">Transition and Handover Criteria</h2>
+<p>When the Customer Product Squad transitions the Customer Product to steady state:</p>
+<ul>
+<li><strong>Fully Managed</strong> — Handover to Zeta run team (or existing SRE/ops); run team has playbooks, escalation matrix, and access; customer is not expected to operate.</li>
+<li><strong>Co-Managed</strong> — Handover to Zeta run team and customer per contract; responsibilities and handover checklist are clear for both.</li>
+<li><strong>Customer-Operated</strong> — Handover to customer with documentation, runbooks, and escalation path; Zeta retains platform ops and support per contract.</li>
+</ul>
+<p><strong>Handover criteria</strong> (customize per Engagement): documentation complete, operational readiness criteria met, runbooks and escalation matrix in place, operating model responsibilities signed off.</p>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li><ac:link><ri:page ri:content-title="Engagement Lifecycle: Product Line Perspective"/><ac:plain-text-link-body><![CDATA[Engagement Lifecycle]]></ac:plain-text-link-body></ac:link> — Initiate and Transfer phases</li>
+<li><ac:link><ri:page ri:content-title="Engagement Engineering: PLE Framing"/><ac:plain-text-link-body><![CDATA[Engagement Engineering]]></ac:plain-text-link-body></ac:link> — What Engagement Engineering delivers</li>
+<li><ac:link><ri:page ri:content-title="Stakeholder Concerns Matrix"/><ac:plain-text-link-body><![CDATA[Stakeholder Concerns]]></ac:plain-text-link-body></ac:link> — SRE/ops concerns and mitigations</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-line-engineering/framework/operating-models.md">View on GitHub</a></p>

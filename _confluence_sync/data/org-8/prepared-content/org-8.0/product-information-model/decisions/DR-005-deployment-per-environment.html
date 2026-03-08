@@ -1,0 +1,42 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-005-deployment-per-environment.md -->
+<!-- Title: DR-005: Deployment Tracked Per-Environment, Not as Version Status -->
+<!-- Content Hash: cf83c7da1ff09e01c806fadd7d1866c990b5279c0f279038c80e9b48851787c7 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-005-deployment-tracked-per-environment-not-as-v">DR-005: Deployment Tracked Per-Environment, Not as Version Status</h1>
+<p><strong>Status:</strong> Accepted (updated by DR-026)<br />
+<strong>Date:</strong> 2026-02-15<br />
+<strong>Related FAQ:</strong> Q15</p>
+<hr />
+<h2 id="context">Context</h2>
+<p>The model needed to represent how System Versions move from "quality-gated artifact" to "running in production." Initially, "Deployed" was considered as a status on the System Version entity (e.g., <code>Building → Released → Deployed</code>). However, this was challenged:</p>
+<p>A single System Version (e.g., <code>payments-service v2.3.3</code>) may need to be deployed to <strong>multiple environments</strong> — staging, production-us, production-eu, production-ap, disaster recovery — at different times, with different strategies, and potentially with different outcomes. "Deployed" is not a binary attribute of the version; it is a per-environment event.</p>
+<blockquote>
+<p><strong>Updated from original DR-005:</strong> The original decision referenced "Module Version" as the deployable artifact. DR-026 renamed this to "System Version" — the Build Track builds Systems (Dim 5), and the Run Track deploys System Versions to environments.</p>
+</blockquote>
+<h2 id="decision">Decision</h2>
+<p>Model <strong>Deployment</strong> as a standalone Run Track entity with per-environment tracking, rather than as a status on System Version.</p>
+<p>System Version status lifecycle: <code>Building → Released</code> (only two states).</p>
+<p>Deployment entity tracks:<br />
+- Which System Version<br />
+- Which Environment (Dim 7)<br />
+- Deployment strategy (Canary / Blue-Green / Rolling / Direct)<br />
+- Per-environment status (<code>Planned → In Progress → Succeeded / Failed / Rolled Back</code>)<br />
+- Timestamp</p>
+<h2 id="rationale">Rationale</h2>
+<ol>
+<li><strong>Reality is per-environment.</strong> A System Version may be deployed to production-us on Tuesday and production-eu on Thursday. Modeling "Deployed" as a version status cannot represent this.</li>
+<li><strong>Deployment status is multi-valued.</strong> The same version can be <code>Succeeded</code> in one environment and <code>Failed</code> in another. A single status field cannot capture this.</li>
+<li><strong>Decouples release from deployment.</strong> A System Version can be <code>Released</code> (quality gates passed) without being deployed anywhere. Once deployed (even to production), it may still be behind a feature flag — not yet part of an activated Customer Release. This supports dark launches and canary strategies.</li>
+<li><strong>Run Track ownership.</strong> Deployment is an operational activity owned by DevOps/SRE. Making it a standalone entity in the Run Track (alongside Incident, Change Request, Maintenance Task) correctly places it under operational ownership.</li>
+</ol>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li><strong>Positive:</strong> Accurate representation of multi-environment deployment reality.</li>
+<li><strong>Positive:</strong> Clean separation: System Version status = quality gate, Deployment status = operational state.</li>
+<li><strong>Positive:</strong> Supports advanced deployment strategies (canary, blue-green, phased rollout) natively.</li>
+<li><strong>Positive:</strong> Deployment Planning Task (Run Track) plans deployments, creating a natural workflow.</li>
+<li><strong>Negative:</strong> Querying "is v2.3.3 fully deployed?" requires checking deployment records across all target environments rather than reading a single status field. Tooling must support this aggregation.</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/decisions/DR-005-deployment-per-environment.md">View on GitHub</a></p>

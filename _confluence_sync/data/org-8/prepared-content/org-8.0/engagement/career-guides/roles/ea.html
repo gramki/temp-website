@@ -1,0 +1,229 @@
+<!-- File: org-8.0/engagement/career-guides/roles/ea.md -->
+<!-- Title: Engagement Architect (EA) — Role Coaching Guide -->
+<!-- Content Hash: 4574636368dfa660758a84c793477e351ee59cd4b981011604ec73f645709db0 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="engagement-architect-ea-role-coaching-guide">Engagement Architect (EA) — Role Coaching Guide</h1>
+<p><ac:link><ri:page ri:content-title="Career Guides — Coaching for Functions and Roles"/><ac:plain-text-link-body><![CDATA[← Back to Career Guides]]></ac:plain-text-link-body></ac:link> | <ac:link ac:anchor="engagement-architect-ea"><ri:page ri:content-title="Engagement Roles and Responsibilities"/><ac:plain-text-link-body><![CDATA[Role Definition]]></ac:plain-text-link-body></ac:link></p>
+<hr />
+<p>The EA owns <strong>architecture across the entire Engagement span</strong> — Customer Product, Studio Components, and their integration. The role is scoped <strong>per-Engagement</strong>. The EA reports to EO on the execution axis and is a peer architect to AVA. The functional home is <strong>Architecture</strong> (or <strong>Engineering</strong> if a Staff/Principal Engineer plays the role).</p>
+<hr />
+<h2 id="architecture-vs-technical-architecture">Architecture vs. Technical Architecture</h2>
+<p>This distinction is fundamental to the EA role:</p>
+<ul>
+<li><strong>Architecture (solution / enterprise):</strong> The EA must synthesise technical, functional, commercial, and operational contexts into a coherent solution. Which archetype fits? What are the gaps? How does the operating model (Fully Managed, Co-Managed, Customer-Operated) shape the solution? What inner source contributions are worth the timeline cost? These are architecture decisions, not just technical ones.</li>
+<li><strong>Technical architecture (software architecture):</strong> Component design, API contracts, data flow, deployment topology. This is necessary but not sufficient. A Staff Engineer playing EA brings technical architecture depth; what they must develop is the broader synthesis.</li>
+</ul>
+<p>If you find yourself only making technical decisions and not engaging with the commercial context, the customer's operating model, or the inner source vs. custom trade-off at a business level, you are doing technical architecture — not the EA role.</p>
+<hr />
+<h2 id="1-empowerment">1. Empowerment</h2>
+<ul>
+<li><strong>Architecture decisions.</strong> You own end-to-end solution architecture: Product Line selection, configuration approach, integration design, Studio Component architecture, archetype selection and adaptation.</li>
+<li><strong>Engineering quality standards.</strong> You set the quality standards across the Engagement — architecture decisions, coding standards for architecture-significant concerns, mandatory review in Definition of Done, inner source quality gates. ELs are responsible for meeting these standards within their squads.</li>
+<li><strong>Mandatory review.</strong> Architecture-significant changes require your review before implementation. This is part of the squad's Definition of Done (<ac:link ac:anchor="mandatory-architect-consultation"><ri:page ri:content-title="Engagement Roles and Responsibilities"/><ac:plain-text-link-body><![CDATA[mandatory architect consultation]]></ac:plain-text-link-body></ac:link>).</li>
+<li><strong>Inner source priority.</strong> You maintain a view of inner source debt across the Engagement and prioritise contributions. Inner source vs. custom build is your decision, with timeline impact communicated to EPM.</li>
+<li><strong>Gap analysis authority.</strong> You produce the gap register — platform capability vs. customer need — with inner source vs. custom recommendations for each gap.</li>
+<li><strong>What you cannot override.</strong> You cannot override AVA on verification or release decisions. AVA prevails on these. If you disagree with AVA's certification criteria, the path is: EPM mediates → EO decides.</li>
+</ul>
+<hr />
+<h2 id="2-assignment">2. Assignment</h2>
+<p>ERC assigns the EA at <strong>Stage 1</strong> (<ac:link ac:anchor="stage-1--erc-assigns-engagement-leadership-at-initiate"><ri:page ri:content-title="Engagement Formation — Team Assembly and Evolution"/><ac:plain-text-link-body><![CDATA[engagement-formation.md]]></ac:plain-text-link-body></ac:link>). ERC matches designation level to Engagement complexity — from Staff Engineer (PE-1) or Architect for smaller Engagements to Senior or Principal Architect for large/complex Engagements.</p>
+<p><strong>Scope:</strong> Per-Engagement. One EA per Engagement. A person may serve as EA for multiple Engagements if bandwidth permits.</p>
+<p><strong>Scaling:</strong> For large Engagements spanning multiple Product Lines or 6+ squads with significant architecture complexity, Stream Architects may be introduced from the Architecture function. Each Stream Architect owns a domain slice; the EA retains overall solution architecture accountability.</p>
+<hr />
+<h2 id="3-ambition">3. Ambition</h2>
+<h3 id="first-90-days-or-first-increment">First 90 Days (or First Increment)</h3>
+<ul>
+<li><strong>Master the archetype.</strong> Before writing any architecture, understand the solution archetype in use — what it covers, where its boundaries are, and where this Engagement will deviate. Review the archetype cookbook, the variability documentation, and any previous Engagement adaptations.</li>
+<li><strong>Run the gap analysis.</strong> Compare platform capability to customer need. Produce the gap register with inner source vs. custom recommendations for each gap. This is the EA's most important early deliverable — it sets the scope, influences the timeline, and determines inner source workload.</li>
+<li><strong>Co-design with AVA.</strong> Meet your AVA peer and jointly define the system-under-test boundary, the assembly acceptance criteria, and the verification approach. The architecture determines what "correct assembly" means — if you cannot articulate it, AVA cannot verify it. This co-design is substantial work, not a handoff.</li>
+<li><strong>Set engineering quality standards.</strong> Define the mandatory review scope, the DoD architecture criteria, and the inner source quality gates. Communicate these to ELs — they are responsible for meeting the standards within their squads.</li>
+<li><strong>Understand the commercial context.</strong> Know why the customer chose this operating model, what the contract covers, and where scope boundaries are. Architecture decisions have commercial implications — a custom build increases delivery cost; an inner source contribution delays timeline but reduces long-term cost.</li>
+</ul>
+<h3 id="what-great-looks-like">What Great Looks Like</h3>
+<ul>
+<li>The gap register is current and actionable — every gap has a recommended approach (inner source, custom, workaround) with rationale.</li>
+<li>Architecture is "just enough" — sufficient to guide squads and enable AVA to verify, but not so prescriptive that it blocks squad-level design judgement.</li>
+<li>Inner source contributions are planned into squad capacity (not treated as surprise overhead) and accepted by PL Maintainers.</li>
+<li>Mandatory review is working — architecture-significant changes are reviewed before completion, not after. ELs understand the standard and bring work for review proactively.</li>
+<li>The solution architecture is verifiable — AVA can design verification that certifies the assembly against your architecture.</li>
+<li>Variability documentation is maintained — future Engagements can leverage your decisions.</li>
+<li>Knowledge capture is continuous — the decision log is current, archetype adaptations are documented, and patterns are extracted for PAC Practice Mode.</li>
+</ul>
+<hr />
+<h2 id="4-commitments">4. Commitments</h2>
+<h3 id="dimensions">Dimensions</h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>EA SLA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quality</strong></td>
+<td>Engineering quality standards are defined, communicated, and enforced through mandatory review. Inner source contributions meet PL Maintainer quality gates. Architecture-significant changes are reviewed before completion. The architecture enables AVA to verify — if AVA cannot certify the assembly against the architecture, the architecture is incomplete.</td>
+</tr>
+<tr>
+<td><strong>Fitment</strong></td>
+<td>The solution architecture fits the customer's need and the platform's capability. Gap analysis is current. Archetype selection is defensible. The inner source vs. custom trade-off is made with full context (timeline, reusability, platform evolution).</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Inner source reduces long-term platform cost; custom build may reduce short-term Engagement cost but creates drift. The EA's architecture decisions determine what is in scope and what is not, directly affecting delivery cost and commercial terms.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="contractual-connection-tier-2-mechanism">Contractual Connection — Tier 2 (Mechanism)</h3>
+<p>The EA does not interface with the contract directly, but architecture decisions determine contractual scope. When the gap analysis recommends inner source over custom build, it affects timeline and cost — both contractual concerns. When architecture decisions exclude something from scope, it affects what is contractually deliverable. The EA's gap register and architecture decisions are the mechanism through which scope becomes concrete.</p>
+<hr />
+<h2 id="5-collaboration">5. Collaboration</h2>
+<h3 id="key-relationships">Key Relationships</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>What You Need from Them</th>
+<th>What They Need from You</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AVA</td>
+<td>Verification perspective, assembly acceptance criteria co-design, certification feedback</td>
+<td>Architecture clarity, system-under-test boundary definition, verifiable acceptance criteria</td>
+</tr>
+<tr>
+<td>EPO</td>
+<td>Customer requirements, discovery findings</td>
+<td>Requirements-architecture translation, gap analysis, inner source vs. custom recommendations</td>
+</tr>
+<tr>
+<td>ELs</td>
+<td>Squad-level design decisions, implementation feedback, inner source contribution execution</td>
+<td>Architecture guidance, mandatory review, quality standards, inner source prioritisation</td>
+</tr>
+<tr>
+<td>EPM</td>
+<td>Timeline reality, resourcing, scope change impact</td>
+<td>Architecture status, inner source timeline impact, risk communication</td>
+</tr>
+<tr>
+<td>EO</td>
+<td>Strategic direction, backing for inner source bar, resourcing support</td>
+<td>Architecture assessment, gap register, risk flags</td>
+</tr>
+<tr>
+<td>PL Maintainers</td>
+<td>Inner source review, contribution acceptance, platform capability guidance</td>
+<td>Quality contributions, clear contribution rationale, variability documentation</td>
+</tr>
+<tr>
+<td>SRE Lead</td>
+<td>Operational requirements, deployment topology needs</td>
+<td>Architecture decisions that support operability, monitoring surface area definition</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tensions-and-navigation">Tensions and Navigation</h3>
+<p><strong>EA ↔ AVA.</strong> You architect the functional system; AVA architects the verification system. You are peers, not in a reporting relationship. Disagreements on architecture scope vs. verification scope are normal.</p>
+<ul>
+<li>Architecture decisions: EA prevails (per the <ac:link ac:anchor="escalation-model"><ri:page ri:content-title="Governance, Decision-Making, and Escalation"/><ac:plain-text-link-body><![CDATA[escalation model]]></ac:plain-text-link-body></ac:link>). But "prevails" means you should still listen — AVA sees verifiability concerns you may miss.</li>
+<li>Verification/release disagreements: AVA prevails. If you believe AVA's verification criteria are too strict, the path is: EPM mediates → EO decides.</li>
+<li>Co-design the system-under-test boundary jointly. If the boundary is unclear, verification will be either too broad (slow) or too narrow (missing real integration risks).</li>
+</ul>
+<p><strong>EA ↔ ELs.</strong> You set engineering quality standards and require mandatory review. ELs own squad delivery and may see mandatory review and inner source work as overhead that threatens their commitments.</p>
+<ul>
+<li>Set standards early and clearly. If ELs discover mandatory review requirements mid-sprint, the failure is in communication, not in the standard.</li>
+<li>Make mandatory review efficient — define what qualifies as "architecture-significant" so ELs know what to bring and what to handle at squad level.</li>
+<li>Inner source prioritisation is your authority, but the timeline impact is real. Work with ELs to plan inner source contributions into sprint capacity.</li>
+</ul>
+<p><strong>EA ↔ EPM.</strong> Inner source contributions and mandatory review add time. EPM needs predictability and manages the customer-facing timeline.</p>
+<ul>
+<li>Include inner source timelines in the architecture plan from the start. If EPM's plan doesn't account for inner source, you both have a problem.</li>
+<li>When inner source causes timeline slip, present options: accept the slip, defer the contribution (with tech debt documented), or adjust scope. Frame it as a business trade-off, not "engineering vs. delivery."</li>
+</ul>
+<p><strong>EA ↔ PL Maintainers.</strong> You prioritise inner source contributions from Engagement squads. PL Maintainers gatekeep platform quality. Your contributions may not meet the bar, or PL Maintainers may not have review capacity.</p>
+<ul>
+<li>Engage PL Maintainers early — before the contribution is written, not after.</li>
+<li>If PL Maintainer review capacity is a bottleneck, escalate through PPM and Engineering leadership.</li>
+</ul>
+<hr />
+<h2 id="6-management">6. Management</h2>
+<h3 id="dual-axis-reporting">Dual-Axis Reporting</h3>
+<ul>
+<li><strong>Execution axis:</strong> Reports to <strong>EO</strong>. EO provides execution-axis input on your effectiveness within the Engagement.</li>
+<li><strong>Functional/career axis:</strong> <strong>Architecture leadership</strong> (or <strong>Engineering leadership</strong> if you are a Staff/Principal Engineer playing EA). Your functional-axis leader evaluates growth across EA assignments — multi-Engagement architecture record, archetype contributions, inner source quality.</li>
+</ul>
+<h3 id="performance-input">Performance Input</h3>
+<p>Request feedback from AVA (on co-design quality), ELs (on mandatory review usefulness), and EPM (on inner source timeline impact). EO provides the overall effectiveness assessment. Architecture leadership evaluates your breadth across Engagements and your contribution to the platform's architectural evolution.</p>
+<hr />
+<h2 id="7-accountability">7. Accountability</h2>
+<h3 id="escalation-dos-and-donts">Escalation: Dos and Don'ts</h3>
+<p><strong>Do:</strong></p>
+<ul>
+<li>Escalate to <strong>EPM</strong> for EA ↔ AVA disputes (EPM mediates per the escalation model).</li>
+<li>Escalate to <strong>PAC</strong> when an architecture decision affects the Product Line or sets a precedent that other Engagements should follow.</li>
+<li>Escalate to <strong>EO</strong> (through EPM) when inner source timelines are unsolvable at the EA ↔ EL level and require Engagement-level priority decisions.</li>
+</ul>
+<p><strong>Don't:</strong></p>
+<ul>
+<li>Override AVA on verification or release decisions. AVA prevails on these. If you disagree, use the escalation model.</li>
+<li>Direct engineers in squads. You advise and review; ELs direct. If an EL is not meeting quality standards, escalate to EPM, not to the engineers.</li>
+<li>Deprioritise variability documentation under delivery pressure. It is the primary mechanism for future Engagement leverage and is part of your accountability.</li>
+<li>Escalate to Architecture leadership to override EO or EPM on delivery decisions. The execution axis goes through EO; the functional axis is for career development.</li>
+</ul>
+<h3 id="when-commitments-are-missed">When Commitments Are Missed</h3>
+<p>EA commitments are primarily <strong>outcome-based</strong> (per the <a href="../../people-and-culture/accountability.md">accountability framework</a>): architecture quality, inner source contribution acceptance, and gap anticipation are judgement-dependent. When an architecture decision proves wrong (a gap was missed, an inner source approach fails PL Maintainer review), the response is diagnosis and correction — not blame. The EA's accountability is for the quality of architectural judgement over time, not for never being wrong.</p>
+<p>However, mandatory review timeliness and quality standard communication are <strong>commitment-based</strong>: if ELs submit work and the review is slow or the standard was never clearly communicated, that is a reliability failure.</p>
+<hr />
+<h2 id="8-objectives-in-perspective">8. Objectives in Perspective</h2>
+<p>The EA's immediate objectives — gap analysis, architecture decisions, inner source prioritisation — serve a broader purpose: ensuring that each Engagement extends the platform rather than fragmenting it.</p>
+<p>When you choose inner source over custom build, you accept a timeline cost on this Engagement to reduce cost and increase capability for every future Engagement. When you document variability, you enable the next EA to start from your decisions rather than rediscovering them. When you co-design with AVA, you ensure the assembly can be verified — which protects the client from quality failures.</p>
+<p>The EA who optimises for this Engagement alone (custom builds, undocumented decisions, skipped inner source) delivers faster today but leaves the platform weaker. The EA who balances Engagement delivery with platform evolution delivers the model's actual value: sustainable, accelerating delivery across Engagements.</p>
+<hr />
+<h2 id="further-learning">Further Learning</h2>
+<p><strong>Internal references:</strong><br />
+- <ac:link ac:anchor="engagement-architect-ea"><ri:page ri:content-title="Engagement Roles and Responsibilities"/><ac:plain-text-link-body><![CDATA[Roles and Responsibilities — EA]]></ac:plain-text-link-body></ac:link><br />
+- <ac:link ac:anchor="mandatory-architect-consultation"><ri:page ri:content-title="Engagement Roles and Responsibilities"/><ac:plain-text-link-body><![CDATA[Mandatory Architect Consultation]]></ac:plain-text-link-body></ac:link><br />
+- <ac:link><ri:page ri:content-title="Variability Management"/><ac:plain-text-link-body><![CDATA[Variability Management]]></ac:plain-text-link-body></ac:link><br />
+- <ac:link><ri:page ri:content-title="Solution Archetypes"/><ac:plain-text-link-body><![CDATA[Solution Archetypes]]></ac:plain-text-link-body></ac:link><br />
+- <ac:link><ri:page ri:content-title="Inner Source Guidelines"/><ac:plain-text-link-body><![CDATA[Inner Source Guidelines]]></ac:plain-text-link-body></ac:link><br />
+- <ac:link><ri:page ri:content-title="Governance, Decision-Making, and Escalation"/><ac:plain-text-link-body><![CDATA[Governance and Escalation]]></ac:plain-text-link-body></ac:link><br />
+- <ac:link><ri:page ri:content-title="Architecture — Function Coaching Guide"/><ac:plain-text-link-body><![CDATA[Architecture Function Guide]]></ac:plain-text-link-body></ac:link> — career progression in the Architecture function</p>
+<p><strong>External references:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Why Relevant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Software Architecture in Practice</em> — Bass, Clements, Kazman, 4th ed. (<a href="https://www.pearson.com/en-us/subject-catalog/p/software-architecture-in-practice/P200000000111/9780137468218">Pearson</a>)</td>
+<td>Architecture quality attributes and evaluation; directly applicable to gap analysis and multi-PL architecture</td>
+</tr>
+<tr>
+<td><em>Just Enough Software Architecture</em> — Fairbanks (<a href="https://www.georgefairbanks.com/e-book/">georgefairbanks.com</a>)</td>
+<td>Risk-driven architecture; helps calibrate "how much architecture" for each Engagement</td>
+</tr>
+<tr>
+<td><em>Solution Architecture Foundations</em> — Lovatt (<a href="https://www.amazon.com/Solution-Architecture-Foundations-Mark-Lovatt/dp/1780175655">BCS</a>)</td>
+<td>Solution architecture practice aligned with EA's synthesis role</td>
+</tr>
+<tr>
+<td><em>Software Product Line Engineering</em> — Pohl, Böckle, van der Linden (<a href="https://link.springer.com/book/10.1007/978-3-662-03764-7">Springer</a>)</td>
+<td>PLE and variability management; relevant to archetype design and variability documentation</td>
+</tr>
+<tr>
+<td><em>Understanding the InnerSource Checklist</em> — Cooper &amp; Stol (<a href="https://www.oreilly.com/library/view/understanding-the-innersource/9781491986899/">O'Reilly</a>)</td>
+<td>Inner source mechanics; applicable to inner source prioritisation and PL Maintainer coordination</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><ac:link><ri:page ri:content-title="Career Guides — Coaching for Functions and Roles"/><ac:plain-text-link-body><![CDATA[← Back to Career Guides]]></ac:plain-text-link-body></ac:link></p>
+
+<p><strong>Source:</strong> Commit: ba56e8c | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/ba56e8c/org-8.0/engagement/career-guides/roles/ea.md">View on GitHub</a></p>

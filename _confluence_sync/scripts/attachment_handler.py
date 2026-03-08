@@ -6,9 +6,10 @@ This module detects local image references in Markdown, uploads them as
 Confluence attachments, and converts image references to Confluence image macros.
 """
 
+import io
 import re
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
 from confluence_sync import ConfluenceSync
 
 
@@ -88,11 +89,10 @@ class AttachmentHandler:
             return attachment_name
         
         try:
-            # POST /content/{id}/child/attachment
-            # Confluence requires multipart/form-data for file uploads
+            # Attachment upload uses legacy REST API (v1); v2 has no POST for attachments
+            # POST /rest/api/content/{id}/child/attachment
             import requests
-            
-            url = f"{self.confluence.api_url}/content/{page_id}/child/attachment"
+            url = f"{self.confluence.base_url}/rest/api/content/{page_id}/child/attachment"
             headers = {
                 'X-Atlassian-Token': 'no-check'  # Required for file uploads
             }
@@ -125,6 +125,41 @@ class AttachmentHandler:
                 return attachment_name
         except Exception as e:
             print(f"  ⚠ Warning: Could not upload attachment {file_path.name}: {e}")
+            return None
+
+    def upload_attachment_from_bytes(
+        self, page_id: str, filename: str, data: bytes
+    ) -> Optional[str]:
+        """
+        Upload bytes as attachment to page (e.g. Mermaid-rendered PNG).
+
+        Args:
+            page_id: Confluence page ID
+            filename: Attachment filename (e.g. mermaid-0.png)
+            data: Raw file bytes
+
+        Returns:
+            Attachment name if successful, None otherwise
+        """
+        if page_id in self.page_attachments and filename in self.page_attachments[page_id]:
+            return filename
+        try:
+            import requests
+            url = f"{self.confluence.base_url}/rest/api/content/{page_id}/child/attachment"
+            headers = {'X-Atlassian-Token': 'no-check'}
+            files = {'file': (filename, io.BytesIO(data), 'application/octet-stream')}
+            data_payload = {'comment': 'Uploaded by Confluence Sync (Mermaid diagram)'}
+            response = requests.request(
+                'POST', url, auth=self.confluence.auth, headers=headers,
+                files=files, data=data_payload, timeout=60
+            )
+            response.raise_for_status()
+            if page_id not in self.page_attachments:
+                self.page_attachments[page_id] = []
+            self.page_attachments[page_id].append(filename)
+            return filename
+        except Exception as e:
+            print(f"  ⚠ Warning: Could not upload attachment {filename}: {e}")
             return None
     
     def convert_image_references(self, html: str, page_id: str) -> str:

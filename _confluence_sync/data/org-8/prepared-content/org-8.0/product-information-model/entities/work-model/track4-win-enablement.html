@@ -1,0 +1,255 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track4-win-enablement.md -->
+<!-- Title: Win Enablement -->
+<!-- Content Hash: 528b3783226fba135c91f772e9a004b4760d22193b7c925c02d4fd757e8ffa31 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="win-enablement">Win Enablement</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 4: The Win Track (Value Realization)<br />
+<strong>Category:</strong> Enablement<br />
+<strong>Owner:</strong> Product Marketing, Sales, Customer Success</p>
+<h2 id="definition">Definition</h2>
+<p>A parent entity type for reusable assets and programs that equip Win Stakeholders to execute at scale. Win Enablement is one-to-many work — an asset is created once and used across many engagements, customers, or segments. Four lever-specific subtypes:</p>
+<ol>
+<li>
+<p><strong>GTM Enablement</strong> — Marketing collateral, pricing tools, partner materials, campaign assets. These are the reusable artifacts that support GTM execution across multiple customers and segments.</p>
+</li>
+<li>
+<p><strong>Sales Enablement Asset</strong> — Competitive battlecards, demo environments, ROI calculators, segment playbooks. These equip the <em>internal</em> sales organization with tools for acquisition and expansion conversations.</p>
+</li>
+<li>
+<p><strong>CS Enablement</strong> — Onboarding playbooks, health score models, QBR templates, expansion frameworks, and <strong>customer education/training assets</strong> (training materials, certification curricula, knowledge bases, learning paths). Advocacy program materials include both referral/case-study assets and customer education content. These standardize and scale post-sale customer success operations.</p>
+</li>
+<li>
+<p><strong>Partner Enablement</strong> — Partner demo environments, co-marketing kits, partner training, certification programs, partner playbooks. These equip <em>channel partners</em> (resellers, integrators, referral partners) — distinct from Sales Enablement, which equips internal teams. Used when the product has a partner or channel model for Awareness or Acquisition.</p>
+</li>
+</ol>
+<h2 id="purpose">Purpose</h2>
+<p>Makes the one-to-many enablement work of Win Teams explicit. Without Win Enablement:<br />
+- Reusable assets are created ad hoc without tracking their lifecycle or availability<br />
+- There is no distinction between creating an asset (one-to-many) and using it in a specific engagement (one-to-one)<br />
+- Win Stakeholders lack visibility into what assets exist, what stage they support, and who maintains them<br />
+- The connection between enablement assets and the Win Outcomes they support is invisible</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title</td>
+<td>String</td>
+<td>Name of the enablement asset or program</td>
+</tr>
+<tr>
+<td>Subtype</td>
+<td>Enum</td>
+<td><code>GTM Enablement</code> / <code>Sales Enablement Asset</code> / <code>CS Enablement</code> / <code>Partner Enablement</code></td>
+</tr>
+<tr>
+<td>Lever</td>
+<td>Enum</td>
+<td><code>GTM</code> / <code>Sales Enablement</code> / <code>Customer Success</code> (Partner Enablement uses GTM lever; distinct from internal Sales Enablement)</td>
+</tr>
+<tr>
+<td>AAARRR Stage(s) Supported</td>
+<td>List of Enums</td>
+<td>Which stage(s) this asset supports (<code>Awareness</code> / <code>Acquisition</code> / <code>Activation</code> / <code>Retention</code> / <code>Revenue</code> / <code>Referral</code>)</td>
+</tr>
+<tr>
+<td>Win Stakeholder(s)</td>
+<td>List of References (Dim 2)</td>
+<td>Which Win Stakeholders will use this asset</td>
+</tr>
+<tr>
+<td>Initiative</td>
+<td>Reference (Dim 1)</td>
+<td>Which Initiative this enablement is aligned to</td>
+</tr>
+<tr>
+<td>Output / Deliverable</td>
+<td>Text</td>
+<td>Description of what this enablement produces (e.g., "Competitive battlecard for LATAM market")</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>String</td>
+<td>Role/person accountable for creating and maintaining this asset</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned</td>
+<td>Enablement asset is scoped but creation has not started</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>Asset is being created or program is being developed</td>
+</tr>
+<tr>
+<td>Available</td>
+<td>Asset is complete and available for use by Win Stakeholders</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>Asset is no longer current; superseded or no longer relevant</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aligned to</td>
+<td>Initiative (Dim 1)</td>
+<td>Win Enablement is aligned to one or more Initiatives</td>
+</tr>
+<tr>
+<td>Used by</td>
+<td>Win Stakeholder (Dim 2)</td>
+<td>Win Stakeholders use enablement assets in their work</td>
+</tr>
+<tr>
+<td>Supports</td>
+<td>Win Activity (Track 4)</td>
+<td>Enablement assets are used in specific engagements</td>
+</tr>
+<tr>
+<td>Driven by</td>
+<td>Win Planning (Track 4)</td>
+<td>Win Planning drives the creation of enablement assets</td>
+</tr>
+<tr>
+<td>Assessed by</td>
+<td>Win Review (Track 4)</td>
+<td>Campaign/Program Reviews assess enablement effectiveness</td>
+</tr>
+<tr>
+<td>Serves</td>
+<td>Developer Persona (Dim 6)</td>
+<td>Developer-facing enablement assets (API docs, SDK guides, sandbox environments, developer training)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Subtype</th>
+<th>Title</th>
+<th>Lever</th>
+<th>AAARRR Stage</th>
+<th>Win Stakeholder</th>
+<th>Initiative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GTM Enablement</td>
+<td>"LATAM Cross-Border pricing calculator"</td>
+<td>GTM</td>
+<td>Acquisition</td>
+<td>Account Executives</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+<tr>
+<td>GTM Enablement</td>
+<td>"LATAM partner co-marketing kit"</td>
+<td>GTM</td>
+<td>Awareness</td>
+<td>Partner Managers</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+<tr>
+<td>Sales Enablement Asset</td>
+<td>"LATAM competitive battlecard vs. Competitor X"</td>
+<td>Sales Enablement</td>
+<td>Acquisition</td>
+<td>Pre-Sales Engineers, Account Executives</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+<tr>
+<td>Sales Enablement Asset</td>
+<td>"LATAM demo environment with BRL/MXN corridors"</td>
+<td>Sales Enablement</td>
+<td>Acquisition</td>
+<td>Pre-Sales Engineers</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+<tr>
+<td>CS Enablement</td>
+<td>"LATAM Enterprise onboarding playbook"</td>
+<td>Customer Success</td>
+<td>Activation</td>
+<td>Implementation Consultants</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+<tr>
+<td>CS Enablement</td>
+<td>"Cross-Border health score model"</td>
+<td>Customer Success</td>
+<td>Retention</td>
+<td>CS Managers</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+<tr>
+<td>CS Enablement</td>
+<td>"LATAM API integration certification program"</td>
+<td>Customer Success</td>
+<td>Activation, Referral</td>
+<td>CS Managers, Partner Managers</td>
+<td>LATAM Cross-Border Expansion (customer education)</td>
+</tr>
+<tr>
+<td>CS Enablement</td>
+<td>"Cross-Border API developer onboarding guide and sandbox"</td>
+<td>Customer Success</td>
+<td>Activation</td>
+<td>Implementation Consultants, Developer Relations</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+<tr>
+<td>Partner Enablement</td>
+<td>"LATAM bank partner certification program"</td>
+<td>GTM</td>
+<td>Awareness, Acquisition</td>
+<td>Partner Managers</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+<tr>
+<td>Partner Enablement</td>
+<td>"LATAM fintech co-marketing kit"</td>
+<td>GTM</td>
+<td>Awareness</td>
+<td>Partner Managers</td>
+<td>LATAM Cross-Border Expansion</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/work-model/track4-win-enablement.md">View on GitHub</a></p>

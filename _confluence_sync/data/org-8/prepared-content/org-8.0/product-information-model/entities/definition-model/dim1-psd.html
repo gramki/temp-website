@@ -1,0 +1,590 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim1-psd.md -->
+<!-- Title: PSD (Product Specification Document) -->
+<!-- Content Hash: ac08e25becd3af17b5e26cdba86b516deb462f09b00a3328be1c2d3a7c6c4324 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="psd-product-specification-document">PSD (Product Specification Document)</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 1: The Strategy Dimension<br />
+<strong>Owner:</strong> Product Management</p>
+<h2 id="definition">Definition</h2>
+<p>The validated, approved specification that acts as the contract between Product and Engineering. A PSD is <strong>scoped to a single module</strong> and specifies the advancement of that module's capabilities through new features, feature refinements, or feature retirements. A single validated Idea (via its PDR) may produce multiple PSDs — one per substantially affected module.</p>
+<p>A PSD is a <strong>cross-dimensional impact assessment</strong> anchored to a structural change (Dimension 8). While the primary specification surface varies by module archetype, every PSD must acknowledge implications across all 9 dimensions — even if some sections state "No impact."</p>
+<h2 id="purpose">Purpose</h2>
+<p>The PSD is the exit artifact of the Strategy Dimension and the entry point for the Build Track. It translates a validated decision (PDR) into a buildable specification with scope, acceptance criteria, and decomposition into Epics. PSD authoring involves scoping modules, writing acceptance criteria, coordinating with engineering, and decomposing into shippable increments — represented by Specification Tasks in the Discovery Track (see FAQ Q5).</p>
+<p><strong>Terminology note:</strong> The UPIM uses "Product Specification Document" (PSD) rather than the more common "Product Requirements Document" (PRD). See FAQ Q8 for the rationale.</p>
+<p><strong>Scoping rule:</strong> A PSD is scoped to one module. If a validated Idea affects multiple modules substantially, each gets its own PSD. Minor ripple effects on adjacent modules may be documented as cross-module dependencies within the primary PSD rather than warranting a standalone PSD. The threshold: does the module change require its own acceptance criteria and Epic decomposition? If yes, it gets its own PSD. See FAQ Q9.</p>
+<p><strong>Templates:</strong> PSD templates are provided per module archetype (Human-Interactive, Programmatic-Interactive, Reactive/Background). The module archetype determines which dimensional sections are deep vs. light. See <code>psd-templates/</code> directory.</p>
+<h2 id="fields">Fields</h2>
+<h3 id="section-0-header-traceability">Section 0: Header &amp; Traceability</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PSD ID</td>
+<td>String</td>
+<td>Unique identifier (e.g., PSD-042)</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>Semver</td>
+<td>Document revision (e.g., 1.0, 1.1)</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Enum</td>
+<td>Current document status (see Statuses below)</td>
+</tr>
+<tr>
+<td>PDR Reference</td>
+<td>Reference</td>
+<td>The Product Decision Record that justifies this PSD</td>
+</tr>
+<tr>
+<td>Source Signals</td>
+<td>List of References</td>
+<td>The Signal(s) — Problem(s), Need(s), or Opportunity(ies) — that originated this work</td>
+</tr>
+<tr>
+<td>Target Module</td>
+<td>Reference (Dim 8)</td>
+<td>The Module being changed</td>
+</tr>
+<tr>
+<td>Module Archetype</td>
+<td>Enum</td>
+<td>Human-Interactive / Programmatic-Interactive / Reactive-Background</td>
+</tr>
+<tr>
+<td>Product Archetype</td>
+<td>String</td>
+<td>e.g., B2B + SaaS + SLG</td>
+</tr>
+<tr>
+<td>Change Type</td>
+<td>Enum</td>
+<td>New Feature(s) / Feature Refinement / Feature Retirement</td>
+</tr>
+<tr>
+<td>Author</td>
+<td>Reference</td>
+<td>The PM or team authoring the PSD</td>
+</tr>
+<tr>
+<td>Related PSDs</td>
+<td>List of References</td>
+<td>Sibling PSDs from the same PDR (for cross-module coordination)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-1-structural-impact-dimension-8-bridge">Section 1: Structural Impact (Dimension 8 — Bridge)</h3>
+<p>Always required. The "table of contents" of the change.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module</td>
+<td>Reference (Dim 8)</td>
+<td>The Module being changed</td>
+</tr>
+<tr>
+<td>Capabilities Added</td>
+<td>List</td>
+<td>New Capabilities introduced</td>
+</tr>
+<tr>
+<td>Capabilities Modified</td>
+<td>List</td>
+<td>Existing Capabilities being refined</td>
+</tr>
+<tr>
+<td>Capabilities Retired</td>
+<td>List</td>
+<td>Capabilities being removed</td>
+</tr>
+<tr>
+<td>Features Added</td>
+<td>List</td>
+<td>New Features introduced, each with a brief description</td>
+</tr>
+<tr>
+<td>Features Modified</td>
+<td>List</td>
+<td>Existing Features being refined, with delta description</td>
+</tr>
+<tr>
+<td>Features Retired</td>
+<td>List</td>
+<td>Features being removed, with retirement rationale</td>
+</tr>
+<tr>
+<td>Cross-Module Dependencies</td>
+<td>List of References</td>
+<td>Other Modules affected, with nature of dependency</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-2-vendor-value-impact-dimension-2">Section 2: Vendor Value Impact (Dimension 2)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Win Outcome Implications</td>
+<td>Text</td>
+<td>Which Win Outcomes (per AAARRR stage, per segment) does this change affect? Does it enable a new Win Outcome or strengthen an existing one?</td>
+</tr>
+<tr>
+<td>Win Stakeholder Impact</td>
+<td>Text</td>
+<td>Which Win Stakeholders are affected? Does this change their workflow, tools, or concerns? (e.g., Pre-Sales Engineer gets new demo capability; Implementation Consultant gets self-service onboarding)</td>
+</tr>
+<tr>
+<td>Delivery Friction Impact</td>
+<td>Text</td>
+<td>Does this change mitigate any known Delivery Frictions? Which Win Stakeholders benefit?</td>
+</tr>
+<tr>
+<td>Pricing / Packaging Implications</td>
+<td>Text</td>
+<td>Which Pricing Tiers include the new features? Is a new tier needed? Does the Value Metric change?</td>
+</tr>
+<tr>
+<td>Business KPI Impact</td>
+<td>Text</td>
+<td>Expected effect on vendor Business KPIs — Revenue, Cost, and Activity. Include AAARRR stage context.</td>
+</tr>
+<tr>
+<td>Win Barrier Impact</td>
+<td>Text</td>
+<td>Does this change mitigate any known Win Barriers?</td>
+</tr>
+</tbody>
+</table>
+<p><em>Depth by product archetype: Deep for Enterprise SaaS (complex pricing, multi-stakeholder AAARRR), Deep for Developer Platform (usage-based, self-serve activation), Medium for Consumer App.</em></p>
+<h3 id="section-3-customer-value-impact-dimension-3">Section 3: Customer Value Impact (Dimension 3)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pain Implications</td>
+<td>Text</td>
+<td>Which user Pains (Dim 3) does this change address or relieve? Reference specific Pains and the User Personas (Dim 4) who endure them. Pain is the visceral urgency that motivates purchase — lead with it.</td>
+</tr>
+<tr>
+<td>Buying Persona Implications</td>
+<td>Text</td>
+<td>Does this change which roles care about the product? Consider all role types: Economic Buyer, Technical Buyer, User Buyer, Coach/Champion.</td>
+</tr>
+<tr>
+<td>Business Outcome Changes</td>
+<td>Text</td>
+<td>New or strengthened buyer outcomes</td>
+</tr>
+<tr>
+<td>Customer Promise Implications</td>
+<td>Text</td>
+<td>New or changed Value Propositions, Service Commitments, or Compliance Posture?</td>
+</tr>
+<tr>
+<td>Customer Value Metric Impact</td>
+<td>Text</td>
+<td>Changes to metric targets or SLA thresholds (ROI, Service Level, Compliance)</td>
+</tr>
+<tr>
+<td>Adoption Barrier Impact</td>
+<td>Text</td>
+<td>Does this change mitigate any known Adoption Barriers?</td>
+</tr>
+</tbody>
+</table>
+<p><em>Depth by product archetype: Deep for Enterprise SaaS (ROI justification is the sales engine), Lighter for Developer Platform and Consumer App.</em></p>
+<h3 id="section-4-user-experience-impact-dimension-4">Section 4: User Experience Impact (Dimension 4)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Affected User Personas</td>
+<td>List of References (Dim 4)</td>
+<td>Personas impacted by the change</td>
+</tr>
+<tr>
+<td>New / Modified User Journeys</td>
+<td>List with flow descriptions</td>
+<td>End-to-end paths added or changed</td>
+</tr>
+<tr>
+<td>Touchpoint Specifications</td>
+<td>Attachments / descriptions</td>
+<td>Wireframes, interaction flows, UI copy</td>
+</tr>
+<tr>
+<td>Accessibility Considerations</td>
+<td>Text</td>
+<td>WCAG compliance, assistive technology impact</td>
+</tr>
+</tbody>
+</table>
+<p><em>Depth by module archetype: </em><em>Deep</em><em> for Human-Interactive, Light for Programmatic-Interactive, N/A for Reactive/Background.</em></p>
+<h3 id="section-5-technical-architectural-impact-dimension">Section 5: Technical &amp; Architectural Impact (Dimension 5)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New / Modified Systems</td>
+<td>List of References (Dim 5)</td>
+<td>Systems added or changed (see <code>dim5-system.md</code>)</td>
+</tr>
+<tr>
+<td>Key Component Specifications</td>
+<td>Text</td>
+<td>Behavioral contracts for critical components</td>
+</tr>
+<tr>
+<td>Architecture Decision Records</td>
+<td>List of References</td>
+<td>ADRs for significant technical choices</td>
+</tr>
+<tr>
+<td>Performance Requirements</td>
+<td>Text</td>
+<td>Latency, throughput, resource bounds</td>
+</tr>
+</tbody>
+</table>
+<p><em>Depth by module archetype: Medium for Human-Interactive, </em><em>Deep</em><em> for Programmatic-Interactive, </em><em>Deep</em><em> for Reactive/Background.</em></p>
+<h3 id="section-6-ecosystem-extensibility-impact-dimension">Section 6: Ecosystem &amp; Extensibility Impact (Dimension 6)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New / Modified API Operations</td>
+<td>List of References (Dim 6)</td>
+<td>API Operations (Command, Query, Event, Callback, Batch) added or changed; SLO targets</td>
+</tr>
+<tr>
+<td>API Contract Changes</td>
+<td>Text</td>
+<td>Contract diffs (request/response semantics, SLO changes), breaking-change assessment. Payload schema details are Build Track artifacts.</td>
+</tr>
+<tr>
+<td>Backward Compatibility Plan</td>
+<td>Text</td>
+<td>Versioning strategy, deprecation timeline</td>
+</tr>
+<tr>
+<td>Webhook / Event Contract Changes</td>
+<td>Text</td>
+<td>New events, modified payloads, removed events</td>
+</tr>
+</tbody>
+</table>
+<p><em>Depth by module archetype: Light for Human-Interactive, </em><em>Deep</em><em> for Programmatic-Interactive, Medium for Reactive/Background.</em></p>
+<h3 id="section-7-operational-impact-dimension-7">Section 7: Operational Impact (Dimension 7)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infrastructure Requirements</td>
+<td>Text</td>
+<td>New services, scaling needs, resource estimates</td>
+</tr>
+<tr>
+<td>Security &amp; Compliance Implications</td>
+<td>Text</td>
+<td>PCI, SOC2, GDPR, data residency</td>
+</tr>
+<tr>
+<td>Deployment Strategy</td>
+<td>Text</td>
+<td>Feature flags, canary, blue-green</td>
+</tr>
+<tr>
+<td>Monitoring &amp; Alerting</td>
+<td>Text</td>
+<td>New SLIs/SLOs, dashboards, alert rules</td>
+</tr>
+<tr>
+<td>Operations Decision Records</td>
+<td>List of References</td>
+<td>ODRs for significant operational choices (see <code>dim7-odr.md</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Depth by module archetype: Light for Human-Interactive, Medium for Programmatic-Interactive, </em><em>Deep</em><em> for Reactive/Background.</em></p>
+<h3 id="section-8-data-information-impact-dimension-9">Section 8: Data &amp; Information Impact (Dimension 9)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New / Modified Data Entities</td>
+<td>List of References (Dim 9)</td>
+<td>Entities added or changed</td>
+</tr>
+<tr>
+<td>Attribute / Field Changes</td>
+<td>Text</td>
+<td>New fields, modified types, removed fields</td>
+</tr>
+<tr>
+<td>State Lifecycle Changes</td>
+<td>Text</td>
+<td>New states, new transitions</td>
+</tr>
+<tr>
+<td>Data Migration Requirements</td>
+<td>Text</td>
+<td>Migration scripts, backfill strategy</td>
+</tr>
+<tr>
+<td>Data Retention &amp; Archival</td>
+<td>Text</td>
+<td>Retention policy, archival implications</td>
+</tr>
+</tbody>
+</table>
+<p><em>Depth by module archetype: Medium for Human-Interactive, Medium for Programmatic-Interactive, </em><em>Deep</em><em> for Reactive/Background.</em></p>
+<h3 id="section-9-acceptance-criteria">Section 9: Acceptance Criteria</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Per-Feature Acceptance Criteria</td>
+<td>List</td>
+<td>Tied to each Feature in Section 1</td>
+</tr>
+<tr>
+<td>Cross-Cutting Acceptance Criteria</td>
+<td>List</td>
+<td>Performance, security, compatibility requirements</td>
+</tr>
+<tr>
+<td>Regression Scope</td>
+<td>Text</td>
+<td>Existing behavior that must not break</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-10-epic-decomposition-sequencing">Section 10: Epic Decomposition &amp; Sequencing</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposed Epics</td>
+<td>List of References (Track 2)</td>
+<td>The Build Track entry points</td>
+</tr>
+<tr>
+<td>Dependencies &amp; Sequencing</td>
+<td>Text</td>
+<td>Order constraints, blocking dependencies</td>
+</tr>
+<tr>
+<td>Risks &amp; Open Questions</td>
+<td>List</td>
+<td>Unresolved items to address during Build</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draft</td>
+<td>PSD is being authored (Specification Tasks in progress)</td>
+</tr>
+<tr>
+<td>In Review</td>
+<td>PSD is under review by Engineering and stakeholders</td>
+</tr>
+<tr>
+<td>Approved</td>
+<td>PSD is accepted as the contract — ready for Build Track</td>
+</tr>
+<tr>
+<td>Superseded</td>
+<td>PSD has been replaced by a newer version</td>
+</tr>
+<tr>
+<td>Cancelled</td>
+<td>PSD has been abandoned (e.g., PDR was revised to Kill)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upstream</td>
+<td>Product Decision Record (Dim 1)</td>
+<td>PSD references PDR as its justification</td>
+</tr>
+<tr>
+<td>Scoped to</td>
+<td>Module / Domain (Dim 8)</td>
+<td>PSD is scoped to a single Module</td>
+</tr>
+<tr>
+<td>Specifies</td>
+<td>Capability (Dim 8)</td>
+<td>PSD adds, modifies, or retires Capabilities</td>
+</tr>
+<tr>
+<td>Specifies</td>
+<td>Feature (Dim 8)</td>
+<td>PSD adds, modifies, or retires Features</td>
+</tr>
+<tr>
+<td>Downstream</td>
+<td>Epic (Track 2)</td>
+<td>PSD decomposes into Epics in the Build Track</td>
+</tr>
+<tr>
+<td>Sibling</td>
+<td>PSD (Dim 1)</td>
+<td>Related PSDs from the same PDR (cross-module coordination)</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Specification Task (Track 1)</td>
+<td>Specification Tasks represent the work of authoring this PSD</td>
+</tr>
+</tbody>
+</table>
+<h2 id="change-type-behavior">Change Type Behavior</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>New Feature</th>
+<th>Refinement</th>
+<th>Retirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Structural (Dim 8)</td>
+<td>Full spec of new M/C/F</td>
+<td>Delta description</td>
+<td>Removal plan + timeline</td>
+</tr>
+<tr>
+<td>Business (Dims 2–3)</td>
+<td>Full pricing/ROI analysis</td>
+<td>Impact delta</td>
+<td>Revenue impact, customer notification</td>
+</tr>
+<tr>
+<td>UX (Dim 4)</td>
+<td>Full journey/touchpoint design</td>
+<td>Modified flows only</td>
+<td>Migration UX, sunset communication</td>
+</tr>
+<tr>
+<td>Technical (Dim 5)</td>
+<td>Full architecture spec</td>
+<td>Targeted changes</td>
+<td>Deprecation plan, dead code removal</td>
+</tr>
+<tr>
+<td>Extensibility (Dim 6)</td>
+<td>Full API contract</td>
+<td>Versioning strategy</td>
+<td>Sunset schedule, migration guide</td>
+</tr>
+<tr>
+<td>Operational (Dim 7)</td>
+<td>Full infra requirements</td>
+<td>Delta requirements</td>
+<td>Decommissioning plan</td>
+</tr>
+<tr>
+<td>Data (Dim 9)</td>
+<td>Full entity/schema design</td>
+<td>Migration plan</td>
+<td>Data archival/deletion policy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>PSD-042: "Real-Time FX Rate Lock — Invoice &amp; Payout Processing Module" (Human-Interactive, Feature Addition). Sibling PSD: PSD-043 covering the FX Microservice module (Programmatic-Interactive).</p>
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/entities/definition-model/dim1-psd.md">View on GitHub</a></p>

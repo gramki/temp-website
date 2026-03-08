@@ -1,0 +1,55 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-025-dim7-operations-decision-record.md -->
+<!-- Title: DR-025: Operations Decision Record (ODR) — Completing the Decision Record Triad -->
+<!-- Content Hash: c014590aa3d0ac16b967c7d262bb62531a3bdc47c0e06f440cd88f35b3542a90 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-025-operations-decision-record-odr-completing-t">DR-025: Operations Decision Record (ODR) — Completing the Decision Record Triad</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>The Definition Model had two formal decision record entities — PDR (Dim 1, product strategy decisions) and ADR (Dim 5, architectural/technical decisions) — but no equivalent for operational and infrastructure decisions. Significant operational decisions (cloud provider selection, deployment strategy, data governance policies, DR/BCP configuration, tenancy isolation, compliance zone setup, data archival) were either captured ad-hoc in ADRs (where they don't naturally belong), or remained undocumented tribal knowledge.</p>
+<p>Dim 7 (Operational Dimension) already had an Infrastructure Model (root entity), Deployment Environments, Operational Targets, and Operational Constraints — but no entity to record <em>why</em> these were configured as they are. The Infrastructure Model says "Multi-region AWS SaaS" but doesn't explain why AWS was chosen over GCP, or why active-passive DR was selected over active-active. ADR says "Adopt event-driven architecture with Kafka" but doesn't record "AWS MSK over self-managed Kafka in 3-AZ deployment" — that's an operational decision, not an architectural one.</p>
+<p>The PDR → ADR → ODR trigger chain was identified: product decisions (PDR) cascade to architectural decisions (ADR) which cascade to operational decisions (ODR). Each level has different decision makers, different governance, and different consequences. The boundary is clean: ADR = how it's <em>built</em> (design-time), ODR = how it's <em>run</em> (runtime/operational).</p>
+<p>Additionally, operational data governance decisions (retention periods, archival policies, encryption requirements, access control models) needed a home. These are operational decisions about data — distinct from Dim 9 (Data Domain), which will capture the <em>structural</em> data view (what data exists, domains, ownership, schema). The split: Dim 9 = what data the product manages; Dim 7/ODR = how that data is governed operationally.</p>
+<h2 id="decisions">Decisions</h2>
+<h3 id="d1-introduce-odr-as-a-dim-7-entity-completing-the">D1: Introduce ODR as a Dim 7 entity, completing the PDR / ADR / ODR triad</h3>
+<p>Operations Decision Record (ODR) is a formal, referenceable record of a significant operational or infrastructure decision. It is the Dim 7 counterpart of PDR (Dim 1) and ADR (Dim 5), completing the decision record triad:<br />
+- <strong>PDR:</strong> What should the product <em>do</em>? (Strategy &amp; Intent, Dim 1)<br />
+- <strong>ADR:</strong> How should the product be <em>built</em>? (Architecture &amp; Engineering, Dim 5)<br />
+- <strong>ODR:</strong> How should the product be <em>run</em>? (Operations &amp; Infrastructure, Dim 7)</p>
+<h3 id="d2-odr-scope-ten-categories-of-operational-decisio">D2: ODR scope — ten categories of operational decisions</h3>
+<p>ODR covers: Cloud Provider &amp; Services, Deployment Strategy, Tenancy &amp; Isolation, DR &amp; BCP, Data Governance, Data Archival, Observability &amp; Tooling, Compliance Zone, Capacity &amp; Scaling, Cost Optimization. This Category field provides structured classification without requiring separate entities per category.</p>
+<h3 id="d3-four-relationship-patterns-for-odr-paralleling">D3: Four relationship patterns for ODR (paralleling ADR)</h3>
+<ol>
+<li>PDR triggers ODR(s): Product decision with operational implications</li>
+<li>ADR triggers ODR(s): Architectural decision requiring operational provisioning</li>
+<li>ODR exists independently: Purely operational decisions</li>
+<li>ODR constrains ADR/PDR: Operational reality limiting architectural or product options</li>
+</ol>
+<h3 id="d4-odr-has-dual-provenance-discovery-and-run">D4: ODR has dual provenance — Discovery and Run</h3>
+<p>ODRs can be produced by both the Discovery Track (Deliberation-driven — strategic infrastructure planning like cloud provider selection) and the Run Track (operationally-driven — decisions emerging from operational experience, Post-Incident Reviews, capacity reviews). Both paths produce the same Dim 7 entity.</p>
+<h3 id="d5-data-governance-and-archival-as-odr-scope-not-d">D5: Data governance and archival as ODR scope, not Dim 9</h3>
+<p>Operational aspects of data (retention, archival, encryption, access control, backup policies) belong in ODR (Dim 7). Dim 9 (Data &amp; Information) will capture the structural/domain view of data — what data exists, domain boundaries, ownership, schema. This maintains the Build-vs-Run split consistent with ADR (how data is structured) vs. ODR (how data is governed).</p>
+<h2 id="rationale">Rationale</h2>
+<p><strong>Why not extend ADR to cover operational decisions?</strong> ADR and ODR have different audiences (architect vs. SRE), different governance (architecture review vs. operations review), different dimensions (Dim 5 vs. Dim 7), and different scopes (design-time vs. runtime). Forcing operational decisions into ADR would overload the entity and blur the architecture/operations boundary. The same reasoning that justified separating PDR from ADR applies to separating ADR from ODR.</p>
+<p><strong>Why not just use PDR?</strong> PDR is for product-level decisions (strategy, market, feature). "Archive transaction data after 24 months" and "Use MSK over self-managed Kafka" are not product decisions — they're operational decisions. Forcing them into PDR would dilute PDR's strategic focus and change its governance model.</p>
+<p><strong>Why the Category field?</strong> Operational decisions span diverse domains (cloud, data, deployment, DR). The Category enum provides structured classification and filtering without creating separate entity types per domain, keeping the model simple.</p>
+<p><strong>Why dual provenance?</strong> Some operational decisions are strategic and planned (cloud provider selection during product strategy deliberation). Others emerge from operational experience (changing deployment strategy after incident patterns). Both are legitimate sources of ODR; the provenance is tracked through relationships.</p>
+<h2 id="consequences">Consequences</h2>
+<p><strong>Positive:</strong><br />
+- The decision record triad (PDR/ADR/ODR) provides complete decision traceability across product, architecture, and operations<br />
+- Infrastructure Model, Deployment Environments, Operational Targets, and Operational Constraints now have decision records justifying their configuration<br />
+- Data governance decisions have a formal home — retention, archival, encryption, access control are documented and referenceable<br />
+- The PDR → ADR → ODR trigger chain makes cross-level decision cascading explicit<br />
+- Run Track gains decision-making capability parallel to Build Track's ADR production</p>
+<p><strong>Negative:</strong><br />
+- Adds one more entity to Dim 7 (now 10 entities)<br />
+- The ADR/ODR boundary requires judgment — some decisions (e.g., "use Kafka") span both architecture and operations<br />
+- ODR dual provenance (Discovery + Run) adds complexity to the artifact production model</p>
+<p><strong>Mitigations:</strong><br />
+- Entity count (10) is proportional to Dim 7's domain complexity<br />
+- ADR/ODR boundary guidance: ADR captures "what technology and why" (design-time); ODR captures "how to provision, configure, and govern it" (runtime). When in doubt, the decision should live where its primary audience is<br />
+- Run Track ODR production will be detailed incrementally (same approach as Build Track ADR production)</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/decisions/DR-025-dim7-operations-decision-record.md">View on GitHub</a></p>

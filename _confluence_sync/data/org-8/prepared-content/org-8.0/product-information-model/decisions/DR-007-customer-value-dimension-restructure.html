@@ -1,0 +1,63 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-007-customer-value-dimension-restructure.md -->
+<!-- Title: DR-007: Restructure Dimension 3 as the Customer Value Dimension -->
+<!-- Content Hash: b33a24f62f01b25c0380189d7769626c527c6282d990457ab5ce1868408450cf -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-007-restructure-dimension-3-as-the-customer-val">DR-007: Restructure Dimension 3 as the Customer Value Dimension</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>Dimension 3 originally contained only three entities — Economic Buyer Persona, Business Outcome, and ROI Metric — modeling a narrow "Customer ROI" perspective. This was insufficient because:</p>
+<ol>
+<li>
+<p><strong>Incomplete promise representation.</strong> The product's promise to customers extends beyond financial ROI. Customers also evaluate reliability guarantees (SLA), compliance certifications (PCI-DSS, SOC 2), and security posture. These are distinct commitments with different audiences, metrics, and lifecycles.</p>
+</li>
+<li>
+<p><strong>No customer segmentation.</strong> Buyer personas were unanchored — "CFO" is too generic. Different customer segments (LATAM Enterprise vs. US Mid-Market) have different buyers, outcomes, promises, and adoption barriers.</p>
+</li>
+<li>
+<p><strong>No adoption barriers.</strong> Understanding why customers <em>don't</em> buy is as important as understanding why they <em>do</em>. Barriers (regulatory, technical, competitive) inform discovery prioritization but had no home in the model.</p>
+</li>
+<li>
+<p><strong>Metric conflation.</strong> A single "ROI Metric" entity tried to cover financial return, service level performance, and compliance adherence — fundamentally different measurement types.</p>
+</li>
+</ol>
+<h2 id="decision">Decision</h2>
+<p>Restructure Dimension 3 as "The Customer Value Dimension (Why Buy)" with six entities organized around the complete buying decision:</p>
+<ol>
+<li><strong>Customer Segment</strong> — the organizing entity anchoring all other Dim 3 entities.</li>
+<li><strong>Economic Buyer Persona</strong> — the budget-holder within a segment.</li>
+<li><strong>Business Outcome</strong> — the buyer's strategic "job to be done."</li>
+<li><strong>Customer Promise</strong> — the product's commitment to a segment, with three subtypes:<br />
+   - <strong>Value Proposition</strong> — maps outcomes to Value Streams (outcome-based) or Capabilities (ability-based).<br />
+   - <strong>Service Commitment</strong> — reliability/performance/support guarantees.<br />
+   - <strong>Compliance Posture</strong> — regulatory/security certifications and standards.</li>
+<li><strong>Customer Value Metric</strong> — unified metric entity with three subtypes: ROI Metric, Service Level Metric, Compliance Metric.</li>
+<li><strong>Adoption Barrier</strong> — impediments to purchase/adoption within a segment.</li>
+</ol>
+<p>The three Customer Promise subtypes are <strong>peers, not nested</strong>. Service Commitment and Compliance Posture are NOT types of Value Proposition — they are separate categories of commitment with different audiences, mapping targets, metric types, and lifecycle cadences (see FAQ Q17).</p>
+<h2 id="rationale">Rationale</h2>
+<ul>
+<li><strong>Complete buying decision coverage:</strong> The restructured dimension answers "Who buys?" (Segment, Buyer), "What do they achieve?" (Outcome), "What do we promise?" (Promise — three types), "How do we prove it?" (Metric — three types), and "What stops them?" (Barrier).</li>
+<li><strong>Segment-anchored:</strong> All entities are contextual to specific customer segments, enabling segment-specific positioning, pricing, and roadmap prioritization.</li>
+<li><strong>Metric precision:</strong> Different promise types require fundamentally different metrics. ROI Metrics measure financial/time return (end-to-end flow metrics vs. point metrics, depending on Value Proposition mapping type). Service Level Metrics measure operational performance. Compliance Metrics measure adherence to standards.</li>
+<li><strong>Separation of concerns between promise types:</strong> Value Propositions map to structural entities (Dim 8). Service Commitments map to operational entities (Dim 7). Compliance Posture influences both structure and operations. Mixing them in a single entity would obscure these distinct relationships.</li>
+<li><strong>Absorption of ROI Metric:</strong> The previous standalone ROI Metric entity is absorbed as a subtype of the unified Customer Value Metric, which also covers Service Level and Compliance measurement.</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<h3 id="positive">Positive</h3>
+<ul>
+<li>Complete "Why Buy" / "Why NOT Buy" narrative for each segment</li>
+<li>Segment-specific customer promises with distinct, measurable metrics</li>
+<li>Adoption Barriers surface as Signals (Dim 1) for discovery prioritization</li>
+<li>Clean separation between value promise, reliability promise, and compliance promise</li>
+<li>Modeling Tasks (Track 1) can now target specific Dim 3 entities</li>
+</ul>
+<h3 id="negative">Negative</h3>
+<ul>
+<li>Six entities in Dim 3 (up from three) — increased model surface</li>
+<li>Customer Promise subtype structure may require explanation for stakeholders unfamiliar with the distinction</li>
+<li>Overlap between Dim 3 (customer-facing commitment) and Dim 7 (operational implementation) for Service Commitments must be managed explicitly</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: bde5503 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/bde5503/org-8.0/product-information-model/decisions/DR-007-customer-value-dimension-restructure.md">View on GitHub</a></p>

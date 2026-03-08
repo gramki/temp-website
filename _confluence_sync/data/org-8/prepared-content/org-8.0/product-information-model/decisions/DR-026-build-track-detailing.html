@@ -1,0 +1,96 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-026-build-track-detailing.md -->
+<!-- Title: DR-026: Build Track Detailing — Work Entity/Artifact Distinction, Scoping Corrections, Three-Tier Versioning -->
+<!-- Content Hash: 262515ccb6564d65b64df33537f6fe21bdf4ad2dff45cc7ad93612e23eb943a2 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-026-build-track-detailing-work-entityartifact-d">DR-026: Build Track Detailing — Work Entity/Artifact Distinction, Scoping Corrections, Three-Tier Versioning</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>The Build Track (Track 2) had 10 skeletal entity files with minimal detail. During the detailing session, several structural issues were identified:</p>
+<ol>
+<li>
+<p><strong>Work entities and work artifacts were conflated.</strong> Module Version and Product Version were listed alongside Epics and Stories as "build entities," but they are fundamentally different: Epics are <em>work to be done</em>; Module Versions are <em>things produced by work</em>. This conflation obscured the Build Track's structure.</p>
+</li>
+<li>
+<p><strong>Scoping was incorrect.</strong> Epics and Stories were not explicitly scoped. In practice, PMs plan Epics at the Module level (Dim 8 — functional boundary) while developers implement Technical Tasks at the System level (Dim 5 — technical boundary). The original skeletal files did not capture this distinction.</p>
+</li>
+<li>
+<p><strong>The versioning model was incomplete.</strong> "Module Version" was misnamed — the Build Track builds Systems (Dim 5), not Modules (Dim 8). <code>payments-service v2.3.3</code> is a System Version, not a Module Version. The gap between individual System Versions and Product Version (no integration verification layer) was also unaddressed.</p>
+</li>
+<li>
+<p><strong>Integration work was invisible.</strong> Cross-System integration work had no dedicated entities — it was assumed to be part of regular Epics, hiding it from planning and tracking.</p>
+</li>
+<li>
+<p><strong>Build Track ADR production had no mechanism.</strong> DR-024 established that ADRs can originate from Build Track work, but no entity existed to model the process.</p>
+</li>
+</ol>
+<h2 id="decisions">Decisions</h2>
+<h3 id="s1-work-entity-vs-work-artifact-distinction">S1: Work Entity vs. Work Artifact Distinction</h3>
+<p><strong>Decision:</strong> Classify Build Track entities into two categories: <em>work entities</em> (work to be done — Epic, Story, Technical Task, Bug, Integration Epic, Integration Story) and <em>work artifacts</em> (things produced by work — System Version, Module Version, Product Version, ADR, Technical Debt Item).</p>
+<p><strong>Rationale:</strong> Work entities have assignees, sprints, and status lifecycles driven by human effort. Work artifacts emerge from completed work and have quality-gated lifecycles. Conflating them obscures what the Build Track actually does.</p>
+<h3 id="s2-epic-module-scope-dim-8">S2: Epic = Module Scope (Dim 8)</h3>
+<p><strong>Decision:</strong> Epics are scoped to a single Module (Dim 8), decomposed from a PSD. A cross-Module PSD produces multiple Epics — one per affected Module.</p>
+<p><strong>Rationale:</strong> PMs and Tech Leads plan at the Module level ("Build the FX Rate Locking feature for the FX Module"). Module scope keeps Epics accessible to product stakeholders while deferring technical decomposition to Technical Tasks.</p>
+<h3 id="s3-story-module-scope-dim-8-renamed-from-user-stor">S3: Story = Module Scope (Dim 8), Renamed from User Story</h3>
+<p><strong>Decision:</strong> Rename "User Story" to "Story." Stories are Module-scoped, inheriting from their parent Epic. Stories are not necessarily user-facing — they may be technical or enablement Stories.</p>
+<p><strong>Rationale:</strong> "User Story" implies user-facing work. Many Stories are infrastructure, data migration, or technical enablement — calling them "User Stories" is misleading. "Story" is the more general term.</p>
+<h3 id="s4-technical-task-systemcomponent-scope-dim-5">S4: Technical Task = System/Component Scope (Dim 5)</h3>
+<p><strong>Decision:</strong> Technical Tasks are scoped to a specific System (Dim 5) and optionally a Component. They serve both regular Stories and Integration Stories.</p>
+<p><strong>Rationale:</strong> Developers work on Systems, not Modules. "Implement gRPC endpoint in fx-service" is how engineering work is actually assigned. Technical Tasks bridge the functional intent (Stories, Module-scoped) to technical implementation (Systems, Dim 5).</p>
+<h3 id="s5-system-version-renamed-from-module-version">S5: System Version (Renamed from Module Version)</h3>
+<p><strong>Decision:</strong> Rename the original "Module Version" to "System Version." System Version is a versioned, quality-gated artifact of a single System (Dim 5) — the atomic deployment unit.</p>
+<p><strong>Rationale:</strong> The Build Track builds Systems, not Modules. Engineers produce <code>payments-service v2.3.3</code> (a System Version), not "Payments Module v2.3.3." The Run Track deploys System Versions to environments.</p>
+<h3 id="s6-three-tier-versioning-model">S6: Three-Tier Versioning Model</h3>
+<p><strong>Decision:</strong> Establish a three-tier versioning model: System Version (atomic deployment unit) → Module Version (integrated deployment + integration verification unit) → Product Version (complete deployment + certification unit). Each tier is a <strong>composite system</strong> with emergent operational properties at its composition level, a <strong>deployable</strong> at its composition granularity, and a <strong>communication bridge</strong> at progressively broader organizational scope.</p>
+<p><strong>Rationale:</strong> The original two-tier model (Module Version → Product Version) missed the integration verification layer. In reality, individual Systems are built and deployed independently (System Versions), then verified to work together within a Module boundary (Module Versions), then the full product composition is certified (Product Version). DR-004 ("Three-Layer Versioning") described Module Version → Product Version → Customer Release — the three tiers are now System Version → Module Version → Product Version, with Customer Release remaining the business delivery entity that references Product Versions.</p>
+<p>Beyond verification scope, each tier fulfills two additional roles. First, <strong>each tier is a system in its own right</strong> — Module Version has emergent properties (end-to-end latency, integrated failure modes, cross-system data consistency) that do not exist at the individual System level; Product Version has product-level emergent properties (end-to-end user journeys, cross-module workflows, product-wide compliance posture). All tiers are operable and observable. Second, <strong>each tier provides shared vocabulary</strong> at a different organizational scope: System Version is Build+Run language; Module Version bridges Build+Run+Product (PMs, SREs, and engineers all reference "Payments Module v4.1"); Product Version is the ubiquitous language across all teams and customers. See <code>stories/versioning-alternatives-analysis.md</code> for how alternative approaches address these challenges.</p>
+<p><strong>Consequences:</strong> DR-004 is partially superseded by this decision. The three layers remain, but the bottom tier is now System Version (not Module Version), and the middle tier is now Module Version (integration-verified composition, not deployable artifact).</p>
+<h3 id="s7-module-version-as-composite-system-and-integrat">S7: Module Version as Composite System and Integration Artifact</h3>
+<p><strong>Decision:</strong> Introduce a new "Module Version" entity as a <strong>composite system</strong> — an integration-verified composition of System Versions for a Module (Dim 8). Contains integration contracts and integration test suites. Has emergent operational properties and serves as the shared vocabulary between Build, Run, and Product teams.</p>
+<p><strong>Rationale:</strong> Product Version cannot verify all Systems at once — that's an O(n²) integration problem. Module Version provides Module-scoped integration verification: "do the Systems implementing the Payments Module work together?" This is verified before Product Version certification. Module Version also provides a shared reference point that Build, Run, and Product teams can all use — without it, PMs say "the Payments capability," engineers say "payments-service v2.3.3," and SREs translate between the two ad hoc.</p>
+<h3 id="s8-integration-epic-and-integration-story-as-separ">S8: Integration Epic and Integration Story as Separate Entities</h3>
+<p><strong>Decision:</strong> Introduce Integration Epic and Integration Story as distinct entities, separate from regular Epics and Stories.</p>
+<p><strong>Rationale:</strong> Integration work has fundamentally different characteristics from feature work: it spans multiple Systems (potentially from different Modules), validates Interaction Flows (Dim 5), and produces integration contracts and test suites. Conflating integration work into feature Epics hides cross-cutting work from planning. Integration Epics reference the PSD-derived Epics they integrate.</p>
+<h3 id="s9-design-deliberation">S9: Design Deliberation</h3>
+<p><strong>Decision:</strong> Introduce Design Deliberation as the Build Track's mechanism for producing ADRs.</p>
+<p><strong>Rationale:</strong> DR-024 established ADR dual provenance (Discovery + Build) but provided no Build Track entity for it. Design Deliberation is the tactical counterpart to Discovery Track's Deliberation — focused on implementation-time architectural questions ("gRPC vs REST for this service call?"). It makes architectural decision-making during build work explicit and traceable.</p>
+<h3 id="s10-technical-debt-item">S10: Technical Debt Item</h3>
+<p><strong>Decision:</strong> Introduce Technical Debt Item as a work artifact documenting accumulated debt. When prioritized, resolved via an Epic or Story.</p>
+<p><strong>Rationale:</strong> Technical debt accumulates silently during development. Making it a documented artifact (not a work entity) means debt is visible and can compete with features for sprint capacity. Resolution happens through existing work entities (Epic, Story), not a separate mechanism.</p>
+<h3 id="s11-bug-provenance">S11: Bug Provenance</h3>
+<p><strong>Decision:</strong> Add a provenance field to Bug: <code>Build</code> / <code>Run</code> / <code>Win</code>.</p>
+<p><strong>Rationale:</strong> Bugs originate from three sources: discovered during development (Build), escalated from production Incidents (Run), or surfaced from customer complaints/Win Cases (Win). Provenance enables cross-Track traceability and root cause analysis patterns.</p>
+<h3 id="s12-system-version-quality-gates-feed-operational">S12: System Version Quality Gates Feed Operational Readiness</h3>
+<p><strong>Decision:</strong> System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness (Dim 7) assessments.</p>
+<p><strong>Rationale:</strong> Operational Readiness assesses whether a System is production-ready in a given environment. Build Track quality gate data is a key input — if a System Version was released with security warnings, Operational Readiness should reflect that. Operational Readiness is per-System × per-Environment (not per-Module), because the Run Track operates Systems: SREs deploy, monitor, and write runbooks for <code>payments-service</code>, not "the Payments Module." Module-level readiness is a derived aggregation.</p>
+<h3 id="s13-release-planning-identifies-integration-epics">S13: Release Planning Identifies Integration Epics</h3>
+<p><strong>Decision:</strong> Release Planning Task is responsible for identifying Integration Epics alongside PSD-derived Epics.</p>
+<p><strong>Rationale:</strong> Integration work must be identified early during release planning, not discovered mid-sprint. When Release Planning decomposes PSDs into Epics across Modules, it naturally surfaces cross-System integration needs.</p>
+<h3 id="s14-milestone-planning-includes-integration-verifi">S14: Milestone Planning Includes Integration Verification Gates</h3>
+<p><strong>Decision:</strong> Milestone Planning includes cross-Epic dependency gating and integration verification gates (where Module Versions must be verified).</p>
+<p><strong>Rationale:</strong> Milestones need to gate not just feature completion (Epics) but integration verification (Module Versions). "API Complete" milestone should require both feature Epics done and Payments↔FX integration verified.</p>
+<h3 id="s15-iteration-planning-assigns-stories-integration">S15: Iteration Planning Assigns Stories, Integration Stories, and Technical Tasks</h3>
+<p><strong>Decision:</strong> Iteration Planning explicitly assigns Stories, Integration Stories, and Technical Tasks to sprints.</p>
+<p><strong>Rationale:</strong> Sprint planning operates at the intersection of Module-scoped Stories and System-scoped Technical Tasks. Integration Stories have the same sprint-level assignment needs as regular Stories.</p>
+<h3 id="s16-deployment-deploys-system-versions-not-module">S16: Deployment Deploys System Versions (Not Module Versions)</h3>
+<blockquote>
+<p><strong>Refined by DR-027 (C2, C3, C4).</strong> This decision established System Version as the deployment unit. DR-027 refined this to recognize three deployment levels: System Version is the <strong>atomic</strong> deployment unit, Module Package is the <strong>integrated</strong> deployment unit, and Product Package is the <strong>complete</strong> deployment unit. All three are deployable. S16's intent (deploy Systems, not Modules-as-functional-boundaries) remains valid, but the Run Track also deploys composed artifacts at integrated and complete levels.</p>
+</blockquote>
+<p><strong>Decision:</strong> The Run Track's Deployment entity deploys System Versions, not Module Versions. All "Module Version" references in Run Track entities are updated to "System Version."</p>
+<p><strong>Rationale:</strong> You deploy Systems (deployable technical units), not Modules (functional boundaries). <code>payments-service v2.3.3</code> is deployed to production-us — <code>Payments Module v2.3.0</code> is an integration verification artifact, not a deployment unit.</p>
+<h2 id="consequences">Consequences</h2>
+<p><strong>Positive:</strong><br />
+- Clear distinction between work to do (entities) and work produced (artifacts)<br />
+- Accurate scoping: PMs plan in Module terms; developers implement in System terms<br />
+- Three-tier versioning reflects actual deployment, integration, and certification units<br />
+- Integration work is visible and plannable from release planning onward<br />
+- Build Track ADR production has a named mechanism (Design Deliberation)<br />
+- Technical debt is visible in the model</p>
+<p><strong>Negative:</strong><br />
+- More entities to manage (5 new entities: Integration Epic, Integration Story, Design Deliberation, Technical Debt Item, Module Version)<br />
+- DR-004 is partially superseded — the three layers have shifted<br />
+- All "Module Version" references in existing documents need updating to "System Version" where the old meaning applies</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: 8e6b1b1 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/8e6b1b1/org-8.0/product-information-model/decisions/DR-026-build-track-detailing.md">View on GitHub</a></p>

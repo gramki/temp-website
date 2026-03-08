@@ -1,0 +1,165 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track3-verification-task.md -->
+<!-- Title: Verification Task -->
+<!-- Content Hash: 00b7322d95db3205798c69b38b67367231412e33387237ca8d1daf7abaec9fa8 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="verification-task">Verification Task</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 3: The Run Track (Stability &amp; Operations)<br />
+<strong>Owner:</strong> SRE, QA, DevOps</p>
+<h2 id="definition">Definition</h2>
+<p>Post-deployment verification work — structured, trackable, auditable work to confirm that a deployment meets its acceptance criteria. Verification Tasks validate that the deployed descriptor produces the expected operational behavior: services are healthy, SLAs are met, compliance checks pass, and business metrics are within thresholds.</p>
+<p>Verification Tasks are created in two ways:<br />
+1. <strong>During Deployment Planning</strong> — Deployment Planning Tasks produce Verification Tasks as part of the plan, specifying what must be verified after each deployment.<br />
+2. <strong>Independently</strong> — Verification Tasks can be added directly to a Change Request at any time, including after deployment has begun, as new verification needs are discovered.</p>
+<p>A Change Request is <strong>successfully completed</strong> only when all Deployment Tasks AND all Verification Tasks associated with it have passed.</p>
+<blockquote>
+<p><strong>Why standalone, not a subtype?</strong> Verification Tasks are distinct from Maintenance Tasks (recurring/preventative), Run Track Technical Tasks (serve Run Stories), and Deployment Tasks (apply descriptors). They are post-deployment validation work with pass/fail outcomes and evidence production. Making them standalone ensures they are auditable, trackable, and have clear completion criteria — critical for regulated fintech where post-deployment verification is a compliance requirement. See DR-029 D8.</p>
+</blockquote>
+<h2 id="purpose">Purpose</h2>
+<p>Makes post-deployment verification explicit and auditable in the Run Track. Without Verification Tasks:<br />
+- Post-deployment verification is a text field on the Deployment entity — not a trackable, assignable work item<br />
+- Change Request completion cannot formally require verification to pass<br />
+- Audit trails for "was the deployment verified?" are informal<br />
+- Verification criteria are implicit — what "verified" means for this deployment is not structured</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deployment Task</td>
+<td>Reference (Track 3)</td>
+<td>The Deployment Task being verified (may be null if verifying a broader scope)</td>
+</tr>
+<tr>
+<td>Change Request</td>
+<td>Reference (Track 3)</td>
+<td>The Change Request this verification belongs to</td>
+</tr>
+<tr>
+<td>Verification Type</td>
+<td>Enum</td>
+<td><code>Smoke Test</code> / <code>Integration Test</code> / <code>SLA Verification</code> / <code>Compliance Audit</code> / <code>Business Metric Validation</code> / <code>Security Scan</code></td>
+</tr>
+<tr>
+<td>Verification Criteria</td>
+<td>Text</td>
+<td>Specific pass/fail criteria (e.g., "P95 latency &lt; 300ms for 24h post-deployment")</td>
+</tr>
+<tr>
+<td>Evidence</td>
+<td>Text</td>
+<td>Verification results, logs, metrics, screenshots, or references to evidence artifacts</td>
+</tr>
+<tr>
+<td>Verifier</td>
+<td>String</td>
+<td>Person or automation that performed the verification</td>
+</tr>
+<tr>
+<td>Verified At</td>
+<td>DateTime</td>
+<td>When verification was completed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pending</td>
+<td>Verification is defined but the deployment has not yet occurred</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>Verification is being executed — metrics being collected, tests being run</td>
+</tr>
+<tr>
+<td>Passed</td>
+<td>Verification criteria met; evidence recorded</td>
+</tr>
+<tr>
+<td>Failed</td>
+<td>Verification criteria not met; may trigger rollback or remediation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verifies</td>
+<td>Deployment Task (Track 3)</td>
+<td>Verification Task validates a specific Deployment Task's outcome</td>
+</tr>
+<tr>
+<td>Governed by</td>
+<td>Change Request (Track 3)</td>
+<td>Verification Task completion is required for Change Request closure</td>
+</tr>
+<tr>
+<td>Governed by</td>
+<td>Deployment Plan (Track 3)</td>
+<td>Verification Task is produced by and executed within a Deployment Plan</td>
+</tr>
+<tr>
+<td>Created by</td>
+<td>Deployment Planning Task (Track 3)</td>
+<td>Deployment Planning produces Verification Tasks as part of the plan</td>
+</tr>
+<tr>
+<td>Validates at</td>
+<td>Station (Dim 7)</td>
+<td>Verification at a station validates deployment quality before promotion</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="post-deployment-sla-verification">Post-Deployment SLA Verification</h3>
+<pre class="codehilite"><code>Verification Task: &quot;SLA Verification — Payments MDD v3.1 → production-latam&quot;
+├── Deployment Task: &quot;Apply Payments MDD v3.1 to production-latam&quot;
+├── Verification Type: SLA Verification
+├── Verification Criteria:
+│   ├── P95 latency &lt; 300ms for 24h post-deployment
+│   ├── Availability ≥ 99.99% for 24h post-deployment
+│   ├── Error rate &lt; 0.1% for 24h post-deployment
+│   └── Zero SEV-1 incidents during verification window
+├── Status: Passed
+├── Evidence: &quot;Datadog dashboard link; P95 latency avg 187ms; availability 99.997%; error rate 0.03%&quot;
+└── Verified At: 2026-02-14T10:00:00Z
+</code></pre>
+
+<h3 id="latam-compliance-audit-verification">LATAM Compliance Audit Verification</h3>
+<pre class="codehilite"><code>Verification Task: &quot;LATAM Compliance Audit — Payments MDD v3.3 → production-latam&quot;
+├── Deployment Task: &quot;Apply Payments MDD v3.3 to production-latam&quot;
+├── Verification Type: Compliance Audit
+├── Verification Criteria:
+│   ├── LGPD data residency: all payment data stored in sa-east-1
+│   ├── Central Bank reporting: BRL transaction reports generated correctly
+│   └── PCI audit trail: all deployment actions logged with timestamps and actor
+├── Status: In Progress
+└── Verifier: LATAM Compliance Officer
+</code></pre>
+
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/work-model/track3-verification-task.md">View on GitHub</a></p>

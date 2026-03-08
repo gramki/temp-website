@@ -1,0 +1,74 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim7-cluster-host.md -->
+<!-- Title: ~~Cluster / Host~~ (DEPRECATED) -->
+<!-- Content Hash: ca9c26aaab6fa8acd07393769c4b02305d0fd99c58e4033eaf086a5fe77f8c6c -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="cluster-host-deprecated">~~Cluster / Host~~ (DEPRECATED)</h1>
+<blockquote>
+<p><strong>DEPRECATED</strong> — Below the Definition Model waterline. Specific compute infrastructure (Kubernetes clusters, VM hosts) belongs in PSD/Run Track artifacts. Same deprecation pattern as Touchpoint (Dim 4) and Payload Schema (Dim 6). See DR-023.</p>
+</blockquote>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 7: The Operational Dimension (Runtime &amp; DevOps)<br />
+<strong>Owner:</strong> DevOps, SRE</p>
+<h2 id="definition">Definition</h2>
+<p>The orchestration group running the software — a Kubernetes cluster, VM pool, or server group within an Environment.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Provides the compute infrastructure layer. Clusters run Containers that execute Subsystems (Dimension 5).</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>To be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>To be refined.</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upstream</td>
+<td>Environment (Dim 7)</td>
+<td>Cluster belongs to an Environment</td>
+</tr>
+<tr>
+<td>Contains</td>
+<td>Container / Process (Dim 7)</td>
+<td>Cluster runs Containers</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>Dedicated Kubernetes Cluster (EKS).</p>
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/entities/definition-model/dim7-cluster-host.md">View on GitHub</a></p>

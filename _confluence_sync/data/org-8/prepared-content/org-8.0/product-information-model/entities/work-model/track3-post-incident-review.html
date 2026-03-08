@@ -1,0 +1,281 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track3-post-incident-review.md -->
+<!-- Title: Post-Incident Review -->
+<!-- Content Hash: 1b1e7b9f84ef16caa9b3d9d06e5c3b3e62e1b3b24900a1bcbd8fab1ef27d964b -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="post-incident-review">Post-Incident Review</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 3: The Run Track (Stability &amp; Operations)<br />
+<strong>Category:</strong> Work Entity (Deliberation / Assessment)<br />
+<strong>Owner:</strong> Engineering Leadership, SRE Lead</p>
+<h2 id="definition">Definition</h2>
+<p>A structured, collaborative assessment activity where stakeholders convene after an incident is resolved to reconstruct what happened, identify root causes and contributing factors, quantify impact, and determine corrective actions. Post-Incident Review is the Run Track's parallel to Deliberation (Track 1) and Win Review (Track 4) — all are structured assessment activities that produce structured outputs.</p>
+<p>PIR produces two outputs:<br />
+1. <strong>Post-Incident Report</strong> (assessment artifact) — the durable knowledge artifact capturing timeline, root cause analysis, impact, corrective actions, and lessons learned<br />
+2. <strong>Corrective actions</strong> — follow-up work items routed to the appropriate track: Bugs (Track 2), Run Epics (Track 3), Signals (Track 1), ODRs (Dim 7), Evolve Findings (Track 5), Maintenance Tasks (Track 3)</p>
+<blockquote>
+<p><strong>PIR mandate.</strong> SEV-0, SEV-1, and SEV-2 incidents require a Post-Incident Review. The Operating Model may adjust this threshold — for example, requiring PIR for all SEV-3 incidents in a specific module, or waiving PIR for SEV-2 incidents that were resolved within 15 minutes with no customer impact. The Work Model states the default; the Operating Model owns the policy.</p>
+<p><strong>Blameless by design.</strong> PIR focuses on systemic causes and process improvements, not individual fault. The entity structure deliberately captures "Contributing Factors" (systemic conditions) rather than "Who caused this." This is a modeling choice — the Operating Model reinforces it through ceremony design and facilitation guidance.</p>
+</blockquote>
+<h2 id="purpose">Purpose</h2>
+<p>Makes post-incident learning visible, structured, and actionable. Without Post-Incident Review:<br />
+- Incident response resolves the symptom but the organization doesn't learn from it<br />
+- Root cause analysis is informal and inconsistent<br />
+- Corrective actions are verbal commitments that are never tracked<br />
+- The feedback loop from incidents to product, operational, and process improvements is broken<br />
+- Incident patterns that should surface as Operational Pains or Signals are invisible</p>
+<p><strong>PIR is the primary mechanism by which reactive incidents produce structured learning that flows back into the Definition Model and drives product/process improvement.</strong></p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Incident(s)</td>
+<td>List of References (Track 3)</td>
+<td>Incident artifact(s) being reviewed — may batch related incidents (e.g., parent + children)</td>
+</tr>
+<tr>
+<td>Incident Response Task(s)</td>
+<td>List of References (Track 3)</td>
+<td>The response task(s) for context on what was done</td>
+</tr>
+<tr>
+<td>Participants</td>
+<td>List (String)</td>
+<td>Roles/persons participating (e.g., SRE Lead, FX Team Lead, Product Manager, Incident Commander)</td>
+</tr>
+<tr>
+<td>Timeline Reconstruction</td>
+<td>Text</td>
+<td>Detailed chronological reconstruction of the incident from detection to resolution</td>
+</tr>
+<tr>
+<td>Root Cause Analysis</td>
+<td>Text</td>
+<td>Final root cause determination (5-whys, fishbone, or other technique). Distinct from the preliminary root cause in Incident Response Task.</td>
+</tr>
+<tr>
+<td>Contributing Factors</td>
+<td>List (Text)</td>
+<td>Systemic conditions that enabled or amplified the incident (e.g., "alert fatigue delayed initial response by 8 minutes", "no automated rollback for database migrations")</td>
+</tr>
+<tr>
+<td>Impact Assessment (Final)</td>
+<td>Text</td>
+<td>Quantified impact: affected tenants, duration, revenue impact, SLA breaches, compliance implications</td>
+</tr>
+<tr>
+<td>Customer Communication Assessment</td>
+<td>Text</td>
+<td>Evaluation of communication effectiveness: timeliness, accuracy, channel coverage</td>
+</tr>
+<tr>
+<td>Corrective Actions</td>
+<td>List (Action + Owner + Deadline + Track)</td>
+<td>Specific follow-up actions with accountability and track routing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scheduled</td>
+<td>PIR has been scheduled; incident is resolved; participants identified</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>PIR is being conducted; timeline and root cause being reconstructed</td>
+</tr>
+<tr>
+<td>Complete</td>
+<td>PIR is done; Post-Incident Report produced; corrective actions created and routed</td>
+</tr>
+</tbody>
+</table>
+<pre class="codehilite"><code>State Diagram:
+
+  Scheduled ──→ In Progress ──→ Complete
+
+Triggers:
+  Scheduled → In Progress:  PIR session begins
+  In Progress → Complete:   Post-Incident Report finalized; all corrective actions created
+</code></pre>
+
+<h2 id="outputs">Outputs</h2>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Category</th>
+<th>Description</th>
+<th>Downstream Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Post-Incident Report</td>
+<td>Assessment artifact</td>
+<td>Durable knowledge artifact: timeline, RCA, contributing factors, impact, corrective actions, lessons learned</td>
+<td>Run Track planning, Discovery Track, Win Track</td>
+</tr>
+<tr>
+<td>Bug (Track 2)</td>
+<td>Work entity (follow-up)</td>
+<td>Product defect identified as root cause; provenance: Run</td>
+<td>Build Track</td>
+</tr>
+<tr>
+<td>Signal — Problem (Dim 1)</td>
+<td>Definition Model update</td>
+<td>Systemic product issue surfaced for Discovery</td>
+<td>Discovery Track</td>
+</tr>
+<tr>
+<td>Run Epic (Track 3)</td>
+<td>Work entity (follow-up)</td>
+<td>Operational tooling gap identified (e.g., missing probes, insufficient automation)</td>
+<td>Run Track</td>
+</tr>
+<tr>
+<td>ODR (Dim 7)</td>
+<td>Definition Model update</td>
+<td>Operational decision driven by incident findings (e.g., deployment strategy change, monitoring architecture revision)</td>
+<td>Definition Model</td>
+</tr>
+<tr>
+<td>Evolve Finding (Track 5)</td>
+<td>Work artifact (follow-up)</td>
+<td>Process gap identified (e.g., "runbook was outdated", "escalation policy unclear")</td>
+<td>Evolve Track</td>
+</tr>
+<tr>
+<td>Maintenance Task (Track 3)</td>
+<td>Work entity (follow-up)</td>
+<td>Corrective maintenance needed (e.g., "patch library X across all environments")</td>
+<td>Run Track</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reviews</td>
+<td>Incident(s) (Track 3)</td>
+<td>PIR reviews one or more Incident artifacts</td>
+</tr>
+<tr>
+<td>Reviews</td>
+<td>Incident Response Task(s) (Track 3)</td>
+<td>PIR reviews the response effectiveness</td>
+</tr>
+<tr>
+<td>Produces</td>
+<td>Post-Incident Report (artifact)</td>
+<td>Primary output: durable assessment artifact</td>
+</tr>
+<tr>
+<td>May produce</td>
+<td>Bug (Track 2)</td>
+<td>Root cause is a product defect</td>
+</tr>
+<tr>
+<td>May produce</td>
+<td>Signal — Problem (Dim 1)</td>
+<td>Systemic issue surfaced for Discovery</td>
+</tr>
+<tr>
+<td>May trigger</td>
+<td>Run Epic (Track 3)</td>
+<td>Operational tooling gap requires engineering investment</td>
+</tr>
+<tr>
+<td>May produce</td>
+<td>ODR (Dim 7)</td>
+<td>Operational decision required</td>
+</tr>
+<tr>
+<td>May produce</td>
+<td>Evolve Finding (Track 5)</td>
+<td>Process gap identified</td>
+</tr>
+<tr>
+<td>May produce</td>
+<td>Maintenance Task (Track 3)</td>
+<td>Corrective maintenance needed</td>
+</tr>
+<tr>
+<td>May update</td>
+<td>Operational Readiness (Dim 7)</td>
+<td>PIR findings may downgrade readiness posture for affected System x Environment</td>
+</tr>
+<tr>
+<td>May update</td>
+<td>Operational Pain (Dim 7)</td>
+<td>PIR may surface or provide evidence for Operational Pains</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Deployment Planning Task (Track 3)</td>
+<td>PIR findings inform deployment risk assessment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>PIR</th>
+<th>Incident(s)</th>
+<th>Root Cause</th>
+<th>Corrective Actions</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"PIR: Database cluster failover — 2026-02-15"</td>
+<td>INC-2026-0849, INC-2026-0847, INC-2026-0848</td>
+<td>"Cloud provider AZ failure triggered failover; application connection pool did not reconnect within timeout"</td>
+<td>Bug: "Connection pool reconnect logic" (Track 2); Run Epic: "Automated AZ failover validation" (Track 3); ODR: "Multi-AZ deployment requirement for all stateful services" (Dim 7)</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>"PIR: Post-deployment error rate — Payments LATAM"</td>
+<td>INC-2026-0850</td>
+<td>"Database migration script did not handle existing data format for LATAM-specific payment types"</td>
+<td>Bug: "Migration script LATAM data handling" (Track 2); Evolve Finding: "Deployment Planning checklist should include LATAM data format validation" (Track 5)</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>"PIR: FX API latency spike"</td>
+<td>INC-2026-0847</td>
+<td>"Cache eviction under load caused thundering herd to upstream FX provider"</td>
+<td>Bug: "Cache stampede protection" (Track 2); Run Epic: "FX cache warming automation" (Track 3)</td>
+<td>Scheduled</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/work-model/track3-post-incident-review.md">View on GitHub</a></p>

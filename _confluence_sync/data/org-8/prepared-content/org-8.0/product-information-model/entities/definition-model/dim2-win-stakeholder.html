@@ -1,0 +1,179 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim2-win-stakeholder.md -->
+<!-- Title: Win Stakeholder -->
+<!-- Content Hash: fac66ebcf412e97443cf81c321e904cc89e5bbdc1c4cd9d1a9395ad572811047 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="win-stakeholder">Win Stakeholder</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 2: The Vendor Value Dimension (Why It Wins)<br />
+<strong>Owner:</strong> Product Marketing, Sales Leadership, Customer Success Leadership</p>
+<h2 id="definition">Definition</h2>
+<p>A role in the vendor's AAARRR lifecycle — a specific function that engages with customers or prospects to make the product commercially successful. Each Win Stakeholder has distinct concerns, friction points, and success criteria at their stage(s) of the lifecycle. A Win Stakeholder is a functional archetype, not an organizational position — the same person may fill multiple Win Stakeholder roles, and multiple people may fill the same role.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Analogous to Buying Persona (Dim 3), which models the customer's buying committee. Win Stakeholder models the vendor's "winning committee" — the roles required for the product's commercial success across the full AAARRR lifecycle. Without Win Stakeholders:<br />
+- Delivery Frictions have no one who "endures" them — they're abstract vendor problems with no human face<br />
+- Win Outcomes have no one responsible — success criteria float without ownership<br />
+- Product decisions that affect vendor-side workflows (e.g., "build self-service onboarding to reduce implementation cost") have no explicit beneficiary to trace to</p>
+<p>Win Stakeholders are <strong>definition entities, not organizational roles</strong>. The Operating Model will define team structures and staffing. Dim 2 defines what functional roles the product's commercial model <em>requires</em>. A startup may have one person covering Pre-Sales, Implementation, and CS; the Win Stakeholder model still distinguishes the three functions.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive role name (e.g., "Pre-Sales Engineer")</td>
+</tr>
+<tr>
+<td>AAARRR Stage(s)</td>
+<td>List of Enum</td>
+<td><code>Awareness</code> / <code>Acquisition</code> / <code>Activation</code> / <code>Retention</code> / <code>Revenue</code> / <code>Referral</code></td>
+</tr>
+<tr>
+<td>Key Concerns</td>
+<td>Text</td>
+<td>What this stakeholder cares about — their evaluation lens</td>
+</tr>
+<tr>
+<td>Engaged Segments</td>
+<td>List of References (Dim 3)</td>
+<td>Which Customer Segments this stakeholder engages with</td>
+</tr>
+<tr>
+<td>Delivery Frictions cared about</td>
+<td>List of References (Dim 2)</td>
+<td>Which Delivery Frictions this stakeholder endures or cares about</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<p><em>Not applicable — Win Stakeholder is a structural descriptor, not a lifecycle entity.</em></p>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Engaged with</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Win Stakeholder engages with specific Customer Segments</td>
+</tr>
+<tr>
+<td>Endures</td>
+<td>Delivery Friction (Dim 2)</td>
+<td>Win Stakeholder endures specific Delivery Frictions</td>
+</tr>
+<tr>
+<td>Responsible for</td>
+<td>Win Outcome (Dim 2)</td>
+<td>Win Stakeholder is responsible for achieving Win Outcomes at their AAARRR stage</td>
+</tr>
+<tr>
+<td>Aggrieved by</td>
+<td>Win Barrier (Dim 2)</td>
+<td>Win Barriers affect specific Win Stakeholders</td>
+</tr>
+<tr>
+<td>Interacts with</td>
+<td>Buying Persona (Dim 3)</td>
+<td>Win Stakeholders interact with Buying Personas during the sales and implementation process</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aaarrr-stage-mapping">AAARRR Stage Mapping</h2>
+<table>
+<thead>
+<tr>
+<th>AAARRR Stage</th>
+<th>Typical Win Stakeholders</th>
+<th>Key Concerns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Awareness</td>
+<td>Marketing Manager, Developer Advocate</td>
+<td>Brand recognition, inbound pipeline, content reach</td>
+</tr>
+<tr>
+<td>Acquisition</td>
+<td>Account Executive, Pre-Sales Engineer, Solution Architect</td>
+<td>Deal velocity, POC success, technical fit, competitive win rate</td>
+</tr>
+<tr>
+<td>Activation</td>
+<td>Implementation Consultant, Solution Architect, CS Manager</td>
+<td>Time-to-first-value, integration success, go-live rate</td>
+</tr>
+<tr>
+<td>Retention</td>
+<td>CS Manager, Support Engineer</td>
+<td>Health score, NPS, churn prevention, support quality</td>
+</tr>
+<tr>
+<td>Revenue</td>
+<td>Account Manager, Finance/Billing</td>
+<td>ACV growth, upsell/cross-sell, net revenue retention</td>
+</tr>
+<tr>
+<td>Referral</td>
+<td>CS Manager, Marketing Manager</td>
+<td>Referral pipeline, case study participation, community engagement</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Win Stakeholder</th>
+<th>Stage(s)</th>
+<th>Segment</th>
+<th>Key Concern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-Sales Engineer</td>
+<td>Acquisition</td>
+<td>LATAM Enterprise</td>
+<td>"Can we demonstrate LATAM currency support in a 2-week POC?"</td>
+</tr>
+<tr>
+<td>Implementation Consultant</td>
+<td>Activation</td>
+<td>LATAM Enterprise</td>
+<td>"Can we get this customer live on cross-border payouts in 30 days?"</td>
+</tr>
+<tr>
+<td>CS Manager</td>
+<td>Retention, Referral</td>
+<td>US Mid-Market</td>
+<td>"Is this customer healthy enough to renew and refer?"</td>
+</tr>
+<tr>
+<td>Account Manager</td>
+<td>Revenue</td>
+<td>LATAM Enterprise</td>
+<td>"Can we expand this $500K deal to $750K with batch payouts?"</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim2-win-stakeholder.md">View on GitHub</a></p>

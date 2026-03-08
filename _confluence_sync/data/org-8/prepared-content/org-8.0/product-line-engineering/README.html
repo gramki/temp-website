@@ -1,0 +1,266 @@
+<!-- File: org-8.0/product-line-engineering/README.md -->
+<!-- Title: Product Line Engineering at Zeta -->
+<!-- Content Hash: f0d5faa40f896c0950668552f04266f8f458f7070bbcaa8a999ea91fd1b68ff8 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="product-line-engineering-at-zeta">Product Line Engineering at Zeta</h1>
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Zeta adopts <strong>Product Line Engineering (PLE)</strong> as the mental model and operational framework for software delivery. Our platforms (Olympus, Tachyon, Neutrino, Electron, Quark) are <strong>core assets</strong>; Customer Products are <strong>derived</strong> from these assets through configuration, extension, and integration.</p>
+<p>This documentation describes:</p>
+<ul>
+<li><strong>Product Line Engineering</strong> — Core asset development and maintenance (Product Line Squads)</li>
+<li><strong>Engagement Engineering</strong> — Customer Product delivery (Customer Product Squads, composed per Engagement)</li>
+<li><strong>Governance</strong> — Platform Architecture Council, inner source, variability management</li>
+<li><strong>Adoption</strong> — Rollout plan, stakeholder concerns, executive coaching</li>
+</ul>
+<p>PLE at Zeta is <strong>inspired by</strong> the SEI's Product Line Engineering framework and <strong>adapted</strong> for enterprise solution delivery. See <ac:link><ri:page ri:content-title="Product Line Engineering: Overview"/><ac:plain-text-link-body><![CDATA[PLE Overview]]></ac:plain-text-link-body></ac:link> for what we adopt, what we adapt, and what we do not do.</p>
+<p><strong>PLE and the Engagement Operating Model:</strong> PLE provides structural ingredients (Product Line Squads, inner source, archetypes, variability, PAC, rotation model) that a delivery methodology uses. PLE does not define that delivery methodology — the <ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model]]></ac:plain-text-link-body></ac:link> does. PLE enables; the Engagement Operating Model executes. See the <ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model Guide]]></ac:plain-text-link-body></ac:link> for roles, lifecycle, squad model, verification, and governance.</p>
+<hr />
+<h2 id="quick-reference-organizational-structure">Quick Reference: Organizational Structure</h2>
+<p><ac:image ac:align="center" ac:border="false"><ri:url ri:value="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAEwCAYAAACZoyciAAAACXBIWXMAAAsTAAALEwEAmpwYAAAESUlEQVR4nO3VwQ3AIBDAsNL9dz5mIB+EZE+QX9bMzAcAh/7bAQC8yUAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgGQDWCgGXAaG704AAAAASUVORK5CYII="/></ac:image></p>
+
+<hr />
+<h2 id="navigation">Navigation</h2>
+<h3 id="document-map">Document Map</h3>
+<h4 id="framework-ple-owned-content">Framework — PLE-Owned Content</h4>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link><ri:page ri:content-title="Product Line Engineering: Overview"/><ac:plain-text-link-body><![CDATA[PLE Overview]]></ac:plain-text-link-body></ac:link></td>
+<td>PLE foundations, Zeta adaptations, what we are and aren't doing</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Product Line Engineering"/><ac:plain-text-link-body><![CDATA[Product Line Squads]]></ac:plain-text-link-body></ac:link></td>
+<td>Product Line Squads, Product Line Engineers, Product Line Maintainers</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Solution Archetypes"/><ac:plain-text-link-body><![CDATA[Solution Archetypes]]></ac:plain-text-link-body></ac:link></td>
+<td>Archetype concept, components, ownership</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Operating Models"/><ac:plain-text-link-body><![CDATA[Operating Models]]></ac:plain-text-link-body></ac:link></td>
+<td>Fully Managed, Co-Managed, Customer-Operated</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Variability Management"/><ac:plain-text-link-body><![CDATA[Variability Management]]></ac:plain-text-link-body></ac:link></td>
+<td>Tracking, governance, template</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Engagement Engineering: PLE Framing"/><ac:plain-text-link-body><![CDATA[Engagement Engineering]]></ac:plain-text-link-body></ac:link></td>
+<td>PLE framing of Engagement Engineering — ownership boundary and PLE metrics <em>(PLE perspective; full squad model in <ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Guide]]></ac:plain-text-link-body></ac:link>)</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="governance-ple-owned-content">Governance — PLE-Owned Content</h4>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link><ri:page ri:content-title="Platform Architecture Council Charter"/><ac:plain-text-link-body><![CDATA[PAC Charter]]></ac:plain-text-link-body></ac:link></td>
+<td>Platform Architecture Council</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Inner Source Guidelines"/><ac:plain-text-link-body><![CDATA[Inner Source Guidelines]]></ac:plain-text-link-body></ac:link></td>
+<td>DoD, PR process, Maintainer model</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Tech Debt Policy"/><ac:plain-text-link-body><![CDATA[Tech Debt Policy]]></ac:plain-text-link-body></ac:link></td>
+<td>Soft gate, tracking, remediation</td>
+</tr>
+</tbody>
+</table>
+<h4 id="processes-ple-perspective-stubs">Processes — PLE Perspective Stubs</h4>
+<p>These documents describe Engagement processes <strong>from the Product Line perspective</strong> — what PL Squads, Maintainers, PPM, and PAC do. For the full process descriptions, roles, and activities, see the <ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model Guide]]></ac:plain-text-link-body></ac:link>.</p>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link><ri:page ri:content-title="Engagement Lifecycle: Product Line Perspective"/><ac:plain-text-link-body><![CDATA[Engagement Lifecycle]]></ac:plain-text-link-body></ac:link></td>
+<td>Per-phase PLE responsibilities <em>(PLE perspective; full lifecycle in <ac:link><ri:page ri:content-title="Engagement Lifecycle — Phase by Phase"/><ac:plain-text-link-body><![CDATA[Engagement Guide]]></ac:plain-text-link-body></ac:link>)</em></td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Team Composition: Product Line Perspective"/><ac:plain-text-link-body><![CDATA[Team Composition]]></ac:plain-text-link-body></ac:link></td>
+<td>PL capacity, staffing conflicts <em>(PLE perspective; full staffing in <ac:link><ri:page ri:content-title="Squad Model and Staffing"/><ac:plain-text-link-body><![CDATA[Engagement Guide]]></ac:plain-text-link-body></ac:link>)</em></td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Rotation Model"/><ac:plain-text-link-body><![CDATA[Rotation Model]]></ac:plain-text-link-body></ac:link></td>
+<td>Engineer rotation, return guarantees</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Knowledge Capture"/><ac:plain-text-link-body><![CDATA[Knowledge Capture]]></ac:plain-text-link-body></ac:link></td>
+<td>Knowledge flow back to platforms and PAC</td>
+</tr>
+</tbody>
+</table>
+<h4 id="roles">Roles</h4>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link><ri:page ri:content-title="Engagement Architect: PLE Responsibilities"/><ac:plain-text-link-body><![CDATA[Engagement Architect]]></ac:plain-text-link-body></ac:link></td>
+<td>PLE-specific EA responsibilities — variability, inner source, archetypes <em>(PLE perspective; full role in <ac:link><ri:page ri:content-title="Engagement Roles and Responsibilities"/><ac:plain-text-link-body><![CDATA[Engagement Guide]]></ac:plain-text-link-body></ac:link>)</em></td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Product Line Maintainer"/><ac:plain-text-link-body><![CDATA[Product Line Maintainer]]></ac:plain-text-link-body></ac:link></td>
+<td>Role definition, PR governance</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Career Paths"/><ac:plain-text-link-body><![CDATA[Career Paths]]></ac:plain-text-link-body></ac:link></td>
+<td><strong>Moved</strong> — redirects to <ac:link><ri:page ri:content-title="Career Paths in the Operating Model"/><ac:plain-text-link-body><![CDATA[Engagement Guide]]></ac:plain-text-link-body></ac:link></td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Customer Product Delivery Lead (Deprecated)"/><ac:plain-text-link-body><![CDATA[Customer Product Delivery Lead]]></ac:plain-text-link-body></ac:link></td>
+<td><strong>Deprecated</strong> — see successor roles</td>
+</tr>
+</tbody>
+</table>
+<h4 id="adoption-ple-change-management">Adoption — PLE Change Management</h4>
+<p>These documents exist in PLE because the concerns they address arise from PLE adoption — the introduction of Product Line Squads, inner source, rotation, and the structural separation of platform and Engagement work.</p>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link><ri:page ri:content-title="PLE Rollout Plan"/><ac:plain-text-link-body><![CDATA[Rollout Plan]]></ac:plain-text-link-body></ac:link></td>
+<td>Phased PLE adoption</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Stakeholder Concerns Matrix"/><ac:plain-text-link-body><![CDATA[Stakeholder Concerns]]></ac:plain-text-link-body></ac:link></td>
+<td>PLE adoption concerns by role, mitigations</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Executive Coaching Guide"/><ac:plain-text-link-body><![CDATA[Executive Coaching Guide]]></ac:plain-text-link-body></ac:link></td>
+<td>How leaders handle PLE change concerns</td>
+</tr>
+</tbody>
+</table>
+<h4 id="archetypes">Archetypes</h4>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link><ri:page ri:content-title="Solution Archetype Catalog"/><ac:plain-text-link-body><![CDATA[Archetype Catalog]]></ac:plain-text-link-body></ac:link></td>
+<td>Current archetypes, how to use and propose</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="glossary">Glossary</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer Product</strong></td>
+<td>The integrated solution delivered to a customer under an Engagement; derived from Product Line platforms and configured/extended per Engagement.</td>
+</tr>
+<tr>
+<td><strong>Product Line Engineering</strong></td>
+<td>The PLE layer that develops and maintains core assets (platforms). SEI-aligned term.</td>
+</tr>
+<tr>
+<td><strong>Product Line Engineer</strong></td>
+<td>Engineer who develops and maintains core platform assets; may be assigned to Customer Product Squads.</td>
+</tr>
+<tr>
+<td><strong>Product Line Maintainer</strong></td>
+<td>Engineer dedicated to reviewing and governing contributions to a Product Line platform (inner source); rotated quarterly/semester.</td>
+</tr>
+<tr>
+<td><strong>Product Line Squad</strong></td>
+<td>Permanent team owning a platform (Olympus, Tachyon, Neutrino, Electron, Quark).</td>
+</tr>
+<tr>
+<td><strong>Engagement</strong></td>
+<td>End-to-end delivery lifecycle for customer-specific product instantiation; may span Customer Product (PLE scope), Studio Components, and integration.</td>
+</tr>
+<tr>
+<td><strong>Inner Source</strong></td>
+<td>Model where Customer Product Squads contribute code to Product Line platforms via PRs; Product Line Maintainers review and merge.</td>
+</tr>
+<tr>
+<td><strong>Platform Architecture Council (PAC)</strong></td>
+<td>Single body with Practice Mode (monthly, advisory) and Governance Mode (ad-hoc, decision authority).</td>
+</tr>
+<tr>
+<td><strong>Blueprint</strong></td>
+<td>Reference architecture and configuration baseline for a solution archetype; primary design reference for Engagement Engineering when deriving a Customer Product.</td>
+</tr>
+<tr>
+<td><strong>Cookbook</strong></td>
+<td>How-to guides for common tasks (configuration, integration, operations) within a solution archetype; task-oriented guidance for Customer Product Squads.</td>
+</tr>
+<tr>
+<td><strong>Playbook</strong></td>
+<td>Delivery guide (phases, activities, checkpoints, handover) for an Engagement; used by EPM, ELs, and Customer Product Squad.</td>
+</tr>
+<tr>
+<td><strong>Product Line Engineering (PLE)</strong></td>
+<td>Systematic approach to developing a family of related products from shared core assets with managed variability.</td>
+</tr>
+<tr>
+<td><strong>Solution Archetype</strong></td>
+<td>Reusable pattern for a class of solutions (e.g., Credit Card Issuer, Lending); includes blueprint, cookbook, playbook.</td>
+</tr>
+<tr>
+<td><strong>Studio</strong></td>
+<td>Customer-exclusive product development (apps, portals, back-office tools); out of PLE scope; customer IP.</td>
+</tr>
+<tr>
+<td><strong>Engagement Engineering</strong></td>
+<td>The PLE layer that delivers Customer Products; replaces "Application Engineering" in Zeta terminology.</td>
+</tr>
+<tr>
+<td><strong>Customer Product Squad</strong></td>
+<td>Team composed per Engagement to deliver a Customer Product; assignments exceeding two quarters are long-term associations.</td>
+</tr>
+<tr>
+<td><strong>Engagement Architect</strong></td>
+<td>Owns architecture guidance across the entire Engagement — Customer Product, Studio Components, and their integration.</td>
+</tr>
+<tr>
+<td><strong>Customer Product Delivery Lead</strong></td>
+<td><strong>Deprecated.</strong> Replaced by EO (overall accountability), EPM (customer liaison, Engagement Success), EL (squad delivery), EA, AVA, EPO, SRE Lead. See <ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model Guide]]></ac:plain-text-link-body></ac:link>.</td>
+</tr>
+<tr>
+<td><strong>Exploration</strong></td>
+<td>Pre-commitment work (discovery, scoping, POC, technical evaluation) that qualifies whether an Engagement should be initiated.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-line-engineering/README.md">View on GitHub</a></p>

@@ -1,0 +1,188 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track5-evolve-definition-task.md -->
+<!-- Title: Evolve Definition Task -->
+<!-- Content Hash: ae77e67c2376abebdda958fdf2a5c04ba41d74acbf2d85ee6b201ec7e49b10e1 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="evolve-definition-task">Evolve Definition Task</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 5: Evolve (Process Evolution)<br />
+<strong>Owner:</strong> Process Leads, Product Ops, Engineering Managers</p>
+<h2 id="definition">Definition</h2>
+<p>Evolve Definition Task is the core meta-work entity — the work of creating or updating Work Model and Operating Model definitions. This includes: (a) work entity definitions (fields, statuses, relationships), (b) artifact type definitions and assessment criteria, (c) Definition of Done criteria (entry/exit criteria, artifact checklists), and (d) Operating Model guidance structures (playbook templates, ceremony definitions, role descriptions).</p>
+<h2 id="purpose">Purpose</h2>
+<p>The Work Model and Operating Model are living documents that must evolve as the product, organization, and market change. Evolve Definition Task is where that evolution happens — it is the mechanism by which process improvements, new entity types, refined artifact criteria, and updated guidance are formally defined and applied. Without it, model evolution is informal and inconsistent — changes happen in people's heads but not in the shared model.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive name (e.g., "Define DoD for Win Activity entities")</td>
+</tr>
+<tr>
+<td>Definition Scope</td>
+<td>Enum</td>
+<td><code>Work Entity Definition</code>, <code>Artifact Type Definition</code>, <code>DoD Criteria</code>, <code>Guidance Structure</code>, <code>Assessment Criteria</code>, <code>Track Introduction</code></td>
+</tr>
+<tr>
+<td>Target Track(s)</td>
+<td>List</td>
+<td>Which track(s) the definition change affects</td>
+</tr>
+<tr>
+<td>Target Entity/Artifact</td>
+<td>Reference</td>
+<td>Specific entity types or artifact types being defined or updated</td>
+</tr>
+<tr>
+<td>Change Type</td>
+<td>Enum</td>
+<td><code>New</code> (creating from scratch), <code>Update</code> (refining existing), <code>Deprecate</code> (retiring), <code>Restructure</code> (significant reorganization)</td>
+</tr>
+<tr>
+<td>Triggered by</td>
+<td>Reference</td>
+<td>Evolve Findings, Evolve Planning, or ad hoc need</td>
+</tr>
+<tr>
+<td>Rationale</td>
+<td>Text</td>
+<td>Why this definition change is needed — references findings, gaps, or improvement objectives</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned</td>
+<td>Definition work is scoped and assigned</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>Definition is being authored or revised</td>
+</tr>
+<tr>
+<td>Reviewed</td>
+<td>Definition has been reviewed by affected track owners and stakeholders</td>
+</tr>
+<tr>
+<td>Applied</td>
+<td>Definition has been committed to the model (entity files updated, framework updated)</td>
+</tr>
+<tr>
+<td>Rejected</td>
+<td>Definition was reviewed and not accepted (with rationale)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scoped by</td>
+<td>Evolve Planning (Track 5)</td>
+<td>Planning cycle defines which definitions to create or update</td>
+</tr>
+<tr>
+<td>Triggered by</td>
+<td>Evolve Findings (Track 5)</td>
+<td>Findings identify gaps that require definition work</td>
+</tr>
+<tr>
+<td>Updates</td>
+<td>Work entities (Tracks 1–5)</td>
+<td>Creates or modifies entity definitions</td>
+</tr>
+<tr>
+<td>Updates</td>
+<td>Artifact types (all tracks)</td>
+<td>Creates or modifies artifact type definitions and assessment criteria</td>
+</tr>
+<tr>
+<td>Updates</td>
+<td>Operating Model guidance</td>
+<td>Creates or modifies playbook templates, ceremony definitions, role descriptions</td>
+</tr>
+<tr>
+<td>Produces</td>
+<td>Decision Record (DR)</td>
+<td>Significant definition changes are documented as Decision Records</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-artifacts">Outputs / Artifacts</h2>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Category</th>
+<th>Description</th>
+<th>Downstream Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Updated entity file(s)</td>
+<td>Specification</td>
+<td>Modified entity definition with new/updated fields, statuses, relationships</td>
+<td>All tracks (practitioners use entity definitions)</td>
+</tr>
+<tr>
+<td>Updated artifact type definition</td>
+<td>Specification</td>
+<td>New or revised artifact type with assessment criteria</td>
+<td>All tracks (artifact producers and reviewers)</td>
+</tr>
+<tr>
+<td>Updated DoD criteria</td>
+<td>Specification</td>
+<td>New or revised entry/exit criteria and artifact checklists</td>
+<td>All tracks (work item owners)</td>
+</tr>
+<tr>
+<td>Guidance structure template</td>
+<td>Specification</td>
+<td>Playbook template or ceremony definition structure</td>
+<td>Operating Model (guidance authors)</td>
+</tr>
+<tr>
+<td>Decision Record</td>
+<td>Decision</td>
+<td>DR documenting significant definition changes with rationale</td>
+<td>UPIM stakeholders</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>Name:</strong> "Define DoD for Win Activity entities"<br />
+<strong>Definition Scope:</strong> DoD Criteria<br />
+<strong>Target Track(s):</strong> Track 4: Win<br />
+<strong>Target Entity/Artifact:</strong> Win Activity (all 7 subtypes)<br />
+<strong>Change Type:</strong> New<br />
+<strong>Triggered by:</strong> Evolve Findings from "Q3 Win Track Artifact Quality Review" — finding: Implementation/Onboarding missing integration verification in 35% of cases<br />
+<strong>Rationale:</strong> Win Activity entities currently have no formal DoD. The absence leads to inconsistent quality — some engagements are closed without complete artifacts. Defining DoD ensures all subtypes have explicit exit criteria and artifact checklists.<br />
+<strong>Output:</strong> 7 updated entity files with DoD sections; updated Work Execution Framework artifact inventory</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/work-model/track5-evolve-definition-task.md">View on GitHub</a></p>

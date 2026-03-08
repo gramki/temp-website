@@ -1,0 +1,262 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track2-bug.md -->
+<!-- Title: Bug -->
+<!-- Content Hash: 94affc6988f0681fda579383ab03521cf98b99fcde7441c22e512245edf03d32 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="bug">Bug</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 2: The Build Track (Construction)<br />
+<strong>Owner:</strong> QA, Developers</p>
+<h2 id="definition">Definition</h2>
+<p>A work entity for defect resolution — a report of incorrect, unexpected, or broken behavior that requires a fix. Bugs are unplanned work that disrupts the planned delivery of Epics and Stories.</p>
+<p>Bugs carry a <strong>provenance</strong> field indicating where the defect was discovered:<br />
+- <strong>Build</strong> — discovered during Build Track work (development, testing, code review)<br />
+- <strong>Run</strong> — originated from Incident Response Task (Track 3) during incident investigation, or from Post-Incident Review corrective actions. Links back to the Incident artifact.<br />
+- <strong>Win</strong> — originated from a Win Track Win Case (Track 4), where a customer complaint or escalation reveals a product defect</p>
+<p>Provenance enables traceability: a Run-originated Bug links back to its Incident (artifact) and the Incident Response Task or Post-Incident Review that identified it; a Win-originated Bug links back to its Win Case.</p>
+<blockquote>
+<p><strong>P0 and the emergency fix path.</strong> Run-provenance Bugs from SEV-0/SEV-1 Incidents default to P0 at triage, signaling sprint-boundary bypass and eligibility for the Emergency quality gate profile on the resulting System Version. P0 Bugs may be fixed via an Emergency System Version (reduced gate profile: peer review + security scan + smoke tests required; full regression + performance benchmarks deferred). The Bug carries a <code>Deferred Gate Obligation</code> referencing the Emergency System Version and remains at <code>Fixed</code> status until a subsequent Standard System Version passes all deferred gates, at which point the Bug moves to <code>Verified</code>/<code>Closed</code>. This prevents emergency hotfixes from permanently lowering quality standards. See DR-031.</p>
+<p><strong>Known Error / Workaround pattern.</strong> When an Incident is resolved with a workaround (not a permanent fix), the resulting Bug carries the workaround description in its <code>Workaround</code> field. This makes the workaround discoverable for future incidents of the same type — the Bug serves as the Known Error registry until the permanent fix is delivered.</p>
+</blockquote>
+<h2 id="purpose">Purpose</h2>
+<p>Captures unplanned defect-resolution work within the Build Track. Without Bugs:<br />
+- Defect work is invisible — it hides inside Stories or is tracked outside the model<br />
+- Root cause traceability is lost — was this defect caught in testing, or did it cause a production incident?<br />
+- Cross-Track feedback loops are broken — Incidents (Track 3) and Win Cases (Track 4) have no mechanism to trigger fixes</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title</td>
+<td>String</td>
+<td>Brief description of the defect</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Text</td>
+<td>Detailed reproduction steps, expected vs. actual behavior</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>Enum</td>
+<td><code>Build</code> / <code>Run</code> / <code>Win</code> — where this Bug was discovered</td>
+</tr>
+<tr>
+<td>Severity</td>
+<td>Enum</td>
+<td><code>Critical</code> / <code>Major</code> / <code>Minor</code> / <code>Cosmetic</code></td>
+</tr>
+<tr>
+<td>Priority</td>
+<td>Enum</td>
+<td><code>P0</code> / <code>P1</code> / <code>P2</code> / <code>P3</code></td>
+</tr>
+<tr>
+<td>System</td>
+<td>Reference (Dim 5)</td>
+<td>Which System the defect is in</td>
+</tr>
+<tr>
+<td>Component</td>
+<td>Reference (Dim 5)</td>
+<td>Which Component within the System (optional)</td>
+</tr>
+<tr>
+<td>Epic</td>
+<td>Reference (Track 2)</td>
+<td>Which Epic this Bug is associated with (if applicable)</td>
+</tr>
+<tr>
+<td>Story</td>
+<td>Reference (Track 2)</td>
+<td>Which Story this Bug was discovered during (if Build provenance)</td>
+</tr>
+<tr>
+<td>Incident</td>
+<td>Reference (Track 3)</td>
+<td>Source Incident (if Run provenance)</td>
+</tr>
+<tr>
+<td>Win Case</td>
+<td>Reference (Track 4)</td>
+<td>Source Win Case (if Win provenance)</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Reference (Dim 7)</td>
+<td>Where the defect was observed</td>
+</tr>
+<tr>
+<td>Assignee</td>
+<td>String</td>
+<td>Developer assigned</td>
+</tr>
+<tr>
+<td>Root Cause</td>
+<td>Text</td>
+<td>Root cause analysis (filled after resolution)</td>
+</tr>
+<tr>
+<td>Workaround</td>
+<td>Text</td>
+<td>Temporary workaround for the defect, if known (e.g., from Incident Response Task). Makes this Bug discoverable as a Known Error for future incidents of the same type.</td>
+</tr>
+<tr>
+<td>Deferred Gate Obligation</td>
+<td>Reference (Track 2)</td>
+<td>Optional — when a P0 Bug is fixed via an Emergency System Version, references the System Version carrying deferred quality gates. Bug stays at <code>Fixed</code> until deferred gates pass on a subsequent Standard System Version, then moves to <code>Verified</code>/<code>Closed</code>. See DR-031 D3.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New</td>
+<td>Bug reported, not yet triaged</td>
+</tr>
+<tr>
+<td>Triaged</td>
+<td>Severity and priority assessed, assigned to a team</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>Developer is actively working on the fix</td>
+</tr>
+<tr>
+<td>In Review</td>
+<td>Fix is written, awaiting code review</td>
+</tr>
+<tr>
+<td>Fixed</td>
+<td>Fix merged and included in a System Version</td>
+</tr>
+<tr>
+<td>Verified</td>
+<td>QA has verified the fix in the target environment</td>
+</tr>
+<tr>
+<td>Closed</td>
+<td>Bug is resolved and verified</td>
+</tr>
+<tr>
+<td>Won't Fix</td>
+<td>Intentional behavior, or fix is not justified</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>May relate to</td>
+<td>Epic (Track 2)</td>
+<td>Bug may be discovered during Epic execution</td>
+</tr>
+<tr>
+<td>May relate to</td>
+<td>Story (Track 2)</td>
+<td>Bug may be discovered during Story implementation</td>
+</tr>
+<tr>
+<td>Scoped to</td>
+<td>System (Dim 5)</td>
+<td>Bug is a defect within a specific System</td>
+</tr>
+<tr>
+<td>Scoped to</td>
+<td>Component (Dim 5)</td>
+<td>Bug may be within a specific Component (optional)</td>
+</tr>
+<tr>
+<td>Originated from</td>
+<td>Incident (Track 3, artifact)</td>
+<td>Run-provenance Bug originated from a production Incident</td>
+</tr>
+<tr>
+<td>Produced by</td>
+<td>Incident Response Task or Post-Incident Review (Track 3)</td>
+<td>The work entity that identified this defect during incident handling</td>
+</tr>
+<tr>
+<td>Originated from</td>
+<td>Win Case (Track 4)</td>
+<td>Win-provenance Bug originated from a customer complaint/escalation</td>
+</tr>
+<tr>
+<td>Fixed in</td>
+<td>System Version (Track 2)</td>
+<td>Bug fix is included in a System Version</td>
+</tr>
+<tr>
+<td>Fixed in (Emergency)</td>
+<td>System Version (Track 2)</td>
+<td>P0 fix via Emergency gate profile; deferred gates tracked via this Bug's Deferred Gate Obligation field (DR-031)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Bug</th>
+<th>Provenance</th>
+<th>Severity</th>
+<th>System</th>
+<th>Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"FX rate calculation returns incorrect rounding for JPY"</td>
+<td>Build</td>
+<td>Major</td>
+<td>fx-service</td>
+<td>Discovered in unit tests during Story implementation</td>
+</tr>
+<tr>
+<td>"Payment timeout on cross-border transfers &gt; $50K"</td>
+<td>Run</td>
+<td>Critical</td>
+<td>payments-service</td>
+<td>Incident INC-2847 — production timeout spike</td>
+</tr>
+<tr>
+<td>"Settlement file missing header for Bank of Brazil"</td>
+<td>Win</td>
+<td>Major</td>
+<td>bank-adapter</td>
+<td>Win Case WC-312 — partner bank complaint</td>
+</tr>
+<tr>
+<td>"Dashboard shows stale compliance status"</td>
+<td>Build</td>
+<td>Minor</td>
+<td>compliance-service</td>
+<td>Found during code review</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/work-model/track2-bug.md">View on GitHub</a></p>

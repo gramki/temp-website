@@ -1,0 +1,156 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track2-build-monitoring.md -->
+<!-- Title: Build Monitoring -->
+<!-- Content Hash: adaf137d1189c4c347f42012ee402473242c907eeb820574009cf74745ec1ef4 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="build-monitoring">Build Monitoring</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 2: The Build Track (Construction)<br />
+<strong>Category:</strong> Monitoring<br />
+<strong>Owner:</strong> Tech Lead, QA Lead</p>
+<h2 id="definition">Definition</h2>
+<p>Continuous tracking of build health (CI/CD pipeline), quality metrics (test coverage, defect rates, technical debt), and velocity trends. Build Monitoring sits between periodic assessment (Release Planning, Milestone reviews) and reactive work (Bug, Technical Task) — it surfaces when quality degrades, when builds destabilize, or when technical debt accumulates.</p>
+<p>Build Monitoring is the Build Track's instantiation of the cross-track monitoring pattern: ongoing vigilance that triggers downstream work and feeds periodic reviews.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Makes the continuous oversight of build and quality health explicit. Without Build Monitoring:<br />
+- CI/CD failures and flaky builds are noticed only when someone hits them<br />
+- Test coverage drift and defect rate trends are invisible<br />
+- Technical debt accumulates without systematic visibility<br />
+- Velocity trends are not tracked for release forecasting</p>
+<p><strong>Triggers downstream work:</strong> Bug creation, Technical Debt Item creation, Release Planning adjustment, Iteration Planning rebalancing.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Text</td>
+<td>What is being monitored (e.g., "fx-service CI pipeline", "All Systems — integration test pass rate")</td>
+</tr>
+<tr>
+<td>Metrics Tracked</td>
+<td>List (text)</td>
+<td>Build pass/fail rate, test coverage, defect rate, cycle time, technical debt indicators</td>
+</tr>
+<tr>
+<td>Thresholds / Alerts</td>
+<td>List (text)</td>
+<td>When does monitoring trigger action (e.g., "Build failure 3 consecutive runs", "Coverage drop below 80%")</td>
+</tr>
+<tr>
+<td>Cadence</td>
+<td>Enum</td>
+<td><code>Continuous</code> / <code>Daily</code> / <code>Weekly</code></td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>String</td>
+<td>Role/person responsible for watching</td>
+</tr>
+<tr>
+<td>System(s) / Customer Release</td>
+<td>Reference</td>
+<td>Which System(s) (Dim 5) or Customer Release this monitoring supports (if scoped)</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active</td>
+<td>Monitoring is in effect; thresholds and cadence are defined</td>
+</tr>
+<tr>
+<td>Paused</td>
+<td>Monitoring is temporarily suspended</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>Monitoring scope is no longer relevant</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-artifacts">Outputs / Artifacts</h2>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Category</th>
+<th>Description</th>
+<th>Downstream Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alert / Trigger</td>
+<td>Evidence</td>
+<td>When threshold is breached — prompts Bug creation, Technical Debt Item creation, or planning adjustment</td>
+<td>Bug, Technical Debt Item, Release Planning Task</td>
+</tr>
+<tr>
+<td>Quality Report / Dashboard</td>
+<td>Assessment</td>
+<td>Periodic snapshot of build health, coverage, velocity</td>
+<td>Release Planning, Milestone review</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>May trigger</td>
+<td>Bug (Track 2)</td>
+<td>Monitoring surfaces defects requiring resolution</td>
+</tr>
+<tr>
+<td>May trigger</td>
+<td>Technical Debt Item (Track 2)</td>
+<td>Monitoring may surface technical debt requiring documentation</td>
+</tr>
+<tr>
+<td>May trigger</td>
+<td>Maintenance Task (Track 3)</td>
+<td>Monitoring may surface infra or hygiene work</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Release Planning Task (Track 2)</td>
+<td>Velocity and quality trends inform release scope</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Milestone Planning Task (Track 2)</td>
+<td>Quality gates inform milestone criteria</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>"Monitor payments-service and fx-service CI — continuous; alert on build failure or integration test pass rate below 95%. Weekly quality report: coverage trend, defect rate. Owner: Tech Lead. Feeds sprint review and release planning."</p>
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/entities/work-model/track2-build-monitoring.md">View on GitHub</a></p>

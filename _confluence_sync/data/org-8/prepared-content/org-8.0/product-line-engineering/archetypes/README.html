@@ -1,0 +1,76 @@
+<!-- File: org-8.0/product-line-engineering/archetypes/README.md -->
+<!-- Title: Solution Archetype Catalog -->
+<!-- Content Hash: ea28e9bc08dac5ac3aade8b512e25b2b49a1a47a882b8490ec430d6cf0c99ce1 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="solution-archetype-catalog">Solution Archetype Catalog</h1>
+<h2 id="purpose">Purpose</h2>
+<p>This directory contains <strong>Solution Archetypes</strong> — reusable patterns for classes of Customer Products. Each archetype includes a <strong>blueprint</strong> (reference architecture and configuration baseline), <strong>cookbook</strong> (how-to guides for configuration, integration, operations), <strong>playbook</strong> (delivery guide), integration patterns, and variability points. Customer Product Squads use archetypes to guide derivation; archetypes are owned by Engagement Architects (assigned via ERC) and evolved via Council and Engagement feedback. See <ac:link ac:anchor="blueprint-cookbook-playbook-definitions-and-role-in-engagement-engineering"><ri:page ri:content-title="Solution Archetypes"/><ac:plain-text-link-body><![CDATA[Blueprint, Cookbook, Playbook: definitions and role in Engagement Engineering]]></ac:plain-text-link-body></ac:link>.</p>
+<p>See <ac:link><ri:page ri:content-title="Solution Archetypes"/><ac:plain-text-link-body><![CDATA[Solution Archetypes]]></ac:plain-text-link-body></ac:link> for the full concept, components, ownership, and evolution.</p>
+<hr />
+<h2 id="current-archetypes">Current Archetypes</h2>
+<table>
+<thead>
+<tr>
+<th>Archetype</th>
+<th>Description</th>
+<th>Typical Platforms</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link><ri:page ri:content-title="Credit Card Issuer Archetype"/><ac:plain-text-link-body><![CDATA[Credit Card Issuer]]></ac:plain-text-link-body></ac:link></td>
+<td>Solutions for credit card issuance and management</td>
+<td>Olympus, Tachyon, Neutrino (optional), Electron (optional)</td>
+<td>Draft</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Commercial Cards Archetype"/><ac:plain-text-link-body><![CDATA[Commercial Cards]]></ac:plain-text-link-body></ac:link></td>
+<td>Solutions for commercial/expense card programs</td>
+<td>Olympus, Tachyon, Electron, Neutrino (optional)</td>
+<td>Draft</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Lending Archetype"/><ac:plain-text-link-body><![CDATA[Lending]]></ac:plain-text-link-body></ac:link></td>
+<td>Solutions for lending (retail, business, or both)</td>
+<td>Olympus, Tachyon, Quark (optional), Neutrino (optional)</td>
+<td>Draft</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Payments Hub Archetype"/><ac:plain-text-link-body><![CDATA[Payments Hub]]></ac:plain-text-link-body></ac:link></td>
+<td>Solutions for payment hub / orchestration</td>
+<td>Olympus, Tachyon, Quark (optional)</td>
+<td>Draft</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status:</strong> Draft = under development; Active = in use; Mature = stable and widely used. Update this table as archetypes evolve.</p>
+<hr />
+<h2 id="how-to-use-archetypes">How to Use Archetypes</h2>
+<ol>
+<li><strong>Initiate</strong> — Engagement Architect selects or adapts an archetype for the Engagement (see <ac:link><ri:page ri:content-title="Engagement Lifecycle: Product Line Perspective"/><ac:plain-text-link-body><![CDATA[Engagement Lifecycle]]></ac:plain-text-link-body></ac:link> Phase 1).</li>
+<li><strong>Build</strong> — Customer Product Squad uses the archetype’s blueprint, cookbook, and playbook to configure platforms, build extensions, and integrate. See <ac:link><ri:page ri:content-title="Engagement Engineering: PLE Framing"/><ac:plain-text-link-body><![CDATA[Engagement Engineering]]></ac:plain-text-link-body></ac:link>.</li>
+<li><strong>Variability</strong> — Engagement Architect documents configuration points, options, binding time, and customer usage per <ac:link><ri:page ri:content-title="Variability Management"/><ac:plain-text-link-body><![CDATA[Variability Management]]></ac:plain-text-link-body></ac:link>.</li>
+<li><strong>Feedback</strong> — At transition, Engagement Architect proposes archetype updates based on engagement learnings; Council reviews in Practice Mode.</li>
+</ol>
+<hr />
+<h2 id="how-to-propose-a-new-archetype">How to Propose a New Archetype</h2>
+<ol>
+<li><strong>Identify the pattern</strong> — A class of solutions has repeated (e.g. 2–3 engagements with similar scope and platform mix); reuse would be high.</li>
+<li><strong>Propose</strong> — Engagement Architects propose the new archetype: scope, components (blueprint, cookbook, playbook), variability points, and owner.</li>
+<li><strong>Council review</strong> — Council reviews in Practice or Governance Mode; approves or rejects.</li>
+<li><strong>Create</strong> — Engagement Architects create the archetype folder and initial content (blueprint, cookbook, playbook, integration patterns, variability points).</li>
+<li><strong>Catalog</strong> — Add the archetype to this README with status "Draft"; update status as it becomes Active or Mature.</li>
+</ol>
+<p>Avoid creating archetypes too early: if engagement frequency is low or the pattern is still evolving, document learnings in retrospectives and Council notes first; formalize the archetype when the pattern is clear.</p>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li><ac:link><ri:page ri:content-title="Solution Archetypes"/><ac:plain-text-link-body><![CDATA[Solution Archetypes]]></ac:plain-text-link-body></ac:link> — Concept, components, ownership, evolution</li>
+<li><ac:link><ri:page ri:content-title="Variability Management"/><ac:plain-text-link-body><![CDATA[Variability Management]]></ac:plain-text-link-body></ac:link> — Variability points and governance</li>
+<li><ac:link><ri:page ri:content-title="Platform Architecture Council Charter"/><ac:plain-text-link-body><![CDATA[Council Charter]]></ac:plain-text-link-body></ac:link> — Council’s role in archetype and variability</li>
+<li><ac:link><ri:page ri:content-title="Engagement Lifecycle: Product Line Perspective"/><ac:plain-text-link-body><![CDATA[Engagement Lifecycle]]></ac:plain-text-link-body></ac:link> — How archetypes are used in Engagements</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-line-engineering/archetypes/README.md">View on GitHub</a></p>

@@ -1,0 +1,140 @@
+<!-- File: org-8.0/engagement/lifecycle.md -->
+<!-- Title: Engagement Lifecycle — Phase by Phase -->
+<!-- Content Hash: ab35a938ef47f7d1f865936f60c57794142e6bfa2d7574e8a43dc0a1a7672b10 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="engagement-lifecycle-phase-by-phase">Engagement Lifecycle — Phase by Phase</h1>
+<p><ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[← Back to Guide]]></ac:plain-text-link-body></ac:link></p>
+<p>The Engagement lifecycle has five phases: <strong>Initiate → Discover → Build → Transfer → Complete</strong>. Each phase has defined objectives, activities, active roles, inputs/outputs, and decision gates.</p>
+<p>See <ac:link><ri:page ri:content-title="Engagement Lifecycle: Product Line Perspective"/><ac:plain-text-link-body><![CDATA[engagement-lifecycle.md]]></ac:plain-text-link-body></ac:link> for detailed activity-level process.</p>
+<p>The lifecycle begins at customer commitment. For the pre-Engagement phase, see <ac:link><ri:page ri:content-title="Exploration — Before an Engagement Exists"/><ac:plain-text-link-body><![CDATA[Exploration]]></ac:plain-text-link-body></ac:link>.</p>
+<hr />
+<h2 id="initiate">Initiate</h2>
+<p><strong>Objective:</strong> Assign Engagement-level roles, kick off the Engagement, confirm scope, agree on the operating model, and select the archetype.</p>
+<p><strong>Key activities:</strong></p>
+<ul>
+<li>Engagement-level role assignment (see <ac:link><ri:page ri:content-title="Engagement Formation — Team Assembly and Evolution"/><ac:plain-text-link-body><![CDATA[Engagement Formation]]></ac:plain-text-link-body></ac:link>):</li>
+<li><strong>ERC</strong> assigns <strong>Client Partner</strong> (per-client, may already be in place), <strong>EO</strong>, <strong>EPM</strong>, <strong>EA</strong>, <strong>AVA</strong>, and ensures <strong>CPA</strong> support for the Client Partner</li>
+<li><strong>EO</strong> assigns <strong>ELs</strong>, <strong>EPO</strong>, <strong>SRE Lead</strong></li>
+<li>Engagement kickoff with customer and internal stakeholders</li>
+<li>Scope confirmation based on Exploration artifacts</li>
+<li>Operating model agreement (selected during Exploration, confirmed here)</li>
+<li>Archetype selection or adaptation (EA-led)</li>
+<li>Commercial and contract confirmation (EPM + Account Management)</li>
+</ul>
+<p><strong>Roles active:</strong> Client Partner, CPA, ERC, EO, EPM, EA, AVA, EPO, ELs</p>
+<p><strong>Inputs:</strong> Exploration artifacts (scope outline, preliminary architecture, archetype assessment, commercial terms, operating model choice)</p>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Engagement charter with named Engagement-level roles</li>
+<li>Archetype selection and adaptation plan</li>
+<li>Initial squad activation plan</li>
+<li>Confirmed commercial terms</li>
+</ul>
+<p><strong>Decision gate:</strong> Engagement-level roles assigned; scope and operating model confirmed with customer; Engagement charter signed off.</p>
+<hr />
+<h2 id="discover">Discover</h2>
+<p><strong>Objective:</strong> Staff squads with engineers, detail requirements, design the solution architecture, analyze gaps, and begin test strategy.</p>
+<p><strong>Key activities:</strong></p>
+<ul>
+<li>ELs submit staffing requests to ERC Portfolio Program Manager (PPM); PPM consolidates demand across Engagements</li>
+<li>PPM presents consolidated demand to Product Line Squad leads; PL Squad leads check capacity and commit engineers</li>
+<li>Detailed requirements analysis (EPO-led)</li>
+<li>Solution architecture design (EA-led) — platforms, integrations, extensions, Studio Components</li>
+<li>Gap analysis (EA) — platform capability vs. customer need; plan inner source contributions or custom components</li>
+<li>AVA begins test strategy and cross-squad test suite planning</li>
+<li>SRE Lead begins operational readiness assessment</li>
+</ul>
+<p><strong>Roles active:</strong> EO, EPM, EA, AVA, EPO, ELs, Squad PMs, SRE Lead (advisory)</p>
+<p><strong>Inputs:</strong> Engagement charter with named roles, archetype (blueprint, cookbook, playbook), customer requirements, Product Line capacity</p>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Detailed requirements document</li>
+<li>Solution architecture document</li>
+<li>Staffing plan with named individuals and rotation dates</li>
+<li>Gap analysis and inner source plan</li>
+<li>Test strategy (AVA)</li>
+<li>RACI and escalation path</li>
+</ul>
+<p><strong>Decision gate:</strong> Squads staffed and committed; solution architecture reviewed; requirements baselined; test strategy agreed.</p>
+<hr />
+<h2 id="build">Build</h2>
+<p><strong>Objective:</strong> Configure platforms, build extensions and integrations, assemble Studio Components, test, and progress toward production readiness.</p>
+<p><strong>Key activities:</strong></p>
+<ul>
+<li>Platform provisioning and base configuration</li>
+<li>Configuration per archetype and customer</li>
+<li>Extension development within platform boundaries</li>
+<li>Integration development (customer systems, data, etc.)</li>
+<li>Studio Component development (UIs, workflows, applications)</li>
+<li>Inner source contributions — consult Product Line Maintainers, implement, submit PRs</li>
+<li>AVA certifies the assembly at every increment; the Verification Squad builds and maintains the verification module (IaC environment definitions, test suites, test data preparation, CI orchestration)</li>
+<li>Variability documentation (EA)</li>
+<li>Testing and validation (squads + Verification Squad)</li>
+<li>SRE Lead drives operational readiness: monitoring, alerting, runbooks, capacity planning</li>
+</ul>
+<p><strong>Roles active:</strong> EO, EPM, EA, AVA, EPO, ELs, Squad PMs, SRE Lead</p>
+<p><strong>Inputs:</strong> Staffed teams, solution architecture, archetype artifacts, platform access, customer access</p>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Configured and integrated assembly (Customer Product + Studio Components)</li>
+<li>Variability documentation</li>
+<li>Test results and AVA certification</li>
+<li>Operational readiness artifacts (runbooks, escalation matrix, monitoring config)</li>
+<li>Merged inner source PRs and tech debt tickets</li>
+</ul>
+<p><strong>Decision gate:</strong> Go-live criteria met; AVA certifies assembly; SRE Lead confirms operational readiness; EPM confirms customer alignment.</p>
+<hr />
+<h2 id="transfer">Transfer</h2>
+<p><strong>Objective:</strong> Hand over the assembled product per operating model; capture knowledge; prepare for steady state.</p>
+<p><strong>Key activities:</strong></p>
+<ul>
+<li>Handover per operating model:</li>
+<li><strong>Fully Managed:</strong> to Zeta run team; playbooks, escalation, access</li>
+<li><strong>Co-Managed:</strong> to Zeta run team and customer per contract; responsibility matrix</li>
+<li><strong>Customer-Operated:</strong> to customer with documentation, runbooks, escalation path</li>
+<li>EPO owns customer training and enablement</li>
+<li>AVA hands over the verification module (test suites, environment definitions, test data tooling, CI orchestration, certification records) to run team or customer</li>
+<li>SRE Lead ensures operational readiness criteria are met</li>
+<li>EA finalizes variability documentation and proposes archetype updates</li>
+<li>Knowledge capture: retrospective, decision log, archetype updates, pattern extraction</li>
+</ul>
+<p><strong>Roles active:</strong> EO, EPM, EA, AVA, EPO, ELs, SRE Lead</p>
+<p><strong>Inputs:</strong> Assembled product in production, operational readiness artifacts, operating model</p>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Handover complete per operating model</li>
+<li>Verification module handed over (AVA) — test suites, environment definitions, test data tooling, certification records</li>
+<li>Training materials delivered (EPO)</li>
+<li>Knowledge capture artifacts (retrospective, decision log, archetype updates)</li>
+<li>Operational runbooks finalized (SRE Lead)</li>
+</ul>
+<p><strong>Decision gate:</strong> Handover criteria met per operating model; knowledge capture complete; SRE Lead signs off on operational readiness.</p>
+<hr />
+<h2 id="complete">Complete</h2>
+<p><strong>Objective:</strong> Stabilize in production, release squads, close the Engagement, drive adoption and value delivery.</p>
+<p><strong>Key activities:</strong></p>
+<ul>
+<li>Post-go-live stabilization and monitoring</li>
+<li>Resolution of remaining defects or transition issues</li>
+<li>EPM drives Engagement Success: adoption tracking, value delivery assessment</li>
+<li>Squad members released per plan</li>
+<li>Inner source repatriation — ensure Engagement-specific work that proved reusable is contributed back to Product Lines</li>
+<li>Engagement formally closed; final status communicated</li>
+<li>Retrospective and archetype updates submitted to PAC Practice Mode</li>
+</ul>
+<p><strong>Roles active:</strong> EO, EPM, EA (advisory), AVA (advisory), SRE Lead</p>
+<p><strong>Inputs:</strong> Production system, stabilization observations, open item list</p>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Engagement formally closed</li>
+<li>Squad members released</li>
+<li>Final retrospective and lessons learned</li>
+<li>Inner source contributions completed</li>
+<li>Engagement Success metrics captured</li>
+</ul>
+<p><strong>Decision gate:</strong> Stabilization criteria met; no critical open items; Engagement closed; Engagement Success metrics reviewed.</p>
+<hr />
+<p><ac:link><ri:page ri:content-title="Engagement Roles and Responsibilities"/><ac:plain-text-link-body><![CDATA[← Previous: Roles and Responsibilities]]></ac:plain-text-link-body></ac:link> | <ac:link><ri:page ri:content-title="Engagement Formation — Team Assembly and Evolution"/><ac:plain-text-link-body><![CDATA[→ Next: Engagement Formation]]></ac:plain-text-link-body></ac:link></p>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/engagement/lifecycle.md">View on GitHub</a></p>

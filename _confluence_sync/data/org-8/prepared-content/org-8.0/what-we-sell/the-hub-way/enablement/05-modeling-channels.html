@@ -1,0 +1,622 @@
+<!-- File: org-8.0/what-we-sell/the-hub-way/enablement/05-modeling-channels.md -->
+<!-- Title: 05 - Modeling Channels -->
+<!-- Content Hash: 2703267890ce3a57f6123a4a60196625476250760f29653401a089b238c0e0e4 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="modeling-channels">Modeling Channels</h1>
+<p>This document covers Channels as comprehensive systems, Channel types and interaction models, Hub-level configuration, Persona and Scenario relationships, identity and access control, the critical distinction between Channel and Channel Product, anti-patterns, and heuristics. Audience: product managers, domain architects, engineers.</p>
+<hr />
+<h2 id="1-channels-as-comprehensive-systems-not-uis">1. Channels as Comprehensive Systems, Not UIs</h2>
+<p>A <strong>Channel</strong> is not a screen or widget. It is a system embodying identity, authentication, access control, and interaction model nuances. Each Channel is a first-class architectural concern.</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>What a Channel Embodies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity</strong></td>
+<td>Who is participating — human user, AI agent, or system</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>How participants prove identity — SSO, API keys, SPIFFE, OAuth</td>
+</tr>
+<tr>
+<td><strong>Access control</strong></td>
+<td>What participants are authorized to do — RBAC, entity/action permissions</td>
+</tr>
+<tr>
+<td><strong>Interaction model</strong></td>
+<td>How participants engage — task-oriented, conversational, programmatic, AI-native</td>
+</tr>
+</tbody>
+</table>
+<p>A REST API is a Channel. A voice telephony integration is a Channel. An Agent Desk is a Channel. Each is a full collaboration surface with governance, not a thin UI layer.</p>
+<h3 id="channels-are-composable">Channels Are Composable</h3>
+<p>A Channel is not a monolithic system. It is a collection of <strong>composable components</strong> that are interaction-paradigm-specific and technology-specific. The same underlying Hub capability — task presentation, notification delivery, knowledge access, entity navigation, delegation and consent — is realized through paradigm-native components:</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Web Console</th>
+<th>MS Teams</th>
+<th>REST API</th>
+<th>MCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task presentation</td>
+<td>Card list, forms, queues</td>
+<td>Adaptive cards, quick actions</td>
+<td>JSON payload, status endpoints</td>
+<td>Tool invocation, structured results</td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>In-app alert, badge</td>
+<td>Bot message, proactive alert</td>
+<td>Webhook callback</td>
+<td>Context update, resource notification</td>
+</tr>
+<tr>
+<td>Knowledge access</td>
+<td>Search panel, document viewer</td>
+<td>Bot Q&amp;A, inline lookup</td>
+<td>Query endpoint</td>
+<td>RAG retrieval, prompt context</td>
+</tr>
+<tr>
+<td>Delegation/consent</td>
+<td>Dialog, approval button</td>
+<td>Consent card</td>
+<td>OAuth flow</td>
+<td>Authorization grant</td>
+</tr>
+</tbody>
+</table>
+<p>Because Channels are composed from components rather than built as monoliths, they can be <strong>recomposed</strong>. A Hub composes these components for its domain context. A Channel Product recomposes components from multiple Hubs for the persona's organizational context. This composability is what makes Channel Products possible without rebuilding capabilities from scratch.</p>
+<p>When modeling a Hub, treat each Channel as a distinct composition with its own security posture, protocol constraints, and participant expectations.</p>
+<hr />
+<h2 id="2-channel-types-and-interaction-models">2. Channel Types and Interaction Models</h2>
+<p>Channels vary by interaction paradigm. The choice of Channel type affects how participants engage with Hub Scenarios.</p>
+<table>
+<thead>
+<tr>
+<th>Channel Type</th>
+<th>Description</th>
+<th>Interaction Model</th>
+<th>Banking Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Web applications (desks, consoles)</strong></td>
+<td>Persona-specific, task-oriented interfaces</td>
+<td>Structured workflows, forms, queues, dashboards</td>
+<td>Agent Desk for dispute resolution, Supervisor Desk for queue management, Customer Portal for self-serve account management</td>
+</tr>
+<tr>
+<td><strong>Chat and collaboration platforms (MS Teams)</strong></td>
+<td>Conversational, embedded in work contexts</td>
+<td>Natural language, quick actions, in-flow collaboration</td>
+<td>Me_Bot for agents checking tasks between meetings, Ask_Bot for business users querying servicing</td>
+</tr>
+<tr>
+<td><strong>Voice and telephony</strong></td>
+<td>Quasi-digital, real-time, human-centric</td>
+<td>Spoken interaction, IVR, screen-pop for reps</td>
+<td>Contact center inbound calls, IVR for balance inquiry, agent-assisted voice for complex disputes</td>
+</tr>
+<tr>
+<td><strong>API channels (REST)</strong></td>
+<td>System-to-system, programmatic</td>
+<td>Request-response, batch, webhooks</td>
+<td>Partner payment submission, merchant onboarding integration, regulatory filing submission</td>
+</tr>
+<tr>
+<td><strong>AI agent channels (MCP)</strong></td>
+<td>AI-native interaction via Model Context Protocol</td>
+<td>Tool invocation, context retrieval, real-time updates</td>
+<td>AI assistant resolving account inquiries, co-pilot surfacing context for agents, customer's personal AI transacting on their behalf</td>
+</tr>
+<tr>
+<td><strong>CLI</strong></td>
+<td>Developer-oriented</td>
+<td>Command-line invocation, scripting</td>
+<td>SRE operations, developer tooling, administrative tasks</td>
+</tr>
+</tbody>
+</table>
+<p>Different personas use different Channel types. An agent may use a Web Console (Agent Desk) for deep work and MS Teams (Me_Bot) for quick checks. A customer may use a web portal for self-serve and voice for complex issues. A partner system uses REST APIs exclusively. Model each Channel type with its interaction paradigm in mind.</p>
+<hr />
+<h2 id="3-channels-are-hub-level">3. Channels Are Hub-Level</h2>
+<p>Each Hub configures which Channels are available for its Scenarios. <strong>Channel selection is a domain modeling decision, not a platform default.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Hub</th>
+<th>Typical Channels</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Payments Hub</strong></td>
+<td>REST API, Agent Desk</td>
+<td>System integration for partners and merchants; operations staff for exceptions and reconciliation</td>
+</tr>
+<tr>
+<td><strong>Customer Servicing Hub</strong></td>
+<td>Web portal, voice, chat, AI agent (MCP), REST API</td>
+<td>Multi-channel service delivery — self-serve, assisted, agentic; partners may integrate via API</td>
+</tr>
+<tr>
+<td><strong>Credit Card Hub</strong></td>
+<td>Agent Desk, REST API, AI agent (MCP)</td>
+<td>Operations for applications and disputes; system integration for lifecycle; AI co-pilot for agents</td>
+</tr>
+<tr>
+<td><strong>Compliance Hub</strong></td>
+<td>Supervisor Console, REST API, CLI</td>
+<td>Supervisory monitoring; regulatory system integration; administrative operations</td>
+</tr>
+</tbody>
+</table>
+<p>A Hub does not inherit Channels from the platform. Domain experts decide which Channels make sense for the personas who interact with that Hub. A Payments Hub may never need voice — its participants are systems and operations staff. A Customer Servicing Hub almost always needs voice, chat, and web — its participants include customers in varied contexts.</p>
+<hr />
+<h2 id="4-channel-and-persona">4. Channel and Persona</h2>
+<p>Channels are <strong>persona-scoped</strong>. Different personas access the Hub through different Channels with different capabilities. Same underlying Hub capabilities, different interaction surfaces.</p>
+<table>
+<thead>
+<tr>
+<th>Persona</th>
+<th>Typical Channels</th>
+<th>Capability Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer</strong></td>
+<td>Web portal, mobile app, voice, chat, AI agent</td>
+<td>Self-serve inquiries, service requests, dispute filing</td>
+</tr>
+<tr>
+<td><strong>Agent</strong></td>
+<td>Agent Desk, MS Teams, MCP</td>
+<td>Task execution, customer interaction, knowledge access</td>
+</tr>
+<tr>
+<td><strong>Supervisor</strong></td>
+<td>Supervisor Desk, MS Teams, MCP</td>
+<td>Queue management, escalation, team oversight</td>
+</tr>
+<tr>
+<td><strong>Compliance Officer</strong></td>
+<td>Supervisor Console, REST API</td>
+<td>Monitoring, audit, regulatory reporting</td>
+</tr>
+<tr>
+<td><strong>Partner System</strong></td>
+<td>REST API</td>
+<td>Programmatic integration, batch submission</td>
+</tr>
+</tbody>
+</table>
+<p>In Olympus Hub, <strong>Persona</strong> is a platform-level user archetype with dedicated UX applications, API channels, and notification preferences. Each Persona has a Persona-Channel matrix: which Channels are available, which applications or bots serve them, and which API paths are persona-scoped. A user assigned to the Agent Persona accesses the Agent Desk (web), Me_Bot (MS Teams), and agent-scoped MCP and REST APIs. A user assigned to the Supervisor Persona accesses the Supervisor Desk and supervisor-scoped APIs. The same underlying Hub capabilities are exposed; the Channel determines how.</p>
+<hr />
+<h2 id="5-channel-and-scenario">5. Channel and Scenario</h2>
+<p>Collaborators participate in Scenarios (both Stream and Loop) through Channels. <strong>A single Scenario may involve multiple Channels simultaneously</strong> — agent on desk, customer on portal, AI agent via MCP — all in the same work, with appropriate identity and access control for each.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Channels Involved</th>
+<th>Participants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dispute resolution</td>
+<td>Agent Desk, Voice, MCP</td>
+<td>Agent on desk, customer on voice call, AI co-pilot via MCP providing transaction analysis</td>
+</tr>
+<tr>
+<td>Credit card application</td>
+<td>Web portal, Agent Desk, REST API</td>
+<td>Customer on portal, agent on desk for manual review, partner system via API for income verification</td>
+</tr>
+<tr>
+<td>Fraud investigation</td>
+<td>Agent Desk, Supervisor Console, MCP</td>
+<td>Agent on desk, supervisor monitoring via console, AI analyst via MCP</td>
+</tr>
+<tr>
+<td>Regulatory filing</td>
+<td>REST API, Supervisor Console</td>
+<td>Partner system submitting via API, compliance officer reviewing via console</td>
+</tr>
+</tbody>
+</table>
+<p>Each participant authenticates through their Channel. Each has access control scoped to their Persona and the Scenario context. The Scenario execution model does not change — it is goal-oriented, agent-resolved — but the Channels through which agents participate vary. Model Scenarios with multi-Channel participation in mind when the work involves multiple persona types.</p>
+<p>Teams collaborate through Channels to resolve Scenarios. Channels are the surfaces; Teams are the participants; Machines provide the tools. This triad — who participates (Teams), through what surface (Channels), using what capabilities (Machines) — is the operational foundation of every Scenario.</p>
+<hr />
+<h2 id="6-identity-authentication-and-access-control">6. Identity, Authentication, and Access Control</h2>
+<p>Each Channel has a security posture. Human and AI participants require different identity and authorization models.</p>
+<h3 id="human-iam">Human IAM</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>SSO integration (SAML/OIDC) via Cipher IAM</td>
+</tr>
+<tr>
+<td><strong>Access control</strong></td>
+<td>RBAC scoped to Workbenches; Persona determines available Channels and capabilities</td>
+</tr>
+<tr>
+<td><strong>Delegation</strong></td>
+<td>Channels can facilitate request-scoped authority delegation — user grants agent authority to act on their behalf</td>
+</tr>
+</tbody>
+</table>
+<p>Human participants authenticate once and access Hub through persona-appropriate Channels. Permissions are scoped to Workbench (Hub) and Persona.</p>
+<h3 id="ai-agent-iam">AI Agent IAM</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity</strong></td>
+<td>SPIFFE-based deployment identity — proves "this request is from this specific agent deployment"</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>SPIFFE SVID for infrastructure; OAuth tokens for business-layer authorization</td>
+</tr>
+<tr>
+<td><strong>Access control</strong></td>
+<td>Fine-grained entity/action permissions; Agent Persona determines scope</td>
+</tr>
+<tr>
+<td><strong>Tool authorization</strong></td>
+<td>OAuth-like consent for agent tool access — user grants authority via Channel; agent receives request-scoped token</td>
+</tr>
+</tbody>
+</table>
+<p>AI agents have two-layer identity: Deployment Identity (SPIFFE) for infrastructure authentication, and Agent Persona for business authorization. When an agent needs to act on behalf of a user, the Channel presents consent UI and captures delegation; the agent receives a Delegation Access Token bound to the request and the agent's SPIFFE ID.</p>
+<h3 id="channel-specific-security-posture">Channel-Specific Security Posture</h3>
+<table>
+<thead>
+<tr>
+<th>Channel Type</th>
+<th>Typical Auth</th>
+<th>Typical Access Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web Console</td>
+<td>SSO (SAML/OIDC)</td>
+<td>RBAC, Persona-scoped</td>
+</tr>
+<tr>
+<td>MS Teams</td>
+<td>Bot Framework + SSO</td>
+<td>Persona-scoped, delegation-capable</td>
+</tr>
+<tr>
+<td>REST API</td>
+<td>OAuth 2.0, API keys, mTLS</td>
+<td>Persona-scoped or system-scoped</td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>OAuth 2.0 via MCP Router</td>
+<td>Persona-scoped MCP Servers</td>
+</tr>
+<tr>
+<td>Voice</td>
+<td>Telephony provider + SSO for reps</td>
+<td>Screen-pop with authenticated agent</td>
+</tr>
+<tr>
+<td>CLI</td>
+<td>Service account, SPIFFE</td>
+<td>Operator-scoped</td>
+</tr>
+</tbody>
+</table>
+<p>Each Channel has its own authentication flow, token lifecycle, and authorization checks. Modelers should ensure that Channel selection aligns with the security requirements of the participants and the Scenario.</p>
+<hr />
+<h2 id="7-channel-vs-channel-product-critical">7. Channel vs Channel Product (CRITICAL)</h2>
+<p>This distinction is essential for correct modeling.</p>
+<h3 id="channel-hub-scoped">Channel (Hub-Scoped)</h3>
+<p>A <strong>Channel</strong> is Hub-scoped. It represents one Hub's view of collaboration for a persona. It is part of Hub modeling.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Hub-scoped</td>
+</tr>
+<tr>
+<td><strong>Represents</strong></td>
+<td>One domain's view of collaboration for a persona</td>
+</tr>
+<tr>
+<td><strong>Modeling concern</strong></td>
+<td>Part of Hub modeling — which Channels does this Hub expose?</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>Payments Hub's REST API for partners; Servicing Hub's Agent Desk for agents</td>
+</tr>
+</tbody>
+</table>
+<h3 id="channel-product-organization-scoped">Channel Product (Organization-Scoped)</h3>
+<p>A <strong>Channel Product</strong> is Organization-scoped. It composes Channels from multiple Hubs into a cohesive persona experience — navigation structure, interaction paradigm, unified flows. Channel Products are delivered through the Neutrino suite.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Channel Product</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Organization-scoped</td>
+</tr>
+<tr>
+<td><strong>Represents</strong></td>
+<td>Composite experience for a persona across multiple Hubs</td>
+</tr>
+<tr>
+<td><strong>Modeling concern</strong></td>
+<td>Neutrino concern — how do we deliver a unified experience?</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>Customer's mobile banking app; agent's unified servicing desktop</td>
+</tr>
+</tbody>
+</table>
+<p><ac:image ac:align="center" ac:border="false"><ri:url ri:value="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAEwCAYAAACZoyciAAAACXBIWXMAAAsTAAALEwEAmpwYAAAESUlEQVR4nO3VwQ3AIBDAsNL9dz5mIB+EZE+QX9bMzAcAh/7bAQC8yUAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgMRAAEgMBIDEQABIDASAxEAASAwEgGQDWCgGXAaG704AAAAASUVORK5CYII="/></ac:image></p>
+
+<h3 id="persona-scope">Persona Scope</h3>
+<p>Both Hub Channels and Channel Products are persona-optimized. The difference is <strong>persona scope</strong>.</p>
+<p>A Hub Channel serves a <strong>domain-scoped persona</strong> — the customer as the Hub's domain sees them. The Payments Hub sees the customer as a payer. The Credit Card Hub sees the customer as a cardholder. The Servicing Hub sees the agent as a dispute investigator. Each Hub composes Channel components to serve its persona in its domain context.</p>
+<p>A Channel Product serves an <strong>organization-scoped persona</strong> — the customer as the organization sees them: a banking-relationship-holder whose needs span payments, credit, servicing, and more. The Channel Product recomposes components from multiple Hubs into an experience optimized for this broader persona.</p>
+<table>
+<thead>
+<tr>
+<th>Persona Scope</th>
+<th>Who Models It</th>
+<th>Optimized For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Domain-scoped</strong> (Hub Channel)</td>
+<td>Domain experts</td>
+<td>How this persona interacts with this domain's Streams, Loops, and Scenarios</td>
+</tr>
+<tr>
+<td><strong>Organization-scoped</strong> (Channel Product)</td>
+<td>Product/UX designers</td>
+<td>How this persona experiences their full relationship with the organization</td>
+</tr>
+</tbody>
+</table>
+<p>The persona model itself may differ. A Hub defines domain-scoped personas (Payments Agent, Dispute Investigator). A Channel Product may define organizational personas (Operations Agent, Banking Customer) that don't map one-to-one to any single Hub's persona definitions. Neutrino's job includes bridging this persona scope gap.</p>
+<h3 id="recomposition">Recomposition</h3>
+<p>Because Channels are built from composable components (see section 1), Channel Products are not limited to aggregating Hub Channels side by side. They can <strong>recompose</strong> components — selecting, arranging, and combining them in ways optimized for the persona's organizational context rather than any single Hub's domain context.</p>
+<p>A Hub Channel for the Credit Card Hub might present card controls, statements, and dispute filing in a task-oriented layout for card management. The same components — card controls, statement data, dispute initiation — appear in the customer's mobile banking Channel Product, but recomposed alongside Payments and Servicing components in a navigation and interaction structure designed for how a customer thinks about their banking relationship, not how the Credit Card Hub organizes its work.</p>
+<p>This is not API aggregation. It is genuine recomposition for least friction and maximum delight.</p>
+<h3 id="comparison-table">Comparison Table</h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Channel</th>
+<th>Channel Product</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Hub-scoped</td>
+<td>Organization-scoped</td>
+</tr>
+<tr>
+<td><strong>Persona scope</strong></td>
+<td>Domain-scoped (customer-as-payer, agent-as-investigator)</td>
+<td>Organization-scoped (customer-as-relationship-holder, agent-as-operations-staff)</td>
+</tr>
+<tr>
+<td><strong>Represents</strong></td>
+<td>One domain's view of collaboration</td>
+<td>Composite experience across domains</td>
+</tr>
+<tr>
+<td><strong>Composition</strong></td>
+<td>Composed from paradigm-specific components for one domain</td>
+<td>Recomposed from multiple Hubs' components for the persona's organizational context</td>
+</tr>
+<tr>
+<td><strong>Modeling</strong></td>
+<td>Part of Hub modeling</td>
+<td>Neutrino concern</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>Payments Hub REST API; Servicing Hub Agent Desk</td>
+<td>Customer mobile app; agent unified desktop</td>
+</tr>
+<tr>
+<td><strong>Ownership</strong></td>
+<td>Domain experts model Hub Channels</td>
+<td>Product/UX design Channel Products</td>
+</tr>
+</tbody>
+</table>
+<p>When modeling a Hub, focus on Channels — what surfaces does this domain expose for which personas, and what composable components serve them? When designing experiences that span domains, focus on Channel Products — how do we recompose those components into a cohesive experience for the organization-scoped persona?</p>
+<hr />
+<h2 id="8-channel-anti-patterns">8. Channel Anti-Patterns</h2>
+<h3 id="the-monolith-channel">The Monolith Channel</h3>
+<p><strong>Problem:</strong> One Channel serving all personas, or a Channel built as a single indivisible system.</p>
+<p>Different personas have different interaction needs, different access control, different paradigms. A single "unified" Channel that serves customers, agents, supervisors, and partners will either be overloaded (trying to be everything) or will force inappropriate interactions (e.g., customers using an agent desk). A Channel built as a monolith — where components cannot be extracted and recomposed — also qualifies: it blocks Channel Product composition and locks capabilities into one interaction paradigm.</p>
+<table>
+<thead>
+<tr>
+<th>Sign</th>
+<th>What It Indicates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single web app for all users</td>
+<td>Personas forced into one interaction model</td>
+</tr>
+<tr>
+<td>Same API for humans and systems</td>
+<td>Confusion between programmatic and interactive use</td>
+</tr>
+<tr>
+<td>One RBAC policy for all</td>
+<td>Overly broad or overly restrictive access</td>
+</tr>
+<tr>
+<td>Components cannot be used outside the Channel</td>
+<td>Monolithic build prevents recomposition into Channel Products</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remedy:</strong> Model Channels per persona and per interaction paradigm. Design components for composability — a Channel Product may need to recompose them differently than the Hub does.</p>
+<h3 id="the-backdoor-channel">The Backdoor Channel</h3>
+<p><strong>Problem:</strong> Interaction surface bypassing identity and authentication.</p>
+<p>A Channel that allows participation without proper identity, authentication, or access control is not a Channel — it is a vulnerability. Every Channel must enforce: who is participating, how they proved identity, and what they are authorized to do. "Convenience" endpoints, internal-only APIs with no auth, or unauthenticated webhooks are anti-patterns.</p>
+<table>
+<thead>
+<tr>
+<th>Sign</th>
+<th>What It Indicates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unauthenticated API endpoints</td>
+<td>No identity verification</td>
+</tr>
+<tr>
+<td>Shared credentials across systems</td>
+<td>No individual accountability</td>
+</tr>
+<tr>
+<td>Bypass paths "for internal use"</td>
+<td>Erosion of access control</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remedy:</strong> Every Channel has a defined authentication flow and authorization model. No exceptions.</p>
+<h3 id="the-orphan-channel">The Orphan Channel</h3>
+<p><strong>Problem:</strong> Channel configured in a Hub but not connected to any Scenarios.</p>
+<p>A Channel that exists but is not used by any Scenario is overhead with no value. It consumes configuration, security review, and maintenance without enabling any work. If a Channel is configured, it should be the participation surface for at least one Scenario.</p>
+<table>
+<thead>
+<tr>
+<th>Sign</th>
+<th>What It Indicates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Channel in config, no Scenario references it</td>
+<td>Orphan</td>
+</tr>
+<tr>
+<td>"We might use it later"</td>
+<td>Speculative overhead</td>
+</tr>
+<tr>
+<td>Legacy Channel never deprecated</td>
+<td>Accumulated technical debt</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remedy:</strong> Every Channel should be traceable to at least one Scenario. If a Channel has no Scenario, remove it or connect it.</p>
+<hr />
+<h2 id="9-channel-heuristics">9. Channel Heuristics</h2>
+<table>
+<thead>
+<tr>
+<th>Heuristic</th>
+<th>Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Start with the personas who interact with the Hub</strong></td>
+<td>Each persona needs at least one Channel appropriate to their interaction paradigm. List personas first; then assign Channels.</td>
+</tr>
+<tr>
+<td><strong>Consider interaction paradigm</strong></td>
+<td>Task-oriented (desk), conversational (chat/voice), programmatic (API), AI-native (MCP). Match Channel type to how the persona works.</td>
+</tr>
+<tr>
+<td><strong>If two personas share a Channel, verify they have the same interaction needs</strong></td>
+<td>Sharing is valid when paradigms align (e.g., Agent and Supervisor both use Agent Desk for different views). If needs differ, consider separate Channels.</td>
+</tr>
+<tr>
+<td><strong>Channel evolution is often independent of domain evolution</strong></td>
+<td>Adding a new Channel type (e.g., MCP for AI agents) does not change Streams or Loops. Channels are orthogonal to work classification.</td>
+</tr>
+<tr>
+<td><strong>Channel Product vs Channel</strong></td>
+<td>When modeling a Hub, model Channels. When designing cross-Hub experiences, model Channel Products. Do not conflate.</td>
+</tr>
+<tr>
+<td><strong>Design components for reuse</strong></td>
+<td>A Channel Product may compose components differently than the Hub does. Build paradigm-specific components that can be recomposed for different persona scopes.</td>
+</tr>
+<tr>
+<td><strong>Every Channel has a security posture</strong></td>
+<td>Document authentication, authorization, and delegation model for each Channel.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>A Channel is a comprehensive system — identity, authentication, access control, interaction model — not a UI, and not a monolith. Channels are composed from paradigm-specific, technology-specific components that can be recomposed for different contexts. Channel types include web applications, chat/collaboration, voice, REST API, AI agent (MCP), and CLI. Channels are Hub-level: each Hub configures which Channels are available for its Scenarios. Channels are persona-scoped: different personas access through different Channels with different capabilities. A single Scenario may involve multiple Channels simultaneously. Identity and access control differ for humans (SSO, RBAC) and AI agents (SPIFFE, OAuth-like consent). The critical distinction: Channel is Hub-scoped, serving a domain-scoped persona; Channel Product is Organization-scoped, recomposing components from multiple Hubs to serve an organization-scoped persona (Neutrino). Avoid the Monolith Channel, the Backdoor Channel, and the Orphan Channel. Design components for reuse across Channel Products.</p>
+<hr />
+<h2 id="related-documents">Related Documents</h2>
+<ul>
+<li><ac:link><ri:page ri:content-title="01 - Framework and Rationale"/><ac:plain-text-link-body><![CDATA[Framework and Rationale]]></ac:plain-text-link-body></ac:link> — design principles and scope</li>
+<li><ac:link><ri:page ri:content-title="04 - Modeling Hubs"/><ac:plain-text-link-body><![CDATA[Modeling Hubs]]></ac:plain-text-link-body></ac:link> — Hub boundaries and what a Hub contains</li>
+<li><ac:link><ri:page ri:content-title="06 - Modeling Teams"/><ac:plain-text-link-body><![CDATA[Modeling Teams]]></ac:plain-text-link-body></ac:link> — who participates through Channels</li>
+<li><ac:link><ri:page ri:content-title="07 - Modeling Machines"/><ac:plain-text-link-body><![CDATA[Modeling Machines]]></ac:plain-text-link-body></ac:link> — tools accessed via Channels</li>
+<li><ac:link><ri:page ri:content-title="08 - The Hub Way and the Olympus Hub Ontology"/><ac:plain-text-link-body><![CDATA[Ontology Alignment]]></ac:plain-text-link-body></ac:link> — Channels and the ontology</li>
+<li><ac:link><ri:page ri:content-title="09 - Implementing The Hub Way in Olympus Hub"/><ac:plain-text-link-body><![CDATA[Implementing in Hub]]></ac:plain-text-link-body></ac:link> — Channel and Channel Product implementation</li>
+<li><ac:link><ri:page ri:content-title="10 - Worked Examples"/><ac:plain-text-link-body><![CDATA[Worked Examples]]></ac:plain-text-link-body></ac:link> — Channel modeling in banking domains</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d42e04b | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d42e04b/org-8.0/what-we-sell/the-hub-way/enablement/05-modeling-channels.md">View on GitHub</a></p>

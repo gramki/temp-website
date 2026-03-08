@@ -1,0 +1,99 @@
+<!-- File: org-8.0/product-line-engineering/governance/council-charter.md -->
+<!-- Title: Platform Architecture Council Charter -->
+<!-- Content Hash: 25b11089814e0137ffa674b52d0f8615d37e12332b6ee030d2c112c17985de4c -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="platform-architecture-council-charter">Platform Architecture Council Charter</h1>
+<h2 id="purpose-and-authority">Purpose and Authority</h2>
+<p>The <strong>Platform Architecture Council (PAC)</strong> is a single body that serves two modes:</p>
+<ol>
+<li><strong>Practice Mode</strong> — Monthly, advisory: knowledge sharing, case reviews, pattern extraction, and best-practice development.</li>
+<li><strong>Governance Mode</strong> — Ad-hoc, decision authority: architectural disputes, standards decisions, escalation resolution, and variability governance.</li>
+</ol>
+<p>The Council does not replace Product Line Squad or Engagement Engineering accountability; it provides alignment, dispute resolution, and governance across the product line.</p>
+<hr />
+<h2 id="membership">Membership</h2>
+<ul>
+<li><strong>Senior/Principal Engineers</strong> from Product Line Squads (nominated or appointed per team)</li>
+<li><strong>Engagement Architects</strong> (assigned via ERC)</li>
+</ul>
+<p>Membership is stable enough to build continuity; it may be refreshed periodically (e.g. annually) to reflect role changes and growth.</p>
+<p><strong>Quorum:</strong> Defined by the Council (e.g. majority of members) for Governance Mode decisions. Practice Mode has no formal quorum but benefits from broad attendance.</p>
+<hr />
+<h2 id="practice-mode-monthly">Practice Mode (Monthly)</h2>
+<p><strong>Cadence:</strong> Monthly (e.g. fixed day of month).</p>
+<p><strong>Purpose:</strong> Advisory; no binding decisions required.</p>
+<p><strong>Typical agenda:</strong></p>
+<ul>
+<li>Knowledge sharing across Engagements and domains</li>
+<li>Case reviews: what worked, what didn’t, what to reuse</li>
+<li>Pattern extraction: common approaches that could become archetype updates or platform improvements</li>
+<li>Best-practice development: standards, playbooks, DoD refinements</li>
+<li>Variability review: usage of configuration points, consistency, gaps (feeds into Governance Mode if decisions needed)</li>
+</ul>
+<p><strong>Outputs:</strong> Notes, recommendations, and follow-up actions (e.g. archetype updates, documentation). Decisions that change standards or variability model are made in Governance Mode.</p>
+<hr />
+<h2 id="governance-mode-ad-hoc">Governance Mode (Ad-hoc)</h2>
+<p><strong>Cadence:</strong> As needed (triggered by dispute, standards change, or escalation).</p>
+<p><strong>Purpose:</strong> Decision authority on cross-cutting technical and variability matters.</p>
+<p><strong>Triggers:</strong></p>
+<ul>
+<li>Architectural dispute between Product Line Squads and Engagement Engineering (or between engagements)</li>
+<li>Change to platform or solution architecture standards</li>
+<li>New or deprecated configuration points or options (variability governance)</li>
+<li>Escalation from Product Line Maintainers (e.g. repeated quality or scope issues)</li>
+<li>Escalation from Engineering Leads (ELs) or Engagement Architects (e.g. scope vs. platform boundary)</li>
+</ul>
+<p><strong>Process:</strong></p>
+<ol>
+<li>Request for decision or escalation is submitted (with context and options).</li>
+<li>Council convenes (or uses async process if defined).</li>
+<li>Council decides: approve, reject, or defer with conditions.</li>
+<li>Decision is documented and communicated to affected parties.</li>
+<li>Follow-up (e.g. standard update, archetype change) is assigned and tracked.</li>
+</ol>
+<p><strong>Authority:</strong> Council decisions are binding for the scope defined (e.g. “this standard applies to all new PRs”; “this configuration option is approved for use”). Exceptions require Council approval.</p>
+<hr />
+<h2 id="decision-documentation-and-enforcement">Decision Documentation and Enforcement</h2>
+<ul>
+<li><strong>Decisions</strong> (especially in Governance Mode) are recorded in a designated place (e.g. wiki, repo, decision log) with: date, context, decision, rationale, and owner for follow-up.</li>
+<li><strong>Enforcement</strong> is through Product Line Maintainers (for PRs and platform standards), Engagement Architects (for archetypes and variability), and Engineering Leads (ELs, for squad delivery scope). Council does not enforce day-to-day; it sets the rules and resolves exceptions.</li>
+</ul>
+<hr />
+<h2 id="variability-governance-responsibility">Variability Governance Responsibility</h2>
+<p>The Council owns <strong>variability governance</strong>:</p>
+<ul>
+<li>Reviewing variability documentation (e.g. quarterly) and ensuring it stays coherent</li>
+<li>Approving new configuration points or options when engagements need them</li>
+<li>Deprecating unused or harmful options (with migration path)</li>
+<li>Resolving conflicts when engagements need incompatible variants</li>
+<li>Feeding back to Product Line Squads and Engagement Architects for platform or archetype changes</li>
+</ul>
+<p>Engagement Architects document variability per Engagement; Council governs the <strong>model</strong> and the <strong>exceptions</strong>. See <ac:link><ri:page ri:content-title="Variability Management"/><ac:plain-text-link-body><![CDATA[Variability Management]]></ac:plain-text-link-body></ac:link>.</p>
+<hr />
+<h2 id="relationship-to-product-line-squads-and-engagement">Relationship to Product Line Squads and Engagement Engineering</h2>
+<ul>
+<li><strong>Product Line Squads</strong> — Council sets or endorses platform-level standards; Product Line Maintainers enforce them. Council resolves disputes that Maintainers cannot resolve.</li>
+<li><strong>Engagement Engineering</strong> — Council sets or endorses solution-level standards and variability; Engagement Architects and ELs/EPMs apply them. Council resolves disputes that affect multiple Engagements or the product line.</li>
+<li><strong>Escalation path</strong> — Product Line Maintainers, Engagement Architects, and ELs/EPMs can escalate to Council when they need a binding decision or when local agreement cannot be reached.</li>
+</ul>
+<hr />
+<h2 id="relationship-to-erc-and-pac">Relationship to ERC and PAC</h2>
+<p>The Platform Architecture Council (PAC — this Council) and the Engagement Readiness Council (ERC) are complementary governance bodies:</p>
+<ul>
+<li><strong>PAC</strong> governs architecture standards, practice sharing, pattern extraction, variability, and inner source quality. Its members are engineers and architects.</li>
+<li><strong>ERC</strong> governs the Engagement pipeline: readiness assessments, role assignments (EA, EPM, AVA), and capacity coordination through the Portfolio Program Manager (PPM).</li>
+</ul>
+<p>PAC sets the technical rules; ERC ensures Engagements start with the right people and ingredients. Both feed into each other: PAC patterns improve archetype quality that ERC uses for readiness; ERC delivery learnings feed PAC practice reviews.</p>
+<p>See the <ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model Guide]]></ac:plain-text-link-body></ac:link> for ERC details.</p>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li><ac:link><ri:page ri:content-title="Product Line Engineering: Overview"/><ac:plain-text-link-body><![CDATA[PLE Overview]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:content-title="Variability Management"/><ac:plain-text-link-body><![CDATA[Variability Management]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:content-title="Inner Source Guidelines"/><ac:plain-text-link-body><![CDATA[Inner Source Guidelines]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:content-title="Engagement Architect: PLE Responsibilities"/><ac:plain-text-link-body><![CDATA[Engagement Architect Role]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model Guide]]></ac:plain-text-link-body></ac:link> — ERC, role structure</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-line-engineering/governance/council-charter.md">View on GitHub</a></p>

@@ -152,7 +152,7 @@ This document specifies the complete requirements for syncing Markdown documenta
 | 2.1.5 Task lists | `- [ ] item` | Convert to checkbox or list item | ⚠️ Depends on extension |
 | 2.1.6 Footnotes | `[^1]` references | May not render correctly | ⚠️ Extension dependent |
 | 2.1.7 Math/LaTeX | `$formula$` or `$$block$$` | Render as text (no math support) | ⚠️ Not supported |
-| 2.1.8 Mermaid diagrams | ` ```mermaid ``` ` | Render as code block (no diagram) | ⚠️ Not supported |
+| 2.1.8 Mermaid diagrams | ` ```mermaid ``` ` | Convert to Confluence mermaid macro (diagram) | ✅ Post-process to macro |
 | 2.1.9 HTML in Markdown | `<div>custom</div>` | Pass through to storage format | ⚠️ May break Confluence |
 | 2.1.10 Very long document | 50,000+ characters | Convert successfully | ⚠️ Not tested for limits |
 

@@ -1,0 +1,140 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim5-component.md -->
+<!-- Title: Component -->
+<!-- Content Hash: 1e4155d4d4bcb2eac46288ca9dc806e2245943f5251952a617c5b2f2f643ddb8 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="component">Component</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 5: The Technical &amp; Architectural Dimension (Engineering)<br />
+<strong>Owner:</strong> Tech Leads, Developers</p>
+<h2 id="definition">Definition</h2>
+<p>A significant architectural building block within a System — processing engines, adapters, rule evaluators, schedulers, queue consumers, gateways. Components appear in architecture diagrams and represent internally significant subsystems within a deployable unit. They are always contained by a System and transitively map to Dim 8 Modules through their parent System. Not code-level (not classes or functions) — architectural-level.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Captures the internal architecture of a System at a level that is meaningful for architectural comprehension without descending to code-level detail. Without Components:<br />
+- Systems are black boxes — "payments-service" exists but its internal architecture is invisible<br />
+- Capability-to-implementation mapping is coarse — "Real-Time FX Rate Locking" maps to fx-service but not to the specific calculator component within it<br />
+- Architecture diagrams lack anchoring entities within Systems</p>
+<p>Components are optional — simple Systems with a single responsibility may not need Component-level decomposition. Components are warranted when a System has internally significant architectural boundaries (e.g., a processing engine, an adapter layer, a rules engine).</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Component name (e.g., "FX Rate Calculator," "OFAC Screening Adapter," "Payment State Machine")</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Enum</td>
+<td><code>Engine</code> / <code>Adapter</code> / <code>Calculator</code> / <code>Scheduler</code> / <code>Consumer</code> / <code>Gateway</code> / <code>Processor</code> / <code>Evaluator</code> / <code>Cache</code> / <code>Other</code></td>
+</tr>
+<tr>
+<td>Parent System</td>
+<td>Reference (Dim 5)</td>
+<td>Which System contains this Component</td>
+</tr>
+<tr>
+<td>Technology Stack</td>
+<td>String</td>
+<td>When different from parent System (e.g., "embedded Python rules engine within Java service")</td>
+</tr>
+<tr>
+<td>Responsibility</td>
+<td>Text</td>
+<td>What this Component does within the System</td>
+</tr>
+<tr>
+<td>Capability Mapping</td>
+<td>List of References (Dim 8)</td>
+<td>Which Dim 8 Capability(ies) this Component implements or contributes to</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<p><em>Inherits from parent System — Components do not have an independent lifecycle.</em></p>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Belongs to</td>
+<td>System (Dim 5)</td>
+<td>Component is contained by a System</td>
+</tr>
+<tr>
+<td>Maps to</td>
+<td>Capability(ies) (Dim 8)</td>
+<td>Component may implement or contribute to specific Capabilities</td>
+</tr>
+<tr>
+<td>Decisions</td>
+<td>ADR(s) (Dim 5)</td>
+<td>Architectural decisions affecting this Component are recorded as ADRs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Type</th>
+<th>Parent System</th>
+<th>Responsibility</th>
+<th>Maps to (Dim 8)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FX Rate Calculator</td>
+<td>Calculator</td>
+<td>fx-service</td>
+<td>Fetches rates from multiple providers, applies margin rules, caches for TTL</td>
+<td>Real-Time FX Rate Locking (Capability)</td>
+</tr>
+<tr>
+<td>OFAC Screening Adapter</td>
+<td>Adapter</td>
+<td>compliance-service</td>
+<td>Translates payment data to OFAC screening format, manages screening provider API</td>
+<td>OFAC Compliance Screening (Capability)</td>
+</tr>
+<tr>
+<td>Payment State Machine</td>
+<td>Engine</td>
+<td>payments-service</td>
+<td>Manages payment lifecycle state transitions (Initiated → Processing → Cleared → Settled)</td>
+<td>Cross-Border B2B Payments (Capability)</td>
+</tr>
+<tr>
+<td>Bank File Generator</td>
+<td>Processor</td>
+<td>bank-adapter</td>
+<td>Generates bank-specific file formats (MT103, ISO20022) for batch settlement</td>
+<td>Settlement Processing (Capability)</td>
+</tr>
+<tr>
+<td>Alert Router</td>
+<td>Gateway</td>
+<td>notification-service</td>
+<td>Routes notifications to appropriate channels (email, SMS, webhook) based on rules</td>
+<td>— (cross-cutting)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/entities/definition-model/dim5-component.md">View on GitHub</a></p>

@@ -1,0 +1,127 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim6-programmatic-user-persona.md -->
+<!-- Title: Programmatic User Persona -->
+<!-- Content Hash: b5c6e208f7dec3165da68c141169ff206b5b5768df43a9cb4cb5b41d093035e6 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="programmatic-user-persona">Programmatic User Persona</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension / Track:</strong> Dimension 6: Ecosystem &amp; Extensibility (Platform)<br />
+<strong>Owner:</strong> Product Management (API/Platform), Solutions Architecture</p>
+<h2 id="definition">Definition</h2>
+<p>A Programmatic User Persona is a named archetype representing an application or system that consumes the product's API at runtime. These are non-human consumers — a customer's ERP, a partner's middleware, a third-party application — with throughput needs, SLA dependencies, integration requirements, and error-handling expectations. They cannot be modeled as Dim 4 User Personas.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Captures the runtime consumption profile of programmatic consumers, enabling SLO design, capacity planning, rate limit tiering, and integration testing strategy. Without Programmatic User Personas, API design optimizes for developer convenience (Dim 6 Developer Persona) but may miss runtime production requirements.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Text</td>
+<td>Archetype name (e.g., "Customer Treasury Management System," "Partner Card Platform")</td>
+</tr>
+<tr>
+<td>System Type</td>
+<td>Text</td>
+<td>What the consuming system does</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>Enum</td>
+<td>Customer / Partner / Third-Party / Internal</td>
+</tr>
+<tr>
+<td>Integration Pattern</td>
+<td>Text</td>
+<td>How the system interacts (synchronous API calls, event consumption, batch file exchange, mixed)</td>
+</tr>
+<tr>
+<td>Volume Profile</td>
+<td>Text</td>
+<td>Expected throughput (e.g., "50K transactions/day," "10 API calls/minute," "weekly batch of 100K records")</td>
+</tr>
+<tr>
+<td>Latency Sensitivity</td>
+<td>Enum</td>
+<td>Real-time / Near-real-time / Batch-tolerant</td>
+</tr>
+<tr>
+<td>Availability Dependency</td>
+<td>Text</td>
+<td>What happens if the product's API is unavailable (e.g., "partner's checkout flow fails," "batch retries next cycle")</td>
+</tr>
+<tr>
+<td>SLA Requirements</td>
+<td>Text</td>
+<td>Contractual performance expectations</td>
+</tr>
+<tr>
+<td>Error Handling Strategy</td>
+<td>Text</td>
+<td>How the system handles failures (retry, fallback, queue, manual intervention)</td>
+</tr>
+<tr>
+<td>Primary API Module(s)</td>
+<td>Reference(s)</td>
+<td>Which API Modules it consumes</td>
+</tr>
+<tr>
+<td>Primary Operations</td>
+<td>Reference(s)</td>
+<td>Which API Operations it depends on most critically</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consumes</td>
+<td>API Module (Dim 6)</td>
+<td>Runtime consumer of API surface</td>
+</tr>
+<tr>
+<td>Consumes</td>
+<td>API Operation (Dim 6)</td>
+<td>Depends on specific operations and their SLOs</td>
+</tr>
+<tr>
+<td>Maps to</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Owner of this system belongs to a segment</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>API Operation SLOs (Dim 6)</td>
+<td>Volume and latency profiles drive SLO targets</td>
+</tr>
+<tr>
+<td>Assessed by</td>
+<td>Win Review (Track 4)</td>
+<td>Integration health assessed in reviews</td>
+</tr>
+<tr>
+<td>Monitored by</td>
+<td>Win Monitoring (Track 4)</td>
+<td>Runtime health tracked continuously</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>"Customer Treasury Management System"</strong> — Operated by enterprise customers in the Financial Services segment. Submits cross-border payment batches via SFTP (50K transactions/day, weekly batch cycle). Consumes payment.settled events via webhook for reconciliation (requires at-least-once delivery, &lt; 30 minute delivery latency). Batch-tolerant for submissions but near-real-time for settlement notifications. If API unavailable: batch queues locally and retries next cycle; webhook failures trigger manual reconciliation.</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim6-programmatic-user-persona.md">View on GitHub</a></p>

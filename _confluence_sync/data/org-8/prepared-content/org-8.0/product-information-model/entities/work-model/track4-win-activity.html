@@ -1,0 +1,452 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track4-win-activity.md -->
+<!-- Title: Win Activity -->
+<!-- Content Hash: 298903d9a3b0cece1126f3239912f3fc1cf27e61482e577003990381cb6780d9 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="win-activity">Win Activity</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 4: The Win Track (Value Realization)<br />
+<strong>Category:</strong> Activity<br />
+<strong>Owner:</strong> Sales, Pre-Sales Engineering, Customer Success, Account Management, Product Marketing</p>
+<h2 id="definition">Definition</h2>
+<p>Win Activity is the proactive, customer-facing execution work that advances Win Outcomes across the AAARRR lifecycle. It is the parent entity for all engagement subtypes — the hands-on work of winning, activating, retaining, and expanding customers.</p>
+<p><strong>PLG / self-service segments:</strong> For segments where the Product lever dominates (e.g., self-service onboarding, free trial, in-product expansion), Win Activity subtypes operate differently. "Implementation/Onboarding" becomes in-product self-service; the Win Track monitors completion funnels and intervenes on stuck accounts. "Pre-sales Engagement" becomes free trial or sandbox; Win Track monitors conversion and intervenes on high-value prospects. The Build Track effectively does "Win" work for these segments (building self-service flows, in-product upsell prompts). Win Monitoring becomes the primary Win Track activity — continuous funnel monitoring — with human engagement reserved for exceptions. The same subtypes apply; the balance shifts from human execution to monitoring + exception-based intervention.</p>
+<p>Win Activities operate at two granularities:<br />
+- <strong>Account-level</strong> (one-to-one) — work directed at a single customer or prospect account<br />
+- <strong>Segment-level</strong> (one-to-segment) — work directed at a customer segment, applicable both pre-sale and post-sale</p>
+<h2 id="purpose">Purpose</h2>
+<p>Makes customer-facing execution work explicit in the Win Track. Without Win Activity, the model captures <em>what winning looks like</em> (Dim 2) and <em>what to plan</em> (Win Planning) but not <em>the actual work of engaging customers and prospects</em>. Win Activity is where value realization happens — through POCs, onboarding, health interventions, upsell conversations, and segment-wide programs.</p>
+<p>The seven subtypes cover the full AAARRR lifecycle:</p>
+<table>
+<thead>
+<tr>
+<th>Subtype</th>
+<th>Granularity</th>
+<th>AAARRR Stage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pre-sales Engagement</strong></td>
+<td>Account</td>
+<td>Acquisition</td>
+<td>POC, custom demo, technical evaluation, RFP response. References CRM Deal/Opportunity (external entity, not UPIM).</td>
+</tr>
+<tr>
+<td><strong>Implementation / Onboarding</strong></td>
+<td>Account</td>
+<td>Activation</td>
+<td>Integration, configuration, go-live — including API integration work when customers consume API Modules. See <code>track4-implementation-onboarding.md</code> for detailed entity.</td>
+</tr>
+<tr>
+<td><strong>Retention Engagement</strong></td>
+<td>Account</td>
+<td>Retention</td>
+<td>Health intervention, QBR preparation, renewal management.</td>
+</tr>
+<tr>
+<td><strong>Expansion Engagement</strong></td>
+<td>Account</td>
+<td>Revenue</td>
+<td>Upsell proposal, cross-sell campaign, account planning.</td>
+</tr>
+<tr>
+<td><strong>Segment Engagement</strong></td>
+<td>Segment</td>
+<td>Any AAARRR stage</td>
+<td>Awareness campaigns, feature webinars, advocacy workshops, community events, <strong>customer training sessions</strong>, <strong>developer workshops</strong>, and <strong>API capability sessions</strong>. Applies both pre-sale and post-sale. Customer education (training, certification delivery, workshops) is delivered via Segment Engagement; advocacy encompasses both referral/case-study work and education.</td>
+</tr>
+<tr>
+<td><strong>Partner Engagement</strong></td>
+<td>Account</td>
+<td>Awareness, Acquisition</td>
+<td>Partner onboarding, co-selling, partner account management, partner pipeline management. Work directed at a specific partner (one-to-one). References external PRM (Partner Relationship Management) records. Distinct from customer-facing engagement — the "account" here is the partner.</td>
+</tr>
+<tr>
+<td><strong>Revenue Operations Engagement</strong></td>
+<td>Account</td>
+<td>Revenue</td>
+<td>Operational, customer-facing work to ensure revenue is realized: invoicing/billing communication, collections follow-up, renewal processing, revenue recognition coordination with Finance. Distinct from Expansion Engagement (which is upsell/cross-sell); Revenue Operations ensures committed revenue is collected. Billing disputes are handled as Win Case (Complaint).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title</td>
+<td>String</td>
+<td>Brief description of the engagement work</td>
+</tr>
+<tr>
+<td>Subtype</td>
+<td>Enum</td>
+<td><code>Pre-sales</code> / <code>Implementation</code> / <code>Retention</code> / <code>Expansion</code> / <code>Segment</code> / <code>Partner</code> / <code>Revenue Operations</code></td>
+</tr>
+<tr>
+<td>Granularity</td>
+<td>Enum</td>
+<td><code>Account</code> / <code>Segment</code></td>
+</tr>
+<tr>
+<td>AAARRR Stage</td>
+<td>Enum</td>
+<td><code>Awareness</code> / <code>Acquisition</code> / <code>Activation</code> / <code>Retention</code> / <code>Revenue</code> / <code>Referral</code></td>
+</tr>
+<tr>
+<td>Customer / Prospect</td>
+<td>Reference (Dim 3)</td>
+<td>The specific customer or prospect account (for Account-level engagements)</td>
+</tr>
+<tr>
+<td>Customer Segment</td>
+<td>Reference (Dim 3)</td>
+<td>The target customer segment (for Segment-level engagements)</td>
+</tr>
+<tr>
+<td>Win Outcome(s)</td>
+<td>List of References (Dim 2)</td>
+<td>Which Win Outcomes this engagement advances</td>
+</tr>
+<tr>
+<td>Win Stakeholder(s)</td>
+<td>List of References (Dim 2)</td>
+<td>Which Win Stakeholders perform this engagement work</td>
+</tr>
+<tr>
+<td>Initiative</td>
+<td>Reference (Dim 1)</td>
+<td>Which Initiative this engagement aligns to</td>
+</tr>
+<tr>
+<td>Win Enablement Assets</td>
+<td>List of References</td>
+<td>Which enablement assets are used in this engagement</td>
+</tr>
+<tr>
+<td>CRM Deal / Opportunity</td>
+<td>External Reference</td>
+<td>CRM deal or opportunity record (for Pre-sales subtype; external entity, not UPIM)</td>
+</tr>
+<tr>
+<td>PRM Partner</td>
+<td>External Reference</td>
+<td>Partner record in PRM system (for Partner subtype; external entity, not UPIM)</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Text</td>
+<td>Detailed description of the engagement scope and approach</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>String</td>
+<td>Role/person accountable for this engagement</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<p>Status lifecycle varies by subtype:</p>
+<p><strong>Pre-sales Engagement:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qualified</td>
+<td>Prospect is qualified; engagement is scoped</td>
+</tr>
+<tr>
+<td>Engaged</td>
+<td>Active engagement with prospect (demos, technical discussions)</td>
+</tr>
+<tr>
+<td>POC</td>
+<td>Proof-of-concept is underway</td>
+</tr>
+<tr>
+<td>Won</td>
+<td>Deal closed successfully</td>
+</tr>
+<tr>
+<td>Lost</td>
+<td>Deal lost or prospect disqualified</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Implementation / Onboarding:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scoped</td>
+<td>Implementation requirements are defined</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>Integration and configuration work is underway</td>
+</tr>
+<tr>
+<td>Go-Live</td>
+<td>Customer is live with initial capabilities</td>
+</tr>
+<tr>
+<td>Complete</td>
+<td>Full onboarding is complete; customer is self-sufficient</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Retention Engagement:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identified</td>
+<td>Health risk or renewal event identified</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>Intervention or renewal preparation is underway</td>
+</tr>
+<tr>
+<td>Resolved</td>
+<td>Health issue addressed or renewal secured</td>
+</tr>
+<tr>
+<td>Churned</td>
+<td>Customer churned despite intervention</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Expansion Engagement:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identified</td>
+<td>Expansion opportunity identified</td>
+</tr>
+<tr>
+<td>Proposed</td>
+<td>Upsell/cross-sell proposal presented to customer</td>
+</tr>
+<tr>
+<td>Negotiating</td>
+<td>Commercial terms under discussion</td>
+</tr>
+<tr>
+<td>Closed</td>
+<td>Expansion deal closed successfully</td>
+</tr>
+<tr>
+<td>Declined</td>
+<td>Customer declined the expansion opportunity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Segment Engagement:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned</td>
+<td>Segment engagement is scoped and scheduled</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>Campaign, event, or program is actively running</td>
+</tr>
+<tr>
+<td>Completed</td>
+<td>Engagement has concluded; results captured</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Partner Engagement:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Onboarding</td>
+<td>Partner is being onboarded; enablement and certification in progress</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Partner is active; co-selling, pipeline management, ongoing support</td>
+</tr>
+<tr>
+<td>Review</td>
+<td>Partner performance or contract under review</td>
+</tr>
+<tr>
+<td>Inactive</td>
+<td>Partner is paused or no longer active</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Revenue Operations Engagement:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In Progress</td>
+<td>Invoicing, collections, or renewal processing underway</td>
+</tr>
+<tr>
+<td>Resolved</td>
+<td>Billing/renewal cycle complete; revenue recognized or issue closed</td>
+</tr>
+<tr>
+<td>Escalated</td>
+<td>Dispute or exception escalated (may spawn Win Case)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Advances</td>
+<td>Win Outcome (Dim 2)</td>
+<td>Win Activity advances specific Win Outcomes</td>
+</tr>
+<tr>
+<td>Aligned to</td>
+<td>Initiative (Dim 1)</td>
+<td>Win Activity aligns to strategic Initiatives</td>
+</tr>
+<tr>
+<td>Performed by</td>
+<td>Win Stakeholder (Dim 2)</td>
+<td>Win Activity is performed by Win Stakeholders</td>
+</tr>
+<tr>
+<td>Uses</td>
+<td>Win Enablement</td>
+<td>Win Activity uses enablement assets (decks, demos, playbooks)</td>
+</tr>
+<tr>
+<td>Scoped to</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Segment Engagements target a specific Customer Segment</td>
+</tr>
+<tr>
+<td>References</td>
+<td>CRM Deal / Opportunity (External)</td>
+<td>Pre-sales Engagements reference external CRM records</td>
+</tr>
+<tr>
+<td>References</td>
+<td>PRM Partner (External)</td>
+<td>Partner Engagements reference external PRM (Partner Relationship Management) records</td>
+</tr>
+<tr>
+<td>Driven by</td>
+<td>Win Planning (Track 4)</td>
+<td>Win Planning drives engagement activities</td>
+</tr>
+<tr>
+<td>Assessed by</td>
+<td>Win Review (Track 4)</td>
+<td>Win Reviews assess engagement results and may produce Feedback</td>
+</tr>
+<tr>
+<td>Serves</td>
+<td>Developer Persona (Dim 6)</td>
+<td>Developer-facing engagement work (API POCs, developer workshops, integration support)</td>
+</tr>
+<tr>
+<td>References</td>
+<td>API Module (Dim 6)</td>
+<td>Engagement may involve API integration work</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<p><strong>Pre-sales Engagement (Account-level):</strong></p>
+<p>"Run POC for Prospect X — LATAM Enterprise, SAP integration, 3-week timeline."<br />
+- <strong>Subtype:</strong> Pre-sales<br />
+- <strong>Granularity:</strong> Account<br />
+- <strong>AAARRR Stage:</strong> Acquisition<br />
+- <strong>Win Outcome:</strong> Close LATAM deals in 90-day cycle<br />
+- <strong>Win Stakeholder:</strong> Pre-Sales Engineer<br />
+- <strong>Win Enablement:</strong> LATAM demo environment, competitive battlecard<br />
+- <strong>CRM Deal:</strong> Prospect X — $600K ACV opportunity</p>
+<p><strong>Segment Engagement (Segment-level):</strong></p>
+<p>"LATAM Enterprise feature webinar: batch payout processing launch."<br />
+- <strong>Subtype:</strong> Segment<br />
+- <strong>Granularity:</strong> Segment<br />
+- <strong>AAARRR Stage:</strong> Activation<br />
+- <strong>Win Outcome:</strong> First live transaction within 30 days (Activation)<br />
+- <strong>Customer Segment:</strong> LATAM Enterprise (40 existing customers)<br />
+- <strong>Win Stakeholder:</strong> Product Marketing Manager<br />
+- <strong>Win Enablement:</strong> Batch processing demo script, customer success stories</p>
+<p>"LATAM API integration workshop: Cross-Border Payments API hands-on session for integration engineers."<br />
+- <strong>Subtype:</strong> Segment<br />
+- <strong>Granularity:</strong> Segment<br />
+- <strong>AAARRR Stage:</strong> Activation<br />
+- <strong>Win Outcome:</strong> First live transaction within 30 days (Activation)<br />
+- <strong>Customer Segment:</strong> LATAM Enterprise (developers/integration engineers)<br />
+- <strong>Win Stakeholder:</strong> Developer Relations, Implementation Consultants<br />
+- <strong>Win Enablement:</strong> Cross-Border API developer onboarding guide, sandbox<br />
+- <strong>References:</strong> Cross-Border Payments API Module (Dim 6)</p>
+<p><strong>Partner Engagement (Account-level):</strong></p>
+<p>"Onboard and enable Banco Regional as LATAM channel partner — co-marketing, certification, Q3 pipeline target."<br />
+- <strong>Subtype:</strong> Partner<br />
+- <strong>Granularity:</strong> Account<br />
+- <strong>AAARRR Stage:</strong> Awareness, Acquisition<br />
+- <strong>Win Outcome:</strong> 80% brand recall in LATAM fintech CFO community; close LATAM deals in 90-day cycle<br />
+- <strong>Win Stakeholder:</strong> Partner Manager<br />
+- <strong>Win Enablement:</strong> LATAM partner co-marketing kit, partner certification program<br />
+- <strong>PRM Partner:</strong> Banco Regional — LATAM referral partner</p>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/work-model/track4-win-activity.md">View on GitHub</a></p>

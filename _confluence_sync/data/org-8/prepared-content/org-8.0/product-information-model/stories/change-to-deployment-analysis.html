@@ -1,0 +1,531 @@
+<!-- File: org-8.0/product-information-model/stories/change-to-deployment-analysis.md -->
+<!-- Title: Change-to-Deployment Workflow: Analysis and Guide -->
+<!-- Content Hash: a05f23e613f541512204c0705c0a4dc58a06ec58a28a8873d4c7f77215a53e9a -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="change-to-deployment-workflow-analysis-and-guide">Change-to-Deployment Workflow: Analysis and Guide</h1>
+<p>This document provides a comprehensive analysis of the change-to-deployment workflow — from the moment a deployable artifact is ready through governed change management, promotion across environments, post-deployment verification, and release activation. It covers the entity architecture, the end-to-end process, the design rationale, and the trade-offs of the approach.</p>
+<hr />
+<h2 id="1-why-a-structured-deployment-workflow-matters">1. Why a Structured Deployment Workflow Matters</h2>
+<p>Enterprise SaaS products — particularly in regulated domains like fintech — face a fundamental tension: the need for deployment velocity (ship fast, iterate, respond to market) versus the need for deployment governance (audit trails, compliance, tenant assurance, rollback safety). Ad-hoc deployment practices resolve this tension poorly: either velocity wins and governance is bypassed, or governance wins and deployments become a bottleneck.</p>
+<p>A structured deployment workflow resolves this tension by making governance a first-class concern in the information model, not an afterthought bolted onto CI/CD pipelines. The workflow must answer six questions:</p>
+<ol>
+<li><strong>What is being deployed?</strong> — the deployable composition and its operator-facing support systems</li>
+<li><strong>How is it deployed to each environment?</strong> — environment-specific deployment specifications</li>
+<li><strong>Who approves the change?</strong> — change management governance</li>
+<li><strong>Through which environments does it progress?</strong> — the promotion path</li>
+<li><strong>How do we know the deployment succeeded?</strong> — structured post-deployment verification</li>
+<li><strong>What is the durable record?</strong> — audit trail for compliance</li>
+</ol>
+<hr />
+<h2 id="2-the-four-layer-deployment-model">2. The Four-Layer Deployment Model</h2>
+<p>The deployment workflow separates concerns into four layers, each with a distinct responsibility:</p>
+<pre class="codehilite"><code>Layer 1: Specification (Definition Model, Dim 7)
+  Module Package spec, Product Package spec
+  &quot;What operator-facing systems and wiring accompany a Module/Product&quot;
+
+Layer 2: Versioned Instance (Work Model, Track 3 — Artifacts)
+  Module Package Version, Product Package Version
+  &quot;Which specific operator-facing system versions accompany this Module/Product Version&quot;
+
+Layer 3: Deployment Specification (Work Model, Track 3 — Artifacts)
+  SDD, MDD, PDD
+  &quot;How this version is deployed to this environment&quot;
+
+Layer 4: Deployment Execution (Work Model, Track 3 — Work Entities + Artifacts)
+  Change Request → Deployment Plan → Deployment Task → Deployment (record)
+  &quot;The governed, auditable act of applying a descriptor&quot;
+</code></pre>
+
+<h3 id="layer-independence">Layer Independence</h3>
+<p>Each layer has a distinct responsibility. Changes at one layer do not necessarily require changes at others:</p>
+<ul>
+<li>Adding a new probe to a Module Package spec (Layer 1) requires new Module Package Versions (Layer 2) and updated MDDs (Layer 3), but the deployment workflow (Layer 4) is unchanged.</li>
+<li>Changing deployment strategy from canary to blue-green (Layer 3) requires a new MDD version but no changes to Layers 1 or 2.</li>
+<li>Introducing a new Deployment Train (Layer 4 governance) requires no changes to Layers 1–3.</li>
+</ul>
+<h3 id="three-independent-version-streams-at-the-integrate">Three Independent Version Streams (at the integrated level)</h3>
+<p>At the Module level, three version streams evolve independently:</p>
+<table>
+<thead>
+<tr>
+<th>Stream</th>
+<th>What It Versions</th>
+<th>Example Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Module Version</strong> (Track 2)</td>
+<td>Functional composition — which tenant-serving System Versions compose this Module</td>
+<td>New payments-service version with rate-lock feature</td>
+</tr>
+<tr>
+<td><strong>Module Package Version</strong> (Track 3)</td>
+<td>Operator-facing composition — which probes, reconcilers, dashboards accompany this Module</td>
+<td>New healthcheck probe version with latency monitoring</td>
+</tr>
+<tr>
+<td><strong>MDD</strong> (Track 3)</td>
+<td>Deployment specification — how the composition is deployed to a specific environment</td>
+<td>New rollback script, changed scaling threshold for production</td>
+</tr>
+</tbody>
+</table>
+<p>A monitoring threshold change is an MDD version bump, not a Module Package Version change. A new reconciler is a Module Package Version change, not a Module Version change. A new API endpoint is a Module Version change, not a Package change.</p>
+<hr />
+<h2 id="3-module-version-vs-module-package-version-the-bou">3. Module Version vs. Module Package Version: The Boundary</h2>
+<p>A Module Version is a <strong>functionally complete, commercially viable assembly</strong> — it includes all Systems that serve tenants: product logic, tenant subscription lifecycle management (provisioning, activation, configuration by tier, upgrade, downgrade, termination), commercialization logic, and integration adapters. Module Version is the Build Track's primary output — a verified, integrated composition of System Versions.</p>
+<p>A Module Package Version adds <strong>only operator-facing systems</strong> — observability probes, dashboards, automated maintenance jobs, health checks, reconcilers, and log shippers. These systems serve operators, not tenants. They are built by the Run Track's engineering function (Run Epics, Run Stories) and are critical for observing and maintaining the Module in production — but they do not participate in any tenant-facing workflow.</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Module Version (Track 2)</th>
+<th>Module Package Version (Track 3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Track</strong></td>
+<td>Build Track</td>
+<td>Run Track</td>
+</tr>
+<tr>
+<td><strong>Contains</strong></td>
+<td>All tenant-serving Systems — product logic, subscription lifecycle, commercialization, adapters</td>
+<td>Only operator-facing Systems — probes, dashboards, reconcilers, log shippers, maintenance jobs</td>
+</tr>
+<tr>
+<td><strong>Serves</strong></td>
+<td>Tenants and customers</td>
+<td>Operators and SREs</td>
+</tr>
+<tr>
+<td><strong>Nature</strong></td>
+<td>Functionally complete assembly</td>
+<td>Operator-facing complement to Module Version</td>
+</tr>
+<tr>
+<td><strong>Deployable alone?</strong></td>
+<td>Yes, via SDDs (atomic systems deploy independently)</td>
+<td>Not alone — always accompanies a Module Version</td>
+</tr>
+<tr>
+<td><strong>Example Systems</strong></td>
+<td>payments-service, payment-gateway, subscription-manager, tier-config-service</td>
+<td>payments-healthcheck, payment-reconciler, payments-dashboard-agent, payments-log-shipper</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Boundary test.</strong> If a System participates in a tenant-facing workflow (processing a payment, provisioning a subscription, configuring a tier), it belongs in the Module Version. If it participates only in an operator-facing workflow (monitoring health, reconciling settlements, shipping logs), it belongs in the Module Package Version.</p>
+</blockquote>
+<h3 id="module-package-specification-definition-model-dim">Module Package Specification (Definition Model, Dim 7)</h3>
+<p>The Module Package specification is the stable <strong>template</strong> — it defines which operator-facing systems and wiring always accompany a Module. It lives in the Definition Model (Dim 7) because this is an operator-facing concern, not visible to customers.</p>
+<p>The Module Package Version (Work Model, Track 3) is the <strong>versioned instance</strong> — specific System Versions assembled at a specific point in time. This follows the same pattern as Module (Dim 8) → Module Version (Track 2): the Definition Model defines <em>what the thing is</em>; the Work Model tracks <em>specific instances produced by work</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Module Package (Dim 7)</th>
+<th>Module Package Version (Track 3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model</td>
+<td>Definition Model</td>
+<td>Work Model</td>
+</tr>
+<tr>
+<td>Nature</td>
+<td>Specification / Template</td>
+<td>Versioned Instance / Artifact</td>
+</tr>
+<tr>
+<td>Contains</td>
+<td>Catalog of operator-facing systems (probes, dashboards, reconcilers, log shippers)</td>
+<td>Specific versions of those operator-facing systems</td>
+</tr>
+<tr>
+<td>Changes when</td>
+<td>Operator-facing systems catalog changes (new probe added, reconciler removed)</td>
+<td>Any constituent System Version is updated</td>
+</tr>
+<tr>
+<td>Versioned?</td>
+<td>Status lifecycle (Draft → Active → Superseded)</td>
+<td>Explicitly versioned (e.g., v2.3.0)</td>
+</tr>
+<tr>
+<td>Environment-specific?</td>
+<td>No</td>
+<td>No (environment-specificity is on MDD)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-deployment-descriptors-sdd-mdd-pdd">4. Deployment Descriptors: SDD, MDD, PDD</h2>
+<p>Deployment descriptors are environment-specific specifications that define <em>how</em> a composition is deployed to a specific environment. They operate at three levels:</p>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Level</th>
+<th>What It Specifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SDD</strong> (System Deployment Descriptor)</td>
+<td>Atomic</td>
+<td>How a single System Version is deployed — resource limits, replicas, env vars, network policies</td>
+</tr>
+<tr>
+<td><strong>MDD</strong> (Module Deployment Descriptor)</td>
+<td>Integrated</td>
+<td>How a Module Package Version is deployed — composes SDDs, adds Module-level config, includes pre-rollout/validation/rollback scripts</td>
+</tr>
+<tr>
+<td><strong>PDD</strong> (Product Deployment Descriptor)</td>
+<td>Complete</td>
+<td>How a Product Package Version is deployed — composes MDDs, adds cross-module orchestration, deployment ordering</td>
+</tr>
+</tbody>
+</table>
+<p>Key properties:<br />
+- Descriptors are <strong>environment-specific</strong> — a single Module Package Version has different MDDs for production-us, production-latam, and staging<br />
+- Descriptors have their <strong>own version stream</strong> — independent of functional (Module Version) and operator-facing (Module Package Version) changes<br />
+- MDD scripts (migration, validation, rollback) are <strong>engineering artifacts</strong> — they are authored, tested, reviewed, and versioned like code</p>
+<hr />
+<h2 id="5-the-change-request-deployment-flow">5. The Change Request → Deployment Flow</h2>
+<h3 id="standard-flow">Standard Flow</h3>
+<pre class="codehilite"><code>1. Trigger: Module Package Version is Ready, or Release Plan requires deployment
+   ↓
+2. Change Request created (scoped to Deployment Train)
+   - Type: Standard
+   - CAB review and approval
+   ↓
+3. Deployment Plan (deliberation)
+   - Run team scopes the rollout
+   - Identifies verification needs, maintenance prerequisites
+   - Determines promotion path through Train stations
+   ↓
+4. Deployment Planning Tasks produced
+   - Create SDD/MDD/PDD versions for each target environment
+   - Author pre-rollout, validation, and rollback scripts
+   - Create Verification Tasks for post-deployment validation
+   - May create Maintenance Tasks (prerequisites)
+   ↓
+5. Deployment Drill Task (optional)
+   - Rehearse full procedure in non-production environment
+   - Must pass before actual deployment proceeds
+   ↓
+6. Deployment Tasks execute (per station in the Train)
+   - Apply descriptor to target environment
+   - Produce Deployment record (artifact)
+   ↓
+7. Verification Tasks execute
+   - Validate deployment meets acceptance criteria
+   - Produce evidence (metrics, test results, audit logs)
+   ↓
+8. Change Request Complete
+   - All Deployment Tasks succeeded
+   - All Verification Tasks passed
+   - Audit trail documented
+</code></pre>
+
+<h3 id="emergency-technical-flow-from-incident">Emergency-Technical Flow (from Incident)</h3>
+<p>The emergency flow spans two tracks with complementary fast-paths:</p>
+<p><strong>Build Track fast-path (DR-031):</strong></p>
+<pre class="codehilite"><code>Incident (SEV-0/SEV-1) → Incident Response Task → Bug (P0, Run provenance)
+  → Technical Task (sprint bypass, immediate allocation)
+    → System Version (Emergency gate profile: peer review + security scan + smoke tests;
+       full regression + benchmarks deferred)
+      → SDD
+</code></pre>
+
+<p><strong>Run Track fast-path (DR-029):</strong></p>
+<pre class="codehilite"><code>Change Request (Emergency-Technical)
+  - Abbreviated soak times
+  - Documented waiver for bypassed stations
+  - Drill may be skipped with justification
+  ↓
+Deployment Task → Deployment → Verification Task
+  ↓
+Change Request Complete
+</code></pre>
+
+<p><strong>Deferred-gate obligation (DR-031):</strong> The Bug stays at <code>Fixed</code> (not <code>Closed</code>) until a subsequent Standard System Version passes all deferred quality gates. This prevents emergency hotfixes from permanently lowering quality standards.</p>
+<h3 id="emergency-business-flow-from-release-plan-accelera">Emergency-Business Flow (from Release Plan acceleration)</h3>
+<pre class="codehilite"><code>Business exigency (campaign deadline, festival day)
+  ↓
+Change Request (Emergency-Business)
+  - Originates from Release Plan acceleration
+  - Compressed Train (abbreviated soak, fast-track stations)
+  - ODR documents the waiver and business justification
+  ↓
+Standard deployment flow but with compressed timelines
+</code></pre>
+
+<hr />
+<h2 id="6-deployment-train-and-station-design">6. Deployment Train and Station Design</h2>
+<h3 id="what-is-a-deployment-train">What Is a Deployment Train?</h3>
+<p>A Deployment Train is a reusable, ordered promotion path — the defined sequence of environments a deployment progresses through, with governance, approval, and soak requirements at each stop. Trains are Definition Model entities (Dim 7), not ad-hoc workflows.</p>
+<h3 id="contractual-significance">Contractual Significance</h3>
+<p>A Deployment Train is not just an internal workflow — it carries contractual significance:</p>
+<ul>
+<li><strong>Tenant assurance.</strong> Tenants may rely on the Train's promotion path to plan changes to their dependent applications. When code reaches a staging station, tenant integration teams can begin testing.</li>
+<li><strong>Commercial contracts.</strong> Contracts may reference Trains for safety and compliance guarantees (e.g., "all production changes traverse staging with minimum 72-hour soak").</li>
+<li><strong>Operating model enforcement.</strong> A Regulated-governance Train may reject Emergency-Business changes that bypass required stations, while a Standard-governance Train may accept them with documented waivers.</li>
+</ul>
+<h3 id="station-design">Station Design</h3>
+<p>Each Station in a Train is a checkpoint targeting a specific Deployment Environment with defined:</p>
+<ul>
+<li><strong>Entry criteria</strong>: what must be true before a deployment can enter (e.g., previous station soak complete)</li>
+<li><strong>Exit/promotion criteria</strong>: what must be verified before promotion (e.g., 72h soak with zero P1s)</li>
+<li><strong>Approval requirements</strong>: who must sign off (automated, CAB, compliance officer)</li>
+<li><strong>Soak time</strong>: minimum stabilization window</li>
+<li><strong>Verification requirements</strong>: which Verification Task types are mandatory at this station</li>
+</ul>
+<p>The same Deployment Environment can be a Station in multiple Trains with different governance requirements. For example, Staging EU-West might be a Station in both the PCI Regulated Train (72h soak, security scan required) and the Fast-Track Train (no minimum soak, automated approval).</p>
+<h3 id="governance-levels">Governance Levels</h3>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Example Train</th>
+<th>Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Standard</strong></td>
+<td>Fast-Track Train</td>
+<td>Automated approvals, minimal soak, self-service</td>
+</tr>
+<tr>
+<td><strong>Regulated</strong></td>
+<td>PCI Regulated Train</td>
+<td>CAB approval, 72h soak, compliance officer sign-off, mandatory drill</td>
+</tr>
+<tr>
+<td><strong>Critical</strong></td>
+<td>Core Infrastructure Train</td>
+<td>VP approval, 1-week soak, mandatory drill, canary only, compliance + security sign-off</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tenant-visibility">Tenant Visibility</h3>
+<p>Tenants derive visibility into deployment progress through their Deployment Environment: if a tenant's subscription is provisioned in production-latam, and production-latam is a Station on the PCI Regulated Train, the tenant has derived visibility into that Train's progress. Notification of Change Requests and their updates to environments where tenant subscriptions reside is an Operating Model decision, not a model constraint.</p>
+<hr />
+<h2 id="7-deployment-task-vs-deployment-artifact">7. Deployment Task vs. Deployment (Artifact)</h2>
+<p>The model separates "work to be done" from "record of what was done" — consistent with every other track in the Work Model:</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Deployment Task (Work Entity)</th>
+<th>Deployment (Work Artifact)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What it is</td>
+<td>Work to be done</td>
+<td>Record of what was done</td>
+</tr>
+<tr>
+<td>Statuses</td>
+<td>Ready → Executing → Complete / Failed</td>
+<td>Active → Superseded → Rolled Back</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td>Transient — exists while work is in progress</td>
+<td>Durable — persists as audit trail</td>
+</tr>
+<tr>
+<td>Relationships</td>
+<td>Governed by Deployment Plan, applies descriptor</td>
+<td>Produced by Deployment Task, enables Customer Release</td>
+</tr>
+<tr>
+<td>Analogy</td>
+<td>Specification Task produces a PSD</td>
+<td>The PSD is the artifact</td>
+</tr>
+</tbody>
+</table>
+<p>A rollback is a new Deployment Task that produces a new Deployment record pointing to a previous descriptor version. The original Deployment's status changes to <code>Rolled Back</code>; the rollback Deployment is <code>Active</code>.</p>
+<hr />
+<h2 id="8-change-request-design">8. Change Request Design</h2>
+<h3 id="types">Types</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Trigger</th>
+<th>Governance</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Standard</strong></td>
+<td>Release Plan, Module Package Version ready</td>
+<td>Full Train traversal, CAB approval</td>
+<td>"Deploy Payments v2.3.0 through PCI Regulated Train"</td>
+</tr>
+<tr>
+<td><strong>Emergency-Technical</strong></td>
+<td>Incident, SEV-0/SEV-1 Bug</td>
+<td>Abbreviated soak, documented waivers for bypassed stations</td>
+<td>"Hotfix for payment processing failure in production-latam"</td>
+</tr>
+<tr>
+<td><strong>Emergency-Business</strong></td>
+<td>Business exigency, campaign deadline</td>
+<td>Compressed Train, fast-track stations, ODR documenting waiver</td>
+<td>"Accelerate FX feature for LATAM campaign launch"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scope">Scope</h3>
+<p>Change Requests are scoped to a Deployment Train or a specific Station (and transitively to a Package or descriptor). This scoping connects the change to the governance framework — the Train determines what approval, soak, and verification requirements apply.</p>
+<h3 id="completion-criteria">Completion Criteria</h3>
+<p>A Change Request is complete only when:<br />
+1. All Deployment Tasks have succeeded (descriptors applied to target environments)<br />
+2. All Verification Tasks have passed (post-deployment validation evidence collected)<br />
+3. Audit trail is documented</p>
+<p>Deployment success alone is not sufficient — verification must also pass.</p>
+<h3 id="relationship-to-customer-release">Relationship to Customer Release</h3>
+<p>A single Customer Release may span multiple Deployment Trains when different modules follow different promotion paths. For example, an "LATAM Expansion" release might include payment modules on a PCI Regulated Train and a marketing portal on a Fast-Track Train. The Customer Release is the commercial unit; the Deployment Train is the operational promotion unit.</p>
+<hr />
+<h2 id="9-pros-and-cons-of-this-approach">9. Pros and Cons of This Approach</h2>
+<h3 id="advantages">Advantages</h3>
+<p><strong>Separation of concerns across four layers.</strong> Each layer (specification, versioned instance, deployment descriptor, execution) evolves independently. A monitoring threshold change does not require a new Module Package Version. A new probe does not require a new MDD. This reduces unnecessary coupling and prevents version inflation.</p>
+<p><strong>Auditable change management.</strong> Every deployment to a governed environment is traceable: Change Request → Deployment Plan → Deployment Task → Deployment record → Verification evidence. Regulated environments (PCI-DSS, SOC 2, LGPD) require this audit chain. The model makes it structural, not a process overlay.</p>
+<p><strong>Contractual deployment governance.</strong> Deployment Trains with Stations provide a formal, reusable construct that commercial contracts can reference. Tenants and partners can rely on promotion paths for planning. This is difficult to achieve with ad-hoc promotion workflows because there is no entity to reference in a contract.</p>
+<p><strong>Clean work/artifact separation.</strong> Deployment Task (transient work) vs. Deployment (durable record) follows the pattern used in every other track. This makes the model internally consistent and allows lifecycle management tools to treat all work entities and artifacts uniformly.</p>
+<p><strong>Structured verification.</strong> Verification Tasks make post-deployment validation explicit, trackable, and auditable. Compliance teams can query "which verifications passed for this deployment?" without parsing CI/CD logs. Change Request closure requires verification to pass — deployment success alone is insufficient.</p>
+<p><strong>Emergency change handling.</strong> The three Change Request types (Standard, Emergency-Technical, Emergency-Business) acknowledge that not all changes follow the same governance path. Emergency changes still create Change Requests and Deployment records — they don't bypass the model, they traverse it with documented waivers.</p>
+<p><strong>Operator-facing systems modeled explicitly.</strong> The Module Package specification (Dim 7) and Module Package Version (Track 3) give operator-facing systems (probes, dashboards, reconcilers) a structured home with clear ownership (Run Track) and a clear boundary (operator-facing only, not tenant-serving).</p>
+<h3 id="disadvantages-and-trade-offs">Disadvantages and Trade-offs</h3>
+<p><strong>Entity proliferation.</strong> The model introduces several new entities: Deployment Train, Station, Deployment Plan, Deployment Task, Verification Task, Deployment Drill Task, Module Package (spec), Product Package (spec). Teams must learn and maintain these entities. For small organizations with simple deployment needs, this may be over-engineering.</p>
+<p><strong>Overhead for low-risk deployments.</strong> A configuration change to a non-production environment still requires a Change Request (even if approval is automated). Organizations deploying 20+ times per day to development environments may find the Change Request → Deployment Plan → Deployment Task chain heavyweight. Mitigation: Standard-governance Trains can have fully automated approval with minimal soak, and operating models may define exemptions for non-governed environments.</p>
+<p><strong>Module Package boundary requires judgment, not rigid rules.</strong> Everything an operator does ultimately benefits tenants — directly or indirectly. The distinction is not "who benefits" but "who builds it and whose workflow it automates." Systems built by operators to automate their own work (self-healing, pod restarts, reconciliation, log shipping) belong in the Module Package Version — even though tenants indirectly benefit from the resulting reliability. Product/Module Versions may also address operator needs: the product team might build an admin console, an operational dashboard, or a deployment API as first-class product capabilities. The difference is ownership and provenance: if the Run Track builds it to solve their own pains and needs, it goes in the Package. If the Build Track builds it as a product capability (even one targeted at an operator persona), it goes in the Module Version. Both paths are valid — operators should have the ability to solve their own pains through their own engineering, and the product should also invest in operator experience as a first-class concern.</p>
+<p><strong>Deployment Train rigidity.</strong> A Deployment Train defines a fixed ordered sequence of Stations. In practice, some deployments may need to skip stations (e.g., a hotfix that goes straight to production after minimal staging). The model accommodates this via Emergency Change types with documented waivers, but teams may feel the Train structure is overly prescriptive. Mitigation: Trains are reusable but not mandatory — different modules can use different Trains, and Trains can be designed with varying governance levels.</p>
+<p><strong>Deployment Drill adoption.</strong> Deployment Drill Tasks are optional, but their value is highest for exactly the deployments where teams are least likely to want the overhead (complex DB migrations, first-time deployments to new regions). Cultural adoption may lag behind model availability.</p>
+<p><strong>Verification Task completeness.</strong> The model requires all Verification Tasks to pass before Change Request closure, but it does not prescribe what constitutes adequate verification. A team could create a trivial "smoke test" Verification Task and technically satisfy the model. The quality of verification is an Operating Model concern, not a model constraint — but the model's structural assurance is only as strong as the verification it governs.</p>
+<hr />
+<h2 id="10-guidance-for-run-track-participants">10. Guidance for Run Track Participants</h2>
+<h3 id="do">Do</h3>
+<ul>
+<li><strong>Do</strong> scope every deployment-related change to a Deployment Train or Station via a Change Request</li>
+<li><strong>Do</strong> create Verification Tasks during Deployment Planning — verification is not optional in regulated environments</li>
+<li><strong>Do</strong> use Deployment Drill Tasks for high-risk deployments (DB migrations, multi-module orchestration, first deployment to new environments)</li>
+<li><strong>Do</strong> document Emergency Change justifications via ODRs — every bypassed station or abbreviated soak needs a documented waiver</li>
+<li><strong>Do</strong> treat MDD scripts (pre-rollout, validation, rollback) as engineering work — they are code, not configuration</li>
+<li><strong>Do</strong> use the boundary test: tenant-serving Systems belong in Module Version; operator-facing Systems belong in Module Package Version</li>
+</ul>
+<h3 id="dont">Don't</h3>
+<ul>
+<li><strong>Don't</strong> deploy without a Change Request — even Emergency changes need a CR (just with a different type and abbreviated approval)</li>
+<li><strong>Don't</strong> conflate "deployment succeeded" with "Change Request is complete" — all Verification Tasks must also pass</li>
+<li><strong>Don't</strong> modify Module Package Versions to be environment-specific — environment-specific configuration belongs on the MDD/PDD</li>
+<li><strong>Don't</strong> skip Deployment Planning for "simple" deployments — the planning is where you discover maintenance prerequisites, verification needs, and risks</li>
+<li><strong>Don't</strong> assume a single Train fits all modules — PCI-regulated payment modules and non-PCI marketing portals may need different Trains with different governance levels</li>
+<li><strong>Don't</strong> put tenant-serving systems in Module Package Version — subscription management, provisioning, tier configuration belong in Module Version</li>
+</ul>
+<hr />
+<h2 id="11-entity-summary">11. Entity Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Model</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Module Package</strong> (spec)</td>
+<td>Definition Model, Dim 7</td>
+<td>Template: which operator-facing systems accompany a Module</td>
+</tr>
+<tr>
+<td><strong>Product Package</strong> (spec)</td>
+<td>Definition Model, Dim 7</td>
+<td>Template: which cross-module operator-facing systems accompany a Product</td>
+</tr>
+<tr>
+<td><strong>Deployment Train</strong></td>
+<td>Definition Model, Dim 7</td>
+<td>Reusable promotion path with contractual and governance significance</td>
+</tr>
+<tr>
+<td><strong>Station</strong></td>
+<td>Definition Model, Dim 7</td>
+<td>Checkpoint within a Train — entry/exit criteria, approval, soak time</td>
+</tr>
+<tr>
+<td><strong>Module Package Version</strong></td>
+<td>Work Model, Track 3</td>
+<td>Versioned instance of Module Package spec — operator-facing systems assembled</td>
+</tr>
+<tr>
+<td><strong>Product Package Version</strong></td>
+<td>Work Model, Track 3</td>
+<td>Versioned instance of Product Package spec — cross-module operator-facing layer</td>
+</tr>
+<tr>
+<td><strong>SDD / MDD / PDD</strong></td>
+<td>Work Model, Track 3</td>
+<td>Environment-specific deployment specifications at three composition levels</td>
+</tr>
+<tr>
+<td><strong>Change Request</strong></td>
+<td>Work Model, Track 3</td>
+<td>Auditable change management envelope (Standard / Emergency-Technical / Emergency-Business)</td>
+</tr>
+<tr>
+<td><strong>Deployment Plan</strong></td>
+<td>Work Model, Track 3</td>
+<td>Deliberation activity — scopes rollout, produces planning tasks, identifies verification needs</td>
+</tr>
+<tr>
+<td><strong>Deployment Task</strong></td>
+<td>Work Model, Track 3</td>
+<td>Work entity — applies a descriptor to an environment</td>
+</tr>
+<tr>
+<td><strong>Deployment</strong> (artifact)</td>
+<td>Work Model, Track 3</td>
+<td>Durable record that a descriptor was applied</td>
+</tr>
+<tr>
+<td><strong>Verification Task</strong></td>
+<td>Work Model, Track 3</td>
+<td>Post-deployment verification — criteria, evidence, pass/fail</td>
+</tr>
+<tr>
+<td><strong>Deployment Drill Task</strong></td>
+<td>Work Model, Track 3</td>
+<td>Optional rehearsal of a Deployment Plan in non-production</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-decision-records">12. Decision Records</h2>
+<p>The design decisions underpinning this workflow are recorded in:</p>
+<ul>
+<li><strong>DR-026</strong> — System Version as the atomic deployment unit</li>
+<li><strong>DR-027</strong> — Composition levels and Run Track engineering (Module Package, Product Package)</li>
+<li><strong>DR-028</strong> — Deployment descriptors (SDD, MDD, PDD)</li>
+<li><strong>DR-029</strong> — Change-to-deployment workflow redesign (13 decisions: D1–D13)</li>
+</ul>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/stories/change-to-deployment-analysis.md">View on GitHub</a></p>

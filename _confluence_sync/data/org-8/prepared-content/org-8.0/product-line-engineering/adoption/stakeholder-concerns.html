@@ -1,0 +1,596 @@
+<!-- File: org-8.0/product-line-engineering/adoption/stakeholder-concerns.md -->
+<!-- Title: Stakeholder Concerns Matrix -->
+<!-- Content Hash: 848280f56d8d4975b67e43519c29b8b1d75f618875058372739d9b993ba8143f -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="stakeholder-concerns-matrix">Stakeholder Concerns Matrix</h1>
+<h2 id="purpose">Purpose</h2>
+<p>This document maps <strong>concerns by role</strong> so that leaders can anticipate and address them during PLE adoption. For each concern we summarize: The Worry, Reality Check, and Mitigation. Use this together with the <ac:link><ri:page ri:content-title="Executive Coaching Guide"/><ac:plain-text-link-body><![CDATA[Executive Coaching Guide]]></ac:plain-text-link-body></ac:link> when communicating with teams.</p>
+<p>For the complete Engagement role structure, see the <ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model Guide]]></ac:plain-text-link-body></ac:link>.</p>
+<blockquote>
+<p><strong>Why this document lives in PLE:</strong> The concerns addressed here arise specifically from PLE adoption — the introduction of Product Line Squads, inner source, rotation, and the structural separation of platform and Engagement work. The concerns are organized by operating model role (defined in the <ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model]]></ac:plain-text-link-body></ac:link>) because that is how people experience the change, but the change being managed is the PLE transformation.</p>
+</blockquote>
+<hr />
+<h2 id="1-product-line-engineers">1. Product Line Engineers</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"I'll be stuck on Engagements forever"</strong></td>
+<td>Fear of becoming permanent Engagement staff, losing platform expertise</td>
+<td>Engagement squads are Engagement-bound (e.g. up to ~2 years); rotation model guarantees return to Product Line Squad</td>
+<td>Enforce rotation model; document return dates; reserve Product Line Squad capacity so return is meaningful</td>
+</tr>
+<tr>
+<td><strong>"Engagement work is less interesting"</strong></td>
+<td>Configuration/integration feels less creative than platform development</td>
+<td>Some engineers prefer platform work; Engagement work builds breadth and customer context</td>
+<td>Honor preference where possible; frame Engagement as "seeing your work in action"; don't force everyone to rotate</td>
+</tr>
+<tr>
+<td><strong>"My platform will suffer while I'm away"</strong></td>
+<td>Platform quality degrades when senior engineers are on Engagements</td>
+<td>Risk is real if everyone is assigned at once</td>
+<td>Reserve capacity; not all senior engineers on Engagement at same time; Maintainers stay on platform</td>
+</tr>
+<tr>
+<td><strong>"I'll have to clean up Engagement team's PRs"</strong></td>
+<td>Fear that inner source = more work reviewing or fixing bad code</td>
+<td>DoD and Maintainer governance are designed to prevent this</td>
+<td>DoD and governance in place; Maintainers can reject or request changes; tech debt is tagged and tracked</td>
+</tr>
+<tr>
+<td><strong>"Career path unclear"</strong></td>
+<td>Does Engagement rotation help or hurt my growth?</td>
+<td>Rotation can build breadth; platform depth is still valued</td>
+<td>Articulate career paths (Product Line depth vs. Engagement breadth); document how rotation is recognized</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-engagement-architects">2. Engagement Architects</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"I'll be stretched too thin"</strong></td>
+<td>Assigned to multiple Engagements simultaneously</td>
+<td>Real risk if EA capacity is overloaded</td>
+<td>Cap concurrent Engagements per EA (e.g. 2–3); capacity planning with ERC</td>
+</tr>
+<tr>
+<td><strong>"Engineering Leads will override my decisions"</strong></td>
+<td>Delivery pressure trumps architecture quality</td>
+<td>Tension is real in matrix model</td>
+<td>Clear authority: EA owns architecture and variability; EL owns squad delivery; EPM resolves cross-role disputes; escalation to EO</td>
+</tr>
+<tr>
+<td><strong>"How do I work with AVA?"</strong></td>
+<td>Unclear boundary between architecture and verification</td>
+<td>Peer relationship needs definition</td>
+<td>EA and AVA are peers: EA owns architecture decisions; AVA owns verification/release. Architecture disputes default to EA; release disputes default to AVA. EPM resolves if needed</td>
+</tr>
+<tr>
+<td><strong>"Archetype ownership is extra work"</strong></td>
+<td>Maintaining archetypes on top of Engagement work</td>
+<td>Archetype work is part of the role</td>
+<td>Allocate time for archetype maintenance; value archetype work in performance and recognition</td>
+</tr>
+<tr>
+<td><strong>"I'm accountable but don't control the team"</strong></td>
+<td>Responsible for solution quality, but team members report elsewhere</td>
+<td>Matrix accountability is a real tension</td>
+<td>RACI and escalation path; EL and EA alignment from Engagement start; EPM and EO as escalation</td>
+</tr>
+<tr>
+<td><strong>"Pattern extraction never happens"</strong></td>
+<td>Too busy with current Engagement to capture learnings</td>
+<td>Risk if not institutionalized</td>
+<td>Council forces cadence (monthly); knowledge capture checkpoints in Engagement lifecycle; EA time for archetype updates</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-engineering-leads-els">3. Engineering Leads (ELs)</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"I don't control my team"</strong></td>
+<td>Team members are assigned, have other loyalties</td>
+<td>True matrix challenge</td>
+<td>Clear RACI; EL owns squad delivery; Product Line Squad Leads commit to staffing; EPM facilitates; escalation path for conflicts</td>
+</tr>
+<tr>
+<td><strong>"Inner source slows me down"</strong></td>
+<td>PRs to platforms take time; reviewers become blockers</td>
+<td>Tension between speed and quality</td>
+<td>Soft gate + tech debt where justified; PR review SLAs; escalation if SLA missed</td>
+</tr>
+<tr>
+<td><strong>"I'm accountable for quality I can't enforce"</strong></td>
+<td>Customer blames the squad, but platform issues are out of my control</td>
+<td>Boundary must be clear</td>
+<td>Define platform vs. solution accountability; contracts and operating model clarify who owns what post go-live</td>
+</tr>
+<tr>
+<td><strong>"Scope creep from customer"</strong></td>
+<td>Customer expects more than solution archetype covers</td>
+<td>Change management is part of the operating model</td>
+<td>Archetype sets baseline expectations; EPM manages scope discipline with Account Management; EL escalates to EPM</td>
+</tr>
+<tr>
+<td><strong>"Transition is messy"</strong></td>
+<td>Handover to run team or customer is unclear</td>
+<td>Operating model should clarify</td>
+<td>Operating model (Fully Managed, Co-Managed, Customer-Operated) and handover criteria in contract and process; SRE Lead drives operational readiness</td>
+</tr>
+<tr>
+<td><strong>"Too many cooks"</strong></td>
+<td>Navigating EO, EPM, EA, AVA, EPO feels like overhead</td>
+<td>Real concern if roles are poorly coordinated</td>
+<td>Clear escalation model (see guide); EPM integrates; regular alignment cadence reduces friction</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-engagement-program-managers-epms">4. Engagement Program Managers (EPMs)</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"I'm pulled in too many directions"</strong></td>
+<td>Customer-facing, commercial, squads, ERC — too many masters</td>
+<td>Role breadth is by design, but overload is a risk</td>
+<td>Clear role boundaries; ERC governs but does not micromanage; one EPM per Engagement (person may span multiple only if bandwidth permits)</td>
+</tr>
+<tr>
+<td><strong>"ELs push back on my coordination"</strong></td>
+<td>ELs own squad delivery and may resist EPM involvement</td>
+<td>Healthy tension if boundaries are clear</td>
+<td>EPM coordinates, does not direct engineering; EL owns squad; disputes escalate to EA then EO</td>
+</tr>
+<tr>
+<td><strong>"Engagement Success is vague"</strong></td>
+<td>Unclear what "adoption and value delivery" means in practice</td>
+<td>Must be operationalized with metrics</td>
+<td>Define Engagement Success metrics per Engagement (adoption, satisfaction, value delivery); EPM owns tracking</td>
+</tr>
+<tr>
+<td><strong>"Account Management overlap"</strong></td>
+<td>Who owns the customer relationship?</td>
+<td>AM owns commercial; EPM owns delivery-facing relationship</td>
+<td>Clear boundary: AM = contract and commercial; EPM = delivery communication and alignment; EPM keeps AM informed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-assembly-verification-architects-avas">5. Assembly Verification Architects (AVAs)</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"I'll be the bottleneck"</strong></td>
+<td>Every release needs my sign-off; squads will pressure me</td>
+<td>Release authority is the point, but it must not become a chokepoint</td>
+<td>Early involvement (from Discover); continuous certification (every increment, not just at release); AVA plans verification module proactively</td>
+</tr>
+<tr>
+<td><strong>"EA will override my verification decisions"</strong></td>
+<td>Architecture-driven release pressure</td>
+<td>AVA release authority is independent and not overridable by EA</td>
+<td>Clear escalation: verification/release disputes default to AVA; EA prevails on architecture; EPM resolves, then EO</td>
+</tr>
+<tr>
+<td><strong>"I can't cover the full technical breadth"</strong></td>
+<td>Assembly spans CP, Studio, PL — hard to verify everything</td>
+<td>AVA must be a strong engineer; scope may be large</td>
+<td>Select strong engineers for AVA; scope verification module to assembly points; squads own unit/component testing; AVA owns cross-squad integration</td>
+</tr>
+<tr>
+<td><strong>"Verification module handover is thankless work"</strong></td>
+<td>At Transfer, handing over the verification module is extra effort</td>
+<td>Critical for operational quality</td>
+<td>Recognize verification module as a first-class deliverable; include in handover criteria; SRE Lead and EPO collaborate on transition</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-engagement-product-owners-epos">6. Engagement Product Owners (EPOs)</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"Squad PMs won't use my requirements"</strong></td>
+<td>I detail requirements but squads prioritize differently</td>
+<td>Squad PMs pick and prioritize within squad context</td>
+<td>EPO feeds requirements; Squad PM prioritizes; disputes escalate through EPM then EA then EO</td>
+</tr>
+<tr>
+<td><strong>"Customer training is undervalued"</strong></td>
+<td>Training and enablement get cut when delivery pressure mounts</td>
+<td>Enablement is critical for adoption</td>
+<td>EPO owns training; EPM ensures it's in the plan; Engagement Success metrics include adoption</td>
+</tr>
+<tr>
+<td><strong>"I'm caught between customer and EA"</strong></td>
+<td>Customer wants something; EA says architecture won't support it</td>
+<td>Healthy tension; both perspectives are needed</td>
+<td>EPO and EA are peers; requirements-architecture translation is collaborative; EPM resolves if needed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-integration-engineers-product-line-analysts">7. Integration Engineers / Product Line Analysts</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"I'm a pawn"</strong></td>
+<td>Moved from Engagement to Engagement without agency</td>
+<td>Can feel disempowering if not framed well</td>
+<td>Home team is Product Line Squad (or designated pool); Engagements are assignments; career path values Engagement breadth</td>
+</tr>
+<tr>
+<td><strong>"No home team"</strong></td>
+<td>Live in platform team but work on Engagements; belong nowhere</td>
+<td>Identity matters</td>
+<td>Platform team is home; Engagement is assignment; manager and career path are clear</td>
+</tr>
+<tr>
+<td><strong>"Context switching is exhausting"</strong></td>
+<td>Different customers, domains, tech stacks</td>
+<td>Valid concern</td>
+<td>Rotation cadence and Engagement duration matter; avoid overly short rotations; protect learning time</td>
+</tr>
+<tr>
+<td><strong>"Skills get stale"</strong></td>
+<td>Always doing integration work; no time to learn platform depth</td>
+<td>Growth matters</td>
+<td>Training and growth time; option to deepen in one platform or broaden across Engagements</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-product-line-squad-leads-product-line-maintainer">8. Product Line Squad Leads / Product Line Maintainers</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"I can't plan capacity"</strong></td>
+<td>Engineers pulled to Engagements unpredictably</td>
+<td>Unpredictability is costly</td>
+<td>Engagement forecasting; capacity reservation; visibility (e.g. weeks ahead) for assignment requests; ERC Portfolio Program Manager maintains cross-Engagement view</td>
+</tr>
+<tr>
+<td><strong>"Inner source quality burden"</strong></td>
+<td>I'm accountable for platform quality, but Engagement teams contribute code</td>
+<td>Maintainer role is gatekeeping + coaching</td>
+<td>Maintainer authority to reject or request changes; DoD; tech debt tracking; Council escalation</td>
+</tr>
+<tr>
+<td><strong>"My roadmap gets derailed"</strong></td>
+<td>Customer-driven work (inner source) displaces platform roadmap</td>
+<td>Balance needed</td>
+<td>Reserve roadmap capacity; some customer-driven work is expected; Council can help prioritize</td>
+</tr>
+<tr>
+<td><strong>"Tech debt piles up"</strong></td>
+<td>Soft gate means substandard code merges</td>
+<td>Must be tracked and remediated</td>
+<td>Tech debt policy with tagging, ownership, and remediation timeline; Council oversight; reserved remediation capacity</td>
+</tr>
+<tr>
+<td><strong>"No recognition for enabling others"</strong></td>
+<td>Success is Engagement's; problems are platform's</td>
+<td>Recognition matters</td>
+<td>Recognize platform contribution to wins; Maintainer and Product Line Squad impact in performance and communication</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-sre-platform-operations">9. SRE / Platform Operations</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"Every Engagement adds operational burden"</strong></td>
+<td>More customer instances = more to monitor, more incidents</td>
+<td>Can't scale linearly with Engagements</td>
+<td>Operational scaling model (e.g. tooling, runbooks, tiering); not every Engagement gets same ops intensity</td>
+</tr>
+<tr>
+<td><strong>"Solution operations is ambiguous"</strong></td>
+<td>Operating model varies per Engagement; hard to standardize</td>
+<td>Complexity is real</td>
+<td>Operating model templates (Fully Managed, Co-Managed, Customer-Operated); clear responsibility matrix; SRE Lead named per Engagement</td>
+</tr>
+<tr>
+<td><strong>"Engagement teams build things we have to run"</strong></td>
+<td>Solutions deployed without operational readiness</td>
+<td>Must be part of Definition of Done and handover</td>
+<td>Operational readiness criteria in Engagement lifecycle; SRE Lead active from Discover (advisory); AVA includes operational verification</td>
+</tr>
+<tr>
+<td><strong>"Incident escalation is chaotic"</strong></td>
+<td>Who owns what when things break at 2am?</td>
+<td>Must be clear per Engagement</td>
+<td>Escalation matrix per Engagement; runbooks; operating model defines Zeta vs. customer responsibility</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-engagement-owners-eos">10. Engagement Owners (EOs)</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"Everything rolls up to me"</strong></td>
+<td>Final accountability for the entire Engagement; hard to stay across all details</td>
+<td>EO is the escalation endpoint, not the day-to-day operator</td>
+<td>EPM, EA, AVA handle day-to-day in their domains; EO sets direction, unblocks, makes hard calls; clear delegation model</td>
+</tr>
+<tr>
+<td><strong>"I'm accountable for roles I didn't choose"</strong></td>
+<td>ERC assigns EPM and EA; EO inherits them</td>
+<td>ERC provides "ingredients of success"; EO can flag concerns</td>
+<td>EO raises concerns to ERC if assignment is a poor fit; ERC adjusts where possible</td>
+</tr>
+<tr>
+<td><strong>"Multiple Engagements compete for my attention"</strong></td>
+<td>EO may sponsor more than one Engagement</td>
+<td>Real risk if portfolio is large</td>
+<td>Cap EO load; EPM runs day-to-day; EO focuses on strategic decisions and escalations</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-squad-product-managers-squad-pms">11. Squad Product Managers (Squad PMs)</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"Too many inputs"</strong></td>
+<td>EPO, EL, EA, customer — everyone has priorities</td>
+<td>Competing inputs are by design; prioritization is the job</td>
+<td>Clear escalation: Squad PM prioritizes within squad; disputes go through EPM then EA then EO</td>
+</tr>
+<tr>
+<td><strong>"I'm not the real PM"</strong></td>
+<td>EPO owns customer-level requirements; I'm just backlog grooming</td>
+<td>Squad PM owns squad-level prioritization; EPO owns customer discovery</td>
+<td>Roles are complementary, not competing; Squad PM translates EPO requirements into actionable sprint items</td>
+</tr>
+<tr>
+<td><strong>"Architect reviews slow us down"</strong></td>
+<td>EA and AVA reviews add overhead to sprint delivery</td>
+<td>Reviews are mandatory but should be lightweight and integrated</td>
+<td>EA/AVA attend key ceremonies; review is part of DoD, not a gate after the fact</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-portfolio-program-managers-ppms">12. Portfolio Program Managers (PPMs)</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"Demand visibility is poor"</strong></td>
+<td>Can't consolidate demand if ELs and EPMs don't submit requests consistently</td>
+<td>Process discipline is required</td>
+<td>Standard request format; EPM ensures squad-level requests flow through PPM; ERC enforces the process</td>
+</tr>
+<tr>
+<td><strong>"Product Line Squad leads don't commit"</strong></td>
+<td>Capacity negotiations are slow; PL Squad leads protect their people</td>
+<td>Healthy tension; both Engagement delivery and platform work matter</td>
+<td>Engineering Leadership resolves priority conflicts; PPM presents data-driven portfolio view; escalation path is clear</td>
+</tr>
+<tr>
+<td><strong>"I'm a bottleneck"</strong></td>
+<td>Centralizing demand through one role could slow everything down</td>
+<td>Risk if PPM is under-resourced or over-centralized</td>
+<td>PPM is a coordination function, not an approval gate; ELs and PL Squad leads can communicate directly for urgent needs; PPM maintains the portfolio view</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-senior-leadership-engineering-management">13. Senior Leadership / Engineering Management</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>The Worry</th>
+<th>Reality Check</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"This is a big change"</strong></td>
+<td>Restructuring at this scale is risky</td>
+<td>True; phased adoption and pilots reduce risk</td>
+<td>Phased rollout; pilot first; learn and adjust; communicate clearly</td>
+</tr>
+<tr>
+<td><strong>"What if we lose people?"</strong></td>
+<td>Change triggers attrition</td>
+<td>Possible if concerns are ignored</td>
+<td>Address concerns proactively; involve people in design where possible; use coaching guide</td>
+</tr>
+<tr>
+<td><strong>"How do we measure success?"</strong></td>
+<td>PLE benefits are hard to quantify</td>
+<td>Define metrics upfront</td>
+<td>Metrics per phase (e.g. time to compose team, inner source health, archetype reuse); measure before and after</td>
+</tr>
+<tr>
+<td><strong>"What about existing Engagements?"</strong></td>
+<td>Transition mid-Engagement is messy</td>
+<td>New model for new Engagements first</td>
+<td>New Engagements follow PLE; existing Engagements migrate gradually; migration playbook</td>
+</tr>
+<tr>
+<td><strong>"Too many new roles"</strong></td>
+<td>EO, EPM, EA, AVA, EPO, SRE Lead, EL — will this create overhead?</td>
+<td>Role clarity reduces overhead compared to undefined responsibilities</td>
+<td>Each role has clear accountability; escalation model prevents ambiguity; start with pilot to validate</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="priority-ranking">Priority Ranking</h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Concern</th>
+<th>Who Feels It</th>
+<th>When to Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Rotation and return guarantees</td>
+<td>Product Line Engineers</td>
+<td>Before pilot; reinforce throughout</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Matrix accountability (who owns what)</td>
+<td>Engineering Leads, Engagement Architects, EPMs</td>
+<td>Before pilot; RACI and escalation in place</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Inner source quality vs. speed</td>
+<td>Product Line Maintainers, Engineering Leads</td>
+<td>At inner source launch; DoD and SLAs from day one</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Career path clarity</td>
+<td>All engineers</td>
+<td>Phase 1–2; document and communicate paths</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Capacity planning</td>
+<td>Product Line Squad Leads</td>
+<td>Before pilot; forecasting and reservation</td>
+</tr>
+<tr>
+<td>6</td>
+<td>New role onboarding</td>
+<td>EPMs, AVAs, EPOs, EOs, Squad PMs, PPMs</td>
+<td>Before pilot; role guides and training</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Demand coordination and capacity visibility</td>
+<td>PPMs, Product Line Squad Leads</td>
+<td>Before pilot; PPM process and tooling</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Operational scaling</td>
+<td>SRE</td>
+<td>Phase 2+; operating model and readiness criteria</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li><ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[Engagement Operating Model Guide]]></ac:plain-text-link-body></ac:link> — Complete role structure and escalation model</li>
+<li><ac:link><ri:page ri:content-title="Executive Coaching Guide"/><ac:plain-text-link-body><![CDATA[Executive Coaching Guide]]></ac:plain-text-link-body></ac:link> — How to respond in conversation</li>
+<li><ac:link><ri:page ri:content-title="PLE Rollout Plan"/><ac:plain-text-link-body><![CDATA[Rollout Plan]]></ac:plain-text-link-body></ac:link> — Phases and milestones</li>
+<li><ac:link><ri:page ri:content-title="Product Line Engineering: Overview"/><ac:plain-text-link-body><![CDATA[PLE Overview]]></ac:plain-text-link-body></ac:link> — What we are and aren't doing</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-line-engineering/adoption/stakeholder-concerns.md">View on GitHub</a></p>

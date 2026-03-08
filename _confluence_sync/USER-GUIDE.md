@@ -30,6 +30,7 @@ The Confluence Sync tool automatically syncs Markdown files from your Git reposi
 - **Git metadata**: Automatically add commit hashes and GitHub links to pages
 - **Change detection**: Only updates pages when content actually changes
 - **Link conversion**: Converts Markdown cross-links to Confluence page links
+- **Mermaid diagrams**: Converts ```mermaid code blocks to Confluence mermaid macro (requires a Mermaid app in Confluence). For diagrams to render as images, install the Python package `mmdc` (`pip install mmdc`); the sync tool will then render to PNG and embed it **inline** (data URL) in the page. Without it, the macro is sent with source only and may not display depending on your app.
 - **Broken link detection**: Identify and fix broken internal links
 - **Parallel processing**: Parallel folder and page syncing for faster performance
 - **Sync state optimization**: Trusts sync state to avoid unnecessary API calls
@@ -616,6 +617,16 @@ The script:
 - Detects broken page links
 - Attempts to fix them using fuzzy title matching
 - Reports fixed and unfixable links
+
+### Mermaid diagram rendering
+
+For Mermaid diagrams to render as images in Confluence (instead of plain text or blank), the sync tool embeds a pre-rendered PNG **inline** (data URL in the page body) when the Python package [mmdc](https://pypi.org/project/mmdc/) is installed (no Node.js required):
+
+```bash
+pip install mmdc
+```
+
+After installing, run sync as usual; each ` ```mermaid ``` ` block will be rendered to PNG and embedded inline in the page (no attachments). If `mmdc` is not installed, the tool falls back to the Node.js [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) (`mmdc` on PATH) if available; otherwise the macro is sent with the diagram source only—some Confluence Mermaid apps may not display it without the embedded image.
 
 ### Environment File Wrapper
 

@@ -1,0 +1,152 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim2-pricing-tier.md -->
+<!-- Title: Pricing Tier / Package -->
+<!-- Content Hash: 8fe4532ad68c030d647d7c916b6256e6b12bbffb10cec3ba921032fd6a9817a0 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="pricing-tier-package">Pricing Tier / Package</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 2: The Vendor Value Dimension (Why It Wins)<br />
+<strong>Owner:</strong> Product Marketing, Executive Leadership</p>
+<h2 id="definition">Definition</h2>
+<p>A bundled commercial offering targeting a specific Customer Segment. A Package groups Features (Dim 8) into a marketable unit with associated pricing structured around Value Metrics. Pricing Tiers are the vendor's commercial packaging of the product — they define what the customer gets and what they pay.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Connects the vendor's business model to the product's functional reality by defining which Features are included in each commercial offering, at what price, for which segments. Without Pricing Tiers:<br />
+- There is no way to model feature gating ("Enterprise includes batch processing; Starter does not")<br />
+- The commercial relationship between product capabilities and revenue is implicit<br />
+- Win Barriers related to pricing competitiveness have nothing to challenge</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Market-facing tier name (e.g., "Enterprise Volume Plan")</td>
+</tr>
+<tr>
+<td>Target Segment(s)</td>
+<td>List of References (Dim 3)</td>
+<td>Which Customer Segments this tier is designed for</td>
+</tr>
+<tr>
+<td>Included Features</td>
+<td>List of References (Dim 8)</td>
+<td>Which Features are available in this tier</td>
+</tr>
+<tr>
+<td>Add-on Features</td>
+<td>List of References (Dim 8)</td>
+<td>Optional features available at additional cost</td>
+</tr>
+<tr>
+<td>Value Metric(s)</td>
+<td>List of References (Dim 2)</td>
+<td>Which pricing axes apply to this tier</td>
+</tr>
+<tr>
+<td>Base Price</td>
+<td>Text</td>
+<td>Fixed/recurring component (e.g., "$5K/month platform fee")</td>
+</tr>
+<tr>
+<td>Variable Pricing</td>
+<td>Text</td>
+<td>Usage-based component (e.g., "0.5% per transaction")</td>
+</tr>
+<tr>
+<td>Contract Terms</td>
+<td>Text</td>
+<td>Typical commitment (e.g., "Annual, with quarterly billing")</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draft</td>
+<td>Tier is being designed (Deliberation or Modeling Task in progress)</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Tier is available for sale</td>
+</tr>
+<tr>
+<td>Deprecated</td>
+<td>Tier is no longer offered to new customers but existing customers are grandfathered</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>Tier is fully decommissioned — all customers migrated</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upstream</td>
+<td>Business Model (Dim 2)</td>
+<td>Pricing Tier operates within the Business Model</td>
+</tr>
+<tr>
+<td>Targets</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Pricing Tier is designed for specific segments</td>
+</tr>
+<tr>
+<td>Contains</td>
+<td>Feature (Dim 8)</td>
+<td>Pricing Tier includes specific Features</td>
+</tr>
+<tr>
+<td>Priced along</td>
+<td>Value Metric (Dim 2)</td>
+<td>Pricing Tier uses specific Value Metrics</td>
+</tr>
+<tr>
+<td>Challenged by</td>
+<td>Win Barrier (Dim 2)</td>
+<td>Win Barriers may challenge the competitiveness of a Pricing Tier</td>
+</tr>
+<tr>
+<td>Referenced by</td>
+<td>PSD Section 2 (Dim 1)</td>
+<td>PSDs reference pricing/packaging implications</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>"Enterprise Volume Plan"<br />
+- Target Segments: LATAM Enterprise, US Enterprise<br />
+- Included Features: Cross-border payouts, batch processing, real-time FX rate locking, dedicated support, SFTP integration<br />
+- Add-on Features: Multi-currency reporting ($2K/month), Custom FX provider integration (one-time $50K)<br />
+- Value Metrics: Per-transaction fee (0.5%), FX markup (1%), Monthly platform fee ($5K)<br />
+- Contract Terms: Annual commitment, quarterly billing<br />
+- Status: Active</p>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim2-pricing-tier.md">View on GitHub</a></p>

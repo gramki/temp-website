@@ -1,0 +1,340 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim4-ux-channel.md -->
+<!-- Title: UX Channel -->
+<!-- Content Hash: 24ee7fe8f92d25bffb4e822bd4ec0961b659c08d5d4463cf8890a0bd1c86364a -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="ux-channel">UX Channel</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 4: The User-Centric Dimension (Experience)<br />
+<strong>Owner:</strong> Product Management, UX Design</p>
+<h2 id="definition">Definition</h2>
+<p>The access mechanism through which a human persona reaches the product, typed by two orthogonal axes: <strong>Interaction Modality</strong> (by technology) and <strong>Engagement Mode</strong> (by service model). Each UX Channel is implemented by exactly one Human-Interactive Module (Dim 8). A product defines which cells in the Modality × Mode matrix it occupies; most products serve a subset.</p>
+<p>UX Channels serve <strong>all human personas</strong> — Dim 4 User Personas and Dim 7 Operational Personas. An SRE uses Web dashboards, receives Email alerts, runs CLI commands, gets Voice/IVR escalation calls, and uses Mobile apps for on-call — the same interaction modalities and engagement modes. The channel taxonomy is universal for any human accessing the product. UX Channel is defined in Dim 4 (the natural home for human experience concepts) but referenced cross-dimensionally by Dim 7 Operational Journeys. See DR-023.</p>
+<h2 id="purpose">Purpose</h2>
+<p>UX Channel answers "through what medium does the persona access the product?" This is a strategic product decision — each channel requires a dedicated Human-Interactive Module, with its own capabilities, features, and technical implementation. Without UX Channel:<br />
+- The distinction between "what the product can do" (Capabilities) and "how the user accesses it" (Channel) is implicit<br />
+- Channel investment decisions ("should we build a mobile app?" or "should we build an operational CLI?") have no entity to anchor to<br />
+- Journey design has no context — a web journey and a mobile journey for the same Job (user or operational) have fundamentally different constraints</p>
+<p><strong>Channel investment is a PDR-level decision.</strong> Building a new channel means building a new HI Module — it's a significant investment in design, engineering, and ongoing maintenance. UX Channels carry a lifecycle and are governed through Discovery (Deliberation → PDR). This applies equally to customer-facing channels and operational channels.</p>
+<h2 id="interaction-modality-by-technology">Interaction Modality (by technology)</h2>
+<table>
+<thead>
+<tr>
+<th>Modality</th>
+<th>Description</th>
+<th>Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Web</strong></td>
+<td>Browser-based application</td>
+<td>Full screen real estate; keyboard + mouse; session-based</td>
+</tr>
+<tr>
+<td><strong>Mobile</strong></td>
+<td>Native mobile application</td>
+<td>Small screen; touch-based; intermittent connectivity; push notifications</td>
+</tr>
+<tr>
+<td><strong>Chat</strong></td>
+<td>Conversational interface (Slack, Teams, in-app chat, chatbot)</td>
+<td>Linear conversational flow; short exchanges; text-primary</td>
+</tr>
+<tr>
+<td><strong>Voice</strong></td>
+<td>IVR, voice assistant, phone-based</td>
+<td>No visual context; sequential interaction; hands-free</td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>Asynchronous notification with embedded actions</td>
+<td>Asynchronous; limited interactivity; wide reach</td>
+</tr>
+<tr>
+<td><strong>CLI</strong></td>
+<td>Command-line / terminal interface</td>
+<td>Developer-facing; scriptable; text-only</td>
+</tr>
+<tr>
+<td><strong>Embedded</strong></td>
+<td>Widget, plugin, or component hosted within a customer's or third-party application</td>
+<td>Vendor controls the component, not the host page; fragment of a journey, not a full journey; must be self-contained; governed by host's constraints (iframe, SDK, web component)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="engagement-mode-by-service-model">Engagement Mode (by service model)</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+<th>Win Track Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Self-serve</strong></td>
+<td>Persona acts independently; product guides through UI/UX</td>
+<td>Win Track monitors funnels; intervenes on stuck accounts (PLG pattern)</td>
+</tr>
+<tr>
+<td><strong>Assisted</strong></td>
+<td>Persona + human agent collaborate through the product</td>
+<td>Win Track manages agent engagement (CS, Support); co-browsing, screen sharing</td>
+</tr>
+<tr>
+<td><strong>Managed</strong></td>
+<td>Agent acts on behalf of persona; persona receives outcome</td>
+<td>Win Track drives all engagement; product is the agent's tool</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive channel name (e.g., "Customer Dashboard — Web Self-serve")</td>
+</tr>
+<tr>
+<td>Interaction Modality</td>
+<td>Enum</td>
+<td><code>Web</code> / <code>Mobile</code> / <code>Chat</code> / <code>Voice</code> / <code>Email</code> / <code>CLI</code> / <code>Embedded</code></td>
+</tr>
+<tr>
+<td>Engagement Mode</td>
+<td>Enum</td>
+<td><code>Self-serve</code> / <code>Assisted</code> / <code>Managed</code></td>
+</tr>
+<tr>
+<td>Implemented by</td>
+<td>Reference (Dim 8)</td>
+<td>Which Human-Interactive Module implements this channel</td>
+</tr>
+<tr>
+<td>Target Persona(s)</td>
+<td>List of References (Dim 4)</td>
+<td>Which User Personas primarily use this channel</td>
+</tr>
+<tr>
+<td>Journeys Supported</td>
+<td>List of References (Dim 4)</td>
+<td>Which User Journeys are experienced through this channel</td>
+</tr>
+<tr>
+<td>Rationale</td>
+<td>Text</td>
+<td>Why this channel exists — what user need or strategic goal it serves</td>
+</tr>
+<tr>
+<td>Accessibility Standard</td>
+<td>String</td>
+<td>Accessibility compliance target (e.g., WCAG 2.1 AA, Section 508). Influences HI Module design and testing requirements.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposed</td>
+<td>Channel has been identified as a candidate (pre-Deliberation)</td>
+</tr>
+<tr>
+<td>Approved</td>
+<td>Channel investment has been approved via PDR</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Channel is live and serving users</td>
+</tr>
+<tr>
+<td>Deprecated</td>
+<td>Channel is being phased out (existing users supported; no new investment)</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>Channel is fully decommissioned</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Implemented by</td>
+<td>Human-Interactive Module (Dim 8)</td>
+<td>One-to-one: each Channel is implemented by one HI Module</td>
+</tr>
+<tr>
+<td>Supports</td>
+<td>User Journey (Dim 4)</td>
+<td>Channel supports one or more Journeys</td>
+</tr>
+<tr>
+<td>Used by</td>
+<td>User Persona (Dim 4)</td>
+<td>User Personas access the product through this Channel</td>
+</tr>
+<tr>
+<td>Used by</td>
+<td>Operational Persona (Dim 7)</td>
+<td>Operational Personas access the product through this Channel (cross-dimensional)</td>
+</tr>
+<tr>
+<td>Referenced by</td>
+<td>Operational Journey (Dim 7)</td>
+<td>Operational Journeys are experienced through UX Channels</td>
+</tr>
+<tr>
+<td>Justified by</td>
+<td>PDR (Dim 1)</td>
+<td>Channel investment is justified by a PDR</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Deliberation (Track 1)</td>
+<td>Channel decisions emerge from Deliberations</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Specification Task (Track 1)</td>
+<td>PSDs specify Channel's HI Module</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>Modality</th>
+<th>Mode</th>
+<th>HI Module (Dim 8)</th>
+<th>Personas</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer Dashboard</td>
+<td>Web</td>
+<td>Self-serve</td>
+<td>Dashboard Web Module</td>
+<td>AP Clerk, Treasury Analyst, Finance Admin</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Mobile Approvals</td>
+<td>Mobile</td>
+<td>Self-serve</td>
+<td>Mobile Approvals App</td>
+<td>AP Manager, Treasury Analyst</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Support Chat</td>
+<td>Chat</td>
+<td>Assisted</td>
+<td>Support Chat Module</td>
+<td>AP Clerk, Finance Admin</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Admin Console</td>
+<td>Web</td>
+<td>Managed</td>
+<td>Admin Console Module</td>
+<td>CS Manager (agent acts for customer)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Developer Portal</td>
+<td>Web</td>
+<td>Self-serve</td>
+<td>Developer Portal Module</td>
+<td>Integration Engineer</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Email Notifications</td>
+<td>Email</td>
+<td>Self-serve</td>
+<td>Notification Service (HI)</td>
+<td>AP Clerk, Treasury Analyst</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Payment Chatbot</td>
+<td>Chat</td>
+<td>Self-serve</td>
+<td>Chatbot Module</td>
+<td>AP Clerk</td>
+<td>Proposed</td>
+</tr>
+<tr>
+<td>Payment Widget</td>
+<td>Embedded</td>
+<td>Self-serve</td>
+<td>Payment Widget Module</td>
+<td>Customer's End-User (via customer's app)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Salesforce Plugin</td>
+<td>Embedded</td>
+<td>Self-serve</td>
+<td>Salesforce Integration Module</td>
+<td>Account Executive (via Salesforce)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Monitoring Dashboard</td>
+<td>Web</td>
+<td>Self-serve</td>
+<td>Monitoring Dashboard Module</td>
+<td>Reliability Operator (Dim 7)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>On-Call Alerts</td>
+<td>Email + Voice</td>
+<td>Self-serve</td>
+<td>Alert Notification Module</td>
+<td>Reliability Operator (Dim 7)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Ops CLI</td>
+<td>CLI</td>
+<td>Self-serve</td>
+<td>Ops CLI Module</td>
+<td>Platform Operator, Reliability Operator (Dim 7)</td>
+<td>Active</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/entities/definition-model/dim4-ux-channel.md">View on GitHub</a></p>

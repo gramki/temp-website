@@ -1,0 +1,43 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-003-customer-release.md -->
+<!-- Title: DR-003: Customer Release as Named Business Delivery Entity -->
+<!-- Content Hash: 0a307a184281665c4be684b6f8aeb9dcf27c4dda1835f88b159a1cb2e739421b -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-003-customer-release-as-named-business-delivery">DR-003: Customer Release as Named Business Delivery Entity</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15<br />
+<strong>Related FAQ:</strong> Q12</p>
+<hr />
+<h2 id="context">Context</h2>
+<p>The model needed an entity to represent "a coherent delivery of capabilities to customers." The word "release" is deeply overloaded in the software industry:</p>
+<ul>
+<li><strong>DevOps convention:</strong> "Release" = a versioned build artifact that has passed quality gates (GitHub Releases, Helm releases, release pipelines, release branches).</li>
+<li><strong>Business convention:</strong> "Release" = making functionality available to customers.</li>
+</ul>
+<p>SAFe and Continuous Delivery practitioners explicitly decouple "release" (business act) from "deployment" (technical act). However, in practice, the DevOps usage of "release" for artifacts is so entrenched that trying to reclaim the word exclusively for the business concept would create adoption friction.</p>
+<p>Additionally, the question arose whether this entity should carry version numbers (semver) or use descriptive names.</p>
+<h2 id="decision">Decision</h2>
+<ol>
+<li>Introduce <strong>"Customer Release"</strong> as the business delivery entity in the Definition Model (Dimension 1, Strategy).</li>
+<li>Customer Releases use <strong>descriptive names</strong> (e.g., "LATAM Expansion", "Project Mercury"), not version numbers or semver.</li>
+<li>DevOps artifact versioning continues to use "released" freely — a System Version with status <code>Released</code> is a versioned artifact that passed quality gates. The term "artifact release version" is acceptable.</li>
+</ol>
+<h2 id="rationale">Rationale</h2>
+<ol>
+<li><strong>"Customer" qualifier eliminates ambiguity.</strong> No one will confuse "Customer Release: LATAM Expansion" with "payments-service v2.3.3 released."</li>
+<li><strong>Zero adoption friction on the DevOps side.</strong> Engineering teams continue using "release" for artifacts as they always have.</li>
+<li><strong>Names over versions</strong> because:<br />
+   - Names convey business meaning ("LATAM Expansion" vs. "Release 3.2").<br />
+   - A Customer Release may span multiple Product Versions (v3.2.0 through v3.2.4 as patches ship during rollout) — a version number creates a false 1:1 mapping.<br />
+   - Customer Releases are strategy entities, not technical artifacts. Versioning is for technical artifacts.</li>
+<li><strong>Aligned with industry precedent:</strong> macOS (Sonoma, Sequoia), Android (codenames), many enterprise products use named releases.</li>
+</ol>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li><strong>Positive:</strong> Clean separation between business and technical use of "release."</li>
+<li><strong>Positive:</strong> Customer-facing communication uses meaningful names.</li>
+<li><strong>Positive:</strong> Customer Release is correctly positioned as a strategy entity alongside Objectives and Initiatives.</li>
+<li><strong>Negative:</strong> Requires organizational discipline to use "Customer Release" consistently in business contexts. Some stakeholders may initially default to "release" without the qualifier.</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/decisions/DR-003-customer-release.md">View on GitHub</a></p>

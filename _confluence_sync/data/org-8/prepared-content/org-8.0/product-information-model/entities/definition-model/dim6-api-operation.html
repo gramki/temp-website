@@ -1,0 +1,188 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim6-api-operation.md -->
+<!-- Title: API Operation -->
+<!-- Content Hash: 4aa2ddcdc9705fc61285ab53a70392b958b651e4c3de42ba9551bc4966830a47 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="api-operation">API Operation</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension / Track:</strong> Dimension 6: Ecosystem &amp; Extensibility (Platform)<br />
+<strong>Owner:</strong> Product Management (API/Platform), Engineering</p>
+<h2 id="definition">Definition</h2>
+<p>An API Operation is a named, versioned, contractual programmatic operation within an API Module. It is the atomic unit of programmatic capability that external consumers depend on. Each operation is classified by its interaction pattern (Command, Query, Event, Callback, Batch), and carries pattern-appropriate SLOs as strategic performance commitments.</p>
+<p>API Operations are the Dim 6 analog of User Journeys in Dim 4 — purposeful, named interactions that consumers depend on. Specific URL paths, HTTP methods, Kafka topic names, and payload schemas are PSD and Build Track territory; the Definition Model captures the operation's identity, pattern, and commitments.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Captures what the product's programmatic surface commits to — the named operations consumers can depend on, their interaction patterns, and performance guarantees. Enables impact analysis (if this operation changes, who breaks?), SLO-driven design, and contractual clarity with Developer and Programmatic User Personas.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Text</td>
+<td>Operation name (e.g., "Create Payment," "payment.settled," "Upload Payment File")</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>Text</td>
+<td>Operation version (inherits from or overrides API Module version)</td>
+</tr>
+<tr>
+<td>Pattern</td>
+<td>Enum</td>
+<td>Command / Query / Event / Callback / Batch</td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Enum</td>
+<td>Consumer → Product / Product → Consumer / Bidirectional</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Text</td>
+<td>What this operation does</td>
+</tr>
+<tr>
+<td>Idempotent</td>
+<td>Boolean</td>
+<td>Whether repeated invocations produce the same result</td>
+</tr>
+<tr>
+<td>SLOs</td>
+<td>Structured</td>
+<td>Pattern-appropriate performance commitments (see below)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="slo-fields-by-pattern">SLO Fields by Pattern</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>SLO Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Command</strong></td>
+<td>Availability (%), Latency (p50, p95, p99), Throughput (requests/sec), Error Budget</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td>Availability (%), Latency (p50, p95, p99), Throughput (requests/sec), Error Budget</td>
+</tr>
+<tr>
+<td><strong>Event</strong></td>
+<td>Delivery Guarantee (at-least-once / exactly-once), Delivery Latency (trigger-to-delivery), Ordering Guarantee (ordered / unordered), Retry Semantics</td>
+</tr>
+<tr>
+<td><strong>Callback</strong></td>
+<td>Delivery Guarantee, Delivery Latency, Retry Semantics</td>
+</tr>
+<tr>
+<td><strong>Batch</strong></td>
+<td>Processing Window (max time from submission to completion), Throughput (records/time), Completeness (partial success handling), Scheduling (periodic / on-demand)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draft</td>
+<td>Operation defined but not yet published</td>
+</tr>
+<tr>
+<td>Published</td>
+<td>Operation available for external consumption</td>
+</tr>
+<tr>
+<td>Deprecated</td>
+<td>Operation marked for retirement; sunset period active</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>Operation no longer available</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Belongs to</td>
+<td>API Module (Dim 6)</td>
+<td>Part of this module's contractual surface</td>
+</tr>
+<tr>
+<td>Maps to</td>
+<td>Capability(ies) (Dim 8)</td>
+<td>Exercises specific product capabilities</td>
+</tr>
+<tr>
+<td>SLOs feed</td>
+<td>Customer Promise (Dim 3)</td>
+<td>SLAs in contracts derive from operation SLOs</td>
+</tr>
+<tr>
+<td>Governed by</td>
+<td>API Compatibility Contract (Dim 6)</td>
+<td>Subject to versioning and stability commitments</td>
+</tr>
+<tr>
+<td>Consumed by</td>
+<td>Developer Persona (Dim 6)</td>
+<td>Developers integrate against this operation</td>
+</tr>
+<tr>
+<td>Consumed by</td>
+<td>Programmatic User Persona (Dim 6)</td>
+<td>Systems depend on this operation at runtime</td>
+</tr>
+<tr>
+<td>Monitored by</td>
+<td>System Monitoring (Track 3)</td>
+<td>Runtime performance tracked</td>
+</tr>
+<tr>
+<td>Monitored by</td>
+<td>Win Monitoring (Track 4)</td>
+<td>SLO compliance tracked</td>
+</tr>
+<tr>
+<td>Assessed by</td>
+<td>Win Review (Track 4)</td>
+<td>Operation health and adoption assessed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>Command — "Create Payment"</strong><br />
+Pattern: Command. Direction: Consumer → Product. Idempotent: Yes (via idempotency key). SLOs: 99.95% availability, p99 &lt; 500ms, 10K calls/min throughput. Maps to: Payment Initiation capability (Payment Processing Module). Description: Submits a cross-border payment instruction for processing.</p>
+<p><strong>Event — "payment.settled"</strong><br />
+Pattern: Event. Direction: Product → Consumer. SLOs: at-least-once delivery, &lt; 30s delivery latency, ordered per payment ID. Maps to: Payment Settlement capability. Description: Emitted when a cross-border payment reaches final settlement.</p>
+<p><strong>Batch — "Upload Payment File"</strong><br />
+Pattern: Batch. Direction: Consumer → Product. SLOs: processing within 4 hours, 100K records/batch max, partial success with rejection report. Maps to: Batch Payment Processing capability. Description: Accepts a batch file of payment instructions via SFTP for bulk processing.</p>
+<p><strong>Batch — "Daily Settlement Report"</strong><br />
+Pattern: Batch. Direction: Product → Consumer. SLOs: generated by 06:00 UTC daily, complete for all settlements in previous calendar day. Maps to: Settlement Reporting capability. Description: Generates a daily SFTP file of all settled payments for reconciliation.</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim6-api-operation.md">View on GitHub</a></p>

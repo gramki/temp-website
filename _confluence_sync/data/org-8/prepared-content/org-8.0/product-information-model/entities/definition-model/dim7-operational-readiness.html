@@ -1,0 +1,212 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim7-operational-readiness.md -->
+<!-- Title: Operational Readiness -->
+<!-- Content Hash: 25a5f1096af953aebbafea750420c438990a44edb4621d6827ac1f3ebab981f6 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="operational-readiness">Operational Readiness</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 7: The Operational Dimension (Runtime &amp; DevOps)<br />
+<strong>Owner:</strong> Engineering Leadership, Platform Engineering, SRE</p>
+<h2 id="definition">Definition</h2>
+<p>A per-System assessment of whether a specific System (Dim 5) meets the operational acceptance criteria for a specific Deployment Environment. The criteria span the Operational Quality Taxonomy: observability, security, performance, operability, DR, and compliance. Operational Readiness captures the criteria definition (what "production-ready" means) and the readiness state (does this System meet those criteria here?).</p>
+<p>Distinct from Evolve Track (Track 5), which assesses process effectiveness ("are our entity definitions and DoD criteria working?"). Operational Readiness assesses System readiness ("is this System ready for production in this environment?"). The criteria definition is a Definition Model concern; the assessment work is Run Track (Track 3) activity.</p>
+<blockquote>
+<p><strong>Why per-System, not per-Module?</strong> The Run Track operates Systems — SREs deploy <code>payments-service</code>, monitor <code>fx-service</code> metrics, write runbooks for <code>bank-adapter</code> failover. Observability, security scans, performance benchmarks, DR procedures — all are naturally System-scoped. The System is the operational unit, just as it is the deployment unit (System Version) and the build unit (CI/CD pipeline). Module-level readiness ("is the Payments capability ready for production in LATAM?") is a derived view that aggregates readiness across all Systems implementing that Module. If any constituent System has gaps, the Module has gaps.</p>
+<p><strong>Module-level operational concern remains legitimate.</strong> A Module Version is a composite system — not merely a collection of System Versions, but a system in its own right with emergent operational properties (end-to-end latency across the Module's Systems, integrated failure modes, cross-system data consistency) that do not exist at the individual System level. SREs legitimately reason about "the Payments Module" because it represents an operable capability with its own health profile. Module-level readiness is derived from constituent System readiness, but the Module itself has emergent concerns (e.g., "end-to-end payout latency exceeds SLO even though each System meets its individual target") that System-level assessment alone cannot surface. The primary operational vocabulary and assessment granularity remains System-level; Module-level readiness aggregates and extends it. See DR-026.</p>
+</blockquote>
+<h2 id="purpose">Purpose</h2>
+<p>Captures the operational acceptance criteria that every System must meet before being considered production-ready in a given environment. Without Operational Readiness:<br />
+- "Production-ready" is undefined — different teams have different implicit standards<br />
+- Systems go live with missing observability, incomplete runbooks, or untested DR procedures<br />
+- There is no structured entity to assess a System's operational maturity across quality dimensions<br />
+- The gap between "code complete" (Build Track) and "operationally ready" (Run Track) is invisible</p>
+<p><strong>Per-System × per-Environment scope:</strong> A System may be Fully Ready in Production US-East (well-established, extensively monitored) but Gaps Identified in Production LATAM (new region, runbooks not yet localized, load testing incomplete).</p>
+<p><strong>Module-level aggregation:</strong> "Is the Payments Module ready for production in LATAM?" is answered by aggregating Operational Readiness across all Systems implementing the Payments Module (e.g., payments-service, payment-gateway) in Production LATAM. This is a derived view, not a separate entity instance.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System</td>
+<td>Reference (Dim 5)</td>
+<td>Which System is being assessed</td>
+</tr>
+<tr>
+<td>Deployment Environment</td>
+<td>Reference (Dim 7)</td>
+<td>Which environment this assessment applies to</td>
+</tr>
+<tr>
+<td>Overall Status</td>
+<td>Enum</td>
+<td><code>Not Assessed</code> / <code>Gaps Identified</code> / <code>Conditionally Ready</code> / <code>Fully Ready</code></td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>Text + Status</td>
+<td>Logs, metrics, traces, SLIs defined? Readiness status for this dimension.</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Text + Status</td>
+<td>Encryption, access control, vulnerability scanning, key management?</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>Text + Status</td>
+<td>Benchmarks, load testing, scaling behavior validated?</td>
+</tr>
+<tr>
+<td>Operability</td>
+<td>Text + Status</td>
+<td>Alerts configured, runbooks written, admin controls available, levers documented?</td>
+</tr>
+<tr>
+<td>DR</td>
+<td>Text + Status</td>
+<td>Backup, restore, failover procedures defined and tested?</td>
+</tr>
+<tr>
+<td>Compliance</td>
+<td>Text + Status</td>
+<td>Audit trails, data handling, regulatory requirements met?</td>
+</tr>
+<tr>
+<td>Last Assessed</td>
+<td>Date</td>
+<td>When this readiness was last evaluated</td>
+</tr>
+<tr>
+<td>Gaps</td>
+<td>List</td>
+<td>Specific gaps identified, with severity and remediation plan</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Not Assessed</td>
+<td>System has not yet been evaluated for this environment</td>
+</tr>
+<tr>
+<td>Gaps Identified</td>
+<td>Assessment completed; gaps found in one or more quality dimensions</td>
+</tr>
+<tr>
+<td>Conditionally Ready</td>
+<td>Most criteria met; known gaps accepted with documented risk and remediation timeline</td>
+</tr>
+<tr>
+<td>Fully Ready</td>
+<td>All criteria met across all quality dimensions for this environment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scoped to</td>
+<td>System (Dim 5)</td>
+<td>Readiness is assessed per-System</td>
+</tr>
+<tr>
+<td>Scoped to</td>
+<td>Deployment Environment (Dim 7)</td>
+<td>Readiness is assessed per-environment</td>
+</tr>
+<tr>
+<td>Aggregates to</td>
+<td>Module (Dim 8)</td>
+<td>Module-level readiness is derived from constituent Systems' readiness</td>
+</tr>
+<tr>
+<td>References</td>
+<td>Operational Target (Dim 7)</td>
+<td>Readiness criteria reference target compliance (e.g., "SLIs defined for all active Operational Targets")</td>
+</tr>
+<tr>
+<td>Assessed by</td>
+<td>Run Track activities (Track 3)</td>
+<td>Readiness assessment is Run Track operational work</td>
+</tr>
+<tr>
+<td>Triggers</td>
+<td>Run Epic (Track 3)</td>
+<td>Readiness gaps trigger Run Epics for operational engineering work (e.g., missing probes, insufficient automation)</td>
+</tr>
+<tr>
+<td>Context from</td>
+<td>Infrastructure Model (Dim 7)</td>
+<td>Infrastructure Model determines which criteria are relevant</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Deployment Plan (Track 3)</td>
+<td>Deployment Plan deliberation considers readiness status</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Deployment Task (Track 3)</td>
+<td>Deployment execution considers readiness status</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>MDD (Track 3)</td>
+<td>Readiness status informs whether an MDD should be created for a given environment and what operational prerequisites exist</td>
+</tr>
+<tr>
+<td>Informed by</td>
+<td>Incident history (Track 3)</td>
+<td>Incident patterns per System x Environment reveal readiness gaps — e.g., a System with recurring SEV-1 incidents in one environment but not another indicates environment-specific readiness issues</td>
+</tr>
+<tr>
+<td>Fed by</td>
+<td>System Version (Track 2)</td>
+<td>System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness assessment</td>
+</tr>
+<tr>
+<td>Updated by</td>
+<td>Post-Incident Review (Track 3)</td>
+<td>PIR findings may downgrade readiness posture for affected System x Environment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>"payments-service in Production US-East"</strong><br />
+- System: payments-service (Dim 5)<br />
+- Environment: Production US-East<br />
+- Overall Status: <strong>Conditionally Ready</strong><br />
+- Observability: <strong>Fully Ready</strong> — structured JSON logs, Prometheus metrics (15 golden signals), distributed traces via OpenTelemetry, SLIs defined for all 4 Operational Targets<br />
+- Security: <strong>Conditionally Ready</strong> — encryption at rest (AES-256), mTLS in transit, RBAC configured. Gap: automated key rotation not yet implemented (manual rotation, 8hr/week — see Operational Pain)<br />
+- Performance: <strong>Fully Ready</strong> — load tested to 3x peak (30K TPS), auto-scale verified, baseline benchmarks established<br />
+- Operability: <strong>Gaps Identified</strong> — alerts configured (but 40% false positive rate — see Operational Pain), runbooks complete for deployment and rollback, incomplete for multi-AZ failover scenario<br />
+- DR: <strong>Fully Ready</strong> — automated backup every 15 min, point-in-time recovery tested, failover to DR US-West tested quarterly, RTO validated at 2 hours (within 4-hour target)<br />
+- Compliance: <strong>Fully Ready</strong> — PCI-DSS audit trail complete, data classification tags applied, SOC 2 controls verified<br />
+- Last Assessed: 2026-02-01<br />
+- Gaps: (1) Automated key rotation — Security — severity: medium, remediation: Q2 2026 Initiative. (2) Alert false positive rate — Observability — severity: high, remediation: in progress, alert tuning Sprint 15.</p>
+<p><strong>Module-level aggregation example:</strong> "Is the Payments Module ready for Production US-East?" → Check readiness of all Systems implementing the Payments Module: payments-service (Conditionally Ready), payment-gateway (Fully Ready). Aggregate: <strong>Conditionally Ready</strong> (constrained by payments-service gaps).</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/definition-model/dim7-operational-readiness.md">View on GitHub</a></p>

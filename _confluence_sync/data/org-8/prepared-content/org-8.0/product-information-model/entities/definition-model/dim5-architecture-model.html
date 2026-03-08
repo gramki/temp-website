@@ -1,0 +1,118 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim5-architecture-model.md -->
+<!-- Title: Architecture Model -->
+<!-- Content Hash: 116d2c3eff6383c87e18dd69081c30496a04bb31e0443938069e512afefbb440 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="architecture-model">Architecture Model</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 5: The Technical &amp; Architectural Dimension (Engineering)<br />
+<strong>Owner:</strong> Chief Architect, Engineering Leadership</p>
+<h2 id="definition">Definition</h2>
+<p>The macro-level architectural strategy — how the product is designed and constructed. The Architecture Model is the structural root of Dimension 5: all other Dim 5 entities exist within its frame. Parallel to Business Model (Dim 2) — "how we make money" — and Infrastructure Model (Dim 7) — "how we run it." The Architecture Model captures "how we build it."</p>
+<h2 id="purpose">Purpose</h2>
+<p>Anchors the Technical &amp; Architectural dimension by establishing the product's architectural identity. Like Business Model and Infrastructure Model, the Architecture Model is a lightweight, rarely-changing entity — it changes at the scale of years (e.g., migrating from monolith to microservices, adopting event sourcing), not quarters. Without Architecture Model:<br />
+- Systems exist without strategic context — no explanation of why the product is decomposed this way<br />
+- Technology choices are implicit — no explicit technology strategy or quality attribute priorities<br />
+- Architectural evolution has no documented direction — "where we are" and "where we're heading" are tribal knowledge<br />
+- ADRs lack a frame — individual decisions don't compose into a coherent strategy</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive name (e.g., "Event-driven microservices on AWS")</td>
+</tr>
+<tr>
+<td>Architectural Style</td>
+<td>Enum / List</td>
+<td><code>Microservices</code> / <code>Modular monolith</code> / <code>Event-driven</code> / <code>Serverless</code> / <code>Hybrid</code> / <code>Layered</code></td>
+</tr>
+<tr>
+<td>Key Principles</td>
+<td>List</td>
+<td>Guiding architectural principles (e.g., DDD bounded contexts, API-first, event sourcing, CQRS, separation of concerns)</td>
+</tr>
+<tr>
+<td>Quality Attribute Priorities</td>
+<td>Ordered List</td>
+<td>Non-functional quality attributes in priority order (e.g., maintainability &gt; testability &gt; extensibility &gt; performance)</td>
+</tr>
+<tr>
+<td>Technology Strategy</td>
+<td>Text</td>
+<td>Language portfolio, framework standards, cloud-native vs. portable, build vs. buy philosophy</td>
+</tr>
+<tr>
+<td>Architectural Evolution</td>
+<td>Text</td>
+<td>Current state → target state — the architectural roadmap (e.g., "migrating from shared database to database-per-service: 3 of 22 services complete")</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<p><em>Not applicable — the Architecture Model is a structural descriptor that changes extremely rarely. When it does change, it is a company-level architectural event warranting its own ADR (and likely a PDR).</em></p>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Context for</td>
+<td>System (Dim 5)</td>
+<td>Architecture Model frames how Systems are designed and decomposed</td>
+</tr>
+<tr>
+<td>Context for</td>
+<td>Component (Dim 5)</td>
+<td>Architecture Model's principles guide Component design</td>
+</tr>
+<tr>
+<td>Context for</td>
+<td>Interaction Flow (Dim 5)</td>
+<td>Architecture Model's style determines available Interaction Flow types</td>
+</tr>
+<tr>
+<td>Context for</td>
+<td>Dependency (Dim 5)</td>
+<td>Architecture Model's technology strategy guides dependency selection</td>
+</tr>
+<tr>
+<td>Justified by</td>
+<td>ADR(s) (Dim 5)</td>
+<td>Major architectural choices are recorded as ADRs</td>
+</tr>
+<tr>
+<td>Complementary</td>
+<td>Infrastructure Model (Dim 7)</td>
+<td>"How we build it" (Dim 5) complements "how we run it" (Dim 7)</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Modeling Task (Track 1)</td>
+<td>Architecture Model is evolved through Modeling Tasks</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>"Event-driven microservices on AWS"</strong><br />
+- Architectural Style: Microservices + Event-driven (hybrid — synchronous REST for queries, asynchronous Kafka events for commands and domain events)<br />
+- Key Principles: DDD bounded contexts (one service per bounded context), API-first (all inter-service communication through defined contracts), event sourcing for payment state (audit trail), CQRS for read-heavy query services, anti-corruption layers at domain boundaries<br />
+- Quality Attribute Priorities: Reliability &gt; Maintainability &gt; Testability &gt; Extensibility &gt; Performance<br />
+- Technology Strategy: Java 21 / Spring Boot 3.x for transactional services, Python 3.12 for analytics and batch processing, PostgreSQL for transactional data, ClickHouse for analytics, Kafka for inter-service events. Cloud-native (AWS) with portability layer for database access (no direct AWS SDK calls in domain logic).<br />
+- Architectural Evolution: Migrating from shared PostgreSQL database to database-per-service (3 of 22 services complete — payments, fx, settlement). Target: all transactional services own their data by Q4 2026. Analytics services already on ClickHouse.</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/entities/definition-model/dim5-architecture-model.md">View on GitHub</a></p>

@@ -1,0 +1,60 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-031-hotfix-emergency-path.md -->
+<!-- Title: DR-031: Hotfix / Emergency Fix Path — P0 Sprint Bypass and Emergency Gate Profile -->
+<!-- Content Hash: 4a33da8492160349ddfe49b1b29e966cba9b170e3702d9486ac642b2ac118229 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-031-hotfix-emergency-fix-path-p0-sprint-bypass">DR-031: Hotfix / Emergency Fix Path — P0 Sprint Bypass and Emergency Gate Profile</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-25</p>
+<h2 id="context">Context</h2>
+<p>DR-029 established the Emergency-Technical Change Request type for incident-driven deployments with abbreviated soak and documented waivers. DR-030 established the Incident Response Task that produces Bugs (provenance: Run) and triggers Emergency-Technical Change Requests. The missing piece was the <strong>Build Track's fast-path</strong>: how a P0 Bug bypasses sprint boundaries, how the resulting System Version uses a reduced quality gate profile, and how deferred gates are tracked to prevent permanent quality erosion.</p>
+<p>The alternative considered was adding a separate <code>Urgency</code> field (Normal/Expedited) on Bug. This was rejected because P0 already carries "drop everything" semantics in standard engineering practice. Adding Urgency would create a redundant dimension alongside Severity and Priority without meaningful additional signal.</p>
+<h2 id="decisions">Decisions</h2>
+<h3 id="d1-p0-bug-implies-sprint-bypass">D1: P0 Bug implies sprint bypass</h3>
+<p><strong>Decision:</strong> Run-provenance Bugs from SEV-0/SEV-1 Incidents default to P0 at triage. P0 signals sprint-boundary bypass and eligibility for Emergency quality gate profile on the resulting System Version.</p>
+<p><strong>Rationale:</strong> Bug already has both <code>Severity</code> (how bad the defect is) and <code>Priority</code> (how soon to fix it). These are independent: a Critical bug found in testing can wait for the next sprint (P1/P2); a Critical bug from a SEV-0 production incident cannot (P0). Rather than adding a third dimension (<code>Urgency</code>), we document that P0 = sprint bypass. The Work Model states the default; the Operating Model determines the exact sprint-bypass mechanism (interrupt capacity, dedicated on-call, etc.).</p>
+<p><strong>Alternative rejected:</strong> Separate <code>Urgency</code> field. Rejected because P0 already carries the semantics and adding a third dimension would create confusion about which field governs sprint bypass.</p>
+<h3 id="d2-system-version-supports-standard-and-emergency">D2: System Version supports Standard and Emergency quality gate profiles</h3>
+<p><strong>Decision:</strong> System Version gains a <code>Gate Profile</code> field with two values: <code>Standard</code> and <code>Emergency</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Non-Negotiable Gates</th>
+<th>Deferrable Gates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Standard</strong></td>
+<td>All gates required: test coverage, tests passed, security scan, performance benchmark, static analysis, dependency audit</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Emergency</strong></td>
+<td>Peer review, security scan, smoke tests</td>
+<td>Full regression suite, performance benchmarks, static analysis (may be deferred)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rationale:</strong> Emergency hotfixes need to ship within hours, not days. Full regression suites and performance benchmarks can take hours and may block critical fixes. However, peer review (second pair of eyes on the change), security scan (no new vulnerabilities introduced), and smoke tests (basic functionality works) are non-negotiable — they prevent a hotfix from introducing a worse problem.</p>
+<p>The distinction between non-negotiable and deferrable is based on <strong>risk of harm</strong>: peer review and security scan prevent introducing new defects; smoke tests confirm the fix works. Full regression and performance benchmarks confirm the fix doesn't break anything else — important, but the risk is lower for a narrowly scoped hotfix and the verification cost is higher.</p>
+<h3 id="d3-deferred-gate-obligation">D3: Deferred-gate obligation</h3>
+<p><strong>Decision:</strong> Emergency System Versions carry deferred gates. The originating Bug remains at status <code>Fixed</code> (not <code>Verified</code>/<code>Closed</code>) until a subsequent Standard System Version passes all deferred gates. A <code>Deferred Gate Obligation</code> field on Bug tracks this obligation.</p>
+<p><strong>Rationale:</strong> Without this mechanism, emergency hotfixes permanently lower quality standards — "we shipped it as an emergency, full tests never ran." The deferred-gate pattern ensures that every emergency fix eventually passes full quality gates. The Bug entity is the natural tracker because it is already the work item that stays open until the defect is fully resolved and verified.</p>
+<h3 id="d4-hotfix-branch-strategy-is-operating-model-terri">D4: Hotfix branch strategy is Operating Model territory</h3>
+<p><strong>Decision:</strong> The Work Model captures <code>Git Reference</code> (commit SHA or tag) on System Version but does not prescribe branching strategy. Hotfix branch patterns (branch from release tag, cherry-pick to main, etc.) are Operating Model concerns.</p>
+<p><strong>Rationale:</strong> Branching strategy varies by team maturity, repository structure (monorepo vs. polyrepo), and release model (trunk-based vs. gitflow). The Work Model is tool-agnostic and process-agnostic — it captures <em>what was produced</em> (the System Version with its git reference), not <em>how the code was organized</em>. The story file documents common patterns as Operating Model guidance.</p>
+<h2 id="consequences">Consequences</h2>
+<p><strong>Positive:</strong><br />
+- No new fields on Bug beyond the tracking obligation — P0 carries the semantics<br />
+- Emergency gate profile is explicit and auditable on System Version — not a verbal "we skipped tests"<br />
+- Deferred-gate pattern prevents permanent quality erosion<br />
+- Branching strategy stays in Operating Model where it belongs</p>
+<p><strong>Negative:</strong><br />
+- Organizations must discipline themselves to follow through on deferred-gate obligations — the Bug staying at <code>Fixed</code> is a nudge, not enforcement<br />
+- The non-negotiable vs. deferrable gate split is a default that may need calibration per organization (e.g., some may make static analysis non-negotiable)<br />
+- P0 as sprint-bypass signal is a convention, not a structural constraint — teams unfamiliar with the convention may not act on it</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/decisions/DR-031-hotfix-emergency-path.md">View on GitHub</a></p>

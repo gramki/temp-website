@@ -1,0 +1,151 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track1-signal-monitoring.md -->
+<!-- Title: Signal Monitoring -->
+<!-- Content Hash: 365bb5695e9a6065bc42967abb946c67ade2debe48e46a3046949b10e59f6348 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="signal-monitoring">Signal Monitoring</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 1: The Discovery Track (Learning)<br />
+<strong>Category:</strong> Monitoring<br />
+<strong>Owner:</strong> Product Manager, Discovery Lead</p>
+<h2 id="definition">Definition</h2>
+<p>Continuous tracking of the signal pipeline health, trend analysis across Signals, and discovery velocity metrics. Signal Monitoring sits between periodic assessment (Deliberation, Prioritization Task) and reactive work (Signal Exploration, Research Task) — it surfaces when the signal backlog grows, when themes shift, or when discovery capacity is mismatched to demand.</p>
+<p>Signal Monitoring is the Discovery Track's instantiation of the cross-track monitoring pattern: ongoing vigilance that triggers downstream work and feeds periodic reviews.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Makes the continuous oversight of the discovery pipeline explicit. Without Signal Monitoring:<br />
+- Signal backlog growth is invisible until Prioritization is overwhelmed<br />
+- Theme shifts and emerging patterns across Signals go undetected<br />
+- Discovery velocity (Signals explored, Ideas validated per period) is not systematically tracked<br />
+- Capacity mismatches (too many Signals, too few exploration slots) surface only in crisis</p>
+<p><strong>Triggers downstream work:</strong> Prioritization Task re-evaluation, new Signal creation, Deliberation scheduling.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Text</td>
+<td>What is being monitored (e.g., "LATAM Initiative signal pipeline", "All unprioritized Signals")</td>
+</tr>
+<tr>
+<td>Metrics Tracked</td>
+<td>List (text or reference)</td>
+<td>Signal backlog count, signals-by-theme, discovery velocity, time-in-state per Signal</td>
+</tr>
+<tr>
+<td>Thresholds / Alerts</td>
+<td>List (text)</td>
+<td>When does monitoring trigger action (e.g., "Backlog &gt; 50 unprioritized Signals", "Signal aged &gt; 90 days without exploration")</td>
+</tr>
+<tr>
+<td>Cadence</td>
+<td>Enum</td>
+<td><code>Continuous</code> / <code>Daily</code> / <code>Weekly</code></td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>String</td>
+<td>Role/person responsible for watching</td>
+</tr>
+<tr>
+<td>Initiative(s)</td>
+<td>List of References (Dim 1)</td>
+<td>Which Initiative(s) this monitoring supports (if scoped)</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active</td>
+<td>Monitoring is in effect; thresholds and cadence are defined</td>
+</tr>
+<tr>
+<td>Paused</td>
+<td>Monitoring is temporarily suspended</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>Monitoring scope is no longer relevant</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-artifacts">Outputs / Artifacts</h2>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Category</th>
+<th>Description</th>
+<th>Downstream Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alert / Trigger</td>
+<td>Evidence</td>
+<td>When threshold is breached — prompts Prioritization re-evaluation or Signal creation</td>
+<td>Prioritization Task, Deliberation</td>
+</tr>
+<tr>
+<td>Pipeline Report / Dashboard</td>
+<td>Assessment</td>
+<td>Periodic snapshot of backlog, velocity, theme distribution</td>
+<td>Deliberation preparation, Initiative review</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Informs</td>
+<td>Prioritization Task (Track 1)</td>
+<td>Monitoring surfaces need for re-prioritization</td>
+</tr>
+<tr>
+<td>May trigger</td>
+<td>Signal (Dim 1)</td>
+<td>Monitoring may surface need for new Signal creation</td>
+</tr>
+<tr>
+<td>Feeds</td>
+<td>Deliberation (Track 1)</td>
+<td>Pipeline reports feed Deliberation preparation</td>
+</tr>
+<tr>
+<td>Scoped to</td>
+<td>Initiative (Dim 1)</td>
+<td>Monitoring may be scoped to specific Initiative pipelines</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>"Monitor LATAM Initiative signal pipeline — daily scan of unprioritized Signals; alert when backlog exceeds 20 or any Signal has been in New state &gt; 60 days. Owner: PM Lead. Feeds weekly Discovery sync."</p>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/work-model/track1-signal-monitoring.md">View on GitHub</a></p>

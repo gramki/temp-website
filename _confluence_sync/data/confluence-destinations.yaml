@@ -167,3 +167,42 @@ destinations:
       github_repo_override: null
       dry_run: false
       parallel_threads: 12
+
+  - id: pontus-cto
+    name: Pontus (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Pontus
+      root_page_id: null
+    source:
+      folders:
+        - path: pontus
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: org-8
+    name: Org 8.0 (Z8 Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: Z8
+      root_page_title: Org 8.0
+      root_page_id: null
+    source:
+      folders:
+        - path: org-8.0
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false

@@ -1,0 +1,239 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim4-user-journey.md -->
+<!-- Title: User Journey -->
+<!-- Content Hash: 9c14ca3be5104a147108c1caa61862874a3d78fa3bfc73ff0401de117c29079d -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="user-journey">User Journey</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 4: The User-Centric Dimension (Experience)<br />
+<strong>Owner:</strong> UX Designers, Product Management</p>
+<h2 id="definition">Definition</h2>
+<p>The end-to-end path a User Persona follows to accomplish a Job through a specific UX Channel. A Journey is scoped to a single Channel — the same Job may have different Journeys across different Channels, with each Journey adapted to that Channel's interaction modality and constraints.</p>
+<h2 id="purpose">Purpose</h2>
+<p>User Journey maps the sequential experience of a user from intent to completion. It connects:<br />
+- The <em>who</em> (Persona) and the <em>why</em> (Job) to the <em>how</em> (the actual flow of steps)<br />
+- The experiential surface (Dim 4) to the product's structural flows (Value Streams in Dim 8)</p>
+<p>Without User Journeys:<br />
+- Feature design has no experiential context — features are built for capabilities, not for user flows<br />
+- Cross-channel experience strategy is implicit — no way to identify equivalent or continuous flows<br />
+- Value Stream traversal (Dim 8) has no user-facing representation</p>
+<p><strong>Touchpoints are below the Journey level.</strong> Specific UI elements (buttons, forms, dropdowns) are Build Track work artifacts, not Definition Model entities. The Definition Model captures down to the Journey level; screen-level detail lives in PSDs, prototypes, and design specifications.</p>
+<p><strong>Discovery provenance:</strong> Journeys are designed during Specification (PSD authoring), validated through Prototypes/Spikes, and refined iteratively.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive journey name (e.g., "Initiate and approve a cross-border payout")</td>
+</tr>
+<tr>
+<td>Job(s) Accomplished</td>
+<td>List of References (Dim 4)</td>
+<td>Which Job(s) this journey accomplishes</td>
+</tr>
+<tr>
+<td>User Persona(s)</td>
+<td>List of References (Dim 4)</td>
+<td>Which Persona(s) follow this journey</td>
+</tr>
+<tr>
+<td>UX Channel</td>
+<td>Reference (Dim 4)</td>
+<td>Through which Channel this journey is experienced</td>
+</tr>
+<tr>
+<td>Steps (Summary)</td>
+<td>Text</td>
+<td>High-level step sequence — not screen-level detail but enough to convey the flow shape</td>
+</tr>
+<tr>
+<td>Value Stream(s) Traversed</td>
+<td>List of References (Dim 8)</td>
+<td>Which Value Streams this journey traverses (maps UX flow to product structure)</td>
+</tr>
+<tr>
+<td>Capabilities Engaged</td>
+<td>List of References (Dim 8)</td>
+<td>Which Capabilities are engaged during this journey. Provides finer-grained structural mapping than Value Stream alone — identifies which specific product abilities the journey requires at each step.</td>
+</tr>
+<tr>
+<td>Equivalent Journeys</td>
+<td>List of References (Dim 4)</td>
+<td>Journeys in other channels that accomplish the same Job (independent alternatives)</td>
+</tr>
+<tr>
+<td>Continuable From</td>
+<td>List of References (Dim 4)</td>
+<td>Journeys in other channels that can hand off to this journey</td>
+</tr>
+<tr>
+<td>Continuable To</td>
+<td>List of References (Dim 4)</td>
+<td>Journeys in other channels that this journey can hand off to</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Designed</td>
+<td>Journey has been specified (PSD authored) but not yet built</td>
+</tr>
+<tr>
+<td>Prototyped</td>
+<td>Journey has been validated through a prototype or spike</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Journey is live in the product</td>
+</tr>
+<tr>
+<td>Deprecated</td>
+<td>Journey is being replaced or phased out</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accomplishes</td>
+<td>Job (Dim 4)</td>
+<td>Journey accomplishes one or more Jobs</td>
+</tr>
+<tr>
+<td>Followed by</td>
+<td>User Persona (Dim 4)</td>
+<td>One or more Personas follow this Journey</td>
+</tr>
+<tr>
+<td>Experienced through</td>
+<td>UX Channel (Dim 4)</td>
+<td>Journey is experienced through a specific Channel</td>
+</tr>
+<tr>
+<td>Traverses</td>
+<td>Value Stream (Dim 8)</td>
+<td>Journey traverses Value Stream(s)</td>
+</tr>
+<tr>
+<td>Engages</td>
+<td>Capability (Dim 8)</td>
+<td>Journey engages specific Capabilities within the traversed Value Streams</td>
+</tr>
+<tr>
+<td>Equivalent to</td>
+<td>User Journey (Dim 4)</td>
+<td>Same Job, different Channel — independent alternatives</td>
+</tr>
+<tr>
+<td>Continuable from/to</td>
+<td>User Journey (Dim 4)</td>
+<td>Sequential handoff across Channels</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Specification Task (Track 1)</td>
+<td>PSDs specify Journeys</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Prototype / Spike (Track 1)</td>
+<td>Prototypes validate Journey design</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Journey</th>
+<th>Job</th>
+<th>Persona</th>
+<th>Channel</th>
+<th>Value Stream</th>
+<th>Capabilities Engaged</th>
+<th>Cross-Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Initiate and approve a cross-border payout"</td>
+<td>Process cross-border payout</td>
+<td>AP Clerk</td>
+<td>Web + Self-serve (Dashboard)</td>
+<td>Cross-Border Payout Processing</td>
+<td>Payment Initiation, Automated Rate Locking, OFAC Screening, Payment Execution</td>
+<td>Equivalent to: "Approve payout" (Mobile); Continuable from: "Request payout approval" (Email)</td>
+</tr>
+<tr>
+<td>"Approve payout"</td>
+<td>Process cross-border payout</td>
+<td>AP Manager</td>
+<td>Mobile + Self-serve</td>
+<td>Cross-Border Payout Processing</td>
+<td>Payment Approval, Payment Execution</td>
+<td>Equivalent to: "Initiate and approve" (Web); Continuable from: "Request payout approval" (Email)</td>
+</tr>
+<tr>
+<td>"Request payout approval"</td>
+<td>Process cross-border payout</td>
+<td>AP Clerk</td>
+<td>Email + Self-serve</td>
+<td>Cross-Border Payout Processing</td>
+<td>Payment Notification</td>
+<td>Continuable to: "Approve payout" (Mobile), "Initiate and approve" (Web)</td>
+</tr>
+<tr>
+<td>"Analyze FX exposure dashboard"</td>
+<td>Analyze FX exposure</td>
+<td>Treasury Analyst</td>
+<td>Web + Self-serve (Dashboard)</td>
+<td>Multi-Currency Reporting</td>
+<td>FX Exposure Analysis, Report Generation</td>
+<td>—</td>
+</tr>
+<tr>
+<td>"Generate compliance audit report"</td>
+<td>Generate compliance audit report</td>
+<td>Compliance Officer</td>
+<td>Web + Self-serve (Dashboard)</td>
+<td>Compliance Screening</td>
+<td>OFAC Screening, Audit Trail, Report Generation</td>
+<td>—</td>
+</tr>
+<tr>
+<td>"Resolve payment issue via support"</td>
+<td>Process cross-border payout</td>
+<td>AP Clerk</td>
+<td>Chat + Assisted</td>
+<td>Cross-Border Payout Processing</td>
+<td>Payment Inquiry, Transaction Lookup</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim4-user-journey.md">View on GitHub</a></p>

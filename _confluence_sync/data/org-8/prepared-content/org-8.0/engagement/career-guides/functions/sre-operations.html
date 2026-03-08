@@ -1,0 +1,104 @@
+<!-- File: org-8.0/engagement/career-guides/functions/sre-operations.md -->
+<!-- Title: SRE / Operations — Function Coaching Guide -->
+<!-- Content Hash: c3fe4bed42ecd3a6ef68e7589370faa47978178e837290a143f955ad32bc1098 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="sre-operations-function-coaching-guide">SRE / Operations — Function Coaching Guide</h1>
+<p><ac:link><ri:page ri:content-title="Career Guides — Coaching for Functions and Roles"/><ac:plain-text-link-body><![CDATA[← Back to Career Guides]]></ac:plain-text-link-body></ac:link> | <ac:link ac:anchor="3e-sre--operations"><ri:page ri:content-title="Career Paths in the Operating Model"/><ac:plain-text-link-body><![CDATA[Career Paths — SRE / Operations]]></ac:plain-text-link-body></ac:link></p>
+<hr />
+<h2 id="purpose">Purpose</h2>
+<p>This guide helps SRE practitioners at every level understand what the Engagement Operating Model expects of them and how to grow within the SRE / Operations function. This function supplies the <strong>SRE Lead</strong> Engagement role — the person responsible for operational readiness, release coordination mechanics, and the operational transition at Transfer and Complete. The SRE function also plays a critical role in determining how the customer's chosen operating model (Fully Managed, Co-Managed, Customer-Operated) shapes the handover.</p>
+<hr />
+<h2 id="sre">SRE</h2>
+<h3 id="required-craft-skills-competencies">Required Craft, Skills, Competencies</h3>
+<ul>
+<li><strong>Craft:</strong> Build and maintain monitoring, alerting, and runbook infrastructure for an assembled product. Write IaC for production, staging, and test environments. Understand the deployment topology that EA designs and configure CI/CD pipelines that AVA's verification module feeds into.</li>
+<li><strong>Skills:</strong> Work with ELs and squad engineers on operational requirements (logging, metrics, health checks) — embed operational thinking into Build, not as an afterthought at Transfer. Participate in the AVA's release coordination workflow — understand that AVA certifies the assembly and SRE deploys it; the mechanics of deployment sequencing, environment promotion, and production cutover are SRE's domain.</li>
+<li><strong>Competencies:</strong> Distinguish between the three operating models (Fully Managed, Co-Managed, Customer-Operated) and understand what each means for the operational handover. In a Fully Managed model, you are building for long-term operations. In a Customer-Operated model, you are building for handover to a team you may never meet. The operational artifacts (runbooks, monitoring, alerting) must be sufficient for the target audience.</li>
+</ul>
+<h3 id="roles-expected-to-play-and-challenges">Roles Expected to Play and Challenges</h3>
+<ul>
+<li><strong>SRE within an Engagement</strong> — supporting the SRE Lead on operational readiness tasks. Not yet expected to play SRE Lead.</li>
+<li><strong>Challenge:</strong> Joining mid-Build and discovering that operational requirements were not included in the architecture. Retrofit is harder than building in — advocate early through the SRE Lead for architecture decisions that support operations.</li>
+<li><strong>Challenge:</strong> Building runbooks and monitoring for a system that's still evolving. The target keeps moving until late Build. Iterate on operational artifacts in sync with each increment rather than waiting for a stable system.</li>
+</ul>
+<h3 id="how-to-learn">How to Learn</h3>
+<ul>
+<li><strong>On the job:</strong> Work on at least one Engagement in each operating model variant (Fully Managed, Co-Managed, Customer-Operated) to build breadth. Each variant demands different operational artifacts and different handover depth.</li>
+<li><strong>Feedback:</strong> SRE Lead provides execution-axis input. SRE leadership evaluates growth across Engagements and operating model breadth.</li>
+<li><strong>Knowledge sharing:</strong> Contribute runbook templates and monitoring patterns to the SRE community of practice.</li>
+<li><strong>External reading:</strong> <em>Site Reliability Engineering</em> — Google (<a href="https://sre.google/sre-book/table-of-contents/">sre.google/sre-book</a>) — the definitive SRE reference; available free online. Directly applicable to monitoring, alerting, incident response, and operational handover planning.</li>
+</ul>
+<hr />
+<h2 id="senior-sre">Senior SRE</h2>
+<h3 id="required-craft-skills-competencies">Required Craft, Skills, Competencies</h3>
+<ul>
+<li><strong>Craft:</strong> Design the operational architecture for an Engagement — monitoring topology, alerting strategy, incident response plan, capacity planning. Define the environment promotion pipeline (dev → staging → pre-prod → production) in coordination with EA and AVA. Own the operational readiness checklist from Discover through Transfer.</li>
+<li><strong>Skills:</strong> Coordinate with AVA on release mechanics — AVA certifies, SRE deploys. Define the deployment sequencing, rollback procedures, and production cutover plan. Coordinate with EPM on operational readiness communication to the customer and Client Partner. Work with EA on architecture-operations alignment — ensure the architecture supports monitoring, fault isolation, and graceful degradation.</li>
+<li><strong>Competencies:</strong> Plan the operational transition per the operating model — for Fully Managed, prepare for ongoing operations; for Co-Managed, design the shared responsibility matrix; for Customer-Operated, produce a complete operational handover package (documentation, training, support runbook). Manage the tension between "operational readiness isn't ready" and delivery pressure to go live.</li>
+</ul>
+<h3 id="roles-expected-to-play-and-challenges">Roles Expected to Play and Challenges</h3>
+<ul>
+<li><strong>SRE Lead</strong> on smaller Engagements. <strong>Senior SRE supporting the SRE Lead</strong> on complex Engagements.</li>
+<li><strong>Challenge:</strong> Ensuring operational readiness isn't treated as an afterthought. Build teams focus on building; the SRE Lead must make operational readiness a first-class concern from Discover.</li>
+<li><strong>Challenge:</strong> Different operating models require fundamentally different handover approaches. A Customer-Operated handover is an order of magnitude more documentation-intensive than a Fully Managed handover. Plan accordingly from Discover, not from Transfer.</li>
+</ul>
+<h3 id="how-to-learn">How to Learn</h3>
+<ul>
+<li><strong>On the job:</strong> Lead the operational readiness workstream on a medium-complexity Engagement. Own the Transfer handover for at least one Engagement.</li>
+<li><strong>Feedback:</strong> EO and EPM assess operational readiness quality and handover smoothness. SRE leadership evaluates operating model breadth.</li>
+<li><strong>Knowledge sharing:</strong> Contribute operational handover patterns differentiated by operating model to the SRE community.</li>
+<li><strong>External reading:</strong> <em>The Site Reliability Workbook</em> — Google (<a href="https://sre.google/workbook/table-of-contents/">sre.google/workbook</a>) — practical companion to the SRE book; useful for operational readiness checklists and incident response planning.</li>
+</ul>
+<hr />
+<h2 id="sre-lead-designation">SRE Lead (Designation)</h2>
+<h3 id="required-craft-skills-competencies">Required Craft, Skills, Competencies</h3>
+<ul>
+<li><strong>Craft:</strong> Own the end-to-end operational readiness for an Engagement from Discover (advisory) through Complete. Design and implement the full release coordination mechanics. Define SLA/SLO targets based on the operating model and customer contract. Architect the incident response framework (escalation matrix, communication templates, post-incident review process).</li>
+<li><strong>Skills:</strong> Negotiate with EA on architecture decisions that affect operability — fault isolation, service dependencies, monitoring surface area. Coordinate with AVA on the release certification → deployment handoff — this is the most critical operational boundary in the model. Present operational readiness status to EO, EPM, and Client Partner in business terms (risk to go-live, risk to SLA, remediation plan).</li>
+<li><strong>Competencies:</strong> Exercise operational readiness sign-off authority — SRE Lead must approve that operational criteria are met before Transfer. This is an authority, not a suggestion. Manage the tension between delivery velocity and operational readiness — the EO and EPM want to go live; the SRE Lead must confirm the operations are in place.</li>
+</ul>
+<h3 id="roles-expected-to-play-and-challenges">Roles Expected to Play and Challenges</h3>
+<ul>
+<li><strong>SRE Lead</strong> (the Engagement role) on complex Engagements.</li>
+<li><strong>Challenge:</strong> The SRE Lead's release mechanics authority runs up against AVA's release certification authority and EPM's delivery communication. The boundary is clear (AVA certifies, SRE deploys) but pressure from Client Partner and EO can blur it. Hold the boundary.</li>
+<li><strong>Challenge:</strong> Building the incident response plan for a system that crosses Product Line boundaries — incident ownership must be clear even when the system spans multiple PL operational teams.</li>
+</ul>
+<h3 id="how-to-learn">How to Learn</h3>
+<ul>
+<li><strong>On the job:</strong> Lead operational readiness across the full lifecycle of a complex Engagement. Take at least one assignment in each operating model variant.</li>
+<li><strong>Feedback:</strong> EO rates operational readiness effectiveness. SRE leadership evaluates multi-Engagement operational record and operating model breadth.</li>
+<li><strong>Knowledge sharing:</strong> Lead SRE community sessions on release coordination patterns. Document operational handover templates differentiated by operating model.</li>
+</ul>
+<hr />
+<h2 id="sre-manager-sre-leadership-director-vp">SRE Manager / SRE Leadership (Director → VP)</h2>
+<ul>
+<li><strong>Craft:</strong> Own the SRE function's career path. Evaluate SREs across Engagements and operating model variants.</li>
+<li><strong>Key model construct:</strong> Participate in ERC to advise on SRE Lead designation-to-complexity matching. Ensure the SRE function's operational standards are consistent across Engagements while allowing for operating-model-specific adaptation.</li>
+<li><strong>Challenge:</strong> The SRE function often has fewer practitioners than Engineering or Architecture. Prioritise assignments carefully — a mismatched SRE Lead on a complex Engagement creates operational risk that surfaces late.</li>
+<li><strong>Challenge:</strong> Defining operational readiness standards that span all three operating models without becoming overly prescriptive for simpler variants.</li>
+</ul>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Why Relevant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Site Reliability Engineering</em> — Google (<a href="https://sre.google/sre-book/table-of-contents/">sre.google/sre-book</a>)</td>
+<td>Definitive SRE reference; directly applicable to monitoring, alerting, incident response, and the operational disciplines SRE Leads practice in this model. Free online.</td>
+</tr>
+<tr>
+<td><em>The Site Reliability Workbook</em> — Google (<a href="https://sre.google/workbook/table-of-contents/">sre.google/workbook</a>)</td>
+<td>Practical companion with checklists and case studies; useful for operational readiness planning and incident response design. Free online.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><ac:link><ri:page ri:content-title="Career Guides — Coaching for Functions and Roles"/><ac:plain-text-link-body><![CDATA[← Back to Career Guides]]></ac:plain-text-link-body></ac:link></p>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/engagement/career-guides/functions/sre-operations.md">View on GitHub</a></p>

@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
-"""Wrapper script to load .env file and run sync-to-confluence.py"""
+"""Wrapper script to load .env file and run sync-to-confluence.py.
+Uses scripts/venv when present so sync runs with the same deps (including mmdc for Mermaid).
+"""
 import os
 import sys
 from pathlib import Path
+
+# Prefer scripts/venv so sync uses requirements.txt (including mmdc)
+_scripts_dir = Path(__file__).resolve().parent / 'scripts'
+_venv_python = _scripts_dir / 'venv' / 'bin' / 'python'
+if _venv_python.exists() and sys.executable != str(_venv_python):
+    os.execv(str(_venv_python), [str(_venv_python), __file__] + sys.argv[1:])
 
 # Load .env file from data directory
 data_dir = Path(__file__).parent / 'data'

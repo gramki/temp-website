@@ -1,0 +1,146 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim7-module-package.md -->
+<!-- Title: Module Package -->
+<!-- Content Hash: 23f7f76311e68e32bc73f25aba3009fe6e6e508851a0e79ae9d3dbe85d3298f9 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="module-package">Module Package</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 7: The Operational Dimension (Runtime &amp; DevOps)<br />
+<strong>Owner:</strong> SRE Leadership, Platform Engineering</p>
+<h2 id="definition">Definition</h2>
+<p>A composition specification defining which <strong>operator-facing systems</strong> and operational wiring accompany a Module (Dim 8) to make it observable and maintainable in production. The Module Package specification declares the catalog of operator-facing subsystems — observability probes, dashboards, reconcilers, log shippers, automated maintenance jobs, health-check agents — and the operational wiring that binds them to the Module's tenant-serving systems.</p>
+<p>The Module Package specification is the <strong>template</strong>; the Module Package Version (Work Model, Track 3) is the <strong>versioned instance</strong> that instantiates this template with specific System Versions. The specification says "<em>what</em> operator-facing systems and wiring a Module needs for observability and maintenance"; the version says "<em>which specific versions</em> of those operator-facing systems are assembled for a given release."</p>
+<blockquote>
+<p><strong>Why Dim 7, not Dim 8?</strong> Dim 8 presents structural composition that customers and product stakeholders understand (Product → Module → Capability → Feature). The Module Package specification is an operational concern — it defines which operator-facing systems the Run Track builds to observe and maintain a Module. It is not visible to customers. It extends Dim 8's Module with observability and maintenance requirements, but lives in Dim 7 alongside other operational strategy entities (Infrastructure Model, Deployment Environment, Operational Readiness). See DR-029 D1.</p>
+<p><strong>Operator-facing systems only.</strong> The Module Package specification does NOT include tenant-serving Systems — those belong to the Module (Dim 8) and are composed into Module Version (Track 2). The Package specifies only Systems that serve operators: probes, dashboards, reconcilers, log shippers, automated maintenance jobs. If a System participates in a tenant-facing workflow, it belongs in the Module, not the Package.</p>
+</blockquote>
+<h2 id="purpose">Purpose</h2>
+<p>Captures the structural definition of which operator-facing systems accompany a Module — independent of any specific version or environment. Without Module Package specifications:<br />
+- The composition rules for which operator-facing systems accompany a Module are implicit, living in tribal knowledge or CI/CD scripts<br />
+- Run Track engineers have no structured definition of "what probes, dashboards, and maintenance jobs does this Module need?"<br />
+- New team members cannot discover which observability and maintenance systems accompany a Module<br />
+- Changes to the operator-facing composition (adding a new probe, removing an obsolete reconciler) have no formal entity to track</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module</td>
+<td>Reference (Dim 8)</td>
+<td>The Module this specification enriches</td>
+</tr>
+<tr>
+<td>Operational Systems Catalog</td>
+<td>List</td>
+<td>Named operational systems that enrich this Module (e.g., "payments-healthcheck — synthetic payment probes", "payment-reconciler — daily settlement reconciliation")</td>
+</tr>
+<tr>
+<td>Operational Wiring</td>
+<td>Structured Config</td>
+<td>Binding rules: probe-to-system mappings, automation triggers, scheduled job configurations, operational service mesh routes</td>
+</tr>
+<tr>
+<td>Composition Rules</td>
+<td>Text</td>
+<td>Constraints and rules governing composition (e.g., "healthcheck probe is mandatory for all production deployments", "reconciler requires settlement files access")</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draft</td>
+<td>Specification is being authored; operational systems catalog is incomplete</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Specification is the current definition for Module Package Versions</td>
+</tr>
+<tr>
+<td>Superseded</td>
+<td>A newer specification has replaced this one (e.g., operational systems catalog changed)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extends</td>
+<td>Module (Dim 8)</td>
+<td>Module Package specification defines which operator-facing systems accompany a Module</td>
+</tr>
+<tr>
+<td>References</td>
+<td>System(s) (Dim 5)</td>
+<td>Operational systems in the catalog are Systems in Dim 5</td>
+</tr>
+<tr>
+<td>Instantiated by</td>
+<td>Module Package Version(s) (Track 3)</td>
+<td>Versioned instances are created as Work Model artifacts</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>MDD (Track 3)</td>
+<td>MDD deployment specifications operate on Module Package Versions that follow this spec</td>
+</tr>
+<tr>
+<td>Justified by</td>
+<td>ODR (Dim 7)</td>
+<td>Operational decisions may drive changes to the specification</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="payments-module-package-specification">Payments Module Package Specification</h3>
+<pre class="codehilite"><code>Module Package Specification: Payments
+├── Module: Payments (Dim 8)
+├── Operational Systems Catalog:
+│   ├── payments-healthcheck — synthetic payment probes (end-to-end path verification)
+│   ├── payment-reconciler — daily settlement reconciliation (automated mismatch detection)
+│   └── payments-log-shipper — structured log aggregation for compliance audit trail
+├── Operational Wiring:
+│   ├── Probe mapping: payments-healthcheck → payments-service (health endpoint)
+│   ├── Automation trigger: payment-reconciler → payment-gateway (settlement files)
+│   └── Service mesh: payments-healthcheck allowed to call payments-service, payment-gateway
+└── Composition Rules:
+    ├── payments-healthcheck is mandatory for Production and Staging environments
+    ├── payment-reconciler requires read access to payment-gateway settlement files
+    └── payments-log-shipper is mandatory for PCI-DSS compliance zone environments
+</code></pre>
+
+<h3 id="fx-module-package-specification">FX Module Package Specification</h3>
+<pre class="codehilite"><code>Module Package Specification: FX
+├── Module: FX (Dim 8)
+├── Operational Systems Catalog:
+│   └── fx-rate-monitor — rate-provider health monitoring (staleness detection)
+├── Operational Wiring:
+│   └── Probe mapping: fx-rate-monitor → fx-service (rate staleness endpoint)
+└── Composition Rules:
+    └── fx-rate-monitor is mandatory for all environments where FX Module is deployed
+</code></pre>
+
+<hr />
+
+<p><strong>Source:</strong> Commit: 8e6b1b1 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/8e6b1b1/org-8.0/product-information-model/entities/definition-model/dim7-module-package.md">View on GitHub</a></p>

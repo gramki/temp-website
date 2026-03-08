@@ -1,0 +1,233 @@
+<!-- File: org-8.0/product-information-model/stories/incident-management-analysis.md -->
+<!-- Title: Incident Management in the UPIM: Analysis and Guide -->
+<!-- Content Hash: dacac04fa0344c9624a3f0f43acee92007e5b1691b930ccbff4fdc76149f450f -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="incident-management-in-the-upim-analysis-and-guide">Incident Management in the UPIM: Analysis and Guide</h1>
+<h2 id="why-itsm-aligned-incident-management-matters">Why ITSM-Aligned Incident Management Matters</h2>
+<p>For enterprise SaaS products — particularly in regulated domains like fintech — incident management is not optional operational hygiene. It is a compliance requirement (PCI-DSS, SOC 2), a contractual obligation (SLA commitments), and a product quality signal. Customers evaluate products partly on <em>how incidents are handled</em>: transparency, speed, learning, and prevention.</p>
+<p>The UPIM needs an incident management design that:</p>
+<ol>
+<li><strong>Separates observation from response from learning</strong> — so each can be assessed independently</li>
+<li><strong>Provides structured severity classification</strong> — so the organization responds proportionally</li>
+<li><strong>Enables incident correlation</strong> — so a single root cause isn't counted as N incidents</li>
+<li><strong>Closes feedback loops</strong> — to Run Track planning, Discovery, Build, Win, and the Definition Model</li>
+<li><strong>Tracks SLA performance</strong> — so Customer Promises (Dim 3) are evidenced, not assumed</li>
+</ol>
+<h2 id="the-artifactentity-separation">The Artifact/Entity Separation</h2>
+<p>The foundational design decision is that an Incident is a <strong>work artifact</strong> (an observation record), not a work entity (work to be done). This parallels the Deployment pattern established in DR-029:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Work Entity</th>
+<th>Work Artifact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deployment</td>
+<td>Deployment Task (applies descriptor)</td>
+<td>Deployment (record of what was applied)</td>
+</tr>
+<tr>
+<td>Incident</td>
+<td>Incident Response Task (triage, resolve)</td>
+<td>Incident (record of what happened)</td>
+</tr>
+</tbody>
+</table>
+<p>Three work entities handle the incident lifecycle:</p>
+<h3 id="1-incident-response-task">1. Incident Response Task</h3>
+<p>The primary response entity. Triage, investigate, mitigate, resolve. Its Definition of Done is deliberately narrow: <strong>service restored to SLO-compliant state</strong>. Root cause elimination is downstream work — a Bug for the Build Track, a Run Epic for operational tooling, a Signal for Discovery.</p>
+<p>This narrow DoD is critical. Without it, incident response tasks stay open until a permanent fix ships, which conflates two fundamentally different timelines: "restore service now" (hours) and "fix the root cause" (days/weeks). The Incident Response Task captures the workaround applied, preliminary root cause assessment, and resolution summary — then hands off.</p>
+<h3 id="2-post-incident-review">2. Post-Incident Review</h3>
+<p>The learning entity. Parallels Deliberation (Track 1) and Win Review (Track 4). PIR produces the Post-Incident Report (durable knowledge artifact) and routes corrective actions to appropriate tracks.</p>
+<p>The PIR mandate — SEV-0, SEV-1, and SEV-2 incidents require PIR — is a Work Model default. The Operating Model can adjust: require PIR for all SEV-3 incidents in a mission-critical module, or waive PIR for SEV-2 incidents resolved within 15 minutes with no customer impact.</p>
+<p>PIR is <strong>blameless by design</strong>. The entity structure captures "Contributing Factors" (systemic conditions) rather than "Who caused this." This is a modeling choice that the Operating Model reinforces through ceremony design.</p>
+<h3 id="3-customer-communication-task">3. Customer Communication Task</h3>
+<p>The communication entity. Status page updates, affected-tenant notifications, resolution summaries. Run Track owns this because SRE/DevOps has real-time technical context. Win Track consumes summarized views.</p>
+<h2 id="the-sev-based-severity-model">The SEV-Based Severity Model</h2>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th>Scope</th>
+<th>Workaround</th>
+<th>PIR</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEV-0</td>
+<td>Total service outage; all tenants</td>
+<td>None</td>
+<td>Required</td>
+<td>Complete payment processing failure across all environments</td>
+</tr>
+<tr>
+<td>SEV-1</td>
+<td>Major degradation; significant tenant impact</td>
+<td>Limited or none</td>
+<td>Required</td>
+<td>FX API latency 5000ms; cross-border payments timing out</td>
+</tr>
+<tr>
+<td>SEV-2</td>
+<td>Partial degradation; subset of tenants/capabilities</td>
+<td>Available</td>
+<td>Required</td>
+<td>Settlement file generation delayed 4 hours; manual export works</td>
+</tr>
+<tr>
+<td>SEV-3</td>
+<td>Minor degradation; limited customer-visible impact</td>
+<td>Available</td>
+<td>Operating Model decision</td>
+<td>Dashboard loading slowly (8s vs. 2s)</td>
+</tr>
+<tr>
+<td>SEV-4</td>
+<td>Minimal degradation; no customer-visible impact</td>
+<td>N/A</td>
+<td>No</td>
+<td>Background reconciliation running 20% slower</td>
+</tr>
+</tbody>
+</table>
+<p>Why SEV-0..4 instead of P1/P2? P1/P2 is overloaded — some organizations use P for priority, others for severity. SEV-N is unambiguous. SEV-0 provides a level above SEV-1 for total outages.</p>
+<h2 id="cross-track-feedback-loops">Cross-Track Feedback Loops</h2>
+<p>Incidents are not contained within the Run Track. They produce structured outputs that flow across the entire UPIM:</p>
+<h3 id="from-incident-response-task">From Incident Response Task</h3>
+<ul>
+<li><strong>Bug (Track 2)</strong> — root cause is a product defect; provenance: Run; carries Workaround field for Known Error documentation</li>
+<li><strong>Signal — Problem (Track 1)</strong> — recurring or systemic issue surfaced for Discovery</li>
+<li><strong>Emergency Change Request (Track 3)</strong> — SEV-0/SEV-1 requiring immediate deployment fix</li>
+</ul>
+<h3 id="from-post-incident-review">From Post-Incident Review</h3>
+<ul>
+<li><strong>Post-Incident Report</strong> — durable knowledge artifact</li>
+<li><strong>Bug (Track 2)</strong> — deeper root cause identified during RCA</li>
+<li><strong>Run Epic (Track 3)</strong> — operational tooling gap (e.g., missing probes, manual failover)</li>
+<li><strong>Signal (Track 1)</strong> — systemic product issue for Discovery</li>
+<li><strong>ODR (Dim 7)</strong> — operational decision (e.g., "multi-AZ deployment required for stateful services")</li>
+<li><strong>Evolve Finding (Track 5)</strong> — process gap (e.g., "runbook was outdated", "escalation policy unclear")</li>
+<li><strong>Maintenance Task (Track 3)</strong> — corrective maintenance</li>
+</ul>
+<h2 id="incident-to-planning-feedback">Incident-to-Planning Feedback</h2>
+<p>Beyond PIR and Discovery, incidents inform Run Track planning:</p>
+<table>
+<thead>
+<tr>
+<th>Planning Entity</th>
+<th>What Incident History Provides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deployment Planning Task</strong></td>
+<td>Risk assessment input — a module with recent SEV-1 incidents may warrant cautious deployment (canary, drill) or block promotion at a Station</td>
+</tr>
+<tr>
+<td><strong>Capacity Planning Task</strong></td>
+<td>Capacity forecasting input — incidents caused by resource saturation, throttling, or scaling failures directly inform infrastructure planning</td>
+</tr>
+<tr>
+<td><strong>Run Epic scoping</strong></td>
+<td>Prioritization input — "3 SEV-2 incidents from manual cert rotation" justifies an automation Run Epic directly, without waiting for Discovery</td>
+</tr>
+</tbody>
+</table>
+<p>This three-consumer model (PIR looks backward, Discovery looks at systemic patterns, Run planning looks forward operationally) ensures incident data is fully utilized.</p>
+<h2 id="definition-model-assessment-patterns">Definition Model Assessment Patterns</h2>
+<p>Incidents are evidence against the product's promises. The UPIM makes these assessment connections explicit:</p>
+<h3 id="dim-3-customer-value-dimension">Dim 3: Customer Value Dimension</h3>
+<ul>
+<li><strong>Customer Promise (Service Commitment)</strong> — every SEV-0/1/2 incident <em>tests</em> whether Service Commitments are being met. The Incident artifact's SLA Breach field records which commitments were tested and whether they held.</li>
+<li><strong>Customer Value Metric (Service Level Metric)</strong> — incident response/resolution times feed the actual performance data. "SEV-1 MTTR this quarter: 3.2 hours vs. 4-hour SLA" is derived from Incident artifacts.</li>
+<li><strong>Customer Promise (Compliance Posture)</strong> — incidents involving data breaches or audit-trail gaps may constitute compliance violations.</li>
+</ul>
+<h3 id="dim-7-operational-dimension">Dim 7: Operational Dimension</h3>
+<ul>
+<li><strong>Operational Target (SLO)</strong> — incidents consume error budget. Every incident erodes the margin between current performance and the target.</li>
+<li><strong>Operational Readiness</strong> — incident patterns per System x Environment reveal readiness gaps. "payments-service has 3 SEV-1s in LATAM but zero in NA" indicates LATAM-specific readiness issues.</li>
+<li><strong>Operational Pain</strong> — recurring incident patterns are concrete evidence for Operational Pains. "Manual certificate rotation causes 2 SEV-1 incidents per quarter" is a documented Operational Pain with measurable impact.</li>
+<li><strong>Operational Constraint</strong> — incidents may reveal undocumented constraints (e.g., "compliance freeze prevented hotfix during incident").</li>
+</ul>
+<h3 id="dim-5-technology-architecture">Dim 5: Technology &amp; Architecture</h3>
+<ul>
+<li><strong>System</strong> — incidents are scoped to affected Systems. System-level incident rates inform Build Track quality gate evolution.</li>
+<li><strong>Interaction Flow</strong> — incidents often reveal failure points in cross-system flows. The Post-Incident Report references which Interaction Flow failed and where.</li>
+</ul>
+<h2 id="known-error-workaround-pattern">Known Error / Workaround Pattern</h2>
+<p>When an Incident is resolved with a workaround (not a permanent fix), the resulting Bug carries the workaround description in its <code>Workaround</code> field. This makes the workaround discoverable for future incidents of the same type — the Bug serves as the Known Error registry until the permanent fix ships. No new entity is needed; the pattern reuses the existing Bug entity.</p>
+<h2 id="incident-correlation">Incident Correlation</h2>
+<h3 id="parent-child-incidents">Parent-Child Incidents</h3>
+<p>A single root cause (database failover) can trigger multiple symptoms (FX latency spike, payment timeouts, settlement delays). The Parent Incident field prevents counting 4 incidents when there is 1 root cause with 3 symptoms. Impact assessment is centralized on the parent; child incidents reference it.</p>
+<h3 id="related-incidents-recurrence">Related Incidents (Recurrence)</h3>
+<p>When the same type of incident occurs repeatedly, the Related Incidents field links them. This makes recurrence queryable before a formal PIR pattern analysis. "This is the third SEV-2 from cert expiration in 6 months" is visible from the Incident artifact itself.</p>
+<h3 id="change-caused-incidents">Change-Caused Incidents</h3>
+<p>The Caused By field references a Deployment (artifact) or Change Request when the incident was caused by a deployment. This closes the deployment-to-incident feedback loop:</p>
+<ul>
+<li>Deployment quality assessment: "What percentage of deployments cause incidents?"</li>
+<li>Verification Task effectiveness: "Are our post-deployment checks catching problems?"</li>
+<li>Deployment Train governance: "Should we tighten promotion criteria for this module?"</li>
+</ul>
+<h2 id="escalation-within-response">Escalation Within Response</h2>
+<p>The Incident Response Task captures escalation as fields (Escalation Level: L1/L2/L3/Vendor; Escalated To). The escalation <em>policy</em> — who gets called at each level — is an Operating Model concern. Similarly, Major Incident coordination (Incident Commander role, war-room ceremonies) is Operating Model territory; the Incident Response Task's timeline and decision fields capture the coordination artifacts.</p>
+<h2 id="pros-and-cons">Pros and Cons</h2>
+<h3 id="pros">Pros</h3>
+<ol>
+<li><strong>Clear separation of concerns</strong> — observation, response, learning, and communication are distinct entities with appropriate fields and statuses</li>
+<li><strong>ITSM alignment</strong> — familiar to practitioners; maps cleanly to ServiceNow, PagerDuty, and other ITSM tooling</li>
+<li><strong>No entity proliferation</strong> — Known Error reuses Bug; no new entity for workarounds, escalation tracking, or incident coordination</li>
+<li><strong>Rich Definition Model connections</strong> — incidents are evidence, not noise; they test Customer Promises, consume error budgets, reveal readiness gaps</li>
+<li><strong>Planning feedback</strong> — incident history is a first-class input to Run Track planning, not an afterthought</li>
+<li><strong>Correlation prevents overcounting</strong> — parent/child and related incidents give accurate root cause counts</li>
+</ol>
+<h3 id="cons">Cons</h3>
+<ol>
+<li><strong>More entities to maintain</strong> — 3 new work entities + 1 refactored artifact adds model complexity</li>
+<li><strong>"Reviewed" terminal status requires discipline</strong> — organizations must close the loop from incident to PIR to "Reviewed" status</li>
+<li><strong>SEV calibration</strong> — SEV-0..4 scale requires organizational agreement on severity definitions</li>
+<li><strong>PIR mandate creates work</strong> — requiring PIR for SEV-0/1/2 creates scheduled work that teams may resist; the Operating Model override mitigates this</li>
+</ol>
+<h3 id="dos-and-donts">Do's and Don'ts</h3>
+<table>
+<thead>
+<tr>
+<th>Do</th>
+<th>Don't</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use SEV labels consistently across all UPIM documents</td>
+<td>Mix SEV and P-level terminology</td>
+</tr>
+<tr>
+<td>Close the Incident to "Reviewed" after PIR or planning absorption</td>
+<td>Leave incidents in "Resolved" indefinitely</td>
+</tr>
+<tr>
+<td>Link change-caused incidents to their Deployment via Caused By</td>
+<td>Treat post-deployment incidents as unrelated to the deployment</td>
+</tr>
+<tr>
+<td>Capture workarounds on the Bug's Workaround field</td>
+<td>Create a separate Known Error entity</td>
+</tr>
+<tr>
+<td>Let PIR route corrective actions to appropriate tracks</td>
+<td>Keep all follow-up work within the Run Track</td>
+</tr>
+<tr>
+<td>Use Parent Incident for multi-symptom root causes</td>
+<td>Count each symptom as a separate root cause incident</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/stories/incident-management-analysis.md">View on GitHub</a></p>

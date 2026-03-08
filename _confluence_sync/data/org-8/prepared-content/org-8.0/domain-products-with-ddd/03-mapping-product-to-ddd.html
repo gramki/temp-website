@@ -1,0 +1,115 @@
+<!-- File: org-8.0/domain-products-with-ddd/03-mapping-product-to-ddd.md -->
+<!-- Title: 03 - Mapping Product to DDD -->
+<!-- Content Hash: 0ef03713a6db28d933c80c0858396196b713530cecd2431385bec6134015adcf -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="mapping-product-to-ddd">Mapping Product to DDD</h1>
+<p>This section explains how product requirements—use cases and value streams—map to DDD concepts. It gives a practitioner path from product or feature docs to bounded contexts, application services, and the domain model.</p>
+<blockquote>
+<p><strong>New to DDD?</strong> When you get a user story or use case, use the tables below: <strong>nouns</strong> (Order, Claim, etc.) become entities or aggregate roots; <strong>verbs</strong> (Submit, Approve) become methods on aggregates or Domain Services; the <strong>flow</strong> is implemented by an Application Service that loads, calls domain, saves, and publishes events. If you're unsure which bounded context owns the story, ask your tech lead or Principal Engineer—see <ac:link><ri:page ri:content-title="04 - One App per Domain or Subdomain"/><ac:plain-text-link-body><![CDATA[04 One app per domain]]></ac:plain-text-link-body></ac:link>.</p>
+</blockquote>
+<hr />
+<h2 id="use-cases-and-the-domain">Use cases and the domain</h2>
+<p><strong>Use cases</strong> describe who does what with the system and why (actor + goal + scenario). They sit on top of the domain: they are the scenarios that application and domain services implement. They help discover entities, aggregates, and events; they do not define the domain in isolation.</p>
+<table>
+<thead>
+<tr>
+<th>Use-case idea</th>
+<th>DDD mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Actor + goal</strong></td>
+<td>Often implemented by an <strong>Application Service</strong> (or a command handler) in one bounded context. One use case ≈ one or a few application services.</td>
+</tr>
+<tr>
+<td><strong>Nouns</strong> (e.g. Order, Claim, Policy)</td>
+<td>Feed the <strong>ubiquitous language</strong> and become <strong>entities</strong>, <strong>value objects</strong>, or <strong>aggregate roots</strong>.</td>
+</tr>
+<tr>
+<td><strong>Verbs</strong> (e.g. Submit, Approve, Cancel)</td>
+<td>Become <strong>domain actions</strong> (methods on aggregates or entities) or <strong>Domain Services</strong>.</td>
+</tr>
+<tr>
+<td><strong>Outcome / postcondition</strong></td>
+<td>Often expressed as <strong>domain events</strong> (e.g. <code>OrderPlaced</code>, <code>ClaimApproved</code>).</td>
+</tr>
+<tr>
+<td><strong>Scenario steps</strong></td>
+<td>Application Service orchestrates: load aggregate → call domain logic → persist → publish events.</td>
+</tr>
+</tbody>
+</table>
+<p>Use cases are refined through dialogue with domain experts; the nouns and verbs that emerge become the ubiquitous language and the building blocks defined in <ac:link><ri:page ri:content-title="02 - DDD Concepts"/><ac:plain-text-link-body><![CDATA[DDD concepts]]></ac:plain-text-link-body></ac:link>.</p>
+<hr />
+<h2 id="value-streams-and-bounded-contexts">Value streams and bounded contexts</h2>
+<p><strong>Value streams</strong> are end-to-end flows that deliver value (e.g. “Quote to Policy”, “Order to Cash”). They usually <strong>span multiple bounded contexts</strong>. Value streams are the “horizontal” flows; bounded contexts are the “vertical” slices of domain ownership. Value streams help decide <strong>where</strong> to draw context boundaries and <strong>how</strong> contexts integrate (context map).</p>
+<table>
+<thead>
+<tr>
+<th>Value-stream idea</th>
+<th>DDD mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Value stream</strong></td>
+<td>End-to-end flow; one value stream often spans several <strong>bounded contexts</strong>.</td>
+</tr>
+<tr>
+<td><strong>Stages / steps</strong></td>
+<td>Each stage is often owned by (or heavily touches) <strong>one bounded context</strong>. Handoffs between stages align with <strong>context boundaries</strong>.</td>
+</tr>
+<tr>
+<td><strong>Handoffs</strong></td>
+<td>Show up on the <strong>context map</strong>: upstream vs. downstream, anti-corruption layers, events, or APIs.</td>
+</tr>
+<tr>
+<td><strong>Capabilities in a stage</strong></td>
+<td>Implemented inside a bounded context as aggregates, domain services, application services.</td>
+</tr>
+</tbody>
+</table>
+<p>The following picture summarises the relationship:</p>
+<pre class="codehilite"><code>Value stream:  [Stage A] ——→ [Stage B] ——→ [Stage C]
+                     │            │            │
+Bounded contexts:  Context 1   Context 2   Context 3
+                     │            │            │
+Use cases:      UC1, UC2      UC3, UC4      UC5
+                     │            │            │
+Domain:         Aggregates,   Aggregates,   Aggregates,
+                events,       events,       events,
+                services      services      services
+</code></pre>
+
+<hr />
+<h2 id="practitioner-checklist-product-requirements-to-ddd">Practitioner checklist: product requirements to DDD</h2>
+<p>For developers and principal engineers taking product requirements into implementation:</p>
+<ol>
+<li>
+<p><strong>From product/feature docs to bounded contexts</strong><br />
+   - Use <strong>value streams</strong> and <strong>capabilities</strong> to identify candidate bounded contexts. Stages and handoffs suggest context boundaries. Draw a <strong>context map</strong> (who integrates with whom, how). See <ac:link><ri:page ri:content-title="04 - One App per Domain or Subdomain"/><ac:plain-text-link-body><![CDATA[One app per domain]]></ac:plain-text-link-body></ac:link> for how the context map informs ownership, consistency boundary, and deployment unit.</p>
+</li>
+<li>
+<p><strong>From use cases / user stories to application and domain</strong><br />
+   - <strong>Use case</strong> → implement with one or more <strong>Application Services</strong> (or command/query handlers) in the appropriate bounded context.<br />
+   - <strong>Nouns</strong> in the use case → <strong>entities</strong>, <strong>value objects</strong>, or <strong>aggregate roots</strong> in the ubiquitous language.<br />
+   - <strong>Verbs</strong> → <strong>domain actions</strong> on aggregates or <strong>Domain Services</strong>.<br />
+   - <strong>Outcomes</strong> → <strong>domain events</strong> and/or responses.</p>
+</li>
+<li>
+<p><strong>From “we need to persist X”</strong><br />
+   - <strong>Repository</strong> per aggregate (or per aggregate root). Application Service uses Repositories for load/save; Domain Service does not (as defined in <ac:link><ri:page ri:content-title="02 - DDD Concepts"/><ac:plain-text-link-body><![CDATA[DDD concepts]]></ac:plain-text-link-body></ac:link>).</p>
+</li>
+<li>
+<p><strong>From “we need a new deployable (e.g. new Kubernetes Service)”</strong><br />
+   - Decide based on <strong>bounded context</strong>, team ownership, and scalability—not because “we have a new Domain Service.” One deployment can host many Domain Services. See <ac:link><ri:page ri:content-title="04 - One App per Domain or Subdomain"/><ac:plain-text-link-body><![CDATA[One app per domain]]></ac:plain-text-link-body></ac:link> and <ac:link><ri:page ri:content-title="05 - Spring Boot Mapping (No ORM)"/><ac:plain-text-link-body><![CDATA[Spring Boot mapping]]></ac:plain-text-link-body></ac:link>.</p>
+</li>
+<li>
+<p><strong>From “we need a transaction across multiple systems”</strong><br />
+   - That crosses <strong>process boundaries</strong>. Use sagas, outbox, or eventual consistency—and model the boundaries explicitly on the context map. The Domain Service vs Application Service split does not create this complexity; process boundaries do. See <ac:link><ri:page ri:content-title="07 - Risks and Mitigations"/><ac:plain-text-link-body><![CDATA[Risks and mitigations]]></ac:plain-text-link-body></ac:link>.</p>
+</li>
+</ol>
+
+<p><strong>Source:</strong> Commit: 0c04bb4 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0c04bb4/org-8.0/domain-products-with-ddd/03-mapping-product-to-ddd.md">View on GitHub</a></p>

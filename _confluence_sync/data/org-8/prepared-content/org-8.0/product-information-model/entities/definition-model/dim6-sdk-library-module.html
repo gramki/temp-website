@@ -1,0 +1,102 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim6-sdk-library-module.md -->
+<!-- Title: SDK/Library Module -->
+<!-- Content Hash: 0bb01f705978f51d4e575f44aee2ffd011b8697d66a0f3da4c5759790a2a081e -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="sdklibrary-module">SDK/Library Module</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension / Track:</strong> Dimension 6: Ecosystem &amp; Extensibility (Platform)<br />
+<strong>Owner:</strong> Product Management (API/Platform), Developer Relations, Engineering</p>
+<h2 id="definition">Definition</h2>
+<p>An SDK/Library Module is a language-specific client providing idiomatic access to API Modules. It wraps Dim 6 API Module operations in language-specific abstractions — typed models, error handling patterns, retry logic, and async support. An SDK/Library Module is structurally a Dim 8 Module with a <strong>Client-Distributed</strong> deployment topology (published via package registry, instantiated in the customer's codebase).</p>
+<h2 id="purpose">Purpose</h2>
+<p>Reduces time-to-first-call and integration complexity for developers working in specific languages. Without SDKs, every developer must write raw HTTP/protocol-level code, handle serialization, implement retry logic, and manage authentication — work that is repetitive and error-prone.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Text</td>
+<td>Module name (e.g., "Python Payments SDK," "Java Card Issuing Client")</td>
+</tr>
+<tr>
+<td>Language / Platform</td>
+<td>Text</td>
+<td>Target language or platform (Python, Java, Node.js, .NET, Go, etc.)</td>
+</tr>
+<tr>
+<td>Wraps</td>
+<td>Reference(s)</td>
+<td>API Module(s) this SDK provides access to</td>
+</tr>
+<tr>
+<td>Generation Strategy</td>
+<td>Enum</td>
+<td>Auto-generated / Hand-crafted / Hybrid</td>
+</tr>
+<tr>
+<td>Distribution Channel</td>
+<td>Text</td>
+<td>Package registry (PyPI, Maven Central, npm, NuGet)</td>
+</tr>
+<tr>
+<td>Version Tracking</td>
+<td>Text</td>
+<td>How SDK versions relate to API versions</td>
+</tr>
+<tr>
+<td>Key Capabilities</td>
+<td>List</td>
+<td>What the SDK adds beyond raw API access (typed models, retry, pagination, async, mocking)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Is a</td>
+<td>Module (Dim 8)</td>
+<td>Structurally a Dim 8 Module (Client-Distributed topology)</td>
+</tr>
+<tr>
+<td>Wraps</td>
+<td>API Module (Dim 6)</td>
+<td>Provides idiomatic access to API surface</td>
+</tr>
+<tr>
+<td>Serves</td>
+<td>Developer Persona (Dim 6)</td>
+<td>Used by developers in this language</td>
+</tr>
+<tr>
+<td>Versioned with</td>
+<td>API Compatibility Contract (Dim 6)</td>
+<td>SDK versions track API versions</td>
+</tr>
+<tr>
+<td>Assessed by</td>
+<td>Win Review (Track 4)</td>
+<td>SDK adoption and developer satisfaction reviewed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>"Python Payments SDK"</strong> — Wraps Cross-Border Payments API with typed Pydantic models, automatic retry with exponential backoff, async/await support, and built-in webhook signature verification. Published on PyPI. Hand-crafted (not auto-generated) for ergonomic API design. Version 3.x tracks API v2. Key Capabilities: typed request/response models, configurable retry policy, async client, pagination helpers, test mode with mock responses.</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim6-sdk-library-module.md">View on GitHub</a></p>

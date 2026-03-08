@@ -1,0 +1,76 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim6-endpoint.md -->
+<!-- Title: Endpoint / Event Topic -->
+<!-- Content Hash: 7f77fa32a637c877ab452e7fe97baa2e9968f2a68aa60c9068d67a5923730b3c -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="endpoint-event-topic">Endpoint / Event Topic</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 6: The Ecosystem &amp; Extensibility Dimension (Platform)<br />
+<strong>Owner:</strong> Tech Leads, Developers</p>
+<h2 id="definition">Definition</h2>
+<p>The programmatic address or trigger — an API endpoint, webhook event, or message topic that external systems use to interact with the product.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Defines the specific integration points. Endpoints trigger Functions (Dimension 5) and exchange data via Payload Schemas.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>To be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>To be refined.</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upstream</td>
+<td>Interface Type (Dim 6)</td>
+<td>Endpoint belongs to an Interface Type</td>
+</tr>
+<tr>
+<td>Triggers</td>
+<td>Function / Method (Dim 5)</td>
+<td>Endpoint triggers Functions</td>
+</tr>
+<tr>
+<td>Defines</td>
+<td>Payload Schema (Dim 6)</td>
+<td>Endpoint sends/receives a Payload Schema</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><code>POST /v1/payments/cross-border</code> and <code>payment.cleared</code> webhook.</p>
+
+<p><strong>Source:</strong> Commit: bde5503 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/bde5503/org-8.0/product-information-model/entities/definition-model/dim6-endpoint.md">View on GitHub</a></p>

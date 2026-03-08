@@ -13,8 +13,14 @@ Clear boundaries:
 - Fully testable without network access
 """
 
+import base64
 import re
+import subprocess
+import tempfile
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
+from shutil import which
 from typing import Dict, Optional, List, Tuple, Any
 from dataclasses import dataclass, field
 
@@ -27,8 +33,14 @@ except ImportError:
 from ignore_handler import IgnoreHandler
 from git_utils import get_file_commit_hash, get_file_commit_date, get_file_github_url
 from sync_state import compute_content_hash, compute_content_signature
-from html import escape as html_escape
+from html import escape as html_escape, unescape as html_unescape
 from title_mapping import get_title_mapping_loader
+
+# Optional: Python mmdc package for Mermaid → PNG (pip install mmdc)
+try:
+    from mmdc import MermaidConverter as _MermaidConverter
+except ImportError:
+    _MermaidConverter = None
 
 
 def escape_xml(text: str) -> str:
@@ -45,6 +57,23 @@ def escape_title_for_confluence(title: str) -> str:
     # Escape XML special characters
     escaped = escape_xml(title)
     return escaped
+
+
+def _numeric_prefix_and_rest(stem: str) -> Optional[Tuple[str, str]]:
+    """If stem matches NN-separator-rest (e.g. 00-prologue, 01_intro), return (prefix, rest). Else None."""
+    m = re.match(r'^(\d+)[-_\s]+(.*)$', stem)
+    if m and m.group(2).strip():
+        return (m.group(1), m.group(2).strip())
+    return None
+
+
+def _natural_sort_key_for_md(path: Path) -> Tuple[int, str]:
+    """Sort key for markdown files: numeric prefix first (0,1,2,...,10), then rest. Non-prefixed files last."""
+    stem = path.stem
+    parsed = _numeric_prefix_and_rest(stem)
+    if parsed:
+        return (int(parsed[0]), parsed[1].lower())
+    return (999999, stem.lower())
 
 
 @dataclass
@@ -74,6 +103,8 @@ class PreparedContent:
     error: Optional[str] = None
     renamed_from: Optional[str] = None  # Old path if this is a renamed file
     image_paths: List[Path] = field(default_factory=list)  # List of image file paths to upload as attachments
+    mermaid_attachments: List[Tuple[str, bytes]] = field(default_factory=list)  # (filename, png_bytes) for Mermaid diagrams
+    legacy_title: Optional[str] = None  # Previous title (without numeric prefix) for cleanup of old-format pages
 
 
 class ContentPreparer:
@@ -83,6 +114,7 @@ class ContentPreparer:
     This class handles all local file processing and content conversion:
     - Scans directory structure and finds Markdown files
     - Converts Markdown to Confluence Storage Format
+    - Converts ```mermaid code blocks to PNG images only (Fabric-safe; no mermaid macro)
     - Builds link resolution cache for cross-references
     - Applies title mappings from .confluence-mapping.yaml files
     - Extracts Git metadata (commit hash, GitHub URLs)
@@ -98,11 +130,12 @@ class ContentPreparer:
         add_git_metadata: bool = False,
         file_to_title: Optional[Dict[str, str]] = None,
         file_to_page_id: Optional[Dict[str, str]] = None,
-        attachment_handler: Optional[Any] = None
+        attachment_handler: Optional[Any] = None,
+        confluence_base_url: Optional[str] = None,
     ):
         """
         Initialize content preparer.
-        
+
         Args:
             repo_root: Repository root directory
             github_repo_url: GitHub repository URL for metadata
@@ -110,6 +143,8 @@ class ContentPreparer:
             file_to_title: Cache of file paths to page titles (for link conversion)
             file_to_page_id: Cache of file paths to page IDs (for link conversion - more reliable than titles)
             attachment_handler: Optional AttachmentHandler instance for image uploads
+            confluence_base_url: Optional Confluence wiki base URL (e.g. https://site.atlassian.net/wiki).
+                When set, internal links use plain <a href="..."> for Fabric compatibility instead of ac:link.
         """
         self.repo_root = repo_root
         self.github_repo_url = github_repo_url
@@ -118,6 +153,7 @@ class ContentPreparer:
         self.file_to_page_id = file_to_page_id or {}
         self.ignore_handler: Optional[IgnoreHandler] = None
         self.attachment_handler = attachment_handler
+        self.confluence_base_url = (confluence_base_url or "").rstrip("/")
     
     def markdown_to_storage_format(
         self,
@@ -136,8 +172,14 @@ class ContentPreparer:
             commit_hash: Optional commit hash for Git metadata
             
         Returns:
-            Confluence storage format (HTML-like)
+            Tuple of (storage_format, mermaid_attachments). When PNG is rendered,
+            the image is embedded inline (data URL); mermaid_attachments is left empty.
+            When PNG is not available, a placeholder paragraph is emitted (no mermaid macro).
         """
+        # Extract Mermaid blocks before conversion (codehilite strips language and wraps in spans,
+        # so post-processing would not see language-mermaid on <code>)
+        markdown_content, mermaid_blocks = self._extract_mermaid_blocks(markdown_content)
+        
         # Convert Markdown to HTML first
         md = markdown.Markdown(
             extensions=[
@@ -149,6 +191,9 @@ class ContentPreparer:
             ]
         )
         html = md.convert(markdown_content)
+        
+        # Replace Mermaid placeholders (image macro + attachments when PNG available)
+        html, mermaid_attachments = self._replace_mermaid_placeholders(html, mermaid_blocks)
         
         # Add anchor macros to headings for deep linking
         html = self._add_anchors_to_headings(html)
@@ -164,39 +209,122 @@ class ContentPreparer:
         # Convert HTML to Confluence Storage Format
         storage_format = self._html_to_storage_format(html)
         
-        return storage_format
+        return storage_format, mermaid_attachments
     
     def _add_anchors_to_headings(self, html: str) -> str:
         """
-        Add Confluence anchor macros to headings for deep linking.
-        
-        Args:
-            html: HTML content with headings
-            
-        Returns:
-            HTML with anchor macros added to headings
+        Add heading IDs for deep linking. Uses HTML id on the heading element
+        (Fabric-editor safe); avoids ac:structured-macro "anchor" which Fabric
+        does not support.
         """
         def add_anchor(match):
             tag = match.group(1)
             content = match.group(2)
-            # Generate slug from heading text (similar to GitHub's anchor generation)
-            # Remove HTML tags from content first
             import html as html_module
             text_content = html_module.unescape(re.sub(r'<[^>]+>', '', content))
-            # Generate slug: lowercase, replace spaces/hyphens with dashes, remove special chars
             slug = re.sub(r'[^\w\s-]', '', text_content.lower())
             slug = re.sub(r'[\s_]+', '-', slug).strip('-')
-            # Limit length
             if len(slug) > 50:
                 slug = slug[:50].rstrip('-')
             if not slug:
                 slug = 'heading'
-            # Add anchor macro before heading content
-            anchor = f'<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">{slug}</ac:parameter></ac:structured-macro>'
-            return f'<{tag}>{anchor}{content}</{tag}>'
+            return f'<{tag} id="{escape_xml(slug)}">{content}</{tag}>'
         
-        # Match headings: <h1>content</h1> through <h6>content</h6>
         return re.sub(r'<(h[1-6])>([^<]+)</\1>', add_anchor, html)
+    
+    def _extract_mermaid_blocks(self, markdown_content: str) -> tuple:
+        """
+        Extract ```mermaid ... ``` blocks from markdown and replace with placeholders.
+        Returns (modified_markdown, list_of_mermaid_sources).
+        Needed because codehilite wraps code in spans and drops the language class,
+        so we cannot reliably detect mermaid blocks in the HTML after conversion.
+        """
+        mermaid_blocks: List[str] = []
+        placeholder = '<!-- MERMAID_PLACEHOLDER_{} -->'
+        
+        def replace(match):
+            body = match.group(1).strip()
+            idx = len(mermaid_blocks)
+            mermaid_blocks.append(body)
+            return '\n\n' + placeholder.format(idx) + '\n\n'
+        
+        # Match ```mermaid (optional space/newline) then content until ```
+        pattern = re.compile(r'(?ms)^```mermaid\s*\n(.*?)```\s*$')
+        modified = pattern.sub(replace, markdown_content)
+        return modified, mermaid_blocks
+    
+    # Design: Mermaid diagrams → INLINE image (data URL in ac:image/ri:url ri:value).
+    # Do not switch to attachments; user preference is inline images.
+    def _render_mermaid_to_png(self, diagram_code: str) -> Optional[bytes]:
+        """
+        Render Mermaid diagram to PNG. Prefers the Python mmdc package (pip install mmdc);
+        falls back to mermaid-cli (mmdc) on PATH if the package is not installed.
+        Returns raw PNG bytes, or None if no renderer is available or rendering fails.
+        """
+        if not diagram_code.strip():
+            return None
+        # Prefer Python mmdc package (no Node.js required)
+        if _MermaidConverter is not None:
+            try:
+                converter = _MermaidConverter()
+                png_bytes = converter.to_png(diagram_code)
+                if png_bytes:
+                    return png_bytes
+            except Exception:
+                pass
+        # Fall back to mermaid-cli (mmdc) on PATH
+        mmdc_cmd = which('mmdc')
+        if not mmdc_cmd:
+            return None
+        try:
+            with tempfile.TemporaryDirectory(prefix='mermaid_sync_') as tmpdir:
+                tmp = Path(tmpdir)
+                mmd_file = tmp / 'diagram.mmd'
+                png_file = tmp / 'diagram.png'
+                mmd_file.write_text(diagram_code, encoding='utf-8')
+                result = subprocess.run(
+                    [mmdc_cmd, '-i', str(mmd_file), '-o', str(png_file), '-b', 'transparent'],
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                    cwd=str(tmp),
+                )
+                if result.returncode != 0 or not png_file.exists():
+                    return None
+                return png_file.read_bytes()
+        except (subprocess.TimeoutExpired, OSError, Exception):
+            return None
+    
+    def _replace_mermaid_placeholders(
+        self, html: str, mermaid_blocks: List[str]
+    ) -> Tuple[str, List[Tuple[str, bytes]]]:
+        """
+        Replace MERMAID_PLACEHOLDER_N with PNG images only (Fabric-editor safe).
+        The mermaid structured macro is not supported in Fabric; we always render
+        to PNG via mmdc. When PNG is unavailable, emit a placeholder paragraph.
+        """
+        mermaid_attachments: List[Tuple[str, bytes]] = []
+        for idx, diagram_code in enumerate(mermaid_blocks):
+            placeholder = f'<!-- MERMAID_PLACEHOLDER_{idx} -->'
+            if not diagram_code:
+                macro_html = '<p></p>'
+            else:
+                png_bytes = self._render_mermaid_to_png(diagram_code)
+                if png_bytes:
+                    # Fabric-safe: use attachment reference instead of data URL (ri:url data:... not supported in Fabric)
+                    filename = f'mermaid-{idx}.png'
+                    mermaid_attachments.append((filename, png_bytes))
+                    macro_html = (
+                        '<p><ac:image ac:align="center" ac:border="false">'
+                        '<ri:attachment ri:filename="' + escape_xml(filename) + '"/>'
+                        '</ac:image></p>'
+                    )
+                else:
+                    macro_html = (
+                        '<p><em>[Mermaid diagram: render with mmdc (npm install -g @mermaid-js/mermaid-cli) to see diagram here.]</em></p>'
+                    )
+            html = html.replace(placeholder, macro_html)
+        return html, mermaid_attachments
     
     def convert_html_links_to_confluence(self, html: str, current_file_path: Path, root_path: Path) -> str:
         """
@@ -281,15 +409,28 @@ class ContentPreparer:
                         if path_variant in self.file_to_title:
                             resolved_title = self.file_to_title[path_variant]
                             break
+                # Reverse lookup: if we have title but no page_id, try any path with this title (for Fabric plain links)
+                if not page_id and resolved_title and self.confluence_base_url:
+                    for path_key, title in self.file_to_title.items():
+                        if title == resolved_title and path_key in self.file_to_page_id:
+                            page_id = self.file_to_page_id[path_key]
+                            break
                 
-                if resolved_title:
-                    # Use title-based linking (Confluence Cloud only supports this)
-                    # Escape title for XML safety
-                    escaped_title = escape_title_for_confluence(resolved_title)
-                    # Preserve anchor if present
-                    if anchor:
-                        return f'<ac:link ac:anchor="{escape_xml(anchor)}"><ri:page ri:content-title="{escaped_title}"/><ac:plain-text-link-body><![CDATA[{link_text}]]></ac:plain-text-link-body></ac:link>'
-                    else:
+                if resolved_title or page_id:
+                    # Fabric-safe: when confluence_base_url is set, never use ac:link (Fabric does not support it)
+                    if self.confluence_base_url:
+                        if page_id:
+                            view_url = f"{self.confluence_base_url}/pages/viewpage.action?pageId={page_id}"
+                            if anchor:
+                                view_url += f"#{escape_xml(anchor)}"
+                            return f'<a href="{escape_xml(view_url)}">{link_text}</a>'
+                        # No page_id (e.g. target not synced yet): use placeholder so page still syncs
+                        return f'<a href="#">{link_text}</a>'
+                    # Legacy: title-based ac:link (when not using Fabric-safe mode)
+                    if resolved_title:
+                        escaped_title = escape_title_for_confluence(resolved_title)
+                        if anchor:
+                            return f'<ac:link ac:anchor="{escape_xml(anchor)}"><ri:page ri:content-title="{escaped_title}"/><ac:plain-text-link-body><![CDATA[{link_text}]]></ac:plain-text-link-body></ac:link>'
                         return f'<ac:link><ri:page ri:content-title="{escaped_title}"/><ac:plain-text-link-body><![CDATA[{link_text}]]></ac:plain-text-link-body></ac:link>'
                 else:
                     # No page found - return as regular link
@@ -338,9 +479,8 @@ class ContentPreparer:
                 metadata_parts.append(f'<a href="{github_url}">View on GitHub</a>')
         
         if metadata_parts:
-            metadata_html = '<p><ac:structured-macro ac:name="info"><ac:rich-text-body><p>'
-            metadata_html += '<strong>Source:</strong> ' + ' | '.join(metadata_parts)
-            metadata_html += '</p></ac:rich-text-body></ac:structured-macro></p>'
+            # Plain HTML; avoid ac:structured-macro "info" which Fabric does not support
+            metadata_html = '<p><strong>Source:</strong> ' + ' | '.join(metadata_parts) + '</p>'
             content = content + '\n\n' + metadata_html
         
         return content
@@ -473,12 +613,13 @@ class ContentPreparer:
                     'readme_path': readme_path if readme_path.exists() else None  # Track README for title
                 })
         
-        # Process Markdown files in this directory
-        md_files = sorted(directory.glob('*.md'))
+        # Process Markdown files in this directory (natural sort: 00, 01, 02, ..., 10 so order is retained)
+        md_file_list = [p for p in directory.glob('*.md') if not p.name.startswith('.')]
+        md_files = sorted(md_file_list, key=_natural_sort_key_for_md)
+        # Detect if this folder uses numeric prefixes (so we retain order via prefix-in-title)
+        has_numbered_files = any(_numeric_prefix_and_rest(p.stem) for p in md_files)
+        
         for md_file in md_files:
-            if md_file.name.startswith('.'):
-                continue
-            
             if self.ignore_handler and self.ignore_handler.should_ignore(md_file):
                 continue
             
@@ -486,7 +627,7 @@ class ContentPreparer:
                 with open(md_file, 'r', encoding='utf-8') as f:
                     content = f.read()
                 
-                # Extract title
+                # Extract title from first heading
                 title = None
                 for line in content.split('\n'):
                     line = line.strip()
@@ -502,6 +643,21 @@ class ContentPreparer:
                 # If a title conflict occurs, use .confluence-mapping.yaml to specify a unique title.
                 if not title:
                     title = md_file.stem.replace('_', ' ').replace('-', ' ').title()
+                
+                legacy_title = None
+                # When folder has numeric-prefixed files, include prefix in page title to retain order in Confluence
+                if has_numbered_files:
+                    parsed = _numeric_prefix_and_rest(md_file.stem)
+                    if parsed:
+                        prefix_str, rest_stem = parsed
+                        stem_as_title = md_file.stem.replace('_', ' ').replace('-', ' ').title()
+                        # Suffix: from # heading if title came from content, else from rest of stem
+                        if title == stem_as_title:
+                            suffix = rest_stem.replace('_', ' ').replace('-', ' ').title()
+                        else:
+                            suffix = title  # from # heading
+                        title = f"{prefix_str} - {suffix}"
+                        legacy_title = suffix  # for cleanup of old-format pages
                 
                 # Apply title mapping from .confluence-mapping.yaml if present
                 # The mapping file in the same directory controls this page's title
@@ -544,7 +700,7 @@ class ContentPreparer:
                             break
                 
                 # Convert to storage format
-                storage_format = self.markdown_to_storage_format(content, md_file, root_path, commit_hash_to_use)
+                storage_format, mermaid_attachments = self.markdown_to_storage_format(content, md_file, root_path, commit_hash_to_use)
                 content_hash = compute_content_hash(storage_format)
                 # Compute content signature for rename detection
                 content_sig = compute_content_signature(content)
@@ -589,7 +745,9 @@ class ContentPreparer:
                     force_sync=force_sync,
                     existing_page_id=existing_page_id,
                     renamed_from=None,  # Will be set if rename detected
-                    image_paths=image_paths
+                    image_paths=image_paths,
+                    mermaid_attachments=mermaid_attachments,
+                    legacy_title=legacy_title
                 )
                 # Store directory relative path for later parent ID update
                 prepared._dir_rel_path = file_dir_rel_path  # Store for parent ID update

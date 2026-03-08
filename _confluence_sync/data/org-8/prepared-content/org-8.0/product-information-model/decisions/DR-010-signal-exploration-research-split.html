@@ -1,0 +1,47 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-010-signal-exploration-research-split.md -->
+<!-- Title: DR-010: Split Research Task into Signal Exploration Task and Research Task -->
+<!-- Content Hash: 547d389c738a31094cec21fc2a8527150c676c00ffe13eb43378c2672781b958 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-010-split-research-task-into-signal-exploration">DR-010: Split Research Task into Signal Exploration Task and Research Task</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>The original "Research Task" entity was used for all investigation work in the Discovery Track — both open-ended Signal exploration (understanding a Problem/Need/Opportunity and generating Ideas) and targeted evidence gathering (validating or invalidating a specific Idea). This conflated two fundamentally different types of work:</p>
+<ul>
+<li><strong>Exploration</strong> is divergent and generative — "What does this Signal mean? What are the root causes? What could we do about it?" The output is one or more Ideas (hypotheses).</li>
+<li><strong>Validation</strong> is convergent and evidence-oriented — "Is this Idea viable? What data supports or contradicts it?" The output is evidence that informs a Go/Kill/Pivot decision.</li>
+</ul>
+<p>Using a single entity obscured the critical phase transition from Signal to Idea. The exploration work — which includes substantial investigation, pattern recognition, and creative synthesis — was invisible as a distinct planned activity.</p>
+<h2 id="decision">Decision</h2>
+<ol>
+<li>Introduce <strong>Signal Exploration Task</strong> as a new Discovery Track entity for the divergent, open-ended work of investigating Signals and synthesizing Ideas.</li>
+<li>Narrow <strong>Research Task</strong> to mean targeted, convergent investigation — specific data gathering, interviews, competitive analysis — to answer a known question or test a known hypothesis.</li>
+</ol>
+<p>The two entities now represent distinct phases:<br />
+- <strong>Signal Exploration Task</strong> → Phase 1 (Signal → Idea)<br />
+- <strong>Research Task</strong> → Phase 2 (Idea → Evidence), with secondary use in Phase 1 when specific data is needed during exploration</p>
+<h2 id="rationale">Rationale</h2>
+<ul>
+<li><strong>Different mindsets:</strong> Exploration requires creative synthesis; validation requires disciplined evidence gathering.</li>
+<li><strong>Different outputs:</strong> Exploration produces Ideas; Research produces evidence.</li>
+<li><strong>Different planning:</strong> Exploration is scoped by Signal ("explore this Pain point"); Research is scoped by question ("answer whether demand for X exceeds Y threshold").</li>
+<li><strong>Naming consistency:</strong> Signal Exploration Task is input-anchored (processes Signals), following the UPIM pattern where Specification Task processes specifications and Modeling Task models entities.</li>
+<li><strong>Key heuristic:</strong> If you don't yet have a hypothesis, you need Signal Exploration. If you have a hypothesis and need evidence, you need Research (or Experiment/Prototype).</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<h3 id="positive">Positive</h3>
+<ul>
+<li>The Signal → Idea transition is explicit and trackable</li>
+<li>Exploration work (often substantial) is plannable in sprints/iterations</li>
+<li>PMs can communicate "we're exploring this Signal" vs. "we're validating this Idea" — different stakeholder expectations</li>
+<li>Research Task gains precision — it's always about answering a specific question</li>
+</ul>
+<h3 id="negative">Negative</h3>
+<ul>
+<li>One more entity type in the Discovery Track</li>
+<li>Teams must decide whether work is "exploration" or "research" — boundary may occasionally be blurry</li>
+<li>Existing Research Tasks in flight may need reclassification</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: bde5503 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/bde5503/org-8.0/product-information-model/decisions/DR-010-signal-exploration-research-split.md">View on GitHub</a></p>

@@ -1,0 +1,124 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim2-value-metric.md -->
+<!-- Title: Value Metric (Pricing Axis) -->
+<!-- Content Hash: f681c63140bd38c2222e55709fadcbde32b45e4dbf2817ab2edb6812a34433db -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="value-metric-pricing-axis">Value Metric (Pricing Axis)</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 2: The Vendor Value Dimension (Why It Wins)<br />
+<strong>Owner:</strong> Product Marketing, Executive Leadership</p>
+<h2 id="definition">Definition</h2>
+<p>The unit of measurement along which revenue scales — the pricing axis that ties product usage to revenue generation. A product may have multiple Value Metrics across different Pricing Tiers or within the same tier (e.g., per-transaction fee + monthly platform fee).</p>
+<h2 id="purpose">Purpose</h2>
+<p>Defines the commercial mechanism that makes the Business Model concrete. Value Metrics answer "what exactly does the customer pay for?" The choice of Value Metric is a critical product decision — it determines whether revenue scales with customer value (aligning incentives) or independently of it (creating friction).</p>
+<p><strong>Alignment with Customer Value Metric (Dim 3):</strong> Ideally, the vendor's Value Metric aligns with the customer's Customer Value Metric — the vendor charges based on the value delivered. "Per-transaction fee" aligns with "transaction volume processed" (customer value). Misalignment (e.g., per-seat pricing for a product where value scales with data volume) creates commercial friction.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive name (e.g., "Per-transaction fee")</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>String</td>
+<td>What is measured (e.g., "successful cross-border transaction", "API call", "user seat")</td>
+</tr>
+<tr>
+<td>Rate Structure</td>
+<td>Text</td>
+<td>How the price is calculated (e.g., "0.5% of transaction value", "$0.01 per API call", "$50/seat/month")</td>
+</tr>
+<tr>
+<td>Scaling Behavior</td>
+<td>Text</td>
+<td>How revenue scales with usage (linear, tiered/volume discounts, capped)</td>
+</tr>
+<tr>
+<td>Used by Tier(s)</td>
+<td>List of References (Dim 2)</td>
+<td>Which Pricing Tiers use this Value Metric</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<p><em>Not applicable — Value Metric is a structural descriptor. Changes are rare and warrant PDRs (e.g., shifting from per-seat to per-transaction pricing is a major strategic decision).</em></p>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upstream</td>
+<td>Business Model (Dim 2)</td>
+<td>Value Metric is defined by the Business Model</td>
+</tr>
+<tr>
+<td>Used by</td>
+<td>Pricing Tier / Package (Dim 2)</td>
+<td>Value Metric is used by Pricing Tiers</td>
+</tr>
+<tr>
+<td>Aligns with</td>
+<td>Customer Value Metric (Dim 3)</td>
+<td>Value Metric should ideally align with Customer Value Metrics</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Value Metric</th>
+<th>Unit</th>
+<th>Rate Structure</th>
+<th>Used by Tiers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Per-transaction fee</td>
+<td>Successful cross-border transaction</td>
+<td>0.5% of transaction value</td>
+<td>Enterprise Volume Plan, Mid-Market Plan</td>
+</tr>
+<tr>
+<td>FX markup</td>
+<td>FX conversion event</td>
+<td>1% on baseline exchange rate</td>
+<td>Enterprise Volume Plan, Mid-Market Plan</td>
+</tr>
+<tr>
+<td>Monthly platform fee</td>
+<td>Monthly access</td>
+<td>$5K/month (Enterprise), $500/month (Mid-Market)</td>
+<td>Enterprise Volume Plan, Mid-Market Plan</td>
+</tr>
+<tr>
+<td>Implementation services</td>
+<td>One-time engagement</td>
+<td>Custom scoping per customer</td>
+<td>Enterprise Volume Plan (add-on)</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim2-value-metric.md">View on GitHub</a></p>

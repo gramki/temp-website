@@ -1,0 +1,69 @@
+<!-- File: org-8.0/domain-products-with-ddd/08-testability-and-testing-patterns.md -->
+<!-- Title: 08 - Testability and Testing Patterns -->
+<!-- Content Hash: 204b40bf72179235a161e889668bc735a06e76b83ce3967aa98db91408298268 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="testability-and-testing-patterns">Testability and Testing Patterns</h1>
+<p>This section explains why testability matters when implementing DDD with Spring Boot, and gives patterns for unit and integration testing so that the domain stays fast and simple to test and the application and infrastructure are covered appropriately.</p>
+<blockquote>
+<p><strong>New to DDD?</strong> Test the <strong>domain</strong> (aggregates, value objects, domain services) with <strong>no Spring and no database</strong>—just plain Java and JUnit. Test the <strong>application service</strong> with mocks for the repository and event publisher. Use integration tests only for the repository (real DB) and for full flows when needed. If your domain tests need <code>@SpringBootTest</code> or a database, the domain likely has framework or persistence in it—refactor so the domain stays plain Java; see <ac:link><ri:page ri:content-title="05 - Spring Boot Mapping (No ORM)"/><ac:plain-text-link-body><![CDATA[05 Spring Boot mapping]]></ac:plain-text-link-body></ac:link> and <ac:link><ri:page ri:content-title="07 - Risks and Mitigations"/><ac:plain-text-link-body><![CDATA[07 Risks and mitigations]]></ac:plain-text-link-body></ac:link>.</p>
+</blockquote>
+<hr />
+<h2 id="why-testability-matters">Why testability matters</h2>
+<p>A rich domain (as in <ac:link><ri:page ri:content-title="06 - Anemic Domain"/><ac:plain-text-link-body><![CDATA[Anemic domain]]></ac:plain-text-link-body></ac:link>) is only valuable if it can be tested in isolation: invariants, behavior, and domain services should be verifiable without starting a Spring context or a database. When the domain is free of framework and persistence, unit tests are fast and focused. Refactoring the domain is safe because tests depend only on domain types. When the domain is mixed with Spring or infrastructure, tests become slower and more brittle, and the incentive to add behavior to the domain decreases. The guide’s approach (no Spring in domain, repository interface in domain, persistence in infrastructure) is designed so that the domain is easy to test and the rest of the system can be tested with clear boundaries.</p>
+<hr />
+<h2 id="unit-testing-the-domain-no-spring">Unit testing the domain (no Spring)</h2>
+<p><strong>Goal:</strong> Test aggregates, value objects, and domain services with no Spring context, no database, no mocks of infrastructure.</p>
+<p><strong>What to test:</strong></p>
+<ul>
+<li><strong>Aggregates:</strong> Invariants (e.g. order total equals sum of line items), domain actions (e.g. <code>order.addLineItem(...)</code> updates state correctly), and rejection of invalid operations (e.g. adding a line item that would violate a rule).</li>
+<li><strong>Value objects:</strong> Equality, immutability, and any behavior (e.g. <code>Money.add(...)</code>).</li>
+<li><strong>Domain services:</strong> Logic that operates on domain objects passed in; verify inputs and outputs with plain Java objects.</li>
+</ul>
+<p><strong>How:</strong> Instantiate domain types directly, call methods, assert on state or return values. No <code>@SpringBootTest</code>, no <code>@Autowired</code>. Use JUnit (or equivalent) and assertions only. If a domain service is a plain class, instantiate it and pass in domain objects built in the test.</p>
+<p><strong>Guideline:</strong> Keep domain tests framework-free. They should run in milliseconds and have no external dependencies. If a domain test needs Spring or a database, the domain has likely been contaminated; refactor so that the logic under test is pure domain.</p>
+<hr />
+<h2 id="unit-testing-application-services-mocks">Unit testing application services (mocks)</h2>
+<p><strong>Goal:</strong> Test the orchestration of a use case: that the application service loads (via repository), calls domain (aggregate or domain service), saves (via repository), and publishes events, with the correct arguments and order.</p>
+<p><strong>What to test:</strong> The application service’s flow: given a command, it should call the repository to load the aggregate (or create it), call domain methods or domain service, call the repository to save, and publish the expected domain event(s). Business logic is not tested here; it is tested in domain unit tests. Here you verify that the application service wires the right calls.</p>
+<p><strong>How:</strong> Use mocks (e.g. Mockito) for the repository interface and for any domain service or event publisher. Inject mocks into the application service. Execute the use case (e.g. <code>placeOrderService.place(command)</code>). Verify that the repository was called with the expected aggregate (or id), that the domain was invoked, and that the event publisher was called with the expected event. You can use a real domain type (aggregate, domain service) if it is a plain class with no dependencies, or a mock if the application service only needs a stub.</p>
+<p><strong>Guideline:</strong> Application service tests can run without Spring (manual instantiation of the service and mocks) or with a minimal Spring context that only provides the application service and its dependencies. Prefer no context for speed; use context only if you need to test <code>@Transactional</code> or other Spring behavior.</p>
+<hr />
+<h2 id="integration-testing-the-repository-testcontainers">Integration testing the repository (Testcontainers or in-memory DB)</h2>
+<p><strong>Goal:</strong> Verify that the repository implementation correctly persists and loads aggregates (or persistence model), and that the mapping between domain and persistence model (and database) is correct.</p>
+<p><strong>What to test:</strong> Save an aggregate (via the domain repository interface, implemented by the real repository implementation); load it back; assert that the loaded aggregate equals the saved one (or that key state matches). If you use a persistence model, you can also test that the mapper (domain ↔ persistence model) round-trips correctly without the database, and then test the full repository with a real DB.</p>
+<p><strong>How:</strong> Use Testcontainers to start a real database (e.g. PostgreSQL) for the test, or use an in-memory database (e.g. H2) if acceptable for your project. Configure the repository implementation with the test datasource. Create a domain aggregate, save it via the repository, load it by id, assert equality or key fields. Optionally test the persistence model mapper in isolation (domain object → persistence model → domain object) with no DB.</p>
+<p><strong>Guideline:</strong> Repository integration tests are the place to verify schema, SQL, and mapping. Keep them focused on one aggregate type per test (or a small set). Use Testcontainers when you want to test against the same database engine as production.</p>
+<hr />
+<h2 id="integration-testing-application-service-with-real">Integration testing application service with real repository</h2>
+<p><strong>Goal:</strong> Optionally verify the full flow: application service + real repository + database, in one process, to ensure that transaction boundaries and persistence work together.</p>
+<p><strong>What to test:</strong> Run a use case end-to-end within the application layer: command → application service → repository (real impl) → database. Assert on database state or on the returned result. This catches issues that unit tests (with mocks) and repository-only integration tests might miss (e.g. transaction rollback, mapping errors in the full flow).</p>
+<p><strong>How:</strong> Use <code>@SpringBootTest</code> with a test database (Testcontainers or in-memory). Inject the application service (or the controller that delegates to it). Execute the use case. Query the database or use the repository to load and assert. Use <code>@Transactional</code> with rollback in tests if you do not want to persist.</p>
+<p><strong>Guideline:</strong> Use this sparingly; prefer domain unit tests and application service unit tests (with mocks) for speed. Use full application-service integration tests when you need to validate transaction behavior or the full stack for a critical path.</p>
+<hr />
+<h2 id="testing-domain-events">Testing domain events</h2>
+<p><strong>In-process:</strong> If the application service publishes domain events via <code>ApplicationEventPublisher</code>, use a test listener (e.g. <code>@EventListener</code> in the test) or a mock of the publisher to verify that the expected event was published with the expected payload. Application service unit tests can verify that the mock publisher was called with the right event.</p>
+<p><strong>Cross-process:</strong> If events are published to a message broker (e.g. Kafka), use integration tests that start the broker (e.g. Testcontainers) and assert that the correct message appears on the topic. Alternatively, test the outbound adapter (domain event → message) in isolation with a mock broker or a test double.</p>
+<hr />
+<h2 id="testing-persistence-model-and-anti-corruption-at-t">Testing persistence model and anti-corruption at the DB boundary</h2>
+<p><strong>Goal:</strong> Verify that the persistence model correctly represents the database shape and that the mapper (domain aggregate ↔ persistence model) round-trips without loss. When you have an anti-corruption layer (e.g. translating from a legacy or external schema), test the translation in both directions.</p>
+<p><strong>How:</strong> For the mapper: given a domain aggregate, map to persistence model; map back to domain; assert equality (or that key invariants hold). For persistence model ↔ database: use repository integration tests that write and read via the persistence model and assert on stored rows or on reloaded domain objects. For ACL: given an external representation (e.g. legacy DTO), translate to domain type and assert; given domain type, translate to external representation and assert.</p>
+<p><strong>Guideline:</strong> Persistence model and mappers are in infrastructure; test them with unit tests (mapper only) and integration tests (repository + DB). Keep domain out of these tests; only domain types at the boundary (e.g. repository interface) are used.</p>
+<hr />
+<h2 id="test-pyramid-and-what-to-mock">Test pyramid and what to mock</h2>
+<ul>
+<li><strong>Base (many):</strong> Domain unit tests. No mocks; no Spring; no DB. Fast.</li>
+<li><strong>Middle:</strong> Application service unit tests (mocks for repository, event publisher, domain service if needed). Domain logic tests in domain unit tests; here you verify orchestration. Fast.</li>
+<li><strong>Narrow (fewer):</strong> Repository integration tests (real DB or Testcontainers). Verify persistence and mapping.</li>
+<li><strong>Top (few):</strong> Full application service integration tests with real repository and DB when you need to validate transactions or full stack. Slower; use for critical paths.</li>
+</ul>
+<p><strong>What to mock:</strong> In application service unit tests, mock the repository interface and the event publisher (and any other outbound ports). Use a real domain type (aggregate, domain service) when it is a plain class. Do not mock the domain; mock only infrastructure and application-layer dependencies.</p>
+<hr />
+<h2 id="guidelines-summary">Guidelines summary</h2>
+<ul>
+<li><strong>Domain tests:</strong> Framework-free; no Spring, no DB. Instantiate domain types; assert on behavior and invariants. Run in milliseconds.</li>
+<li><strong>When to use @SpringBootTest:</strong> Only when you need to test Spring-managed behavior (e.g. transactions, component scanning) or the full stack. Prefer unit tests without a context for the domain and for application services (with mocks).</li>
+<li><strong>Avoid over-use of full context:</strong> Loading the full Spring context for every test slows the suite and couples tests to the entire configuration. Use it for a small set of integration tests; keep the majority of tests unit-level with mocks or plain instantiation.</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: 0c04bb4 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0c04bb4/org-8.0/domain-products-with-ddd/08-testability-and-testing-patterns.md">View on GitHub</a></p>

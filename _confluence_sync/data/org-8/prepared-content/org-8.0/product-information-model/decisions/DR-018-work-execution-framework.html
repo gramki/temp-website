@@ -1,0 +1,65 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-018-work-execution-framework.md -->
+<!-- Title: DR-018: Introduce Work Execution Framework — Artifacts, Definition of Done, and Guidance Patterns -->
+<!-- Content Hash: 13214d88f5ee48f9969d712db2a088116a12a08e425c77e9de401c3713fd2d97 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-018-introduce-work-execution-framework-artifact">DR-018: Introduce Work Execution Framework — Artifacts, Definition of Done, and Guidance Patterns</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>The Work Model defines what work exists (entity types, state transitions, relationships) across four tracks. However, it was inconsistent in capturing three execution dimensions:</p>
+<ol>
+<li>
+<p><strong>Artifacts</strong> — what structured outputs each work type produces. Some artifacts were well-modeled because they feed back into the Definition Model (PDR, PSD, Feedback), but most were implied rather than structurally captured (Research findings, deployment runbooks, enablement assets, case resolution records).</p>
+</li>
+<li>
+<p><strong>Definition of Done</strong> — when work is complete. No work entity had explicit entry/exit criteria or artifact checklists. Stakeholders could see what work to do but not what "done" means structurally.</p>
+</li>
+<li>
+<p><strong>Guidance</strong> — how to navigate work from initiation to completion. Playbooks, guidelines, and decision frameworks were entirely absent from the model, leaving no reference point for execution methodology.</p>
+</li>
+</ol>
+<p>This asymmetry meant:<br />
+- Downstream consumers couldn't reliably expect specific outputs from upstream work<br />
+- Quality assessment was implicit — no quality gates or completion criteria<br />
+- Cross-track handoffs were defined by relationships but lacked artifact contracts<br />
+- New team members had no structured entry point for understanding how to perform a work type</p>
+<h2 id="decisions">Decisions</h2>
+<h3 id="1-introduce-work-execution-framework-as-a-work-mod">1. Introduce Work Execution Framework as a Work Model concern</h3>
+<p>A new framework document (<code>draft-work-execution-framework.md</code>) establishes the systematic approach for capturing artifacts, Definition of Done, and guidance across all four tracks. The framework sits within the Work Model, not as a separate model.</p>
+<h3 id="2-define-five-category-artifact-taxonomy">2. Define five-category artifact taxonomy</h3>
+<p>All work outputs are classified as: <strong>Decision</strong> (recorded choices with rationale), <strong>Evidence</strong> (findings and observations), <strong>Specification</strong> (descriptions of what to build/deliver), <strong>Delivery</strong> (versioned, quality-gated outputs), <strong>Assessment</strong> (evaluations against targets or criteria). Work entities may produce artifacts in multiple categories.</p>
+<h3 id="3-distinguish-transitional-from-terminal-artifacts">3. Distinguish transitional from terminal artifacts</h3>
+<p>Transitional artifacts are born in one track and consumed by another (PSD: Discovery → Build; System Version: Build → Run; Feedback: Win → Discovery). Terminal artifacts are consumed within their own track or by external systems. This distinction identifies integration points and handoff contracts.</p>
+<h3 id="4-define-common-dod-structure-entry-criteria-exit">4. Define common DoD structure: entry criteria, exit criteria, artifact checklist</h3>
+<p>Every work entity's Definition of Done has three components: what must be true before work starts (entry), what must be true for completion (exit), and which artifacts must be produced. Entity-level DoD (Work Model concern) may be extended by instance-level DoD (Operating Model concern, per-team).</p>
+<h3 id="5-define-guidance-structure-but-locate-content-in">5. Define guidance structure but locate content in Operating Model</h3>
+<p>The Work Model defines what a playbook should cover (triggers, key activities, decision points, artifacts, quality considerations, common pitfalls, related work) but not the playbook content itself. Content lives in the Operating Model, referenced from entity files. This maintains the Work Model / Operating Model boundary.</p>
+<h3 id="6-extend-work-entity-file-template">6. Extend work entity file template</h3>
+<p>Three new optional sections are added to the work entity file template: <code>Outputs / Artifacts</code>, <code>Definition of Done</code>, and <code>Guidance Reference</code>. These sections are populated incrementally as each track is detailed.</p>
+<h3 id="7-phase-the-detailing-iteratively-by-track">7. Phase the detailing iteratively by track</h3>
+<p>The framework is designed for incremental development: framework structure (Phase 0), then one track at a time (Phases 1–4), then cross-track integration validation (Phase 5). Tracks can be detailed in any order.</p>
+<h2 id="rationale">Rationale</h2>
+<ul>
+<li><strong>Artifacts are information model entities.</strong> What a work type produces is a structural property of that work — not a team-specific practice. A Win Review always produces Feedback and target progress updates, regardless of which team runs it. This belongs in the Work Model.</li>
+<li><strong>DoD is a completion contract.</strong> Entry/exit criteria and artifact checklists define the shape of "done" — they are structural, not procedural. Different teams may extend DoD but the base criteria are universal.</li>
+<li><strong>Guidance content varies by team.</strong> Playbooks and procedures are methodology — they depend on team size, product context, and organizational maturity. This is Operating Model territory. The Work Model captures <em>what a playbook should cover</em>, not <em>what it says</em>.</li>
+<li><strong>The framework enables self-service.</strong> New stakeholders can look at any work entity and understand: what it produces, when it's done, and where to find guidance. This reduces onboarding friction and improves work quality.</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<h3 id="positive">Positive</h3>
+<ul>
+<li>Systematic coverage of work outputs across all four tracks</li>
+<li>Explicit quality gates and completion criteria for every work entity</li>
+<li>Clear cross-track handoff contracts via transitional artifact identification</li>
+<li>Stakeholders can self-serve understanding of any work type's execution expectations</li>
+<li>Incremental development — framework provides value before all tracks are detailed</li>
+</ul>
+<h3 id="negative">Negative</h3>
+<ul>
+<li>Entity files become longer with three new sections (mitigated: sections start as <code>_To be refined._</code> and are filled incrementally)</li>
+<li>Potential confusion about Work Model vs. Operating Model boundary for guidance (mitigated: clear boundary rule — structure here, content there)</li>
+<li>Artifact taxonomy must be maintained as new work entities are added (low cost: five categories are stable)</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: 0940439 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/0940439/org-8.0/product-information-model/decisions/DR-018-work-execution-framework.md">View on GitHub</a></p>

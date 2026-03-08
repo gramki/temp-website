@@ -1,0 +1,262 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim2-win-barrier.md -->
+<!-- Title: Win Barrier -->
+<!-- Content Hash: 15ac56c524dcfa7dc2faa1a12a07823ae57a195b0f4ae01cea708b98141752cf -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="win-barrier">Win Barrier</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 2: The Vendor Value Dimension (Why It Wins)<br />
+<strong>Owner:</strong> Product Marketing, Sales Leadership</p>
+<h2 id="definition">Definition</h2>
+<p>A known structural impediment that prevents the vendor from achieving a Win Outcome for a given Customer Segment. Always articulated with the aggrieved party as a Win Stakeholder or the vendor generally. Distinct from Adoption Barrier (Dim 3), which captures the <em>customer's</em> impediment to purchasing or adopting. Win Barrier captures the <em>vendor's</em> impediment to winning commercially.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Analogous to Adoption Barrier (Dim 3), which captures what blocks the customer from buying or adopting. Win Barrier captures what blocks the vendor from succeeding commercially. Without Win Barriers:<br />
+- Competitive threats, market limitations, and structural disadvantages have no Dim 2 home<br />
+- Product decisions to address vendor-side blockers (e.g., "add free trial to compete") lack a formal entity to trace to<br />
+- The gap between "what we want to achieve" (Win Outcomes) and "what prevents us" (Win Barriers) is implicit</p>
+<p><strong>Distinction from Delivery Friction:</strong> Delivery Friction is an <em>operational</em> pain endured by Win Stakeholders in their daily work (e.g., "custom integration costs $80K per customer"). Win Barrier is a <em>structural</em> impediment that blocks Win Outcomes at a segment level (e.g., "competitor offers 30-day free trial; we require annual commitment"). Frictions can be mitigated incrementally; barriers often require strategic decisions (PDRs) to address.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title</td>
+<td>String</td>
+<td>Concise description of the barrier</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Enum</td>
+<td><code>Competitive</code> / <code>Technical</code> / <code>Regulatory</code> / <code>Operational</code> / <code>Financial</code> / <code>Contractual</code> / <code>Resource</code> / <code>Market</code></td>
+</tr>
+<tr>
+<td>AAARRR Stage</td>
+<td>Enum</td>
+<td><code>Awareness</code> / <code>Acquisition</code> / <code>Activation</code> / <code>Retention</code> / <code>Revenue</code> / <code>Referral</code></td>
+</tr>
+<tr>
+<td>Customer Segment</td>
+<td>Reference (Dim 3)</td>
+<td>Which segment this barrier blocks</td>
+</tr>
+<tr>
+<td>Aggrieved Party</td>
+<td>Reference (Dim 2) or "Vendor"</td>
+<td>Which Win Stakeholder is affected, or the vendor broadly</td>
+</tr>
+<tr>
+<td>Impact on Win Outcome</td>
+<td>Text</td>
+<td>Which Win Outcome is blocked and how</td>
+</tr>
+<tr>
+<td>Challenges</td>
+<td>Reference (Dim 2)</td>
+<td>Which Pricing Tier or other Dim 2 entity is challenged</td>
+</tr>
+<tr>
+<td>Structural Root (Dim 8)</td>
+<td>List of References (Dim 8)</td>
+<td>When the barrier points to a product gap, which Capability or Feature is missing or insufficient. Enables product-level impact analysis. Optional — non-product barriers (Financial, Contractual, Market) typically have no product root.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identified</td>
+<td>Barrier has been documented (via Modeling Task from PDR)</td>
+</tr>
+<tr>
+<td>Under Investigation</td>
+<td>Discovery work is investigating mitigation strategies</td>
+</tr>
+<tr>
+<td>Mitigated</td>
+<td>Partial mitigation in place (e.g., workaround, competitive positioning)</td>
+</tr>
+<tr>
+<td>Resolved</td>
+<td>Barrier has been eliminated through product or strategy changes</td>
+</tr>
+<tr>
+<td>Accepted</td>
+<td>Barrier is acknowledged and accepted — not worth addressing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blocks</td>
+<td>Win Outcome (Dim 2)</td>
+<td>Win Barrier prevents achieving specific Win Outcomes</td>
+</tr>
+<tr>
+<td>Affects</td>
+<td>Win Stakeholder (Dim 2)</td>
+<td>Win Barrier impacts specific Win Stakeholders or the vendor</td>
+</tr>
+<tr>
+<td>Scoped to</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Win Barrier is specific to Customer Segment(s)</td>
+</tr>
+<tr>
+<td>Challenges</td>
+<td>Pricing Tier / Package (Dim 2)</td>
+<td>Win Barrier may challenge the competitiveness of a Pricing Tier</td>
+</tr>
+<tr>
+<td>May surface as</td>
+<td>Signal — Problem or Opportunity (Dim 1)</td>
+<td>Observations of barriers become Signals for Discovery</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Modeling Task (Track 1)</td>
+<td>Modeling Tasks document Win Barriers in Dim 2</td>
+</tr>
+<tr>
+<td>Structural root</td>
+<td>Capability / Feature (Dim 8)</td>
+<td>When barrier points to a product gap, identifies the missing or insufficient product structure</td>
+</tr>
+</tbody>
+</table>
+<h2 id="win-barrier-types">Win Barrier Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Competitive</strong></td>
+<td>Competitor advantage that the vendor cannot currently match</td>
+<td>"Competitor offers 30-day free trial; our minimum is annual commitment"</td>
+</tr>
+<tr>
+<td><strong>Technical</strong></td>
+<td>Technical limitation in the product that blocks a segment</td>
+<td>"We can't offer on-prem deployment; regulated LATAM banks require it"</td>
+</tr>
+<tr>
+<td><strong>Regulatory</strong></td>
+<td>Regulatory requirement the vendor doesn't yet meet</td>
+<td>"We lack LGPD-compliant data residency in Brazil"</td>
+</tr>
+<tr>
+<td><strong>Operational</strong></td>
+<td>Operational limitation in how the vendor serves customers</td>
+<td>"Our support doesn't cover LATAM time zones (UTC-3 to UTC-5)"</td>
+</tr>
+<tr>
+<td><strong>Financial</strong></td>
+<td>Pricing structure that doesn't work for a segment</td>
+<td>"Our minimum ACV ($100K) exceeds Mid-Market budget ceiling ($50K)"</td>
+</tr>
+<tr>
+<td><strong>Contractual</strong></td>
+<td>Contractual constraints (vendor's or customer's existing)</td>
+<td>"Target customers locked into competitor's 3-year enterprise agreements"</td>
+</tr>
+<tr>
+<td><strong>Resource</strong></td>
+<td>Insufficient vendor resources to serve a segment</td>
+<td>"Only 2 implementation consultants available for LATAM region"</td>
+</tr>
+<tr>
+<td><strong>Market</strong></td>
+<td>Market perception or positioning gap</td>
+<td>"Low brand awareness in LATAM fintech — no local reference customers"</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Barrier</th>
+<th>Type</th>
+<th>Stage</th>
+<th>Segment</th>
+<th>Aggrieved</th>
+<th>Blocks Win Outcome</th>
+<th>Structural Root (Dim 8)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Competitor offers 30-day free trial"</td>
+<td>Competitive</td>
+<td>Acquisition</td>
+<td>US Mid-Market</td>
+<td>Account Executive</td>
+<td>"Self-service onboarding within 4 hours"</td>
+<td>Trial / Freemium (Capability — missing)</td>
+</tr>
+<tr>
+<td>"No LGPD data residency in Brazil"</td>
+<td>Regulatory</td>
+<td>Acquisition</td>
+<td>LATAM Enterprise</td>
+<td>Account Executive, Pre-Sales Engineer</td>
+<td>"Close LATAM deals within 90-day cycle"</td>
+<td>Data Storage — Regional Residency (Capability — missing)</td>
+</tr>
+<tr>
+<td>"Support hours don't cover LATAM time zones"</td>
+<td>Operational</td>
+<td>Retention</td>
+<td>LATAM Enterprise</td>
+<td>CS Manager, Support Engineer</td>
+<td>"95% annual gross retention rate"</td>
+<td>— (operational)</td>
+</tr>
+<tr>
+<td>"Minimum ACV exceeds Mid-Market budget"</td>
+<td>Financial</td>
+<td>Acquisition</td>
+<td>US Mid-Market</td>
+<td>Account Executive</td>
+<td>"Close Mid-Market deals at positive unit economics"</td>
+<td>— (pricing)</td>
+</tr>
+<tr>
+<td>"Only 2 implementation consultants for LATAM"</td>
+<td>Resource</td>
+<td>Activation</td>
+<td>LATAM Enterprise</td>
+<td>Implementation Consultant</td>
+<td>"First live transaction within 30 days"</td>
+<td>— (resource)</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim2-win-barrier.md">View on GitHub</a></p>

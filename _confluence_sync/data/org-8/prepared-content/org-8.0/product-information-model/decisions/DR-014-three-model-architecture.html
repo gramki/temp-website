@@ -1,0 +1,91 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-014-three-model-architecture.md -->
+<!-- Title: DR-014: Three-Model Architecture (Definition, Work, Operating) -->
+<!-- Content Hash: f55456a83cb1dd5e033ef924915e6deaf293cc74b6b3273941d1e6c8ef868c5b -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-014-three-model-architecture-definition-work-op">DR-014: Three-Model Architecture (Definition, Work, Operating)</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>The UPIM Work Model deliberately excludes coordination patterns (ceremonies, cadences) and organizational design (roles, team structures, skills, tools). During model development, the question arose: how should these excluded concerns be architecturally represented?</p>
+<p>An initial design proposed a <strong>four-model architecture:</strong></p>
+<pre class="codehilite"><code>Organization Model    — How the org is DESIGNED (roles, teams, skills, tools)
+Operating Model       — How the org COORDINATES (ceremonies, cadences, rituals)
+Work Model            — What work EXISTS
+Definition Model      — What the product IS
+</code></pre>
+
+<p>This required determining the dependency direction between Operating Model and Organization Model. Multiple orderings were explored:</p>
+<ol>
+<li><strong>Organization above Operating:</strong> "Design the org to support the coordination patterns" — but coordination choices (e.g., choosing Scrum) shape organizational requirements (e.g., needing a Scrum Master).</li>
+<li><strong>Operating above Organization:</strong> "Choose coordination first, then design the org for it" — but organizational realities (e.g., only 3 PMs available) constrain coordination options (e.g., can't run 6 parallel reviews).</li>
+</ol>
+<p>Every ordering felt wrong because strict layering implies <strong>one-way dependency</strong>, and the relationship between coordination and organization is <strong>bidirectional</strong>.</p>
+<h2 id="decision">Decision</h2>
+<p>Consolidate the Operating Model and Organization Model into a <strong>single Operating Model</strong> with two entangled facets: <strong>Coordination</strong> and <strong>Organization</strong>. The UPIM architecture is three models, not four.</p>
+<pre class="codehilite"><code>Operating Model       — How the org EXECUTES (Coordination + Organization)
+Work Model            — What work EXISTS
+Definition Model      — What the product IS
+</code></pre>
+
+<p>The Operating Model's internal structure (subdivision terminology, entity catalog) is deferred until the modeling work is done. The Definition Model has 9 Dimensions and the Work Model has 4 Tracks — the Operating Model's organizational pattern will earn its name through the same iterative process.</p>
+<h2 id="rationale">Rationale</h2>
+<h3 id="why-not-four-models">Why not four models?</h3>
+<p>Coordination and Organization have a <strong>symbiotic, bidirectional dependency</strong> that defies strict layering:</p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coordination → Organization</td>
+<td>"We chose Scrum" → "We need a Scrum Master role"</td>
+</tr>
+<tr>
+<td>Organization → Coordination</td>
+<td>"We only have 3 PMs" → "We can't run 6 parallel Signal Reviews"</td>
+</tr>
+</tbody>
+</table>
+<p>Layers imply that A depends on B but B never depends on A. Since both concerns co-constrain and co-evolve, forcing them into separate layers distorts the relationship. The entanglement is a <strong>feature</strong>, not a problem to be solved by splitting.</p>
+<h3 id="why-a-single-operating-model">Why a single Operating Model?</h3>
+<p>In business conversation, "our operating model" naturally encompasses <strong>both</strong> how we're structured and how we coordinate. It was only when the model tried to split them for architectural purity that separate names and an ordering became necessary.</p>
+<p>The single Operating Model:<br />
+- Acknowledges that coordination and organization are <strong>co-designed</strong> — you don't design one independently of the other<br />
+- Avoids a forced layering that doesn't reflect reality<br />
+- Uses "Operating Model" as a term that business stakeholders already understand<br />
+- Keeps the overall architecture clean: three models with clear one-way dependencies between them</p>
+<h3 id="why-defer-the-internal-structure">Why defer the internal structure?</h3>
+<p>The Definition Model's 9 Dimensions and the Work Model's 4 Tracks earned their names through iterative modeling work. Naming the Operating Model's subdivisions before the content exists would be premature — like naming Dimension 3 "The ROI Dimension" before discovering it's really about the full buying committee, pain, promises, and adoption barriers.</p>
+<p>What we know today:<br />
+- The Operating Model covers Coordination and Organization<br />
+- These are entangled, not layered</p>
+<p>What we don't yet know:<br />
+- How many entities the Operating Model contains<br />
+- Whether a third facet emerges (e.g., Governance? Learning?)<br />
+- Whether the internal structure is hierarchical, flat, or something else</p>
+<h2 id="consequences">Consequences</h2>
+<h3 id="positive">Positive</h3>
+<ul>
+<li>Three clean layers with unambiguous one-way dependencies</li>
+<li>No forced ordering between things that are actually peers</li>
+<li>"Operating Model" is intuitive terminology for business stakeholders</li>
+<li>Avoids premature naming of subdivision patterns</li>
+<li>Follows the same principle as the rest of the UPIM: model what you understand, defer what you don't</li>
+</ul>
+<h3 id="negative">Negative</h3>
+<ul>
+<li>"Operating Model" is a broad term — when detailed, it may need internal structure to remain navigable</li>
+<li>The deferred internal structure means teams cannot reference specific Operating Model entities yet</li>
+<li>Combining two concerns risks the Operating Model becoming a catch-all for "everything not in Definition or Work"</li>
+</ul>
+<h3 id="mitigations">Mitigations</h3>
+<ul>
+<li>The scope boundary is explicitly defined: coordination + organizational design for product work execution. Not general business operations, not HR, not finance.</li>
+<li>The deferred structure will be resolved when the Operating Model is detailed — the same iterative process that produced Dimensions and Tracks will produce the right pattern.</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: bde5503 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/bde5503/org-8.0/product-information-model/decisions/DR-014-three-model-architecture.md">View on GitHub</a></p>

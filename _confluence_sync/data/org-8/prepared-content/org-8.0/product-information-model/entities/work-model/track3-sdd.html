@@ -1,0 +1,186 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track3-sdd.md -->
+<!-- Title: System Deployment Descriptor (SDD) -->
+<!-- Content Hash: b8f7f2c388d295ae1aa51c92232603e0394e98a0e9de17018889bc3629ce4e1f -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="system-deployment-descriptor-sdd">System Deployment Descriptor (SDD)</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 3: The Run Track (Stability &amp; Operations) — Artifact<br />
+<strong>Owner:</strong> DevOps, Platform Engineering</p>
+<h2 id="definition">Definition</h2>
+<p>An <strong>environment-specific deployment specification</strong> for a single System Version. The SDD maps a System Version to one or more runtime-defined artifacts with platform-specific names — Kubernetes Services, Pod specs, Deployments, CRDs, Helm releases, cloud-native resources, or any other infrastructure primitives defined by the runtime platform. The SDD captures everything needed to deploy <em>this</em> System Version to <em>this</em> environment: resource limits, replica counts, environment variables, secrets references, network policies, and platform-specific configuration.</p>
+<p>SDD = System Version + Environment-Specific Configuration + Runtime Artifact References.</p>
+<p>SDD is the <strong>atomic deployment specification</strong> — it describes how a single System Version is deployed to a single environment. SDDs are <strong>composed by reference</strong> into MDDs (Module Deployment Descriptors), which add Module-level coordination, scripts, and cross-system configuration. An SDD may also be deployed independently for atomic-level deployments.</p>
+<p>SDD has its own version, reflecting <strong>deployment progression</strong> — changes to resource limits, scaling policies, or runtime artifact configuration — independent of the System Version's functional version. A System Version may have multiple SDD versions as deployment configuration evolves.</p>
+<blockquote>
+<p><strong>SDD maps to runtime-defined artifacts, not UPIM entities.</strong> The specific artifact names (Kubernetes Deployment, Helm release, ECS Task Definition, Lambda function configuration) are determined by the runtime platform, not by the information model. SDD is the model's abstraction over these platform-specific deployment primitives. The SDD does not prescribe the platform; it describes what the platform must provide for this System Version in this environment.</p>
+</blockquote>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System Version</td>
+<td>Reference (Track 2)</td>
+<td>The System Version this descriptor deploys</td>
+</tr>
+<tr>
+<td>Target Environment</td>
+<td>Reference (Dim 7)</td>
+<td>The Deployment Environment this descriptor targets</td>
+</tr>
+<tr>
+<td>SDD Version</td>
+<td>String</td>
+<td>Deployment progression version (e.g., <code>sdd-1.0</code>, <code>sdd-1.1</code>) — independent of System Version</td>
+</tr>
+<tr>
+<td>Resource Configuration</td>
+<td>Structured Config</td>
+<td>CPU limits, memory limits, storage, GPU allocation — environment-specific resource sizing</td>
+</tr>
+<tr>
+<td>Replica Configuration</td>
+<td>Structured Config</td>
+<td>Replica count, autoscaling policies, availability zone distribution</td>
+</tr>
+<tr>
+<td>Environment Variables</td>
+<td>Map</td>
+<td>Environment-specific variables and secrets references</td>
+</tr>
+<tr>
+<td>Runtime Artifact References</td>
+<td>List</td>
+<td>Platform-specific artifact references (e.g., K8s Deployment name, Helm release name, pod spec)</td>
+</tr>
+<tr>
+<td>Network Configuration</td>
+<td>Structured Config</td>
+<td>Ingress rules, network policies, service mesh configuration</td>
+</tr>
+<tr>
+<td>Last Updated</td>
+<td>DateTime</td>
+<td>When this SDD version was created or modified</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draft</td>
+<td>SDD is being authored or modified</td>
+</tr>
+<tr>
+<td>Ready</td>
+<td>SDD configuration is complete and validated for the target environment</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>SDD is the current deployment specification for this System Version in this environment</td>
+</tr>
+<tr>
+<td>Superseded</td>
+<td>A newer SDD version has replaced this one for the same System Version + environment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Specifies deployment of</td>
+<td>System Version (Track 2)</td>
+<td>SDD specifies how a System Version is deployed to an environment</td>
+</tr>
+<tr>
+<td>Targets</td>
+<td>Deployment Environment (Dim 7)</td>
+<td>SDD targets a specific environment</td>
+</tr>
+<tr>
+<td>Composed into</td>
+<td>MDD (Track 3)</td>
+<td>SDD is composed by reference into an MDD for integrated-level deployment</td>
+</tr>
+<tr>
+<td>Applied by</td>
+<td>Deployment Task (Track 3)</td>
+<td>SDD is applied to an environment by a Deployment Task (atomic level)</td>
+</tr>
+<tr>
+<td>Produced by</td>
+<td>Deployment Planning Task (Track 3)</td>
+<td>Deployment Planning Task creates/updates SDD versions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="sdd-for-payments-service-v233-in-production-latam">SDD for payments-service v2.3.3 in production-latam</h3>
+<pre class="codehilite"><code>SDD: payments-service v2.3.3 → production-latam (sdd-1.2)
+├── System Version: payments-service v2.3.3
+├── Target Environment: production-latam
+├── Resource Configuration:
+│   ├── CPU: 2 cores (limit: 4 cores)
+│   ├── Memory: 4Gi (limit: 8Gi)
+│   └── Storage: 20Gi persistent volume
+├── Replica Configuration:
+│   ├── Min replicas: 3 (LATAM regulatory: 3-AZ)
+│   ├── Max replicas: 12
+│   └── Autoscaling: target CPU utilization 70%
+├── Environment Variables:
+│   ├── DB_HOST: payments-db.latam.internal
+│   ├── SETTLEMENT_REGION: LATAM
+│   └── SECRETS_REF: vault://payments/prod-latam
+├── Runtime Artifacts:
+│   ├── K8s Deployment: payments-service
+│   ├── K8s Service: payments-service-svc
+│   └── K8s HPA: payments-service-hpa
+└── Network:
+    ├── Ingress: payments.latam.internal (internal only)
+    └── Network Policy: allow from fx-service, payment-gateway
+</code></pre>
+
+<h3 id="sdd-for-payments-healthcheck-v120-in-production-la">SDD for payments-healthcheck v1.2.0 in production-latam (operational system)</h3>
+<pre class="codehilite"><code>SDD: payments-healthcheck v1.2.0 → production-latam (sdd-1.0)
+├── System Version: payments-healthcheck v1.2.0
+├── Target Environment: production-latam
+├── Resource Configuration:
+│   ├── CPU: 0.5 cores
+│   └── Memory: 512Mi
+├── Replica Configuration:
+│   └── Replicas: 1 (probe, not load-bearing)
+├── Environment Variables:
+│   ├── PROBE_TARGET: payments-service-svc.latam.internal
+│   ├── CORRIDORS: BRL,MXN
+│   └── PROBE_INTERVAL_SEC: 60
+├── Runtime Artifacts:
+│   └── K8s CronJob: payments-healthcheck
+└── Network:
+    └── Network Policy: allow to payments-service, fx-service
+</code></pre>
+
+<hr />
+
+<p><strong>Source:</strong> Commit: 8e6b1b1 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/8e6b1b1/org-8.0/product-information-model/entities/work-model/track3-sdd.md">View on GitHub</a></p>

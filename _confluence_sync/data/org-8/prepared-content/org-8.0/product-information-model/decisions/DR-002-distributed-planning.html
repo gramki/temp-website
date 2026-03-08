@@ -1,0 +1,60 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-002-distributed-planning.md -->
+<!-- Title: DR-002: Distribute Planning Work Across All Four Tracks -->
+<!-- Content Hash: a501ae1e930fc1ddbca4ff360e133c9adf50d3d66414da913ca3dcf031116acc -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-002-distribute-planning-work-across-all-four-tr">DR-002: Distribute Planning Work Across All Four Tracks</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15<br />
+<strong>Related FAQ:</strong> Q11</p>
+<hr />
+<h2 id="context">Context</h2>
+<p>When the need for planning work items was identified, two approaches were considered:</p>
+<ol>
+<li><strong>Centralized:</strong> Create a 5th "Plan Track" to house all planning activities across the SDLC.</li>
+<li><strong>Distributed:</strong> Each existing track owns its own planning entities alongside its core work entities.</li>
+</ol>
+<h2 id="decision">Decision</h2>
+<p>Each track owns its own planning work. No separate "Plan Track" is created.</p>
+<table>
+<thead>
+<tr>
+<th>Track</th>
+<th>Planning Entities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discovery (Track 1)</td>
+<td>Objective Setting Task, Initiative Scoping Task, Prioritization Task</td>
+</tr>
+<tr>
+<td>Build (Track 2)</td>
+<td>Release Planning Task, Milestone Planning Task, Iteration Planning Task</td>
+</tr>
+<tr>
+<td>Run (Track 3)</td>
+<td>Deployment Planning Task, Capacity Planning Task</td>
+</tr>
+<tr>
+<td>Win (Track 4)</td>
+<td>Go-to-Market Planning Task, Customer Rollout Planning Task</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rationale">Rationale</h2>
+<ol>
+<li><strong>Planning is not separable from execution.</strong> The people who plan are the people who execute. A Build Track tech lead plans iterations and milestones as part of their daily work — separating this into a different track creates artificial handoffs.</li>
+<li><strong>Different tracks plan different things.</strong> Discovery planning (Objectives, Initiatives) is fundamentally different from Run planning (deployments, capacity). A single "Plan Track" would contain heterogeneous work owned by different roles.</li>
+<li><strong>Track ownership stays clear.</strong> Each track's primary owner is also responsible for planning within that track. No new ownership ambiguity is introduced.</li>
+<li><strong>The model stays at 4 tracks.</strong> Adding a 5th track increases model complexity without corresponding benefit.</li>
+</ol>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li><strong>Positive:</strong> Planning work is explicit and trackable within each track.</li>
+<li><strong>Positive:</strong> No new ownership boundaries or handoff points.</li>
+<li><strong>Positive:</strong> The 4-track model remains simple and memorable.</li>
+<li><strong>Negative:</strong> Each track now has two sub-categories of entities (planning + core work). Documentation must clearly distinguish them.</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: bde5503 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/bde5503/org-8.0/product-information-model/decisions/DR-002-distributed-planning.md">View on GitHub</a></p>

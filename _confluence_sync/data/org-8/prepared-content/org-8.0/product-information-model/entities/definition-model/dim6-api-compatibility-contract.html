@@ -1,0 +1,107 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim6-api-compatibility-contract.md -->
+<!-- Title: API Compatibility Contract -->
+<!-- Content Hash: d99c7e8394efeb6e1f420828e3e9ee9482c673ac5427f3c3932d94a756897949 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="api-compatibility-contract">API Compatibility Contract</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension / Track:</strong> Dimension 6: Ecosystem &amp; Extensibility (Platform)<br />
+<strong>Owner:</strong> Product Management (API/Platform), Engineering</p>
+<h2 id="definition">Definition</h2>
+<p>An API Compatibility Contract is the module-level versioning and backward-compatibility commitment for an API Module's programmatic surface. It captures the product's promise to Developer and Programmatic User Personas about stability — the Dim 6 analog of Customer Promise (Dim 3) for programmatic consumers.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Establishes trust with external consumers by declaring how the product manages change. Without an explicit contract, every API update creates uncertainty: will this break my integration? When can I expect deprecated features to disappear? Will performance degrade across versions?</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Text</td>
+<td>Contract name (typically aligned with API Module name)</td>
+</tr>
+<tr>
+<td>Versioning Strategy</td>
+<td>Text</td>
+<td>How versions are managed (semantic versioning, URL path versioning, header versioning)</td>
+</tr>
+<tr>
+<td>Breaking Change Policy</td>
+<td>Text</td>
+<td>What constitutes a breaking change and how it's handled (major version bump, migration guide)</td>
+</tr>
+<tr>
+<td>Deprecation Policy</td>
+<td>Text</td>
+<td>How deprecated operations are communicated and sunset (notification mechanism, sunset period)</td>
+</tr>
+<tr>
+<td>Sunset Period</td>
+<td>Text</td>
+<td>How long deprecated operations remain available (e.g., "12 months from deprecation notice")</td>
+</tr>
+<tr>
+<td>Performance Stability</td>
+<td>Text</td>
+<td>SLO degradation limits across versions (e.g., "SLOs guaranteed within 20% of published targets across minor versions")</td>
+</tr>
+<tr>
+<td>Migration Support</td>
+<td>Text</td>
+<td>What the vendor provides for major version transitions (migration guide, dual-version support period, tooling)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Governs</td>
+<td>API Module (Dim 6)</td>
+<td>Defines stability commitments for this module</td>
+</tr>
+<tr>
+<td>Governs</td>
+<td>API Operation(s) (Dim 6)</td>
+<td>Operations subject to these versioning rules</td>
+</tr>
+<tr>
+<td>Promise to</td>
+<td>Developer Persona (Dim 6)</td>
+<td>Developers depend on these stability guarantees</td>
+</tr>
+<tr>
+<td>Promise to</td>
+<td>Programmatic User Persona (Dim 6)</td>
+<td>Systems depend on interface and performance stability</td>
+</tr>
+<tr>
+<td>Parallels</td>
+<td>Customer Promise (Dim 3)</td>
+<td>Dim 6 analog of customer-facing commitments</td>
+</tr>
+<tr>
+<td>Assessed by</td>
+<td>Win Review (Track 4)</td>
+<td>Contract compliance assessed in reviews</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>"Cross-Border Payments API Compatibility Contract"</strong> — Versioning: semantic versioning (major.minor.patch) with URL path prefix (/v1/, /v2/). Breaking Change Policy: breaking changes require major version bump; additive changes (new optional fields, new operations) are minor versions. Deprecation: deprecated operations marked in response headers and documentation; 12-month sunset from deprecation notice; email notification to all registered developers. Performance Stability: published SLOs guaranteed within 20% across minor versions; major versions may reset SLOs with advance notice. Migration Support: migration guide published with each major version; dual-version support for 6 months after new major release; SDK auto-migration tooling provided.</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim6-api-compatibility-contract.md">View on GitHub</a></p>

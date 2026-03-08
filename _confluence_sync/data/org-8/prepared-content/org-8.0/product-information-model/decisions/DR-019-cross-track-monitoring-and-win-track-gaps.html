@@ -1,0 +1,79 @@
+<!-- File: org-8.0/product-information-model/decisions/DR-019-cross-track-monitoring-and-win-track-gaps.md -->
+<!-- Title: DR-019: Cross-Track Monitoring and Win Track Gap Remediation -->
+<!-- Content Hash: e0b747f614de3a803983008e56969a45d2e6aa3bb33923e4fcd64683311a309e -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="dr-019-cross-track-monitoring-and-win-track-gap-re">DR-019: Cross-Track Monitoring and Win Track Gap Remediation</h1>
+<p><strong>Status:</strong> Accepted<br />
+<strong>Date:</strong> 2026-02-15</p>
+<h2 id="context">Context</h2>
+<p>A gap analysis of the Win Track (and the Work Model generally) identified four areas where the stated purpose of the Win Track was not fully addressed by defined work entities:</p>
+<ol>
+<li>
+<p><strong>Continuous monitoring</strong> — Every track has ongoing monitoring work that sits between periodic assessment (Reviews, Deliberations) and reactive work (Cases, Incidents). This work triggers downstream entities and feeds periodic reviews but was not modeled. The user requested monitoring as a work type in <em>each</em> track, not only the Win Track.</p>
+</li>
+<li>
+<p><strong>Partner/channel work</strong> — GTM and the lever portfolio mentioned "partnership execution" and "channel," but there were no work entities for partner-facing enablement or engagement. Products with partner/channel models have substantial Win Track work (partner onboarding, co-selling, partner enablement) that is distinct from internal sales enablement and customer engagement.</p>
+</li>
+<li>
+<p><strong>Revenue realization</strong> — The Revenue AAARRR stage had Expansion Engagement (upsell/cross-sell) but lacked (a) operational work to ensure revenue is collected (billing, invoicing, collections, renewal processing) and (b) explicit revenue monitoring. Revenue realization is an essential signal for Dim 2; the Win Track is the right home for both commercial operations and revenue intelligence.</p>
+</li>
+<li>
+<p><strong>PLG/self-service acknowledgment</strong> — The model assumed human-mediated engagement. For segments where the Product lever dominates (self-service onboarding, free trial), the Win Track's role shifts from execution to monitoring + exception-based intervention. This needed to be acknowledged so that the same entities are interpreted correctly for PLG segments.</p>
+</li>
+<li>
+<p><strong>Advocacy and customer education</strong> — The question arose whether customer education was covered. It was concluded that CS Enablement and Segment Engagement already cover it (training materials, certification programs, webinars, workshops) under the advocacy umbrella; the plan was to make this explicit with examples rather than add new entities.</p>
+</li>
+</ol>
+<h2 id="decisions">Decisions</h2>
+<h3 id="1-introduce-monitoring-as-a-work-entity-in-all-fou">1. Introduce monitoring as a work entity in all four tracks</h3>
+<ul>
+<li><strong>Track 1: Signal Monitoring</strong> — Continuous tracking of signal pipeline health, discovery velocity, theme trends. Triggers: Prioritization re-evaluation, Signal creation, Deliberation scheduling.</li>
+<li><strong>Track 2: Build Monitoring</strong> — Continuous tracking of build health, quality metrics, velocity. Triggers: Bug creation, Maintenance Task, Release Planning adjustment.</li>
+<li><strong>Track 3: System Monitoring</strong> — Continuous tracking of infrastructure health, SLA/uptime, capacity. Triggers: Incident creation, Change Request, Capacity Planning adjustment.</li>
+<li><strong>Track 4: Win Monitoring</strong> — Continuous tracking of customer health, revenue metrics, competitive intelligence, Customer Promise fulfillment. Includes revenue monitoring. Triggers: Win Activity creation, Win Case escalation, Win Review preparation.</li>
+</ul>
+<p>Each monitoring entity has scope, metrics tracked, thresholds/alerts, cadence, owner, and produces Alert/Trigger and Report/Dashboard artifacts.</p>
+<h3 id="2-add-partner-enablement-and-partner-engagement-to">2. Add Partner Enablement and Partner Engagement to the Win Track</h3>
+<ul>
+<li><strong>Partner Enablement</strong> (subtype of Win Enablement) — Partner demo environments, co-marketing kits, partner training, certification programs, partner playbooks. Distinct from Sales Enablement (internal teams). Uses GTM lever.</li>
+<li><strong>Partner Engagement</strong> (subtype of Win Activity) — Partner onboarding, co-selling, partner account management, partner pipeline management. Account-level (one partner). References external PRM.</li>
+<li><strong>Engagement Planning</strong> scope extended to explicitly include partner prioritization and sequencing.</li>
+</ul>
+<h3 id="3-add-revenue-operations-engagement-and-rely-on-wi">3. Add Revenue Operations Engagement and rely on Win Monitoring for revenue intelligence</h3>
+<ul>
+<li><strong>Revenue Operations Engagement</strong> (subtype of Win Activity) — Account-level, customer-facing work: invoicing/billing communication, collections, renewal processing, revenue recognition coordination. Advances Revenue Win Outcomes. Billing disputes remain Win Case (Complaint).</li>
+<li><strong>Revenue monitoring</strong> — Covered by Win Monitoring (revenue metrics, pipeline, NRR, churn signals). When targets are missed, Win Monitoring surfaces the signal; Win Review or Feedback → Signal may follow.</li>
+</ul>
+<h3 id="4-add-plgself-service-conceptual-notes-no-new-enti">4. Add PLG/self-service conceptual notes (no new entities)</h3>
+<ul>
+<li>Win Activity entity and draft-work-model.md updated with a note: for segments where the Product lever dominates, engagement subtypes shift from human execution to monitoring + exception-based intervention; Win Monitoring becomes primary; Build Track delivers the in-product "Win" experience.</li>
+</ul>
+<h3 id="5-clarify-that-advocacy-encompasses-customer-educa">5. Clarify that advocacy encompasses customer education</h3>
+<ul>
+<li>CS Enablement and Segment Engagement (and CS Planning) explicitly mention customer education/training, certification programs, knowledge bases, and training delivery. Examples added (e.g., "LATAM API integration certification program"). No new entities.</li>
+</ul>
+<h2 id="rationale">Rationale</h2>
+<ul>
+<li><strong>Monitoring in every track</strong> — The same pattern (continuous vigilance → triggers reactive work, feeds periodic assessment) applies across Discovery, Build, Run, and Win. Making it explicit prevents the work from being invisible and clarifies how Incidents, Bugs, Win Activities, and Prioritization get triggered.</li>
+<li><strong>Partner work as subtypes</strong> — Partners are intermediaries; they need enablement and engagement distinct from customers and from internal sales. Subtyping under existing parents keeps the model coherent and avoids a separate "partner track."</li>
+<li><strong>Revenue Operations as engagement</strong> — Revenue realization work is account-level and customer-facing (invoicing, collections, renewals). It advances Revenue Win Outcomes. Modeling it as a Win Activity subtype is consistent with other account-level work; billing disputes stay in Win Case.</li>
+<li><strong>PLG as interpretation, not new structure</strong> — The same subtypes apply; only the balance of human vs. product-mediated execution changes. A note suffices.</li>
+<li><strong>Education under advocacy</strong> — Advocacy already included programs and materials; customer education (training, certification) fits as both enablement assets and segment engagement delivery. Explicit mention avoids a separate "customer education" entity.</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<h3 id="positive">Positive</h3>
+<ul>
+<li>All four tracks now model continuous monitoring; triggers and feeds are explicit.</li>
+<li>Partner/channel-heavy products can represent partner work without overloading the model.</li>
+<li>Revenue realization (operations + monitoring) is fully represented in the Win Track.</li>
+<li>PLG and self-service segments are correctly interpreted without new entities.</li>
+<li>Customer education is clearly in scope under advocacy.</li>
+</ul>
+<h3 id="negative">Negative</h3>
+<ul>
+<li>Win Activity and Win Enablement have more subtypes; entity tables are longer.</li>
+<li>Monitoring entities are new and will need incremental detailing (artifacts, DoD) per the Work Execution Framework.</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/decisions/DR-019-cross-track-monitoring-and-win-track-gaps.md">View on GitHub</a></p>

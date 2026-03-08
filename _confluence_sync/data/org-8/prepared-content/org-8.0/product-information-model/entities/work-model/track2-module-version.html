@@ -1,0 +1,183 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track2-module-version.md -->
+<!-- Title: Module Version -->
+<!-- Content Hash: 02b7f72e306f76b654180b4dfdc2b59d49ae660bbb2f83b75c1685dd3c09d47f -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="module-version">Module Version</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 2: The Build Track (Construction) — Artifact<br />
+<strong>Owner:</strong> Tech Lead, Integration Architect</p>
+<h2 id="definition">Definition</h2>
+<p>A <strong>composite system</strong> — an integration-verified composition of System Versions for a Module (Dim 8). Module Version is not merely a verification record; it is a system in its own right, with emergent operational properties (end-to-end latency across the Module's Systems, integrated failure modes, cross-system data consistency) that do not exist at the individual System level. Module Version is the second tier of the three-tier versioning model: System Version (atomic deployment) → <strong>Module Version (integrated deployment + integration verification)</strong> → Product Version (complete deployment + certification). Module Version is the <strong>integrated deployment unit</strong> — the Run Track enriches it with operational System Versions and wiring to produce a Module Package Version (environment-independent), which is deployed to environments via MDDs (Module Deployment Descriptors). See DR-026, DR-027, DR-028, DR-029.</p>
+<p>A Module Version contains:<br />
+- <strong>Product System Versions</strong> — the specific versions of each System that implements this Module's domain capabilities (e.g., payments-service, payment-gateway)<br />
+- <strong>Tenant lifecycle System Versions</strong> — Systems that manage the tenant subscription lifecycle within this Module: provisioning, activation, configuration by tier, change/upgrade/downgrade, and termination (e.g., subscription-manager, tenant-provisioning-service, tier-configuration-service)<br />
+- <strong>Integration contracts</strong> — validated API schemas, event schemas, data contracts between those Systems<br />
+- <strong>Integration test suite</strong> — the test suite that verified interoperability between those Systems</p>
+<p>Module Versions are <em>artifacts</em> produced by verified Integration Epics and Integration Stories. They are not planned entities — they emerge when the Systems composing a Module are verified to work together.</p>
+<blockquote>
+<p><strong>Module Version is a functionally complete, commercially viable assembly.</strong> It includes everything needed to serve tenants: product logic, tenant subscription lifecycle management (provisioning, activation, configuration by tier, upgrade/downgrade, termination), commercialization logic, and integration adapters. What it does NOT include is the Run Track's operational support tooling (probes, dashboards, reconcilers, log shippers, automated maintenance jobs). Those operator-facing systems are added by the Module Package Version.</p>
+<p><strong>Module Version as communication bridge.</strong> Module Version serves as the shared vocabulary between Build, Run, and Product teams. Product managers reason in Modules: "Payments capability v4.1 includes the new compliance flow." SREs monitor integrated capability health: "Payments Module v4.1 is healthy in LATAM." Build teams know which Systems compose it: "Payments Module v4.1 = {payments-service v2.3.3, payment-gateway v1.2.1}." Without Module Version, these teams have no common reference point — engineers speak System names, PMs speak feature names, and SREs translate between the two ad hoc.</p>
+<p><strong>Module Version is NOT the old "Module Version" (renamed to System Version).</strong> The previous "Module Version" was a versioned artifact of a single deployable unit — that is now <strong>System Version</strong>. This new Module Version is a <em>composition</em> artifact — a composite system that proves multiple System Versions integrate correctly within a Module boundary. See DR-026.</p>
+<p><strong>"Composite system" uses "system" in the systems-thinking sense.</strong> When we say Module Version is a "composite system," we do not mean it is a System entity (Dim 5). We mean it is a system in the generic sense: a whole composed of interacting parts (System Versions) with emergent properties (end-to-end latency, integrated failure modes, cross-system data consistency) that do not exist at the individual System level. Module Version operates at the <strong>Integrated</strong> composition level — between the Atomic level (individual Systems) and the Complete level (Product). See FAQ Q93.</p>
+</blockquote>
+<h2 id="purpose">Purpose</h2>
+<p>Bridges the gap between individual System Versions and the Product Version — as both a verified composition and a shared vocabulary. Without Module Versions:<br />
+- System Versions are deployed independently, but their integration is unverified — "payments-service v2.3.3 and fx-service v1.8.1 work together" is a hope, not a fact<br />
+- Product Version has to verify all Systems at once — an O(n²) integration problem instead of Module-scoped verification<br />
+- Integration test results have no structured home — they exist in CI logs but not in the model<br />
+- The functional boundary (Module, Dim 8) has no versioned integration artifact<br />
+- Build, Run, and Product teams have no shared reference point for a capability — engineers say "payments-service v2.3.3," PMs say "the Payments capability," and SREs translate between the two informally<br />
+- Emergent operational properties (end-to-end latency, integrated failure modes, cross-system data consistency) have no entity to attach to — they exist as Module-level phenomena but are tracked only at the System level</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module</td>
+<td>Reference (Dim 8)</td>
+<td>Which Module this version represents</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>Semver</td>
+<td>Module-level version (e.g., <code>2.3.0</code>)</td>
+</tr>
+<tr>
+<td>System Versions</td>
+<td>Map</td>
+<td>Specific System Versions composing this Module Version (e.g., <code>{payments-service: v2.3.3, payment-gateway: v1.2.1}</code>)</td>
+</tr>
+<tr>
+<td>Integration Contracts</td>
+<td>List of Text/Reference</td>
+<td>Validated API schemas, event schemas, data contracts</td>
+</tr>
+<tr>
+<td>Integration Test Suite</td>
+<td>Reference + Results</td>
+<td>Integration test suite and pass/fail results</td>
+</tr>
+<tr>
+<td>Binding Configuration</td>
+<td>Structured Config</td>
+<td>The wiring and composition constraints that make this composition operational: service mesh routes, event topic bindings, orchestration definitions, adapter selections, protocol version bindings, and capability activation flags. Defines the <strong>legal composition</strong> — which combinations of System Versions are valid, which capabilities are activated, and what behavior is expected. Environment-independent (environment-specific configuration is applied at the MDD level — Module Deployment Descriptor — by the Run Track).</td>
+</tr>
+<tr>
+<td>Verification Date</td>
+<td>DateTime</td>
+<td>When integration verification completed</td>
+</tr>
+<tr>
+<td>Integration Epic</td>
+<td>Reference (Track 2)</td>
+<td>Integration Epic that produced this verification (if applicable)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integrating</td>
+<td>System Versions are being composed and integration tests are running</td>
+</tr>
+<tr>
+<td>Verified</td>
+<td>All integration contracts validated; integration test suite passes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Composes</td>
+<td>System Version(s) (Track 2)</td>
+<td>Module Version composes specific System Versions</td>
+</tr>
+<tr>
+<td>Represents</td>
+<td>Module (Dim 8)</td>
+<td>Module Version is a versioned, integration-verified instance of a Module</td>
+</tr>
+<tr>
+<td>Produced by</td>
+<td>Integration Epic (Track 2)</td>
+<td>Integration Epic work produces Module Version verification</td>
+</tr>
+<tr>
+<td>Produced by</td>
+<td>Integration Story(ies) (Track 2)</td>
+<td>Integration Stories contribute contracts and tests</td>
+</tr>
+<tr>
+<td>Composed into</td>
+<td>Product Version (Track 2)</td>
+<td>Module Versions compose a Product Version</td>
+</tr>
+<tr>
+<td>Enriched into</td>
+<td>Module Package Version (Track 3)</td>
+<td>Run Track adds operator-facing System Versions (probes, reconcilers, dashboards) and operational wiring to produce a Module Package Version (environment-independent), which instantiates a Module Package specification (Dim 7)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="payments-module-v230">Payments Module v2.3.0</h3>
+<pre class="codehilite"><code>Payments Module v2.3.0
+├── payments-service v2.3.3
+└── payment-gateway v1.2.1
+
+Integration Contracts:
+  - payments-service ↔ payment-gateway: gRPC PaymentProcessing v2 (validated)
+  - payments-service → Kafka: payment.created event schema v3 (validated)
+
+Integration Test Suite: 47 tests, 47 passed
+Verification Date: 2026-02-10T14:30:00Z
+</code></pre>
+
+<h3 id="fx-module-v180">FX Module v1.8.0</h3>
+<pre class="codehilite"><code>FX Module v1.8.0
+├── fx-service v1.8.1
+└── fx-calculator v1.8.0
+
+Integration Contracts:
+  - fx-service ↔ fx-calculator: internal rate calculation API (validated)
+  - fx-service → gRPC: GetRate, LockRate, UnlockRate endpoints (validated)
+
+Integration Test Suite: 31 tests, 31 passed
+Verification Date: 2026-02-11T09:15:00Z
+
+Binding Configuration:
+  - fx-service ↔ fx-calculator: internal gRPC (service mesh route)
+  - fx-service rate-provider adapter: &quot;provider-x-adapter&quot; selected (not &quot;provider-y-adapter&quot;)
+  - rate-lock capability: ENABLED (24-hour lock with auto-release)
+</code></pre>
+
+<blockquote>
+<p><strong>Binding Configuration and legal composition.</strong> Module Version's binding configuration is not mere wiring — it represents <strong>scoped, constrained, and deliberate</strong> build-time choices. When the Build Track composes System Versions into a Module Version, it determines: which adapter variant to include (e.g., provider-x-adapter, not provider-y), which protocol version to bind (gRPC v2, not v1), which capability to activate (rate-lock enabled, batch disabled). Not all possible combinations of System Versions are valid — some are incompatible, some would produce unexpected functionality, some would violate regulatory constraints. The binding configuration constrains the composition to its <strong>legal form</strong>: the set of choices that make this composition intended, tested, and safe. This is analogous to compile-time feature flags or conditional dependency inclusion — the composition is a deliberate selection, not an unconstrained assembly. Environment-specific operational configuration (which environment to target, which probes to attach, which monitoring thresholds to set) is handled separately at the Module Package level by the Run Track.</p>
+<p><strong>Module vs. Package boundary.</strong> Module Version includes all Systems that <strong>serve tenants</strong> — product logic, tenant subscription lifecycle (provisioning, activation, change, upgrade, downgrade, termination), commercialization logic, and integration adapters. Module Package Version adds Systems that <strong>serve operators</strong> — observability probes, dashboards, automated maintenance jobs, health checks, reconcilers, and log shippers. If a System participates in a tenant-facing workflow, it belongs in the Module Version. If it participates only in an operator-facing workflow (monitoring, alerting, maintenance), it belongs in the Module Package Version.</p>
+</blockquote>
+<hr />
+
+<p><strong>Source:</strong> Commit: 8e6b1b1 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/8e6b1b1/org-8.0/product-information-model/entities/work-model/track2-module-version.md">View on GitHub</a></p>

@@ -1,0 +1,161 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track5-evolve-monitoring.md -->
+<!-- Title: Evolve Monitoring -->
+<!-- Content Hash: 42e87c84ad3ca409c0383944e3c7010d675d3c23f57aaa32bde32124e9b627c7 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="evolve-monitoring">Evolve Monitoring</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 5: Evolve (Process Evolution)<br />
+<strong>Owner:</strong> Process Leads, Product Ops, Engineering Managers</p>
+<h2 id="definition">Definition</h2>
+<p>Evolve Monitoring is continuous tracking of process adherence, artifact quality trends, DoD compliance rates, and guidance usage across all tracks. It surfaces when processes are not followed, when artifact quality degrades, when DoD criteria are routinely skipped, or when guidance is outdated or unused.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Each track has its own monitoring entity (Signal Monitoring, Build Monitoring, System Monitoring, Win Monitoring) focused on the track's domain outcomes. Evolve Monitoring is different — it monitors the <em>process health</em> of all tracks: are the work entities, artifacts, DoD criteria, and guidance structures serving their purpose? It provides the quantitative evidence that triggers and informs Evolve Reviews.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive name (e.g., "Cross-Track DoD Compliance Monitor")</td>
+</tr>
+<tr>
+<td>Metrics Tracked</td>
+<td>List</td>
+<td>Specific process health metrics being monitored</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Structured</td>
+<td>Which track(s), entity types, or artifact types are being monitored</td>
+</tr>
+<tr>
+<td>Thresholds</td>
+<td>List</td>
+<td>Alert conditions (e.g., "DoD skip rate &gt; 20%", "artifact quality score &lt; 3.0/5")</td>
+</tr>
+<tr>
+<td>Data Sources</td>
+<td>List</td>
+<td>Where monitoring data comes from (project tools, artifact repositories, retrospective summaries)</td>
+</tr>
+<tr>
+<td>Alert Recipients</td>
+<td>List</td>
+<td>Who receives alerts when thresholds are breached</td>
+</tr>
+</tbody>
+</table>
+<h2 id="metrics-categories">Metrics Categories</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>What It Measures</th>
+<th>Example Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Process Adherence</strong></td>
+<td>Whether teams follow defined work entity flows</td>
+<td>Entity skip rate, state transition compliance, mandatory field completion</td>
+</tr>
+<tr>
+<td><strong>Artifact Quality</strong></td>
+<td>Whether produced artifacts meet assessment criteria</td>
+<td>Assessment criteria pass rate, reviewer rejection rate, template adherence score</td>
+</tr>
+<tr>
+<td><strong>DoD Compliance</strong></td>
+<td>Whether DoD criteria are satisfied before state transitions</td>
+<td>DoD checklist completion rate, exit criteria violation rate</td>
+</tr>
+<tr>
+<td><strong>Guidance Usage</strong></td>
+<td>Whether Operating Model guidance is current and used</td>
+<td>Playbook access frequency, guidance staleness (last update age), new-hire onboarding feedback</td>
+</tr>
+<tr>
+<td><strong>Cross-Track Flow</strong></td>
+<td>Whether transitional artifacts flow correctly</td>
+<td>Feedback → Signal promotion rate, PSD → Build handoff cycle time, Evolve Findings → Definition Task conversion rate</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active</td>
+<td>Monitoring is configured and running</td>
+</tr>
+<tr>
+<td>Alert</td>
+<td>One or more thresholds have been breached — requires attention</td>
+</tr>
+<tr>
+<td>Paused</td>
+<td>Monitoring temporarily suspended (e.g., during organizational change)</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>Monitoring scope no longer relevant</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triggers</td>
+<td>Evolve Review (Track 5)</td>
+<td>Threshold breaches trigger ad hoc or accelerated reviews</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Evolve Planning (Track 5)</td>
+<td>Monitoring trends inform evolution cycle scoping</td>
+</tr>
+<tr>
+<td>Monitors</td>
+<td>Work entities (Tracks 1–5)</td>
+<td>Tracks process adherence and DoD compliance</td>
+</tr>
+<tr>
+<td>Monitors</td>
+<td>Artifact types (all tracks)</td>
+<td>Tracks artifact quality against assessment criteria</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>Name:</strong> "Cross-Track DoD Compliance Monitor"<br />
+<strong>Metrics Tracked:</strong> DoD checklist completion rate per entity type, exit criteria violation rate, mandatory artifact production rate<br />
+<strong>Scope:</strong> All tracks — all work entities with defined DoD<br />
+<strong>Thresholds:</strong> Alert when any entity type's DoD completion rate drops below 80% for a rolling 30-day window<br />
+<strong>Data Sources:</strong> Project management tool (Jira/Linear), artifact repository (Confluence), quarterly retrospective summaries<br />
+<strong>Alert Recipients:</strong> Product Ops Lead, affected Track Process Owner</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: e9dc4a1 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/e9dc4a1/org-8.0/product-information-model/entities/work-model/track5-evolve-monitoring.md">View on GitHub</a></p>

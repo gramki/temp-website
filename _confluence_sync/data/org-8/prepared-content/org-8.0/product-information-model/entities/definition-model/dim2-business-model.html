@@ -1,0 +1,153 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim2-business-model.md -->
+<!-- Title: Business Model -->
+<!-- Content Hash: 1f7b64afd69e10f04b967eb64d40136a4a501880c9ff6df9a47639b88780e769 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="business-model">Business Model</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 2: The Vendor Value Dimension (Why It Wins)<br />
+<strong>Owner:</strong> Executive Leadership, Product Marketing</p>
+<h2 id="definition">Definition</h2>
+<p>The fundamental revenue engine that describes how the vendor generates income from this product. The Business Model is the structural root of Dimension 2 — all other entities (Pricing Tiers, Value Metrics, Win Outcomes, KPIs) derive from or operate within the Business Model.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Anchors the Vendor Value dimension by establishing the macro-level commercial structure. The Business Model is a lightweight, rarely-changing entity — it provides context for the more dynamic entities in Dim 2. It changes at the scale of years (e.g., shifting from perpetual license to SaaS), not quarters.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive name (e.g., "Transaction-based B2B SaaS")</td>
+</tr>
+<tr>
+<td>Revenue Model Type</td>
+<td>Enum</td>
+<td><code>Subscription</code> / <code>Transaction-based</code> / <code>Usage-based</code> / <code>License</code> / <code>Marketplace</code> / <code>Hybrid</code></td>
+</tr>
+<tr>
+<td>Revenue Streams</td>
+<td>List (text)</td>
+<td>Distinct revenue sources — e.g., "Per-transaction fees, FX markup, Platform subscription, Implementation services"</td>
+</tr>
+<tr>
+<td>Target Markets</td>
+<td>List of References (Dim 3)</td>
+<td>Which Customer Segments this business model serves</td>
+</tr>
+<tr>
+<td>Cost Structure Summary</td>
+<td>Text</td>
+<td>Key cost categories — infrastructure, compliance, support, sales. Not a full cost model; enough for unit economics context.</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="lever-portfolio">Lever Portfolio</h2>
+<p>The Business Model defines the product's <strong>Lever Portfolio</strong> — the finite, referenceable set of categorical levers available to advance Win Outcomes. Initiatives reference this portfolio when declaring their lever mix. Different products have different lever mixes — a developer API platform may not have a Sales Enablement lever; an enterprise SaaS product may use all five.</p>
+<table>
+<thead>
+<tr>
+<th>Lever</th>
+<th>What it covers</th>
+<th>Primary Track</th>
+<th>AAARRR Affinity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Product</strong></td>
+<td>Feature development, capability enhancement, UX improvement</td>
+<td>Discovery → Build</td>
+<td>All stages (esp. Activation, Retention)</td>
+</tr>
+<tr>
+<td><strong>GTM</strong></td>
+<td>Marketing, demand gen, pricing communication, partnership/channel execution, launch, positioning</td>
+<td>Win</td>
+<td>Awareness, Acquisition, Referral</td>
+</tr>
+<tr>
+<td><strong>Sales Enablement</strong></td>
+<td>Competitive tools, demo environments, POC toolkits, sales training</td>
+<td>Win</td>
+<td>Acquisition, Activation</td>
+</tr>
+<tr>
+<td><strong>Customer Success</strong></td>
+<td>Onboarding programs, health monitoring, retention, expansion, advocacy</td>
+<td>Win</td>
+<td>Activation, Retention, Revenue, Referral</td>
+</tr>
+<tr>
+<td><strong>Operational</strong></td>
+<td>Internal process, tooling, automation, hiring, training</td>
+<td>Operating Model</td>
+<td>All stages</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Design vs. Execution boundary:</strong> The lever portfolio captures the <em>execution</em> side. Pricing <em>design</em> (tier structure, rates) is a Dim 2 / Discovery concern modeled through Modeling Tasks. Partnership <em>strategy</em> (who to partner with) is a Dim 1/Dim 2 strategic decision. GTM covers pricing <em>communication</em>, partnership <em>execution</em>, and marketing <em>execution</em>.</p>
+</blockquote>
+<h2 id="statuses">Statuses</h2>
+<p><em>Not applicable — the Business Model is a structural descriptor that changes extremely rarely. When it does change, it is a company-level strategic event warranting its own PDR.</em></p>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downstream</td>
+<td>Pricing Tier / Package (Dim 2)</td>
+<td>Business Model defines the commercial frame for Packages</td>
+</tr>
+<tr>
+<td>Downstream</td>
+<td>Value Metric (Dim 2)</td>
+<td>Business Model defines available pricing axes</td>
+</tr>
+<tr>
+<td>Context for</td>
+<td>Win Outcome (Dim 2)</td>
+<td>Business Model provides the commercial context for Win Outcomes</td>
+</tr>
+<tr>
+<td>Context for</td>
+<td>Business KPI (Dim 2)</td>
+<td>Business Model determines which KPIs are relevant</td>
+</tr>
+<tr>
+<td>Serves</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Business Model targets specific segments</td>
+</tr>
+<tr>
+<td>Defines</td>
+<td>Lever Portfolio</td>
+<td>Business Model defines the available levers for Win Outcomes and Initiatives</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>"Transaction-based B2B SaaS"<br />
+- Revenue Streams: Per-transaction fee (0.5% flat), FX markup (1% on baseline rate), Monthly platform fee ($5K Enterprise), Implementation services (one-time)<br />
+- Target Markets: LATAM Enterprise, US Enterprise, US Mid-Market<br />
+- Cost Structure: FX provider fees (variable), cloud infrastructure (scaling), compliance/audit (annual), implementation consultants (per-customer), support staffing (per-segment)</p>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim2-business-model.md">View on GitHub</a></p>

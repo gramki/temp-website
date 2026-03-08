@@ -1,0 +1,352 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track3-incident.md -->
+<!-- Title: Incident -->
+<!-- Content Hash: a865568fba910e584b06fa5fdd89619b8ee8716bd01a1964399750f047b6c691 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="incident">Incident</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 3: The Run Track (Stability &amp; Operations)<br />
+<strong>Category:</strong> Work Artifact (Observation Record)<br />
+<strong>Owner:</strong> DevOps, Site Reliability Engineers (SRE)</p>
+<h2 id="definition">Definition</h2>
+<p>A durable observation record of unplanned service degradation — an event where the production system is performing below expected SLOs or is unavailable. An Incident is a <strong>work artifact</strong>, not a work entity: it records <em>what happened</em>, not <em>what to do about it</em>. The work of responding to an incident is modeled by Incident Response Task; the work of learning from it is modeled by Post-Incident Review.</p>
+<p>This separation parallels the Deployment pattern: Deployment Task (work entity) produces Deployment (artifact/record). Similarly, System Monitoring, operator observations, or Win Case complaints produce Incident records, and Incident Response Tasks respond to them.</p>
+<blockquote>
+<p><strong>Severity uses SEV-0 through SEV-4.</strong> SEV-0 is a total service outage affecting all tenants; SEV-4 is a minor degradation with no customer-visible impact. SEV-0, SEV-1, and SEV-2 incidents require a Post-Incident Review; the Operating Model may adjust this threshold.</p>
+</blockquote>
+<h2 id="purpose">Purpose</h2>
+<p>Captures the factual record of service degradation as a structured, queryable artifact. Without Incident as a distinct artifact:<br />
+- The observation (what happened) is conflated with the response (what we did about it) — making it impossible to assess response effectiveness independently<br />
+- Incident correlation (parent/child, recurrence) has no anchor entity<br />
+- The feedback loop from incidents to Run Track planning (Deployment Planning, Capacity Planning, Run Epic scoping) has no structured input<br />
+- SLA breach tracking against Customer Promises (Dim 3) and error budget consumption against Operational Targets (Dim 7) has no evidence entity<br />
+- Change-caused incident tracking (linking a deployment to the incident it caused) has no formal mechanism</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>String</td>
+<td>Unique identifier (e.g., "INC-2026-0847")</td>
+</tr>
+<tr>
+<td>Title</td>
+<td>String</td>
+<td>Brief description (e.g., "FX API latency spiked to 5000ms")</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Text</td>
+<td>Detailed description of the observed degradation</td>
+</tr>
+<tr>
+<td>Severity</td>
+<td>Enum</td>
+<td><code>SEV-0</code> / <code>SEV-1</code> / <code>SEV-2</code> / <code>SEV-3</code> / <code>SEV-4</code></td>
+</tr>
+<tr>
+<td>Detection Source</td>
+<td>Enum</td>
+<td><code>Alert</code> (from System Monitoring) / <code>Complaint</code> (from Win Case) / <code>Observation</code> (operator-detected) / <code>Dependent</code> (reported by upstream/downstream system)</td>
+</tr>
+<tr>
+<td>Detection Time</td>
+<td>Timestamp</td>
+<td>When the degradation was first detected</td>
+</tr>
+<tr>
+<td>Affected System(s)</td>
+<td>List of References (Dim 5)</td>
+<td>Which System(s) are degraded</td>
+</tr>
+<tr>
+<td>Affected Module(s)</td>
+<td>List of References (Dim 8)</td>
+<td>Which Module(s) are impacted</td>
+</tr>
+<tr>
+<td>Affected Environment(s)</td>
+<td>List of References (Dim 7)</td>
+<td>Which Deployment Environment(s) are affected</td>
+</tr>
+<tr>
+<td>Affected Tenant(s)</td>
+<td>List of References (Track 3)</td>
+<td>Optional — when impact is localized to specific tenants in an environment</td>
+</tr>
+<tr>
+<td>Customer Impact Summary</td>
+<td>Text</td>
+<td>Business-level impact description (e.g., "All LATAM cross-border payments failing; ~200 tenants affected; estimated $50K/hour revenue impact")</td>
+</tr>
+<tr>
+<td>Timeline</td>
+<td>List (timestamp + event)</td>
+<td>Key events: detection, acknowledgment, escalations, mitigation steps, resolution</td>
+</tr>
+<tr>
+<td>Parent Incident</td>
+<td>Reference (Track 3)</td>
+<td>Optional — when this incident is a symptom of a broader root-cause incident (e.g., database failure causing incidents in Payments, FX, and Settlements)</td>
+</tr>
+<tr>
+<td>Related Incidents</td>
+<td>List of References (Track 3)</td>
+<td>Optional — links to prior incidents of the same type (recurrence tracking) or concurrent incidents from the same root cause</td>
+</tr>
+<tr>
+<td>Caused By</td>
+<td>Reference (Track 3)</td>
+<td>Optional — references a Deployment (artifact) or Change Request when the incident was caused by a deployment or change</td>
+</tr>
+<tr>
+<td>SLA Breach</td>
+<td>Text</td>
+<td>Whether any Service Commitments (Dim 3) were breached, and which ones</td>
+</tr>
+<tr>
+<td>Response Time</td>
+<td>Duration</td>
+<td>Time from detection to first responder acknowledgment</td>
+</tr>
+<tr>
+<td>Resolution Time</td>
+<td>Duration</td>
+<td>Time from detection to service restored to SLO-compliant state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open</td>
+<td>Incident detected; record created; awaiting acknowledgment</td>
+</tr>
+<tr>
+<td>Acknowledged</td>
+<td>Responder has acknowledged the incident; Incident Response Task is active</td>
+</tr>
+<tr>
+<td>Resolved</td>
+<td>Service has been restored to SLO-compliant state; Incident Response Task is closed</td>
+</tr>
+<tr>
+<td>Reviewed</td>
+<td>Post-Incident Review has been completed; lessons absorbed into planning and Definition Model</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Reviewed is the terminal state.</strong> An incident is not fully processed until its lessons have been absorbed — through PIR (for SEV-0/1/2) or through Run Track planning consumption (for SEV-3/4). The Operating Model determines what constitutes "reviewed" for lower-severity incidents.</p>
+</blockquote>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Produced by</td>
+<td>System Monitoring (Track 3)</td>
+<td>Alert-detected incidents are produced by System Monitoring</td>
+</tr>
+<tr>
+<td>Corresponds to</td>
+<td>Win Case — Complaint (Track 4)</td>
+<td>Customer-reported degradation may have a corresponding Incident record</td>
+</tr>
+<tr>
+<td>Responded to by</td>
+<td>Incident Response Task (Track 3)</td>
+<td>The work of triaging, investigating, and resolving the incident</td>
+</tr>
+<tr>
+<td>Communicated by</td>
+<td>Customer Communication Task (Track 3)</td>
+<td>The work of communicating status, impact, and resolution to affected parties</td>
+</tr>
+<tr>
+<td>Reviewed by</td>
+<td>Post-Incident Review (Track 3)</td>
+<td>Structured learning activity; mandatory for SEV-0/1/2</td>
+</tr>
+<tr>
+<td>References</td>
+<td>Service Commitment (Dim 3)</td>
+<td>Incident tests whether Service Commitments are being met</td>
+</tr>
+<tr>
+<td>References</td>
+<td>Operational Target / SLO (Dim 7)</td>
+<td>Incident consumes error budget against Operational Targets</td>
+</tr>
+<tr>
+<td>Reveals gaps in</td>
+<td>Operational Readiness (Dim 7)</td>
+<td>Incident patterns per System x Environment reveal readiness gaps</td>
+</tr>
+<tr>
+<td>Evidences</td>
+<td>Operational Pain (Dim 7)</td>
+<td>Recurring incidents are evidence for Operational Pains</td>
+</tr>
+<tr>
+<td>Caused by</td>
+<td>Deployment (Track 3) or Change Request (Track 3)</td>
+<td>When a deployment or change caused the incident</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Deployment Planning Task (Track 3)</td>
+<td>Incident history informs deployment risk assessment</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Capacity Planning Task (Track 3)</td>
+<td>Capacity-related incidents inform forecasting</td>
+</tr>
+<tr>
+<td>Informs</td>
+<td>Run Epic (Track 3)</td>
+<td>Incident patterns inform operational engineering prioritization</td>
+</tr>
+<tr>
+<td>Feeds</td>
+<td>Customer Value Metric (Dim 3)</td>
+<td>Incident response/resolution times feed Service Level Metric actuals</td>
+</tr>
+<tr>
+<td>May affect</td>
+<td>Interaction Flow (Dim 5)</td>
+<td>Incidents often reveal failure points in cross-system flows</td>
+</tr>
+</tbody>
+</table>
+<h2 id="severity-definitions">Severity Definitions</h2>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th>Definition</th>
+<th>Example</th>
+<th>PIR Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEV-0</td>
+<td>Total service outage; all tenants affected; no workaround</td>
+<td>"Complete payment processing failure across all environments"</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SEV-1</td>
+<td>Major degradation; significant tenant impact; limited or no workaround</td>
+<td>"FX API latency spiked to 5000ms; cross-border payments timing out for LATAM tenants"</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SEV-2</td>
+<td>Partial degradation; subset of tenants or capabilities affected; workaround available</td>
+<td>"Settlement file generation delayed by 4 hours; manual export available as workaround"</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SEV-3</td>
+<td>Minor degradation; limited customer-visible impact; workaround available</td>
+<td>"Dashboard loading slowly (8s vs. normal 2s) for compliance reports"</td>
+<td>Operating Model decision</td>
+</tr>
+<tr>
+<td>SEV-4</td>
+<td>Minimal degradation; no customer-visible impact; internal observation only</td>
+<td>"Background reconciliation job running 20% slower than baseline"</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Severity</th>
+<th>Title</th>
+<th>Detection</th>
+<th>Affected</th>
+<th>Caused By</th>
+<th>SLA Breach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INC-2026-0847</td>
+<td>SEV-1</td>
+<td>"FX API latency spiked to 5000ms"</td>
+<td>Alert (System Monitoring: P95 &gt; 500ms threshold)</td>
+<td>fx-service, FX Module, Production US-East</td>
+<td>—</td>
+<td>Yes: "sub-200ms P95 latency" Service Commitment</td>
+</tr>
+<tr>
+<td>INC-2026-0848</td>
+<td>SEV-1</td>
+<td>"Cross-border payments timing out"</td>
+<td>Alert (System Monitoring: error rate &gt; 1%)</td>
+<td>payments-service, Payments Module, Production US-East</td>
+<td>—</td>
+<td>Yes: "99.9% API uptime" Service Commitment</td>
+</tr>
+<tr>
+<td>INC-2026-0849</td>
+<td>SEV-0</td>
+<td>"Database cluster failover — all services degraded"</td>
+<td>Alert (System Monitoring: health check failures)</td>
+<td>All Systems, All Modules, Production US-East</td>
+<td>—</td>
+<td>Yes: multiple commitments</td>
+</tr>
+<tr>
+<td>INC-2026-0850</td>
+<td>SEV-2</td>
+<td>"Elevated error rate after Payments MDD v3.1 deployment"</td>
+<td>Alert (Verification Task failure)</td>
+<td>payments-service, Payments Module, Production LATAM</td>
+<td>Deployment: "Payments MDD v3.1 → production-latam"</td>
+<td>No (within SLA but degraded)</td>
+</tr>
+<tr>
+<td>INC-2026-0851</td>
+<td>SEV-3</td>
+<td>"Compliance dashboard stale data"</td>
+<td>Complaint (Win Case WC-445)</td>
+<td>compliance-service, Compliance Module, Production US-East</td>
+<td>—</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Parent/child example:</strong> INC-2026-0849 (database cluster failover) is the parent incident. INC-2026-0847 (FX latency) and INC-2026-0848 (payment timeouts) are child incidents with <code>Parent Incident: INC-2026-0849</code>. This prevents counting 3 root causes when there is only 1.</p>
+</blockquote>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/work-model/track3-incident.md">View on GitHub</a></p>

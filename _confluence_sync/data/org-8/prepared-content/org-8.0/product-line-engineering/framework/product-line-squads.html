@@ -1,0 +1,134 @@
+<!-- File: org-8.0/product-line-engineering/framework/product-line-squads.md -->
+<!-- Title: Product Line Engineering -->
+<!-- Content Hash: 3f00d025de842699e9e33536ad9499fcd60b961dafbb84aacfd1b019991cf808 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="product-line-engineering">Product Line Engineering</h1>
+<h2 id="purpose">Purpose</h2>
+<p><strong>Product Line Engineering</strong> is the PLE layer that develops and maintains <strong>core assets</strong>—the platforms and frameworks that Customer Products are derived from. Product Line Squads own platform maturity, reliability, maintainability, and reusability. They do not own customer-specific delivery; that is Engagement Engineering.</p>
+<hr />
+<h2 id="product-line-squads-structure">Product Line Squads Structure</h2>
+<p>Zeta’s Product Line platforms and their owning teams:</p>
+<table>
+<thead>
+<tr>
+<th>Product Line Squad</th>
+<th>Platform</th>
+<th>Primary Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Olympus Product Line Squad</strong></td>
+<td>Olympus (Cloud &amp; Application Management)</td>
+<td>Agent runtime, operations orchestration, observability</td>
+</tr>
+<tr>
+<td><strong>Tachyon Product Line Squad</strong></td>
+<td>Tachyon (Core Banking &amp; Payments Hub)</td>
+<td>Payment processing, transaction orchestration, settlement</td>
+</tr>
+<tr>
+<td><strong>Neutrino Product Line Squad</strong></td>
+<td>Neutrino (Consumer Digital Banking &amp; Servicing)</td>
+<td>Customer interaction, channel orchestration, servicing agents</td>
+</tr>
+<tr>
+<td><strong>Electron Product Line Squad</strong></td>
+<td>Electron (Commercial Cards)</td>
+<td>Card lifecycle, expense management, policy engines</td>
+</tr>
+<tr>
+<td><strong>Quark Product Line Squad</strong></td>
+<td>Quark (Business Operations Automation)</td>
+<td>Workflow engines, integration patterns, automation</td>
+</tr>
+</tbody>
+</table>
+<p>Almost every Customer Product uses <strong>Olympus</strong> and <strong>Tachyon</strong>; other platforms are included as needed. Product Line Squads provide:</p>
+<ul>
+<li>Core platform capabilities and APIs</li>
+<li>Extension points and configuration mechanisms</li>
+<li>Reference integration patterns</li>
+<li>Platform operations (via SRE; platform is always Zeta-operated)</li>
+</ul>
+<hr />
+<h2 id="product-line-engineer-role">Product Line Engineer Role</h2>
+<p><strong>Product Line Engineers</strong> develop and maintain core platform assets. They:</p>
+<ul>
+<li>Build and evolve platform capabilities, frameworks, and APIs</li>
+<li>Design for reusability and clear extension boundaries</li>
+<li>Participate in inner source: review and accept contributions from Customer Product Squads (when acting as or supporting Product Line Maintainers)</li>
+<li>May be <strong>assigned</strong> to Customer Product Squads for Engagements (rotation model)</li>
+</ul>
+<p><strong>Expectations:</strong></p>
+<ul>
+<li>Focus on platform maturity, reliability, maintainability, and efficiency</li>
+<li>Align with platform roadmap and Council-defined standards</li>
+<li>When on Engagement: deliver per Customer Product Squad needs while adhering to DoD and platform standards; contribute back via inner source where appropriate</li>
+</ul>
+<p><strong>Home team:</strong> A Product Line Engineer’s home team is their Product Line Squad. Engagement assignment is temporary; return is guaranteed per the <ac:link><ri:page ri:content-title="Rotation Model"/><ac:plain-text-link-body><![CDATA[rotation model]]></ac:plain-text-link-body></ac:link>.</p>
+<hr />
+<h2 id="product-line-maintainer-role">Product Line Maintainer Role</h2>
+<p><strong>Product Line Maintainers</strong> are dedicated to <strong>governing contributions</strong> to a Product Line platform. They:</p>
+<ul>
+<li>Review and approve (or reject) PRs from Customer Product Squads and others</li>
+<li>Enforce <ac:link ac:anchor="definition-of-done"><ri:page ri:content-title="Inner Source Guidelines"/><ac:plain-text-link-body><![CDATA[Definition of Done]]></ac:plain-text-link-body></ac:link> and platform standards</li>
+<li>Coach contributors on approach and quality</li>
+<li>Escalate disputes or quality issues to the Platform Architecture Council</li>
+</ul>
+<p><strong>Rotation:</strong> Product Line Maintainer is a dedicated role but <strong>rotated</strong> (e.g. quarterly or semester) so that the burden and expertise are shared and no single person becomes a bottleneck.</p>
+<p><strong>Authority:</strong> Maintainers can approve, request changes, or accept with tech-debt tagging per <ac:link><ri:page ri:content-title="Tech Debt Policy"/><ac:plain-text-link-body><![CDATA[tech debt policy]]></ac:plain-text-link-body></ac:link>. They do not unilaterally merge substandard work without tagging or escalation.</p>
+<p><strong>Relationship:</strong> Maintainers work within the Product Line Squad; they may also do development work, but their primary accountability is gatekeeping and quality for contributions to that platform.</p>
+<hr />
+<h2 id="relationship-to-engagement-engineering">Relationship to Engagement Engineering</h2>
+<ul>
+<li><strong>Assigning engineers:</strong> Product Line Squads assign Product Line Engineers to Customer Product Squads for the duration of an Engagement (or a rotation period within it). Capacity planning and Engagement forecasting are used to balance platform work and assigned capacity.</li>
+<li><strong>Inner source:</strong> Customer Product Squads may contribute code to Product Line platforms via PRs. Product Line Maintainers review and merge (or reject, or accept with tech debt). See <ac:link><ri:page ri:content-title="Inner Source Guidelines"/><ac:plain-text-link-body><![CDATA[Inner Source Guidelines]]></ac:plain-text-link-body></ac:link>.</li>
+<li><strong>No “intake” bottleneck as sole path:</strong> The primary path for new platform capability from Engagements is inner source (EA prioritizes, consult, build, PR). Formal intake for larger initiatives may still exist for strategic roadmap items.</li>
+</ul>
+<p>Product Line Squads retain ownership of core assets. Customer Product Squads own the Customer Product; they use and extend platforms within governance boundaries.</p>
+<hr />
+<h2 id="success-metrics-for-product-line-engineering">Success Metrics for Product Line Engineering</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Platform activation time</strong></td>
+<td>Time from contract to platform-ready for an Engagement</td>
+</tr>
+<tr>
+<td><strong>Asset reusability</strong></td>
+<td>Proportion of Customer Product that comes from core assets vs. custom build</td>
+</tr>
+<tr>
+<td><strong>Platform reliability</strong></td>
+<td>Uptime, performance, error rates (e.g. SLAs)</td>
+</tr>
+<tr>
+<td><strong>Inner source health</strong></td>
+<td>PR cycle time, proportion merged vs. rejected, tech debt trend</td>
+</tr>
+<tr>
+<td><strong>Developer productivity</strong></td>
+<td>Time to implement common patterns; feedback from Customer Product Squads</td>
+</tr>
+</tbody>
+</table>
+<p>Product Line Squads are evaluated on platform quality and reuse, not on Engagement count. Delivery success is owned by Engineering Leads (ELs) and EPM within the Engagement.</p>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li><ac:link><ri:page ri:content-title="Product Line Engineering: Overview"/><ac:plain-text-link-body><![CDATA[PLE Overview]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:content-title="Engagement Engineering: PLE Framing"/><ac:plain-text-link-body><![CDATA[Engagement Engineering]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:content-title="Inner Source Guidelines"/><ac:plain-text-link-body><![CDATA[Inner Source Guidelines]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:content-title="Rotation Model"/><ac:plain-text-link-body><![CDATA[Rotation Model]]></ac:plain-text-link-body></ac:link></li>
+<li><ac:link><ri:page ri:content-title="Product Line Maintainer"/><ac:plain-text-link-body><![CDATA[Product Line Maintainer Role]]></ac:plain-text-link-body></ac:link></li>
+</ul>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-line-engineering/framework/product-line-squads.md">View on GitHub</a></p>

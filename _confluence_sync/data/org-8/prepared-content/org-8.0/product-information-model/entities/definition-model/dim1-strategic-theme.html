@@ -1,0 +1,235 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim1-strategic-theme.md -->
+<!-- Title: Strategic Theme -->
+<!-- Content Hash: bfaa69db1d1371e9cf3ae4c6fb10bbbf4bda0ed30be5c0ff3820514f6298c559 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="strategic-theme">Strategic Theme</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 1: The Strategy Dimension<br />
+<strong>Owner:</strong> Executive Leadership (Portfolio scope); Product Management (Product scope)</p>
+<h2 id="definition">Definition</h2>
+<p>A persistent, cross-cutting strategic direction that organizes and informs discovery, customer value positioning, and investment allocation across planning horizons. A Strategic Theme represents a sustained commitment — "we are investing in X" — that persists longer than any single Objective and provides continuity across planning cycles.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Objectives are time-bound ("achieve Y by H2 2026") and product-scoped. Strategic Themes provide the <em>why behind the why</em> — the persistent strategic direction that generates Objectives over multiple horizons. Without Themes:<br />
+- Strategic continuity across planning horizons is implicit (you must read a sequence of Objectives and infer the pattern)<br />
+- Resource allocation across strategic directions is invisible ("how much of our capacity goes to LATAM vs. Developer Experience?")<br />
+- Cross-product coordination has no shared language (multiple products investing in "LATAM" can't be queried)</p>
+<p><strong>Scope: Portfolio vs. Product</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Portfolio</strong></td>
+<td>Declared at portfolio level, adopted by multiple products. Originates outside the UPIM.</td>
+<td>"LATAM Market Leadership" — all products in the Payments Portfolio contribute</td>
+</tr>
+<tr>
+<td><strong>Product</strong></td>
+<td>Originated by this product's team. May be elevated to Portfolio scope if adopted across products.</td>
+<td>"Payment Adapter Consolidation" — initially a Payment Gateway optimization theme</td>
+</tr>
+</tbody>
+</table>
+<p>Portfolio-scoped Themes reference the thin Portfolio entity for traceability. Product-scoped Themes are fully owned by this UPIM instance.</p>
+<p><strong>Cross-cutting influence:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>How Theme informs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dim 1 (Strategy)</td>
+<td>Which Objectives to pursue, which Initiatives to scope</td>
+</tr>
+<tr>
+<td>Dim 3 (Customer Value)</td>
+<td>Which Customer Segments to focus on, which Value Propositions to craft, which Pains to prioritize</td>
+</tr>
+<tr>
+<td>Dim 8 (Structure)</td>
+<td>Which Value Streams and Capabilities to invest in</td>
+</tr>
+<tr>
+<td>Work Model (Discovery)</td>
+<td>How to allocate discovery capacity across Signal Exploration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive theme name (e.g., "LATAM Market Leadership")</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Enum</td>
+<td><code>Portfolio</code> / <code>Product</code></td>
+</tr>
+<tr>
+<td>Portfolio</td>
+<td>Reference (Dim 1)</td>
+<td>For Portfolio scope: reference to the Portfolio entity. For Product scope: null.</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Text</td>
+<td>What this theme means and why it matters</td>
+</tr>
+<tr>
+<td>Investment Guidance</td>
+<td>Text</td>
+<td>Approximate resource allocation intent (e.g., "40% of discovery capacity in H2 2026")</td>
+</tr>
+<tr>
+<td>Influenced Segments</td>
+<td>List of References (Dim 3)</td>
+<td>Which Customer Segments this theme focuses on</td>
+</tr>
+<tr>
+<td>Influenced Capabilities / Value Streams</td>
+<td>List of References (Dim 8)</td>
+<td>Which structural elements this theme drives investment in</td>
+</tr>
+<tr>
+<td><em>Other fields to be refined.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposed</td>
+<td>Theme is being considered (not yet driving investment)</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Theme is actively driving Objectives and resource allocation</td>
+</tr>
+<tr>
+<td>Dormant</td>
+<td>Theme has no current Objectives but is not retired (may be reactivated)</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>Theme is no longer relevant</td>
+</tr>
+</tbody>
+</table>
+<p><strong>State Diagram:</strong></p>
+<pre class="codehilite"><code>Proposed ──[approved by leadership]──► Active
+                                         │
+                               [last Objective achieved/    [new Objective
+                                deferred, no successor]     created]
+                                         │                     │
+                                         ▼                     │
+                                      Dormant ◄────────────────┘
+                                         │
+                               [strategic direction
+                                abandoned]
+                                         │
+                                         ▼
+                                      Retired
+
+Active ──[strategic direction abandoned]──► Retired
+</code></pre>
+
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin (Portfolio)</td>
+<td>Portfolio (Dim 1)</td>
+<td>Portfolio-scoped Themes originate from Portfolio strategy</td>
+</tr>
+<tr>
+<td>Downstream</td>
+<td>Objective (Dim 1)</td>
+<td>Theme is pursued through Objective(s) across horizons</td>
+</tr>
+<tr>
+<td>Influences</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Theme focuses investment on specific segments</td>
+</tr>
+<tr>
+<td>Influences</td>
+<td>Value Stream / Capability (Dim 8)</td>
+<td>Theme drives structural investment</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Deliberation (Track 1)</td>
+<td>Theme-level strategy Deliberations may shape Themes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Scope</th>
+<th>Objectives (across horizons)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"LATAM Market Leadership"</td>
+<td>Portfolio</td>
+<td>H2 2026: "Expand to LATAM currencies" → H1 2027: "20% LATAM market share" → H2 2027: "#1 in Brazil"</td>
+</tr>
+<tr>
+<td>"Developer Experience"</td>
+<td>Portfolio</td>
+<td>H2 2026: "Reduce API integration time to &lt;4 hours" → H1 2027: "Launch SDK for 3 languages"</td>
+</tr>
+<tr>
+<td>"Payment Adapter Consolidation"</td>
+<td>Product</td>
+<td>H1 2027: "Unified adapter framework" → H2 2027: "Migrate all providers to framework"</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>A Theme without active Objectives is <code>Dormant</code> — it represents a strategic direction that's acknowledged but not currently driving work. This is distinct from <code>Retired</code> (abandoned).</li>
+<li>Not every Objective must belong to a Theme. Reactive Objectives (e.g., "Remediate critical security vulnerability") are Theme-independent.</li>
+<li>Product-scoped Themes may be elevated to Portfolio scope when the strategic direction is adopted across products. The <code>Scope</code> field changes; the entity persists.</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: bde5503 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/bde5503/org-8.0/product-information-model/entities/definition-model/dim1-strategic-theme.md">View on GitHub</a></p>

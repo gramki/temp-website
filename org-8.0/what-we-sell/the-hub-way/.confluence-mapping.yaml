@@ -1,0 +1,4 @@
+# Resolve title conflict: README.md and narrative.md both use title "The Hub Way".
+# Give narrative.md a distinct Confluence page title so both sync as separate pages.
+pages:
+  narrative.md: "The Hub Way — Framework Narrative"

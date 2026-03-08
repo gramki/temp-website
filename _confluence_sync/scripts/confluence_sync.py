@@ -711,6 +711,27 @@ class ConfluenceSync:
         
         return child_folders, child_pages
     
+    def list_child_pages_under_parent(self, parent_id: str) -> List[Dict]:
+        """
+        List child pages under a parent (folder or page). Tries folder API first, then page API.
+        
+        Returns list of page dicts with at least 'id' and 'title'.
+        """
+        # Try folder children first
+        try:
+            response = self._make_request('GET', f'/folders/{parent_id}/children/pages')
+            data = response.json()
+            return data.get('results', [])
+        except Exception:
+            pass
+        # Fall back to page children (e.g. root page)
+        try:
+            response = self._make_request('GET', f'/pages/{parent_id}/children')
+            data = response.json()
+            return data.get('results', [])
+        except Exception:
+            return []
+    
     # ========== Page Operations (REST API v2) ==========
     
     def create_page_v2(
@@ -1361,13 +1382,16 @@ class ConfluenceSync:
                     
                     # Extract error message from v2 API error structure
                     if isinstance(error_data, dict):
-                        # v2 API uses 'errors' array with 'title' field
+                        # v2 API uses 'errors' array with 'title' and optional 'detail'
                         errors_list = error_data.get('errors', [])
-                        if errors_list and isinstance(errors_list, list):
-                            # Get first error's title
-                            error_message = errors_list[0].get('title', '') if isinstance(errors_list[0], dict) else ''
+                        if errors_list and isinstance(errors_list[0], dict):
+                            first = errors_list[0]
+                            error_message = first.get('title', '') or ''
+                            if first.get('detail'):
+                                error_message = f"{error_message} — {first.get('detail')}"
+                        elif errors_list:
+                            error_message = str(errors_list[0])
                         else:
-                            # Fallback to message field (v1 format)
                             error_message = error_data.get('message', '') or error_data.get('data', {}).get('message', '')
                     else:
                         error_message = ''
@@ -1431,8 +1455,18 @@ class ConfluenceSync:
                             f"File: '{file_path}'"
                         ) from create_error
                     else:
-                        # Page exists but couldn't determine parent relationship
-                        print(f"  ✗ Page with title '{title}' exists in space but parent relationship unclear")
+                        # No page found under expected parent - check if a FOLDER has this title
+                        # (Confluence may disallow page and folder with same title)
+                        all_folders = self.find_folders_by_title_space_wide(title, root_page_id=root_page_id)
+                        if all_folders:
+                            folder_id, folder_parent = all_folders[0]
+                            print(f"  ✗ A folder with title '{title}' already exists (ID: {folder_id}, parent: {folder_parent})")
+                            raise TitleConflictError(
+                                f"A folder with title '{title}' already exists. "
+                                f"Confluence does not allow a page to have the same title as a folder in this context. "
+                                f"Use a .confluence-mapping.yaml file to give this page a different title. File: '{file_path}'"
+                            ) from create_error
+                        print(f"  ✗ Page with title '{title}' exists in space but could not be found under the expected parent hierarchy")
                         raise TitleConflictError(
                             f"Title conflict: A page with title '{title}' already exists in the space, "
                             f"but could not be found under the expected parent hierarchy. "
@@ -1440,7 +1474,11 @@ class ConfluenceSync:
                             f"File: '{file_path}'"
                         ) from create_error
                 else:
-                    # Re-raise other errors
+                    # Other 400 (or non-400) - re-raise with API detail so report shows real reason
+                    if status_code == 400 and error_message and error_message != str(create_error):
+                        raise Exception(
+                            f"400 Bad Request: {error_message}"
+                        ) from create_error
                     raise
     
     def _update_page(

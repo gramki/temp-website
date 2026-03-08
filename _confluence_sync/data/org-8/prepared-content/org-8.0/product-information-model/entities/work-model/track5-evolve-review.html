@@ -1,0 +1,167 @@
+<!-- File: org-8.0/product-information-model/entities/work-model/track5-evolve-review.md -->
+<!-- Title: Evolve Review -->
+<!-- Content Hash: 468a5636cd2fef52d26cb1ed4c153b5a7e1c515e808ea731db6eae388505ef3b -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="evolve-review">Evolve Review</h1>
+<p><strong>Model:</strong> Work Model<br />
+<strong>Track:</strong> Track 5: Evolve (Process Evolution)<br />
+<strong>Owner:</strong> Process Leads, Product Ops, Engineering Managers</p>
+<h2 id="definition">Definition</h2>
+<p>Evolve Review is a structured assessment of current process effectiveness, artifact quality, and guidance adequacy across one or more tracks. It is the Evolve Track's equivalent of Win Review (Track 4) and Deliberation (Track 1) — a collaborative, judgment-based assessment that produces structured findings.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Tracks 1–4 produce work and artifacts but do not systematically assess whether their own processes, entity definitions, and guidance remain effective. Evolve Review closes this loop — it is the mechanism by which the Work Model and Operating Model receive structured feedback about their own fitness. Without it, process problems are discovered only through failures, not through deliberate assessment.</p>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>String</td>
+<td>Descriptive name (e.g., "Q3 Win Track Artifact Quality Review")</td>
+</tr>
+<tr>
+<td>Review Type</td>
+<td>Enum</td>
+<td><code>Process Effectiveness</code>, <code>Artifact Quality</code>, <code>Guidance Adequacy</code>, <code>Cross-Track Handoff</code></td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Structured</td>
+<td>Which track(s), entity types, artifact types, or handoffs are being reviewed</td>
+</tr>
+<tr>
+<td>Assessment Period</td>
+<td>Date range</td>
+<td>The time window being assessed</td>
+</tr>
+<tr>
+<td>Participants</td>
+<td>List</td>
+<td>Roles and individuals participating in the review</td>
+</tr>
+<tr>
+<td>Evidence Sources</td>
+<td>List</td>
+<td>Monitoring data, artifact samples, stakeholder interviews, retrospective notes</td>
+</tr>
+<tr>
+<td>Evolve Planning Reference</td>
+<td>Reference</td>
+<td>The Evolve Planning cycle that scoped this review (if planned; may also be ad hoc)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="review-types">Review Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What It Assesses</th>
+<th>Key Questions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Process Effectiveness</strong></td>
+<td>Whether a track's work entities and state transitions serve their purpose</td>
+<td>Are entities used as intended? Are state transitions meaningful? Do teams skip or shortcut entities?</td>
+</tr>
+<tr>
+<td><strong>Artifact Quality</strong></td>
+<td>Whether produced artifacts meet their assessment criteria</td>
+<td>Do PSDs consistently include cross-dimensional review? Are Win Case resolutions complete? Do DoD checklists get followed?</td>
+</tr>
+<tr>
+<td><strong>Guidance Adequacy</strong></td>
+<td>Whether Operating Model guidance is current, complete, and used</td>
+<td>Are playbooks up to date? Do new team members find guidance useful? Are there gaps where guidance doesn't exist?</td>
+</tr>
+<tr>
+<td><strong>Cross-Track Handoff</strong></td>
+<td>Whether transitional artifacts flow correctly across track boundaries</td>
+<td>Does Feedback reach Discovery as Signals? Do PSDs arrive at Build with sufficient detail? Do Evolve Findings result in definition changes?</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned</td>
+<td>Review is scoped and scheduled</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td>Review is actively being conducted — evidence gathering, assessment, discussion</td>
+</tr>
+<tr>
+<td>Findings Produced</td>
+<td>Review is complete; Evolve Findings have been authored</td>
+</tr>
+<tr>
+<td>Closed</td>
+<td>Findings have been consumed (by Evolve Definition Task or archived)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scoped by</td>
+<td>Evolve Planning (Track 5)</td>
+<td>Planning cycle defines which reviews to conduct</td>
+</tr>
+<tr>
+<td>Produces</td>
+<td>Evolve Findings (Track 5)</td>
+<td>Structured observations, gaps, and recommendations</td>
+</tr>
+<tr>
+<td>Informed by</td>
+<td>Evolve Monitoring (Track 5)</td>
+<td>Monitoring data provides quantitative evidence</td>
+</tr>
+<tr>
+<td>Assesses</td>
+<td>Work entities (Tracks 1–5)</td>
+<td>Reviews assess entity definitions, usage patterns, and effectiveness</td>
+</tr>
+<tr>
+<td>Assesses</td>
+<td>Artifact types (all tracks)</td>
+<td>Reviews assess artifact quality against assessment criteria</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p><strong>Name:</strong> "Q3 Win Track Artifact Quality Review"<br />
+<strong>Review Type:</strong> Artifact Quality<br />
+<strong>Scope:</strong> Win Track — Win Activity artifacts (all 7 subtypes), Win Case resolution records<br />
+<strong>Assessment Period:</strong> April 1 – June 30, 2026<br />
+<strong>Participants:</strong> Product Ops Lead, Win Track Process Owner, CS Manager, Support Lead<br />
+<strong>Evidence Sources:</strong> 50-item artifact sample (stratified by subtype), Win Monitoring quality scores, CS team retrospective notes<br />
+<strong>Key Findings:</strong> (1) Implementation/Onboarding go-live checklists missing integration verification in 35% of cases, (2) Win Case resolution records lack root-cause analysis for Complaints, (3) Revenue Operations Engagement has no defined artifact template</p>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/entities/work-model/track5-evolve-review.md">View on GitHub</a></p>

@@ -1,0 +1,130 @@
+<!-- File: org-8.0/engagement/governance.md -->
+<!-- Title: Governance, Decision-Making, and Escalation -->
+<!-- Content Hash: 407be83ce6c41ab266cb725a0da925372d45ed342d5068cfb8ea04ea8f2f5f9e -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="governance-decision-making-and-escalation">Governance, Decision-Making, and Escalation</h1>
+<p><ac:link><ri:page ri:content-title="Engagement Operating Model Guide"/><ac:plain-text-link-body><![CDATA[← Back to Guide]]></ac:plain-text-link-body></ac:link></p>
+<hr />
+<h2 id="engagement-readiness-council-erc">Engagement Readiness Council (ERC)</h2>
+<p>The <strong>Engagement Readiness Council</strong> governs the Engagement pipeline and provides the ingredients of success:</p>
+<ul>
+<li><strong>Composition:</strong> Engineering leadership, Architecture leadership, Delivery/Program leadership, Account Management leadership; exact membership varies per organizational structure</li>
+<li><strong>Assignment authority:</strong> ERC assigns all Engagement-level roles: Client Partner, EO, EPM, EA, AVA. See <ac:link><ri:page ri:content-title="Engagement Formation — Team Assembly and Evolution"/><ac:plain-text-link-body><![CDATA[Engagement Formation]]></ac:plain-text-link-body></ac:link> for the full assignment model.</li>
+<li><strong>Portfolio Program Manager (PPM):</strong> Maintains the cross-Engagement portfolio view; prioritizes across Engagements; <strong>owns capacity coordination</strong> — consolidates staffing demand from all Engagements, presents a unified demand view to Product Line Squad leads, and coordinates supply commitments so that ELs do not independently approach PL Squad leads</li>
+<li><strong>Provides ingredients of success:</strong> Assigns Engagement-level leadership (Client Partner, EO, EPM, EA, AVA), provides framework guidance and archetype references, and governs the Exploration pipeline</li>
+<li><strong>Governs EPM activities:</strong> EPM reports to ERC on Engagement progress, risks, and commercial alignment</li>
+<li><strong>Security reviews:</strong> Shared security team operates under ERC; performs VA/PT and reviews periodic or on-demand</li>
+</ul>
+<hr />
+<h2 id="platform-architecture-council-pac">Platform Architecture Council (PAC)</h2>
+<p>The <strong>PAC</strong> governs architecture and practice across the product line:</p>
+<ul>
+<li><strong>Practice Mode (monthly):</strong> Knowledge sharing, case reviews, pattern extraction, best-practice development</li>
+<li><strong>Governance Mode (ad-hoc):</strong> Architectural disputes, standards changes, variability governance</li>
+</ul>
+<p>ERC and PAC coexist: <strong>ERC governs delivery readiness and the Engagement pipeline; PAC governs architecture and engineering practice.</strong> They are complementary, not competing.</p>
+<p>See <ac:link><ri:page ri:content-title="Platform Architecture Council Charter"/><ac:plain-text-link-body><![CDATA[council-charter.md]]></ac:plain-text-link-body></ac:link> for the full PAC charter.</p>
+<hr />
+<h2 id="scope-change-management">Scope Change Management</h2>
+<ul>
+<li>EPM owns scope change management within the Engagement</li>
+<li>EPM ensures Account Management is aware of any scope changes that affect commercial terms</li>
+<li>EPM verifies that delivery scope remains aligned with contract obligations</li>
+</ul>
+<hr />
+<h2 id="commercial-and-contract">Commercial and Contract</h2>
+<ul>
+<li><strong>Account Management</strong> owns the commercial relationship and contract</li>
+<li><strong>EPM</strong> ensures AMs are aware of delivery-impacting changes and verifies alignment between delivery scope and commercial terms</li>
+<li>EPM does not negotiate contracts; EPM ensures delivery and commercial are in sync</li>
+</ul>
+<hr />
+<h2 id="escalation-model">Escalation Model</h2>
+<table>
+<thead>
+<tr>
+<th>Disagreement</th>
+<th>Default</th>
+<th>Escalation Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client Partner vs EO (delivery-impacting client decision)</td>
+<td>EO recommends; Client Partner decides</td>
+<td>EO escalates to ERC if delivery quality is at risk</td>
+</tr>
+<tr>
+<td>Client Partner vs EO (client-impacting delivery decision)</td>
+<td>EO decides; Client Partner informed</td>
+<td>Client Partner escalates to ERC if client relationship is at risk</td>
+</tr>
+<tr>
+<td>Client Partner vs EPM (customer-facing communication)</td>
+<td>EPM prevails on delivery communication; Client Partner prevails on relationship</td>
+<td>EO resolves</td>
+</tr>
+<tr>
+<td>EA vs AVA (architecture)</td>
+<td>EA prevails</td>
+<td>EPM resolves</td>
+</tr>
+<tr>
+<td>EA vs AVA (verification/release)</td>
+<td>AVA prevails</td>
+<td>EPM resolves, then EO</td>
+</tr>
+<tr>
+<td>EPO vs EA</td>
+<td>EA prevails</td>
+<td>EPM resolves</td>
+</tr>
+<tr>
+<td>EPM vs EL</td>
+<td>EL prevails</td>
+<td>EA, then EO</td>
+</tr>
+<tr>
+<td>Squad PM vs EPO</td>
+<td>—</td>
+<td>EPM, then EA, then EO</td>
+</tr>
+<tr>
+<td>Scrum Master vs EL (process)</td>
+<td>—</td>
+<td>EPM resolves</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Principles:</strong></p>
+<ul>
+<li>Architecture decisions default to EA; release/verification decisions default to AVA</li>
+<li>EPM is the first escalation point for cross-role disputes within the Engagement</li>
+<li>EO is the final escalation endpoint within the Engagement</li>
+<li>ERC is the escalation endpoint for Client Partner ↔ EO disagreements</li>
+<li>PAC may be engaged for architecture-level disputes that affect the product line</li>
+</ul>
+<hr />
+<h2 id="release-and-decision-point-governance">Release and Decision-Point Governance</h2>
+<p>Key decision points during the Engagement lifecycle require sign-off from multiple roles. These are not pre-planned gates — they emerge as outcomes of continuous delivery and increment certification (see <ac:link><ri:page ri:content-title="Verification and Certification"/><ac:plain-text-link-body><![CDATA[Verification and Certification]]></ac:plain-text-link-body></ac:link>).</p>
+<h3 id="go-live-readiness">Go-Live Readiness</h3>
+<ul>
+<li><strong>AVA</strong> certifies the assembly — all go-live acceptance criteria are met</li>
+<li><strong>SRE Lead</strong> confirms operational readiness — monitoring, alerting, runbooks, and capacity are in place</li>
+<li><strong>EPM</strong> confirms customer alignment — scope, expectations, and commercial terms are satisfied</li>
+<li><strong>Client Partner</strong> confirms customer-side readiness — relationship and stakeholder alignment for go-live</li>
+<li><strong>EO</strong> gives the final go-live decision based on the above sign-offs</li>
+</ul>
+<h3 id="transfer-readiness">Transfer Readiness</h3>
+<ul>
+<li><strong>AVA</strong> confirms verification module handover is complete — test suites, environment definitions, test data tooling, CI orchestration, certification records, and documentation are delivered to the recipient</li>
+<li><strong>EPM</strong> confirms handover is complete per the operating model (Fully Managed, Co-Managed, or Customer-Operated)</li>
+<li><strong>SRE Lead</strong> signs off on operational readiness for steady state</li>
+</ul>
+<h3 id="ava-release-block-authority">AVA Release-Block Authority</h3>
+<p>The AVA holds independent authority to block any release when assembly quality criteria are not met. This authority cannot be overridden by EA, EL, or EPM. If a release block is disputed, the escalation path is: EPM mediates → EO decides. An EO override of an AVA release block is a governance event that must be documented in the decision log.</p>
+<hr />
+<p><ac:link><ri:page ri:content-title="Verification and Certification"/><ac:plain-text-link-body><![CDATA[← Previous: Verification and Certification]]></ac:plain-text-link-body></ac:link> | <ac:link><ri:page ri:content-title="Metrics and Feedback Loops"/><ac:plain-text-link-body><![CDATA[→ Next: Metrics and Feedback]]></ac:plain-text-link-body></ac:link></p>
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/engagement/governance.md">View on GitHub</a></p>

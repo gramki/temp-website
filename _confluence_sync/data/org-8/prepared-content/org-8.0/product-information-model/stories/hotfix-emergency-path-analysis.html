@@ -1,0 +1,299 @@
+<!-- File: org-8.0/product-information-model/stories/hotfix-emergency-path-analysis.md -->
+<!-- Title: Hotfix / Emergency Fix Path: Analysis and Guide -->
+<!-- Content Hash: 585efb7450df67bc0a16d14e81584924d719a3af2408134438d9e8b5801dc753 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="hotfix-emergency-fix-path-analysis-and-guide">Hotfix / Emergency Fix Path: Analysis and Guide</h1>
+<h2 id="why-a-named-hotfix-pattern-matters">Why a Named Hotfix Pattern Matters</h2>
+<p>Every enterprise SaaS product will eventually have a SEV-0 incident at 2 AM that requires a code fix deployed to production within hours. Without a named, documented fast-path, teams either:</p>
+<ol>
+<li><strong>Ad-hoc their way through</strong> — skipping quality gates without documentation, creating technical debt and compliance gaps</li>
+<li><strong>Follow the standard path</strong> — taking days for a fix that needs hours, while customers suffer</li>
+</ol>
+<p>The UPIM models this as a <strong>named pattern</strong> that spans two tracks (Build and Run) and three decision records (DR-029, DR-030, DR-031). The pattern is not a separate workflow — it uses the same entities as standard work, but with explicit fast-path conventions for priority, quality gates, and governance.</p>
+<h2 id="the-end-to-end-chain">The End-to-End Chain</h2>
+<p>Each link in the chain is an existing UPIM entity with explicit fast-path behavior:</p>
+<pre class="codehilite"><code>Incident (SEV-0/SEV-1, artifact)
+  → Incident Response Task (triage, workaround, preliminary RCA)
+    → Bug (P0, Run provenance, sprint bypass)
+      → Technical Task (sprint bypass, immediate allocation)
+        → System Version (Emergency gate profile)
+          → SDD (environment-specific descriptor)
+            → Change Request (Emergency-Technical)
+              → Deployment Task (applies SDD)
+                → Deployment (artifact)
+                  → Verification Task (post-deployment checks)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Track</th>
+<th>Fast-Path Behavior</th>
+<th>Standard Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bug</td>
+<td>Build (Track 2)</td>
+<td>P0, Run provenance — sprint bypass; immediate triage</td>
+<td>P1-P3 — scheduled into sprint</td>
+</tr>
+<tr>
+<td>Technical Task</td>
+<td>Build (Track 2)</td>
+<td>Inherits P0 sprint bypass — immediate allocation outside sprint capacity</td>
+<td>Allocated within sprint</td>
+</tr>
+<tr>
+<td>System Version</td>
+<td>Build (Track 2)</td>
+<td>Emergency gate profile — peer review + security scan + smoke tests only</td>
+<td>Standard gate profile — all gates required</td>
+</tr>
+<tr>
+<td>Change Request</td>
+<td>Run (Track 3)</td>
+<td>Emergency-Technical — abbreviated soak, documented waivers</td>
+<td>Standard — full Train traversal, CAB approval</td>
+</tr>
+<tr>
+<td>Deployment Task</td>
+<td>Run (Track 3)</td>
+<td>May skip Deployment Drill; direct deployment with documented justification</td>
+<td>Drill may precede deployment</td>
+</tr>
+<tr>
+<td>Verification Task</td>
+<td>Run (Track 3)</td>
+<td>Focused smoke/SLA verification; may use shorter verification windows</td>
+<td>Full verification criteria</td>
+</tr>
+</tbody>
+</table>
+<h2 id="timing-expectations">Timing Expectations</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Standard Path</th>
+<th>Emergency Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Incident detection → Bug creation</td>
+<td>N/A (Build-provenance bugs are found in testing)</td>
+<td>Minutes to hours (IRT produces Bug during response)</td>
+</tr>
+<tr>
+<td>Bug triage → work starts</td>
+<td>Next sprint planning (days to weeks)</td>
+<td>Immediate (P0 = sprint bypass)</td>
+</tr>
+<tr>
+<td>Technical Task → System Version</td>
+<td>Sprint cadence (1-2 weeks)</td>
+<td>Hours (focused fix, Emergency gate profile)</td>
+</tr>
+<tr>
+<td>System Version → deployed to production</td>
+<td>Change cycle cadence (days to weeks)</td>
+<td>Hours to 1 day (Emergency-Technical CR, abbreviated soak)</td>
+</tr>
+<tr>
+<td><strong>Total: Bug to production</strong></td>
+<td><strong>Days to weeks</strong></td>
+<td><strong>Hours to 1 day</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="quality-gate-trade-offs">Quality Gate Trade-Offs</h2>
+<p>The Emergency gate profile balances speed against safety:</p>
+<h3 id="non-negotiable-gates-required-for-emergency">Non-Negotiable Gates (required for Emergency)</h3>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Peer review</strong></td>
+<td>Second pair of eyes prevents introducing a worse problem. Even at 2 AM, a reviewed hotfix is safer than an unreviewed one.</td>
+</tr>
+<tr>
+<td><strong>Security scan</strong></td>
+<td>A hotfix that introduces a vulnerability is catastrophically worse than the original incident.</td>
+</tr>
+<tr>
+<td><strong>Smoke tests</strong></td>
+<td>Basic "does the service start and respond" validation. Catches build/config errors before deployment.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deferrable-gates-may-be-deferred-for-emergency">Deferrable Gates (may be deferred for Emergency)</h3>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Rationale for Deferral</th>
+<th>Risk of Deferral</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Full regression suite</strong></td>
+<td>Can take hours to run; blocks deployment of a critical fix.</td>
+<td>The fix may break something unrelated. Mitigated by: narrow scope of hotfix, post-deployment verification, deferred-gate obligation.</td>
+</tr>
+<tr>
+<td><strong>Performance benchmarks</strong></td>
+<td>Requires load testing infrastructure; may not be available at 2 AM.</td>
+<td>The fix may introduce a performance regression. Mitigated by: Verification Task with SLO monitoring, deferred benchmarks on subsequent version.</td>
+</tr>
+<tr>
+<td><strong>Static analysis</strong></td>
+<td>May flag style/complexity issues unrelated to the fix.</td>
+<td>Low risk — static analysis catches code quality issues, not functional defects.</td>
+</tr>
+</tbody>
+</table>
+<p>The Operating Model may adjust these defaults — for example, making static analysis non-negotiable, or allowing performance benchmark deferral only for SEV-0 (not SEV-1).</p>
+<h2 id="the-deferred-gate-obligation-pattern">The Deferred-Gate Obligation Pattern</h2>
+<p>Emergency hotfixes must not permanently lower quality standards. The pattern:</p>
+<ol>
+<li>P0 Bug is fixed → Emergency System Version ships with deferred gates</li>
+<li>Bug stays at <code>Fixed</code> status (not <code>Verified</code>/<code>Closed</code>)</li>
+<li>Bug's <code>Deferred Gate Obligation</code> field references the Emergency System Version</li>
+<li>A subsequent Standard System Version (with the fix cherry-picked to main) passes all deferred gates</li>
+<li>Bug moves to <code>Verified</code> → <code>Closed</code></li>
+</ol>
+<p>This creates a visible, queryable obligation: "which Bugs have outstanding deferred gates?" If the deferred gates are never resolved, the Bug stays open — a persistent reminder that quality debt exists.</p>
+<h3 id="what-happens-if-the-deferred-gates-fail">What happens if the deferred gates fail?</h3>
+<p>The subsequent Standard System Version that runs the full regression may reveal that the hotfix breaks something. At that point, the Bug is already tracked and the team has two options:</p>
+<ol>
+<li>Fix the regression in the same System Version (before release)</li>
+<li>Create a new Bug for the regression, linked to the original</li>
+</ol>
+<p>Either way, the deferred-gate pattern surfaces the problem — which is better than never knowing.</p>
+<h2 id="hotfix-branch-strategy-operating-model-guidance">Hotfix Branch Strategy (Operating Model Guidance)</h2>
+<p>The Work Model captures <code>Git Reference</code> on System Version but does not prescribe branching strategy. Common patterns:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>When to Use</th>
+<th>How It Works</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Branch from release tag</strong></td>
+<td>Polyrepo, gitflow-style</td>
+<td>Create <code>hotfix/INC-2026-0847</code> branch from the release tag currently in production; fix, test, deploy; cherry-pick to <code>main</code> afterward</td>
+</tr>
+<tr>
+<td><strong>Cherry-pick from main</strong></td>
+<td>Monorepo, trunk-based</td>
+<td>Fix on <code>main</code>; cherry-pick the fix commit(s) to a release branch; deploy from release branch</td>
+</tr>
+<tr>
+<td><strong>Direct to main</strong></td>
+<td>Trunk-based, continuous deployment</td>
+<td>Fix on <code>main</code>; deploy <code>main</code> to production with the fix</td>
+</tr>
+</tbody>
+</table>
+<p>The choice depends on repository structure, release model, and team maturity. The Work Model is tool-agnostic — it tracks the <code>Git Reference</code> regardless of how the branch was managed.</p>
+<h2 id="relationship-to-emergency-technical-cr-dr-029">Relationship to Emergency-Technical CR (DR-029)</h2>
+<p>The Emergency-Technical Change Request and the P0 Bug/Emergency System Version are complementary fast-paths in different tracks:</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Entity</th>
+<th>Track</th>
+<th>DR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>How fast do we fix?</strong></td>
+<td>Bug (P0) → Technical Task → System Version (Emergency)</td>
+<td>Build (Track 2)</td>
+<td>DR-031</td>
+</tr>
+<tr>
+<td><strong>How fast do we deploy?</strong></td>
+<td>Change Request (Emergency-Technical) → Deployment Task</td>
+<td>Run (Track 3)</td>
+<td>DR-029</td>
+</tr>
+</tbody>
+</table>
+<p>Together they form the complete hotfix workflow. The Build Track fast-path produces the Emergency System Version; the Run Track fast-path deploys it with abbreviated governance. Neither is sufficient alone — a P0 Bug with Standard CR would wait for the normal change cycle; an Emergency-Technical CR with a Standard System Version would wait for full regression.</p>
+<h2 id="the-parallel-incident-response-track">The Parallel Incident Response Track</h2>
+<p>While the Build Track is fixing the root cause, the Run Track is independently managing the incident:</p>
+<ul>
+<li><strong>Incident Response Task</strong> — has already applied a workaround to restore service (DR-030)</li>
+<li><strong>Customer Communication Task</strong> — is keeping affected parties informed (DR-030)</li>
+<li><strong>Post-Incident Review</strong> — will be scheduled after resolution (for SEV-0/1/2) (DR-030)</li>
+</ul>
+<p>The hotfix and the incident response run in parallel. The Incident Response Task may have restored service with a workaround hours before the permanent fix ships. The hotfix replaces the workaround with a proper fix; the Verification Task confirms the fix holds.</p>
+<h2 id="pros-and-cons">Pros and Cons</h2>
+<h3 id="pros">Pros</h3>
+<ol>
+<li><strong>No new entity</strong> — uses existing Bug, Technical Task, System Version, Change Request entities with documented conventions</li>
+<li><strong>Auditable</strong> — Emergency gate profile is recorded on System Version; deferred gates are tracked via Bug; Change Request documents waivers</li>
+<li><strong>Quality preservation</strong> — deferred-gate obligation prevents permanent quality erosion</li>
+<li><strong>Timing clarity</strong> — the model makes explicit what is compressed (sprint allocation, gate profile, soak time) and what is not (peer review, security scan)</li>
+<li><strong>Compliance-friendly</strong> — regulated environments can audit the complete chain: Incident → Bug → System Version (Emergency) → CR (Emergency-Technical) → Deployment → Verification</li>
+</ol>
+<h3 id="cons">Cons</h3>
+<ol>
+<li><strong>Convention-based, not structurally enforced</strong> — P0 = sprint bypass is a convention; nothing prevents a team from ignoring it</li>
+<li><strong>Deferred-gate discipline required</strong> — teams must follow through on deferred obligations; the Bug staying at <code>Fixed</code> is a nudge, not enforcement</li>
+<li><strong>Gate profile calibration</strong> — the non-negotiable vs. deferrable split is a default that organizations must calibrate to their risk tolerance</li>
+</ol>
+<h3 id="dos-and-donts">Do's and Don'ts</h3>
+<table>
+<thead>
+<tr>
+<th>Do</th>
+<th>Don't</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triage Run-provenance SEV-0/SEV-1 Bugs as P0 immediately</td>
+<td>Let P0 Bugs wait for sprint planning</td>
+</tr>
+<tr>
+<td>Record Emergency gate profile explicitly on System Version</td>
+<td>Skip gates without documenting the deferral</td>
+</tr>
+<tr>
+<td>Track deferred-gate obligations via the Bug entity</td>
+<td>Close the Bug before deferred gates pass</td>
+</tr>
+<tr>
+<td>Cherry-pick the fix to main (or equivalent) for the subsequent Standard version</td>
+<td>Leave the fix only on a hotfix branch</td>
+</tr>
+<tr>
+<td>Run Verification Task after Emergency deployment</td>
+<td>Skip post-deployment verification because "it's urgent"</td>
+</tr>
+<tr>
+<td>Complete PIR for the incident that triggered the hotfix</td>
+<td>Treat the hotfix as the end of the story</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+<p><strong>Source:</strong> Commit: d2da5bb | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/d2da5bb/org-8.0/product-information-model/stories/hotfix-emergency-path-analysis.md">View on GitHub</a></p>

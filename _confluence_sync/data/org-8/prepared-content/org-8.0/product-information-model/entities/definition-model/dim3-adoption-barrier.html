@@ -1,0 +1,187 @@
+<!-- File: org-8.0/product-information-model/entities/definition-model/dim3-adoption-barrier.md -->
+<!-- Title: Adoption Barrier -->
+<!-- Content Hash: dbc8216bb19c216ce7670943cef70c94e76707a064b2bc319f305b1c71814419 -->
+<!-- Parent ID: 4822138974 -->
+
+<h1 id="adoption-barrier">Adoption Barrier</h1>
+<p><strong>Model:</strong> Definition Model<br />
+<strong>Dimension:</strong> Dimension 3: The Customer Value Dimension (Why Buy)<br />
+<strong>Owner:</strong> Product Management, Sales, Customer Success</p>
+<h2 id="definition">Definition</h2>
+<p>A known impediment to purchase or adoption within a Customer Segment. Barriers capture the "Why NOT buy" logic that complements the "Why Buy" logic of other Dim 3 entities. They may originate from sales objection tracking, churn analysis, lost-deal reviews, or customer research.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Understanding barriers is as important as understanding outcomes. A product can deliver great ROI but fail if barriers aren't addressed. Adoption Barriers:<br />
+- Inform discovery prioritization — a barrier may surface as a Signal (Problem or Need) in Dim 1<br />
+- May directly challenge or undermine a Customer Promise — exposing gaps between what the product promises and what prevents the customer from realizing that promise<br />
+- Guide investment decisions — overcoming a Blocker-severity barrier for a high-value segment may warrant an Initiative</p>
+<h2 id="barrier-types">Barrier Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Regulatory</strong></td>
+<td>Legal, compliance, or government requirements</td>
+<td>"LATAM enterprises require local data residency"</td>
+</tr>
+<tr>
+<td><strong>Technical</strong></td>
+<td>Integration complexity, infrastructure requirements, migration difficulty</td>
+<td>"No self-service onboarding — requires API integration expertise"</td>
+</tr>
+<tr>
+<td><strong>Organizational</strong></td>
+<td>Internal process, team structure, or change management challenges</td>
+<td>"Buyer's AP team resists workflow changes — entrenched manual processes"</td>
+</tr>
+<tr>
+<td><strong>Competitive</strong></td>
+<td>Lock-in to competitor products, switching costs, sunk costs</td>
+<td>"Existing investment in Competitor X's reporting suite"</td>
+</tr>
+<tr>
+<td><strong>Financial</strong></td>
+<td>Budget constraints, unexpected total cost, pricing misalignment</td>
+<td>"Mid-market budget ceiling of $50K/year; product minimum is $75K"</td>
+</tr>
+<tr>
+<td><strong>Contractual</strong></td>
+<td>Existing agreements, migration penalties, vendor lock-in terms</td>
+<td>"3-year contract with incumbent expires in 18 months; early termination penalty"</td>
+</tr>
+<tr>
+<td><strong>Data</strong></td>
+<td>Data migration complexity, portability concerns, data quality gaps</td>
+<td>"10 years of transaction history in proprietary format — migration estimated at 6 months"</td>
+</tr>
+<tr>
+<td><strong>Cultural</strong></td>
+<td>Organizational change resistance, trust deficit, risk aversion</td>
+<td>"Risk-averse financial institution requires 12-month proof-of-concept before enterprise commitment"</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer Segment</td>
+<td>Reference (Dim 3)</td>
+<td>Which segment this barrier affects</td>
+</tr>
+<tr>
+<td>Barrier Type</td>
+<td>Enum</td>
+<td><code>Regulatory</code> / <code>Technical</code> / <code>Organizational</code> / <code>Competitive</code> / <code>Financial</code> / <code>Contractual</code> / <code>Data</code> / <code>Cultural</code></td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Text</td>
+<td>What the barrier is and why it prevents adoption</td>
+</tr>
+<tr>
+<td>Severity</td>
+<td>Enum</td>
+<td><code>Blocker</code> (cannot adopt) / <code>Friction</code> (can adopt but with difficulty)</td>
+</tr>
+<tr>
+<td>Challenges Promise</td>
+<td>List of References (Dim 3)</td>
+<td>Which Customer Promise(s) this barrier undermines or contradicts</td>
+</tr>
+<tr>
+<td>Structural Root (Dim 8)</td>
+<td>List of References (Dim 8)</td>
+<td>When the barrier points to a product gap, which Capability or Feature is missing or insufficient. Enables product-level impact analysis. Optional — non-product barriers (Contractual, Cultural, Financial) typically have no product root.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statuses">Statuses</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active</td>
+<td>Barrier is currently preventing adoption</td>
+</tr>
+<tr>
+<td>Mitigated</td>
+<td>Barrier has been addressed (through product changes, workarounds, or market shifts)</td>
+</tr>
+<tr>
+<td>Accepted</td>
+<td>Barrier is acknowledged but not being addressed (documented trade-off)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Related Entity</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blocks</td>
+<td>Customer Segment (Dim 3)</td>
+<td>Adoption Barrier blocks a Customer Segment</td>
+</tr>
+<tr>
+<td>Challenges</td>
+<td>Customer Promise (Dim 3)</td>
+<td>Barrier may undermine or contradict a Customer Promise</td>
+</tr>
+<tr>
+<td>May surface as</td>
+<td>Signal (Dim 1)</td>
+<td>Barrier may generate a Problem or Need Signal</td>
+</tr>
+<tr>
+<td>May inform</td>
+<td>Initiative (Dim 1)</td>
+<td>Overcoming a barrier may become an Initiative</td>
+</tr>
+<tr>
+<td>Work Model</td>
+<td>Modeling Task (Track 1)</td>
+<td>Modeling Tasks identify and document barriers</td>
+</tr>
+<tr>
+<td>Structural root</td>
+<td>Capability / Feature (Dim 8)</td>
+<td>When barrier points to a product gap, identifies the missing or insufficient product structure</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<ul>
+<li>"LATAM enterprises require local data residency for regulatory compliance" (Regulatory, Blocker) — <strong>challenges</strong> Compliance Posture "GDPR compliant" — <strong>structural root:</strong> Data Storage — Regional Residency (Capability — missing)</li>
+<li>"Mid-market companies lack IT staff for API integration — need self-service onboarding" (Technical, Friction) — <strong>challenges</strong> Value Proposition "Get started in under 24 hours" — <strong>structural root:</strong> Self-Service Onboarding (Value Stream — insufficient)</li>
+<li>"Existing customers have sunk cost in Competitor X's reporting suite" (Competitive, Friction) — no product root</li>
+<li>"Mid-market budget ceiling of $50K/year; product minimum starts at $75K" (Financial, Blocker) — no product root</li>
+<li>"3-year contract with incumbent; early termination penalty of $200K" (Contractual, Blocker) — no product root</li>
+<li>"10 years of transaction history in proprietary format — estimated 6-month migration" (Data, Friction) — <strong>structural root:</strong> Data Migration (Capability — insufficient)</li>
+<li>"Risk-averse institution requires 12-month PoC before enterprise commitment" (Cultural, Friction) — <strong>structural root:</strong> Sandbox / Demo Environment (Capability)</li>
+</ul>
+
+<p><strong>Source:</strong> Commit: 4f73931 | <a href="https://github.com/ramki_Zeta/zeta-ai-product-strategy/blob/4f73931/org-8.0/product-information-model/entities/definition-model/dim3-adoption-barrier.md">View on GitHub</a></p>
