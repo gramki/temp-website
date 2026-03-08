@@ -1,0 +1,1561 @@
+
+# Enterprise Workflow UI Evaluation Rules
+
+file: rules.mdc
+version: 2.0
+purpose: Comprehensive rules for AI agents to evaluate enterprise workflow application UIs for usability, clarity, operational efficiency, copy quality, and compliance readiness.
+
+---
+
+# 0. Agent Instructions
+
+You are an enterprise UI evaluation agent. Your job is to systematically review user interface screens, workflows, and interactions within enterprise applications and produce a structured evaluation report.
+
+## 0.1 What You Will Receive
+
+You may receive one or more of the following as input:
+- screenshots of UI screens
+- screen recordings or step-by-step walkthroughs
+- HTML/CSS source or rendered DOM snapshots
+- Figma, Sketch, or design tool exports
+- written descriptions of workflows
+- accessibility tree snapshots
+- user journey narratives
+
+## 0.2 How to Conduct the Evaluation
+
+Step 1 — Identify the application type and domain context (banking, insurance, compliance, operations, etc.)
+Step 2 — Identify the user persona (operator, reviewer, approver, administrator, auditor)
+Step 3 — Identify the task the screen supports (data entry, review, approval, search, monitoring, reporting)
+Step 4 — Walk through every rule category in this document sequentially
+Step 5 — For each rule, determine: does the UI comply, partially comply, or violate?
+Step 6 — Record violations with rule ID, severity, evidence, and a concrete recommendation
+Step 7 — Produce the final report in the format specified in the Evaluation Output section
+
+## 0.3 Evaluation Principles for the Agent
+
+- Evaluate from the perspective of a repeat expert user, not a first-time visitor.
+- Assume the user performs this task dozens or hundreds of times per day.
+- Prioritize operational throughput and error prevention over aesthetics.
+- When evidence is ambiguous, note the ambiguity rather than guessing.
+- If a rule cannot be evaluated from the provided input (e.g., performance rules from a static screenshot), mark it as "Not evaluable from provided input" and state what additional input would be needed.
+- Never skip a rule category. If the category does not apply, state why.
+- Always provide concrete, actionable recommendations — not vague suggestions.
+
+## 0.4 Handling Partial Information
+
+If you receive only screenshots (no interactive access):
+- You CAN evaluate: layout, hierarchy, labels, copy, visual distinction of actions, state visibility, information density, color usage, grouping.
+- You CANNOT fully evaluate: keyboard navigation, loading performance, state persistence, hover interactions, responsive behavior, real-time validation.
+- Note these limitations in your report under "Evaluation Limitations."
+
+---
+
+# 1. Purpose
+
+These rules define how an evaluation agent should assess a user interface or workflow within an enterprise application.
+
+Enterprise workflow applications include systems such as:
+- banking operations platforms (core banking, payment processing, treasury)
+- case management systems (disputes, claims, investigations)
+- underwriting and risk assessment platforms
+- compliance, KYC, and AML review tools
+- ticketing and incident management systems
+- financial operations dashboards
+- supply chain and procurement platforms
+- HR operations and employee lifecycle systems
+- internal enterprise workflow software
+
+These applications are used by repeat expert users performing operational tasks under time pressure, regulatory scrutiny, and accuracy requirements.
+
+The goal of evaluation is to determine whether a UI:
+- supports operational throughput for high-volume task completion
+- minimizes errors, especially errors with financial or regulatory consequences
+- clearly communicates workflow state, ownership, and blocking conditions
+- enables confident, well-informed decision-making
+- reduces training time and ongoing cognitive load
+- supports auditability and regulatory compliance
+- maintains consistency across modules and workflows
+
+---
+
+# 2. Evaluation Methodology
+
+For each UI screen or workflow step, evaluate against ALL of the following dimensions:
+
+1. Task clarity — can the user immediately understand what to do?
+2. Workflow state clarity — is the current state, stage, and ownership obvious?
+3. Action clarity — are available actions explicit, prioritized, and safe?
+4. Information hierarchy — is critical information prominent and scannable?
+5. Copy and label clarity — are labels precise, domain-appropriate, and unambiguous?
+6. Error prevention and handling — does the UI prevent mistakes and recover gracefully?
+7. Decision support — does the UI provide the information needed to make decisions?
+8. Workflow continuity — does context persist across navigation and actions?
+9. Operational efficiency — does the UI minimize unnecessary steps and clicks?
+10. Navigation and wayfinding — can the user orient themselves and move efficiently?
+11. Data presentation — are tables, lists, and data displays optimized for the task?
+12. Notification and feedback — does the UI communicate system state and events clearly?
+13. Consistency — are patterns, terminology, and behaviors uniform?
+14. Accessibility — is the UI usable via keyboard, screen readers, and without relying on color alone?
+15. Help and guidance — is contextual assistance available without leaving the workflow?
+
+The agent must identify and classify:
+- Rule violations (with rule ID and severity)
+- Ambiguity that could lead to user confusion
+- Missing information that the task requires
+- Operational risks that could cause errors or delays
+- Usability issues that reduce throughput
+- Compliance risks related to auditability or data handling
+
+---
+
+# 3. Scoring Model
+
+## 3.1 Score Definitions
+
+Each rule category is scored on a 5-point scale:
+
+| Score | Label        | Definition                                                                                  |
+|-------|--------------|---------------------------------------------------------------------------------------------|
+| 5     | Excellent    | Fully compliant. No violations. Demonstrates best practices. Could serve as a reference.    |
+| 4     | Good         | Compliant with minor polish opportunities. No operational risk.                             |
+| 3     | Acceptable   | Functional but has notable gaps. Users can work around issues but efficiency is reduced.     |
+| 2     | Problematic  | Multiple violations present. Workflow friction is significant. Error risk is elevated.       |
+| 1     | Poor         | Critical violations. High risk of operational errors, confusion, or workflow breakdown.      |
+
+## 3.2 Severity Definitions
+
+| Severity | Definition                                                                                     | Resolution Priority |
+|----------|------------------------------------------------------------------------------------------------|---------------------|
+| Critical | Likely to cause operational errors, data loss, compliance violations, or workflow breakdown.    | Must fix before release. |
+| Major    | Slows workflow, creates confusion, increases error likelihood, or undermines user confidence.   | Should fix in current cycle. |
+| Minor    | Polish, clarity, or consistency improvement. Does not block work but reduces quality.           | Fix when possible. |
+
+## 3.3 Overall Score Calculation
+
+The overall score is the weighted average of category scores:
+- Critical-severity categories: weight 3
+- Major-severity categories: weight 2
+- Minor-severity categories: weight 1
+
+If any single category scores 1 (Poor), the overall score cannot exceed 2 regardless of other scores.
+If any Critical-severity rule is violated, the overall score cannot exceed 3.
+
+---
+
+# 4. Core Principles
+
+Enterprise workflow UI must prioritize:
+
+1. **Clarity over cleverness** — Every element should be immediately understandable. Avoid novel UI patterns when conventional ones work. A new operator should be able to understand the screen within seconds.
+
+2. **Operational throughput over visual novelty** — Design for speed of task completion. Reduce clicks, scrolling, and context-switching. Optimize for the 90th-percentile use case, not edge cases.
+
+3. **Decision support over visual density** — Show what matters for the decision at hand. Supporting information should be accessible but not competing for attention.
+
+4. **Consistency over creativity** — Same patterns, same positions, same language across the entire application. Inconsistency is a cognitive tax on every screen.
+
+5. **Error prevention over error messaging** — The best error message is the one that never appears. Use constraints, defaults, validation, and confirmation to prevent errors before they happen.
+
+6. **Contextual help over external documentation** — Users should never leave their workflow to find help. Inline hints, tooltips, and contextual panels are preferable to documentation links.
+
+7. **Transparency over automation** — When the system makes decisions, takes actions, or applies rules automatically, the user must be able to see what happened and why.
+
+8. **Auditability by design** — Every screen should answer: who did what, when, and why. This is not optional in regulated industries.
+
+---
+
+# 5. Workflow State Rules
+
+RULE WS1 — Workflow state must be visible at all times
+
+The UI must clearly indicate:
+- current status (e.g., "Pending Review", "Approved", "On Hold")
+- workflow stage within a multi-step process
+- current owner or assignee
+- blocking conditions (what is preventing progression)
+- expected next action
+
+What to look for:
+- Is the status displayed prominently, not buried in a detail panel?
+- Does the status use clear, unambiguous language (not codes or abbreviations)?
+- Is the status visually distinct (color + icon + text, not color alone)?
+- Can the user tell at a glance whether this item needs their action?
+
+Good: A banner at the top of a case detail screen reads "Status: Pending Your Approval" with a yellow warning icon.
+Bad: Status is a small gray chip labeled "PND-APR" at the bottom of a scrollable panel.
+
+Severity: Critical
+
+RULE WS2 — Next action must be obvious
+
+The user should immediately understand: "What am I supposed to do here?"
+
+What to look for:
+- Is the primary action button visible without scrolling?
+- Does the button label describe the action (e.g., "Approve Claim") rather than a generic label ("Submit", "OK", "Next")?
+- If no action is available, does the UI explain why (e.g., "Waiting for compliance review")?
+- If multiple actions are available, is one clearly primary?
+
+Good: "Approve and Forward to Settlement" button is prominent at the top-right.
+Bad: Three equally-styled buttons labeled "Submit", "Save", "Continue" with no visual hierarchy.
+
+Severity: Critical
+
+RULE WS3 — Ownership and assignment must be visible
+
+Enterprise workflows require clear accountability. At any point, it must be obvious who is responsible for the current step.
+
+What to look for:
+- Is the current assignee displayed on the screen?
+- Can users see the assignment history?
+- Is there a clear mechanism to reassign or escalate?
+- When viewing a queue, is ownership visible per item?
+
+Good: "Assigned to: Jane Smith (Compliance Team) since Mar 5, 2026" displayed below the case header.
+Bad: No owner shown. User must open a separate audit log to determine assignment.
+
+Severity: Major
+
+RULE WS4 — Workflow progression must be explicit
+
+Multi-step processes must show where the user is in the overall workflow.
+
+What to look for:
+- Is a progress indicator present (stepper, breadcrumb, progress bar)?
+- Are completed, current, and future steps visually distinct?
+- Can the user see what comes next?
+- Are optional vs. required steps differentiated?
+
+Good: A horizontal stepper shows "1. Data Entry ✓ → 2. Review (current) → 3. Approval → 4. Settlement"
+Bad: No indication of how many steps remain or what the overall process looks like.
+
+Severity: Major
+
+RULE WS5 — Status transitions must be understandable
+
+Users should be able to predict what will happen when they take an action.
+
+What to look for:
+- Before a status-changing action, does the UI indicate the new state?
+- Are valid transitions clear (can the user tell which actions are available from the current state)?
+- Are invalid transitions disabled with explanations?
+
+Good: Approve button tooltip reads "This will move the case to 'Approved — Pending Settlement'."
+Bad: A "Submit" button with no indication of what status the record will move to.
+
+Severity: Major
+
+RULE WS6 — SLA and deadline visibility
+
+Time-sensitive workflows must surface deadlines and urgency.
+
+What to look for:
+- Are SLA timers, due dates, or aging indicators visible?
+- Do overdue or at-risk items have visual urgency indicators?
+- Can users sort or filter by urgency?
+
+Good: A red "SLA: 2 hours remaining" badge next to the case ID. Queue sorted by urgency by default.
+Bad: Due dates buried in a details tab. No visual distinction between overdue and on-track items.
+
+Severity: Major
+
+---
+
+# 6. Action Design Rules
+
+RULE AD1 — Actions must use explicit, domain-specific verbs
+
+Button and action labels must describe exactly what will happen, using language familiar to the domain.
+
+What to look for:
+- Do button labels use specific verbs (Approve, Reject, Escalate, Assign, Close)?
+- Are labels domain-appropriate (e.g., "Issue Chargeback" rather than "Process")?
+- Are generic labels avoided (OK, Submit, Go, Yes, No, Continue)?
+
+Good: "Approve Claim", "Reject with Reason", "Escalate to Manager", "Request Additional Documents"
+Bad: "Submit", "OK", "Process", "Continue", "Yes"
+
+Severity: Major
+
+RULE AD2 — Primary action must be visually distinguished
+
+What to look for:
+- Is the primary action a filled/solid button while secondary actions are outlined or text-only?
+- Is the primary action positioned consistently (top-right or bottom-right)?
+- Is there only one primary action per context?
+- Does the visual weight match the action importance?
+
+Good: "Approve" as a solid blue button, "Save Draft" as an outlined button, "Cancel" as a text link.
+Bad: All three actions styled identically as gray buttons in a row.
+
+Severity: Major
+
+RULE AD3 — Destructive actions must be clearly separated and guarded
+
+Actions that delete data, reject requests, close cases permanently, or cannot be undone must be visually distinct and require confirmation.
+
+What to look for:
+- Are destructive actions visually distinct (red color, warning icon, separated position)?
+- Are they positioned away from primary actions (not adjacent to Approve)?
+- Do they require a confirmation step (modal with consequences explained)?
+- Is the confirmation modal specific ("This will permanently delete 47 transactions") rather than generic ("Are you sure?")?
+
+Good: "Reject Claim" is a red outlined button in a separate "Danger Zone" section, with a confirmation modal that reads: "Rejecting this claim will notify the customer and cannot be undone. Reason is required."
+Bad: "Delete" button positioned right next to "Save", same visual style, with a generic "Are you sure?" confirmation.
+
+Severity: Critical
+
+RULE AD4 — Action availability must reflect current state
+
+Actions that are not valid in the current workflow state must be disabled with explanation, not hidden.
+
+What to look for:
+- Are unavailable actions disabled (not removed)?
+- Do disabled actions have tooltips explaining why they are unavailable?
+- Does the UI update action availability in real time as state changes?
+
+Good: "Approve" button is grayed out with tooltip: "Cannot approve — pending compliance check."
+Bad: The Approve button disappears entirely, leaving the user wondering if they have permission.
+
+Severity: Major
+
+RULE AD5 — Bulk actions must be explicit and guarded
+
+When users can select and act on multiple items, the consequences must be clear.
+
+What to look for:
+- Does the UI show the count of selected items before action?
+- Is the bulk action label specific (e.g., "Approve 12 claims")?
+- Is there a confirmation step showing affected items?
+- Can users review the selection before committing?
+
+Good: "Approve 12 selected claims" button with a confirmation dialog listing all 12 claim IDs.
+Bad: A generic "Approve" button that operates on whatever is selected with no count or confirmation.
+
+Severity: Critical
+
+---
+
+# 7. Information Hierarchy Rules
+
+RULE IH1 — Critical decision information must appear first
+
+The information needed to make the primary decision on this screen must be visible without scrolling.
+
+What to look for:
+- Is the most important information (amount, status, risk score, customer name) in the top portion of the screen?
+- Can the user make the primary decision without scrolling down?
+- Is supporting/reference information below or in expandable sections?
+- Is there a clear visual separation between decision-critical and supplementary information?
+
+Good: Case header shows customer name, claim amount, risk score, and current status. Supporting documents are in a tab below.
+Bad: The screen starts with internal metadata (created date, system ID, batch number) and the claim amount is in the fourth tab.
+
+Severity: Major
+
+RULE IH2 — Visual hierarchy must guide attention
+
+Typography, spacing, color, and layout must direct the user's eye to what matters most.
+
+What to look for:
+- Do headings, subheadings, and body text have distinct sizes and weights?
+- Is key data (amounts, dates, statuses) visually emphasized?
+- Are related fields grouped visually (cards, sections, borders)?
+- Is whitespace used effectively to separate concerns?
+- Is the layout scannable in a Z-pattern or F-pattern?
+
+Good: Claim amount displayed in large, bold text. Related customer fields grouped in a labeled card. Clear section dividers.
+Bad: All text is the same size. 30 fields in a single flat list with no grouping. No visual emphasis on any field.
+
+Severity: Major
+
+RULE IH3 — Lists and queues must support operational scanning
+
+Users processing queues need to rapidly scan, identify, prioritize, and act.
+
+What to look for:
+- Can lists be sorted by any column?
+- Can lists be filtered by status, assignee, date range, priority?
+- Is there a search capability?
+- Are status, ownership, and priority visible per row without expanding?
+- Are row actions available inline (not only via detail screen)?
+- Does the list show a meaningful summary per row (not just an ID)?
+- Are alternating row colors or dividers used for scanability?
+- Are counts and totals shown (e.g., "Showing 47 of 312 cases")?
+
+Good: Queue shows columns for Case ID, Customer, Amount, Status, Assignee, SLA, with inline Approve/Reject actions. Filters for status and assignee in the toolbar. "47 of 312 cases" shown.
+Bad: A list of case IDs with no additional context. Must click each to see details. No filtering or sorting.
+
+Severity: Major
+
+RULE IH4 — Summary and detail views must be clearly separated
+
+Users should be able to get an overview without being forced into detail.
+
+What to look for:
+- Is there a clear list/summary → detail navigation pattern?
+- Can users preview key information without leaving the list (hover preview, side panel, expandable rows)?
+- Does the detail view provide a clear "back to list" path?
+- Does returning to the list preserve the user's position and filters?
+
+Good: Clicking a row opens a side panel with case details. The list remains visible. Closing the panel returns focus to the same row.
+Bad: Clicking a row navigates to a new page. Clicking "Back" resets all filters and pagination.
+
+Severity: Major
+
+---
+
+# 8. Form Design Rules
+
+RULE FD1 — Forms must follow domain logic, not database structure
+
+Field grouping and ordering should match the user's mental model of the domain, not the database schema or API structure.
+
+What to look for:
+- Are fields grouped by business concept (e.g., "Customer Information", "Transaction Details", "Risk Assessment")?
+- Does the field order match the natural workflow sequence?
+- Are technically related but domain-unrelated fields separated (e.g., "Created By" system fields away from business data)?
+
+Good: Customer fields grouped together, then transaction fields, then assessment fields — matching how an operator thinks about the case.
+Bad: Fields ordered alphabetically, or matching database column order (account_id, amount, created_at, customer_name...).
+
+Severity: Major
+
+RULE FD2 — Required fields must be clearly indicated
+
+What to look for:
+- Are required fields marked with a visual indicator (asterisk, "Required" label)?
+- Is the indicator explained (legend saying "* Required")?
+- Are optional fields explicitly labeled as optional (recommended for forms where most fields are required)?
+- Does validation trigger at the right moment (on blur or on submit, not on every keystroke)?
+
+Severity: Major
+
+RULE FD3 — Known values should be prefilled
+
+What to look for:
+- Are values that can be derived from context (logged-in user, current date, related record data) prefilled?
+- Are prefilled values editable when appropriate?
+- Is it clear which values were prefilled vs. user-entered?
+
+Good: "Reviewer" field prefilled with the logged-in user's name. "Review Date" prefilled with today. Both editable.
+Bad: User must manually type their own name and today's date on every form.
+
+Severity: Minor
+
+RULE FD4 — Complex fields must include examples and format guidance
+
+What to look for:
+- Do fields with specific formats show examples (e.g., "MER-10482", "YYYY-MM-DD")?
+- Are input masks used where format is strict?
+- Do fields with business rules show inline help (e.g., "Amount must not exceed $50,000 for auto-approval")?
+
+Severity: Minor
+
+RULE FD5 — Multi-step forms must support save and resume
+
+What to look for:
+- Can users save progress on long forms?
+- Is auto-save implemented for forms that take more than a few minutes?
+- Is save state clearly communicated ("Draft saved at 2:34 PM")?
+- Can users return to a partially completed form and continue?
+
+Good: "Save Draft" button visible at all times. "Last saved: 2 minutes ago" indicator. Drafts accessible from the user's queue.
+Bad: A 15-field form with no save option. Navigating away loses all input.
+
+Severity: Major
+
+RULE FD6 — Inline validation must be timely and specific
+
+What to look for:
+- Does validation occur on field blur (not only on form submit)?
+- Are validation messages specific ("Amount must be between $1 and $50,000") rather than generic ("Invalid value")?
+- Are valid fields confirmed visually (green check, no red border)?
+- Do related field validations update when either field changes (e.g., start date / end date)?
+
+Severity: Major
+
+---
+
+# 9. Copy and Label Rules
+
+RULE CL1 — Use domain language consistently
+
+Labels, headings, and messages must use the language of the business domain, not generic software terms or internal system names.
+
+What to look for:
+- Do labels match the terms users use in their daily work?
+- Are terms consistent across the application (not "Customer" on one screen and "Client" on another)?
+- Is a domain glossary followed?
+- Are abbreviations defined on first use or in a tooltip?
+
+Good: "Beneficiary", "Settlement Amount", "Clearing Date" — terms the operations team uses daily.
+Bad: "Entity", "Value", "Process Date" — generic terms that could mean anything.
+
+Severity: Major
+
+RULE CL2 — Avoid playful, casual, or marketing language
+
+Enterprise software is used under pressure in regulated environments. Tone must be professional, clear, and neutral.
+
+What to look for:
+- Are empty states functional ("No cases match your filters. Try adjusting the date range.") rather than playful ("Nothing to see here! 🎉")?
+- Are error messages professional ("Unable to process request. Please verify the account number.") rather than casual ("Oops! Something went wrong.")?
+- Are success messages informative ("Case #4821 approved and forwarded to settlement.") rather than celebratory ("Great job! 🎉")?
+
+Severity: Minor — unless it undermines trust in a regulated context, then Major.
+
+RULE CL3 — Labels must be concise but unambiguous
+
+What to look for:
+- Are labels short (1-4 words)?
+- Are labels unambiguous (would a user ever ask "what does this mean?")?
+- Do similar fields have clearly differentiated labels?
+- Are units included where relevant ("Amount (USD)", "Duration (days)")?
+
+Good: "Claim Amount (USD)", "Filing Date", "Reviewer"
+Bad: "The total amount of the claim as filed by the claimant in US dollars", or just "Amount" when there are multiple amounts on screen.
+
+Severity: Minor
+
+RULE CL4 — Avoid exposing system internals
+
+Users should never see database field names, internal error codes, API errors, or stack traces.
+
+What to look for:
+- Are field names human-readable (not "cust_acct_nbr" or "txn_dt")?
+- Are error messages in plain language (not "Error 500: NullPointerException")?
+- Are system IDs hidden or de-emphasized when they are not operationally relevant?
+- Are technical status codes translated ("Processing" not "STATUS_CODE_7")?
+
+Severity: Major
+
+RULE CL5 — Instructional text must be action-oriented
+
+When the UI provides instructions, they must tell the user what to do, not just describe the situation.
+
+What to look for:
+- Do instructions use imperative verbs ("Enter the merchant ID", "Select the dispute reason")?
+- Are instructions placed before the field they relate to (not after)?
+- Are instructions concise (one line, not a paragraph)?
+
+Good: "Enter the 10-digit merchant ID from the terminal receipt."
+Bad: "The merchant ID is a unique identifier assigned to each merchant terminal. It can be found on the receipt or in the merchant management system. Please enter it below."
+
+Severity: Minor
+
+---
+
+# 10. Error Handling Rules
+
+RULE ER1 — Error messages must explain what happened, why, and how to fix it
+
+What to look for:
+- Does the message identify the specific field or action that failed?
+- Does it explain why (validation rule, permission, system error)?
+- Does it tell the user exactly what to do to resolve it?
+- Is the message positioned near the relevant field or action (not only in a toast)?
+
+Good: Below the "Amount" field: "Amount exceeds the auto-approval threshold of $50,000. Reduce the amount or submit for manual approval."
+Bad: A toast at the top of the screen: "Validation error." No indication of which field.
+
+Severity: Critical
+
+RULE ER2 — Prevent errors through UI constraints
+
+The best error message is the one that never needs to appear.
+
+What to look for:
+- Are invalid options disabled or hidden?
+- Are input constraints enforced through UI controls (date pickers, dropdowns, sliders)?
+- Are impossible combinations prevented (e.g., end date before start date)?
+- Are dangerous operations gated (confirmation, required reason, multi-step)?
+
+Good: Date picker that disables past dates. Dropdown for status instead of free text. Amount field that only accepts numbers.
+Bad: A free-text field for dates with no format hint. No constraint on entering negative amounts.
+
+Severity: Critical
+
+RULE ER3 — Warn before irreversible actions with specific consequences
+
+What to look for:
+- Does the confirmation modal state the specific consequence ("This will permanently delete 47 records and notify 12 customers")?
+- Does it require a deliberate action (typing "DELETE" to confirm, checking a box)?
+- Is the cancel option more prominent than the confirm option?
+- Can the user review what will be affected before confirming?
+
+Good: "You are about to reject claim #4821 for $12,450. The customer will be notified via email. This action cannot be undone. Type 'REJECT' to confirm."
+Bad: "Are you sure? [Yes] [No]"
+
+Severity: Critical
+
+RULE ER4 — System errors must not expose technical details
+
+What to look for:
+- Are stack traces, error codes, and API responses hidden from the user?
+- Is a user-friendly message shown with a reference ID for support?
+- Is there a clear action the user can take (retry, contact support)?
+- Is the error logged for engineering without burdening the user?
+
+Good: "Something went wrong while saving your changes. Please try again. If the problem continues, contact support with reference ID: ERR-2026-0308-4821."
+Bad: "500 Internal Server Error: java.lang.NullPointerException at com.acme.service.ClaimProcessor.process(ClaimProcessor.java:142)"
+
+Severity: Critical
+
+RULE ER5 — Partial failures must be clearly communicated
+
+When a batch operation or multi-step process partially fails, the UI must show what succeeded and what failed.
+
+What to look for:
+- Does the UI distinguish between fully successful, partially successful, and fully failed outcomes?
+- Can users see which specific items failed and why?
+- Can users retry only the failed items?
+- Is progress preserved for successful items?
+
+Good: "8 of 12 claims approved successfully. 4 claims failed: #4821 (insufficient documentation), #4822 (amount exceeds threshold), #4823 (duplicate), #4824 (expired SLA). [Retry Failed] [View Details]"
+Bad: "Error processing claims." — with no indication of which succeeded or failed.
+
+Severity: Major
+
+---
+
+# 11. Navigation and Wayfinding Rules
+
+RULE NV1 — Users must always know where they are
+
+What to look for:
+- Is there a breadcrumb trail or clear page title?
+- Does the navigation highlight the current section/module?
+- Is the current context (which customer, which case, which batch) visible in the page header?
+- Can the user tell which module they are in?
+
+Good: Breadcrumb "Cases > Dispute Cases > Case #4821" with sidebar highlighting "Dispute Cases."
+Bad: Page title is "Details" with no breadcrumb or context. Sidebar has no active state indicator.
+
+Severity: Major
+
+RULE NV2 — Navigation must be consistent across the application
+
+What to look for:
+- Is the primary navigation in the same position on every screen?
+- Are navigation labels consistent (not "Cases" in the sidebar but "Records" in the breadcrumb)?
+- Does the navigation structure match the user's mental model of the domain?
+- Are related functions grouped logically?
+
+Severity: Major
+
+RULE NV3 — Deep-link and bookmark support
+
+Enterprise users frequently share links to specific records, save them for later, or open them in new tabs.
+
+What to look for:
+- Does the URL update to reflect the current view (case ID, filters, tab)?
+- Can a URL be shared with a colleague who will see the same screen?
+- Does the back button behave predictably?
+- Can users open items in new tabs?
+
+Severity: Major
+
+RULE NV4 — Cross-entity navigation must preserve context
+
+When navigating from one entity to a related entity (e.g., from a case to the customer profile), users must be able to return to their original context.
+
+What to look for:
+- Is there a "Back to Case #4821" link or breadcrumb when viewing a related entity?
+- Does opening a related entity use a panel or new tab rather than replacing the current view?
+- Are filters and scroll position preserved on return?
+
+Severity: Major
+
+---
+
+# 12. Data Table and Grid Rules
+
+RULE DT1 — Tables must support sorting on every data column
+
+What to look for:
+- Can every column be sorted ascending and descending?
+- Is the current sort order visually indicated (arrow icon)?
+- Does the default sort order match the most common operational need?
+- Is multi-column sorting supported for power users?
+
+Severity: Major
+
+RULE DT2 — Tables must support filtering and search
+
+What to look for:
+- Are filter controls accessible above or beside the table?
+- Can users filter by key dimensions (status, assignee, date range, amount range)?
+- Is there a free-text search across the table?
+- Are active filters visible and clearable individually?
+- Is the count of filtered results shown?
+
+Good: Filter bar showing "Status: Pending | Assignee: Me | Date: Last 7 days" with (x) to remove each. "Showing 23 of 312 cases."
+Bad: No filters. A single search box that only searches by ID.
+
+Severity: Major
+
+RULE DT3 — Column density must match operational needs
+
+What to look for:
+- Are columns sized appropriately for their content (dates narrow, descriptions wider)?
+- Can users customize which columns are visible?
+- Is a compact/comfortable/spacious density toggle available for power users?
+- Are long values truncated with tooltips rather than wrapping and breaking row alignment?
+- Are fixed column headers used for scrolling tables?
+
+Severity: Minor
+
+RULE DT4 — Tables must handle large datasets gracefully
+
+What to look for:
+- Is pagination or virtual scrolling used for large datasets?
+- Is the total count displayed?
+- Can users control page size?
+- Is pagination state preserved when returning from a detail view?
+- Are loading indicators shown during data fetch?
+
+Severity: Major
+
+RULE DT5 — Row selection and bulk actions must be clear
+
+What to look for:
+- Is there a select-all checkbox with "select all on this page" vs "select all 312 items" distinction?
+- Is the selected count displayed prominently?
+- Are bulk action buttons contextual (only appear when items are selected)?
+- Does the UI warn before bulk destructive actions?
+
+Severity: Major
+
+RULE DT6 — Empty tables must be informative
+
+What to look for:
+- Does an empty table explain why it is empty?
+- Does it suggest actions ("No cases match your filters. Try broadening your search." or "No cases assigned to you. View all cases.")?
+- Is the empty state visually distinct from a loading state?
+
+Severity: Minor
+
+---
+
+# 13. Notification and Feedback Rules
+
+RULE NF1 — Action feedback must be immediate and specific
+
+Every user action must produce visible feedback.
+
+What to look for:
+- Do save, submit, approve, and other actions show a confirmation message?
+- Is the confirmation specific ("Case #4821 approved") rather than generic ("Success")?
+- Is feedback positioned where the user is looking (near the action, not in a distant corner)?
+- Does the feedback include the next logical step ("Case approved. It will be forwarded to settlement within 24 hours.")?
+
+Good: Inline banner: "Case #4821 approved and assigned to Settlement Team. Expected completion: Mar 10, 2026."
+Bad: A brief toast in the bottom-right corner: "Saved." Disappears after 2 seconds.
+
+Severity: Major
+
+RULE NF2 — Loading states must be visible and informative
+
+What to look for:
+- Are loading indicators shown during data fetches and action processing?
+- Do indicators appear quickly (within 200ms of the user action)?
+- For longer operations, is progress shown (determinate progress bar)?
+- Are skeleton screens used for initial page loads rather than blank screens or spinners?
+- Is the loading state distinguishable from an empty or error state?
+
+Severity: Major
+
+RULE NF3 — Toast and banner notifications must be categorized
+
+What to look for:
+- Are notifications categorized by type (success, warning, error, info)?
+- Are they visually distinct (color + icon)?
+- Can error and warning notifications be dismissed only manually (not auto-dismiss)?
+- Are success notifications auto-dismissed after a reasonable duration (3-5 seconds)?
+- Do notifications with actions (e.g., "Undo") persist until the action window closes?
+
+Severity: Minor
+
+RULE NF4 — Background process status must be visible
+
+When processes run in the background (batch processing, exports, approvals), users must know they are happening.
+
+What to look for:
+- Is there a visible indicator of background processes (progress bar, status panel)?
+- Can users continue other work while background processes run?
+- Are users notified when background processes complete or fail?
+- Is there a history of background operations?
+
+Severity: Major
+
+---
+
+# 14. Modal and Dialog Rules
+
+RULE MD1 — Modals must be used sparingly and purposefully
+
+What to look for:
+- Are modals used only for focused, self-contained tasks (confirmation, quick data entry)?
+- Are complex workflows in modals avoided (modals should not contain scrollable forms or multi-step processes)?
+- Can the user understand the modal's purpose from its title?
+- Is the modal's relationship to the parent context clear?
+
+Severity: Major
+
+RULE MD2 — Confirmation modals must be specific
+
+What to look for:
+- Does the modal title state the action ("Reject Claim" not "Confirm")?
+- Does the body describe the specific consequences?
+- Are the action buttons labeled with verbs ("Reject Claim" / "Cancel") not ("Yes" / "No")?
+- Is the destructive action visually distinct (red) and not the default/primary action?
+
+Good: Title: "Reject Claim #4821". Body: "The customer will be notified by email. This cannot be undone." Buttons: [Cancel] [Reject Claim] (red).
+Bad: Title: "Confirm". Body: "Are you sure?" Buttons: [No] [Yes].
+
+Severity: Critical
+
+RULE MD3 — Modal focus and dismissal must be predictable
+
+What to look for:
+- Does focus move into the modal when it opens?
+- Is focus trapped within the modal (Tab does not go to the background)?
+- Does Escape close the modal?
+- Does clicking the backdrop close the modal (for non-destructive modals only)?
+- Does closing the modal return focus to the triggering element?
+- Is background content dimmed and non-interactive?
+
+Severity: Major
+
+---
+
+# 15. Empty and Loading State Rules
+
+RULE EL1 — Empty states must guide the user
+
+What to look for:
+- Does the empty state explain why there is no data?
+- Does it differentiate between "no data exists" vs "no data matches your filters"?
+- Does it suggest a next action?
+- Is the empty state visually distinct from an error state?
+
+Good: "No cases assigned to you. Check the unassigned queue or adjust your filters."
+Bad: A blank white area with no text. Or worse: a broken layout because the UI assumed data would exist.
+
+Severity: Minor
+
+RULE EL2 — Loading states must not be confused with empty states
+
+What to look for:
+- Is there a clear visual difference between "loading" (spinner/skeleton) and "empty" (message)?
+- Does the loading state appear quickly (no flash of empty content)?
+- Are skeleton screens used for page loads to indicate the expected layout?
+
+Severity: Major
+
+RULE EL3 — Error states must be clearly different from empty and loading states
+
+What to look for:
+- Is a failed data load clearly identified as an error (not shown as "no results")?
+- Is there a retry option?
+- Is the error message helpful (see Error Handling Rules)?
+
+Severity: Critical — confusing an error with an empty state can cause operational failures (user assumes no records when the system simply failed to load them).
+
+---
+
+# 16. Dashboard and Summary View Rules
+
+RULE DS1 — Dashboards must prioritize actionable information
+
+What to look for:
+- Do KPIs and metrics show information the user can act on?
+- Are drill-down links provided from summary numbers to the underlying records?
+- Is the refresh rate or data freshness indicated ("Last updated: 5 minutes ago")?
+- Are targets, thresholds, and trends visible (not just current values)?
+
+Good: "Pending Approvals: 47 (12 overdue SLA)" with a link to the filtered queue.
+Bad: "Total Records: 4,821" — a number the user cannot act on.
+
+Severity: Major
+
+RULE DS2 — Dashboards must support operational decision-making
+
+What to look for:
+- Do charts and visualizations answer a specific operational question?
+- Are chart types appropriate for the data (bar for comparison, line for trends, table for detail)?
+- Can users interact with charts (filter, drill down, hover for details)?
+- Is the time range selectable?
+- Are comparative benchmarks shown (vs. yesterday, vs. target, vs. team average)?
+
+Severity: Major
+
+RULE DS3 — Dashboards must not overload with metrics
+
+What to look for:
+- Are there fewer than 7-10 KPIs on a single dashboard view?
+- Are metrics grouped by concern (my queue, team performance, system health)?
+- Can users customize which metrics they see?
+- Is there a clear hierarchy (primary KPIs large, secondary KPIs smaller)?
+
+Severity: Minor
+
+---
+
+# 17. Automation Transparency Rules
+
+RULE AT1 — Automated decisions must be explained
+
+When the system automatically categorizes, scores, routes, or flags records, users must understand what happened and why.
+
+What to look for:
+- Is there a visible indicator that a decision was made by the system (not a human)?
+- Is the reasoning accessible (e.g., "Auto-flagged: transaction amount exceeds $10,000")?
+- Can the user override the automated decision?
+- Is the automation source identified (which rule, model, or system)?
+
+Good: "Auto-routed to High-Risk Queue. Reason: Transaction amount ($45,000) exceeds threshold ($10,000) and customer is flagged for enhanced due diligence."
+Bad: Case appears in the high-risk queue with no explanation of how it got there.
+
+Severity: Major
+
+RULE AT2 — AI and ML outputs must include confidence and source
+
+When AI/ML models produce scores, classifications, or recommendations, the output must be transparent.
+
+What to look for:
+- Is a confidence level shown (score, percentage, high/medium/low)?
+- Is the model or algorithm identified?
+- Are the input factors visible (what data influenced the score)?
+- Is there a clear distinction between model output and human decision?
+- Can the user override the model's recommendation?
+
+Good: "Risk Score: 78/100 (High). Contributing factors: transaction velocity (+25), new account (+20), cross-border (+18), amount (+15). Model: Fraud Detection v3.2. [Override Score]"
+Bad: A red "HIGH RISK" badge with no explanation of how the score was calculated.
+
+Severity: Major
+
+RULE AT3 — Auto-populated and derived fields must be identifiable
+
+What to look for:
+- Can the user distinguish between values they entered and values the system computed or populated?
+- Are auto-filled fields marked (e.g., a "calculated" icon or "auto" label)?
+- Can auto-filled values be overridden with an audit trail of the override?
+
+Severity: Minor
+
+---
+
+# 18. Auditability Rules
+
+RULE AU1 — Record change history must be accessible
+
+In regulated environments, every change to a record may need to be auditable.
+
+What to look for:
+- Is there a visible audit log or change history for each record?
+- Does the history show who, what, when, and why for each change?
+- Is the history accessible from the record detail screen (not a separate system)?
+- Are automated actions logged with the same detail as human actions?
+
+Good: "Activity" tab on the case detail screen showing: "Mar 7, 14:32 — Jane Smith changed status from 'Under Review' to 'Approved'. Reason: 'Documentation complete, within policy limits.'"
+Bad: No change history visible. Changes tracked only in database logs inaccessible to the UI user.
+
+Severity: Major
+
+RULE AU2 — User identity must be captured for every action
+
+What to look for:
+- Is the acting user recorded for every state change?
+- Is delegation or impersonation clearly tracked?
+- Are system/automated actions distinguished from user actions?
+
+Severity: Major
+
+RULE AU3 — Approval chains and sign-off must be visible
+
+What to look for:
+- Can users see who approved each step in a multi-step approval process?
+- Are pending approvals clearly identified (who needs to approve next)?
+- Are approval timestamps visible?
+- Is the approval hierarchy or authority level clear?
+
+Severity: Major
+
+---
+
+# 19. Help and Guidance Rules
+
+RULE HG1 — Inline guidance must exist for complex or ambiguous fields
+
+What to look for:
+- Do complex fields have helper text visible beneath the field?
+- Is the helper text concise and actionable?
+- Are format expectations made clear ("10-digit number", "USD amount")?
+- Are business rules explained inline ("Amounts over $50,000 require manager approval")?
+
+Severity: Minor
+
+RULE HG2 — Contextual help must be layered
+
+Help should be available at increasing levels of detail:
+
+Layer 1 — Inline hints: visible helper text beneath fields
+Layer 2 — Tooltips: on hover/focus for labels and icons
+Layer 3 — Help panel: a slide-out panel with detailed guidance for the current screen
+Layer 4 — Documentation: searchable knowledge base for complex procedures
+
+What to look for:
+- Are at least Layers 1 and 2 present?
+- Is Layer 3 available for complex workflows?
+- Does help content match the current screen context?
+
+Severity: Minor
+
+RULE HG3 — Help must not require leaving the workflow
+
+What to look for:
+- Does clicking help open a panel or overlay within the application (not a new browser tab)?
+- Is the user's form state preserved when accessing help?
+- Can the user see both the help content and the form simultaneously?
+
+Severity: Major
+
+RULE HG4 — First-time and infrequent task guidance
+
+What to look for:
+- Are guided tours or walkthroughs available for new users?
+- Are rarely-used features accompanied by sufficient inline guidance?
+- Can users re-access onboarding content from the help menu?
+- Are new features highlighted with a non-intrusive indicator (badge, tooltip)?
+
+Severity: Minor
+
+---
+
+# 20. Performance UX Rules
+
+RULE PF1 — UI interactions must feel responsive
+
+What to look for:
+- Do button clicks produce immediate visual feedback (loading state, disabled state)?
+- Do form submissions show a progress indicator within 200ms?
+- Do page navigations complete in under 2 seconds?
+- Do data tables load in under 3 seconds for typical dataset sizes?
+- Is there a perception of speed (skeleton screens, optimistic updates)?
+
+Severity: Major
+
+RULE PF2 — Long operations must show progress
+
+What to look for:
+- For operations over 3 seconds, is a progress bar shown (not just a spinner)?
+- Is the progress indicator determinate when possible (X of Y, percentage)?
+- Can users cancel long-running operations?
+- Are users informed if an operation is taking longer than expected?
+
+Severity: Major
+
+RULE PF3 — The UI must remain usable during background operations
+
+What to look for:
+- Can users interact with other parts of the UI while a save or submit is processing?
+- Are buttons disabled after click to prevent double-submission?
+- Does the UI gracefully handle rapid successive actions?
+
+Severity: Major
+
+---
+
+# 21. Workflow Continuity Rules
+
+RULE WC1 — User context must persist across navigation
+
+What to look for:
+- Are search queries retained when returning to a list?
+- Are filter selections retained?
+- Is pagination position retained?
+- Is sort order retained?
+- Is scroll position restored?
+
+Good: User filters the queue to "Pending + Assigned to me", opens case #4821, reviews it, clicks "Back to Queue" — the filter, sort, and scroll position are exactly as they left them.
+Bad: Every "Back" action resets to the default unfiltered view.
+
+Severity: Major
+
+RULE WC2 — Unsaved changes must be protected
+
+What to look for:
+- Does navigating away from a form with unsaved changes trigger a warning?
+- Is the warning specific ("You have unsaved changes to the case notes")?
+- Is auto-save implemented where appropriate?
+- Is accidental browser close/refresh handled?
+
+Severity: Major
+
+RULE WC3 — Multi-tab and multi-window workflows must be supported
+
+Enterprise users commonly work across multiple records simultaneously.
+
+What to look for:
+- Can users open records in new tabs?
+- Does each tab maintain its own state?
+- Are session conflicts handled (two tabs editing the same record)?
+- Is optimistic locking or conflict detection implemented?
+
+Severity: Major
+
+---
+
+# 22. Cognitive Load Rules
+
+RULE CG1 — Screens must not overload users with information
+
+What to look for:
+- Are there more than 15-20 visible fields or data points on a single screen?
+- Are progressive disclosure techniques used (expand/collapse, tabs, accordions)?
+- Is information grouped into digestible sections?
+- Are secondary details hidden by default?
+
+Good: Key case fields visible at the top. "Additional Details" section collapsed by default. Tabs for "Documents", "Notes", "History".
+Bad: 40+ fields on a single scrolling page with no grouping, no tabs, no collapse sections.
+
+Severity: Major
+
+RULE CG2 — Decision complexity must be managed
+
+When users must choose between options, the UI must help them evaluate.
+
+What to look for:
+- Are comparison views available when choosing between options?
+- Are recommendation or ranking indicators shown?
+- Is the number of options manageable (fewer than 7 for quick decisions)?
+- Are defaults suggested for common cases?
+
+Severity: Major
+
+RULE CG3 — Terminology and patterns must be consistent to reduce learning burden
+
+What to look for:
+- Is the same concept always called the same thing?
+- Do similar screens follow the same layout pattern?
+- Are action buttons in the same position across screens?
+- Do similar workflows follow the same steps?
+
+Severity: Major — inconsistency forces users to re-learn patterns on every screen.
+
+---
+
+# 23. Accessibility Rules
+
+RULE AC1 — UI must support full keyboard navigation
+
+What to look for:
+- Can all interactive elements be reached via Tab?
+- Is the tab order logical (follows visual layout)?
+- Can dropdown menus, modals, and dialogs be operated with keyboard?
+- Is the focused element visually indicated (focus ring)?
+- Are keyboard shortcuts available for frequent actions?
+- Are skip-navigation links available?
+
+Severity: Major
+
+RULE AC2 — Color must not be the only information carrier
+
+What to look for:
+- Is status conveyed through text/icons in addition to color?
+- Are error states indicated by more than a red border (icon, text, position)?
+- Are charts accessible to color-blind users (patterns, labels, not just color)?
+- Does the UI meet WCAG 2.1 AA contrast ratios?
+
+Good: Error field has red border + error icon + error text message.
+Bad: Error field has only a red border with no text explanation.
+
+Severity: Major
+
+RULE AC3 — Screen reader support must be functional
+
+What to look for:
+- Are meaningful ARIA labels applied to interactive elements?
+- Are form fields properly labeled (associated label elements)?
+- Are status changes announced to screen readers (aria-live regions)?
+- Are images and icons given appropriate alt text or aria-hidden?
+- Are data tables properly structured with headers?
+
+Severity: Major
+
+RULE AC4 — Touch targets must be adequately sized
+
+What to look for:
+- Are interactive elements at least 44x44 pixels?
+- Is there adequate spacing between adjacent interactive elements?
+- Are small checkboxes and radio buttons wrapped in larger clickable areas?
+
+Severity: Minor
+
+---
+
+# 24. Role and Permission UI Rules
+
+RULE RP1 — Unauthorized actions must be visibly constrained
+
+What to look for:
+- Are actions the user cannot perform disabled (not hidden, unless hiding is a security requirement)?
+- Do disabled actions explain why ("You do not have approval authority for amounts over $50,000")?
+- Is the user's role or permission level visible in the UI?
+- Are restricted fields read-only with a clear indicator?
+
+Good: "Approve" button disabled. Tooltip: "Approval requires Compliance Officer role. Contact your administrator."
+Bad: "Approve" button visible and clickable, but clicking it produces an error: "Permission denied."
+
+Severity: Major
+
+RULE RP2 — Role-specific views must show relevant information
+
+What to look for:
+- Does the UI adapt to show information relevant to the user's role?
+- Are role-specific actions available without irrelevant options?
+- Is sensitive information restricted based on permissions (PII masking, field-level access control)?
+
+Severity: Major
+
+---
+
+# 25. Consistency and Pattern Rules
+
+RULE CP1 — Component patterns must be consistent across the application
+
+What to look for:
+- Are buttons, forms, tables, modals, and notifications consistently styled?
+- Is the same component library or design system used throughout?
+- Do similar interactions produce similar results?
+- Are spacing, typography, and color palettes consistent?
+
+Severity: Major
+
+RULE CP2 — Behavioral consistency must be maintained
+
+What to look for:
+- Do similar actions work the same way across modules (save, cancel, delete)?
+- Is the confirmation behavior consistent (same types of actions always/never trigger confirmation)?
+- Do error messages follow the same format?
+- Is terminology consistent (not "Save" on one screen and "Update" on another for the same action)?
+
+Severity: Major
+
+RULE CP3 — Layout consistency must be maintained across similar screens
+
+What to look for:
+- Are list views structured the same way across modules?
+- Are detail views structured the same way (header, content, actions in the same positions)?
+- Is the navigation structure consistent?
+- Are filter and search patterns consistent?
+
+Severity: Major
+
+---
+
+# 26. Data Visualization Rules
+
+RULE DV1 — Charts must answer an operational question
+
+What to look for:
+- Does each chart have a clear title stating what question it answers?
+- Is the chart type appropriate for the data?
+- Are axes labeled with units?
+- Is the time range clear and adjustable?
+- Can users drill down from chart elements to underlying data?
+
+Severity: Major
+
+RULE DV2 — Visualizations must be accessible and readable
+
+What to look for:
+- Are colors distinguishable for color-blind users?
+- Are data values shown on hover or directly on the chart?
+- Are legends clear and positioned near the chart?
+- Is text large enough to read?
+- Are alternative representations available (table view toggle)?
+
+Severity: Minor
+
+---
+
+# 27. Search and Discovery Rules
+
+RULE SD1 — Search must be available and effective
+
+What to look for:
+- Is a global search available from every screen?
+- Does search cover the entities users need to find (cases, customers, transactions)?
+- Are search results relevant and ranked?
+- Is the search scope clear (searching within current module or globally)?
+- Do search results show enough context to identify the right record without clicking?
+
+Severity: Major
+
+RULE SD2 — Search must support operational patterns
+
+What to look for:
+- Can users search by common identifiers (case number, customer ID, phone number, account number)?
+- Are partial matches supported?
+- Are recent searches or saved searches available?
+- Can search be combined with filters?
+
+Severity: Major
+
+---
+
+# 28. Print, Export, and Offline Rules
+
+RULE PE1 — Export functionality must be available for operational data
+
+What to look for:
+- Can users export table data to CSV, Excel, or PDF?
+- Does the export include currently applied filters and sort order?
+- Are export limitations clear (maximum rows, date range restrictions)?
+- Is export access controlled based on user role and data sensitivity?
+
+Severity: Minor — Major if regulatory reporting depends on it.
+
+RULE PE2 — Print layouts must be functional
+
+What to look for:
+- Do printed pages include record identifiers and timestamps?
+- Are print layouts clean (no navigation, no sidebars)?
+- Is the print layout tested for common paper sizes?
+
+Severity: Minor
+
+---
+
+# 29. Evaluation Output Format
+
+The evaluating agent must produce the following structured report.
+
+---
+
+## Enterprise UI Evaluation Report
+
+### Metadata
+
+- Application: [application name]
+- Module/Screen: [specific screen or workflow evaluated]
+- Evaluator: [agent or human identifier]
+- Evaluation Date: [date]
+- Input Provided: [screenshots / HTML / walkthrough / etc.]
+- Evaluation Limitations: [what could not be fully evaluated and why]
+
+### Overall Assessment
+
+Overall Score: X.X / 5.0
+Verdict: [Excellent | Good | Acceptable | Problematic | Poor]
+
+One-paragraph summary of the overall UX quality, highlighting the most impactful strengths and the most critical deficiencies.
+
+### Category Scores
+
+| Category                        | Score | Key Findings                                                  |
+|---------------------------------|-------|---------------------------------------------------------------|
+| Workflow State (WS)             | X/5   | [1-line summary]                                              |
+| Action Design (AD)              | X/5   | [1-line summary]                                              |
+| Information Hierarchy (IH)      | X/5   | [1-line summary]                                              |
+| Form Design (FD)                | X/5   | [1-line summary]                                              |
+| Copy and Labels (CL)           | X/5   | [1-line summary]                                              |
+| Error Handling (ER)             | X/5   | [1-line summary]                                              |
+| Navigation (NV)                 | X/5   | [1-line summary]                                              |
+| Data Tables (DT)                | X/5   | [1-line summary]                                              |
+| Notifications/Feedback (NF)     | X/5   | [1-line summary]                                              |
+| Modals/Dialogs (MD)             | X/5   | [1-line summary]                                              |
+| Empty/Loading States (EL)       | X/5   | [1-line summary]                                              |
+| Dashboard/Summary (DS)          | X/5   | [1-line summary]                                              |
+| Automation Transparency (AT)    | X/5   | [1-line summary]                                              |
+| Auditability (AU)               | X/5   | [1-line summary]                                              |
+| Help/Guidance (HG)              | X/5   | [1-line summary]                                              |
+| Performance UX (PF)             | X/5   | [1-line summary]                                              |
+| Workflow Continuity (WC)        | X/5   | [1-line summary]                                              |
+| Cognitive Load (CG)             | X/5   | [1-line summary]                                              |
+| Accessibility (AC)              | X/5   | [1-line summary]                                              |
+| Role/Permission UI (RP)         | X/5   | [1-line summary]                                              |
+| Consistency (CP)                | X/5   | [1-line summary]                                              |
+| Data Visualization (DV)         | X/5   | [1-line summary]                                              |
+| Search/Discovery (SD)           | X/5   | [1-line summary]                                              |
+| Print/Export (PE)               | X/5   | [1-line summary]                                              |
+
+Mark categories that could not be evaluated as "N/E" with a note on what input would be needed.
+
+### Violations
+
+List every identified violation in severity order (Critical first, then Major, then Minor).
+
+For each violation:
+
+| Field           | Value                                                              |
+|-----------------|--------------------------------------------------------------------|
+| Rule            | [Rule ID, e.g., AD3]                                               |
+| Severity        | [Critical / Major / Minor]                                         |
+| Description     | [What is the violation? Be specific. Reference the screen element.] |
+| Evidence        | [Where on the screen? Quote the label, describe the layout.]       |
+| Impact          | [What operational risk does this create?]                          |
+| Recommendation  | [Specific, actionable suggestion to fix it.]                       |
+
+### Strengths
+
+List 3-5 things the UI does well, with specific rule IDs they satisfy.
+
+### Priority Recommendations
+
+Rank the top 5 improvements by impact:
+
+1. [Highest impact fix — rule ID, what to change, expected benefit]
+2. [Second highest]
+3. [Third]
+4. [Fourth]
+5. [Fifth]
+
+### Not Evaluable
+
+List any rule categories or specific rules that could not be evaluated from the provided input, along with what additional input or access would be needed.
+
+---
+
+# 30. Heuristic Summary
+
+A well-designed enterprise UI allows a user to instantly answer:
+
+1. **What is this record?** — Identity and context are immediately visible.
+2. **What state is it in?** — Status, workflow stage, and ownership are unambiguous.
+3. **What matters most right now?** — Critical decision information is prominent.
+4. **What action can I take?** — Available actions are explicit, prioritized, and safe.
+5. **What will happen if I take it?** — Consequences are clear before commitment.
+6. **What happened before I got here?** — History and audit trail are accessible.
+7. **Where am I?** — Current location in the application is always clear.
+8. **How did the system reach this conclusion?** — Automated decisions are explained.
+9. **What is expected of me?** — My responsibilities and deadlines are visible.
+10. **How do I get help?** — Guidance is available without leaving my workflow.
+
+If a user hesitates on any of these questions, the UI has a gap.
+
+---
+
+# Appendix A: Rule Quick Reference
+
+| Rule ID | Rule Name                                           | Severity |
+|---------|-----------------------------------------------------|----------|
+| WS1     | Workflow state must be visible                      | Critical |
+| WS2     | Next action must be obvious                         | Critical |
+| WS3     | Ownership must be visible                           | Major    |
+| WS4     | Workflow progression must be explicit               | Major    |
+| WS5     | Status transitions must be understandable           | Major    |
+| WS6     | SLA and deadline visibility                         | Major    |
+| AD1     | Actions must use explicit verbs                     | Major    |
+| AD2     | Primary action must be visually distinguished       | Major    |
+| AD3     | Destructive actions must be separated and guarded   | Critical |
+| AD4     | Action availability must reflect current state      | Major    |
+| AD5     | Bulk actions must be explicit and guarded           | Critical |
+| IH1     | Critical decision info must appear first            | Major    |
+| IH2     | Visual hierarchy must guide attention               | Major    |
+| IH3     | Lists and queues must support scanning              | Major    |
+| IH4     | Summary and detail views clearly separated          | Major    |
+| FD1     | Forms must follow domain logic                      | Major    |
+| FD2     | Required fields must be indicated                   | Major    |
+| FD3     | Known values should be prefilled                    | Minor    |
+| FD4     | Complex fields must include examples                | Minor    |
+| FD5     | Multi-step forms must support save and resume       | Major    |
+| FD6     | Inline validation must be timely and specific       | Major    |
+| CL1     | Use domain language consistently                    | Major    |
+| CL2     | Avoid playful or marketing language                 | Minor    |
+| CL3     | Labels must be concise but unambiguous              | Minor    |
+| CL4     | Avoid exposing system internals                     | Major    |
+| CL5     | Instructional text must be action-oriented          | Minor    |
+| ER1     | Error messages must explain resolution              | Critical |
+| ER2     | Prevent errors through UI constraints               | Critical |
+| ER3     | Warn before irreversible actions                    | Critical |
+| ER4     | System errors must not expose technical details     | Critical |
+| ER5     | Partial failures must be communicated               | Major    |
+| NV1     | Users must always know where they are               | Major    |
+| NV2     | Navigation must be consistent                       | Major    |
+| NV3     | Deep-link and bookmark support                      | Major    |
+| NV4     | Cross-entity navigation must preserve context       | Major    |
+| DT1     | Tables must support sorting                         | Major    |
+| DT2     | Tables must support filtering and search            | Major    |
+| DT3     | Column density must match operational needs         | Minor    |
+| DT4     | Tables must handle large datasets                   | Major    |
+| DT5     | Row selection and bulk actions must be clear         | Major    |
+| DT6     | Empty tables must be informative                    | Minor    |
+| NF1     | Action feedback must be immediate and specific      | Major    |
+| NF2     | Loading states must be visible and informative      | Major    |
+| NF3     | Toast and banner notifications categorized          | Minor    |
+| NF4     | Background process status must be visible           | Major    |
+| MD1     | Modals must be used sparingly                       | Major    |
+| MD2     | Confirmation modals must be specific                | Critical |
+| MD3     | Modal focus and dismissal must be predictable       | Major    |
+| EL1     | Empty states must guide the user                    | Minor    |
+| EL2     | Loading vs empty states must be distinguishable     | Major    |
+| EL3     | Error states distinct from empty and loading        | Critical |
+| DS1     | Dashboards must prioritize actionable info          | Major    |
+| DS2     | Dashboards must support decision-making             | Major    |
+| DS3     | Dashboards must not overload with metrics           | Minor    |
+| AT1     | Automated decisions must be explained               | Major    |
+| AT2     | AI/ML outputs must include confidence and source    | Major    |
+| AT3     | Auto-populated fields must be identifiable          | Minor    |
+| AU1     | Record change history must be accessible            | Major    |
+| AU2     | User identity captured for every action             | Major    |
+| AU3     | Approval chains must be visible                     | Major    |
+| HG1     | Inline guidance for complex fields                  | Minor    |
+| HG2     | Contextual help must be layered                     | Minor    |
+| HG3     | Help must not require leaving the workflow          | Major    |
+| HG4     | First-time and infrequent task guidance              | Minor    |
+| PF1     | UI interactions must feel responsive                | Major    |
+| PF2     | Long operations must show progress                  | Major    |
+| PF3     | UI must remain usable during background ops         | Major    |
+| WC1     | User context must persist across navigation         | Major    |
+| WC2     | Unsaved changes must be protected                   | Major    |
+| WC3     | Multi-tab workflows must be supported               | Major    |
+| CG1     | Screens must not overload users                     | Major    |
+| CG2     | Decision complexity must be managed                 | Major    |
+| CG3     | Terminology and patterns must be consistent         | Major    |
+| AC1     | Full keyboard navigation                            | Major    |
+| AC2     | Color must not be the only signal                   | Major    |
+| AC3     | Screen reader support                               | Major    |
+| AC4     | Touch targets must be adequately sized              | Minor    |
+| RP1     | Unauthorized actions must be visibly constrained    | Major    |
+| RP2     | Role-specific views must show relevant info         | Major    |
+| CP1     | Component patterns must be consistent               | Major    |
+| CP2     | Behavioral consistency                              | Major    |
+| CP3     | Layout consistency across similar screens           | Major    |
+| DV1     | Charts must answer an operational question          | Major    |
+| DV2     | Visualizations must be accessible                   | Minor    |
+| SD1     | Search must be available and effective              | Major    |
+| SD2     | Search must support operational patterns            | Major    |
+| PE1     | Export functionality for operational data            | Minor    |
+| PE2     | Print layouts must be functional                    | Minor    |
+
+---
+
+# Appendix B: Evaluation Checklist (Quick Pass)
+
+Use this for rapid first-pass evaluation. Answer Yes/No for each:
+
+- [ ] Can I immediately tell what this screen is for?
+- [ ] Can I see the current status/state of the record?
+- [ ] Do I know who owns this record?
+- [ ] Can I see what action I should take next?
+- [ ] Is the primary action button clearly distinguished?
+- [ ] Are destructive actions visually separated and guarded?
+- [ ] Is the most important information visible without scrolling?
+- [ ] Are labels clear and domain-appropriate?
+- [ ] Are required fields marked?
+- [ ] Do error messages explain what to do?
+- [ ] Can I navigate back without losing context?
+- [ ] Can I sort and filter data tables?
+- [ ] Does the UI show loading states vs empty states clearly?
+- [ ] Is feedback shown after every action?
+- [ ] Can I access help without leaving the screen?
+- [ ] Is keyboard navigation supported?
+- [ ] Are automated decisions explained?
+- [ ] Is there an audit trail visible?
+- [ ] Is the layout consistent with other screens in the app?
+- [ ] Can I tell at a glance if items are overdue or urgent?

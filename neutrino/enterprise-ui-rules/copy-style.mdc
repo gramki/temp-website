@@ -1,0 +1,1074 @@
+
+# Enterprise Workflow UI Copy and Help Style Rules
+
+file: copy-style.mdc
+version: 2.0
+purpose: Comprehensive rules for AI agents to evaluate and enforce consistent, clear, professional language in enterprise workflow applications.
+
+---
+
+# 0. Agent Instructions
+
+You are an enterprise UI copy evaluation agent. Your job is to review every piece of user-facing text in an enterprise application — labels, buttons, headings, helper text, error messages, tooltips, confirmations, notifications, empty states, status messages, and instructional text — and evaluate it for clarity, professionalism, consistency, and operational fitness.
+
+## 0.1 What You Will Receive
+
+You may receive one or more of the following:
+- screenshots of UI screens
+- a copy inventory (extracted text strings)
+- HTML/DOM content containing UI text
+- design files (Figma, Sketch) with text layers
+- a string file or localization file (JSON, YAML, .properties)
+- user journey narratives with screenshots at each step
+- error message catalogs
+
+## 0.2 How to Conduct the Evaluation
+
+Step 1 — Identify the application domain (banking, insurance, compliance, etc.) and the expected vocabulary
+Step 2 — Identify the user personas (operators, reviewers, administrators, customers)
+Step 3 — Catalog all user-facing text by type (labels, buttons, errors, helpers, headings, notifications, empty states, tooltips, status messages)
+Step 4 — Evaluate each text element against the rules in this document
+Step 5 — Check cross-screen consistency (same concept always called the same thing)
+Step 6 — Record violations with rule ID, severity, the exact text, and a concrete rewrite
+Step 7 — Produce the structured report defined in the Evaluation Output section
+
+## 0.3 Evaluation Principles
+
+- Evaluate from the perspective of a repeat expert user under time pressure.
+- Enterprise copy must be functional, not delightful. It should reduce hesitation, not entertain.
+- Consistency is paramount. A single term used inconsistently across screens creates more confusion than a suboptimal term used consistently.
+- Every piece of text should earn its place. If removing it doesn't reduce comprehension, remove it.
+- Always provide a concrete rewrite, not just a criticism.
+
+## 0.4 Handling Partial Information
+
+If you receive only screenshots:
+- You CAN evaluate: label clarity, button text, error message quality, tone, visual placement of text, information density.
+- You CANNOT fully evaluate: tooltip content (unless hovered), full placeholder behavior, dynamic text variations, localization quality.
+- Note limitations in your report.
+
+---
+
+# 1. Purpose
+
+These rules guide how all user-facing text should be written, evaluated, and maintained for enterprise workflow applications.
+
+This includes:
+- field labels and column headers
+- button and action text
+- headings and page titles
+- helper text and field descriptions
+- error messages and validation text
+- tooltips and inline hints
+- confirmation dialogs
+- toast and banner notifications
+- empty state messages
+- loading and progress messages
+- status labels and workflow state text
+- instructional and onboarding text
+- notification content (email, in-app)
+- search result summaries
+- accessibility text (aria-labels, alt text)
+
+The goal is to produce copy that:
+- helps users act correctly and confidently
+- reduces hesitation at decision points
+- lowers training cost for new users
+- eliminates ambiguity that could cause operational errors
+- maintains a consistent professional voice across the application
+- supports auditability and regulatory compliance
+- is accessible to non-native speakers and screen reader users
+
+---
+
+# 2. Tone and Voice Rules
+
+RULE CT1 — Use a professional, neutral, direct tone
+
+Enterprise software is used under pressure in regulated environments. The tone must inspire confidence, not casualness.
+
+Preferred tone qualities:
+- **Direct** — say what happened and what to do
+- **Factual** — state facts, not feelings
+- **Calm** — no urgency theater, no excitement
+- **Respectful** — assume the user is competent
+- **Precise** — use exact language, not vague terms
+
+What to look for:
+- Are success messages informative rather than celebratory?
+- Are error messages factual rather than apologetic or playful?
+- Is the tone consistent across all screens and states?
+- Does the copy avoid exclamation marks outside of critical warnings?
+
+Good: "Application submitted successfully. Reference: APP-2026-4821."
+Bad: "Great news! You're all set! 🎉"
+
+Good: "Unable to load transaction history. Try refreshing the page."
+Bad: "Whoops! Something went sideways. Don't worry, we're on it! 😅"
+
+Severity: Minor — unless the tone undermines trust in a regulated or high-stakes context, then Major.
+
+RULE CT2 — Do not anthropomorphize the system
+
+The system is a tool, not a colleague. Avoid first-person pronouns for the system and language that gives the system human qualities.
+
+What to look for:
+- Does the UI use "we" to refer to the system ("We couldn't find your data")?
+- Does it use emotional language for system states ("Oops, we had trouble", "I'm thinking...")?
+- Does it use playful metaphors for errors ("Looks like something broke!")?
+
+Good: "Unable to load transaction history. Retry or contact support."
+Bad: "We're having trouble finding your transactions. We'll keep trying!"
+
+Good: "Processing your request."
+Bad: "Hang tight! I'm working on it."
+
+Severity: Minor
+
+RULE CT3 — Avoid urgency theater and artificial emphasis
+
+Reserve emphasis for genuinely critical information. When everything is bold/red/exclamatory, nothing is.
+
+What to look for:
+- Are warning indicators reserved for genuine warnings?
+- Are exclamation marks used sparingly and only for critical alerts?
+- Is color-coded emphasis meaningful (red = error, yellow = warning) and not decorative?
+- Are uppercase labels reserved for critical system states, not routine text?
+
+Good: "⚠ SLA breach in 2 hours. Escalation will occur automatically."
+Bad: "URGENT!!! ACT NOW!!! YOUR CASE IS WAITING!!!"
+
+Severity: Minor
+
+RULE CT4 — Maintain tonal consistency across all states
+
+The voice should feel like it comes from the same application whether the user is seeing a success, an error, an empty state, or a help message.
+
+What to look for:
+- Is the tone equally professional in error states as in success states?
+- Does the empty state copy match the formality of the rest of the application?
+- Are system messages consistent in structure (same sentence patterns, same level of detail)?
+
+Severity: Minor
+
+---
+
+# 3. Terminology and Vocabulary Rules
+
+RULE CV1 — Use domain-specific language, not generic software terms
+
+Labels and messages must use the vocabulary of the business domain, not internal system terms, programmer jargon, or generic software language.
+
+What to look for:
+- Do labels use terms the user says out loud in their daily work?
+- Are database or API names exposed to the user (entity, payload, object, resource, record)?
+- Are generic terms used where specific terms exist ("item" instead of "claim", "thing" instead of "transaction")?
+
+Good: "Dispute Case", "Settlement Amount", "Clearing Date", "Beneficiary Account"
+Bad: "Entity", "Object", "Resource", "Payload", "Data Element", "Record"
+
+Good: "Submit for Compliance Review"
+Bad: "Execute Process"
+
+Severity: Major
+
+RULE CV2 — Use one consistent term per concept throughout the application
+
+When the same concept is called different things on different screens, users waste time determining if they're the same thing.
+
+What to look for:
+- Is the same entity called the same thing everywhere (not "Customer" on one screen, "Client" on another, "Account Holder" on a third)?
+- Are action verbs consistent (not "Save" on one screen and "Update" on another for the same operation)?
+- Are status labels consistent (not "Pending" on one screen and "Awaiting Review" on another for the same state)?
+- Is there evidence of a shared vocabulary or glossary being followed?
+
+How to check: Look for every instance where a core business concept appears and verify the exact term is identical.
+
+Good: "Merchant" is used everywhere — sidebar, tables, forms, headers, notifications.
+Bad: "Merchant" on the list page, "Vendor" on the detail page, "Seller" in notifications, "MER" in the status bar.
+
+Severity: Major
+
+RULE CV3 — Define abbreviations and acronyms on first use
+
+What to look for:
+- Are abbreviations defined in a tooltip or parenthetical on first use?
+- Are only widely understood abbreviations used without definition?
+- Is a glossary accessible from the application?
+
+Good: "KYC (Know Your Customer) Review" with a tooltip on "KYC" explaining the term.
+Bad: "FDR-KYB-AML Review" with no expansion of any acronym.
+
+Severity: Minor — Major if abbreviations are used for decision-critical fields.
+
+RULE CV4 — Units and formats must be explicit
+
+What to look for:
+- Are currency labels included ("Amount (USD)" not just "Amount")?
+- Are date formats explicit or unambiguous ("Mar 8, 2026" not "03/08/26")?
+- Are time zones indicated where relevant ("Submitted: Mar 8, 2026, 14:32 EST")?
+- Are measurement units included ("Duration (days)", "File Size (MB)")?
+
+Good: "Settlement Amount (USD): $12,450.00" and "Filing Date: Mar 8, 2026"
+Bad: "Amount: 12450" and "Date: 03/08/26"
+
+Severity: Major — ambiguous units can cause operational errors (wrong currency, wrong date interpretation).
+
+---
+
+# 4. Label Rules
+
+RULE CLB1 — Labels must be concise: 1-4 words preferred
+
+What to look for:
+- Are labels short and scannable?
+- Do labels avoid unnecessary prepositions and articles?
+- Are labels phrased as nouns or noun phrases (not sentences)?
+- Can the label be read and understood in under 1 second?
+
+Good: "Settlement Date", "Risk Score", "Assigned To", "Claim Amount"
+Bad: "The Date When Settlement Was Made", "Overall Risk Assessment Score Value"
+
+Severity: Minor
+
+RULE CLB2 — Labels must match the user's mental model
+
+Labels should use the terms users think in, not the terms engineers or database designers use.
+
+What to look for:
+- Would a new hire in this role understand the label after minimal training?
+- Are labels validated against the language used in standard operating procedures?
+- Do labels match the terms used in the domain's regulatory framework?
+
+Good: "Merchant ID" — the term every operator uses.
+Bad: "Identifier Value" — technically accurate but meaningless to an operator.
+
+Good: "Beneficiary Account" — standard banking term.
+Bad: "Target Account Object Reference" — system-internal naming.
+
+Severity: Major
+
+RULE CLB3 — Required fields must be clearly and consistently indicated
+
+What to look for:
+- Is there a consistent indicator for required fields (asterisk is standard)?
+- Is the indicator explained (legend: "* Required")?
+- If most fields are required, are optional fields marked instead ("Optional")?
+- Is the requirement indicator placed consistently (before/after the label, same position everywhere)?
+
+Severity: Major
+
+RULE CLB4 — Labels must not rely on placeholders alone
+
+Placeholders disappear when the user starts typing, leaving them without a label.
+
+What to look for:
+- Does every field have a persistent label above or beside it?
+- Are placeholders used only for supplementary hints (format examples), not as the primary label?
+- Does the label remain visible when the field has focus or content?
+
+Good: Label "Merchant ID" above the field. Placeholder "e.g., MER-10482" inside the field.
+Bad: Only a placeholder "Merchant ID" inside the field, which disappears on focus.
+
+Severity: Major
+
+RULE CLB5 — Column headers in tables must be concise and sortable
+
+What to look for:
+- Are column headers 1-3 words?
+- Do headers use the same terminology as field labels elsewhere in the app?
+- Are headers unambiguous (not two columns named "Date" — use "Created Date" and "Settlement Date")?
+- Are units included in headers where relevant ("Amount (USD)")?
+
+Severity: Minor
+
+RULE CLB6 — Labels must differentiate similar fields
+
+When multiple fields on the same screen have similar names, each must be unambiguous.
+
+What to look for:
+- Are there multiple "Date", "Amount", "ID", or "Status" fields on one screen?
+- Does each include a qualifier ("Created Date", "Due Date", "Settlement Date")?
+- Can the user distinguish every field without reading surrounding context?
+
+Good: "Claim Amount (USD)", "Deductible Amount (USD)", "Settlement Amount (USD)" — all on the same screen, each unambiguous.
+Bad: "Amount", "Amount 2", "Other Amount" — on the same screen.
+
+Severity: Major
+
+---
+
+# 5. Button and Action Text Rules
+
+RULE CAT1 — Button text must describe the specific action
+
+Every button must answer: "What will happen when I click this?"
+
+What to look for:
+- Do buttons use explicit, domain-specific verbs?
+- Can the user predict the outcome from the button label alone?
+- Are generic labels avoided ("Submit", "OK", "Go", "Process", "Execute", "Continue")?
+
+Good: "Approve Claim", "Reject with Reason", "Assign to Compliance", "Submit for Review", "Export to CSV"
+Bad: "Submit", "Process", "Execute", "OK", "Go", "Continue"
+
+Severity: Major
+
+RULE CAT2 — Action verbs must be consistent across the application
+
+The same action should always use the same verb.
+
+What to look for:
+- Is "Save" always "Save" (not "Update" on some screens, "Store" on others)?
+- Is "Delete" always "Delete" (not "Remove" on some screens, "Discard" on others)?
+- Is "Approve" always "Approve" (not "Accept" on some screens, "Confirm" on others)?
+- Create a verb inventory: list every action verb in the application and check for inconsistencies.
+
+Severity: Major
+
+RULE CAT3 — Destructive action labels must be specific and unambiguous
+
+What to look for:
+- Do destructive buttons name the thing being destroyed ("Delete Case #4821", "Reject Application")?
+- Are they distinguishable from non-destructive actions?
+- Do confirmation dialog buttons match the triggering action ("Delete Case" not "Yes")?
+
+Good: Button: "Delete Draft". Confirmation: "This will permanently delete your draft of Case #4821. This cannot be undone. [Cancel] [Delete Draft]"
+Bad: Button: "Delete". Confirmation: "Are you sure? [Yes] [No]"
+
+Severity: Critical
+
+RULE CAT4 — Button text must distinguish primary from secondary actions
+
+What to look for:
+- Does the primary button use a more specific verb than secondary options?
+- Is the hierarchy clear from the text alone (not just visual styling)?
+- Are secondary actions phrased to clarify their role ("Save as Draft" vs "Submit for Review")?
+
+Good: Primary: "Submit for Review". Secondary: "Save as Draft". Tertiary: "Cancel".
+Bad: Primary: "Submit". Secondary: "Save". Tertiary: "Cancel". — "Submit" and "Save" are ambiguous without context.
+
+Severity: Minor
+
+RULE CAT5 — Toggle and state-change buttons must reflect current state
+
+Buttons that toggle a state should indicate the current state and the action, not just one or the other.
+
+What to look for:
+- Does a toggle button indicate the action it will perform (not the current state)?
+- Or does it show both (current state + available action)?
+- Is it clear whether clicking will enable or disable something?
+
+Good: "Mark as Urgent" (current state: not urgent). After clicking: "Remove Urgent Flag" (current state: urgent).
+Bad: "Urgent" — is this showing the current state or will it make it urgent? Unclear.
+
+Severity: Minor
+
+---
+
+# 6. Helper Text and Field Description Rules
+
+RULE CHT1 — Complex fields must have helper text
+
+Fields where the user might hesitate, make formatting errors, or misunderstand the purpose need inline guidance.
+
+What to look for:
+- Do fields with specific formats have format guidance ("10-digit number", "YYYY-MM-DD")?
+- Do fields with business rules have rule explanations ("Amounts over $50,000 require additional approval")?
+- Do fields with non-obvious purposes explain their impact ("This determines the routing queue for the case")?
+- Is helper text positioned consistently (below the field, in muted text)?
+
+Good: Below "Risk Tier" field: "Determines approval requirements. Tier 1: auto-approved. Tier 2: manager approval. Tier 3: compliance committee."
+Bad: "Risk Tier" field with no helper text. User must consult an external policy document to understand the tiers.
+
+Severity: Minor — Major for fields that directly affect workflow routing or decisions.
+
+RULE CHT2 — Helper text must explain "why", not just "what"
+
+The most useful helper text explains the consequence of the field value, not just the field's definition.
+
+What to look for:
+- Does helper text answer "why does this matter?" or "what happens based on this value?"
+- Does it go beyond restating the label ("Enter the merchant ID" is useless under a "Merchant ID" label)?
+
+Good: "Settlement Date — Determines when funds are transferred to the beneficiary."
+Bad: "Settlement Date — Enter the settlement date."
+
+Severity: Minor
+
+RULE CHT3 — Helper text must be concise: 1-2 sentences maximum
+
+What to look for:
+- Is helper text scannable (not a paragraph)?
+- Does it use sentence fragments where a full sentence is unnecessary?
+- Is detailed guidance pushed to tooltips or a help panel (not crammed into helper text)?
+
+Good: "10-digit ID from the terminal receipt. Example: MER-10482."
+Bad: "The Merchant Identifier is a 10-digit alphanumeric code that is uniquely assigned to each merchant terminal at the point of registration. It can be found on the paper receipt generated by the terminal device, or alternatively in the Merchant Management System under the terminal details section."
+
+Severity: Minor
+
+RULE CHT4 — Helper text must not duplicate the label
+
+What to look for:
+- Does the helper text provide information beyond what the label already conveys?
+- Is the helper text removed if it merely restates the label?
+
+Bad: Label: "Email Address". Helper: "Enter your email address."
+Good: Label: "Email Address". Helper: "Used for settlement notifications. Must match the address on file."
+
+Severity: Minor
+
+---
+
+# 7. Placeholder and Example Rules
+
+RULE CPE1 — Placeholders must show format examples, not restate the label
+
+Placeholders should demonstrate the expected format, not repeat the field name.
+
+What to look for:
+- Do placeholders show realistic example values in the correct format?
+- Are placeholders clearly identifiable as examples (using "e.g.," or obvious dummy data)?
+- Do placeholders disappear gracefully (a persistent label is always visible)?
+
+Good: Placeholder: "e.g., MER-10482" in a field labeled "Merchant ID"
+Bad: Placeholder: "Merchant ID" in a field labeled "Merchant ID"
+
+Severity: Minor
+
+RULE CPE2 — Example values must be realistic and domain-appropriate
+
+What to look for:
+- Do example values look like real data from this domain?
+- Are they clearly fictional (not real customer data)?
+- Do they demonstrate the correct format (length, separators, prefix)?
+
+Good: "e.g., ACC-20261234" for an account ID, "$12,450.00" for an amount.
+Bad: "e.g., 12345" for an account ID that should be "ACC-XXXXXXXX" format, "e.g., abc" for an amount field.
+
+Severity: Minor
+
+RULE CPE3 — Placeholders must not be the only source of format guidance
+
+What to look for:
+- Is format guidance available in helper text or a tooltip (not just the placeholder that disappears on focus)?
+- For strict formats, is an input mask provided in addition to the placeholder?
+
+Severity: Minor
+
+---
+
+# 8. Error Message Rules
+
+RULE CER1 — Error messages must explain what happened specifically
+
+What to look for:
+- Does the message identify the specific field or action that failed?
+- Is the error described in domain terms (not system terms)?
+- Is the message positioned near the source of the error?
+
+Good: Below the "Settlement Amount" field: "Settlement amount ($75,000) exceeds the policy limit of $50,000 for this claim type."
+Bad: Toast at the top: "Validation error."
+
+Severity: Critical
+
+RULE CER2 — Error messages must tell the user how to fix it
+
+Every error message must include a resolution path.
+
+What to look for:
+- Does the message suggest a specific corrective action?
+- Is the action achievable from the current screen?
+- If the user cannot fix it themselves, does the message direct them to the right person or channel?
+
+Good: "Settlement amount exceeds the policy limit. Reduce the amount to $50,000 or less, or request a policy exception from your manager."
+Bad: "Invalid value."
+
+Good: "Unable to save. Your session has expired. [Log In Again] — your changes will be restored."
+Bad: "Error 401."
+
+Severity: Critical
+
+RULE CER3 — Error messages must use neutral, blame-free language
+
+What to look for:
+- Does the message avoid "you" in the context of failure ("You entered this wrong")?
+- Is the message factual and objective?
+- Does it avoid accusatory phrasing?
+
+Good: "Enter a valid settlement date (must be a future date)."
+Bad: "You entered an invalid date."
+
+Good: "This field is required."
+Bad: "You forgot to fill in this field."
+
+Severity: Minor
+
+RULE CER4 — Error messages must not expose system internals
+
+What to look for:
+- Are stack traces, error codes, SQL errors, and API responses hidden?
+- Is a user-friendly message shown with a support reference ID?
+- Are HTTP status codes translated into human language?
+
+Good: "Unable to save your changes. Please try again. If this continues, contact support with reference: ERR-2026-0308-9142."
+Bad: "500 Internal Server Error: NullPointerException at ClaimService.java:247"
+Bad: "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry"
+
+Severity: Critical
+
+RULE CER5 — Multiple errors must be listed completely, not shown one at a time
+
+What to look for:
+- When a form has multiple validation errors, are all errors shown simultaneously?
+- Is each error positioned next to its respective field?
+- Is there also a summary at the top ("3 fields need correction")?
+- Does fixing one error and resubmitting not reveal a second error that was already present?
+
+Good: Red border on 3 fields, each with its own error message. Summary banner: "3 fields need attention before you can submit."
+Bad: First submission shows 1 error. User fixes it. Second submission reveals a different error. Third submission reveals a third.
+
+Severity: Major
+
+RULE CER6 — Error messages must be distinguishable by severity
+
+What to look for:
+- Are validation errors (user must fix), warnings (user should review), and informational notes visually distinct?
+- Do warnings allow the user to proceed despite the warning?
+- Are blockers clearly stated ("Cannot submit until resolved") vs. warnings ("Review recommended but not required")?
+
+Good: Red error: "Amount exceeds limit. Cannot submit." Yellow warning: "Amount is higher than average for this category. Review recommended." Both visible, clearly different.
+Bad: Both displayed as red error text with no distinction between blocking and non-blocking.
+
+Severity: Minor
+
+---
+
+# 9. Confirmation and Dialog Text Rules
+
+RULE CCF1 — Confirmation dialog titles must name the action
+
+What to look for:
+- Does the dialog title state what is being confirmed ("Approve Application", "Delete Draft", "Reject Claim")?
+- Are generic titles avoided ("Confirm", "Warning", "Alert")?
+
+Good: "Reject KYC Application #7842"
+Bad: "Confirm Action"
+
+Severity: Major
+
+RULE CCF2 — Confirmation dialog bodies must state specific consequences
+
+What to look for:
+- Does the body explain what will happen (status change, notifications, downstream effects)?
+- Are affected entities named (case numbers, customer names, amounts)?
+- Are irreversible consequences flagged?
+- Is the scope clear (affecting 1 record or 47)?
+
+Good: "Rejecting Application #7842 for Acme Corp will notify the applicant via email and close the review. All uploaded documents will be retained. This action cannot be undone."
+Bad: "Are you sure you want to continue?"
+
+Severity: Critical
+
+RULE CCF3 — Confirmation button labels must match the action, not generic "Yes/No"
+
+What to look for:
+- Do buttons use action verbs matching the dialog title?
+- Is the destructive option visually distinct?
+- Is the safe option (Cancel) clearly available?
+
+Good: [Cancel] [Reject Application] (red)
+Bad: [No] [Yes]
+
+Severity: Major
+
+RULE CCF4 — Success confirmations must be specific and forward-looking
+
+What to look for:
+- Does the success message confirm what happened (not just "Success")?
+- Does it include a reference ID or key identifier?
+- Does it state what happens next?
+- Does it offer relevant next actions?
+
+Good: "Application #7842 approved. Notification sent to Onboarding Team. Expected activation: Mar 12, 2026. [Return to Queue] [View Application]"
+Bad: "Success!" — no details, no next steps.
+
+Severity: Major
+
+---
+
+# 10. Status and State Label Rules
+
+RULE CST1 — Status labels must use clear, unambiguous language
+
+What to look for:
+- Are status labels human-readable (not codes or abbreviations)?
+- Can the user immediately understand what the status means for their workflow?
+- Is the status label the same everywhere it appears (detail page, list view, notification)?
+
+Good: "Pending Compliance Review", "Approved — Awaiting Settlement", "Rejected — Rework Required"
+Bad: "PND-CMP", "STATUS_7", "In Process" (ambiguous — whose process?)
+
+Severity: Major
+
+RULE CST2 — Status labels must convey actionability
+
+The user should be able to tell from the status alone whether they need to act.
+
+What to look for:
+- Can the user distinguish between "needs my action" and "waiting on someone else"?
+- Do status labels include the responsible party when relevant ("Pending Your Approval" vs. "Pending Compliance Approval")?
+- Are status labels verb-oriented where possible ("Awaiting Your Review" vs. "Submitted")?
+
+Good: "Awaiting Your Approval" — the user knows they need to act.
+Bad: "Submitted" — submitted by whom? To whom? Does the current user need to do anything?
+
+Severity: Major
+
+RULE CST3 — Status transitions must be communicated in past tense
+
+When a status change has occurred, the message should confirm it definitively.
+
+What to look for:
+- Are post-action status updates in past tense or present perfect ("Approved", "Claim rejected", "Assigned to Sarah Chen")?
+- Are they not in future tense or conditional ("Will be approved", "Should be assigned")?
+
+Good: "Case #4821 approved and forwarded to Settlement."
+Bad: "Case will be processed." — when? by whom? is it already done?
+
+Severity: Minor
+
+---
+
+# 11. Empty State Text Rules
+
+RULE CES1 — Empty states must explain why there is no data
+
+What to look for:
+- Does the empty state distinguish between "no data exists yet" and "no data matches your filters"?
+- Is the message professional and informative (not playful)?
+- Does it suggest a next action?
+
+Good: "No cases assigned to you. Check the unassigned queue or adjust your filters."
+Good: "No transactions found for the selected date range. Try expanding the date range."
+Bad: "Nothing here! 🏖️"
+Bad: [completely blank area with no text]
+
+Severity: Minor
+
+RULE CES2 — Empty states must suggest actionable next steps
+
+What to look for:
+- Does the empty state include a link or button to the logical next action?
+- Is the suggestion contextual (related to the current screen)?
+
+Good: "No open disputes. [View Resolved Disputes] or [Create New Dispute]"
+Bad: "No results." — with no guidance.
+
+Severity: Minor
+
+---
+
+# 12. Loading and Progress Text Rules
+
+RULE CLP1 — Loading messages must be informative when possible
+
+What to look for:
+- For short waits (< 3 seconds), is a spinner sufficient (no text needed)?
+- For medium waits (3-10 seconds), does the loading message indicate what is loading?
+- For long waits (> 10 seconds), is a progress indicator with estimated time or percentage shown?
+
+Good: "Loading transaction history for the last 90 days..." (medium wait)
+Good: "Generating report: 45% complete. Estimated time remaining: 2 minutes." (long wait)
+Bad: "Loading..." for a 30-second operation.
+
+Severity: Minor
+
+RULE CLP2 — Progress messages must be specific
+
+What to look for:
+- Do progress messages state what is happening ("Validating 47 claims...")?
+- Are they updated as progress occurs?
+- Do they indicate completion ("Complete. 45 of 47 claims processed successfully.")?
+
+Severity: Minor
+
+---
+
+# 13. Tooltip and Inline Hint Rules
+
+RULE CTT1 — Tooltips must add information beyond the label
+
+What to look for:
+- Does the tooltip provide useful additional context (definition, business rule, format guidance)?
+- Does it avoid merely restating the label?
+- Is it concise (1-2 sentences maximum)?
+
+Good: Tooltip on "Risk Tier": "Determined by the automated risk assessment model. Tier 1 = low risk (auto-approved). Tier 2 = medium risk (manager approval). Tier 3 = high risk (committee review)."
+Bad: Tooltip on "Risk Tier": "The risk tier."
+
+Severity: Minor
+
+RULE CTT2 — Tooltips must be available on all non-obvious labels and icons
+
+What to look for:
+- Do icon-only buttons have tooltips explaining the action?
+- Do abbreviated column headers have tooltips with full names?
+- Do status icons have tooltips explaining the status?
+- Do calculated or derived values have tooltips explaining the source?
+
+Good: Hovering over a warning icon shows: "This claim has been flagged for manual review due to high transaction velocity."
+Bad: A warning icon with no tooltip or explanation.
+
+Severity: Minor — Major for icon-only controls with no text label.
+
+---
+
+# 14. Notification Text Rules
+
+RULE CNT1 — Notification text must be actionable and specific
+
+What to look for:
+- Does the notification identify the record (case number, application ID)?
+- Does it state what action is needed?
+- Does it include enough context to assess urgency (amount, deadline, assignee)?
+- Does it include a direct link to the relevant screen and step?
+
+Good: "Action Required: Review KYC Application #7842 for Acme Corp. Amount: $145,000. Due: Mar 10, 2026. [Open Application]"
+Bad: "You have a new item."
+
+Severity: Major
+
+RULE CNT2 — Notification text must match the in-app terminology
+
+What to look for:
+- Do email/push notifications use the same status labels, entity names, and action verbs as the in-app UI?
+- Is the tone consistent between notifications and the application?
+- Are notification templates maintained alongside the UI copy?
+
+Severity: Major
+
+---
+
+# 15. Accessibility Text Rules
+
+RULE CAX1 — All interactive elements must have accessible labels
+
+What to look for:
+- Do icon-only buttons have aria-labels?
+- Do form fields have associated label elements or aria-label attributes?
+- Do images have meaningful alt text (or aria-hidden if decorative)?
+- Are aria-labels descriptive ("Close dialog" not just "Close")?
+
+Good: aria-label="Close case detail dialog" on an X button.
+Bad: No accessible label on an X icon button.
+
+Severity: Major
+
+RULE CAX2 — Status changes must be announced to screen readers
+
+What to look for:
+- Are aria-live regions used for dynamic status updates (toast notifications, loading states)?
+- Are success and error messages announced?
+- Are polite vs. assertive announcements used appropriately?
+
+Severity: Major
+
+RULE CAX3 — Accessible text must convey the same meaning as visual indicators
+
+What to look for:
+- Do screen reader users get the same information as sighted users?
+- Are color-coded indicators also described in text?
+- Are icon-only status indicators backed by aria-labels?
+
+Good: A red badge visually indicates "overdue". The aria-label reads "Status: Overdue. Due date was Mar 5, 2026."
+Bad: A red circle with no aria-label. Screen reader users have no idea what it means.
+
+Severity: Major
+
+---
+
+# 16. Number, Date, and Data Formatting Rules
+
+RULE CDF1 — Numbers must be formatted for readability
+
+What to look for:
+- Do large numbers use locale-appropriate separators ("12,450" not "12450")?
+- Are currency amounts formatted with symbol and two decimal places ("$12,450.00")?
+- Are percentages formatted consistently ("72%" not "0.72" or "72.0")?
+- Are negative amounts visually distinct (red text, parentheses, or minus sign — consistently)?
+
+Severity: Major
+
+RULE CDF2 — Dates must use unambiguous formats
+
+What to look for:
+- Are dates displayed in a format that cannot be misread ("Mar 8, 2026" not "03/08/26")?
+- Is the format consistent across the entire application?
+- Are relative dates used appropriately with full dates available ("2 hours ago · Mar 8, 2026, 12:34 PM")?
+- Are time zones indicated when relevant?
+
+Good: "Mar 8, 2026, 2:34 PM EST"
+Bad: "03/08/26" — is this March 8 or August 3? Is the year 2026 or 1926?
+
+Severity: Major — ambiguous dates can cause operational errors.
+
+RULE CDF3 — Duration and time intervals must be human-readable
+
+What to look for:
+- Are durations displayed in readable units ("3 days, 4 hours" not "76 hours" or "4560 minutes")?
+- Are appropriate units used for the scale (minutes for short durations, days for long)?
+
+Good: "SLA remaining: 1 day, 6 hours"
+Bad: "SLA remaining: 1806 minutes"
+
+Severity: Minor
+
+---
+
+# 17. Capitalization and Punctuation Rules
+
+RULE CCP1 — Use sentence case for UI text
+
+What to look for:
+- Are headings, labels, and buttons in sentence case ("Settlement amount" not "Settlement Amount" or "SETTLEMENT AMOUNT")?
+- Exception: proper nouns, acronyms, and branded product names retain their standard capitalization.
+- Is the capitalization consistent across the application?
+
+Note: Title case is acceptable if used consistently throughout the application, but sentence case is preferred for enterprise applications as it reads more naturally.
+
+Severity: Minor
+
+RULE CCP2 — Punctuation must be consistent and minimal
+
+What to look for:
+- Do labels omit trailing colons (the layout should create the visual association, not punctuation)?
+- Do helper text and error messages use periods?
+- Are lists punctuated consistently (all with periods or all without)?
+- Are ellipses used correctly for truncation only (not for drama)?
+
+Severity: Minor
+
+---
+
+# 18. Internationalization and Localization Readiness
+
+RULE CIL1 — Copy must be designed for translation
+
+What to look for:
+- Are strings externalizable (not hardcoded in components)?
+- Is text separated from layout (text expansion of 30-50% for some languages won't break the UI)?
+- Are cultural references, idioms, and humor avoided (they don't translate)?
+- Are left-to-right assumptions avoided in the text structure?
+- Are number, date, and currency formats locale-aware?
+
+Severity: Minor — Major if the application is used internationally.
+
+RULE CIL2 — String concatenation must be avoided
+
+Constructing messages by concatenating strings ("You have " + count + " items") prevents proper translation.
+
+What to look for:
+- Are message templates used with placeholders ("{count} items pending review")?
+- Are plural forms handled correctly ("1 item" vs. "2 items")?
+- Are gender-neutral constructions used where possible?
+
+Severity: Minor — Major if the application is localized.
+
+---
+
+# 19. Evaluation Output Format
+
+The evaluating agent must produce the following structured report.
+
+---
+
+## Copy and Style Evaluation Report
+
+### Metadata
+
+- Application: [application name]
+- Module/Screen(s): [screens evaluated]
+- Evaluator: [agent or human identifier]
+- Evaluation Date: [date]
+- Input Provided: [screenshots / copy inventory / HTML / string file]
+- Evaluation Limitations: [what could not be fully evaluated]
+
+### Overall Assessment
+
+Overall Score: X.X / 5.0
+Verdict: [Excellent | Good | Acceptable | Problematic | Poor]
+
+One-paragraph summary highlighting the most impactful strengths and deficiencies in the application's copy.
+
+### Category Scores
+
+| Category                         | Score | Key Findings                           |
+|----------------------------------|-------|----------------------------------------|
+| Tone & Voice (CT)                | X/5   | [1-line summary]                       |
+| Terminology (CV)                 | X/5   | [1-line summary]                       |
+| Labels (CLB)                     | X/5   | [1-line summary]                       |
+| Button & Action Text (CAT)      | X/5   | [1-line summary]                       |
+| Helper Text (CHT)               | X/5   | [1-line summary]                       |
+| Placeholders & Examples (CPE)   | X/5   | [1-line summary]                       |
+| Error Messages (CER)            | X/5   | [1-line summary]                       |
+| Confirmations & Dialogs (CCF)   | X/5   | [1-line summary]                       |
+| Status Labels (CST)             | X/5   | [1-line summary]                       |
+| Empty States (CES)              | X/5   | [1-line summary]                       |
+| Loading & Progress (CLP)        | X/5   | [1-line summary]                       |
+| Tooltips & Hints (CTT)          | X/5   | [1-line summary]                       |
+| Notifications (CNT)             | X/5   | [1-line summary]                       |
+| Accessibility Text (CAX)        | X/5   | [1-line summary]                       |
+| Data Formatting (CDF)           | X/5   | [1-line summary]                       |
+| Capitalization & Punctuation (CCP) | X/5 | [1-line summary]                      |
+| Internationalization (CIL)      | X/5   | [1-line summary]                       |
+
+Mark categories not evaluable as "N/E" with a note.
+
+### Terminology Consistency Audit
+
+List every core business concept and the terms used across screens:
+
+| Concept            | Terms Found                              | Consistent? | Recommended Term |
+|--------------------|------------------------------------------|-------------|------------------|
+| [e.g., Customer]   | Customer (3 screens), Client (1 screen)  | No          | Customer         |
+| [e.g., Save]       | Save (2 screens), Update (1 screen)      | No          | Save             |
+
+### Violations
+
+List every violation in severity order (Critical first, then Major, then Minor).
+
+| Field           | Value                                                              |
+|-----------------|--------------------------------------------------------------------|
+| Rule            | [Rule ID, e.g., CER2]                                             |
+| Severity        | [Critical / Major / Minor]                                        |
+| Location        | [Screen / component / field where the violation occurs]           |
+| Current Text    | [Exact text as it appears in the UI]                              |
+| Issue           | [What is wrong with this text]                                    |
+| Suggested Rewrite | [Specific replacement text]                                     |
+
+### Strengths
+
+List 3-5 things the copy does well, with specific rule IDs.
+
+### Priority Recommendations
+
+Rank the top 5 copy improvements by impact:
+
+1. [Highest impact fix — rule ID, current text, rewrite, expected benefit]
+2. [Second highest]
+3. [Third]
+4. [Fourth]
+5. [Fifth]
+
+### Not Evaluable
+
+List any rule categories that could not be evaluated, with what input would be needed.
+
+---
+
+# 20. Heuristic Summary
+
+Well-written enterprise UI copy allows a user to:
+
+1. **Understand every label instantly** — No hesitation, no ambiguity, no lookup needed.
+2. **Predict what every button does** — The label alone tells the user the outcome.
+3. **Fix any error independently** — The error message provides both the problem and the solution.
+4. **Trust the system's tone** — Professional, consistent, never condescending or flippant.
+5. **Navigate without confusion** — Status labels, headings, and terminology form a coherent, consistent language.
+6. **Work efficiently** — Copy supports speed, not slows it down with wordiness or ambiguity.
+7. **Read comfortably in any context** — Numbers, dates, and currencies are formatted clearly and unambiguously.
+
+If a user reads a piece of UI text and hesitates — even briefly — the copy has a gap.
+
+---
+
+# Appendix A: Rule Quick Reference
+
+| Rule ID | Rule Name                                         | Severity |
+|---------|----------------------------------------------------|----------|
+| CT1     | Professional neutral tone                          | Minor    |
+| CT2     | Do not anthropomorphize the system                 | Minor    |
+| CT3     | Avoid urgency theater                              | Minor    |
+| CT4     | Tonal consistency across states                    | Minor    |
+| CV1     | Use domain-specific language                       | Major    |
+| CV2     | One consistent term per concept                    | Major    |
+| CV3     | Define abbreviations on first use                  | Minor    |
+| CV4     | Units and formats must be explicit                 | Major    |
+| CLB1    | Labels concise: 1-4 words                          | Minor    |
+| CLB2    | Labels match user mental model                     | Major    |
+| CLB3    | Required fields clearly indicated                  | Major    |
+| CLB4    | No placeholder-only labels                         | Major    |
+| CLB5    | Column headers concise and sortable                | Minor    |
+| CLB6    | Labels differentiate similar fields                | Major    |
+| CAT1    | Button text describes specific action              | Major    |
+| CAT2    | Action verbs consistent across app                 | Major    |
+| CAT3    | Destructive action labels specific                 | Critical |
+| CAT4    | Button text distinguishes primary/secondary        | Minor    |
+| CAT5    | Toggle buttons reflect current state               | Minor    |
+| CHT1    | Complex fields have helper text                    | Minor    |
+| CHT2    | Helper text explains "why" not just "what"         | Minor    |
+| CHT3    | Helper text concise: 1-2 sentences                 | Minor    |
+| CHT4    | Helper text does not duplicate label               | Minor    |
+| CPE1    | Placeholders show format examples                  | Minor    |
+| CPE2    | Example values realistic and domain-appropriate    | Minor    |
+| CPE3    | Placeholders not only source of format guidance    | Minor    |
+| CER1    | Error messages explain what happened               | Critical |
+| CER2    | Error messages tell how to fix                     | Critical |
+| CER3    | Error messages use neutral language                | Minor    |
+| CER4    | Error messages hide system internals               | Critical |
+| CER5    | Multiple errors listed completely                  | Major    |
+| CER6    | Errors distinguishable by severity                 | Minor    |
+| CCF1    | Confirmation titles name the action                | Major    |
+| CCF2    | Confirmation bodies state consequences             | Critical |
+| CCF3    | Confirmation buttons match the action              | Major    |
+| CCF4    | Success confirmations specific and forward-looking | Major    |
+| CST1    | Status labels clear and unambiguous                | Major    |
+| CST2    | Status labels convey actionability                 | Major    |
+| CST3    | Status transitions in past tense                   | Minor    |
+| CES1    | Empty states explain why no data                   | Minor    |
+| CES2    | Empty states suggest next steps                    | Minor    |
+| CLP1    | Loading messages informative when possible         | Minor    |
+| CLP2    | Progress messages specific                         | Minor    |
+| CTT1    | Tooltips add info beyond the label                 | Minor    |
+| CTT2    | Tooltips on all non-obvious elements               | Minor    |
+| CNT1    | Notification text actionable and specific          | Major    |
+| CNT2    | Notification terminology matches in-app            | Major    |
+| CAX1    | Interactive elements have accessible labels        | Major    |
+| CAX2    | Status changes announced to screen readers         | Major    |
+| CAX3    | Accessible text matches visual meaning             | Major    |
+| CDF1    | Numbers formatted for readability                  | Major    |
+| CDF2    | Dates use unambiguous formats                      | Major    |
+| CDF3    | Duration human-readable                            | Minor    |
+| CCP1    | Sentence case for UI text                          | Minor    |
+| CCP2    | Punctuation consistent and minimal                 | Minor    |
+| CIL1    | Copy designed for translation                      | Minor    |
+| CIL2    | String concatenation avoided                       | Minor    |
+
+---
+
+# Appendix B: Copy Evaluation Checklist (Quick Pass)
+
+Use this for rapid first-pass evaluation. Answer Yes/No for each:
+
+- [ ] Is every label immediately understandable to a domain expert?
+- [ ] Does every button describe the specific action it performs?
+- [ ] Is the same term used for the same concept across all screens?
+- [ ] Are error messages specific — identifying the field, the problem, and the fix?
+- [ ] Do confirmation dialogs name the action and state the consequences?
+- [ ] Are status labels clear and unambiguous?
+- [ ] Is the tone professional and consistent (no playfulness, no system anthropomorphism)?
+- [ ] Are required fields clearly marked?
+- [ ] Do fields with complex formats have helper text or examples?
+- [ ] Are system internals hidden from all user-facing text?
+- [ ] Do empty states explain the situation and suggest next steps?
+- [ ] Are dates displayed in unambiguous formats?
+- [ ] Are currency amounts formatted with symbol and unit?
+- [ ] Do icon-only buttons have tooltips and aria-labels?
+- [ ] Are notification texts specific and actionable?
+- [ ] Are abbreviations defined on first use?
+- [ ] Is destructive action text specific and distinct from safe actions?
+- [ ] Are multiple validation errors shown simultaneously (not one at a time)?
+- [ ] Is helper text informative (not just restating the label)?
+- [ ] Would all text survive translation to another language without ambiguity?
