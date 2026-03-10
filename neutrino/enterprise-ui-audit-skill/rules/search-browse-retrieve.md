@@ -1,0 +1,957 @@
+
+# Enterprise Search, Browse, and Retrieve Evaluation Rules
+
+file: search-browse-retrieve.md
+version: 1.0
+purpose: Comprehensive rules for AI agents to evaluate search, browse, list, queue, and record retrieval screens in enterprise workflow applications.
+
+---
+
+# 0. Agent Instructions
+
+You are an enterprise UI evaluation agent specializing in search, browse, and retrieve patterns. Your job is to assess how effectively an enterprise application lets users find, filter, scan, and open records — the core interaction loop for any operations user.
+
+In enterprise workflow applications, users spend the majority of their time in search/browse/retrieve cycles:
+- finding the next item to work on from a queue
+- looking up a specific record by ID, name, or attribute
+- scanning a list to triage, prioritize, or monitor
+- filtering to a working set based on criteria
+- opening a record to review, act, or update
+
+Poor search and browse experience is the single largest contributor to operational inefficiency in enterprise applications.
+
+## 0.1 What You Will Receive
+
+You may receive input from one or more of these sources, listed from richest to most limited:
+
+- **Live application (browser/MCP)** — execute searches, apply and clear filters, sort columns, paginate, navigate to detail and back, test keyboard shortcuts, measure search response time, test typeahead behavior, verify deep-link URLs.
+- **Figma or design file** (any form: exported file, shared link, plugin) — extract or infer table column definitions, filter component states, search input variants, empty/loading state variants, and list-to-detail page connections to the extent the format allows. Proactively enumerate all table columns and filter options.
+- **Interactive prototype** — click through search, filter, and list-to-detail flows. Test whether returning from detail preserves list context. Observe filter interactions.
+- **Video recording** — observe search speed, typeahead responsiveness, filter application timing, list-to-detail transition, and context preservation on return. Note scanning efficiency and interaction friction.
+- **Accessibility tree / DOM snapshot** — verify table semantics, column header associations, sort indicator ARIA, filter control labels, and search input accessibility.
+- **Screenshots** — evaluate layout, column choices, filter visibility, search placement, information density, result formatting, action availability. Cannot assess interaction dynamics.
+- **Textual inputs** — search and browse flow descriptions, data volume estimates, record attribute distributions.
+
+When richer input sources are available, proactively test search-to-result-to-detail-and-back round-trips — this is the critical path for enterprise operations users.
+
+## 0.2 How to Conduct the Evaluation
+
+Step 1 — Identify the screen type (queue, search results, browse list, lookup, record detail)
+Step 2 — Identify the user persona and their primary task (triage, review, find-and-act, monitor, audit)
+Step 3 — Identify the data domain (cases, transactions, customers, applications, tickets)
+Step 4 — Assess the search entry experience (how the user initiates a search)
+Step 5 — Assess the results presentation (how results are displayed, sorted, and scanned)
+Step 6 — Assess the filter and refinement experience (how the user narrows results)
+Step 7 — Assess the list-to-detail transition (how the user opens and returns from a record)
+Step 8 — Assess operational patterns (bulk actions, queue progression, saved searches)
+Step 9 — Produce the structured report in the Evaluation Output format
+
+## 0.3 Evaluation Perspective
+
+- Evaluate from the perspective of a user who searches, browses, and retrieves records dozens to hundreds of times per day.
+- Speed matters enormously. A search that takes 3 extra seconds or a filter that requires 2 extra clicks, multiplied by 200 uses per day, is a significant productivity loss.
+- Scanning efficiency is critical. Users should be able to identify the record they need from a list in under 2 seconds per row.
+- Context preservation is essential. Returning from a record detail to the list must not reset filters, sort, scroll, or pagination.
+
+## 0.4 Evaluation Depth by Input Source
+
+| Capability | Screenshots | Figma | Prototype | Video | Browser |
+|---|---|---|---|---|---|
+| Layout and column choices | Full | Full | Full | Full | Full |
+| Filter visibility | Full | Full | Full | Full | Full |
+| Search speed / typeahead | No | No | Partial (if wired) | Full (observe) | Full (measure) |
+| Filter interaction dynamics | No | Partial (states) | Full | Full (observe) | Full |
+| Deep-link / URL behavior | No | No | No | No | Full |
+| Keyboard navigation | No | No | No | Partial (if shown) | Full |
+| Pagination behavior | Partial (layout) | Partial (states) | Full | Full (observe) | Full |
+| List-to-detail preservation | No | Partial (connections) | Full (test) | Full (observe) | Full |
+| Scanning efficiency | Full (visual) | Full | Full | Full (observe timing) | Full |
+
+**Key:** Full = can fully evaluate. Partial = can partially evaluate (note limitations). No = cannot evaluate (mark as N/E in report).
+
+When only screenshots are available, note limitations on search speed, filter dynamics, and context preservation. When prototype or browser access is available, test the full search-to-detail-and-back cycle.
+
+---
+
+# 1. Purpose
+
+These rules define how an evaluation agent should assess search, browse, list, queue, and record retrieval screens in enterprise applications.
+
+Enterprise search and browse patterns include:
+
+**Queue screens** — a user's assigned work items, typically ordered by priority or SLA
+- "My Cases", "Pending Approvals", "Assigned to Me"
+- Often the user's primary landing screen
+
+**Search screens** — find a specific record by identifier, attribute, or free text
+- "Look up a customer by phone number"
+- "Find transaction by reference ID"
+- "Search all cases mentioning 'refund'"
+
+**Browse/list screens** — explore a collection of records, often filtered by status, date, or category
+- "All open disputes this week"
+- "Merchants in New York with pending KYC"
+- "Transactions over $10,000 in the last 30 days"
+
+**Lookup/picker screens** — find and select a related record within a form or workflow
+- "Select the customer for this case"
+- "Choose the product from the catalog"
+
+**Record detail screens** — the full view of a single record after retrieval
+- All fields, history, actions, and related records for one case/customer/transaction
+
+The objective is to determine whether these screens:
+- allow users to find the right record quickly
+- present results in a scannable, prioritized format
+- support efficient filtering and refinement
+- maintain context across list-to-detail navigation
+- support operational patterns (bulk actions, queue progression, saved views)
+- handle edge cases (no results, too many results, ambiguous matches)
+
+---
+
+# 2. Scoring Model
+
+Each category is scored from 1 to 5:
+
+| Score | Label        | Definition                                                                           |
+|-------|--------------|---------------------------------------------------------------------------------------|
+| 5     | Excellent    | Search and browse are fast, efficient, and support all operational patterns.          |
+| 4     | Good         | Functional with minor polish. No significant friction.                               |
+| 3     | Acceptable   | Users can find records but experience notable friction. Missing convenience features. |
+| 2     | Problematic  | Finding records is slow, unreliable, or frustrating. Missing critical features.       |
+| 1     | Poor         | Users cannot reliably find records. Significant operational risk.                     |
+
+Severity:
+- Critical = users cannot find records or wrong records are returned, causing operational errors
+- Major = finding records is significantly slower or harder than it should be
+- Minor = polish or convenience improvement
+
+---
+
+# 3. Core Principles
+
+Enterprise search, browse, and retrieve must prioritize:
+
+1. **Speed to the right record** — Every design decision should reduce the time between "I need to find something" and "I'm looking at it."
+
+2. **Scan efficiency over detail density** — List rows must show enough to identify and triage, not so much that the eye cannot track.
+
+3. **Progressive refinement over exact queries** — Users rarely know the exact search query upfront. The system must support iterative narrowing.
+
+4. **Context preservation over clean navigation** — Returning from a record to the list must restore the user's exact previous state.
+
+5. **Operational patterns over generic browse** — Enterprise users don't just browse — they triage, prioritize, batch-process, and progress through queues. The UI must support these patterns.
+
+6. **Resilient search over fragile queries** — Typos, partial matches, and near-misses should still return useful results.
+
+---
+
+# 4. Search Entry Rules
+
+RULE SE1 — Search must be discoverable and accessible from every screen
+
+What to look for:
+- Is a search input visible on every screen (global search bar in the header)?
+- Is the search scope clear (searching within this module? across the application? within this table?)?
+- Can the user start typing immediately (auto-focus on search input, or a keyboard shortcut like Cmd+K or /)?
+- Is the search bar large enough to display typical query lengths?
+
+Good: A persistent search bar in the top navigation with a scope indicator ("Search Cases") and a keyboard shortcut hint ("⌘K"). Auto-focuses when the shortcut is pressed.
+Bad: Search is only available from the home page. On the cases list, there is no search — only filters.
+
+**Input modality:** If browser or prototype access is available, test typeahead behavior and search response time. If browser access is available, test keyboard shortcut activation (Cmd+K, /) and auto-focus behavior. Screenshots can evaluate placement and visibility but not interaction dynamics.
+
+Severity: Major
+
+RULE SE2 — Search must support the identifiers and attributes users think in
+
+Users search by the values they have at hand — a case number from an email, a customer name from a phone call, a phone number from a sticky note.
+
+What to look for:
+- Can users search by all common identifiers (case number, customer ID, phone, email, name)?
+- Can users search by partial values (partial phone number, last name only)?
+- Can users search by domain-specific attributes (transaction amount range, date range, status)?
+- Does the search input accept multiple format variations ("MER-10482", "MER10482", "10482")?
+- Does the search tell the user what fields are searchable?
+
+Good: Search box with placeholder "Search by case #, customer name, phone, or email". Typing "10482" returns Case #10482 and Merchant MER-10482.
+Bad: Search only works with exact case numbers. Searching by customer name returns nothing.
+
+Severity: Major
+
+RULE SE3 — Search must provide typeahead/autocomplete for common lookups
+
+What to look for:
+- Does typing in the search box produce suggestions after 2-3 characters?
+- Do suggestions show enough context to identify the right record (name + ID + status)?
+- Can users navigate suggestions with keyboard (arrow keys + Enter)?
+- Are suggestions categorized when spanning entity types ("Cases", "Customers", "Transactions")?
+- Do suggestions update quickly (within 200ms of keystroke)?
+
+Good: Typing "Acme" produces: "Acme Corp (Customer, ID: CUST-4821)", "Acme Ltd Application (Case #7842, Pending)", "Acme Payment Dispute (Case #9103, Resolved)".
+Bad: No typeahead. User must type the full query and press Enter.
+
+Severity: Minor — Major if users search frequently (more than 20 times per day).
+
+RULE SE4 — Search must handle errors and ambiguity gracefully
+
+What to look for:
+- Does the search tolerate typos (fuzzy matching)?
+- When no results are found, does the UI suggest corrections or alternatives?
+- When too many results are found, does the UI suggest adding filters?
+- Is the search feedback immediate (no long wait before "no results")?
+
+Good: "No results for 'Acm Corp'. Did you mean 'Acme Corp'? [Search for 'Acme Corp']"
+Good: "248 results found. Try narrowing by status, date range, or assignee."
+Bad: "No results." — with no guidance.
+Bad: Search returns 10,000+ results with no suggestion to refine.
+
+Severity: Minor
+
+RULE SE5 — Advanced search must be available for complex queries
+
+Power users need to combine multiple criteria (date ranges, status combinations, amount thresholds, assignee filters).
+
+What to look for:
+- Is there an "Advanced Search" or filter panel accessible from the search bar?
+- Can users combine multiple criteria with AND/OR logic?
+- Are saved searches supported (save a complex query for reuse)?
+- Can advanced search results be shared via URL?
+
+Good: Expandable advanced search panel with fields for status (multi-select), date range (picker), amount range (min/max), assignee (dropdown), and a "Save this search" option.
+Bad: Only a single free-text search box with no ability to combine criteria.
+
+Severity: Major
+
+---
+
+# 5. Results Presentation Rules
+
+RULE SR1 — Search results must show enough context to identify and triage
+
+Each result row must contain enough information for the user to determine: "Is this the record I need? Does it need my attention?"
+
+What to look for:
+- Does each result row show: primary identifier (case #, name), key attributes (amount, status, date), and ownership (assignee)?
+- Can the user distinguish between results without opening each one?
+- Is the information density appropriate (4-7 visible attributes per row for tables, 3-5 for cards)?
+- Are critical attributes (status, SLA, amount) visible without horizontal scrolling?
+
+Good: Table row: Case #4821 | Acme Corp | $12,450 | Pending Review | Assigned: Jane Smith | SLA: 4h remaining. All visible without scrolling.
+Bad: Table shows only Case # and Created Date. User must click each row to see the customer, amount, or status.
+
+Severity: Major
+
+RULE SR2 — Results must be sorted by operational relevance by default
+
+What to look for:
+- Is the default sort order aligned with the user's primary task?
+- For queues: is the default sort by priority, SLA urgency, or assignment date?
+- For search results: is the default sort by relevance, then recency?
+- Is the current sort order visually indicated?
+- Can users change the sort with a single click?
+
+Good: Queue defaults to "Most urgent first" (SLA remaining ascending). User can click any column header to re-sort. Current sort: "SLA ↑" indicator on the column.
+Bad: Queue sorted by creation date descending (newest first) — a common developer default that doesn't match operational priority.
+
+Severity: Major
+
+RULE SR3 — Results must highlight why each record matched the query
+
+When a user searches by text, the matching terms should be highlighted in the results.
+
+What to look for:
+- Are search terms highlighted (bold, underline, or background color) in the result rows?
+- Is the matched field identified ("Matched in: Customer Name")?
+- For partial matches, is the matched portion clear?
+
+Good: Search for "Acme" — result rows show "**Acme** Corp" with the matched term bolded.
+Bad: Results are returned but the user cannot tell which field matched or why each result is included.
+
+Severity: Minor
+
+RULE SR4 — Result counts must be visible
+
+What to look for:
+- Is the total number of results shown ("47 cases found", "Showing 1-25 of 312")?
+- Is the count updated in real time as filters are applied?
+- Does the count distinguish between filtered and total ("47 of 312 cases match your filters")?
+
+Good: "Showing 1-25 of 47 cases (312 total, 47 matching current filters)"
+Bad: No result count. User has no idea if there are 5 or 5,000 results.
+
+Severity: Minor
+
+RULE SR5 — Results must support multiple view modes where appropriate
+
+Different tasks benefit from different views (table for scanning, cards for preview, timeline for chronological).
+
+What to look for:
+- Is a table/list view available (optimal for high-volume scanning)?
+- Is a card view available (useful for records with visual content or summaries)?
+- Is the user's view preference remembered?
+- Are view modes available without losing applied filters or sort?
+
+Severity: Minor
+
+RULE SR6 — Results must handle large datasets without degradation
+
+What to look for:
+- Is pagination or virtual scrolling used for datasets over 50 records?
+- Is the total count displayed even for large datasets?
+- Can users control page size (25, 50, 100)?
+- Is "load more" or infinite scroll implemented without losing position?
+- Does performance remain acceptable at scale (10,000+ records)?
+
+Severity: Major
+
+RULE SR7 — No-results states must be informative and actionable
+
+What to look for:
+- Does the empty state explain why there are no results?
+- Does it distinguish between "no records exist" and "no records match your current filters"?
+- Does it suggest modifications (clear filters, broaden search, check spelling)?
+- Is it visually distinct from a loading state or error state?
+
+Good: "No cases match your current filters. Active filters: Status = 'Pending', Assignee = 'Jane Smith'. [Clear Filters] [Broaden Search]"
+Bad: A blank table with no message. Or: "No results." with no guidance.
+
+Severity: Minor — Major if users frequently encounter empty results due to overly narrow filters.
+
+---
+
+# 6. Filter and Refinement Rules
+
+RULE FR1 — Filters must be visible and immediately accessible
+
+What to look for:
+- Are filter controls visible on the list/results screen (not hidden behind a button or drawer)?
+- Are the most commonly used filters always visible?
+- Can less common filters be accessed from an "More Filters" expandable section?
+- Are filters positioned consistently (above the table, in a sidebar, or in a toolbar)?
+
+Good: A filter bar above the table with Status (dropdown), Assignee (dropdown), Date Range (picker), and a "+ More Filters" option.
+Bad: Filters hidden behind a "Filter" button that opens a modal. Users must click, apply, and close before seeing results.
+
+Severity: Major
+
+RULE FR2 — Active filters must be visible and individually clearable
+
+What to look for:
+- Are currently applied filters displayed as chips, tags, or a summary bar?
+- Can each filter be removed individually (x button on the chip)?
+- Is a "Clear All Filters" option available?
+- Do filters persist across page refreshes and navigation?
+- Is the filter state reflected in the URL (for sharing and bookmarking)?
+
+Good: Filter bar shows: "Status: Pending ✕ | Assignee: Jane Smith ✕ | Date: Last 7 days ✕ | [Clear All]"
+Bad: No indication of which filters are active. User must open the filter panel to see current selections.
+
+Severity: Major
+
+RULE FR3 — Filters must show result counts per option
+
+What to look for:
+- Do filter options show how many records match each value (e.g., "Pending (23)", "Approved (145)")?
+- Are options with zero matches indicated or hidden?
+- Do counts update dynamically as other filters are applied?
+
+Good: Status dropdown: "Pending (23) | Under Review (8) | Approved (145) | Rejected (12)"
+Bad: Status dropdown: "Pending | Under Review | Approved | Rejected" — user has no idea which options will return results.
+
+Severity: Minor
+
+RULE FR4 — Filter interactions must be fast and non-blocking
+
+What to look for:
+- Do filter changes apply immediately (or with a single "Apply" click)?
+- Is the results table updated within 1-2 seconds of filter change?
+- Is a loading indicator shown during filter application?
+- Does the UI remain responsive during filtering (no freeze)?
+- Can multiple filters be changed before applying (to avoid multiple data fetches)?
+
+Good: Changing the status filter instantly updates the table with a brief loading indicator. Results appear in under 1 second.
+Bad: Each filter change requires clicking "Apply", waiting 5 seconds, and then checking results. Adjusting 3 filters takes 15+ seconds.
+
+Severity: Major
+
+RULE FR5 — Date range filters must support common operational ranges
+
+What to look for:
+- Are preset ranges available ("Today", "Last 7 days", "Last 30 days", "This month", "This quarter")?
+- Is a custom date range picker available?
+- Are relative ranges supported ("Last N days")?
+- Is the selected range clearly displayed?
+
+Good: Date filter dropdown with presets: "Today | Last 7 Days | Last 30 Days | This Month | Custom..." Custom option opens a date range picker.
+Bad: Two date input fields with no presets. User must type dates manually every time.
+
+Severity: Minor
+
+RULE FR6 — Saved filters and views must be supported
+
+What to look for:
+- Can users save a combination of filters, sort, and columns as a named view?
+- Are saved views accessible from a dropdown or sidebar?
+- Can saved views be shared with team members?
+- Are there system-default views for common operational needs ("My Queue", "Overdue Items", "Unassigned")?
+
+Good: "My Views" dropdown: "My Queue (default) | Overdue Items | High-Value Cases | + Save Current View"
+Bad: No ability to save filter combinations. Users must re-apply the same 4 filters every morning.
+
+Severity: Major — this is a critical efficiency feature for repeat users.
+
+RULE FR7 — Faceted navigation must be available for large, diverse datasets
+
+What to look for:
+- Are filter categories organized as facets (status, type, priority, assignee, date range)?
+- Can facets be combined freely (AND logic between categories, OR logic within a category)?
+- Are facet counts updated as other facets are applied?
+- Can users see the data distribution across facets?
+
+Severity: Minor — Major for datasets with more than 1,000 records.
+
+---
+
+# 7. Table and List Display Rules
+
+RULE TD1 — Table columns must be chosen for the user's task, not the data model
+
+What to look for:
+- Are the visible columns aligned with what the user needs to triage and act?
+- Are system/internal columns hidden by default (created_by, internal_id, batch_number)?
+- Are the most important columns (status, owner, amount, SLA) pinned to the left?
+- Can users customize which columns are visible?
+
+Good: Default columns for a case queue: Case #, Customer, Amount, Status, Assignee, SLA Remaining, Priority. System metadata available via a "Columns" settings panel.
+Bad: Default columns include: Internal ID, Created Timestamp (epoch), Modified Timestamp (epoch), Database Partition Key, API Version. The case status is the 8th column, requiring horizontal scroll.
+
+Severity: Major
+
+RULE TD2 — Column widths must match content requirements
+
+What to look for:
+- Are date columns narrow and amount columns wide enough to display full values?
+- Are text columns that may contain long values truncated with tooltips?
+- Can users resize columns?
+- Are columns auto-sized to fit content on initial load?
+- Do column widths persist across sessions?
+
+Good: Case # column is narrow (auto-sized). Customer Name column is wider. Long customer names truncate with "..." and show full name on hover.
+Bad: All columns are the same width. Customer names are truncated to 3 characters. Amount values wrap to two lines.
+
+Severity: Minor
+
+RULE TD3 — Tables must support fixed headers for scrollable content
+
+What to look for:
+- Do column headers remain visible when scrolling down through results?
+- Is the filter/toolbar area sticky or do users lose it when scrolling?
+- For wide tables, do the first 1-2 identifier columns remain frozen when scrolling horizontally?
+
+Severity: Minor
+
+RULE TD4 — Row interactions must be clear and efficient
+
+What to look for:
+- Is it obvious that rows are clickable (hover state, cursor change)?
+- Do rows have inline actions for common operations (approve, assign, view)?
+- Are inline actions revealed on hover or always visible?
+- Is right-click context menu available for power users?
+- Are row selection checkboxes available for bulk operations?
+
+Good: Hovering over a row highlights it and reveals inline action icons (view, assign, approve). Clicking anywhere on the row opens the detail. Checkboxes on the left enable bulk selection.
+Bad: Rows have no hover state. Only clicking a tiny "View" link in the last column opens the record. No inline actions.
+
+Severity: Major
+
+RULE TD5 — Visual indicators must support rapid scanning
+
+What to look for:
+- Are status values color-coded (with text + icon, not color alone)?
+- Are overdue or at-risk items visually flagged (row highlight, icon, badge)?
+- Are priority levels visually distinct?
+- Are alternating row backgrounds or subtle dividers used for scanability?
+- Are numeric values right-aligned for easy comparison?
+
+Good: SLA-breached rows have a red left border and a "⚠ Overdue" badge. Priority is shown as a colored dot (red/yellow/green) with text ("High", "Medium", "Low"). Amounts are right-aligned and formatted consistently.
+Bad: All rows look identical. No visual distinction between urgent and routine items. Priority is a number (1, 2, 3) with no color or icon.
+
+Severity: Major
+
+RULE TD6 — Tables must support sorting on every displayed column
+
+What to look for:
+- Can every column header be clicked to sort?
+- Is the current sort column and direction indicated (arrow icon)?
+- Does the default sort match operational priority?
+- Is secondary sort supported (sort by priority, then by SLA within each priority)?
+
+Severity: Major
+
+RULE TD7 — Pagination must be clear and preserve state
+
+What to look for:
+- Is the current page position shown ("Page 2 of 13" or "26-50 of 312")?
+- Can users navigate to first, previous, next, last pages?
+- Can users jump to a specific page?
+- Can users change page size?
+- Is the page size preference remembered?
+- Is the pagination position preserved when returning from a detail view?
+
+Good: "Showing 26-50 of 312 cases. [◀ Prev] Page 2 of 13 [Next ▶] | Per page: [25] [50] [100]"
+Bad: "Previous | Next" with no indication of current position or total pages.
+
+Severity: Major
+
+---
+
+# 8. List-to-Detail Transition Rules
+
+RULE LD1 — Opening a record must not lose the user's list context
+
+The most common complaint in enterprise applications: "I opened a record, went back, and all my filters were reset."
+
+What to look for:
+- Does returning to the list restore all applied filters?
+- Does returning restore the sort order?
+- Does returning restore the scroll position or page number?
+- Does returning restore the user's selected view?
+- Is the return mechanism clear ("Back to Queue", breadcrumb, browser back)?
+
+Good: User filters to "Pending + Assigned to Me", scrolls to page 3, opens Case #4821. After reviewing, clicks "Back to Queue" — filters, sort, page 3, and scroll position are all restored.
+Bad: Clicking the browser back button returns to the list with all filters cleared, sorted by default, on page 1.
+
+**Input modality:** If prototype is available, navigate to a detail record and back to verify context preservation (filters, sort, scroll). If browser access is available, apply filters, navigate to detail, and test all return mechanisms (back button, breadcrumb, explicit link). Screenshots cannot evaluate context preservation — mark as N/E.
+
+Severity: Critical — this is the single most impactful usability issue in enterprise list/detail applications.
+
+RULE LD2 — Record detail must be accessible without full page navigation when possible
+
+What to look for:
+- Is a side panel or drawer available for quick record preview?
+- Can users preview a record without losing their list context?
+- Is the side panel resizable?
+- Can users "pin" the side panel and navigate between records?
+- For full detail views, is a "next/previous record" navigation available?
+
+Good: Clicking a row opens a side panel with case summary, key fields, and actions. The list remains visible. User can click other rows to view different records without closing the panel.
+Bad: Every record click navigates to a full new page. Reviewing 10 records requires 10 round trips to the list.
+
+Severity: Major
+
+RULE LD3 — Record detail must provide a clear path back to the originating list
+
+What to look for:
+- Is there a prominent "Back to [list name]" link or breadcrumb?
+- Does the breadcrumb include the list context ("Cases > Pending Cases > Case #4821")?
+- Does the browser back button work correctly?
+- Is the back path visually prominent (not hidden in a menu)?
+
+Good: Breadcrumb: "Cases > My Queue (47 items) > Case #4821". Clicking "My Queue" returns to the list with all context preserved.
+Bad: No back link. User must navigate to the Cases module from the sidebar and re-apply filters.
+
+Severity: Major
+
+RULE LD4 — Record detail must load quickly and prioritize key information
+
+What to look for:
+- Does the detail page load in under 2 seconds?
+- Is the most important information visible without scrolling (identity, status, key attributes, primary action)?
+- Are secondary sections loaded lazily or on-demand (tabs, accordions)?
+- Is a loading skeleton shown during data fetch?
+
+Good: Case header (ID, customer, status, amount, assignee) loads instantly. Tabs for Documents, Notes, History load on click.
+Bad: The entire case record loads as a single request. A 5-second blank screen before anything appears.
+
+Severity: Major
+
+RULE LD5 — Inline navigation between records must be supported
+
+When a user is processing a queue, they should be able to move to the next/previous record without returning to the list.
+
+What to look for:
+- Are "Previous" and "Next" buttons available on the detail page?
+- Do they follow the list's current sort and filter order?
+- Is the current position shown ("Case 3 of 47")?
+- Does "Next" after completing an action advance to the next unprocessed item?
+
+Good: "◀ Previous | Case 3 of 47 | Next ▶" in the case header. After approving, the user clicks "Next" and sees Case #4 immediately.
+Bad: After every case action, user returns to the queue, finds their place, and clicks the next item.
+
+Severity: Minor — Major for high-volume queue processing roles.
+
+---
+
+# 9. Queue-Specific Rules
+
+RULE QU1 — Queues must clearly distinguish "needs my action" from "waiting on others"
+
+What to look for:
+- Is the default queue view filtered to items requiring the user's action?
+- Can users toggle between "My Items", "Team Items", "All Items"?
+- Is the item count shown for each view?
+- Are items awaiting the user's action visually distinct from items assigned but waiting on external input?
+
+Good: Tab bar: "My Action Required (12) | Waiting on Others (5) | Team Queue (34) | All Cases (312)"
+Bad: A single undifferentiated list of all 312 cases with no quick way to find the 12 that need the user's immediate action.
+
+Severity: Major
+
+RULE QU2 — Queue items must show urgency and priority at a glance
+
+What to look for:
+- Are SLA timers, due dates, or aging indicators visible per item?
+- Are overdue items flagged prominently (color, icon, position)?
+- Is the default sort by urgency/priority?
+- Can users see "time in queue" or "aging" for each item?
+
+Good: Each row shows "SLA: 4h remaining" with a color progression (green → yellow → red). Overdue items sort to the top with a red "Overdue" badge.
+Bad: No SLA visibility. Items sorted by creation date. A 10-minute-old case displays the same as a 72-hour overdue case.
+
+Severity: Major
+
+RULE QU3 — Queues must support claim/unclaim (self-assignment)
+
+What to look for:
+- Can users "claim" an unassigned item from the queue with a single click?
+- Can users "release" a claimed item back to the queue?
+- Is the claimed/unclaimed state immediately visible to other users?
+- Does claiming prevent duplicate work (two users claiming the same item)?
+
+Good: Unassigned items show a "Claim" button. Clicking it assigns the item to the user and shows "Assigned to: You" immediately. The item disappears from other users' unassigned view.
+Bad: Users must open the item, find the assignee field, change it to their name, and save. Another user may claim the same item in the meantime.
+
+Severity: Major
+
+RULE QU4 — Queue progression must support "work-through-the-queue" mode
+
+What to look for:
+- After completing an item, does the queue advance to the next item automatically or with a single click?
+- Is the remaining item count updated after each completion?
+- Does the queue skip items that were claimed by other users since the list loaded?
+- Is there a "daily summary" or "shift summary" available (items completed today, average processing time)?
+
+Severity: Minor — Major for high-volume queue processing.
+
+---
+
+# 10. Lookup and Picker Rules
+
+RULE LP1 — Lookup fields must support search within the picker
+
+When a form field requires selecting from a large set (e.g., "Select Customer"), the picker must include search.
+
+What to look for:
+- Does the picker open a searchable list or dropdown with typeahead?
+- Can users search by multiple attributes (name, ID, phone)?
+- Is the search result shown with enough context to identify the right record?
+- Is the selected value clearly displayed after selection?
+- Can the selection be cleared or changed easily?
+
+Good: "Customer" field with a search icon. Clicking opens a modal with a search bar. Typing "Acme" shows matching customers with name, ID, and status. Selecting "Acme Corp (CUST-4821)" populates the field.
+Bad: A dropdown with 5,000 unsorted customer names. No search capability.
+
+Severity: Major
+
+RULE LP2 — Lookup must show recently used and frequently used options
+
+What to look for:
+- Are recently selected values shown as shortcuts ("Recent: Acme Corp, Beta Inc, Gamma Ltd")?
+- Are frequently selected values promoted?
+- Can users mark favorites?
+
+Severity: Minor
+
+RULE LP3 — Lookup selections must preview relevant details
+
+What to look for:
+- Does selecting a record in the picker show a preview of key details?
+- Can the user verify they have the right record before confirming?
+- Are disambiguation details shown when names are similar (e.g., "Acme Corp (New York)" vs "Acme Corp (London)")?
+
+Severity: Minor — Major when multiple records have similar names.
+
+---
+
+# 11. Saved Search and Recent Activity Rules
+
+RULE SA1 — Recent searches must be accessible
+
+What to look for:
+- Does the search bar show recent queries when focused?
+- Are recent searches persisted across sessions?
+- Can users clear their search history?
+- Are recent searches useful (showing enough context, not just the query string)?
+
+Good: Clicking the search bar shows "Recent: 'Acme Corp' (3 results), 'Case #4821' (1 result), 'refund >$5000' (12 results)"
+Bad: No search history. Users re-type the same queries daily.
+
+Severity: Minor
+
+RULE SA2 — Saved searches/views must persist and be shareable
+
+What to look for:
+- Can users save a search query with filters as a named, reusable view?
+- Are saved views accessible from a menu or sidebar?
+- Can saved views be set as default?
+- Can saved views be shared with the team?
+- Can saved views be edited and renamed?
+
+Good: "Save Current View" button. Saves "High-Value Pending Cases" with all current filters, sort, and columns. Accessible from a "My Views" dropdown. Shareable with team via a link.
+Bad: No saved searches. Complex filter combinations must be rebuilt from scratch every session.
+
+Severity: Major
+
+RULE SA3 — Recently viewed records must be accessible
+
+What to look for:
+- Is a "Recently Viewed" section available (sidebar, dropdown, or dedicated page)?
+- Does it show enough context per record (ID, name, status, when viewed)?
+- Does it persist across sessions?
+- Can users quickly return to a recently viewed record?
+
+Severity: Minor
+
+---
+
+# 12. Keyboard and Power User Rules
+
+RULE KP1 — Search must be keyboard-accessible
+
+What to look for:
+- Is there a keyboard shortcut to focus the search bar (Cmd+K, /, Ctrl+F)?
+- Can the user type, navigate results, and open a record entirely via keyboard?
+- Can search suggestions be navigated with arrow keys and selected with Enter?
+- Is Escape used to close search overlays?
+
+Severity: Minor — Major if the user base includes power users processing high volumes.
+
+RULE KP2 — List navigation must support keyboard shortcuts
+
+What to look for:
+- Can users navigate between rows with arrow keys?
+- Can users open a record with Enter?
+- Can users use keyboard shortcuts for common row actions (A for approve, R for reject)?
+- Are keyboard shortcuts discoverable (shown in tooltips or a help panel)?
+
+Severity: Minor
+
+RULE KP3 — Bulk selection must support keyboard shortcuts
+
+What to look for:
+- Can users select ranges with Shift+Click?
+- Can users select/deselect individual items with Ctrl/Cmd+Click?
+- Is Select All available via Ctrl/Cmd+A?
+- Are bulk action shortcuts available?
+
+Severity: Minor
+
+---
+
+# 13. Export and Data Extraction Rules
+
+RULE EX1 — Search results and lists must be exportable
+
+What to look for:
+- Can users export the current view (with applied filters and sort) to CSV, Excel, or PDF?
+- Does the export include all filtered results (not just the current page)?
+- Is the export column set configurable?
+- Are export limits clearly communicated ("Export limited to 10,000 rows")?
+- Is export access controlled based on user role and data sensitivity?
+
+Good: "Export" button in the toolbar. Options: "Export current page (25 rows) as CSV" or "Export all 312 matching results as CSV". "Note: PII columns will be masked per your access level."
+Bad: No export capability. Users screenshot tables or manually copy data.
+
+Severity: Minor — Major for audit, reporting, or compliance roles.
+
+RULE EX2 — Exported data must match the displayed data
+
+What to look for:
+- Does the export reflect the current filters, sort, and column selections?
+- Are values exported in readable formats (formatted dates, not epoch timestamps)?
+- Are column headers in the export human-readable (not database field names)?
+
+Severity: Major (when export is available)
+
+---
+
+# 14. Evaluation Output Format
+
+The evaluating agent must produce the following structured report.
+
+---
+
+## Search, Browse & Retrieve Evaluation Report
+
+### Metadata
+
+- Application: [application name]
+- Screen(s): [list/queue/search/detail screens evaluated]
+- Data Domain: [cases, transactions, customers, etc.]
+- Estimated Record Volume: [typical dataset size]
+- User Persona: [operator, reviewer, auditor, etc.]
+- Evaluator: [agent or human identifier]
+- Evaluation Date: [date]
+- Input Provided: [screenshots / recording / HTML / prototype]
+- Evaluation Limitations: [what could not be evaluated]
+
+### Overall Assessment
+
+Overall Score: X.X / 5.0
+Verdict: [Excellent | Good | Acceptable | Problematic | Poor]
+
+One-paragraph summary of the overall search, browse, and retrieve experience.
+
+### Category Scores
+
+| Category                        | Score | Key Findings                                  |
+|---------------------------------|-------|-----------------------------------------------|
+| Search Entry (SE)               | X/5   | [1-line summary]                              |
+| Results Presentation (SR)       | X/5   | [1-line summary]                              |
+| Filter & Refinement (FR)        | X/5   | [1-line summary]                              |
+| Table & List Display (TD)       | X/5   | [1-line summary]                              |
+| List-to-Detail Transition (LD)  | X/5   | [1-line summary]                              |
+| Queue Patterns (QU)             | X/5   | [1-line summary]                              |
+| Lookup & Picker (LP)            | X/5   | [1-line summary]                              |
+| Saved Search & History (SA)     | X/5   | [1-line summary]                              |
+| Keyboard & Power User (KP)      | X/5   | [1-line summary]                              |
+| Export (EX)                     | X/5   | [1-line summary]                              |
+
+Mark categories not evaluable as "N/E".
+
+### Violations
+
+| Field           | Value                                                              |
+|-----------------|--------------------------------------------------------------------|
+| Rule            | [Rule ID, e.g., LD1]                                              |
+| Severity        | [Critical / Major / Minor]                                        |
+| Screen          | [Which screen]                                                    |
+| Description     | [What is the violation?]                                          |
+| Evidence        | [What did you observe?]                                           |
+| Impact          | [Operational impact — estimate time lost per user per day if possible] |
+| Recommendation  | [Specific fix]                                                    |
+
+### Time-to-Record Assessment
+
+Estimate the number of clicks and seconds required for these common tasks:
+
+| Task                                          | Clicks | Est. Time | Verdict      |
+|-----------------------------------------------|--------|-----------|--------------|
+| Find a specific record by ID                  |        |           |              |
+| Find the next item in "my queue"              |        |           |              |
+| Filter to records matching 3 criteria         |        |           |              |
+| Process 10 queue items sequentially            |        |           |              |
+| Return to list from detail with context       |        |           |              |
+
+### Strengths
+
+List 3-5 things the search/browse/retrieve experience does well.
+
+### Priority Recommendations
+
+1. [Highest impact fix]
+2. [Second]
+3. [Third]
+4. [Fourth]
+5. [Fifth]
+
+### Not Evaluable
+
+List any rules that could not be evaluated and what input would be needed.
+
+---
+
+# 15. Heuristic Summary
+
+Effective enterprise search, browse, and retrieve allows the user to:
+
+1. **Find any record in under 10 seconds** — by ID, name, or attribute.
+2. **Scan a list and triage in under 2 seconds per row** — with key attributes visible.
+3. **Filter to a working set in under 3 clicks** — with common filters always visible.
+4. **Open a record and return without losing context** — filters, sort, scroll, page all preserved.
+5. **Process a queue without friction** — claim, act, next item, repeat.
+6. **Save and share complex filter combinations** — reusable views for daily operational patterns.
+7. **Distinguish urgent from routine at a glance** — SLA, priority, and aging are visually prominent.
+8. **Never see a blank, unexplained empty state** — every "no results" state guides the user forward.
+
+If finding and opening a record takes more than 10 seconds, the search and browse experience has a gap.
+
+---
+
+# Appendix A: Rule Quick Reference
+
+| Rule ID | Rule Name                                      | Severity |
+|---------|-------------------------------------------------|----------|
+| SE1     | Search discoverable from every screen           | Major    |
+| SE2     | Search supports common identifiers              | Major    |
+| SE3     | Typeahead/autocomplete for lookups              | Minor    |
+| SE4     | Search handles errors and ambiguity             | Minor    |
+| SE5     | Advanced search for complex queries             | Major    |
+| SR1     | Results show enough context to triage           | Major    |
+| SR2     | Default sort by operational relevance           | Major    |
+| SR3     | Search terms highlighted in results             | Minor    |
+| SR4     | Result counts visible                           | Minor    |
+| SR5     | Multiple view modes available                   | Minor    |
+| SR6     | Large datasets handled gracefully               | Major    |
+| SR7     | No-results states informative                   | Minor    |
+| FR1     | Filters visible and accessible                  | Major    |
+| FR2     | Active filters visible and clearable            | Major    |
+| FR3     | Filter options show result counts               | Minor    |
+| FR4     | Filter interactions fast and non-blocking       | Major    |
+| FR5     | Date range filters with presets                 | Minor    |
+| FR6     | Saved filters and views supported               | Major    |
+| FR7     | Faceted navigation for large datasets           | Minor    |
+| TD1     | Columns chosen for user task                    | Major    |
+| TD2     | Column widths match content                     | Minor    |
+| TD3     | Fixed headers for scrollable tables             | Minor    |
+| TD4     | Row interactions clear and efficient            | Major    |
+| TD5     | Visual indicators for rapid scanning            | Major    |
+| TD6     | Sorting on every column                         | Major    |
+| TD7     | Pagination clear and stateful                   | Major    |
+| LD1     | List context preserved on return                | Critical |
+| LD2     | Side panel preview available                    | Major    |
+| LD3     | Clear path back to list                         | Major    |
+| LD4     | Detail loads quickly, key info first            | Major    |
+| LD5     | Inline prev/next navigation                     | Minor    |
+| QU1     | Queue distinguishes action-needed items         | Major    |
+| QU2     | Urgency and priority visible at a glance        | Major    |
+| QU3     | Claim/unclaim supported                         | Major    |
+| QU4     | Queue supports work-through mode                | Minor    |
+| LP1     | Lookup fields have search                       | Major    |
+| LP2     | Recent/frequent options shown                   | Minor    |
+| LP3     | Lookup selections preview details               | Minor    |
+| SA1     | Recent searches accessible                      | Minor    |
+| SA2     | Saved searches persist and shareable            | Major    |
+| SA3     | Recently viewed records accessible              | Minor    |
+| KP1     | Search keyboard-accessible                      | Minor    |
+| KP2     | List navigation keyboard shortcuts              | Minor    |
+| KP3     | Bulk selection keyboard shortcuts               | Minor    |
+| EX1     | Results exportable                              | Minor    |
+| EX2     | Export matches displayed data                   | Major    |
+
+---
+
+# Appendix B: Search/Browse/Retrieve Checklist (Quick Pass)
+
+- [ ] Is search accessible from every screen?
+- [ ] Can users search by all common identifiers (ID, name, phone, email)?
+- [ ] Do search results show enough context to identify and triage?
+- [ ] Are results sorted by operational relevance by default?
+- [ ] Is the result count visible?
+- [ ] Are filters visible and immediately accessible?
+- [ ] Are active filters displayed and individually clearable?
+- [ ] Can users save filter combinations as reusable views?
+- [ ] Are table columns chosen for the user's task (not the data model)?
+- [ ] Do overdue/urgent items have visual indicators?
+- [ ] Does returning from detail preserve list context (filters, sort, page, scroll)?
+- [ ] Is a side panel or preview available to avoid full-page navigation?
+- [ ] Do empty results explain why and suggest next steps?
+- [ ] Can users claim/unclaim queue items with a single click?
+- [ ] Is inline next/previous navigation available for queue processing?
+- [ ] Can users export filtered results?
+- [ ] Are lookup/picker fields searchable?
+- [ ] Can the entire search-to-result flow be performed via keyboard?
+- [ ] Is pagination stateful and clear?
+- [ ] Can users customize visible columns?

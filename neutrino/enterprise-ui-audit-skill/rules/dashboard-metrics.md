@@ -1,0 +1,1003 @@
+
+# Enterprise Operational Dashboard and Metrics Evaluation Rules
+
+file: dashboard-metrics.md
+version: 1.0
+purpose: Comprehensive rules for AI agents to evaluate operational dashboards, KPI displays, metric visualizations, and monitoring screens in enterprise workflow applications.
+
+---
+
+# 0. Agent Instructions
+
+You are an enterprise dashboard evaluation agent. Your job is to assess operational dashboards, KPI screens, metric visualizations, and monitoring views in enterprise applications — determining whether they provide actionable insight that drives operational decisions.
+
+Enterprise dashboards are not marketing dashboards. They are not data exploration tools. They are operational instruments that must answer: "What should I pay attention to right now? What action should I take?"
+
+## 0.1 What You Will Receive
+
+You may receive input from one or more of these sources, listed from richest to most limited:
+
+- **Live application (browser/MCP)** — interact with the live dashboard: apply filters, drill down into metrics, hover over chart elements to read tooltips, observe refresh/real-time update behavior, resize viewport for responsive layout, test time-range selectors.
+- **Figma or design file** (any form: exported file, shared link, plugin) — extract or infer metric card layouts, chart component variants, filter configurations, color tokens, and text layers for all metric labels and values to the extent the format allows. Proactively enumerate all KPI card variants and chart types used.
+- **Interactive prototype** — click through drill-down paths, filter interactions, time-range changes, and dashboard tabs. Observe transition behavior between dashboard views.
+- **Video recording** — observe real-time refresh behavior, drill-down speed, filter response time, data loading patterns, and tooltip interactions as demonstrated. Note refresh intervals and data freshness indicators.
+- **Accessibility tree / DOM snapshot** — verify chart accessibility (alt text, ARIA labels), table semantics within dashboards, heading structure, and live-region announcements for updating metrics.
+- **Screenshots** — evaluate metric selection, layout, visual hierarchy, labeling, data formatting, information density, chart type selection, and context indicators. Cannot assess interaction dynamics.
+- **Textual inputs** — dashboard intent descriptions, audience definitions, KPI specifications, data dimension catalogs.
+
+When richer input sources are available, proactively test drill-down paths and verify that every metric connects to actionable detail.
+
+## 0.2 How to Conduct the Evaluation
+
+Step 1 — Identify the dashboard type (operational, tactical, strategic, monitoring — see Section 1)
+Step 2 — Identify the target audience (frontline operator, team lead, manager, executive, auditor)
+Step 3 — For each metric or visualization, determine: what question does this answer? What action does it drive?
+Step 4 — Assess whether the dashboard as a whole provides a coherent operational picture
+Step 5 — Evaluate each metric, visualization, and interaction against the rules in this document
+Step 6 — Assess the dashboard's data integrity, freshness, and trustworthiness signals
+Step 7 — Produce the structured report in the Evaluation Output format
+
+## 0.3 Evaluation Perspective
+
+- Evaluate from the perspective of the intended user. An executive dashboard has different needs than an operator dashboard.
+- A dashboard metric that doesn't connect to an action is decoration. Every metric must answer: "So what? What do I do with this number?"
+- Information overload is the primary failure mode for enterprise dashboards. Fewer, better metrics beat many mediocre ones.
+- Data freshness and trustworthiness are non-negotiable. A dashboard that displays stale data without indicating it is worse than no dashboard at all.
+
+## 0.4 Evaluation Depth by Input Source
+
+| Capability | Screenshots | Figma | Prototype | Video | Browser |
+|---|---|---|---|---|---|
+| Metric layout and hierarchy | Full | Full | Full | Full | Full |
+| Chart type selection | Full | Full | Full | Full | Full |
+| Drill-down behavior | No | Partial (connections) | Full | Full (if shown) | Full |
+| Filter interactions | No | Partial (states) | Full | Full (if shown) | Full |
+| Refresh / real-time updates | No | No | No | Full (observe) | Full |
+| Responsive layout | No | Partial (breakpoints) | No | No | Full |
+| Tooltip content | No | Partial (variants) | Full (hover) | Partial (if shown) | Full |
+| Data freshness indicators | Full (if shown) | Full | Full | Full | Full |
+
+**Key:** Full = can fully evaluate. Partial = can partially evaluate (note limitations). No = cannot evaluate (mark as N/E in report).
+
+When only screenshots are available, note limitations on drill-down, filter interaction, and real-time update evaluation. When prototype or browser access is available, test every drill-down path to verify it reaches source records.
+
+---
+
+# 1. Purpose and Dashboard Types
+
+These rules define how an evaluation agent should assess dashboards and metric displays in enterprise applications.
+
+### Dashboard Types
+
+**Operational Dashboard** — Used by frontline operators and team leads. Focused on real-time or near-real-time metrics that drive immediate action.
+- "How many items are in my queue?"
+- "Are any SLAs at risk right now?"
+- "What is my team's throughput today?"
+- Refresh: real-time to every few minutes.
+
+**Tactical Dashboard** — Used by managers and team leads. Focused on daily/weekly trends and team performance.
+- "Are we on track for our weekly targets?"
+- "Which team member has the highest backlog?"
+- "How does this week compare to last week?"
+- Refresh: hourly to daily.
+
+**Strategic Dashboard** — Used by senior leaders and executives. Focused on monthly/quarterly trends and business outcomes.
+- "Are we meeting our SLA commitments this quarter?"
+- "What is the cost trend for dispute resolution?"
+- "How does our approval rate compare to industry benchmarks?"
+- Refresh: daily to weekly.
+
+**Monitoring Dashboard** — Used by operations and engineering teams. Focused on system health, throughput, and anomaly detection.
+- "Is the processing pipeline healthy?"
+- "Are transaction volumes within normal ranges?"
+- "Are any integration points failing?"
+- Refresh: real-time.
+
+The rules in this document apply to all types but are weighted toward operational and tactical dashboards, which are the most common in enterprise workflow applications.
+
+---
+
+# 2. Scoring Model
+
+Each category is scored from 1 to 5:
+
+| Score | Label        | Definition                                                                           |
+|-------|--------------|---------------------------------------------------------------------------------------|
+| 5     | Excellent    | Dashboard provides clear, actionable insight. Every metric earns its place.           |
+| 4     | Good         | Functional with minor improvements. Provides useful operational guidance.             |
+| 3     | Acceptable   | Contains useful information but suffers from clutter, unclear metrics, or missing context. |
+| 2     | Problematic  | Metrics are confusing, misleading, or not actionable. Significant gaps.               |
+| 1     | Poor         | Dashboard provides no operational value or, worse, displays misleading information.    |
+
+Severity:
+- Critical = metrics are misleading, data freshness is invisible, or the dashboard drives incorrect decisions
+- Major = metrics lack context, actionability, or appropriate visualization
+- Minor = layout, formatting, or visual polish improvements
+
+---
+
+# 3. Core Principles
+
+Enterprise operational dashboards must prioritize:
+
+1. **Actionability over information** — Every metric must connect to a decision or action. If the user can't answer "so what?" for a metric, it doesn't belong.
+
+2. **Signal over noise** — Fewer, well-chosen metrics beat a wall of numbers. The dashboard should highlight what is abnormal, not display everything.
+
+3. **Context over raw numbers** — A number without a comparison point (target, trend, benchmark, threshold) is just a number. Context makes it a signal.
+
+4. **Trust over impressiveness** — Users must trust the data. This means visible data freshness, clear definitions, and transparent calculation methods.
+
+5. **Drill-down over density** — Show the headline on the dashboard. Let users drill down for detail. Don't pack the detail onto the summary.
+
+6. **Consistency over variety** — Use the same chart types, color schemes, and layout patterns throughout. Visual consistency reduces cognitive load.
+
+7. **Operational focus over vanity metrics** — Metrics like "total records processed ever" or "total users" are vanity metrics. Operational dashboards need metrics tied to current performance and action.
+
+---
+
+# 4. Metric Selection Rules
+
+RULE MS1 — Every metric must answer an operational question
+
+What to look for:
+- Can you state, for each metric, the operational question it answers?
+- Does the answer to that question drive an action?
+- Are there metrics that exist "because we can measure them" rather than because they're useful?
+- Would removing any metric reduce the user's ability to make decisions?
+
+For each metric, test: "If this number changed significantly, what would the user do differently?"
+- If the answer is "nothing" — the metric doesn't belong on this dashboard.
+- If the answer is clear — the metric earns its place.
+
+Good: "Pending Approvals (12)" — answers "How many items need my action?" Action: start processing.
+Good: "Avg Processing Time: 23 min (target: 30 min)" — answers "Are we meeting our speed targets?" Action: none needed (on track) or investigate (off track).
+Bad: "Total Records: 145,289" — answers nothing actionable. The user cannot act on the all-time total.
+Bad: "Database Uptime: 99.99%" — interesting to engineering, not to an operations user.
+
+Severity: Major
+
+RULE MS2 — Metrics must include comparison context
+
+A raw number in isolation is almost never useful. Metrics must include at least one of:
+- Target or threshold ("12 of 15 SLA target")
+- Trend ("↑ 15% vs last week")
+- Benchmark ("Team average: 18, Your: 23")
+- Historical comparison ("Today: 47, Yesterday: 52, Last week: 38")
+- Percentage of total ("23 of 312 cases, 7%")
+
+What to look for:
+- Does every metric show at least one comparison point?
+- Are thresholds and targets visually indicated (green/yellow/red zones)?
+- Are trends shown with direction and magnitude?
+- Is the comparison period clear ("vs. yesterday", "vs. same day last week")?
+
+Good: "Pending Approvals: 47 (↓ 12% vs yesterday, target: <50 ✓)"
+Bad: "Pending Approvals: 47" — Is 47 good or bad? The user has no way to know.
+
+Severity: Major
+
+RULE MS3 — Metrics must be grouped by operational concern
+
+What to look for:
+- Are metrics organized into logical groups ("My Queue", "Team Performance", "SLA Health", "Volume Trends")?
+- Does the grouping match how the user thinks about their work?
+- Are the groups visually separated (cards, sections, tabs)?
+- Is there a clear visual hierarchy between groups (primary group most prominent)?
+
+Good: Dashboard divided into three cards: "My Work" (items in queue, overdue count, next SLA deadline), "Team Performance" (throughput, avg time, backlog), "Volume Trends" (chart showing incoming vs resolved).
+Bad: 15 metrics in a flat grid with no grouping, no hierarchy, and no visual separation.
+
+Severity: Major
+
+RULE MS4 — The dashboard must not display too many metrics at once
+
+Cognitive overload is the most common dashboard failure. Users cannot meaningfully process more than 7-10 KPIs at a glance.
+
+What to look for:
+- Are there fewer than 10 primary KPIs on the initial view?
+- Are secondary metrics available on demand (tabs, drill-down, scroll) rather than all-at-once?
+- Is there a clear visual hierarchy (2-3 hero metrics large, supporting metrics smaller)?
+- Can users customize which metrics appear?
+
+Good: 3 hero KPIs across the top (queue size, SLA compliance %, throughput today). 4-5 supporting metrics in a secondary row. Detailed charts below the fold or in tabs.
+Bad: 25 KPI cards in a 5x5 grid, all the same size, competing for attention.
+
+Severity: Major
+
+RULE MS5 — Metrics must be precisely defined and unambiguous
+
+What to look for:
+- Can the user tell exactly what each metric measures from its label?
+- Are metric definitions accessible (tooltip, help icon, glossary)?
+- Are calculation methods transparent ("Average processing time = sum of completion times / completed cases in the period")?
+- Are inclusions/exclusions clear ("Excludes auto-approved cases", "Includes only cases in your team")?
+
+Good: "Avg Processing Time ⓘ" with tooltip: "Average time from case assignment to resolution for manually processed cases in the current week. Excludes auto-approved and cancelled cases."
+Bad: "Processing Time" — average or median? Assigned to resolution or start to finish? This period or all-time? For which cases?
+
+Severity: Major
+
+RULE MS6 — Vanity metrics must be avoided
+
+What to look for:
+- Are there metrics that only go up (cumulative totals that never decrease)?
+- Are there metrics that the user has no control over?
+- Are there metrics that are impressive-sounding but not actionable?
+- Could any metric be replaced with a more actionable alternative?
+
+Bad: "Total Cases Processed (All Time): 1,234,567" — cumulative, never actionable.
+Good: "Cases Processed Today: 47 (target: 50)" — specific, time-bound, actionable.
+
+Bad: "System Availability: 99.99%" — not actionable for an operations user.
+Good: "Cases Pending External Response: 8" — something the user can follow up on.
+
+Severity: Minor
+
+---
+
+# 5. Data Freshness and Trust Rules
+
+RULE DF1 — Data freshness must be visible on every dashboard
+
+Users must know how current the data is. Stale data presented as current can drive wrong decisions.
+
+What to look for:
+- Is a "Last updated" timestamp displayed prominently?
+- Is the refresh interval stated ("Updates every 5 minutes")?
+- Is stale data visually flagged (if data is older than expected)?
+- Is there a manual refresh button?
+- For real-time dashboards, is the live status indicated ("Live" badge with a pulse indicator)?
+
+Good: "Last updated: 2 minutes ago. Auto-refreshes every 5 minutes. [↻ Refresh Now]"
+Good: "🟢 Live — updating in real time"
+Bad: No timestamp anywhere. The user cannot tell if these numbers are from today or last week.
+
+Severity: Critical — stale data displayed as current is actively dangerous.
+
+RULE DF2 — Data load errors must be clearly surfaced
+
+What happens when the dashboard cannot load data or a metric fails to calculate?
+
+What to look for:
+- Is a failed data load clearly indicated (not shown as zero or blank)?
+- Is the failure specific ("Unable to load SLA metrics. Retry.")?
+- Is a retry option available?
+- Does a partial failure show which metrics loaded and which failed (not all-or-nothing)?
+- Is the last known good value shown with a staleness indicator ("Last known value: 47 (from 2 hours ago). Unable to refresh.")?
+
+Good: One KPI card shows "Unable to load" with a retry icon. The other 5 cards display current data normally.
+Bad: One metric fails to load and shows "0". The user thinks there are zero pending items and takes no action.
+
+Severity: Critical
+
+RULE DF3 — Calculation methodology must be transparent
+
+What to look for:
+- Can users access how each metric is calculated?
+- Are there ⓘ icons or tooltips on metric labels explaining the calculation?
+- When metrics change unexpectedly, can users investigate the cause (drill down to underlying data)?
+- Are exclusions and filters stated ("Excludes weekends", "Only includes manually processed cases")?
+
+Severity: Major
+
+RULE DF4 — Data freshness should match the dashboard type
+
+What to look for:
+- Operational dashboards: data should be real-time or near-real-time (< 5 minutes)
+- Tactical dashboards: data refreshed at least hourly
+- Strategic dashboards: data refreshed at least daily
+- Is the actual refresh frequency appropriate for the decision speed required?
+
+Good: An operational queue dashboard shows real-time data with a "Live" indicator.
+Bad: An operational dashboard showing queue counts that are 6 hours old. The user's queue has changed dramatically since then.
+
+Severity: Major
+
+---
+
+# 6. KPI Card and Metric Display Rules
+
+RULE KD1 — KPI cards must show the metric, label, context, and trend in a scannable format
+
+What to look for:
+- Is the metric value large and prominent (the most visually dominant element)?
+- Is the label clear and positioned consistently (above or below the value)?
+- Is comparison context shown (vs target, vs yesterday, trend arrow)?
+- Is the card compact enough to scan in under 2 seconds?
+- Is color used meaningfully (green = on track, yellow = at risk, red = off track)?
+
+Good: Card layout:
+```
+Pending Approvals
+47
+↓ 12% vs yesterday | Target: < 50 ✓
+```
+
+Bad: Card layout:
+```
+The total number of approval requests
+currently pending review by team members
+assigned to the compliance department queue
+as of the most recent data refresh
+
+47.000000
+
+No comparison data available
+```
+
+Severity: Major
+
+RULE KD2 — KPI values must be formatted for instant readability
+
+What to look for:
+- Are large numbers abbreviated with appropriate precision ("12.4K" not "12,389")?
+- Are currency values formatted with symbol and appropriate decimal places?
+- Are percentages shown as percentages (not decimals: "73%" not "0.73")?
+- Are durations in human-readable format ("2h 15m" not "135 minutes")?
+- Are zero and null values distinguished ("0" means zero, "—" means no data)?
+
+Good: "12.4K cases", "$1.2M settlements", "73% SLA compliance", "2h 15m avg time"
+Bad: "12389 cases", "1234567.89 settlements", "0.73 SLA compliance", "135 avg time"
+
+Severity: Major
+
+RULE KD3 — Color coding must follow a consistent and accessible scheme
+
+What to look for:
+- Is green/yellow/red (or equivalent) used consistently for good/warning/bad?
+- Is the meaning of each color documented or universally intuitive?
+- Is color supplemented with text or icons (not color alone)?
+- Are the colors accessible to color-blind users (check contrast, provide text labels)?
+- Is the color scheme consistent across all KPI cards?
+
+Good: "SLA Compliance: 73% ⚠" (yellow background, warning icon, text label "At Risk").
+Bad: A card with an orange background. Is orange good or bad? No icon or text to clarify.
+
+Severity: Major
+
+RULE KD4 — Threshold and target indicators must be visual and explicit
+
+What to look for:
+- Are targets and thresholds shown alongside the metric value?
+- Is the relationship to the target visual (gauge, progress bar, color zone)?
+- Are threshold definitions accessible (what counts as "at risk" vs "breached")?
+- Does crossing a threshold produce a visual change (color shift, icon, badge)?
+
+Good: "SLA Compliance: 73% | Target: 90% | ⚠ Below target" with a progress bar showing 73% in yellow against a 90% target line.
+Bad: "SLA Compliance: 73%" with no target, no threshold, no indication of whether this is acceptable.
+
+Severity: Major
+
+---
+
+# 7. Chart and Visualization Rules
+
+RULE CV1 — Every chart must have a clear title stating the question it answers
+
+What to look for:
+- Does the chart title state a question or insight, not just a data category?
+- Is the title positioned above the chart?
+- Is the time range included in the title or subtitle?
+
+Good: "Incoming vs Resolved Cases — Last 30 Days"
+Good: "Processing Time Trend by Team — This Week"
+Bad: "Chart 1"
+Bad: "Data"
+Bad: "Cases" — what about cases? Count? Trend? By team?
+
+**Input modality:** If browser access is available, hover over chart elements to evaluate tooltip content and interactivity. If a Figma or design file is available (in any form), check chart component variants for hover/tooltip states to the extent visible. Screenshots can evaluate titles, types, and labeling but not tooltip content.
+
+Severity: Major
+
+RULE CV2 — Chart type must match the data and the question
+
+| Question Type | Recommended Chart | Avoid |
+|---|---|---|
+| How does a value change over time? | Line chart | Pie chart |
+| How do categories compare? | Bar chart (horizontal for many categories) | Line chart |
+| What is the composition? | Stacked bar or treemap | Line chart |
+| What is a single value's progress toward a goal? | Gauge, progress bar, or bullet chart | Pie chart |
+| What is the distribution? | Histogram or box plot | Pie chart |
+| What is the relationship between two variables? | Scatter plot | Pie chart |
+
+What to look for:
+- Is the chart type appropriate for the data relationship being shown?
+- Are pie charts avoided (they are almost always worse than bar charts for comparison)?
+- Are 3D charts avoided (they distort proportions)?
+- Are dual-axis charts used cautiously (can be misleading)?
+
+Good: Line chart for trends over time. Horizontal bar chart for comparing team performance. Gauge for SLA compliance percentage.
+Bad: A 3D pie chart comparing 12 categories. Unreadable.
+Bad: A line chart comparing revenue by product — bar chart would be more appropriate.
+
+Severity: Major
+
+RULE CV3 — Charts must be labeled and readable
+
+What to look for:
+- Are axes labeled with units ("Cases", "Amount (USD)", "Days")?
+- Are axis values readable (not overlapping, not too dense)?
+- Are data points accessible on hover (tooltip with exact value and context)?
+- Is the legend clear and positioned near the chart?
+- Are gridlines subtle (aid readability without cluttering)?
+- Is the aspect ratio appropriate (not stretched or compressed)?
+
+Good: Y-axis: "Cases Processed". X-axis: "Week". Tooltip on hover: "Week of Mar 1: 312 cases processed (↑ 8% vs prior week)".
+Bad: No axis labels. Numbers overlap. Legend is 200px away from the chart.
+
+Severity: Major
+
+RULE CV4 — Charts must use consistent scales and baselines
+
+What to look for:
+- Do Y-axes start at zero for bar charts (truncated axes exaggerate differences)?
+- Are scales consistent across related charts (same Y-axis range for side-by-side comparison)?
+- Are logarithmic scales used only when appropriate and clearly labeled?
+- Are dual-axis charts clearly labeled with which data maps to which axis?
+
+Good: Two side-by-side bar charts comparing Team A and Team B, both with Y-axis from 0 to 100.
+Bad: Team A chart Y-axis: 80-100. Team B chart Y-axis: 0-100. Team A's small variations look dramatic.
+
+Severity: Major — misleading scales cause incorrect conclusions.
+
+RULE CV5 — Charts must support interaction for detail
+
+What to look for:
+- Can users hover to see exact values?
+- Can users click on data points to drill down to underlying records?
+- Can users change the time range?
+- Can users toggle series on/off in multi-series charts?
+- Can users zoom into regions of interest?
+
+Good: Clicking on the "Week of Mar 1" bar opens a filtered list of the 312 cases processed that week.
+Bad: Chart is a static image with no interaction. User must go to a separate report to see the underlying data.
+
+Severity: Major
+
+RULE CV6 — Charts must be accessible
+
+What to look for:
+- Are chart colors distinguishable for color-blind users?
+- Are data patterns used in addition to color (dashed lines, shapes, patterns)?
+- Is an alternative tabular view available for screen reader users?
+- Are aria-labels provided for chart containers?
+- Is font size readable (at least 12px for labels)?
+
+Good: Chart with distinct colors + different line styles (solid, dashed, dotted). A "View as Table" toggle in the corner.
+Bad: Six data series differentiated only by shades of blue. No tabular alternative.
+
+Severity: Minor — Major if accessibility compliance is required.
+
+---
+
+# 8. Trend and Time Series Rules
+
+RULE TT1 — Time series charts must include appropriate time ranges
+
+What to look for:
+- Is the default time range appropriate for the dashboard type (today for operational, this week for tactical, this quarter for strategic)?
+- Can users change the time range?
+- Are preset ranges available ("Today", "Last 7 Days", "Last 30 Days", "This Quarter", "Custom")?
+- Is the selected range clearly displayed?
+
+Good: "Showing: Last 7 Days [Today | 7D | 30D | Quarter | Custom ▾]"
+Bad: Chart shows data with no indication of time range. Is this today's data? Last year's?
+
+Severity: Major
+
+RULE TT2 — Trends must show direction and magnitude clearly
+
+What to look for:
+- Are trend arrows or indicators shown on KPI cards (↑ ↓ →)?
+- Is the magnitude of change shown ("↑ 15%" not just "↑")?
+- Is the comparison period stated ("vs. yesterday", "vs. same day last week")?
+- Are trend colors meaningful (green for positive trends, red for negative)?
+- Is "positive" defined correctly for each metric (for "pending items", a decrease is positive)?
+
+Good: "Backlog: 47 ↓ 12% vs yesterday" (green, because fewer backlog items is good).
+Bad: "Backlog: 47 ↓ 12%" (red, because someone defaulted "down = bad" without considering the metric semantics).
+
+Severity: Major
+
+RULE TT3 — Anomalies must be visually flagged
+
+What to look for:
+- Are unusual spikes or drops visually highlighted in time series charts?
+- Is there an indication of what constitutes "unusual" (standard deviation, threshold)?
+- Can users investigate anomalies (click to drill down)?
+- Are annotations supported for explaining anomalies ("System outage Mar 3-4")?
+
+Good: A spike in the processing time trend is highlighted with a red dot and an annotation: "System outage 14:00-16:00, Mar 3."
+Bad: A dramatic spike in the chart with no explanation or visual emphasis. The user wonders if it's a data error or a real event.
+
+Severity: Minor
+
+---
+
+# 9. Drill-Down and Navigation Rules
+
+RULE DD1 — Every metric and chart must support drill-down to underlying data
+
+The dashboard is a starting point, not the final destination. Users must be able to navigate from a summary metric to the records that compose it.
+
+What to look for:
+- Can users click a KPI value to see the underlying records in a filtered list?
+- Can users click a chart data point to see the records for that segment/period?
+- Does the drill-down preserve the dashboard context (back button returns to dashboard)?
+- Is drill-down behavior indicated visually (cursor change, underline, link styling on clickable values)?
+
+Good: Clicking "Pending Approvals: 47" opens the Cases list filtered to "Status: Pending Approval, Assigned to: Me" — showing the 47 cases. Breadcrumb: "Dashboard > Pending Approvals (47)".
+Bad: KPI card shows "47" but clicking it does nothing. The user must navigate to the cases list and manually apply filters to see which 47 cases are pending.
+
+**Input modality:** If prototype or browser access is available, test drill-down navigation to verify it reaches source records with correct filters applied. Screenshots can only evaluate whether clickable affordances are present.
+
+Severity: Major
+
+RULE DD2 — Drill-down paths must be intuitive and consistent
+
+What to look for:
+- Do all KPI values and chart elements behave consistently (all clickable, or all non-clickable)?
+- Is it clear which elements are clickable (visual affordance)?
+- Do drill-down paths follow a logical hierarchy (dashboard → filtered list → record detail)?
+- Can users navigate back to the dashboard without losing their place?
+
+Severity: Major
+
+RULE DD3 — Cross-dashboard navigation must be supported
+
+What to look for:
+- Can users navigate between related dashboards ("My Queue" → "Team Performance" → "SLA Trends")?
+- Is there a navigation mechanism between dashboards (tabs, sidebar, breadcrumbs)?
+- Are dashboard links available from other application screens?
+
+Severity: Minor
+
+---
+
+# 10. Layout and Composition Rules
+
+RULE LC1 — Dashboard layout must follow a clear information hierarchy
+
+What to look for:
+- Are the most critical metrics in the most prominent positions (top-left for LTR layouts)?
+- Is there a clear visual flow (headline KPIs at top, supporting details below)?
+- Is the layout organized in a grid system (aligned, not haphazard)?
+- Is the golden ratio applied: 60-70% of above-the-fold space for primary metrics, 30-40% for context?
+
+Good: Top row: 3 hero KPIs (queue size, SLA %, throughput). Second row: 2 trend charts. Below the fold: detailed breakdowns and tables.
+Bad: 12 equally-sized cards in a grid with no visual hierarchy. The user's eye has no starting point.
+
+Severity: Major
+
+RULE LC2 — Above-the-fold content must provide a complete operational summary
+
+Users should be able to glance at the top of the dashboard and answer: "Is everything OK, or do I need to investigate?"
+
+What to look for:
+- Do the top 3-5 metrics provide a complete operational pulse check?
+- Can the user determine "all clear" vs "attention needed" without scrolling?
+- Are alert/exception indicators visible above the fold?
+
+Good: Top row shows: "Queue: 12 ✓" (green), "SLA: 94% ✓" (green), "Overdue: 0 ✓" (green). At a glance: everything is on track.
+Good: Top row shows: "Queue: 47 ⚠" (yellow), "SLA: 73% ✗" (red), "Overdue: 8 ✗" (red). At a glance: attention needed.
+Bad: Above the fold shows a welcome message, a logo, and a "Total Records (All Time)" counter. Operational metrics require scrolling.
+
+Severity: Major
+
+RULE LC3 — Dashboard must not require horizontal scrolling
+
+What to look for:
+- Does the dashboard fit within a standard viewport width (1280px minimum)?
+- Are elements wrapped responsively for different screen sizes?
+- Are wide charts and tables contained within the viewport or scrollable independently?
+
+Severity: Minor
+
+RULE LC4 — White space and spacing must support readability
+
+What to look for:
+- Is there adequate spacing between KPI cards and chart sections?
+- Are sections visually separated (dividers, background contrast, spacing)?
+- Does the layout feel organized or crowded?
+- Is text readable at standard viewing distance?
+
+Severity: Minor
+
+---
+
+# 11. Filter and Interactivity Rules
+
+RULE FI1 — Dashboard filters must be visible and easy to change
+
+What to look for:
+- Are dashboard-level filters visible at the top (time range, team, assignee, status)?
+- Can filter changes be applied without page reload?
+- Do all metrics and charts update when a filter changes?
+- Are active filters clearly displayed?
+
+Good: Filter bar at the top: "Period: Last 7 Days | Team: All Teams | Status: Active". Changing "Team" to "Compliance" immediately updates all metrics and charts.
+Bad: No filters. Dashboard shows pre-computed, fixed data for a default scope.
+
+Severity: Major
+
+RULE FI2 — Cross-filtering between dashboard elements must be supported where appropriate
+
+What to look for:
+- Does clicking a segment in one chart filter the other charts?
+- Is the cross-filter relationship indicated visually?
+- Can cross-filters be cleared easily?
+
+Good: Clicking "Compliance Team" in a bar chart filters all other charts and KPIs to show only Compliance Team data. A "Filtered by: Compliance Team [✕]" indicator appears.
+Bad: Charts are independent. There is no way to correlate data across visualizations without manual filtering.
+
+Severity: Minor
+
+RULE FI3 — Dashboard state must be shareable
+
+What to look for:
+- Does the URL reflect the current filter state (time range, team, selected view)?
+- Can a user share a dashboard link that shows the same view to a colleague?
+- Can the dashboard state be bookmarked?
+
+Good: URL updates to include filter parameters: `/dashboard?period=7d&team=compliance`. Sharing this URL shows the same filtered view.
+Bad: All filter state is in memory. Refreshing the page resets everything.
+
+Severity: Minor — Major for team collaboration scenarios.
+
+---
+
+# 12. Alert and Exception Indicator Rules
+
+RULE AE1 — Threshold breaches must be visually prominent
+
+What to look for:
+- When a metric exceeds a critical threshold, is it visually flagged (color change, badge, icon)?
+- Are breaches visible at dashboard-scan distance (not requiring careful reading)?
+- Are alerts prioritized by severity?
+- Can alerts be acknowledged or dismissed?
+
+Good: "SLA Compliance: 73%" displayed in a red card with a ⚠ icon and text "Below target (90%)". Positioned prominently at the top.
+Bad: "SLA Compliance: 73%" in a plain card, same styling as metrics that are on target. The user must know the target is 90% to recognize the problem.
+
+Severity: Major
+
+RULE AE2 — The dashboard must provide an at-a-glance health indicator
+
+What to look for:
+- Is there an overall "health" summary (all green, some yellow, critical red)?
+- Can the user tell in under 3 seconds whether anything requires immediate attention?
+- Are healthy states indicated (not just unhealthy)?
+
+Good: A small status bar: "System Health: 🟢 All metrics within targets" or "System Health: 🔴 2 metrics need attention".
+Bad: No overall health indicator. User must scan all 10 metrics individually to determine if there's a problem.
+
+Severity: Minor
+
+RULE AE3 — Alert history must be accessible
+
+What to look for:
+- Can users see past alerts and when they occurred?
+- Are resolved vs. active alerts distinguished?
+- Is there a notification log of threshold breaches?
+
+Severity: Minor
+
+---
+
+# 13. Comparison and Benchmarking Rules
+
+RULE CB1 — Period-over-period comparisons must be available
+
+What to look for:
+- Can users compare current period vs. previous period?
+- Are comparisons shown inline (in the KPI card) or via chart overlay?
+- Is the comparison period appropriate (today vs yesterday, this week vs last week)?
+- Is the comparison metric clearly labeled (absolute change vs. percentage change)?
+
+Good: "Cases Resolved Today: 47 (vs. 52 yesterday, ↓ 10%)"
+Bad: No comparative context. Only the current value shown.
+
+Severity: Major
+
+RULE CB2 — Target and benchmark comparisons must be available
+
+What to look for:
+- Are organizational targets visible alongside actuals?
+- Are team or peer benchmarks available ("Your: 23 | Team Avg: 18")?
+- Are industry or regulatory benchmarks shown where applicable?
+- Is the source of benchmarks stated?
+
+Good: "Your processing time: 18 min. Team average: 23 min. Target: 30 min. ✓ 40% below target."
+Bad: "Processing time: 18 min" — no context for whether this is fast or slow.
+
+Severity: Major
+
+RULE CB3 — Comparative visualizations must use honest scales
+
+What to look for:
+- Are bar charts for comparisons using the same scale?
+- Are percentage changes calculated correctly (base period clearly defined)?
+- Are small absolute changes on large bases represented honestly (not exaggerated)?
+
+Good: Two teams shown on the same Y-axis. A 5% difference looks like a 5% difference.
+Bad: Truncated Y-axis makes a 2% difference look like a 10x difference.
+
+Severity: Major
+
+---
+
+# 14. Personalization and Customization Rules
+
+RULE PC1 — Users should be able to customize their dashboard view
+
+What to look for:
+- Can users choose which KPIs are visible?
+- Can users rearrange KPI cards or sections?
+- Can users set their default time range?
+- Are user preferences persisted across sessions?
+- Can users create custom dashboard views?
+
+Severity: Minor — Major for diverse user roles sharing the same dashboard.
+
+RULE PC2 — Role-appropriate default views must be provided
+
+What to look for:
+- Are there predefined dashboard views for different roles (operator, team lead, manager)?
+- Does the dashboard default to the most relevant view for the logged-in user's role?
+- Can users switch between role views?
+
+Good: Operator sees "My Queue" dashboard by default. Team lead sees "Team Performance". Manager sees "Department Overview". Each can navigate to the others.
+Bad: All users see the same default view, which is designed for managers. Operators must navigate past metrics they don't need.
+
+Severity: Major
+
+---
+
+# 15. Real-Time and Monitoring Rules
+
+RULE RT1 — Real-time dashboards must indicate live status
+
+What to look for:
+- Is a "Live" indicator visible (pulsing dot, live badge)?
+- Is the connection status shown (connected, reconnecting, disconnected)?
+- Does the dashboard gracefully handle connection loss (show last known data with staleness warning)?
+- Are updates visually indicated when values change (brief highlight, animation)?
+
+Good: "🟢 Live" indicator in the header. When a value changes, the KPI card briefly pulses. On connection loss: "⚠ Connection lost. Showing data from 5 minutes ago. Reconnecting..."
+Bad: No indication of whether data is live or cached. User assumes live data when the connection actually dropped 30 minutes ago.
+
+Severity: Major
+
+RULE RT2 — Real-time updates must not distract from the user's current focus
+
+What to look for:
+- Are value updates subtle (number transitions, not full-page reloads)?
+- Do charts update smoothly (animate new data points, not redraw entirely)?
+- Are non-critical updates batched (update every 30 seconds, not every record)?
+- Can users pause live updates when reviewing a specific state?
+
+Severity: Minor
+
+RULE RT3 — Monitoring dashboards must support alerting thresholds
+
+What to look for:
+- Can users set custom alert thresholds for metrics?
+- Are threshold lines visible on charts?
+- Do breaches trigger visual alerts (and optionally notifications)?
+- Can alert rules be configured per metric?
+
+Severity: Major (for monitoring dashboards)
+
+---
+
+# 16. Print and Export Rules
+
+RULE PX1 — Dashboard data must be exportable
+
+What to look for:
+- Can the dashboard be exported as a PDF report?
+- Can individual charts be exported as images?
+- Can underlying data be exported as CSV/Excel?
+- Does the export include the current filter state and time range?
+- Is the export date and time included in the output?
+
+Severity: Minor — Major for compliance or executive reporting use cases.
+
+RULE PX2 — Scheduled reports must be supported
+
+What to look for:
+- Can users schedule regular dashboard exports (daily, weekly, monthly)?
+- Can scheduled reports be sent via email?
+- Can report recipients and frequency be configured?
+
+Severity: Minor
+
+---
+
+# 17. Evaluation Output Format
+
+The evaluating agent must produce the following structured report.
+
+---
+
+## Dashboard and Metrics Evaluation Report
+
+### Metadata
+
+- Application: [application name]
+- Dashboard: [dashboard name/type]
+- Dashboard Type: [Operational / Tactical / Strategic / Monitoring]
+- Target Audience: [operator, team lead, manager, executive]
+- Number of Metrics/KPIs: [count of distinct metrics displayed]
+- Evaluator: [agent or human identifier]
+- Evaluation Date: [date]
+- Input Provided: [screenshots / prototype / recording / description]
+- Evaluation Limitations: [what could not be evaluated]
+
+### Overall Assessment
+
+Overall Score: X.X / 5.0
+Verdict: [Excellent | Good | Acceptable | Problematic | Poor]
+
+One-paragraph summary of dashboard quality, highlighting strengths and critical gaps.
+
+### Category Scores
+
+| Category                        | Score | Key Findings                               |
+|---------------------------------|-------|--------------------------------------------|
+| Metric Selection (MS)           | X/5   | [1-line summary]                           |
+| Data Freshness & Trust (DF)     | X/5   | [1-line summary]                           |
+| KPI Display (KD)                | X/5   | [1-line summary]                           |
+| Charts & Visualization (CV)     | X/5   | [1-line summary]                           |
+| Trends & Time Series (TT)       | X/5   | [1-line summary]                           |
+| Drill-Down & Navigation (DD)    | X/5   | [1-line summary]                           |
+| Layout & Composition (LC)       | X/5   | [1-line summary]                           |
+| Filters & Interactivity (FI)    | X/5   | [1-line summary]                           |
+| Alerts & Exceptions (AE)        | X/5   | [1-line summary]                           |
+| Comparison & Benchmarking (CB)   | X/5   | [1-line summary]                           |
+| Personalization (PC)            | X/5   | [1-line summary]                           |
+| Real-Time & Monitoring (RT)     | X/5   | [1-line summary]                           |
+| Print & Export (PX)             | X/5   | [1-line summary]                           |
+
+Mark categories not evaluable as "N/E".
+
+### Metric Audit
+
+For each metric displayed on the dashboard:
+
+| Metric Label | Operational Question Answered | Context Provided? | Drill-Down? | Actionable? | Verdict |
+|---|---|---|---|---|---|
+| [e.g., Pending Approvals] | How many items need my action? | Yes (target, trend) | Yes | Yes | ✓ Good |
+| [e.g., Total Records] | — | No | No | No | ✗ Remove — vanity metric |
+
+### Violations
+
+| Field           | Value                                                              |
+|-----------------|--------------------------------------------------------------------|
+| Rule            | [Rule ID, e.g., MS2]                                              |
+| Severity        | [Critical / Major / Minor]                                        |
+| Metric/Element  | [Which metric or chart element]                                   |
+| Description     | [What is the violation?]                                          |
+| Evidence        | [What did you observe?]                                           |
+| Impact          | [How does this affect decision-making?]                           |
+| Recommendation  | [Specific fix]                                                    |
+
+### Strengths
+
+List 3-5 things the dashboard does well.
+
+### Priority Recommendations
+
+1. [Highest impact fix]
+2. [Second]
+3. [Third]
+4. [Fourth]
+5. [Fifth]
+
+### Suggested Metric Additions
+
+If the evaluation identifies metrics that are missing but would improve the dashboard:
+
+| Suggested Metric | Operational Question | Placement | Priority |
+|---|---|---|---|
+| [e.g., Overdue Items Count] | How many items have breached SLA? | Hero KPI, top row | High |
+
+### Not Evaluable
+
+List any rules that could not be evaluated and what input would be needed.
+
+---
+
+# 18. Heuristic Summary
+
+An effective enterprise operational dashboard allows the user to:
+
+1. **Tell if everything is OK in under 5 seconds** — A quick glance should reveal whether attention is needed.
+2. **Identify what needs attention** — Exceptions, breaches, and anomalies are visually prominent.
+3. **Understand why a metric is good or bad** — Context (targets, trends, benchmarks) accompanies every value.
+4. **Navigate from summary to detail** — Every number is a doorway to the underlying records.
+5. **Trust the data** — Freshness is visible. Errors are surfaced. Calculations are transparent.
+6. **Take action** — The dashboard connects to the workflow. Clicking a metric leads to the records that need attention.
+7. **Adapt the view to their role** — Different users see different defaults appropriate to their responsibilities.
+8. **Share and communicate** — Dashboard states can be shared, exported, and discussed with colleagues.
+
+If a user looks at a dashboard number and asks "So what?" — that metric has no place on an operational dashboard.
+
+---
+
+# Appendix A: Rule Quick Reference
+
+| Rule ID | Rule Name                                         | Severity |
+|---------|----------------------------------------------------|----------|
+| MS1     | Every metric must answer an operational question   | Major    |
+| MS2     | Metrics must include comparison context            | Major    |
+| MS3     | Metrics grouped by operational concern             | Major    |
+| MS4     | Not too many metrics at once                       | Major    |
+| MS5     | Metrics precisely defined                          | Major    |
+| MS6     | Vanity metrics avoided                             | Minor    |
+| DF1     | Data freshness visible                             | Critical |
+| DF2     | Data load errors clearly surfaced                  | Critical |
+| DF3     | Calculation methodology transparent                | Major    |
+| DF4     | Data freshness matches dashboard type              | Major    |
+| KD1     | KPI cards scannable format                         | Major    |
+| KD2     | KPI values formatted for readability               | Major    |
+| KD3     | Color coding consistent and accessible             | Major    |
+| KD4     | Threshold and target indicators visual             | Major    |
+| CV1     | Chart title states the question                    | Major    |
+| CV2     | Chart type matches data and question               | Major    |
+| CV3     | Charts labeled and readable                        | Major    |
+| CV4     | Consistent scales and baselines                    | Major    |
+| CV5     | Charts support interaction for detail              | Major    |
+| CV6     | Charts accessible                                  | Minor    |
+| TT1     | Time series include appropriate ranges             | Major    |
+| TT2     | Trends show direction and magnitude                | Major    |
+| TT3     | Anomalies visually flagged                         | Minor    |
+| DD1     | Every metric supports drill-down                   | Major    |
+| DD2     | Drill-down paths intuitive and consistent          | Major    |
+| DD3     | Cross-dashboard navigation supported               | Minor    |
+| LC1     | Layout follows clear information hierarchy         | Major    |
+| LC2     | Above-the-fold provides operational summary        | Major    |
+| LC3     | No horizontal scrolling required                   | Minor    |
+| LC4     | White space supports readability                   | Minor    |
+| FI1     | Dashboard filters visible and easy to change       | Major    |
+| FI2     | Cross-filtering between elements                   | Minor    |
+| FI3     | Dashboard state shareable                          | Minor    |
+| AE1     | Threshold breaches visually prominent              | Major    |
+| AE2     | At-a-glance health indicator                       | Minor    |
+| AE3     | Alert history accessible                           | Minor    |
+| CB1     | Period-over-period comparisons available            | Major    |
+| CB2     | Target and benchmark comparisons                   | Major    |
+| CB3     | Comparative visualizations honest scales           | Major    |
+| PC1     | Dashboard view customizable                        | Minor    |
+| PC2     | Role-appropriate default views                     | Major    |
+| RT1     | Real-time dashboards indicate live status          | Major    |
+| RT2     | Updates don't distract from focus                  | Minor    |
+| RT3     | Monitoring dashboards support alerting             | Major    |
+| PX1     | Dashboard data exportable                          | Minor    |
+| PX2     | Scheduled reports supported                        | Minor    |
+
+---
+
+# Appendix B: Dashboard Evaluation Checklist (Quick Pass)
+
+- [ ] Can I tell if everything is OK in under 5 seconds?
+- [ ] Does every metric answer an operational question?
+- [ ] Does every metric have comparison context (target, trend, benchmark)?
+- [ ] Are metrics grouped by operational concern?
+- [ ] Are there 10 or fewer primary KPIs above the fold?
+- [ ] Is data freshness visible ("Last updated: X")?
+- [ ] Are data load errors clearly indicated (not shown as zero)?
+- [ ] Are KPI values formatted for instant readability?
+- [ ] Is color coding consistent, meaningful, and accessible?
+- [ ] Are threshold breaches visually prominent?
+- [ ] Does every chart have a clear, descriptive title?
+- [ ] Are chart types appropriate for the data?
+- [ ] Can I click a metric to drill down to underlying records?
+- [ ] Are time ranges selectable and clearly displayed?
+- [ ] Are trend directions and magnitudes shown?
+- [ ] Are dashboard-level filters visible and functional?
+- [ ] Can I share the current dashboard state via URL?
+- [ ] Are there role-appropriate default views?
+- [ ] Are vanity metrics (cumulative totals, unactionable counts) absent?
+- [ ] Can I export the dashboard data?
