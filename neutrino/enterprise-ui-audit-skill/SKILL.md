@@ -48,15 +48,15 @@ This skill uses nine specialized rule files. Each is comprehensive and self-cont
 
 | Rule file | Scope | Rules |
 |---|---|---|
-| [enterprise-ui-main-rules.md](rules/enterprise-ui-main-rules.md) | Individual screens and components | 20 categories, 69 rules |
-| [flow-evaluation.md](rules/flow-evaluation.md) | Multi-step workflows and journeys | 13 categories, 45 rules |
-| [copy-style.md](rules/copy-style.md) | All user-facing text and language | 17 categories, 55 rules |
-| [search-browse-retrieve.md](rules/search-browse-retrieve.md) | Search, browse, list, queue, retrieval screens | 12 categories, 46 rules |
-| [dashboard-metrics.md](rules/dashboard-metrics.md) | Operational dashboards, KPIs, metric screens | 14 categories, 46 rules |
-| [admin-configuration.md](rules/admin-configuration.md) | Administration, settings, permissions, rule builders | 10 categories, 24 rules |
-| [data-entry-bulk-operations.md](rules/data-entry-bulk-operations.md) | High-volume data entry, grids, imports, batch actions | 6 categories, 20 rules |
-| [reporting-analytics.md](rules/reporting-analytics.md) | Report builders, viewers, scheduling, distribution | 5 categories, 15 rules |
-| [collaboration-annotation.md](rules/collaboration-annotation.md) | Comments, activity feeds, assignments, shared views | 6 categories, 15 rules |
+| [enterprise-ui-main-rules.md](enterprise-ui-main-rules.md) | Individual screens and components | 20 categories, 69 rules |
+| [flow-evaluation.md](flow-evaluation.md) | Multi-step workflows and journeys | 13 categories, 45 rules |
+| [copy-style.md](copy-style.md) | All user-facing text and language | 17 categories, 55 rules |
+| [search-browse-retrieve.md](search-browse-retrieve.md) | Search, browse, list, queue, retrieval screens | 12 categories, 46 rules |
+| [dashboard-metrics.md](dashboard-metrics.md) | Operational dashboards, KPIs, metric screens | 14 categories, 46 rules |
+| [admin-configuration.md](admin-configuration.md) | Administration, settings, permissions, rule builders | 10 categories, 24 rules |
+| [data-entry-bulk-operations.md](data-entry-bulk-operations.md) | High-volume data entry, grids, imports, batch actions | 6 categories, 20 rules |
+| [reporting-analytics.md](reporting-analytics.md) | Report builders, viewers, scheduling, distribution | 5 categories, 15 rules |
+| [collaboration-annotation.md](collaboration-annotation.md) | Comments, activity feeds, assignments, shared views | 6 categories, 15 rules |
 
 ### Routing Table
 
@@ -328,7 +328,7 @@ Do not spend audit time on: brand identity, aesthetic trends, illustration style
 
 ## 13. Additional Resources
 
-- For a sample audit report, see [examples/sample-audit-report.md](examples/sample-audit-report.md)
-- For complete rule details, read the relevant file(s) from the [rules/](rules/) directory
+- For a sample audit report, see [sample-audit-report.md](sample-audit-report.md)
+- For complete rule details, read the relevant markdown file(s) in this skill
 
 Be rigorous. Every number on a dashboard must connect to an action. Every label must be instantly understood. Every action must state its consequence. Every error must tell the user how to fix it. Every handoff must name the next owner. Every search must lead to the right record quickly. Every config change must show its blast radius. Every bulk operation must handle partial failure. Every report number must be traceable. Every comment must be attributed. Always optimize for real work.
