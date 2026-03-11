@@ -139,6 +139,20 @@ Use these heuristics when modeling Loops:
 
 ---
 
+## What Modeling Loops Delivers
+
+Loops formalize the internal disciplines that banks have always performed but rarely modeled. Making them explicit produces several concrete outcomes:
+
+**Internal disciplines become governable.** Reconciliation, monitoring, compliance checks, data staging — when each is an explicit Loop with declared triggers, outputs, and consumers, the bank can verify: are our disciplines actually running? Are they producing useful output? Are they keeping us healthy? Invisible discipline failures — the reconciliation that silently stopped running, the monitoring that nobody checked — become structurally detectable.
+
+**AI discovers invisible work.** Much of a domain's internal discipline was never formalized — it lived in spreadsheets, morning routines, and the habits of experienced operators. Once the known Loops are modeled, AI can examine operational patterns against the baseline and surface candidates for new Loops: a daily manual reconciliation that should be formalized, a monitoring pattern that nobody made explicit.
+
+**AI reasons about gaps.** Given the stated Loops, AI can identify missing disciplines. No fraud velocity monitoring? No regulatory disclosure check? No cross-system validation for a data migration? The model provides the structural context that makes these gap hypotheses situated and testable rather than generic.
+
+**The feedback system emerges.** Streams produce data — every commitment fulfilled generates decisions, outcomes, and exceptions. Loops consume that data — analyzing it for patterns, checking it against policies, computing derived values. And Loops may trigger new Streams — when fraud monitoring detects suspicious activity, it initiates a customer notification, creating a new external commitment. Each cycle makes the domain more intelligent.
+
+---
+
 ## Summary
 
 Loops are the Hub's internal discipline — recurring, disciplined practices that keep the domain healthy. They span analytical, observational, computational, integrity, compliance, preparatory, and housekeeping work. They may be triggered periodically, continuously, by internal events, or by operator action. They produce passive or active intelligence, automated corrections, or new Stream triggers. Loops execute as Scenarios, live in Hubs, and form a feedback system with Streams. Avoid inert, shadow, entangled, and unobserved Loops. Model each Loop with clear outputs and consumers.

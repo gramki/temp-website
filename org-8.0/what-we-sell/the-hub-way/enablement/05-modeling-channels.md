@@ -284,6 +284,20 @@ A Channel that exists but is not used by any Scenario is overhead with no value.
 
 ---
 
+## What Modeling Channels Delivers
+
+Modeling Channels as Hub-level constructs — not standalone UIs — resolves the customer experience problems that banks have tried and failed to fix through front-end redesigns:
+
+**Customer experience becomes fixable.** Channels read from Scenario state in the model, not from independent backends. The customer sees one reality because there is one model, not because plumbing synchronized multiple systems. Channel fragmentation was structural — each channel connecting to different backends with different state. When the state belongs to the Scenario, channels become views into the same operational reality.
+
+**Cross-channel continuity.** The customer who starts a dispute on mobile and continues in the contact center sees the same state, the same progress, the same options. The contact center agent sees the journey the customer just attempted on mobile. This works because the Scenario — not the channel — owns the state.
+
+**Cross-domain composition.** Channel Products assemble the customer's relationship across multiple Hubs — payments, credit cards, servicing — into a unified experience. The customer's mobile banking app provides access to multiple domains not because a single Hub owns everything, but because the Channel Product composes it coherently. The customer stops falling through the seams between domains.
+
+**Channel evolution is independent of domain evolution.** Adding a new Channel type — MCP for AI agents, a partner API, a new branch system — does not change Streams, Loops, or Scenarios. Channels are orthogonal to work classification. The bank can evolve its interaction surfaces without disrupting its operational model.
+
+---
+
 ## Summary
 
 A Channel is a comprehensive system — identity, authentication, access control, interaction model — not a UI, and not a monolith. Channels are composed from paradigm-specific, technology-specific components that can be recomposed for different contexts. Channel types include web applications, chat/collaboration, voice, REST API, AI agent (MCP), and CLI. Channels are Hub-level: each Hub configures which Channels are available for its Scenarios. Channels are persona-scoped: different personas access through different Channels with different capabilities. A single Scenario may involve multiple Channels simultaneously. Identity and access control differ for humans (SSO, RBAC) and AI agents (SPIFFE, OAuth-like consent). The critical distinction: Channel is Hub-scoped, serving a domain-scoped persona; Channel Product is Organization-scoped, recomposing components from multiple Hubs to serve an organization-scoped persona (Neutrino). Avoid the Monolith Channel, the Backdoor Channel, and the Orphan Channel. Design components for reuse across Channel Products.

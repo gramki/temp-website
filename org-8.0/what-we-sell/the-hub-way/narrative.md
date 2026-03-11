@@ -6,25 +6,29 @@
 
 ## Why This Framework Exists
 
-Banking is a network of business domains — payments, credit, servicing, compliance, risk — each with its own commitments to the outside world, its own internal disciplines, many kinds of participants, and systems that do the actual processing. None of these exist in isolation. They interact, depend on each other, and evolve at different rates.
+The companion documents establish that mid-size and large banks face a compound structural problem: [the work in their domains has no coherent model, their operational intelligence is locked in vendor-coupled code, their architecture punishes evolution, and enterprise AI leverage depends on structural prerequisites that don't exist yet](../the-thesis/problems.md). The [enterprise AI adoption challenge](../the-thesis/enterprise-ai-adoption.md) compounds this — project-by-project AI produces tools and islands, not transformation. The [thesis](../the-thesis/thesis.md) distills these into four core concerns and proposes seven governing principles as an alternative thesis.
 
-The challenge is not building any one of these domains. The challenge is modeling all of this coherently — so that business leaders, domain experts, and technology teams see the same reality. And doing it in a way that lets the bank gradually shift from human-operated to AI-augmented, one piece of work at a time, without rebuilding the model.
+The Hub Way translates that thesis into a concrete, implementable model. It gives domain experts, technology teams, and business leaders a shared way to enumerate the work in a banking domain, identify who resolves it, register the tools available, define how participants interact, and progressively move from human to AI resolution — with each investment compounding on the last and AI participating in the domain's ongoing discovery and improvement.
 
 ## The Core Idea
 
-Every piece of work in a domain is a goal. Someone — or something — resolves that goal. A millisecond payment authorization, resolved by a machine agent. A month-long dispute investigation, resolved by a team of humans and AI working together. A nightly interest computation, resolved by an automated process with no human involvement. The Hub Way models all work this way: as goals resolved by agents, using tools from the systems the bank runs, interacting through surfaces appropriate to each participant.
+The fundamental choice in any operational model is what to organize around. If the model is organized around systems, every system change is a structural disruption — migrations take years because the operational knowledge is fused to the systems. If it is organized around processes, every change in who does the work means redesigning the process — a vendor replacement, a team reorganization, an AI agent taking over a step, each triggers a re-engineering project rather than a configuration change.
 
-The bank controls a dial for each piece of work — fully human on one end, fully automated on the other, with every combination in between. Moving the dial does not change the model. It changes who resolves the work and how much autonomy they have. The bank decides the pace, one piece of work at a time, with no disruption to the rest.
+The Hub Way organizes around the work itself — the commitments a domain must fulfill to the outside world and the internal disciplines it must maintain. Work endures. Systems change. Vendors come and go. People move on. AI arrives. But the bank will always need to process payments, onboard customers, detect fraud, reconcile accounts, comply with regulations. The work is the stable abstraction.
+
+Every piece of work in a domain is a goal. Someone — or something — resolves that goal. A millisecond payment authorization, resolved by a machine agent. A month-long dispute investigation, resolved by a team of humans and AI working together. A nightly interest computation, resolved by an automated process with no human involvement. The Hub Way models all of this uniformly: as goals resolved by agents, using tools from the systems the bank runs, interacting through surfaces appropriate to each participant.
+
+Because the model is about the work and not about who does it, the bank controls a dial for each piece of work — fully human on one end, fully automated on the other, with every combination in between. Moving the dial does not change the model. It changes who resolves the work and how much autonomy they have. This is what makes gradual transformation possible without architectural disruption. This is what makes compliance structural — every piece of work produces a governed trace by design. This is what makes AI investments compound — every agent operates within the same model, the same tool contracts, the same governance. The bank decides the pace, one piece of work at a time, with no disruption to the rest.
 
 ---
 
 ## Hubs: The Domain Fabric
 
-Every bank organizes its operations around business domains. Payments is one domain. Credit cards are another. Customer servicing, merchant acquiring, compliance — each has its own rules, its own participants, its own rhythm.
+In the Hub Way, a **Hub** is a bounded business domain — the organizing unit for all work, all participants, and all systems within a coherent area of banking. A Payments Hub. A Credit Card Hub. A Compliance Hub. Each has its own Streams, Loops, Channels, Teams, and Machines. Each is modeled independently. Each evolves at its own pace.
 
-In the Hub Way, each of these domains is a **Hub** — a bounded business domain where agents collaborate to operate a coherent area of banking. A Hub is not a replacement for the systems a bank already runs. It is an operations and collaboration fabric that sits on top of those systems, bringing them together. A Payments Hub integrates with the bank's existing payment rails, core banking systems, and fraud engines. It does not replace them. It provides the structure — the goals, the governance, the collaboration model — that lets human and AI agents work together to operate that domain.
+A Hub is not a replacement for the systems a bank already runs. It is the domain model — the shared representation of what work exists, who resolves it, what tools are available, and how participants interact. A Payments Hub connects to the bank's existing payment rails, core banking systems, and fraud engines. Those systems become Machines in the Hub — registered providers of tools. The Hub provides the structure that was missing: the goals, the governance, the collaboration model, and the governed trace that connects commitment to resolution.
 
-Zeta's product lines — Tachyon for processing, Neutrino for digital experiences, Electron for lifecycle management — integrate natively into Hubs. But a Hub works equally well with third-party systems. The fabric is system-agnostic. What makes it valuable is not which systems it connects to, but how it organizes the work those systems support.
+The Hub is system-agnostic. Zeta's product lines and third-party systems are equally valid Machines. What makes a Hub valuable is not which systems it connects to, but the coherent model of the domain's work that it provides — and the fact that this model stays stable as systems, people, and AI evolve underneath.
 
 ---
 
@@ -33,6 +37,8 @@ Zeta's product lines — Tachyon for processing, Neutrino for digital experience
 When a customer applies for a credit card, the bank has made a commitment. When a merchant submits a payment for processing, when a regulator requests a filing, when a partner initiates a chargeback — each of these represents an obligation that the bank must fulfill.
 
 The Hub Way calls this coordinated set of work a **Stream**. A Stream is not a workflow with predetermined steps. It is a series of goals — each modeled as a **Scenario** — that must be resolved to honor the commitment. Some goals may be resolved in parallel. Some may not arise at all, depending on what agents discover along the way. The path is not rigid; the commitment is.
+
+This is the first half of making the domain's work visible. When every external commitment is modeled as a Stream, the bank can answer: what do we owe the outside world? How many commitments are active? Where are we falling behind? These questions — unanswerable today — become structural properties of the model.
 
 This aligns with how banking actually works. A credit card application does not follow the same path every time. Some applications sail through decisioning in minutes because a machine agent resolves the risk assessment cleanly. Others require a human analyst to review documentation, a compliance agent to verify identity, and weeks of coordinated effort. The path varies because agents exercise judgment at each step — not because a workflow branches. The commitment — "we will process your application and give you a decision" — is constant.
 
@@ -44,69 +50,93 @@ Streams may span multiple Hubs when a commitment requires coordination across do
 
 Not all work in a banking domain is triggered by an external request. Interest must be computed nightly. Accounts must be reconciled daily. Fraud patterns must be monitored continuously. Compliance must be verified without waiting for a regulator to ask.
 
-The Hub Way calls this internally driven work a **Loop** — a ritual or routine that keeps a domain healthy, honest, and improving. Loops encompass analytical work (funnel analysis, customer segmentation), computational work (interest accrual, fee calculation), integrity work (reconciliation, cross-system validation), and compliance work (policy monitoring, regulatory reporting).
+The Hub Way calls this internally driven work a **Loop** — a ritual or routine that keeps a domain healthy, honest, and improving. Loops encompass analytical work (funnel analysis, customer segmentation), computational work (interest accrual, fee calculation), integrity work (reconciliation, cross-system validation), compliance work (policy monitoring, regulatory reporting), observational work (transaction velocity monitoring, anomaly detection), and preparatory work (data staging, pre-qualification runs).
 
-Some Loops are resolved entirely by machine agents — a nightly batch process that computes interest across millions of accounts, with no human in the loop. Others involve human-AI teams — a fraud analyst reviewing patterns surfaced by an AI detection system. The model is the same. The dial position differs. The bank chooses how much is automated and how much involves human judgment, and can change that choice as confidence grows.
+This is the second half of making the domain's work visible. Loops are the work that has always existed but was rarely modeled — the disciplines that keep the domain healthy. When they are explicit, the bank can ask: are our internal disciplines actually running? Are they producing useful output? Are they keeping us healthy? And AI can discover additional Loops that should exist but don't — gaps that today surface only through incidents or audit findings.
+
+Some Loops are resolved entirely by machine agents — a nightly batch process that computes interest across millions of accounts, with no human involvement. Others involve human-AI teams — a fraud analyst reviewing patterns surfaced by an AI detection system. The model is the same. The dial position differs. The bank chooses how much is automated and how much involves human judgment, and can change that choice as confidence grows.
 
 Loops and Streams form a feedback system. Streams produce data — every commitment fulfilled generates a trace of decisions, outcomes, and exceptions. Loops consume that data — analyzing it for patterns, checking it against policies, computing derived values. And Loops may trigger new Streams — when fraud monitoring detects suspicious activity, it initiates a customer notification and account freeze, creating a new external commitment. Each cycle makes the domain more intelligent, more compliant, and more efficient.
 
 ---
 
-## Channels: How Participants Interact
+## Channels: How Participants Collaborate
 
-Banking involves many kinds of participants — customers, agents, supervisors, compliance officers, AI assistants, partner systems, regulatory systems. Each participates through an interaction surface appropriate to their needs.
+Work is resolved through collaboration — and collaboration requires interaction surfaces. A customer submits a dispute through a mobile app. A human agent investigates through a task-oriented desk application. An AI assistant analyzes transaction patterns through an API. A supervisor reviews the resolution through a management dashboard. All are participating in the same Scenario, through different surfaces, with appropriate identity, authentication, and access control.
 
-The Hub Way calls these interaction surfaces **Channels**. A Channel is not just a user interface. It embodies identity (who is participating), authentication (how they prove it), access control (what they are authorized to do), and the interaction model appropriate to the context. A customer might interact through a web portal. An operations agent works through a task-oriented desk application. An AI agent connects through the Model Context Protocol. A partner system integrates through REST APIs.
+The Hub Way calls these interaction surfaces **Channels**. A Channel is not just a UI. It is a comprehensive interaction system — embodying identity, authentication, access control, and the interaction paradigm appropriate to the participant and context. A customer interacts through a web portal. An operations agent works through a task-oriented desk application. An AI agent connects through the Model Context Protocol. A partner system integrates through REST APIs.
 
-Each Hub configures which Channels are available for its goals. A single goal may involve multiple Channels simultaneously — a dispute resolution might have the customer on a voice call, a human agent on a desk application, and an AI assistant providing real-time transaction analysis, all participating in the same work through different surfaces with appropriate access control.
+Each Hub defines which Channels are available for its work. This is what makes the customer experience structurally fixable. Today, channels are disconnected silos — the mobile app, the website, and the contact center each connect to different backends and present inconsistent information. When the work and its state live in the model, channels become views into the same operational reality. The customer who starts a process on mobile and continues in the contact center sees the same state because the state belongs to the Scenario, not the channel.
 
-Because a single persona — say, a customer — may need a cohesive experience spanning multiple Hubs, the Hub Way supports **Channel Products**: organization-scoped composites that weave components from multiple Hubs into a unified experience. The customer's mobile banking app provides access to payments, credit cards, and servicing in one place — not because a single Hub owns all of it, but because the Channel Product assembles it coherently.
+Because a single persona may need a cohesive experience spanning multiple domains, the Hub Way supports **Channel Products** — organization-scoped composites that weave Channels from multiple Hubs into a unified experience. The customer's mobile banking app provides access to payments, credit cards, and servicing in one place — not because a single Hub owns all of it, but because the Channel Product assembles it coherently. This is how the customer stops falling through the seams between domains.
 
 ---
 
 ## Teams: Who Does the Work
 
-Every goal needs someone to resolve it. In the Hub Way, that someone is a **Team** — a combination of human and AI agents assembled to do the work.
+Every piece of work needs someone to resolve it. In the Hub Way, that someone is a **Team** — a combination of human and AI agents assembled for the work.
 
-A dispute investigation team might include a human analyst, an AI research assistant that gathers transaction history and precedent, and a supervisor who approves the final resolution. A nightly interest computation might have no human team at all — the application that runs it is itself an agent, perceiving account states, computing accruals, and posting results.
+A dispute investigation team might include a human analyst, an AI research assistant that gathers transaction history and precedent, and a supervisor who approves the final resolution. A nightly interest computation might have no human involvement at all — the application that orchestrates it is itself an agent, perceiving account states, computing accruals, and posting results.
 
-The composition of the team is the dial. For a given piece of work, the bank decides: how many humans, how much AI, how much autonomy. One team might be entirely human today and shift to AI-assisted next quarter. Another might start fully automated from day one. The bank can move the dial for each piece of work independently, at its own pace, without changing the model around it.
+Teams are where transformation becomes concrete. When the bank decides to shift a piece of work from human-heavy to AI-augmented, it changes the Team composition — not the model. The Stream, the Scenarios, the Tool contracts, the governance — all stay the same. AI doesn't replace the team; it joins it. Over time, AI absorbs more of the coordination, more of the judgment, more of the routine steps — progressively, as confidence grows. This is what progressive absorption looks like in practice: not replacing processes, but evolving who is on the team.
 
 ---
 
 ## Machines: What the Bank Works With
 
-Agents need tools. Transaction lookup, risk scoring, payment authorization, account management — these capabilities come from the systems the bank runs. The Hub Way calls them **Machines**.
+Agents need tools to resolve work. Risk scoring, payment authorization, transaction lookup, document verification, account management — these capabilities come from the systems the bank runs. In the Hub Way, every such system is a **Machine** — a registered provider of tools.
 
-An application orchestrates how agents use these tools within each goal. That application might be a traditional workflow, a batch process, or an AI agent itself — perceiving the situation, deciding what to do, and acting through the tools available. The Hub does not care which systems provide the tools. Zeta products and third-party systems are equally valid Machines. When a bank modernizes a system, it replaces the Machine connection in the Hub, not the Hub itself.
+A Machine exposes its capabilities through **Tool contracts** — declared interfaces that specify what the tool does, what data it needs, what it returns, its timing characteristics, and its error behavior. The fraud engine is a Machine that provides a "fraud assessment" Tool. The core banking system is a Machine that provides "account inquiry" and "balance posting" Tools. An AI prediction service is a Machine that provides a "credit risk score" Tool. Zeta systems and third-party systems are equally valid Machines.
 
-This separation matters. The work model — goals, agents, governance — stays stable even as the technology underneath evolves. Banks modernize at their own pace, system by system, without disrupting the operational structure built on top.
+This is where the diagnosis principle — "operational intelligence should be declarative, not imperative" — becomes concrete. Today, the bank's knowledge of how to use a fraud engine is locked in bespoke integration code fused to that specific engine. In the Hub Way, the work specification says "I need a fraud assessment." The Tool contract defines how to get one. If the bank replaces the fraud engine, it writes a new Tool contract for the new Machine. The work specification doesn't change. The operational intelligence — the domain knowledge of when and why to request a fraud assessment — survives the vendor change.
+
+An **Application** orchestrates how agents use Tools within each Scenario. That application might be a traditional workflow engine, a batch process, or — on the Seer runtime — an AI agent itself, simultaneously orchestrating the work and participating as a team member. The Hub does not prescribe the orchestration model. It provides the stable work model and the Tool contracts; the Application decides how to resolve the goal.
 
 ---
 
 ## The Complete Picture
 
-Six constructs, one coherent model. A **Hub** is the domain. **Streams** are the commitments to the outside world. **Loops** are the internal disciplines. **Channels** are the surfaces through which participants interact. **Teams** are the agents — human and AI — who resolve the work. **Machines** are the tools they use to do it.
+Six constructs compose a complete model of a banking domain. A **Hub** is the domain boundary. Within it, **Streams** represent every commitment to the outside world and **Loops** represent every internal discipline — together, they enumerate all the work. **Teams** are the human and AI agents who resolve the work. **Machines** are the systems that provide tools. **Channels** are the surfaces through which participants collaborate.
 
-Every piece of work is a goal. Agents resolve it. They use tools from the systems around them, interacting through surfaces designed for each kind of participant. The bank controls how much is human, how much is AI, how much is automated — and can change that answer for each piece of work, at its own pace. The model stays the same. Only who does the work changes.
+Every piece of work executes as a **Scenario** — a goal-oriented unit of resolution. Scenarios are where everything converges: a Team resolves a goal, using Tools from Machines, collaborating through Channels, producing a governed trace. The bank can see every Scenario — active, completed, stalled — and can see for each one: who resolved it, what tools were used, what decisions were made, and what the outcome was.
+
+This is what "making work visible" looks like in practice. The domain's full operational reality — commitments, disciplines, agents, tools, interactions, traces — is enumerable, examinable, and governable. The denominator exists.
 
 ---
 
-## Why This Matters
+## How a Domain Gets Modeled
 
-**Operational visibility.** When every external commitment is modeled as a Stream and every internal discipline as a Loop, the bank can see its operations clearly. What are we committed to? How are we performing? Where are the gaps?
+A bank starts with one domain — the one under the most pressure, the one with the clearest mandate. Domain experts enumerate the Streams — every external commitment the domain fulfills. They identify the Loops — the internal disciplines that keep the domain healthy. They register the Machines — the systems that provide tools. They define the Channels — the surfaces participants use. They describe the Teams — who currently resolves each piece of work.
 
-**Domain-expert modeling.** The Hub Way does not prescribe rigid structures. Domain experts — the people who understand payments, credit, compliance, servicing — decide how to model their domains. How many Streams does the Payments Hub need? What Loops does Credit Card require? Which Channels should Servicing expose? These are decisions made by people who understand the business, not imposed by the platform.
+This is not an exhaustive, multi-month analysis exercise. It is a structured conversation with domain experts, producing a model that is immediately useful and progressively refined. AI participates from the start — discovering work that wasn't initially captured, reasoning about gaps, bringing industry patterns as suggestions. The model grows organically. The bank doesn't need to model everything before it can act. It models what it knows, starts moving the dial where it matters most, and expands as confidence and evidence accumulate.
 
-**Transformation at the bank's pace.** Because all work is modeled as goals resolved by agents, the bank can move the dial from human to AI for any piece of work — without changing the model. Start with human teams. Introduce AI assistants. Gradually increase autonomy. Go fully automated where it makes sense. One Scenario at a time, at whatever pace the bank is comfortable with.
+---
 
-**System-agnostic integration.** Hubs work with whatever systems the bank runs — Zeta products, third-party platforms, legacy systems, partner integrations. The operational fabric sits on top. The work model is independent of the technology underneath.
+## What This Makes Possible
+
+The six constructs — Hubs, Streams, Loops, Channels, Teams, Machines — compose into outcomes that the systems-first approach cannot produce.
+
+**All work becomes visible.** Streams enumerate every external commitment. Loops enumerate every internal discipline. Together they are the denominator — the full scope of work in the domain. When the denominator exists, the bank can answer questions that were previously unanswerable: what fraction of our domain is AI-augmented? Where are we falling behind on commitments? Which internal disciplines are actually running? Domain-level measurement becomes a structural property of the model, not a reporting exercise.
+
+**Compliance becomes structural.** Every Scenario produces a governed trace — from the commitment that triggered it, through every decision, every Tool invocation, every agent involved, to the resolution and its outcome. The regulator's questions — who decided, what information was used, can you trace from intent to resolution — are answered by the architecture. New regulations map to existing Streams, Loops, and governance structures. Compliance is a byproduct of operations, not a separate program.
+
+**Migrations become bounded.** Machines register capabilities through Tool contracts. Replacing a vendor means writing a new Tool contract for a new Machine. The Streams, Loops, Scenarios, governance, and operational intelligence are unaffected — they were never fused to the old vendor. The bank can run both Machines in parallel during transition, routing work to each and comparing outcomes before committing. Migration risk drops because the knowledge survives the system change.
+
+**Customer experience becomes fixable.** Channels read from Scenario state in the model, not from independent backends. The customer who starts on mobile and continues in the contact center sees the same state because the state belongs to the Scenario, not the channel. Channel Products compose the customer's relationship across multiple Hubs — payments, credit, servicing — without requiring backend unification. The customer stops falling through the seams between domains.
+
+**AI investments compound.** Agents join Teams within the same model, using the same Tool contracts, the same governance. The 50th agent is genuinely cheaper than the 5th — the model provides the context, the contracts provide the capabilities, the governance provides the guardrails. Each new agent extends the model's coverage rather than building a standalone island. The platform effect is real because the shared model is real.
+
+**Progressive absorption works.** Teams evolve — AI joins, absorbs more coordination, more judgment, more routine steps. Humans shift to higher-judgment tasks. The Streams, Loops, Tool contracts, and governance hold. The dial moves without architectural disruption. And the model makes the progression visible: for each piece of work, who resolves it today, where the dial could move next, what the outcomes of moving it would be.
+
+**Each investment compounds.** The vicious cycle — more plumbing, higher maintenance cost, pressure to minimize each change, more patching — reverses into a virtuous cycle. Each piece of work modeled, each Tool contract declared, each Stream or Loop formalized makes everything that follows cheaper, faster, and more capable. The trajectory is an accelerating capability curve, not a decelerating maintenance burden.
+
+The [thesis benefits document](../the-thesis/benefits.md) develops the full structural argument for these outcomes at the principle level. The enablement chapters that follow show how each construct delivers its specific share.
 
 ---
 
 ## Zeta's Hubs of Prominence
 
-The domains where Zeta brings deep expertise and pre-built capabilities:
+The domains where Zeta brings deep expertise and pre-built capabilities. A bank doesn't need all of these — it starts with the domain that matters most and expands at its own pace:
 
 - **Payments** — various rails and instruments
 - **Credit Card** — issuance, lifecycle, servicing

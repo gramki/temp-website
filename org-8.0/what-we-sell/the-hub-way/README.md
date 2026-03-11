@@ -202,6 +202,7 @@ Domains where Zeta represents deep expertise, each modeled as a Hub with Streams
 
 ## Further Reading
 
+- [The Thesis](../the-thesis/) — The strategic argument that underpins this framework: problems, systems gap, enterprise AI, governing principles, and benefits
 - [Business Stakeholder Narrative](narrative.md) — The Hub Way explained for senior leadership and customers
 - [Framework Critique](critique.md) — Critical assessment with resolved and open concerns
 - [Enablement Suite](enablement/README.md) — The Hub Way Enablement Suite

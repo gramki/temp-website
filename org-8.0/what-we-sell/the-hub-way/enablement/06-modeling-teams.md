@@ -259,6 +259,20 @@ Teams are **Hub-scoped** — they are enrolled per Workbench. An agent enrolled 
 
 ---
 
+## What Modeling Teams Delivers
+
+Teams are where transformation becomes concrete — where the thesis principle "the model must survive when the 'who' changes" is realized:
+
+**Progressive absorption works.** AI joins Teams, absorbs more coordination, more judgment, more routine steps over time. The Streams, Loops, Tool contracts, and governance hold. The dial moves without architectural disruption. Today's Human with Tool Support becomes tomorrow's Human-AI Teaming becomes next year's AI-Autonomous — for each piece of work, at the bank's own pace.
+
+**Engineering shifts from maintenance to evolution.** As Team compositions evolve — AI absorbing routine resolution, humans shifting to higher-judgment work — engineers move from maintaining bespoke plumbing to evolving domain capabilities: modeling new work, refining specifications, expanding AI's role, registering new Tools. The work becomes more interesting and the talent retention problem eases.
+
+**The "who" changes without the model changing.** Replacing a human agent pool with an AI agent, or adding AI co-pilots to a human Team, does not alter the Stream/Loop classification, the Scenario goals, the Tool contracts, or the Channel configuration. It changes the Resolution Model and the Team composition. The operational intelligence — the specifications, the governance, the Tool contracts — survives every transition.
+
+**AI investments compound through Teams.** The 50th agent joins an existing Team within an existing model, using existing Tool contracts and governance. It doesn't need its own integration, its own governance model, its own scope definition. The model provides the context. The platform effect is real because the shared model is real.
+
+---
+
 ## Summary
 
 Teams are the human and AI agents enrolled in a Hub to resolve its Scenarios. They are Hub constituents, not external operators. Teams comprise human agent types (Operators, Supervisors, Process Architects, Developers) and AI agent types (Capable AI, Skilful AI, Scenario-as-Agent, Persona Twins), following AOSM's HAT principles of shared context, task interoperability, seamless handoff, and human oversight. The Resolution Model determines Team composition — from no Team (Pure Automation) through mixed Teams (Human-AI Teaming) to human-only Teams (Pure Human). When Seer is the runtime, the Application-Agent convergence means the orchestrator itself is a Team member. Teams are Hub-scoped; cross-Hub Streams coordinate through shared context, not merged Teams. Avoid the Phantom, Monolith, Invisible, and Siloed Team anti-patterns. Design Teams alongside Scenarios, not after — and design for gradual automation, because Team changes do not change the model.

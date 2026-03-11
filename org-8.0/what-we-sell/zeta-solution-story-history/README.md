@@ -27,6 +27,7 @@
 | `pluxee-relationship-analysis.md` | Pluxee engagement: status, revenue, trajectory |
 | `india-gtm-pipeline.md` | Matrix India GTM strategy, active deals, target lists |
 | `consolidated-assessment.md` | Zeta mapped against the book's lifecycle frameworks — discovery through strategic positioning |
+| `go-to-market-learnings.md` | How banks buy structural change — buying triggers, window dynamics, and Zeta's readiness posture, drawn from direct engagement experience |
 | `inputs-for-full-analysis.md` | Enumerated inputs required from leadership to complete a full assessment |
 
 ## Relationship to the Enterprise Solutions Playbook

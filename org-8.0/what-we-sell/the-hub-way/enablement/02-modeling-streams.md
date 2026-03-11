@@ -289,6 +289,20 @@ If you cannot define "fulfilled," you are modeling an objective. Objectives deco
 
 ---
 
+## What Modeling Streams Delivers
+
+When every external commitment is modeled as a Stream, several felt problems that banks live with begin to resolve:
+
+**Commitments become visible and measurable.** The bank can answer: what do we owe the outside world? How many commitments are active? Where are we falling behind? These questions — unanswerable when commitments are scattered across workflows, case management tools, and manual tracking — become structural properties of the model.
+
+**Compliance becomes structural.** Every Stream produces a governed trace from commitment to resolution — who decided, what information was used, what Tools were invoked, what the outcome was. The audit trail is a byproduct of Stream execution, not a separate reporting program. New regulations map to existing Streams: "which Streams does this regulation affect, and what governance adjustments are needed?"
+
+**Domain-level AI outcomes become measurable.** Streams are the denominator. When the bank knows all the commitments in a domain, it can measure what fraction is AI-augmented, where the dial has moved, and what outcomes the shift produced. Without Streams, the bank can count AI projects. With Streams, it can measure AI transformation.
+
+**Applications can be retired.** When agents resolve Scenarios directly within a Stream — interpreting specifications, invoking Tools, managing state — they don't need the legacy workflow engine to sequence them or the case management tool to track state. These applications become redundant. Each retired application removes a permanent cost.
+
+---
+
 ## Summary
 
 Streams represent work performed against explicit external commitments. Every Stream should have a clear external party and a clear definition of "fulfilled." Stream Specifications are design-time; Stream instances are runtime; Stream Traces are post-facto observability. Scenarios within a Stream form a coordinated collection with episodic, non-sequential execution — aligned with Case model thinking. Stream coordination mechanisms are implementation concerns; cross-Hub Streams span domain boundaries. Avoid the Infinite, Mega, Opaque, and Trivial Stream anti-patterns. Use the heuristics: name the external party, define fulfillment, split large Streams, decompose objectives, and distinguish mandate from trigger.

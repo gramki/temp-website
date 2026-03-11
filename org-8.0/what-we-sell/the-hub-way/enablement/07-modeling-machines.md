@@ -252,6 +252,20 @@ From the consumer Hub's perspective, the provider Hub is just another Machine �
 
 ---
 
+## What Modeling Machines Delivers
+
+Machines and Tool contracts are where the thesis principle "operational intelligence should be declarative, not imperative" becomes concrete:
+
+**Migrations become bounded.** Replacing a Machine means writing a new Tool contract for the new system. The work specifications, governance, Streams, Loops, and Scenarios are unaffected — they were never fused to the old vendor. The bank can run both Machines in parallel during transition, routing work to each and comparing outcomes before committing. Migration risk drops because the operational intelligence is preserved, not rebuilt.
+
+**Integration cost becomes proportional to capabilities, not connections.** A Machine registers its Tools through contracts. Work that needs a capability invokes it through the contract. The cost is proportional to the number of Tools the Machine provides — not the number of other systems in the estate. Adding the 13th Machine is no harder than adding the 3rd. The combinatorial edge explosion that makes modernization self-defeating under the current architecture does not occur.
+
+**Operational intelligence becomes portable.** The knowledge of when and why to request a fraud assessment, a credit decision, or a payment authorization lives in the work specification and the Tool contract — not in bespoke code fused to a specific vendor's API. That knowledge survives vendor changes, can be reused across similar work, can be examined by domain experts, and can be interpreted by AI agents.
+
+**Vendor substitution is a contract change.** The Tool contract — input, output, error semantics, SLA — is the stable interface. Machines are the providers that change. Coupling to contracts rather than to system identity is what makes the architecture reward evolution rather than punish it.
+
+---
+
 ## Summary
 
 Machines are the deployed compute systems registered in a Hub to provide Tools — the capabilities agents use to resolve Scenarios. Tools align to the OPD cycle: Prediction Applications (Observe/Predict), Decision Applications (Decide), and Commands/Actuators (Act). The Hub Application orchestrates Tool invocation — through workflow engines, batch processors, custom microservices, or Seer Case Orchestration Agents where the Application-Agent convergence means the orchestrator is itself a Tool-wielding Team member. Machine registration follows System → Tenant → Workbench scope inheritance. The Hub is system-agnostic: the Tool contract is the stable interface, and Machines can be swapped without changing the model. Stream Scenarios use Tools to fulfill commitments; Loop Scenarios use Tools for discipline, often in fully automated configurations. A Hub can itself be a Machine to other Hubs via the Workbench-as-Machine pattern. Avoid the Invisible Machine, Over-Connected Hub, Unbound Scenario, and Monolith Machine anti-patterns. Design around Tool contracts, enumerate Tools per Scenario, and consolidate shared Machines into Shared Services Hubs.
