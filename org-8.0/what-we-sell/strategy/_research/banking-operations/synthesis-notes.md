@@ -2,7 +2,7 @@
 
 **Date:** 15 March 2026
 **Input streams:** S1 (market sizing), S2 (regulatory landscape), S3 (competitive landscape), S4 (structural shifts), S5 (reconciliation/exception), S6 (compliance ops/RegTech), S7 (ops cost/headcount)
-**Cross-references:** cloud-ops regulatory landscape (S2), cloud-ops agentic gap-fill, agentic-operations.md
+**Cross-references:** cloud-ops regulatory landscape (S2), cloud-ops agentic gap-fill
 
 ---
 
@@ -166,7 +166,7 @@ Consolidated from S3, S4, S5, S6. De-duplicated. Each entry has at least one cit
 
 - **Cloud-ops regulatory landscape (S2):** DORA overlap noted in banking-ops S2; referenced but not duplicated
 - **Cloud-ops agentic gap-fill:** AI-in-operations evidence (Macquarie, TD Bank, Capital One agentic deployments) referenced for Shift 6; banking operations document should cite the gap-fill for IT operations AI evidence and distinguish from business operations AI (compliance, fraud, reconciliation)
-- **Agentic-operations.md:** Current capability catalogue; banking operations document defines the distinct domain (run-the-bank business operations, not IT operations)
+- **Agent capability catalogue:** Consolidated into `banking-operations.md` appendix (previously a separate agentic-operations engagement area; retired because the domains are identical)
 
 ---
 

@@ -138,7 +138,7 @@ S6 raises an underappreciated dynamic: overlay tools (Zafin, SunTec) may *delay*
 |---|---|---|
 | **Market attractive** | Yes | $25–40B composite TAM; growing 9–14% for core banking, 17–21% for digital banking (S1) |
 | **Problem real** | Yes | 53% bank dissatisfaction with core providers (ABA, S1); £3.3B UK legacy maintenance annually (S1); 64% of IT budgets on legacy maintenance (S6 vendor estimates); 40% of new accounts going to neobanks (S4) |
-| **Entry feasible** | Conditional | IF Tachyon is production-ready. Cloud-native entry path is proven (Thought Machine, Mambu, 10x each entered with <$100M revenue and now serve Tier 1 banks). Market is fragmented (top 3 vendors hold only 30.1% of transformation deal share per CB RADAR). |
+| **Entry feasible** | Yes | Tachyon is production-validated in the US — three credit card programs and multiple DDA programs (health benefits/Optum, loyalty/rewards) running on Tachyon with Photon for payment processing. Cloud-native entry path is proven by others (Thought Machine, Mambu, 10x each entered with <$100M revenue and now serve Tier 1 banks). Market is fragmented (top 3 vendors hold only 30.1% of transformation deal share per CB RADAR). |
 | **Strategically aligned** | Yes | Account products are the ledger endpoints for Photon payments. Core banking + payments processing is the combination FIS is pursuing ($7.3B Banking + $13.5B TSYS). Product synergy is strong. |
 | **Regulatory runway** | Moderate | 5 strong forcing functions, but most regulations wrappable. Weaker urgency than payments. |
 
@@ -146,15 +146,15 @@ S6 raises an underappreciated dynamic: overlay tools (Zafin, SunTec) may *delay*
 
 | Criterion | Assessment | Evidence |
 |---|---|---|
-| **Differentiated value** | Hypothesis-stage | Evolution Fabric + Tachyon combination (operational model + account platform). No competitor offers an integrated thesis for *how banks should operate differently*, not just *what technology to use*. But this is positioning, not proven value. |
-| **Competitive advantage** | Thesis-differentiated but unproven | Thought Machine has Tier 1 production deployments (Lloyds, Standard Chartered, Intesa). Mambu has 200+ clients and Tier 2–3 traction. Pismo has Visa's distribution. 10x has Chase UK. What does Tachyon have? |
-| **Execution ability** | Uncertain | Tachyon product maturity is the key question. No public information on production deployments, customer count, or technical readiness. |
-| **Route to market** | Partial | Existing bank relationships from Photon/Electron provide warm introductions. But core banking is a DIFFERENT buying center (CTO/CIO, not payments head). Cross-selling from payments to core is possible but not automatic. |
+| **Differentiated value** | Partially validated | Evolution Fabric + Tachyon combination (operational model + account platform). No competitor offers an integrated thesis for *how banks should operate differently*, not just *what technology to use*. Tachyon's US production (3 credit card programs, multiple DDA programs) validates the account platform layer. The operational model thesis (Evolution Fabric) remains unproven as a standalone value proposition with bank buyers. |
+| **Competitive advantage** | Medium-Strong for purpose-specific programs | Tachyon has US production evidence: 3 credit card programs and multiple DDA programs (health benefits/Optum, loyalty/rewards). Thought Machine has Tier 1 core banking deployments (Lloyds, Standard Chartered, Intesa). Mambu has 200+ clients. Pismo has Visa's distribution. 10x has Chase UK. Tachyon's gap is scope breadth (purpose-specific vs. full-service core) and visibility (no analyst coverage, no public case studies). |
+| **Execution ability** | Validated for purpose-specific programs | Tachyon is in US production for credit cards (3 programs) and DDA (health benefits, loyalty/rewards). Extension to full-service retail/business core banking is a scope expansion question, not a platform maturity question. |
+| **Route to market** | Medium | Existing US bank relationships from Tachyon credit card and DDA deployments provide direct expansion paths. Photon/Electron relationships provide additional warm introductions. But full-service core banking is a DIFFERENT buying center (CTO/CIO, not payments head or program sponsor). Cross-selling from purpose-specific programs to core is possible but requires navigating organizational boundaries. |
 | **Defensibility** | Conditional | IF Evolution Fabric thesis proves out, switching costs compound (banks that adopt the operational model become deeply integrated). But this is hypothetical. |
 
-**Overall assessment: Strong Right to Play, Uncertain Right to Win (conditioned on Tachyon product readiness and market evidence).**
+**Overall assessment: Strong Right to Play, Medium-Strong Right to Win for purpose-specific account programs, conditional for full-service core banking.**
 
-The gap between Right to Play and Right to Win is the gap between "this market is attractive and we have adjacency" and "we can win deals against Thought Machine, Mambu, and Temenos." The first is demonstrated by data; the second requires Tachyon evidence.
+Tachyon's US production evidence (credit cards, DDA programs) closes the product readiness question for account infrastructure. The remaining gap is between "we can deliver purpose-specific account programs" and "we can win full-service core banking replacement deals against Thought Machine, Mambu, and Temenos." The first is demonstrated by production evidence; the second requires scope expansion, public references, and analyst coverage.
 
 ---
 
@@ -237,7 +237,7 @@ Named banks with active modernization signals, consolidated from S3 and S4.
 
 ### For Part II (Zeta's Position)
 
-5. **The Tachyon maturity question MUST be addressed honestly.** Every competitor cited in S3 has named production deployments. Thought Machine has Lloyds, Standard Chartered, Intesa Sanpaolo. Mambu has BancoEstado, Leeds Building Society, 200+ clients. 10x has Chase UK with 2.5M customers and £15B deposits. Pismo has Citigroup corporate DDA. What does Tachyon have? This is not a rhetorical question — it determines whether Right to Win is real or aspirational.
+5. **Tachyon's production evidence must be properly positioned.** Tachyon powers three credit card programs and multiple DDA programs (health benefits/Optum, loyalty/rewards) in the US, with Photon handling payment processing. This is real production evidence — but it is purpose-specific programs, not full-service core banking replacement. Every competitor cited in S3 has named *core banking* references: Thought Machine has Lloyds, Standard Chartered, Intesa Sanpaolo. Mambu has BancoEstado (14M customers). 10x has Chase UK. The honest framing: Tachyon is production-proven for account infrastructure, but the extension to full-service retail/business banking core replacement is the remaining question.
 
 6. **The Evolution Fabric narrative is differentiated but must be grounded.** No other vendor offers an integrated thesis for how banks should operate differently. But "differentiated positioning" and "winning deals" are different things. The narrative must connect to concrete bank outcomes, not just thesis articulation.
 

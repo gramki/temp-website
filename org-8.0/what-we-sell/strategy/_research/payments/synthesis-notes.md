@@ -55,9 +55,9 @@
 
 | Factor | Assessment | Evidence |
 |---|---|---|
-| **Differentiated value** | Strong in concept, untested in market | Evolution Fabric + payments = operational model for payments, not just a processor. No competitor offers this combination. But: the value proposition is unproven with bank buyers |
-| **Competitive advantage** | Medium | Modern platform architecture vs. FIS/Fiserv legacy. But: no US bank references, limited brand recognition in payments outside India |
-| **Route to market** | Weak (USA), Strong (India) | India: established bank relationships. USA: no installed base, no brand, greenfield |
+| **Differentiated value** | Strong in concept, partially validated | Evolution Fabric + payments = operational model for payments, not just a processor. No competitor offers this combination. Photon's US production (3 credit card programs, multiple DDA programs) validates the payments infrastructure layer. The operational governance layer (Evolution Fabric) remains unproven with bank buyers as a standalone value proposition |
+| **Competitive advantage** | Medium-Strong | Modern platform architecture vs. FIS/Fiserv legacy. US production evidence (3 credit card programs, multiple DDA programs on Photon). Brand recognition in US payments market remains limited; analyst coverage absent |
+| **Route to market** | Medium (USA), Strong (India) | India: established bank relationships. USA: production deployments exist (3 credit card programs, multiple DDA programs) but not yet leveraged for broader market entry. Existing bank relationships from these programs provide warm introductions for adjacent sales |
 | **Defensibility** | Medium-High | Platform model creates switching costs. Hub Way operational model is unique. But: requires deep adoption to generate lock-in |
 | **Economic superiority** | Potentially strong | SaaS model vs. legacy per-transaction pricing. BCG data shows SaaS payments TSR 37% vs. acquirers 2%. But: requires volume to achieve |
 
@@ -65,13 +65,13 @@
 
 | Segment | Right to Play | Right to Win | Recommendation |
 |---|---|---|---|
-| Real-time payments + card issuance (Tier 2-3 US banks) | Strong | Medium | **Pursue** — lead with card issuance and RTP enablement |
+| Real-time payments + card issuance (Tier 2-3 US banks) | Strong | Medium-Strong | **Pursue** — lead with card issuance and RTP enablement. Leverage existing US credit card production evidence |
 | Real-time payments (India) | Strong | Strong | **Pursue** — established presence, UPI expertise |
 | Tokenization (India — RBI mandate) | Strong | Strong | **Pursue** — regulatory forcing function, existing capability |
 | Acquiring (mid-market US) | Medium | Weak | **Delay** — competitive market, no US references |
 | Cross-border | Weak | Weak | **Do not pursue** — specialist domain, no corridor advantage |
 | Private payment networks | Medium | Weak | **Monitor** — emerging category, wait for demand clarity |
-| Payment hub orchestration (Tier 1 banks) | Strong | Weak | **Do not pursue as primary** — Volante, ACI, Form3 are established. Tier 1 banks won't adopt from unknown vendor |
+| Payment hub orchestration (Tier 1 banks) | Strong | Weak | **Do not pursue as primary** — Volante, ACI, Form3 are established. Zeta's US production is in card/DDA payments, not hub orchestration |
 | AI in payments operations | Strong | Strong | **Pursue** — Evolution Fabric is the differentiator. Lead with operational AI, not point AI |
 | Card platform replacement (UK/Europe) | Medium | Weak | **Delay** — regulatory-driven market, no EU presence |
 | Card issuance modernization (India) | Strong | Strong | **Pursue** — existing product, existing relationships |

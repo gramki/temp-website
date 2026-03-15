@@ -66,7 +66,7 @@ S5 (Customer Data / CDP) and the existing `_research/digital-identity-and-trust/
 
 S6 explicitly notes the engagement-to-agentic continuum:
 
-| Dimension | AI Engagement (this research) | Agentic Operations (separate research) |
+| Dimension | AI Engagement (this research) | Agentic Operations (covered in Banking Operations) |
 |---|---|---|
 | Decision mode | Recommends, informs, nudges | Decides, executes, resolves autonomously |
 | Regulatory burden | Moderate (UDAAP for marketing, Consumer Duty for comms) | High (SR 11-7 for credit-adjacent; ECOA for decisioning; fiduciary obligations for execution) |
@@ -74,7 +74,7 @@ S6 explicitly notes the engagement-to-agentic continuum:
 | Vendor examples | Personetics Engage, Pega CDH NBA, Salesforce Einstein NBA | Personetics MCP Server (enabling agentic), Genesys LAM agents, NICE CXone Mpower Agents |
 | Data from S6 | Chatbots 20–35% resolution → Copilots 50–65% → Autonomous Agents 75–90% | McKinsey: agentic AI = 17% of AI-derived value today, projected 29% by 2028 |
 
-**Boundary principle:** Engagement AI informs and recommends; agentic AI decides and executes. The regulatory burden inflection point occurs where the system transitions from recommendation to action. For document writing, CLE covers engagement AI; agentic operations (if researched separately) covers the execution side. The convergence points (Personetics MCP Server, Genesys LAM, NICE Mpower Agents) should be noted as frontier, not core.
+**Boundary principle:** Engagement AI informs and recommends; agentic AI decides and executes. The regulatory burden inflection point occurs where the system transitions from recommendation to action. For document writing, CLE covers engagement AI; Banking Operations covers the execution side (see agent capability map appendix). The convergence points (Personetics MCP Server, Genesys LAM, NICE Mpower Agents) should be noted as frontier, not core.
 
 ---
 
