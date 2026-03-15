@@ -10,13 +10,22 @@ Tachyon is Zeta's account products family. It provides the core account infrastr
 
 ### Product Lines
 
-| Product Line | Domain | Description |
-|---|---|---|
-| **Tachyon Kernel** | Core account infrastructure | *(To be expanded)* |
-| **Tachyon DDA** | Demand deposit accounts | *(To be expanded)* |
-| **Tachyon Credit Cards** | Credit card issuance and management | *(To be expanded)* |
-| **Tachyon CLM** | Customer lifecycle management | *(To be expanded)* |
-| **Tachyon Loans** | Lending products | *(To be expanded)* |
+| Product Line | Domain | Description | Production Status |
+|---|---|---|---|
+| **Tachyon Kernel** | Core account infrastructure | Shared account ledger, limit management, and product configuration engine underlying all Tachyon product lines. | In production (powers all Tachyon deployments) |
+| **Tachyon DDA** | Demand deposit accounts | Demand deposit account origination, lifecycle, and servicing — supporting purpose-specific account programs (health benefits, loyalty and rewards). | In production — multiple US programs including health benefits (Optum) and loyalty/rewards programs |
+| **Tachyon Credit Cards** | Credit card issuance and management | Credit card account origination, lifecycle management, billing, statement generation, and card-level controls. | In production — three credit card programs in the USA |
+| **Tachyon CLM** | Customer lifecycle management | *(To be expanded)* | |
+| **Tachyon Loans** | Lending products | *(To be expanded)* | |
+
+### Production Footprint
+
+Tachyon is in production in the United States across two product lines:
+
+- **Tachyon Credit Cards** powers three credit card programs in the USA. All three programs use Photon for payment rail processing (authorization, clearing, settlement).
+- **Tachyon DDA** powers multiple demand deposit account programs in the USA, including health benefits accounts (Optum) and loyalty/rewards programs. All programs use Photon for payment processing.
+
+Tachyon Credit Cards and Tachyon DDA represent Zeta's core account platform in production at scale in the US market. Tachyon CLM and Tachyon Loans remain in earlier stages of development.
 
 ---
 
@@ -43,4 +52,4 @@ Tachyon is Zeta's account products family. It provides the core account infrastr
 
 ---
 
-*This is a placeholder brief. Individual product line details to be expanded in subsequent sessions.*
+*Tachyon Credit Cards and Tachyon DDA are production-validated. Tachyon CLM and Tachyon Loans product line details to be expanded in subsequent sessions.*

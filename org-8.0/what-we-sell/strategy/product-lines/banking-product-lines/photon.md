@@ -44,4 +44,10 @@ Photon is Zeta's payments and money movement family. It provides the full infras
 
 ---
 
-*This is a placeholder brief. Individual product line details to be expanded in subsequent sessions.*
+### Production Footprint
+
+Photon is in production in the United States, processing payment rail operations (authorization, clearing, settlement) for all Tachyon-based programs — three credit card programs and multiple DDA programs (health benefits, loyalty and rewards). Photon also powers payment processing in India across Zeta's bank partnerships.
+
+---
+
+*Individual product line details to be expanded in subsequent sessions.*
