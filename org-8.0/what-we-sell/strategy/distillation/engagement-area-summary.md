@@ -12,7 +12,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **What this document does not do:** recommend a portfolio. Portfolio decisions require judgment on deal velocity, engagement economics, sales capacity, competitive dynamics in live deals, and internal engineering allocation — inputs this analysis cannot provide.
 
-**Framework reference:** `how-to.md` defines the Right to Play / Right to Win framework used throughout. R2P assesses market attractiveness and structural demand. R2W assesses Zeta's competitive advantage in each segment.
+**Framework reference:** [`how-to.md`](how-to.md) defines the Right to Play / Right to Win framework used throughout. R2P assesses market attractiveness and structural demand. R2W assesses Zeta's competitive advantage in each segment.
 
 **Pillar structure:** Engagement areas are organized by strategic posture, not market taxonomy:
 
@@ -28,17 +28,17 @@ This document places all eleven engagement areas on a common decision surface �
 
 | Pillar | Engagement Area             | TAM (2025)   | CAGR       | Primary Product         | Production Evidence                                                                | Primary Buyer            | R2P (Tier 2 US) | R2W (Tier 2 US)                 | R2W (India)                      | Preliminary Verdict                          |
 |--------|----------------------------|--------------|------------|------------------------|------------------------------------------------------------------------------------|--------------------------|-----------------|-------------------------------|-----------------------------------|----------------------------------------------|
-| 1      | Payments                   | $60–85B      | 12–15%     | Photon                 | **Yes.** 3 credit card programs, multiple DDA programs in US production            | CTO                      | Strong          | Medium-Strong                 | Strong                            | **Pursue**                                    |
-| 1      | Account Products           | $25–40B      | 9–14%      | Tachyon                | **Yes.** 3 credit card programs, multiple DDA programs (Optum, loyalty) in US      | CTO                      | Strong          | Medium-Strong                 | Medium                            | **Pursue**                                    |
-| 1      | Commercial Cards           | $28–30B      | 15–20%     | Electron               | **Partial.** Benefits proven at scale (Pluxee India, 11K+ corporates). Expense/Purchase unvalidated | Corporate Banking        | Strong          | Partial                       | Strong                            | **Pursue with investment**                    |
-| 1      | Lending and Credit         | $25–30B      | 14–18%     | Tachyon Loans + CAF    | **No.** Tachyon Loans = "To be expanded." AI governance (CAF) is architecturally ready | CRO / CCO                | Strong          | Weak (platform) / Unique (governance) | Medium                       | **Pursue governance; delay platform**         |
-| 2      | Banking Operations         | $19–27B      | 12–15%     | Evolution Fabric       | **No.** Architecture maps; no external deployment                                  | COO                      | Strong          | Medium (category creation)      | Medium                            | **Build-then-pursue**                         |
-| 2      | Compliance Operations      | $11–15B      | 16–19%     | Evolution Fabric + CAF | **No.** Greenfield. Zero compliance domain presence                                | CCO / BSA Officer        | Strong          | Medium (no incumbent in orchestration) | Weak                        | **Build-then-pursue**                         |
-| 2      | Agentic Banking            | $5–6B (2030) | 25–45%     | Evolution Fabric (Hub + Seer) | **No.** No reference deployments. No conversational AI capability             | CTO / Head of Digital    | Strong          | Medium (operational model gap is real) | Medium                      | **Build-then-pursue**                         |
-| 3      | Cloud and Platform Ops     | $8–10B       | 12–15%     | Cloud Fabric           | **Internal only.** Runs Zeta's own banking estate                                  | CIO                      | Strong          | Medium                         | Medium (managed services barrier) | **Requires deliberation**                     |
-| 3      | Digital Identity and Trust | $30B+        | 14–15%     | Trust Fabric           | **No.** Architectural alignment only                                               | CISO                     | Strong          | Medium                         | Weak (Aadhaar integration needed)  | **Requires deliberation**                     |
-| 3      | Customer Lifecycle         | $26–33B      | 13–17%     | Quark CLM              | **No.** Quark hubs = "to be expanded"                                              | CMO / CX Head            | Strong          | Medium                         | Medium                            | **Requires deliberation**                     |
-| 3      | BaaS and Embeddable Banking| $27–30B      | 13–18%     | Multi-product platform | **Indirect.** Tachyon + Photon production-proven; no BaaS-specific deployment      | Digital Banking          | Strong          | Medium                         | Strong                            | **Pursue (India); build-then-pursue (US)**    |
+| 1      | [Payments](../engagement-areas/payments.md) | $60–85B      | 12–15%     | [Photon](../product-lines/banking-product-lines/photon.md) | **Yes.** 3 credit card programs, multiple DDA programs in US production            | CTO                      | Strong          | Medium-Strong                 | Strong                            | **Pursue**                                    |
+| 1      | [Account Products](../engagement-areas/account-products-and-banking.md) | $25–40B      | 9–14%      | [Tachyon](../product-lines/banking-product-lines/tachyon.md) | **Yes.** 3 credit card programs, multiple DDA programs (Optum, loyalty) in US      | CTO                      | Strong          | Medium-Strong                 | Medium                            | **Pursue**                                    |
+| 1      | [Commercial Cards](../engagement-areas/commercial-cards.md) | $28–30B      | 15–20%     | [Electron](../product-lines/banking-product-lines/electron.md) | **Partial.** Benefits proven at scale (Pluxee India, 11K+ corporates). Expense/Purchase unvalidated | Corporate Banking        | Strong          | Partial                       | Strong                            | **Pursue with investment**                    |
+| 1      | [Lending and Credit](../engagement-areas/lending-and-credit.md) | $25–30B      | 14–18%     | [Tachyon](../product-lines/banking-product-lines/tachyon.md) Loans + [CAF](../product-lines/infra-product-lines/cogntive-audit-fabric.md) | **No.** Tachyon Loans = "To be expanded." AI governance (CAF) is architecturally ready | CRO / CCO                | Strong          | Weak (platform) / Unique (governance) | Medium                       | **Pursue governance; delay platform**         |
+| 2      | [Banking Operations](../engagement-areas/banking-operations.md) | $19–27B      | 12–15%     | [Evolution Fabric](../product-lines/infra-product-lines/evolution-fabric.md) | **No.** Architecture maps; no external deployment                                  | COO                      | Strong          | Medium (category creation)      | Medium                            | **Build-then-pursue**                         |
+| 2      | [Compliance Operations](../engagement-areas/compliance-operations.md) | $11–15B      | 16–19%     | [Evolution Fabric](../product-lines/infra-product-lines/evolution-fabric.md) + [CAF](../product-lines/infra-product-lines/cogntive-audit-fabric.md) | **No.** Greenfield. Zero compliance domain presence                                | CCO / BSA Officer        | Strong          | Medium (no incumbent in orchestration) | Weak                        | **Build-then-pursue**                         |
+| 2      | [Agentic Banking](../engagement-areas/agentic-banking.md) | $5–6B (2030) | 25–45%     | [Evolution Fabric](../product-lines/infra-product-lines/evolution-fabric.md) (Hub + Seer) | **No.** No reference deployments. No conversational AI capability             | CTO / Head of Digital    | Strong          | Medium (operational model gap is real) | Medium                      | **Build-then-pursue**                         |
+| 3      | [Cloud and Platform Ops](../engagement-areas/cloud-and-platform-operations.md) | $8–10B       | 12–15%     | [Cloud Fabric](../product-lines/infra-product-lines/cloud-fabric.md) | **Internal only.** Runs Zeta's own banking estate                                  | CIO                      | Strong          | Medium                         | Medium (managed services barrier) | **Requires deliberation**                     |
+| 3      | [Digital Identity and Trust](../engagement-areas/digital-identity-and-trust.md) | $30B+        | 14–15%     | [Trust Fabric](../product-lines/infra-product-lines/trust-fabric.md) | **No.** Architectural alignment only                                               | CISO                     | Strong          | Medium                         | Weak (Aadhaar integration needed)  | **Requires deliberation**                     |
+| 3      | [Customer Lifecycle](../engagement-areas/customer-lifecycle-and-engagement.md) | $26–33B      | 13–17%     | [Quark](../product-lines/banking-product-lines/quark.md) CLM | **No.** Quark hubs = "to be expanded"                                              | CMO / CX Head            | Strong          | Medium                         | Medium                            | **Requires deliberation**                     |
+| 3      | [BaaS and Embeddable Banking](../engagement-areas/baas-and-embeddable-banking.md) | $27–30B      | 13–18%     | Multi-product platform | **Indirect.** Tachyon + Photon production-proven; no BaaS-specific deployment      | Digital Banking          | Strong          | Medium                         | Strong                            | **Pursue (India); build-then-pursue (US)**    |
 
 **Reading the table:** R2P is Strong across the board — every area addresses a real, growing, evidence-backed market need. The differentiation lies in R2W, which separates areas where Zeta has earned competitive advantage (Pillar 1) from areas where competitive advantage is architectural but unproven (Pillars 2 and 3).
 
@@ -50,12 +50,12 @@ This document places all eleven engagement areas on a common decision surface �
 
 | Area             | Product                       | Production Status                                                                                           |
 |------------------|------------------------------|-------------------------------------------------------------------------------------------------------------|
-| Payments         | Photon                       | In production (US) – card payment processing for 3 credit card programs and multiple DDA programs           |
-| Account Products | Tachyon (Credit Cards + DDA) | In production (US) – 3 credit card programs, DDA programs (Optum health benefits, loyalty/rewards)          |
-| Commercial Cards | Electron (on Tachyon)         | Benefits: proven at scale (Pluxee India, 11K+ corporates, 3.5M+ consumers). Expense/Purchase: unvalidated   |
-| Lending and Credit | Tachyon Loans + CAF         | Governance: architecturally ready. Lending products: early-stage ("To be expanded")                        |
+| [Payments](../engagement-areas/payments.md) | [Photon](../product-lines/banking-product-lines/photon.md) | In production (US) – card payment processing for 3 credit card programs and multiple DDA programs           |
+| [Account Products](../engagement-areas/account-products-and-banking.md) | [Tachyon](../product-lines/banking-product-lines/tachyon.md) (Credit Cards + DDA) | In production (US) – 3 credit card programs, DDA programs (Optum health benefits, loyalty/rewards)          |
+| [Commercial Cards](../engagement-areas/commercial-cards.md) | [Electron](../product-lines/banking-product-lines/electron.md) (on Tachyon) | Benefits: proven at scale (Pluxee India, 11K+ corporates, 3.5M+ consumers). Expense/Purchase: unvalidated   |
+| [Lending and Credit](../engagement-areas/lending-and-credit.md) | [Tachyon](../product-lines/banking-product-lines/tachyon.md) Loans + [CAF](../product-lines/infra-product-lines/cogntive-audit-fabric.md) | Governance: architecturally ready. Lending products: early-stage ("To be expanded")                        |
 
-### Payments
+### [Payments](../engagement-areas/payments.md)
 
 **Opportunity.** $60–85B payments technology infrastructure market, 12–15% CAGR, projected to exceed $130B by 2030. Eight structural shifts — real-time payments as default rail, tokenization mandated, acquiring diversification, AI in payments operations. The most underserved segment is Tier 2–3 banks: legacy incumbents over-engineered, modern challengers designed for fintechs.
 
@@ -73,7 +73,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Verdict: Pursue.** Lead with card issuance + tokenization at Tier 2 US banks and India. Defer acquiring and payment hub orchestration. The production evidence is real; the gap is visibility, not capability.
 
-### Account Products and Core Banking
+### [Account Products and Core Banking](../engagement-areas/account-products-and-banking.md)
 
 **Opportunity.** $25–40B market, 9–14% CAGR. Progressive core replacement displacing big-bang migration. Cloud-native infrastructure becoming default. 53% bank dissatisfaction with core providers. Mid-market banks ($10–100B) most underserved.
 
@@ -90,7 +90,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Verdict: Pursue.** Target Tier 2 US banks ($10–100B) with Tachyon + Photon + Evolution Fabric. Convert existing deployments into referenceable case studies as the immediate priority. The gap is market visibility, not product readiness.
 
-### Commercial Cards
+### [Commercial Cards](../engagement-areas/commercial-cards.md)
 
 **Opportunity.** $28–30B technology TAM growing to $75–90B by early 2030s. Commercial card spend crossed $4T globally but represents only 4% of $80T B2B payments. Virtual cards displacing checks. Card issuance and spend management converging through M&A (Capital One–Brex $5.15B, Amex–Center, Paylocity–Airbase $325M).
 
@@ -107,7 +107,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Verdict: Pursue with investment.** Expand India benefits card partnerships (3–5 new banks). Validate Electron Expense Cards through pilot before positioning multi-program commercial card platform. Defer US enterprise T&E.
 
-### Lending and Credit
+### [Lending and Credit](../engagement-areas/lending-and-credit.md)
 
 **Opportunity.** $25–30B vendor-addressable lending technology market, projected $60–80B by 2030–2033. Lending generates 50–70% of bank revenue but has received less modernization investment than payments or core banking. AI/ML decisioning crossing from optional to regulated (EU AI Act August 2026, Colorado AI law June 2026). No vendor covers the full lending lifecycle with integrated AI governance.
 
@@ -140,11 +140,11 @@ This document places all eleven engagement areas on a common decision surface �
 
 | Area               | Primary Fabric                                         | Category Status                  |
 |--------------------|-------------------------------------------------------|----------------------------------|
-| Banking Operations | Evolution Fabric (Hub + Seer), CAF, Truth Fabric      | No established vendor category   |
-| Compliance Operations | Evolution Fabric + CAF + Trust Fabric + Truth Fabric | No established vendor category   |
-| Agentic Banking    | Evolution Fabric (Hub + Seer), CAF, Trust Fabric      | Nascent, pre-category            |
+| [Banking Operations](../engagement-areas/banking-operations.md) | [Evolution Fabric](../product-lines/infra-product-lines/evolution-fabric.md) (Hub + Seer), [CAF](../product-lines/infra-product-lines/cogntive-audit-fabric.md), [Truth Fabric](../product-lines/infra-product-lines/truth-fabric.md) | No established vendor category |
+| [Compliance Operations](../engagement-areas/compliance-operations.md) | [Evolution Fabric](../product-lines/infra-product-lines/evolution-fabric.md) + [CAF](../product-lines/infra-product-lines/cogntive-audit-fabric.md) + [Trust Fabric](../product-lines/infra-product-lines/trust-fabric.md) + [Truth Fabric](../product-lines/infra-product-lines/truth-fabric.md) | No established vendor category |
+| [Agentic Banking](../engagement-areas/agentic-banking.md) | [Evolution Fabric](../product-lines/infra-product-lines/evolution-fabric.md) (Hub + Seer), [CAF](../product-lines/infra-product-lines/cogntive-audit-fabric.md), [Trust Fabric](../product-lines/infra-product-lines/trust-fabric.md) | Nascent, pre-category |
 
-### Banking Operations
+### [Banking Operations](../engagement-areas/banking-operations.md)
 
 **Opportunity.** $19–27B across six sub-domains (reconciliation, compliance ops, fraud ops, collections, credit ops, regulatory reporting), 12–15% CAGR. Compliance operations growing fastest at 16–19%. Operations volumes outstripping staff capacity. Regulatory enforcement at record intensity (TD Bank $3.09B penalty). AI entering operations but only 17% of institutions have governance frameworks.
 
@@ -163,7 +163,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Verdict: Build-then-pursue.** Start with compliance operations workflow and reconciliation at Tier 2 US banks. Secure one India production reference (RBI enforcement creates receptive conditions). Position CAF as a standalone compliance audit layer alongside existing detection engines (NICE, SAS) as the market entry wedge.
 
-### Compliance Operations
+### [Compliance Operations](../engagement-areas/compliance-operations.md)
 
 **Opportunity.** $11–15B vendor-addressable compliance technology market, 16–19% CAGR. $206B annual global financial crime compliance spending, 57–79% is labor cost. 2024 was a record year at $10.4B in global AML fines. 80% of compliance leaders plan AI adoption within 18 months but only 17% have governance frameworks.
 
@@ -182,7 +182,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Verdict: Build-then-pursue.** Highest-urgency buyer segment is US banks under or emerging from consent orders ($2B+ combined remediation investment). EU AI Act deadline (August 2026) creates compliance AI governance buying event. The fabric architecture is genuinely differentiated for the orchestration gap — but everything else (domain expertise, integrations, buyer relationships, analyst coverage) must be built from zero.
 
-### Agentic Banking
+### [Agentic Banking](../engagement-areas/agentic-banking.md)
 
 **Opportunity.** $5–6B by 2030, 25–45% CAGR from nascent base. New category forming at the intersection of AI agent platforms, banking domains, and customer relationships. Current vendor landscape frames the opportunity through the contact center; the broader surface — advisory, product optimization, credit management, life event orchestration, SME operational banking — is unaddressed.
 
@@ -214,12 +214,12 @@ This document places all eleven engagement areas on a common decision surface �
 
 | Area                        | Primary Fabric              | Enabling Role                                                     |
 |-----------------------------|----------------------------|-------------------------------------------------------------------|
-| Cloud and Platform Ops      | Cloud Fabric               | Deployment infrastructure for all Zeta products                   |
-| Digital Identity and Trust  | Trust Fabric               | KYC/authentication layer – serves Payments, Account Products, Compliance         |
-| Customer Lifecycle          | Quark CLM + Evolution Fabric | Spans onboarding, servicing, cross-sell across product areas      |
-| BaaS and Embeddable Banking | Multi-product, multi-fabric | Platform architecture for bank-as-a-service delivery              |
+| [Cloud and Platform Ops](../engagement-areas/cloud-and-platform-operations.md) | [Cloud Fabric](../product-lines/infra-product-lines/cloud-fabric.md) | Deployment infrastructure for all Zeta products |
+| [Digital Identity and Trust](../engagement-areas/digital-identity-and-trust.md) | [Trust Fabric](../product-lines/infra-product-lines/trust-fabric.md) | KYC/authentication layer – serves Payments, Account Products, Compliance         |
+| [Customer Lifecycle](../engagement-areas/customer-lifecycle-and-engagement.md) | [Quark](../product-lines/banking-product-lines/quark.md) CLM + [Evolution Fabric](../product-lines/infra-product-lines/evolution-fabric.md) | Spans onboarding, servicing, cross-sell across product areas      |
+| [BaaS and Embeddable Banking](../engagement-areas/baas-and-embeddable-banking.md) | Multi-product, multi-fabric | Platform architecture for bank-as-a-service delivery              |
 
-### Cloud and Platform Operations
+### [Cloud and Platform Operations](../engagement-areas/cloud-and-platform-operations.md)
 
 **Opportunity.** $8–10B banking cloud operations market across observability, AIOps, incident management, Kubernetes governance, and cloud management. DORA, PRA, OCC mandates create non-discretionary compliance spending. No vendor covers all five operational domains with banking-grade tenant isolation, data sovereignty, and regulatory-grade operational records.
 
@@ -227,7 +227,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Verdict: Requires deliberation.** Pursue Tier 2 banks (US, UK/EU) if standalone positioning is validated. If not, fold Cloud Fabric into the delivery architecture for all engagements and remove from the standalone engagement area list.
 
-### Digital Identity and Trust
+### [Digital Identity and Trust](../engagement-areas/digital-identity-and-trust.md)
 
 **Opportunity.** $30B+ market at 14–15% CAGR across CIAM, identity verification, authentication, consent management, fraud analytics, and non-human identity. PE has deployed $13B+ assembling identity portfolios (Thoma Bravo, Permira). Convergence is inevitable but not yet achieved. AI agent identity is an emerging sub-segment no vendor addresses.
 
@@ -235,7 +235,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Verdict: Requires deliberation.** AI agent identity governance has a time-bounded window (EU AI Act August 2026) that argues for near-term standalone pursuit. Broader identity capabilities may be better positioned as components within Pillar 1 and 2 engagements.
 
-### Customer Lifecycle and Engagement
+### [Customer Lifecycle and Engagement](../engagement-areas/customer-lifecycle-and-engagement.md)
 
 **Opportunity.** $26–33B market projected to reach $75–95B by 2030 across CRM, CDP, engagement/decisioning, contact center, and origination. Only 8% of FS leaders confident in unified customer view. 70% of banks lose clients during onboarding. 56-point gap between bank-perceived and customer-rated experience.
 
@@ -243,7 +243,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Verdict: Requires deliberation.** May generate standalone $2M+ engagements if Quark hubs reach production readiness. More likely delivers value as the lifecycle layer within Pillar 1 platform deals. Consider retiring as a standalone engagement area and embedding lifecycle capability into Account Products and Agentic Banking narratives.
 
-### BaaS and Embeddable Banking
+### [BaaS and Embeddable Banking](../engagement-areas/baas-and-embeddable-banking.md)
 
 **Opportunity.** $27–30B vendor revenue, 13–18% CAGR. Embedded finance beyond payments projected to grow 5.5x ($2B to $11B by 2026). $185B broader embedded finance TAM at only 17% penetration. Post-Synapse regulatory enforcement reshaping the market toward bank-owned infrastructure.
 
@@ -276,11 +276,11 @@ Evolution Fabric appears across all of Pillar 2, most of Pillar 3, and portions 
 
 | Product/Fabric    | Pillar 1 Areas                                | Pillar 2 Areas     | Pillar 3 Areas             | Total |
 |-------------------|-----------------------------------------------|--------------------|----------------------------|-------|
-| Evolution Fabric  | 1 (Lending governance)                        | 3 (all)            | 2 (Customer Lifecycle, BaaS) | 6     |
-| Tachyon           | 3 (Payments, Account Products, Commercial Cards) | 0                  | 1 (BaaS)                  | 4     |
-| Photon            | 1 (Payments)                                  | 0                  | 1 (BaaS)                  | 2     |
-| CAF               | 1 (Lending governance)                        | 3 (all)            | 3 (Cloud, Identity, Customer Lifecycle) | 7     |
-| Trust Fabric      | 0                                             | 2 (Compliance, Agentic) | 2 (Identity, BaaS)      | 4     |
+| [Evolution Fabric](../product-lines/infra-product-lines/evolution-fabric.md) | 1 (Lending governance)                        | 3 (all)            | 2 (Customer Lifecycle, BaaS) | 6     |
+| [Tachyon](../product-lines/banking-product-lines/tachyon.md) | 3 (Payments, Account Products, Commercial Cards) | 0                  | 1 (BaaS)                  | 4     |
+| [Photon](../product-lines/banking-product-lines/photon.md) | 1 (Payments)                                  | 0                  | 1 (BaaS)                  | 2     |
+| [CAF](../product-lines/infra-product-lines/cogntive-audit-fabric.md) | 1 (Lending governance)                        | 3 (all)            | 3 (Cloud, Identity, Customer Lifecycle) | 7     |
+| [Trust Fabric](../product-lines/infra-product-lines/trust-fabric.md) | 0                                             | 2 (Compliance, Agentic) | 2 (Identity, BaaS)      | 4     |
 
 ### Buyer concentration
 
@@ -338,4 +338,4 @@ The following questions cannot be answered through analysis. They require judgme
 
 ---
 
-*Source documents: eleven engagement area analyses in `engagement-areas/`, research files in `_research/`, framework definition in `distillation/how-to.md`.*
+*Source documents: eleven engagement area analyses in [`engagement-areas/`](../engagement-areas/), research files in [`_research/`](../_research/), framework definition in [`how-to.md`](how-to.md).*
