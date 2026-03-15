@@ -6,11 +6,11 @@
 
 ## What Is Hub?
 
-**Olympus Hub** is an operational platform for information-centric work — the work that dominates modern enterprises, where inputs, transformations, and outputs are information rather than physical matter.
+**Olympus Hub** is where [information-centric work](./01-concepts/glossary.md#information-centric-work) gets resolved — with the context, structure, memory, and governance that makes resolution work, whether by machines alone, humans and AI together, or anything in between.
 
 This is where customer service resolves disputes. Where finance reconciles transactions. Where IT diagnoses incidents. Where compliance reviews cases. Where development ships features.
 
-Hub provides the infrastructure where this work gets resolved — whether by machines alone, by humans and AI collaborating, or anything in between. It's not about replacing humans with AI or supervising AI with humans. It's about providing the **context, structure, memory, and governance** that makes any resolution model work.
+The question isn't whether humans or machines resolve it — it's whether they have what they need. Hub provides that infrastructure.
 
 Hub is not a replacement for your existing systems. It's the **operational layer** that makes them work together.
 
