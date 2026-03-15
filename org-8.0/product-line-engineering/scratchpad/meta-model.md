@@ -32,8 +32,9 @@ Domain Entity
 * Bundle Providers
 
 ## Solution Development
-* Solution Blueprint
+* Solution Archetype (normative definition)
 * Solution Value Streams
+* Solution Blueprint (Execution definition)
 * Solution Artifacts 
 -- Structural Extensions 
 -- Behaviporal Extensions
