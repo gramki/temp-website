@@ -341,18 +341,19 @@ class ContentPreparer:
         Returns:
             HTML with links converted to Confluence format
         """
-        link_pattern = r'<a\s+[^>]*href=["\']([^"\']+\.md[^"\']*)["\'][^>]*>([^<]+)</a>'
+        # Match links to .md files
+        link_pattern_md = r'<a\s+[^>]*href=["\']([^"\']+\.md[^"\']*)["\'][^>]*>([^<]+)</a>'
+        # Match relative directory links (e.g. ../the-hub-way/) — resolve to README.md for lookup
+        link_pattern_dir = r'<a\s+[^>]*href=["\'](\.\.?/[^"\']*/)["\'][^>]*>([^<]+)</a>'
         
         def replace_link(match):
             link_path = match.group(1)
             link_text = match.group(2).strip()
-            
             # Remove anchor/fragment if present
             if '#' in link_path:
                 link_path, anchor = link_path.split('#', 1)
             else:
                 anchor = None
-            
             # Resolve relative path
             if link_path.startswith('/'):
                 target_path = root_path / link_path.lstrip('/')
@@ -362,25 +363,23 @@ class ContentPreparer:
                 target_path = current_file_path.parent / link_path
             else:
                 target_path = current_file_path.parent / link_path
-            
-            # Normalize path
             try:
                 abs_target = target_path.resolve()
                 abs_root = root_path.resolve()
-                
                 try:
                     target_str = str(abs_target.relative_to(abs_root))
                 except ValueError:
                     return match.group(0)
-                
                 target_str = target_str.replace('\\', '/')
-                
-                # Look up page ID first (more reliable than title), then fall back to title
+                # Look up page ID / title: try exact path and path without leading ./
                 possible_paths = [
                     target_str,
                     target_str.lstrip('./'),
                 ]
-                
+                # Directory links (path ending in / or without .md): also try README.md in that folder
+                if not target_str.rstrip('/').endswith('.md'):
+                    dir_path = target_str.rstrip('/')
+                    possible_paths.append(f"{dir_path}/README.md")
                 page_id = None
                 page_title = None
                 
@@ -438,7 +437,10 @@ class ContentPreparer:
             except Exception:
                 return match.group(0)
         
-        return re.sub(link_pattern, replace_link, html)
+        # Apply .md links first, then directory links (e.g. ../the-hub-way/)
+        html = re.sub(link_pattern_md, replace_link, html)
+        html = re.sub(link_pattern_dir, replace_link, html)
+        return html
     
     def _html_to_storage_format(self, html: str) -> str:
         """Convert HTML to Confluence Storage Format."""
