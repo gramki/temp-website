@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Most enterprises believe they are using AI to *augment* human workers—making them faster, more accurate, or more productive. This framing dominates boardroom conversations, vendor pitches, and digital transformation roadmaps.
+Most enterprises believe they are using AI to *augment* human workers making them faster, more accurate, or more productive. This framing dominates boardroom conversations, vendor pitches, and digital transformation roadmaps.
 
 However, a more consequential shift is underway: **cognitive substitution**. The unit of automation is no longer tasks or processes, but *judgment itself*. Systems are increasingly making decisions, not just supporting them. This creates a structural gap: enterprises are building cognitive systems without redesigning the accountability, governance, and organizational structures that assume humans are the decision-makers.
 

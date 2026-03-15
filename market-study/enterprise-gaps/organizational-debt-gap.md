@@ -23,7 +23,7 @@ Unlike technical debt, organizational debt has no depreciation curve — it comp
 
 **Organizational debt** is the hidden cost of coordination, communication, and decision management that accumulates when organizational structures, tools, and practices lag behind operational complexity.
 
-It includes:
+It includes: 
 - Time spent reconstructing context for decisions
 - Meetings held to align on previously agreed positions
 - Decisions remade because rationale was not recorded
