@@ -1,9 +1,34 @@
 Payments (Issuance)
 Payments (Acquiring)
+Payments Hub
+Payment Network Setup and Management
 Retail Banking
 Business Banking
 Enterprise Payment Systems - Payments Hub, Card Switch, DCMS, UPI Switch, UPI PSP Switch, Tokenization, etc., 
 Bill Payments
+
+Agentic Transformation - Operations 
+Agentic Transformation - Consumer Banking
+Agentic Transformation - Business Banking
+Agentic Transformation - Family Banking
+
+Digital Transformation 
+BaaS/Embeddable Banking
+Digital Identity Modernization
+Remote Identity Verification (Digital Onboarding / eKYC)
+Strong Customer Authentication (SCA) and Multi-Factor Authentication
+Passwordless Authentication and Passkeys Adoption
+Open Banking Consent Management
+Privacy-by-Design and Data Protection Programs
+Continuous Identity Risk Monitoring
+Identity Federation and Digital Identity Networks
+Synthetic Identity and Deepfake Defense
+Device and Behavioral Identity
+
+Trust Fabric: Customer Identity, Authentication, Privacy
+Cognitive Audit Fabric: 
+
+
 
 CLM - (Application, UCIC, Customer Master Data, Deduplication, Scrubbing, Relationship 360, Relationship Change Orchestration, Event Streams, Change Sets, Notifications, Offers, Features)
 Identity and Privacy

@@ -1,2 +1,0 @@
-Olympus Estate
-Olympus LakeStack
