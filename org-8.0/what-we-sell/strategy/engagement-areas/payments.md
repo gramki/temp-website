@@ -12,7 +12,7 @@ Eight structural shifts are creating the largest wave of payments infrastructure
 
 The most underserved buyer segment is **mid-size and regional banks (Tier 2–3)**. Legacy incumbents are over-engineered and expensive. Modern challengers are designed for fintechs and platforms. No vendor delivers genuinely integrated, affordable, cloud-native payments infrastructure for mid-market banks.
 
-**For Zeta:** Photon product lines align strongly with card issuance modernization, tokenization, acquiring diversification, and private payment networks. The combination of payments infrastructure with Evolution Fabric's operational substrate — making payments domains explicit, governed, and AI-ready — is a positioning no competitor occupies. The primary opportunity is Tier 2 US banks, with India as an accessible home market and UK/Europe and Brazil as regulatory-driven expansion markets.
+**For Zeta:** Photon is production-validated in the US, processing payment rail operations (authorization, clearing, settlement) for three credit card programs and multiple DDA programs (health benefits via Optum, loyalty/rewards). Photon product lines align strongly with card issuance modernization, tokenization, acquiring diversification, and private payment networks. The combination of payments infrastructure with Evolution Fabric's operational substrate — making payments domains explicit, governed, and AI-ready — is a positioning no competitor occupies. The primary opportunity is Tier 2 US banks, with India as an accessible home market and UK/Europe and Brazil as regulatory-driven expansion markets.
 
 **Recommended actions:** Lead with card issuance and tokenization (regulatory forcing functions create urgency), build acquiring presence through the mid-market gap, and use Evolution Fabric's operational model as the long-term differentiator. Defer payment hub orchestration (Volante and ACI are established), avoid cross-border as a primary play (specialist domain), and do not pursue Tier 1 banks as the primary segment.
 
@@ -366,7 +366,7 @@ The following institutions have publicly signaled payments infrastructure modern
 
 ## 7. Zeta's Position
 
-Zeta's existing payments assets (Photon product lines) map to the structural shifts identified in Part I — but not equally to all.
+Zeta's existing payments assets (Photon product lines) map to the structural shifts identified in Part I — with the advantage that Photon is production-validated in the US market, processing payment rail operations (authorization, clearing, settlement) for three credit card programs and multiple DDA programs (health benefits, loyalty/rewards). All Tachyon-based account programs run on Photon for payments.
 
 | Structural Shift | Zeta Asset | Readiness |
 |---|---|---|
@@ -390,7 +390,7 @@ If Zeta can deliver **integrated payments + operational model** — where card p
 
 The bet: that banks need not just a payments platform, but an **operational layer for their payments domain** — making work explicit, governed, and AI-ready. Evolution Fabric is that layer.
 
-This hypothesis is untested in the market. No bank has validated this positioning. It is a product thesis, not a market proof point.
+This hypothesis is partially validated: Photon's US production deployments (three credit card programs, multiple DDA programs) prove the payments infrastructure layer works at scale. The operational model layer (Evolution Fabric + Seer governing payments operations) remains a product thesis — no bank has adopted the full integrated positioning yet. The evidence gap is specifically about the governance layer, not the payments platform.
 
 ---
 
@@ -400,14 +400,14 @@ Using the [Right to Play / Right to Win framework](../distillation/how-to.md):
 
 | Segment | Right to Play | Right to Win | Recommendation |
 |---|---|---|---|
-| **Card issuance + tokenization (Tier 2 US)** | **Strong.** $6B market, 19% CAGR. Network mandates create non-discretionary buying events. Mid-market gap is clear | **Medium.** Photon Card Management and Tokenization are strong product lines. But: no US bank references, no brand recognition in the US market. Must prove capability against Marqeta and i2c | **Pursue.** Lead with tokenization mandates as urgency driver. Card issuance as the platform sale |
+| **Card issuance + tokenization (Tier 2 US)** | **Strong.** $6B market, 19% CAGR. Network mandates create non-discretionary buying events. Mid-market gap is clear | **Medium-Strong.** Photon Card Management and Tokenization are strong product lines. Photon is in US production — processing for three credit card programs and multiple DDA programs. Brand recognition in the US payments market remains low, and analyst coverage is absent. Must prove capability visibility against Marqeta and i2c | **Pursue.** Lead with tokenization mandates as urgency driver. Card issuance as the platform sale |
 | **Card issuance + tokenization (India)** | **Strong.** RBI tokenization mandate April 2026. Card-on-file tokenization already drove 50% fraud reduction | **Strong.** Established bank relationships. Existing regulatory compliance. Home market advantage | **Pursue aggressively.** This is Zeta's strongest combined position |
-| **Acquiring (Tier 2 US)** | **Medium.** $25-28B market, but highly competitive. ISV-embedded channel growing fast but complex | **Weak.** No US acquiring references. No merchant onboarding track record. Competing against Fiserv (Clover), Stripe, Square, Adyen | **Delay.** Build capability and references in India first. Enter US when product is proven and differentiated |
+| **Acquiring (Tier 2 US)** | **Medium.** $25-28B market, but highly competitive. ISV-embedded channel growing fast but complex | **Weak.** No US acquiring references specifically — Photon's US production is in card/DDA payment processing, not merchant acquiring. No merchant onboarding track record. Competing against Fiserv (Clover), Stripe, Square, Adyen | **Delay.** Build capability and references in India first. Enter US when product is proven and differentiated |
 | **Private payment networks** | **Medium.** Emerging category. 45% of US retailers have closed-loop cards. Interchange caps through 2030 accelerating interest | **Medium.** Photon Payment Network is a differentiated product line. But: market demand is nascent, sales cycles are enterprise-grade | **Selective pursuit.** Target opportunities where the customer brings the use case. Do not invest in demand generation for this category yet |
-| **Payment hub orchestration (Tier 1)** | **Strong.** Large market. 87% of FIs plan modernization | **Weak.** Volante is the Gartner Leader. ACI has incumbency. Tier 1 banks will not adopt from an unproven vendor. No reference customers | **Do not pursue as primary.** Consider partnership with hub vendors rather than head-on competition |
+| **Payment hub orchestration (Tier 1)** | **Strong.** Large market. 87% of FIs plan modernization | **Weak.** Volante is the Gartner Leader. ACI has incumbency. Tier 1 banks require established hub vendor relationships. Zeta's US production experience is in card/DDA payments, not hub orchestration | **Do not pursue as primary.** Consider partnership with hub vendors rather than head-on competition |
 | **Cross-border / ISO 20022** | **Weak.** Specialist domain. Limited Photon rail coverage. No FX capability | **Weak.** Volante, ACI, Finastra own this space. SWIFT connectivity is table stakes. No corridor advantage | **Do not pursue.** This is a distraction from stronger opportunities |
 | **AI in payments operations** | **Strong.** 98% of orgs use AI in fraud/AML. $98.5M average annual losses from payment inefficiencies. Banks trailing PayTechs in GenAI adoption | **Strong.** Evolution Fabric + Seer is a structural differentiator. No competitor combines payments infrastructure with operational AI governance | **Pursue as long-term differentiator.** This is not the entry sale — it is the expansion sale after establishing the payments platform relationship |
-| **Embedded payments / BaaS (Tier 2 US)** | **Strong.** 80%+ of $185B TAM unpenetrated. Regulatory tightening favors bank partners | **Medium.** Cloud-native, multi-tenant architecture is an advantage. But: no BaaS product packaging, no regulatory wrapper, no US bank references | **Build toward.** Develop BaaS-specific packaging. Position after establishing card issuance and acquiring references |
+| **Embedded payments / BaaS (Tier 2 US)** | **Strong.** 80%+ of $185B TAM unpenetrated. Regulatory tightening favors bank partners | **Medium.** Cloud-native, multi-tenant architecture is an advantage. But: no BaaS product packaging, no regulatory wrapper. Photon's US production evidence (card/DDA payments) provides platform credibility but BaaS-specific packaging is not yet developed | **Build toward.** Develop BaaS-specific packaging. Position after establishing card issuance and acquiring references |
 
 ---
 
@@ -416,13 +416,13 @@ Using the [Right to Play / Right to Win framework](../distillation/how-to.md):
 ### What must be true for the US payments opportunity to work
 
 1. **Photon must have verified FedNow and RTP connectivity** or a credible roadmap. Without real-time rail connectivity, Zeta cannot participate in the dominant structural shift in US payments.
-2. **Zeta must acquire 2-3 US bank reference customers** within 18 months. No mid-market bank will adopt payments infrastructure from a vendor without US references. India references do not transfer.
+2. **Zeta must convert US production deployments into publicly referenceable customers.** Photon processes payments for three credit card programs and multiple DDA programs in the US — this is production evidence. It must become visible to buyers through case studies, analyst briefings, and conference presentations. The gap is visibility, not capability.
 3. **Pricing must be demonstrably lower than FIS/Fiserv** for comparable capability. The mid-market gap exists because incumbents are too expensive. Zeta must be affordable, not just modern.
 4. **US regulatory compliance must be validated.** Card network certifications, PCI-DSS, FedNow certification, state-level money transmitter requirements — each has timelines and costs.
 
 ### Honest gaps in Zeta's position
 
-- **No US bank customers.** This is the most significant gap. Every other assessment is conditional on closing this.
+- **US production evidence is not publicly referenceable.** Photon processes payments for multiple US programs (three credit card, multiple DDA) but these are not packaged as public case studies. Analyst firms and mid-market buyers cannot discover this evidence.
 - **Brand recognition: zero** in the US payments market. Building brand awareness will require analyst engagement (Celent, Aite-Novarica/Datos Insights), conference presence, and thought leadership.
 - **Cross-border is not a viable play.** Photon's rail coverage is insufficient. Do not present it as a capability in early sales engagements.
 - **Payment hub orchestration: Zeta is not competitive** against Volante (Gartner Leader) or ACI (Connetic) for pure payment hub modernization. Position as integrated payments platform, not as a hub alternative.
@@ -442,7 +442,7 @@ Using the [Right to Play / Right to Win framework](../distillation/how-to.md):
 | Action | Rationale | Priority |
 |---|---|---|
 | **Lead with card issuance + tokenization in India** | Strongest R2P + R2W. RBI tokenization mandate creates urgency. Existing relationships. Fastest path to revenue | **Immediate** |
-| **Secure 2-3 US Tier 2 bank pilots for card issuance** | US market entry requires references. Target banks actively evaluating post-FIS-TSYS: banks that need alternatives to the consolidated FIS issuer processor | **Immediate** |
+| **Convert US production deployments into referenceable case studies** | Photon already processes payments for three credit card programs and multiple DDA programs in the US. Package these as structured case studies for analyst engagement and buyer discovery. Simultaneously target additional Tier 2 bank pilots post-FIS-TSYS consolidation | **Immediate** |
 | **Engage Celent and Datos Insights for analyst coverage** | Mid-market banks rely on analyst recommendations. Without coverage, Zeta is invisible to the buyer | **Q2 2026** |
 | **Validate FedNow and RTP connectivity** | Real-time payments is the dominant structural shift. Without this, half the opportunity is inaccessible | **Q2 2026** |
 | **Package Photon Acquiring for India mid-market** | ISV-embedded acquiring growing 36% YoY. India's acquiring market is less competitive than the US. Build reference base here first | **2026-2027** |
@@ -470,14 +470,14 @@ Using the [Right to Play / Right to Win framework](../distillation/how-to.md):
 
 ## Key Differences: Payments vs. Other Engagement Areas
 
-| Dimension | Payments | Digital Identity & Trust | Cloud & Platform Ops | Agentic Banking | Agentic Operations |
+| Dimension | Payments | Digital Identity & Trust | Cloud & Platform Ops | Agentic Banking | Banking Operations |
 |---|---|---|---|---|---|
-| Market structure | Oligopoly (FIS, Fiserv, GP) + fragmented challengers | Fragmented IAM vendors | Hyperscalers + observability tools | Nascent; no dominant vendor | Emerging; workflow + AI vendors |
-| Competitive intensity | Very high | Medium | High (hyperscaler adjacency) | Low (new category) | Medium |
-| Regulatory forcing | Very strong (multiple concurrent mandates) | Strong (GDPR, PSD2/3, DPDP) | Medium | Weak | Medium (audit/compliance) |
-| Geographic concentration | USA 30-40% of global spend | Distributed | Distributed | USA-first | Distributed |
-| Central strategic argument | Banks must replace infrastructure they have been layering for 20 years. The technology debt is structural. | Identity is fragmenting across human/AI/partner boundaries | Cloud operations lack customer-centric observability | AI agents need an operational model to participate in banking | Back-office operations need AI-native modernization |
-| Vendor-addressable TAM | $60-85B (narrow); $150-200B (broad) | $15-25B (IAM/IGA) | $10-15B | <$5B (nascent) | $5-10B |
+| Market structure | Oligopoly (FIS, Fiserv, GP) + fragmented challengers | Fragmented IAM vendors | Hyperscalers + observability tools | Nascent; no dominant vendor | Fragmented across 7 vendor categories; no unified operations vendor |
+| Competitive intensity | Very high | Medium | High (hyperscaler adjacency) | Low (new category) | High (entrenched incumbents per sub-domain) |
+| Regulatory forcing | Very strong (multiple concurrent mandates) | Strong (GDPR, PSD2/3, DPDP) | Medium | Weak | Strong (BSA/AML enforcement, EU AML Package, RBI mandates) |
+| Geographic concentration | USA 30-40% of global spend | Distributed | Distributed | USA-first | USA 33-42%; Asia-Pacific fastest-growing |
+| Central strategic argument | Banks must replace infrastructure they have been layering for 20 years. The technology debt is structural. | Identity is fragmenting across human/AI/partner boundaries | Cloud operations lack customer-centric observability | AI agents need an operational model to participate in banking | Operations volume, regulatory intensity, and knowledge fragility demand explicit, governed, AI-augmented operations models |
+| Vendor-addressable TAM | $60-85B (narrow); $150-200B (broad) | $15-25B (IAM/IGA) | $10-15B | <$5B (nascent) | $19-27B |
 
 ---
 

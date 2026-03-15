@@ -1,10 +1,12 @@
-# BaaS and Embeddable Banking
+# BaaS and Embedded Banking — Opportunity Analysis
+
+*Prepared for Zeta's executive team and board. March 2026.*
 
 ## Executive Summary
 
 The global market for banking-as-a-service infrastructure — the platforms, middleware, and operational capabilities that enable banks to distribute products through third-party channels — generates USD 27–30 billion in annual vendor revenue and is growing at 13–18% CAGR. Within this, embedded finance beyond payments (accounts, cards, lending) is the fastest-expanding sub-segment, with banking-and-cards revenue projected to grow 5.5x from USD 2 billion to USD 11 billion by 2026. The broader embedded finance opportunity across North America and Europe represents a USD 185 billion TAM, of which only 17% is currently penetrated.
 
-Seven structural shifts are reshaping this market: regulatory arbitrage closing as enforcement actions sweep through BaaS sponsor banks; multi-tenant platform architecture becoming a regulatory and operational necessity; embedded finance expanding from payments into accounts, lending, cards, and identity; partner enablement maturing into a distinct operational discipline; platforms demanding banking capabilities without banking relationships; middleware dependency shifting toward bank-owned infrastructure; and geography-specific BaaS models diverging across the US, India, and UK.
+Seven structural shifts are reshaping this market: regulatory arbitrage closing as enforcement actions sweep through BaaS sponsor banks; multi-tenant platform architecture becoming a regulatory and operational necessity; embedded finance expanding from payments into accounts, lending, cards, and identity; partner operations maturing into a distinct operational discipline; platforms demanding banking capabilities without banking relationships; middleware dependency shifting toward bank-owned infrastructure; and geography-specific BaaS models diverging across the US, India, and UK.
 
 Nineteen banks across three geographies show active BaaS modernization signals, with the strongest cluster among US Tier 2–3 banks investing in compliance infrastructure and platform architecture.
 
@@ -81,7 +83,11 @@ The FDIC's proposed brokered deposit rule revision (July 2024) would reclassify 
 
 In India, the RBI's Digital Lending Directions (consolidated 2025) mandate direct borrower disbursement — eliminating pass-through accounts that caused the Synapse-type risk — and cap first-loss default guarantees at 5% ([RBI](https://www.rbi.org.in/scripts/FS_Notification.aspx?Id=12382&Mode=0&fn=2)). The Co-Lending Arrangements Directions 2025, effective January 2026, expand co-lending beyond priority sector lending to all loan categories with minimum 10% retention per lender ([RBI](https://rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12888)).
 
-**Infrastructure implication:** Banks that continue or enter BaaS must invest in compliance infrastructure — end-to-end deposit reconciliation, BSA/AML monitoring across partner programs, third-party risk management platforms, regulatory reporting — or face enforcement. The regulatory pressure creates a structural mandate for infrastructure modernization.
+**Opportunity by segment:**
+
+- **Tier 1 banks:** Defend existing BaaS programs against regulatory scrutiny. Fifth Third restructured Newline with dedicated compliance leadership. The engagement for platform vendors is narrow — compliance tooling, not full platforms.
+- **Tier 2 banks:** The most exposed. Cross River, Green Dot, and Pathward face simultaneous growth ambitions and enforcement constraints. They need compliance infrastructure — BSA/AML monitoring across partner programs, end-to-end deposit reconciliation, third-party risk management — that scales with partnerships.
+- **Tier 3 banks:** The failure mode. Quaint Oak, Lineage, Blue Ridge, and Hatch Bank all received enforcement actions because compliance could not keep pace with partner onboarding. Tier 3 banks that continue BaaS need fully productized compliance automation or they should not participate.
 
 ### Shift 2: Multi-Tenant Economics Require Platform Architecture
 
@@ -91,7 +97,11 @@ The enforcement record confirms the failure mode. Quaint Oak Bank saw 240,000 fi
 
 Cloud-native, multi-tenant core banking platforms have matured to production grade. Thought Machine achieved Gartner Magic Quadrant Leader status for Retail Core Banking in 2025 ([Thought Machine](https://www.thoughtmachine.net/)). Mambu operates across 65 countries on a single evergreen codebase ([Mambu](https://mambu.com/en/insights/articles/composable-banking-your-pragmatic-path-to-modernisation)). Fiserv acquired Finxact for approximately USD 650 million to gain a cloud-native core capable of BaaS enablement, subsequently deploying it for DoorDash's Crimson embedded banking program ([Fiserv](https://investors.fiserv.com/news-events/press-releases/detail/78/fiserv-delivers-embedded-finance-to-doordash-crimson-program)).
 
-**Bank tier dynamics:** Tier 1 banks deploy next-generation cores for digital subsidiaries (JPMorgan/Thought Machine, Westpac/10x). Tier 2 banks adopt for BaaS enablement (Coastal Community/Synctera). Tier 3 banks face the highest risk — those without modern architecture face the reconciliation failures that triggered Quaint Oak and Hatch Bank enforcement actions.
+**Opportunity by segment:**
+
+- **Tier 1 banks:** Deploy next-generation cores for digital subsidiaries (JPMorgan/Thought Machine, Westpac/10x). The platform vendor opportunity is narrow.
+- **Tier 2 banks:** Adopt multi-tenant architecture for BaaS enablement (Coastal Community/Synctera). These banks have outgrown single-tenant infrastructure but lack the engineering resources to build from scratch.
+- **Tier 3 banks:** Face the highest risk — those without modern architecture face the reconciliation failures that triggered Quaint Oak and Hatch Bank enforcement actions.
 
 ### Shift 3: Embedded Finance Is Expanding Beyond Payments
 
@@ -103,7 +113,13 @@ The gig economy demonstrates the pattern at scale. Uber launched embedded bankin
 
 Cross River Bank committed USD 360 million in a forward-flow arrangement with Parafin for embedded SMB lending through platforms ([BusinessWire](https://www.businesswire.com/news/home/20250927036583/en/)). India's Account Aggregator framework has reached 263.7 million linked accounts and facilitated loans worth INR 1.6 lakh crore (approximately USD 19 billion) in FY2025, with NBFCs accounting for 60% of AA-facilitated lending ([Economic Times](https://m.economictimes.com/tech/technology/account-aggregator-ecosystem-facilitates-loans-worth-rs-1-6-lakh-crore-in-fy25/articleshow/123001104.cms)).
 
-### Shift 4: Partner Enablement Is an Operational Discipline
+**Opportunity by segment:**
+
+- **Tier 1 banks:** Selective participation. Fifth Third (Newline) is the model — a bank-owned platform behind Stripe Treasury. Most Tier 1 institutions are either building internally or retreating (Goldman Sachs).
+- **Tier 2 banks:** The growth engine. Cross River ($675M revenue), Green Dot ($1.72B revenue), and Pathward are scaling embedded accounts, cards, and lending alongside payments. These banks need multi-product BaaS infrastructure, not point solutions.
+- **Tier 3 banks:** The broadest participation. 139+ sponsor banks are Tier 3. Most need multi-tenant platforms, compliance automation, and partner operations — capabilities they cannot build internally.
+
+### Shift 4: Partner Operations Is an Operational Discipline
 
 BaaS is not an API. It is an operational practice — partner onboarding, due diligence, sandbox environments, compliance monitoring, dispute management, regulatory reporting, lifecycle governance, and offboarding. Banks that treat BaaS as a technology project fail at scale.
 
@@ -112,6 +128,12 @@ The enforcement record is specific about what was missing. Lineage Bank's FDIC c
 Banks that are succeeding have restructured operations around BaaS. Coastal Community Bank appointed a dedicated CCBX President, hired from Capital One and Wells Fargo, and shifted to larger, established partners — delivering 50.6% fee income growth year-over-year ([Coastal Community Bank IR](https://ir.coastalbank.com/news/press-releases/news-details/2024/Coastal-Community-Bank-Appoints-President-of-CCBX-Division/default.aspx)). Pathward introduced a horizontal operating model with Chief Growth Officer, Chief Customer Officer, and Business Risk Group Leader roles designed for multi-threaded partner servicing ([Pathward](https://www.pathward.com/news/pathward-introduces-evolved-operating-model--next-step-in-sponso/)).
 
 A Treasury Prime survey found that 100% of community financial institutions are participating in, launching, or exploring embedded finance, and 99% consider it important to long-term survival — with compliance as the top consideration ([Treasury Prime](https://treasuryprime.com/blog/2025-banking-innovation-index-community-banks-embrace-embedded-finance)).
+
+**Opportunity by segment:**
+
+- **Tier 1 banks:** Build it. Fifth Third restructured a dedicated Newline unit with its own leadership. The engagement for platform vendors is narrow — advisory and specialist tooling.
+- **Tier 2 banks:** Buy the platform, build the practice. Coastal Community (hired CCBX President from Capital One/Wells Fargo), Pathward (created Chief Growth Officer / Business Risk Group structure) — these banks need partner operations infrastructure that their core banking vendor doesn't provide.
+- **Tier 3 banks:** The highest-risk segment. Banks like Quaint Oak and Lineage failed because partner operations overwhelmed manual processes. They need fully productized partner lifecycle management — onboarding, monitoring, offboarding — or they should not participate.
 
 ### Shift 5: Platforms Want Banking Capabilities, Not Banking Relationships
 
@@ -123,6 +145,12 @@ Goldman Sachs's six-year consumer banking experiment demonstrates the inverse. T
 
 Sponsor banks report earning 51.3% of revenue and 51.4% of deposit income from embedded finance partnerships ([Alloy/McKinsey survey](https://alloy.com/blog/11-embedded-finance-stats-for-banks-2024)). The economics favor banks that can provide infrastructure at scale — but only if the cost of compliance, operations, and technology is amortized across multiple partners.
 
+**Opportunity by segment:**
+
+- **Tier 1 banks:** Selective. Fifth Third (Newline behind Stripe) and JPMorgan (Apple Card acquisition) demonstrate Tier 1 interest, but these institutions build or acquire — they do not buy off-the-shelf platforms.
+- **Tier 2 banks:** The primary buyer. Cross River, Pathward, and Green Dot need API-first infrastructure that abstracts their banking capabilities for platform consumption without exposing the bank brand. This is the segment where multi-product BaaS platforms (accounts + payments + cards from one stack) have the strongest pull.
+- **Tier 3 banks:** Participate as charter providers. Column and Lead Bank demonstrate that purpose-built Tier 3 banks can serve as pure infrastructure — but they built, not bought. Other Tier 3 banks (Sutton Bank, Bangor Savings) need platform infrastructure to compete.
+
 ### Shift 6: Middleware Dependency Is Shifting Toward Bank-Owned Infrastructure
 
 The Synapse and Solid bankruptcies demonstrated that middleware without a charter cannot protect deposits. When Synapse collapsed, FDIC insurance — designed to protect against bank failure — did not cover middleware failure. The middleware layer held the ledger records, not the banks, and the resulting reconciliation failure left USD 85–96 million in customer funds unaccounted for.
@@ -132,6 +160,12 @@ The response is structural. First International Bank and Trust built Kavinu, a p
 Middleware providers are adapting. Treasury Prime launched Bank Direct and Bank OS — products that give banks direct control over fintech relationships — and reduced payment processing time from 7 minutes 34 seconds to 32 seconds ([Treasury Prime](https://treasuryprime.com/blog/treasury-primes-bank-direct-year-one-pioneering-embedded-banking)). Unit introduced white-label applications enabling one-line-of-code banking integration. The middleware is shifting from intermediary to enablement software.
 
 Mercury's migration from Evolve Bank to Column and Choice after the Synapse fallout illustrates the pattern: fintechs are diversifying bank relationships and seeking direct partnerships over middleware dependency ([American Banker](https://www.americanbanker.com/news/small-business-fintech-mercury-bank-partner-evolve-split)).
+
+**Opportunity by segment:**
+
+- **Tier 1 banks:** Building proprietary platforms. Fifth Third acquired Rize Money to create Newline. Cross River built an in-house card processor. First International built Kavinu. The platform vendor opportunity is narrow — specialist components, not full platforms.
+- **Tier 2 banks:** The transition segment. These banks have outgrown middleware dependency but lack engineering resources to build proprietary stacks. They need bank-owned infrastructure they can control — with direct APIs, compliance oversight, and the ability to onboard/disable partner programs without middleware intermediaries.
+- **Tier 3 banks:** The most exposed. Banks that relied on Synapse or Solid lost their BaaS delivery mechanism entirely. Remaining Tier 3 sponsor banks need infrastructure resilience — multi-tenant architecture they own, not middleware they rent.
 
 ### Shift 7: Geography-Specific BaaS Models Create Divergent Platform Requirements
 
@@ -150,19 +184,34 @@ BaaS is not one model. The US, India, and UK have evolved structurally distinct 
 | Data sharing | Optional (Section 1033 pending) | Consent-based (AA framework) | Mandated (CMA Order) |
 | Platform requirement | Multi-bank redundancy; compliance automation | Co-lending infrastructure; NBFC integration | Open banking API compliance; FSCS integration |
 
+### Consolidated Regulatory and Enforcement Calendar
+
+| Market | Event | Date / Status | Infrastructure Investment Forced |
+|---|---|---|---|
+| USA | FDIC brokered deposit rule revision | Proposed July 2024; pending | Capital requirement increases for BaaS deposits; potential model restructuring |
+| USA | OCC/FDIC/Fed third-party risk management guidance | Active (2024–) | Third-party risk management platforms; compliance monitoring across partner programs |
+| USA | Synapse/Evolve/Blue Ridge/Lineage enforcement actions | 2024 | End-to-end deposit reconciliation; BSA/AML monitoring; audit trail infrastructure |
+| India | RBI Digital Lending Directions (consolidated) | Active (2025) | Direct disbursement to borrower; elimination of pass-through accounts; FLDG cap (5%) |
+| India | RBI Co-Lending Arrangements Directions | Effective January 2026 | Co-lending infrastructure — escrow mgmt, blended rate calculation, min 10% retention |
+| India | Paytm Payments Bank restrictions | January 2024 | PPI compliance; deposit migration infrastructure; partner bank contingency |
+| UK | Griffin FCA/PRA banking licence | March 2024 | Licensed BaaS bank infrastructure standard; full-stack regulatory compliance |
+| UK | Consumer Duty | Active (July 2023–) | Outcome-based compliance monitoring for embedded banking products |
+
+Each enforcement action or regulatory mandate creates a buying event. The US enforcement wave is the most acute forcing function — banks face existential risk from BaaS participation without compliant infrastructure.
+
 ---
 
 ## 4. The Engagement Landscape
 
-Banks pursuing BaaS and embeddable banking commission four distinct types of programs, each mapped to specific structural shifts and bank tiers.
+Banks pursuing BaaS and embedded banking commission four distinct types of programs, each mapped to specific structural shifts and bank tiers.
 
-**Single-partner launch.** A bank enables one fintech or platform partner — typically the entry point. The engagement delivers partner onboarding, API integration for one product type (usually payments or cards), compliance monitoring, and go-live support. This is the lowest-risk model and the one regulators tolerate most easily. Common among Tier 3 banks entering BaaS — Piermont Bank's Treasury Prime partnership, nbkc's Acorns relationship.
+**Single-partner launch.** *Shifts: 1, 4. Primary buyer: Tier 3 banks.* A bank enables one fintech or platform partner — typically the entry point. The engagement delivers partner onboarding, API integration for one product type (usually payments or cards), compliance monitoring, and go-live support. This is the lowest-risk model and the one regulators tolerate most easily. **Named examples:** Piermont Bank's Treasury Prime partnership, nbkc's Acorns relationship.
 
-**Multi-partner platform.** The bank builds infrastructure to serve multiple partners. The engagement delivers multi-tenancy, product configuration, API surfaces, compliance governance, and sandbox environments. This is the strategic investment that enables scale — and the one most enforcement actions target when compliance doesn't scale with partnerships. Coastal Community Bank (27 partnerships via CCBX), Cross River Bank (full-stack API platform), and Fifth Third Bank (Newline) represent different maturity levels of this model.
+**Multi-partner platform.** *Shifts: 2, 4, 5. Primary buyer: Tier 2–3 banks.* The bank builds infrastructure to serve multiple partners. The engagement delivers multi-tenancy, product configuration, API surfaces, compliance governance, and sandbox environments. This is the strategic investment that enables scale — and the one most enforcement actions target when compliance doesn't scale with partnerships. **Named examples:** Coastal Community Bank (27 partnerships via CCBX), Cross River Bank (full-stack API platform), Fifth Third Bank (Newline).
 
-**Embedded product launch.** The bank extends its BaaS platform to a new product vertical — embedded lending, embedded accounts, or embedded identity. This extends the platform without adding new partners. Cross River's USD 360 million forward-flow commitment for embedded SMB lending through Parafin is an example, as is the expansion of India's co-lending model beyond priority sector lending.
+**Embedded product launch.** *Shifts: 3, 5. Primary buyer: Tier 2 banks.* The bank extends its BaaS platform to a new product vertical — embedded lending, embedded accounts, or embedded identity. This extends the platform without adding new partners. **Named examples:** Cross River's USD 360 million forward-flow commitment for embedded SMB lending through Parafin; expansion of India's co-lending model beyond priority sector lending.
 
-**White-label program.** The bank offers branded banking experiences to a partner — configurable mobile apps, branded card programs, partner-branded onboarding. Grasshopper Bank, which won the 2025 BaaS Innovation award and grew revenue 83% year-over-year ([Grasshopper Bank](https://www.grasshopper.bank/press-releases/grasshopper-caps-strong-year-with-83-revenue-growth-through-expansion-of-small-business-venture-and-baas-partner-ecosystem/)), demonstrates this model. Shopify Balance, though experienced as a Shopify product, is architecturally a white-label deployment powered by Stripe and Fifth Third Bank.
+**White-label program.** *Shifts: 5, 6. Primary buyer: Tier 2–3 banks.* The bank offers branded banking experiences to a partner — configurable mobile apps, branded card programs, partner-branded onboarding. **Named examples:** Grasshopper Bank (2025 BaaS Innovation award, 83% revenue growth YoY). Shopify Balance, though experienced as a Shopify product, is architecturally a white-label deployment powered by Stripe and Fifth Third Bank.
 
 The engagement type determines the infrastructure requirement. Single-partner launches can succeed on point-to-point integration. Multi-partner platforms and embedded product launches demand multi-tenant architecture, compliance orchestration, and operational governance at scale — the capabilities that enforcement actions consistently find missing.
 
@@ -176,21 +225,47 @@ The BaaS competitive landscape is organized in three layers, each with distinct 
 
 Banks providing regulatory infrastructure — charters, deposit insurance, compliance, and in some cases their own API platforms — to fintech and platform partners.
 
-Column Bank (USD 55 million revenue, 126% YoY growth) has emerged as the model for vertically integrated, API-first BaaS — nationally chartered, founder-owned, processing over USD 2 trillion annually for Brex and Mercury ([Sacra](https://sacra.com/research/column-55m-year-mom-pop-baas/)). Cross River Bank is the largest BaaS bank by revenue (USD 675 million in 2024), with more than 1 billion cumulative payment transactions and an in-house card processing engine launched December 2025 ([Sacra](https://sacra.com/c/cross-river-bank/); [BusinessWire](https://www.businesswire.com/news/home/20251210734264/en/)). Fifth Third Bank (USD 214 billion in assets) operates Newline, the only Tier 1 bank-owned BaaS platform at scale in the US, processing USD 17 trillion in annual payments volume.
+| Bank | Revenue / Scale | Position | Vulnerability |
+|---|---|---|---|
+| Cross River | $675M revenue (2024); 1B+ cumulative transactions; in-house card processor | Largest BaaS bank by revenue; full-stack API platform; embedded lending via Parafin ($360M forward-flow) | FDIC consent order for fair lending; regulatory overhang limits growth |
+| Column | $55M revenue (126% YoY); $2T+ annual transaction volume | Purpose-built API-first BaaS; nationally chartered; serves Brex, Mercury | Limited to accounts + payments; no cards, no lending at scale |
+| Fifth Third (Newline) | $214B in assets; $17T annual payments volume | Only Tier 1 bank-owned BaaS platform at scale; powers Stripe Treasury | Newline is a subsidiary — strategic priority could shift with bank leadership |
+| Pathward | $7.8B in assets; Finovate Best BaaS 2024 | Evolved operating model for multi-partner BaaS; horizontal org structure | Durbin-exempt advantage erodes if asset growth crosses $10B threshold |
+| Coastal Community (CCBX) | 27 partnerships; 50.6% fee income growth YoY | Dedicated BaaS division with hired leadership from Capital One/Wells Fargo | Community bank scale; regulatory risk if partnerships outpace compliance |
+| Grasshopper | 83% revenue growth; $133M new BaaS deposits | BaaS Innovation Gold 2025; $46.6M raise for expansion | Small balance sheet; concentration risk in BaaS revenue |
 
-The vulnerability is regulatory: community banks that scaled partnerships without scaling compliance infrastructure — Blue Ridge (exited BaaS entirely), Lineage (seeking buyer, assets shrank from USD 300 million to USD 189 million), Evolve (consent order restricting new partnerships) — demonstrate the failure mode.
+*Sources: [Sacra](https://sacra.com/research/column-55m-year-mom-pop-baas/), [BusinessWire](https://www.businesswire.com/news/home/20251210734264/en/), [Coastal Community IR](https://ir.coastalbank.com/news/press-releases/news-details/2024/Coastal-Community-Bank-Appoints-President-of-CCBX-Division/default.aspx), [Grasshopper Bank](https://www.grasshopper.bank/press-releases/grasshopper-caps-strong-year-with-83-revenue-growth-through-expansion-of-small-business-venture-and-baas-partner-ecosystem/)*
+
+The vulnerability pattern is regulatory: community banks that scaled partnerships without scaling compliance infrastructure — Blue Ridge (exited BaaS entirely), Lineage (seeking buyer, assets shrank from USD 300 million to USD 189 million), Evolve (consent order restricting new partnerships) — demonstrate the failure mode.
 
 ### Middleware and API Platforms
 
-Technology platforms connecting fintechs to bank rails. Unit (USD 169 million raised, USD 1.2 billion valuation), Treasury Prime (20+ bank partners, AI-native marketplace), and Synctera (compliance-first positioning) are the active players. Synapse (bankrupt April 2024, USD 85–96 million in deposits missing) and Solid (bankrupt April 2025, fraud allegations) are the cautionary cases.
+| Vendor | Funding / Scale | Position | Vulnerability |
+|---|---|---|---|
+| Unit | $169M raised; $1.2B valuation | White-label apps; one-line-of-code banking integration; 200+ customers | Depends on sponsor banks; regulatory pressure cascades |
+| Treasury Prime | 20+ bank partners; AI-native marketplace | Bank Direct / Bank OS products give banks direct control; 7m34s→32s processing improvement | Pivoting from intermediary to enablement; revenue model in transition |
+| Synctera | Compliance-first positioning | BaaS with integrated compliance monitoring; bank-fintech matching | Smaller scale; competing with Unit for the same bank segment |
+| Synapse | Bankrupt (April 2024) | Was largest middleware by connections | $85–96M in deposits missing; 100K+ customers stranded |
+| Solid | Bankrupt (April 2025) | Was developer-focused BaaS middleware | Fraud allegations; customers forced to migrate |
+
+*Sources: [CNBC](https://www.cnbc.com/2024/07/02/synapse-fintech-fdic-false-promise.html), [Treasury Prime](https://treasuryprime.com/blog/treasury-primes-bank-direct-year-one-pioneering-embedded-banking)*
 
 The middleware layer is structurally vulnerable: no charter means no deposit protection, and regulatory pressure on sponsor banks cascades to dependent middleware. The surviving middleware providers are pivoting from intermediary to enablement software — giving banks control rather than abstracting them away.
 
 ### Core Vendors and Embedded Finance Specialists
 
-Core banking vendors are acquiring BaaS capability: Fiserv's USD 650 million acquisition of Finxact positions it to deliver multi-tenant ledger infrastructure (deployed for DoorDash Crimson). Mambu, Thought Machine, and 10x Banking provide cloud-native cores for banks building BaaS programs. Q2 Helix (11 million users, USD 20 billion in annual transactions) offers a dedicated BaaS platform layered on core banking.
+| Vendor | Revenue / Scale | Position | Limitation |
+|---|---|---|---|
+| Fiserv (Finxact) | $650M acquisition; deployed for DoorDash Crimson | Multi-tenant cloud-native core for BaaS enablement; existing bank relationships | Integration with legacy Fiserv stack incomplete; Finxact still scaling |
+| Thought Machine | Gartner Leader (Retail Core 2025); JPMorgan, Westpac deployments | Cloud-native Vault Core for BaaS-enabling banks | Core banking only — no payments, cards, or partner operations |
+| Mambu | 65 countries; single evergreen codebase | Composable SaaS core for lending and deposits | Limited to lending/deposit core; no card issuing or payments |
+| Q2 Helix | 11M users; $20B annual transactions | Dedicated BaaS platform layered on Q2 core banking | US-only; dependent on Q2 ecosystem |
+| Marqeta | $625M revenue; $383B TPV (FY2025) | Dominant modern card issuing for fintechs and platforms | Cards only — no deposits, no lending, no accounts |
+| Stripe (Treasury/Issuing) | $1.9T total volume (2025) | Embedded finance for platforms at scale; Treasury via Fifth Third/Newline | Not bank infrastructure — serves platforms, not banks directly |
+| M2P Fintech (India) | 800+ fintechs; 200+ banks | Full-stack API infrastructure for Indian BaaS | India-focused; limited multi-geography capability |
+| Razorpay (India) | Banking Stack for omni-channel infrastructure | Expanding from payments gateway into embedded banking | Payments-first DNA; banking stack is nascent |
 
-Embedded finance specialists serve specific product verticals: Marqeta (USD 625 million revenue, USD 383 billion TPV in FY2025) dominates card issuing ([Marqeta](https://www.businesswire.com/news/home/20260224239542/en/)); Stripe Treasury and Issuing embed financial products for platforms at scale (USD 1.9 trillion total volume in 2025). In India, M2P Fintech serves 800+ fintechs and 200+ banks; Razorpay launched a Banking Stack for omni-channel banking infrastructure.
+*Sources: [Marqeta](https://www.businesswire.com/news/home/20260224239542/en/), [Thought Machine](https://www.thoughtmachine.net/), [Mambu](https://mambu.com/en/insights/articles/composable-banking-your-pragmatic-path-to-modernisation)*
 
 ### Competitive Gaps
 
@@ -200,7 +275,7 @@ No platform credibly covers accounts, payments, cards, lending, and compliance a
 
 ## 6. Target Universe
 
-Nineteen institutions across three geographies exhibit observable BaaS and embeddable banking modernization signals, each with citable evidence.
+Nineteen institutions across three geographies exhibit observable BaaS and embedded banking modernization signals, each with citable evidence.
 
 ### United States
 
@@ -236,10 +311,6 @@ Nineteen institutions across three geographies exhibit observable BaaS and embed
 | Shawbrook | Specialist | Live on Thought Machine Vault Core; accelerating SME lending | [Thought Machine](https://www.thoughtmachine.net/press-releases/shawbrook) |
 | Intesa Sanpaolo | Tier 1 | £40M investment in Thought Machine; deploying Vault Core for digital banking | [Thought Machine](https://www.thoughtmachine.net/press-releases/intesa-sanpaolo-invests-ps40-million-into-thought-machine-and-selects-vault-to-power-new-digital-banking-platform) |
 
-**Near-term (0–2 years):** US Tier 2–3 banks actively scaling BaaS programs (Cross River, Column, Coastal Community, Grasshopper, Lead Bank, Pathward); India Tier 2 banks expanding API and co-lending platforms (Federal Bank, Yes Bank). These institutions have observable active investment and partner pipeline.
-
-**Medium-term (2–5 years):** Banks under regulatory pressure that must modernize infrastructure to continue BaaS (Green Dot, Sutton Bank); India Tier 1 banks evolving API portals into full platform plays (HDFC, ICICI); UK banks building on licensed BaaS foundations (Griffin, ClearBank, Shawbrook).
-
 ---
 
 # PART II — THE ADVISORY
@@ -248,20 +319,15 @@ Nineteen institutions across three geographies exhibit observable BaaS and embed
 
 ## 7. Zeta's Position
 
-Zeta's product architecture aligns to the BaaS infrastructure opportunity through five product families and five fabrics.
-
-| Zeta Asset | BaaS Capability | Assessment |
+| Structural Shift | Zeta Asset | Readiness |
 |---|---|---|
-| **Tachyon (Accounts)** | Embedded accounts — ledger, limits, lifecycle for deposits, credit, and lending | Core to BaaS. Tachyon Kernel, DDA, Credit Cards, and Loans cover the full account infrastructure that BaaS banks need. The multi-product breadth (deposits + cards + lending from one platform) is a genuine differentiator — no competitor offers this integrated. |
-| **Photon (Payments)** | Embedded payments — processing, orchestration, settlement across rails | Table stakes for BaaS. Photon's multi-rail capability (ACH, wire, RTP, FedNow, UPI, IMPS, SWIFT) is necessary but not differentiating on its own. Payment Aggregator Services are directly relevant to India's PA regulations. |
-| **Electron (Cards)** | Embedded card programs — commercial, benefits, expense, co-branded | Strong fit for card BaaS (one of the fastest-growing segments). Electron competes with Marqeta ($625M revenue) and i2c for card issuing infrastructure. Commercial card focus is differentiated. |
-| **Neutrino (Channels)** | White-label and partner-branded experiences | Directly addresses the white-label BaaS segment. Configurable consumer and agent experiences powered by the bank's infrastructure, branded for the partner. |
-| **Quark (Domain Hubs)** | Partner program operations — onboarding, servicing, compliance, lifecycle | Maps to the partner enablement gap that enforcement actions consistently cite as missing. Quark's domain hubs (Origination, Payments, Credit Card, Servicing, Lending, Merchant) model the operational work that BaaS requires. |
-| **Trust Fabric** | Embedded identity — eKYC, MFA, consent for partner customers | Embedded identity is an expanding BaaS product. Trust Fabric provides the authentication and consent infrastructure that banks need to extend identity services through partner channels. |
-| **Cloud Fabric** | Multi-tenancy — data isolation, SLA governance, operational reliability | Direct match to the multi-tenant platform architecture requirement (Shift 2). Cloud Fabric's multi-tenant capabilities address the infrastructure gap that caused Quaint Oak and Hatch Bank failures. |
-| **Cognitive Audit Fabric** | Compliance evidence — audit trails, decision records, regulatory reporting | Maps directly to the enforcement-cited gap. Every consent order demands better audit trails, decision evidence, and compliance records. Cognitive Audit Fabric provides this at the platform level. |
-| **Evolution Fabric** | Operational substrate — partner programs modeled as Hubs with Streams and Loops | Enables BaaS program operations to be modeled as explicit, governed work rather than ad-hoc manual processes. Partner onboarding as a Stream, compliance monitoring as a Loop. |
-| **Truth Fabric** | Semantic consistency — product terms, compliance categories, reporting definitions | Addresses the product term consistency problem in multi-partner BaaS: ensuring that "savings account" or "credit limit" means the same thing across all partners. |
+| Regulatory arbitrage closing (1) | Cognitive Audit Fabric (audit trails, decision records, regulatory reporting) | **Strong.** Maps directly to the enforcement-cited gap. Every consent order demands better audit trails, decision evidence, and compliance records. Cognitive Audit Fabric provides this at the platform level |
+| Multi-tenant platform architecture (2) | Cloud Fabric (data isolation, SLA governance) + Tachyon (multi-product accounts) | **Strong.** Cloud Fabric's multi-tenant capabilities address the infrastructure gap that caused Quaint Oak and Hatch Bank failures. Tachyon's multi-product breadth (deposits + cards + lending from one platform) is a genuine differentiator — no competitor offers this integrated |
+| Embedded finance beyond payments (3) | Tachyon (accounts, credit, lending) + Electron (cards) + Photon (payments) | **Core to BaaS.** The multi-product breadth across accounts, cards, and payments is the primary architectural advantage. Electron competes with Marqeta ($625M revenue) for card issuing. Tachyon Loans production readiness is not documented — the single largest credibility gap |
+| Partner operations as discipline (4) | Quark (domain hubs) + Evolution Fabric (operational substrate) | **Partial.** Quark's domain hubs (Origination, Servicing, Lending, Merchant) model the operational work BaaS requires. Evolution Fabric enables partner programs to be modeled as explicit Streams and Loops. Whether these deliver at the operational depth enforcement actions demand needs verification |
+| Banking capabilities without relationships (5) | Neutrino (white-label channels) + Trust Fabric (embedded identity — eKYC, MFA, consent) | **Strong fit.** Neutrino directly addresses white-label BaaS. Trust Fabric provides authentication and consent infrastructure for partner channels. Embedded identity is an expanding BaaS product |
+| Bank-owned infrastructure (6) | Full platform (bank-controlled, direct APIs, compliance oversight) | **Architectural advantage.** Zeta's model — sell to banks as their platform — aligns with the structural shift toward bank-owned infrastructure. The platform gives banks direct control over partner programs without middleware intermediaries |
+| Geography-specific BaaS models (7) | Multi-geography capability (India + US) | **Partial.** India presence and regulatory familiarity are advantages. US capability is architecturally present but lacks BaaS-specific references. Multi-geography BaaS does not exist from any competitor — this is a potential differentiator if both markets are production-validated |
 
 ### Honest Gaps
 
@@ -271,33 +337,26 @@ Zeta's product architecture aligns to the BaaS infrastructure opportunity throug
 
 3. **Lending product maturity unclear.** Tachyon Loans is listed as a product line but its production readiness is not documented. Embedded lending is the fastest-growing BaaS sub-segment (5.5x growth). If lending is not production-grade, Zeta misses the highest-growth segment.
 
-4. **Partner operations tooling depth.** The plan identifies sandbox environments, due diligence workflows, compliance dashboards, and offboarding tools as critical BaaS operational capabilities. Whether Quark and Evolution Fabric can deliver these at the operational depth that enforcement actions demand needs verification.
+4. **Partner operations tooling depth.** Sandbox environments, due diligence workflows, compliance dashboards, and offboarding tools are critical BaaS operational capabilities. Whether Quark and Evolution Fabric can deliver these at the operational depth that enforcement actions demand needs verification.
 
 5. **India is structurally different.** India's BaaS-equivalent model (co-lending, PPI, Account Aggregator) operates under prescriptive RBI directions. Zeta's India presence is an advantage, but the platform capabilities must map to India's specific regulatory architecture — not transplant a US BaaS model.
 
+6. **Truth Fabric** addresses the product term consistency problem in multi-partner BaaS — ensuring that "savings account" or "credit limit" means the same thing across all partners — but its readiness for BaaS-specific semantic governance is unverified.
+
 ---
 
-## 8. Where to Play
+## 8. Where to Play — Right to Play / Right to Win Assessment
 
-### Pursue
+Using the [Right to Play / Right to Win framework](../distillation/how-to.md):
 
-**India Tier 1–2 banks expanding API and co-lending platforms.** Federal Bank (70+ API partners, 25% fintech revenue target), Yes Bank (Credit Line on UPI, embedded finance stack), and SBM Bank India (Zwitch platform) are actively investing. Zeta has market presence, regulatory familiarity, and the multi-product platform they need. Lead with Tachyon (accounts) + Photon (payments) + Trust Fabric (eKYC under RBI norms).
-
-**US Tier 2–3 banks entering or scaling BaaS programs.** Column, Coastal Community, Grasshopper, Lead Bank, and PeoplesBank represent the US bank segment that needs modern, multi-tenant infrastructure with integrated compliance. Lead with the platform breadth differentiator (accounts + payments + cards in one stack rather than assembling Column + Marqeta + Unit) and Cognitive Audit Fabric for regulatory auditability. A single US deployment as a reference is the prerequisite.
-
-**Banks replacing legacy BaaS middleware after enforcement.** Banks that received consent orders — or that are proactively replacing middleware dependency post-Synapse — need bank-controlled infrastructure. Sutton Bank's Infinant partnership, Pathward's operating model overhaul, and the Treasury Prime Bank Direct pivot all signal demand for platforms that give banks direct control over partner programs.
-
-### Defer
-
-**Full-stack BaaS lending.** Until Tachyon Loans is production-validated with a reference deployment, do not lead with embedded lending as a BaaS capability. The lending segment is the fastest-growing (5.5x) but requires production-grade credit assessment, compliance, and servicing infrastructure. Premature positioning erodes credibility.
-
-**UK market entry.** The UK's licensed BaaS model (Griffin, ClearBank) and regulatory requirements (FCA/PRA licensing, Consumer Duty, CTP regime) demand local regulatory engagement that Zeta has not undertaken. Monitor; do not invest.
-
-### Do Not Pursue
-
-**Middleware positioning.** Do not position as BaaS middleware (Unit, Treasury Prime, Synctera model). The middleware layer is structurally vulnerable — no charter means no deposit protection — and the market is shifting toward bank-owned infrastructure. Sell to banks as their platform, not to fintechs as a bank alternative.
-
-**Tier 1 US bank BaaS.** Fifth Third (Newline) has built its own platform. JPMorgan is acquiring the Apple Card portfolio. Goldman Sachs is exiting. Tier 1 US banks either build internally or retreat from BaaS. The sales cycle is prohibitive and the competitive position is weak.
+| Segment | Right to Play | Right to Win | Recommendation |
+|---|---|---|---|
+| **Multi-product BaaS platform (India Tier 1–2)** | **Strong.** India BaaS market $321M→$1.43B (20.6% CAGR). RBI co-lending expansion creates immediate demand. Federal Bank, Yes Bank, SBM Bank India actively investing | **Strong.** Existing India market presence. Regulatory familiarity. Multi-product breadth (Tachyon + Photon + Trust Fabric) matches India's prescriptive framework | **Pursue aggressively.** Strongest combined position |
+| **Multi-product BaaS platform (US Tier 2–3)** | **Strong.** US BaaS vendor revenue $27–30B, 13–18% CAGR. 139+ sponsor banks, most needing modern infrastructure. Post-enforcement demand for compliant platforms | **Medium.** Architectural advantage (integrated accounts + payments + cards vs. assembling Column + Marqeta + Unit). No US BaaS reference — cold-start problem. Brand recognition is zero among US bank buyers | **Pursue.** Conditional on securing first US deployment. Lead with platform breadth + Cognitive Audit Fabric |
+| **Post-enforcement infrastructure replacement (US Tier 2–3)** | **Strong.** Banks under consent orders must rebuild. Blue Ridge exited; Evolve restricted; Lineage shrinking. Time-bounded opportunity as banks exit orders | **Medium.** Cognitive Audit Fabric maps to the compliance gap cited in every enforcement action. But: selling to banks under regulatory duress requires established credibility | **Pursue selectively.** Target banks emerging from consent orders where the buying event is concrete |
+| **Embedded lending BaaS** | **Strong.** Fastest-growing sub-segment (5.5x, $2B→$11B). Cross River's $360M Parafin deal demonstrates scale | **Weak.** Tachyon Loans production readiness not documented. Lending BaaS requires credit assessment, servicing, and regulatory infrastructure that Zeta has not demonstrated | **Defer.** Do not position until Tachyon Loans is production-validated |
+| **UK BaaS market** | **Medium.** Licensed BaaS model (Griffin, ClearBank). Mandated open banking. Growing market ($2.1B, 16.8% CAGR) | **Weak.** No FCA/PRA licensing. No UK presence. Griffin already holds first full-stack licensed BaaS position | **Do not pursue.** Monitor only |
+| **BaaS middleware positioning** | **Weak.** Middleware layer structurally vulnerable (Synapse bankrupt, Solid bankrupt). Market shifting to bank-owned infrastructure | **Not applicable.** Middleware positioning contradicts Zeta's bank-platform value proposition | **Do not pursue.** Sell to banks, not around them |
 
 ---
 
@@ -326,23 +385,63 @@ Zeta's product architecture aligns to the BaaS infrastructure opportunity throug
 
 ### Near-Term (0–2 Years)
 
-1. **Secure one India BaaS reference.** Target Federal Bank, Yes Bank, or SBM Bank India for a multi-product BaaS platform deployment (Tachyon accounts + Photon payments + Trust Fabric eKYC). This validates the platform in a market where Zeta has presence and regulatory familiarity.
-
-2. **Validate Tachyon Loans for production.** Embedded lending is the fastest-growing BaaS segment. Accelerate Tachyon Loans to production readiness and secure a lending reference deployment — ideally as an extension of the India BaaS reference.
-
-3. **Build the Cognitive Audit Fabric narrative for US regulatory requirements.** The capability most consistently cited as missing in enforcement actions — audit trails, compliance evidence, decision records — is a Zeta architectural strength. Develop a regulatory compliance positioning document mapping Cognitive Audit Fabric to OCC/FDIC/Fed third-party risk management requirements.
-
-4. **Secure one US Tier 3 bank BaaS deployment.** Target a bank in the Coastal Community, Grasshopper, or Lead Bank tier — banks actively investing in BaaS that need multi-product platform infrastructure. The first US deployment unlocks the reference barrier.
-
-5. **Develop BaaS-specific partner operations modules in Quark.** Build sandbox environments, partner onboarding workflows (due diligence, compliance assessment, go-live certification), compliance monitoring dashboards, and lifecycle governance capabilities as explicit Quark domain capabilities. This is the operational gap that no vendor has fully productized.
+| Action | Rationale | Priority |
+|---|---|---|
+| **Secure one India BaaS reference** | Target Federal Bank, Yes Bank, or SBM Bank India for a multi-product BaaS platform deployment (Tachyon accounts + Photon payments + Trust Fabric eKYC). Validates the platform in a market where Zeta has presence and regulatory familiarity | **Immediate** |
+| **Validate Tachyon Loans for production** | Embedded lending is the fastest-growing BaaS segment (5.5x). Accelerate to production readiness and secure a lending reference — ideally as an extension of the India BaaS reference | **Immediate** |
+| **Build the Cognitive Audit Fabric narrative for US regulatory requirements** | The capability most consistently cited as missing in enforcement actions — audit trails, compliance evidence, decision records — is a Zeta architectural strength. Map Cognitive Audit Fabric to OCC/FDIC/Fed third-party risk management requirements | **Q2 2026** |
+| **Secure one US Tier 3 bank BaaS deployment** | Target a bank in the Coastal Community, Grasshopper, or Lead Bank tier — banks actively investing in BaaS that need multi-product platform infrastructure. The first US deployment unlocks the reference barrier | **2026–2027** |
+| **Develop BaaS-specific partner operations modules in Quark** | Build sandbox environments, partner onboarding workflows (due diligence, compliance assessment, go-live certification), compliance monitoring dashboards, and lifecycle governance as explicit Quark domain capabilities. This is the operational gap no vendor has fully productized | **2026–2027** |
 
 ### Medium-Term (2–5 Years)
 
-6. **Expand to US Tier 2 banks.** Once a Tier 3 reference is established, target Pathward, Green Dot, and mid-size banks modernizing BaaS operations. The pitch is platform consolidation: replace the assembly of Column + Marqeta + Unit + compliance point solutions with an integrated platform.
+| Action | Rationale | Priority |
+|---|---|---|
+| **Expand to US Tier 2 banks** | Once a Tier 3 reference is established, target Pathward, Green Dot, and mid-size banks modernizing BaaS operations. Pitch: replace the assembly of Column + Marqeta + Unit + compliance point solutions with an integrated platform | **2028** |
+| **India co-lending infrastructure** | Develop Tachyon Loans + Evolution Fabric co-lending capabilities aligned to the RBI Co-Lending Arrangements Directions 2025 — escrow management, blended rate calculation, cross-lender asset classification synchronization. Target the IBA's planned unified co-lending platform initiative | **2027–2028** |
+| **Multi-geography BaaS platform** | No competitor operates a unified BaaS platform across US and India regulatory requirements. Zeta's presence in both markets positions it uniquely for banks with cross-border embedded finance ambitions | **2028–2029** |
 
-7. **India co-lending infrastructure.** Develop Tachyon Loans + Evolution Fabric co-lending capabilities aligned to the RBI Co-Lending Arrangements Directions 2025 — escrow management, blended rate calculation, cross-lender asset classification synchronization. Target the IBA's planned unified co-lending platform initiative.
+### What to Defer or Avoid
 
-8. **Multi-geography BaaS platform.** No competitor operates a unified BaaS platform across US and India regulatory requirements. Zeta's presence in both markets positions it uniquely for banks with cross-border embedded finance ambitions.
+| Decision | Rationale |
+|---|---|
+| **Do not pursue full-stack BaaS lending** until Tachyon Loans is production-validated | The lending segment is the fastest-growing (5.5x) but requires production-grade credit assessment, compliance, and servicing infrastructure. Premature positioning erodes credibility |
+| **Do not pursue UK market entry** | The UK's licensed BaaS model (Griffin, ClearBank) and regulatory requirements (FCA/PRA licensing, Consumer Duty, CTP regime) demand local regulatory engagement that Zeta has not undertaken. Monitor; do not invest |
+| **Do not position as BaaS middleware** | The middleware layer is structurally vulnerable — no charter means no deposit protection — and the market is shifting toward bank-owned infrastructure. Sell to banks as their platform, not to fintechs as a bank alternative |
+| **Do not pursue Tier 1 US bank BaaS** | Fifth Third (Newline) has built its own platform. JPMorgan is acquiring the Apple Card portfolio. Goldman Sachs is exiting. Tier 1 US banks either build internally or retreat from BaaS. The sales cycle is prohibitive and the competitive position is weak |
+
+---
+
+## Key Differences: BaaS and Embedded Banking vs. Other Engagement Areas
+
+| Dimension | BaaS & Embedded Banking | Payments | Banking Operations | Cloud & Platform Ops |
+|---|---|---|---|---|
+| Market structure | Charter holders + middleware + core vendors; structurally fragmented, consolidating under enforcement | Oligopoly (FIS, Fiserv, GP) + fragmented challengers | Fragmented across 7 vendor sub-domains | Hyperscalers + observability tools |
+| Competitive intensity | High (30+ active players) but differentiable through platform breadth | Very high | High per sub-domain | High (hyperscaler adjacency) |
+| Regulatory forcing | **Strongest driver.** Enforcement actions (not mandates) are the primary forcing function. Banks face existential regulatory risk from BaaS participation | Strong (multiple concurrent mandates with deadlines) | Strong (BSA/AML, EU AML Package) | Medium |
+| Buyer motivation | Revenue generation (new fee income from fintech partnerships) combined with compliance survival | Cost reduction and mandate compliance | Cost reduction and risk management | Operational efficiency |
+| Geographic concentration | USA dominant (35%+ of global); India fastest-growing (20.6% CAGR); UK structurally distinct (licensed model) | USA 30–40% | USA 33–42%; Asia-Pacific fastest-growing | Distributed |
+| Central strategic argument | Banks that want to distribute products through third parties need multi-tenant, compliance-embedded platform infrastructure — and the enforcement wave has eliminated the option of doing this cheaply | Banks must replace 20-year-old infrastructure; technology debt is structural | Operations volumes and regulatory intensity exceed human capacity; operations work must be modeled explicitly | Cloud operations lack customer-centric observability |
+| Vendor-addressable TAM | $27–30B (BaaS platforms); broader embedded finance infrastructure $185B | $60–85B (narrow); $150–200B (broad) | $19–27B | $10–15B |
+| Zeta's distinctive advantage | Only vendor offering integrated accounts + payments + cards + compliance as one platform. No competitor matches the breadth | Integrated payments + operational model (Evolution Fabric) | Cognitive Audit Fabric + Evolution Fabric for operations governance | Cloud Fabric multi-tenancy |
+
+---
+
+## Research Sources and Citation Index
+
+This analysis draws on data from 40+ sources. All cited URLs were verified as of March 2026. Detailed research files with full data tables are retained in `_research/baas-and-embeddable-banking/`.
+
+**Primary institutional sources:** [Federal Reserve](https://www.federalreserve.gov/); [FDIC](https://www.fdic.gov/); [OCC](https://www.occ.treas.gov/); [RBI](https://rbi.org.in/); [FCA](https://www.fca.org.uk/); [CFPB](https://www.consumerfinance.gov/)
+
+**Enforcement and regulatory actions:** [Federal Reserve Enforcement Actions](https://www.federalreserve.gov/supervisionreg/enforcement-actions.htm); [FDIC Enforcement Decisions](https://www.fdic.gov/bank-examinations/enforcement-decisions-and-orders); [OCC Enforcement Actions](https://www.occ.treas.gov/topics/laws-and-regulations/enforcement-actions/index-enforcement-actions.html); [NYSDFS](https://www.dfs.ny.gov/)
+
+**Industry reports (may be paywalled):** BCG/Adyen "Moving Embedded Finance from Promise to Practice" 2025; Bain & Company "Embedded Finance: What It Takes to Prosper" 2022; Celent Dimensions Survey 2024; Alloy/McKinsey Embedded Finance Banking Survey 2024
+
+**Market research:** [Mordor Intelligence](https://www.mordorintelligence.com/); [Grand View Research](https://grandviewresearch.com/); [MarketsandData](https://www.marketsandata.com/); [Future Market Insights](https://www.futuremarketinsights.com/)
+
+**Vendor and bank sources:** [Sacra](https://sacra.com/) (Column, Cross River profiles); [Coastal Community Bank IR](https://ir.coastalbank.com/); [Grasshopper Bank](https://www.grasshopper.bank/); [Treasury Prime](https://treasuryprime.com/); [Newline/Fifth Third](https://www.newline53.com/); [Thought Machine](https://www.thoughtmachine.net/); [Mambu](https://mambu.com/); [Marqeta](https://www.marqeta.com/)
+
+**Industry media:** [American Banker](https://www.americanbanker.com/); [Banking Dive](https://www.bankingdive.com/); [CNBC](https://www.cnbc.com/); [PYMNTS](https://www.pymnts.com/); [Economic Times](https://economictimes.indiatimes.com/); [Finextra](https://www.finextra.com/)
 
 ---
 

@@ -288,3 +288,67 @@ Evolution Fabric's architecture maps directly to the banking operations opportun
 6. **Position for "AI-agent-governed operations"** as the strategic differentiator. As Seer's agent governance matures and agentic AI moves from pilots to production in banking operations, Zeta's infrastructure-level agent governance (identity, delegation, guardrails, OPD) becomes the architectural standard for how banks deploy AI in operations — rather than each detection vendor building its own governance layer.
 
 7. **Target Tier 2 US banks under regulatory pressure** — those that have experienced or observed enforcement actions and need to demonstrate compliance operations modernization. The combination of Hub (explicit operations model), Seer (agent governance), and CAF (decision auditability) addresses the "how do we prove to the regulator that our operations are governed?" question that horizontal workflow platforms and point solutions cannot fully answer.
+
+---
+
+# Appendix — Agent Capability Map
+
+The following catalogue details the AI agent capabilities that Evolution Fabric (Hub + Seer), Cognitive Audit Fabric, Trust Fabric, and Truth Fabric enable across each banking operations domain. Each capability assumes the operational model described in Part II — Streams, Loops, Scenarios, governed delegation, and decision auditability.
+
+## Reconciliation and Settlement Operations
+
+| Capability | What It Delivers |
+|---|---|
+| Exception identification agents | Agents that process reconciliation feeds, identify mismatches between systems (ledger vs. clearing, expected vs. actual, internal vs. external), and classify exceptions by type, severity, and likely cause |
+| Root cause investigation agents | Agents that trace exceptions to their sources — timing differences, format mismatches, missing transactions, duplicate entries — using tool contracts to query across systems |
+| Auto-resolution for known patterns | Agents that apply resolution rules for recognized exception types — timing adjustments, rounding corrections, known mapping differences — with audit trails documenting the resolution logic |
+| Settlement tracking agents | Agents that monitor settlement cycles, flag delayed or failed settlements, and initiate investigation workflows when SLA thresholds are breached |
+| Escalation with context | When an exception requires human investigation, the agent delivers the full context — what was compared, what mismatched, what was attempted, what remains unresolved |
+
+## Compliance and Regulatory Operations
+
+| Capability | What It Delivers |
+|---|---|
+| Continuous compliance monitoring agents | Agents that verify regulatory adherence continuously — not at point-in-time audits — checking transactions, customer states, and operational parameters against policy requirements |
+| Policy enforcement agents | Agents that apply regulatory rules to operational activities — AML screening, sanctions checks, transaction monitoring thresholds — with structured exception handling for edge cases |
+| Regulatory documentation agents | Agents that produce compliance documentation from operational data — suspicious activity reports, regulatory filings, audit evidence packages — in required formats without manual assembly |
+| Change impact assessment agents | When regulations change, agents that assess the impact across the bank's operations — which Scenarios are affected, which policies need updating, which processes need review |
+| Audit preparation agents | Agents that assemble audit evidence packages — decision records, compliance check results, exception logs, resolution trails — from Cognitive Audit Fabric without requiring manual collection |
+
+## Fraud and Risk Operations
+
+| Capability | What It Delivers |
+|---|---|
+| Alert triage agents | Agents that evaluate fraud alerts — gathering contextual evidence, scoring risk, and prioritizing for human investigation. Reducing the false-positive burden that overwhelms investigation teams |
+| Investigation support agents | Agents that assemble investigation packages — transaction histories, behavioral patterns, network analysis, related cases — so that human investigators start with evidence, not data collection |
+| Pattern recognition agents | Agents that identify fraud patterns across transactions, accounts, and networks — surfacing connections that manual investigation would miss at scale |
+| Risk scoring agents | Agents that continuously assess account and transaction risk — applying models, evaluating behavioral signals, and flagging anomalies — with explanations traceable through CAF |
+| Case file preparation agents | Agents that compile formal case documentation — evidence summaries, timeline reconstructions, policy references — ready for regulatory submission or law enforcement referral |
+
+## Collections Operations
+
+| Capability | What It Delivers |
+|---|---|
+| Strategy selection agents | Agents that evaluate customer context (payment history, financial indicators, communication preferences, regulatory constraints) and select the appropriate collections strategy from the governed strategy model |
+| Customer communication agents | Agents that handle collections communications — reminders, payment arrangements, escalation notices — through appropriate channels with compliant language and timing |
+| Payment arrangement agents | Agents that negotiate and configure payment plans within policy boundaries — assessing affordability, applying regulatory constraints, and documenting the arrangement |
+| Recovery tracking agents | Agents that monitor recovery progress against plans — flagging deviations, adjusting strategies, and escalating when intervention is needed |
+| Fair treatment governance | Agents that ensure every collections interaction complies with fair lending, consumer protection, and vulnerability identification requirements — with auditable evidence of compliance |
+
+## Credit Operations
+
+| Capability | What It Delivers |
+|---|---|
+| Underwriting support agents | Agents that assemble credit packages — financial analysis, risk scoring, policy evaluation, comparable assessments — for human underwriters to review and decide |
+| Covenant monitoring agents | Agents that track financial covenant compliance across the lending portfolio — identifying breaches, near-breaches, and trends — and alerting relationship managers proactively |
+| Portfolio surveillance agents | Agents that monitor portfolio-level risk indicators — sector concentration, migration patterns, early warning signals — and surface actionable intelligence for credit committees |
+| Credit review preparation agents | Agents that prepare periodic credit reviews — assembling financial updates, covenant status, risk rating recommendations, and supporting evidence — reducing the preparation burden on credit analysts |
+
+## Reporting and Regulatory Filing
+
+| Capability | What It Delivers |
+|---|---|
+| Regulatory report assembly agents | Agents that compile regulatory submissions — CTR, SAR, prudential reporting, statistical returns — from operational data and decision records, in jurisdiction-specific formats |
+| Management information agents | Agents that produce operational dashboards and management reports — volume metrics, resolution rates, exception trends, SLA adherence — from the operational model's own data |
+| Trend analysis agents | Agents that identify and report operational trends — exception pattern shifts, processing volume changes, compliance deviation frequencies — supporting continuous improvement |
+| Period-end automation agents | Agents that execute period-end operational processes — month-end reconciliation, quarter-end compliance attestation, year-end reporting — with structured workflows and audit trails |
