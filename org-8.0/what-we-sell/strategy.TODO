@@ -1,0 +1,62 @@
+Themes:
+    - Unbuild (Move from Apps to Skills; Skills are translated to deterministic flows)
+    - Channel Agnostism
+    - SoR Agnosticism
+    - AI Assurance
+    - AOSM Native
+    - Domain-Specific Value
+        - Entities        
+        - Tools
+        - Skills (Best Practices)
+        - Customers Add Streams, Loops, and Channels
+
+
+# Line of Argument:
+- Banks operate by business lines and domains
+- There are significant gaps in the capabilites of each domain (each system's maturity level, integration depth, and technical debt)
+- Banks aren't organized to be customer-centric
+- There are significant gaps in the capabilites to each Customer Segment (Business, Consumer, etc.) (non-integrated, fragmented, and siloed product lines)
+- Each bank will have a unique mix of gaps and challenges
+- Evaluate systems - missing, broken, insufficient, not-integrated, etc.
+- Assess answer for each system - existing, new-from-zeta, new-from-third-party, not-required, etc.
+- Bring together the resultant mix of system for each domain as a Hub
+- Propose a Customer-Centric Hub for each Customer Segment
+- If Bank so chooses, create an integrated Hub for each Customer Segment using Hubs of the relevant Business Domains
+- Zeta's Leverage varies based on the Systems Mix that need to be assembled into the Hub and the Business Domains to solve for
+
+
+- Fix why of Hub Framework (need to refer to problems and the solution story)
+- What we need to decide: Our target Customer Segment and the Problem Domains we operate in
+- What are the "System of x" we need to solve for and how (build, partner, integrate, etc.)?
+- Framework for Solution Opportunity Discovery in an Enterprise
+- Suggested Platforms and Product Lines:
+- Estate, Foundry, Cipher, LakeStack, Hub, Seer
+- Tachyon, Neutrino, Electron
+- Quark as a collection of Hubs for the Problem domains we operate in
+
+# Distant Future:
+- Hub is an AI Model & Agent for Enterprise Work
+- "Enterprise Work Model" -> Just as Cursor or Opus is being represented as a Model, although they are Agents, the Enterprise Work Model could also be represented as a Model
+
+
+- Operational Intelligence is the IP
+- Power to iterate is requried for integrating capabilities (BPMs are not representative of value)
+- Fragmented Data and Intelligence compounds inefficiencies faster than the speed of change
+
+
+Problems (mirror — "yes, that's my reality")
+    ↓ agreement earned
+Diagnosis (insight — "I hadn't connected these that way")
+    ↓ intellectual respect earned
+Thesis + Principles (conviction — "that's a sound alternative")
+    ↓ strategic alignment earned
+The Hub Way (framework — operationalization of the thesis)
+    ↓
+Olympus Hub (implementation — the system)
+
+
+
+
+
+Engagements will involve Hubs, with some Machines from us and others from the bank
+There are always some Channels involved and there may be some Channel Products as well
