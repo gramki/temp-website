@@ -73,6 +73,28 @@ The eligibility model varies by archetype:
 
 ---
 
+## How the Program Realizes the Mandate
+
+*Two Natures of Governance* (see *Spend Mandates — The Authorization Envelope*) identifies two kinds of governance requirements in every Spend Mandate: **constraints** that accept or reject transactions in real time, and **structural decisions** that shape the spend channel before any card is swiped. The Program is the single construct where both converge.
+
+### Constraints
+
+Three mandate components — Limits, Policy Scope, and Budget Source — translate into enforceable rules evaluated at authorization time. The bank evaluates the Spend Policy cascade (Product → Program → Card), consults the Budget hierarchy, and returns an approve-or-decline decision. The mechanics are detailed in *Spend Policy and Controls* and *Processing, Authorization, and Controls*.
+
+### Structural decisions
+
+Five mandate components are realized through the Program's own configuration, lifecycle, and access controls:
+
+- **Purpose** — embodied in the Program itself. Creating a "Meridian US Supplier Payments Program" is a governance act — it declares that this spend channel exists for paying suppliers. Every card issued under the Program inherits that purpose. No per-transaction verification is needed; the channel's existence is the assertion.
+- **Authority** — enforced through eligibility rules, enrollment approval workflows, and credential access. Eligibility determines who qualifies. Enrollment gates who receives a card. Restricting access to card credentials — who can see and use the card number — is a direct authority control. The authorization chain is settled before the card exists, not re-evaluated at each swipe.
+- **Attribution** — configured in the Booking Profile (cost center defaults, GL account mappings, dynamic attribution rules) and embedded in card Tags at issuance (supplier ID, project code, cost center). Attribution is active from the moment the card is created. Cardholder-provided data and L2/L3 transaction details can enrich attribution post-transaction.
+- **Validity** — enforced through card expiration dates, program-level temporal controls, and archetype-specific mechanisms such as trip-scoped cards that auto-deactivate at the end of a travel window. Business-level validity (project phase, contract period) is verified through audit against the Program's configuration.
+- **Exceptions** — handled through the approval engine's escalation paths, post-facto justification workflows, and Program Admin overrides. Exception processes are governance mechanisms configured at Program setup, not authorization-time decisions.
+
+The Program is where the mandate becomes operational. Constraints flow to the bank for real-time enforcement. Structural decisions are embedded in the Program's configuration, its enrollment gates, and its card issuance controls. Transaction data — L1/L2/L3 postings, tags, timestamps — then enables post-facto auditing and assertion of both.
+
+---
+
 ## Program Structure
 
 ```mermaid
@@ -139,19 +161,27 @@ Program Admins are Users — corporate personnel authorized to create and operat
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft : Corporate initiates\nprogram setup
-    Draft --> Active : Configuration complete;\nall bindings validated
-    Active --> Suspended : Corporate suspends\n(policy review, budget freeze,\ncompliance hold)
+    [*] --> Draft : Corporate initiates<br/>program setup
+    Draft --> Active : Configuration complete;<br/>all bindings validated
+    Active --> Suspended : Corporate suspends<br/>(policy review, budget freeze,<br/>compliance hold)
     Suspended --> Active : Corporate reactivates
-    Active --> Closed : Corporate winds down\nprogram
-    Suspended --> Closed : Program retired\nwhile suspended
+    Active --> Closed : Corporate winds down<br/>program
+    Suspended --> Closed : Program retired<br/>while suspended
     Draft --> Closed : Setup abandoned
     Closed --> [*]
 
-    note right of Draft : Product and CF bound;\nBudget assigned;\npolicies configured;\nno cards issued yet
-    note right of Active : Members can be enrolled;\ncards issued;\ntransactions authorized;\nspend tracked
-    note right of Suspended : No new enrollments;\nno new authorizations;\nexisting transactions\nsettle normally
-    note right of Closed : No activity;\nall cards cancelled;\noutstanding balances\nsettle per terms
+    note right of Draft
+        Product and CF bound · Budget assigned · policies configured · no cards issued yet
+    end note
+    note right of Active
+        Members can be enrolled · cards issued · transactions authorized · spend tracked
+    end note
+    note right of Suspended
+        No new enrollments · no new authorizations · existing transactions · settle normally
+    end note
+    note right of Closed
+        No activity · all cards cancelled · outstanding balances · settle per terms
+    end note
 ```
 
 ### State Transitions

@@ -41,7 +41,7 @@ The mapping of mandate components to program sub-sections:
 | Validity | **Card Profile** and **Program configuration** — card expiration dates, program temporal boundaries |
 | Exceptions | **Approval workflows** and **Program configuration** — escalation paths, override protocols |
 
-The mandate's enforceable components (limits, policy scope, budget source) translate into controls that the platform evaluates at authorization time. The mandate's auditable components (purpose, authority, attribution, validity, exceptions) are captured as program metadata for governance, reporting, and audit.
+The mandate's constraint components (limits, policy scope, budget source) translate into controls that the platform evaluates at authorization time. The mandate's structural components (purpose, authority, attribution, validity, exceptions) are enforced through program configuration, issuance, and enrollment — and verified through post-transaction audit.
 
 Understanding the mandate as a whole is necessary for configuring the program's sub-sections correctly. A program administrator who configures a Budget without considering the mandate's purpose may create a financial allocation that is technically correct but organizationally misaligned. A Spend Policy configured without reference to the mandate's authority structure may enforce rules that no one in the organization recognizes as relevant.
 

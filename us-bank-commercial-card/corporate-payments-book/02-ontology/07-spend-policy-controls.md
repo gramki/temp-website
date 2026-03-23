@@ -102,13 +102,13 @@ Custom AMCs are defined by the ESP (with Zeta's assistance) and made available f
 
 ---
 
-## Enforceable Controls vs. Auditable Controls
+## Constraint Controls and Structural Controls
 
-The Spend Mandate — realized as the composition of Budget, Spend Policy, Booking Profile, and Card Profile within a Program — has two distinct halves. One half is enforceable by the bank at authorization time. The other half is auditable by the corporate after the transaction.
+The Spend Mandate — realized as the composition of Budget, Spend Policy, Booking Profile, and Card Profile within a Program — has two distinct halves, reflecting the *two natures of governance* introduced in *Spend Mandates — The Authorization Envelope*. Constraint controls are enforced by the bank at authorization time. Structural controls are enforced through program configuration, issuance, and enrollment — and verified through post-transaction audit.
 
-### Enforceable Controls
+### Constraint Controls
 
-These controls are evaluated and enforced by the bank at the moment of authorization. A transaction that violates any enforceable control is declined.
+These controls are evaluated and enforced by the bank at the moment of authorization. A transaction that violates any constraint control is declined.
 
 | Control | Description | Scope |
 |---|---|---|
@@ -126,24 +126,24 @@ These controls are evaluated and enforced by the bank at the moment of authoriza
 
 Budget enforcement cascades through the hierarchy. When a transaction is authorized, the system checks the card's Budget, the Budget's parent, and every ancestor up to the Credit Facility. If any ancestor's available balance is insufficient, the authorization is declined. Budget is consumed at authorization time; adjustments occur at clearing.
 
-### Auditable Controls
+### Structural Controls
 
-These controls cannot be evaluated at the point of authorization. They represent corporate governance objectives that are enforced through post-transaction review, reporting, and accountability workflows.
+These controls are not evaluated at the point of authorization. They are governance decisions enforced through program configuration, eligibility rules, enrollment gates, and credential access — and verified through post-transaction audit, reporting, and accountability workflows.
 
 | Control | Description | Enforcement Mechanism |
 |---|---|---|
-| **Business purpose** | Why this spend exists (project delivery, department operations, client engagement) | Post-transaction review; cardholder provides justification |
-| **Accountability** | Who is responsible for this spend; who approved it | Approval workflow records; audit trail |
-| **Compliance with procurement policy** | Whether the spend followed internal procurement rules (preferred suppliers, competitive bidding) | Post-transaction audit; exception reporting |
-| **Cost-center attribution** | Whether the spend is booked to the correct cost center and GL account | Booking Profile rules; manual correction if needed |
+| **Business purpose** | Why this spend exists (project delivery, department operations, client engagement) | Program creation embodies purpose; every card inherits the program's context; verified through audit |
+| **Accountability** | Who is responsible for this spend; who approved it | Eligibility rules, enrollment approval workflows, credential access restrictions; audit trail |
+| **Compliance with procurement policy** | Whether the spend followed internal procurement rules (preferred suppliers, competitive bidding) | Eligibility restrictions, AMC-based guardrails at issuance; post-transaction audit for residual verification |
+| **Cost-center attribution** | Whether the spend is booked to the correct cost center and GL account | Booking Profile defaults and card Tags set at issuance; dynamic rules; manual correction if needed |
 
-The line between enforceable and auditable is not arbitrary. Enforceable controls depend on data available in the authorization request — amount, merchant identity, currency, geography, time. Auditable controls depend on data that only the cardholder or the corporate can provide — business purpose, project justification, procurement compliance.
+The line between constraint and structural controls is not arbitrary. Constraint controls depend on data available in the authorization request — amount, merchant identity, currency, geography, time. Structural controls depend on decisions made before the transaction — who was given access, why the channel exists, how its activity should be recorded.
 
-Some enforceable controls serve as proxies for auditable intent. Restricting a card to AMC-Logistics does not prove the spend was for a legitimate logistics need, but it narrows the field to merchants the corporate deems relevant. The enforceable control is a guardrail; the auditable control is the accountability.
+Some constraint controls serve as proxies for structural intent. Restricting a card to AMC-Logistics does not prove the spend was for a legitimate logistics need, but it narrows the field to merchants the corporate deems relevant. The constraint control is a guardrail; the structural control is the accountability.
 
 ```mermaid
 graph LR
-    subgraph Enforceable ["Enforceable at Authorization"]
+    subgraph ConstraintControls ["Constraint Controls — Authorization Time"]
         E1["Merchant category (AMC)"]
         E2["Amount limits"]
         E3["Currency restrictions"]
@@ -154,21 +154,18 @@ graph LR
         E8["Single-use enforcement"]
     end
 
-    subgraph Auditable ["Auditable Post-Transaction"]
+    subgraph StructuralControls ["Structural Controls — Issuance and Audit"]
         A1["Business purpose"]
         A2["Accountability"]
         A3["Procurement compliance"]
         A4["Cost-center attribution"]
     end
 
-    Auth["Authorization<br/>Request"] --> Enforceable
-    Enforceable -->|"Decline if violated"| Decision["Authorize /<br/>Decline"]
+    Auth["Authorization<br/>Request"] --> ConstraintControls
+    ConstraintControls -->|"Decline if violated"| Decision["Authorize /<br/>Decline"]
     Decision -->|"If authorized"| Posting["Transaction<br/>Posted"]
-    Posting --> Auditable
-    Auditable -->|"Review, report,<br/>correct"| Governance["Corporate<br/>Governance"]
-
-    style Enforceable fill:#0f3460,color:#e0e0e0
-    style Auditable fill:#533483,color:#e0e0e0
+    Posting --> StructuralControls
+    StructuralControls -->|"Verify, report,<br/>correct"| Governance["Corporate<br/>Governance"]
 ```
 
 ---
@@ -282,4 +279,4 @@ The ESP configures the Product-level policy once. The corporate configures the P
 - **Corporate Payment Program** (see *Corporate Payment Program*) is where the Program-level Spend Policy is configured as part of the Spend Mandate. Budget assignment, Booking Profile, and Settlement Profile — the other components of the Mandate — are defined there.
 - **Credit Facility, Budget, and Account** (see *Credit Facility, Budget, and Account*) defines Budget enforcement, which operates alongside Spend Policy enforcement at authorization time. The Budget hierarchy cascade is independent of but complementary to the Spend Policy cascade.
 - **Corporate Payment Product** defines the Product-level Spend Policy baseline as part of the ESP's product configuration.
-- **Spend Archetypes** define the per-archetype control patterns — which controls are natural to each workflow and how enforceable and auditable controls map to each archetype's operational model.
+- **Spend Archetypes** define the per-archetype control patterns — which controls are natural to each workflow and how constraint and structural controls map to each archetype's operational model.

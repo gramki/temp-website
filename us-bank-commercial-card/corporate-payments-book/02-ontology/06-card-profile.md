@@ -209,7 +209,7 @@ The card persists for the duration of the engineer's enrollment. Each transactio
 
 ## Cross-References
 
-- **Spend Policy and Controls** (see *Spend Policy and Controls*) details the cascading restriction model and the full catalog of enforceable and auditable controls. The card-level Spend Policy in the Card Profile is the innermost layer of this cascade.
+- **Spend Policy and Controls** (see *Spend Policy and Controls*) details the cascading restriction model and the full catalog of constraint and structural controls. The card-level Spend Policy in the Card Profile is the innermost layer of this cascade.
 - **Credit Facility, Budget, and Account** (see *Credit Facility, Budget, and Account*) defines the Account to which every card is bound. Card transactions post to the Account and consume from the Account's associated Budget.
 - **Corporate Payment Program** (see *Corporate Payment Program*) defines the Program under which cards are issued. The Program's Spend Policy, Booking Profile, Settlement Profile, and eligibility rules govern all cards issued within it.
 - **Members and Enrollment** — the enrollment process that triggers card issuance and Card Profile configuration — is covered in *Members, Eligibility, and Enrollment*.

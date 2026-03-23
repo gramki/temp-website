@@ -95,58 +95,52 @@ Exceptions acknowledge that not every payment fits the standard path. A well-def
 
 ---
 
-## The Enforceable / Auditable Divide
+## Two Natures of Governance
 
-The eight components of a Spend Mandate fall into two categories based on when and how they can be evaluated.
+The eight components of a Spend Mandate have two fundamentally different natures. Recognizing this divide is essential for understanding how governance requirements distribute across any corporate payments system.
 
-### Enforceable at authorization time
+### Constraints — evaluated at authorization
 
-Three components can be evaluated and enforced at the moment a card transaction is authorized — in real time, inline with the payment:
+Three components are expressible as rules that accept or reject a transaction in real time. They answer: *is this specific transaction permissible right now?*
 
-- **Limits** — Budget limits are enforced through the budget hierarchy. When a transaction is authorized, all ancestor budgets are consulted. If any ancestor is exhausted, the transaction is declined. Spend policies — MCC restrictions, amount limits, velocity limits, merchant locks, geography restrictions — are evaluated at authorization. Card-level controls enforce restrictions placed on the card at issuance.
-- **Policy scope** (partially) — Policies that translate into card controls or authorization rules are enforced at swipe. MCC restrictions, amount limits, merchant locks, and velocity controls are evaluated before the authorization response is returned.
-- **Budget source** — The budget is utilized at authorization time. The transaction decrements the budget immediately. Adjustments are made at clearing if the final amount differs from the authorized amount.
+- **Limits** — financial ceilings and velocity guardrails. A transaction either falls within the budget's remaining capacity and the card's per-transaction cap, or it does not. The answer is binary, computable at the moment the card is presented.
+- **Policy scope** — merchant, geography, currency, and category restrictions. A transaction either occurs at a permitted merchant in a permitted geography, or it does not. These rules evaluate against the transaction's attributes at the point of authorization.
+- **Budget source** — the financial allocation that absorbs the spend. A transaction either has a funded budget path through the hierarchy, or it does not. Budget utilization is determined at authorization; adjustments follow at clearing if the final amount differs.
 
-These components are not advisory. They are enforced by the issuer at the point of authorization. A transaction that violates a budget limit, a spend policy, or a card control is declined in real time. The mandate's enforceable components translate into concrete platform controls — card-level restrictions set at issuance and policy-layer rules evaluated at authorization.
+Constraints are the mandate's sharp edge. They produce an immediate, unambiguous outcome — approve or decline — at the speed of a payment network round-trip.
 
-### Auditable but not enforceable at authorization
+### Structure — decisions that shape the spend channel
 
-Five components cannot be evaluated at the point of transaction authorization. They are governance metadata — essential for post-transaction audit, reporting, and justification, but not reducible to a real-time authorization decision:
+Five components are not transaction-level rules. They are governance decisions made *before* any card is swiped — decisions that determine who has access to the spend channel, why it exists, how its activity is recorded, when it is valid, and what happens when something deviates. They shape the *context* in which transactions occur:
 
-- **Purpose** — The business justification cannot be verified at swipe. It is captured in program configuration and validated through audit.
-- **Authority** — The authorization chain is established at enrollment and approval time, not re-evaluated at each transaction (except for transactions that trigger pre-authorization approval workflows).
-- **Attribution** — Cost center and GL coding may be provided by the cardholder after the transaction or derived from program-level defaults. It is not part of the authorization decision.
-- **Validity** — Temporal validity is partially enforceable through card expiration dates, but the business-level validity (project phase, contract period) is an audit concern.
-- **Exceptions** — Exception handling occurs after the fact or through separate approval workflows, not at the point of authorization.
+- **Purpose** — the business justification for the entire spend category. Purpose is not a property of a transaction; it is a property of the channel through which transactions flow. A program exists because someone decided "we need a way to pay suppliers" or "we need to fund implementation travel." Every transaction inherits that purpose by flowing through that channel.
+- **Authority** — the chain of permission that determines who can participate. Authority is established when the spend channel is created (who owns it), when members are made eligible (who qualifies), and when credentials are issued (who receives access). It is not re-evaluated at each swipe — it was settled before the card existed.
+- **Attribution** — how each transaction is tagged, classified, and routed in the enterprise's financial systems. Attribution decisions — cost center, GL account, project code, capex/opex classification — are configured when the channel is set up and refined when cards are issued. They may also be enriched after the transaction with cardholder-provided data.
+- **Validity** — the temporal boundary of the authorization. A mandate may be valid for a project phase, a fiscal quarter, a contract period, or until revoked. Validity determines when the spend channel is open and when it closes — a structural boundary, not a per-transaction check (though mechanisms like card expiration dates can enforce temporal limits).
+- **Exceptions** — the escalation path for non-standard situations. Exception handling is a governance process — approval rerouting, override protocols, post-facto justification — not a real-time authorization decision.
 
 ```mermaid
 graph TB
     subgraph Mandate["Spend Mandate — Eight Components"]
-        subgraph Enforceable["Enforceable at Authorization"]
+        subgraph Constraints["Constraints"]
             EN1["Limits<br/><i>Budget ceilings, per-txn caps,<br/>velocity controls</i>"]
             EN2["Policy Scope<br/><i>MCC restrictions, merchant locks,<br/>geography limits</i>"]
             EN3["Budget Source<br/><i>Budget utilization,<br/>hierarchy enforcement</i>"]
         end
-        subgraph Auditable["Auditable — Post-Transaction"]
-            AU1["Purpose<br/><i>Business justification</i>"]
-            AU2["Authority<br/><i>Authorization chain,<br/>role-based ownership</i>"]
+        subgraph Structural["Structural Decisions"]
+            AU1["Purpose<br/><i>Business justification<br/>for the spend channel</i>"]
+            AU2["Authority<br/><i>Eligibility, enrollment,<br/>credential access</i>"]
             AU3["Attribution<br/><i>Cost center, GL code,<br/>project code</i>"]
             AU4["Validity<br/><i>Time window,<br/>project phase</i>"]
             AU5["Exceptions<br/><i>Escalation path,<br/>override protocol</i>"]
         end
     end
 
-    Enforceable -->|"Evaluated inline<br/>at authorization"| AUTH["Authorization<br/>Decision"]
-    Auditable -->|"Captured for<br/>audit and reporting"| AUDIT["Post-Transaction<br/>Governance"]
-
-    style Enforceable fill:#e8f5e9,stroke:#2e7d32
-    style Auditable fill:#fff3e0,stroke:#e65100
-    style AUTH fill:#c8e6c9,stroke:#1b5e20
-    style AUDIT fill:#ffe0b2,stroke:#bf360c
-    style Mandate fill:#fafafa,stroke:#616161
+    Constraints -->|"Real-time<br/>evaluation"| AUTH["Authorization<br/>Decision"]
+    Structural -->|"Pre-transaction decisions,<br/>post-transaction verification"| GOV["Governance<br/>Framework"]
 ```
 
-This divide is a first-class design principle. The platform enforces what it can enforce — budgets, policies, card controls — at the speed of authorization. It captures what it cannot enforce — purpose, attribution, accountability — as metadata for governance, reporting, and audit. The two categories are complementary, not competing. A mandate without enforceable controls is advisory. A mandate without auditable metadata is opaque.
+The two natures are complementary. Constraints without structural decisions produce a payment channel that can enforce limits but cannot explain why it exists, who should have access, or how its activity should be recorded. Structural decisions without constraints produce a governance framework that cannot prevent a single unauthorized transaction. Both must be satisfied for every payment — but they operate at fundamentally different timescales and touchpoints. Any platform that models corporate payments must handle both: enforce constraints at authorization speed, and make structural decisions explicit, active, and verifiable rather than implicit in policy documents and approval emails. How the platform achieves this — the specific mechanisms of enforcement — is the subject of *Corporate Payment Program*.
 
 ---
 
