@@ -10,22 +10,32 @@ A Credit Facility is the bank's credit exposure against a single legal entity. I
 
 ```mermaid
 stateDiagram-v2
-    [*] --> PendingApproval : Legal entity submits\ncredit application
-    PendingApproval --> Active : Bank underwrites\nand approves facility
-    Active --> UnderReview : Bank triggers review\n(covenant breach, credit event,\nperiodic reassessment)
-    UnderReview --> Active : Review cleared;\nfacility reinstated
-    UnderReview --> Suspended : Bank suspends\npending resolution
-    Suspended --> Active : Issue resolved;\nbank reinstates
-    Suspended --> Closed : Bank terminates\nfacility
-    Active --> Closed : Facility matured or\nbank/corporate terminates
-    UnderReview --> Closed : Bank terminates\nduring review
+    [*] --> PendingApproval : Legal entity submits<br/>credit application
+    PendingApproval --> Active : Bank underwrites<br/>and approves facility
+    Active --> UnderReview : Bank triggers review<br/>(covenant breach, credit event,<br/>periodic reassessment)
+    UnderReview --> Active : Review cleared;<br/>facility reinstated
+    UnderReview --> Suspended : Bank suspends<br/>pending resolution
+    Suspended --> Active : Issue resolved;<br/>bank reinstates
+    Suspended --> Closed : Bank terminates<br/>facility
+    Active --> Closed : Facility matured or<br/>bank/corporate terminates
+    UnderReview --> Closed : Bank terminates<br/>during review
     Closed --> [*]
 
-    note right of PendingApproval : Application received;\nunderwriting in progress;\nno accounts or budgets yet
-    note right of Active : Accounts can be opened;\nbudgets allocated;\ntransactions authorized
-    note right of UnderReview : New accounts may be blocked;\nexisting transactions continue;\nnew allocations may be restricted
-    note right of Suspended : No new transactions;\nno new accounts;\nexisting balances remain
-    note right of Closed : No activity;\noutstanding balances\nsettle per terms
+    note right of PendingApproval
+        Application received · underwriting in progress · no accounts or budgets yet
+    end note
+    note right of Active
+        Accounts can be opened · budgets allocated · transactions authorized
+    end note
+    note right of UnderReview
+        New accounts may be blocked · existing transactions continue · new allocations may be restricted
+    end note
+    note right of Suspended
+        No new transactions · no new accounts · existing balances remain
+    end note
+    note right of Closed
+        No activity · outstanding balances · settle per terms
+    end note
 ```
 
 ### Transition Table
@@ -59,19 +69,27 @@ A Budget is the corporate's hierarchical allocation of Credit Facility capacity 
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft : Corporate creates\nbudget allocation
-    Draft --> Active : Corporate activates\n(program readiness confirmed)
-    Active --> Frozen : Corporate freezes\n(audit, investigation,\npolicy review)
+    [*] --> Draft : Corporate creates<br/>budget allocation
+    Draft --> Active : Corporate activates<br/>(program readiness confirmed)
+    Active --> Frozen : Corporate freezes<br/>(audit, investigation,<br/>policy review)
     Frozen --> Active : Corporate unfreezes
-    Active --> Closed : Budget retired\n(fiscal year end,\nproject close, program wind-down)
-    Frozen --> Closed : Budget retired\nwhile frozen
-    Draft --> Closed : Budget abandoned\nbefore activation
+    Active --> Closed : Budget retired<br/>(fiscal year end,<br/>project close, program wind-down)
+    Frozen --> Closed : Budget retired<br/>while frozen
+    Draft --> Closed : Budget abandoned<br/>before activation
     Closed --> [*]
 
-    note right of Draft : Allocation defined;\nnot yet available\nfor spend
-    note right of Active : Authorizations proceed;\nspend tracked against limit
-    note right of Frozen : All authorizations\nsuspended;\nadministrative hold
-    note right of Closed : No activity;\nallocation released
+    note right of Draft
+        Allocation defined · not yet available · for spend
+    end note
+    note right of Active
+        Authorizations proceed · spend tracked against limit
+    end note
+    note right of Frozen
+        All authorizations · suspended · administrative hold
+    end note
+    note right of Closed
+        No activity · allocation released
+    end note
 ```
 
 ### Transition Table
@@ -107,18 +125,26 @@ An Account is the financial container that bridges the Credit Facility (bank con
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Pending : Account created\nunder a Program
-    Pending --> Active : Program goes live;\naccount activated
-    Active --> Suspended : Program Admin suspends\nor compliance/delinquency trigger
-    Suspended --> Active : Reinstated after\nissue resolved
-    Active --> Closed : Program wound down\nor account retired
-    Suspended --> Closed : Account retired\nwhile suspended
+    [*] --> Pending : Account created<br/>under a Program
+    Pending --> Active : Program goes live;<br/>account activated
+    Active --> Suspended : Program Admin suspends<br/>or compliance/delinquency trigger
+    Suspended --> Active : Reinstated after<br/>issue resolved
+    Active --> Closed : Program wound down<br/>or account retired
+    Suspended --> Closed : Account retired<br/>while suspended
     Closed --> [*]
 
-    note right of Pending : Account provisioned;\nno cards issued;\nno transactions
-    note right of Active : Cards can be issued;\ntransactions authorized;\npostings accepted
-    note right of Suspended : No new authorizations;\nno new cards;\nexisting transactions settle
-    note right of Closed : No activity;\noutstanding balances\nsettle per terms
+    note right of Pending
+        Account provisioned · no cards issued · no transactions
+    end note
+    note right of Active
+        Cards can be issued · transactions authorized · postings accepted
+    end note
+    note right of Suspended
+        No new authorizations · no new cards · existing transactions settle
+    end note
+    note right of Closed
+        No activity · outstanding balances · settle per terms
+    end note
 ```
 
 ### Transition Table
@@ -153,21 +179,31 @@ Multi-use cards persist across multiple transactions. They are the standard patt
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Created : Card provisioned\nunder an Account
-    Created --> Active : Activation completed\n(KYC verified, card delivered)
-    Active --> Suspended : Policy violation, fraud report,\nor account suspension
-    Suspended --> Active : Issue resolved;\ncard reinstated
-    Active --> Closed : Demand closure,\nprogram close, or\naccount closure
-    Suspended --> Closed : Card retired\nwhile suspended
+    [*] --> Created : Card provisioned<br/>under an Account
+    Created --> Active : Activation completed<br/>(KYC verified, card delivered)
+    Active --> Suspended : Policy violation, fraud report,<br/>or account suspension
+    Suspended --> Active : Issue resolved;<br/>card reinstated
+    Active --> Closed : Demand closure,<br/>program close, or<br/>account closure
+    Suspended --> Closed : Card retired<br/>while suspended
     Active --> Expired : Validity period ends
     Expired --> [*]
     Closed --> [*]
 
-    note right of Created : Card number assigned;\nnot yet usable\nfor transactions
-    note right of Active : Transactions authorized;\nfull card functionality
-    note right of Suspended : No new authorizations;\nexisting authorized\ntransactions settle
-    note right of Closed : Permanently deactivated;\nno further use
-    note right of Expired : Validity ended;\nreplacement card may\nbe issued under same Account
+    note right of Created
+        Card number assigned · not yet usable · for transactions
+    end note
+    note right of Active
+        Transactions authorized · full card functionality
+    end note
+    note right of Suspended
+        No new authorizations · existing authorized · transactions settle
+    end note
+    note right of Closed
+        Permanently deactivated · no further use
+    end note
+    note right of Expired
+        Validity ended · replacement card may · be issued under same Account
+    end note
 ```
 
 ### Multi-Use Card Transition Table
@@ -188,23 +224,33 @@ Single-use cards are provisioned for a single authorization-and-settlement cycle
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Created : Card provisioned\nfor single use
+    [*] --> Created : Card provisioned<br/>for single use
     Created --> Active : Card activated
-    Active --> Used : Authorization received\nand approved
-    Used --> Closed : Transaction settled;\ncard auto-closed
-    Active --> Suspended : Policy violation or\naccount suspension
+    Active --> Used : Authorization received<br/>and approved
+    Used --> Closed : Transaction settled;<br/>card auto-closed
+    Active --> Suspended : Policy violation or<br/>account suspension
     Suspended --> Active : Issue resolved
-    Active --> Closed : Card cancelled\nbefore use
-    Suspended --> Closed : Card retired\nwhile suspended
-    Active --> Expired : Validity period ends\nwithout use
+    Active --> Closed : Card cancelled<br/>before use
+    Suspended --> Closed : Card retired<br/>while suspended
+    Active --> Expired : Validity period ends<br/>without use
     Expired --> [*]
     Closed --> [*]
 
-    note right of Created : Card provisioned;\nnot yet usable
-    note right of Active : Awaiting single\nauthorization
-    note right of Used : Authorization received;\nawaiting settlement
-    note right of Closed : Settlement complete\nor card cancelled
-    note right of Expired : Unused; validity ended
+    note right of Created
+        Card provisioned · not yet usable
+    end note
+    note right of Active
+        Awaiting single · authorization
+    end note
+    note right of Used
+        Authorization received · awaiting settlement
+    end note
+    note right of Closed
+        Settlement complete · or card cancelled
+    end note
+    note right of Expired
+        Unused; validity ended
+    end note
 ```
 
 ### Single-Use Card Transition Table
@@ -242,19 +288,27 @@ A Corporate Payment Program is the corporate-configured operating construct that
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft : Corporate initiates\nprogram setup
-    Draft --> Active : Configuration complete;\nall bindings validated
-    Active --> Suspended : Corporate suspends\n(compliance hold, budget freeze,\ncorporate request)
-    Suspended --> Active : Corporate reactivates;\nbindings revalidated
-    Active --> Closed : Corporate winds down\nprogram
-    Suspended --> Closed : Program retired\nwhile suspended
+    [*] --> Draft : Corporate initiates<br/>program setup
+    Draft --> Active : Configuration complete;<br/>all bindings validated
+    Active --> Suspended : Corporate suspends<br/>(compliance hold, budget freeze,<br/>corporate request)
+    Suspended --> Active : Corporate reactivates;<br/>bindings revalidated
+    Active --> Closed : Corporate winds down<br/>program
+    Suspended --> Closed : Program retired<br/>while suspended
     Draft --> Closed : Setup abandoned
     Closed --> [*]
 
-    note right of Draft : Product and CF bound;\nBudget assigned;\npolicies configured;\nno cards issued
-    note right of Active : Members enrolled;\ncards issued;\ntransactions authorized;\nspend tracked
-    note right of Suspended : No new enrollments;\nno new authorizations;\nexisting transactions settle
-    note right of Closed : All cards cancelled;\noutstanding balances\nsettle per terms
+    note right of Draft
+        Product and CF bound · Budget assigned · policies configured · no cards issued
+    end note
+    note right of Active
+        Members enrolled · cards issued · transactions authorized · spend tracked
+    end note
+    note right of Suspended
+        No new enrollments · no new authorizations · existing transactions settle
+    end note
+    note right of Closed
+        All cards cancelled · outstanding balances · settle per terms
+    end note
 ```
 
 ### Transition Table
@@ -307,17 +361,25 @@ An ESP Account Variant is an Electron entity that customizes a bank's Account Pr
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft : ESP creates variant;\nconfigures component programs
-    Draft --> Active : Configuration complete;\nvariant published
-    Active --> Deprecated : ESP creates replacement\nvariant; existing CPPs\ncontinue using this variant
-    Deprecated --> Retired : All CPPs migrated\noff this variant
-    Active --> Retired : No CPPs use this variant;\ndirect retirement
+    [*] --> Draft : ESP creates variant;<br/>configures component programs
+    Draft --> Active : Configuration complete;<br/>variant published
+    Active --> Deprecated : ESP creates replacement<br/>variant; existing CPPs<br/>continue using this variant
+    Deprecated --> Retired : All CPPs migrated<br/>off this variant
+    Active --> Retired : No CPPs use this variant;<br/>direct retirement
     Retired --> [*]
 
-    note right of Draft : Component programs\nbeing configured;\nnot available for\nCPP assembly
-    note right of Active : Available for new\nCPP assembly;\nin use by existing CPPs
-    note right of Deprecated : Not available for\nnew CPP assembly;\nexisting CPPs continue
-    note right of Retired : No CPPs reference\nthis variant;\nfully decommissioned
+    note right of Draft
+        Component programs · being configured · not available for · CPP assembly
+    end note
+    note right of Active
+        Available for new · CPP assembly · in use by existing CPPs
+    end note
+    note right of Deprecated
+        Not available for · new CPP assembly · existing CPPs continue
+    end note
+    note right of Retired
+        No CPPs reference · this variant · fully decommissioned
+    end note
 ```
 
 ### Transition Table
@@ -347,17 +409,25 @@ An ESP Virtual Card Variant is an Electron entity that customizes a bank's Virtu
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft : ESP creates variant;\nconfigures component programs
-    Draft --> Active : Configuration complete;\nvariant published
-    Active --> Deprecated : ESP creates replacement\nvariant; existing CPPs\ncontinue using this variant
-    Deprecated --> Retired : All CPPs migrated\noff this variant
-    Active --> Retired : No CPPs use this variant;\ndirect retirement
+    [*] --> Draft : ESP creates variant;<br/>configures component programs
+    Draft --> Active : Configuration complete;<br/>variant published
+    Active --> Deprecated : ESP creates replacement<br/>variant; existing CPPs<br/>continue using this variant
+    Deprecated --> Retired : All CPPs migrated<br/>off this variant
+    Active --> Retired : No CPPs use this variant;<br/>direct retirement
     Retired --> [*]
 
-    note right of Draft : Component programs\nbeing configured;\nnot available for\nCPP assembly
-    note right of Active : Available for new\nCPP assembly;\nin use by existing CPPs
-    note right of Deprecated : Not available for\nnew CPP assembly;\nexisting CPPs continue
-    note right of Retired : No CPPs reference\nthis variant;\nfully decommissioned
+    note right of Draft
+        Component programs · being configured · not available for · CPP assembly
+    end note
+    note right of Active
+        Available for new · CPP assembly · in use by existing CPPs
+    end note
+    note right of Deprecated
+        Not available for · new CPP assembly · existing CPPs continue
+    end note
+    note right of Retired
+        No CPPs reference · this variant · fully decommissioned
+    end note
 ```
 
 ### Transition Table

@@ -54,15 +54,21 @@ Meridian's treasury manages these as three distinct financial resources, each an
 ```mermaid
 stateDiagram-v2
     [*] --> Active : Bank underwrites facility
-    Active --> UnderReview : Bank triggers review\n(covenant breach, credit event)
+    Active --> UnderReview : Bank triggers review<br/>(covenant breach, credit event)
     UnderReview --> Active : Review cleared
     UnderReview --> Terminated : Bank terminates facility
-    Active --> Terminated : Facility matured or\nbank/corporate terminates
+    Active --> Terminated : Facility matured or<br/>bank/corporate terminates
     Terminated --> [*]
 
-    note right of Active : Accounts can be opened;\nBudgets can be allocated;\ntransactions authorized
-    note right of UnderReview : New accounts may be\nblocked; existing\ntransactions continue
-    note right of Terminated : No new transactions;\noutstanding balances\nsettle per terms
+    note right of Active
+        Accounts can be opened · Budgets can be allocated · transactions authorized
+    end note
+    note right of UnderReview
+        New accounts may be · blocked; existing · transactions continue
+    end note
+    note right of Terminated
+        No new transactions · outstanding balances · settle per terms
+    end note
 ```
 
 ---
@@ -153,17 +159,23 @@ The Supplier Payments Budget ($30M) is shared across Meridian's supplier payment
 stateDiagram-v2
     [*] --> Open : Corporate allocates budget
     Open --> Exhausted : Utilization reaches limit
-    Exhausted --> Open : Limit increased or\nspend cleared/reversed
-    Open --> Frozen : Corporate freezes\n(audit, policy review)
+    Exhausted --> Open : Limit increased or<br/>spend cleared/reversed
+    Open --> Frozen : Corporate freezes<br/>(audit, policy review)
     Frozen --> Open : Corporate unfreezes
-    Open --> Closed : Budget retired\n(fiscal year end, project close)
+    Open --> Closed : Budget retired<br/>(fiscal year end, project close)
     Exhausted --> Closed : Budget retired
     Frozen --> Closed : Budget retired
     Closed --> [*]
 
-    note right of Open : Authorizations proceed;\nspend tracked against limit
-    note right of Exhausted : New authorizations\ndeclined; existing\ntransactions settle
-    note right of Frozen : All authorizations\nsuspended; administrative hold
+    note right of Open
+        Authorizations proceed · spend tracked against limit
+    end note
+    note right of Exhausted
+        New authorizations · declined; existing · transactions settle
+    end note
+    note right of Frozen
+        All authorizations · suspended; administrative hold
+    end note
 ```
 
 ---
@@ -227,16 +239,22 @@ Meridian's "Engineering Department Spend Program" has multiple Accounts — one 
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Active : Account opened\nunder a Program
-    Active --> Suspended : Program Admin suspends\nor policy trigger
+    [*] --> Active : Account opened<br/>under a Program
+    Active --> Suspended : Program Admin suspends<br/>or policy trigger
     Suspended --> Active : Reinstated
-    Active --> Closed : Program wound down\nor account retired
-    Suspended --> Closed : Account retired\nwhile suspended
+    Active --> Closed : Program wound down<br/>or account retired
+    Suspended --> Closed : Account retired<br/>while suspended
     Closed --> [*]
 
-    note right of Active : Cards can be issued;\ntransactions authorized;\npostings accepted
-    note right of Suspended : No new authorizations;\nexisting transactions\nsettle; no new cards
-    note right of Closed : No activity;\noutstanding balances\nsettle per terms
+    note right of Active
+        Cards can be issued · transactions authorized · postings accepted
+    end note
+    note right of Suspended
+        No new authorizations · existing transactions · settle; no new cards
+    end note
+    note right of Closed
+        No activity · outstanding balances · settle per terms
+    end note
 ```
 
 ---
