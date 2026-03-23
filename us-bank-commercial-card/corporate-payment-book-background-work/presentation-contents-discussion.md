@@ -66,27 +66,28 @@
 
 ### Slide 2: The Platform Reality
 
-**Headline:** The promise itself has limits. The processing platforms behind today’s card programs were not architected for the possibilities they now describe.
+**Headline:** The vision of corporate payments is compelling. The platform wasn’t built for it.
 
 **Key Talking Points:**
-- This is not a vendor critique — it is an architectural observation. The card processing platforms behind most bank programs today (TSYS, Fiserv, FIS) carry architectural patterns — batch processing, flat hierarchies, static data models, pre-allocated card inventory — that reflect the constraints of the era and use cases they were designed for. These patterns are embedded at the foundation level.
-- The possibilities banks describe to corporates are real — but they are bounded by infrastructure that was not designed for corporate spend governance. The processor doesn’t prevent the bank from making the promise, but it constrains how far the promise can actually deliver.
-- This creates a second layer to the gap: not only do corporates imagine answers the product doesn’t yet provide, but the underlying infrastructure makes building those answers significantly harder than it should be.
+- This is not a vendor critique — it is an architectural observation. Validate the vision: the bank sees the opportunity clearly. The gap is not in ambition or strategy — it is in the platform beneath the strategy.
+- The card processing platforms behind most bank programs today (TSYS, Fiserv, FIS) carry architectural patterns that reflect the constraints of the era and use cases they were designed for. These patterns are embedded at the foundation level.
+- The vision banks describe to corporates is real — but it is constrained by infrastructure that was not designed for corporate spend governance. The platform doesn’t prevent the bank from articulating the vision, but it constrains how far the vision can actually be delivered.
 - Frame this as market structure, not blame. The bank chose a processor for good reasons. The processor was designed for its original purpose. Neither is at fault — but the constraint is real, and it shapes what “evolution” actually requires.
 
 **Supporting Detail:**
-- The next slide provides the evidence — five architectural patterns that bound the promise. This slide establishes the framing; the next slide delivers the specifics.
+- Slide 7 (“The Challenge of the Promise”) provides the specifics — seven constraints that define the captivity. This slide plants the seed; Slide 7 delivers the evidence after the audience understands the corporate’s needs.
 - Avoid naming vendors on screen. The audience will map the constraints to their own platform. If they ask, acknowledge the examples in conversation — but the slide should remain vendor-neutral.
 - This provocation works because the audience (bank product and technology leaders) have lived with these constraints. They will recognize them immediately.
 
 **Suggested Visuals:**
 - Single headline statement, large type, centered.
-- Optional: a subtle visual showing a “ceiling” or “boundary” above the promise — suggesting the promise reaches up but hits an architectural limit.
+- The two sentences should feel like a pause — the first affirms, the second lands.
 
 **What to Avoid:**
 - Do not list features or vendor names on this slide.
 - Do not apologize for the observation. State it as fact.
 - Do not frame this as “your platform is bad.” Frame it as “the platform was built for something else.”
+- Do not diminish the vision. The first sentence must land as genuine validation.
 
 **Source Reference:** Presentation-originated. See `book-writing-backlog.md` item #17 and the “Legacy Platform Constraints — Detailed Reference” section at the end of this document.
 
@@ -94,33 +95,33 @@
 
 ### Slide 3: The Semantic Dissonance
 
-**Headline:** When corporates ask questions and banks answer with card capabilities, both sides are speaking accurately — and past each other.
+**Headline:** When corporates ask questions and banks answer with card capabilities, both sides are speaking accurately — from different frames.
 
 **Key Talking Points:**
-- Present the dissonance as a table: Corporate's Question / Bank's Answer / The Gap. Let the audience read the rows and recognize the pattern from their own client conversations.
-- The pattern is consistent: every answer addresses the payment dimension. None address the governance, financial architecture, or operational dimensions.
-- This is not a feature gap — it is a semantic gap. The bank and the corporate are organizing around different concerns.
-- Don't rush through this slide. Let each row land. The audience should feel the accumulation — row after row, the same structural shape.
+- Present the dissonance as a two-column table: Corporate’s Question / Bank’s Answer. No “Gap” column — the dissonance is self-evident from reading the pairs side by side. Let the audience draw the conclusion.
+- Walk through each row:
+  1. **Supplier specification:** The corporate asks about procurement policy (“encourage local procurement, specify my suppliers”). The bank asks for MIDs and TIDs — network-level identifiers the corporate doesn’t think in.
+  2. **Approval workflows:** The corporate asks about governance workflows (“maker and checker for high-value spends”). The bank offers a card-per-transaction workaround that doesn’t distinguish between spend types — an invoice payment and a travel expense look the same.
+  3. **Multi-dimensional policy:** The corporate needs three intersecting dimensions evaluated at authorization (“project budget, employee location, career level”). The bank offers one dimension: per-card limits.
+  4. **Multi-region budget governance:** The corporate needs a shared, floating budget pool across currencies with regional caps. The bank offers financial risk sub-limits with no organizational budget semantics.
+- The pattern: the corporate asks about business rules, organizational context, and operational workflows. The bank answers with card-level primitives — limits, identifiers, individual cards. Neither side is wrong. They are organizing around different concerns.
+- Don’t rush through this slide. Let each row land. The audience should feel the accumulation — row after row, the same structural shape.
 
 **Supporting Detail:**
-- Six dissonance rows (use all six or select the strongest four for pacing):
-  1. PO-to-card linkage: Corporate asks "issue per PO, close after payment" → Bank offers single-use cards with amount locks → Gap: no PO linkage, no three-way match, no auto-close confirmation to AP
-  2. Budget governance: Corporate asks "enforce department budgets" → Bank offers credit sub-limits → Gap: sub-limits are risk tools, not budget governance; no OU hierarchy, no purpose-based allocation
-  3. GL attribution: Corporate asks "attribute every transaction to GL and project" → Bank offers card-level reference fields → Gap: fields are unstructured, unvalidated, not pushed to ERP
-  4. Policy cascade: Corporate asks "cascade policy changes to all cards" → Bank offers per-card controls → Gap: no program-level policy, no inheritance, no tighten-only cascade
-  5. Reconciliation: Corporate asks "reconcile against AP invoices" → Bank offers L2/L3 data → Gap: data available but not matched; no PO linkage, no automated reconciliation
-  6. Enrollment: Corporate asks "onboard supplier through procurement system" → Bank offers card issuance APIs → Gap: enrollment, eligibility, merchant validation, and card tagging unsupported
-- The three dissonance examples from the book (Commonwealth vs Meridian) can be woven into supporting narration
+- These Q&A pairs are drawn from real corporate-bank conversations, not fabricated examples. The audience will recognize them.
+- Each row maps to a dimension that will be named explicitly in Slide 4 (Five Dimensions): supplier specification → Control Architecture; approval workflows → Control Architecture; multi-dimensional policy → Control Architecture + Financial Architecture; multi-region budget → Financial Architecture.
+- The dissonance is not about missing features. It is about different organizing principles: the corporate organizes around business rules and organizational structure; the bank organizes around payment instruments and financial risk controls.
 
 **Suggested Visuals:**
-- Full-screen table with three columns: Corporate's Question / Bank's Answer / The Gap — formatted so the gap column is visually distinct (different color or weight)
-- Animate rows sequentially if the medium supports it — let the pattern build
-- Or a split-screen: corporate persona on left asking questions, bank persona on right answering — with the gap shown in between
+- Two-column table: Corporate’s Question / Bank’s Answer. Clean, readable, no clutter.
+- Animate rows sequentially if the medium supports it — let the pattern build.
+- The absence of a “Gap” column is deliberate — the audience fills in the gap themselves, which makes it land harder.
 
 **What to Avoid:**
-- Don't reduce this to "banks are doing it wrong" — both sides are speaking accurately; the problem is structural, not intentional
-- Don't let the audience dismiss individual rows as "edge cases" — the accumulation is the point
-- Don't present the table without narrating it — each row needs a beat to land
+- Don’t reduce this to “banks are doing it wrong” — both sides are speaking accurately; the problem is structural, not intentional.
+- Don’t let the audience dismiss individual rows as “edge cases” — the accumulation is the point.
+- Don’t present the table without narrating it — each row needs a beat to land.
+- Don’t add a “Gap” column. The dissonance is more powerful when the audience names it themselves.
 
 **Source Reference:** `01-problem-space/02-existing-solutions.md`, `01-problem-space/03-two-lenses.md`. Table originated in presentation discussions — see `book-writing-backlog.md` item #14.
 
@@ -160,27 +161,29 @@
 
 ### Slide 5: The Counterparty Multiplier
 
-**Headline:** The five dimensions do not present uniformly. They vary by the type of counterparty the corporate pays — and the AP landscape has at least six distinct shapes.
+**Headline:** The five dimensions do not present uniformly. They vary by the type of counterparty the corporate pays — and the AP landscape has at least seven distinct shapes.
 
 **Key Talking Points:**
-- Name the counterparty types: goods suppliers, service providers, contractors, SaaS/software vendors, intermediaries/agencies, government/regulatory bodies.
+- Name the counterparty types: goods suppliers, service providers, employees, contractors, SaaS/software vendors, intermediaries/agencies, government/regulatory bodies.
+- Employees are a distinct counterparty type — they spend against reimbursable expenses or pre-approved budgets, and the actual merchant where the transaction happens is not a direct party to the corporate's governance of the spend.
 - Each type has different payment patterns, data needs, compliance requirements, and card acceptance realities.
-- Today's card products abstract all of these as "merchants" — a single MCC-classified entity. The corporate sees six fundamentally different relationships.
+- Today's card products abstract all of these as "merchants" — a single MCC-classified entity. The corporate sees seven fundamentally different relationships.
 - This diversity multiplies the five dimensions: financial architecture for a goods supplier (PO-locked budget) looks nothing like financial architecture for a SaaS vendor (contract-locked renewal budget).
 - Don't go deep here — name the diversity, let it land, and note that the archetype discussion in the next act addresses it directly.
 
 **Supporting Detail:**
-- Counterparty table: Type / Payment Pattern / Data Needs / Compliance / Card Acceptance — six rows showing the variety
+- Counterparty table: Type / Payment Pattern / Data Needs / Compliance / Card Acceptance — seven rows showing the variety
 - Specific contrasts to make it concrete:
   - Goods supplier: PO-driven, deterministic, L2/L3 critical, high card acceptance
+  - Employee: reimbursable or budget-based, merchant is not a direct party, expense policy and delegation of authority govern
   - Contractor: time-based, project-coded, 1099 compliance, low card acceptance (ACH preferred)
   - Government: fee-schedule, non-negotiable, regulatory deadlines, often requires wire/ACH
 - The merchant abstraction is not wrong — it is insufficient. MCCs describe what the merchant sells, not how the corporate governs payments to them.
 
 **Suggested Visuals:**
-- Six-row table: Counterparty Type / Payment Pattern / Data Needs / Compliance / Card Acceptance
+- Seven-row table: Counterparty Type / Payment Pattern / Data Needs / Compliance / Card Acceptance
 - Or a visual showing one "merchant" icon being unpacked into six distinct relationship types — illustrating the abstraction collapse
-- Or a matrix: five dimensions (columns) × six counterparty types (rows), with cells indicating how each dimension manifests differently per type
+- Or a matrix: five dimensions (columns) × seven counterparty types (rows), with cells indicating how each dimension manifests differently per type
 
 **What to Avoid:**
 - Don't go too deep into any single counterparty type — the archetype discussion handles that
@@ -224,34 +227,36 @@
 
 ---
 
-### Slide 7: The Infrastructure Evidence
+### Slide 7: The Challenge of the Promise
 
-**Headline:** We said the promise itself has limits. Here is what those limits look like — five architectural patterns in legacy card processors that bound the promise.
+**Headline:** The promise is captive to the platform that delivers it.
 
 **Key Talking Points:**
-- Open with the callback to Slide 2: “We said the promise has its own limits. Now that you’ve seen what the corporate actually needs — five dimensions, six counterparty types, two organizing principles — here’s specifically what the current infrastructure cannot do.”
-- Walk through each of the five patterns. Each now maps to something the audience has just learned — the constraints aren’t abstract anymore:
-- **Batch-native, not event-native:** Legacy processors were built around batch files — daily settlement, nightly posting, periodic reconciliation. Real-time authorization events, lifecycle notifications, webhook callbacks, and cooperative authorization require middleware stacks the platform was never designed for. Ask: “When was the last time your processor pushed an authorization event in real time without middleware?”
-- **Flat hierarchies, not programmable:** Per-card spending limits exist. But hierarchical budgets — where a single transaction checks the card limit, the program budget, and the legal entity credit facility, with policy cascading and ancestor-chain enforcement — do not. Ask: “Can your processor enforce a three-level budget hierarchy at authorization?”
-- **Static data, not contextual:** The card carries what the network provides — MCC, merchant name, transaction amount. It cannot carry PO numbers, project codes, cost center attribution, or GL line items through the transaction lifecycle. Ask: “Can you attach a PO number to a card at issuance and have it travel through authorization, clearing, and settlement?”
-- **Pre-allocated inventory, not on-demand:** Card issuance was designed for bulk ordering — request a batch, wait for provisioning, distribute. API-triggered, single-use cards at hundreds per day per corporate client require a fundamentally different inventory model. Ask: “How many single-use cards can your processor issue per minute via API?”
-- **Closed authorization, not cooperative:** The processor evaluates the transaction and decides alone. There is no hook — no callback, no enrichment step, no decisioning participation — for the ESP or the corporate client within network-mandated timeouts. Ask: “Can your corporate client participate in the authorization decision before the processor responds to the network?”
+- Open with the callback to Slide 2: “We said the promise is captive to the platform that delivers it. Now that you’ve seen what the corporate actually needs — five dimensions, seven counterparty types, two organizing principles — here’s specifically what that captivity looks like.”
+- Walk through each of the seven constraints. Each now maps to something the audience has just learned — the constraints aren’t abstract anymore:
+- **Batch-native:** Real-time authorization events, lifecycle notifications, and cooperative callbacks require middleware the platform wasn’t designed for. Ask: “When was the last time your processor pushed an authorization event in real time without middleware?”
+- **Rigid hierarchies:** Per-card spending limits exist. But hierarchical budgets — where a single transaction checks the card limit, the program budget, and the legal entity credit facility, with programmable policy cascading and ancestor-chain enforcement — do not. Ask: “Can your processor enforce a three-level budget hierarchy at authorization?”
+- **Limiting data structures:** Rigid data fields that cannot carry corporate context through the transaction lifecycle. Refunds and credits not attributed back to original booking profile. No clearing enrichment hooks. Ask: “Can you attach a PO number to a card at issuance and have it travel through authorization, clearing, and settlement? When a refund arrives, does it attribute back to the original booking?”
+- **Closed authorization:** The processor evaluates the transaction and decides alone. There is no hook for ESP or corporate participation within network-mandated timeouts. No posting enrichment at clearing. Ask: “Can your corporate client participate in the authorization decision before the processor responds to the network?”
+- **Lack of token awareness:** Token lifecycle not coordinated with card lifecycle across renewals and replacements. Authentication limited across CNP/CP scenarios. PIN delivery confined to legacy channels. FRM has credential lifecycle blind spots. Ask: “When a virtual card is renewed, do the tokens migrate automatically? Does your FRM system see the full credential lifecycle — or just the card?”
+- **Throughput constraints:** Not designed for high-frequency, API-triggered, single-use issuance at scale. Card lifecycle operations (suspend, reactivate, close, replace) designed for call-center workflows, not programmatic bulk operations. Ask: “How many single-use cards can your processor issue per minute via API? What happens to lifecycle operations at scale?”
+- **Inaccessible for extension:** No event subscriptions, no webhook-driven integration, no API-driven lifecycle customization. The platform is closed to the ecosystem that needs to build on it. Ask: “Can your ESP subscribe to card events in real time? Can a corporate system trigger a lifecycle operation via API?”
 
 **Supporting Detail:**
-- Each pattern maps directly to a capability the corporate will eventually need: real-time visibility, hierarchical budgets, contextual data, on-demand issuance, cooperative authorization. After seeing Slides 3–6, the audience understands *why* each matters.
-- The five patterns represent foundational architectural assumptions, not feature gaps. A feature gap can be patched; an architectural assumption requires re-platforming or a purpose-built alternative.
-- The callback to Slide 2 is essential — it closes the loop the audience has been holding open since the second provocation. The payoff arrives after the problem is fully understood, making the evidence land harder.
+- Each constraint maps directly to a capability the corporate will eventually need. After seeing Slides 3–6, the audience understands *why* each matters.
+- These are not feature gaps. They are architectural characteristics. A feature gap can be patched; an architectural characteristic requires a purpose-built alternative.
+- The callback to Slide 2 is essential — it closes the loop the audience has been holding open since the second provocation. The payoff arrives after the problem is fully understood, making the constraints land harder.
 - See the “Legacy Platform Constraints — Detailed Reference” section at the end of this document for the full catalog of eight constraint categories with detailed examples.
 
 **Suggested Visuals:**
-- Five-row table, two columns: “Legacy Pattern” and “What It Means for Corporate Payments.” Clean, readable, no clutter.
-- Consider progressive reveal (one row at a time) to let each pattern land before moving to the next.
+- Seven-row table, two columns: “Constraint” and “What It Means.” Clean, readable, no clutter.
+- Consider progressive reveal (one row at a time) to let each constraint land before moving to the next.
 - Optional: a subtle visual connection back to Slide 2 — same color palette or motif to signal the callback.
 
 **What to Avoid:**
 - Do not present this as a feature comparison chart. It is an architectural observation, not a competitive matrix.
 - Do not rush through the table. Each row is a self-contained argument.
-- Do not name specific vendors in the table. The patterns are universal across legacy processors.
+- Do not name specific vendors in the table. The patterns are universal.
 - Do not skip the callback to Slide 2. Without it, the slide loses its structural role.
 
 **Source Reference:** Presentation-originated. See `book-writing-backlog.md` item #17. Full constraint catalog in “Legacy Platform Constraints — Detailed Reference” section below.
@@ -263,7 +268,7 @@
 **Headline:** This is what we set out to solve. The foundation: a processing platform purpose-built for corporate spend governance — one that resolves the constraints we just identified, and is architected for the possibilities of this decade. The bridge: an architecture that answers the corporate's actual questions across all five dimensions, across all counterparty types, while preserving the bank's risk and compliance model.
 
 **Key Talking Points:**
-- The foundation: a processing platform that is event-native, hierarchy-aware, contextually rich, on-demand, and cooperatively authorized — the inverse of every pattern identified in Slide 7. Without the right foundation, the bridge cannot hold.
+- The foundation: a payment platform that is event-native, hierarchy-aware, contextually rich, on-demand, cooperatively authorized, token-aware, throughput-ready, and extensible — the inverse of every constraint identified in Slide 7. Without the right foundation, the bridge cannot hold.
 - "Designed for the possibilities of this decade" means more than resolving today's constraints. The foundation must also accommodate an evolving payment landscape: credentials beyond cards, authentication beyond static mechanisms, rails and clearing beyond card networks, and digital currencies — without re-platforming for each.
 - The bridge requires three things: (1) a product model that encodes corporate governance patterns, not just payment capabilities; (2) a clean separation between the bank's domain and the corporate's domain; (3) an intermediary that translates between them without blurring boundaries.
 - That is the three-domain model — Bank, ESP, Corporate, each owning what it understands best — running on a processing platform designed from the ground up for these requirements.
@@ -292,7 +297,7 @@
 
 **What to Avoid:**
 - Don't turn this into a product pitch — keep it architectural
-- Don't go deep on the three-domain model here — that's Slide 13
+- Don't go deep on the three-domain model here — that's Slide 12
 - Don't list features — list design principles
 - Don't linger — this slide should create momentum into the next act
 - Don't collapse the foundation and the bridge into one idea — they are distinct. One is about infrastructure, the other is about domain design
@@ -307,69 +312,44 @@
 
 ### Slide 9: Spend Archetypes
 
-**Headline:** Every corporate payment maps to one of four Spend Archetypes — each with a distinct control model, card lifecycle, enrollment pattern, and reconciliation approach.
+**Headline:** Corporate payments organize into Spend Archetypes — each with a distinct control model, card lifecycle, enrollment pattern, and reconciliation approach.
 
 **Key Talking Points:**
 - Archetypes are the organizing principle — not product names, not market segments
-- Four archetypes: Supplier Payments, Employee & Department Spend, Travel & Booking Payments, Central Recurring Merchant Payments
-- Each maps 1:1 to a Corporate Payment Product — if a corporate needs two archetypes, the ESP creates two products, not one product covering both
-- "Embedded" (API-triggered issuance) is a delivery mechanism, not an archetype — it can serve any of the four
+- Archetypes include: Supplier Payments, Employee & Department Spend, Travel & Booking Payments, Central Recurring Merchant Payments — and are extensible as new corporate spend patterns emerge
+- "Embedded" (API-triggered issuance) is a delivery mechanism, not an archetype — it can serve any archetype
+- Walk through each archetype's distinguishing characteristics: card lifecycle (single-use vs persistent vs lodge), enrollment model (supplier = enroll the payee; employee = enroll the payer), data richness (L2/L3 vs minimal), and reconciliation approach (PO match, expense report, itinerary match, contract match)
 
 **Supporting Detail:**
-- Supplier: single-use per invoice, merchant-locked, PO-linked, ERP reconciliation via L2/L3 three-way match
-- Employee: persistent cards, MCC/velocity limits, per-employee enrollment, expense report reconciliation
-- Travel: lodge card (long-lived, shared with agency) or per-booking virtual card; booking system triggers issuance
-- Recurring: one card per merchant/contract, renewal-aligned lifecycle, centrally administered
+- Supplier: single-use per invoice, merchant-locked, PO-linked, ERP reconciliation via L2/L3 three-way match; ERP triggers card issuance for approved PO; auto-closed after clearing; reconciliation target: 95%+ auto-match
+- Employee: persistent cards, MCC/velocity limits, per-employee enrollment, expense report reconciliation; manager or self-enrollment; MCC allowlists (e.g., AMC-IT-Services, AMC-Cloud, AMC-SaaS); expense management system receives transaction data
+- Travel: lodge card (long-lived, shared with agency) or per-booking virtual card; booking system triggers issuance; itinerary data for reconciliation
+- Recurring: one card per merchant/contract, renewal-aligned lifecycle, centrally administered; subscription management as the trigger
 - Meridian examples: ~200 suppliers with API-issued cards; 120 engineering employees with $2,500 per-tx limits; travel desk with lodge card; 35 SaaS subscriptions with dedicated locked cards
 
 **Suggested Visuals:**
 - Comparison table: Archetype × (Control Model / Card Lifecycle / Enrollment / Reconciliation) — four columns, four rows
 - Or the book's `graph TB` Mermaid diagram with four subgraphs
+- Four mini-diagrams showing card lifecycle for each archetype (Issue → Auth → Clear → Close vs Issue → Auth → Auth → ... → Renew)
 
 **What to Avoid:**
 - Don't mix archetype descriptions with product feature lists
 - Don't use the term "Spend Lane" — the book uses "Spend Archetype" consistently
 - Don't imply archetypes are rigid categories — they are workflow patterns that products are built around
-
-**Source Reference:** `01-problem-space/04-spend-archetypes.md`
-
----
-
-### Slide 10: Archetype Detail
-
-**Headline:** How each archetype differs in practice — card usage, enrollment, and data requirements.
-
-**Key Talking Points:**
-- Walk through each archetype's distinguishing characteristics in more detail
-- Emphasize the differences in card lifecycle (single-use vs persistent vs lodge) and data richness (L2/L3 vs minimal)
-- Show that enrollment model differs: supplier = enroll the payee; employee = enroll the payer
-- Reconciliation approach differs by archetype: PO match, expense report, itinerary match, contract match
-
-**Supporting Detail:**
-- Supplier: ERP triggers card issuance for approved PO; card locked to exact amount and specific merchant; auto-closed after clearing; L2/L3 critical for automated three-way match; reconciliation target: 95%+ auto-match
-- Employee: manager or self-enrollment; persistent card with monthly velocity limits; MCC allowlists (e.g., AMC-IT-Services, AMC-Cloud, AMC-SaaS); expense management system receives transaction data
-- Travel: travel desk or employee self-books; lodge card shared with agency or per-booking virtual card; itinerary data for reconciliation; booking system as the trigger
-- Recurring: central administrator enrolls; one card per vendor/contract; lifecycle matches contract renewal; subscription management as the trigger
-
-**Suggested Visuals:**
-- Four mini-diagrams showing card lifecycle for each archetype (Issue → Auth → Clear → Close vs Issue → Auth → Auth → ... → Renew)
-- Or a timeline-style comparison showing the different lifecycle patterns
-
-**What to Avoid:**
-- Don't go too deep into technical implementation here — that comes in Acts 5-6
-- Keep focus on the "what" and "why" rather than the "how"
+- Don't state a fixed count of archetypes — they are extensible
 
 **Source Reference:** `01-problem-space/04-spend-archetypes.md`, `02-ontology/10-members-eligibility-enrollment.md`
 
 ---
 
-### Slide 11: Spend Mandates
+### Slide 10: Spend Mandates — The Authorization Envelope
 
-**Headline:** Before any card is issued, the corporate defines an authorization envelope — the Spend Mandate — with eight components.
+**Headline:** Every corporate payment must answer a chain of questions: Why was this allowed? Who authorized it? Whose budget? Which rules? How is it booked? Who is accountable? The Spend Mandate is the framework that holds those answers.
 
 **Key Talking Points:**
-- The Spend Mandate is a conceptual framework, not a single database entity
-- Eight components: Purpose, Authority, Budget Source, Policy Scope, Limits, Attribution, Validity, Exceptions
+- Introduce the concept through the chain of questions — these are the governance requirements that every corporate payment must satisfy. The Spend Mandate makes them explicit.
+- The Spend Mandate is a thinking tool, not a single database entity — it is a framework for reasoning about governance requirements that distribute across multiple system entities
+- Components: Purpose, Authority, Budget Source, Policy Scope, Limits, Attribution, Validity, Exceptions
 - Use the Meridian "Client Implementation Travel" example to make it concrete
 - The mandate is realized across multiple system entities: Budget, Spend Policy, Booking Profile, Card Profile, Program configuration
 
@@ -396,74 +376,80 @@
 
 ---
 
-### Slide 12: Two Natures of Governance
+### Slide 11: Governance: Constraints and Decisions
 
-**Headline:** Not all mandate components are enforced the same way. Two distinct natures.
+**Headline:** Governance is not enforcement alone. It requires constraints that the platform enforces automatically, and decisions — structured and unstructured.
 
 **Key Talking Points:**
 - Constraints: evaluated at authorization in real time — budget capacity, spend policy, limits. The bank checks these on every transaction. No exception.
-- Structural Decisions: enforced through issuance, configuration, and audit — purpose, authority, attribution, validity, exceptions. These shape the spend channel before the transaction happens.
-- The design challenge: enforce constraints in real time while making structural decisions auditable and traceable
-- This is not a limitation — it's a deliberate separation. Constraints stop bad transactions. Structural decisions ensure only the right people have access to the right cards.
+- Structured Decisions: representable as rules, enforced through configuration — purpose, attribution, validity. These shape the spend channel through design, not through real-time checks.
+- Unstructured Decisions: require human deliberation — authority escalation, exception handling. The platform provides deliberation control: workflows, approval chains, escalation paths, post-facto justification.
+- The design challenge: enforce constraints automatically, enforce structured decision rules through configuration, and provide deliberation control for unstructured decisions.
 
 **Supporting Detail:**
 - Constraints at authorization: Budget hierarchy check (all ancestors), AMC/MCC match, per-tx and velocity limits, currency/geography restrictions, single-use enforcement
-- Structural enforcement: program membership controls who has a card; eligibility rules control who can be enrolled; card issuance controls what credentials exist; booking profiles control how spend is attributed; validity windows control when the program is active
-- The corporate enforces structural decisions at the time of issuance — by restricting who gets a card and what that card can do — the bank then enforces constraints at authorization on whatever cards exist
+- Structured decisions through configuration: program membership controls who has a card; booking profiles control how spend is attributed; validity windows control when the program is active
+- Unstructured decisions through deliberation control: eligibility approval workflows when authority is contested or delegated; exception escalation chains; post-facto justification requirements for out-of-bounds spend
+- The corporate shapes the spend channel through structural and unstructured decisions at the time of program configuration and issuance — the bank then enforces constraints at authorization on whatever cards exist
 
 **Suggested Visuals:**
-- Two-column layout: "Constraints — Real-time at authorization" vs "Structural Decisions — Pre-transaction and post-transaction"
-- Or the book's Mermaid `graph TB` showing eight components split into two subgraphs feeding Authorization vs Governance
+- Three-section layout: "Constraints — Real-time at authorization" / "Structured Decisions — Configuration-enforced" / "Unstructured Decisions — Deliberation-controlled"
+- Or the book's Mermaid `graph TB` showing components split into three subgraphs feeding Authorization, Configuration, and Deliberation
 
 **What to Avoid:**
-- Don't frame structural decisions as "things we can't enforce" — frame them as "things enforced through design, not through real-time checks"
+- Don't collapse structured and unstructured decisions into one category — the distinction is architecturally significant
+- Don't frame unstructured decisions as "things we can't enforce" — frame them as decisions requiring human judgment, with the platform providing the control framework
 - Don't use "auditable but not enforceable" — the earlier framing that was deliberately revised
 
 **Source Reference:** `01-problem-space/05-spend-mandates.md` (reframed "Two Natures of Governance" section)
 
 ---
 
-## Act 3 — The Three Domains
+### Slide 12: The Three Domains
 
----
-
-### Slide 13: The Three Domains — Roles and Value Added
-
-**Headline:** Three actors, three distinct responsibilities, one coordinated payment.
+**Headline:** The bank organizes around risk. The corporate organizes around governance. Neither can collapse into the other. The ESP exists to translate between them.
 
 **Key Talking Points:**
-- Bank: provides credit facilities and payment capabilities; underwrites risk, authorizes transactions, enforces compliance, settles with networks
-- ESP: provides archetypes and corporate servicing; creates products per archetype, onboards corporates, manages billing, provides the operating layer
-- Corporate: provides mandate-related value; configures programs, defines budgets and policies, enrolls members, operates day-to-day governance
+- Why three domains: Slide 6 established that banks optimize for credit risk, regulatory compliance, and network settlement — while corporates optimize for operational governance, financial attribution, and audit readiness. These are structurally different organizing principles. Attempting to serve both from one domain model forces one side to adopt the other's vocabulary, violating its own obligations.
+- Bank: underwrites risk, authorizes transactions, enforces compliance, settles with networks — owns Credit Facilities and Payment Capabilities
+- ESP: creates products per archetype, onboards corporates, manages billing, provides the operating layer — translates bank capabilities into corporate solutions without blurring either domain
+- Corporate: configures programs, defines budgets and policies, enrolls members, operates day-to-day spend governance — owns the mandate and organizational context
 - Each domain owns what it understands best — the platform enforces clean separation
 
 **Supporting Detail:**
 - The bank does not see departments, cost centers, or project codes — that's corporate domain knowledge
 - The corporate does not touch underwriting, credit assessment, or network settlement — that's bank domain knowledge
-- The ESP translates between the two: taking bank products (credit, accounts, cards) and packaging them as corporate solutions (programs, policies, workflows)
+- The ESP mediates without owning either worldview: taking bank products (credit, accounts, cards) and packaging them as corporate solutions (programs, policies, workflows)
 - Platform mapping: Commonwealth on Tachyon; Apex on Electron; Meridian on Electron (corporate portal)
+- The three-domain separation is not just separation of duties — it is separation of concerns. Each domain's model stays clean because the boundaries are enforced architecturally, not by convention.
 
 **Suggested Visuals:**
 - Three-domain horizontal layout: Bank (Tachyon) → ESP (Electron) → Corporate (Electron Portal) with responsibility bullet points in each
 - Or the book's `graph LR` three-domain diagram
+- Consider showing the Slide 6 "Two-Lens Gap" callback visually — the two organizing principles that cannot collapse into each other, with the ESP bridging them
 
 **What to Avoid:**
 - Don't imply the ESP is optional or just a reseller — the ESP adds substantial product design and operational value
 - Don't blur domain boundaries — the clean separation is the central architectural argument
+- Don't introduce this slide as a new concept — frame it as the architectural answer to the problem established in Slide 6
 
 **Source Reference:** `01-problem-space/03-two-lenses.md` (domain comparison table), `00-front-matter/02-running-example.md`
 
 ---
 
-### Slide 14: All Stakeholders — Value Realized
+### Slide 13: Value Added and Value Realized
 
-**Headline:** Every participant captures distinct value from the model. Value is not zero-sum.
+**Headline:** Each domain contributes distinct value — and each captures distinct value in return.
 
 **Key Talking Points:**
-- Bank: float income, customer retention (sticky multi-program relationships), network incentives, interchange income, account and card fees, regulatory compliance as a competitive moat
-- ESP: revenue share from bank (portion of float, interchange, fees), direct fees and charges from corporate, portfolio scale (40+ corporates like Apex), branding and market positioning
-- Corporate: control and governance benefits (mandate enforcement), AP automation (DPO extension ~12 days on $50M payables), rebates, rewards, reconciliation labor reduction, policy leakage prevention
-- Members: cashflow benefits (supplier: faster payment, improved DSO), negotiated MDRs (supplier), AR story (supplier), expense simplification (employee), travel convenience (employee)
+- Bank contributes: Credit Facilities, payment authorization, compliance enforcement, network settlement
+- ESP contributes: product design per archetype, corporate onboarding, billing, operational layer
+- Corporate contributes: program configuration, budget and policy definition, member enrollment, day-to-day governance
+- Bank realizes: float income, customer retention (sticky multi-program relationships), network incentives, interchange income, account and card fees, regulatory compliance as a competitive moat
+- ESP realizes: revenue share from bank (portion of float, interchange, fees), direct fees and charges from corporate, portfolio scale (40+ corporates like Apex), branding and market positioning
+- Corporate realizes: control and governance benefits (mandate enforcement), AP automation (DPO extension ~12 days on $50M payables), rebates, rewards, reconciliation labor reduction, policy leakage prevention
+- Members realize: cashflow benefits (supplier: faster payment, improved DSO), negotiated MDRs (supplier), AR story (supplier), expense simplification (employee), travel convenience (employee)
+- Value is not zero-sum — the three-domain model creates incremental value at each layer
 
 **Supporting Detail:**
 - Specific Apex numbers: product-level rebate of 1.5% on supplier pay interchange; relationship-level rebate of 50 bps on aggregate spend > $10M/quarter
@@ -471,7 +457,7 @@
 - Corporate economics: Meridian CFO evaluates on reconciliation labor saved, DPO extension, and policy leakage prevention — not interchange
 
 **Suggested Visuals:**
-- Four-quadrant value matrix: Bank / ESP / Corporate / Members with key value items
+- Two-part layout: "Value Added" (what each domain contributes) and "Value Realized" (what each captures) — showing the symmetry
 - Or a value flow diagram showing how interchange, float, fees, and rebates distribute across stakeholders
 
 **What to Avoid:**
@@ -483,7 +469,11 @@
 
 ---
 
-### Slide 15: Systems and Bounded Contexts
+## Act 3 — The System Design
+
+---
+
+### Slide 14: Systems and Bounded Contexts
 
 **Headline:** Each domain operates through purpose-built systems. Understanding what runs where is essential to the architecture.
 
@@ -538,7 +528,7 @@
 
 ---
 
-### Slide 16: Context Boundaries and Integration Points
+### Slide 15: Context Boundaries and Integration Points
 
 **Headline:** The systems communicate across well-defined boundaries. No domain reaches into another's internals.
 
@@ -558,7 +548,7 @@
   - The Bank Gateway ensures anti-corruption: Tachyon's model (accounts, products, CFs) and Electron's model (variants, CPPs, programs, contracts) stay clean; the gateway translates between them
 - ESP ↔ Corporate Portal: Payment Program Management System handles program provisioning, enrollment workflows; Billing and Collections handles invoicing and rebates; Corporate Data Mart provides reporting and extracts
 - Bank ↔ Corporate (mediated through ESP): CF utilization and budget enforcement at auth (bank checks budget hierarchy via Payments Switch/Hub), posting data flow (L1/L2/L3), regulatory/fraud notifications from FRM and Notification subsystems (non-suppressible)
-- Corporate Portal ↔ Corporate Systems: all the integration touchpoints listed in Slide 15
+- Corporate Portal ↔ Corporate Systems: all the integration touchpoints listed in Slide 14
 
 **Suggested Visuals:**
 - Architecture diagram showing the Bank Gateway as the explicit bridge between Tachyon and Electron, with subsystem-to-subsystem connections labeled
@@ -574,11 +564,9 @@
 
 ---
 
-## Act 4 — Entities Within Bounded Contexts
-
 ---
 
-### Slide 17: Bank Domain Entities
+### Slide 16: Bank Domain Entities
 
 **Headline:** What exists in Tachyon — the bank's model of the world.
 
@@ -609,7 +597,7 @@
 
 ---
 
-### Slide 18: ESP Domain Entities
+### Slide 17: ESP Domain Entities
 
 **Headline:** What exists in Electron — the ESP's product design and client management model.
 
@@ -640,7 +628,7 @@
 
 ---
 
-### Slide 19: Corporate Domain Entities
+### Slide 18: Corporate Domain Entities
 
 **Headline:** What exists in the Corporate Portal — programs, members, budgets, and the operational model.
 
@@ -672,7 +660,7 @@
 
 ---
 
-### Slide 20: Entity Relationships Across Domains
+### Slide 19: Entity Relationships Across Domains
 
 **Headline:** How bank products become ESP variants become corporate programs — the derivation chain.
 
@@ -698,7 +686,7 @@
 
 ---
 
-### Slide 21: Hierarchies — Corporate's and ESP's View
+### Slide 20: Hierarchies — Corporate's and ESP's View
 
 **Headline:** The corporate sees multiple interlocking hierarchies. Each answers a different question.
 
@@ -725,7 +713,7 @@
 
 ---
 
-### Slide 22: Hierarchies — Bank's View
+### Slide 21: Hierarchies — Bank's View
 
 **Headline:** The bank sees a simpler, risk-anchored hierarchy. This is by design.
 
@@ -742,7 +730,7 @@
 
 **Suggested Visuals:**
 - Simple vertical hierarchy: LAH → CF → Limits → Account → Cards
-- Contrast with the corporate's three-hierarchy view from Slide 21
+- Contrast with the corporate's three-hierarchy view from Slide 20
 - Gray out what the bank doesn't see (OUs, cost centers, GL codes) to visually reinforce the separation
 
 **What to Avoid:**
@@ -753,11 +741,11 @@
 
 ---
 
-## Act 5 — How the Story Becomes Data
+## Act 4 — How the Story Becomes Data
 
 ---
 
-### Slide 23: Corporate Payment Program's Reflection on Bank's Entities
+### Slide 22: Corporate Payment Program's Reflection on Bank's Entities
 
 **Headline:** Every corporate program has a precise footprint in the bank's entity model.
 
@@ -782,7 +770,7 @@
 
 ---
 
-### Slide 24: Policy Cascade — Tighten-Only, Bank-Enforced
+### Slide 23: Policy Cascade — Tighten-Only, Bank-Enforced
 
 **Headline:** Controls narrow at each level. No level can widen what the level above has set.
 
@@ -813,7 +801,7 @@
 
 ---
 
-### Slide 25: Authorization Flow
+### Slide 24: Authorization Flow
 
 **Headline:** Every transaction follows the same path. The bank is the single enforcement point.
 
@@ -843,7 +831,7 @@
 
 ---
 
-### Slide 26: Transaction Posting — L1/L2/L3 Data
+### Slide 25: Transaction Posting — L1/L2/L3 Data
 
 **Headline:** Every posted transaction carries data from three sources, enabling end-to-end attribution and reconciliation.
 
@@ -870,7 +858,7 @@
 
 ---
 
-### Slide 27: Comprehensive Manifestation at Every Transaction
+### Slide 26: Comprehensive Manifestation at Every Transaction
 
 **Headline:** At every transaction, every entity across all three domains is touched. One event, three views.
 
@@ -899,11 +887,11 @@
 
 ---
 
-## Act 6 — Program Lifecycle and Extensibility
+## Act 5 — Program Lifecycle and Extensibility
 
 ---
 
-### Slide 28: Program Lifecycle — Overview
+### Slide 27: Program Lifecycle — Overview
 
 **Headline:** A program's lifecycle spans setup, operations, and financial management — each with distinct system interactions.
 
@@ -929,7 +917,7 @@
 
 ---
 
-### Slide 29: Setup Phase
+### Slide 28: Setup Phase
 
 **Headline:** From credit facility to first card issued.
 
@@ -959,7 +947,7 @@
 
 ---
 
-### Slide 30: Operational Phase
+### Slide 29: Operational Phase
 
 **Headline:** Day-to-day transaction processing, monitoring, and card management.
 
@@ -989,7 +977,7 @@
 
 ---
 
-### Slide 31: Financial Phase
+### Slide 30: Financial Phase
 
 **Headline:** Billing, settlement, reconciliation, and dispute resolution.
 
@@ -1020,7 +1008,7 @@
 
 ---
 
-### Slide 32: Embedding and Extension
+### Slide 31: Embedding and Extension
 
 **Headline:** The platform supports deep integration with corporate systems and cooperative authorization.
 
@@ -1049,11 +1037,11 @@
 
 ---
 
-## Act 7 — The Opportunity
+## Act 6 — The Opportunity
 
 ---
 
-### Slide 33: Meridian End-to-End
+### Slide 32: Meridian End-to-End
 
 **Headline:** One corporate, four archetypes, three legal entities, one platform — all running simultaneously.
 
@@ -1082,7 +1070,7 @@
 
 ---
 
-### Slide 34: Next Steps / Engagement Path
+### Slide 33: Next Steps / Engagement Path
 
 **Headline:** Where to go from here.
 
@@ -1267,37 +1255,36 @@
 | Slide | Book Chapter(s) |
 |---|---|
 | 0 — Title | `00-front-matter/01-purpose-audience-scope.md` |
-| 1 — The Provocation — Possibilities vs Needs | `01-problem-space/01-corporate-payments-problem.md`, `01-problem-space/02-existing-solutions.md`. See `book-writing-backlog.md` #13 |
+| 1 — Possibilities vs Needs | `01-problem-space/01-corporate-payments-problem.md`, `01-problem-space/02-existing-solutions.md`. See `book-writing-backlog.md` #13 |
 | 2 — The Platform Reality | Presentation-originated. See `book-writing-backlog.md` #17 |
 | 3 — The Semantic Dissonance | `01-problem-space/02-existing-solutions.md`, `01-problem-space/03-two-lenses.md`. See `book-writing-backlog.md` #14 |
 | 4 — Five Dimensions of Corporate Need | Presentation-originated. See `book-writing-backlog.md` #15 |
 | 5 — The Counterparty Multiplier | Presentation-originated. See `book-writing-backlog.md` #16 |
 | 6 — The Two-Lens Gap | `01-problem-space/03-two-lenses.md`, `01-problem-space/02-existing-solutions.md` |
-| 7 — The Infrastructure Evidence | Presentation-originated. See `book-writing-backlog.md` #17, Legacy Platform Constraints reference section |
+| 7 — The Challenge of the Promise | Presentation-originated. See `book-writing-backlog.md` #17, Legacy Platform Constraints reference section |
 | 8 — The Foundation and The Bridge | `01-problem-space/03-two-lenses.md`. See `book-writing-backlog.md` #13-15, #17 |
-| 9 — Spend Archetypes | `01-problem-space/04-spend-archetypes.md` |
-| 10 — Archetype Detail | `01-problem-space/04-spend-archetypes.md`, `02-ontology/10-members-eligibility-enrollment.md` |
-| 11 — Spend Mandates | `01-problem-space/05-spend-mandates.md` |
-| 12 — Two Natures of Governance | `01-problem-space/05-spend-mandates.md` |
-| 13 — Three Domains | `01-problem-space/03-two-lenses.md`, `00-front-matter/02-running-example.md` |
-| 14 — Value Realized | `01-problem-space/03-two-lenses.md`, `04-esp-playbook/01-esp-wide-concerns.md` |
-| 15 — Systems and Bounded Contexts | `02-ontology/02-account-product-virtual-card-product.md`, `03-bank-foundation/01-account-card-products.md`, `04-esp-playbook/01-esp-wide-concerns.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
-| 16 — Context Boundaries | `03-bank-foundation/03-processing-authorization-controls.md`, `04-esp-playbook/01-esp-wide-concerns.md` |
-| 17 — Bank Domain Entities | `02-ontology/02-account-product-virtual-card-product.md`, `03-bank-foundation/01-account-card-products.md` |
-| 18 — ESP Domain Entities | `02-ontology/03-esp-variants-corporate-payment-product.md`, `04-esp-playbook/01-esp-wide-concerns.md` |
-| 19 — Corporate Domain Entities | `02-ontology/01-corporate-legal-entity-ou-members.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
-| 20 — Entity Relationships | `02-ontology/03-esp-variants-corporate-payment-product.md`, `02-ontology/05-corporate-payment-program.md` |
-| 21 — Hierarchies (Corporate View) | `02-ontology/04-credit-facility-budget-account.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
-| 22 — Hierarchies (Bank View) | `03-bank-foundation/03-processing-authorization-controls.md`, `02-ontology/04-credit-facility-budget-account.md` |
-| 23 — Program Reflection | `02-ontology/05-corporate-payment-program.md`, `02-ontology/04-credit-facility-budget-account.md` |
-| 24 — Policy Cascade | `02-ontology/07-spend-policy-controls.md`, `03-bank-foundation/03-processing-authorization-controls.md` |
-| 25 — Authorization Flow | `03-bank-foundation/03-processing-authorization-controls.md` |
-| 26 — Transaction Posting | `02-ontology/11-transaction-posting-data.md` |
-| 27 — Comprehensive Manifestation | `02-ontology/11-transaction-posting-data.md`, `03-bank-foundation/03-processing-authorization-controls.md`, `02-ontology/08-booking-settlement-profile.md` |
-| 28 — Lifecycle Overview | `05-corporate-playbook/02-supplier-payments-program.md`, `03-bank-foundation/02-onboarding.md` |
-| 29 — Setup Phase | `03-bank-foundation/02-onboarding.md`, `02-ontology/10-members-eligibility-enrollment.md` |
-| 30 — Operational Phase | `03-bank-foundation/03-processing-authorization-controls.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
-| 31 — Financial Phase | `02-ontology/08-booking-settlement-profile.md`, `05-corporate-playbook/02-supplier-payments-program.md` |
-| 32 — Embedding and Extension | `03-bank-foundation/03-processing-authorization-controls.md`, `05-corporate-playbook/02-supplier-payments-program.md` |
-| 33 — Meridian End-to-End | `00-front-matter/02-running-example.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
-| 34 — Next Steps | N/A |
+| 9 — Spend Archetypes | `01-problem-space/04-spend-archetypes.md`, `02-ontology/10-members-eligibility-enrollment.md` |
+| 10 — Spend Mandates | `01-problem-space/05-spend-mandates.md` |
+| 11 — Governance: Constraints and Decisions | `01-problem-space/05-spend-mandates.md` |
+| 12 — The Three Domains | `01-problem-space/03-two-lenses.md`, `00-front-matter/02-running-example.md` |
+| 13 — Value Added and Value Realized | `01-problem-space/03-two-lenses.md`, `04-esp-playbook/01-esp-wide-concerns.md` |
+| 14 — Systems and Bounded Contexts | `02-ontology/02-account-product-virtual-card-product.md`, `03-bank-foundation/01-account-card-products.md`, `04-esp-playbook/01-esp-wide-concerns.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
+| 15 — Context Boundaries | `03-bank-foundation/03-processing-authorization-controls.md`, `04-esp-playbook/01-esp-wide-concerns.md` |
+| 16 — Bank Domain Entities | `02-ontology/02-account-product-virtual-card-product.md`, `03-bank-foundation/01-account-card-products.md` |
+| 17 — ESP Domain Entities | `02-ontology/03-esp-variants-corporate-payment-product.md`, `04-esp-playbook/01-esp-wide-concerns.md` |
+| 18 — Corporate Domain Entities | `02-ontology/01-corporate-legal-entity-ou-members.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
+| 19 — Entity Relationships | `02-ontology/03-esp-variants-corporate-payment-product.md`, `02-ontology/05-corporate-payment-program.md` |
+| 20 — Hierarchies (Corporate View) | `02-ontology/04-credit-facility-budget-account.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
+| 21 — Hierarchies (Bank View) | `03-bank-foundation/03-processing-authorization-controls.md`, `02-ontology/04-credit-facility-budget-account.md` |
+| 22 — Program Reflection | `02-ontology/05-corporate-payment-program.md`, `02-ontology/04-credit-facility-budget-account.md` |
+| 23 — Policy Cascade | `02-ontology/07-spend-policy-controls.md`, `03-bank-foundation/03-processing-authorization-controls.md` |
+| 24 — Authorization Flow | `03-bank-foundation/03-processing-authorization-controls.md` |
+| 25 — Transaction Posting | `02-ontology/11-transaction-posting-data.md` |
+| 26 — Comprehensive Manifestation | `02-ontology/11-transaction-posting-data.md`, `03-bank-foundation/03-processing-authorization-controls.md`, `02-ontology/08-booking-settlement-profile.md` |
+| 27 — Lifecycle Overview | `05-corporate-playbook/02-supplier-payments-program.md`, `03-bank-foundation/02-onboarding.md` |
+| 28 — Setup Phase | `03-bank-foundation/02-onboarding.md`, `02-ontology/10-members-eligibility-enrollment.md` |
+| 29 — Operational Phase | `03-bank-foundation/03-processing-authorization-controls.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
+| 30 — Financial Phase | `02-ontology/08-booking-settlement-profile.md`, `05-corporate-playbook/02-supplier-payments-program.md` |
+| 31 — Embedding and Extension | `03-bank-foundation/03-processing-authorization-controls.md`, `05-corporate-playbook/02-supplier-payments-program.md` |
+| 32 — Meridian End-to-End | `00-front-matter/02-running-example.md`, `05-corporate-playbook/01-corporate-wide-concerns.md` |
+| 33 — Next Steps | N/A |
