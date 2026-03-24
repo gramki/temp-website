@@ -97,26 +97,41 @@
 
 ---
 
-### Slide 6: The Two-Lens Gap
+### Slide 6: The Two-Lens Gap — Hierarchy Is Not the Answer
 
-**Banks organize around financial risk. Corporates organize around operational governance. Both worldviews are coherent. The friction is in the translation.**
+**The bank's control model is a hierarchy of limits — credit facility, account, card, evaluated along a single path. The corporate's is a coordinate system of concurrent dimensions — budget, policy, authority, attribution, purpose, validity — all evaluated simultaneously. Both are sound.**
+
+**A hierarchy forces a fixed nesting: does Department contain Project, or Project contain Department? Every corporate answers differently — and the answer changes when they restructure. The dimensions cannot be nested. They must remain independent.**
+
+**Hierarchy is not the answer.**
 
 - Bank's organizing principle: credit facility → account → card → MCC/amount/velocity controls → interchange → lifecycle
 - Corporate's organizing principle: department → project → cost center → budget/policy/approval → GL/project/client codes → reconciliation → DPO
 - The structural mismatches: org structure ≠ account structure; budget ≠ credit limit; GL fields ≠ transaction data; workflow ≠ card controls; reconciliation ≠ data availability
-- This is not a criticism. Banks optimize for what they must: credit risk, regulatory compliance, network settlement. Corporates optimize for what they must: operational governance, financial attribution, audit readiness.
-- The gap is architectural — not a missing feature, not a configuration oversight. It requires a design that respects both organizing principles without collapsing one into the other.
+- This is not a criticism. Banks optimize for what they must: credit risk, regulatory compliance, network settlement, and treasury income (float, interchange, facility interest). Corporates optimize for what they must: operational governance, financial attribution, audit readiness, and payment cost and process efficiency. The hierarchy is sound for credit risk. It is not the answer for corporate governance.
+- Why hierarchy fails structurally:
+  - A hierarchy requires a fixed ordering of dimensions. Corporate governance dimensions are enterprise-specific — Company A organizes by region → business unit → project; Company B by department → client → cost center. No universal ordering exists.
+  - The dimensions are not static. Enterprises restructure, add regulatory dimensions, shift from project-based to product-based models. Each change would require rebuilding the hierarchy — not reconfiguring it.
+  - Different governance questions within the same enterprise require different traversal orders simultaneously. "What did Department X spend across all projects?" and "What did Project Alpha cost across all departments?" need different primary axes. A hierarchy answers one efficiently. A coordinate system answers all — because the dimensions are independent.
+- The gap is architectural — not a missing feature, not a configuration oversight. It requires a design that keeps the bank's hierarchy for credit risk and supports the corporate's coordinate system for governance — without collapsing one into the other.
+
+*Speaker Notes:*
+- Land the title phrase: "Hierarchy is not the answer." Let it sit. The audience's product teams have been reaching for deeper hierarchy — more granular limits, more sub-accounts, more MCC groups — every time a corporate asks for more control. This slide names why that instinct doesn't work.
+- Walk through both organizing principles. Neither is wrong. Both are coherent for their purpose.
+- Then deliver the structural argument: "A hierarchy requires a fixed dimension order. Your corporate clients don't have a fixed order. Company A organizes around regions and projects. Company B organizes around departments and clients. Company C restructured last quarter and the order changed. No universal nesting exists. The dimensions must stay independent — and that's a coordinate system, not a tree."
+- Reference the supporting document: the detailed analysis — ERP evidence, DoA matrices, four scenario walkthroughs, middleware gap analysis — is available in *Why Hierarchy Is Not the Answer*.
+- Do not rush. The audience needs to absorb the shift from "we need deeper hierarchy" to "we need independent dimensions." This is the cognitive pivot of Act 1.
 
 ---
 
-### Slide 7: The Challenge of the Promise
+### Slide 7: The Promise Is Captive to the Platform
 
-**The promise is captive to the platform that delivers it:**
+**The compelling possibility of automated corporate payments is captive to the platform that delivers it:**
 
 | Constraint | What It Means |
 |---|---|
 | **Batch-native** | Real-time authorization events, lifecycle notifications, and cooperative callbacks require middleware the platform wasn’t designed for |
-| **Rigid hierarchies** | Per-card limits exist; hierarchical budgets with programmable policy cascade and ancestor-chain enforcement do not |
+| **Rigid hierarchies** | The platform evaluates a hierarchy of limits along a single path; it cannot evaluate the corporate's coordinate system of concurrent dimensions — no multi-segment budgets, no category-dependent policy cascade, no concurrent dimensional enforcement at authorization |
 | **Limiting data structures** | Rigid data fields that cannot carry corporate context through the transaction lifecycle; refunds and credits not attributed back to original booking profile |
 | **Closed authorization** | The processor decides alone; no hook for ESP or corporate participation within network timeouts; no posting enrichment at clearing |
 | **Lack of token awareness** | Token lifecycle not coordinated with card lifecycle across renewals and replacements; authentication limited across CNP/CP scenarios; PIN delivery confined to legacy channels; FRM has credential lifecycle blind spots |
@@ -124,10 +139,10 @@
 | **Inaccessible for extension** | No event subscriptions, no webhook-driven integration, no API-driven lifecycle customization; the platform is closed to the ecosystem that needs to build on it |
 
 *Speaker Notes:*
-- Callback to Slide 2: “We said the promise is captive to the platform that delivers it. Now that you’ve seen what the corporate actually needs — five dimensions, seven counterparty types, two organizing principles — here’s specifically what that captivity looks like.”
+- Callback to Slide 2: “We said the platform wasn’t built for it. Now that you’ve seen what the corporate actually needs — five dimensions, seven counterparty types, a coordinate system of concurrent dimensions — here’s specifically what that captivity looks like.”
 - Walk through each row. Each constraint now maps to something the audience understands — they’ve just seen the five dimensions and the counterparty diversity. The constraints aren’t abstract anymore.
 - Batch-native: “When was the last time your processor pushed an authorization event in real time without middleware?”
-- Rigid hierarchies: “Can your processor enforce a budget hierarchy where a $25K card transaction checks the card limit, the program budget, and the legal entity credit facility — all at authorization?”
+- Rigid hierarchies: “We just said the corporate operates in a coordinate system of concurrent dimensions. Can your processor enforce budget, policy, and attribution across those dimensions simultaneously at authorization — or does it evaluate one path down a limit hierarchy?”
 - Limiting data structures: “Can you attach a PO number to a card at issuance and have it travel through authorization, clearing, and settlement? When a refund arrives, does it attribute back to the original booking?”
 - Closed authorization: “Can your corporate client participate in the authorization decision before the processor responds to the network? Can external data enrich the posting at clearing?”
 - Lack of token awareness: “When a virtual card is renewed, do the tokens migrate automatically? Does your FRM system see the full credential lifecycle — or just the card?”
@@ -143,7 +158,7 @@
 
 - The foundation requires a platform that is event-native, hierarchy-aware, contextually rich, on-demand, cooperatively authorized, token-aware, throughput-ready, and extensible — the inverse of every constraint we just identified
 - It must also be architected for the evolving payment landscape: credentials beyond cards, authentication beyond static mechanisms, rails and clearing beyond card networks, and digital currencies — without re-platforming for each
-- The bridge requires three things: (1) a product model that encodes corporate governance patterns, not just payment capabilities; (2) a clean separation between the bank's domain (risk, credit, compliance) and the corporate's domain (governance, attribution, reconciliation); (3) an intermediary that translates between them without blurring boundaries
+- The bridge requires three things: (1) a product model that encodes corporate governance patterns, not just payment capabilities; (2) a clean separation between the bank's domain (risk, credit, compliance, treasury income) and the corporate's domain (governance, attribution, reconciliation); (3) an intermediary that translates between them without blurring boundaries
 - That is the three-domain model — Bank, ESP, Corporate, each owning what it understands best — running on a processing platform designed from the ground up for these requirements
 - What follows: the foundation — the payment platform, its capabilities, and how it resolves the constraints we identified. Then the bridge — the three-domain architecture, Spend Archetypes that organize the counterparty diversity into actionable product patterns, a Spend Mandate framework that captures all five dimensions, and the entity architecture that connects them
 
@@ -200,8 +215,9 @@
   - Limits (per-transaction, daily, monthly, lifetime)
   - The bank evaluates these on every transaction — no exception
 
-- **Structured Decisions** — representable as rules, enforced through configuration:
+- **Structured Decisions** — resolved before or after authorization through rules and configuration:
   - Purpose: which program the card belongs to
+  - Participants: who is eligible, who is enrolled, who holds the credential
   - Attribution: booking profile rules determine GL/cost center/project assignment
   - Validity: program and card validity windows
 
@@ -211,38 +227,61 @@
 
 - The design challenge: enforce constraints automatically, enforce structured decision rules through configuration, and provide deliberation control for unstructured decisions
 
+*Speaker Notes:*
+- Name the distinction clearly: Constraints gate the transaction — they are evaluated autonomously by the system at authorization, every time, with no human in the loop. The system asks: "Is this allowed?" If not, decline. Structured decisions shape the context in which the transaction occurs — they are resolved before or after authorization through rules, configuration, and workflows. The system asks: "What does this mean and where does it go?" These are pre-configured choices (who is enrolled, which program, how to attribute) and post-transaction verifications (was attribution correct, did the booking match the profile).
+- Constraints are real-time, non-negotiable, and autonomous. Structured decisions are rule-based but not authorization-time — they operate at enrollment, configuration, posting, and reconciliation.
+- Unstructured decisions are the residual: governance questions where the rules don't cover the case, authority is ambiguous, or the situation is novel. The platform cannot decide — but it can provide deliberation control: escalation paths, approval workflows, audit trails, hold-and-review mechanisms.
+- The design challenge is that all three must coexist. A platform that only enforces constraints produces a payment channel that can say "no" but cannot explain why it exists, who should have access, or where the spend goes. A platform that only supports structured decisions cannot prevent a single unauthorized transaction in real time.
+
 ---
 
 ### Slide 12: The Three Domains
 
-**The bank organizes around risk. The corporate organizes around governance. Neither can collapse into the other. The ESP exists to translate between them.**
+**The bank organizes around risk and treasury income. The corporate organizes around governance and payment cost reduction. Neither can collapse into the other. The ESP exists to translate between them.**
 
-- Why three domains: Slide 6 established that banks optimize for credit risk, regulatory compliance, and network settlement — while corporates optimize for operational governance, financial attribution, and audit readiness. These are not overlapping concerns — they are structurally different organizing principles. Attempting to serve both from one domain model forces one side to adopt the other's vocabulary, violating its own obligations.
-- **Bank**: underwrites risk, authorizes transactions, enforces compliance, settles with networks — owns Credit Facilities and Payment Capabilities
-- **ESP (Enterprise Service Provider)**: creates products per archetype, onboards corporates, manages billing, provides the operating layer — translates bank capabilities into corporate solutions without blurring either domain
-- **Corporate**: configures programs, defines budgets and policies, enrolls members, operates day-to-day spend governance — owns the mandate and organizational context
+- **Bank**: underwrites risk, authorizes transactions, enforces compliance, settles with networks
+- **ESP**: translates bank capabilities into corporate solutions — product design, onboarding, billing, operating layer
+- **Corporate**: configures programs, defines budgets and policies, enrolls members, operates day-to-day governance
 
-- Each domain owns what it understands best; the platform enforces clean separation
-- The bank does not see departments or cost centers; the corporate does not touch underwriting; the ESP mediates without owning either worldview
+- The architecture enforces clean separation:
+  - **Own vocabulary** — each domain operates in its native semantics
+  - **Own control** — each domain governs its own decisions
+  - **Own pace** — each domain evolves independently
+  - **Own scope** — banking stays within the regulatory perimeter; corporate stays outside it
+
+- Separation does not mean isolation. The full control matrix is present at every authorization — through structured entities, anti-corruption translation, and cooperative authorization. Designing the mechanisms that achieve this under the constraints of network speed, security, and regulation is the platform's core architectural value.
+
+*Speaker Notes:*
+- Present the "four owns" as the design answer, not as an observation. The audience has seen Slide 6 (hierarchy is not the answer) and Slide 11 (governance requires constraints and decisions). This slide says: the architecture solves it through clean separation — and then immediately addresses the natural objection: "but how do they work together?"
+- Why three domains: banks optimize for credit risk, regulatory compliance, network settlement, and treasury income — while corporates optimize for operational governance, financial attribution, audit readiness, and payment cost and process efficiency. These are structurally different organizing principles. Attempting to serve both from one domain model forces one side to adopt the other's vocabulary, violating its own obligations.
+- Land the separation-is-not-isolation point. The bank's full control matrix — credit capacity, budget hierarchy, spend policy, non-overridable controls — must be present in every authorization. The architecture achieves this through three integration mechanisms:
+  - **Structured entities** flatten multi-level governance into computable authorization context: budget hierarchies with ancestor-chain enforcement, tighten-only policy cascades, booking profiles that carry attribution rules — all pre-configured so the effective control envelope is resolvable at authorization speed
+  - **Anti-corruption translation** keeps integration idiomatically native to each domain: the bank sees accounts and facilities, the corporate sees programs and budgets, and the gateway translates without either side adopting the other's model
+  - **Cooperative authorization** extends the authorization context on demand: ESP and corporate systems contribute data or decisions within network timeouts, without owning the final decision
+- Close with: "Designing the right combination of data structures, algorithms, and processes that meet technical constraints (network-speed authorization), security constraints (non-overridable controls), and regulatory constraints (AML, sanctions, compliance) simultaneously — while keeping each domain idiomatically native — is the core architectural value of the platform."
+- The bank does not see departments or cost centers; the corporate does not touch underwriting; the ESP mediates without owning either worldview. But all three are present at authorization — through the mechanisms described above.
+- Reference the detailed analysis in *Why Hierarchy Is Not the Answer* (Sections 7–8) for the full treatment of these mechanisms.
 
 ---
 
-### Slide 13: Value Added and Value Realized
+### Slide 13: The Economics of Separation
 
-**Each domain contributes distinct value — and each captures distinct value in return.**
+**The framework enables a partnership model. The bank provides BaaS. The ESP owns product design and corporate engagement. The corporate — their shared client — contributes and captures value within this model.**
 
-- **Bank** contributes: Credit Facilities, payment authorization, compliance enforcement, network settlement
-- **ESP** contributes: product design per archetype, corporate onboarding, billing, operational layer
-- **Corporate** contributes: program configuration, budget and policy definition, member enrollment, day-to-day governance
+- A bank can play the ESP role. But each spend archetype, for each segment of corporate clients, demands distinct engagement expertise — product design, onboarding, support, billing. What a bank cannot or chooses not to focus on, a partner can own. The bank provides Banking-as-a-Service; the partner operates as the ESP (Enterprise Service Provider). The corporate operates programs and drives the economics for both.
 
-| Stakeholder | Value Realized |
-|---|---|
-| **Bank** | Float income, customer retention, network incentives, network interchange, account/card fees, regulatory compliance |
-| **ESP** | Revenue share from bank (float, interchange, fees), fees and charges from corporate, portfolio scale across 40+ corporates |
-| **Corporate** | Control and governance (mandate enforcement), AP automation story, rebates, rewards, DPO extension, reconciliation labor reduction |
-| **Members** (of various types) | Cashflow benefits, negotiated MDRs (supplier), AR story (supplier), expense simplification (employee), travel convenience |
+| Stakeholder | Value Added | Value Realized |
+|---|---|---|
+| **Bank** | Credit Facilities, payment authorization, compliance enforcement, network settlement | Float income, customer retention, network incentives, network interchange, account/card fees, regulatory compliance |
+| **ESP** | Product design per archetype, corporate onboarding, billing, operational layer, Client Support & Servicing | Revenue share from bank (float, interchange, fees), fees and charges from corporate, portfolio scale across 40+ corporates |
+| **Corporate** | Payment volume, payer-side ecosystem expansion, program configuration, budget and policy definition, member enrollment, day-to-day governance | Spend governance and policy enforcement, AP process automation, rebates, rewards, DPO extension, reconciliation labor reduction |
+| **Members** | Payee-side ecosystem expansion, transaction volume, sales/invoice data | Cashflow improvement, negotiated MDRs (supplier), accelerated receivables (supplier), expense simplification (employee), travel convenience |
 
-- Value is not zero-sum — the three-domain model creates incremental value at each layer
+- The economics work because the separation works. The bank earns from infrastructure. The ESP earns from engagement depth. The corporate gains governance capabilities neither could deliver alone.
+
+*Speaker Notes:*
+- This model already exists. Brex (on Sutton Bank), Ramp (on Celtic Bank), Divvy/BILL (on Cross River Bank), Navan (travel-focused, on various issuers) — each operates as an ESP on a bank's BaaS infrastructure. The pattern is proven. The question for the bank audience is not whether the model works — it is whether they capture value as the BaaS provider or lose the corporate relationship to an ESP that builds on someone else's platform.
+- Do not put competitor names on the slide. Use them in conversation when the audience asks "is anyone doing this?" or "why can't we do this ourselves?"
 
 ---
 
@@ -311,6 +350,8 @@
   - CF utilization and budget enforcement at authorization
   - Posting data flow: L1/L2/L3 transaction data
   - Regulatory and fraud notifications: non-suppressible, bank-originated
+  - Standing repayment instructions: auto-debit from designated settlement accounts
+  - Settlement account registration and management
 
 - **Corporate Portal ↔ Corporate Systems**
   - Card issuance triggered from PO/invoice (AP systems)
@@ -324,72 +365,113 @@
 
 ---
 
-### Slide 16: Bank Domain Entities
+### Slide 16: Entity Model Across Domains
 
-**What exists in Tachyon — the bank's model of the world.**
+**The entities across all three domains and how they relate.**
 
-| Entity | Context | Description |
-|---|---|---|
-| Customer — HAH | CLM | Headless Account Holder; quasi-customer, no KYB/KYC required |
-| Customer — LAH | CLM | Legal Account Holder; legal person subject to KYB |
-| Customer — RAH | CLM | Real Account Holder; real person subject to KYC |
-| Credit Facility | Credit & Risk | Per legal entity, per currency; bank's risk exposure; one facility per LAH per currency |
-| Account Product | Product Catalog | Billing cycle, delinquency controls, base fees, single currency; organized as Product Family → Product |
-| Virtual Card Product | Product Catalog | Scheme, BIN ranges, settlement/dispute rules; organized as Product Family → Product |
-| VBO | Partner Management | Virtual Bank Officer; partner authorized to resell/distribute bank products; every ESP is a VBO of the bank |
+```mermaid
+graph LR
+    subgraph BANK["Bank Domain (Tachyon)"]
+        AH[Account Holder<br/><i>LAH · RAH · HAH</i>]
+        CF[Credit Facility]
+        LH[Limit Hierarchy]
+        AP[Account Product]
+        VCP[Virtual Card Product]
+        VBO[VBO]
+        ACCT[Account]
+        VC[Virtual Card]
+        TKN[Token]
+        BSP[Spend Program<br/><i>bank-enforced</i>]
+    end
 
-- Commonwealth's catalog: AP-US-30, AP-US-45, AP-UK-30, AP-IN-30 (Account Products); VCP-Visa-US, VCP-MC-Global, VCP-RuPay-IN (Virtual Card Products)
-- Same products serve multiple ESPs — differentiation happens at the variant layer
+    subgraph ESP["ESP Domain (Electron)"]
+        ESPE[ESP]
+        EAV[ESP Account<br/>Variant]
+        EVCV[ESP Virtual Card<br/>Variant]
+        CPP[Corporate Payment<br/>Product]
+        CC[Client Contract]
+    end
+
+    subgraph CORP["Corporate Domain (Electron Portal)"]
+        OU[Organizational Unit]
+        PRG[Corporate Payment<br/>Program]
+        BDG[Budget Hierarchy]
+        SP[Spend Program<br/><i>corporate-defined</i>]
+        BP[Booking Profile]
+        STLP[Settlement Profile]
+        SA[Settlement Account]
+        MBR[Member]
+        ENR[Enrollment]
+    end
+
+    %% Within Bank
+    AH -->|1 : N per currency| CF
+    CF -->|0..1 : N may anchor| LH
+    LH -->|self-referencing<br/>hierarchy| LH
+    BSP -.->|0..1 may refer to| LH
+    BSP -->|N : 1| ACCT
+    BSP -->|N : 1| VC
+    BSP -->|N : 1| TKN
+    VC -->|linked 1:1<br/>at creation| ACCT
+    VC -->|1 : N| TKN
+
+    %% Bank ↔ ESP
+    ESPE -.->|registered as| VBO
+    VBO -.->|accesses catalog| AP
+    VBO -.->|accesses catalog| VCP
+    AP -->|1 : N customized as| EAV
+    VCP -->|1 : N customized as| EVCV
+
+    %% Within ESP
+    EAV -->|1 : 1| CPP
+    EVCV -->|1 : 1| CPP
+    CC -->|1 : N governs| CPP
+
+    %% ESP → Corporate
+    CPP -->|1 : N instantiated as| PRG
+
+    %% Within Corporate
+    BDG -->|self-referencing<br/>hierarchy| BDG
+    OU -->|1 : N accessible to| BDG
+    OU -->|N : N organizes| PRG
+    PRG -->|1 : N from OU's budgets| BDG
+    PRG -->|1 : N program-level| SP
+    PRG -->|1 : 1| BP
+    PRG -->|1 : 1| STLP
+    STLP -->|refers to| SA
+    PRG -->|1 : N contains| ENR
+    ENR -->|N : 1 enrolls| MBR
+    ENR -->|1 : N enrollment-level| SP
+    ENR -->|1 : N provisions| VC
+    PRG -->|1 : N creates| ACCT
+
+    %% Budget detail
+    BDG -->|1 : 1 overall<br/>program spend| PRG
+    SP -.->|0..1 optional<br/>budget per policy| BDG
+
+    %% Cross-domain mappings
+    BDG -.->|optionally<br/>translated to| LH
+    SP -.->|maps to| BSP
+```
+
+- Budget Hierarchy in Corporate Domain optionally translates to Limit Hierarchy in Bank Domain; a Limit Hierarchy need not originate from a Credit Facility
+- Spend Policy cascade: program-level applies to all enrollments; enrollment-level translates to per-Virtual Card (and per-Token) Spend Policies in Bank Domain
+- Budgets are made accessible to OUs; a Program can only draw from budgets of the OU it is associated with
 
 ---
 
-### Slide 17: ESP Domain Entities
-
-**What exists in Electron — the ESP's model of the world.**
-
-| Entity | Context | Description |
-|---|---|---|
-| ESP Account Variant | Product Design | Customizes a bank Account Product with component programs: fees, interest, statement, rewards, rebates, notifications |
-| ESP Virtual Card Variant | Product Design | Customizes a bank Virtual Card Product with component programs: embossing, spend policy, auth rules, tokenization, 3DS, card fees, notifications |
-| Corporate Payment Product | Product Design | Exactly one Account Variant + one Virtual Card Variant = one CPP; tagged to one Spend Archetype; carries baseline spend policy, card profile template, product-level commercial terms |
-| Client Contract | Client Management | ESP–corporate relationship: legal provenance, archetype scope, relationship-level commercial terms, duration/renewal |
-
-- Apex's four CPPs for Meridian: Supplier Pay, Corporate Spend, Travel Pay, Subscription Manager
-- Assembly rule: 1 Account Variant + 1 Virtual Card Variant = 1 Corporate Payment Product
-- Product-level terms (e.g., 1.5% interchange rebate on supplier pay) are distinct from relationship-level terms (e.g., 50 bps on aggregate spend > $10M/quarter)
-
----
-
-### Slide 18: Corporate Domain Entities
-
-**What exists in the Corporate Portal — the corporate's model of the world.**
-
-| Entity | Context | Description |
-|---|---|---|
-| Organizational Unit (OU) | Organization Management | Hierarchical trees: Legal Entities, Business Units, Geographic Units, Functional Units, Customer Segments |
-| Corporate Payment Program | Program Administration | Operational instance of a CPP: authority, audience, governance, spend profile, booking profile, settlement profile |
-| Budget | Financial Control | Hierarchical subdivision of Credit Facility; purposeful allocation; over-allocation allowed with hierarchical enforcement |
-| Member | Member & Enrollment | Participant in a program: Employee, Supplier, Contractor, Client |
-| Enrollment | Member & Enrollment | Association of member to program + card provisioning; includes virtual card assignment and card-level overrides |
-| Settlement Account | Financial Control | External bank account for corporate settlement; one per program |
-
-- Meridian's landscape: 3 legal entities, 18,000+ members, OU trees by function/geography/legal entity
-- Programs: Meridian US Supplier Payments ($30M budget), Engineering Spend ($4M), Client Travel ($5M), SaaS Subscriptions ($5M)
-
----
-
-### Slide 19: Entity Relationships Across Domains
+### Slide 17: The Derivation Chain
 
 **How bank products become ESP variants become corporate programs — the derivation chain.**
 
-```
-Bank Product Catalog          ESP Variant Layer           Corporate Program Layer
-─────────────────────         ─────────────────           ──────────────────────
-Account Product ──────────→ ESP Account Variant ──┐
-                                                  ├──→ Corporate Payment Product ──→ Corporate Payment Program
-Virtual Card Product ─────→ ESP Virtual Card Variant ┘
-                                                            ↑
-Credit Facility ──────────────────────────────────────────────┘ (program draws from CF via Budget)
+```mermaid
+graph LR
+    AP[Account Product] -->|customized as| EAV[ESP Account Variant]
+    VCP[Virtual Card Product] -->|customized as| EVCV[ESP Virtual Card Variant]
+    EAV -->|1:1| CPP[Corporate Payment Product]
+    EVCV -->|1:1| CPP
+    CPP -->|instantiated as| PRG[Corporate Payment Program]
+    CF[Credit Facility] -.->|draws from via Budget| PRG
 ```
 
 - Bank retains: credit/AML/sanctions/compliance, delinquency, base fees, scheme obligations
@@ -398,7 +480,7 @@ Credit Facility ─────────────────────�
 
 ---
 
-### Slide 20: Hierarchies — Corporate's and ESP's View
+### Slide 18: Hierarchies — Corporate's and ESP's View
 
 **The corporate sees multiple interlocking hierarchies. The ESP correlates them.**
 
@@ -415,7 +497,7 @@ Entity system-of-residence: Credit Facility in Tachyon, Budget in Electron, OU i
 
 ---
 
-### Slide 21: Hierarchies — Bank's View
+### Slide 19: Hierarchies — Bank's View
 
 **The bank sees a simpler, risk-anchored hierarchy.**
 
@@ -437,222 +519,154 @@ This separation is by design — the bank focuses on risk and compliance; the co
 
 ---
 
-## Act 4 — How the Story Becomes Data
+## Act 4 — Program Lifecycle and Extensibility
 
-### Slide 22: Corporate Payment Program's Reflection on Bank's Entities
+### Slide 20: Large-Scale Virtual Card Program Lifecycle — Overview
 
-**Every corporate program has a precise footprint in the bank's entity model.**
+**The lifecycle spans contracting, corporate account configuration, program setup, operations, and financial management — each phase involves distinct actors and system interactions.**
 
-A single program creates or references:
-- One Credit Facility (via the legal entity)
-- One or more Budget nodes (hierarchical allocation from CF)
-- One Account (for supplier/recurring archetypes: one account per program; for employee/travel: one account per member)
-- One or more Virtual Cards (issued per enrollment, per transaction, or per merchant — archetype-dependent)
-- An effective Spend Policy (product baseline → program tightening → card-level overrides)
-- A Booking Profile (GL, cost center, project attribution rules)
-- A Settlement Profile (settlement account, auto-sweep or manual, billing timing)
+**Contracting & Onboarding** (ESP-driven)
 
-The bank sees the account, card, and CF utilization. The corporate sees the program, budget, enrollment, and attribution. Both views are consistent because they share the same underlying entities.
+1. ESP initiates a Client Contract for a Corporate
+2. ESP identifies and adds Legal Entities that will utilize corporate payment services under this contract
+3. ESP collects underwriting information required by bank's credit team
+4. Credit Facility applications submitted per LAH — each LAH may apply for multiple CFs with distinct underwriting document sets
+5. Bank completes underwriting, issues Credit Facilities against the applications
+6. Bank notifies the LAH billing contacts about the underwriting decision
+7. ESP assigns Corporate Payment Products across Spend Archetypes per Corporate's requirements in the Client Contract
+8. ESP configures relationship-level commercial terms — Rebates and Volume Commitments — against the Client Contract
+9. ESP provisions access credentials to corporate users as per the contract for the Corporate Portal
 
----
+**Corporate Account Configuration** (Corporate Admin-driven, via Electron Portal)
 
-### Slide 23: Policy Cascade — Tighten-Only, Bank-Enforced
+10. Corporate admins configure the corporate account — add users, set up OUs reflecting policy enforcement needs
+11. Member provisioning configured through system integrations — Active Directory for employees, SAP for vendors/suppliers, SCIM for identity provisioning, SFTP for bulk import from non-integrated systems, Member Management API for programmatic access
+12. Budgets created against Credit Facilities and distributed across OUs; ERP-defined budgets imported through integration — budget hierarchy can reside independent of the CF hierarchy
+13. Payable Accounts configured — multiple accounts at various banks registered for receiving invoices and making repayments; each payable account maps to a GL in ERP
+14. Ongoing maintenance of OU, Budget, Member, and Payable Account master data performed through API or SFTP integrations
 
-**Controls narrow at each level. No level can widen what the level above has set.**
+**Program Setup** (Corporate Admin-driven, via Electron Portal)
 
-```
-Level 1: Bank Base (Account Product)     — broadest: all MCCs, high limits, all currencies
-    ↓ tighten only
-Level 2: ESP Variant (Product Spend Policy)  — archetype-appropriate: AMC restrictions, category limits
-    ↓ tighten only
-Level 3: Corporate Program              — program-specific: budget, AMC subset, per-tx and velocity limits
-    ↓ tighten only
-Level 4: Card Profile                   — card-specific: single-use, exact amount, merchant-locked
-```
+15. Admin initiates a Program for a specific Spend Archetype, selecting one of the Corporate Payment Products offered by ESP for that archetype; links to Credit Facility, assigns to OU
+16. Spend Programs configured under the Corporate Payment Program — program-level Spend Programs define default controls (AMC, amount, currency, geography, velocity); enrollment-level Spend Programs allow further tightening per member or member group
+17. Booking Profile configured — GL account, cost center, project/client code, capex/opex classification; static defaults or dynamic rules based on transaction attributes
+18. Settlement Profile configured — linked to a registered Payable Account, billing entity, repayment method and timing
+19. Eligibility rules defined (member type, OU affiliation, approval requirements)
+20. Members enrolled — depending on Spend Archetype, the member may be a recognized party to the corporate (employee, supplier, contractor, client) or the corporate itself (central recurring payments); enrollment performed through API (integrated into ERP or enterprise applications) or SFTP
+21. Enrollment triggers virtual card issuance; depending on archetype, the card may be returned immediately (API response), dispatched digitally (secured email/portal), or dispatched physically; card carries tags set at enrollment (PO number, invoice number, cost center, project code)
+22. Enrollment-level Spend Programs configured where member-specific controls differ from program defaults — e.g., for supplier payments, the enrollment-time Spend Program specifies the exact amount the card can be used for
+23. Card dispatch notification includes relevant context for the member — e.g., for supplier payments: PO number, invoice number, authorized amount in the secured email to the supplier
 
-- Example: Apex product allows per-tx $1,000,000 and 500 tx/month; Meridian Supplier Program tightens to $500,000 per-tx, AMC-Logistics + AMC-Cloud only, 50 tx/month; a specific supplier card tightens further to $25,000 single-use, AMC-Logistics only
-- The bank evaluates the effective policy (the intersection of all four levels) at authorization — there is no "override" path
+**Operations** (transaction-driven, concurrent)
 
----
+24. Transactions authorized — interceptor callbacks for ESP/corporate participation
+25. Corporate Portal reflects all transactions (authorized and cleared) against virtual card and program in near-real-time
+26. Notifications delivered — authorizations, clearances, card expiry, closure
+27. Fraud notifications received (bank-originated, non-suppressible)
+28. Card lifecycle management — suspend, reactivate, close, replace, modify limits
 
-### Slide 24: Authorization Flow
+**Financial** (cycle-driven)
 
-**Every transaction follows the same path. The bank is the single enforcement point.**
-
-```
-Merchant → Payment Network → Commonwealth (Tachyon)
-                                  │
-                                  ├─ Card active?
-                                  ├─ Account active?
-                                  ├─ Credit Facility capacity?
-                                  ├─ Budget capacity? (ancestor chain)
-                                  ├─ Spend Policy? (AMC, amount, currency, geo, velocity)
-                                  ├─ Non-overridable controls? (AML, sanctions, fraud, delinquency)
-                                  │
-                                  ├─ [Optional] Callback to Apex (ESP) → authorization input
-                                  ├─ [Optional] Callback to Meridian (Corporate) → authorization input
-                                  │
-                                  ├─ Bank aggregates all inputs, makes final decision
-                                  │
-                                  └─ Response → Payment Network → Merchant
-```
-
-- Non-overridable controls cannot be relaxed by ESP or corporate: AML screening, sanctions, fraud scoring, regulatory holds, delinquency/NPA blocks, CF breaches
-- Posting after clearing: updates balance, CF utilization, budget consumption, rewards/rebates computation
+29. Bank generates program statement per billing cycle — includes rebates and rewards computation; invoices net value
+30. Statement received in corporate's Payable Account; auto-debited via ACH or intra-bank rails
+31. ESP invoices corporate for its services per Client Contract billing date — computes relationship-level rewards, rebates, and volume commitments; invoices net; ESP has access to all program postings and bank statements; ESP and bank billing cycles are structurally independent
+32. Reconciliation: cleared postings available to corporate systems in near-real-time (step 25); bank provides rich data extract with each statement; ESP provides data through a data mart; corporate uses any combination for reconciliation
+33. Disputes: corporate can raise a dispute against any posting at any time from the Corporate Portal
+34. Single-use cards deemed closed after use and grace period; card status visible in Corporate Portal
 
 ---
 
-### Slide 25: Transaction Posting — L1/L2/L3 Data
+### Slide 21: Contracting, Onboarding, and Corporate Account Configuration
 
-**Every posted transaction carries data from three sources, enabling end-to-end attribution and reconciliation.**
+**From Client Contract to a fully configured corporate account ready for program creation.**
 
-| Data Level | Source | Content |
-|---|---|---|
-| L1 (Network core) | Payment Network | Amount, currency, MCC, merchant ID, date, authorization code |
-| L2 (Tax and references) | Merchant | Tax amount, tax rate, customer reference, merchant order ID |
-| L3 (Line items) | Merchant | Item descriptions, quantities, unit prices, commodity codes |
+**Contracting & Onboarding** (ESP-driven, steps 1-9)
+- ESP initiates Client Contract → identifies Legal Entities → collects underwriting information
+- CF applications submitted per LAH (each LAH may apply for multiple CFs with distinct underwriting document sets)
+- Bank completes underwriting, issues CFs, notifies LAH billing contacts
+- ESP assigns Corporate Payment Products across Spend Archetypes per corporate's requirements
+- ESP configures relationship-level commercial terms (Rebates, Volume Commitments) against the Client Contract
+- ESP provisions corporate portal access credentials
 
-**Card tags** (set at issuance by corporate): PO number, invoice number, cost center, project code, GL account, client code — these ride alongside the transaction and enable booking/attribution
-
-- Three sources: Network provides L1; Merchant enriches with L2/L3; Payer/Cardholder contributes via card tags set at issuance
-- Archetype determines data richness: supplier transactions carry deep L2/L3 for three-way match; employee spend may have minimal L3
-- Example: LogiCorp invoice — $47,250, MCC 5085, PO-2847, INV-9921, three L3 line items with quantities, unit prices, and commodity codes
-
----
-
-### Slide 26: Comprehensive Manifestation at Every Spend/Transaction/Posting
-
-**At every transaction, every entity across all three domains is touched. The posting attributes and their association with entities across domains.**
-
-For a single authorized and cleared transaction, the following entities are associated:
-
-| Domain | Entity | What is recorded/updated |
-|---|---|---|
-| Bank | Credit Facility | Utilization updated (authorized amount held, cleared amount settled) |
-| Bank | Account | Balance updated, posting recorded |
-| Bank | Virtual Card | Transaction count, lifecycle state (closed if single-use) |
-| Bank | Spend Policy (effective) | Compliance verified at authorization |
-| ESP | Corporate Payment Product | Product-level rebate/reward computed |
-| ESP | Client Contract | Relationship-level aggregate tracked |
-| Corporate | Program | Program-level reporting, budget utilization |
-| Corporate | Budget | Hierarchy-aware consumption (all ancestors updated) |
-| Corporate | Booking Profile | GL, cost center, project, client attribution applied |
-| Corporate | Member/Enrollment | Cardholder activity recorded |
-| Corporate | Settlement Profile | Transaction included in next billing cycle |
-
-- The bank sees a transaction on an account. The corporate sees a governed spend event with full attribution. Both are the same event viewed through different lenses.
+**Corporate Account Configuration** (Corporate Admin-driven, steps 10-14)
+- Admins set up OUs reflecting policy enforcement needs, add users
+- Member provisioning through system integrations: Active Directory (employees), SAP (vendors/suppliers), SCIM (identity provisioning), SFTP (bulk import), Member Management API
+- Budgets created against Credit Facilities and distributed across OUs; ERP-defined budgets imported — budget hierarchy independent of CF hierarchy
+- Payable Accounts configured: multiple accounts at various banks for receiving invoices and making repayments; each maps to a GL in ERP
+- Ongoing maintenance of OU, Budget, Member, and Payable Account master data through API or SFTP
 
 ---
 
-## Act 5 — Program Lifecycle and Extensibility
+### Slide 22: Program Setup and Enrollment
 
-### Slide 27: Large-Scale Virtual Card Program Lifecycle — Overview
+**From program creation to first card in a member's hands.**
 
-**A program's lifecycle spans setup, operations, and financial management — each with distinct system interactions.**
+**Program Creation** (steps 15-18)
+- Admin initiates a Program for a specific Spend Archetype, selecting a Corporate Payment Product offered by ESP; links to Credit Facility, assigns to OU
+- Spend Programs configured using Purchase Categories — program-level Spend Programs define default controls; each Spend Program must reference a CF-derived Budget (bank credit risk protection) and may additionally reference Spend Program Budgets or static limits for corporate policy enforcement
+- For Spend Programs tied to ERP-imported Budgets, the Spend Program can designate that budget as the booking destination (booking-limit); highest-precedence booking-limit Spend Program determines posting attribution; non-booking Spend Programs are concurrent usage gates
+- Booking Profile configured: GL account, cost center, project/client code, capex/opex; static defaults or dynamic rules
+- Settlement Profile configured: linked to a registered Payable Account, billing entity, repayment method and timing
 
-1. Credit Facility extended by bank to legal entity
-2. Program created by corporate, linked to Corporate Payment Product and Credit Facility
-3. Budget allocated from Credit Facility
-4. Eligibility rules defined (who may be enrolled)
-5. Members enrolled, cards issued (with or without second-factor verification)
-6. Transactions authorized — interceptor callbacks for ESP/corporate participation
-7. Notifications delivered — authorizations, clearances, card expiry, closure
-8. Fraud notifications received (bank-originated, non-suppressible)
-9. Program statement generated with rebates and rewards
-10. Transactions reconciled against AP/AR/expense/booking systems
-11. Statement auto-repaid or manually settled
-12. Disputes initiated and resolved through bank dispute process
-
----
-
-### Slide 28: Setup Phase
-
-**From credit facility to first card issued.**
-
-- Bank extends Credit Facility to legal entity (KYB completed, limit set, covenants defined)
-- Corporate selects Corporate Payment Product from ESP's catalog
-- Program created: budget allocated, spend policy configured, booking profile set, settlement profile defined
-- Eligibility rules established: member type, OU affiliation, approval requirements
-- Members enrolled: eligibility verified → optional approval → optional KYC → account provisioned → card issued
-- Card issuance: with or without second-factor verification; card carries tags (PO, cost center, project code) set at issuance
-- For supplier programs: card issuance is typically API-triggered from ERP/AP system per approved invoice
+**Enrollment** (steps 19-23)
+- Eligibility rules define who may be enrolled (member type, OU affiliation, approval requirements)
+- Members enrolled via API (ERP/enterprise integration) or SFTP — member may be a recognized party (employee, supplier, contractor, client) or the corporate itself (central recurring)
+- Enrollment triggers virtual card issuance — card returned immediately (API response), dispatched digitally (secured email/portal), or dispatched physically depending on archetype and ESP card variant configuration
+- Card carries tags set at enrollment: PO number, invoice number, cost center, project code
+- Enrollment-level Spend Programs configured where member-specific controls differ from program defaults — e.g., for supplier payments, the enrollment-time Spend Program specifies the exact authorized amount
+- Card dispatch notification includes relevant context — e.g., supplier receives PO number, invoice number, authorized amount in the secured email
 
 ---
 
-### Slide 29: Operational Phase
+### Slide 23: Operations
 
-**Day-to-day transaction processing and monitoring.**
+**Day-to-day transaction processing, monitoring, and cooperative authorization.**
 
-- Interceptor callbacks: ESP and/or corporate receive authorization requests for optional participation (approve, decline, enrich posting data)
-- Authorization notifications: real-time alerts on approvals and declines
-- Clearance notifications: confirmation of settled transactions with final amounts
-- Card lifecycle events: expiry warnings, closure confirmations, renewal triggers
+**Authorization and Cooperative Authorization** (steps 24-25)
+- Transactions authorized through bank's check cascade: card active, account active, CF capacity, budget capacity (ancestor chain), Posting Category → Spend Program controls, non-overridable controls (AML, sanctions, fraud, regulatory holds)
+- Corporate can configure a cooperative authorization endpoint per payment program — bank routes callback to corporate's system during authorization
+- Supplier payment example: supplier presents card with L2 data including invoice number → corporate's endpoint verifies invoice is approved in AP system, amount matches approved value → positive response adds approval data to authorization message, posting continues through remaining checks → negative response captures reason, authorization declined
+- Bank retains final authority — even after positive cooperative authorization response, non-overridable controls still apply
+- Posting Enrichment: at clearing, corporate systems can enrich posting data with updated attribution (project codes, GL overrides, cost center reassignment) before final booking
+
+**Visibility and Monitoring** (steps 25-27)
+- Corporate Portal reflects all transactions (authorized and cleared) against virtual card and program in near-real-time
+- Notifications delivered: authorization approvals/declines, clearance confirmations, card expiry, closure
 - Fraud notifications: bank-originated, non-suppressible; corporate receives alerts for member communication
 - Budget monitoring: threshold-based alerts (e.g., 75%, 90% utilization) at budget and program level
-- Card management: suspend, reactivate, close, replace, modify limits — within program policy bounds
+
+**Card Lifecycle Management** (step 28)
+- Suspend, reactivate, close, replace, modify limits — within program policy bounds
+- Card replacement preserves enrollment, Spend Programs, and tags; new card inherits same controls
+- Single-use cards automatically closed after use and grace period
 
 ---
 
-### Slide 30: Financial Phase
+### Slide 24: Financial Phase
 
 **Billing, settlement, reconciliation, and dispute resolution.**
 
-- Program statement: generated by ESP (Electron), aggregates all accounts in the program, includes rebates and rewards computation
-- Master statement: for multi-account programs (e.g., employee spend with 200+ accounts), a single consolidated view
-- Reconciliation: transaction data matched against corporate systems — PO/invoice match (supplier), expense reports (employee), itineraries (travel), contracts (recurring)
-- Auto-repayment: settlement profile defines auto-sweep on due date from designated settlement account
-- Manual settlement: corporate may choose manual payment for disputed or exception transactions
-- Disputes: initiated through bank dispute process; credits follow original booking attribution; settlement follows program profile
-- Rebates: product-level (e.g., 1.5% on interchange) via Tachyon; relationship-level (e.g., 50 bps on aggregate > $10M/quarter) via Electron
+**Bank Billing** (steps 29-30)
+- Bank generates program statement per billing cycle (configured in Settlement Profile) — includes computation of rebates and rewards; invoices the net value
+- Statement received in corporate's registered Payable Account; auto-debited via ACH or intra-bank rails as applicable
+- For multi-account programs (e.g., employee spend with 200+ accounts), bank generates a consolidated master statement
 
----
+**ESP Billing** (step 31)
+- ESP invoices corporate for its services per Client Contract billing date — separate from bank's program billing cycle
+- ESP computes relationship-level rewards, rebates, and volume commitments; invoices the net
+- ESP has access to all program postings and bank statements sent to the corporate
+- When bank and ESP are the same entity, cycles can align — but corporates may configure different billing cycles per program, causing divergence
 
-### Slide 31: Embedding and Extension
+**Reconciliation** (step 32)
+- Cleared postings available to corporate systems in near-real-time (step 25) — corporate systems may already be updated before statement arrives
+- Bank provides a rich data extract with each statement containing all fields to support reconciliation
+- ESP provides the same data through a data mart
+- Corporate can use any combination: real-time postings, bank statement data extract, or ESP data mart
+- Reconciliation targets vary by archetype: PO/invoice match (supplier), expense reports (employee), itineraries (travel), contracts (recurring)
 
-**The platform supports deep integration with corporate systems and cooperative authorization.**
-
-**ERP Embedding through ESP APIs**
-- AP systems trigger card issuance via API for approved invoices/POs
-- Posting data pushed to GL systems for automated journal entries
-- Reconciliation data exported for three-way match in AP systems
-- Expense management systems receive transaction data for policy compliance checks
-- Travel booking systems trigger lodge card or per-booking card issuance
-
-**Cooperative Authorization**
-- Authorization Decision: ESP and/or corporate participate in real-time authorization via callbacks — can approve, decline, or add conditions (bank retains final authority and non-overridable controls)
-- Posting Enrichment: at clearing, corporate systems can enrich posting data with additional attribution (project codes, client codes, GL overrides) before final booking
-
----
-
-## Act 6 — The Opportunity
-
-### Slide 32: Meridian End-to-End
-
-**One corporate, four archetypes, three legal entities, one platform — all running simultaneously.**
-
-| Program | Archetype | Budget | Cards | Lifecycle | Reconciliation |
-|---|---|---|---|---|---|
-| US Supplier Payments | Supplier | $30M from $50M CF | Single-use per invoice | API-issued, closed after clearing | PO/invoice match, L2/L3 |
-| Engineering Spend | Employee | $4M from $50M CF | Persistent per employee | Self-enrollment, renewable | Expense reports, MCC match |
-| Client Travel | Travel | $5M from $50M CF | Per-booking or lodge | Booking-triggered | Itinerary match |
-| SaaS Subscriptions | Central Recurring | $5M from $50M CF | One per merchant | Contract-aligned lifecycle | Contract/renewal match |
-
-- UK and India legal entities run parallel programs with local currency CFs (£12M, ₹400M)
-- All four archetypes share one Credit Facility hierarchy, one OU structure, one member base, one settlement infrastructure
-- Apex manages all four Corporate Payment Products; Commonwealth authorizes all transactions through one policy cascade
-- Finance sees consolidated exposure across all programs, all legal entities, all currencies
-
----
-
-### Slide 33: Next Steps / Engagement Path
-
-**Where to go from here.**
-
-- Platform deep-dive: walk through a specific archetype end-to-end with your team's use case
-- Product catalog design workshop: map your existing card products to the Account Product / Virtual Card Product model
-- ESP partner discussion: how VBO partners would create variants and Corporate Payment Products on your platform
-- Pilot scoping: identify a corporate client and archetype for proof-of-concept
-- Technical architecture review: Tachyon + Electron integration, API capabilities, authorization flow
+**Disputes and Card Closure** (steps 33-34)
+- Corporate can raise a dispute against any posting at any time from the Corporate Portal; credits follow original booking attribution
+- Single-use cards deemed closed after use and grace period; all card statuses visible in Corporate Portal
 
 ---
 
@@ -662,6 +676,53 @@ For a single authorized and cleared transaction, the following entities are asso
 - Define Tachyon-specific terms (HAH, LAH, RAH, VBO) when they first appear — don't assume the audience knows them
 - The three-domain separation is the central architectural argument — return to it whenever the audience asks "who owns this?"
 - Avoid commercial voice — frame capabilities as architectural decisions, not product features
-- The policy cascade (tighten-only, bank-enforced) is the key technical differentiator — spend time on Slide 23
+- The policy cascade (tighten-only, bank-enforced) is a key technical differentiator
 - The bounded context slide (Slide 14) is where the audience will anchor their understanding of system scope — be prepared for deep questions here
-- The value realized slide (Slide 13) is where commercial interest peaks — have specific numbers ready for each stakeholder
+- The economics of separation slide (Slide 13) is where the architecture-to-business-model transition lands — have specific numbers ready for each stakeholder and be prepared to answer "why can't the bank do this itself?"
+
+---
+
+## Appendix — Entity Reference Tables
+
+*These tables support the ER diagram in Slide 16. Use as handout or reference material during deep dives.*
+
+### Bank Domain Entities (Tachyon)
+
+| Entity | Context | Description |
+|---|---|---|
+| Account Holder — HAH | CLM | Headless Account Holder; quasi-customer, no KYB/KYC required |
+| Account Holder — LAH | CLM | Legal Account Holder; legal person subject to KYB |
+| Account Holder — RAH | CLM | Real Account Holder; real person subject to KYC |
+| Credit Facility | Credit & Risk | Per legal entity, per currency; bank's risk exposure; one facility per LAH per currency |
+| Limit Hierarchy | Credit & Risk | Hierarchical limit structure; may be anchored to a Credit Facility but need not be |
+| Account Product | Product Catalog | Billing cycle, delinquency controls, base fees, single currency; organized as Product Family → Product |
+| Virtual Card Product | Product Catalog | Scheme, BIN ranges, settlement/dispute rules; organized as Product Family → Product |
+| VBO | Partner Management | Virtual Bank Officer; partner authorized to resell/distribute bank products; every ESP is a VBO of the bank |
+| Account | Account Management | Instantiation of an Account Product; linked to Credit Facility |
+| Virtual Card | Card Management | Linked to an Account at creation; may have multiple Tokens |
+| Token | Card Management | Tokenized representation of a Virtual Card; Spend Policies can be associated per Token |
+| Spend Policy | Authorization | Bank-enforced; associated with Account, Virtual Card, or Token; may refer to Limit Hierarchy |
+
+### ESP Domain Entities (Electron)
+
+| Entity | Context | Description |
+|---|---|---|
+| ESP | Partner Identity | The Enterprise Service Provider; registered as a VBO in the Bank Domain |
+| ESP Account Variant | Product Design | Customizes a bank Account Product with component programs: fees, interest, statement, rewards, rebates, notifications |
+| ESP Virtual Card Variant | Product Design | Customizes a bank Virtual Card Product with component programs: embossing, spend policy, auth rules, tokenization, 3DS, card fees, notifications |
+| Corporate Payment Product | Product Design | Exactly one Account Variant + one Virtual Card Variant = one CPP; tagged to one Spend Archetype; carries baseline spend policy, card profile template, product-level commercial terms |
+| Client Contract | Client Management | ESP–corporate relationship: legal provenance, archetype scope, relationship-level commercial terms, duration/renewal |
+
+### Corporate Domain Entities (Electron Portal)
+
+| Entity | Context | Description |
+|---|---|---|
+| Organizational Unit (OU) | Organization Management | Hierarchical trees: Legal Entities, Business Units, Geographic Units, Functional Units, Customer Segments |
+| Corporate Payment Program | Program Administration | Operational instance of a CPP: authority, audience, governance, spend profile, booking profile, settlement profile |
+| Budget Hierarchy | Financial Control | Hierarchical; made accessible to OUs; programs draw from OU's budgets; optionally translated to Limit Hierarchy in Bank Domain |
+| Spend Policy | Governance | Corporate-defined; program-level and enrollment-level; maps to bank-enforced Spend Policy; may have optional budget |
+| Booking Profile | Attribution | GL, cost center, project, client attribution rules |
+| Settlement Profile | Financial Control | Refers to Settlement Account; defines auto-sweep or manual settlement |
+| Settlement Account | Financial Control | External bank account for corporate settlement |
+| Member | Member & Enrollment | Participant in a program: Employee, Supplier, Contractor, Client |
+| Enrollment | Member & Enrollment | Association of member to program + card provisioning; enrollment-level Spend Policies translate to per-Virtual Card policies in Bank Domain |

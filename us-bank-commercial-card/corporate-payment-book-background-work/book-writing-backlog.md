@@ -469,6 +469,30 @@ A new section or chapter that names the architectural constraints of legacy card
 
 ---
 
+## 18. Hierarchy vs. Coordinate System — Structural Dissonance
+
+**Currently in the book:** Chapter 3 (*Two Lenses — Why the Gap Exists*) describes the bank/corporate worldview mismatch conceptually — bank optimizes for credit risk, corporate optimizes for governance. It does not name the specific structural reason the bank's control model cannot represent the corporate's: the hierarchy-vs-coordinate-system dissonance.
+
+**What needs to be added:**
+
+A section that makes three structural arguments for why the bank's hierarchy of limits cannot represent corporate governance dimensions:
+
+1. **Enterprise-specific ordering.** A hierarchy forces a fixed nesting of dimensions. Company A organizes by region → business unit → project. Company B organizes by department → client → cost center. No universal ordering exists. A platform that encodes one ordering cannot serve the others without restructuring — not reconfiguring — its hierarchy.
+
+2. **Non-static dimensions.** Enterprises restructure. A company that organized by geography last year reorganizes by product line this year. New regulatory or compliance dimensions emerge. Each change would require rebuilding the hierarchy from scratch — the ordering itself has changed.
+
+3. **Simultaneous multi-axis traversal.** Different governance questions require different primary axes. "What did Department X spend across all projects?" and "What did Project Alpha cost across all departments?" need different traversal orders. A hierarchy answers one efficiently — the one aligned with its fixed ordering. A coordinate system of independent dimensions answers all without structural bias.
+
+The conclusion: a hierarchy can enforce limits along a single path with precision. But it cannot represent a governance model where dimensions are enterprise-specific, non-static, and queried in multiple orders simultaneously — without forcing a fixed ordering that no enterprise can universally commit to. The corporate's governance requires a coordinate system of concurrent dimensions, not a deeper tree.
+
+**Existing reference:** The detailed analysis — including ERP evidence, DoA matrices, four scenario walkthroughs, middleware gap analysis, the translation problem, and cooperative authorization — is in `why-hierarchy-is-not-the-answer.md`.
+
+**Where it fits:** Chapter 3 (*Two Lenses — Why the Gap Exists*) should add a section "Hierarchy Is Not the Answer" that presents the three structural arguments. This becomes the sharpest articulation of *why* the gap exists — not just that it exists. The section should cross-reference `why-hierarchy-is-not-the-answer.md` for the full analysis.
+
+**Running example impact:** Commonwealth's product team has been adding deeper hierarchy — more granular limits, more sub-accounts, more MCC groups — each time Meridian requests more control. This section names why that instinct fails: Meridian's governance dimensions (department, project, cost center, client code, compliance category) cannot be nested in any single order. Meridian's CFO restructured from geography-based to product-line-based organization last year; the hierarchy would need to be rebuilt, not reconfigured.
+
+---
+
 ## Summary: Proposed Book Changes
 
 | # | Topic | Estimated Scope | Priority |
@@ -498,3 +522,4 @@ A new section or chapter that names the architectural constraints of legacy card
 | 15 | Five dimensions of corporate need | New framework in Ch 1 or Ch 3 | High — analytical structure for the entire book |
 | 16 | Counterparty diversity in AP landscape | Additions to Ch 1, Ch 4, archetype chapters | High — multiplier on governance complexity |
 | 17 | Legacy platform constraints catalog | New section in Ch 2 or Ch 3 | High — infrastructure reality that bounds the promise |
+| 18 | Hierarchy vs. Coordinate System — structural dissonance | New section in Ch 3 or standalone appendix; incorporate `why-hierarchy-is-not-the-answer.md` analysis | High — names the architectural gap; explains why hierarchy cannot represent corporate governance dimensions (enterprise-specific ordering, non-static, simultaneous multi-axis traversal) |
