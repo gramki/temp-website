@@ -13,9 +13,9 @@
 
 ### Slide 0: Title
 
-**Corporate Payments by Design with Tachyon and Electron**
+**Corporate Payments by Design**
 
-- The first-principles design to solve for corporate concerns
+- The first-principles design to solve for Corporate concerns
 - Speaker context: what we are about to walk through and why it matters to a bank
 
 ---
