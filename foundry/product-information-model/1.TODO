@@ -1,0 +1,307 @@
+
+# Items from VP Review:
+
+    ## High Priority:
+        ✔ Feature Flags / Feature Toggles — Resolved: Reframed. "Feature flag" is not a single modeling entity. Release toggles are part of deployment workflow (MDD scripts). Experiment toggles are part of Experiment entity. Ops toggles are operational configuration (MDD environment config). Entitlement toggles (Capability Activation Policy) are Pricing Tier (Dim 2) → Capability (Dim 8) relationships, enforced at runtime. The mechanism is not a UPIM entity — the concerns are already distributed across existing entities. @done
+        ✔ Hotfix / Emergency Fix Path — Resolved: P0 Bug implies sprint bypass; System Version gains Emergency gate profile (peer review + security scan + smoke tests non-negotiable; regression + benchmarks deferrable); deferred-gate obligation tracked via Bug's Deferred Gate Obligation field. Hotfix branch strategy deferred to Operating Model. DR-031. @done
+        ✔ Incident entity file is skeletal — Resolved: Refactored from skeletal work entity to detailed work artifact (observation record) in DR-030. Introduced Incident Response Task, Post-Incident Review, Customer Communication Task. SEV-0..4 severity model. Full fields, statuses, relationships, and examples. @done
+        ✔ Deployment Planning Task entity file is skeletal — Resolved: Elevated to detailed entity in DR-028. Now produces SDD/MDD/PDD versions. Fields, Statuses, and Relationships fully specified. @done
+        ✔ Change Request entity file missing — Resolved: Elevated from skeletal to detailed entity in DR-029. Entity file `track3-change-request.md` now has fields (Type, Scope, Justification, CAB Decision), statuses (Submitted, Approved, In Progress, Complete), and relationships (scoped to Deployment Train/Station, contains Deployment Plans, Verification Tasks). @done
+        ☐ Maintenance Task entity file missing — described in draft-work-model.md and cross-track inventory but no entity file exists. Create entity file.
+
+
+    ## Medium Priority:
+        ✔ DR-026 S16 contradicts DR-027 C2 — Annotated DR-026 S16 with blockquote noting it was refined by DR-027 C2/C3/C4. @done
+        ✔ Technical Task track ownership — Resolved: Technical Task is a per-track concept. Created `track3-technical-task.md` for Run Track. Updated `track2-technical-task.md` to remove Run Story references. Updated all referencing documents. @done
+        ☐ Rollback not modeled as structured workflow — currently a status on Deployment artifact (Active → Rolled Back). DR-029 establishes that rollback is a new Deployment Task applying a previous descriptor version, producing a new Deployment record. However, cascading rollback (Module Package Version rollback → constituent System Version rollbacks, dependency-aware rollforward) is not yet modeled. Consider structured rollback workflow as future work.
+        ✔ Post-mortem under-modeled — Resolved: Replaced by Post-Incident Report (assessment artifact) produced by Post-Incident Review (deliberation entity) in DR-030. PIR has structured fields for timeline reconstruction, root cause analysis, contributing factors, impact assessment, and corrective actions with owners. @done
+        ☐ Continuous deployment mode not well-supported — planning entities (Release Planning, Milestone Planning) assume cadenced delivery. Teams deploying 20x/day need Module Version verification and Product Version certification as continuous-integration-level activities, not milestone-gated. Acknowledge CD operating mode explicitly.
+        ✔ Environment promotion path not explicit — Resolved: DR-029 introduces Deployment Train (Dim 7) as a reusable promotion path with Stations (Dim 7) as checkpoints. Each Station targets a Deployment Environment with entry/exit criteria, approval requirements, and soak times. Change Requests scope to Trains/Stations. @done
+        ✔ Module Package Operational System Version reference — Resolved: Operational System Versions are the same System Version entity type, produced by Run Track engineering. Removed "(Track 2/3)" notation from all entity files. @done
+
+    ## Low Priority:
+        ✔ Run Track engineering velocity not monitored — Resolved: Created `track3-run-engineering-monitoring.md` as the Run Track's counterpart to Build Monitoring. Monitors operational system CI/CD health, Run Epic/Story velocity, and engineering quality. @done
+        ☐ Non-functional requirements traceability thin — performance, security, accessibility addressed via quality gates but no traceability chain from requirement origin (PSD, Operational Target in Dim 7) through verification (System Version gate, Module Version test, Product Version certification).
+        ✔ "System Monitoring" scope — Resolved: Kept the name but updated definition to acknowledge broader scope (Module Packages, Product Packages, Tenant health, cross-module wiring). Added scope note blockquote. @done
+        ☐ External dependency management — third-party libraries, external APIs, cloud service dependencies not modeled as entities. Dependency events (SDK upgrade, API deprecation) trigger significant work. Quality gate on System Version exists but dependency entity itself is absent from Dim 5.
+        ☐ Cross-Module Technical Task coordination — a Story may spawn Technical Tasks in multiple Systems owned by different teams. Coordination pattern is partly Operating Model concern but Work Model could acknowledge it.
+        ☐ Security and compliance workflow — security scanning is a quality gate, but penetration testing, threat modeling, security review of Design Deliberation outcomes, vulnerability management as ongoing work are not explicitly modeled.
+    
+
+
+# Connect Product Line Engineering and Work Model, Operating Model:
+    ## Product Line Engineering has two sub-functional subsets:
+        - Domain Engineering - Advance the Domain Capabilities
+        - Win Engineering- Advance the Win Capabilities (Win Enablement)
+
+    ## Engagement Engineering has three sub-functional subsets:
+        - Solution Engineering - Compose a solution for a customer using one or more Product Lines
+        - Studio Engineering - Build customer-specific apps, portals, back-office tools, etc. (usually customer's IP)
+        - Pre-sales Engineering - Build Proposals and Proof of Concepts for prospects and customers using one or more Product Lines
+    --------------------------------
+
+
+# Notes:
+    - Integrated, Verfied Module Versions and their Packages are deployable. Atomic Systems are not deployable. Atomic Systems are the building blocks of the Integrated, Verfied Module Versions and their Packages.
+    - The modules may go through continuous integration and deployment pipelines to produce the Integrated, Verfied Module Versions and their Packages. These pipelines are part of the Operating Model.
+
+    - Atomic System Version update -> Module Version update -> Module Package Update -> Module Deployment Definition update -> Module Deployment -> Module Deployment Verification -> Module Deployment Release 
+    - If a Module Deployment is not acceptable because Deployed products will become incompatible, the Module Deployment is not permitted.
+
+    - Run and Win Tracks also have engineering work that produces atomic systems that could enhance modle and porduct packages.
+    - SREs and Win Engineering teams should be able to contribute to Module and Product Versions and Packages as part of their work.
+    - If so, how do we determine where to place which capability under? May be, the Win Track should primarily add capabilities to the Product Packages?
+    - Customer Products have specific Modules and Products as well. Therefore, they will have Module Versions, Product Versions, Module Packages, and Product Packages as well.
+
+    - Data Migration and Schema Changes. In enterprise systems, database schema changes and data migrations are a significant category of engineering work that often requires coordination across Systems and careful rollout planning (rollback of schema changes is harder than code rollback). The model doesn't explicitly address this — it would likely be a Story or Technical Task, but the unique rollout/rollback characteristics of schema changes might warrant acknowledgment.
+
+# Validation Criteria for all Artifacts in the Definition Model
+
+
+# Modeling Task:
+    - Template for modeling task
+    - Entities across the Definition Model
+    - Status of the entities
+
+# Dimension 3: Business Value Dimension (Customer ROI):
+✔ Value Streams? @done(26-02-16 03:50)
+    ✔ if yes, how are these organized? @done(26-02-16 03:50)
+    ✔ Pain and Gain Statements? @done(26-02-16 03:50)
+    ✔ Needs and Commitments Statements? @done(26-02-16 03:50)
+✔ Value Propositions (or KRA, KPIs): @done(26-02-16 03:50)
+    ✔ Iteration Speed @done(26-02-16 03:50)
+    ✔ Time to Market @done(26-02-16 03:50)
+    ✔ Cost of new feature development @done(26-02-16 03:50)
+    ✔ Developer Experience @done(26-02-16 03:50)
+    ✔ Customer Experience @done(26-02-16 03:50)
+    ✔ Operational Efficiency @done(26-02-16 03:50)
+✔ Serivice Commitment: @done(26-02-16 03:50)
+    ✔ Data Quality @done(26-02-16 03:50)
+    ✔ Data Governance @done(26-02-16 03:50)
+    ✔ Reliability @done(26-02-16 03:50)
+    ✔ Availability @done(26-02-16 03:50)
+    ✔ Scalability @done(26-02-16 03:50)
+    ✔ Performance @done(26-02-16 03:50)
+    ✔ Cost of Ownership @done(26-02-16 03:50)
+✔ Compliance Posture: @done(26-02-16 03:50)
+    ✔ Security @done(26-02-16 03:50)
+    ✔ Privacy @done(26-02-16 03:50)
+    ✔ Regulatory Compliance @done(26-02-16 03:50)
+✔ @done(26-02-16 03:50)
+✔ Effectiveness and Efficiency of the Product? @done(26-02-16 03:50)
+
+# User Centric Dimension:
+    ✔ Disocvery, Deliberatin, PDRs @done(26-02-18 10:18)
+    ✔ User Personas, JTBD, User Journeys, User Touchpoints @done(26-02-18 10:18)
+    ✔ Channels, Modules, Capabilities, Features @done(26-02-18 10:18)
+    ✔ Embeddable Components, Widgets, and Plugins @done(26-02-18 10:18)
+    ✔ Enumeration of Channel Types (By Technology: Web, Mobile, Chat, Voice, Email, etc.) @done(26-02-18 10:18)
+    ✔ Enumeration of Channel Types (By Service Model: Self-serve, Assisted, and Managed Services) @done(26-02-18 10:18)
+
+# Technical and Architectural Dimension:
+    ☐ Subsystems, Components, Functions
+    ☐ Integration Patterns
+    ☐ Operations and Automation Patterns
+    ☐ Operations Experience
+    ☐ System Operations Experience
+    ☐ Goverened by Standards, Patterns, and Templates
+    ☐ Defined by Domain and Technical Architects
+
+# Win Track:
+    ✔ Works on Customer Releases @done(26-02-18 10:19)
+    ✔ Receives Queries, Requests, Feedback, and other signals from the Customers, Win Stakeholders, and other stakeholders @done(26-02-18 10:19)
+    ✔ Onboards, Activates, and Retains Customers @done(26-02-18 10:20)
+    ✔ Reviews the Win Outcomes evolution and provides necessary feedback @done(26-02-18 10:19)
+    ☐ Works on recruiting customers for Beta Testing (customer onboarding)
+    ☐ Review and approve product capability maturity level (alpha, beta, gamma, etc.)
+    ☐ Works on Go, Kill, and Pivot decisions for Capabilities
+    ☐ Maintains a Rollout Acceptance Criteria for each kind of Capability (API, Report, Dashboard, etc.) covering Kill Switches, Feature Flags, and Canary Rollout Controls applicable at Deployment level and a tenant level
+    ☐ Maintains a Observability Acceptance Criteria for each kind of Value Stream and Capability covering Adoption, Usage, and Customer Promise Fulfillment Metrics
+
+
+# Run Track:
+    - Works on Deployable Artifacts (Modules, Products, etc.)
+    - Decides what changes to deploy and when to deploy them to meet a Customer Release plan; Abides by the change freeze windows and compliance windows
+    - Creates and Manages the Deployment Environments (Region-based, Tenant-based, etc.) - Cloud Ops
+    - Creates and Manages Change Freeze Windows and Compliance Windows
+    - Works on Deployment and Rollback Strategies for each Artifact version Release (Blue-Green, Canary, Rolling, etc.)
+    - Manages the Change Requests and Deployment Requests lifecycle
+    - Manages the Incidents lifecycle
+    - Manages the Maintenance Tasks (Schelps) lifecycle
+    - Maintains an Acceptance Criteria for each kind of Artifact, Interaction, and Resource covering 
+        - Observability Metrics (SLIs, SLAs, SLOs; Logs, Metrics, Traces, etc.)
+        - Security and Compliance Requirements - Keys,
+        - Performance and Scalability Requirements (RED Metrics, USE Metrics, etc.)
+        - Operability Requirements - Levers, Alerts, Runbooks,
+        - Admin and Maintenance Tasks - Access Controls, Resource Provisioning, Key Provisioning and Rotation, Flow Control, Scaling, etc.,  
+    - Gives feedback in the form of Problems, Needs, and Opportunities to the Discovery Track
+    - Gives FinOps feedback and the Customer Promise Metrics corresponding Reliability, Compliance, and Security to Win Teams
+    - Maintains and takes responsibility for the Change, Incident SLAs
+
+# Build Track:
+The Build Tracks has two sub-tracks:
+- Product Line Engineering 
+    - Domain Modeling
+    - Domain Entities, Workflows, Events, and Actions
+    - Variability Management
+    - Extensibility, Scalability, and Modularity
+    - Data Models and Data Governance
+    - Integration Patterns
+    - Domain Operations Experience
+    - System Operations Experience
+    - (Product/Solution) Developer Experience aka Product Development Enablement
+    - (Product/Solution) Customer Success Experience
+    - Goverened by Standards, Patterns, and Templates
+    - Defined by Domain and Technical Architects
+- Product Engineering (aka Win Engineering)
+    - Adoption (Implementing a Product or Solution for a Customer using one or more Product Lines)
+    - AAARRR Enablement
+
+    ---
+You're right — we need both the output classification (what discovery produces) AND the work classification (how that output is created). And we need to understand which entities in each dimension a PM/PO owns before we can define the work to evolve them.
+
+Let me map this out systematically.
+
+## Dimension-by-Dimension: What Does a PM/PO Own and Evolve?
+
+### Tier 1: Strategy & Intent — PM fully owns
+
+**Dimension 1 (Strategy)** — Already covered. PM owns all entities: Objectives, Initiatives, Customer Releases, Signals, Ideas, PDRs, PSDs.
+
+### Tier 2: Business & Market — PM primarily owns
+
+**Dimension 2 (Business Value — Vendor Economics)**
+
+| Entity | PM Owns? | Evolves Through Discovery? | Example |
+|---|---|---|---|
+| Business Model | Yes | Yes — market analysis, competitive research | "Explore consumption-based pricing for LATAM alongside flat-fee" |
+| Pricing Tier / Package | Yes | Yes — pricing experiments, competitive benchmarking | "Design a volume discount tier for LATAM high-volume clients" |
+| Value Metric | Yes | Yes — customer willingness-to-pay studies | "Test per-transaction vs. flat monthly fee for LATAM" |
+| Business KPI | Yes | Yes — financial modeling, OKR setting | "Define LATAM-specific TPV and margin targets" |
+
+**Dimension 3 (Business Value — Customer ROI)**
+
+| Entity | PM Owns? | Evolves Through Discovery? | Example |
+|---|---|---|---|
+| Economic Buyer Persona | Yes | Yes — buyer research, sales cycle analysis | "Identify LATAM economic buyer: CFO vs. VP Finance vs. Treasury" |
+| Business Outcome | Yes | Yes — customer interviews, case studies | "Define LATAM-specific outcomes: reduce wire fees, eliminate manual FX hedging" |
+| ROI Metric | Yes | Yes — ROI modeling, customer benchmarking | "Calculate projected savings for LATAM payout consolidation" |
+
+### Tier 3: Technical Execution — PM partially owns (varies by entity)
+
+**Dimension 4 (User-Centric — Experience)**
+
+| Entity | PM Owns? | Evolves Through Discovery? | Example |
+|---|---|---|---|
+| User Persona | PM + UX | Yes — user interviews, persona workshops | "Define 'LATAM AP Clerk' persona — Spanish language, multi-currency workflows" |
+| User Journey | PM + UX | Yes — journey mapping, usability testing | "Map LATAM cross-border payment journey — OFAC screening adds a step" |
+| Touchpoint / UI Element | UX + Engineering | Partially — UX discovery, then PSD for implementation | "Prototype currency selector for LATAM — PSD for build" |
+
+**Dimension 5 (Technical & Architectural)**
+
+| Entity | PM Owns? | Evolves Through Discovery? | Example |
+|---|---|---|---|
+| Subsystem / Service | Architect / Tech Lead | Indirectly — PM triggers spikes, architects decide | "Spike: should LATAM FX be a new service or extension of existing?" |
+| Class / Component | Engineering | No — Build Track concern | — |
+| Function / Method | Engineering | No — Build Track concern | — |
+
+**Dimension 6 (Ecosystem & Extensibility)**
+
+| Entity | PM Owns? | Evolves Through Discovery? | Example |
+|---|---|---|---|
+| Interface Type | PM + Tech Lead | Yes — integration strategy | "LATAM requires SFTP batch in addition to REST API" |
+| Endpoint / Event Topic | Tech Lead | Indirectly — PM specifies need, tech designs | "Webhook for LATAM regulatory events" |
+| Payload Schema | Engineering | No — PSD + Build Track | — |
+
+**Dimension 7 (Operational)**
+
+| Entity | PM Owns? | Evolves Through Discovery? | Example |
+|---|---|---|---|
+| Environment | SRE / DevOps | Indirectly — PM drives requirements (e.g., data residency) | "LATAM requires in-region deployment (data residency law)" |
+| Cluster / Host | SRE / DevOps | No — Run Track concern | — |
+| Container / Process | SRE / DevOps | No — Run Track concern | — |
+
+### Tier 4: Bridge — PM + Architect co-own
+
+**Dimension 8 (Structural — Topology)**
+
+| Entity | PM Owns? | Evolves Through Discovery? | Example |
+|---|---|---|---|
+| Product | PM | Rarely — major strategic decision | "Launch LATAM as an add-on product vs. core product extension" |
+| Module / Domain | PM + Architect | Yes — domain analysis, boundary decisions | "Is LATAM Compliance a new module or part of existing Compliance?" |
+| Capability | PM | Yes — capability mapping | "Add 'Multi-Currency Batch Payouts' as a new capability" |
+| Feature | PM | Yes — feature definition | "Define 'LATAM Currency Selector' feature under FX capability" |
+
+**Dimension 9 (Data & Information)**
+
+| Entity | PM Owns? | Evolves Through Discovery? | Example |
+|---|---|---|---|
+| Data Domain | PM + Data Architect | Yes — domain modeling | "Add 'Regulatory Filings' data domain for LATAM" |
+| Data Entity | Data Architect | Indirectly — PM specifies need, architect models | "New entity: LATAM_Tax_Withholding_Record" |
+| Attribute / Field | Engineering | No — PSD + Build Track | — |
+| State | PM + Engineering | Partially — PM defines business states | "LATAM payments need 'Pending_Regulatory_Review' state" |
+
+## The Pattern That Emerges
+
+There are three levels of PM ownership across dimensions:
+
+| Level | Dimensions | PM Role | Discovery Output |
+|---|---|---|---|
+| **PM fully owns** | Dim 1, 2, 3 | PM creates and maintains entities directly | PDR + Definition Model update |
+| **PM co-owns** | Dim 4, 8, 9 (partially) | PM collaborates with UX/Architect/Data | PDR + Definition Model update or PSD |
+| **PM informs** | Dim 5, 6, 7 | PM specifies need, tech teams design/implement | PDR → PSD → Build Track |
+
+## Proposed Output and Work Model
+
+### Outputs (what discovery produces)
+
+Discovery Track should produce **three types of outputs**, not just one:
+
+| Output Type | What it captures | Destination | Example |
+|---|---|---|---|
+| **PDR** | Any significant decision affecting any dimension | Definition Model (Dim 1) — but references any dimension | "PDR-023: Go — Target LATAM CFOs as primary buyer" |
+| **PSD** | Engineering specification for a module change | Definition Model (Dim 1) → Build Track | "PSD-042: Real-Time FX Rate Lock" |
+| **Definition Update** | Non-engineering evolution of any Definition Model entity | Definition Model (Dims 2-9) | "Add User Persona: LATAM AP Clerk" to Dim 4 |
+
+The PDR's relationship should be broadened: currently `PDR justifies PSD(s)`. It should also `PDR justifies Definition Update(s)`. A single PDR might trigger both — "Go on LATAM" could justify PSDs (engineering changes) AND Definition Updates (new personas, new pricing tiers, new capabilities).
+
+### Work (how that output is created)
+
+Expanding the Discovery Track with a new work entity:
+
+| Work Entity | Produces | Target | Already Exists? |
+|---|---|---|---|
+| Research Task | Evidence, insights | Any dimension | Yes |
+| Experiment | Validated/invalidated hypothesis | Any dimension | Yes |
+| Prototype / Spike | Feasibility evidence | Any dimension | Yes |
+| Specification Task | PSD | Dim 1 → Build Track | Yes |
+| **Definition Task** | Definition Model updates | Dims 2-9 | **New** |
+
+**Definition Task** is the work of evolving Definition Model entities beyond Dimension 1 — defining personas, mapping journeys, designing pricing structures, modeling data domains, mapping capabilities and features. It's the PM's "product knowledge work" that keeps the product's self-description current.
+
+A Definition Task:
+- Is triggered by a PDR (a decision has been made that affects a dimension) or by ongoing product knowledge maintenance
+- Targets one or more dimensions
+- Produces updates to specific Definition Model entities
+- Can be scoped broadly ("Map all LATAM user personas") or narrowly ("Add 'Pending_Regulatory_Review' state to Payment entity")
+
+### Revised Discovery Track Output Flow
+
+```
+Discovery Work (Research Tasks, Experiments, Prototypes/Spikes)
+       │
+       ▼
+    PDR (decision affecting any dimension)
+       │
+       ├── justifies → PSD(s)           [engineering changes, via Specification Task]
+       │                                   → Build Track
+       │
+       └── justifies → Definition Update(s)  [knowledge/model changes, via Definition Task]
+                                               → Definition Model (Dims 2-9)
+```
+
+Does this framing capture what you're after — the dual output (PSD + Definition Update), the broadened PDR, and the new Definition Task as the work entity? Or should we zoom further into specific dimensions to refine which entities truly need this treatment?
+
+
+
+====
