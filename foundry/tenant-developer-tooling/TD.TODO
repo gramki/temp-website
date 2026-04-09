@@ -1,0 +1,8 @@
+Product IDE:
+    - Olympus Workspace for each Foundry Workshop (multiple workspaces per workshop)
+    - Olympus Rocket (IDE) for each Foundry Workshop
+    - Workshop -> Workspace -> Rocket (IDE)
+    - Editing content across all the foundry repositories
+    - Foundry Workshops for Tenants
+    - Workshop is a Olympus Hub Workbench as well
+    - Workshop has Rocke profile that determines the default IDE Plugins, Views, and Settings

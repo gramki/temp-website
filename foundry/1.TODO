@@ -1,0 +1,67 @@
+- Repositories are PIM reference model construct
+- The Operating Model should define the concrete store for them
+- The Foundry Development should define the work required to translate the operating model into a System
+- Workshop represents the Product
+- Engagement may have one or more Workshops
+- A Product may be evolved through multiple Workshops, as these workshops may belong to different Engagements
+- Product always has a Home Workshop
+- Contributing Workshops of a Product (Workshops other than the Home Workshop) alwywas reference the non-work repos from the Home Workshop; Define which repos are housed in Home and which are specific to Contributing Workshops
+- Some repositories are Foundry scoped as opposed to Workshop scoped - Examples: Workforce Repo
+- Foundry is a collection of Workshops
+- Engagement owns specific Product Intent items. Engagement is the umberella unit of evolution of one or more products. Refer to Engagment definition from Org 8.0
+- Engagement is program managed. Engagement should consolidated Velocity, Predictability, Quality, Cost, and Risk aspects of the Project
+- Workshops do not represent the Run operations of the Product. However, the Signals of a Product are cosolidated into the Home Workshop
+- Every Product deployment is Managed through an Estate. A Product may have deployment across multiple Estates.  Estate contains the SRE Workforce.
+- Win Workforce of a Product is associated with the Foundry where the Home Workshop of the Product 
+- Win Workforce directs the run-related work to appropriate Estate based on which Estate owns the relevant deployment
+- Home Workshop of a Product has a reference to the relevant Estates and Product Deployments within them. 
+- The Operational Repos are specific to Estates and the Win Track work items should reflect the work required to bring the relevant metrics, indicators, feedback from the Estate into the PIR, PFR, and other repos. Although, this is expected to be fairly automated, verification, governance is responsbility residing in the Win Track
+- Operational Metrics, Indicators are also relevant for Engagement. The Win Track ensures that relevant metrics are also pushed to the appropriate Engagement repositories. This requires Engagement to reference the relevant Estates and the Product Deployments within them
+- Engagement-specific repositories should be modeled. Call out referenced data and owned data for an Engagement and correspondingly define the repositories.
+- There can be many Foundries. Each Foundry is typically owned by an Organization. 
+- Putting together:
+    - a Foundry has multiple Workshops each acting as a Home of a Product or a Contributor to a Product
+    - Foundry represents one or more Engagements
+    - Product evolution, objectives, maturity, and success is tracked at the Home Workshop
+    - Engagement progress and quality is tracked through the Engagement entity
+    - Workforce in a Foundry is associated with the Engagements in the Foundry for a period of time
+    - Productivity of the Workforce is measured through Engagement, Work done is seen through Workshops and Estate 
+- Foundry Setup, Workshop Setup, Engagement Setup, and Estate Setup are important business-informed decisions in Olympus World
+- Foundries and Estates exist in Olympus World. The detailed ontology of Olympus World is outside the scope of this document. Foundries and Estates are associated with Landlords in Olympus World. A Foundry of one Landlord can publish Products to a Olympus Store and Esates of other Landlords can deploy those products. Products could be published to the Olympus Store without using a Foundry 
+
+- Segregate information between Reference Model and Operating Model. 
+- Olympus is an Operating model construct that provides specific implementations of the reference (definition, work) model entities. 
+- World, Landlord, Foundry, Estate are Olympus-specific terms. However, I they are required to bring together the work model entities like Foundry, Workshop, Estate and Product Deployment into an Operating Model. We need to call out relevant entities as Operating-Model to Work-Model bridging entities. We don't want to use different names across these layers so as to avoid an unnecessary indirection and vocabulary bloat. But the necessary caveats need to be added for users to understand this distinction and choice.
+- Foundry Engineering should be discussed in detail in the scope of Foundry
+- Relevant aspect of Estate engineering will be documented as expectations from Estate engineering
+
+----
+
+## Agent Centric Engineering (ACE) Model:
+    - Agents in the Workforce
+    - Human and AI Agent Collaboration Surface and Tools
+    - Workshop as a Hub of Collaboration
+    - Various Machines providing Tools for Accessing Stores and Completing Work Items
+    - Scenarios representing Work Items and the corresponding Automation applications
+    - 
+
+----
+## Structure of Foundry Documentation:
+    - UPIM
+    - Olympus-World-Operating-Model
+    - Agent-Centric-Engineering-Model
+    - Foundry-Engineering:
+        - Workshop Engineering
+            - CI
+            - IDEs
+            - World and Estate Integration
+        - Engagement Engineeering
+        - ACE Engineering
+        - Application Frameworks and Libraries (Rapido)
+        - Quality Verification Frameworks and Runtimes (Shield)
+    - Estate-Engineering
+        - Expectations from Estate
+    
+
+
+
