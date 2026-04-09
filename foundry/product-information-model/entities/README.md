@@ -1,0 +1,243 @@
+# UPIM Entity Catalog
+
+This folder contains **one file per entity** defined in the Unified Product Information Model (UPIM). Each file is the canonical, detailed description of that entity — its definition, purpose, fields, statuses, and relationships.
+
+---
+
+## Directory Structure
+
+```
+entities/
+├── README.md                  ← This file
+├── definition-model/          ← Entities from the 9 Dimensions (what the product IS)
+│   ├── dim1-portfolio.md             ← Thin reference entity (not owned by UPIM)
+│   ├── dim1-strategic-theme.md        ← Portfolio or Product scope; persistent cross-horizon direction
+│   ├── dim1-objective.md              ← Now references Theme + External Constraints
+│   ├── dim1-initiative.md             ← Now has Lever Mix, Embedded Targets, and cross-track Win Track relationships
+│   ├── dim1-customer-release.md
+│   ├── dim1-problem.md
+│   ├── dim1-need.md
+│   ├── dim1-opportunity.md
+│   ├── dim1-idea.md
+│   ├── dim1-pdr.md
+│   ├── dim1-psd.md
+│   ├── dim2-business-model.md
+│   ├── dim2-win-stakeholder.md          ← AAARRR roles; engaged with segments
+│   ├── dim2-win-outcome.md              ← Per AAARRR stage, per segment success definition
+│   ├── dim2-delivery-friction.md        ← Endured by Win Stakeholder; vendor-side pain
+│   ├── dim2-pricing-tier.md             ← Targets segments; contains features; priced along value metrics
+│   ├── dim2-value-metric.md             ← Pricing axis; revenue scaling mechanism
+│   ├── dim2-business-kpi.md             ← AAARRR-staged; Revenue/Cost/Activity types
+│   ├── dim2-win-barrier.md              ← 8 types; aggrieved party is Win Stakeholder or vendor
+│   ├── dim3-customer-segment.md
+│   ├── dim3-buying-persona.md         ← Roles: Economic, Technical, User, Coach/Champion
+│   ├── dim3-business-outcome.md
+│   ├── dim3-pain.md                   ← Endured by User Persona (Dim 4), cared about by Buying Persona
+│   ├── dim3-customer-promise.md       ← Subtypes: Value Proposition, Service Commitment, Compliance Posture
+│   ├── dim3-customer-value-metric.md  ← Subtypes: ROI, Service Level, Compliance
+│   ├── dim3-adoption-barrier.md       ← 8 types; may challenge Customer Promises
+│   ├── dim4-user-persona.md           ← Role archetype; has Jobs, endures Pains
+│   ├── dim4-job.md                    ← JTBD — bridges Dim 4 (intent) → Dim 8 (structure) → Dim 3 (justification)
+│   ├── dim4-ux-channel.md             ← Typed by (Interaction Modality, Engagement Mode); implemented by HI Module
+│   ├── dim4-user-journey.md           ← Path to accomplish Job through Channel; cross-channel references
+│   ├── dim4-touchpoint.md             ← DEPRECATED — Touchpoints are Build Track work artifacts, not Def Model entities
+│   ├── dim6-developer-persona.md       ← Human building integrations; distinct from Dim 4 User Persona
+│   ├── dim6-programmatic-user-persona.md ← Application/system consuming API at runtime (non-human)
+│   ├── dim6-api-module.md             ← Protocol-agnostic programmatic surface; structurally a Dim 8 Module
+│   ├── dim6-integration-module.md     ← Pre-built bridge/connector to specific external systems
+│   ├── dim6-extension-module.md       ← Plugin/hook/workflow extension framework
+│   ├── dim6-sdk-library-module.md     ← Language-specific client (Client-Distributed topology)
+│   ├── dim6-api-operation.md          ← Named contractual operation (Command/Query/Event/Callback/Batch) with SLOs
+│   ├── dim5-subsystem.md                 ← DEPRECATED — subsumed by dim5-system.md (DR-024)
+│   ├── dim5-class-component.md           ← DEPRECATED — below waterline; PSD/Build Track artifact (DR-024)
+│   ├── dim5-function-method.md           ← DEPRECATED — below waterline; PSD/Build Track artifact (DR-024)
+│   ├── dim5-architecture-model.md        ← Root entity: architectural style, principles, technology strategy
+│   ├── dim5-system.md                    ← Deployable technical unit; many-to-many with Module (Dim 8)
+│   ├── dim5-component.md                 ← Architectural building block within a System
+│   ├── dim5-dependency.md                ← External system/service/resource the product depends on
+│   ├── dim5-interaction-flow.md       ← Technical realization of Value Streams; inter-system communication
+│   ├── dim5-adr.md                       ← Architecture Decision Record; technical counterpart of PDR
+│   ├── dim5-technical-knowledge-base.md  ← Per-System documentation coverage and currency assessment
+│   ├── dim6-api-compatibility-contract.md ← Module-level versioning and stability commitment
+│   ├── dim7-environment.md              ← DEPRECATED — superseded by dim7-deployment-environment.md (DR-023)
+│   ├── dim7-cluster-host.md             ← DEPRECATED — below waterline; PSD/Run Track artifact (DR-023)
+│   ├── dim7-container-process.md        ← DEPRECATED — below waterline; PSD/Run Track artifact (DR-023)
+│   ├── dim7-infrastructure-model.md     ← Root entity: hosting strategy, tenancy architecture, cost model
+│   ├── dim7-operational-persona.md      ← Functional archetype who operates the product (quality-taxonomy typed)
+│   ├── dim7-operational-job.md          ← Operational JTBD — bridges Dim 7 (intent) → Dim 8 (structure)
+│   ├── dim7-operational-journey.md      ← End-to-end path through operational modules for a job
+│   ├── dim7-deployment-environment.md   ← Named, typed infrastructure target with vendor purpose
+│   ├── dim7-operational-target.md       ← Infrastructure-level SLO with achievement levers
+│   ├── dim7-operational-constraint.md   ← Non-negotiable infrastructure requirement (regulation, compliance)
+│   ├── dim7-operational-pain.md         ← Concrete operational suffering endured by Operational Personas
+│   ├── dim7-operational-readiness.md    ← Per-System × per-environment operational acceptance assessment
+│   ├── dim7-odr.md                     ← Operations Decision Record; operational counterpart of PDR/ADR (DR-025)
+│   ├── dim7-module-package.md        ← Composition spec: which operational systems and wiring enrich a Module (Dim 8)
+│   ├── dim7-product-package.md       ← Composition spec: which Module Packages and cross-module wiring compose a product
+│   ├── dim7-deployment-train.md      ← Reusable promotion path with contractual and governance significance
+│   ├── dim7-station.md               ← Checkpoint within a Deployment Train targeting a Deployment Environment
+│   ├── ...
+│   ├── dim8-value-stream.md           ← Horizontal composition across modules
+│   ├── ...
+│   └── psd-templates/
+│       ├── README.md
+│       ├── psd-human-interactive.md
+│       ├── psd-programmatic-interactive.md
+│       └── psd-reactive-background.md
+└── work-model/                ← Entities from the 5 Tracks (how the product MOVES)
+    ├── track1-objective-setting-task.md
+    ├── track1-initiative-scoping-task.md
+    ├── track1-prioritization-task.md
+    ├── track1-signal-exploration-task.md ← Divergent: Signal → Idea(s)
+    ├── track1-deliberation.md          ← Collaborative group judgment (Ideas or PDRs)
+    ├── track1-research-task.md         ← Convergent: targeted evidence gathering
+    ├── track1-experiment.md
+    ├── track1-prototype-spike.md
+    ├── track1-specification-task.md
+    ├── track1-modeling-task.md         ← Produces Definition Model updates (Dims 2–9)
+    ├── track1-signal-monitoring.md      ← Continuous signal pipeline and discovery velocity monitoring
+    ├── track2-release-planning-task.md  ← Identifies Epics and Integration Epics from PSDs
+    ├── track2-milestone-planning-task.md ← Cross-Epic dependency gating, integration verification gates
+    ├── track2-iteration-planning-task.md ← Assigns Stories, Integration Stories, Technical Tasks to sprints
+    ├── track2-epic.md                   ← Module-scoped (Dim 8), decomposed from PSD
+    ├── track2-story.md                  ← Module-scoped (Dim 8), unit of work within an Epic (renamed from User Story)
+    ├── track2-technical-task.md          ← System/Component-scoped (Dim 5), implements Stories and Integration Stories
+    ├── track2-bug.md                    ← Provenance: Build / Run / Win
+    ├── track2-integration-epic.md       ← Cross-System integration work, references PSD-derived Epics
+    ├── track2-integration-story.md      ← Unit of integration work, produces contracts and test suites
+    ├── track2-design-deliberation.md    ← Build Track's ADR production mechanism
+    ├── track2-system-version.md         ← Build Track artifact: atomic deployment unit (renamed from Module Version)
+    ├── track2-module-version.md         ← Build Track artifact: integration-verified composition of System Versions
+    ├── track2-product-version.md        ← Build Track artifact: certified composition of Module Versions
+    ├── track2-technical-debt-item.md    ← Build Track artifact: documented technical debt
+    ├── track2-build-monitoring.md       ← Continuous build health and quality monitoring
+    ├── track3-deployment-planning-task.md
+    ├── track3-capacity-planning-task.md
+    ├── track3-deployment-plan.md          ← Deliberation activity: scopes rollout, produces planning tasks, drills, verification tasks
+    ├── track3-run-epic.md                ← Module-scoped operational engineering work (Run Track as engineering track)
+    ├── track3-run-story.md               ← Unit of operational engineering work within a Run Epic
+    ├── track3-technical-task.md          ← System/Component-scoped (Dim 5), implements Run Stories (per-track Technical Task)
+    ├── track3-deployment.md              ← Run Track artifact: durable record that a descriptor was applied to an environment (DR-029)
+    ├── track3-deployment-task.md          ← Work entity: applies a deployment descriptor to an environment, produces Deployment record
+    ├── track3-verification-task.md        ← Post-deployment verification work (standalone, required for Change Request closure)
+    ├── track3-deployment-drill-task.md    ← Optional rehearsal of a Deployment Plan in non-production environment
+    ├── track3-incident.md                 ← Work artifact (observation record): unplanned service degradation; SEV-0..4; correlation, SLA breach, response/resolution times (DR-030)
+    ├── track3-incident-response-task.md   ← Work entity: triage, investigate, resolve an Incident; DoD is service restored to SLO-compliant state (DR-030)
+    ├── track3-post-incident-review.md     ← Deliberation entity: structured post-incident learning; mandatory for SEV-0/1/2; produces Post-Incident Report (DR-030)
+    ├── track3-customer-communication-task.md ← Work entity: incident communication to affected parties; Run Track owns, Win Track consumes (DR-030)
+    ├── track3-change-request.md          ← Change management envelope for deployment-related changes, scoped to Train/Station (DR-029)
+    ├── track3-maintenance-task.md
+    ├── track3-module-package-version.md   ← Run Track artifact: environment-independent integrated deployable — instantiates Module Package spec (Dim 7)
+    ├── track3-product-package-version.md  ← Run Track artifact: environment-independent complete deployable — instantiates Product Package spec (Dim 7)
+    ├── track3-sdd.md                      ← Deployment descriptor: environment-specific System Version deployment specification
+    ├── track3-mdd.md                      ← Deployment descriptor: environment-specific Module Package deployment specification (composes SDDs)
+    ├── track3-pdd.md                      ← Deployment descriptor: environment-specific Product Package deployment specification (composes MDDs)
+    ├── track3-tenant.md                   ← Logical isolation unit within a Deployment Environment; customer's operational slice
+    ├── track3-system-monitoring.md       ← Continuous operational health monitoring across all composition levels
+    ├── track3-run-engineering-monitoring.md ← Continuous Run Track engineering health monitoring (counterpart to Build Monitoring)
+    ├── track4-win-planning.md            ← Parent: 5 lever-specific planning subtypes
+    ├── track4-gtm-planning-task.md       ← Subtype of Win Planning (GTM lever)
+    ├── track4-customer-rollout-planning-task.md ← Superseded by Customer Release Planning
+    ├── track4-win-enablement.md           ← Parent: 4 enablement subtypes (GTM, Sales Enablement, CS, Partner)
+    ├── track4-win-activity.md            ← Parent: 7 engagement subtypes (account + segment + partner + revenue ops)
+    ├── track4-implementation-onboarding.md ← Subtype of Win Activity (Activation)
+    ├── track4-fir.md                      ← Universal intake: First Information Report — every product-in-operation feedback starts here (DR-032)
+    ├── track4-win-case.md                 ← Reactive: Query, Service Request, Complaint, Escalation — always originates from an FIR
+    ├── track4-win-review.md               ← Structured assessment → produces Feedback + target progress
+    ├── track4-win-monitoring.md            ← Continuous customer health and revenue monitoring
+    ├── track4-adoption-goal.md            ← DEPRECATED — targets now embedded in Initiatives
+    ├── track4-feedback.md                 ← Transitional artifact produced by Win Reviews
+    ├── track5-evolve-planning.md          ← Evolution cycle scoping and prioritization
+    ├── track5-evolve-review.md            ← Structured assessment of process effectiveness and artifact quality
+    ├── track5-evolve-definition-task.md   ← Core meta-work: create/update entity, artifact, DoD, and guidance definitions
+    ├── track5-evolve-monitoring.md        ← Continuous process adherence and artifact quality monitoring
+    └── track5-evolve-findings.md          ← Transitional artifact produced by Evolve Reviews
+```
+
+## Naming Convention
+
+Each file is named: `<prefix>-<entity-name>.md`
+
+- **Definition Model prefix:** `dim<N>-` where N is the dimension number (1–9).
+- **Work Model prefix:** `track<N>-` where N is the track number (1–5).
+- **Entity name:** Lowercase kebab-case (e.g., `research-task`, `payload-schema`).
+
+## File Template
+
+Every entity file follows this structure. **Core sections** (Definition through Example) are required. **Execution sections** (Outputs/Artifacts through Guidance Reference) are added incrementally as each track is detailed — see `draft-work-execution-framework.md` for the framework and phasing plan.
+
+```markdown
+# Entity Name
+
+**Model:** Definition Model | Work Model
+**Dimension / Track:** Dimension N: Name | Track N: Name
+**Owner:** Role(s) responsible for this entity
+
+## Definition
+
+One-paragraph canonical definition.
+
+## Purpose
+
+Why this entity exists in the model — what gap it fills, what it enables.
+
+## Fields
+
+| Field | Type | Description |
+|---|---|---|
+| ... | ... | ... |
+
+## Statuses (if applicable)
+
+| Status | Description |
+|---|---|
+| ... | ... |
+
+## Relationships
+
+| Direction | Related Entity | Relationship |
+|---|---|---|
+| Upstream | ... | ... |
+| Downstream | ... | ... |
+
+## Example
+
+A concrete example using the reference product (B2B Core Payment Gateway — Cross-Border Payouts).
+
+## Outputs / Artifacts (Work Model entities only)
+
+What structured outputs this work produces. Each artifact is typed using the taxonomy from
+the Work Execution Framework (Decision, Evidence, Specification, Delivery, Assessment).
+
+| Artifact | Category | Description | Downstream Consumer |
+|---|---|---|---|
+| ... | ... | ... | ... |
+
+## Definition of Done (Work Model entities only)
+
+When this work is complete — entry criteria, exit criteria, and artifact checklist.
+
+| Component | Criteria |
+|---|---|
+| Entry Criteria | What must be true before this work can start |
+| Exit Criteria | What must be true for this work to be considered complete |
+| Artifact Checklist | Which artifacts must be produced before "done" |
+
+## Guidance Reference (Work Model entities only)
+
+Reference to Operating Model playbook/guideline for navigating this work from initiation
+to completion. Content lives in the Operating Model; this section provides the pointer.
+
+_See: [Operating Model reference — to be developed]_
+```
+
+## Maintenance Guidelines
+
+1. **One entity, one file.** Never combine multiple entities into a single file.
+2. **Refine incrementally.** Fields and statuses are discovered through discussion. Mark undiscovered sections with `_To be refined._` rather than guessing.
+3. **Keep definitions authoritative.** The entity files in this folder are the source of truth. The summary documents (`draft-definition-model.md`, `draft-work-model.md`) should stay consistent with these files but contain less detail.
+4. **Capture rationale.** When a design decision affects an entity (e.g., "Customer Release was added to decouple business delivery from artifact versioning"), note it briefly in the Purpose section and reference the relevant FAQ in `draft-modeling-faqs.md`.
+5. **Cross-reference, don't duplicate.** Use the Relationships table to link entities. Don't copy another entity's definition into this file.
+6. **Track discussions.** When a discussion refines an entity's fields or statuses, update the entity file immediately. The FAQ document captures the *why*; the entity file captures the *what*.
+
+---
