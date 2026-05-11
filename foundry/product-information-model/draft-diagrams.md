@@ -229,3 +229,140 @@ flowchart TD
 ```
 
 ---
+
+## FIR Intake and Routing Flow (DR-032)
+
+```mermaid
+flowchart TB
+    subgraph Sources ["Feedback Sources"]
+        CUST["Customer / Partner<br/>(External)"]
+        SRE["SRE / Monitoring<br/>(Run)"]
+        QA["QA / Developer<br/>(Build)"]
+        PM["PM / Support<br/>(Internal)"]
+    end
+
+    FIR["FIR<br/>(First Information Report)<br/>PFR-Win"]
+
+    CUST -->|"reports via portal/email/chat"| FIR
+    SRE -->|"monitoring alert or observation"| FIR
+    QA -->|"regression observation"| FIR
+    PM -->|"proactive observation"| FIR
+
+    subgraph Triage ["Win Team Triage"]
+        ASSESS["Categorize + Prioritize"]
+        ROUTE["Route to Track(s)"]
+        DIRECT["Direct Resolution<br/>(zero sub-items)"]
+    end
+
+    FIR --> ASSESS
+    ASSESS --> ROUTE
+    ASSESS -->|"trivial inquiry"| DIRECT
+
+    subgraph Routed ["Routed Sub-Items"]
+        INC["Incident<br/>(Track 3, OPR)"]
+        BUG_R["Bug<br/>(Track 2, WR)"]
+        SIG["Signal<br/>(Dim 1, PIR)<br/>Problem / Need / Opportunity"]
+        WC["Win Case<br/>(Track 4, WR)<br/>Query / Complaint / Escalation"]
+        MT["Maintenance Task<br/>(Track 3, WR)"]
+    end
+
+    ROUTE -->|"service degradation"| INC
+    ROUTE -->|"defect"| BUG_R
+    ROUTE -->|"capability gap / opportunity"| SIG
+    ROUTE -->|"customer query / complaint"| WC
+    ROUTE -->|"operational maintenance"| MT
+
+    INC -.->|"Originating FIR ref"| FIR
+    BUG_R -.->|"Originating FIR ref"| FIR
+    SIG -.->|"Originating FIR ref"| FIR
+    WC -.->|"Originating FIR ref"| FIR
+    MT -.->|"Originating FIR ref"| FIR
+
+    RESOLVE["FIR Resolved<br/>(all sub-items resolved)"]
+    INC --> RESOLVE
+    BUG_R --> RESOLVE
+    SIG --> RESOLVE
+    WC --> RESOLVE
+    MT --> RESOLVE
+    DIRECT --> RESOLVE
+
+    CLOSE["FIR Closed<br/>(reporter notified)"]
+    RESOLVE --> CLOSE
+```
+
+---
+
+## Foundry Repository Landscape — 15-Repository Topology (DR-033)
+
+```mermaid
+graph TB
+    subgraph Strategy_Definition ["Strategy & Definition (Dim 1, 2, 3, 9)"]
+        PIR[("PIR<br/>Product Intent<br/>Dim 1, 2, 3")]
+        DKB[("DKB<br/>Domain Knowledge<br/>Dim 9")]
+    end
+
+    subgraph Product_Structure ["Product Structure (Dim 5, 6, 7, 8)"]
+        DAR[("DAR<br/>Design & Arch<br/>Dim 5, 6, 7")]
+        POR[("POR<br/>Product Ontology<br/>Dim 8")]
+    end
+
+    subgraph Engineering ["Engineering (Track 2)"]
+        CAR[("CAR<br/>Code Artifacts")]
+        QVS[("QVS<br/>Quality & Verify<br/>Build-time")]
+    end
+
+    subgraph Operations ["Operations (Track 3)"]
+        OPR[("OPR<br/>Operations<br/>Run-time")]
+    end
+
+    subgraph Feedback ["Feedback (Track 4)"]
+        PFR_W[("PFR-Win<br/>FIRs, Win Cases")]
+        PFR_R[("PFR-Run<br/>Incident Mirrors")]
+        PFR_B[("PFR-Build<br/>Bug Mirrors")]
+    end
+
+    subgraph Work_Practices ["Work & Practices"]
+        WR[("WR<br/>Work Repository<br/>All 5 Tracks")]
+        PPR[("PPR<br/>Practices<br/>Op Model + Track 5")]
+    end
+
+    subgraph Workforce_Memory ["Workforce, Stakeholders & Memory"]
+        WFR[("WFR<br/>Workforce<br/>Internal Agents")]
+        ESR[("ESR<br/>External Stakeholders<br/>Reference Layer")]
+        PEIR[("PEIR<br/>Evolution & Lineage<br/>Traceability")]
+    end
+
+    %% Main flows
+    PIR ==>|"Intent"| DAR
+    DAR ==>|"Blueprints"| CAR
+    CAR ==>|"Code"| QVS
+    CAR ==>|"Deploy specs"| OPR
+
+    %% Feedback loops
+    PFR_W -->|"FIR-routed Signals"| PIR
+    PFR_W -->|"FIR-routed Bugs"| WR
+    PFR_R -.->|"references"| OPR
+    PFR_B -.->|"references"| WR
+
+    %% Workforce
+    WFR -->|"assigns agents"| WR
+    ESR -.->|"stakeholder refs"| PFR_W
+
+    %% Memory
+    PIR & DKB & DAR & POR & CAR & QVS & OPR & PFR_W & WR & PPR & WFR & ESR -.->|"lineage"| PEIR
+
+    %% Styling
+    classDef strategy fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    classDef engineering fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef operations fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+    classDef feedback fill:#fce4ec,stroke:#c62828,stroke-width:2px;
+    classDef foundation fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
+
+    class PIR,DKB strategy;
+    class DAR,POR,CAR,QVS engineering;
+    class OPR operations;
+    class PFR_W,PFR_R,PFR_B feedback;
+    class WR,PPR,WFR,ESR,PEIR foundation;
+```
+
+---

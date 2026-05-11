@@ -51,5 +51,8 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-029 | Change-to-Deployment Workflow Redesign — Deployment Train, Station, Change Request, Package Specs, Deployment Task/Artifact Split | Accepted | 2026-02-15 |
 | DR-030 | Incident Management Refactor — ITSM-Aligned Artifact/Entity Separation, SEV Model, PIR, Communication, Correlation | Accepted | 2026-02-25 |
 | DR-031 | Hotfix / Emergency Fix Path — P0 Sprint Bypass, Emergency Gate Profile, Deferred-Gate Obligation | Accepted | 2026-02-25 |
+| DR-032 | FIR (First Information Report) — Universal Intake Pattern | Accepted | 2026-04-06 |
+| DR-033 | Repository Architecture — OPR, ESR, WFR, PIR Rename, PFR Subdivision | Accepted | 2026-04-06 |
+| DR-034 | Role vs. Agent Separation — Definition Model Roles, WFR Agents, ESR External Stakeholders | Accepted | 2026-04-06 |
 
 ---

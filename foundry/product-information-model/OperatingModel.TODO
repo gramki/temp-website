@@ -200,6 +200,22 @@ This TODO was compiled from deferred items across:
 - narrative-seeds.md (Three-model architecture session, Work Execution Framework session, Track 5 session)
 - draft-modeling-faqs.md (Q28, Q29, Q31, Q37, Q44, Q64)
 - DR-014, DR-018, DR-022, DR-027
+- DR-032 (FIR), DR-033 (Repository Architecture), DR-034 (Role vs. Agent)
+
+---
+
+## FIR and Feedback Intake Processes (from DR-032, DR-033)
+
+- [ ] **FIR Triage Process:** Define roles, criteria, SLAs for FIR triage. Who triages? What training is required? What is the target triage time by priority? How are complex FIRs (spanning multiple tracks) handled?
+- [ ] **FIR Escalation Protocol:** Define cross-track routing for complex FIRs that require work in multiple tracks simultaneously. Escalation criteria, escalation authority, and escalation SLAs.
+- [ ] **Run Team FIR Creation Process:** Define how Run teams (SREs, monitoring systems) create FIRs. Integration with monitoring systems for auto-FIR creation. Auto-routing rules — which categories and provenances permit auto-routing.
+- [ ] **FIR Resolution Notification:** Define the reporter notification process — when and how the reporter is notified on triage, progress updates, and resolution. Channel-appropriate notification templates.
+- [ ] **Cross-Repository Reference Governance:** Define how FIR -> sub-item bidirectional references are maintained. Integrity checks, reconciliation cadence, handling of orphaned references.
+- [ ] **PIR Standing Definition Review Cadence:** Define how standing definitions in PIR (Strategy, Business Model, Customer Value sections) are periodically reviewed and refreshed. Cadence, participants, outputs.
+- [ ] **OPR vs. WR Boundary Enforcement:** Define which Track 3 entities are work items (live in WR) vs. artifacts/records (live in OPR). Enforcement mechanism, exception handling.
+- [ ] **PFR-Run Mirror Synchronization:** Define the reference mechanism from PFR-Run to OPR incidents. How mirrors are created, when they are updated, and how staleness is prevented.
+- [ ] **WFR Role Binding Process:** Define how agents in WFR are bound to Definition Model role definitions (Dim 2, 4, 6, 7). Who approves bindings? How are multi-role agents managed? How is role binding reviewed and refreshed?
+- [ ] **ESR Synchronization:** Define periodic sync mechanism from CRM/source systems to ESR projections. Frequency, conflict resolution, staleness detection.
 
 ---
 

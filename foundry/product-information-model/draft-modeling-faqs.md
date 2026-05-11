@@ -1127,3 +1127,39 @@ The critical safeguard is the **deferred-gate obligation**: the Bug stays at `Fi
 The hotfix branch strategy (branch from release tag, cherry-pick to main, etc.) is an Operating Model concern — the Work Model captures the `Git Reference` on System Version but does not prescribe branching.
 
 ---
+
+### Q108: Why is FIR a work entity and not a work artifact?
+
+FIR has a lifecycle (Created -> Triaged -> In Progress -> Resolved -> Closed), is triaged by the Win team, and actively routes work to other tracks. The triage decision is substantive work — determining "this customer report is actually a service degradation + a product gap" requires investigation, correlation with monitoring data, and routing decisions. This is work entity behavior, not artifact behavior. An Incident, by contrast, is a passive observation record (artifact) that records what happened. FIR records what happened *and* orchestrates what to do about it. See DR-032 D1.
+
+---
+
+### Q109: Why must every Win Case originate from an FIR?
+
+Universal intake ensures complete coverage. If Win Cases can be created without an FIR, there is a bypass path that breaks the traceability chain — a CS Manager creates a complaint directly during a QBR with no FIR parent, no record of the original report, and it doesn't count toward FIR volume metrics. The overhead of creating an FIR for a trivial query is minimal (FIRs support direct resolution at triage with zero sub-items), and the traceability benefit is significant. FIR volume metrics become the single authoritative measure of total feedback burden. See DR-032 D2.
+
+---
+
+### Q110: Can Run teams create FIRs?
+
+Yes. Run teams (SREs detecting alerts, operators observing degradation), Build teams (QA observing regressions), and Win teams (customer support receiving complaints) all create FIRs. The `Provenance` field distinguishes the creator context: `External`, `Run`, `Build`, `Internal`. If only the Win team created FIRs, monitoring alerts and QA observations would bypass universal intake and PFR-Win would be incomplete. Auto-routing is permitted for monitoring alerts — the FIR is auto-created with Provenance: Run and auto-routed to create an Incident. See DR-032 D3 and D4.
+
+---
+
+### Q111: Why separate roles (Definition Model) from agents (WFR)?
+
+"The product needs a Pre-Sales Engineer function" is a product definition statement — it belongs in the Definition Model alongside other structural descriptions. "John Smith is a Pre-Sales Engineer and is also filling the CS Manager role this quarter" is a workforce statement — it belongs in WFR. Conflating them makes the Definition Model fragile (it changes every time someone joins, leaves, or changes roles) and makes WFR confusing (mixing "what the product requires" with "who is available"). The triad is: Role (Definition Model) -> Agent (WFR) -> Work (WR). See DR-034 D1 and D2.
+
+---
+
+### Q112: Why introduce OPR instead of keeping deployment artifacts in CAR?
+
+Deployment descriptors, incident records, and operational artifact versions have different ownership (SRE/DevOps vs. developers), different lifecycle (deployment progression vs. build progression), and different governance (change management vs. CI/CD). CAR should hold source code and build artifacts only. The verification evidence also splits along this line: QVS for build-time quality evidence (tests, scans, benchmarks), OPR for run-time quality evidence (deployment verification, post-deployment SLA checks). See DR-033 D4 and D6.
+
+---
+
+### Q113: Why is ESR a reference layer, not a system of record?
+
+The system of record for customer data remains the organization's CRM/subscription management system. Duplicating full customer records into ESR would create synchronization burdens and data governance risks. ESR holds the minimum identity and reference pointers needed by the UPIM — organization name, segment classification, primary contacts, and a pointer back to the authoritative source system. This makes ESR lightweight, easy to synchronize periodically, and focused on its purpose: providing consistent external stakeholder references across FIR reporters, Win Case customers, Incident affected tenants, and Customer Release targets. See DR-033 D3.
+
+---

@@ -305,3 +305,31 @@ Does this framing capture what you're after — the dual output (PSD + Definitio
 
 
 ====
+
+## Resolved Items (2026-04-06 session — FIR, Repository Architecture, Role vs. Agent)
+
+- [x] **FIR entity defined:** `track4-fir.md` created with full fields, statuses, relationships, examples (DR-032)
+- [x] **Tenant entity defined:** `track3-tenant.md` created from draft-work-model.md description
+- [x] **DR-032 created:** FIR and Universal Intake Pattern (6 decisions)
+- [x] **DR-033 created:** Repository Architecture — OPR, ESR, WFR, PIR Rename, PFR Subdivision (6 decisions)
+- [x] **DR-034 created:** Role vs. Agent Separation (4 decisions)
+- [x] **Win Case updated:** Required Originating FIR field added
+- [x] **Cross-references updated:** Incident, Bug, Problem, Need, Opportunity, Win Stakeholder, User Persona, Developer Persona, Programmatic User Persona, Operational Persona updated with FIR and Role-vs-Agent references
+- [x] **Win Track entities updated:** Win Monitoring, Win Review, Feedback updated with FIR references
+- [x] **Draft docs updated:** draft-work-model.md, draft-work-execution-framework.md, entities/README.md updated with FIR
+- [x] **repositories.md rewritten:** PIR rename, WFR rename, OPR, ESR, PFR subdivision, updated diagrams, URI scheme
+- [x] **Narrative seeds added:** FIR universal intake, Role-vs-Agent triad, Repository architecture (Seeds 8, 9, 10)
+- [x] **FIR story created:** stories/fir-universal-intake-analysis.md
+- [x] **FAQs added:** Q108-Q113 (FIR, Role/Agent, OPR, ESR)
+- [x] **OperatingModel.TODO updated:** 10 new items for FIR processes, reference governance, WFR role binding, ESR sync
+- [x] **decisions/README.md updated:** DR-032, DR-033, DR-034 added to index
+- [x] **draft-diagrams.md updated:** FIR intake/routing flow, 15-repo topology diagrams added
+
+## Open Items
+
+- [ ] Complete narrative seeds for remaining dimensions (Dim 5, 8, 9 coverage is thin)
+- [ ] Detail remaining "To be detailed" work entities in draft-work-execution-framework.md
+- [ ] Create entity files for Win Track planning entities (Customer Release Planning, GTM Planning, etc.)
+- [ ] Draft the Operating Model foundation (process definitions from OperatingModel.TODO)
+- [ ] Validate cross-references between all entity files (automated check)
+- [ ] Write comprehensive UPIM guide (consuming narrative seeds, entity files, decision records)
