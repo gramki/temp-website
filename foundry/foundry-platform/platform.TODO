@@ -1,0 +1,33 @@
+- Foundry Specification 
+    - Purpose, Objectives, and Scope
+    - Architecture
+    - Project Plan
+    - Security
+    - Compliance
+    - Audit
+    - Monitoring
+    - Logging
+- Workshop Engineering
+    - Repositories (Authoring, Storage, and Serving)
+    - Machines and Tools for Accessing Repositories
+- Workshop Project Engineering
+    - Move Product Intent across Workspaces
+    - Metrics and KPIs for Workspace Projects (Say/Do, Cost per Story Point, Velocity, Quality, etc.)
+    - Agent Efficiency and Effectiveness
+    - Scenarios and Tasks Management
+- Release Workspace Engineering
+    - Release Plan Management
+    - Checklists, Debt Management, and Product Risk Management
+    - Release Verification and Validation
+    - Release Notes and Documentation
+- Development Workspace Engineering
+- Governance Workspace Engineering
+- QA Workspace Engineering
+- UX Workspace Engineering
+- Product Specification Workspace Engineering
+- Engagement Engineering
+    - Customer Feedback Management
+    - Customer Requirements Management
+    - Tenant Developer Enablement
+    - Engagement Release Verification and Validation
+    - Customer Operations and Governance Tooling Integrations 
