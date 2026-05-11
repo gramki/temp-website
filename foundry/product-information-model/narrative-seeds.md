@@ -955,3 +955,61 @@ The critical constraint is the **deferred-gate obligation**: an Emergency System
 This pattern is convention-based, not structurally enforced. P0 = sprint bypass is a convention that teams must know and honor. The Emergency gate profile is recorded on System Version (auditable), and the deferred-gate obligation is tracked on Bug (queryable). The Operating Model determines the sprint-bypass mechanism (interrupt capacity, dedicated on-call) and the hotfix branch strategy (branch from release tag, cherry-pick to main).
 
 ---
+
+## Seed 8: FIR — Universal Intake: Why Every Feedback Starts the Same Way
+
+The FIR (First Information Report) is the UPIM's answer to a fundamental traceability problem: when a customer calls about a latency spike, that single event may produce an Incident (Track 3), a Bug (Track 2), a Signal (Dim 1), and a Win Case complaint (Track 4). Without a common parent, these are four disconnected work items with no shared origination record. Nobody can answer "what happened, who reported it, and what did we do about it?" holistically.
+
+FIR solves this by adopting the **ITSM single-point-of-contact principle** and extending it across all tracks. Every piece of product-in-operation feedback — customer complaint, monitoring alert, SRE observation, QA regression report — enters the system as an FIR in PFR-Win. The Win team's triage function then routes: the full FIR or specific sub-parts go to the appropriate tracks as sub-items (Incident, Bug, Signal, Win Case, Maintenance Task). All sub-items carry an `Originating FIR` reference back to the parent; the FIR carries a `Sub-Items` list forward. Bidirectional.
+
+The **always FIR-first** principle means Win Cases cannot be created independently. Even when a Win team member discovers a complaint during a QBR, they log an FIR first. The overhead is minimal — trivial inquiries can be resolved directly at triage with zero sub-items — but the traceability benefit is significant. FIR volume metrics become the single authoritative measure of the total feedback burden.
+
+FIR parallels Change Request in the Run Track: Change Request is the governance envelope for deployment-related work; FIR is the intake envelope for all product-in-operation feedback. Both are parent entities whose lifecycle depends on the completion of their sub-items. The reporter interacts with the FIR lifecycle (notified on triage, updated on progress, notified on resolution), while sub-items represent track-specific internal work.
+
+Auto-routing is permitted for monitoring alerts — a Provenance field (`External`/`Run`/`Build`/`Internal`) distinguishes human-triaged from auto-routed FIRs. The Operating Model defines which categories and provenances permit auto-routing.
+
+Key tension resolved: Run teams create FIRs too. If only the Win team created FIRs, monitoring alerts and QA observations would bypass universal intake and PFR-Win would be incomplete. All teams create FIRs; PFR-Win becomes the comprehensive, single origination point.
+
+See DR-032 for the six decisions and entity file `track4-fir.md` for full field/status/relationship definitions.
+
+---
+
+## Seed 9: Role vs. Agent — The Triad of Role → Agent → Work
+
+The UPIM has persona/stakeholder entities in four dimensions: Win Stakeholder (Dim 2), User Persona (Dim 4), Developer and Programmatic User Persona (Dim 6), Operational Persona (Dim 7). These describe *what* a role is — responsibilities, JTBD, outcomes, barriers. They are abstract, durable, and product-scoped.
+
+Separately, the Workforce Repository (WFR) tracks *who* — specific people or AI agents enrolled to pick up work across tracks. And the Work Repository (WR) tracks *what they are doing* — live work instances.
+
+This creates a clean triad: **Role (Definition Model) → Agent (WFR) → Work (WR)**.
+
+- "What function is needed?" → the role definition in Dim 2/4/6/7
+- "Who can do it?" → the agent in WFR, bound to one or more role definitions
+- "What are they doing?" → the work item in WR, assigned to an agent
+
+The same person may fill multiple roles (startup scenario). Multiple people may fill the same role (enterprise scenario). The binding between person and role is an organizational/workforce concern (WFR), not a product definition concern (Definition Model).
+
+**Why not just put agents in the Definition Model?** Because "the product needs a Pre-Sales Engineer function" is a product definition statement. "John Smith is a Pre-Sales Engineer and is also filling the CS Manager role this quarter" is a workforce statement. Conflating them makes the Definition Model fragile — it changes every time someone joins, leaves, or changes roles.
+
+**Where do external stakeholders go?** Not in WFR. Customers, partners, prospects, and third-party developers are tracked in the External Stakeholder Registry (ESR) — a reference layer (projection from CRM/source systems). External parties are consumers of the product, not agents in the vendor's work model. They are referenced in work items (FIR reporters, Win Case customers, Incident affected tenants) but do not pick up work across tracks.
+
+The cross-dimensional pattern is explicit: every persona entity in the Definition Model now carries a blockquote clarifying "this is a role definition, not an agent identity" with references to WFR and DR-034.
+
+See DR-034 for the four decisions.
+
+---
+
+## Seed 10: Repository Architecture — 15 Repositories, 3 New
+
+The Foundry repository architecture evolved from 11 to 15 repositories (including PFR sub-partitions) to align with the UPIM's 9 dimensions and 5 tracks. Three forces drove the expansion.
+
+**Force 1: Build-time vs. run-time separation.** CAR (Code Artifact Repository) was holding deployment descriptors, incident records, and operational artifact versions alongside source code. These have different ownership (SRE/DevOps vs. developers), different lifecycle (deployment progression vs. build progression), and different governance (change management vs. CI/CD). OPR (Operations Repository) gives Run Track artifacts their own home. The verification evidence split follows the same logic: QVS for build-time quality evidence (tests, scans), OPR for run-time quality evidence (deployment verification, post-deployment SLA checks).
+
+**Force 2: Feedback ownership alignment.** PFR was monolithic — feedback from Win, Run, and Build tracks had different ownership and lifecycle needs. PFR-Win (FIRs, Win Cases, customer communication records) is owned by the Win team. PFR-Run (incident mirrors referencing OPR) is owned by SRE/DevOps. PFR-Build (bug mirrors referencing WR) is owned by QA/Engineering. The key distinction: OPR and WR are the systems of record; PFR-Run and PFR-Build hold references/mirrors for the feedback perspective. PFR-Discovery was removed — Signals route directly from FIRs into PIR.
+
+**Force 3: External stakeholder references.** External stakeholders are referenced extensively across the model (FIR reporters, Win Case customers, Incident affected tenants, Customer Release targets). Without ESR, these references were scattered. ESR provides a single, UPIM-internal reference point — but as a reference layer (projection from CRM), not a system of record.
+
+Two renames accompanied the expansion: PIR (formerly "Product Idea Repository") became "Product Intent Repository" to reflect its expanded scope across Dim 1, 2, and 3. AWR became WFR (Workforce Repository) because "Agent" in current discourse is heavily associated with AI agents, and the repository tracks all internal workers — human and AI alike.
+
+See DR-033 for the six decisions and `foundry/repositories.md` for the full architecture.
+
+---
