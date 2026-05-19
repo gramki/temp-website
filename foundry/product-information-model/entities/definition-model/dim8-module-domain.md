@@ -18,13 +18,24 @@ Provides the primary decomposition boundary below the Product level. Modules con
 
 | Field | Type | Description |
 |---|---|---|
-| _To be refined._ | | |
+| Module Code | String | Short unique identifier within the Product (e.g., PAY, FX, COMP) |
+| Name | String | Module name (e.g., "Payments Module," "FX Module") |
+| Functional Classification | Enum | The customer-value category of this Module, drawn from the Twelve System Types: `Record` / `Enforcement` / `Data` / `Engagement` / `Action` / `Intelligence` / `Identity` / `Influence` / `Memory` / `Product` / `Innovation` / `Integration`. See draft-archetypes.md for definitions. |
+| Tenancy Model | Enum | `Single-Tenant` / `Multi-Tenant`. Must be consistent with parent Product's Tenancy Model (a Multi-Tenant Product requires Multi-Tenant Modules). |
+| Lifecycle Status | Enum | `Incubating` / `Preview (Beta)` / `GA` / `Maintenance` / `End-of-Life` — same lifecycle as Product (D2) |
+| Owner | Reference (WFR) | PM / Domain Lead responsible for this Module |
+
+> **Vocabulary note (D15):** In the UPIM, "Module" (Dim 8) refers to the *functional grouping* — what the product does for the customer. "System" (Dim 5) refers to the *operational deployment grouping* — how it deploys. Engineers who use "module" informally for deployment units should use "System" in UPIM-aligned communication. See DR-035.
 
 ## Statuses
 
 | Status | Description |
 |---|---|
-| _To be refined._ | |
+| Incubating | Module is in early formation — not yet available to customers |
+| Preview (Beta) | Module is available to a limited customer set for validation |
+| GA | Module is generally available |
+| Maintenance | Module is no longer actively extended; only critical fixes shipped |
+| End-of-Life | Module is retired; customers migrated to replacement |
 
 ## Relationships
 
@@ -32,8 +43,11 @@ Provides the primary decomposition boundary below the Product level. Modules con
 |---|---|---|
 | Upstream | Product (Dim 8) | Module belongs to a Product |
 | Contains | Capability (Dim 8) | Module contains Capabilities |
-| Implemented by | System(s) (Dim 5) | Module is implemented by one or more Systems (many-to-many — functional boundary ≠ technical boundary) |
+| Packaged by | Pricing Tier (Dim 2) | Module is packaged and included in a Pricing Tier (entitlement boundary — D7) |
+| Implemented by | System(s) (Dim 5) | Module is realized by one or more Systems (many-to-many — functional boundary ≠ technical boundary; Architect-defined — D11) |
+| Aligns to | Data Domain (Dim 9) | Module aligns to one or more Data Domains |
+| Specified by | Product Specification Document (Dim 1) | PSDs specify changes to this Module's Capabilities and Features |
 
 ## Example
 
-Invoice & Payout Processing.
+"Payments Module" — Code: PAY, Functional Classification: Record, Tenancy Model: Multi-Tenant, Lifecycle: GA, Owner: PM-Payments. Realized by: Payments System (primary), Notification System (shared). Packaged by: Standard Tier, Enterprise Tier.

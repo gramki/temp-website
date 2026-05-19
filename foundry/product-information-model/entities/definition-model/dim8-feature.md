@@ -6,31 +6,42 @@
 
 ## Definition
 
-A granular, distinct tool or behavior — the most specific functional unit in the structural taxonomy.
+A granular, distinct tool or behavior — the most specific functional unit in the structural taxonomy. The leaf node of the Product → Module → Capability → Feature hierarchy.
 
 ## Purpose
 
-The leaf node of the Product → Module → Capability → Feature hierarchy. Features are what Pricing Tiers (Dimension 2) package and what PSDs (Dimension 1) specify.
+Features represent individual product behaviors that users or consuming systems can act on directly. Features are what PSDs specify at the finest grain and what Engineering implements in Stories. Entitlement (Pricing Tier) operates at the Module level, not the Feature level — features are too granular for commercial packaging at this stage (D7).
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| _To be refined._ | | |
+| Name | String | Feature name (e.g., "Real-time FX auto-conversion lock," "One-click OFAC re-screen") |
+| Description | Text | What behavior this Feature provides — 1–2 sentences |
+| Capability | Reference (Dim 8) | The Capability this Feature belongs to |
+| Maturity Stage | Enum | `Alpha` (experimental, not for production use) / `Beta` (limited availability) / `GA` (generally available, stable) — inherited from or consistent with parent Capability Maturity |
 
 ## Statuses
 
 | Status | Description |
 |---|---|
-| _To be refined._ | |
+| Planned | Feature is specified but not yet built |
+| Available | Feature is built and available to customers |
+| Deprecated | Feature is being phased out; replacement or alternative exists |
+| Retired | Feature has been removed from the product |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Upstream | Capability (Dim 8) | Feature belongs to a Capability |
-| Packaged by | Pricing Tier / Package (Dim 2) | Feature is included in Packages |
+| Specified in | Product Specification Document (Dim 1) | PSDs add, modify, or retire this Feature |
+| Implemented by | Story (Track 2) | Build Track Stories implement Features |
+
+> **Note:** Features are NOT directly linked to Pricing Tiers. Entitlement is managed at the Module level (D7). This may evolve in future.
 
 ## Example
 
-Real-time FX auto-conversion lock.
+- "Real-time FX auto-conversion lock" — Capability: Real-Time FX Rate Lock, Maturity Stage: GA, Status: Available
+- "Rate lock expiry SMS notification" — Capability: Real-Time FX Rate Lock, Maturity Stage: Beta, Status: Available
+- "Bulk OFAC re-screen trigger" — Capability: OFAC Sanctions Screening, Maturity Stage: Alpha, Status: Available

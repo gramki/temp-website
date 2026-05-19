@@ -34,7 +34,7 @@ Value Streams and User Journeys often align but are not identical — a Value St
 | Capabilities Engaged | List of References (Dim 8) | Which capabilities are engaged at each step |
 | Handoff Points | Text | Where work crosses module boundaries (critical for reliability) |
 | End-to-End SLA | String | Expected total cycle time for the stream |
-| _Other fields to be refined._ | | |
+| _Additional fields deferred_ | | _Further fields (e.g., Criticality, Failure Modes, SLI Targets) are deferred to a future modeling session. Current structure is sufficient for initial Value Stream mapping (DR-035, D14)._ |
 
 ## Statuses
 
