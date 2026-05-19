@@ -54,5 +54,6 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-032 | FIR (First Information Report) — Universal Intake Pattern | Accepted | 2026-04-06 |
 | DR-033 | Repository Architecture — OPR, ESR, WFR, PIR Rename, PFR Subdivision | Accepted | 2026-04-06 |
 | DR-034 | Role vs. Agent Separation — Definition Model Roles, WFR Agents, ESR External Stakeholders | Accepted | 2026-04-06 |
+| DR-035 | Dim 8 & PSD Structural Decisions — Module Functional Classification, Capability Templates, System/Component Redefinition, PSD Authorship Split | Accepted | 2026-05-19 |
 
 ---

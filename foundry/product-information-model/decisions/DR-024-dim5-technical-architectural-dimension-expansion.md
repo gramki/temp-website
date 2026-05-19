@@ -1,3 +1,8 @@
+> **⚠ Amendment (DR-035, 2026-05-19):** Two decisions in this record are superseded by DR-035:
+> - **D3 amended:** System is no longer "independently deployable technical unit." System is a named **operational grouping of Components** — versioned and deployed as a whole by SRE/ops. Component is the atomic deployable artifact.
+> - **D8 amended:** Component is no longer "significant architectural building block within a System." Component is the **atomic deployable artifact** — independently buildable, but not independently deployed to production. Internal building blocks (FX Rate Calculator, Payment State Machine, etc.) are code-level concerns below the Definition Model waterline and are retired from Dim 5.
+> See DR-035 for full rationale.
+
 # DR-024: Dimension 5 — Technical & Architectural Dimension Expansion
 
 **Status:** Accepted

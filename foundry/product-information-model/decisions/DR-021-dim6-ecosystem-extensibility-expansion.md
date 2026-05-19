@@ -1,3 +1,9 @@
+> **⚠ Amendment (DR-035, 2026-05-19):** Three elements of this record are superseded by DR-035:
+> - **D6 amended:** `Client-Distributed` as a Deployment Topology axis on Dim 8 modules is superseded. Deployment Topology is now a Component Archetype concern in Dim 5. Dim 8 modules are classified by Functional Classification (12 System Types), not by Deployment Topology.
+> - **Consequence #3 amended:** "Dim 8 archetype taxonomy's Deployment Topology axis is refined to explicitly include Client-Distributed" is superseded. Deployment Topology moves to Component Archetype (Dim 5).
+> - **D4 amended:** "archetype classification" for Dim 6 modules now refers to Functional Classification, not HI/Programmatic/Reactive Module Archetype.
+> See DR-035 for full rationale.
+
 # DR-021: Dimension 6 Expansion — Ecosystem & Extensibility with Personas, Module Types, and Deliberate Extensibility
 
 **Status:** Accepted

@@ -1,3 +1,5 @@
+> **📌 Note (DR-035, 2026-05-19):** In the new Dim 5 model (DR-035), the atomic deployable artifact is a **Component** (not a System). This means the "System Version" construct in this DR — which was defined as the atomic build artifact for a single deployable — logically maps to what should be called "Component Version." The System is now the operational deployment grouping of Components. The versioning model rename (System Version → Component Version) is deferred to **DR-036** to avoid scope explosion. References to "System Version" in this DR should be read with this context in mind.
+
 # DR-026: Build Track Detailing — Work Entity/Artifact Distinction, Scoping Corrections, Three-Tier Versioning
 
 **Status:** Accepted
