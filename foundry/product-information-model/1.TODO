@@ -325,10 +325,20 @@ Does this framing capture what you're after — the dual output (PSD + Definitio
 - [x] **decisions/README.md updated:** DR-032, DR-033, DR-034 added to index
 - [x] **draft-diagrams.md updated:** FIR intake/routing flow, 15-repo topology diagrams added
 
+## Resolved Items (2026-05-19 session — DR-036 Agent E)
+
+- [x] **Module Version removed:** `track2-module-version.md` marked DELETED in `entities/README.md`; versioning chain documented in `draft-definition-model.md` and narrative Seed 17 (DR-036 D3)
+- [x] **Module Package / Product Package removed:** `dim7-module-package.md`, `dim7-product-package.md` marked DELETED; superseded by `dim5-product-specification.md` (DR-036 D4, D7)
+- [x] **SDD / MDD / PDD removed:** `track3-sdd.md`, `track3-mdd.md`, `track3-pdd.md` marked DELETED; replaced by System Deployment Specification and Product Deployment Specification catalog entries (DR-036 D5, D6, D8)
+- [x] **Module Package Version / Product Package Version removed:** `track3-module-package-version.md`, `track3-product-package-version.md` marked DELETED (DR-036 D7)
+- [x] **Supporting docs (Agent E):** `entities/README.md`, `draft-definition-model.md`, `narrative-seeds.md` (Seed 13 update, Seeds 16–17 added), `1.TODO` updated
+
 ## Open Items
 
 - [ ] Complete narrative seeds for remaining dimensions (Dim 5, 8, 9 coverage is thin)
-- [ ] DR-036: Versioning model rename — System Version → Component Version (affects DR-026, DR-027, DR-028, DR-029, versioning story files). Flagged in DR-035 as a known consequence of the System/Component redefinition. Do not rename until DR-036 is written.
+- [x] DR-036: Versioning and deployment simplification — Resolved: DR-036 written; Component Version → System Version → Product Version chain; Module Version / Package layer / MDD-SDD-PDD removed; Product Specification (Dim 5); narrative Seeds 16–17; supporting docs updated in Agent E pass. Entity files and Track 3 cross-references remain in follow-on items below. @done
+- [ ] DR-036 follow-on: Update Track 3 entity files still referencing MDD, Module Package Version, SDD, PDD (e.g. `track3-change-request.md`, `track3-deployment-planning-task.md`, `track3-deployment-plan.md`, `track3-deployment-task.md`, `track3-system-monitoring.md`) to System Deployment Specification / Product Deployment Specification and Product Version BOM semantics
+- [ ] DR-036 follow-on: Sweep Dim 7 and draft docs for remaining Module Package / Product Package references (`draft-work-model.md`, `draft-work-execution-framework.md`, `draft-modeling-faqs.md`, older narrative seed sections on Module Package / SDD-MDD-PDD)
 - [ ] Dim 5 Component Archetype elaboration — the current 8 archetypes (API Service, Web Application, etc.) are a starting taxonomy. Enrich with FinTech-specific subtypes as deployment patterns emerge.
 - [x] Detail Dim 8 entities (product, module, capability, feature) — Resolved: All four entities fully detailed with fields, statuses, relationships, examples (DR-035). @done
 - [ ] Detail remaining "To be detailed" work entities in draft-work-execution-framework.md

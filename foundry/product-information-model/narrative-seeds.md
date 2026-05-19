@@ -1060,9 +1060,9 @@ The resolution: System is the **operational deployment boundary** — what SRE v
 
 **Resolution and vocabulary note:** "Module" (Dim 8) is the customer/product-facing functional grouping. "System" (Dim 5) is the engineering-facing operational deployment grouping. In the UPIM: *Module = what the product does; System = how it deploys.* Engineers who colloquially say "the payments module is deploying" are using "module" informally. The UPIM gives them a precise term: "the payments system is deploying." This vocabulary guidance is documented in `dim5-system.md` and `dim8-module-domain.md`.
 
-**Cascading consequence:** The Build Track's "System Version" (atomic versioned artifact — currently maps to individual microservices) should logically become "Component Version" in the new model. This rename is significant and affects DR-026, DR-027, DR-028, DR-029, and the versioning-related story files. It is flagged in DR-035 and deferred to DR-036 to avoid scope explosion in the current change.
+**Cascading consequence (resolved in DR-036):** The Build Track versioning chain is now **Component Version → System Version → Product Version**. Component Version is what CI builds (atomic tier). System Version is a sealed, immutable BOM of Component Versions — what SRE deploys as a unit. Product Version composes System Versions directly; there is no Module Version tier. See Seeds 16–17 and DR-036.
 
-See DR-035 D10, D15.
+See DR-035 D10, D15; DR-036 D1–D3, D12.
 
 ---
 
@@ -1089,5 +1089,102 @@ The new model makes authorship zones explicit. PM-authored (Product Draft phase)
 The accountability principle is key: the Architect is responsible for ensuring that every Capability and Feature specified by the PM in the PSD is addressed through System and Component changes. The PM specifies WHAT needs to be achieved; the Architect designs HOW it is realized. The PSD becomes the interface document where both contribute, with clear ownership of each zone.
 
 See DR-035 D8, D9, D13.
+
+---
+
+## Seed 16: Deployment Simplification — Eliminating the Run Artifact Layer
+
+**Scope:** Track 2/3 versioning and deployment artifacts, Dim 5 Product Specification, Dim 7 Package entities
+
+The four-layer deployment model (Build Artifacts / Run Artifacts / Deployment Descriptors / Deployment Execution) introduced a **Run Artifact** layer — Module Package and Product Package — to segregate "operator-facing" Systems from product-facing Systems. This created a structural distinction that did not match operational reality.
+
+Operator-facing Systems (probes, reconcilers, monitoring agents, log shippers) are ordinary Systems: they have source code, repositories, CI/CD pipelines, Component Versions, and System Versions. SREs build them through the same Build Track as product engineers. The only difference is **who they serve** — Operational Personas rather than End-User or Programmatic Personas. The `Purpose / Serving Persona(s)` field on the System entity captures this distinction without requiring a parallel artifact taxonomy.
+
+Removing Module Package and Product Package, and replacing SDD/MDD/PDD with **System Deployment Specification** and **Product Deployment Specification**, reduces core versioned/deployment entities from nine or more to five. The three-layer model is: Build Artifacts → Deployment Specifications → Deployment Execution.
+
+All Systems — product-facing and operational — are equal members of **Product Specification** (Dim 5). Operational Systems appear in Product Version BOMs alongside tenant-serving Systems.
+
+See DR-036 D5, D6, D7, D8, D9, D13.
+
+---
+
+## Seed 17: Versioning Chain Simplification — Removing Module Version
+
+**Scope:** Track 2 versioning, Dim 8 Module, integration verification boundaries
+
+**Module Version** was introduced to bridge the gap between individual System build artifacts and Product Version. It represented "integration-verified composition of Systems for a Dim 8 Module." Under DR-035, System became the operational deployment grouping and Component the atomic build artifact — but the Work Model still treated System Version as atomic (a single microservice). DR-036 completes the alignment:
+
+| Tier | Artifact | Verification scope |
+|---|---|---|
+| Atomic | **Component Version** | Per-Component quality gates (CI) |
+| Integrated | **System Version** | Component-integration within System boundary |
+| Complete | **Product Version** | Cross-System integration and certification |
+
+**Why Module Version was removed:** Module (Dim 8) is a functional boundary — how customers and PMs talk about the product ("Payments Module," "FX Module"). It is not an operational versioning boundary. Requiring a Module Version between System Version and Product Version added a tier that duplicated integration verification:
+
+- Within-System integration → System Version assembly
+- Cross-System integration → Product Version assembly
+
+**Capability availability** does not require Module Version: trace **Module (Dim 8) → System (Dim 5) → System Version** in the current Product Version BOM. Example: "Real-Time FX Rate Lock" (Capability) → FX Module → fx-system → fx-system v2.0.1 in Product v4.0.0.
+
+**Integration Epic semantics change:** Integration Epics contribute to System Version assembly and Product Version certification — not to a separate Module Version artifact.
+
+See DR-036 D1, D2, D3, D12.
+
+---
+
+## Seed 16: Deployment Simplification — Product Specification Replaces the Package Layer
+
+**Scope:** Dim 5 Product Specification, Dim 7 Module Package / Product Package removal, Track 3 deployment descriptors, Run Track engineering artifact layer
+
+DR-027 and DR-029 introduced a four-layer deployment model: Build artifacts (System/Module/Product Versions) → Run artifacts (Module Package Version, Product Package Version) → Deployment descriptors (SDD, MDD, PDD) → Deployment execution. The Run artifact layer existed to segregate "operator-facing" Systems — probes, reconcilers, dashboards, log shippers — into a separate composition tier from tenant-serving Systems.
+
+The problem was structural, not semantic. Operator-facing Systems are ordinary Systems: they have code, repos, CI/CD pipelines, tests, and quality gates. They differ from product-facing Systems in **who they serve** (Operational Personas vs. End-User / Programmatic Personas), not in what kind of artifact they are. Creating Module Package and Product Package entities encoded that distinction as a parallel artifact layer — doubling the entities teams had to maintain (Package spec, Package Version, MDD/PDD) without adding distinct deployment semantics.
+
+DR-036 removes the Package layer entirely:
+
+- **Product Specification (Dim 5)** is the technical twin of Product (Dim 8) — 1:1. It declares which Systems compose the product. Product-facing and operational/SRE Systems are **equal members** of one catalog.
+- **`Purpose / Serving Persona(s)`** on the System entity is the only structural distinction — not a separate entity type or dimension.
+- **Deployment descriptors** collapse to two levels: **System Deployment Specification** (how a sealed System Version deploys to an environment) and **Product Deployment Specification** (how a Product Version deploys, composing System Deployment Specifications). MDD and the Module-level descriptor tier are removed.
+- **Build Track produces all System Versions**, including operational Systems introduced by SREs. Run Track owns deployment governance, change management, and operations — not a separate engineering artifact layer for operator-facing code.
+
+The three-layer deployment model is now: **Build artifacts** (Component Version → System Version → Product Version) → **Deployment specifications** (System / Product Deployment Specification) → **Deployment execution** (Change Request → Deployment Task → Deployment record).
+
+See DR-036 D4–D8, D10–D11, D13.
+
+---
+
+## Seed 17: Versioning Chain Simplification — Component, System, Product (No Module Version)
+
+**Scope:** Track 2 versioning artifacts, Integration Epic semantics, capability availability tracing, Module (Dim 8) vs. System (Dim 5) boundaries
+
+Before DR-036, the Build Track versioning model had three tiers that did not align cleanly with DR-035's System/Component redefinition:
+
+| Old tier | Problem after DR-035 |
+|---|---|
+| System Version | Named "System" but meant atomic microservice — actually a **Component** |
+| Module Version | Integration-verified composition at the **functional** Module boundary |
+| Product Version | Composed Module Versions, not System Versions directly |
+
+Module Version existed because Module (Dim 8) felt like a natural "integrated" composition level — the place where cross-service integration within a functional area was verified. But Module is a **customer-value and PSD-scoping boundary**, not an operational deployment boundary. SRE does not deploy "Payments Module v2.3" — they deploy **payments-system** (a System) as a sealed unit. Requiring a Module Version between System Version and Product Version added a tier that duplicated integration verification without distinct deployment semantics.
+
+DR-036 establishes three tiers aligned with Dim 5 structure:
+
+```
+Component Version  →  System Version  →  Product Version
+   (CI builds)         (SRE deploys)      (customers reference)
+```
+
+- **Component Version** — versioned, quality-gated output of a single Component. What CI pipelines produce continuously.
+- **System Version** — sealed, immutable BOM of Component Versions for one System. Assembly is the **Component-integration verification point**. Once verified, only deployment parameters vary per environment.
+- **Product Version** — certified composition of System Versions across the Product. Assembly is the **cross-System integration verification point**. The ubiquitous language for Win, compliance, and customers.
+
+**Module Version removed.** Module remains essential for product conversations, entitlement (Pricing Tier link), PSD scoping, and capability mapping — but capability availability traces through **Module → System → System Version** in the current Product Version BOM, not through a Module Version entity.
+
+**Integration Epics** still matter: they produce integration contracts, test suites, and binding configuration that feed **System Version** assembly and **Product Version** certification — but they no longer produce a Module Version artifact.
+
+**SRE operational Systems** follow the same chain: SREs participate in Build Track for their Systems; their Component Versions compose into System Versions listed in Product Specification like any other System.
+
+See DR-036 D1–D3, D10, D12; DR-035 (System/Component redefinition).
 
 ---
