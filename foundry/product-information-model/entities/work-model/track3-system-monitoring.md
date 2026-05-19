@@ -7,11 +7,11 @@
 
 ## Definition
 
-Continuous tracking of operational health across all composition levels — individual Systems (Dim 5), Module Package Versions (integrated compositions), Product Package Versions (complete compositions), Tenant health, and cross-module operational wiring. System Monitoring sits between periodic assessment (Capacity Planning, deployment reviews) and reactive work (Incident, Change Request) — it surfaces when thresholds are breached, when capacity is strained, when SLAs are at risk, or when Tenant-level metrics degrade.
+Continuous tracking of operational health across Systems (Dim 5), composed **System Versions** and **Product Versions** in deployment, Tenant health, and cross-System operational wiring. System Monitoring sits between periodic assessment (Capacity Planning, deployment reviews) and reactive work (Incident, Change Request) — it surfaces when thresholds are breached, when capacity is strained, when SLAs are at risk, or when Tenant-level metrics degrade.
 
 System Monitoring is the Run Track's **operational** monitoring entity — it monitors the health of running systems and compositions. It is distinct from Run Engineering Monitoring, which tracks the engineering velocity and quality of Run Track engineering work (Run Epics, Run Stories, Technical Tasks). System Monitoring is the most established monitoring practice in the model — SRE and DevOps teams routinely run 24/7 monitoring — and is now explicitly represented as a work entity.
 
-> **Scope includes all composition levels.** System Monitoring is not limited to atomic Systems — it also monitors Module Package Versions (integrated health: do the product systems and operational systems within a Module work together in production?), Product Package Versions (complete health: does the full product composition meet SLAs?), and Tenant health (customer-specific health within an environment). The name "System Monitoring" reflects its heritage but its scope encompasses operational health at all levels.
+> **Scope includes System and Product composition.** System Monitoring covers individual Systems, cross-System health within a deployed Product Version (do Systems in the Product Version BOM work together in production?), and Tenant health (customer-specific health within an environment). See DR-036.
 
 ## Purpose
 
@@ -65,4 +65,4 @@ Makes the continuous oversight of production and infrastructure explicit as a wo
 
 "Monitor production-us API — continuous; alert on P95 latency > 300ms or availability < 99.9%. Daily SLA report. Owner: SRE. Triggers Incident creation; feeds Capacity Planning and Win Review (Service Commitment)."
 
-"Monitor Payments Module Package health — production-latam; alert on cross-system latency degradation (payments-service → payment-gateway P95 > 400ms); Tenant-level error rate monitoring — alert when any Tenant error rate > 1%. Owner: Payments SRE."
+"Monitor payments-system v3.1.0 health in production-latam — alert on cross-Component latency degradation (payments-service → payment-reconciler P95 > 400ms); Product v4.0.0 cross-System smoke metrics; Tenant-level error rate > 1%. Owner: Payments SRE."

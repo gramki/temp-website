@@ -14,7 +14,9 @@ Change Requests govern **deployment-related changes only**. Maintenance Tasks (r
 
 > **Three Change Request types.** Standard changes follow the normal promotion path through a Deployment Train. Emergency-Technical changes arise from Incidents (SEV-0/SEV-1 → emergency fix → immediate deployment), bypassing normal cadences with documented waivers. Emergency-Business changes arise from business exigencies (e.g., campaign deadlines, festival-day feature rollouts), fast-tracking through a compressed train or abbreviated soak times with explicit ODR justification. See DR-029 D11.
 >
-> **Scoping to Train or Station.** A Change Request scoped to a Train means the change will progress through the full promotion path. A Change Request scoped to a specific Station means the change targets only that station's environment — useful for environment-specific fixes, targeted rollbacks, or station-level hotfixes. Transitively, scoping to a station implies scoping to a package or deployment descriptor at that station.
+> **Deployment scope (DR-036 D11).** Change Requests are scoped to **System Deployment** (one System via System Deployment Specification) or **Product Deployment** (full product via Product Deployment Specification), in addition to Train/Station governance.
+>
+> **Scoping to Train or Station.** A Change Request scoped to a Train means the change progresses through the full promotion path. Scoping to a Station targets only that station's environment — useful for environment-specific fixes, targeted rollbacks, or station-level hotfixes.
 
 ## Purpose
 
@@ -35,6 +37,7 @@ Without Change Requests:
 | Field | Type | Description |
 |---|---|---|
 | Type | Enum | `Standard` / `Emergency-Technical` / `Emergency-Business` |
+| Deployment Scope | Enum | `System` / `Product` — whether this CR governs a System or Product deployment |
 | Scope | Reference (Dim 7) | Deployment Train or specific Station this change request targets |
 | Requestor | String | Person or team requesting the change |
 | Justification | Text | Why this change is needed (may reference Customer Release, Incident, business exigency) |
@@ -77,13 +80,14 @@ Change Request: CR-2026-0142
 ├── Type: Standard
 ├── Scope: PCI Regulated Train (full promotion path)
 ├── Requestor: Release Engineering
-├── Justification: "Deploy Payments Module Package Version v2.3.0 — includes FX rate-lock feature for LATAM Expansion Customer Release"
+├── Deployment Scope: Product
+├── Justification: "Deploy Product v4.0.0 — includes FX rate-lock feature for LATAM Expansion Customer Release"
 ├── Customer Release: "LATAM Expansion"
-├── Impact Assessment: "Medium risk — DB migration in pre-rollout; 3 production environments; affects all Payments tenants"
+├── Impact Assessment: "Medium risk — DB migration in payments-system pre-rollout; 3 production environments; affects all Payments tenants"
 ├── CAB Decision: "Approved — drill required before production deployment"
 ├── Completion Criteria: "All Deployment Tasks (staging, prod-us, prod-latam) + all Verification Tasks (SLA, compliance) pass"
 ├── Contains:
-│   ├── Deployment Plan: "Deploy Payments Module Package Version v2.3.0 to Production"
+│   ├── Deployment Plan: "Deploy Product v4.0.0 to Production"
 │   ├── Verification Task: "Post-deployment SLA verification — production-us"
 │   └── Verification Task: "LATAM compliance audit — production-latam"
 └── Status: In Progress

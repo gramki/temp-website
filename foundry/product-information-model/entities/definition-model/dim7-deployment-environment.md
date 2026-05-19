@@ -61,7 +61,7 @@ Captures the strategic infrastructure decisions about where the product runs and
 | Scoped by | Operational Readiness (Dim 7) | System readiness is assessed per-environment |
 | Justified by | PDR (Dim 1) | New environment provisioning is justified by PDRs |
 | Decisions | ODR(s) (Dim 7) | Operational decisions affecting this environment are recorded as ODRs |
-| Targeted by | SDD / MDD / PDD (Track 3) | Deployment descriptors target this environment with environment-specific deployment specifications |
+| Targeted by | System Deployment Specification / Product Deployment Specification (Track 3) | Deployment specifications target this environment |
 | Targeted by | Station(s) (Dim 7) | Stations within Deployment Trains target this environment as a governance checkpoint |
 | Work Model | Deployment Task (Track 3) | Deployment Tasks apply descriptors to this environment |
 | Work Model | Capacity Planning Task (Track 3) | Capacity is planned per-environment |

@@ -6,56 +6,57 @@
 
 ## Definition
 
-Work to plan a deployment and **produce deployment descriptors** (SDD, MDD, or PDD versions) for target environments. Deployment Planning Tasks encompass rollout strategy selection (canary, blue-green, rolling), environment-specific configuration, deployment script authoring (pre-rollout, validation, rollback), compliance window coordination, and change management review. The Deployment Planning Task is where deployment descriptors are created, validated, and approved.
+Work to plan a deployment and **produce or update Deployment Specifications** (System Deployment Specification or Product Deployment Specification) for target environments. Deployment Planning Tasks encompass rollout strategy selection (canary, blue-green, rolling), environment-specific configuration, deployment script authoring (pre-rollout, validation, rollback), compliance window coordination, and change management review.
 
-At the atomic level, Deployment Planning produces SDD versions. At the integrated level, it produces MDD versions (composing SDDs, adding Module-level config and scripts). At the complete level, it produces PDD versions (composing MDDs, adding product-level orchestration and scripts). The Operating Model determines whether the SDD (atomic) or MDD (integrated) is the logical unit for change management in a given organization.
+At **System scope**, Deployment Planning produces **System Deployment Specification** versions referencing a sealed **System Version**. At **Product scope**, it produces **Product Deployment Specification** versions referencing a certified **Product Version** and composing constituent System Deployment Specifications. The Operating Model determines whether System-scoped or Product-scoped deployment is the default change-management unit in a given organization. See DR-036.
 
-> **Scripts within descriptors are engineering work.** Pre-rollout scripts (database migrations, cache warming), validation scripts (post-deployment health checks, integration smoke tests), and rollback scripts (migration reversals, state restoration) are code artifacts developed as sub-tasks of the Deployment Planning Task. See DR-028.
+> **Scripts within specifications are engineering work.** Pre-rollout scripts (database migrations, cache warming), validation scripts (post-deployment health checks, integration smoke tests), and rollback scripts are code artifacts developed as sub-tasks of the Deployment Planning Task. See DR-028 (superseded for terminology by DR-036 D5, D6).
 
 ## Purpose
 
-Makes deployment planning explicit in the Run Track. Deploying to production is not a button press — it requires planning around rollout strategy, environment readiness, rollback procedures, compliance windows (e.g., PCI audit freezes), composition-level coordination, cross-track handoffs, and the creation of deployment descriptors that encapsulate all environment-specific details. The composition level (atomic vs. integrated vs. complete) is itself a planning decision with different risk, coordination, and rollback implications.
+Makes deployment planning explicit in the Run Track. Deploying to production is not a button press — it requires planning around rollout strategy, environment readiness, rollback procedures, compliance windows, cross-System coordination (for Product scope), and creation of Deployment Specifications that encapsulate all environment-specific details.
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| Composition Level | Enum | `Atomic` / `Integrated` / `Complete` — the deployment granularity being planned |
-| Deployable Artifact | Reference | The artifact being deployed: System Version (atomic), Module Package Version (integrated), or Product Package Version (complete) |
+| Deployment Scope | Enum | `System` / `Product` — whether planning targets one System or a full Product deployment |
+| Deployable Artifact | Reference | **System Version** (System scope) or **Product Version** (Product scope) being deployed |
 | Target Environment | Reference (Dim 7) | The Deployment Environment being targeted |
 | Deployment Strategy | Enum | `Canary` / `Blue-Green` / `Rolling` / `Direct` |
 | Compliance Windows | List | Relevant compliance/change-freeze windows that constrain deployment timing |
-| Pre-rollout Scripts | List | Scripts/applications to be included in the descriptor: migrations, cache warming, prerequisite validation |
-| Validation Scripts | List | Scripts/applications to be included in the descriptor: health checks, smoke tests, SLA verification |
-| Rollback Scripts | List | Scripts/applications to be included in the descriptor: migration reversals, state restoration |
-| Risk Assessment | Text | Risk analysis for this deployment: blast radius, rollback complexity, data migration risks |
+| Pre-rollout Scripts | List | Scripts to include in the specification: migrations, cache warming, prerequisite validation |
+| Validation Scripts | List | Scripts to include: health checks, smoke tests, SLA verification |
+| Rollback Scripts | List | Scripts to include: migration reversals, state restoration |
+| Risk Assessment | Text | Risk analysis: blast radius, rollback complexity, data migration risks |
 
 ## Statuses
 
 | Status | Description |
 |---|---|
 | Planning | Deployment plan being developed; scripts being authored; environment-specific configuration being determined |
-| Descriptor Ready | SDD/MDD/PDD version created with all configuration, scripts, and references validated |
-| Approved | Descriptor has passed change management review and is cleared for deployment |
-| Executing | Deployment Task is in progress using the produced descriptor |
+| Specification Ready | System Deployment Specification or Product Deployment Specification created with all configuration, scripts, and references validated |
+| Approved | Specification has passed change management review and is cleared for deployment |
+| Executing | Deployment Task is in progress using the produced specification |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Governed by | Deployment Plan (Track 3) | Deployment Planning Task is produced by and governed by a Deployment Plan |
-| Produces | SDD version (Track 3) | Deployment Planning Task produces SDD versions (atomic level) |
-| Produces | MDD version (Track 3) | Deployment Planning Task produces MDD versions (integrated level) |
-| Produces | PDD version (Track 3) | Deployment Planning Task produces PDD versions (complete level) |
-| Plans for | Deployment Task (Track 3) | Deployment Planning Task produces the descriptor for Deployment Task execution |
+| Produces | System Deployment Specification (Track 3) | Produces System-scoped specifications (System scope) |
+| Produces | Product Deployment Specification (Track 3) | Produces Product-scoped specifications (Product scope) |
+| Plans for | Deployment Task (Track 3) | Produces the specification for Deployment Task execution |
 | May produce | Verification Task(s) (Track 3) | Planning may produce Verification Tasks for post-deployment validation |
 | May produce | Maintenance Task(s) (Track 3) | Planning may discover maintenance prerequisites |
-| Considers | Operational Readiness (Dim 7) | Planning considers environment readiness status |
-| Informed by | Incident history (Track 3) | Incident history for affected Module/System informs deployment risk assessment — a Module with recent SEV-1 incidents may warrant a more cautious strategy (canary, drill) or block promotion |
-| Supports | Customer Release (Dim 1) | Deployment planning ensures Customer Release's deployable compositions are deployed |
+| Considers | Operational Readiness (Dim 7) | Planning considers System readiness in the target environment |
+| Informed by | Incident history (Track 3) | Recent incidents for affected Systems inform deployment risk assessment |
+| Supports | Customer Release (Dim 1) | Ensures Customer Release's Product Version reaches target environments |
 
 ## Examples
 
-- **Atomic:** "Plan payments-service v2.3.3 deployment to production-us: produce SDD v1.2, canary to 5% → 25% → 100% over 72 hours, PCI audit window avoidance."
-- **Integrated:** "Plan Payments Module Package Version v2.3.0 deployment to production-latam: produce MDD v3.1 composing 4 SDDs, author pre-rollout migration script, validation smoke test, rollback script, LATAM regulatory window."
-- **Complete:** "Plan Product Package Version v3.2.0 deployment to production-latam: produce PDD v1.0 composing 3 MDDs, define deployment ordering (Compliance → FX → Payments), author cross-module e2e verification script, coordinated rollback plan."
+- **System scope:** "Plan payments-system v3.1.0 deployment to production-us: produce System Deployment Specification sds-1.2, canary to 5% → 25% → 100% over 72 hours, PCI audit window avoidance."
+- **System scope:** "Plan payments-monitoring-system v1.2.0 deployment to production-latam: produce System Deployment Specification sds-1.0 for operational System."
+- **Product scope:** "Plan Product v4.0.0 deployment to production-latam: produce Product Deployment Specification pds-1.0 composing System Deployment Specifications for all Systems, define deployment ordering (Compliance → FX → Payments), author cross-System e2e verification script, coordinated rollback plan."
+
+---

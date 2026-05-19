@@ -62,6 +62,6 @@ Makes the continuous oversight of Run Track engineering health explicit. Without
 
 ## Example
 
-"Monitor payments-healthcheck and payment-reconciler CI — continuous; alert on build failure or test coverage drop below 85%. Weekly Run Epic velocity report: Run Story completion rate, operational system defect count. Owner: Payments SRE Lead. Feeds Run Epic retrospective and Module Package readiness assessment."
+"Monitor payments-healthcheck and payment-reconciler CI — continuous; alert on build failure or test coverage drop below 85%. Weekly Run Epic velocity report: Run Story completion rate, operational system defect count. Owner: Payments SRE Lead. Feeds Run Epic retrospective and operational System Version readiness assessment."
 
 ---

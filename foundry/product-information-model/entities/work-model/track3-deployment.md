@@ -6,29 +6,29 @@
 
 ## Definition
 
-A durable record that a deployment descriptor was applied to a specific environment — the work artifact produced by a Deployment Task. A Deployment records *what* was deployed (descriptor version), *where* (environment), *when* (timestamp), *by whom* (deployer), and *how it went* (result). Deployments operate at three **composition levels**: **atomic** (SDD applied), **integrated** (MDD applied), or **complete** (PDD applied).
+A durable record that a **Deployment Specification** was applied to a specific environment — the work artifact produced by a Deployment Task. A Deployment records *what* was applied (specification version), *where* (environment), *when* (timestamp), *by whom* (deployer), and *how it went* (result). Deployments are scoped to **System Deployment** (System Deployment Specification applied) or **Product Deployment** (Product Deployment Specification applied).
 
-Deployment is an **artifact**, not a work entity. The *work* of deploying is a Deployment Task; the *record* of having deployed is a Deployment. This follows the pattern established throughout the Work Model: work entities produce work artifacts (Specification Task → PSD, Deployment Planning Task → SDD/MDD/PDD, Deployment Task → Deployment).
+Deployment is an **artifact**, not a work entity. The *work* of deploying is a Deployment Task; the *record* of having deployed is a Deployment. This follows the pattern established throughout the Work Model: work entities produce work artifacts (Specification Task → PSD, Deployment Planning Task → Deployment Specification, Deployment Task → Deployment).
 
-> **Deployment applies descriptors, not artifacts directly (DR-028, refined by DR-029).** The descriptor version determines *what* is deployed *how* — the deployable artifact (System Version, Module Package Version, Product Package Version) is referenced indirectly through the descriptor. See DR-026 (System Version as atomic deployment unit), DR-027 (Module Package and Product Package), DR-028 (deployment descriptors), DR-029 (Deployment refactored from work entity to artifact).
+> **Deployment applies specifications, not build artifacts directly (DR-036).** The specification references a sealed **System Version** or certified **Product Version** and provides environment-specific configuration. See DR-036 D5, D6; DR-029 (Deployment as artifact).
 
 ## Purpose
 
-Deployment is the durable link between quality-gated Build/Run Track artifacts and running production systems. It is a distinct concept from a Customer Release (the business act of making functionality available to customers). An artifact can be deployed (code running in production) without being released to customers — enabling dark launches, feature flags, and canary rollouts. The Customer Release becomes `Launched` only when all required deployments (MDD or PDD applications) are complete AND the business activates the release.
+Deployment is the durable link between quality-gated Build Track artifacts and running production systems. It is distinct from a Customer Release (the business act of making functionality available to customers). Code can be deployed without being released to customers — enabling dark launches, feature flags, and canary rollouts. Customer Release becomes `Launched` when required deployments are complete AND the business activates the release.
 
 As an artifact, the Deployment record provides:
 - An auditable history of what is running in each environment
 - The basis for supersession tracking (which deployment replaced which)
 - Evidence for compliance and change management audit trails
-- The anchor for rollback decisions (roll back to a previous Deployment's descriptor version)
+- The anchor for rollback decisions (roll back to a previous specification version)
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| Composition Level | Enum | `Atomic` / `Integrated` / `Complete` — the deployment granularity |
-| Descriptor | Reference | The descriptor version that was applied: SDD version (atomic), MDD version (integrated), or PDD version (complete) |
-| Environment | Reference (Dim 7) | The Deployment Environment where the descriptor was applied |
+| Deployment Scope | Enum | `System` / `Product` — whether a System or Product Deployment Specification was applied |
+| Specification | Reference | The specification version applied: System Deployment Specification or Product Deployment Specification |
+| Environment | Reference (Dim 7) | The Deployment Environment where the specification was applied |
 | Deployment Strategy | Enum | `Canary` / `Blue-Green` / `Rolling` / `Direct` — the strategy used |
 | Deployment Timestamp | DateTime | When the deployment was executed |
 | Deployer | String | Person or automation that executed the deployment |
@@ -41,24 +41,23 @@ As an artifact, the Deployment record provides:
 |---|---|
 | Active | This deployment is the current running state in the target environment |
 | Superseded | This deployment has been replaced by a newer Deployment in the same environment |
-| Rolled Back | This deployment was reverted — a rollback Deployment Task produced a new Deployment record pointing to a previous descriptor version |
+| Rolled Back | This deployment was reverted — a rollback Deployment Task applied a prior specification version |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Produced by | Deployment Task (Track 3) | Deployment record is produced by a Deployment Task |
-| Records application of | SDD version (Track 3) | Deployment records an SDD version application (atomic level) |
-| Records application of | MDD version (Track 3) | Deployment records an MDD version application (integrated level) |
-| Records application of | PDD version (Track 3) | Deployment records a PDD version application (complete level) |
-| Targets | Deployment Environment (Dim 7) | Deployment records which environment the descriptor was applied to |
+| Records application of | System Deployment Specification (Track 3) | System-scoped deployment |
+| Records application of | Product Deployment Specification (Track 3) | Product-scoped deployment |
+| Targets | Deployment Environment (Dim 7) | Records which environment the specification was applied to |
 | Supersedes | Deployment (Track 3) | A newer Deployment supersedes the previous one in the same environment |
 | Enables | Customer Release (Dim 1) | Successful deployments enable Customer Release activation |
 
 ## Examples
 
-- **Active Deployment (Integrated):** "Payments MDD v3.1 applied to production-latam at 2026-02-12T14:30:00Z by deploy-pipeline. Status: Active. Supersedes: Deployment of Payments MDD v3.0 (now Superseded)."
-- **Rolled Back Deployment:** "Payments MDD v3.1 applied to production-latam. Status: Rolled Back. A rollback Deployment Task applied Payments MDD v3.0 (the previous version), producing a new Active Deployment."
-- **Atomic Deployment:** "payments-service SDD v1.2 applied to production-us at 2026-02-11T10:00:00Z. Status: Active."
+- **Active (System):** "payments-system System Deployment Specification sds-1.2 applied to production-latam at 2026-02-12T14:30:00Z by deploy-pipeline. Status: Active. References payments-system v3.1.0. Supersedes sds-1.1 deployment."
+- **Rolled Back (System):** "payments-system sds-1.2 applied to production-latam. Status: Rolled Back. Rollback Deployment Task applied sds-1.1, producing new Active Deployment."
+- **Active (Product):** "Product Deployment Specification pds-1.0 for Product v4.0.0 applied to production-latam. Status: Active."
 
 ---

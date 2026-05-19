@@ -18,7 +18,7 @@ Makes cross-System integration work explicit and plannable. Without Integration 
 - Integration work hides inside feature Epics — it surfaces late as "integration issues" that delay releases
 - Cross-team coordination has no structured work entity — integration becomes ad hoc
 - Interaction Flows (Dim 5) have no work entity that validates them end-to-end
-- Module Versions (integration tier) have no traceable path from specification to verification
+- System Version assembly and Product Version certification have no traceable path from integration work
 
 ## Fields
 
@@ -53,7 +53,8 @@ Makes cross-System integration work explicit and plannable. Without Integration 
 | Contains | Integration Story(ies) (Track 2) | Integration Epic contains Integration Stories |
 | Identified by | Release Planning Task (Track 2) | Integration Epics are identified during Release Planning |
 | Targeted by | Milestone (Track 2) | Integration Epic may be gated by a Milestone |
-| Produces | Module Version (Track 2) | Verified Integration Epics contribute to Module Version verification |
+| Contributes to | System Version(s) (Track 2) | Integration work verifies cross-System contracts within and across Systems |
+| Contributes to | Product Version (Track 2) | Cross-System Integration Epics contribute to Product Version certification |
 
 ## Examples
 

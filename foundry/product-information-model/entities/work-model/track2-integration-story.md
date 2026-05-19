@@ -49,7 +49,8 @@ Decomposes Integration Epics into plannable and trackable units of integration w
 | Implemented by | Technical Task(s) (Track 2) | Integration Story is implemented by Technical Tasks |
 | Produces | Integration Contract(s) | API schemas, event schemas validated by this Story |
 | Produces | Integration Test Suite | Test suite verifying the integration |
-| Contributes to | Module Version (Track 2) | Verified Integration Stories contribute to Module Version verification |
+| Contributes to | System Version(s) (Track 2) | Integration Stories verify contracts for System Version assembly |
+| Contributes to | Product Version (Track 2) | Cross-System stories contribute to Product Version certification |
 | Assigned to | Iteration (Track 2) | Integration Story is assigned to a sprint |
 
 ## Examples

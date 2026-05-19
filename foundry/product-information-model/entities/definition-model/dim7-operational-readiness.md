@@ -12,7 +12,7 @@ Distinct from Evolve Track (Track 5), which assesses process effectiveness ("are
 
 > **Why per-System, not per-Module?** The Run Track operates Systems — SREs deploy `payments-service`, monitor `fx-service` metrics, write runbooks for `bank-adapter` failover. Observability, security scans, performance benchmarks, DR procedures — all are naturally System-scoped. The System is the operational unit, just as it is the deployment unit (System Version) and the build unit (CI/CD pipeline). Module-level readiness ("is the Payments capability ready for production in LATAM?") is a derived view that aggregates readiness across all Systems implementing that Module. If any constituent System has gaps, the Module has gaps.
 >
-> **Module-level operational concern remains legitimate.** A Module Version is a composite system — not merely a collection of System Versions, but a system in its own right with emergent operational properties (end-to-end latency across the Module's Systems, integrated failure modes, cross-system data consistency) that do not exist at the individual System level. SREs legitimately reason about "the Payments Module" because it represents an operable capability with its own health profile. Module-level readiness is derived from constituent System readiness, but the Module itself has emergent concerns (e.g., "end-to-end payout latency exceeds SLO even though each System meets its individual target") that System-level assessment alone cannot surface. The primary operational vocabulary and assessment granularity remains System-level; Module-level readiness aggregates and extends it. See DR-026.
+> **Module-level operational concern remains legitimate (DR-036).** Module (Dim 8) is a functional boundary — SREs reason about "the Payments Module" for capability-level health. Module-level readiness is a **derived view** aggregating constituent Systems' readiness. Emergent cross-System concerns within a Module (e.g., "end-to-end payout latency exceeds SLO though each System meets its target") are surfaced via Product Version certification and cross-System monitoring — not a separate Module Version entity. Primary assessment granularity remains System × Environment. See DR-036.
 
 ## Purpose
 
@@ -64,7 +64,7 @@ Captures the operational acceptance criteria that every System must meet before 
 | Context from | Infrastructure Model (Dim 7) | Infrastructure Model determines which criteria are relevant |
 | Informs | Deployment Plan (Track 3) | Deployment Plan deliberation considers readiness status |
 | Informs | Deployment Task (Track 3) | Deployment execution considers readiness status |
-| Informs | MDD (Track 3) | Readiness status informs whether an MDD should be created for a given environment and what operational prerequisites exist |
+| Informs | System Deployment Specification (Track 3) | Readiness status informs whether a deployment specification should be created and what operational prerequisites exist |
 | Informed by | Incident history (Track 3) | Incident patterns per System x Environment reveal readiness gaps — e.g., a System with recurring SEV-1 incidents in one environment but not another indicates environment-specific readiness issues |
 | Fed by | System Version (Track 2) | System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness assessment |
 | Updated by | Post-Incident Review (Track 3) | PIR findings may downgrade readiness posture for affected System x Environment |

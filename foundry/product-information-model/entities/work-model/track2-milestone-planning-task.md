@@ -9,7 +9,7 @@
 Work to define checkpoints within a Customer Release with clear entry/exit criteria. Milestones serve as progress gates that verify the release is on track. Milestone Planning includes:
 
 1. **Cross-Epic dependency gating** — identifying and sequencing dependencies between Epics (e.g., "FX Module Epic must complete before Payments Module Epic can start integration testing")
-2. **Integration verification gates** — defining checkpoints where Module Versions must be verified (e.g., "API Complete milestone: all cross-border endpoints passing integration tests with verified Module Versions")
+2. **Integration verification gates** — defining checkpoints where System Versions must be verified and Product Version certification scoped (e.g., "API Complete milestone: all cross-border endpoints passing integration tests; Systems X and Y at Released System Versions")
 3. **Quality gates** — defining System Version quality thresholds that must be met at each Milestone
 
 ## Purpose
@@ -29,7 +29,7 @@ Milestones provide intermediate verification points within a Customer Release's 
 | Entry Criteria | Text | What must be true to enter this milestone |
 | Exit Criteria | Text | What must be true to pass this milestone |
 | Epic Dependencies | List of References (Track 2) | Epics that must be complete or at specific status |
-| Integration Gate | Text | Integration verification requirements (e.g., which Module Versions must be verified) |
+| Integration Gate | Text | Integration verification requirements (e.g., which System Versions must be Released; Product Version certification scope) |
 | Quality Gate | Text | System Version quality thresholds required (e.g., "All Systems > 90% test coverage") |
 | Target Date | Date | When this milestone should be achieved |
 
@@ -51,7 +51,7 @@ Milestones provide intermediate verification points within a Customer Release's 
 | Verifies | Epic(s) (Track 2) | Milestones verify completion or progress of specific Epics |
 | Verifies | Integration Epic(s) (Track 2) | Milestones may gate Integration Epic completion |
 | Gates | System Version(s) (Track 2) | Milestones require System Versions to meet quality thresholds |
-| Gates | Module Version(s) (Track 2) | Milestones may require Module Versions to be integration-verified |
+| Gates | Product Version (Track 2) | Milestones may require Product Version certification or scoped System Versions at Released |
 
 ## Examples
 
@@ -59,7 +59,7 @@ Milestones provide intermediate verification points within a Customer Release's 
 |---|---|---|---|---|
 | "API Complete" | LATAM Expansion v1.0 | All cross-border API endpoints passing integration tests | FX Rate Locking Epic, Payment Execution Epic | Active |
 | "Compliance Ready" | LATAM Expansion v1.0 | OFAC screening passing with 100% match rate on test dataset | LATAM OFAC Screening Epic | Defined |
-| "Integration Verified" | LATAM Expansion v1.0 | Module Versions for Payments, FX, Compliance integration-verified | All Integration Epics | Defined |
+| "Integration Verified" | LATAM Expansion v1.0 | System Versions for payments, FX, compliance Systems Released; Product Version certification scoped | All Integration Epics | Defined |
 | "Settlement Complete" | Settlement Q3 | Settlement reconciliation running end-to-end with partner banks | Settlement Reconciliation Epic | Active |
 
 ---

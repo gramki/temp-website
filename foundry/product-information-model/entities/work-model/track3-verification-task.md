@@ -60,8 +60,8 @@ Makes post-deployment verification explicit and auditable in the Run Track. With
 ### Post-Deployment SLA Verification
 
 ```
-Verification Task: "SLA Verification — Payments MDD v3.1 → production-latam"
-├── Deployment Task: "Apply Payments MDD v3.1 to production-latam"
+Verification Task: "SLA Verification — payments-system sds-1.2 → production-latam"
+├── Deployment Task: "Apply payments-system System Deployment Specification sds-1.2 to production-latam"
 ├── Verification Type: SLA Verification
 ├── Verification Criteria:
 │   ├── P95 latency < 300ms for 24h post-deployment
@@ -76,8 +76,8 @@ Verification Task: "SLA Verification — Payments MDD v3.1 → production-latam"
 ### LATAM Compliance Audit Verification
 
 ```
-Verification Task: "LATAM Compliance Audit — Payments MDD v3.3 → production-latam"
-├── Deployment Task: "Apply Payments MDD v3.3 to production-latam"
+Verification Task: "LATAM Compliance Audit — Product Deployment Specification pds-1.2 → production-latam"
+├── Deployment Task: "Apply Product Deployment Specification pds-1.2 to production-latam"
 ├── Verification Type: Compliance Audit
 ├── Verification Criteria:
 │   ├── LGPD data residency: all payment data stored in sa-east-1

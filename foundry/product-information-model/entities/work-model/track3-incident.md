@@ -95,7 +95,7 @@ Captures the factual record of service degradation as a structured, queryable ar
 | INC-2026-0847 | SEV-1 | "FX API latency spiked to 5000ms" | Alert (System Monitoring: P95 > 500ms threshold) | fx-service, FX Module, Production US-East | — | Yes: "sub-200ms P95 latency" Service Commitment |
 | INC-2026-0848 | SEV-1 | "Cross-border payments timing out" | Alert (System Monitoring: error rate > 1%) | payments-service, Payments Module, Production US-East | — | Yes: "99.9% API uptime" Service Commitment |
 | INC-2026-0849 | SEV-0 | "Database cluster failover — all services degraded" | Alert (System Monitoring: health check failures) | All Systems, All Modules, Production US-East | — | Yes: multiple commitments |
-| INC-2026-0850 | SEV-2 | "Elevated error rate after Payments MDD v3.1 deployment" | Alert (Verification Task failure) | payments-service, Payments Module, Production LATAM | Deployment: "Payments MDD v3.1 → production-latam" | No (within SLA but degraded) |
+| INC-2026-0850 | SEV-2 | "Elevated error rate after payments-system v3.1.0 deployment" | Alert (Verification Task failure) | payments-system, Payments Module, Production LATAM | Deployment: "payments-system sds-1.2 → production-latam" | No (within SLA but degraded) |
 | INC-2026-0851 | SEV-3 | "Compliance dashboard stale data" | Complaint (Win Case WC-445) | compliance-service, Compliance Module, Production US-East | — | No |
 
 > **Parent/child example:** INC-2026-0849 (database cluster failover) is the parent incident. INC-2026-0847 (FX latency) and INC-2026-0848 (payment timeouts) are child incidents with `Parent Incident: INC-2026-0849`. This prevents counting 3 root causes when there is only 1.
