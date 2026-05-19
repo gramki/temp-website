@@ -46,7 +46,7 @@ Anchors the Structural Dimension as the root of the Product → Module → Capab
 | Referenced by | Product Specification Document (Dim 1) | PSDs specify changes to Modules within this Product |
 | Delivered as | Product Version (Track 2) | Build Track produces versioned, certified Product Versions |
 | Made available as | Customer Release (Dim 1) | Customer Releases bundle Product capability delivery |
-| Packaged as | Product Package (Dim 7) | Operational composition spec for the Product |
+| Technical twin | Product Specification (Dim 5) | Declares which Systems compose the product (product-facing and operational alike) |
 
 ## Example
 

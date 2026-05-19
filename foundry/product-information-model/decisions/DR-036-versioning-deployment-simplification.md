@@ -174,7 +174,7 @@ Operational Systems are code with repos and pipelines. Separating their versions
 - `track2-system-version.md` → Component Version semantics; new System Version entity for sealed BOM
 - Deployment descriptor entity files (SDD, MDD, PDD) → System Deployment Specification, Product Deployment Specification; MDD deleted
 - Dim 7 Module Package / Product Package entity files → removed; Product Specification added to Dim 5
-- Stories `versioning-alternatives-analysis.md`, `deployment-artifacts-analysis.md`, `change-to-deployment-analysis.md` carry DR-035 amendment notes and require DR-036 pass
+- Stories `versioning-alternatives-analysis.md`, `deployment-artifacts-analysis.md`, `change-to-deployment-analysis.md` were updated in the DR-036 pass; Track 3 entity files, draft references, and narrative seeds require follow-on consistency updates (see `1.TODO`)
 
 ---
 

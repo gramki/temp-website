@@ -28,6 +28,7 @@ Captures the product's technical deployment topology — what operational groupi
 |---|---|---|
 | Name | String | System name — typically a product domain noun in kebab-case (e.g., "payments-system," "fx-system," "compliance-system," "customer-portal") |
 | Module Mapping | List of References (Dim 8) | Which Dim 8 Module(s) this System realizes (many-to-many; Architect-defined) |
+| Purpose / Serving Persona(s) | List of References (Dim 4 / Dim 7) | Who this System serves — End-User or Programmatic Personas (Dim 4) or Operational Personas (Dim 7); distinguishes product-facing from operational Systems within Product Specification (DR-036 D9) |
 | Owner | Reference (WFR) | Engineering team or Tech Lead responsible for this System |
 | Deployment Specification Reference | Reference (Track 3) | Link to System Deployment Specification — environment-specific deployment configuration |
 | Repository Reference | String | Source code repository identifier (e.g., GitHub org/repo) |
