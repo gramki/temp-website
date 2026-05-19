@@ -29,7 +29,7 @@ Captures the product's technical deployment topology — what operational groupi
 | Name | String | System name — typically a product domain noun in kebab-case (e.g., "payments-system," "fx-system," "compliance-system," "customer-portal") |
 | Module Mapping | List of References (Dim 8) | Which Dim 8 Module(s) this System realizes (many-to-many; Architect-defined) |
 | Owner | Reference (WFR) | Engineering team or Tech Lead responsible for this System |
-| Deployment Descriptor Reference | Reference (Track 3) | Link to System Deployment Descriptor (SDD) — environment-specific deployment specification |
+| Deployment Specification Reference | Reference (Track 3) | Link to System Deployment Specification — environment-specific deployment configuration |
 | Repository Reference | String | Source code repository identifier (e.g., GitHub org/repo) |
 | Technology Stack — Language | String | Primary programming language(s) (e.g., "Java 21," "Python 3.12") |
 | Technology Stack — Framework | String | Primary framework(s) (e.g., "Spring Boot 3.2," "FastAPI") |
@@ -56,8 +56,9 @@ Captures the product's technical deployment topology — what operational groupi
 | Participates in | Interaction Flow(s) (Dim 5) | System participates in inter-system Interaction Flows |
 | Has | Technical Knowledge Base (Dim 5) | System has a documentation coverage assessment |
 | Decisions | ADR(s) (Dim 5) | Architectural decisions affecting this System are recorded as ADRs |
-| Produces | System Version (Track 2) | Build Track produces versioned, quality-gated System Versions |
-| Described by | System Deployment Descriptor / SDD (Track 3) | SDD specifies environment-specific deployment configuration |
+| Produces | System Version (Track 2) | Build Track produces versioned, quality-gated System Versions — each System Version is a composed snapshot of its Components' Component Versions |
+| Described by | System Deployment Specification (Track 3) | System Deployment Specification defines environment-specific deployment configuration for a System Version |
+| Included in | Product Specification (Dim 5) | System is listed in its Product's Product Specification (product-facing and operational Systems equally) |
 | Context | Architecture Model (Dim 5) | System exists within the Architecture Model's frame |
 
 ## Examples
@@ -70,4 +71,4 @@ Captures the product's technical deployment topology — what operational groupi
 | bank-connectivity-system | Payments Module, Settlement Module | bank-adapter (Integration Adapter), bank-file-generator (Batch Job) | Java 21 / Spring Boot 3.2 | Active |
 | customer-portal-system | Customer Portal Module | portal-web-app (Web Application), portal-bff (API Service) | TypeScript / React, Java 21 | Active |
 
-> **Operational deployment example:** When SRE deploys "Payments System v3.1," they apply a System Deployment Descriptor (SDD) that composes: payments-service v2.3.1, payment-reconciler v1.4.0, payment-notification-worker v1.2.0. These three Components are deployed together as a unit — not individually to production.
+> **Operational deployment example:** When SRE deploys "Payments System v3.1," they apply a System Deployment Specification that composes Component Versions: payments-service v2.3.1, payment-reconciler v1.4.0, payment-notification-worker v1.2.0 into that System Version. These three Components are deployed together as a unit — not individually to production.

@@ -6,7 +6,7 @@
 
 ## Definition
 
-An individual deployable artifact within a System — independently buildable with its own artifact version (container image, Lambda package, frontend bundle, JAR, etc.), but **not independently deployed to production**. Components are deployed as part of their parent System via the System's deployment descriptor (SDD). A Component has a Component Archetype that classifies its deployment artifact type.
+An individual deployable artifact within a System — independently buildable with its own artifact version (container image, Lambda package, frontend bundle, JAR, etc.), but **not independently deployed to production**. Components are deployed as part of their parent System via the System's System Deployment Specification. A Component has a Component Archetype that classifies its deployment artifact type.
 
 > **Supersedes DR-024 D8 (amended by DR-035):** Component is no longer "significant architectural building block within a System" (FX Rate Calculator, Payment State Machine). Component is the **atomic deployable artifact** within a System — a container image, Lambda package, frontend bundle, or equivalent. Code-level building blocks (processing engines, rule evaluators, adapters embedded within a single artifact) are below the Definition Model waterline. See DR-035 Decision D10.
 
@@ -18,7 +18,7 @@ Captures the deployable composition of a System — which artifacts exist, how t
 - Capability-to-artifact tracing is missing — "which artifact implements Real-Time FX Rate Lock?"
 - Build Track System Version has no constituent artifact list
 
-Components are the units that CI/CD pipelines build and tag. The System Version in the Build Track is a composed version of its Component artifact versions.
+Components are the units that CI/CD pipelines build and tag. Each Component is versioned as a **Component Version** (Track 2). Component Versions compose into their parent System's **System Version** — the System Version is the composed snapshot of all constituent Component Versions.
 
 ## Fields
 
@@ -56,7 +56,8 @@ _Inherits from parent System — Components do not have an independent lifecycle
 | Belongs to | System (Dim 5) | Component is contained by a System |
 | Maps to | Capability(ies) (Dim 8) | Component implements or contributes to specific Capabilities (Architect-defined) |
 | Decisions | ADR(s) (Dim 5) | Architectural decisions affecting this Component are recorded as ADRs |
-| Versioned as | System Version (Track 2) | Component artifact version is included in its parent System Version |
+| Versioned as | Component Version (Track 2) | Build Track produces versioned, quality-gated Component Versions per artifact |
+| Composes into | System Version (Track 2) | Component Versions from all Components in a System compose that System's System Version |
 
 ## Examples
 
@@ -74,4 +75,4 @@ _Inherits from parent System — Components do not have an independent lifecycle
 | portal-web-app | Web Application | customer-portal-system | TypeScript / React | Payment Dashboard, FX Rate Monitor |
 | portal-bff | API Service | customer-portal-system | Java 21 / Spring Boot 3.2 | Payment Dashboard, FX Rate Monitor |
 
-> **Build pipeline example:** `payments-service` has its own Dockerfile and GitHub Actions workflow. It builds to `ghcr.io/org/payments-service:2.3.1`. When Payments System v3.1 is assembled, the System Version lists: payments-service:2.3.1 + payment-reconciler:1.4.0 + payment-notification-worker:1.2.0. The SDD references this composition for deployment.
+> **Build pipeline example:** `payments-service` has its own Dockerfile and GitHub Actions workflow. CI/CD produces **Component Version** `payments-service:2.3.1` (image `ghcr.io/org/payments-service:2.3.1`). Sibling Components likewise produce Component Versions (`payment-reconciler:1.4.0`, `payment-notification-worker:1.2.0`). The Build Track assembles **System Version** Payments System v3.1 from those Component Versions. The System Deployment Specification references that System Version composition for deployment.

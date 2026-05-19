@@ -2,73 +2,86 @@
 
 **Model:** Work Model
 **Track:** Track 2: The Build Track (Construction) — Artifact
-**Owner:** Tech Lead, Developers, QA
+**Owner:** Tech Lead, Integration Architect, SRE (for operational Systems)
 
 ## Definition
 
-A versioned, quality-gated artifact of a single System (Dim 5), continuously produced by CI/CD pipelines. System Versions are *results* of engineering progress, not planned entities — they are routinely and continuously incremented as Technical Tasks flow through the pipeline. A System Version with status `Released` has passed all quality gates and is available for deployment.
+A **sealed, immutable package of Component Versions** — the composed and Component-integration-verified version of a System (Dim 5). System Version is the second tier of the three-tier versioning model: Component Version (atomic) → **System Version (composed)** → Product Version (complete). Once assembled and verified, a System Version is immutable; only deployment parameters may vary across environments via System Deployment Specifications (Track 3).
 
-System Version is the **atomic deployment unit** — the Run Track deploys System Versions to Deployment Environments (Dim 7) via SDDs (System Deployment Descriptors). It is the first tier of the three-tier versioning model: System Version (atomic deployment) → Module Version (integrated deployment + integration verification) → Product Version (complete deployment + certification). Module Version and Product Version are also deployable (via Module Package Version and Product Package Version, enriched by the Run Track, deployed via MDD and PDD respectively), but System Version is the atomic, independently deployable unit. See DR-026, DR-027, DR-028.
+System Version is the **operational deployment unit** — what SRE deploys as a whole when they deploy "Payments System v3.1.0." It is not an atomic build artifact (that is Component Version) and not the complete product (that is Product Version). System Version captures which exact Component artifact versions work together within one System, validated by integration contracts and tests. See DR-036.
 
-> **Renamed from Module Version:** The Build Track builds Systems (Dim 5), not Modules (Dim 8). Engineers produce `payments-service v2.3.3` (a System Version), not "Payments Module v2.3.3." Modules are functional boundaries (Dim 8); Systems are the deployable technical units (Dim 5). The many-to-many System-to-Module mapping means a single System Version may contribute to multiple Module Versions.
+> **Build Track ownership for all Systems.** Product-facing Systems and SRE-operational Systems (probes, reconcilers, monitoring agents) alike produce System Versions through the Build Track. The `Purpose / Serving Persona(s)` field on the System entity (Dim 5) distinguishes who the System serves; the versioning model does not. See DR-036 D10.
 
-> **Emergency gate profile.** System Versions produced for P0 Bugs (typically Run-provenance SEV-0/SEV-1 Incidents) may use the `Emergency` gate profile, which requires only peer review, security scan, and smoke tests — deferring full regression suite, performance benchmarks, and static analysis. The deferred gates must be passed by a subsequent Standard System Version; the originating Bug tracks this obligation via its `Deferred Gate Obligation` field (see DR-031 D2, D3). Non-negotiable gates (peer review, security scan, smoke tests) are chosen based on risk of harm: they prevent introducing new defects and confirm the fix works. Deferrable gates (regression, benchmarks) confirm the fix doesn't break anything else — important, but the risk is lower for a narrowly scoped hotfix.
+> **Emergency gate profile.** System Versions assembled for P0 hotfixes may include Component Versions built under the `Emergency` gate profile. The System Version may be released with abbreviated verification when governed by Emergency Change procedures; deferred Component-level gates remain tracked on the originating Bug (DR-031).
 
 ## Purpose
 
-Captures the deployable output of Build Track work. Without System Versions:
-- There is no versioned artifact to deploy — "deploy to production" has no artifact reference
-- Quality gate results have no structured home — test coverage, security scan, performance benchmarks are untracked
-- Module Version (integration tier) has no constituent parts to compose
-- Operational Readiness (Dim 7) has no build-quality data to assess against
+Bridges atomic Component builds and Product-level certification. Without System Versions:
 
-**Quality gate fields on System Version reflect in Operational Readiness (Dim 7).** When a System Version is released, its quality gate results feed the Operational Readiness assessment for the System in each Deployment Environment. This connects Build Track output quality to Run Track operational acceptance.
+- Components are built independently, but their composition within a System is unverified — "payments-service v2.3.1 and payment-reconciler v1.4.0 work together" is a hope, not a fact
+- SRE has no single versioned unit to deploy — "deploy payments-service" would deploy one Component without its co-deployed peers
+- Integration contracts and binding configuration have no structured home
+- Product Version would need to compose raw Component Versions — an unwieldy flat list across dozens of Components
+
+System Version is where **Component integration verification** happens. Product Version is where **cross-System integration verification** happens.
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
 | System | Reference (Dim 5) | Which System this version belongs to |
-| Version | Semver | Semantic version number (e.g., `2.3.3`) |
-| Build Timestamp | DateTime | When the artifact was produced |
-| Artifact URI | String | Location in the artifact registry |
-| Git Reference | String | Commit SHA or tag |
-| Quality Gate — Test Coverage | Percentage | Code coverage from automated tests |
-| Quality Gate — Tests Passed | Boolean + Count | All tests pass; total count |
-| Quality Gate — Security Scan | Enum + Text | `Pass` / `Fail` / `Warnings`; findings summary |
-| Quality Gate — Performance Benchmark | Text | Latency, throughput, resource benchmarks vs. baseline |
-| Quality Gate — Static Analysis | Enum + Text | `Pass` / `Fail`; code quality findings |
-| Quality Gate — Dependency Audit | Enum + Text | `Pass` / `Fail`; known vulnerabilities in dependencies |
-| Gate Profile | Enum | `Standard` / `Emergency`. Standard = all gates required. Emergency = peer review + security scan + smoke tests required; full regression + performance benchmarks + static analysis deferred. See DR-031 D2. |
-| Release Notes | Text | What changed — features, fixes, breaking changes |
-| Included Work | List of References (Track 2) | Technical Tasks, Bug fixes included in this version |
+| Version | Semver | System-level semantic version (e.g., `3.1.0`) |
+| Component Versions BOM | Map | Sealed map of Component → Component Version (e.g., `{payments-service: v2.3.1, payment-reconciler: v1.4.0, payment-notification-worker: v1.2.0}`) |
+| Integration Contracts | List of Text/Reference | Validated API schemas, event schemas, data contracts between Components within this System |
+| Integration Test Suite | Reference + Results | Integration test suite and pass/fail results for Component interoperability |
+| Binding Configuration | Structured Config | Environment-independent wiring: service mesh routes, event topic bindings, protocol version selections, adapter activations, capability flags. Defines the **legal composition** of Component Versions within this System. Environment-specific operational parameters belong on System Deployment Specifications (Track 3). |
+| Build Timestamp | DateTime | When assembly and verification completed |
+| Gate Profile | Enum | `Standard` / `Emergency` — reflects whether any constituent Component Version used Emergency gates |
+| Release Notes | Text | System-level changelog for this composition |
+| Integration Epic | Reference (Track 2) | Integration Epic that produced this verification (if applicable) |
 
 ## Statuses
 
 | Status | Description |
 |---|---|
-| Building | Code in progress, CI pipeline running |
-| Released | All quality gates passed — artifact available for deployment in the artifact registry |
+| Assembling | Component Versions are being identified, composed, and integration tests are running |
+| Verified | All integration contracts validated; integration test suite passes; BOM is sealed |
+| Released | System Version is immutable and available for Product Version composition and deployment |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | System (Dim 5) | System Version is a versioned artifact of a System |
-| Composed into | Module Version (Track 2) | System Versions compose a Module Version (integration verification) |
-| Described by | SDD (Track 3) | System Version's environment-specific deployment is specified by SDD(s) |
-| Deployed by | Deployment Task (Track 3) | System Versions are deployed to environments by Deployment Tasks applying SDD versions |
-| Contains | Technical Task(s) (Track 2) | System Version includes completed Technical Tasks |
-| Contains | Bug fix(es) (Track 2) | System Version includes Bug fixes |
-| Reflects in | Operational Readiness (Dim 7) | Quality gate results feed Operational Readiness assessment |
+| Belongs to | System (Dim 5) | System Version is a versioned, integration-verified instance of a System |
+| Composes | Component Version(s) (Track 2) | System Version seals specific Component Versions in its BOM |
+| Composed into | Product Version (Track 2) | System Versions compose a Product Version |
+| Described by | System Deployment Specification(s) (Track 3) | Environment-specific deployment is specified by System Deployment Specifications |
+| Deployed by | Deployment Task (Track 3) | System Versions are deployed via System Deployment Specifications applied by Deployment Tasks |
+| Produced by | Integration Epic / Integration Story (Track 2) | Integration work produces contracts and tests that verify the composition |
+| Reflects in | Operational Readiness (Dim 7) | Released System Versions feed Operational Readiness assessment per environment |
 
-## Examples
+## Example
 
-| System | Version | Tests | Security | Performance | Status |
-|---|---|---|---|---|---|
-| payments-service | v2.3.3 | 94% coverage, 1,247 tests pass | Pass (0 critical, 2 low) | p99 < 180ms (baseline: 200ms) | Released |
-| fx-service | v1.8.1 | 91% coverage, 832 tests pass | Pass | p99 < 45ms (baseline: 50ms) | Released |
-| bank-adapter | v1.5.2 | 88% coverage, 456 tests pass | Warnings (1 medium — dependency update scheduled) | Batch: 10K records/min (baseline: 8K) | Released |
-| compliance-service | v3.1.1 | 96% coverage, 1,102 tests pass | Pass | p99 < 120ms | Building |
+### Payments System v3.1.0
+
+```
+Payments System v3.1.0
+├── payments-service v2.3.1
+├── payment-reconciler v1.4.0
+└── payment-notification-worker v1.2.0
+
+Integration Contracts:
+  - payments-service ↔ payment-reconciler: settlement batch API v2 (validated)
+  - payments-service → Kafka: payment.created event schema v3 (validated)
+  - payment-notification-worker ← Kafka: payment.status.changed v2 (validated)
+
+Integration Test Suite: 47 tests, 47 passed
+Binding Configuration:
+  - payments-service ↔ payment-reconciler: internal gRPC (service mesh route)
+  - notification retry policy: exponential backoff, max 5 attempts
+Status: Released
+```
+
+> **Binding Configuration and legal composition.** Binding configuration represents **scoped, deliberate** build-time choices — which adapter variant, which protocol version, which capability is activated. Not all combinations of Component Versions are valid. Environment-specific sizing, replicas, and secrets belong on the System Deployment Specification, not here.
 
 ---

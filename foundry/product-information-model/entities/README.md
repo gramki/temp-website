@@ -52,8 +52,9 @@ entities/
 │   ├── dim5-class-component.md           ← DELETED (DR-035) — was DEPRECATED; removed from repo
 │   ├── dim5-function-method.md           ← DELETED (DR-035) — was DEPRECATED; removed from repo
 │   ├── dim5-architecture-model.md        ← Root entity: architectural style, principles, technology strategy
-│   ├── dim5-system.md                    ← Operational deployment grouping of Components; versioned/deployed as a whole by SRE; many-to-many with Module (Dim 8) — amended by DR-035
-│   ├── dim5-component.md                 ← Atomic deployable artifact within a System (container image, Lambda, etc.); has Component Archetype enum; not independently deployed to production — amended by DR-035
+│   ├── dim5-product-specification.md     ← Technical twin of Product (Dim 8); 1:1; declares all Systems (product-facing + operational) — DR-036
+│   ├── dim5-system.md                    ← Operational deployment grouping of Components; sealed System Version is what SRE deploys; many-to-many with Module (Dim 8) — DR-035, DR-036
+│   ├── dim5-component.md                 ← Atomic deployable artifact within a System; Component Version is the CI build output — DR-035, DR-036
 │   ├── dim5-dependency.md                ← External system/service/resource the product depends on
 │   ├── dim5-interaction-flow.md       ← Technical realization of Value Streams; inter-system communication
 │   ├── dim5-adr.md                       ← Architecture Decision Record; technical counterpart of PDR
@@ -72,8 +73,8 @@ entities/
 │   ├── dim7-operational-pain.md         ← Concrete operational suffering endured by Operational Personas
 │   ├── dim7-operational-readiness.md    ← Per-System × per-environment operational acceptance assessment
 │   ├── dim7-odr.md                     ← Operations Decision Record; operational counterpart of PDR/ADR (DR-025)
-│   ├── dim7-module-package.md        ← Composition spec: which operational systems and wiring enrich a Module (Dim 8)
-│   ├── dim7-product-package.md       ← Composition spec: which Module Packages and cross-module wiring compose a product
+│   ├── dim7-module-package.md          ← DELETED (DR-036) — superseded by Product Specification (Dim 5) listing all Systems equally
+│   ├── dim7-product-package.md         ← DELETED (DR-036) — superseded by Product Specification (Dim 5)
 │   ├── dim7-deployment-train.md      ← Reusable promotion path with contractual and governance significance
 │   ├── dim7-station.md               ← Checkpoint within a Deployment Train targeting a Deployment Environment
 │   ├── ...
@@ -106,9 +107,10 @@ entities/
     ├── track2-integration-epic.md       ← Cross-System integration work, references PSD-derived Epics
     ├── track2-integration-story.md      ← Unit of integration work, produces contracts and test suites
     ├── track2-design-deliberation.md    ← Build Track's ADR production mechanism
-    ├── track2-system-version.md         ← Build Track artifact: atomic deployment unit (renamed from Module Version)
-    ├── track2-module-version.md         ← Build Track artifact: integration-verified composition of System Versions
-    ├── track2-product-version.md        ← Build Track artifact: certified composition of Module Versions
+    ├── track2-component-version.md      ← Build Track artifact: versioned, quality-gated build output of a single Component (atomic tier) — DR-036
+    ├── track2-system-version.md         ← Build Track artifact: sealed, immutable BOM of Component Versions for a System (integration verification tier) — DR-036
+    ├── track2-module-version.md         ← DELETED (DR-036) — Module is not an operational versioning boundary
+    ├── track2-product-version.md        ← Build Track artifact: certified composition of System Versions (complete tier) — DR-036
     ├── track2-technical-debt-item.md    ← Build Track artifact: documented technical debt
     ├── track2-build-monitoring.md       ← Continuous build health and quality monitoring
     ├── track3-deployment-planning-task.md
@@ -127,11 +129,13 @@ entities/
     ├── track3-customer-communication-task.md ← Work entity: incident communication to affected parties; Run Track owns, Win Track consumes (DR-030)
     ├── track3-change-request.md          ← Change management envelope for deployment-related changes, scoped to Train/Station (DR-029)
     ├── track3-maintenance-task.md
-    ├── track3-module-package-version.md   ← Run Track artifact: environment-independent integrated deployable — instantiates Module Package spec (Dim 7)
-    ├── track3-product-package-version.md  ← Run Track artifact: environment-independent complete deployable — instantiates Product Package spec (Dim 7)
-    ├── track3-sdd.md                      ← Deployment descriptor: environment-specific System Version deployment specification
-    ├── track3-mdd.md                      ← Deployment descriptor: environment-specific Module Package deployment specification (composes SDDs)
-    ├── track3-pdd.md                      ← Deployment descriptor: environment-specific Product Package deployment specification (composes MDDs)
+    ├── track3-system-deployment-specification.md  ← Environment-specific deployment spec for a sealed System Version — DR-036 (replaces SDD)
+    ├── track3-product-deployment-specification.md ← Environment-specific deployment spec for a Product Version; composes System Deployment Specs — DR-036 (replaces PDD)
+    ├── track3-module-package-version.md   ← DELETED (DR-036) — no Run Artifact / Package layer
+    ├── track3-product-package-version.md  ← DELETED (DR-036)
+    ├── track3-sdd.md                      ← DELETED (DR-036) — replaced by track3-system-deployment-specification.md
+    ├── track3-mdd.md                      ← DELETED (DR-036) — no Module-level deployment descriptor
+    ├── track3-pdd.md                      ← DELETED (DR-036) — replaced by track3-product-deployment-specification.md
     ├── track3-tenant.md                   ← Logical isolation unit within a Deployment Environment; customer's operational slice
     ├── track3-system-monitoring.md       ← Continuous operational health monitoring across all composition levels
     ├── track3-run-engineering-monitoring.md ← Continuous Run Track engineering health monitoring (counterpart to Build Monitoring)
