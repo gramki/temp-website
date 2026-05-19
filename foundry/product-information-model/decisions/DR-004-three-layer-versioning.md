@@ -1,5 +1,7 @@
 # DR-004: Three-Layer Versioning: System Version, Module Version, Product Version
 
+> **Superseded for operational use by DR-036 (2026-05-19).** Module Version, Module/Product Package, and SDD/MDD/PDD are retired. See DR-036 and Amended Records table in DR-036.
+
 **Status:** Accepted (updated by DR-026)
 **Date:** 2026-02-15
 **Related FAQ:** Q13, Q14, Q86

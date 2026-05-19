@@ -12,6 +12,8 @@ The UPIM has three layers of documentation:
 
 This file serves layer 3. Entity files and DRs are necessary but insufficient for someone to *understand* the UPIM. A reader who has read every entity file still doesn't know why the model is shaped the way it is, how work flows through it, or what the guiding philosophy behind the design is. The narrative seeds bridge that gap.
 
+> **Authority for deployment and versioning (DR-036):** Seeds **16** and **17** and decision record **DR-036** are authoritative for the current model (Component Version → System Version → Product Version; System and Product Deployment Specifications). Earlier seeds that describe Module Version, Module Package, Product Package, SDD, MDD, or PDD are retained for design history and are marked **Superseded by DR-036** where applicable.
+
 ## What to Capture
 
 Each seed should capture one or more of the following:
@@ -255,6 +257,8 @@ Customer Release sits in Dim 1 (Strategy) because it's a business planning const
 This makes Customer Release the primary handoff point between strategic intent and commercial execution. The Discovery Track scopes it (which Initiatives are included). The Build Track assembles it (which Product Versions realize it). The Win Track activates it (GTM, onboarding, adoption). The Run Track sustains it (deployment, uptime). All four tracks converge on Customer Release — it's the entity that most explicitly crosses every track boundary.
 
 ### Three-level versioning and the deliberate decoupling
+
+> **Superseded by DR-036 (Seeds 16–17).** Current chain: Component Version → System Version → Product Version → Customer Release. Retained below for design history.
 
 System Version → Module Version → Product Version → Customer Release. Four levels, four different questions, four different owners:
 
@@ -844,6 +848,8 @@ The Dim 5 entity formerly called "Interaction Pattern" was renamed to **Interact
 
 ## Composition Levels, Module Package, and Run Track Engineering
 
+> **Superseded by DR-036 (Seeds 16–17).** Retained for design history. Do not use for current modeling.
+
 *Scope: Composition levels formalization (atomic/integrated/complete), Module Package and Product Package as Run Track artifacts, Run Track engineering work entities (Run Epic, Run Story), binding configuration on Module Version, System Purpose field, Build Track two-layer framing. References DR-027.*
 
 ### Specification layer and execution layer within the Build Track
@@ -870,6 +876,8 @@ Module Version's binding configuration is not mere wiring — it is **scoped, co
 
 ## Deployment Descriptors: SDD, MDD, PDD
 
+> **Superseded by DR-036 (Seeds 16–17).** Replaced by System Deployment Specification and Product Deployment Specification. Retained for design history.
+
 *Scope: Deployment descriptors as environment-specific specification layer; four-layer model (build artifact → run artifact → deployment descriptor → deployment act); three independent version streams at the integrated level; MDD as a system; tenant config vs. deployment config boundary. References DR-028.*
 
 ### The four-layer model: from build to production
@@ -894,6 +902,8 @@ A critical boundary separates deployment-time configuration (in descriptors) fro
 
 ## DR-029: Change-to-Deployment Workflow Redesign
 
+> **Superseded for deployment/versioning semantics by DR-036 (Seeds 16–17).** Seeds below remain valid for Change Request, Deployment Train, and Verification Task patterns; replace Package/MDD references with System/Product Deployment Specification.
+
 *Scope: Deployment Train, Change Request, Deployment Plan, Module Package vs Module Package Version, Verification Task. References DR-029.*
 
 ## Seed 1: Deployment Train: the contractual promotion path
@@ -909,6 +919,8 @@ Every deployment to a governed environment goes through a Change Request — not
 The Deployment Plan is where the Run team discovers what they don't know. Like Discovery Track deliberations that produce PDRs and signals, the Deployment Plan is a deliberation activity that produces Deployment Planning Tasks, discovers maintenance prerequisites, identifies verification needs, and may trigger Deployment Drill Tasks. It's not a rigid waterfall gate — it's the structured space where operational knowledge is generated. The plan may evolve as planning tasks reveal new information (MDD scripts need database migration, staging environment needs capacity scaling).
 
 ## Seed 4: Module Package specification vs. Module Package Version: the template and the instance
+
+> **Superseded by DR-036.** Product Specification (Dim 5) replaces Package specifications.
 
 The Module Package (Dim 7) answers "what operator-facing systems and wiring are added to this Module?" The Module Package Version (Track 3) answers "which specific versions are assembled right now?" This follows the pattern Module (Dim 8) → Module Version (Track 2). The specification is stable and reusable — when you add a new probe to the Payments Module Package spec, it tells everyone "from now on, Payments always includes this probe." The version is specific and changing — v2.3.0 uses healthcheck v1.2.0, but v2.4.0 might use healthcheck v1.3.0.
 
@@ -943,6 +955,8 @@ The Incident artifact is not just a historical record — it is a live evidence 
 Incident correlation prevents inflated counts: a Parent Incident (database failover) with child incidents (FX latency, payment timeouts, settlement delays) is 1 root cause, not 4 incidents. The Caused By field closes the deployment-to-incident loop: "this SEV-2 was caused by Payments MDD v3.1 deployment to LATAM."
 
 ## Seed 7: Hotfix as a named pattern: P0 Bug to Emergency System Version
+
+> **Operational update (DR-036):** Replace SDD with **System Deployment Specification** in the chain below.
 
 A SEV-0 incident at 2 AM needs a code fix in production within hours, not days. The UPIM models this as a **named pattern** spanning Build and Run tracks, not a separate workflow.
 
@@ -1130,61 +1144,5 @@ See DR-036 D5, D6, D7, D8, D9, D13.
 **Integration Epic semantics change:** Integration Epics contribute to System Version assembly and Product Version certification — not to a separate Module Version artifact.
 
 See DR-036 D1, D2, D3, D12.
-
----
-
-## Seed 16: Deployment Simplification — Product Specification Replaces the Package Layer
-
-**Scope:** Dim 5 Product Specification, Dim 7 Module Package / Product Package removal, Track 3 deployment descriptors, Run Track engineering artifact layer
-
-DR-027 and DR-029 introduced a four-layer deployment model: Build artifacts (System/Module/Product Versions) → Run artifacts (Module Package Version, Product Package Version) → Deployment descriptors (SDD, MDD, PDD) → Deployment execution. The Run artifact layer existed to segregate "operator-facing" Systems — probes, reconcilers, dashboards, log shippers — into a separate composition tier from tenant-serving Systems.
-
-The problem was structural, not semantic. Operator-facing Systems are ordinary Systems: they have code, repos, CI/CD pipelines, tests, and quality gates. They differ from product-facing Systems in **who they serve** (Operational Personas vs. End-User / Programmatic Personas), not in what kind of artifact they are. Creating Module Package and Product Package entities encoded that distinction as a parallel artifact layer — doubling the entities teams had to maintain (Package spec, Package Version, MDD/PDD) without adding distinct deployment semantics.
-
-DR-036 removes the Package layer entirely:
-
-- **Product Specification (Dim 5)** is the technical twin of Product (Dim 8) — 1:1. It declares which Systems compose the product. Product-facing and operational/SRE Systems are **equal members** of one catalog.
-- **`Purpose / Serving Persona(s)`** on the System entity is the only structural distinction — not a separate entity type or dimension.
-- **Deployment descriptors** collapse to two levels: **System Deployment Specification** (how a sealed System Version deploys to an environment) and **Product Deployment Specification** (how a Product Version deploys, composing System Deployment Specifications). MDD and the Module-level descriptor tier are removed.
-- **Build Track produces all System Versions**, including operational Systems introduced by SREs. Run Track owns deployment governance, change management, and operations — not a separate engineering artifact layer for operator-facing code.
-
-The three-layer deployment model is now: **Build artifacts** (Component Version → System Version → Product Version) → **Deployment specifications** (System / Product Deployment Specification) → **Deployment execution** (Change Request → Deployment Task → Deployment record).
-
-See DR-036 D4–D8, D10–D11, D13.
-
----
-
-## Seed 17: Versioning Chain Simplification — Component, System, Product (No Module Version)
-
-**Scope:** Track 2 versioning artifacts, Integration Epic semantics, capability availability tracing, Module (Dim 8) vs. System (Dim 5) boundaries
-
-Before DR-036, the Build Track versioning model had three tiers that did not align cleanly with DR-035's System/Component redefinition:
-
-| Old tier | Problem after DR-035 |
-|---|---|
-| System Version | Named "System" but meant atomic microservice — actually a **Component** |
-| Module Version | Integration-verified composition at the **functional** Module boundary |
-| Product Version | Composed Module Versions, not System Versions directly |
-
-Module Version existed because Module (Dim 8) felt like a natural "integrated" composition level — the place where cross-service integration within a functional area was verified. But Module is a **customer-value and PSD-scoping boundary**, not an operational deployment boundary. SRE does not deploy "Payments Module v2.3" — they deploy **payments-system** (a System) as a sealed unit. Requiring a Module Version between System Version and Product Version added a tier that duplicated integration verification without distinct deployment semantics.
-
-DR-036 establishes three tiers aligned with Dim 5 structure:
-
-```
-Component Version  →  System Version  →  Product Version
-   (CI builds)         (SRE deploys)      (customers reference)
-```
-
-- **Component Version** — versioned, quality-gated output of a single Component. What CI pipelines produce continuously.
-- **System Version** — sealed, immutable BOM of Component Versions for one System. Assembly is the **Component-integration verification point**. Once verified, only deployment parameters vary per environment.
-- **Product Version** — certified composition of System Versions across the Product. Assembly is the **cross-System integration verification point**. The ubiquitous language for Win, compliance, and customers.
-
-**Module Version removed.** Module remains essential for product conversations, entitlement (Pricing Tier link), PSD scoping, and capability mapping — but capability availability traces through **Module → System → System Version** in the current Product Version BOM, not through a Module Version entity.
-
-**Integration Epics** still matter: they produce integration contracts, test suites, and binding configuration that feed **System Version** assembly and **Product Version** certification — but they no longer produce a Module Version artifact.
-
-**SRE operational Systems** follow the same chain: SREs participate in Build Track for their Systems; their Component Versions compose into System Versions listed in Product Specification like any other System.
-
-See DR-036 D1–D3, D10, D12; DR-035 (System/Component redefinition).
 
 ---

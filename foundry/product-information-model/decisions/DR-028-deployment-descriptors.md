@@ -1,5 +1,7 @@
 # DR-028: Deployment Descriptors — SDD, MDD, PDD
 
+> **Superseded for operational use by DR-036 (2026-05-19).** Module Version, Module/Product Package, and SDD/MDD/PDD are retired. See DR-036 and Amended Records table in DR-036.
+
 **Status:** Accepted (refined by DR-029)
 **Date:** 2026-02-15
 **Related FAQ:** Q96

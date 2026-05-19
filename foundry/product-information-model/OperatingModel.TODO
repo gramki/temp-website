@@ -30,9 +30,9 @@ See: DR-014, README.md (Operating Model section), FAQ Q28
         ☐ Evolve Track: Evolution cycle kick-off, Evolve Review scheduling, Definition review ceremonies
     ☐ Define cross-track coordination ceremonies (e.g., Customer Release readiness review spanning Build/Run/Win)
     ☐ Define decision-making rhythms — who decides what, at what cadence, with what authority
-    ☐ Module Package assembly review ceremony — cross Build+Run coordination: when is Module Version ready for Run Track enrichment? Who decides? (DR-027)
-    ☐ Cross-track handoff ceremony: Build Track → Run Track handoff of Module Version for enrichment into Module Package (DR-027)
-    ☐ Composition-level deployment coordination: who decides to deploy at atomic (System Version) vs. integrated (Module Package) vs. complete (Product Package) level? (DR-027)
+    ☐ System Version release readiness review — cross Build+Run: when is a sealed System Version ready for deployment planning? Who approves System Deployment Specification? (DR-036)
+    ☐ Cross-track handoff ceremony: Build Track → Run Track handoff of released System Version / certified Product Version for deployment specification authoring (DR-036)
+    ☐ Deployment scope coordination: who decides System-scoped vs. Product-scoped deployment (System Deployment Specification vs. Product Deployment Specification)? (DR-036)
 
 ### 2.2 Planning Cadences:
 
@@ -60,7 +60,7 @@ See: DR-014, README.md (Operating Model section), FAQ Q28
     ☐ Define who owns the Operational lever (internal process, tooling, automation, hiring) — this lever maps to Operating Model, not a specific track
     ☐ Run Track dual role: SRE as operator AND engineer — define when Run Track work is "operate existing systems" vs. "build new operational systems" (DR-027)
     ☐ Ownership model for operational Systems: which team owns payments-healthcheck? SRE team? Platform team? Payments team? (DR-027)
-    ☐ Define RACI for Module Package assembly (Build Track produces Module Version → Run Track enriches into Module Package → who approves?) (DR-027)
+    ☐ Define RACI for deployment specification authoring (Build Track releases System Version / certifies Product Version → Run Track authors System/Product Deployment Specification → who approves?) (DR-036)
 
 ### 3.2 Team Structures:
 
@@ -115,7 +115,7 @@ The Work Model defines the *structure* of guidance (what a playbook should cover
     ☐ Deferred-gate follow-up process — define cadence and ownership for resolving deferred-gate obligations on Emergency System Versions. Who monitors Bugs stuck at `Fixed` with outstanding deferred gates? DR-031 D3.
     ☐ Change management playbook (approval workflow, risk assessment, rollback procedures)
     ☐ Capacity planning playbook
-    ☐ Module Package assembly playbook — how to enrich Module Version with operational systems and configuration (DR-027)
+    ☐ Operational System contribution playbook — how SREs add operational Systems to Product Specification and release System Versions via Build Track (DR-036)
     ☐ Operational system development guidelines — coding standards, testing requirements for probes, scheduled jobs, automation scripts (DR-027)
     ☐ Run Epic planning playbook — scoping, trigger identification, acceptance criteria for operational engineering work (DR-027)
     ☐ Legal composition validation playbook — verifying that binding configuration constrains the composition correctly (DR-027)
@@ -144,8 +144,8 @@ The Work Model defines the *structure* of guidance (what a playbook should cover
     ☐ Feedback → Signal promotion criteria and workflow
     ☐ PSD → Build handoff checklist and quality expectations
     ☐ Evolve Findings → Definition Task conversion workflow
-    ☐ Build → Run composition handoff checklist — Module Version → Module Package enrichment process, readiness criteria, sign-off workflow (DR-027)
-    ☐ Composition-level deployment decision framework — when to deploy at atomic (System Version) vs. integrated (Module Package) vs. complete (Product Package) level; decision criteria, risk assessment, rollback implications (DR-027)
+    ☐ Build → Run handoff checklist — System Version release / Product Version certification → deployment specification authoring, readiness criteria, sign-off workflow (DR-036)
+    ☐ Deployment scope decision framework — System-scoped vs. Product-scoped deployment; decision criteria, risk assessment, rollback implications (DR-036)
 
 ---
 

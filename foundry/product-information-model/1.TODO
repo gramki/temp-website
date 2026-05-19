@@ -2,10 +2,10 @@
 # Items from VP Review:
 
     ## High Priority:
-        ✔ Feature Flags / Feature Toggles — Resolved: Reframed. "Feature flag" is not a single modeling entity. Release toggles are part of deployment workflow (MDD scripts). Experiment toggles are part of Experiment entity. Ops toggles are operational configuration (MDD environment config). Entitlement toggles (Capability Activation Policy) are Pricing Tier (Dim 2) → Capability (Dim 8) relationships, enforced at runtime. The mechanism is not a UPIM entity — the concerns are already distributed across existing entities. @done
+        ✔ Feature Flags / Feature Toggles — Resolved: Reframed. "Feature flag" is not a single modeling entity. Release toggles are part of deployment workflow (Product/System Deployment Specification scripts). Experiment toggles are part of Experiment entity. Ops toggles are operational configuration (deployment specification environment config). Entitlement toggles (Capability Activation Policy) are Pricing Tier (Dim 2) → Capability (Dim 8) relationships, enforced at runtime. The mechanism is not a UPIM entity — the concerns are already distributed across existing entities. @done
         ✔ Hotfix / Emergency Fix Path — Resolved: P0 Bug implies sprint bypass; System Version gains Emergency gate profile (peer review + security scan + smoke tests non-negotiable; regression + benchmarks deferrable); deferred-gate obligation tracked via Bug's Deferred Gate Obligation field. Hotfix branch strategy deferred to Operating Model. DR-031. @done
         ✔ Incident entity file is skeletal — Resolved: Refactored from skeletal work entity to detailed work artifact (observation record) in DR-030. Introduced Incident Response Task, Post-Incident Review, Customer Communication Task. SEV-0..4 severity model. Full fields, statuses, relationships, and examples. @done
-        ✔ Deployment Planning Task entity file is skeletal — Resolved: Elevated to detailed entity in DR-028. Now produces SDD/MDD/PDD versions. Fields, Statuses, and Relationships fully specified. @done
+        ✔ Deployment Planning Task entity file is skeletal — Resolved: Elevated to detailed entity in DR-028; updated for DR-036 to produce System Deployment Specification and Product Deployment Specification versions. Fields, Statuses, and Relationships fully specified. @done
         ✔ Change Request entity file missing — Resolved: Elevated from skeletal to detailed entity in DR-029. Entity file `track3-change-request.md` now has fields (Type, Scope, Justification, CAB Decision), statuses (Submitted, Approved, In Progress, Complete), and relationships (scoped to Deployment Train/Station, contains Deployment Plans, Verification Tasks). @done
         ☐ Maintenance Task entity file missing — described in draft-work-model.md and cross-track inventory but no entity file exists. Create entity file.
 
@@ -13,16 +13,16 @@
     ## Medium Priority:
         ✔ DR-026 S16 contradicts DR-027 C2 — Annotated DR-026 S16 with blockquote noting it was refined by DR-027 C2/C3/C4. @done
         ✔ Technical Task track ownership — Resolved: Technical Task is a per-track concept. Created `track3-technical-task.md` for Run Track. Updated `track2-technical-task.md` to remove Run Story references. Updated all referencing documents. @done
-        ☐ Rollback not modeled as structured workflow — currently a status on Deployment artifact (Active → Rolled Back). DR-029 establishes that rollback is a new Deployment Task applying a previous descriptor version, producing a new Deployment record. However, cascading rollback (Module Package Version rollback → constituent System Version rollbacks, dependency-aware rollforward) is not yet modeled. Consider structured rollback workflow as future work.
+        ☐ Rollback not modeled as structured workflow — currently a status on Deployment artifact (Active → Rolled Back). DR-029 establishes that rollback is a new Deployment Task applying a previous deployment specification version, producing a new Deployment record. However, cascading rollback (Product Deployment Specification rollback → constituent System Deployment Specification / System Version rollbacks, dependency-aware rollforward) is not yet modeled. Consider structured rollback workflow as future work.
         ✔ Post-mortem under-modeled — Resolved: Replaced by Post-Incident Report (assessment artifact) produced by Post-Incident Review (deliberation entity) in DR-030. PIR has structured fields for timeline reconstruction, root cause analysis, contributing factors, impact assessment, and corrective actions with owners. @done
-        ☐ Continuous deployment mode not well-supported — planning entities (Release Planning, Milestone Planning) assume cadenced delivery. Teams deploying 20x/day need Module Version verification and Product Version certification as continuous-integration-level activities, not milestone-gated. Acknowledge CD operating mode explicitly.
+        ☐ Continuous deployment mode not well-supported — planning entities (Release Planning, Milestone Planning) assume cadenced delivery. Teams deploying 20x/day need System Version verification and Product Version certification as continuous-integration-level activities, not milestone-gated. Acknowledge CD operating mode explicitly.
         ✔ Environment promotion path not explicit — Resolved: DR-029 introduces Deployment Train (Dim 7) as a reusable promotion path with Stations (Dim 7) as checkpoints. Each Station targets a Deployment Environment with entry/exit criteria, approval requirements, and soak times. Change Requests scope to Trains/Stations. @done
         ✔ Module Package Operational System Version reference — Resolved: Operational System Versions are the same System Version entity type, produced by Run Track engineering. Removed "(Track 2/3)" notation from all entity files. @done
 
     ## Low Priority:
         ✔ Run Track engineering velocity not monitored — Resolved: Created `track3-run-engineering-monitoring.md` as the Run Track's counterpart to Build Monitoring. Monitors operational system CI/CD health, Run Epic/Story velocity, and engineering quality. @done
-        ☐ Non-functional requirements traceability thin — performance, security, accessibility addressed via quality gates but no traceability chain from requirement origin (PSD, Operational Target in Dim 7) through verification (System Version gate, Module Version test, Product Version certification).
-        ✔ "System Monitoring" scope — Resolved: Kept the name but updated definition to acknowledge broader scope (Module Packages, Product Packages, Tenant health, cross-module wiring). Added scope note blockquote. @done
+        ☐ Non-functional requirements traceability thin — performance, security, accessibility addressed via quality gates but no traceability chain from requirement origin (PSD, Operational Target in Dim 7) through verification (Component Version gate, System Version assembly, Product Version certification).
+        ✔ "System Monitoring" scope — Resolved: Kept the name but updated definition to acknowledge broader scope (System and Product Version health in BOM, Tenant health, cross-System wiring). Added scope note blockquote. @done
         ☐ External dependency management — third-party libraries, external APIs, cloud service dependencies not modeled as entities. Dependency events (SDK upgrade, API deprecation) trigger significant work. Quality gate on System Version exists but dependency entity itself is absent from Dim 5.
         ☐ Cross-Module Technical Task coordination — a Story may spawn Technical Tasks in multiple Systems owned by different teams. Coordination pattern is partly Operating Model concern but Work Model could acknowledge it.
         ☐ Security and compliance workflow — security scanning is a quality gate, but penetration testing, threat modeling, security review of Design Deliberation outcomes, vulnerability management as ongoing work are not explicitly modeled.
@@ -41,17 +41,15 @@
     --------------------------------
 
 
-# Notes:
-    - Integrated, Verfied Module Versions and their Packages are deployable. Atomic Systems are not deployable. Atomic Systems are the building blocks of the Integrated, Verfied Module Versions and their Packages.
-    - The modules may go through continuous integration and deployment pipelines to produce the Integrated, Verfied Module Versions and their Packages. These pipelines are part of the Operating Model.
+# Notes (updated DR-036):
+    - **Sealed System Versions** and **certified Product Versions** are deployable via System and Product Deployment Specifications. Component Versions are build outputs that compose into System Versions.
+    - CI/CD produces Component Versions; assembly produces System Versions; certification produces Product Versions. Deployment specifications and execution are Run Track concerns (Operating Model).
 
-    - Atomic System Version update -> Module Version update -> Module Package Update -> Module Deployment Definition update -> Module Deployment -> Module Deployment Verification -> Module Deployment Release 
-    - If a Module Deployment is not acceptable because Deployed products will become incompatible, the Module Deployment is not permitted.
+    - Component Version update → System Version assembly → System Deployment Specification update → System-scoped deployment → verification; Product Version certification → Product Deployment Specification → product-scoped deployment when needed.
+    - If a deployment is not acceptable because deployed products will become incompatible, the Change Request / deployment is not permitted.
 
-    - Run and Win Tracks also have engineering work that produces atomic systems that could enhance modle and porduct packages.
-    - SREs and Win Engineering teams should be able to contribute to Module and Product Versions and Packages as part of their work.
-    - If so, how do we determine where to place which capability under? May be, the Win Track should primarily add capabilities to the Product Packages?
-    - Customer Products have specific Modules and Products as well. Therefore, they will have Module Versions, Product Versions, Module Packages, and Product Packages as well.
+    - Run and Win Tracks may introduce operational Systems via Build Track (same versioning chain). Product Specification (Dim 5) catalogs all Systems for a product.
+    - Customer-specific solutions compose Product Versions and deployment specifications per tenant/environment — not a separate Package layer.
 
     - Data Migration and Schema Changes. In enterprise systems, database schema changes and data migrations are a significant category of engineering work that often requires coordination across Systems and careful rollout planning (rollback of schema changes is harder than code rollback). The model doesn't explicitly address this — it would likely be a Story or Technical Task, but the unique rollout/rollback characteristics of schema changes might warrant acknowledgment.
 
@@ -337,8 +335,8 @@ Does this framing capture what you're after — the dual output (PSD + Definitio
 
 - [ ] Complete narrative seeds for remaining dimensions (Dim 5, 8, 9 coverage is thin)
 - [x] DR-036: Versioning and deployment simplification — Resolved: DR-036 written; Component Version → System Version → Product Version chain; Module Version / Package layer / MDD-SDD-PDD removed; Product Specification (Dim 5); narrative Seeds 16–17; supporting docs updated in Agent E pass. Entity files and Track 3 cross-references remain in follow-on items below. @done
-- [ ] DR-036 follow-on: Update Track 3 entity files still referencing MDD, Module Package Version, SDD, PDD (e.g. `track3-change-request.md`, `track3-deployment-planning-task.md`, `track3-deployment-plan.md`, `track3-deployment-task.md`, `track3-system-monitoring.md`) to System Deployment Specification / Product Deployment Specification and Product Version BOM semantics
-- [ ] DR-036 follow-on: Sweep Dim 7 and draft docs for remaining Module Package / Product Package references (`draft-work-model.md`, `draft-work-execution-framework.md`, `draft-modeling-faqs.md`, older narrative seed sections on Module Package / SDD-MDD-PDD)
+- [x] DR-036 follow-on: Update Track 3 entity files to System/Product Deployment Specification and Product Version BOM semantics — done in DR-036 doc consistency pass (2026-05-19). @done
+- [x] DR-036 follow-on: Sweep Dim 7, draft docs, narrative seeds (superseded banners), DR-004/026–029 banners, TODOs — done in DR-036 doc consistency pass (2026-05-19). @done
 - [ ] Dim 5 Component Archetype elaboration — the current 8 archetypes (API Service, Web Application, etc.) are a starting taxonomy. Enrich with FinTech-specific subtypes as deployment patterns emerge.
 - [x] Detail Dim 8 entities (product, module, capability, feature) — Resolved: All four entities fully detailed with fields, statuses, relationships, examples (DR-035). @done
 - [ ] Detail remaining "To be detailed" work entities in draft-work-execution-framework.md

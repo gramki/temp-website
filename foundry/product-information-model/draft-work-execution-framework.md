@@ -1,5 +1,7 @@
 # Work Execution Framework
 
+> **Deployment/versioning semantics:** DR-036 supersedes DR-026–029 for operational use. See `draft-work-model.md` and entity files for current artifact names.
+
 The Work Model defines **what work exists** — entity types, state transitions, and relationships. But it is intentionally light on three execution dimensions that stakeholders need to structure, assess, and navigate their work:
 
 1. **Artifacts** — what structured outputs does this work produce?
@@ -21,7 +23,7 @@ Every work entity in the Work Model produces one or more structured outputs. The
 | **Decision Artifact** | A recorded decision with context, rationale, and consequences. Captures *why* a choice was made. | PDR, Win/Loss Analysis finding, Prioritization rationale |
 | **Evidence Artifact** | Data, findings, or observations that inform decisions. Captures *what was learned*. | Research findings, Experiment results, Feedback, Case pattern analysis |
 | **Specification Artifact** | A detailed description of what should be built, changed, or delivered. Captures *what to do*. | PSD, Release plan, Deployment runbook, GTM launch plan, Onboarding plan |
-| **Delivery Artifact** | A versioned, quality-gated output that moves toward or reaches a customer. Captures *what was built*. | System Version, Module Version, Product Version, Module Package Version, Product Package Version, Deployment (record), Enablement asset, Campaign asset |
+| **Delivery Artifact** | A versioned, quality-gated output that moves toward or reaches a customer. Captures *what was built*. | Component Version, System Version, Product Version, System Deployment Specification, Product Deployment Specification, Deployment (record), Enablement asset, Campaign asset |
 | **Assessment Artifact** | A structured evaluation of results against targets or criteria. Captures *how it went*. | Post-Incident Report, QBR summary, Post-implementation review, Target progress update |
 
 ### Artifact Lifecycle Pattern
@@ -39,14 +41,14 @@ Created → Reviewed → Accepted/Revised → Consumed/Archived
 - **Consumed** — the artifact is used by downstream work (e.g., PSD consumed by Build Track; Feedback promoted to Signal)
 - **Archived** — the artifact is no longer active but retained for reference
 
-Not all artifacts pass through every state. A System Version goes `Building → Released` (its own lifecycle). A Module Version goes `Integrating → Verified`. Feedback goes `Captured → Reviewed → Promoted/Archived`. The pattern provides a common vocabulary, not a mandatory sequence.
+Not all artifacts pass through every state. A Component Version goes `Building → Released` (its own lifecycle). A System Version goes `Assembling → Verified → Released`. A Product Version goes `Composing → Certified`. Feedback goes `Captured → Reviewed → Promoted/Archived`. The pattern provides a common vocabulary, not a mandatory sequence.
 
 ### Transitional vs. Terminal Artifacts
 
 | Type | Behavior | Examples |
 |---|---|---|
 | **Transitional** | Born in one track, consumed by another. The artifact's primary value is in *crossing a boundary*. | Feedback (Win → Discovery), PSD (Discovery → Build), Deployment runbook (Build → Run) |
-| **Terminal** | Consumed within the same track or by external systems. The artifact's primary value is *within its context*. | Module Version (integration verification), Enablement asset (Win internal), Post-Incident Report (Run internal — consumed by planning and Definition Model) |
+| **Terminal** | Consumed within the same track or by external systems. The artifact's primary value is *within its context*. | Product Version (certification), Enablement asset (Win internal), Post-Incident Report (Run internal — consumed by planning and Definition Model) |
 
 ---
 
@@ -112,15 +114,12 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 | Working Software Increment | Build | Code changes with acceptance test results (Story output) | Acceptance criteria met; unit tests pass; code reviewed; for HI Modules: UI touchpoint implementation verified |
 | Epic Completion | Build | Completed capability with all Stories delivered (Module-scoped) | All Stories accepted; acceptance criteria met end-to-end |
 | Bug Fix | Build | Root cause analysis, fix verification, regression test results | Root cause identified; fix verified; regression tests added; no new defects introduced; provenance documented |
-| System Version | Build | Versioned, quality-gated artifact of a System (Dim 5) — atomic deployment unit. Build+Run shared vocabulary. Gate Profile: Standard (all gates) or Emergency (peer review + security scan + smoke tests; regression + benchmarks deferred — DR-031). | Standard: all quality gates passed. Emergency: non-negotiable gates passed; deferred gates tracked via originating Bug's Deferred Gate Obligation field; version follows semver; release notes complete |
-| Module Version | Build | Composite system: integration-verified composition of System Versions for a Module (Dim 8) — integrated deployment unit + integration verification. Build+Run+Product shared vocabulary. | Integration contracts validated; integration test suite passes; all constituent System Versions released; binding configuration defined |
-| Product Version | Build | Highest-order composite system: certified composition of Module Versions (BOM) — complete deployment unit + certification. Ubiquitous language across all teams and customers. | Declared BOM compatible; Resolved BOM tested together; end-to-end tests pass; compliance/security certification complete |
-| Module Package Version | Run | Environment-independent composition: Module Version + operator-facing System Versions + operational wiring — integrated deployment artifact | Module Version verified; all operational System Versions released; operational wiring validated; environment-independent |
-| Product Package Version | Run | Environment-independent highest-order deployable: Product Version + Module Package Versions + cross-module operational wiring — complete deployment artifact | Product Version certified; all Module Package Versions ready; cross-module operational wiring validated; environment-independent |
-| SDD (System Deployment Descriptor) | Run | Environment-specific deployment specification for a System Version — resource config, runtime artifact references | System Version referenced; target environment specified; resource configuration validated; runtime artifacts identified |
-| MDD (Module Deployment Descriptor) | Run | Environment-specific deployment specification for a Module Package Version — composes SDDs, Module-level config, deployment scripts | Module Package Version referenced; all SDDs composed; scripts tested; environment config validated; change management reviewed |
-| PDD (Product Deployment Descriptor) | Run | Environment-specific deployment specification for a Product Package Version — composes MDDs, cross-module config, deployment ordering | Product Package Version referenced; all MDDs composed; deployment ordering defined; product-level scripts validated |
-| Deployment Record | Run | Which descriptor (SDD/MDD/PDD version) was applied, to which environment, when, verification results | Environment and descriptor version recorded; verification results documented; rollback status confirmed |
+| Component Version | Build | Atomic quality-gated build artifact of a Component (Dim 5). CI output. | All quality gates passed (or Emergency profile per DR-031) |
+| System Version | Build | Sealed BOM of Component Versions for a System (Dim 5) — operational deployment unit. Build+Run shared vocabulary. | Integration contracts validated; integration tests pass; all Component Versions released |
+| Product Version | Build | Certified composition of System Versions (flat BOM). Ubiquitous language. | End-to-end tests pass; compliance/security certification complete |
+| System Deployment Specification | Run | Environment-specific deployment spec for a System Version | System Version referenced; environment config and scripts validated |
+| Product Deployment Specification | Run | Environment-specific deployment spec for a Product Version; composes System specs | Product Version referenced; ordering and cross-System scripts validated |
+| Deployment Record | Run | Which specification was applied, to which environment, when, verification results | Environment and specification version recorded; verification documented |
 | Tenant Provisioning Record | Run | What tenant was provisioned, in which environment, for which customer, with what purpose and configuration | Customer and segment identified; tenant purpose documented; isolation level verified; SLO tier assigned; initial health check passed |
 | Maintenance Record | Run | What maintenance was done, verification results | Work completed as specified; verification results recorded; no service impact (or impact documented) |
 | GTM Enablement Asset | Win | Marketing collateral, positioning docs, campaign assets | Messaging consistent with Customer Promise (Dim 3); segment-appropriate; reviewed by Product Marketing |
@@ -180,12 +179,12 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Story** | Working software increment, acceptance test results; for HI Modules includes UI touchpoint implementation (Module-scoped, Dim 8) | Delivery | Terminal | **Entity file exists** (`track2-story.md`) |
 | **Technical Task** | Code changes, test results, technical documentation updates (System/Component-scoped, Dim 5). Serves Build Track Stories and Integration Stories. | Delivery | Terminal | **Entity file exists** (`track2-technical-task.md`) |
 | **Bug** | Bug fix — root cause analysis, fix verification, regression test results. Provenance: Build / Run / Win | Delivery + Evidence | Terminal | **Entity file exists** (`track2-bug.md`) |
-| **Integration Epic** | Verified cross-System integration; integration contracts; contributes to Module Version verification | Delivery | Terminal | **Entity file exists** (`track2-integration-epic.md`) |
+| **Integration Epic** | Verified cross-System integration; contributes to System Version assembly and Product Version certification | Delivery | Terminal | **Entity file exists** (`track2-integration-epic.md`) |
 | **Integration Story** | Integration contracts (API schemas, event schemas), integration test suites | Delivery + Evidence | Terminal | **Entity file exists** (`track2-integration-story.md`) |
 | **Design Deliberation** | ADR(s) — architectural decisions emerging during build work | Decision | Transitional (→ Definition Model, Dim 5) | **Entity file exists** (`track2-design-deliberation.md`) |
-| **System Version** | Versioned, quality-gated artifact of a System (Dim 5) — atomic deployment unit | Delivery | Transitional (→ Run Track) | **Entity file exists** (`track2-system-version.md`) |
-| **Module Version** | Composite system: integration-verified composition of System Versions for a Module (Dim 8) — integrated deployment unit + integration verification; Build+Run+Product shared vocabulary | Delivery | Transitional (→ Run Track for Module Package Version enrichment) | **Entity file exists** (`track2-module-version.md`) |
-| **Product Version** | Highest-order composite system: certified composition of Module Versions (BOM) — complete deployment unit + certification; ubiquitous language across all teams and customers | Delivery | Transitional (→ Run Track for Product Package Version enrichment, → Win Track) | **Entity file exists** (`track2-product-version.md`) |
+| **Component Version** | Atomic quality-gated build artifact of a Component (Dim 5) | Delivery | Transitional (→ System Version assembly) | **Entity file exists** (`track2-component-version.md`) |
+| **System Version** | Sealed BOM of Component Versions — operational deployment unit | Delivery | Transitional (→ Run Track) | **Entity file exists** (`track2-system-version.md`) |
+| **Product Version** | Certified composition of System Versions (flat BOM) | Delivery | Transitional (→ Run Track, → Win Track) | **Entity file exists** (`track2-product-version.md`) |
 | **Technical Debt Item** | Documented technical debt — debt category, impact, resolution path | Evidence | Terminal (resolved via Epic or Story) | **Entity file exists** (`track2-technical-debt-item.md`) |
 | **Build Monitoring** | Alert/trigger (when threshold breached), quality report/dashboard | Evidence + Assessment | Terminal (triggers Bug, Technical Debt Item, planning) | **Entity file exists** (`track2-build-monitoring.md`) |
 
@@ -193,12 +192,12 @@ The following inventory identifies key artifacts produced by each track. This is
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
-| **Deployment Planning Task** | Deployment descriptors (SDD/MDD/PDD versions) — environment-specific deployment specifications with configuration and scripts. Also produces deployment runbooks. Also may produce Verification Tasks and Maintenance Tasks. Governed by a Deployment Plan. | Specification + Delivery | Terminal (operational) | **Entity file exists** (`track3-deployment-planning-task.md`) |
+| **Deployment Planning Task** | System and Product Deployment Specifications — environment-specific deployment specs with configuration and scripts. Governed by a Deployment Plan. | Specification + Delivery | Terminal (operational) | **Entity file exists** (`track3-deployment-planning-task.md`) |
 | **Capacity Planning Task** | Capacity forecast — projected load, scaling requirements, infrastructure plan | Specification | Terminal (operational) | _To be detailed._ |
-| **Run Epic** | Completed operational engineering capability — operational System Versions, Module Package Version contribution (Module-scoped) | Delivery | Terminal | **Entity file exists** (`track3-run-epic.md`) |
+| **Run Epic** | Completed operational engineering capability — operational System Versions via Build Track (Module-scoped) | Delivery | Terminal | **Entity file exists** (`track3-run-epic.md`) |
 | **Run Story** | Operational System Version — versioned artifact of an operational System (e.g., probe, reconciler) | Delivery | Terminal | **Entity file exists** (`track3-run-story.md`) |
 | **Technical Task (Run Track)** | Code changes, test results, documentation updates for operational Systems (System/Component-scoped, Dim 5). Serves Run Stories. Same entity structure as Build Track Technical Tasks, distinct track ownership. | Delivery | Terminal | **Entity file exists** (`track3-technical-task.md`) |
-| **Deployment** | Deployment record (artifact) — which descriptor (SDD/MDD/PDD version) was applied, to which environment, when, by whom. Produced by a Deployment Task. | Delivery | Terminal | **Entity file exists** (`track3-deployment.md`) |
+| **Deployment** | Deployment record — which Deployment Specification was applied, when, by whom. Produced by a Deployment Task. | Delivery | Terminal | **Entity file exists** (`track3-deployment.md`) |
 | **Incident (Artifact)** | Incident record — observation of service degradation: severity (SEV-0..4), detection source, affected systems/modules/environments/tenants, customer impact, SLA breach, response/resolution times, correlation (parent/related/caused-by) | Evidence | Terminal (observation record; triggers work entities) | **Entity file exists** (`track3-incident.md`) |
 | **Incident Response Task** | Resolution summary, workaround documentation; may produce Bug (Track 2), Signal (Track 1), emergency Change Request (Track 3) | Delivery + Evidence | Transitional (→ Bug, → Signal, → Change Request) | **Entity file exists** (`track3-incident-response-task.md`) |
 | **Post-Incident Review** | Post-Incident Report — timeline reconstruction, final RCA, contributing factors, quantified impact, corrective actions with owners. Routes follow-ups to Build (Bug), Run (Run Epic, Maintenance), Discovery (Signal), Evolve (Finding), Definition Model (ODR) | Assessment | Transitional (→ multiple tracks) | **Entity file exists** (`track3-post-incident-review.md`) |
@@ -206,11 +205,8 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Change Request** | Change record — what changed, approval chain, verification, rollback status | Decision | Terminal | _To be detailed._ |
 | **Maintenance Task** | Maintenance record — what was done, verification results | Delivery | Terminal | _To be detailed._ |
 | **Tenant** | Tenant provisioning record — customer, environment, purpose, configuration, SLO tier; Tenant lifecycle events (scale, suspend, decommission) | Delivery | Terminal (operational) | _To be detailed._ |
-| **Module Package Version** | Environment-independent composition: Module Version + operator-facing System Versions + operational wiring — integrated deployment artifact | Delivery | Transitional (→ MDD, → Product Package Version) | **Entity file exists** (`track3-module-package-version.md`) |
-| **Product Package Version** | Environment-independent highest-order deployable: Product Version + Module Package Versions + cross-module operational wiring — complete deployment artifact | Delivery | Transitional (→ PDD) | **Entity file exists** (`track3-product-package-version.md`) |
-| **SDD (System Deployment Descriptor)** | Environment-specific deployment specification for a System Version — resource config, replicas, env vars, runtime artifact references. Composed into MDD. | Delivery | Transitional (→ MDD, → Deployment Task) | **Entity file exists** (`track3-sdd.md`) |
-| **MDD (Module Deployment Descriptor)** | Environment-specific deployment specification for a Module Package Version — composes SDDs, Module-level env config, pre-rollout/validation/rollback scripts. A "system" in its own right. | Delivery | Transitional (→ PDD, → Deployment Task) | **Entity file exists** (`track3-mdd.md`) |
-| **PDD (Product Deployment Descriptor)** | Environment-specific deployment specification for a Product Package Version — composes MDDs, cross-module env config, deployment ordering, product-level scripts. | Delivery | Transitional (→ Deployment Task) | **Entity file exists** (`track3-pdd.md`) |
+| **System Deployment Specification** | Environment-specific deployment spec for a System Version | Delivery | Transitional (→ Deployment Task) | **Entity file exists** (`track3-system-deployment-specification.md`) |
+| **Product Deployment Specification** | Environment-specific deployment spec for a Product Version; composes System specs | Delivery | Transitional (→ Deployment Task) | **Entity file exists** (`track3-product-deployment-specification.md`) |
 | **Deployment Plan** | Deployment Plan scope, risk assessment, produced tasks — deliberation activity for scoping a rollout | Specification | Terminal (operational) | **Entity file exists** (`track3-deployment-plan.md`) |
 | **Deployment Task** | Deployment execution record — descriptor applied, environment targeted, deployer, result. Produces Deployment (artifact). | Delivery | Terminal | **Entity file exists** (`track3-deployment-task.md`) |
 | **Verification Task** | Post-deployment verification evidence — criteria, type, pass/fail, evidence. Required for Change Request closure. | Assessment | Terminal | **Entity file exists** (`track3-verification-task.md`) |

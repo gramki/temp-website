@@ -2,6 +2,8 @@
 
 Design decisions and rationale captured during model refinement.
 
+> **DR-036 authority note:** Deployment and versioning semantics in DR-036 supersede DR-026–029 for operational use. Retired terms (Module Version, Module/Product Package, SDD/MDD/PDD) appear in historical FAQs marked **Superseded**; current model: Component Version → System Version → Product Version; System and Product Deployment Specifications. See `stories/deployment-artifacts-analysis.md` and Seeds 16–17 in `narrative-seeds.md`.
+
 ---
 
 ### Q1: Why is the Bridge tier placed after the Technical tier, not before it?
@@ -159,6 +161,8 @@ The qualifier "Customer" eliminates any collision — no one will confuse "Custo
 
 ### Q13: Why distinguish System Version, Module Version, Product Version, and Customer Release as four separate concepts?
 
+> **Superseded for operational use by DR-036 (2026-05-19).** Current model: Component Version → System Version → Product Version; no Module Version tier. See Q13b below and `stories/versioning-alternatives-analysis.md`.
+
 These four concepts operate at different levels and serve different purposes. See also DR-026 for the three-tier versioning model.
 
 | Concept | Level | Nature | Versioning | Owner |
@@ -180,19 +184,34 @@ These four concepts operate at different levels and serve different purposes. Se
 
 ---
 
+### Q13b: Why Component Version, System Version, Product Version, and Customer Release?
+
+| Concept | Level | Nature | Owner |
+|---|---|---|---|
+| **Component Version** | Per-component | CI/CD output of a single Component; quality-gated | Build Track |
+| **System Version** | Per-system | Sealed BOM of Component Versions; component-integration verification; deployable unit for Run Track | Build Track |
+| **Product Version** | Product-wide | Certified flat BOM of System Versions | Build Track |
+| **Customer Release** | Business | Named delivery of capabilities to customers | Win / Strategy (Dim 1) |
+
+**Module (Dim 8)** remains the functional boundary for PSD scoping and capability mapping — not a versioning tier. Integration Epics feed **System Version** assembly and **Product Version** certification. Deployment uses **System Deployment Specification** and **Product Deployment Specification** (not SDD/MDD/PDD). See DR-036, `stories/versioning-alternatives-analysis.md`, and `stories/deployment-artifacts-analysis.md`.
+
+---
+
 ### Q14: Why does Product Version use a Bill of Materials (BOM) with version ranges?
 
-Product Versions declare compatible version ranges for constituent Module Versions (Declared BOM) rather than pinning specific versions. This follows established dependency management conventions:
+> **Updated for DR-036:** Product Version BOM lists **System Versions** (not Module Versions).
+
+Product Versions declare compatible version ranges for constituent **System Versions** (Declared BOM) rather than pinning specific versions. This follows established dependency management conventions:
 
 - `^2.3.0` — compatible with any 2.x.x (minor/patch changes OK)
 - `~1.8.0` — compatible with any 1.8.x (patch changes OK)
 - `>=4.1.0 <5.0.0` — explicit range
 
 A Product Version has two facets:
-- **Declared BOM:** Compatible Module Version ranges (like `package.json`)
-- **Resolved BOM:** Specific Module Versions tested and certified together (like `package-lock.json`), each containing its constituent System Versions
+- **Declared BOM:** Compatible System Version ranges (like `package.json`)
+- **Resolved BOM:** Specific System Versions tested and certified together (like `package-lock.json`), each referencing sealed Component Version BOMs
 
-This allows flexibility — a Module Version update (e.g., `Payments Module v2.3.1` with a new System Version `payments-service v2.3.4` fixing a security issue) can be adopted without full Product-level re-certification, as long as it falls within the declared range. The Resolved BOM records exactly what was tested for reproducibility.
+This allows flexibility — a System Version update (e.g., `payments-system v2.3.4` fixing a security issue) can be adopted without full Product-level re-certification, as long as it falls within the declared range. The Resolved BOM records exactly what was tested for reproducibility.
 
 ---
 
@@ -934,6 +953,8 @@ This reflects how work is actually planned and implemented. PMs and Tech Leads p
 
 ### Q86: Why three-tier versioning (System Version → Module Version → Product Version)?
 
+> **Superseded for operational use by DR-036 (2026-05-19).** Current chain: Component Version → System Version → Product Version. See Seeds 16–17, DR-036, and `stories/versioning-alternatives-analysis.md`.
+
 The original two-tier model (Module Version → Product Version) had two problems. First, "Module Version" was misnamed — the Build Track builds Systems (Dim 5), not Modules (Dim 8). `payments-service v2.3.3` is a System Version. Second, there was no integration verification layer between individual System Versions and the full Product Version. The three-tier model addresses three distinct needs:
 
 **Verification and deployment scope:** (1) Systems are built and deployed independently as System Versions via SDDs (atomic deployment unit); (2) Systems within a Module are verified to work together as Module Versions and deployed as Module Packages via MDDs (integrated deployment unit); (3) the full product composition is certified as a Product Version and deployed as a Product Package via PDDs (complete deployment unit). All three tiers are deployable at their composition level. Module-scoped verification is O(k) within a Module rather than O(n²) across all Systems.
@@ -950,7 +971,7 @@ See DR-026. See also `stories/versioning-alternatives-analysis.md` for how alter
 
 ### Q87: Why are Integration Epic and Integration Story separate entities from regular Epics and Stories?
 
-Integration work has fundamentally different characteristics from feature work: it spans multiple Systems (potentially from different Modules), it validates Interaction Flows (Dim 5) end-to-end, and it produces integration contracts and test suites rather than feature code. Conflating integration work into feature Epics hides the cross-cutting nature from planning — integration "issues" surface late and delay releases. Separate entities make integration work visible from Release Planning onward. Integration Epics reference the PSD-derived Epics/Stories they integrate, maintaining traceability to feature work. The integration output (verified contracts, test suites) feeds Module Version verification. See DR-026.
+Integration work has fundamentally different characteristics from feature work: it spans multiple Systems (potentially from different Modules), it validates Interaction Flows (Dim 5) end-to-end, and it produces integration contracts and test suites rather than feature code. Conflating integration work into feature Epics hides the cross-cutting nature from planning — integration "issues" surface late and delay releases. Separate entities make integration work visible from Release Planning onward. Integration Epics reference the PSD-derived Epics/Stories they integrate, maintaining traceability to feature work. The integration output (verified contracts, test suites) feeds **System Version** assembly and **Product Version** certification. See DR-026, DR-036.
 
 ---
 
@@ -988,6 +1009,8 @@ This two-layer structure is a strength, not a deficiency. Story sits at the junc
 
 ### Q93: How do we distinguish System, Module, and Product as "systems"?
 
+> **Superseded for deployment granularity by DR-036 (2026-05-19).** Deployable units: sealed **System Version** and certified **Product Version**; deployment via System/Product Deployment Specifications. Composition-level table below is historical (DR-027).
+
 Through **Composition Levels** — a formal hierarchy of deployable systems:
 
 | Composition Level | Entity | What it is | Deployment Granularity |
@@ -1003,6 +1026,8 @@ The composition-level framing prevents confusion: Technical Tasks are scoped to 
 ---
 
 ### Q94: Why is Module Package a separate entity from Module Version?
+
+> **Superseded by DR-036.** Product Specification (Dim 5) catalogs all Systems; operational Systems use the same Component → System Version chain as product-facing Systems. See Seed 16.
 
 Because what is *deployed* includes both the tenant-serving assembly (Module Version) and operator-facing support systems (Module Package Version). Module Version is a Build Track artifact — it certifies that product System Versions integrate correctly within a Module boundary, with binding configuration that constrains the composition to its legal form. The Run Track adds operator-facing systems (custom probes, reconciliation jobs, dashboards, log shippers, cert rotation automation) and operational wiring (probe-to-system mappings, automation triggers, operational service mesh routes) to produce Module Package Version — an environment-independent deployable composition. Environment-specific configuration (monitoring thresholds, scaling policies, deployment scripts) is specified separately in the MDD (Module Deployment Descriptor), which references the Module Package and targets a specific environment. See DR-028.
 
@@ -1022,7 +1047,7 @@ Because the Run Track is an engineering track, not just an operational track. Cu
 
 Run Epics mirror Build Track Epics: they are Module-scoped (Dim 8), produce System Versions, and can be planned and tracked. But they differ in three ways:
 1. **Purpose.** Build Track Epics deliver product functionality (serving end-user Personas). Run Epics deliver operational capability (serving Operational Personas).
-2. **Trigger.** Build Track Epics are decomposed from PSDs. Run Epics are triggered by Operational Readiness gaps, Incidents, improvement initiatives, or new Module Version readiness.
+2. **Trigger.** Build Track Epics are decomposed from PSDs. Run Epics are triggered by Operational Readiness gaps, Incidents, improvement initiatives, or new **System Version** readiness (operational Systems are versioned through the same Build Track chain per DR-036).
 3. **Decision artifact.** Build Track Design Deliberations produce ADRs (Dim 5). Run Track Deliberations produce ODRs (Dim 7).
 
 Without Run Epics and Run Stories, operational engineering work is informal and invisible. SRE time is conflated with incident response — there is no distinction between "operate existing systems" and "build new operational systems." This matters for capacity planning (how much SRE time goes to engineering vs. operations), for skill profiles (SREs who build operational systems need development skills), and for organizational design (should operational engineering be a separate squad or embedded within SRE?). See DR-027.
@@ -1030,6 +1055,8 @@ Without Run Epics and Run Stories, operational engineering work is informal and 
 ---
 
 ### Q96: Why are deployment descriptors (SDD, MDD, PDD) separate from Module Package and Product Package?
+
+> **Superseded by DR-036.** **System Deployment Specification** and **Product Deployment Specification** separate build artifacts from environment-specific deployment configuration. See `stories/deployment-artifacts-analysis.md`.
 
 Because *what is deployed* and *how it is deployed to a specific environment* are different concerns that change at different rates. Module Package defines the composition (Module Version + operational systems + operational wiring) — this is environment-independent and changes when operational systems change. The MDD defines how that composition is deployed to a specific environment (resource sizing, monitoring thresholds, deployment scripts, runtime artifact references) — this changes when deployment configuration changes, even when the Module Package has not changed.
 
@@ -1057,6 +1084,8 @@ The Product → Module → Capability → Feature hierarchy is deliberately one 
 ---
 
 ### Q98: Why is Module Package both a Definition Model entity and a Work Model artifact?
+
+> **Superseded by DR-036.** **Product Specification (Dim 5)** is the technical twin of Product (Dim 8); Package entities removed.
 
 Module Package (Dim 7) is the specification/template — it defines which operational systems and wiring enrich a Module. Module Package Version (Track 3) is the versioned instance — specific System Versions assembled at a specific point in time. This follows the same Definition → Work pattern as Module (Dim 8) → Module Version (Track 2), and Product (Dim 8) → Product Version (Track 2). The specification is stable and reusable; the version is specific and changing. The specification lives in Dim 7 (not Dim 8) because package composition is an operator-facing concern (probes, dashboards, reconcilers — not tenant-serving systems), not visible to customers. See DR-029, D1-D3.
 
@@ -1122,7 +1151,7 @@ A SEV-0/SEV-1 Incident triggers an Incident Response Task (DR-030) which may pro
 
 The resulting System Version uses the **Emergency gate profile** (DR-031): peer review, security scan, and smoke tests are non-negotiable; full regression, performance benchmarks, and static analysis may be deferred. The System Version is then deployed via an **Emergency-Technical Change Request** (DR-029) with abbreviated soak times and documented waivers.
 
-The critical safeguard is the **deferred-gate obligation**: the Bug stays at `Fixed` (not `Closed`) until a subsequent Standard System Version passes all deferred gates. This prevents emergency hotfixes from permanently lowering quality standards. The full chain is: Incident → IRT → Bug (P0) → Technical Task → System Version (Emergency) → SDD → Emergency-Technical CR → Deployment Task → Deployment → Verification Task.
+The critical safeguard is the **deferred-gate obligation**: the Bug stays at `Fixed` (not `Closed`) until a subsequent Standard System Version passes all deferred gates. This prevents emergency hotfixes from permanently lowering quality standards. The full chain is: Incident → IRT → Bug (P0) → Technical Task → System Version (Emergency) → **System Deployment Specification** → Emergency-Technical CR → Deployment Task → Deployment → Verification Task.
 
 The hotfix branch strategy (branch from release tag, cherry-pick to main, etc.) is an Operating Model concern — the Work Model captures the `Git Reference` on System Version but does not prescribe branching.
 

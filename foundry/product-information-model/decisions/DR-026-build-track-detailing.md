@@ -2,6 +2,8 @@
 
 # DR-026: Build Track Detailing — Work Entity/Artifact Distinction, Scoping Corrections, Three-Tier Versioning
 
+> **Superseded for operational use by DR-036 (2026-05-19).** Module Version, Module/Product Package, and SDD/MDD/PDD are retired. See DR-036 and Amended Records table in DR-036.
+
 **Status:** Accepted
 **Date:** 2026-02-15
 

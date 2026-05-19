@@ -57,4 +57,6 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-035 | Dim 8 & PSD Structural Decisions — Module Functional Classification, Capability Templates, System/Component Redefinition, PSD Authorship Split | Accepted | 2026-05-19 |
 | DR-036 | Versioning and Deployment Simplification — Component/System/Product Version Chain, Deployment Specifications, Package Removal | Accepted | 2026-05-19 |
 
+**Note:** DR-036 amends DR-004, DR-026, DR-027, DR-028, and DR-029 for operational deployment and versioning semantics. Historical bodies of those records are preserved with superseded banners; DR-036 is authoritative for current modeling.
+
 ---

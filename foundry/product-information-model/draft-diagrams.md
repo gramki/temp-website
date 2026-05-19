@@ -1,5 +1,7 @@
 # UPIM Visual Models
 
+> **DR-036 authority note:** Deployment/versioning semantics in DR-036 supersede DR-026–029 for operational use. Diagrams marked historical retain Package/SDD labels for design context; prefer Seeds 16–17 and updated diagrams 1–2, 5.
+
 ## Purpose
 
 This file collects visual models (mermaid diagrams) that illustrate cross-entity relationships, cross-track flows, and architectural patterns in the Unified Product Information Model. These diagrams complement the entity definitions (in `entities/`) and narrative seeds (in `narrative-seeds.md`) by providing visual representations of flows that span multiple entities and tracks.
@@ -22,7 +24,7 @@ This is a working document — add new diagrams as the model evolves rather than
 **Source:** Plan `composition_levels_and_run_track_3c7f70e2`
 **Reflects:** DR-026 (Build Track Detailing), DR-027 (Composition Levels), DR-028 (Deployment Descriptors)
 
-Shows the Build Track producing System Versions, Module Versions, and Product Versions, with the Run Track enriching these into Module Package Versions and Product Package Versions as deployable compositions.
+Shows the Build Track producing Component Versions, System Versions, and Product Versions; Run Track produces Deployment Specifications and applies them to environments. Reflects DR-036.
 
 ```mermaid
 flowchart TD
@@ -30,19 +32,19 @@ flowchart TD
         PSD["PSD (Dim 1)"] --> Epic["Epic (Module-scoped)"]
         Epic --> Story["Story (Module-scoped)"]
         Story --> TechTask["Technical Task (System-scoped)"]
-        TechTask --> SysVer["System Version (atomic deployment unit)"]
-        SysVer --> ModVer["Module Version (integration-verified)"]
-        ModVer --> ProdVer["Product Version (certified BOM)"]
+        TechTask --> CompVer["Component Version (atomic build)"]
+        CompVer --> SysVer["System Version (sealed BOM)"]
+        SysVer --> ProdVer["Product Version (certified BOM)"]
     end
     subgraph RunTrack [Run Track]
-        RunEpic["Run Epic (Module-scoped)"] --> RunStory["Run Story"]
-        RunStory --> RunTask["Technical Task (System-scoped)"]
+        RunEpic["Run Epic"] --> RunStory["Run Story"]
+        RunStory --> RunTask["Technical Task"]
         RunTask --> OpsSysVer["Operational System Version"]
-        ModVer --> ModPkg["Module Package (enriched deployable)"]
-        OpsSysVer --> ModPkg
-        ProdVer --> ProdPkg["Product Package"]
-        ModPkg --> ProdPkg
-        ModPkg -->|"deploy to"| Env["Environment(s)"]
+        OpsSysVer --> ProdVer
+        SysVer --> SDS["System Deployment Specification"]
+        ProdVer --> PDS["Product Deployment Specification"]
+        SDS --> PDS
+        PDS -->|"deploy via"| Env["Environment(s)"]
     end
 ```
 
@@ -53,21 +55,19 @@ flowchart TD
 **Source:** Plan `change-to-deployment_workflow_d93f53f7`
 **Reflects:** DR-029 (Change-to-Deployment Workflow Redesign), DR-027, DR-028
 
-Shows the Definition Model (Dim 7) entities — Module Package spec, Product Package spec, Deployment Train, Station — alongside the Work Model (Track 3) entities — Change Request, Deployment Plan, planning tasks, descriptors, deployment execution — and how they relate.
+Shows Dim 5 Product Specification, Dim 7 Deployment Train/Station, and Track 3 deployment workflow per DR-036.
 
 ```mermaid
 graph TB
-  subgraph defModel [Definition Model - Dim 7]
-    ModPkgSpec["Module Package (spec)"]
-    ProdPkgSpec["Product Package (spec)"]
-    Train[Deployment Train]
+  subgraph defModel [Definition Model]
+    ProdSpec["Product Specification (Dim 5)"]
+    Train[Deployment Train (Dim 7)]
     Station[Station]
     DepEnv[Deployment Environment]
 
     Train -->|contains| Station
     Station -->|targets| DepEnv
-    ModPkgSpec -->|extends| ModDim8["Module (Dim 8)"]
-    ProdPkgSpec -->|composes| ModPkgSpec
+    ProdSpec -->|declares| Systems["Systems (Dim 5)"]
   end
 
   subgraph workModel [Work Model - Track 3]
@@ -77,25 +77,25 @@ graph TB
     DrillTask[Deployment Drill Task]
     DeployTask[Deployment Task]
     VerifyTask[Verification Task]
-    MaintTask[Maintenance Task]
 
-    ModPkgVer[Module Package Version]
-    ProdPkgVer[Product Package Version]
+    SysVer[System Version]
+    ProdVer[Product Version]
+    SDS[System Deployment Specification]
+    PDS[Product Deployment Specification]
     DeployRecord["Deployment (artifact)"]
 
     CR -->|"scoped to"| Train
     CR -->|contains| DP
     DP -->|produces| DPT
-    DP -->|"may produce"| DrillTask
-    DPT -->|"produces descriptors"| MDD_PDD["SDD / MDD / PDD"]
-    DPT -->|"may create"| VerifyTask
-    DPT -->|"may create"| MaintTask
+    DPT -->|"produces"| SDS
+    DPT -->|"produces"| PDS
+    SysVer --> SDS
+    ProdVer --> PDS
+    SDS --> PDS
     DrillTask -->|"predecessor to"| DeployTask
-    DeployTask -->|"applies"| MDD_PDD
+    DeployTask -->|"applies"| SDS
+    DeployTask -->|"applies"| PDS
     DeployTask -->|"produces"| DeployRecord
-
-    ModPkgVer -->|instantiates| ModPkgSpec
-    ProdPkgVer -->|instantiates| ProdPkgSpec
   end
 ```
 
@@ -205,7 +205,7 @@ flowchart TD
     BUG["Bug (P0, Run provenance)"]
     TT["Technical Task (sprint bypass)"]
     SV["System Version (Emergency gate profile)"]
-    SDD_node["SDD"]
+    SDS_node["System Deployment Specification"]
     CR["Change Request (Emergency-Technical)"]
     DT["Deployment Task"]
     DEP["Deployment (artifact)"]
@@ -218,8 +218,8 @@ flowchart TD
     IRT -->|"triggers"| CR
     BUG -->|"spawns"| TT
     TT -->|"produces"| SV
-    SV -->|"described by"| SDD_node
-    SDD_node -->|"applied by"| DT
+    SV -->|"described by"| SDS_node
+    SDS_node -->|"applied by"| DT
     DT -->|"governed by"| CR
     DT -->|"produces"| DEP
     DEP -->|"verified by"| VT
