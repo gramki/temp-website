@@ -1,34 +1,47 @@
-# PSD Templates by Module Archetype
+# PSD Capability Templates
 
-Each template provides the full PSD structure with **section depth guidance** calibrated to the module's interaction boundary. Sections marked **Deep** are the primary specification surfaces for that archetype and must be thorough. Sections marked **Light** may be brief or state "No impact." Sections marked **Required** apply equally to all archetypes.
+This directory contains **Capability Templates** — PM-facing specification guides used within a Product Specification Document (PSD).
 
-| Template | Module Archetype | Primary Specification Surfaces |
+## What Are Capability Templates?
+
+A Capability Template guides the Product Manager in specifying a Capability within a PSD. Templates are selected **per Capability**, not per PSD — a single PSD (scoped to a Module) may contain Capabilities of different types, each specified using the appropriate template.
+
+Three templates are available:
+
+| Template | When to use | PM specifies |
 |---|---|---|
-| `psd-human-interactive.md` | Human-Interactive (Synchronous UI) | UX (Dim 4), Structural (Dim 8) |
-| `psd-programmatic-interactive.md` | Programmatic-Interactive (Synchronous M2M) | Extensibility (Dim 6), Technical (Dim 5) |
-| `psd-reactive-background.md` | Reactive / Background (Asynchronous) | Technical (Dim 5), Operational (Dim 7), Data (Dim 9) |
+| **Experience** | The capability's primary expression is direct human interaction (dashboards, forms, flows, mobile screens) | User persona, user journey, UX channel, interaction model, key screens, accessibility requirements |
+| **Integration** | The capability is consumed programmatically (API, event stream, webhook, batch file) | Consumer persona, API intent, contract shape, SLO targets, backward compatibility |
+| **Processing** | The capability is realized through background computation (event-triggered, scheduled, async) | Trigger, input data, processing intent, output/side effects, SLA, error handling |
 
-## Usage
+## Authorship Model
 
-1. Identify the target module's archetype (from `draft-archetypes.md`).
-2. Copy the matching template.
-3. Fill in all **Required** and **Deep** sections thoroughly.
-4. Fill in **Medium** sections with relevant details.
-5. For **Light** sections, provide a brief assessment or state "No impact" with justification.
-6. Adjust business sections (Dims 2–3) depth based on the **product archetype** (see guidance in each template).
+PSDs are authored in two phases (DR-035, D8):
 
-## Section Depth Matrix
+**Product Draft phase (PM-authored):**
+- PSD header and traceability fields
+- Section 1: Structural Impact — Capabilities and Features added/modified/retired
+- Per-Capability specifications using these templates
+- Section 9: Acceptance Criteria
+- Section 10: Epic Decomposition
 
-| PSD Section | Human-Interactive | Programmatic-Interactive | Reactive/Background |
-|---|---|---|---|
-| 0. Header & Traceability | Required | Required | Required |
-| 1. Structural Impact (Dim 8) | Required | Required | Required |
-| 2. Vendor Value (Dim 2) | Per product archetype | Per product archetype | Per product archetype |
-| 3. Customer Value (Dim 3) | Per product archetype | Per product archetype | Per product archetype |
-| 4. UX (Dim 4) | **Deep** | Light | N/A |
-| 5. Technical (Dim 5) | Medium | **Deep** | **Deep** |
-| 6. Extensibility (Dim 6) | Light | **Deep** | Medium |
-| 7. Operational (Dim 7) | Light | Medium | **Deep** |
-| 8. Data (Dim 9) | Medium | Medium | **Deep** |
-| 9. Acceptance Criteria | Required | Required | Required |
-| 10. Epic Decomposition | Required | Required | Required |
+**Technical Review phase (Architect-authored):**
+- Section 5: Technical & Architectural Impact — mapping Capabilities and Features to Systems and Components
+- Sections 6, 7, 8: Ecosystem, Operational, Data impact
+- The Architect is accountable for ensuring all PM-specified Capabilities are addressed in the technical plan
+
+## Template Files
+
+- [`psd-human-interactive.md`](psd-human-interactive.md) → **Experience Capability Template**
+- [`psd-programmatic-interactive.md`](psd-programmatic-interactive.md) → **Integration Capability Template**
+- [`psd-reactive-background.md`](psd-reactive-background.md) → **Processing Capability Template**
+
+> **Note:** The legacy file names (`psd-human-interactive.md`, etc.) are preserved for continuity. The template names — Experience, Integration, Processing — are the canonical names used in PSD authoring. The Capability Template field on the Capability entity uses these three values.
+
+## Relationship to Capability Templates (Dim 8)
+
+The `Capability Template` field on the `dim8-capability.md` entity takes one of three values: `Experience` / `Integration` / `Processing`. This field records which template a PM used or would use to specify that Capability. It is informational and does not constrain the Architect's System mapping.
+
+## Relationship to System/Component Archetypes (Dim 5)
+
+Capability Templates are **decoupled from System and Component Archetypes**. A PM selecting an "Experience" template is not prescribing that an HI-style System will realize it. The Architect independently decides which Systems and Components address the Capability. This decoupling is a deliberate design decision (DR-035, D5).

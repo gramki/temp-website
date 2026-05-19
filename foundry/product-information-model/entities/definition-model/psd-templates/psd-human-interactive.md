@@ -1,201 +1,79 @@
-# PSD Template: Human-Interactive Module
+# Experience Capability Template
 
-**Module Archetype:** Human-Interactive (Synchronous UI)
-**Primary Specification Surfaces:** UX (Dimension 4), Structural (Dimension 8)
-**Examples:** Web Dashboards, Mobile App Frontends, CLIs
+**Type:** Capability Template
+**Model:** Definition Model — Dimension 1 (PSD)
+**Applies to:** Capabilities whose primary expression is direct human interaction — dashboards, forms, flows, portals, mobile screens, chat interfaces.
+**Used by:** Product Manager (PM-authored zone of the PSD — Product Draft phase)
 
 ---
 
-## Section 0: Header & Traceability [Required]
+## Purpose
+
+This template guides a PM in specifying an **Experience Capability** within a PSD. An Experience Capability is one where the primary outcome is delivered through a human-facing interaction — a user sees, navigates, acts, and receives feedback directly.
+
+The template structures the PM's specification at the Capability level. The Architect maps this Capability to Systems and Components independently (Technical Review phase) — the PM does not prescribe which Systems will realize it.
+
+---
+
+## Capability Specification Fields (PM-authored)
+
+### Capability Identity
+
+| Field | Type | Guidance |
+|---|---|---|
+| Capability Name | String | What does this capability enable? e.g., "Payment Dashboard — Multi-Currency View" |
+| Capability Template | Enum | `Experience` (selected) |
+| Maturity (target) | Enum | `Alpha` / `Beta` / `Gamma` — what maturity level is the goal of this PSD? |
+| Lifecycle Stage (target) | Enum | `Planned → Available` (for new) or `Available → Deprecated` (for retirement) |
+
+### Experience Specification
+
+| Field | Type | Guidance |
+|---|---|---|
+| User Persona(s) | References (Dim 4) | Who uses this capability? Reference Dim 4 User Personas directly. |
+| Job-to-be-Done | Reference (Dim 4) | What job is this capability helping the user accomplish? |
+| User Journey | Description / Attachment | End-to-end flow: what does the user do, what does the system show/do at each step? Wireframes, flow diagrams, or textual description. |
+| UX Channel | Enum / Reference (Dim 4) | Web App / Mobile App / CLI / Chat / Email / Embedded Widget / Other |
+| Interaction Model | Text | How does the user interact? (Form-driven, data table + actions, wizard, dashboard, conversational, etc.) |
+| Key Screens / Views | List | Name and brief description of key screens or views introduced or changed |
+| Accessibility Requirements | Text | WCAG level, screen reader support, keyboard navigation, colour contrast requirements |
+| Localisation / Language | Text | Languages required, right-to-left support, currency/date format requirements |
+
+### Capability Acceptance Criteria (PM-authored)
+
+| Criterion | Type | Guidance |
+|---|---|---|
+| User Journey Completion | Text | The user can complete the specified journey end-to-end without errors |
+| Performance (UX) | Text | Page load time, time-to-interactive targets |
+| Accessibility | Text | Passes automated accessibility audit at specified WCAG level |
+| Error Handling | Text | What happens when the user makes an error or the system fails? Expected user-visible behaviour. |
+| Additional Criteria | List | Any domain-specific acceptance criteria |
+
+---
+
+## Notes for the Architect (Technical Review phase)
+
+The Architect maps this Experience Capability to Systems and Components in Section 5 of the PSD. Common System contributions for Experience Capabilities:
+
+- A **Web Application** or **Mobile Application** Component implements the frontend
+- A **API Service** Component (BFF — Backend for Frontend) serves the frontend's data needs
+- An **Event-Driven Worker** Component may handle async background updates surfaced in the UI
+
+The Architect selects and maps the specific Systems and Components. The PM does not specify this.
+
+---
+
+## Example
+
+**Capability:** "Multi-Currency Payment Dashboard"
+**Module:** Customer Portal Module (Engagement)
+**Template:** Experience
 
 | Field | Value |
 |---|---|
-| PSD ID | |
-| Version | |
-| Status | Draft / In Review / Approved / Superseded / Cancelled |
-| PDR Reference | |
-| Source Signals | |
-| Target Module | |
-| Module Archetype | Human-Interactive |
-| Product Archetype | |
-| Change Type | New Feature(s) / Feature Refinement / Feature Retirement |
-| Author | |
-| Related PSDs | |
-
----
-
-## Section 1: Structural Impact — Dimension 8 [Required]
-
-*The "table of contents" of the change. What is being added, modified, or retired?*
-
-**Module:**
-
-**Capabilities Added:**
-
-**Capabilities Modified:**
-
-**Capabilities Retired:**
-
-**Features Added:**
-- Feature name: Description
-
-**Features Modified:**
-- Feature name: Delta description
-
-**Features Retired:**
-- Feature name: Retirement rationale
-
-**Cross-Module Dependencies:**
-
----
-
-## Section 2: Vendor Value Impact — Dimension 2 [Depth: per product archetype]
-
-*Adjust depth based on product archetype: Deep for Enterprise SaaS, Deep for Developer Platform, Medium for Consumer App.*
-
-**Pricing / Packaging Implications:**
-
-**Value Metric Changes:**
-
-**KPI Impact Projections:**
-
----
-
-## Section 3: Business Impact — Customer ROI — Dimension 3 [Depth: per product archetype]
-
-*Adjust depth based on product archetype: Deep for Enterprise SaaS (B2B+SLG), Lighter for others.*
-
-**Buyer Persona Implications:**
-
-**Business Outcome Changes:**
-
-**ROI Metric Impact:**
-
----
-
-## Section 4: User Experience Impact — Dimension 4 [Deep]
-
-*This is the primary specification surface for Human-Interactive modules. Be thorough.*
-
-**Affected User Personas:**
-
-**Affected Jobs (JTBD):**
-- Which Jobs are accomplished, modified, or newly enabled by this change
-
-**Affected UX Channels:**
-- Which Channels are impacted (specify Interaction Modality × Engagement Mode)
-- If a new Channel is being introduced, reference the governing PDR
-
-**New / Modified User Journeys:**
-- Journey name: End-to-end flow description
-- Job(s) accomplished by each journey
-- Channel each journey is experienced through
-- Capabilities engaged (list the Dim 8 Capabilities each journey step requires)
-- Cross-channel references: equivalent journeys in other channels, continuity handoff points
-
-**Touchpoint Specifications (Build Track work artifacts):**
-- Wireframes / mockups (attach or link)
-- Interaction flows (step-by-step)
-- UI copy and microcopy
-- Error states and edge cases
-
-> *Note: Touchpoints are Build Track work artifacts, not Definition Model entities (see DR-020). The Definition Model captures down to User Journey; screen-level detail is specified here and implemented in the Build Track.*
-
-**Experience Attributes (encouraged for HI Module features):**
-- For each feature, consider documenting: simplicity, ease, delight, control, speed, discoverability, error tolerance
-
-**Accessibility Considerations:**
-- WCAG compliance level (should align with UX Channel's Accessibility Standard field)
-- Screen reader behavior
-- Keyboard navigation
-- Color contrast and visual accessibility
-
----
-
-## Section 5: Technical & Architectural Impact — Dimension 5 [Medium]
-
-*Frontend architecture, state management, component structure.*
-
-**New / Modified Subsystems:**
-
-**Key Component Specifications:**
-
-**Architecture Decision Records:**
-
-**Performance Requirements:**
-- Time-to-interactive targets
-- Bundle size constraints
-- Rendering performance
-
----
-
-## Section 6: Ecosystem & Extensibility Impact — Dimension 6 [Light]
-
-*Only relevant if the UI exposes embeddable components, widgets, or SDKs.*
-
-**New / Modified Endpoints:**
-
-**Payload Schema Changes:**
-
-**Backward Compatibility Plan:**
-
-*If no extensibility impact, state: "No impact — this module does not expose programmatic interfaces."*
-
----
-
-## Section 7: Operational Impact — Dimension 7 [Light]
-
-*CDN, static hosting, edge caching.*
-
-**Infrastructure Requirements:**
-
-**Security & Compliance Implications:**
-- CSP headers, XSS prevention
-- Authentication/authorization changes
-
-**Deployment Strategy:**
-
-**Monitoring & Alerting:**
-- Client-side error tracking
-- Performance monitoring (Core Web Vitals)
-
----
-
-## Section 8: Data & Information Impact — Dimension 9 [Medium]
-
-*Form data, user preferences, client-side state, API data contracts.*
-
-**New / Modified Data Entities:**
-
-**Attribute / Field Changes:**
-
-**State Lifecycle Changes:**
-
-**Data Migration Requirements:**
-
-**Data Retention & Archival:**
-
----
-
-## Section 9: Acceptance Criteria [Required]
-
-**Per-Feature Acceptance Criteria:**
-- Feature name: Given... When... Then...
-
-**Cross-Cutting Acceptance Criteria:**
-- Performance:
-- Accessibility:
-- Browser/device compatibility:
-
-**Regression Scope:**
-
----
-
-## Section 10: Epic Decomposition & Sequencing [Required]
-
-**Proposed Epics:**
-- Epic name: Description and scope
-
-**Dependencies & Sequencing:**
-
-**Risks & Open Questions:**
+| User Persona(s) | AP Clerk (Dim 4) |
+| JTBD | "When I manage cross-border payments, I want to see all pending and completed payments across currencies in one view so I can reconcile without switching between screens." |
+| UX Channel | Web Application |
+| Key Screens | (1) Payment List with currency filter; (2) Payment Detail drawer; (3) FX Rate indicator |
+| Accessibility | WCAG 2.1 AA; keyboard navigation required |
+| Performance | Page load < 2s at P95; table renders < 500ms for up to 500 rows |

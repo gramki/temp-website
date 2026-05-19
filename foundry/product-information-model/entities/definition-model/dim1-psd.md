@@ -18,7 +18,12 @@ The PSD is the exit artifact of the Strategy Dimension and the entry point for t
 
 **Scoping rule:** A PSD is scoped to one module. If a validated Idea affects multiple modules substantially, each gets its own PSD. Minor ripple effects on adjacent modules may be documented as cross-module dependencies within the primary PSD rather than warranting a standalone PSD. The threshold: does the module change require its own acceptance criteria and Epic decomposition? If yes, it gets its own PSD. See FAQ Q9.
 
-**Templates:** PSD templates are provided per module archetype (Human-Interactive, Programmatic-Interactive, Reactive/Background). The module archetype determines which dimensional sections are deep vs. light. See `psd-templates/` directory.
+**Templates:** Capability Templates are provided for each Capability section within a PSD — `Experience`, `Integration`, and `Processing`. Templates are selected per Capability (not per PSD), because a single Module may contain Capabilities of different interaction types. See `psd-templates/` directory.
+
+**Authorship model (D8):** A PSD is authored in two phases:
+- **Product Draft phase (PM-authored):** PSD header + traceability, Sections 1 (Structural Impact), 9 (Acceptance Criteria), 10 (Epic Decomposition), and all Capability/Feature specifications. The PM selects Capability Templates per Capability.
+- **Technical Review phase (Architect-authored):** Section 5 (Technical & Architectural Impact — System/Component mapping), Sections 6 (Ecosystem), 7 (Operational), 8 (Data). The Architect is responsible for ensuring that all Capabilities and Features specified by the PM are addressed through System and Component changes.
+- **Approved:** Both phases complete and signed off → PSD enters the Build Track.
 
 ## Fields
 
@@ -32,7 +37,7 @@ The PSD is the exit artifact of the Strategy Dimension and the entry point for t
 | PDR Reference | Reference | The Product Decision Record that justifies this PSD |
 | Source Signals | List of References | The Signal(s) — Problem(s), Need(s), or Opportunity(ies) — that originated this work |
 | Target Module | Reference (Dim 8) | The Module being changed |
-| Module Archetype | Enum | Human-Interactive / Programmatic-Interactive / Reactive-Background |
+| Module Functional Classification | Enum | The functional category of the target Module: `Record` / `Enforcement` / `Data` / `Engagement` / `Action` / `Intelligence` / `Identity` / `Influence` / `Memory` / `Product` / `Innovation` / `Integration` — drawn from the Twelve System Types vocabulary (DR-035, D9). |
 | Product Archetype | String | e.g., B2B + SaaS + SLG |
 | Change Type | Enum | New Feature(s) / Feature Refinement / Feature Retirement |
 | Author | Reference | The PM or team authoring the PSD |
@@ -157,7 +162,7 @@ Always required. The "table of contents" of the change.
 | Status | Description |
 |---|---|
 | Draft | PSD is being authored (Specification Tasks in progress) |
-| In Review | PSD is under review by Engineering and stakeholders |
+| In Technical Review | PM-authored sections complete; Architect is mapping Capabilities and Features to Systems/Components (Sections 5–8) |
 | Approved | PSD is accepted as the contract — ready for Build Track |
 | Superseded | PSD has been replaced by a newer version |
 | Cancelled | PSD has been abandoned (e.g., PDR was revised to Kill) |
@@ -188,4 +193,4 @@ Always required. The "table of contents" of the change.
 
 ## Example
 
-PSD-042: "Real-Time FX Rate Lock — Invoice & Payout Processing Module" (Human-Interactive, Feature Addition). Sibling PSD: PSD-043 covering the FX Microservice module (Programmatic-Interactive).
+PSD-042: "Real-Time FX Rate Lock — FX Module" (Module Functional Classification: Intelligence, Feature Addition). Capabilities: Real-Time FX Rate Lock (Integration template), FX Rate Audit Trail (Integration template). Sibling PSD: PSD-043 scoped to the Payments Module (Record).

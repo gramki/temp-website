@@ -1,218 +1,78 @@
-# PSD Template: Reactive / Background Module
+# Processing Capability Template
 
-**Module Archetype:** Reactive / Background (Asynchronous)
-**Primary Specification Surfaces:** Technical (Dimension 5), Operational (Dimension 7), Data (Dimension 9)
-**Examples:** Kafka event consumers, nightly ETL jobs, email notification dispatchers
-
-> **TODO:** This template covers the Reactive/Background archetype broadly. Specialize into sub-templates by capability type, as each has distinct specification concerns:
-> - **Event-Driven Applications** — real-time event consumers/producers (Kafka, SQS, EventBridge). Focus: event schemas, ordering guarantees, consumer group coordination, backpressure.
-> - **Batch / File Applications** — file-based processing (CSV/SFTP ingestion, file generation, bulk imports/exports). Focus: file format contracts, parsing/validation rules, partial failure handling, file delivery SLAs.
-> - **Scheduled Jobs** — time-triggered processing (cron, ETL pipelines, data applications). Focus: scheduling cadence, dependency chains, SLA windows, rerun/catch-up semantics.
->
-> Each sub-type may warrant different depth in Sections 5–8, different acceptance criteria patterns, and different operational monitoring strategies.
+**Type:** Capability Template
+**Model:** Definition Model — Dimension 1 (PSD)
+**Applies to:** Capabilities realized through background computation — triggered by events, schedules, or conditions; no synchronous human or system consumer awaiting a direct response.
+**Used by:** Product Manager (PM-authored zone of the PSD — Product Draft phase)
 
 ---
 
-## Section 0: Header & Traceability [Required]
+## Purpose
+
+This template guides a PM in specifying a **Processing Capability** within a PSD. A Processing Capability is one where the primary work happens asynchronously — the system reacts to a trigger, processes data, and produces an output without a consumer waiting for a synchronous response.
+
+The PM specifies the business intent — what triggers the processing, what it produces, and what the reliability expectations are. The Architect maps to Systems and Components in the Technical Review phase.
+
+---
+
+## Capability Specification Fields (PM-authored)
+
+### Capability Identity
+
+| Field | Type | Guidance |
+|---|---|---|
+| Capability Name | String | What background processing does this capability perform? e.g., "Nightly Settlement Reconciliation" |
+| Capability Template | Enum | `Processing` (selected) |
+| Maturity (target) | Enum | `Alpha` / `Beta` / `Gamma` |
+| Lifecycle Stage (target) | Enum | `Planned → Available` or `Available → Deprecated` |
+
+### Processing Specification
+
+| Field | Type | Guidance |
+|---|---|---|
+| Trigger | Text | What initiates this processing? (e.g., "Kafka event: payment.settled", "Cron: daily at 02:00 UTC", "Webhook from bank: file available on SFTP", "API call that dispatches to background queue") |
+| Input Data | Text | What data is consumed? (business terms, not field names) e.g., "All settled payments for the business day from the payment ledger, matched against bank statement entries" |
+| Processing Intent | Text | What does the processing do? (business description, not algorithm) e.g., "Matches each settled payment against the corresponding bank confirmation. Flags discrepancies for manual review. Marks matched payments as reconciled." |
+| Output / Side Effects | Text | What does the processing produce or change? e.g., "Updated reconciliation status on each payment. Discrepancy report written to audit trail. Notification triggered for unmatched items." |
+| Data Produced | Text | What new data records or events does this processing create? |
+| SLA | Text | Processing time SLA: e.g., "Must complete within 2 hours of trigger," "Must process 100K payments within 4 hours" |
+| Error Handling | Text | What happens when processing fails partially or fully? Retry behaviour, dead-letter handling, alerting expectations. |
+| Idempotency | Text | What is the expected behaviour if this processing runs twice for the same input? |
+
+### Capability Acceptance Criteria (PM-authored)
+
+| Criterion | Type | Guidance |
+|---|---|---|
+| Trigger Response | Text | Processing starts within X seconds/minutes of the trigger |
+| Completion SLA | Text | Processing completes within the specified SLA window |
+| Data Accuracy | Text | Output data matches expected business rules (specify test cases) |
+| Error Handling | Text | Partial failures are handled correctly; discrepancies are surfaced for review |
+| Idempotency | Text | Re-running for the same input produces the same result without duplication |
+
+---
+
+## Notes for the Architect (Technical Review phase)
+
+The Architect maps this Processing Capability to Systems and Components in Section 5 of the PSD. Common System contributions for Processing Capabilities:
+
+- A **Batch Job** Component implements scheduled or triggered bulk processing
+- An **Event-Driven Worker** Component handles event-stream processing
+- An **Integration Adapter** Component connects to external data sources (SFTP, partner APIs)
+- A **Data Store** Component holds intermediate or output state
+
+---
+
+## Example
+
+**Capability:** "Nightly Settlement Reconciliation"
+**Module:** Settlement Module (Record)
+**Template:** Processing
 
 | Field | Value |
 |---|---|
-| PSD ID | |
-| Version | |
-| Status | Draft / In Review / Approved / Superseded / Cancelled |
-| PDR Reference | |
-| Source Signals | |
-| Target Module | |
-| Module Archetype | Reactive / Background |
-| Product Archetype | |
-| Change Type | New Feature(s) / Feature Refinement / Feature Retirement |
-| Author | |
-| Related PSDs | |
-
----
-
-## Section 1: Structural Impact — Dimension 8 [Required]
-
-*The "table of contents" of the change. What is being added, modified, or retired?*
-
-**Module:**
-
-**Capabilities Added:**
-
-**Capabilities Modified:**
-
-**Capabilities Retired:**
-
-**Features Added:**
-- Feature name: Description
-
-**Features Modified:**
-- Feature name: Delta description
-
-**Features Retired:**
-- Feature name: Retirement rationale
-
-**Cross-Module Dependencies:**
-
----
-
-## Section 2: Vendor Value Impact — Dimension 2 [Depth: per product archetype]
-
-*Background modules often affect cost structures (compute, storage) more than pricing directly.*
-
-**Pricing / Packaging Implications:**
-
-**Value Metric Changes:**
-
-**KPI Impact Projections:**
-- Cost impact (compute, storage, data transfer)
-- Processing volume projections
-
----
-
-## Section 3: Business Impact — Customer ROI — Dimension 3 [Depth: per product archetype]
-
-**Buyer Persona Implications:**
-
-**Business Outcome Changes:**
-
-**ROI Metric Impact:**
-
----
-
-## Section 4: User Experience Impact — Dimension 4 [N/A]
-
-*Reactive/Background modules typically have no direct user interaction.*
-
-*State: "No direct UX impact — this module operates asynchronously without user-facing interfaces." If there is an admin/monitoring dashboard, describe it briefly. If this module's outputs surface in a User Journey (e.g., async notification triggers an Email channel journey, or batch results appear in a Web dashboard), reference the affected Jobs, Channels, and Journeys.*
-
----
-
-## Section 5: Technical & Architectural Impact — Dimension 5 [Deep]
-
-*This is a primary specification surface. Be thorough on processing pipelines, concurrency, and fault tolerance.*
-
-**New / Modified Subsystems:**
-
-**Key Component Specifications:**
-- Processing pipeline design (stages, transformations)
-- Concurrency model (parallelism, partitioning)
-- Fault tolerance strategy (retry, dead-letter, circuit breaker)
-- Idempotency guarantees
-- Transaction boundaries and consistency model (eventual vs. strong)
-- Batch size and windowing strategy (if applicable)
-
-**Architecture Decision Records:**
-
-**Performance Requirements:**
-- Processing throughput (events/sec, records/batch)
-- End-to-end latency (from trigger to completion)
-- Backpressure handling
-- Resource bounds (CPU, memory, disk I/O)
-
----
-
-## Section 6: Ecosystem & Extensibility Impact — Dimension 6 [Medium]
-
-*Event schemas, topic contracts, message formats.*
-
-**New / Modified Event Topics:**
-- Topic name, schema, partitioning strategy
-
-**Payload Schema Changes:**
-- Event payload schema (with field types, versioning)
-- **Breaking change assessment for downstream consumers**
-
-**Backward Compatibility Plan:**
-- Schema evolution strategy (Avro, Protobuf, JSON Schema)
-- Consumer migration timeline
-
-**Webhook / Notification Changes:**
-- Outbound notification contracts
-
----
-
-## Section 7: Operational Impact — Dimension 7 [Deep]
-
-*This is a primary specification surface. Be thorough on scheduling, scaling, monitoring, and failure recovery.*
-
-**Infrastructure Requirements:**
-- Queue/topic provisioning (Kafka, SQS, RabbitMQ)
-- Compute provisioning (container sizing, serverless limits)
-- Storage provisioning (temporary and persistent)
-- Scheduling configuration (cron expressions, trigger rules)
-
-**Security & Compliance Implications:**
-- Data encryption (at-rest, in-transit)
-- Access controls for queues/topics
-- Audit trail requirements
-- Data residency constraints
-
-**Deployment Strategy:**
-- Rolling deployment with drain strategy
-- Feature flag for new processing logic
-- Rollback plan (reprocessing, offset reset)
-
-**Monitoring & Alerting:**
-- Queue depth / consumer lag SLIs
-- Processing error rate SLIs
-- End-to-end latency SLIs
-- Dead-letter queue monitoring
-- Batch completion SLOs
-- Alerting thresholds and escalation
-
----
-
-## Section 8: Data & Information Impact — Dimension 9 [Deep]
-
-*This is a primary specification surface. Be thorough on data schemas, state machines, and migration.*
-
-**New / Modified Data Entities:**
-- Entity name, purpose, cardinality
-
-**Attribute / Field Changes:**
-- New fields (with types, constraints, defaults)
-- Modified fields (migration impact)
-- Removed fields (backward compatibility)
-
-**State Lifecycle Changes:**
-- New states and transitions (state machine diagram if complex)
-- Guard conditions on transitions
-- Side effects triggered by state changes
-
-**Data Migration Requirements:**
-- Migration scripts and strategy
-- Backfill requirements for existing data
-- Rollback plan for migration failures
-- Estimated migration duration and downtime
-
-**Data Retention & Archival:**
-- Retention policy for processed data
-- Archival strategy (cold storage, compression)
-- Purge schedule and compliance requirements
-
----
-
-## Section 9: Acceptance Criteria [Required]
-
-**Per-Feature Acceptance Criteria:**
-- Feature name: Given... When... Then...
-
-**Cross-Cutting Acceptance Criteria:**
-- Throughput:
-- Fault tolerance (failure and recovery):
-- Data consistency:
-- Idempotency:
-
-**Regression Scope:**
-
----
-
-## Section 10: Epic Decomposition & Sequencing [Required]
-
-**Proposed Epics:**
-- Epic name: Description and scope
-
-**Dependencies & Sequencing:**
-
-**Risks & Open Questions:**
+| Trigger | Cron: daily at 02:00 UTC, after SWIFT MT940 file available on SFTP |
+| Input Data | All payments with status "Cleared" for the settlement date; corresponding SWIFT MT940 entries |
+| Processing Intent | Match each cleared payment against a SWIFT MT940 entry by reference number. Mark matched payments as "Reconciled." Flag unmatched payments as "Reconciliation Failed" with reason code. |
+| Output | Payment status updates (Cleared → Reconciled or Reconciliation Failed); reconciliation summary report; Kafka event: `settlement.reconciliation.complete` with summary counts |
+| SLA | Must complete within 3 hours of SWIFT file availability; process up to 500K transactions |
+| Error Handling | Per-item failures are logged and flagged; overall job failure triggers PagerDuty alert and retries up to 3 times |
