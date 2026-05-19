@@ -48,12 +48,12 @@ entities/
 │   ├── dim6-extension-module.md       ← Plugin/hook/workflow extension framework
 │   ├── dim6-sdk-library-module.md     ← Language-specific client (Client-Distributed topology)
 │   ├── dim6-api-operation.md          ← Named contractual operation (Command/Query/Event/Callback/Batch) with SLOs
-│   ├── dim5-subsystem.md                 ← DEPRECATED — subsumed by dim5-system.md (DR-024)
-│   ├── dim5-class-component.md           ← DEPRECATED — below waterline; PSD/Build Track artifact (DR-024)
-│   ├── dim5-function-method.md           ← DEPRECATED — below waterline; PSD/Build Track artifact (DR-024)
+│   ├── dim5-subsystem.md                 ← DELETED (DR-035) — was DEPRECATED; removed from repo
+│   ├── dim5-class-component.md           ← DELETED (DR-035) — was DEPRECATED; removed from repo
+│   ├── dim5-function-method.md           ← DELETED (DR-035) — was DEPRECATED; removed from repo
 │   ├── dim5-architecture-model.md        ← Root entity: architectural style, principles, technology strategy
-│   ├── dim5-system.md                    ← Deployable technical unit; many-to-many with Module (Dim 8)
-│   ├── dim5-component.md                 ← Architectural building block within a System
+│   ├── dim5-system.md                    ← Operational deployment grouping of Components; versioned/deployed as a whole by SRE; many-to-many with Module (Dim 8) — amended by DR-035
+│   ├── dim5-component.md                 ← Atomic deployable artifact within a System (container image, Lambda, etc.); has Component Archetype enum; not independently deployed to production — amended by DR-035
 │   ├── dim5-dependency.md                ← External system/service/resource the product depends on
 │   ├── dim5-interaction-flow.md       ← Technical realization of Value Streams; inter-system communication
 │   ├── dim5-adr.md                       ← Architecture Decision Record; technical counterpart of PDR

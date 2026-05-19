@@ -99,7 +99,7 @@
     ✔ Enumeration of Channel Types (By Service Model: Self-serve, Assisted, and Managed Services) @done(26-02-18 10:18)
 
 # Technical and Architectural Dimension:
-    ☐ Subsystems, Components, Functions
+    ✔ Subsystems, Components, Functions — Resolved: System redefined as operational deployment grouping of Components (DR-035 D10). Component redefined as atomic deployable artifact with Component Archetype enum. Three deprecated entity files deleted (dim5-subsystem.md, dim5-function-method.md, dim5-class-component.md). @done
     ☐ Integration Patterns
     ☐ Operations and Automation Patterns
     ☐ Operations Experience
@@ -328,6 +328,9 @@ Does this framing capture what you're after — the dual output (PSD + Definitio
 ## Open Items
 
 - [ ] Complete narrative seeds for remaining dimensions (Dim 5, 8, 9 coverage is thin)
+- [ ] DR-036: Versioning model rename — System Version → Component Version (affects DR-026, DR-027, DR-028, DR-029, versioning story files). Flagged in DR-035 as a known consequence of the System/Component redefinition. Do not rename until DR-036 is written.
+- [ ] Dim 5 Component Archetype elaboration — the current 8 archetypes (API Service, Web Application, etc.) are a starting taxonomy. Enrich with FinTech-specific subtypes as deployment patterns emerge.
+- [x] Detail Dim 8 entities (product, module, capability, feature) — Resolved: All four entities fully detailed with fields, statuses, relationships, examples (DR-035). @done
 - [ ] Detail remaining "To be detailed" work entities in draft-work-execution-framework.md
 - [ ] Create entity files for Win Track planning entities (Customer Release Planning, GTM Planning, etc.)
 - [ ] Draft the Operating Model foundation (process definitions from OperatingModel.TODO)

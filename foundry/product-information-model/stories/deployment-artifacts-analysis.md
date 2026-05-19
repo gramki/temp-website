@@ -1,3 +1,5 @@
+> **⚠ Amendment Note (DR-035, 2026-05-19):** This story was written when "System" meant the atomic deployable unit (a single microservice, e.g., `payments-service`). Following DR-035, terminology has changed: **System** is now the operational deployment grouping of Components; **Component** is the atomic deployable artifact (e.g., `payments-service` is a Component of the Payments System). References to "System Version" throughout this story should be read as "Component Version" pending the versioning model rename in DR-036. The four-layer model (Build Artifact / Run Artifact / Deployment Descriptor / Deployment) and the core reasoning remain valid; only the terminology at the atomic tier changes.
+
 # Deployment Artifacts: From Build to Production
 
 This document analyzes the deployment artifact model — how the information model separates "what is built," "what operator-facing systems are added for observability and maintainability," "what specifies deployment," and "what is deployed" — and explains the rationale behind SDD, MDD, and PDD as deployment descriptors distinct from Module Package and Product Package.

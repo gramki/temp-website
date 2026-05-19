@@ -1013,3 +1013,81 @@ Two renames accompanied the expansion: PIR (formerly "Product Idea Repository") 
 See DR-033 for the six decisions and `foundry/repositories.md` for the full architecture.
 
 ---
+
+## Seed 11: Module Functional Classification — From Architecture Archetypes to Customer Value Vocabulary
+
+**Scope:** Dim 8, Module entity, draft-archetypes.md
+
+The question "what type of module is this?" has two valid answers depending on who is asking. An architect asks "how is it built?" (interaction model: HI, Programmatic, Reactive). A product manager asks "what does it do for the customer?" (functional role: Record, Engagement, Intelligence). The UPIM originally used the architect's answer at the Module level — Module Archetype (HI/Programmatic/Reactive) — because the same vocabulary drove PSD template selection. This conflated two concerns.
+
+The resolution came from the "Twelve System Types" framework in the product thesis (`gap.md`), which classifies enterprise systems by the business capability they provide — Record, Enforcement, Data, Engagement, Action, Intelligence, Identity, Influence, Memory, Product, Innovation, Integration. This vocabulary answers the PM's question, not the architect's. It is customer-value-oriented and domain-specific (FinTech/banking). The field is named `Functional Classification` — avoiding the word "type" (too generic) and "system" (already used for Dim 5 entities).
+
+DDD's Core/Supporting/Generic was considered and rejected: it answers "how strategically important is this domain to engineering?" — an architecture and team-topology concern (Dim 5 territory), not a customer-value concern (Dim 8 territory).
+
+See DR-035 D4.
+
+---
+
+## Seed 12: Capability Templates — PM's Specification Language, Decoupled from System Archetypes
+
+**Scope:** Dim 8 Capability entity, dim1-psd.md, psd-templates/
+
+The old PSD had a single `Module Archetype` field (HI/Programmatic/Reactive) in the header, chosen by the PM. This field was doing two jobs: (1) classifying the module's primary interaction model, and (2) selecting the PSD depth profile (which dimensional sections were "Deep" vs "Light"). When Module classification moved to Functional Classification (customer-value vocabulary), the question arose: what drives PSD template depth now?
+
+The answer required recognizing that a Module may contain Capabilities of multiple interaction types. An "Engagement Module" (Functional Classification) may have: a Capability that needs UX specification (formerly HI), a Capability that needs API contract specification (formerly Programmatic), and a Capability that needs processing intent specification (formerly Reactive). Template selection at the Module level was an oversimplification.
+
+The resolution: Capability Templates are PM-facing specification guides applied at the Capability level, not the Module level. Renamed from HI/Programmatic/Reactive to `Experience/Integration/Processing` to make clear they are specification guidance labels, not architectural classifications. System/Component Archetypes remain in Dim 5, independent of Capability Templates — a deliberate decoupling. A PM specifying an "Experience Capability" is not prescribing that an HI System will realize it; the Architect makes that decision independently.
+
+See DR-035 D5, D13.
+
+---
+
+## Seed 13: System / Component Redefinition — Operational Boundary vs. Build Artifact, and the Module/System Naming Debate
+
+**Scope:** Dim 5, dim5-system.md, dim5-component.md, versioning model
+
+DR-024 defined System as "independently deployable technical unit" with examples like `payments-service`, `fx-service`. This placed the definition at the microservice granularity — the natural level for engineers. But from a product information model perspective, "what is a System?" depends on the operational question being asked.
+
+The resolution: System is the **operational deployment boundary** — what SRE versions and deploys as a whole. It is a logical grouping of Components, where "Component" is the individual deployable artifact (container image, Lambda package, frontend bundle). Components are independently buildable with their own artifacts, but are deployed as part of their parent System, not independently. When SRE deploys "Payments System v3.1," they deploy a composed release of payments-service (Component), bank-adapter (Component), and payment-reconciler (Component) — not each service individually.
+
+**The naming debate:** The UPIM's use of "Module" for the Dim 8 functional entity conflicts with the organization's internal usage of "Module" for deployment/technical groupings. Several alternatives were considered for the Dim 5 entity before settling on "System":
+
+- **Deployment Module / Functional Module** — Makes the duality explicit through qualified names. Rejected: introduces permanent ambiguity on the bare word "Module" throughout the UPIM; every reference would need qualification.
+- **Domain** (for Dim 8, freeing "Module" for Dim 5) — "Domain" is already in the entity filename (`dim8-module-domain.md`) and aligns with DDD vocabulary. Rejected: "Module" is more tangible and natural in product conversations ("Payments Module," "Compliance Module"); "Domain" sounds conceptual and less accessible to customers and sales teams.
+- **Cluster** (for Dim 5) — Conveys grouping. Rejected: "Cluster" has a dominant infrastructure connotation (Kubernetes cluster, database cluster); `dim7-cluster-host.md` was already deprecated from the UPIM for related reasons.
+- **Service Group** / **Deployment Unit** — Descriptive but not natural in conversation.
+- **System** — Architecturally standard (C4 model, TOGAF, AWS Well-Architected all use "System" for operational deployment groupings). Clearly distinct from "Module." No strong competing connotation in the UPIM.
+
+**Resolution and vocabulary note:** "Module" (Dim 8) is the customer/product-facing functional grouping. "System" (Dim 5) is the engineering-facing operational deployment grouping. In the UPIM: *Module = what the product does; System = how it deploys.* Engineers who colloquially say "the payments module is deploying" are using "module" informally. The UPIM gives them a precise term: "the payments system is deploying." This vocabulary guidance is documented in `dim5-system.md` and `dim8-module-domain.md`.
+
+**Cascading consequence:** The Build Track's "System Version" (atomic versioned artifact — currently maps to individual microservices) should logically become "Component Version" in the new model. This rename is significant and affects DR-026, DR-027, DR-028, DR-029, and the versioning-related story files. It is flagged in DR-035 and deferred to DR-036 to avoid scope explosion in the current change.
+
+See DR-035 D10, D15.
+
+---
+
+## Seed 14: Entitlement at Module Level — Keeping Pricing at the Right Granularity
+
+**Scope:** Dim 8 Module, Dim 2 Pricing Tier
+
+Initial modeling placed entitlement (Pricing Tier link) on Feature — the most granular unit — reasoning that fine-grained packaging required feature-level control. Revised in this session: Feature is below the entitlement granularity that customers and sales teams work with. A customer buys access to the "Payments Module" (or a tier that includes it), not individual features within it. Feature-level entitlement adds governance overhead without corresponding commercial benefit at this stage.
+
+The Module is the right entitlement boundary: it is the customer-facing unit of functional value, corresponds to a coherent business capability domain (Functional Classification), and aligns with how pricing conversations happen. The note "this may evolve" is intentional — as products mature, feature-level entitlement (feature flags, add-ons) may become appropriate and the link can be moved down.
+
+See DR-035 D7.
+
+---
+
+## Seed 15: PSD Authorship Split — The PM/Architect Interface
+
+**Scope:** dim1-psd.md, PSD templates, Track 1/2 boundary
+
+The PSD is the contract between Product and Engineering. The question of who writes it — and which parts — was not explicitly modeled in the original design. The implicit assumption was "the PM writes the PSD" with Module Archetype as the PM's signal to engineering about what kind of system was being built.
+
+The new model makes authorship zones explicit. PM-authored (Product Draft phase): PSD objective, Capability specifications using Capability Templates, Feature specifications, Acceptance Criteria, Epic decomposition proposal. Architect-authored (Technical Review phase): System mapping (which Systems/Components realize each Capability/Feature), technical sections (Dims 5, 6, 7, 9). The PSD status progresses: `Draft` → `In Technical Review` → `Approved`.
+
+The accountability principle is key: the Architect is responsible for ensuring that every Capability and Feature specified by the PM in the PSD is addressed through System and Component changes. The PM specifies WHAT needs to be achieved; the Architect designs HOW it is realized. The PSD becomes the interface document where both contribute, with clear ownership of each zone.
+
+See DR-035 D8, D9, D13.
+
+---

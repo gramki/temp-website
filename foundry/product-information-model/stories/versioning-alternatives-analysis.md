@@ -1,3 +1,5 @@
+> **⚠ Amendment Note (DR-035, 2026-05-19):** This story was written when "System" meant the atomic deployable unit (a single microservice). Following DR-035, **System** is the operational deployment grouping and **Component** is the atomic deployable artifact. References to "System Version" as the "atomic system (single deployable)" throughout this story should be read as "Component Version" pending DR-036. The versioning alternatives analysis and the option evaluations remain valid at the Component level.
+
 # Versioning and Composition Management: Alternative Approaches
 
 This document analyzes alternative approaches to the composition management problem — how organizations track, verify, and communicate what's running together in production — and explains why UPIM's three-tier versioning model (System Version → Module Version → Product Version) is designed for enterprise software contexts.
