@@ -6,48 +6,72 @@
 
 ## Definition
 
-A significant architectural building block within a System — processing engines, adapters, rule evaluators, schedulers, queue consumers, gateways. Components appear in architecture diagrams and represent internally significant subsystems within a deployable unit. They are always contained by a System and transitively map to Dim 8 Modules through their parent System. Not code-level (not classes or functions) — architectural-level.
+An individual deployable artifact within a System — independently buildable with its own artifact version (container image, Lambda package, frontend bundle, JAR, etc.), but **not independently deployed to production**. Components are deployed as part of their parent System via the System's deployment descriptor (SDD). A Component has a Component Archetype that classifies its deployment artifact type.
+
+> **Supersedes DR-024 D8 (amended by DR-035):** Component is no longer "significant architectural building block within a System" (FX Rate Calculator, Payment State Machine). Component is the **atomic deployable artifact** within a System — a container image, Lambda package, frontend bundle, or equivalent. Code-level building blocks (processing engines, rule evaluators, adapters embedded within a single artifact) are below the Definition Model waterline. See DR-035 Decision D10.
 
 ## Purpose
 
-Captures the internal architecture of a System at a level that is meaningful for architectural comprehension without descending to code-level detail. Without Components:
-- Systems are black boxes — "payments-service" exists but its internal architecture is invisible
-- Capability-to-implementation mapping is coarse — "Real-Time FX Rate Locking" maps to fx-service but not to the specific calculator component within it
-- Architecture diagrams lack anchoring entities within Systems
+Captures the deployable composition of a System — which artifacts exist, how they are typed, and how they map to product Capabilities. Without Components:
+- The internal structure of a System is opaque
+- CI/CD pipelines have no UPIM anchor (each Component has its own build pipeline, image tag, version)
+- Capability-to-artifact tracing is missing — "which artifact implements Real-Time FX Rate Lock?"
+- Build Track System Version has no constituent artifact list
 
-Components are optional — simple Systems with a single responsibility may not need Component-level decomposition. Components are warranted when a System has internally significant architectural boundaries (e.g., a processing engine, an adapter layer, a rules engine).
+Components are the units that CI/CD pipelines build and tag. The System Version in the Build Track is a composed version of its Component artifact versions.
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| Name | String | Component name (e.g., "FX Rate Calculator," "OFAC Screening Adapter," "Payment State Machine") |
-| Type | Enum | `Engine` / `Adapter` / `Calculator` / `Scheduler` / `Consumer` / `Gateway` / `Processor` / `Evaluator` / `Cache` / `Other` |
-| Parent System | Reference (Dim 5) | Which System contains this Component |
-| Technology Stack | String | When different from parent System (e.g., "embedded Python rules engine within Java service") |
-| Responsibility | Text | What this Component does within the System |
-| Capability Mapping | List of References (Dim 8) | Which Dim 8 Capability(ies) this Component implements or contributes to |
+| Name | String | Component name — lowercase kebab-case artifact identifier (e.g., "payments-service," "fx-engine," "portal-web-app") |
+| Archetype | Enum | Deployment artifact type — see Component Archetypes below |
+| Parent System | Reference (Dim 5) | The System this Component belongs to |
+| Tech Stack | String | Technology stack (e.g., "Java 21 / Spring Boot 3.2," "TypeScript / React") — specify when different from parent System |
+| Repository Reference | String | Source code repository identifier (e.g., GitHub org/repo) |
+| Artifact Reference | String | Container registry / package registry path (e.g., "ghcr.io/org/payments-service") |
+| Capability Mapping | List of References (Dim 8) | Which Dim 8 Capabilities this Component implements or contributes to (Architect-defined) |
+
+## Component Archetypes
+
+| Archetype | Description | Examples |
+|---|---|---|
+| `API Service` | Synchronous request-response service exposed via REST, gRPC, or GraphQL | payments-service, fx-engine, compliance-service, portal-bff |
+| `Web Application` | Browser-served frontend application | portal-web-app, admin-dashboard |
+| `Event-Driven Worker` | Consumes events or messages from a queue or stream | payment-notification-worker, compliance-event-consumer |
+| `Batch Job` | Runs on schedule or trigger; processes data in bulk | payment-reconciler, bank-file-generator, daily-fx-snapshot |
+| `Data Store` | A managed data store artifact (e.g., schema package, cache config) | fx-rate-cache, audit-db-schema |
+| `Integration Adapter` | Connects to an external system via its protocol or file format | bank-adapter, ofac-screening-adapter, swift-connector |
+| `Gateway` | Proxy, router, or API gateway managing traffic across components | api-gateway, payments-gateway |
+| `CLI/SDK` | Command-line tool or language-specific library distributed to developers/operators | payments-cli, fx-sdk-java |
 
 ## Statuses
 
-_Inherits from parent System — Components do not have an independent lifecycle._
+_Inherits from parent System — Components do not have an independent lifecycle. A Component is Active when its parent System is Active._
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Belongs to | System (Dim 5) | Component is contained by a System |
-| Maps to | Capability(ies) (Dim 8) | Component may implement or contribute to specific Capabilities |
+| Maps to | Capability(ies) (Dim 8) | Component implements or contributes to specific Capabilities (Architect-defined) |
 | Decisions | ADR(s) (Dim 5) | Architectural decisions affecting this Component are recorded as ADRs |
+| Versioned as | System Version (Track 2) | Component artifact version is included in its parent System Version |
 
 ## Examples
 
-| Component | Type | Parent System | Responsibility | Maps to (Dim 8) |
+| Component | Archetype | Parent System | Tech Stack | Maps to (Dim 8 Capability) |
 |---|---|---|---|---|
-| FX Rate Calculator | Calculator | fx-service | Fetches rates from multiple providers, applies margin rules, caches for TTL | Real-Time FX Rate Locking (Capability) |
-| OFAC Screening Adapter | Adapter | compliance-service | Translates payment data to OFAC screening format, manages screening provider API | OFAC Compliance Screening (Capability) |
-| Payment State Machine | Engine | payments-service | Manages payment lifecycle state transitions (Initiated → Processing → Cleared → Settled) | Cross-Border B2B Payments (Capability) |
-| Bank File Generator | Processor | bank-adapter | Generates bank-specific file formats (MT103, ISO20022) for batch settlement | Settlement Processing (Capability) |
-| Alert Router | Gateway | notification-service | Routes notifications to appropriate channels (email, SMS, webhook) based on rules | — (cross-cutting) |
+| payments-service | API Service | payments-system | Java 21 / Spring Boot 3.2 | Cross-Border B2B Payments, Domestic Payment Initiation |
+| payment-reconciler | Batch Job | payments-system | Python 3.12 | Settlement Reconciliation |
+| payment-notification-worker | Event-Driven Worker | payments-system | Java 21 / Spring Boot 3.2 | Payment Status Notifications |
+| fx-engine | API Service | fx-system | Java 21 / Spring Boot 3.2 | Real-Time FX Rate Lock |
+| fx-rate-cache | Data Store | fx-system | Redis 7 | Real-Time FX Rate Lock |
+| compliance-service | API Service | compliance-system | Java 21 / Spring Boot 3.2 | OFAC Sanctions Screening |
+| ofac-screening-adapter | Integration Adapter | compliance-system | Java 21 / Spring Boot 3.2 | OFAC Sanctions Screening |
+| bank-adapter | Integration Adapter | bank-connectivity-system | Java 21 / Spring Boot 3.2 | Bank Payment Execution |
+| bank-file-generator | Batch Job | bank-connectivity-system | Java 21 / Spring Boot 3.2 | Batch Settlement File Generation |
+| portal-web-app | Web Application | customer-portal-system | TypeScript / React | Payment Dashboard, FX Rate Monitor |
+| portal-bff | API Service | customer-portal-system | Java 21 / Spring Boot 3.2 | Payment Dashboard, FX Rate Monitor |
 
----
+> **Build pipeline example:** `payments-service` has its own Dockerfile and GitHub Actions workflow. It builds to `ghcr.io/org/payments-service:2.3.1`. When Payments System v3.1 is assembled, the System Version lists: payments-service:2.3.1 + payment-reconciler:1.4.0 + payment-notification-worker:1.2.0. The SDD references this composition for deployment.

@@ -2,37 +2,38 @@
 
 **Model:** Definition Model
 **Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)
-**Owner:** Tech Leads, Engineering Leadership
+**Owner:** Tech Leads, Engineering Leadership, SRE
 
 ## Definition
 
-A named, independently deployable technical unit that implements one or more Dim 8 Modules. The technical counterpart to Module (Dim 8). Where Module captures the functional boundary ("Payments"), System captures the technical boundary ("payments-service"). The mapping is many-to-many: a Module may be implemented by multiple Systems; a shared System may serve multiple Modules. This reflects reality — functional decomposition and technical decomposition are independent.
+A named operational grouping of Components — versioned as a whole and deployed as a whole by SRE/ops. The System is the operational deployment boundary: when SRE deploys "Payments System v3.1," they apply a composed deployment of all its Components. A System maps many-to-many to Dim 8 Modules — a Module may be realized by multiple Systems; a shared System may serve multiple Modules.
 
-Supersedes the original skeletal "Subsystem / Service" entity, which lacked technology stack fields, Module mapping, deployment references, and a full relationship set.
+> **Supersedes DR-024 D3 (amended by DR-035):** System is no longer defined as "independently deployable technical unit" at microservice granularity. System is the **operational deployment grouping** of Components. Component is the atomic deployable artifact. See DR-035 Decision D10.
+
+> **Vocabulary note (DR-035 D15):** In organizational usage, engineers sometimes use "module" informally for what the UPIM calls "System" — a deployable technical grouping. The UPIM reserves "Module" for Dim 8 (the functional grouping that customers recognize: "Payments Module," "FX Module") and uses "System" for the Dim 5 operational deployment grouping. When an engineer says "the payments module is deploying," they mean "the Payments System is deploying" in UPIM terms.
 
 ## Purpose
 
-Captures the product's technical decomposition — what deployable units exist, what technology they use, and how they map to functional modules. Without Systems:
-- The product's technical architecture is invisible in the Definition Model — only the functional view (Dim 8) exists
-- Deployment Environments (Dim 7) have no technical unit to host — "deploy to production" has no artifact to deploy
-- Dependencies have no consumer — "we depend on PostgreSQL" has no System that depends on it
-- Architecture diagrams, sequence diagrams, and data flow diagrams have no anchoring entity
+Captures the product's technical deployment topology — what operational groupings exist, how they map to functional modules, and what Components they contain. Without Systems:
+- The product's technical architecture is invisible in the Definition Model
+- Deployment Environments (Dim 7) have no technical unit to host
+- Impact analysis ("which modules are affected if this System is down?") has no anchor
+- SRE/ops has no versioning and deployment unit to operate
 
-**Dim 8 / Dim 5 mapping:** The explicit many-to-many mapping between Systems and Modules makes the functional-to-technical relationship visible. This is critical for impact analysis: "if payments-service is down, which Modules are affected?" and "to add a Capability to the Payments Module, which Systems need to change?"
+**Dim 8 / Dim 5 mapping:** The many-to-many mapping between Systems and Modules makes the functional-to-technical relationship visible. This is critical for: impact analysis, capability-to-implementation tracing, and change planning.
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| Name | String | System name (e.g., "payments-service," "fx-engine," "notification-service") |
+| Name | String | System name — typically a product domain noun in kebab-case (e.g., "payments-system," "fx-system," "compliance-system," "customer-portal") |
+| Module Mapping | List of References (Dim 8) | Which Dim 8 Module(s) this System realizes (many-to-many; Architect-defined) |
+| Owner | Reference (WFR) | Engineering team or Tech Lead responsible for this System |
+| Deployment Descriptor Reference | Reference (Track 3) | Link to System Deployment Descriptor (SDD) — environment-specific deployment specification |
+| Repository Reference | String | Source code repository identifier (e.g., GitHub org/repo) |
 | Technology Stack — Language | String | Primary programming language(s) (e.g., "Java 21," "Python 3.12") |
 | Technology Stack — Framework | String | Primary framework(s) (e.g., "Spring Boot 3.2," "FastAPI") |
 | Technology Stack — Runtime | String | Runtime environment (e.g., "JVM 21," "Docker / ECS," "AWS Lambda") |
-| Data Store(s) | List | Owned data stores with technology (e.g., "PostgreSQL 15 — transactional data," "Redis 7 — rate cache") |
-| Communication Protocols | List | How this System communicates (e.g., "REST (inbound)," "gRPC (to fx-service)," "Kafka (produce/consume)") |
-| Module Mapping | List of References (Dim 8) | Which Dim 8 Module(s) this System implements (many-to-many) |
-| Purpose / Serving Persona(s) | List of References (Dim 4) | Which Persona(s) this System serves — determines the System's primary purpose. Product Systems serve End-User Personas (Dim 4) or Developer/Programmatic Personas (Dim 6). Operational Systems serve Operational Personas (Dim 7). A System may serve multiple Personas. |
-| Repository Reference | String | Source code repository identifier |
 
 ## Statuses
 
@@ -48,31 +49,25 @@ Captures the product's technical decomposition — what deployable units exist, 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Implements | Module(s) (Dim 8) | System implements one or more functional Modules (many-to-many) |
-| Contains | Component(s) (Dim 5) | System contains architectural Components |
+| Realizes | Module(s) (Dim 8) | System realizes one or more functional Modules (many-to-many; Architect-defined) |
+| Contains | Component(s) (Dim 5) | System contains one or more Components (deployable artifacts) |
 | Depends on | Dependency(ies) (Dim 5) | System depends on external services and infrastructure resources |
 | Deployed to | Deployment Environment(s) (Dim 7) | System is deployed to specific environments |
 | Participates in | Interaction Flow(s) (Dim 5) | System participates in inter-system Interaction Flows |
 | Has | Technical Knowledge Base (Dim 5) | System has a documentation coverage assessment |
 | Decisions | ADR(s) (Dim 5) | Architectural decisions affecting this System are recorded as ADRs |
-| Produces | System Version (Track 2) | Build Track produces versioned, quality-gated artifacts from this System |
-| Discussed in | Design Deliberation (Track 2) | Architectural questions about this System are resolved through Design Deliberation |
-| Serves | Persona(s) (Dim 4) / Operational Persona(s) (Dim 7) | System serves specific Personas — determines purpose |
+| Produces | System Version (Track 2) | Build Track produces versioned, quality-gated System Versions |
+| Described by | System Deployment Descriptor / SDD (Track 3) | SDD specifies environment-specific deployment configuration |
 | Context | Architecture Model (Dim 5) | System exists within the Architecture Model's frame |
 
 ## Examples
 
-| System | Tech Stack | Data Store | Protocols | Implements (Dim 8) | Purpose / Serving Persona(s) | Status |
-|---|---|---|---|---|---|---|
-| payments-service | Java 21 / Spring Boot 3.2 | PostgreSQL 15 | REST (in), Kafka (produce/consume) | Payments Module (primary), Settlement Module (partial) | AP Clerk, Treasury Manager (End-User Personas) | Active |
-| fx-service | Java 21 / Spring Boot 3.2 | Redis 7 (rate cache) | gRPC (in), REST (to rate providers) | FX Module | AP Clerk, Treasury Manager (End-User Personas) | Active |
-| compliance-service | Java 21 / Spring Boot 3.2 | PostgreSQL 15 | Kafka (consume), REST (to screening providers) | Compliance Module | Compliance Officer (End-User Persona) | Active |
-| notification-service | Python 3.12 / FastAPI | Redis 7 (queue) | Kafka (consume), SMTP, SMS API | Payments Module, Compliance Module, Onboarding Module (shared) | AP Clerk, Compliance Officer (End-User Personas) | Active |
-| bank-adapter | Java 21 / Spring Boot 3.2 | — | REST (in/out), SFTP (batch files) | Payments Module, Settlement Module | AP Clerk (End-User Persona) | Active |
-| analytics-service | Python 3.12 / FastAPI | ClickHouse | Kafka (consume), REST (out) | Analytics Module | Analyst (End-User Persona) | Active |
-| payments-healthcheck | Go 1.22 | — | HTTP (out, synthetic probes) | Payments Module (operational) | SRE / Platform Operator (Operational Persona) | Active |
-| payment-reconciler | Python 3.12 | — | Kafka (consume), PostgreSQL (read) | Payments Module (operational) | SRE / Platform Operator (Operational Persona) | Active |
+| System | Realizes (Dim 8 Module) | Components | Tech Stack | Status |
+|---|---|---|---|---|
+| payments-system | Payments Module (primary), Settlement Module (partial) | payments-service (API Service), payment-reconciler (Batch Job), payment-notification-worker (Event-Driven Worker) | Java 21 / Spring Boot 3.2 | Active |
+| fx-system | FX Module | fx-engine (API Service), fx-rate-cache (Data Store) | Java 21 / Spring Boot 3.2 | Active |
+| compliance-system | Compliance Module | compliance-service (API Service), ofac-screening-adapter (Integration Adapter), compliance-event-consumer (Event-Driven Worker) | Java 21 / Spring Boot 3.2 | Active |
+| bank-connectivity-system | Payments Module, Settlement Module | bank-adapter (Integration Adapter), bank-file-generator (Batch Job) | Java 21 / Spring Boot 3.2 | Active |
+| customer-portal-system | Customer Portal Module | portal-web-app (Web Application), portal-bff (API Service) | TypeScript / React, Java 21 | Active |
 
-> **Product Systems vs. Operational Systems.** Product Systems (payments-service, fx-service, etc.) serve end-user Personas — they deliver product functionality. Operational Systems (payments-healthcheck, payment-reconciler) serve Operational Personas (SRE, Platform Operator) — they deliver operational capability. Both are legitimate Systems with code, repos, CI/CD pipelines, tests, and System Versions. They differ in purpose (who they serve) and provenance (Build Track vs. Run Track engineering). The Purpose field makes this distinction explicit through Persona references rather than a static enum.
-
----
+> **Operational deployment example:** When SRE deploys "Payments System v3.1," they apply a System Deployment Descriptor (SDD) that composes: payments-service v2.3.1, payment-reconciler v1.4.0, payment-notification-worker v1.2.0. These three Components are deployed together as a unit — not individually to production.
