@@ -33,25 +33,25 @@ ACE names three governing models. UPIM expresses them as three information layer
 
 | ACE model | UPIM layer | What it answers | Source |
 |---|---|---|---|
-| **Product Model** | Definition Model + strategy/intent dimensions | What the product is and is aiming at. | [`ace-model.md`](ace-model.md) line 9; [`../product-information-model/README.md`](../product-information-model/README.md) "Definition Model". |
+| **Product Model** | Definition Model + strategy/intent dimensions | What the product is and is aiming at. | [ace-model.md](ace-model.md) line 9; [../product-information-model/README.md](../product-information-model/README.md) "Definition Model". |
 | **Work Model** | Work Model (5 tracks) | What work exists and how it transitions. | Same. |
 | **Operating Model** | Operating Model (coordination + organization) | How the org executes the work. | Same. |
 
 Three notes on this mapping:
 
 1. **Names are not identical.** ACE's "Product Model" is broader than UPIM's "Definition Model" alone — it includes the strategy and intent dimensions UPIM places in Dimension 1 (Strategy & Intent) and the related dimensions (Vendor Value, Customer Value). When ACE says "Product Model", it means *the product as it is and as it intends to be*. UPIM splits the *as it is* part (Definition Model) from the *as it intends to be* part (the strategy dimensions inside the Definition Model). Either reading is consistent if you read with that in mind.
-2. **"Operating Model" is the corrected name.** Earlier ACE drafts called this "Org Model"; that name is deprecated. The replacement is consistent with UPIM. See [`../glossary.md`](../glossary.md).
+2. **"Operating Model" is the corrected name.** Earlier ACE drafts called this "Org Model"; that name is deprecated. The replacement is consistent with UPIM. See [../glossary.md](../glossary.md).
 3. **UPIM's three-not-four design.** UPIM treats coordination and organization as entangled facets of a single Operating Model rather than separate layers. ACE's "Operating Model" inherits that view. See UPIM README "Why Three Models, Not Four?".
 
-**Workshop Project and Product.** In UPIM, **Product** is a Definition Model entity. In ACE, a **Workshop Project** corresponds to a Product: it is the locus where that Product is evolved; it is not the Product itself.
+**Workbench and Product.** In UPIM, **Product** is a Definition Model entity. In ACE, a **Workbench** corresponds to a Product: it is the locus where that Product is evolved; it is not the Product itself.
 
 ## Repositories: ACE concept and UPIM alignment
 
-The repository taxonomy is part of ACE itself, not a derived UPIM artifact. [`repositories.md`](repositories.md) is the **canonical conceptual specification** of the Foundry's repositories — names, intent, contents, information flow. It is also the natural expansion of the seed list in [`ace-model.md`](ace-model.md) lines 16-28 (the seed is 12 names; the canonical spec elaborates to 15 with sub-partitions of PFR).
+The repository taxonomy is part of ACE itself, not a derived UPIM artifact. [repositories.md](repositories.md) is the **canonical conceptual specification** of the Foundry's repositories — names, intent, contents, information flow. It is also the natural expansion of the seed list in [ace-model.md](ace-model.md) lines 16-28 (the seed is 12 names; the canonical spec elaborates to 15 with sub-partitions of PFR).
 
-What UPIM contributes is **alignment**: each repository's content can be expressed in UPIM dimensions and tracks. The "UPIM Mapping" column in [`repositories.md`](repositories.md) records this alignment without making the repositories UPIM-derived. The Foundry Platform implements the repository spec; UPIM gives the entities that live inside.
+What UPIM contributes is **alignment**: each repository's content can be expressed in UPIM dimensions and tracks. The "UPIM Mapping" column in [repositories.md](repositories.md) records this alignment without making the repositories UPIM-derived. The Foundry Platform implements the repository spec; UPIM gives the entities that live inside.
 
-A small subset of the table (see [`repositories.md`](repositories.md) for the complete listing):
+A small subset of the table (see [repositories.md](repositories.md) for the complete listing):
 
 | ACE name | Canonical code | UPIM mapping |
 |---|---|---|
@@ -74,15 +74,15 @@ The boundary between ACE (the model) and the Foundry Platform (the implementatio
 
 | Concern | ACE owns | Foundry Platform owns |
 |---|---|---|
-| Workspaces | The six workspace types and their roles. | Per-workspace runtime engineering (Release Workspace Engineering, Development Workspace Engineering, etc. — see [`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) lines 18-27). |
-| Repositories | What types exist, their conceptual purpose. | Authoring, storage, and serving infrastructure ([`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) line 11). |
-| IDE | That an IDE per workspace is the human entry surface. | The IDE realization (Olympus Rocket profiles, plugins, views) per [`../engagement-engineering/tenant-developer-tooling/TD.TODO`](../engagement-engineering/tenant-developer-tooling/TD.TODO). |
-| Scenarios and Tasks | That work is scenario-driven and decomposes into tasks. | Scenarios and Tasks Management ([`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) line 17). |
-| Product Intent | The asset, the cycle, the flow. | Routing of intent across workspaces ([`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) line 14). |
-| Governance | That every transition invokes governance. | Governance Workspace Engineering ([`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) line 24). |
-| Security, compliance, audit, observability | That these are first-class concerns. | Foundry Specification ([`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) lines 1-9). |
-| CI | (not specified by ACE; CI is consumed) | Foundry CI ([`../foundry-platform/ci/`](../foundry-platform/ci/)). |
-| Metrics & KPIs | Agent effectiveness as a goal ([`objectives.md`](objectives.md)). | Concrete metrics: Say/Do, Cost per Story Point, Velocity, Quality, etc. ([`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) line 15). |
+| Workspaces | The six workspace types and their roles. | Per-workspace runtime engineering (Release Workspace Engineering, Development Workspace Engineering, etc. — see [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 18-27). |
+| Repositories | What types exist, their conceptual purpose. | Authoring, storage, and serving infrastructure ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 11). |
+| IDE | That an IDE per workspace is the human entry surface. | The IDE realization (Olympus Rocket profiles, plugins, views) per [../engagement-engineering/tenant-developer-tooling/TD.TODO](../engagement-engineering/tenant-developer-tooling/TD.TODO). |
+| Scenarios and Tasks | That work is scenario-driven and decomposes into tasks. | Scenarios and Tasks Management ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 17). |
+| Product Intent | The asset, the cycle, the flow. | Routing of intent across workspaces ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 14). |
+| Governance | That every transition invokes governance. | Governance Workspace Engineering ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 24). |
+| Security, compliance, audit, observability | That these are first-class concerns. | Foundry Specification ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 1-9). |
+| CI | (not specified by ACE; CI is consumed) | Foundry CI ([../foundry-platform/ci/](../foundry-platform/ci/README.md)). |
+| Metrics & KPIs | Agent effectiveness as a goal ([objectives.md](objectives.md)). | Concrete metrics: Say/Do, Cost per Story Point, Velocity, Quality, etc. ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 15). |
 
 ## Foundry Platform ↔ UPIM
 
@@ -101,29 +101,29 @@ When the Foundry Platform implements a module, the entities it touches are the e
 
 Some parts of how Zeta delivers software are not in scope of base ACE. They live in the **Engagement Engineering extension**:
 
-- **Engagement is a Workshop.** A client engagement (e.g. Bank-X) is modeled as a Workshop named for that engagement. Source: [`../engagement-engineering/extension-to-ace.md`](../engagement-engineering/extension-to-ace.md).
-- **Workshop Project corresponds to a Product in UPIM.** Each Product built for that client is evolved in a **Workshop Project** inside the Engagement Workshop; the Workshop Project is the locus of evolution, not the Product entity itself.
-- **Home Workshop and Home Workshop Project.** Every Workshop Project has a **Home Workshop** — the Workshop where it primarily lives. The **Home Workshop Project** is the canonical Workshop Project for a Product across Workshops. A **Contributing Workshop Project** is an **Engagement Workshop Project** that references a Home Workshop Project elsewhere; not every Engagement Workshop Project is Contributing (standalone engagement-specific Products exist). For Products that exist only inside one engagement, the Engagement Workshop is the Home Workshop and the sole Workshop Project there is the Home Workshop Project. Source: [`../engagement-engineering/extension-to-ace.md`](../engagement-engineering/extension-to-ace.md); [`../1.TODO`](../1.TODO) lines 5-12.
-- **Win Workforce** is associated with the Foundry of the Home Workshop and directs Run-related work to the appropriate **Estate** (deployment locus) based on which Estate owns the deployment — a **production-operations boundary**, not part of ACE's software-manufacturing model. Source: [`../1.TODO`](../1.TODO) lines 15-17.
-- **Engagement-specific repositories** are modeled as referenced or owned data for the Engagement. Source: [`../1.TODO`](../1.TODO) line 20.
+- **Engagement is a Workshop.** A client engagement (e.g. Bank-X) is modeled as a Workshop named for that engagement. Source: [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
+- **Workbench corresponds to a Product in UPIM.** Each Product built for that client is evolved in a **Workbench** inside the Engagement Workshop; the Workbench is the locus of evolution, not the Product entity itself.
+- **Home Workshop and Home Workbench.** Every Workbench has a **Home Workshop** — the Workshop where it primarily lives. The **Home Workbench** is the canonical Workbench for a Product across Workshops. A **Contributing Workbench** is an **Engagement Workbench** that references a Home Workbench elsewhere; not every Engagement Workbench is Contributing (standalone engagement-specific Products exist). For Products that exist only inside one engagement, the Engagement Workshop is the Home Workshop and the sole Workbench there is the Home Workbench. Source: [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md); [../1.TODO](../1.TODO) lines 5-12.
+- **Win Workforce** is associated with the Foundry of the Home Workshop and directs Run-related work to the appropriate **Estate** (deployment locus) based on which Estate owns the deployment — a **production-operations boundary**, not part of ACE's software-manufacturing model. Source: [../1.TODO](../1.TODO) lines 15-17.
+- **Engagement-specific repositories** are modeled as referenced or owned data for the Engagement. Source: [../1.TODO](../1.TODO) line 20.
 
-The boundary is deliberate. Base ACE treats Workshops and Workforce uniformly within a single organization's Foundry. The engagement extension adds the constructs needed to model client delivery without breaking the base. See [`../engagement-engineering/extension-to-ace.md`](../engagement-engineering/extension-to-ace.md) for the full extension argument.
+The boundary is deliberate. Base ACE treats Workshops and Workforce uniformly within a single organization's Foundry. The engagement extension adds the constructs needed to model client delivery without breaking the base. See [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md) for the full extension argument.
 
 ## A builder's quick guide
 
 If you are about to write a module specification, use this guide to decide where to look:
 
-1. **Need to know what entity to read or write?** → [`repositories.md`](repositories.md) and [`../product-information-model/`](../product-information-model/).
-2. **Need to know which workspace owns this?** → [`workspaces/`](workspaces/) and [`concepts.md`](concepts.md).
-3. **Need to know how intent gets to your module?** → [`product-evolution-cycle.md`](product-evolution-cycle.md).
-4. **Need to know what governance applies?** → [`governance.md`](governance.md).
-5. **Need to know how this changes for client delivery?** → [`../engagement-engineering/extension-to-ace.md`](../engagement-engineering/extension-to-ace.md).
-6. **Need to know what platform-level capability you depend on?** → [`../foundry-platform/README.md`](../foundry-platform/README.md).
-7. **Need to know what you can reuse across stacks?** → [`../propeller/README.md`](../propeller/README.md).
+1. **Need to know what entity to read or write?** → [repositories.md](repositories.md) and [../product-information-model/](../product-information-model/README.md).
+2. **Need to know which workspace owns this?** → [workspaces/](workspaces/README.md) and [concepts.md](concepts.md).
+3. **Need to know how intent gets to your module?** → [product-evolution-cycle.md](product-evolution-cycle.md).
+4. **Need to know what governance applies?** → [governance.md](governance.md).
+5. **Need to know how this changes for client delivery?** → [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
+6. **Need to know what platform-level capability you depend on?** → [../foundry-platform/README.md](../foundry-platform/README.md).
+7. **Need to know what you can reuse across stacks?** → [../propeller/README.md](../propeller/README.md).
 
 ## What this document does not cover
 
-- **The detailed UPIM dimension and track structure.** That is in [`../product-information-model/README.md`](../product-information-model/README.md) and the entity files under it.
-- **The detailed engagement extension.** That is in [`../engagement-engineering/`](../engagement-engineering/).
-- **The detailed Foundry Platform module decomposition.** That will live under [`../foundry-platform/`](../foundry-platform/) as module specifications are written.
-- **Production operations ontologies** (deployment locus, SRE workforce, runtime topology beyond the Estate boundary named in Engagement Engineering). Out of scope of ACE; see [`../engagement-engineering/extension-to-ace.md`](../engagement-engineering/extension-to-ace.md) for the handoff surface only.
+- **The detailed UPIM dimension and track structure.** That is in [../product-information-model/README.md](../product-information-model/README.md) and the entity files under it.
+- **The detailed engagement extension.** That is in [../engagement-engineering/](../engagement-engineering/README.md).
+- **The detailed Foundry Platform module decomposition.** That will live under [../foundry-platform/](../foundry-platform/README.md) as module specifications are written.
+- **Production operations ontologies** (deployment locus, SRE workforce, runtime topology beyond the Estate boundary named in Engagement Engineering). Out of scope of ACE; see [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md) for the handoff surface only.

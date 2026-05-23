@@ -6,8 +6,8 @@ Design the user experience for specified intent. The UX Design Workspace co-evol
 
 ## Inbound and outbound intent
 
-- **Inbound:** from Product Specification (intent that has been specified to a level where UX Design can engage). Source: [`../ace-model.md`](../ace-model.md) line 54.
-- **Outbound:** to Product Specification (intent returning with design implications). Source: [`../ace-model.md`](../ace-model.md) line 55.
+- **Inbound:** from Product Specification (intent that has been specified to a level where UX Design can engage). Source: [../ace-model.md](../ace-model.md) line 54.
+- **Outbound:** to Product Specification (intent returning with design implications). Source: [../ace-model.md](../ace-model.md) line 55.
 
 This is the only **strictly bidirectional** edge in the base [Product Evolution Cycle](../product-evolution-cycle.md).
 
@@ -19,7 +19,7 @@ This workspace owns scenarios such as:
 - Co-evolving designs and specifications by sending intent back to Specification with design-driven changes.
 - Producing assets and narratives that downstream workspaces (Development, QA) can reference.
 
-Concrete scenario catalogs live in [`../../foundry-platform/`](../../foundry-platform/) under "UX Workspace Engineering" (see [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) line 26).
+Concrete scenario catalogs live in [../../foundry-platform/](../../foundry-platform/README.md) under "UX Workspace Engineering" (see [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) line 26).
 
 ## Repositories touched
 
@@ -30,10 +30,10 @@ Concrete scenario catalogs live in [`../../foundry-platform/`](../../foundry-pla
 - **Practitioner Repository (PPR)** — read. UX practices, design system standards.
 - **Work Repository (WR)** — write.
 
-See [`../repositories.md`](../repositories.md).
+See [../repositories.md](../repositories.md).
 
 ## See also
 
-- [`../product-evolution-cycle.md`](../product-evolution-cycle.md) — the cycle this workspace participates in.
-- [`../governance.md`](../governance.md) — governance on intent transitions.
-- [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) — UX Workspace Engineering.
+- [../product-evolution-cycle.md](../product-evolution-cycle.md) — the cycle this workspace participates in.
+- [../governance.md](../governance.md) — governance on intent transitions.
+- [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) — UX Workspace Engineering.

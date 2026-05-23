@@ -4,7 +4,7 @@
 
 ## How to add an entry
 
-When you read a paper, talk, post, book chapter, or repository that is relevant to ACE's posture (see [`se-3-0.md`](se-3-0.md)), add a row below with:
+When you read a paper, talk, post, book chapter, or repository that is relevant to ACE's posture (see [se-3-0.md](se-3-0.md)), add a row below with:
 
 | Title | Author(s) | Year | Theme | Format | Relevance to ACE |
 |---|---|---|---|---|---|
@@ -21,7 +21,7 @@ When you read a paper, talk, post, book chapter, or repository that is relevant 
 - Cite primary sources when possible. If you are quoting a paper via someone else's blog post, cite the paper.
 - Include a stable URL or DOI.
 - If the source is paywalled and we have institutional access, note that.
-- If you are unsure whether a source belongs here, add it to [`se-3-0.md`](se-3-0.md) "to triage" first; promote to this list only after reading.
+- If you are unsure whether a source belongs here, add it to [se-3-0.md](se-3-0.md) "to triage" first; promote to this list only after reading.
 
 ## Read
 

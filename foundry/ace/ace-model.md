@@ -27,9 +27,9 @@ Workshop
     Quality & Verification Repository
     Work Repository
     Workforce Repository
-* hosts multiple Workshop Projects
+* hosts multiple Workbenchs
 
-Workshop Project
+Workbench
 * corresponds to a Product in UPIM — the venue where that Product is evolved (not the Product itself)
 * is where work happens
 * has multiple Workspaces, each for a distinct functional team

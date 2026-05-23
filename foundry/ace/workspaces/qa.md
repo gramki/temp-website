@@ -6,8 +6,8 @@ Verify and validate what is built. The QA Workspace receives intent in parallel 
 
 ## Inbound and outbound intent
 
-- **Inbound:** from Product Specification (intent fans out to QA in parallel with Development). Source: [`../ace-model.md`](../ace-model.md) line 56. Also from Development (built artifacts). Source: [`../ace-model.md`](../ace-model.md) line 57.
-- **Outbound:** to Release (verified intent as Product Delivery). Source: [`../ace-model.md`](../ace-model.md) line 58. Optionally back to Product Specification when verification reveals a specification gap.
+- **Inbound:** from Product Specification (intent fans out to QA in parallel with Development). Source: [../ace-model.md](../ace-model.md) line 56. Also from Development (built artifacts). Source: [../ace-model.md](../ace-model.md) line 57.
+- **Outbound:** to Release (verified intent as Product Delivery). Source: [../ace-model.md](../ace-model.md) line 58. Optionally back to Product Specification when verification reveals a specification gap.
 
 ## Why QA receives intent in parallel
 
@@ -16,7 +16,7 @@ QA is **not** strictly downstream of Development. Both Development and QA receiv
 - Test design to begin alongside build, not after it.
 - Verification artifacts (test cases, acceptance tests) to be specified before built artifacts arrive.
 
-This parallelism is captured explicitly in [`../ace-model.md`](../ace-model.md) line 56 and is structural in the cycle — see [`../product-evolution-cycle.md`](../product-evolution-cycle.md).
+This parallelism is captured explicitly in [../ace-model.md](../ace-model.md) line 56 and is structural in the cycle — see [../product-evolution-cycle.md](../product-evolution-cycle.md).
 
 ## Primary scenarios (illustrative)
 
@@ -28,7 +28,7 @@ This workspace owns scenarios such as:
 - Returning intent to Product Specification when verification reveals a specification gap.
 - Releasing verified intent to Release as Product Delivery.
 
-Concrete scenario catalogs live in [`../../foundry-platform/`](../../foundry-platform/) under "QA Workspace Engineering" (see [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) line 25).
+Concrete scenario catalogs live in [../../foundry-platform/](../../foundry-platform/README.md) under "QA Workspace Engineering" (see [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) line 25).
 
 ## Repositories touched
 
@@ -39,14 +39,14 @@ Concrete scenario catalogs live in [`../../foundry-platform/`](../../foundry-pla
 - **Practitioner Repository (PPR)** — read. Verification policies and standards.
 - **Work Repository (WR)** — write.
 
-See [`../repositories.md`](../repositories.md).
+See [../repositories.md](../repositories.md).
 
 ## CI integration
 
-QA leans on Foundry CI for evidence packs, test runners and reports, build quality indicators, and agentic quality gates. See [`../../foundry-platform/ci/ci.TODO`](../../foundry-platform/ci/ci.TODO).
+QA leans on Foundry CI for evidence packs, test runners and reports, build quality indicators, and agentic quality gates. See [../../foundry-platform/ci/ci.TODO](../../foundry-platform/ci/ci.TODO).
 
 ## See also
 
-- [`../product-evolution-cycle.md`](../product-evolution-cycle.md) — the cycle this workspace participates in.
-- [`../governance.md`](../governance.md) — governance on intent transitions.
-- [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) — QA Workspace Engineering.
+- [../product-evolution-cycle.md](../product-evolution-cycle.md) — the cycle this workspace participates in.
+- [../governance.md](../governance.md) — governance on intent transitions.
+- [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) — QA Workspace Engineering.

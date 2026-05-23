@@ -1,10 +1,12 @@
 # Governance in ACE
 
+> **TODO — Introduce Governance as a Track at the ACE layer.** UPIM defines five Tracks (Discovery, Build, Run, Win, Evolve). ACE extends this set by introducing a **Governance Track** as a first-class value stream, in addition to the Governance Workspace described below. The Track captures governance work as a flow (transition validations, evidence capture, policy application, audit-trail production) with its own work entities and lifecycle; the Workspace remains the station where that work is executed. The two framings need to be reconciled across [concepts.md](concepts.md), [repositories.md](repositories.md), and [relationships.md](relationships.md) — including the relationship between the Governance Track and UPIM's Operating Model.
+
 ## The rule
 
 > Every transition of Product Intent invokes Scenarios in the Governance Workspace.
 
-This single sentence — adapted from [`ace-model.md`](ace-model.md) line 62 — is the entire governance discipline of ACE. It is a stronger statement than it looks.
+This single sentence — adapted from [ace-model.md](ace-model.md) line 62 — is the entire governance discipline of ACE. It is a stronger statement than it looks.
 
 ## What it means
 
@@ -31,17 +33,17 @@ Scenarios in the Governance Workspace, like scenarios in any other workspace, de
 
 ## Relationship to security, compliance, audit
 
-The Foundry Platform engineers security, compliance, audit, monitoring, and logging as first-class concerns of the Foundry Specification. Source: [`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) lines 1-9.
+The Foundry Platform engineers security, compliance, audit, monitoring, and logging as first-class concerns of the Foundry Specification. Source: [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 1-9.
 
 Governance is the **operational layer** that consumes those facilities. A compliance requirement (e.g. that release artifacts include an evidence pack) is expressed as a governance scenario invoked on the QA → Release transition. The platform provides the substrate; governance scenarios provide the discipline.
 
-In Engagement contexts, evidence requirements multiply (Customer Product Artifacts, Verification Artifacts, Documentation Artifacts, Evidence Artifacts, Knowledge Base — see [`../engagement-engineering/1.TODO`](../engagement-engineering/1.TODO) lines 17-26). Governance scenarios are how those requirements are enforced without spreading their logic across every workspace.
+In Engagement contexts, evidence requirements multiply (Customer Product Artifacts, Verification Artifacts, Documentation Artifacts, Evidence Artifacts, Knowledge Base — see [../engagement-engineering/1.TODO](../engagement-engineering/1.TODO) lines 17-26). Governance scenarios are how those requirements are enforced without spreading their logic across every workspace.
 
 ## Relationship to UPIM
 
 UPIM's Operating Model captures coordination patterns (ceremonies, cadences, decision rhythms) and organizational design. Governance scenarios are *implementations* of operating-model coordination patterns — invoked on transitions, completed by the Governance Workspace's team, recorded in the operating-model–shaped repositories (Practitioner Repository, Workforce Repository).
 
-The Practitioner Repository (PPR) and the Workforce Repository (WFR) are the relevant homes for governance content. PPR holds the standards, templates, practices, and verification policies; WFR holds the role bindings and skills (human and agent) that complete governance scenarios. See [`repositories.md`](repositories.md) and [`../product-information-model/README.md`](../product-information-model/README.md).
+The Practitioner Repository (PPR) and the Workforce Repository (WFR) are the relevant homes for governance content. PPR holds the standards, templates, practices, and verification policies; WFR holds the role bindings and skills (human and agent) that complete governance scenarios. See [repositories.md](repositories.md) and [../product-information-model/README.md](../product-information-model/README.md).
 
 ## What governance is not
 
@@ -59,7 +61,7 @@ For the Foundry Platform, the governance rule implies:
 - The platform **must persist evidence** in the appropriate repositories at the time of the transition, not after.
 - The platform **must support extension**: when Engagement Engineering or other extensions add transition types, the governance machinery must accommodate them without code changes to the base workspaces.
 
-These expectations are realized under "Governance Workspace Engineering" in [`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) and module specifications under [`../foundry-platform/`](../foundry-platform/) over time.
+These expectations are realized under "Governance Workspace Engineering" in [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) and module specifications under [../foundry-platform/](../foundry-platform/README.md) over time.
 
 ## Worked example (illustrative)
 

@@ -6,8 +6,8 @@ Translate **Product Intent** into specifications. The Product Specification Work
 
 ## Inbound and outbound intent
 
-- **Inbound:** from the Release Workspace (new Product Intent at cycle start) and from UX Design, Development, or QA (intent returning for revision). Source: [`../ace-model.md`](../ace-model.md) lines 53, 55, 58.
-- **Outbound:** to UX Design (bidirectional) and to Development and QA (parallel fan-out once specifications are ready). Source: [`../ace-model.md`](../ace-model.md) lines 54, 56.
+- **Inbound:** from the Release Workspace (new Product Intent at cycle start) and from UX Design, Development, or QA (intent returning for revision). Source: [../ace-model.md](../ace-model.md) lines 53, 55, 58.
+- **Outbound:** to UX Design (bidirectional) and to Development and QA (parallel fan-out once specifications are ready). Source: [../ace-model.md](../ace-model.md) lines 54, 56.
 
 ## Primary scenarios (illustrative)
 
@@ -18,7 +18,7 @@ This workspace owns scenarios such as:
 - Co-evolving with UX Design through bidirectional intent transfer.
 - Receiving returned intent from Development or QA and re-specifying.
 
-Concrete scenario catalogs are platform-specific and live in [`../../foundry-platform/`](../../foundry-platform/) under "Product Specification Workspace Engineering" (see [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) line 27).
+Concrete scenario catalogs are platform-specific and live in [../../foundry-platform/](../../foundry-platform/README.md) under "Product Specification Workspace Engineering" (see [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) line 27).
 
 ## Repositories touched
 
@@ -29,14 +29,14 @@ Concrete scenario catalogs are platform-specific and live in [`../../foundry-pla
 - **Practitioner Repository (PPR)** — read. Specification practices, templates, and verification policies.
 - **Work Repository (WR)** — write. Specification tasks live here.
 
-See [`../repositories.md`](../repositories.md) for canonical inventory.
+See [../repositories.md](../repositories.md) for canonical inventory.
 
 ## Engagement-extension note
 
-In the engagement view, when a Product has a **Home Workshop Project** and **Contributing Workshop Projects**, specification work is anchored at the **Home Workshop Project**; Contributing Workshop Projects reference non-work repositories from Home per repository policy. See [`../../engagement-engineering/extension-to-ace.md`](../../engagement-engineering/extension-to-ace.md).
+In the engagement view, when a Product has a **Home Workbench** and **Contributing Workbenchs**, specification work is anchored at the **Home Workbench**; Contributing Workbenchs reference non-work repositories from Home per repository policy. See [../../engagement-engineering/extension-to-ace.md](../../engagement-engineering/extension-to-ace.md).
 
 ## See also
 
-- [`../product-evolution-cycle.md`](../product-evolution-cycle.md) — the cycle this workspace participates in.
-- [`../governance.md`](../governance.md) — governance on intent transitions.
-- [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) — Product Specification Workspace Engineering.
+- [../product-evolution-cycle.md](../product-evolution-cycle.md) — the cycle this workspace participates in.
+- [../governance.md](../governance.md) — governance on intent transitions.
+- [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) — Product Specification Workspace Engineering.

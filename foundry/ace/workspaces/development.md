@@ -6,8 +6,8 @@ Build the specified solution. The Development Workspace turns specifications and
 
 ## Inbound and outbound intent
 
-- **Inbound:** from Product Specification (intent ready to be built; arrives in parallel with QA). Source: [`../ace-model.md`](../ace-model.md) line 56.
-- **Outbound:** to QA (built artifacts move forward). Source: [`../ace-model.md`](../ace-model.md) line 57. Optionally back to Product Specification when learnings demand re-specification. Source: [`../ace-model.md`](../ace-model.md) line 58.
+- **Inbound:** from Product Specification (intent ready to be built; arrives in parallel with QA). Source: [../ace-model.md](../ace-model.md) line 56.
+- **Outbound:** to QA (built artifacts move forward). Source: [../ace-model.md](../ace-model.md) line 57. Optionally back to Product Specification when learnings demand re-specification. Source: [../ace-model.md](../ace-model.md) line 58.
 
 ## Primary scenarios (illustrative)
 
@@ -17,7 +17,7 @@ This workspace owns scenarios such as:
 - Producing three-tier versioned artifacts (System, Module, Product versions).
 - Returning intent to Product Specification when build-time learning reveals a specification gap.
 
-Concrete scenario catalogs live in [`../../foundry-platform/`](../../foundry-platform/) under "Development Workspace Engineering" (see [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) line 23).
+Concrete scenario catalogs live in [../../foundry-platform/](../../foundry-platform/README.md) under "Development Workspace Engineering" (see [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) line 23).
 
 ## Repositories touched
 
@@ -29,15 +29,15 @@ Concrete scenario catalogs live in [`../../foundry-platform/`](../../foundry-pla
 - **Practitioner Repository (PPR)** — read. Coding standards, templates.
 - **Work Repository (WR)** — write.
 
-See [`../repositories.md`](../repositories.md).
+See [../repositories.md](../repositories.md).
 
 ## Cross-stack dependencies
 
-Development depends heavily on the **Propeller** workstream — the cross-stack frameworks, libraries, and conventions that Workspaces consume but do not own. See [`../../propeller/`](../../propeller/).
+Development depends heavily on the **Propeller** workstream — the cross-stack frameworks, libraries, and conventions that Workspaces consume but do not own. See [../../propeller/](../../propeller/README.md).
 
 ## See also
 
-- [`../product-evolution-cycle.md`](../product-evolution-cycle.md) — the cycle this workspace participates in.
-- [`../governance.md`](../governance.md) — governance on intent transitions.
-- [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) — Development Workspace Engineering.
-- [`../../foundry-platform/ci/`](../../foundry-platform/ci/) — Foundry CI capabilities used here.
+- [../product-evolution-cycle.md](../product-evolution-cycle.md) — the cycle this workspace participates in.
+- [../governance.md](../governance.md) — governance on intent transitions.
+- [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) — Development Workspace Engineering.
+- [../../foundry-platform/ci/](../../foundry-platform/ci/README.md) — Foundry CI capabilities used here.

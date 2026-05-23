@@ -1,8 +1,8 @@
 # Product Evolution Cycle
 
-The Product Evolution Cycle is the path along which **Product Intent** moves through the six workspaces. It is the dynamic counterpart to the static structure described in [`concepts.md`](concepts.md). The flow is the source of truth for how work proceeds in any Workshop Project; deviations are not optional flavor — they are events for the [Governance Workspace](governance.md) to validate.
+The Product Evolution Cycle is the path along which **Product Intent** moves through the six workspaces. It is the dynamic counterpart to the static structure described in [concepts.md](concepts.md). The flow is the source of truth for how work proceeds in any Workbench; deviations are not optional flavor — they are events for the [Governance Workspace](governance.md) to validate.
 
-The cycle is named in [`ace-model.md`](ace-model.md) lines 51-58. This document elaborates it without changing it.
+The cycle is named in [ace-model.md](ace-model.md) lines 51-58. This document elaborates it without changing it.
 
 ## The flow
 
@@ -38,13 +38,13 @@ In words:
 | **UX Design** | Designs experience for specified intent; works with Specification bidirectionally. |
 | **Development** | Builds the specified solution; sends artifacts to QA; may return intent to Specification. |
 | **QA** | Verifies and validates built artifacts; releases verified intent to Release; may return intent to Specification. |
-| **Governance** | Validates every transition of intent across the workspaces above (see [`governance.md`](governance.md)). |
+| **Governance** | Validates every transition of intent across the workspaces above (see [governance.md](governance.md)). |
 
 ## Key properties of the flow
 
 ### Intent is the asset
 
-The thing that moves is **Product Intent** — not a ticket, not an artifact alone, not a deliverable. Tickets, artifacts, and deliverables are evidence of intent at various stages; intent itself is the asset that has provenance, ownership, and a path. The repository inventory in [`repositories.md`](repositories.md) provides the Product Intent Repository (PIR) as the canonical store.
+The thing that moves is **Product Intent** — not a ticket, not an artifact alone, not a deliverable. Tickets, artifacts, and deliverables are evidence of intent at various stages; intent itself is the asset that has provenance, ownership, and a path. The repository inventory in [repositories.md](repositories.md) provides the Product Intent Repository (PIR) as the canonical store.
 
 ### Parallel, not sequential, between Specification and Dev/QA
 
@@ -56,7 +56,7 @@ Specification and UX Design have a co-evolving relationship. Either can hold int
 
 ### Optional return is a property, not an exception
 
-Returning intent from Development or QA to Specification is a **defined edge in the cycle**, not a deviation. A Workshop Project where intent never returns to Specification is one where downstream learnings have not been used; that may be by design or it may be a problem, but the path is provided either way.
+Returning intent from Development or QA to Specification is a **defined edge in the cycle**, not a deviation. A Workbench where intent never returns to Specification is one where downstream learnings have not been used; that may be by design or it may be a problem, but the path is provided either way.
 
 ### The cycle closes at Release
 
@@ -64,15 +64,15 @@ The cycle is *cyclic* in the sense that Release both consumes (Product Delivery)
 
 ## Governance on transitions
 
-Every edge in the diagram above is a **transition**. Every transition invokes Scenarios in the Governance Workspace. This is not stage-gating; it is the assertion that handoffs are first-class, observable events that carry validation responsibility. The governance treatment is in [`governance.md`](governance.md).
+Every edge in the diagram above is a **transition**. Every transition invokes Scenarios in the Governance Workspace. This is not stage-gating; it is the assertion that handoffs are first-class, observable events that carry validation responsibility. The governance treatment is in [governance.md](governance.md).
 
-The implication for the Foundry Platform is that intent routing and governance hooks are not separable concerns. A platform that routes intent without invoking governance has implemented half of the cycle. Source: [`ace-model.md`](ace-model.md) line 62; [`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) line 14 ("Move Product Intent across Workspaces").
+The implication for the Foundry Platform is that intent routing and governance hooks are not separable concerns. A platform that routes intent without invoking governance has implemented half of the cycle. Source: [ace-model.md](ace-model.md) line 62; [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 14 ("Move Product Intent across Workspaces").
 
 ## How the cycle relates to UPIM tracks
 
-UPIM organizes work into five tracks: Discovery, Build, Run, Win, Evolve. The cycle described here is concentrated in **Build** (Specification → UX → Development → QA → Release), with Discovery feeding into Specification and Win feeding back into Release. Run (deployment, incidents) is handled outside the workspaces in this folder — see the engagement and Estate notes in [`../engagement-engineering/extension-to-ace.md`](../engagement-engineering/extension-to-ace.md). Evolve is a cross-cutting track that mutates the model itself; it is not on the cycle but it can produce intent.
+UPIM organizes work into five tracks: Discovery, Build, Run, Win, Evolve. The cycle described here is concentrated in **Build** (Specification → UX → Development → QA → Release), with Discovery feeding into Specification and Win feeding back into Release. Run (deployment, incidents) is handled outside the workspaces in this folder — see the engagement and Estate notes in [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md). Evolve is a cross-cutting track that mutates the model itself; it is not on the cycle but it can produce intent.
 
-The mapping is sketched here so readers do not assume the cycle and the tracks are the same thing. Detailed mapping is in [`relationships.md`](relationships.md).
+The mapping is sketched here so readers do not assume the cycle and the tracks are the same thing. Detailed mapping is in [relationships.md](relationships.md).
 
 ## Implementation expectations
 
@@ -84,4 +84,4 @@ For the Foundry Platform, this cycle implies:
 - **Bidirectional and parallel routing** as built-in capabilities — not modeled as exceptions to a sequential pipeline.
 - **Optional return paths** as defined operations, not retries or rollbacks.
 
-These expectations are captured under "Workshop Project Engineering" in [`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO) and detailed further in module specifications under [`../foundry-platform/`](../foundry-platform/) over time.
+These expectations are captured under "Workbench Engineering" in [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) and detailed further in module specifications under [../foundry-platform/](../foundry-platform/README.md) over time.

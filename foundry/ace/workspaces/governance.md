@@ -2,15 +2,15 @@
 
 ## Purpose
 
-Validate **every transition** of Product Intent. The Governance Workspace is invoked on each handoff between any two workspaces in the Product Evolution Cycle. It does not own the work being transitioned; it owns the discipline of the handoff. Source: [`../ace-model.md`](../ace-model.md) line 62.
+Validate **every transition** of Product Intent. The Governance Workspace is invoked on each handoff between any two workspaces in the Product Evolution Cycle. It does not own the work being transitioned; it owns the discipline of the handoff. Source: [../ace-model.md](../ace-model.md) line 62.
 
 **Primary human personas:** Engineering Managers (primary), with Product Operations and audit roles participating where applicable.
 
-The full discipline is documented in [`../governance.md`](../governance.md). This file describes the workspace itself; the rule and its rationale are documented separately because the rule is invoked across all workspaces.
+The full discipline is documented in [../governance.md](../governance.md). This file describes the workspace itself; the rule and its rationale are documented separately because the rule is invoked across all workspaces.
 
 ## Metrics and signals (TBD)
 
-**DORA-style** and related delivery-health signals (lead time, deployment frequency, change-fail rate, recovery time, and aligned governance KPIs) are expected to surface through Governance Workspace engineering, observability, and cross-workshop reporting. Detail will be specified alongside Governance Workspace platform work — see [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) line 24.
+**DORA-style** and related delivery-health signals (lead time, deployment frequency, change-fail rate, recovery time, and aligned governance KPIs) are expected to surface through Governance Workspace engineering, observability, and cross-workshop reporting. Detail will be specified alongside Governance Workspace platform work — see [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) line 24.
 
 ## Inbound and outbound intent
 
@@ -31,7 +31,7 @@ This workspace owns scenarios such as:
 - Capturing evidence and persisting it in the appropriate repositories.
 - Recording the transition itself in the workshop's history.
 
-Concrete scenario catalogs live in [`../../foundry-platform/`](../../foundry-platform/) under "Governance Workspace Engineering" (see [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) line 24).
+Concrete scenario catalogs live in [../../foundry-platform/](../../foundry-platform/README.md) under "Governance Workspace Engineering" (see [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) line 24).
 
 ## Repositories touched
 
@@ -42,14 +42,14 @@ Concrete scenario catalogs live in [`../../foundry-platform/`](../../foundry-pla
 - **Product Intent Repository (PIR)** — read.
 - **Work Repository (WR)** — write.
 
-See [`../repositories.md`](../repositories.md).
+See [../repositories.md](../repositories.md).
 
 ## Why governance is a workspace, not a stage gate
 
-A stage-gate model would sit between specific workspaces (e.g. between QA and Release). The Product Evolution Cycle has many transitions — including the bidirectional Specification ↔ UX edge and the optional return paths from Development and QA back to Specification. A workspace whose Scenarios are designed to validate transitions, invoked uniformly, is more composable than a fixed set of gates. See [`../governance.md`](../governance.md) for the full argument.
+A stage-gate model would sit between specific workspaces (e.g. between QA and Release). The Product Evolution Cycle has many transitions — including the bidirectional Specification ↔ UX edge and the optional return paths from Development and QA back to Specification. A workspace whose Scenarios are designed to validate transitions, invoked uniformly, is more composable than a fixed set of gates. See [../governance.md](../governance.md) for the full argument.
 
 ## See also
 
-- [`../governance.md`](../governance.md) — the governance discipline.
-- [`../product-evolution-cycle.md`](../product-evolution-cycle.md) — the transitions this workspace validates.
-- [`../../foundry-platform/platform.TODO`](../../foundry-platform/platform.TODO) — Governance Workspace Engineering.
+- [../governance.md](../governance.md) — the governance discipline.
+- [../product-evolution-cycle.md](../product-evolution-cycle.md) — the transitions this workspace validates.
+- [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) — Governance Workspace Engineering.
