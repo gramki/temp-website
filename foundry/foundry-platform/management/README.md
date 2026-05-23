@@ -1,0 +1,118 @@
+# Foundry Management
+
+**Module scope:** Admin plane — Workshops, Workbenches, repositories (as services), teams, agents, knowledge, tenancy, and external tool integrations.
+
+## What this module does
+
+Foundry Management is the administrative layer of the platform. It provides:
+
+- **Workshop provisioning** — create and configure Workshops (divisions/units)
+- **Workbench provisioning** — create and configure Workbenches for Products
+- **Repository management** — repositories as services with injection/access interfaces
+- **Team management** — teams, roles, permissions
+- **Agent management** — agent configurations, skill assignments, availability
+- **Knowledge management** — knowledge ingestion, organization (integral to each repository)
+- **Tenancy** — tenant provisioning, isolation, configuration, quotas
+- **External tool integrations** — GitHub, Figma, TestRail, Jira, Olympus Weave
+
+## Key Services
+
+### Workbench Metadata Service
+
+A single service per Workbench that provides:
+
+| Function | Behavior |
+|----------|----------|
+| **Product Intent IDs** | Consulted **before** creating an Intent to get unique PI ID |
+| **Commit tracking** | Tracks **all commits** to all linked git repos (Intent, Design, Code) |
+| **Code Repo references** | Manages references to all source code repos |
+| **Design tracking** | Tracks changes (no ID required before create) |
+
+### Ontology Service
+
+- **Independent** of Metadata Service
+- Auto-provisioned when Workbench is created
+- Manages product structure, capabilities, features
+
+## GitHub Integration
+
+Workbench acts as a **GitHub App** with org management capabilities:
+
+| Aspect | Detail |
+|--------|--------|
+| Integration type | GitHub App (not OAuth) |
+| Org sharing | Multiple Workbenches can share one GitHub Org |
+| Repo tagging | FoundryID, Workshop, Workbench, Product Code |
+| Repo creation | All repos created through Workbench interfaces |
+| Access model | Workbench = org manager; team members = repo-level access only |
+
+## External Tool Integrations (Phase 1)
+
+| Tool | Integration Type | Purpose |
+|------|------------------|---------|
+| **GitHub** | GitHub App | Org management, repo creation, commit tracking |
+| **Figma** | OAuth | Design asset linking |
+| **TestRail** | OAuth | Test case management (Quality repo SoT) |
+| **Jira** | OAuth | Operations (JSM), Feedback, Work repositories |
+| **Olympus Weave** | OAuth | Publish, deploy, track versions, EoS |
+| **Others** | URL reference | External resource linking |
+
+**Workbench ID** is used as the OAuth client ID for all integrations.
+
+### Olympus Weave
+
+Workbench acts as **Publisher** to Olympus Weave (deployment platform):
+- Product Code assigned by Weave on Workbench creation
+- Olympus Product Module code assigned per System
+- Deployment tracking via webhook (Weave → Foundry) + polling
+- EoS/deprecation metadata owned by Weave, surfaced in Foundry
+
+## Repository Architecture
+
+See [workbench-architecture.md](workbench-architecture.md) for detailed repository storage model.
+
+| Repository | Storage | Service Role |
+|------------|---------|--------------|
+| **Intent** | Git repo (GitHub Org) | Metadata Service: PI ID generation, commit tracking |
+| **Design** | Git repo (GitHub Org) | Metadata Service: commit tracking |
+| **Code** | Multiple git repos (GitHub Org) | Metadata Service: reference management, commit tracking |
+| **Ontology** | Native service | Independent (auto-provisioned) |
+| **Quality** | TestRail + Git | Quality Service: unified access wrapper |
+| **Operations** | Jira (JSM) | Label-filtered; linked at setup |
+| **Feedback** | Jira | Label-filtered; linked at setup |
+| **Work** | Jira | Label-filtered; linked at setup |
+| **Evolution** | TBD | Deferred (not Phase 1) |
+
+## ACE concepts realized
+
+- **Workshop** — division/unit in a Foundry
+- **Workbench** — corresponds to a Product in UPIM; where Product is evolved
+- **Repositories** — the 15 canonical repositories defined in [../../ace/repositories.md](../../ace/repositories.md)
+- **Workforce** — agents and humans, managed here
+
+## UPIM entities involved
+
+- Definition Model entities (stored in repositories)
+- Work Model entities (stored in repositories)
+- Operating Model entities (teams, roles)
+
+## Key design decisions
+
+- **Repositories are services, not stores.** Each repository provides interfaces to inject and access contents, and manages its own organization, layout, and knowledge management.
+- **Content evolves via Work Order execution** (or independently for Domain, Practices repositories).
+- **Single Metadata Service per Workbench** handles PI IDs, commit tracking, and code repo references.
+- **Workbench as GitHub org manager** — team members don't have direct org management access.
+
+## Open questions
+
+- Workbench lifecycle — creation, archival, deletion
+- Repository import workflow for existing GitHub orgs
+- Team/agent management UX
+- Tenant onboarding flow
+
+## Read next
+
+- [workbench-architecture.md](workbench-architecture.md) — detailed Workbench architecture
+- [workshop-repository.md](workshop-repository.md) — Workshop/Workbench definition repository structure
+- [../../ace/repositories.md](../../ace/repositories.md) — the repository taxonomy
+- [../../tldr-faq.md](../../tldr-faq.md) — module design decisions
