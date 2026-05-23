@@ -2,7 +2,7 @@
 
 ## What Propeller is
 
-Propeller is a **parallel workstream of the Foundry engineering team** that builds the cross-stack frameworks, libraries, and conventions used across Zeta tech stacks. In platform-engineering organizations elsewhere, this is often a sub-area of the platform-engineering practice. At Zeta, the Foundry engineering team has chosen to colocate it under [`foundry/`](../) because the Foundry Platform consumes Propeller heavily, and because the team's engineering competencies overlap.
+Propeller is a **parallel workstream of the Foundry engineering team** that builds the cross-stack frameworks, libraries, and conventions used across Zeta tech stacks. In platform-engineering organizations elsewhere, this is often a sub-area of the platform-engineering practice. At Zeta, the Foundry engineering team has chosen to colocate it under [foundry/](../README.md) because the Foundry Platform consumes Propeller heavily, and because the team's engineering competencies overlap.
 
 ## What Propeller is *not*
 
@@ -15,7 +15,7 @@ The distinction matters operationally:
 - A Foundry Platform module ships as part of the platform's deployment.
 - A Propeller framework or library ships as a dependency — pulled into a Zeta application or a Workspace's IDE profile.
 
-A reader who is looking for what the platform does should read [`../foundry-platform/README.md`](../foundry-platform/README.md). A reader who is looking for what is reusable across the company's tech stacks belongs here.
+A reader who is looking for what the platform does should read [../foundry-platform/README.md](../foundry-platform/README.md). A reader who is looking for what is reusable across the company's tech stacks belongs here.
 
 ## Audience
 
@@ -23,7 +23,7 @@ Primary readers are wider Zeta engineering — anyone building application code,
 
 ## Current scope
 
-From [`propeller.TODO`](propeller.TODO):
+From [propeller.TODO](propeller.TODO):
 
 - **Java 21, GraalVM Native Image** — runtime baseline for Zeta-Java services.
 - **Spring Boot 3.x, 12-factor app** — application framework convention.
@@ -63,6 +63,6 @@ This independence is intentional. Coupling Propeller's release rhythm to the Fou
 
 ## Read next
 
-- [`propeller.TODO`](propeller.TODO) — current backlog.
-- [`../ace/workspaces/development.md`](../ace/workspaces/development.md) — the Workspace that consumes Propeller most heavily.
-- [`../foundry-platform/README.md`](../foundry-platform/README.md) — for contrast: what the platform itself does.
+- [propeller.TODO](propeller.TODO) — current backlog.
+- [../ace/workspaces/development.md](../ace/workspaces/development.md) — the Workspace that consumes Propeller most heavily.
+- [../foundry-platform/README.md](../foundry-platform/README.md) — for contrast: what the platform itself does.

@@ -16,7 +16,7 @@ This folder is **not the place** an external CIO would land. External-facing mat
 
 | File | Purpose |
 |---|---|
-| [`cio-value-perspective.md`](cio-value-perspective.md) | The Bank-CIO value perspective on the Foundry Platform: what they would value, what they would scrutinize, and where the platform's claims must be substantiated. |
+| [cio-value-perspective.md](cio-value-perspective.md) | The Bank-CIO value perspective on the Foundry Platform: what they would value, what they would scrutinize, and where the platform's claims must be substantiated. |
 
 Additional briefs (other stakeholder personas) can be added over time using the same authoring rules below.
 
@@ -24,7 +24,7 @@ Additional briefs (other stakeholder personas) can be added over time using the 
 
 Briefs in this folder must follow these rules to remain useful:
 
-1. **Source from existing engineering material.** Every value claim should trace to an existing source: [`../ace/`](../ace/), [`../foundry-platform/platform.TODO`](../foundry-platform/platform.TODO), [`../engagement-engineering/`](../engagement-engineering/), [`../product-information-model/`](../product-information-model/), or other documents in this tree. If a claim is not supported by the engineering material, it is either a content gap (file an issue) or out of scope (drop it).
+1. **Source from existing engineering material.** Every value claim should trace to an existing source: [../ace/](../ace/README.md), [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO), [../engagement-engineering/](../engagement-engineering/README.md), [../product-information-model/](../product-information-model/README.md), or other documents in this tree. If a claim is not supported by the engineering material, it is either a content gap (file an issue) or out of scope (drop it).
 2. **No fabrication of customer asks.** Briefs describe how a stakeholder would evaluate what we are building. They do not invent customer requirements that have not been heard.
 3. **Engineering-honest tone.** Avoid superlatives, hype, and language that would sound like a sales pitch. The tone should be the same as a well-written engineering review.
 4. **Explicit limits.** A brief should be honest about what the platform does *not* do, especially for the stakeholder being addressed. A CIO will value a clear non-goal as much as a clear goal.
@@ -32,6 +32,6 @@ Briefs in this folder must follow these rules to remain useful:
 
 ## Read next
 
-- [`cio-value-perspective.md`](cio-value-perspective.md) — Bank-CIO perspective.
-- [`../ace/objectives.md`](../ace/objectives.md) — what the platform aims to achieve and explicit non-goals.
-- [`../foundry-platform/README.md`](../foundry-platform/README.md) — what is being built.
+- [cio-value-perspective.md](cio-value-perspective.md) — Bank-CIO perspective.
+- [../ace/objectives.md](../ace/objectives.md) — what the platform aims to achieve and explicit non-goals.
+- [../foundry-platform/README.md](../foundry-platform/README.md) — what is being built.
