@@ -1,28 +1,50 @@
+# Final Story:
+    - A well defined set of Work Order Types (Scenarios) per Workspace
+    - Each Work Order (Signal) that invokes a Scenario should have adequate context associated with it to complete the work; Context can come from Work Order graph or the Workspace repositories
+    - Scenario is automated with Agent with Skills
+    - Agent will rely on human in the loop for completing some tasks
+    - When a user logs into a Workspace, they can
+        - See all the Work Orders
+        - See all Tasks that are available to them
+        - Review progress of Work Orders
+        - Complete Tasks
+        - Add, Refine Context in the Work Order
+    - Phase 1 focus:
+        - Dicovery Track
+        - Build Track
+        - Release Track
+        - Governance 
+    - UPIM is trying to specify Work and Context for a specific model of Products
+    - ACE is trying to specify the execution model for the Work as defined in the UPIM
+    - Foundry is implementing the ACE model
+    - Each Workspace is interfaced through an IDE (based on Visual Studio). Each user logs in to their IDE to access the workspace. Each user's Workspace Session is anagolous to Github codespaces session. The user gets all the context of the Product that UPIM supplies in the IDE.  Workspace Session maps to IDE Workspace.
+
+      
 - Repositories are PIM reference model construct
 - The Operating Model should define the concrete store for them
 - The Foundry Development should define the work required to translate the operating model into a System
-- Workshop represents the Product
+- Workbench maps to a Product (Workshop is the division/unit containing Workbenches)
 - Engagement may have one or more Workshops
-- A Product may be evolved through multiple Workshops, as these workshops may belong to different Engagements
-- Product always has a Home Workshop
-- Contributing Workshops of a Product (Workshops other than the Home Workshop) alwywas reference the non-work repos from the Home Workshop; Define which repos are housed in Home and which are specific to Contributing Workshops
+- A Product may be evolved through multiple Workbenches across different Workshops, as these workshops may belong to different Engagements
+- Product (Workbench) always has a Home Workshop
+- Contributing Workbenches of a Product (Workbenches other than the Home Workbench) always reference the non-work repos from the Home Workbench; Define which repos are housed in Home and which are specific to Contributing Workbenches
 - Some repositories are Foundry scoped as opposed to Workshop scoped - Examples: Workforce Repo
 - Foundry is a collection of Workshops
 - Engagement owns specific Product Intent items. Engagement is the umberella unit of evolution of one or more products. Refer to Engagment definition from Org 8.0
 - Engagement is program managed. Engagement should consolidated Velocity, Predictability, Quality, Cost, and Risk aspects of the Project
-- Workshops do not represent the Run operations of the Product. However, the Signals of a Product are cosolidated into the Home Workshop
+- Workshops do not represent the Run operations of the Product. However, the Signals of a Product are consolidated into the Home Workbench
 - Every Product deployment is Managed through an Estate. A Product may have deployment across multiple Estates.  Estate contains the SRE Workforce.
-- Win Workforce of a Product is associated with the Foundry where the Home Workshop of the Product 
+- Win Workforce of a Product is associated with the Foundry where the Home Workbench of the Product resides 
 - Win Workforce directs the run-related work to appropriate Estate based on which Estate owns the relevant deployment
-- Home Workshop of a Product has a reference to the relevant Estates and Product Deployments within them. 
+- Home Workbench of a Product has a reference to the relevant Estates and Product Deployments within them. 
 - The Operational Repos are specific to Estates and the Win Track work items should reflect the work required to bring the relevant metrics, indicators, feedback from the Estate into the PIR, PFR, and other repos. Although, this is expected to be fairly automated, verification, governance is responsbility residing in the Win Track
 - Operational Metrics, Indicators are also relevant for Engagement. The Win Track ensures that relevant metrics are also pushed to the appropriate Engagement repositories. This requires Engagement to reference the relevant Estates and the Product Deployments within them
 - Engagement-specific repositories should be modeled. Call out referenced data and owned data for an Engagement and correspondingly define the repositories.
 - There can be many Foundries. Each Foundry is typically owned by an Organization. 
 - Putting together:
-    - a Foundry has multiple Workshops each acting as a Home of a Product or a Contributor to a Product
+    - a Foundry has multiple Workshops; each Workshop contains Workbenches that act as Home Workbench or Contributing Workbench for Products
     - Foundry represents one or more Engagements
-    - Product evolution, objectives, maturity, and success is tracked at the Home Workshop
+    - Product evolution, objectives, maturity, and success is tracked at the Home Workbench
     - Engagement progress and quality is tracked through the Engagement entity
     - Workforce in a Foundry is associated with the Engagements in the Foundry for a period of time
     - Productivity of the Workforce is measured through Engagement, Work done is seen through Workshops and Estate 
