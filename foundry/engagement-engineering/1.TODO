@@ -1,7 +1,7 @@
 Model:
-    - Engagement is a Workshop Project in Foundry
-    - Workshop Project is a collection of Git Repos, Jira Boards, CI Jobs, Release Artifacts, Deployment Trains, & People 
-    - Workshop Project adheres to the Work Model in UPIM
+    - Engagement is a Workshop in Foundry (hierarchy: Foundry > Workshop > Workbench)
+    - Workshop is a collection of Git Repos, Jira Boards, CI Jobs, Release Artifacts, Deployment Trains, & People 
+    - Workbench (maps to a Product) adheres to the Work Model in UPIM
 
 
 Objectives:
@@ -38,9 +38,9 @@ Approach:
 
 
 
-Workshop Project Setup
-Workshop Project KPIs
-Workshop Project Metrics
-Workshop Project Reporting
-Workshop Project Analytics
-Workshop Project Insights
+Workbench Setup
+Workbench KPIs
+Workbench Metrics
+Workbench Reporting
+Workbench Analytics
+Workbench Insights
