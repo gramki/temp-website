@@ -18,9 +18,9 @@ Humans enter each Workspace through an IDE configured for that workspace's purpo
 
 Every workspace reads and writes well-defined repositories. There is no ambient state in slack threads or undocumented conventions; if it matters, it lives in a repository. The canonical repository inventory is in [repositories.md](repositories.md); the conceptual model in [ace-model.md](ace-model.md) lines 16-28.
 
-### 4. Product Intent as a routed asset
+### 4. Product Intent as a routed bridge asset
 
-Product Intent flows through the workspaces along a defined path: Release → Specification → UX/Specification → Development + QA → Release as Product Delivery, with optional return to Specification. Routing is explicit and traceable, not implicit. Source: [ace-model.md](ace-model.md) lines 51-58; detail in [product-evolution-cycle.md](product-evolution-cycle.md).
+Product Intent is a hybrid bridge entity: definition-bearing, work-triggering, and routable. It flows through the workspaces along a defined path: Discovery/product decisions → Specification (PSD refinement) → UX/Specification → Development + QA → Release as Product Delivery and renewal, with optional return to Specification. Routing is explicit and traceable, not implicit. Source: [ace-model.md](ace-model.md) lines 51-58; detail in [product-evolution-cycle.md](product-evolution-cycle.md).
 
 ### 5. Governance on every transition
 
@@ -80,7 +80,7 @@ A Foundry Platform that fulfills ACE's objectives (while delivering UPIM-backed 
 
 - A new engineer can join a Workshop and be productive within their workspace's IDE without out-of-band onboarding rituals.
 - A new agent type can be introduced as a workforce member, gain skills, and be measured the same way a human peer is.
-- Product Intent for a release can be traced from origin to delivery without manual narration.
+- Product Intent can be traced from origin (Discovery decision or Release renewal) to delivery without manual narration.
 - A governance question (was this transition validated? what scenario did it invoke? what evidence was captured?) returns a deterministic answer from the repositories.
 - An Engagement spanning multiple Workshops sees consolidated Velocity, Predictability, Quality, Cost, and Risk without bespoke reporting per project. Source: [../engagement-engineering/1.TODO](../engagement-engineering/1.TODO) line 12.
 

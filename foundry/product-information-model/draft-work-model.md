@@ -20,13 +20,14 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
 
 ### Track 1: The Discovery Track (Learning)
 
-* **Goal:** Set strategic direction, prioritize Signals for discovery, explore Signals (Problems, Needs, Opportunities) to generate solution hypotheses (Ideas), validate hypotheses through research, experiments, prototypes, and deliberation, and author PSD(s) for validated Ideas.
+* **Goal:** Set strategic direction, prioritize Signals for discovery, explore Signals (Problems, Needs, Opportunities) to generate solution hypotheses (Ideas), validate hypotheses through research, experiments, prototypes, and deliberation, create Product Intent from Go/Pivot product decisions, and refine that intent through PSD(s).
 * **Primary Owner:** Product Manager, UX Researcher, Executive Leadership (for strategic planning).
 * **Input:** Strategic Themes and Objectives from business strategy; Signals (Problems, Needs, Opportunities); Ideas requiring validation.
-* **Output:** Discovery produces three types of outputs:
-  1. **PDR** — captures any significant decision affecting any dimension. A PDR may justify PSDs (engineering changes) AND/OR Definition Model updates (knowledge/model changes).
-  2. **PSD(s)** — engineering specifications for module changes (via Specification Task).
-  3. **Definition Model updates** — evolution of entities in Dims 2–9 (via Modeling Task). Examples: new Customer Segments, refined Value Propositions, updated Value Streams, new Capabilities.
+* **Output:** Discovery produces four types of outputs:
+  1. **PDR** — captures any significant decision affecting any dimension. A PDR may create Product Intent(s), justify PSDs (engineering changes), and/or trigger Definition Model updates (knowledge/model changes).
+  2. **Product Intent** — the hybrid bridge item created or updated by Go/Pivot decisions, carrying committed product direction into ACE Workspace execution.
+  3. **PSD(s)** — module-scoped specifications that refine Product Intent through Specification Tasks.
+  4. **Definition Model updates** — evolution of entities in Dims 2–9 (via Modeling Task). Examples: new Customer Segments, refined Value Propositions, updated Value Streams, new Capabilities.
   Additionally: Objectives, Initiatives, Customer Release definitions (Dimension 1); Idea status changes — either advanced to `Validated` (triggering PSD authoring via PDR) or moved to `Killed`.
 
 * **Planning Entities:**
@@ -44,7 +45,7 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
   * **Prototype / Spike:** A throwaway or low-fidelity artifact built to test a specific assumption around desirability or feasibility (e.g., "Figma mockup of the FX rate-lock confirmation flow", "Technical spike: can we get sub-200ms FX quotes from provider X?").
 
 * **Output Entities:**
-  * **Specification Task:** A granular PSD-authoring action — scoping modules, writing acceptance criteria, coordinating feasibility with engineering, decomposing into shippable increments. Represents the substantial work between a validated Idea and a shipped PSD (e.g., "Define webhook payload contract with Platform team", "Write acceptance criteria for FX module").
+  * **Specification Task:** A granular PSD-authoring action that refines Product Intent — scoping modules, writing acceptance criteria, coordinating feasibility with engineering, decomposing into shippable increments. Represents the substantial work between accepted Product Intent and approved PSD(s); it consumes intent, it does not originate it (e.g., "Define webhook payload contract with Platform team", "Write acceptance criteria for FX module").
   * **Modeling Task:** Work to evolve Definition Model entities in any dimension (Dims 2–9) based on discovery findings. Modeling Tasks produce updates to the product's self-description — customer segments, buyer personas, business outcomes, customer promises, value streams, capabilities, data domains, and more. Dim 5 (Technical & Architectural) modeling includes Systems, Components, Dependencies, Interaction Flows, and Technical Knowledge Base assessments. Dim 6 (Ecosystem & Extensibility) modeling includes Developer Personas, Programmatic User Personas, API Modules, API Operations and SLOs, and API Compatibility Contracts. A Modeling Task may be triggered by a PDR (a decision affecting a dimension) or by ongoing product knowledge maintenance. (e.g., "Define LATAM AP Clerk user persona", "Map Cross-Border Payout Processing value stream", "Design LATAM pricing tier structure", "Define Developer Persona", "Design API Module with operations and SLOs", "Model API Compatibility Contract for Payments API v2", "Document payments-service System with Module mapping and tech stack", "Assess payments-service Technical Knowledge Base").
   * **Note on ADR production:** Deliberation may produce Architecture Decision Records (ADRs, Dim 5) in addition to or instead of PDRs (Dim 1). When the Deliberation scope is a technical/architectural question ("should we adopt event sourcing?"), the output is an ADR. When the scope is a product question that has architectural implications, both a PDR and one or more ADRs may be produced. See DR-024.
   * **Note on ODR production:** Deliberation may also produce Operations Decision Records (ODRs, Dim 7) for strategic infrastructure and operational decisions. When the Deliberation scope is an operational question ("which cloud provider for LATAM?", "what data archival policy?"), the output is an ODR. A single product decision (PDR) may cascade to both ADRs and ODRs: "Go on LATAM" → ADR (architecture for LATAM services) + ODR (LGPD compliance hosting, data residency). See DR-025.

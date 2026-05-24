@@ -92,10 +92,10 @@
 **Intent Repository Structure:**
 ```
 intent-repo/
-├── PI-001/              # PI ID from Metadata Service
+├── PI-001/              # PI ID from Metadata Service, created after Go/Pivot PDR
 │   ├── README.md        # Intent overview
-│   ├── prd.md           # PRD
-│   ├── psd-*.md         # PSD (one or more files)
+│   ├── pdr.md           # Authorizing product decision
+│   ├── psd-*.md         # PSD refinement (one or more files)
 │   └── mockups/         # Mockups or Figma links
 ├── PI-002/
 └── (organized as product team sees fit)

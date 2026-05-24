@@ -37,6 +37,8 @@ The Foundry Platform engineers security, compliance, audit, monitoring, and logg
 
 Governance is the **operational layer** that consumes those facilities. A compliance requirement (e.g. that release artifacts include an evidence pack) is expressed as a governance scenario invoked on the QA → Release transition. The platform provides the substrate; governance scenarios provide the discipline.
 
+Governance also applies when Discovery decisions establish or update Product Intent and when PSD changes refine an existing Product Intent record. Those transitions are part of the same governed motion: intent is not considered ready to move simply because a document exists.
+
 In Engagement contexts, evidence requirements multiply (Customer Product Artifacts, Verification Artifacts, Documentation Artifacts, Evidence Artifacts, Knowledge Base — see [../engagement-engineering/1.TODO](../engagement-engineering/1.TODO) lines 17-26). Governance scenarios are how those requirements are enforced without spreading their logic across every workspace.
 
 ## Relationship to UPIM

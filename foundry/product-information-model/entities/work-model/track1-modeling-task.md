@@ -44,7 +44,7 @@ Modeling Tasks make this knowledge work explicit and plannable:
 | Upstream | PDR (Dim 1) | PDR may trigger Modeling Task(s) |
 | Upstream | Research Task (Track 1) | Research findings may trigger Modeling Task(s) |
 | Produces | Definition Model Entity (any Dim) | Modeling Task creates/updates entity(ies) |
-| Sibling | Specification Task (Track 1) | Both are Discovery Track work; Spec Task produces PSDs, Modeling Task produces Definition Model updates |
+| Sibling | Specification Task (Track 1) | Both are Discovery Track work; Specification Task produces PSDs that refine Product Intent, Modeling Task produces Definition Model updates |
 
 ## Examples
 

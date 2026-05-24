@@ -8,7 +8,7 @@ This folder is the entry point for the ACE theory. [UPIM](../product-information
 
 ## What ACE is, in one paragraph
 
-ACE asserts that effective use of agents in software engineering depends on three governing models — a Product Model that says what we are building, a Work Model that says what work exists and how it transitions, and an Operating Model that says how the organization runs the work. These three models supply *meaning*. ACE then supplies *structure and motion*: a Foundry hosts Workshops; each Workshop is the body of work owned by a team or organization and hosts Workbenches; each Workbench corresponds to a Product in UPIM and is the venue where that Product is evolved through specialized Workspaces in which Human–Agent Teams act on Scenarios that create Tasks. Across all of this flows Product Intent — the thread that turns intent into delivered software. Every transition of intent triggers governance. The result is a system that behaves like an assembly line for product evolution, with agents as members of the workforce rather than tools attached to it.
+ACE asserts that effective use of agents in software engineering depends on three governing models — a Product Model that says what we are building, a Work Model that says what work exists and how it transitions, and an Operating Model that says how the organization runs the work. These three models supply *meaning*. ACE then supplies *structure and motion*: a Foundry hosts Workshops; each Workshop is the body of work owned by a team or organization and hosts Workbenches; each Workbench corresponds to a Product in UPIM and is the venue where that Product is evolved through specialized Workspaces in which Human–Agent Teams act on Scenarios that create Tasks. Across all of this flows Product Intent — the definition-bearing, work-triggering bridge from product decision to delivered software. Every transition of intent triggers governance. The result is a system that behaves like an assembly line for product evolution, with agents as members of the workforce rather than tools attached to it.
 
 ## Foundry vs Foundry Platform
 
@@ -46,7 +46,7 @@ The same containment, in prose: a **Foundry** hosts multiple **Workshops**. A Wo
 
 | Workspace | Role |
 |---|---|
-| Product Specification | Translates Product Intent into specifications. |
+| Product Specification | Refines Product Intent into PSDs and specification artifacts. |
 | UX Design | Designs user experience for specified intent. |
 | Development | Builds the specified solution. |
 | QA | Verifies and validates what is built. |
@@ -57,16 +57,17 @@ Per-workspace detail lives in [workspaces/](workspaces/README.md).
 
 ## The Product Evolution Cycle
 
-Product Intent is the thread that moves through the workspaces from idea to delivery:
+Product Intent is the bridge entity that moves through the workspaces from product decision to delivery:
 
-1. **A Product Intent is published from Release Workspace.** Direction, evidence, and lessons from the previous cycle are gathered into the Product Intent for the next.
-2. **Product Specification Workspace translates the Product Intent to a Product Specification document.** This is where intent becomes the formal specification of what to build.
+1. **Discovery and product decisions establish or update Product Intent.** Signals, Ideas, and PDRs produce the committed Product Intent that enters workspace execution.
+2. **Product Specification Workspace refines Product Intent into PSDs.** This is where intent becomes the formal specification of what to build.
 3. **Product Specification Workspace and UX Design Workspace exchange the Product Intent back and forth.** The specification and the user experience evolve together until both converge.
 4. **Development Workspace and QA Workspace begin work on the Product Intent in parallel.** Once the Product Specification document is ready, Development Workspace starts building while QA Workspace prepares verification — both begin at the same time.
 5. **Development Workspace passes built artifacts to QA Workspace.** QA Workspace verifies the build against the Product Specification document.
 6. **QA Workspace passes verified work to Release Workspace as Product Delivery.** Release Workspace packages and ships the verified product.
 7. **Product Intent can return to Product Specification Workspace.** If Development Workspace or QA Workspace finds that the specification must change, the Product Intent returns to Product Specification Workspace for revision.
-8. **Governance Workspace runs Scenarios on every transition above.** It validates each transition — preconditions met, policy applied, evidence captured.
+8. **Release Workspace renews Product Intent for the next cycle.** Direction, evidence, and lessons from delivery can update or create next-cycle intent.
+9. **Governance Workspace runs Scenarios on every transition above.** It validates each transition — preconditions met, policy applied, evidence captured.
 
 Detail in [product-evolution-cycle.md](product-evolution-cycle.md). Governance treatment in [governance.md](governance.md).
 

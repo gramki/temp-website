@@ -10,7 +10,7 @@ The proposed solution bet for a given Signal (Problem, Need, or Opportunity). An
 
 ## Purpose
 
-The Idea bridges Signals (Problems, Needs, Opportunities) to a potential solution direction. It enters the Discovery Track where Signal Exploration Tasks, Research Tasks, Experiments, Prototypes, and Deliberations validate or invalidate it. A validated Idea produces a Product Decision Record (PDR); a killed Idea is archived with its evidence trail. The Idea is a Definition Model entity — the Discovery Track works *on* Ideas but does not *own* them as work items (see FAQ Q2).
+The Idea bridges Signals (Problems, Needs, Opportunities) to a potential solution direction. It enters the Discovery Track where Signal Exploration Tasks, Research Tasks, Experiments, Prototypes, and Deliberations validate or invalidate it. A validated Idea produces a Product Decision Record (PDR); a Go or Pivot PDR may create one or more Product Intents. A killed Idea is archived with its evidence trail. The Idea is a Definition Model entity — the Discovery Track works *on* Ideas but does not *own* them as work items (see FAQ Q2).
 
 ## Fields
 
@@ -31,7 +31,7 @@ The Idea bridges Signals (Problems, Needs, Opportunities) to a potential solutio
 |---|---|
 | Proposed | Idea has been formulated but not yet under active investigation |
 | Investigating | Discovery Track work is actively validating this Idea |
-| Validated | Evidence supports the hypothesis — triggers PDR creation |
+| Validated | Evidence supports the hypothesis — triggers PDR creation; a Go PDR may create Product Intent |
 | Killed | Evidence does not support the hypothesis — archived with rationale |
 
 **State Diagram:**
@@ -65,6 +65,7 @@ Proposed ──[Discovery work begins               Proposed ──[Deliberation
 | Upstream | Need (Dim 1) | Need spawns this Idea |
 | Upstream | Opportunity (Dim 1) | Opportunity spawns this Idea |
 | Downstream | Product Decision Record (Dim 1) | Idea is validated/killed by PDR |
+| Downstream | Product Intent (Dim 1) | A Go or Pivot PDR for this Idea may create Product Intent |
 | Work Model | Signal Exploration Task (Track 1) | Signal Exploration may produce this Idea |
 | Work Model | Research Task (Track 1) | Research Tasks validate this Idea |
 | Work Model | Experiment (Track 1) | Experiments test this Idea's hypothesis |

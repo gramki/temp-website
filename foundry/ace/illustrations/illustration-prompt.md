@@ -159,7 +159,7 @@ Use **one** of these (artist may hand-letter):
 
 ### Intent for the viewer
 
-“**Product Intent** is the token that moves through workspaces from **release-fed intent** to **delivery**; some steps are **parallel** or **iterative**; **governance** runs on handoffs without dominating the diagram.”
+“**Product Intent** is the token that moves through workspaces from **Discovery-established or Release-renewed intent** to **delivery**; some steps are **parallel** or **iterative**; **governance** runs on handoffs without dominating the diagram.”
 
 ### Central visual element
 
@@ -171,7 +171,7 @@ Use **workspace nodes** or **labeled swim stops** consistent with Frame 3 names 
 
 **Primary path (solid arrows, numbered 1–7 optional):**
 
-1. **Release** produces / emits **Product Intent** (arrow from Release → Intent token, or caption: *Release produces Product Intent*).  
+1. **Discovery / product decision** establishes **Product Intent** (arrow from Discovery → Intent token); **Release** may renew Product Intent for the next cycle (lighter arrow from Release → Intent token, or caption: *Release renews Product Intent*).
 2. Intent **triggers** work in **Product specification** (arrow to Spec).  
 3. **Spec ↔ UX** — **bidirectional** loop (two arrows or double-headed arrow) between **Spec** and **UX**.  
 4. From **Spec**, Intent moves to **Development** **and** **QA** in **parallel** (two **solid** arrows from Spec splitting to **Dev** and **QA** — both active from Spec).  
@@ -240,7 +240,7 @@ Use **workspace nodes** or **labeled swim stops** consistent with Frame 3 names 
 
 ## 12. Source alignment (reference)
 
-This prompt is aligned with the ACE structural summary and **Product Evolution Cycle** as defined in internal material: Foundry under three models; workshops with repositories and Workbenches; six workspace types; workspaces use IDE, scenarios, tasks, human–agent teams; Release produces Product Intent; Spec↔UX; Spec to Dev and QA in parallel; Dev to QA; QA to Release as delivery; optional return from Dev/QA to Spec; governance invoked on intent transitions.
+This prompt is aligned with the ACE structural summary and **Product Evolution Cycle** as defined in internal material: Foundry under three models; workshops with repositories and Workbenches; six workspace types; workspaces use IDE, scenarios, tasks, human–agent teams; Discovery establishes Product Intent; Release renews Product Intent; Spec↔UX; Spec to Dev and QA in parallel; Dev to QA; QA to Release as delivery; optional return from Dev/QA to Spec; governance invoked on intent transitions.
 
 ---
 

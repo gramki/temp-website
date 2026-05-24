@@ -7,7 +7,7 @@
 
 The Work Model defines what work exists (entity types, state transitions, relationships) across four tracks. However, it was inconsistent in capturing three execution dimensions:
 
-1. **Artifacts** — what structured outputs each work type produces. Some artifacts were well-modeled because they feed back into the Definition Model (PDR, PSD, Feedback), but most were implied rather than structurally captured (Research findings, deployment runbooks, enablement assets, case resolution records).
+1. **Artifacts** — what structured outputs each work type produces. Some artifacts were well-modeled because they feed back into the Definition Model (PDR, Product Intent, PSD, Feedback), but most were implied rather than structurally captured (Research findings, deployment runbooks, enablement assets, case resolution records).
 
 2. **Definition of Done** — when work is complete. No work entity had explicit entry/exit criteria or artifact checklists. Stakeholders could see what work to do but not what "done" means structurally.
 
@@ -31,7 +31,7 @@ All work outputs are classified as: **Decision** (recorded choices with rational
 
 ### 3. Distinguish transitional from terminal artifacts
 
-Transitional artifacts are born in one track and consumed by another (PSD: Discovery → Build; System Version: Build → Run; Feedback: Win → Discovery). Terminal artifacts are consumed within their own track or by external systems. This distinction identifies integration points and handoff contracts.
+Transitional artifacts are born in one track and consumed by another (Product Intent: Discovery → ACE Product Evolution Cycle; PSD: Discovery → Build; System Version: Build → Run; Feedback: Win → Discovery). Terminal artifacts are consumed within their own track or by external systems. This distinction identifies integration points and handoff contracts.
 
 ### 4. Define common DoD structure: entry criteria, exit criteria, artifact checklist
 

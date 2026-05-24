@@ -14,7 +14,7 @@ The Bridge (Dimensions 8–9: Structural Topology and Data & Information) provid
 
 ### Q2: Should Definition Model entities (like Idea) appear in the Work Model?
 
-**No.** The Definition Model describes *what the product is* (static structure). The Work Model describes *what people do* (motion/process). Entities like Problem, Need, Opportunity, Idea, and PSD belong in Dimension 1 (Strategy). The Work Model's track entities are work items — Research Tasks, Experiments, etc. — that teams create and manage to *mutate* those definition entities. Including definition entities in the Work Model blurs this boundary.
+**No.** The Definition Model describes *what the product is* (static structure). The Work Model describes *what people do* (motion/process). Entities like Problem, Need, Opportunity, Idea, Product Intent, and PSD belong in Dimension 1 (Strategy). Product Intent is hybrid because it also has execution lifecycle and ACE routing semantics, but it remains a definition-bearing entity rather than a task. The Work Model's track entities are work items — Research Tasks, Experiments, etc. — that teams create and manage to *mutate* those definition entities. Including definition entities in the Work Model blurs this boundary.
 
 ---
 
@@ -31,7 +31,7 @@ The act of arriving at Ideas for a given Signal is real, trackable work. Framing
 
 ### Q4: Is a PSD a Work Model entity or a Definition Model entity?
 
-**Definition Model (Dimension 1).** A PSD describes *what the product will be* — it is a specification, not a unit of work. The Discovery Track *produces* PSDs through its work entities (Research Tasks, Experiments, Specification Tasks), but the PSD itself lives in the Strategy Dimension as the formal contract between Product and Engineering.
+**Definition Model (Dimension 1).** A PSD describes *what the product will be* — it is a specification, not a unit of work. Product Intent is created or updated by a product decision; the Discovery Track then refines Product Intent into PSDs through Specification Tasks. The PSD itself lives in the Strategy Dimension as the formal contract between Product and Engineering.
 
 ---
 
@@ -39,21 +39,36 @@ The act of arriving at Ideas for a given Signal is real, trackable work. Framing
 
 **No.** A validated Idea confirms the bet is worth taking, but translating it into PSDs is substantial, separate work — scoping modules, defining acceptance criteria, coordinating with engineering, decomposing into shippable increments. Furthermore, a single validated Idea may fan out into **multiple PSDs** covering different modules.
 
-The refined chain in Dimension 1 is: **Idea → validated by → PDR → justifies → PSD(s).** The Product Decision Record (PDR) captures the evidence and reasoning, and PSDs reference it as their formal justification. The Discovery Track includes a **Specification Task** entity to represent the PSD-authoring work explicitly.
+The refined chain in Dimension 1 is: **Idea → validated by → PDR → creates/updates → Product Intent → refined by → PSD(s).** The Product Decision Record (PDR) captures the evidence and reasoning. Product Intent carries the decision into downstream evolution work. PSDs reference the PDR as their formal justification and refine the Product Intent into module-scoped contracts. The Discovery Track includes a **Specification Task** entity to represent the PSD-authoring work explicitly.
 
 ---
 
 ### Q6: Why add a Product Decision Record (PDR) to the Definition Model?
 
-The PDR fills a traceability gap. Without it, Dimension 1 has {Problem | Need | Opportunity} → Idea → PSD, but no artifact formally records *why* a decision was made or *what evidence* supports it. The Idea says "we bet on X." The PSD says "build X this way." Neither captures the reasoning in between.
+The PDR fills a traceability gap. Without it, Dimension 1 has {Problem | Need | Opportunity} → Idea → Product Intent / PSD, but no artifact formally records *why* a decision was made or *what evidence* supports it. The Idea says "we bet on X." Product Intent says "we intend to evolve the product in this direction." The PSD says "build X this way." The PDR captures the reasoning in between.
 
 The PDR is a **Definition Model entity** (not a Work Model entity) because it documents a persistent, referenceable product decision — not a workflow transition. It differs from the earlier-rejected Discovery Decision Record (DDR), which was a process artifact governing go/no-go workflow. The PDR is a knowledge artifact: "here is the reasoning, evidence, and trade-offs behind a product decision."
 
 Key design choices:
 - **Captures any significant decision** — Go, Kill, and Pivot alike. A "Kill" PDR is just as valuable for institutional memory as a "Go" PDR.
 - **References Work Model artifacts** (Research Tasks, Experiments, Prototypes) — creating cross-model traceability from evidence to decision.
-- **Referenced by PSD(s)** — one PDR can justify multiple PSDs across different modules.
-- **The revised Dimension 1 chain:** {Problem | Need | Opportunity} → spawns → Idea(s) → validated by → PDR → justifies → PSD(s).
+- **Creates or updates Product Intent(s)** — one PDR can produce multiple routable Product Intents.
+- **Referenced by PSD(s)** — one PDR can justify multiple PSDs across different modules; PSDs refine Product Intent.
+- **The revised Dimension 1 chain:** {Problem | Need | Opportunity} → spawns → Idea(s) → validated by → PDR → creates/updates → Product Intent → refined by → PSD(s).
+
+---
+
+### Q6a: Why does Product Intent sit between PDR and PSD?
+
+The PDR records *why* a decision was made and what evidence supports it. Product Intent records *what product evolution we are now committing to* and becomes the routable bridge into ACE workspace execution. PSD records *how each affected module will change* under that intent.
+
+Without Product Intent, PSD doubles as both the decision output and the execution token. That collapses discovery completion with specification detail and makes it look like a PSD creates intent. The intended separation is:
+
+```text
+Product decision / PDR -> Product Intent -> PSD refinement
+```
+
+One Go or Pivot PDR may create multiple Product Intents. Each Product Intent may then be refined by one or more PSDs, depending on how many modules are affected.
 
 ---
 
@@ -82,7 +97,8 @@ The UPIM deliberately uses **Specification** over **Requirements** because each 
 
 1. **Signals are captured upstream.** The Signal layer (Problem, Need, Opportunity) already captures *what warrants attention* — the observations, gaps, and strategic indicators. By the time the PSD is written, the Signal investigation phase is over.
 2. **Decisions are captured midstream.** The Product Decision Record (PDR) captures *what we're committing to and why* — the evidence and trade-offs. This is also not the PSD's job.
-3. **Specifications are what remains.** The PSD's job is to precisely *specify what to build and how it should behave* — scope boundaries, acceptance criteria, module decomposition, behavioral contracts. This is specification work, not requirements work.
+3. **Product Intent carries commitment.** Product Intent translates the decision into routable product evolution work.
+4. **Specifications refine intent.** The PSD's job is to precisely *specify what to build and how it should behave* under a Product Intent — scope boundaries, acceptance criteria, module decomposition, behavioral contracts. This is specification work, not requirements work.
 
 The terminology creates a clean separation of concerns across the chain:
 
@@ -90,9 +106,10 @@ The terminology creates a clean separation of concerns across the chain:
 |---|---|---|
 | Signal | Problem / Need / Opportunity | What warrants attention (observation) |
 | Decision | PDR | What we're committing to and why (evidence + rationale) |
-| Specification | PSD | Precisely what to build and how it should behave (contract) |
+| Intent | Product Intent | The routable product evolution commitment |
+| Specification | PSD | Precisely what to build and how it should behave under that intent (contract) |
 
-Additionally, **naming consistency**: the Work Model already has **Specification Task** as the work entity that produces PSDs. The PSD + Specification Task pairing is self-documenting.
+Additionally, **naming consistency**: the Work Model already has **Specification Task** as the work entity that refines Product Intent by producing PSDs. The PSD + Specification Task pairing is self-documenting.
 
 The trade-off is that "PRD" is deeply entrenched industry vocabulary. However, since the UPIM defines its own precise ontology, clarity within the model takes priority over convention.
 
@@ -239,7 +256,7 @@ The UPIM uses **Signal** as the collective term for Problem, Need, and Opportuni
 
 **Why not "intake item"?** In practice, "intake" carries an implicit obligation to process and deliver. When a customer submits something through an "intake" process, organizations tend to treat it as a requirement that *should* be completed. This conditioning suppresses the very discovery, decision-making, and prioritization process that the UPIM explicitly mandates. An "intake" from a customer is reflexively treated as a customer requirement — not as a hint, symptom, or observation that warrants investigation.
 
-**Why not "backlog item"?** In Scrum, "Product Backlog Item" (PBI) refers to User Stories, Bugs, and Spikes — Build Track entities in our model. Using "backlog item" for Problems/Needs/Opportunities conflates two very different levels separated by several layers (Signal → Idea → PDR → PSD → Epic → Story). Additionally, "backlog" implies the item is already in a prioritized queue awaiting work. Many Signals will sit unassociated and unranked indefinitely — they are not "in the backlog."
+**Why not "backlog item"?** In Scrum, "Product Backlog Item" (PBI) refers to User Stories, Bugs, and Spikes — Build Track entities in our model. Using "backlog item" for Problems/Needs/Opportunities conflates two very different levels separated by several layers (Signal → Idea → PDR → Product Intent → PSD → Epic → Story). Additionally, "backlog" implies the item is already in a prioritized queue awaiting work. Many Signals will sit unassociated and unranked indefinitely — they are not "in the backlog."
 
 **Why "Signal"?**
 
@@ -574,7 +591,7 @@ See DR-015 (Dim 2 restructure, where Lever Portfolio is defined) and DR-016 (Win
 
 ### Q32: Why did Initiative evolve from "Discovery program" to "cross-track coordination construct"?
 
-Originally, Initiative was defined as a mechanism for grouping Signals for discovery, implying a flow: Initiative → Discovery → PSD → Build. The Dim 2 restructure (DR-015) and the lever discussion (DR-016) revealed that an Initiative like "LATAM Enterprise Market Entry" drives work across *all four tracks* — product development (Build), GTM execution (Win), sales enablement (Win), CS programs (Win), infrastructure (Run), and potentially organizational changes (Operating Model).
+Originally, Initiative was defined as a mechanism for grouping Signals for discovery, implying a flow: Initiative → Discovery → Product Intent → PSD → Build. The Dim 2 restructure (DR-015) and the lever discussion (DR-016) revealed that an Initiative like "LATAM Enterprise Market Entry" drives work across *all four tracks* — product development (Build), GTM execution (Win), sales enablement (Win), CS programs (Win), infrastructure (Run), and potentially organizational changes (Operating Model).
 
 Three additions make the cross-track nature explicit:
 

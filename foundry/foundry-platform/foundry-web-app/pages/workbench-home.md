@@ -105,7 +105,7 @@ Grouped consoles for focused views.
 
 | Console | Purpose |
 |---------|---------|
-| **PI Console** | Signals, Objectives, Initiatives, Discovery flow, Product Intents |
+| **PI Console** | Signals, Objectives, Initiatives, PDR → Product Intent → PSD flow |
 | **Workspaces Console** | 6 Workspace views, active Work Orders per Workspace |
 | **Progress Console** | Work completion analytics, burndown |
 | **Track Console** | Per-Track work analytics (Discovery, Build, etc.) |
@@ -188,7 +188,7 @@ Grouped consoles for focused views.
 
 | Action | Location |
 |--------|----------|
-| Create Intent | PI Console or Wall |
+| Create Intent from PDR | PI Console or Wall |
 | Create Work Order | Workspaces Console or Wall |
 | Complete Tasks | Wall (Due Today) or Workspaces Console |
 | Open IDE | Any Workspace context |

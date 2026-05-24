@@ -36,7 +36,9 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Repositories (ACE sense).** The collection of stores that workshops use and update. ACE names a conceptual repository set in [ace/ace-model.md](ace/ace-model.md). The canonical inventory — UPIM-aligned with codes (PIR, DKB, DAR, POR, CAR, QVS, OPR, PFR, PPR, WR, WFR, ESR, PEIR) — lives in [ace/repositories.md](ace/repositories.md). Some repositories are Foundry-scoped (e.g. WFR), others are Workshop-scoped; see [foundry/1.TODO](1.TODO) line 9.
 
-**Product Intent.** The thread that flows through workspaces. Release Workspace produces Product Intent; Product Specification triggers on it; it moves to UX Design and back, then to Development and QA in parallel, on to Release as Product Delivery, optionally returning to Specification from Development or QA. Source: [ace/ace-model.md](ace/ace-model.md) lines 51-58.
+**Product Intent.** Hybrid bridge entity in the Product Intent Repository (PIR): **definition-bearing** (committed direction with decision provenance), **work-triggering** (arrival invokes Workspace Scenarios), and **ACE-routable** (moves through the Product Evolution Cycle). Discovery and product decisions (Signal → Idea → PDR) establish or update Product Intent; PSDs refine it; Release renews it for the next cycle. Source: [product-information-model/entities/definition-model/dim1-product-intent.md](product-information-model/entities/definition-model/dim1-product-intent.md), [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md), [ace/concepts.md](ace/concepts.md).
+
+**Product Intent Repository (PIR).** The repository that stores strategy, vendor/customer context, Discovery flowing items, PSDs, and routable Product Intent entities. Not every PIR item is a Product Intent; Product Intent is the ACE-routable bridge item inside the broader repository.
 
 **Product Evolution Cycle.** The named flow of Product Intent across workspaces. Detailed in [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md).
 

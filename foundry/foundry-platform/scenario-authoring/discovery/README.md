@@ -1,12 +1,12 @@
 # Discovery Track — Scenarios
 
-**Track:** Discovery — turning signals into Product Intent.
+**Track:** Discovery — turning Signals into PDR-backed Product Intent, then refining intent into PSDs.
 
 ## Workspaces in this Track
 
 | Workspace | Folder | Example Scenarios |
 |-----------|--------|-------------------|
-| Product Specification | [product-specification/](product-specification/) | Translate signal to Product Intent, Write PSD from feedback |
+| Product Specification | [product-specification/](product-specification/) | Create Product Intent from Go/Pivot PDR, refine PSD under Product Intent |
 | UX Design | [ux-design/](ux-design/) | Create discovery wireframes, User research synthesis |
 | Development | [development/](development/) | Technical feasibility assessment, Spike implementation |
 | QA | [qa/](qa/) | Testability review, Risk assessment |

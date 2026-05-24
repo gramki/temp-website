@@ -111,9 +111,9 @@ These attributes are set independently. A GA Module may contain Alpha Capabiliti
 - System mapping (Dim 5 — which Systems realize the Module)
 - Dim 5, Dim 6, Dim 7, Dim 9 sections (technical, ecosystem, operational, security mapping)
 
-**Gate — Approved status:** Both zones complete and signed off → Build Track entry point
+**Gate — Approved status:** Both zones complete and signed off → Product Intent is sufficiently refined for Build Track entry
 
-**Rationale:** Without a formal partition, PSDs entered the Build Track with incomplete technical mapping, or architects were expected to fill in PM sections, or neither happened and Build Track work began on underspecified requirements. The split creates a two-phase authorship model with a clear gate: PM delivers functional specification; architect delivers technical mapping; both must be complete before any Build Track work begins.
+**Rationale:** Without a formal partition, Product Intent could move into Build with incomplete technical mapping, or architects were expected to fill in PM sections, or neither happened and Build Track work began on underspecified requirements. The split creates a two-phase authorship model with a clear gate: PM delivers functional specification; architect delivers technical mapping; both must be complete before any Build Track work begins.
 
 ---
 

@@ -7,7 +7,7 @@
 
 The Foundry repository architecture was originally designed around the "Agent-Native Product Engineering System" framing with 11 repositories (PIR, DKB, DAR, CAR, QVS, PEIR, PPR, POR, PFR, WR, AWR). As the UPIM evolved — introducing 9 Dimensions, 5 Tracks, incident management, deployment workflows, and the FIR universal intake pattern — several gaps emerged:
 
-1. PIR's name ("Product Idea Repository") understated its expanded scope (strategy, business model, customer value, signals, ideas, PSDs)
+1. PIR's name ("Product Idea Repository") understated its expanded scope (strategy, business model, customer value, signals, ideas, Product Intents, PSDs)
 2. AWR's name ("Agent & Workforce Repository") implied AI-agent focus; the repository actually tracks all internal workers (human + AI)
 3. CAR held deployment and operational artifacts alongside code — conflating build-time and run-time concerns
 4. PFR was monolithic — feedback from Win, Run, and Build tracks had different ownership and lifecycle needs
@@ -18,7 +18,7 @@ The Foundry repository architecture was originally designed around the "Agent-Na
 
 ### D1: PIR renamed to Product Intent Repository
 
-The scope of PIR expands to be the comprehensive ledger of strategic direction, business models, customer value propositions, and product evolution ideas. Internal structure: Strategy (Dim 1 strategic entities), Business Model (Dim 2), Customer Value (Dim 3), Signals & Ideas (Dim 1 flowing items), Specifications (PSDs).
+The scope of PIR expands to be the comprehensive ledger of strategic direction, business models, customer value propositions, and product evolution ideas. Internal structure: Strategy (Dim 1 strategic entities), Business Model (Dim 2), Customer Value (Dim 3), Signals & Ideas (Dim 1 flowing items), Product Intents (routable bridge items), Specifications (PSDs that refine Product Intent).
 
 **Rationale:** "Product Idea Repository" implied PIR held only ideas. The repository actually holds the product's strategic intent across three dimensions. "Product Intent Repository" accurately reflects this scope while retaining the PIR abbreviation.
 
@@ -77,7 +77,7 @@ QVS owns evidence about code quality (test results, coverage, security scans, pe
 
 | Abbreviation | Full Name | Scope | UPIM Mapping |
 |---|---|---|---|
-| PIR | Product Intent Repository | Strategy, Business Model, Customer Value, Signals, Ideas, PSDs | Dim 1, 2, 3 |
+| PIR | Product Intent Repository | Strategy, Business Model, Customer Value, Signals, Ideas, Product Intents, PSDs | Dim 1, 2, 3 |
 | DKB | Domain Knowledge Base | Domain knowledge, glossaries, ontologies, business rules | Dim 9 |
 | DAR | Design & Architecture Repository | Architecture, API models, infrastructure, operational specs | Dim 5, 6, 7 (definitions) |
 | POR | Product Ontology Repository | Product structure, capabilities, features, maturity | Dim 8 |

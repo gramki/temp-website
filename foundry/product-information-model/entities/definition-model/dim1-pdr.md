@@ -17,7 +17,8 @@ Key design choices:
 - **May correspond to multiple Ideas** — a single Deliberation may evaluate several related Ideas and produce one PDR covering all of them.
 - **May exist without a specific Idea** — a strategic Deliberation (e.g., "enter LATAM market") may produce a PDR that triggers Modeling Tasks and Initiatives without a formal Idea entity preceding it.
 - **References Work Model artifacts** — creating cross-model traceability from evidence to decision.
-- **Referenced by PSD(s)** — one PDR can justify multiple PSDs across different modules.
+- **Creates or updates Product Intent(s)** — one PDR can justify multiple routable Product Intents.
+- **Referenced by PSD(s)** — one PDR can justify multiple PSDs across different modules; PSDs refine Product Intent rather than create it.
 - **May trigger Modeling Tasks** — a PDR decision may require Definition Model updates (Dims 2–9) in addition to or instead of engineering changes.
 
 ## Fields
@@ -34,7 +35,7 @@ Key design choices:
 | Rationale | Text | Why this decision was made — the reasoning |
 | Trade-offs | Text | What was considered and rejected — alternatives and their downsides |
 | Confidence Level | Enum | `Low` / `Medium` / `High` |
-| Triggers | Text | What this decision triggers — PSD(s), Modeling Task(s), Initiative(s), or combination |
+| Triggers | Text | What this decision triggers — Product Intent(s), PSD(s), Modeling Task(s), Initiative(s), or combination. Product Intent comes first when the decision commits to downstream product evolution. |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -68,7 +69,8 @@ Draft ──[evidence assembled, decision          Draft ──[abandoned before
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Upstream | Idea (Dim 1) | PDR validates/kills Idea(s) — may correspond to multiple Ideas |
-| Downstream | PSD (Dim 1) | PDR justifies PSD(s) — a single PDR may justify multiple PSDs across different modules |
+| Downstream | Product Intent (Dim 1) | Go or Pivot PDRs create or update Product Intent(s) |
+| Downstream | PSD (Dim 1) | PDR justifies PSD(s) that refine Product Intent — a single PDR may justify multiple PSDs across different modules |
 | Downstream | ADR(s) (Dim 5) | PDR may trigger Architecture Decision Records for technical/architectural decisions required to implement the product decision |
 | Downstream | ODR(s) (Dim 7) | PDR may trigger Operations Decision Records for infrastructure/operational decisions required to support the product decision |
 | Downstream | Modeling Task (Track 1) | PDR may trigger Modeling Tasks for Definition Model updates |
@@ -81,4 +83,4 @@ Draft ──[evidence assembled, decision          Draft ──[abandoned before
 
 ## Example
 
-"PDR-017: Go — Real-time FX rate locking. Based on: 23 user interviews confirming margin pain, fake-door test (14% click-through), provider feasibility spike (<200ms quotes), and product council deliberation (2026-02-10). Trade-off: adds FX provider dependency. Triggers: PSD-042 (Invoice & Payout Module), PSD-043 (FX Microservice Module), Modeling Task (update Value Stream 'Cross-Border Payout Processing')."
+"PDR-017: Go — Real-time FX rate locking. Based on: 23 user interviews confirming margin pain, fake-door test (14% click-through), provider feasibility spike (<200ms quotes), and product council deliberation (2026-02-10). Trade-off: adds FX provider dependency. Triggers: PI-042 (Invoice Flow FX Rate Lock), PI-043 (FX Audit Trail), PSD-042 (Invoice & Payout Module), PSD-043 (FX Microservice Module), Modeling Task (update Value Stream 'Cross-Border Payout Processing')."

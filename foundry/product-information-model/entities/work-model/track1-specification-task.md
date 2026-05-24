@@ -6,11 +6,11 @@
 
 ## Definition
 
-A granular PSD-authoring action — scoping modules, writing acceptance criteria, coordinating feasibility with engineering, decomposing into shippable increments. Represents the substantial work between a validated Idea (Go decision via PDR) and a completed PSD.
+A granular PSD-authoring action — scoping modules, writing acceptance criteria, coordinating feasibility with engineering, decomposing into shippable increments. Represents the substantial work of refining an accepted Product Intent into one or more completed PSDs.
 
 ## Purpose
 
-Makes the PSD-authoring work explicit in the Work Model. A validated Idea does not automatically produce PSDs — the translation requires significant effort: defining scope boundaries per module, writing detailed acceptance criteria, coordinating with engineering on feasibility, and identifying cross-module dependencies. Specification Tasks track this work (see FAQ Q5).
+Makes the PSD-authoring work explicit in the Work Model. A Go or Pivot PDR may create Product Intent, but that intent is not yet a buildable module contract. Refinement requires significant effort: defining scope boundaries per module, writing detailed acceptance criteria, coordinating with engineering on feasibility, and identifying cross-module dependencies. Specification Tasks track this work (see FAQ Q5). They consume Product Intent; they do not originate it.
 
 ## Fields
 
@@ -28,8 +28,9 @@ Makes the PSD-authoring work explicit in the Work Model. A validated Idea does n
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Produces | PSD (Dim 1) | Specification Tasks produce PSDs |
-| Justified by | Product Decision Record (Dim 1) | Work is triggered by a Go decision in a PDR |
+| Refines | Product Intent (Dim 1) | Specification Tasks refine an accepted Product Intent |
+| Produces | PSD (Dim 1) | Specification Tasks produce PSDs under a Product Intent |
+| Justified by | Product Decision Record (Dim 1) | Work is authorized by a Go or Pivot decision in a PDR |
 
 ## Example
 

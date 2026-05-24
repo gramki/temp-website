@@ -23,7 +23,7 @@ The 9 Dimensions define the structural reality of the product at any given momen
 
 ### TIER 1: STRATEGY & INTENT
 
-*Owned by Product Management and Executive Leadership. This tier models portfolio context, strategic themes, direction (Objectives, Initiatives, Customer Releases), Signals (Problems, Needs, Opportunities), solution hypotheses (Ideas), decisions (PDRs), and specifications (PSDs).*
+*Owned by Product Management and Executive Leadership. This tier models portfolio context, strategic themes, direction (Objectives, Initiatives, Customer Releases), Signals (Problems, Needs, Opportunities), solution hypotheses (Ideas), decisions (PDRs), Product Intents, and specifications (PSDs).*
 
 #### Dimension 1: The Strategy Dimension
 
@@ -96,14 +96,19 @@ The three Signal types are classified by origin, nature, and beneficiary lens. T
 * *Example:* "If we add one-click FX rate locking, we expect a 60% reduction in per-transaction cost because manual hedging is the primary cost driver." (Confidence: Medium, Effort: L)
 
 
-* **Product Decision Record (PDR):** A formal, referenceable record of a significant product decision — including the reasoning, evidence, and trade-offs. Captures Go, Kill, and Pivot decisions alike. A PDR may correspond to **multiple Ideas** and may also exist **without a specific Idea** (e.g., from a strategic Deliberation). References Discovery Track work (Research Tasks, Experiments, Prototypes, **Deliberations**) as evidence. Fields include: Decision Type (Go/Kill/Pivot), Decision Makers, Evidence References, Rationale, Trade-offs, Confidence Level, Triggers (PSDs, Modeling Tasks, or both).
-* *Structure/Relationship:*  PDR validates/kills  Idea(s).  PDR justifies  PSD(s) and/or triggers  Modeling Task(s).
+* **Product Decision Record (PDR):** A formal, referenceable record of a significant product decision — including the reasoning, evidence, and trade-offs. Captures Go, Kill, and Pivot decisions alike. A PDR may correspond to **multiple Ideas** and may also exist **without a specific Idea** (e.g., from a strategic Deliberation). References Discovery Track work (Research Tasks, Experiments, Prototypes, **Deliberations**) as evidence. Fields include: Decision Type (Go/Kill/Pivot), Decision Makers, Evidence References, Rationale, Trade-offs, Confidence Level, Triggers (Product Intents, PSDs, Modeling Tasks, or combinations).
+* *Structure/Relationship:*  PDR validates/kills  Idea(s).  Go/Pivot PDR creates or updates  Product Intent(s).  PDR justifies  PSD(s) and/or triggers  Modeling Task(s).
 * *Status Lifecycle:* `Draft` → `Final` → `Superseded`.
-* *Example:* "PDR-017: Go — Real-time FX rate locking. Based on: 23 user interviews, fake-door test (14% CTR), feasibility spike, product council deliberation. Trade-off: adds FX provider dependency. Triggers: PSD-042, PSD-043, Modeling Task (update Value Stream)."
+* *Example:* "PDR-017: Go — Real-time FX rate locking. Based on: 23 user interviews, fake-door test (14% CTR), feasibility spike, product council deliberation. Trade-off: adds FX provider dependency. Triggers: PI-042, PI-043, PSD-042, PSD-043, Modeling Task (update Value Stream)."
+
+* **Product Intent:** The hybrid bridge entity that translates a product decision into downstream product evolution work. Product Intent carries the committed direction — what the product intends to change, for whom, and why — and is the ACE-routable item that triggers Product Specification, UX Design, Development, QA, Release, and Governance work. Product Intent is created by Discovery Track outcomes, typically a Go or Pivot PDR; PSDs refine Product Intent, they do not create it.
+* *Structure/Relationship:*  Product Intent is created/updated by  PDR.  Product Intent traces to  Signal(s), Idea(s), Objective(s), Initiative(s), and other decision context such as KRAs, SLAs, Customer Promises, or Win Outcomes.  Product Intent is refined by  PSD(s) and routed through ACE Workspaces.
+* *Status Lifecycle:* `Formed` → `Accepted` → `In Specification` → `Specified` → `In Evolution` → `Delivered` → `Closed`; alternate states: `Parked`, `Superseded`, `Cancelled`.
+* *Example:* "PI-042: Real-Time FX Rate Lock in Invoice Flow" — created from PDR-017, advances LATAM Enterprise activation, refined by PSD-042 for the Invoice & Payout Module and PSD-043 for the FX Module.
 
 
-* **PSD (Product Specification Document):** The validated, approved specification that acts as the contract between Product and Engineering. A PSD is scoped to a **single module** and specifies the advancement of that module's capabilities through new features, feature refinements, or feature retirements. It is a cross-dimensional impact assessment — specifying implications across all 9 dimensions, with depth varying by module archetype. PSD authoring is substantial work that follows a Go decision — it is not an automatic outcome.
-* *Structure/Relationship:*  PSD is scoped to a Module (Dim 8).  PSD decomposes into  Epics (Build Track).  PSD references  PDR (justification).  Sibling PSDs from the same PDR coordinate cross-module changes.
+* **PSD (Product Specification Document):** The validated, approved specification that acts as the contract between Product and Engineering. A PSD is scoped to a **single module** and refines Product Intent by specifying the advancement of that module's capabilities through new features, feature refinements, or feature retirements. It is a cross-dimensional impact assessment — specifying implications across all 9 dimensions, with depth varying by module archetype. PSD authoring is substantial work that follows a Go decision and accepted Product Intent — it is not an automatic outcome and it does not create intent.
+* *Structure/Relationship:*  PSD refines  Product Intent.  PSD is scoped to a Module (Dim 8).  PSD decomposes into  Epics (Build Track).  PSD references  PDR (justification).  Sibling PSDs from the same Product Intent/PDR coordinate cross-module changes.
 * *Change Types:* New Feature(s) | Feature Refinement | Feature Retirement.
 * *Templates:* PSD templates are provided per module archetype (Human-Interactive, Programmatic-Interactive, Reactive/Background) — see `entities/definition-model/psd-templates/`.
 * *Example:* PSD-042: "Real-Time FX Rate Lock — Invoice & Payout Processing Module" (Human-Interactive, Feature Addition).

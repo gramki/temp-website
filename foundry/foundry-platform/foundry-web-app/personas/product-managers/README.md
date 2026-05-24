@@ -2,35 +2,37 @@
 
 **Primary Workspace:** Product Specification
 
-**Role:** Define what to build — translate signals into Product Intent and specifications, prioritize work, track product evolution.
+**Role:** Define what to build — translate Signals through Discovery into Product Decisions (PDRs), commit direction as Product Intent, refine specifications (PSDs) under that intent, prioritize work, and track product evolution.
 
 ---
 
 ## Primary Jobs
 
-### J1. Create new Product Intent from signals/feedback
-**When** a signal arrives (customer feedback, market insight, strategic directive)  
-**I want to** create a new Product Intent and capture its context  
-**So that** it enters the product evolution flow
+### J1. Create Product Intent from a Product Decision (PDR)
+**When** a Go or Pivot PDR is finalized
+**I want to** create a Product Intent anchored to that decision and its evidence
+**So that** it enters the ACE Product Evolution Cycle
 
 **Acceptance Criteria:**
-- Create Product Intent form
-- Link to source signal (FIR, feedback, request)
+- Create Product Intent from linked PDR
+- Preserve traceability to source Signals and Ideas
+- Capture decision rationale and evidence references
 - Assign to Workbench
-- Initial prioritization
-- Route to specification scenario
+- Initial prioritization against Objective, Initiative, KRA, SLA, or Customer Promise context
+- Route to Product Specification Workspace for PSD refinement scenarios
 
 ---
 
-### J2. Translate Product Intent into specifications (PSDs)
-**When** a Product Intent needs elaboration  
-**I want to** write or refine the Product Specification Document  
-**So that** UX and Development can act on it
+### J2. Refine Product Intent into specifications (PSDs)
+**When** a Product Intent has entered the Product Specification Workspace
+**I want to** write or refine PSDs under that intent
+**So that** UX and Development can act on an approved specification contract
 
 **Acceptance Criteria:**
 - PSD editor with templates
 - Agent-assisted drafting
 - Link to Product Intent
+- Reference the authorizing PDR
 - Acceptance criteria definition
 - Ready-for-design transition
 

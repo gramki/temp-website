@@ -51,8 +51,10 @@ Workspace
 
 
 Product Evolution Cycle
-* Release Workspace produces Product Intent
+* Discovery and product decisions establish or update Product Intent
+* Release Workspace renews Product Intent for the next cycle
 * Product Intent triggers Scenarios in Product Specification Workspace
+* PSDs refine Product Intent into buildable specification
 * Product Intent moves from Product Specification to UX Design Workspace
 * Product Intent moves from UX Design Workspace to Product Specification Workspace
 * Product Intent moves from Product Specification Workspace to Development Workspace and Quality Assurance Workspace

@@ -6,13 +6,13 @@
 
 ## Definition
 
-The validated, approved specification that acts as the contract between Product and Engineering. A PSD is **scoped to a single module** and specifies the advancement of that module's capabilities through new features, feature refinements, or feature retirements. A single validated Idea (via its PDR) may produce multiple PSDs — one per substantially affected module.
+The validated, approved specification that acts as the contract between Product and Engineering. A PSD is **scoped to a single module** and refines an existing Product Intent through new features, feature refinements, or feature retirements. A single Product Intent may produce multiple PSDs — one per substantially affected module.
 
 A PSD is a **cross-dimensional impact assessment** anchored to a structural change (Dimension 8). While the primary specification surface varies by module archetype, every PSD must acknowledge implications across all 9 dimensions — even if some sections state "No impact."
 
 ## Purpose
 
-The PSD is the exit artifact of the Strategy Dimension and the entry point for the Build Track. It translates a validated decision (PDR) into a buildable specification with scope, acceptance criteria, and decomposition into Epics. PSD authoring involves scoping modules, writing acceptance criteria, coordinating with engineering, and decomposing into shippable increments — represented by Specification Tasks in the Discovery Track (see FAQ Q5).
+The PSD refines Product Intent into a buildable specification with scope, acceptance criteria, and decomposition into Epics. It is not the source of Product Intent; Product Intent is created or updated by a product decision, typically a Go or Pivot PDR. PSD authoring involves scoping modules, writing acceptance criteria, coordinating with engineering, and decomposing into shippable increments — represented by Specification Tasks in the Discovery Track (see FAQ Q5).
 
 **Terminology note:** The UPIM uses "Product Specification Document" (PSD) rather than the more common "Product Requirements Document" (PRD). See FAQ Q8 for the rationale.
 
@@ -34,6 +34,7 @@ The PSD is the exit artifact of the Strategy Dimension and the entry point for t
 | PSD ID | String | Unique identifier (e.g., PSD-042) |
 | Version | Semver | Document revision (e.g., 1.0, 1.1) |
 | Status | Enum | Current document status (see Statuses below) |
+| Product Intent Reference | Reference | The Product Intent this PSD refines |
 | PDR Reference | Reference | The Product Decision Record that justifies this PSD |
 | Source Signals | List of References | The Signal(s) — Problem(s), Need(s), or Opportunity(ies) — that originated this work |
 | Target Module | Reference (Dim 8) | The Module being changed |
@@ -171,12 +172,13 @@ Always required. The "table of contents" of the change.
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
+| Upstream | Product Intent (Dim 1) | PSD refines Product Intent into a module-scoped build contract |
 | Upstream | Product Decision Record (Dim 1) | PSD references PDR as its justification |
 | Scoped to | Module / Domain (Dim 8) | PSD is scoped to a single Module |
 | Specifies | Capability (Dim 8) | PSD adds, modifies, or retires Capabilities |
 | Specifies | Feature (Dim 8) | PSD adds, modifies, or retires Features |
 | Downstream | Epic (Track 2) | PSD decomposes into Epics in the Build Track |
-| Sibling | PSD (Dim 1) | Related PSDs from the same PDR (cross-module coordination) |
+| Sibling | PSD (Dim 1) | Related PSDs from the same Product Intent / PDR (cross-module coordination) |
 | Work Model | Specification Task (Track 1) | Specification Tasks represent the work of authoring this PSD |
 
 ## Change Type Behavior
@@ -193,4 +195,4 @@ Always required. The "table of contents" of the change.
 
 ## Example
 
-PSD-042: "Real-Time FX Rate Lock — FX Module" (Module Functional Classification: Intelligence, Feature Addition). Capabilities: Real-Time FX Rate Lock (Integration template), FX Rate Audit Trail (Integration template). Sibling PSD: PSD-043 scoped to the Payments Module (Record).
+PSD-042: "Real-Time FX Rate Lock — FX Module" refines PI-042, justified by PDR-017 (Module Functional Classification: Intelligence, Feature Addition). Capabilities: Real-Time FX Rate Lock (Integration template), FX Rate Audit Trail (Integration template). Sibling PSD: PSD-043 scoped to the Payments Module (Record).

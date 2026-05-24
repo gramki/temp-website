@@ -20,6 +20,7 @@ entities/
 │   ├── dim1-opportunity.md
 │   ├── dim1-idea.md
 │   ├── dim1-pdr.md
+│   ├── dim1-product-intent.md        ← Hybrid bridge: product decision → routable evolution work
 │   ├── dim1-psd.md
 │   ├── dim2-business-model.md
 │   ├── dim2-win-stakeholder.md          ← AAARRR roles; engaged with segments

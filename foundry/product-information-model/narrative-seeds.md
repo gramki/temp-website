@@ -548,7 +548,7 @@ When the same Job can be accomplished across multiple Channels, or when a user s
 
 ### UX Channels carry a lifecycle — channel investment is a PDR-level decision
 
-Deciding to build a new Channel (e.g., "build a mobile app," "add a chatbot") is a strategic investment that should be governed through Discovery: Deliberation → PDR → PSD. Channels carry statuses: `Proposed → Approved → Active → Deprecated → Retired`. This is consistent with how other structural entities with significant investment implications are governed (Pricing Tiers, Customer Releases).
+Deciding to build a new Channel (e.g., "build a mobile app," "add a chatbot") is a strategic investment that should be governed through Discovery: Deliberation → PDR → Product Intent → PSD. Channels carry statuses: `Proposed → Approved → Active → Deprecated → Retired`. This is consistent with how other structural entities with significant investment implications are governed (Pricing Tiers, Customer Releases).
 
 ### Embedded is a channel modality, not just a technical concern
 

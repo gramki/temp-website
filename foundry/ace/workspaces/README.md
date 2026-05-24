@@ -8,11 +8,11 @@ The docs in this folder are **stub-grade** today. They establish purpose, primar
 
 | Workspace | Doc | Concern |
 |---|---|---|
-| Product Specification | [product-specification.md](product-specification.md) | Translate Product Intent into specifications. |
+| Product Specification | [product-specification.md](product-specification.md) | Refine Product Intent into PSDs and specification artifacts. |
 | UX Design | [ux-design.md](ux-design.md) | Design experience for specified intent. |
 | Development | [development.md](development.md) | Build the specified solution. |
 | QA | [qa.md](qa.md) | Verify and validate built artifacts. |
-| Release | [release.md](release.md) | Manage and produce Product Delivery; emit new Product Intent. |
+| Release | [release.md](release.md) | Manage and produce Product Delivery; renew Product Intent. |
 | Governance | [governance.md](governance.md) | Validate every transition of Product Intent. |
 
 ## Common pattern

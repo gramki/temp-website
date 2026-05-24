@@ -75,7 +75,7 @@ ACE defines six workspace types, each owning a distinct concern:
 
 | Workspace | Concern |
 |---|---|
-| **Product Specification** | Translate Product Intent into specifications. |
+| **Product Specification** | Refine Product Intent into PSDs and specification artifacts. |
 | **UX Design** | Design the user experience for specified intent. |
 | **Development** | Build the specified solution. |
 | **QA** (Quality Assurance) | Verify and validate what is built. |
@@ -113,7 +113,7 @@ These four are presentation clusters, not a substitute for the formal taxonomy. 
 
 ## Product Intent
 
-**Product Intent** is the asset that flows through the workspaces. The Release Workspace produces it; the Specification Workspace acts on it; the cycle continues until intent is delivered as Product Delivery. The full flow is detailed in [product-evolution-cycle.md](product-evolution-cycle.md).
+**Product Intent** is the hybrid bridge entity that flows through the workspaces. It is definition-bearing, work-triggering, and ACE-routable: Discovery and product decisions establish or update it in the Product Intent Repository, Product Specification refines it through PSDs, and Release renews it for the next cycle. Product Intent is not a ticket and not a PSD; it is the decision-to-evolution carrier that Workspaces act on. The full flow is detailed in [product-evolution-cycle.md](product-evolution-cycle.md).
 
 Product Intent items are owned. In the engagement view, the Engagement Workshop owns Product Intent items at the umbrella level — program-managed consolidation of intent for one or more Products (each evolved in its Workbench). Source: [../1.TODO](../1.TODO) line 11.
 

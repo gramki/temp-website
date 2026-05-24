@@ -2,19 +2,19 @@
 
 ## Purpose
 
-Translate **Product Intent** into specifications. The Product Specification Workspace is the workspace where intent first becomes structured product description — at a level of detail that downstream workspaces (UX Design, Development, QA, Release) can act on.
+Refine **Product Intent** into PSDs and related specification artifacts. The Product Specification Workspace is the workspace where accepted intent becomes structured product description — at a level of detail that downstream workspaces (UX Design, Development, QA, Release) can act on.
 
 ## Inbound and outbound intent
 
-- **Inbound:** from the Release Workspace (new Product Intent at cycle start) and from UX Design, Development, or QA (intent returning for revision). Source: [../ace-model.md](../ace-model.md) lines 53, 55, 58.
+- **Inbound:** from Discovery/product decisions (new or updated Product Intent), from Release Workspace (renewed Product Intent for the next cycle), and from UX Design, Development, or QA (intent returning for revision). Source: [../ace-model.md](../ace-model.md) lines 53, 55, 58.
 - **Outbound:** to UX Design (bidirectional) and to Development and QA (parallel fan-out once specifications are ready). Source: [../ace-model.md](../ace-model.md) lines 54, 56.
 
 ## Primary scenarios (illustrative)
 
 This workspace owns scenarios such as:
 
-- Triggering on arrival of new Product Intent and producing a specification.
-- Producing a Product Specification Document (PSD) with cross-dimensional impact assessment, per UPIM convention.
+- Triggering on arrival of new or renewed Product Intent and refining it.
+- Producing or updating Product Specification Documents (PSDs) with cross-dimensional impact assessment, per UPIM convention.
 - Co-evolving with UX Design through bidirectional intent transfer.
 - Receiving returned intent from Development or QA and re-specifying.
 
@@ -22,7 +22,7 @@ Concrete scenario catalogs are platform-specific and live in [../../foundry-plat
 
 ## Repositories touched
 
-- **Product Intent Repository (PIR)** — read and write. The workspace consumes intent, produces specifications, and updates intent state.
+- **Product Intent Repository (PIR)** — read and write. The workspace consumes intent, refines it through specifications, and updates intent state.
 - **Domain Knowledge Repository (DKB)** — read. Specifications draw on domain knowledge.
 - **Product Ontology Repository (POR)** — read and (when ontology evolves) write.
 - **Design & Architecture Repository (DAR)** — light read in the bidirectional dance with UX Design.

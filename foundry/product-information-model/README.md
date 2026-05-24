@@ -67,7 +67,7 @@ The Definition Model describes **what the product is** — its complete structur
 
 | Tier | Dimensions | What it covers |
 |---|---|---|
-| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), signals, ideas, decisions, specifications |
+| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), signals, ideas, decisions, Product Intents, specifications |
 | **Business & Market** | Dim 2: Vendor Value (Why It Wins) | Win stakeholders, win outcomes (with achievement levers), delivery friction, business model (with lever portfolio), pricing tiers, value metrics, business KPIs, win barriers — across AAARRR lifecycle |
 | | Dim 3: Customer Value | Customer segments, buying personas, outcomes, pains, promises, metrics, barriers |
 | **Technical Execution** | Dim 4: User-Centric (Experience) | User personas, jobs (JTBD), UX channels (modality × engagement mode), user journeys. Touchpoints deprecated to work artifacts. |
@@ -87,7 +87,7 @@ The Work Model describes **what work exists** — the entities, artifacts, and s
 
 | Track | Goal | Primary Owner | Key Entities |
 |---|---|---|---|
-| **Track 1: Discovery** (Learning) | Set strategic direction, explore signals, validate ideas, author specifications | Product Management, UX Research | Objective Setting Task, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, Signal Monitoring |
+| **Track 1: Discovery** (Learning) | Set strategic direction, explore signals, validate ideas, create Product Intent, refine intent into specifications | Product Management, UX Research | Objective Setting Task, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, Signal Monitoring |
 | **Track 2: Build** (Construction) | Plan releases, decompose PSDs into Module-scoped Epics and System-scoped Tasks, produce three-tier versioned artifacts (Component → System → Product) | Tech Lead, Developers, QA | Epic, Story, Technical Task, Bug, Integration Epic, Integration Story, Design Deliberation, Component Version, System Version, Product Version, Technical Debt Item, Build Monitoring |
 | **Track 3: Run** (Stability) | Plan deployments, manage tenants, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, Tenant, System Monitoring, System Deployment Specification, Product Deployment Specification |
 | **Track 4: Win** (Value Realization) | Plan, equip, execute, respond, assess, monitor across AAARRR lifecycle to achieve Win Outcomes | Customer Success, Product Marketing, Sales, Support | Win Planning (5 subtypes), Win Enablement (4 subtypes), Win Activity (7 subtypes), Win Case, Win Review → Feedback, Win Monitoring |
@@ -154,7 +154,7 @@ product-information-model/
 
 4. **Cross-dimensional specifications.** PSDs are cross-dimensional impact assessments, not just feature specs. Every PSD acknowledges implications across all 9 Dimensions. (See FAQ Q9.)
 
-5. **Decision traceability.** The chain Signal → Idea → PDR → PSD provides full traceability from observation through reasoning to specification. No gaps, no implicit decisions. (See FAQ Q6, DR-013.)
+5. **Decision traceability.** The chain Signal → Idea → PDR → Product Intent → PSD provides full traceability from observation through reasoning, routable intent, and specification. No gaps, no implicit decisions. (See FAQ Q6, DR-013.)
 
 6. **Initiative as cross-track coordination.** Initiatives drive work across all five tracks, not just Discovery → Build. They carry a lever mix (weighted from the Business Model's Lever Portfolio) and embedded targets (like OKR Key Results). This makes cross-track investment explicit. (See FAQ Q32, DR-017.)
 

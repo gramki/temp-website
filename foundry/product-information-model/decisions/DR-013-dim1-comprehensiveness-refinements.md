@@ -76,7 +76,7 @@ Local reference entity — not owned by the UPIM. Provides traceable origin for 
 
 ### Positive
 - Dim 1 entities are now fully specified — no remaining `_To be refined._` placeholders for core fields/statuses
-- Complete traceability: Theme → Objective → Initiative → Signal → Idea → PDR → PSD
+- Complete traceability: Theme → Objective → Initiative → Signal → Idea → PDR → Product Intent → PSD
 - Signal progression is visible and queryable
 - PDR is a comprehensive knowledge artifact with full evidence chain
 - Portfolio-level strategic coordination is expressible without a separate portfolio model
