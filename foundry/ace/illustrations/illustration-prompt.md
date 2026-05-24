@@ -34,8 +34,8 @@ The prompt below describes **content per frame**; the generating agent should im
 ## 4. Global narrative (read once across all frames)
 
 1. **Foundry** is where software products are crafted; it is governed by three models and hosts workshops.  
-2. A **Workshop** holds shared **Knowledge, Skills, Artifacts, and History** and hosts **workshop projects**.  
-3. A **workshop project** contains **six workspaces**; humans enter each workspace through an **IDE**; work is organized as **Scenarios → Tasks** with **human–agent teams**.  
+2. A **Workshop** holds shared **Knowledge, Skills, Artifacts, and History** and hosts **Workbenches**.  
+3. A **Workbench** contains **six workspaces**; humans enter each workspace through an **IDE**; work is organized as **Scenarios → Tasks** with **human–agent teams**.  
 4. **Product Intent** is the thread that flows through workspaces from shaping to delivery; **governance** applies on transitions (shown lightly, **no** dedicated governance-only frame).
 
 ---
@@ -72,7 +72,7 @@ The prompt below describes **content per frame**; the generating agent should im
 
 ### Intent for the viewer
 
-“A **Workshop** is the unit of practice: it **stores and reuses** what the organization knows and produces, and it **hosts projects**.”
+“A **Workshop** is the unit of practice: it **stores and reuses** what the organization knows and produces, and it **hosts Workbenches**.”
 
 ### Must depict
 
@@ -84,7 +84,7 @@ The prompt below describes **content per frame**; the generating agent should im
   3. **Artifacts** — outputs: designs, specs, code, tests (folder + gear, blueprint, or merged doc+code metaphor).  
   4. **History** — decisions, feedback, evolution, audit trail (timeline, scroll, or layered pages).
 
-- **Workshop projects** as **one or more smaller boxes** inside the workshop labeled **Workshop project** or **Projects** (singular/plural acceptable).
+- **Workbenches** as **one or more smaller boxes** inside the workshop labeled **Workbench** or **Workbenches** (singular/plural acceptable).
 
 ### Mapping note (for artist accuracy only — do not put this small print on the slide)
 
@@ -233,14 +233,14 @@ Use **workspace nodes** or **labeled swim stops** consistent with Frame 3 names 
 
 - **Frame 1:** “ACE centers on a Foundry — governed by how we define the product, how work runs, and how the org operates.”  
 - **Frame 2:** “Inside Foundries we run Workshops — backed by knowledge, skills, the artifacts we produce, and the history of what we decided and learned.”  
-- **Frame 3:** “Each project splits into workspaces — spec, UX, build, test, release, and governance. People step in through an IDE; agents are part of the team; scenarios break work into tasks. What you see enlarged for specification repeats at every station.”  
+- **Frame 3:** “Each Workbench contains workspaces — spec, UX, build, test, release, and governance. People step in through an IDE; agents are part of the team; scenarios break work into tasks. What you see enlarged for specification repeats at every station.”  
 - **Frame 4:** “Product Intent is the thread: it circulates between specification and design, fans out to build and test, returns to release as delivery — and governance sits on the handoffs.”
 
 ---
 
 ## 12. Source alignment (reference)
 
-This prompt is aligned with the ACE structural summary and **Product Evolution Cycle** as defined in internal material: Foundry under three models; workshops with repositories and projects; six workspace types; workspaces use IDE, scenarios, tasks, human–agent teams; Release produces Product Intent; Spec↔UX; Spec to Dev and QA in parallel; Dev to QA; QA to Release as delivery; optional return from Dev/QA to Spec; governance invoked on intent transitions.
+This prompt is aligned with the ACE structural summary and **Product Evolution Cycle** as defined in internal material: Foundry under three models; workshops with repositories and Workbenches; six workspace types; workspaces use IDE, scenarios, tasks, human–agent teams; Release produces Product Intent; Spec↔UX; Spec to Dev and QA in parallel; Dev to QA; QA to Release as delivery; optional return from Dev/QA to Spec; governance invoked on intent transitions.
 
 ---
 

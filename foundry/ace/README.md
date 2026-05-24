@@ -8,7 +8,7 @@ This folder is the entry point for the ACE theory. [UPIM](../product-information
 
 ## What ACE is, in one paragraph
 
-ACE asserts that effective use of agents in software engineering depends on three governing models — a Product Model that says what we are building, a Work Model that says what work exists and how it transitions, and an Operating Model that says how the organization runs the work. These three models supply *meaning*. ACE then supplies *structure and motion*: a Foundry hosts Workshops; each Workshop is the body of work owned by a team or organization and hosts Workbenchs; each Workbench corresponds to a Product in UPIM and is the venue where that Product is evolved through specialized Workspaces in which Human–Agent Teams act on Scenarios that create Tasks. Across all of this flows Product Intent — the thread that turns intent into delivered software. Every transition of intent triggers governance. The result is a system that behaves like an assembly line for product evolution, with agents as members of the workforce rather than tools attached to it.
+ACE asserts that effective use of agents in software engineering depends on three governing models — a Product Model that says what we are building, a Work Model that says what work exists and how it transitions, and an Operating Model that says how the organization runs the work. These three models supply *meaning*. ACE then supplies *structure and motion*: a Foundry hosts Workshops; each Workshop is the body of work owned by a team or organization and hosts Workbenches; each Workbench corresponds to a Product in UPIM and is the venue where that Product is evolved through specialized Workspaces in which Human–Agent Teams act on Scenarios that create Tasks. Across all of this flows Product Intent — the thread that turns intent into delivered software. Every transition of intent triggers governance. The result is a system that behaves like an assembly line for product evolution, with agents as members of the workforce rather than tools attached to it.
 
 ## Foundry vs Foundry Platform
 
@@ -24,7 +24,7 @@ When in doubt, see [../glossary.md](../glossary.md).
 ```mermaid
 graph TD
   Foundry[Foundry - governed by Product, Work, Operating Models]
-  Foundry --> Workshop[Workshop - holds Repositories, hosts Workbenchs]
+  Foundry --> Workshop[Workshop - holds Repositories, hosts Workbenches]
   Workshop --> Repos[Repositories]
   Workshop --> Project[Workbench - corresponds to a Product, where work happens]
   Project --> Workspaces[Workspaces - specialized stations]
@@ -40,7 +40,7 @@ graph TD
   Workspace --> Scenarios[Scenarios that create Tasks]
 ```
 
-The same containment, in prose: a **Foundry** hosts multiple **Workshops**. A Workshop holds multiple **Repositories** and hosts multiple **Workbenchs**. A **Workbench** corresponds to a Product in UPIM — it is the venue where that Product is evolved; it contains multiple **Workspaces**, one per functional team. Each Workspace has a **Human–Agent Team and tools**, is interfaced by humans through an **IDE**, owns well-defined **Scenarios**, and produces **Tasks** completed by its team. Workspaces use and update the workshop's repositories. See [ace-model.md](ace-model.md) for the source.
+The same containment, in prose: a **Foundry** hosts multiple **Workshops**. A Workshop holds multiple **Repositories** and hosts multiple **Workbenches**. A **Workbench** corresponds to a Product in UPIM — it is the venue where that Product is evolved; it contains multiple **Workspaces**, one per functional team. Each Workspace has a **Human–Agent Team and tools**, is interfaced by humans through an **IDE**, owns well-defined **Scenarios**, and produces **Tasks** completed by its team. Workspaces use and update the workshop's repositories. See [ace-model.md](ace-model.md) for the source.
 
 ## The six workspace types
 

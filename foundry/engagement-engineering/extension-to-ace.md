@@ -2,7 +2,7 @@
 
 ## What this document is
 
-Base ACE — the model in [../ace/](../ace/README.md) — describes how an organization develops software with human–agent teams in workshops, workshop projects, and workspaces. It is sufficient when the organization that builds the software is also the organization that runs it in a single-tenant mental model.
+Base ACE — the model in [../ace/](../ace/README.md) — describes how an organization develops software with human–agent teams in Workshops, Workbenches, and Workspaces. It is sufficient when the organization that builds the software is also the organization that runs it in a single-tenant mental model.
 
 When software is **delivered to a client** — typically a Bank, in Zeta's case — additional concepts and machinery are needed. This document is the explicit argument for those additions, and the boundary that separates them from base ACE.
 
@@ -44,11 +44,11 @@ Each Product Zeta builds for Bank-X is evolved in an **Engagement Workbench** �
 - **Home Workshop** — The Workshop in which a given Workbench **primarily lives**. Every Workbench has a Home Workshop.
 - **Home Workbench** — The **canonical** Workbench for a Product when that Product spans multiple Workshops over time. Evolution, objectives, maturity, and success for the Product are anchored at the Home Workbench's repositories and workspaces.
 - **Engagement Workbench** — Any Workbench that lives inside an **Engagement Workshop**.
-- **Contributing Workbench** — A **special** Engagement Workbench that holds a **reference** to a Home Workbench elsewhere (the Product's canonical locus). Contributing Workbenchs reuse non-work repository data from the Home Workshop per product policy; work repositories diverge by Workshop where needed. Source: [../1.TODO](../1.TODO) lines 7-8 (historical "Contributing Workshop" phrasing maps to Contributing Workbench).
+- **Contributing Workbench** — A **special** Engagement Workbench that holds a **reference** to a Home Workbench elsewhere (the Product's canonical locus). Contributing Workbenches reuse non-work repository data from the Home Workshop per product policy; work repositories diverge by Workshop where needed. Source: [../1.TODO](../1.TODO) lines 7-8 (historical "Contributing Workshop" phrasing maps to Contributing Workbench).
 
 **Standalone engagement-only Products** — Products that exist only inside one client engagement — have no separate Home Workbench outside the Engagement Workshop. In that case the **Engagement Workshop is the Home Workshop** for their Workbench, and that sole Engagement Workbench is **trivially** the Home Workbench for that Product.
 
-**Products that span internal and client work** — A Product may have a Home Workbench in a permanent internal Workshop and one or more Contributing Workbenchs in Engagement Workshops. The Home Workbench remains canonical; Contributing Workbenchs reference it.
+**Products that span internal and client work** — A Product may have a Home Workbench in a permanent internal Workshop and one or more Contributing Workbenches in Engagement Workshops. The Home Workbench remains canonical; Contributing Workbenches reference it.
 
 ### 4. Workforce expansion
 
@@ -131,9 +131,9 @@ Tenant developer tooling is the most visible concrete realization of Engagement 
 
 Each base ACE workspace is unchanged in shape but may have engagement-extended scenarios:
 
-- **Product Specification.** When a Product has a Home Workbench and Contributing Workbenchs, specifications are anchored at the **Home Workbench**; Contributing Workbench specifications reference non-work repositories at Home per repository policy.
+- **Product Specification.** When a Product has a Home Workbench and Contributing Workbenches, specifications are anchored at the **Home Workbench**; Contributing Workbench specifications reference non-work repositories at Home per repository policy.
 - **UX Design.** Largely unchanged in shape; design system standards may be tenant-aware.
-- **Development.** Cross-Workshop work needs explicit orchestration. A Product evolving across multiple Workbenchs needs intent routing that respects Home / Contributing distinctions.
+- **Development.** Cross-Workshop work needs explicit orchestration. A Product evolving across multiple Workbenches needs intent routing that respects Home / Contributing distinctions.
 - **QA.** Tenant-specific verification requirements feed into governance scenarios on the QA → Release transition. Tempus-like visibility requirements (project health, sprint health, requirements health) are realized as QA scenarios.
 - **Release.** Customer-facing artifact production (Customer Product Artifacts, Documentation Artifacts, Evidence Artifacts, Knowledge Base) is added.
 - **Governance.** Customer-evidence requirements add governance scenarios on every transition where customer-facing evidence must be captured.

@@ -40,7 +40,7 @@ A Foundry **hosts multiple Workshops**.
 A **Workshop** is the body of work owned by a product team, product suite, or organization inside a Foundry — not a single Product. A Workshop:
 
 - has multiple **Repositories**;
-- hosts multiple **Workbenchs**.
+- hosts multiple **Workbenches**.
 
 The repositories represent the workshop's accumulated state — what it knows (Knowledge), how it works (Skills/Practitioner), what it produces (Artifacts), and what it remembers (History). The repository taxonomy is part of ACE itself, with two levels of detail in this folder. The seed list in [ace-model.md](ace-model.md) lines 16-28 enumerates 12 types: Domain Knowledge, Practitioner, Skill, Product Intent, Product Ontology, Design, Product Evolution, Feedback, Source, Artifact, Quality & Verification, Work, and Workforce. The canonical conceptual specification expands these into 15 entries (with PFR sub-partitions) and gives codes (PIR, DKB, DAR, POR, CAR, QVS, OPR, PFR, PPR, WR, WFR, ESR, PEIR) along with UPIM dimension/track alignment — see [repositories.md](repositories.md). Both documents are ACE-native; UPIM provides alignment, not derivation.
 
@@ -54,7 +54,7 @@ A **Workbench** corresponds to a **Product** in UPIM: it is the venue — the lo
 
 A Workbench is the unit at which most operational metrics are captured: KPIs (Say/Do, Cost per Story Point, Velocity, Quality), agent efficiency and effectiveness, scenarios and tasks management, project-level reporting and analytics. Source: [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 14-17.
 
-> **Engagement Workshop.** Inside an Engagement Workshop, each Product under delivery is evolved in an **Engagement Workbench**. A **Contributing Workbench** is an Engagement Workbench that references a **Home Workbench** elsewhere; standalone engagement-specific Products exist only as Engagement Workbenchs whose Home Workshop is the Engagement Workshop itself. Full treatment: [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
+> **Engagement Workshop.** Inside an Engagement Workshop, each Product under delivery is evolved in an **Engagement Workbench**. A **Contributing Workbench** is an Engagement Workbench that references a **Home Workbench** elsewhere; standalone engagement-specific Products exist only as Engagement Workbenches whose Home Workshop is the Engagement Workshop itself. Full treatment: [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
 
 ## Workspace
 

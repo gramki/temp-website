@@ -33,7 +33,7 @@ See [../repositories.md](../repositories.md) for canonical inventory.
 
 ## Engagement-extension note
 
-In the engagement view, when a Product has a **Home Workbench** and **Contributing Workbenchs**, specification work is anchored at the **Home Workbench**; Contributing Workbenchs reference non-work repositories from Home per repository policy. See [../../engagement-engineering/extension-to-ace.md](../../engagement-engineering/extension-to-ace.md).
+In the engagement view, when a Product has a **Home Workbench** and **Contributing Workbenches**, specification work is anchored at the **Home Workbench**; Contributing Workbenches reference non-work repositories from Home per repository policy. See [../../engagement-engineering/extension-to-ace.md](../../engagement-engineering/extension-to-ace.md).
 
 ## See also
 

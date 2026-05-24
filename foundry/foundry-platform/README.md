@@ -12,8 +12,8 @@ These docs use **Foundry Platform** consistently for the implementation. Bare "F
 
 The Foundry Platform is the system that turns the ACE model and UPIM entities into running software:
 
-- **Workshops** with their repositories and projects.
-- **Workbenchs** with intent routing, scenarios, and tasks (each Workbench corresponds to a Product in UPIM — the locus where that Product is evolved).
+- **Workshops** with their repositories.
+- **Workbenches** with intent routing, scenarios, and tasks (each Workbench corresponds to a Product in UPIM — the locus where that Product is evolved).
 - **Workspaces** (six types) with their IDE-mediated entry, scenario catalogs, and runtime engineering.
 - **Governance hooks** on every transition of Product Intent.
 - **Foundry CI** for evidence packs, test runners, build quality indicators, and agentic quality gates.

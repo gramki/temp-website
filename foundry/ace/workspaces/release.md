@@ -35,7 +35,7 @@ See [../repositories.md](../repositories.md).
 
 ## Engagement-extension note
 
-In the engagement view, customer-facing releases are produced from **Engagement Workbenchs** (each corresponds to a Product in UPIM inside an **Engagement Workshop**). Release artifacts include customer-facing content (Customer Product Artifacts, Verification Artifacts, Documentation Artifacts, Evidence Artifacts, Knowledge Base) and may need to satisfy customer-side delivery contracts. Source: [../../engagement-engineering/1.TODO](../../engagement-engineering/1.TODO) lines 17-26. Full behavior is in [../../engagement-engineering/extension-to-ace.md](../../engagement-engineering/extension-to-ace.md).
+In the engagement view, customer-facing releases are produced from **Engagement Workbenches** (each corresponds to a Product in UPIM inside an **Engagement Workshop**). Release artifacts include customer-facing content (Customer Product Artifacts, Verification Artifacts, Documentation Artifacts, Evidence Artifacts, Knowledge Base) and may need to satisfy customer-side delivery contracts. Source: [../../engagement-engineering/1.TODO](../../engagement-engineering/1.TODO) lines 17-26. Full behavior is in [../../engagement-engineering/extension-to-ace.md](../../engagement-engineering/extension-to-ace.md).
 
 ## See also
 
