@@ -4,7 +4,7 @@
 
 **Group:** Work
 
-**Purpose:** Product Management control surface for the Workbench — triage unprocessed Signals, maintain Objectives and Initiatives, observe Discovery Track conversion, and track Product Intents as they move into Product Specification and onward through the ACE Product Evolution Cycle.
+**Purpose:** Product Management control surface for the Workbench — surface relevant Product Intent Repository items, triage unprocessed Signals, maintain Objectives and Initiatives, observe Discovery Track conversion, and track Product Intents as they move into Product Specification and onward through the ACE Product Evolution Cycle.
 
 ---
 
@@ -20,6 +20,32 @@
 | **PDR** | Product Decision Record: Go / Kill / Pivot decision that records evidence and may trigger PSDs, Modeling Tasks, or Initiative changes. |
 | **PSD** | Product Specification Document: the validated contract between Product and Engineering, authored through Specification Tasks and executed in the Product Specification Workspace. |
 | **Product Intent** | ACE asset that flows through Workspaces. Discovery produces the decision/specification basis; Product Intent then triggers Product Specification Workspace scenarios. |
+
+---
+
+## Product Intent Repository Scope
+
+The PI Console is the primary web view over the **Product Intent Repository (PIR)** for a Workbench. PIR is broader than a list of active Product Intents: it is the ledger where strategy, Signals, discovery decisions, specifications, and the business/customer context needed to evaluate intent are brought together.
+
+The console should surface **relevant** PIR items — enough for a Product Manager to understand why intent exists, how it was decided, and what it is meant to advance. It should not try to become the full editor for every Definition Model entity.
+
+### Definition Model Items Surfaced
+
+| Repository section | Definition Model items | Why the PI Console shows them |
+|--------------------|------------------------|-------------------------------|
+| **Strategy** | Portfolio, Strategic Theme, Objective, Initiative, Customer Release | Shows product direction: where the Product sits, what strategic themes are active, what Objectives are being pursued, what Initiatives group the work, and what customer-facing release outcomes may result. |
+| **Signals** | Problem, Need, Opportunity | Shows the unprocessed or active observations that warrant product attention. These are the raw inputs to Discovery, not requirements or commitments. |
+| **Hypotheses and decisions** | Idea, Product Decision Record (PDR) | Shows how Signals are synthesized into hypotheses, and how Go / Kill / Pivot decisions are recorded with evidence. |
+| **Specifications** | Product Specification Document (PSD) and PSD template references | Shows the approved or in-progress specification contracts that turn decisions into buildable Product Specification Workspace work. |
+| **Vendor-value context** | Business Model, Pricing Tier / Package, Value Metric, Lever Portfolio, Business KPI / Cost KPI, Win Outcome, Win Barrier, Delivery Friction, Win Stakeholder role | Explains why an Initiative matters commercially, which lever mix is being activated, and how vendor-side success is measured. |
+| **Customer-value context** | Customer Segment, Buying Persona, Business Outcome, Customer Promise, Customer Value Metric | Explains who benefits, what buyer outcome or promise the intent advances, and how customer value will be measured. |
+
+### Standing vs. Flowing Items
+
+| Item type | Examples | Console treatment |
+|-----------|----------|-------------------|
+| **Standing strategy/context** | Portfolio, Strategic Theme, Objective, Business Model, Customer Segment, Win Outcome, Customer Promise | Display as filters, side-panel context, and traceability anchors. These items explain the frame for intent. |
+| **Flowing discovery items** | Problem, Need, Opportunity, Idea, PDR, PSD, Product Intent | Display as queues, cards, status flows, and detail pages. These items move through Discovery and Workspace execution. |
 
 ---
 
