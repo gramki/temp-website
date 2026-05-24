@@ -105,7 +105,7 @@ Grouped consoles for focused views.
 
 | Console | Purpose |
 |---------|---------|
-| **PI Console** | All Product Intents (active + archived), Intent details |
+| **PI Console** | Signals, Objectives, Initiatives, Discovery flow, Product Intents |
 | **Workspaces Console** | 6 Workspace views, active Work Orders per Workspace |
 | **Progress Console** | Work completion analytics, burndown |
 | **Track Console** | Per-Track work analytics (Discovery, Build, etc.) |
