@@ -86,7 +86,7 @@ Formed -> Accepted -> In Specification -> Specified -> In Evolution -> Delivered
 | Upstream | Idea (Dim 1) | Product Intent may trace to one or more validated or pivoted Ideas |
 | Context | Objective (Dim 1) | Product Intent may advance Objective(s) |
 | Context | Initiative (Dim 1) | Product Intent may advance Initiative(s), but it is not limited to Initiative-sourced decisions |
-| Context | Customer Release (Dim 1) | Product Intent may contribute to a Customer Release |
+| Context | Customer Release Intent (Dim 1) | Product Intent may contribute to a Customer Release Intent |
 | Context | Business / Customer Value entities (Dims 2-3) | Product Intent may target Win Outcomes, Business KPIs, Customer Promises, or Customer Value Metrics |
 | Downstream | PSD (Dim 1) | PSDs refine Product Intent into module-scoped build contracts |
 | Work Model | Specification Task (Track 1) | Specification Tasks refine Product Intent by authoring or revising PSDs |

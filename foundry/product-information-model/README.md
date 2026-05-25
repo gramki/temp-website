@@ -67,7 +67,7 @@ The Definition Model describes **what the product is** — its complete structur
 
 | Tier | Dimensions | What it covers |
 |---|---|---|
-| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), signals, ideas, decisions, Product Intents, specifications |
+| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), Customer Release Intents, signals, ideas, decisions, Product Intents, specifications |
 | **Business & Market** | Dim 2: Vendor Value (Why It Wins) | Win stakeholders, win outcomes (with achievement levers), delivery friction, business model (with lever portfolio), pricing tiers, value metrics, business KPIs, win barriers — across AAARRR lifecycle |
 | | Dim 3: Customer Value | Customer segments, buying personas, outcomes, pains, promises, metrics, barriers |
 | **Technical Execution** | Dim 4: User-Centric (Experience) | User personas, jobs (JTBD), UX channels (modality × engagement mode), user journeys. Touchpoints deprecated to work artifacts. |
@@ -158,9 +158,11 @@ product-information-model/
 
 6. **Initiative as cross-track coordination.** Initiatives drive work across all five tracks, not just Discovery → Build. They carry a lever mix (weighted from the Business Model's Lever Portfolio) and embedded targets (like OKR Key Results). This makes cross-track investment explicit. (See FAQ Q32, DR-017.)
 
-7. **Operating Model deferred, not omitted.** Coordination and organizational design are explicitly scoped out of the Work Model — they belong to the Operating Model, which will be developed separately.
+7. **Strategy is decision-grade direction, not raw intake.** Strategy contains Themes, Objectives, Initiatives, Customer Release Intents, commitments, constraints, PDRs, and Product Intents. Raw requests, untriaged Signals, tasks, bugs, incidents, PSD body content, and deployment records may inform strategy, but they are not strategy themselves. (See DR-038.)
 
-8. **Self-evolving model.** The Work Model explicitly accounts for its own evolution through Track 5: Evolve. A model that cannot evolve is dead. Track 5 is the only track whose outputs directly modify both the Work Model and the Operating Model. (See FAQ Q62, DR-022.)
+8. **Operating Model deferred, not omitted.** Coordination and organizational design are explicitly scoped out of the Work Model — they belong to the Operating Model, which will be developed separately.
+
+9. **Self-evolving model.** The Work Model explicitly accounts for its own evolution through Track 5: Evolve. A model that cannot evolve is dead. Track 5 is the only track whose outputs directly modify both the Work Model and the Operating Model. (See FAQ Q62, DR-022.)
 
 ---
 

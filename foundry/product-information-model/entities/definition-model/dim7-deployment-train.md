@@ -49,7 +49,7 @@ Captures the strategic deployment promotion decisions that govern how changes mo
 |---|---|---|
 | Contains | Station(s) (Dim 7) | The ordered sequence of checkpoints in this train |
 | Scoped by | Change Request(s) (Track 3) | Change Requests are scoped to this train (or to a specific Station within it) |
-| Referenced by | Customer Release (Dim 1) | A Customer Release may span multiple Deployment Trains |
+| Referenced by | Customer Release Intent (Dim 1) | A Customer Release Intent may span multiple Deployment Trains |
 | Derived visibility | Tenant(s) (Track 3) | Tenants derive visibility into this train via their Deployment Environment |
 | Justified by | ODR (Dim 7) | Operational decisions justify train design choices |
 | Constrained by | Operational Constraint (Dim 7) | Constraints may mandate certain governance levels or station requirements |

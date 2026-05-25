@@ -32,6 +32,7 @@
 - Evidence artifact viewer
 - Completeness indicators
 - Validation actions (verify, flag, reject)
+- Governance Evidence Map in PI Console showing PDR → Product Intent → Governance Events → PSD Approval → QA Evidence → Release Evidence
 
 ---
 

@@ -75,6 +75,8 @@ UPIM organizes work into five tracks: Discovery, Build, Run, Win, Evolve. Discov
 
 The mapping is sketched here so readers do not assume the cycle and the tracks are the same thing. Detailed mapping is in [relationships.md](relationships.md).
 
+The Foundry Web App's PI Console is the primary Product Intent Formation view for this cycle: it shows Strategy, Signals, Decisions, Product Intents, PSD refinement, Traceability Maps, and Bottlenecks before and during routing.
+
 ## Implementation expectations
 
 For the Foundry Platform, this cycle implies:

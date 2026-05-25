@@ -129,6 +129,11 @@
 **I want to** see release history for a Workbench  
 **So that** I can understand release patterns
 
+**Acceptance Criteria:**
+- Release history by Product Intent and Customer Release Intent
+- Release Renewal Map in PI Console showing Delivered Product Intent → Release Evidence → Feedback / Learnings → Renewed Product Intent
+- Links to evidence packs and renewed intent records
+
 ---
 
 ### J12. Coordinate with Governance on release approvals

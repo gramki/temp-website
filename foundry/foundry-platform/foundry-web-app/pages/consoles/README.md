@@ -8,7 +8,7 @@ Consoles are focused views accessible from the Workbench Home side navigation.
 
 | Console | File | Purpose |
 |---------|------|---------|
-| [PI Console](pi-console.md) | `pi-console.md` | Signals, Objectives, Initiatives, PDR → Product Intent → PSD flow |
+| [PI Console](pi-console.md) | `pi-console.md` | Product Intent Formation, Strategy Frame, Decisions, Traceability Maps |
 | [Workspaces Console](workspaces-console.md) | `workspaces-console.md` | 6 Workspaces, Work Orders |
 | [Progress Console](progress-console.md) | `progress-console.md` | Completion analytics, burndown |
 | [Track Console](track-console.md) | `track-console.md` | Per-Track work analytics |

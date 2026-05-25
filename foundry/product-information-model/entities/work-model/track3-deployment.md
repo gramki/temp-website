@@ -14,7 +14,7 @@ Deployment is an **artifact**, not a work entity. The *work* of deploying is a D
 
 ## Purpose
 
-Deployment is the durable link between quality-gated Build Track artifacts and running production systems. It is distinct from a Customer Release (the business act of making functionality available to customers). Code can be deployed without being released to customers — enabling dark launches, feature flags, and canary rollouts. Customer Release becomes `Launched` when required deployments are complete AND the business activates the release.
+Deployment is the durable link between quality-gated Build Track artifacts and running production systems. It is distinct from a Customer Release Intent (the planned business act of making functionality available to customers). Code can be deployed without being released to customers — enabling dark launches, feature flags, and canary rollouts. Customer Release Intent becomes `Launched` when required deployments are complete AND the business activates the realized release.
 
 As an artifact, the Deployment record provides:
 - An auditable history of what is running in each environment
@@ -52,7 +52,7 @@ As an artifact, the Deployment record provides:
 | Records application of | Product Deployment Specification (Track 3) | Product-scoped deployment |
 | Targets | Deployment Environment (Dim 7) | Records which environment the specification was applied to |
 | Supersedes | Deployment (Track 3) | A newer Deployment supersedes the previous one in the same environment |
-| Enables | Customer Release (Dim 1) | Successful deployments enable Customer Release activation |
+| Enables | Customer Release Intent (Dim 1) | Successful deployments enable Customer Release Intent activation |
 
 ## Examples
 

@@ -6,7 +6,7 @@
 
 ## Definition
 
-Work to scope a Customer Release — determining which PSDs/Initiatives are included, defining timeline and milestones, allocating team capacity, and **identifying Integration Epics** alongside PSD-driven Epics. Release Planning is the bridge between strategic intent (Initiatives, PSDs) and tactical execution (Epics, Integration Epics).
+Work to scope realization of a Customer Release Intent — determining which Product Intents, PSDs, and Initiatives are included, defining timeline and milestones, allocating team capacity, and **identifying Integration Epics** alongside PSD-driven Epics. Release Planning is the bridge between strategic intent (Initiatives, Product Intents, PSDs) and tactical execution (Epics, Integration Epics).
 
 Release Planning is responsible for:
 1. **PSD decomposition into Epics** — one Epic per affected Module per PSD
@@ -19,14 +19,14 @@ Release Planning is responsible for:
 Makes the release scoping work explicit in the Build Track. Without Release Planning Tasks:
 - PSDs are not decomposed into Epics — there is no bridge from specification to build work
 - Integration work is invisible — cross-System integration is discovered late and causes delays
-- Customer Release scope is ambiguous — what is in vs. out of a release is unclear
+- Customer Release Intent scope is ambiguous — what is in vs. out of the realized release is unclear
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Descriptive title (e.g., "Release Planning: LATAM Expansion R1") |
-| Customer Release | Reference (Dim 1) | Which Customer Release is being planned |
+| Customer Release Intent | Reference (Dim 1) | Which Customer Release Intent is being realized |
 | PSDs in Scope | List of References (Dim 1) | PSDs included in this release |
 | Initiatives | List of References (Dim 1) | Initiatives advanced by this release |
 | Epics Identified | List of References (Track 2) | PSD-derived Epics identified during planning |
@@ -48,7 +48,7 @@ Makes the release scoping work explicit in the Build Track. Without Release Plan
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scopes | Customer Release (Dim 1) | Release Planning Tasks scope Customer Releases |
+| Scopes | Customer Release Intent (Dim 1) | Release Planning Tasks scope Customer Release Intent realization |
 | References | PSD (Dim 1) | Release Planning considers which PSDs are included |
 | References | Initiative (Dim 1) | Release Planning considers which Initiatives are advanced |
 | Produces | Epic(s) (Track 2) | Release Planning decomposes PSDs into Epics |
@@ -57,7 +57,7 @@ Makes the release scoping work explicit in the Build Track. Without Release Plan
 
 ## Examples
 
-| Release Planning Task | Customer Release | PSDs | Epics Identified | Integration Epics |
+| Release Planning Task | Customer Release Intent | PSDs | Epics Identified | Integration Epics |
 |---|---|---|---|---|
 | "Plan LATAM Expansion R1" | LATAM Expansion v1.0 | PSD-042, PSD-043, PSD-044 | 5 Epics across 3 Modules | 2 Integration Epics (Payments↔FX, Payments↔Compliance) |
 | "Plan Settlement Enhancements Q3" | Settlement Q3 | PSD-045, PSD-046 | 3 Epics in Settlement Module | 1 Integration Epic (Settlement↔Bank Adapter) |

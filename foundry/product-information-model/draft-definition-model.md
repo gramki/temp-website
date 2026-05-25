@@ -23,11 +23,13 @@ The 9 Dimensions define the structural reality of the product at any given momen
 
 ### TIER 1: STRATEGY & INTENT
 
-*Owned by Product Management and Executive Leadership. This tier models portfolio context, strategic themes, direction (Objectives, Initiatives, Customer Releases), Signals (Problems, Needs, Opportunities), solution hypotheses (Ideas), decisions (PDRs), Product Intents, and specifications (PSDs).*
+*Owned by Product Management and Executive Leadership. This tier models portfolio context, strategic themes, direction (Objectives, Initiatives, Customer Release Intents), Signals (Problems, Needs, Opportunities), solution hypotheses (Ideas), decisions (PDRs), Product Intents, and specifications (PSDs).*
 
 #### Dimension 1: The Strategy Dimension
 
 This dimension acts as the foundational ledger of strategic direction, Signals, and proposed solutions. It is where raw ambiguity is translated into formal hypotheses, guided by Strategic Themes and Objectives.
+
+**Strategy boundary:** Dimension 1 strategy contains decision-grade direction and commitments that shape what the product should become: Portfolio context, Strategic Themes, Objectives, KRAs or measurable goals, SLAs and customer commitments that constrain product evolution, Initiatives, Customer Release Intents, strategic constraints, PDRs, and Product Intents. It does **not** contain raw customer requests, untriaged Signals, individual bugs, Jira stories, engineering tasks, UX tasks, implementation designs, PSD body content, deployment records, incident logs, or every stakeholder opinion. Those items may inform strategy, but they are not strategy until they are interpreted, decided, and linked to Product Intent.
 
 > **Signal** is the collective term for the three input types in this dimension: **Problem**, **Need**, and **Opportunity**. A Signal is an observation or indicator — from any source, internal or external — that something about the product warrants attention. A Signal is explicitly **not** a requirement, a commitment, or an obligation. It is an input to be *interpreted* and *investigated* through the Discovery Track. Multiple Signals may point to the same underlying issue; a single Signal may be noise. The word "Signal" is chosen deliberately to foster an investigation mindset rather than a fulfillment mindset (see FAQ Q16, DR-006).
 >
@@ -57,17 +59,17 @@ The three Signal types are classified by origin, nature, and beneficiary lens. T
 
 
 * **Initiative:** A cross-track strategic program to advance one or more Objectives. An Initiative is the coordination construct that associates Signals for discovery, targets Win Outcomes, declares a **Lever Mix** (weighted from the Business Model's Lever Portfolio), and carries **embedded Targets** (like Key Results in an OKR). Initiatives drive work across all tracks — not just Discovery → Build. A "LATAM Enterprise Market Entry" Initiative with lever mix Product 40% / GTM 25% / Sales Enablement 20% / CS 15% tells downstream planners that the Win Track needs as much investment as the Build Track.
-* *Structure/Relationship:*  Initiative advances  Objective(s).  Initiative ← associated →  {Problem, Need, Opportunity} (many-to-many).  Initiative targets  Win Outcome(s) (Dim 2).  Initiative declares  Lever Mix (from Business Model's Lever Portfolio).  Initiative carries  embedded Targets (per Win Outcome, time-bound, quantitative).  Initiative → Customer Release(s).  Win Track planning, enablement, and engagement work aligns to Initiatives.  Win Reviews assess Initiative target progress.
+* *Structure/Relationship:*  Initiative advances  Objective(s).  Initiative ← associated →  {Problem, Need, Opportunity} (many-to-many).  Initiative targets  Win Outcome(s) (Dim 2).  Initiative declares  Lever Mix (from Business Model's Lever Portfolio).  Initiative carries  embedded Targets (per Win Outcome, time-bound, quantitative).  Initiative → Customer Release Intent(s).  Win Track planning, enablement, and engagement work aligns to Initiatives.  Win Reviews assess Initiative target progress.
 * *Status Lifecycle:* `Proposed` → `Approved` → `In Progress` → `Completed` / `Cancelled`.
 * *Example:* "LATAM Enterprise Market Entry" — Lever Mix: Product 40%, GTM 25%, Sales Enablement 20%, CS 15%. Targets: "Q3: 15 LATAM Enterprise deals closed", "Q3: 85% activation within 30 days", "Q3: CAC below $25K."
 
 
-* **Customer Release:** A named, business-scoped delivery of capabilities made available to customers based on business and customer needs. A Customer Release bundles the outcomes of one or more Initiatives into a coherent customer-facing delivery. Customer Releases use **names** (not version numbers) to emphasize their business identity and decouple from technical versioning. The term "Customer Release" follows the SAFe / Continuous Delivery convention: the business act of making functionality available to users, decoupled from deployment.
-* *Structure/Relationship:*  Customer Release advances  Initiative(s) (many-to-many).  Customer Release references  Product Version(s) (Work Model).  Customer Release is activated by Win Track (GTM execution).
+* **Customer Release Intent:** A named, business-scoped intent to make capabilities available to customers based on business and customer needs. A Customer Release Intent bundles the expected outcomes of one or more Initiatives into a coherent customer-facing delivery target. Customer Release Intents use **names** (not version numbers) to emphasize their business identity and decouple strategic customer availability from technical versioning. Earlier drafts called this entity "Customer Release"; in Dimension 1, the intended meaning is strategic intent, not the realized release event.
+* *Structure/Relationship:*  Customer Release Intent advances  Initiative(s) (many-to-many).  Customer Release Intent is realized through  Product Intent(s).  Customer Release Intent may fulfill/strengthen  Customer Promise(s).  Customer Release Intent may reference expected  Product Version(s) (Work Model).  Customer Release Intent is activated by Win Track (GTM execution).
 * *Status Lifecycle:* `Planning` → `In Progress` → `Ready` → `Launched` / `Cancelled`.
-* *Example:* "LATAM Expansion" (bundles LATAM currency support, LATAM compliance, LATAM onboarding).
+* *Example:* "LATAM Expansion" (intended customer-facing availability of LATAM currency support, LATAM compliance, LATAM onboarding).
 
-> **Terminology Note:** "Customer Release" refers to the business act of making functionality available to customers. It is distinct from an artifact "release," which follows DevOps convention — a versioned build that has passed quality gates. DevOps tooling (GitHub Releases, Helm releases, etc.) uses "release" to mean a versioned artifact — in our model, a certified **Product Version** (Build Track) is the customer-facing artifact reference; constituent **System Versions** reach `Released` status as part of that certification chain. See DR-036.
+> **Terminology Note:** "Customer Release Intent" refers to the planned business act of making functionality available to customers. It is distinct from the realized customer release event and from an artifact "release," which follows DevOps convention — a versioned build that has passed quality gates. DevOps tooling (GitHub Releases, Helm releases, etc.) uses "release" to mean a versioned artifact — in our model, a certified **Product Version** (Build Track) is the customer-facing artifact reference; constituent **System Versions** reach `Released` status as part of that certification chain. See DR-036 and DR-038.
 
 **Signal Entities**
 
@@ -438,7 +440,7 @@ This dimension captures the product's **operational reality** — how it is host
 
 
 * **Deployment Train:** A reusable promotion path defining the ordered sequence of environments through which deployments progress, carrying contractual and governance significance. Deployment Trains represent both a technical promotion workflow and a contractual commitment — tenants and commercial partners can rely on the promotion path for planning. Trains enable certain operating models while rejecting non-compliant ones. See DR-029.
-* *Structure/Relationship:*  Deployment Train contains  Station(s) (Dim 7).  Deployment Train is scoped by  Change Request(s) (Track 3).  Deployment Train is referenced by  Customer Release (Dim 1).  Deployment Train provides derived visibility for  Tenant(s) (Track 3) via Deployment Environment.
+* *Structure/Relationship:*  Deployment Train contains  Station(s) (Dim 7).  Deployment Train is scoped by  Change Request(s) (Track 3).  Deployment Train is referenced by  Customer Release Intent (Dim 1).  Deployment Train provides derived visibility for  Tenant(s) (Track 3) via Deployment Environment.
 * *Fields:* Name, Stations (ordered), Governance Level (Standard / Regulated / Critical), Contractual Commitments, Allowed Change Types.
 * *Status:* `Draft` → `Active` → `Suspended` → `Retired`.
 * *Example:* "PCI Regulated Train — Development → Staging (72h soak) → Production US-East (CAB approval, canary) → Production LATAM (CAB + LATAM compliance). Governance: Regulated. Allowed: Standard, Emergency-Technical."

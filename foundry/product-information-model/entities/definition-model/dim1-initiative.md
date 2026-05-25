@@ -10,7 +10,7 @@ A cross-track strategic program to advance one or more Objectives. An Initiative
 
 ## Purpose
 
-Initiatives bridge the gap between high-level strategic Objectives and the Signals awaiting investigation. Without Initiatives, there is no mechanism to group and prioritize related Signals for coordinated discovery and delivery. An Initiative provides the "why now?" and "why together?" context for a set of Signals, and maps downstream to Customer Release(s) that deliver the Initiative's outcomes to customers (see FAQ Q11).
+Initiatives bridge the gap between high-level strategic Objectives and the Signals awaiting investigation. Without Initiatives, there is no mechanism to group and prioritize related Signals for coordinated discovery and delivery. An Initiative provides the "why now?" and "why together?" context for a set of Signals, and maps downstream to Customer Release Intent(s) that define intended customer-facing outcomes (see FAQ Q11).
 
 With the addition of Lever Mix and embedded Targets, Initiatives evolve from being primarily Discovery-focused 'programs of Signals' to cross-track coordination constructs. A 'LATAM Enterprise Market Entry' Initiative with lever mix Product 40% / GTM 25% / Sales Enablement 20% / CS 15% tells downstream planners in each track what kinds of work to expect.
 
@@ -65,7 +65,7 @@ Approved ──[abandoned before work starts]──► Cancelled
 | Associated | Need (Dim 1) | Initiative ← associated → Need(s) (many-to-many, during planning) |
 | Associated | Opportunity (Dim 1) | Initiative ← associated → Opportunity(s) (many-to-many, during planning) |
 | Targets | Win Outcome (Dim 2) | Initiative may target specific Win Outcomes (per AAARRR stage, per segment) |
-| Downstream | Customer Release (Dim 1) | Initiative maps to Customer Release(s) |
+| Downstream | Customer Release Intent (Dim 1) | Initiative maps to Customer Release Intent(s) |
 | Work Model | Initiative Scoping Task (Track 1) | Initiative Scoping Tasks define Initiatives |
 | Work Model | Prioritization Task (Track 1) | Prioritization Tasks associate Signals to Initiatives |
 | Declares | Lever Mix (Business Model Dim 2) | Initiative declares lever allocation from Business Model's Lever Portfolio |

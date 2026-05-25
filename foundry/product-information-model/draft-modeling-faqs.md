@@ -147,7 +147,7 @@ Rather than creating a separate "Plan Track" (which would centralize planning un
 | Track | Planning Work | Definition Model Output |
 |---|---|---|
 | Discovery | Objective Setting, Initiative Scoping, Prioritization | Objectives, Initiatives (Dim 1) |
-| Build | Release Planning, Milestone Planning, Iteration Planning | Customer Release scope, Milestones |
+| Build | Release Planning, Milestone Planning, Iteration Planning | Customer Release Intent scope, Milestones |
 | Run | Deployment Planning, Capacity Planning | Deployment plans, infrastructure readiness |
 | Win | Go-to-Market Planning, Customer Rollout Planning | Launch plans, rollout schedules |
 
@@ -155,7 +155,7 @@ This distributed approach keeps planning close to the teams that execute, while 
 
 ---
 
-### Q12: Why use "Customer Release" instead of "Release," and why does it use names instead of version numbers?
+### Q12: Why use "Customer Release Intent" instead of "Release," and why does it use names instead of version numbers?
 
 The word "release" is deeply overloaded. In the DevOps ecosystem, "release" universally means a versioned build artifact that has passed quality gates — GitHub Releases, GitLab Releases, Helm releases, release pipelines, release branches, release tags. This usage is too entrenched to fight.
 
@@ -163,20 +163,21 @@ SAFe and the Continuous Delivery community explicitly **decouple "release" from 
 - **Deployment** = installing a software version on an environment (technical act)
 - **Release** = making software available to users (business act)
 
-The UPIM follows this convention but uses **"Customer Release"** to make the distinction unambiguous:
-- **"Customer Release"** = the business act of making capabilities available to customers (Definition Model, Dim 1)
+The UPIM follows this convention but uses **"Customer Release Intent"** to make the strategy-layer distinction unambiguous:
+- **"Customer Release Intent"** = the planned business act of making capabilities available to customers (Definition Model, Dim 1)
+- **"Customer Release"** = the realized release event/package that fulfills the intent
 - **"System Version with status Released"** = a versioned build artifact that has passed quality gates (Work Model, Build Track output)
 
-The qualifier "Customer" eliminates any collision — no one will confuse "Customer Release: LATAM Expansion" with "payments-service v2.3.3 (System Version) released to artifact registry."
+The qualifier "Intent" prevents the Strategy entity from being confused with the release execution event — no one should confuse "Customer Release Intent: LATAM Expansion" with "payments-service v2.3.3 (System Version) released to artifact registry."
 
-**Why names instead of version numbers?** Customer Releases use descriptive names (e.g., "LATAM Expansion", "Project Mercury") rather than semver or numbered versions because:
+**Why names instead of version numbers?** Customer Release Intents use descriptive names (e.g., "LATAM Expansion", "Project Mercury") rather than semver or numbered versions because:
 1. **Business identity:** Names convey what the release delivers; "Release 3.2" is meaningless to business stakeholders.
-2. **Decoupling:** A single Customer Release may span multiple Product Versions (e.g., v3.2.0 through v3.2.4 as patches are applied during rollout). Pinning to a version number creates a false 1:1 mapping.
+2. **Decoupling:** A single Customer Release Intent may be realized across multiple Product Versions (e.g., v3.2.0 through v3.2.4 as patches are applied during rollout). Pinning to a version number creates a false 1:1 mapping.
 3. **Precedent:** Many products use named releases (macOS Sonoma/Sequoia, Android codenames, enterprise program names).
 
 ---
 
-### Q13: Why distinguish System Version, Module Version, Product Version, and Customer Release as four separate concepts?
+### Q13: Why distinguish System Version, Module Version, Product Version, and Customer Release Intent as four separate concepts?
 
 > **Superseded for operational use by DR-036 (2026-05-19).** Current model: Component Version → System Version → Product Version; no Module Version tier. See Q13b below and `stories/versioning-alternatives-analysis.md`.
 
@@ -187,28 +188,28 @@ These four concepts operate at different levels and serve different purposes. Se
 | **System Version** | Per-system | Continuously produced CI/CD output — atomic deployment unit | Semver | Build Track |
 | **Module Version** | Per-module | Integration-verified composition of System Versions — integrated deployment unit + integration verification | Semver | Build Track |
 | **Product Version** | Product-wide | Certified composition of compatible Module Versions (BOM) — complete deployment unit + certification | Semver | Build Track |
-| **Customer Release** | Business | Named delivery of capabilities to customers | Named (no versions) | Discovery + Win Track |
+| **Customer Release Intent** | Business | Named intended delivery of capabilities to customers | Named (no versions) | Discovery + Win Track |
 
 **Why all four are necessary:**
 - Without **System Version**, there is no granular tracking of what each System's CI/CD pipeline produces, and no deployment unit for the Run Track.
 - Without **Module Version**, there is no integration verification layer — you jump from individual System testing to full-product testing (an O(n²) problem). Module Version proves that the Systems implementing a Module (Dim 8) work together.
 - Without **Product Version**, there is no way to certify that a specific composition of Module Versions is compatible, tested, and reproducible. This causes real problems: composition integrity failures, inability to reference "the product" for documentation/compliance, and difficulty reproducing production states.
-- Without **Customer Release**, there is no business-level planning construct that bundles outcomes of Initiatives into a coherent customer-facing delivery, decoupled from technical versioning.
+- Without **Customer Release Intent**, there is no business-level planning construct that bundles outcomes of Initiatives into a coherent customer-facing delivery target, decoupled from technical versioning.
 
-**System Version, Module Version, and Product Version are Work Model artifacts** (Build Track outputs) because they are *results* of engineering progress, not planned upfront. In CI/CD, versions are routinely and continuously incremented — they are byproducts of the build process. **Customer Release is a Definition Model entity** (Dimension 1, Strategy) because it is a business planning construct that is deliberately scoped, named, and scheduled.
+**System Version, Module Version, and Product Version are Work Model artifacts** (Build Track outputs) because they are *results* of engineering progress, not planned upfront. In CI/CD, versions are routinely and continuously incremented — they are byproducts of the build process. **Customer Release Intent is a Definition Model entity** (Dimension 1, Strategy) because it is a business planning construct that is deliberately scoped, named, and scheduled.
 
 **Each artifact tier is a composite system and a communication bridge.** Module Version and Product Version are not just verification checkpoints — they are systems in their own right, with emergent operational properties at each composition level (end-to-end latency, integrated failure modes, cross-module workflows). They are also communication bridges at progressively broader organizational scope: System Version is the shared vocabulary between Build and Run teams; Module Version bridges Build, Run, and Product teams (PMs, SREs, and engineers all reference "Payments Module v4.1"); Product Version is the ubiquitous language across all teams and customers (Win teams, compliance, customers all reference "Product v3.2"). See `stories/versioning-alternatives-analysis.md` for how alternative approaches address these challenges.
 
 ---
 
-### Q13b: Why Component Version, System Version, Product Version, and Customer Release?
+### Q13b: Why Component Version, System Version, Product Version, and Customer Release Intent?
 
 | Concept | Level | Nature | Owner |
 |---|---|---|---|
 | **Component Version** | Per-component | CI/CD output of a single Component; quality-gated | Build Track |
 | **System Version** | Per-system | Sealed BOM of Component Versions; component-integration verification; deployable unit for Run Track | Build Track |
 | **Product Version** | Product-wide | Certified flat BOM of System Versions | Build Track |
-| **Customer Release** | Business | Named delivery of capabilities to customers | Win / Strategy (Dim 1) |
+| **Customer Release Intent** | Business | Named intended delivery of capabilities to customers | Win / Strategy (Dim 1) |
 
 **Module (Dim 8)** remains the functional boundary for PSD scoping and capability mapping — not a versioning tier. Integration Epics feed **System Version** assembly and **Product Version** certification. Deployment uses **System Deployment Specification** and **Product Deployment Specification** (not SDD/MDD/PDD). See DR-036, `stories/versioning-alternatives-analysis.md`, and `stories/deployment-artifacts-analysis.md`.
 
@@ -1120,9 +1121,9 @@ Change Requests govern the formal change management workflow: approval → deplo
 
 ---
 
-### Q101: How does a Deployment Train relate to a Customer Release?
+### Q101: How does a Deployment Train relate to a Customer Release Intent?
 
-A single Customer Release may span multiple Deployment Trains when different modules follow different promotion paths. For example, an "LATAM Expansion" release might include payment modules on a PCI Regulated Train (72h soak, CAB approval) and a marketing portal on a Fast-Track Train (automated promotion, no soak). The Customer Release is the commercial unit; the Deployment Train is the operational promotion unit. They are associated but not constrained to a 1:1 relationship. See DR-029, D13.
+A single Customer Release Intent may be realized across multiple Deployment Trains when different modules follow different promotion paths. For example, "LATAM Expansion" might include payment modules on a PCI Regulated Train (72h soak, CAB approval) and a marketing portal on a Fast-Track Train (automated promotion, no soak). The Customer Release Intent is the commercial planning unit; the Deployment Train is the operational promotion unit. They are associated but not constrained to a 1:1 relationship. See DR-029, D13 and DR-038.
 
 ---
 
@@ -1206,6 +1207,6 @@ Deployment descriptors, incident records, and operational artifact versions have
 
 ### Q113: Why is ESR a reference layer, not a system of record?
 
-The system of record for customer data remains the organization's CRM/subscription management system. Duplicating full customer records into ESR would create synchronization burdens and data governance risks. ESR holds the minimum identity and reference pointers needed by the UPIM — organization name, segment classification, primary contacts, and a pointer back to the authoritative source system. This makes ESR lightweight, easy to synchronize periodically, and focused on its purpose: providing consistent external stakeholder references across FIR reporters, Win Case customers, Incident affected tenants, and Customer Release targets. See DR-033 D3.
+The system of record for customer data remains the organization's CRM/subscription management system. Duplicating full customer records into ESR would create synchronization burdens and data governance risks. ESR holds the minimum identity and reference pointers needed by the UPIM — organization name, segment classification, primary contacts, and a pointer back to the authoritative source system. This makes ESR lightweight, easy to synchronize periodically, and focused on its purpose: providing consistent external stakeholder references across FIR reporters, Win Case customers, Incident affected tenants, and Customer Release Intent targets. See DR-033 D3.
 
 ---

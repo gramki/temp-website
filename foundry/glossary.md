@@ -68,6 +68,10 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Tracks (1–5).** Discovery (1); Build (2); Run (3); Win (4); Evolve (5). Each track owns its own planning alongside core activities. Source: UPIM README.
 
+**Customer Promise.** A Customer Value commitment: the value, service level, or compliance posture the product promises to a Customer Segment. Customer Promises explain what customers should receive and how value is measured.
+
+**Customer Release Intent.** A Strategy & Intent entity: the planned customer-facing delivery outcome — what capabilities we intend to make available, to whom, why, and by when. Earlier drafts called this "Customer Release" in Dim 1. Reserve **Customer Release** for the realized release event/package that fulfills the intent.
+
 ## Engagement terms
 
 **Engagement.** In Engagement Engineering, an **Engagement is a Workshop** — program-managed, consolidating Velocity, Predictability, Quality, Cost, and Risk for the Products delivered under it. Each Product built for that client corresponds to a **Workbench** inside the Engagement Workshop. Source: [engagement-engineering/extension-to-ace.md](engagement-engineering/extension-to-ace.md); [foundry/1.TODO](1.TODO) lines 5-12.

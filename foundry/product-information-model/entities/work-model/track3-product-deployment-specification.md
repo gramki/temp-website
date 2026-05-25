@@ -56,7 +56,7 @@ Orchestrates full-product deployment to a specific environment. Without Product 
 | Targets | Deployment Environment (Dim 7) | Targets a specific environment |
 | Applied by | Deployment Task (Track 3) | Applied to an environment by a Deployment Task (Product-level) |
 | Produced by | Deployment Planning Task (Track 3) | Deployment Planning Task creates/updates specification versions |
-| Enables | Customer Release (Dim 1) | Successful Product Deployment Specification deployment enables Customer Release activation |
+| Enables | Customer Release Intent (Dim 1) | Successful Product Deployment Specification deployment enables Customer Release Intent activation |
 
 ## Example
 

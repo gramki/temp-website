@@ -30,7 +30,7 @@ Makes the continuous oversight of build and quality health explicit. Without Bui
 | Thresholds / Alerts | List (text) | When does monitoring trigger action (e.g., "Build failure 3 consecutive runs", "Coverage drop below 80%") |
 | Cadence | Enum | `Continuous` / `Daily` / `Weekly` |
 | Owner | String | Role/person responsible for watching |
-| System(s) / Customer Release | Reference | Which System(s) (Dim 5) or Customer Release this monitoring supports (if scoped) |
+| System(s) / Customer Release Intent | Reference | Which System(s) (Dim 5) or Customer Release Intent this monitoring supports (if scoped) |
 | _Other fields to be refined._ | | |
 
 ## Statuses

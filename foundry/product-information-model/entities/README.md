@@ -14,7 +14,7 @@ entities/
 │   ├── dim1-strategic-theme.md        ← Portfolio or Product scope; persistent cross-horizon direction
 │   ├── dim1-objective.md              ← Now references Theme + External Constraints
 │   ├── dim1-initiative.md             ← Now has Lever Mix, Embedded Targets, and cross-track Win Track relationships
-│   ├── dim1-customer-release.md
+│   ├── dim1-customer-release.md      ← Customer Release Intent (strategy-layer planned customer availability)
 │   ├── dim1-problem.md
 │   ├── dim1-need.md
 │   ├── dim1-opportunity.md

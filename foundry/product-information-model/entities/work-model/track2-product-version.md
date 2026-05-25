@@ -55,7 +55,7 @@ Product Version solves these by providing a certified System Versions BOM and a 
 | Composes | System Version(s) (Track 2) | Product Version composes System Versions via BOM |
 | Instantiated from | Product Specification (Dim 5) | Product Version is the Work Model instance of the Product Specification's System composition |
 | Described by | Product Deployment Specification(s) (Track 3) | Environment-specific full-product deployment is specified by Product Deployment Specifications |
-| Referenced by | Customer Release (Dim 1) | Customer Releases reference Product Version(s) |
+| Referenced by | Customer Release Intent (Dim 1) | Customer Release Intents reference Product Version(s) |
 | Supersedes | Product Version (Track 2) | Each Product Version supersedes the previous |
 
 ## Example

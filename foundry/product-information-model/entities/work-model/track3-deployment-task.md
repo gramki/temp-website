@@ -50,7 +50,7 @@ Makes deployment execution a distinct, trackable work entity in the Run Track. W
 | Preceded by | Deployment Drill Task (Track 3) | When present, drill must pass before execution |
 | Targets | Deployment Environment (Dim 7) | Targets a specific environment |
 | Verified by | Verification Task(s) (Track 3) | Post-deployment validation |
-| Enables | Customer Release (Dim 1) | Successful deployment enables Customer Release activation |
+| Enables | Customer Release Intent (Dim 1) | Successful deployment enables Customer Release Intent activation |
 | Informed by | Operational Readiness (Dim 7) | Readiness status informs go/no-go |
 
 ## Examples

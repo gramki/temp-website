@@ -30,7 +30,7 @@ The top-level work entity in the Build Track's functional hierarchy. Without Epi
 | Acceptance Criteria | Text | What must be true for this Epic to be considered complete |
 | Effort Estimate | String | High-level effort estimate (team-weeks, story points aggregate) |
 | Target Milestone | Reference (Track 2) | Which Milestone this Epic targets |
-| Customer Release | Reference (Dim 1) | Which Customer Release this Epic is part of |
+| Customer Release Intent | Reference (Dim 1) | Which Customer Release Intent this Epic is part of |
 
 ## Statuses
 
@@ -49,7 +49,7 @@ The top-level work entity in the Build Track's functional hierarchy. Without Epi
 | Decomposed from | PSD (Dim 1) | Epic is decomposed from a PSD |
 | Scoped to | Module (Dim 8) | Epic advances a specific Module |
 | Part of | Initiative (Dim 1) | Epic contributes to an Initiative |
-| Part of | Customer Release (Dim 1) | Epic is scoped to a Customer Release |
+| Part of | Customer Release Intent (Dim 1) | Epic is scoped to a Customer Release Intent |
 | Contains | Story(ies) (Track 2) | Epic contains Stories |
 | Referenced by | Integration Epic (Track 2) | Integration Epics reference the functional Epics they integrate |
 | Targeted by | Milestone (Track 2) | Epic may be gated by a Milestone |

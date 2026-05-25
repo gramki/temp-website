@@ -97,7 +97,7 @@ The word "Signal" was chosen over "intake item," "backlog item," and "market sig
 
 ### The Strategy Dimension is a ledger, not a pipeline
 
-Dim 1 contains entities at very different levels of abstraction — Portfolio (organizational context), Strategic Themes (persistent direction), Objectives (time-bound goals), Initiatives (programs), Customer Releases (business deliveries), Signals (observations), Ideas (hypotheses), PDRs (decisions), PSDs (specifications). This isn't a pipeline where everything flows linearly. It's a ledger — a structured record of strategic intent at multiple levels, with explicit relationships between levels.
+Dim 1 contains entities at very different levels of abstraction — Portfolio (organizational context), Strategic Themes (persistent direction), Objectives (time-bound goals), Initiatives (programs), Customer Release Intents (planned customer availability), Signals (observations), Ideas (hypotheses), PDRs (decisions), Product Intents (routable commitments), PSDs (specifications). This isn't a pipeline where everything flows linearly. It's a ledger — a structured record of strategic intent at multiple levels, with explicit relationships between levels.
 
 ### The PDR fills a traceability gap
 
@@ -196,13 +196,14 @@ Product councils, architecture review boards, cross-functional brainstorms — t
 
 Much of discovery work involves understanding and documenting the product's context — defining customer segments, mapping value streams, designing pricing tiers — rather than specifying engineering changes. Before Modeling Task, this knowledge work was invisible and untracked. Making it explicit ensures it's plannable, traceable, and visible ("we're investing in understanding our customer, not just building features").
 
-### The Discovery Track produces three types of output
+### The Discovery Track produces four types of output
 
 1. **PDRs** — decisions (any dimension)
-2. **PSDs** — engineering specifications (module changes, via Specification Task)
-3. **Definition Model updates** — knowledge changes (Dims 2–9, via Modeling Task)
+2. **Product Intents** — routable commitments from decisions into product evolution
+3. **PSDs** — engineering specifications that refine Product Intent (module changes, via Specification Task)
+4. **Definition Model updates** — knowledge changes (Dims 2–9, via Modeling Task)
 
-A single PDR may trigger both PSDs and Modeling Tasks. Or just one. Or neither (if the decision is "Kill").
+A single PDR may trigger Product Intent, PSDs, and Modeling Tasks. Or just one. Or neither (if the decision is "Kill").
 
 ---
 
@@ -236,29 +237,29 @@ But Modeling Tasks (Discovery Track) can update *any* dimension. The "home track
 
 A PSD is not just "what to build." It's a structured assessment of impact across all 9 dimensions — Pain implications (Dim 3), Win Outcome implications (Dim 2), UX impact (Dim 4), technical architecture (Dim 5), API changes (Dim 6), operational requirements (Dim 7), structural changes (Dim 8), data changes (Dim 9). The depth varies by module archetype, but every dimension must be acknowledged. This makes the PSD the most integrative artifact in the UPIM.
 
-### Customer Release, Customer Promise, Win Outcome — the commercial triad
+### Customer Release Intent, Customer Promise, Win Outcome — the commercial triad
 
 These three entities form a critical triangle spanning Dim 1 (Strategy), Dim 3 (Customer Value), and Dim 2 (Vendor Value):
 
 - **Customer Promise** (Dim 3) = what we commit to the customer — the explicit contract
 - **Win Outcome** (Dim 2) = what we need to achieve as a vendor — the implicit commercial target
-- **Customer Release** (Dim 1) = the delivery vehicle that fulfills promises and advances outcomes
+- **Customer Release Intent** (Dim 1) = the planned customer-facing delivery outcome that fulfills promises and advances outcomes
 
-They are the three faces of a single commercial exchange. Customer Promise says "here's what you get." Win Outcome says "here's what we need for this to work for us." Customer Release is the event where promise meets outcome — where the vendor delivers on its commitments and either advances toward or falls short of its Win Outcomes.
+They are the three faces of a single commercial exchange. Customer Promise says "here's what you get." Win Outcome says "here's what we need for this to work for us." Customer Release Intent says "here is the named customer-facing outcome we intend to make available." The realized Customer Release is the event where promise meets outcome — where the vendor delivers on its commitments and either advances toward or falls short of its Win Outcomes.
 
 The critical insight: **keeping promises and winning are not the same thing.** A product can keep every Customer Promise (99.9% uptime, sub-200ms latency) and still fail to achieve its Win Outcomes (CAC too high, Activation takes 90 days instead of 30). When promises are kept but the vendor isn't winning, the problem is in Dim 2 — the commercial model, the delivery economics, the Go-to-Market, the pricing structure. Conversely, if Win Outcomes are met but Customer Promises are not, it's a ticking time bomb — short-term revenue without long-term retention.
 
 This is why the PSD's cross-dimensional sections are ordered the way they are: Section 2 (Vendor Value Impact) and Section 3 (Customer Value Impact) force the spec author to reason about *both* sides of the exchange before engineering begins.
 
-### Customer Release is a Definition Model entity that the Win Track activates
+### Customer Release Intent is a Definition Model entity that the Win Track activates
 
-Customer Release sits in Dim 1 (Strategy) because it's a business planning construct — deliberately scoped, named, and scheduled. But it is *activated* by the Win Track: GTM Planning prepares the launch, Customer Release Planning sequences the market delivery, and Win Reviews assess whether the release achieved its Win Outcomes (with progress tracked via Initiative embedded targets).
+Customer Release Intent sits in Dim 1 (Strategy) because it's a business planning construct — deliberately scoped, named, and scheduled. But it is *activated* by the Win Track: GTM Planning prepares the launch, Customer Release Planning sequences the market delivery, and Win Reviews assess whether the realized release achieved its Win Outcomes (with progress tracked via Initiative embedded targets).
 
-This makes Customer Release the primary handoff point between strategic intent and commercial execution. The Discovery Track scopes it (which Initiatives are included). The Build Track assembles it (which Product Versions realize it). The Win Track activates it (GTM, onboarding, adoption). The Run Track sustains it (deployment, uptime). All four tracks converge on Customer Release — it's the entity that most explicitly crosses every track boundary.
+This makes Customer Release Intent the primary handoff point between strategic intent and commercial execution. The Discovery Track scopes it (which Initiatives and Product Intents are included). The Build Track assembles it (which Product Versions realize it). The Win Track activates it (GTM, onboarding, adoption). The Run Track sustains it (deployment, uptime). All four tracks converge on fulfilling the Customer Release Intent — it's the entity that most explicitly crosses every track boundary.
 
 ### Three-level versioning and the deliberate decoupling
 
-> **Superseded by DR-036 (Seeds 16–17).** Current chain: Component Version → System Version → Product Version → Customer Release. Retained below for design history.
+> **Superseded by DR-036 (Seeds 16–17) and DR-038.** Current chain: Component Version → System Version → Product Version → Customer Release Intent / realized Customer Release. Retained below for design history.
 
 System Version → Module Version → Product Version → Customer Release. Four levels, four different questions, four different owners:
 

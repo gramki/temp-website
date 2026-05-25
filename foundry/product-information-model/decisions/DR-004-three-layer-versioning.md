@@ -27,7 +27,7 @@ Introduce a four-level versioning model (three artifact tiers + one business ent
 | System level | **System Version** | Continuous CI/CD output per System (Dim 5) — atomic deployment unit | Semver | Work Model — Build Track artifact |
 | Module level | **Module Version** | Integration-verified composition of System Versions for a Module (Dim 8) — unit of integration verification | Semver | Work Model — Build Track artifact |
 | Product level | **Product Version** | Certified composition (BOM) of compatible Module Versions | Semver | Work Model — Build Track artifact |
-| Business level | **Customer Release** | Named delivery of capabilities to customers | Named (no versions) | Definition Model — Dim 1 (Strategy) |
+| Business level | **Customer Release Intent** | Named intended delivery of capabilities to customers | Named (no versions) | Definition Model — Dim 1 (Strategy) |
 
 **Product Version uses a Bill of Materials (BOM)** with two facets:
 - **Declared BOM:** Compatible version ranges per Module Version (e.g., `Payments Module ^2.3.0`)
@@ -35,7 +35,7 @@ Introduce a four-level versioning model (three artifact tiers + one business ent
 
 All three artifact tiers are **Work Model artifacts** (Build Track outputs) because they are results of engineering progress, not planned upfront.
 
-> **Updated from original DR-004:** The original decision described three layers: Module Version (CI/CD output), Product Version (composition), Customer Release (business). DR-026 refined this: the CI/CD output is now **System Version** (you build Systems, not Modules), and **Module Version** is repositioned as the integration-verified composition of System Versions within a Module boundary. The three artifact tiers are now System Version → Module Version → Product Version, with Customer Release remaining the business entity that references Product Versions.
+> **Updated from original DR-004:** The original decision described three layers: Module Version (CI/CD output), Product Version (composition), Customer Release (business). DR-026 refined this: the CI/CD output is now **System Version** (you build Systems, not Modules), and **Module Version** is repositioned as the integration-verified composition of System Versions within a Module boundary. DR-038 clarifies the strategy-layer business entity as **Customer Release Intent**.
 
 ## Rationale
 
@@ -52,7 +52,7 @@ All three artifact tiers are **Work Model artifacts** (Build Track outputs) beca
 ## Consequences
 
 - **Positive:** Clean four-level model (three artifact tiers + business entity) with no terminology collisions.
-- **Positive:** Each layer serves as a **communication bridge** at progressively broader organizational scope: System Version is the shared vocabulary between Build and Run teams (engineers + SREs). Module Version bridges Build, Run, and Product teams (engineers + SREs + PMs reason about capability-level versions). Product Version is the **ubiquitous language** across all teams and customers (Win teams, compliance, customers all reference "Product v3.2"). Customer Release provides the business-level name.
+- **Positive:** Each layer serves as a **communication bridge** at progressively broader organizational scope: System Version is the shared vocabulary between Build and Run teams (engineers + SREs). Module Version bridges Build, Run, and Product teams (engineers + SREs + PMs reason about capability-level versions). Product Version is the **ubiquitous language** across all teams and customers (Win teams, compliance, customers all reference "Product v3.2"). Customer Release Intent provides the business-level name.
 - **Positive:** Each artifact tier is a **composite system** with emergent operational properties — Module Version has integrated failure modes and end-to-end latency that individual Systems lack; Product Version has cross-module workflow behavior and product-wide compliance posture. All tiers are operable, observable, and operationally meaningful.
 - **Positive:** BOM approach is familiar to engineering teams.
 - **Positive:** Integration verification layer (Module Version) reduces integration risk before Product-level certification.

@@ -32,7 +32,7 @@ AWR is renamed to WFR. Scope: internal agents only (human + AI) who are enrolled
 
 A new repository for external parties — customers, partners, prospects, developers — who are referenced in work items but are not internal workers. ESR is a **reference layer** (projection), not a system of record. The system of record for customer data remains the organization's CRM/subscription management system; ESR holds the minimum identity and reference pointers needed by the UPIM.
 
-**Rationale:** External stakeholders are referenced extensively across the model (FIR reporters, Win Case customers, Incident affected tenants, Customer Release targets). Without ESR, these references are scattered and inconsistent. ESR provides a single, UPIM-internal reference point. Keeping it as a reference layer avoids duplicating CRM data.
+**Rationale:** External stakeholders are referenced extensively across the model (FIR reporters, Win Case customers, Incident affected tenants, Customer Release Intent targets). Without ESR, these references are scattered and inconsistent. ESR provides a single, UPIM-internal reference point. Keeping it as a reference layer avoids duplicating CRM data.
 
 ### D4: OPR (Operations Repository) introduced
 

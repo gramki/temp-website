@@ -95,7 +95,33 @@
 
 ## Supporting Jobs
 
-### J7. View Workbench-level KPIs
+### J7. Manage Strategy Frame
+**When** strategic direction or commitments change
+**I want to** update Objectives, KRAs, SLAs, Initiatives, Customer Release Intents, and strategic constraints
+**So that** Product Intent formation is grounded in decision-grade strategy
+
+**Acceptance Criteria:**
+- Clearly distinguish strategy from raw Signals, tasks, bugs, incidents, and PSD body content
+- Link strategy items to Product Decisions and Product Intents
+- Capture customer-committed deadlines as strategic constraints when they shape product evolution
+
+---
+
+### J8. Monitor Product Intent funnel
+**When** Product Intent is forming across many sources
+**I want to** see the funnel from Strategy / Signals / Commitments / Release Learnings to PDR, Product Intent, PSD refinement, and execution
+**So that** I can see where product evolution is forming, blocked, or stale
+
+---
+
+### J9. Use Traceability Maps for stakeholder questions
+**When** I need to explain why intent exists or what it affects
+**I want to** select the appropriate Traceability Map
+**So that** I can answer executive, delivery, governance, customer-value, or vendor-value questions without arbitrary graph exploration
+
+---
+
+### J10. View Workbench-level KPIs
 **When** I need to assess product health  
 **I want to** see velocity, say/do, quality, and cycle time metrics  
 **So that** I can identify improvement areas
@@ -108,35 +134,35 @@
 
 ---
 
-### J8. Track Product evolution over time
+### J11. Track Product evolution over time
 **When** I need to understand product history  
 **I want to** see the evolution of Product Intents and their outcomes  
 **So that** I can make informed decisions
 
 ---
 
-### J9. Access feedback repository (FIRs, customer signals)
+### J12. Access feedback repository (FIRs, customer signals)
 **When** I need raw customer input  
 **I want to** browse and search the Feedback repository  
 **So that** I can ground Product Intent in real signals
 
 ---
 
-### J10. Compare planned vs actual delivery
+### J13. Compare planned vs actual delivery
 **When** assessing predictability  
 **I want to** see what was planned vs what was delivered  
 **So that** I can improve estimation
 
 ---
 
-### J11. Manage dependencies between Work Orders
+### J14. Manage dependencies between Work Orders
 **When** Work Orders depend on each other  
 **I want to** visualize and manage dependencies  
 **So that** sequencing is correct
 
 ---
 
-### J12. Search and filter Work Orders
+### J15. Search and filter Work Orders
 **When** I need to find specific work  
 **I want to** search by status, track, workspace, date, assignee  
 **So that** I can locate it quickly

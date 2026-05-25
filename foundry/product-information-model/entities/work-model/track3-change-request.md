@@ -40,11 +40,11 @@ Without Change Requests:
 | Deployment Scope | Enum | `System` / `Product` — whether this CR governs a System or Product deployment |
 | Scope | Reference (Dim 7) | Deployment Train or specific Station this change request targets |
 | Requestor | String | Person or team requesting the change |
-| Justification | Text | Why this change is needed (may reference Customer Release, Incident, business exigency) |
+| Justification | Text | Why this change is needed (may reference Customer Release Intent, Incident, business exigency) |
 | Impact Assessment | Text | Blast radius, affected tenants, affected services, risk level |
 | CAB Decision | Text | Change Advisory Board decision and rationale (if applicable) |
 | Completion Criteria | Text | What must be true for this CR to be considered complete (all Deployment Tasks + Verification Tasks succeed) |
-| Customer Release | Reference (Dim 1) | Customer Release this change supports (if applicable) |
+| Customer Release Intent | Reference (Dim 1) | Customer Release Intent this change supports (if applicable) |
 | Emergency Justification | Text | For Emergency types: why normal process is being bypassed; documented waiver; ODR reference |
 
 ## Statuses
@@ -66,7 +66,7 @@ Without Change Requests:
 | Scoped to | Station (Dim 7) | Change Request may be scoped to a specific Station within a Train |
 | Contains | Deployment Plan(s) (Track 3) | Change Request contains the Deployment Plan(s) that scope the rollout |
 | Contains | Verification Task(s) (Track 3) | Change Request contains Verification Tasks (created by planning or added independently) |
-| May reference | Customer Release (Dim 1) | Change Request may support a Customer Release's deployment needs |
+| May reference | Customer Release Intent (Dim 1) | Change Request may support a Customer Release Intent's deployment needs |
 | May originate from | Incident (Track 3, artifact) | Emergency-Technical changes may originate from an Incident; triggered via Incident Response Task |
 | May originate from | Release Planning Task (Track 2) | Emergency-Business changes may originate from accelerated Release Plans |
 | Respects | Deployment Environment Change Cycle (Dim 7) | Change Request timing respects the target environment's change windows and freeze periods |
@@ -81,8 +81,8 @@ Change Request: CR-2026-0142
 ├── Scope: PCI Regulated Train (full promotion path)
 ├── Requestor: Release Engineering
 ├── Deployment Scope: Product
-├── Justification: "Deploy Product v4.0.0 — includes FX rate-lock feature for LATAM Expansion Customer Release"
-├── Customer Release: "LATAM Expansion"
+├── Justification: "Deploy Product v4.0.0 — includes FX rate-lock feature for LATAM Expansion Customer Release Intent"
+├── Customer Release Intent: "LATAM Expansion"
 ├── Impact Assessment: "Medium risk — DB migration in payments-system pre-rollout; 3 production environments; affects all Payments tenants"
 ├── CAB Decision: "Approved — drill required before production deployment"
 ├── Completion Criteria: "All Deployment Tasks (staging, prod-us, prod-latam) + all Verification Tasks (SLA, compliance) pass"
@@ -102,7 +102,7 @@ Change Request: CR-2026-0158
 ├── Requestor: Product Management
 ├── Justification: "LATAM Independence Day campaign requires FX rate display feature by Sept 7 — Release Plan acceleration"
 ├── Emergency Justification: "Business exigency — campaign budget committed; 72h soak waived to 4h with VP approval; ODR-015 documents waiver"
-├── Customer Release: "LATAM Campaign Q3"
+├── Customer Release Intent: "LATAM Campaign Q3"
 ├── Impact Assessment: "Low risk — feature flag controlled; no schema changes; single module"
 ├── Status: Approved
 ```

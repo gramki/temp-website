@@ -117,6 +117,8 @@ These four are presentation clusters, not a substitute for the formal taxonomy. 
 
 Product Intent items are owned. In the engagement view, the Engagement Workshop owns Product Intent items at the umbrella level — program-managed consolidation of intent for one or more Products (each evolved in its Workbench). Source: [../1.TODO](../1.TODO) line 11.
 
+In the Foundry Web App, the PI Console visualizes Product Intent formation: Strategy Frame, Signals, Decisions, Product Intents, PSD refinement, stakeholder-specific Traceability Maps, and Bottlenecks.
+
 ## Governance Workspace
 
 The **Governance Workspace** is the workspace whose Scenarios are invoked on **every transition** of Product Intent. It does not own the work being transitioned; it owns the discipline of the handoff itself. See [governance.md](governance.md) for detail.

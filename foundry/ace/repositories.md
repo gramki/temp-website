@@ -75,7 +75,7 @@ This guide defines the repository architecture for the Foundry -- the knowledge 
 
 | Section | UPIM Mapping | Content |
 |---|---|---|
-| **Strategy** | Strategy & Intent | Strategic Themes, Objectives, Initiatives, Customer Releases, Lever Mix definitions |
+| **Strategy** | Strategy & Intent | Strategic Themes, Objectives, Initiatives, Customer Release Intents, Lever Mix definitions |
 | **Business Model** | Vendor Value | Business Model, Pricing Tiers/Packages, Value Metrics, Lever Portfolio, Business KPIs, Cost KPIs, Win Outcomes, Win Barriers, Delivery Frictions, Win Stakeholder role definitions |
 | **Customer Value** | Customer ROI | Customer Promises (Value Propositions, Service Commitments, Compliance Posture), Customer Value Metrics, Buying Personas, Business Outcomes, Customer Segments |
 | **Signals & Ideas** | Strategy & Intent (flowing items) | Problems, Needs, Opportunities (routed from FIRs or created directly), Ideas (Hypotheses), PDRs |

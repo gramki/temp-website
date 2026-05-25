@@ -4,7 +4,7 @@
 
 **Group:** Work
 
-**Purpose:** Product Management control surface for the Workbench — surface relevant Product Intent Repository items, triage unprocessed Signals, maintain Objectives and Initiatives, observe Discovery Track conversion, and track Product Intents as they move into Product Specification and onward through the ACE Product Evolution Cycle.
+**Purpose:** Product Intent Formation Console for the Workbench — visualize how Product Intent forms from Strategy, Signals, Product Decisions, customer commitments, and Release learnings; surface relevant Product Intent Repository items; and track Product Intents as they move into PSD refinement and ACE Workspace execution.
 
 ---
 
@@ -16,6 +16,8 @@
 | **Unprocessed Signal** | A Signal in `New` or `Triaged` state that has not yet been explored, associated with an Initiative, parked, addressed, or dismissed. |
 | **Objective** | Strategic goal over a planning horizon; answers "where are we going?" |
 | **Initiative** | Cross-track strategic program that advances Objectives, associates Signals, declares lever mix, and carries embedded targets. |
+| **Customer Promise** | Customer Value commitment: what value, service level, or compliance posture the product promises to a customer segment. |
+| **Customer Release Intent** | Strategy-layer intent for a planned customer-facing delivery outcome: what capabilities we intend to make available, to whom, why, and by when. |
 | **Idea** | Hypothesis spawned from one or more Signals and validated through Discovery Track work. |
 | **PDR** | Product Decision Record: Go / Kill / Pivot decision that records evidence. A Go or Pivot PDR may create Product Intent, Modeling Tasks, or Initiative changes. |
 | **PSD** | Product Specification Document: the validated contract between Product and Engineering. PSDs are refined under Product Intent through Specification Tasks in the Product Specification Workspace. |
@@ -33,7 +35,7 @@ The console should surface **relevant** PIR items — enough for a Product Manag
 
 | Repository section | Definition Model items | Why the PI Console shows them |
 |--------------------|------------------------|-------------------------------|
-| **Strategy** | Portfolio, Strategic Theme, Objective, Initiative, Customer Release | Shows product direction: where the Product sits, what strategic themes are active, what Objectives are being pursued, what Initiatives group the work, and what customer-facing release outcomes may result. |
+| **Strategy** | Portfolio, Strategic Theme, Objective, KRA / SLA context, Initiative, Customer Release Intent | Shows product direction: where the Product sits, what strategic themes are active, what Objectives or commitments are being pursued, what Initiatives group the work, and what customer-facing delivery outcomes are intended. |
 | **Signals** | Problem, Need, Opportunity | Shows the unprocessed or active observations that warrant product attention. These are the raw inputs to Discovery, not requirements or commitments. |
 | **Hypotheses and decisions** | Idea, Product Decision Record (PDR) | Shows how Signals are synthesized into hypotheses, and how Go / Kill / Pivot decisions are recorded with evidence. |
 | **Product Intents** | Product Intent | Shows the execution token created from Go/Pivot PDRs and routed through ACE Workspaces. |
@@ -45,7 +47,7 @@ The console should surface **relevant** PIR items — enough for a Product Manag
 
 | Item type | Examples | Console treatment |
 |-----------|----------|-------------------|
-| **Standing strategy/context** | Portfolio, Strategic Theme, Objective, Business Model, Customer Segment, Win Outcome, Customer Promise | Display as filters, side-panel context, and traceability anchors. These items explain the frame for intent. |
+| **Standing strategy/context** | Portfolio, Strategic Theme, Objective, KRA / SLA context, Customer Release Intent, Business Model, Customer Segment, Win Outcome, Customer Promise | Display as filters, side-panel context, and traceability anchors. These items explain the frame for intent. |
 | **Flowing discovery items** | Problem, Need, Opportunity, Idea, PDR | Display as queues, cards, status flows, and detail pages through Discovery. |
 | **Flowing execution items** | Product Intent, PSD | Display as queues and detail pages once a Go/Pivot PDR creates intent; PSD refinement is tracked under that intent. |
 
@@ -55,9 +57,9 @@ The console should surface **relevant** PIR items — enough for a Product Manag
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ STRATEGIC CONTEXT                                                   │
+│ STRATEGY FRAME                                                      │
 │   Objectives: OBJ-12 LATAM Coverage │ OBJ-13 Activation Velocity     │
-│   Initiatives: INIT-04 LATAM Entry [Product 40% | GTM 25% | ...]    │
+│   Initiatives: INIT-04 LATAM Entry │ CRI-02 LATAM Expansion          │
 ├─────────────────────────────────────────────────────────────────────┤
 │ SIGNAL INTAKE                                                       │
 │   [New (12)] [Triaged (8)] [Exploring (5)] [Parked (9)]             │
@@ -77,11 +79,132 @@ The console should surface **relevant** PIR items — enough for a Product Manag
 
 ---
 
+## PI Console Views
+
+### 1. Funnel
+
+Default view. Shows Product Intent formation from multiple valid starting points into downstream execution.
+
+```text
+Strategy / Signals / Commitments / Release Learnings
+  -> Product Decision / PDR
+  -> Product Intent
+  -> PSD refinement
+  -> Workspace execution
+  -> Delivery / Renewal
+```
+
+**Starting point filters:** Strategy, Signals, Decisions, KRA / SLA, Customer Promise, Customer Release Intent, Release Learning, Compliance / contractual commitment.
+
+### 2. Strategy Frame
+
+Shows decision-grade strategy and the Product Intents it produces.
+
+| Strategy element | What it answers |
+|------------------|-----------------|
+| Portfolio / Strategic Theme | What durable direction is active? |
+| Objective / KRA | What goal or result are we pursuing? |
+| SLA / Customer Commitment | What commitment constrains product evolution? |
+| Initiative | What cross-track program groups the work? |
+| Customer Release Intent | What customer-facing delivery outcome do we intend to make available? |
+| Strategic Constraint | What regulatory, contractual, partner, market, or customer deadline shapes priority? |
+
+#### What belongs in Strategy
+
+- Portfolio context
+- Strategic Themes
+- Objectives, KRAs, and measurable goals
+- SLAs and customer commitments that shape product evolution
+- Initiatives
+- Customer Release Intents
+- Strategic constraints such as regulatory deadlines, contractual commitments, partner launch dependencies, market-event deadlines, and customer-committed dates
+- Product Decisions / PDRs
+- Product Intents
+
+#### What must not go into Strategy
+
+- Raw customer requests
+- Untriaged Signals
+- Individual bugs
+- Jira stories
+- Engineering tasks
+- UX tasks
+- Implementation designs
+- PSD body content
+- Deployment records
+- Incident logs
+- Unprocessed stakeholder opinions
+
+Those items may inform strategy, but they are not strategy until they are interpreted, decided, and linked to Product Intent.
+
+### 3. Signals
+
+Shows raw discovery inputs and their processing state:
+
+```text
+Problem / Need / Opportunity
+  -> New / Triaged / Exploring / Associated / Parked / Addressed / Dismissed
+```
+
+Signals may inform strategy, but Signals are not strategy.
+
+### 4. Decisions
+
+Shows Product Decisions and the Product Intents they create.
+
+```text
+PDR / Product Decision
+  -> Product Intent(s)
+  -> PSD(s)
+```
+
+One PDR can create multiple Product Intents.
+
+### 5. Product Intents
+
+Lifecycle view for Product Intent as a hybrid entity:
+
+```text
+Formed -> Accepted -> Parked -> In Specification -> Specified
+  -> In Evolution -> Delivered -> Closed
+  -> Superseded / Cancelled
+```
+
+### 6. Traceability Maps
+
+Traceability Maps replace generic graph exploration. Each map answers a stakeholder question with a predefined graph shape.
+
+| Map | Audience | Shape | Question answered |
+|-----|----------|-------|-------------------|
+| **Executive Strategy Map** | Executives, portfolio leaders | Strategic Theme -> Objective / KRA -> Initiative -> Product Intent -> Customer Release Intent / Delivered Outcome | Are strategic goals turning into product evolution? |
+| **Product Manager Intent Map** | Product Managers | Signal -> Idea -> PDR -> Product Intent -> PSD | Why does this intent exist and what refines it? |
+| **Delivery Execution Map** | Engineering managers, delivery leads | Product Intent -> PSD -> Work Orders -> Workspace Sessions -> Artifacts -> Release | What work is required and where is it blocked? |
+| **Governance Evidence Map** | Governance, compliance, audit | PDR -> Product Intent -> Governance Events -> PSD Approval -> QA Evidence -> Release Evidence | Was every transition governed and evidenced? |
+| **Customer Value Map** | Product, CS, GTM | Customer Segment -> Buying Persona / Business Outcome -> Customer Promise -> Product Intent -> Customer Release Intent -> Customer Value Metric | Which customer promise does this intent serve? |
+| **Vendor Value Map** | Business and product leadership | Business Model -> Win Outcome -> Business KPI / Cost KPI -> Initiative -> Product Intent -> Win Review / Release | Which commercial outcome should move? |
+| **Release Renewal Map** | Release, PM, governance | Delivered Product Intent -> Release Evidence -> Feedback / Learnings -> Renewed Product Intent -> Next Cycle | What did delivery teach us and what intent did it renew? |
+
+### 7. Bottlenecks
+
+Shows stalled items across the funnel:
+
+- Untriaged Signals
+- Old Triaged Signals
+- Ideas stuck in validation
+- Draft PDRs
+- Product Intents stuck in Formed / Accepted
+- Product Intents stuck in Specification
+- PSDs stuck in Technical Review
+- Product Intents stuck in Evolution
+- Release renewals not acted on
+
+---
+
 ## Page Sections
 
-### 1. Strategic Context
+### 1. Strategy Frame
 
-The top of the console shows the Product Management frame for the Workbench. This is where managers see the goals and macro initiatives that determine how the Product should evolve.
+The top of the console shows the Product Management frame for the Workbench. This is where managers see the goals, commitments, constraints, and macro initiatives that determine how the Product should evolve.
 
 | Element | Description |
 |---------|-------------|
@@ -89,6 +212,8 @@ The top of the console shows the Product Management frame for the Workbench. Thi
 | **Objective status** | Draft, Active, Achieved, Deferred |
 | **Objective success criteria** | Measurable criteria and constraints that guide prioritization |
 | **Initiatives** | Active or approved Initiatives pursuing the Objectives |
+| **Customer Release Intents** | Planned customer-facing delivery outcomes and target availability dates |
+| **Strategic commitments** | KRAs, SLAs, customer-committed deadlines, regulatory deadlines, partner launch dependencies |
 | **Lever mix** | Initiative allocation across Product, GTM, Sales Enablement, Customer Success, Operational |
 | **Embedded targets** | Initiative targets tied to Win Outcomes and Business KPIs |
 | **Signal coverage** | Count of associated Signals by Initiative and Signal type |

@@ -51,7 +51,7 @@ Makes deployment planning explicit in the Run Track. Deploying to production is 
 | May produce | Maintenance Task(s) (Track 3) | Planning may discover maintenance prerequisites |
 | Considers | Operational Readiness (Dim 7) | Planning considers System readiness in the target environment |
 | Informed by | Incident history (Track 3) | Recent incidents for affected Systems inform deployment risk assessment |
-| Supports | Customer Release (Dim 1) | Ensures Customer Release's Product Version reaches target environments |
+| Supports | Customer Release Intent (Dim 1) | Ensures Customer Release Intent's Product Version reaches target environments |
 
 ## Examples
 

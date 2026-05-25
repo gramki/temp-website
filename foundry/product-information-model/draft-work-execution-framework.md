@@ -97,7 +97,7 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 | Milestone Definition | Build | Checkpoint criteria with entry/exit gates | Entry and exit criteria testable; dependencies identified; verification steps defined |
 | Iteration Plan | Build | Story/task assignments and capacity allocation | Capacity validated against team availability; stories sized; dependencies sequenced |
 | Deployment Runbook | Run | Environments, rollout strategy, rollback plan, verification steps | All target environments listed; rollback procedure tested; verification steps automated where possible; compliance windows noted |
-| Capacity Forecast | Run | Projected load, scaling requirements, infrastructure plan | Load projections based on Customer Release scope; scaling triggers defined; cost implications stated |
+| Capacity Forecast | Run | Projected load, scaling requirements, infrastructure plan | Load projections based on Customer Release Intent scope; scaling triggers defined; cost implications stated |
 | Market Delivery Plan | Win | Segment sequencing, readiness criteria, coordination checklist | Segment sequencing justified; readiness criteria testable; coordination with Build/Run Track confirmed |
 | GTM Launch Plan | Win | Messaging, deliverables list, stakeholder enablement checklist | Messaging aligned to Customer Promise (Dim 3); all enablement assets identified; launch timeline synchronized with deployment |
 | Enablement Program Plan | Win | Asset inventory, training schedule, competitive program scope | Asset gaps identified; training schedule realistic; competitive positioning current |

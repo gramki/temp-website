@@ -32,7 +32,7 @@ Not all customers should receive new capabilities simultaneously. Phased rollout
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Plans for | Customer Release (Dim 1) | Customer Rollout Planning Tasks plan phased delivery of a Customer Release |
+| Plans for | Customer Release Intent (Dim 1) | Customer Rollout Planning Tasks plan phased delivery that realizes a Customer Release Intent |
 
 ## Example
 

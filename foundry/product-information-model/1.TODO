@@ -106,7 +106,7 @@
     ☐ Defined by Domain and Technical Architects
 
 # Win Track:
-    ✔ Works on Customer Releases @done(26-02-18 10:19)
+    ✔ Works on Customer Release Intents and realized Customer Releases @done(26-02-18 10:19)
     ✔ Receives Queries, Requests, Feedback, and other signals from the Customers, Win Stakeholders, and other stakeholders @done(26-02-18 10:19)
     ✔ Onboards, Activates, and Retains Customers @done(26-02-18 10:20)
     ✔ Reviews the Win Outcomes evolution and provides necessary feedback @done(26-02-18 10:19)
@@ -119,7 +119,7 @@
 
 # Run Track:
     - Works on Deployable Artifacts (Modules, Products, etc.)
-    - Decides what changes to deploy and when to deploy them to meet a Customer Release plan; Abides by the change freeze windows and compliance windows
+    - Decides what changes to deploy and when to deploy them to meet a Customer Release Intent plan; Abides by the change freeze windows and compliance windows
     - Creates and Manages the Deployment Environments (Region-based, Tenant-based, etc.) - Cloud Ops
     - Creates and Manages Change Freeze Windows and Compliance Windows
     - Works on Deployment and Rollback Strategies for each Artifact version Release (Blue-Green, Canary, Rolling, etc.)
@@ -164,7 +164,7 @@ Let me map this out systematically.
 
 ### Tier 1: Strategy & Intent — PM fully owns
 
-**Dimension 1 (Strategy)** — Already covered. PM owns all entities: Objectives, Initiatives, Customer Releases, Signals, Ideas, PDRs, PSDs.
+**Dimension 1 (Strategy)** — Already covered. PM owns all entities: Objectives, Initiatives, Customer Release Intents, Signals, Ideas, PDRs, Product Intents, PSDs.
 
 ### Tier 2: Business & Market — PM primarily owns
 

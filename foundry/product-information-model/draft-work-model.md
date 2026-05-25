@@ -28,7 +28,7 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
   2. **Product Intent** — the hybrid bridge item created or updated by Go/Pivot decisions, carrying committed product direction into ACE Workspace execution.
   3. **PSD(s)** — module-scoped specifications that refine Product Intent through Specification Tasks.
   4. **Definition Model updates** — evolution of entities in Dims 2–9 (via Modeling Task). Examples: new Customer Segments, refined Value Propositions, updated Value Streams, new Capabilities.
-  Additionally: Objectives, Initiatives, Customer Release definitions (Dimension 1); Idea status changes — either advanced to `Validated` (triggering PSD authoring via PDR) or moved to `Killed`.
+  Additionally: Objectives, Initiatives, Customer Release Intent definitions (Dimension 1); Idea status changes — either advanced to `Validated` (triggering PDR/Product Intent) or moved to `Killed`.
 
 * **Planning Entities:**
   * **Objective Setting Task:** Work to define or refine strategic Objectives for a planning horizon. (e.g., "Define H2 2026 product objectives based on board strategy review").
@@ -65,8 +65,8 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
 > **Module scope vs. System scope:** Epics and Stories are Module-scoped (Dim 8) — they speak the functional language ("Build FX Rate Locking" for the FX Module). Technical Tasks are System/Component-scoped (Dim 5) — they speak the engineering language ("Implement gRPC endpoint in fx-service"). This reflects reality: PMs and Tech Leads plan in Module terms; developers implement in System terms. The Module-to-System many-to-many mapping means a single Story may spawn Technical Tasks in multiple Systems. See DR-026.
 
 * **Planning Entities:**
-  * **Release Planning Task:** Work to scope a Customer Release — which PSDs/Initiatives are included, timeline, milestones, team allocation. Release Planning decomposes PSDs into Epics (one per affected Module) and identifies Integration Epics (cross-System integration work). (e.g., "Plan Customer Release 'LATAM Expansion': scope to LATAM initiative PSDs, target mid-Q3 ship date; identify 5 Epics across 3 Modules, 2 Integration Epics").
-  * **Milestone Planning Task:** Work to define checkpoints within a Customer Release with clear entry/exit criteria, cross-Epic dependency gating, and integration verification gates. (e.g., "Define 'API Complete' milestone — all cross-border endpoints passing integration tests; 'Integration Verified' milestone — Payments and FX System Versions Released").
+  * **Release Planning Task:** Work to scope realization of a Customer Release Intent — which PSDs/Product Intents/Initiatives are included, timeline, milestones, team allocation. Release Planning decomposes PSDs into Epics (one per affected Module) and identifies Integration Epics (cross-System integration work). (e.g., "Plan Customer Release Intent 'LATAM Expansion': scope to LATAM initiative PSDs, target mid-Q3 ship date; identify 5 Epics across 3 Modules, 2 Integration Epics").
+  * **Milestone Planning Task:** Work to define checkpoints within realization of a Customer Release Intent with clear entry/exit criteria, cross-Epic dependency gating, and integration verification gates. (e.g., "Define 'API Complete' milestone — all cross-border endpoints passing integration tests; 'Integration Verified' milestone — Payments and FX System Versions Released").
   * **Iteration Planning Task:** Work to assign Stories, Integration Stories, and Technical Tasks to a time-boxed iteration, balance capacity, and identify cross-System dependencies. (e.g., "Sprint 14 planning: allocate FX rate-lock Stories, assign Technical Tasks to fx-service and payments-service developers").
 
 * **Work Entities (work to be done):**
@@ -108,7 +108,7 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
   * **Deployment Plan:** A deliberation activity where the Run team scopes a rollout — determining which System or Product deployments advance through Deployment Trains and Stations, identifying verification and maintenance prerequisites, and producing Deployment Planning Tasks. Governed by a Change Request. (e.g., "Deployment Plan: Deploy Product v4.0.0 through PCI Regulated Train — create Product Deployment Specification, verification tasks, drill task").
   * **Deployment Planning Task:** Work to plan a deployment and **produce Deployment Specifications** (System Deployment Specification or Product Deployment Specification) for target environments. Governed by a Deployment Plan. (e.g., "Plan payments-system v3.1.0 deployment to production-latam: produce System Deployment Specification sds-1.2, migration script, validation smoke test, rollback script").
   * **Deployment Drill Task:** An optional rehearsal of a Deployment Plan in a non-production environment. (e.g., "Rehearse Product Deployment Specification pds-1.0 procedure in staging-drill environment").
-  * **Capacity Planning Task:** Work to forecast infrastructure needs based on projected load from upcoming Customer Releases. (e.g., "Forecast FX microservice scaling needs: LATAM launch expected to 3x transaction volume").
+  * **Capacity Planning Task:** Work to forecast infrastructure needs based on projected load from upcoming Customer Release Intents. (e.g., "Forecast FX microservice scaling needs: LATAM launch expected to 3x transaction volume").
 
 * **Engineering Entities (Run Track as engineering track):**
   * **Run Epic:** A large body of operational engineering work scoped to a single Module (Dim 8). Produces operational System Versions via Build Track. Triggered by Operational Readiness gaps, Post-Incident Reviews, incident patterns, or operational improvement initiatives. (e.g., "Build comprehensive health monitoring for Payments Module").
@@ -163,8 +163,8 @@ Win Monitoring is continuous tracking of customer health (adoption, usage, NPS),
 
 Win Planning is a parent entity with lever-specific subtypes. Each subtype plans a different kind of Win Track work, aligned to the lever it activates.
 
-  * **Customer Release Planning:** Work to coordinate the market delivery of a Customer Release — segment sequencing, market readiness assessment, Win Stakeholder preparation, coordination with Build Track's Release Planning. Distinct from Build Track's Release Planning Task (which scopes technical content); Customer Release Planning is concerned with *how the release reaches the market*. (e.g., "Plan LATAM Expansion market delivery: LATAM Enterprise first (Activation Win Outcome: live within 30 days), US Mid-Market 30 days later").
-  * **GTM Planning:** Work to prepare launch messaging, pricing communication, partnership execution, marketing campaigns, and channel strategy for a Customer Release or Initiative. (e.g., "Prepare LATAM Expansion launch: sales deck targeting CFO Win Outcome, pricing page for Enterprise Volume Plan, LATAM partner co-marketing").
+  * **Customer Release Planning:** Work to coordinate the market delivery that realizes a Customer Release Intent — segment sequencing, market readiness assessment, Win Stakeholder preparation, coordination with Build Track's Release Planning. Distinct from Build Track's Release Planning Task (which scopes technical content); Customer Release Planning is concerned with *how the release reaches the market*. (e.g., "Plan LATAM Expansion market delivery: LATAM Enterprise first (Activation Win Outcome: live within 30 days), US Mid-Market 30 days later").
+  * **GTM Planning:** Work to prepare launch messaging, pricing communication, partnership execution, marketing campaigns, and channel strategy for a Customer Release Intent or Initiative. (e.g., "Prepare LATAM Expansion launch: sales deck targeting CFO Win Outcome, pricing page for Enterprise Volume Plan, LATAM partner co-marketing").
   * **Sales Enablement Planning:** Work to plan competitive programs, demo environment programs, sales training, and enablement asset creation. (e.g., "Plan Q3 LATAM sales enablement: competitive battlecard vs. CompetitorX, LATAM demo environment, Pre-Sales regulatory training").
   * **Customer Success Planning:** Work to plan onboarding programs, retention programs, expansion programs, advocacy programs, and customer education/certification programs. (e.g., "Plan LATAM CS program: onboarding playbook, health score model for LATAM Enterprise, QBR template, customer advocacy workshop, LATAM API certification program").
   * **Engagement Planning:** Work to plan which prospects, customers, segments, and partners to engage, sequencing, and resource allocation. Includes partner prioritization and sequencing when the product has a channel/partner model. (e.g., "Q3 Pre-sales prioritization: POC for 5 LATAM Enterprise prospects; QBR schedule for 12 at-risk LATAM accounts; LATAM feature webinar series; partner onboarding sequence for 3 LATAM bank partners").
@@ -278,17 +278,17 @@ Evolve Findings is a **transitional artifact**: born in the Evolve Track, consum
 
 ---
 
-### Cross-Track Relationship: Customer Release Lifecycle
+### Cross-Track Relationship: Customer Release Intent Lifecycle
 
-A **Customer Release** (Definition Model, Dimension 1) is a cross-cutting entity whose lifecycle spans multiple tracks:
+A **Customer Release Intent** (Definition Model, Dimension 1) is a cross-cutting strategy entity whose realization spans multiple tracks:
 
 | Track | Contribution |
 |---|---|
-| **Discovery Track** | Strategic planning defines Customer Releases as part of Initiative scoping |
+| **Discovery Track** | Strategic planning defines Customer Release Intents as part of Initiative scoping |
 | **Build Track** | Release Planning scopes PSDs/Initiatives; build work produces Component Versions, System Versions, and Product Versions |
 | **Run Track** | Deployment Planning produces System and Product Deployment Specifications; Change Requests govern promotion through Deployment Trains; Deployment Tasks apply specifications; operational Systems versioned via same Build Track chain |
-| **Win Track** | Customer Release Planning coordinates market delivery; GTM Planning prepares launch messaging; the Win Track **activates** the Customer Release through engagement, enablement, and reactive support |
+| **Win Track** | Customer Release Planning coordinates market delivery; GTM Planning prepares launch messaging; the Win Track **activates** the realized Customer Release through engagement, enablement, and reactive support |
 
-A Customer Release becomes `Launched` when required Deployment Specifications are successfully applied by Deployment Tasks to target environments, all Change Requests are complete, AND the business activates the release (Win Track).
+A Customer Release Intent becomes `Launched` when required Deployment Specifications are successfully applied by Deployment Tasks to target environments, all Change Requests are complete, AND the business activates the realized release (Win Track).
 
 ---

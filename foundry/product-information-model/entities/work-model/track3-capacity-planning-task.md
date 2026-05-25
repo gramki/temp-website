@@ -6,11 +6,11 @@
 
 ## Definition
 
-Work to forecast infrastructure needs based on projected load from upcoming Customer Releases. Includes scaling analysis, resource provisioning, and infrastructure readiness verification.
+Work to forecast infrastructure needs based on projected load from upcoming Customer Release Intents. Includes scaling analysis, resource provisioning, and infrastructure readiness verification.
 
 ## Purpose
 
-Ensures the infrastructure is ready to support the capabilities being delivered. Without proactive capacity planning, Customer Releases may be deployed to environments that cannot handle the projected load, causing incidents and SLA breaches.
+Ensures the infrastructure is ready to support the capabilities being delivered. Without proactive capacity planning, Customer Release Intents may be realized in environments that cannot handle the projected load, causing incidents and SLA breaches.
 
 ## Fields
 
@@ -28,7 +28,7 @@ Ensures the infrastructure is ready to support the capabilities being delivered.
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Supports | Customer Release (Dim 1) | Capacity Planning ensures infrastructure readiness for Customer Releases |
+| Supports | Customer Release Intent (Dim 1) | Capacity Planning ensures infrastructure readiness for Customer Release Intent realization |
 | References | Environment (Dim 7) | Capacity Planning targets specific environments |
 
 ## Example
