@@ -71,6 +71,7 @@ The intent is that any module specification reads first as an ACE/UPIM consumer 
 
 ## Read next
 
+- [phase-1/](phase-1/README.md) — Phase 1 implementation-readiness outline and open questions.
 - [platform.TODO](platform.TODO) — current build backlog.
 - [ci/ci.TODO](ci/ci.TODO) — current CI backlog.
 - [../ace/](../ace/README.md) — what the platform is realizing.
