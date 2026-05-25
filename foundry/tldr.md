@@ -25,10 +25,11 @@ Engineers at Zeta, and the engineers at the customer banks Zeta delivers softwar
 ## The core abstractions
 
 - **Track** — a value stream in the SDLC (Discovery, Build, Run, Win, Evolve). Each Track is an assembly line.
+- **Orchestration item** — the Track-level item the Orchestrator routes (for example Discovery Case in Discovery, Product Intent in Build).
 - **Workspace** — a station on the line, owned by a single function. A Workspace knows what work it can do and houses the agents and humans who do it.
 - **Scenario** — a defined kind of work a Workspace knows how to execute. Automated by an agent with skills, decomposing into Tasks.
-- **Product Intent** — the root concept describing what the product is meant to be and to do. Every piece of work in Foundry traces back to a Product Intent, and the graph rooted at it carries the context that work needs.
-- **Work Order** — an instance of a Scenario, attached to a Product Intent graph that carries its context.
+- **Product Intent** — the Build Track orchestration item describing what the product is meant to become or what evidence Build must produce.
+- **Work Order** — an instance of a Scenario, attached to an orchestration-item graph that carries its context.
 - **Agent** — an AI worker with a defined set of skills, spun up per Scenario to execute it end-to-end.
 - **Task** — the granular unit of work inside a Work Order. Either an **Agent Task** (executed by an agent) or a **Human Task** (assigned to a human, or waiting on one).
 
@@ -57,7 +58,7 @@ Pick any one — each has 18 months of interesting, foundational work:
 - **Foundry Management** — Workbenches for Products, repositories (as services), teams, agents, knowledge, tenancy
 - **Foundry IDE** — builder-facing views on work, tasks, context, progress — workspace-specific
 - **Work Order Runtime** — context compilation, agent lifecycle for WO execution, agent delegation, human-task surfacing
-- **Foundry Orchestrator** — move Product Intent across workspaces, create Work Orders, invoke Governance Scenarios, enforce gates
+- **Foundry Orchestrator** — route orchestration items across workspaces, create Workspace Work Orders, invoke Governance Scenarios, enforce gates
 - **Scenario Authoring (per Track, Workspace)** — scenario discovery & definition; Skills, Knowledge, and Tools; agent recommendations
 - **Release Tools** — CI/CD pipelines with embedded agents, CD integrations, distribution stores
 - **Platform Ops** — observability dashboards, standard tooling, infrastructure plumbing

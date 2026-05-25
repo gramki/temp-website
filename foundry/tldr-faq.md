@@ -27,17 +27,23 @@ A defined kind of work that a Workspace knows how to execute. Each Workspace own
 
 ---
 
-## On Work Orders, Product Intent, and Context
+## On Orchestration Items, Work Orders, and Context
 
-### What is the Product Intent graph?
+### What is an orchestration item vs a Workspace Work Order?
 
-Every piece of work in Foundry traces back to a **Product Intent** — the root concept describing what the product is meant to be and to do. Each Work Order belongs to a graph rooted at a Product Intent, and that graph carries the context the Work Order needs to complete: other Work Orders it depends on, repository data, prior outputs.
+An **orchestration item** is the Track-level token the Orchestrator routes: Discovery Case, Product Intent, Run Case, Customer Release Intent or Win Case, Evolve Case, Governance Case. A **Workspace Work Order** is a Scenario instance executing in one Workspace, anchored to that item's context graph.
 
-The exact schema of the graph (typed edges, cycles, DAG-only?) is a deeper-docs topic.
+Build Track work centers on Product Intent, but Product Intent is not the only orchestration item in Foundry.
+
+### What is the orchestration-item graph?
+
+For Build Track, the graph is rooted at **Product Intent** — the hybrid bridge entity describing what the product is meant to become or what evidence Build must produce. Other Tracks root their graphs at their primary orchestration item. Cross-track links connect graphs at handoffs.
+
+The exact schema of these graphs (typed edges, cycles, DAG-only?) is a deeper-docs topic.
 
 ### What is "Context"?
 
-Reader is expected to know. In short: the structured information a Work Order needs to do its job, drawn from the Product Intent graph and the Workspace's repositories. The formal definition belongs to ACE concepts.
+Reader is expected to know. In short: the structured information a Work Order needs to do its job, drawn from the parent orchestration-item graph and the Workspace's repositories. The formal definition belongs to ACE concepts.
 
 ### What is a "Skill"?
 
@@ -83,8 +89,8 @@ Spiritually yes — log in, get a pre-configured environment with the context yo
 
 Discovery, Build, Release, Governance is a focused subset that exercises the platform end-to-end:
 
-- Discovery turns signals into Product Intent
-- Build turns specs into verified artifacts
+- Discovery opens Discovery Cases and turns evidence into PDRs/Product Intent or other routing outcomes
+- Build executes Product Intent, which may be delivery-oriented or discovery-supporting
 - Release publishes those artifacts
 - Governance validates every transition
 
@@ -129,7 +135,7 @@ UPIM today is shaped for the products Zeta builds — banking software with the 
 | **Foundry Management** | Admin plane — Workbenches for Products, repositories (as services), teams, agents, knowledge, tenancy |
 | **Foundry IDE** | Builder-facing interface — workspace-specific views |
 | **Work Order Runtime** | Execution engine — context compilation, agent lifecycle (for WO execution), agent delegation, human-task surfacing |
-| **Foundry Orchestrator** | Coordination — move Product Intent across workspaces, create Work Orders, invoke Governance Scenarios, enforce gates |
+| **Foundry Orchestrator** | Coordination — route orchestration items across workspaces, create Workspace Work Orders, invoke Governance Scenarios, enforce gates |
 | **Scenario Authoring (per Track, Workspace)** | Scenario discovery & definition; Skills, Knowledge, and Tools; agent recommendations |
 | **Release Tools** | CI/CD pipelines with embedded agents, CD integrations, distribution stores, tool integrations |
 | **Platform Ops** | Plumbing — observability dashboards, standard tooling, infrastructure |

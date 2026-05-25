@@ -1,6 +1,6 @@
 # Product Evolution Cycle
 
-The Product Evolution Cycle is the path along which **Product Intent** moves through the six workspaces. It is the dynamic counterpart to the static structure described in [concepts.md](concepts.md). The flow is the source of truth for how work proceeds in any Workbench; deviations are not optional flavor — they are events for the [Governance Workspace](governance.md) to validate.
+The Product Evolution Cycle is the path along which **Product Intent** moves through the six workspaces. It is the dynamic counterpart to the static structure described in [concepts.md](concepts.md). The flow is the source of truth for how work proceeds in any Workbench; deviations are not optional flavor — they are events for the [Governance Workspace](governance.md) to validate. Practitioner walkthroughs live in [how-product-evolves/](how-product-evolves/README.md).
 
 The cycle is named in [ace-model.md](ace-model.md) lines 51-58. This document elaborates it and clarifies the Product Intent provenance now captured in UPIM.
 
@@ -71,7 +71,7 @@ The implication for the Foundry Platform is that intent routing and governance h
 
 ## How the cycle relates to UPIM tracks
 
-UPIM organizes work into five tracks: Discovery, Build, Run, Win, Evolve. Discovery establishes Product Intent from product decisions. The cycle described here is concentrated in **Build** after that handoff (Specification → UX → Development → QA → Release), with Win and operational feedback informing Release renewal. Run (deployment, incidents) is handled outside the workspaces in this folder — see the engagement and Estate notes in [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md). Evolve is a cross-cutting track that mutates the model itself; it is not on the cycle but it can produce or change intent.
+UPIM organizes work into five tracks: Discovery, Build, Run, Win, Evolve. Discovery establishes Product Intent from product decisions and may request Discovery Support Product Intent for Build evidence. The cycle described here is concentrated in **Build** after that handoff (Specification → UX → Development → QA → Release), with Win and operational feedback informing Release renewal. Product Intent entering Build does not always mean customer-committed delivery; see [how-product-evolves/build.md](how-product-evolves/build.md). Run (deployment, incidents) is handled outside the workspaces in this folder — see the engagement and Estate notes in [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md). Evolve is a cross-cutting track that mutates the model itself; it is not on the cycle but it can produce or change intent.
 
 The mapping is sketched here so readers do not assume the cycle and the tracks are the same thing. Detailed mapping is in [relationships.md](relationships.md).
 

@@ -90,6 +90,7 @@ entities/
     ├── track1-objective-setting-task.md
     ├── track1-initiative-scoping-task.md
     ├── track1-prioritization-task.md
+    ├── track1-discovery-case.md          ← Cross-functional orchestration envelope; Signal-optional (DR-039)
     ├── track1-signal-exploration-task.md ← Divergent: Signal → Idea(s)
     ├── track1-deliberation.md          ← Collaborative group judgment (Ideas or PDRs)
     ├── track1-research-task.md         ← Convergent: targeted evidence gathering

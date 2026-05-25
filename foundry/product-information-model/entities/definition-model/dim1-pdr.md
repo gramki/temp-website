@@ -12,6 +12,8 @@ A formal, referenceable record of a significant product decision — including t
 
 The PDR fills the traceability gap between discovery work and committed action. Without it, the model has no artifact that formally records *why* a decision was made or *what evidence* supports it. The PDR is a knowledge artifact (not a process artifact), persisting as a referenceable record long after the discovery work is complete. It differs from the rejected Discovery Decision Record (DDR) concept, which was a workflow-transition artifact — see FAQ Q6.
 
+> **PM alignment gate.** PDRs that materially change product direction require explicit Product Management alignment before Final status. Technical ADRs and operational ODRs do not substitute for PM alignment on product-direction decisions. A Discovery Case that produces a direction-changing PDR records PM alignment as part of closure.
+
 Key design choices:
 - Captures **any significant decision** — Go, Kill, and Pivot. A "Kill" PDR is just as valuable for institutional memory as a "Go" PDR.
 - **May correspond to multiple Ideas** — a single Deliberation may evaluate several related Ideas and produce one PDR covering all of them.
@@ -35,6 +37,8 @@ Key design choices:
 | Rationale | Text | Why this decision was made — the reasoning |
 | Trade-offs | Text | What was considered and rejected — alternatives and their downsides |
 | Confidence Level | Enum | `Low` / `Medium` / `High` |
+| Product Direction Change | Boolean | True when the decision materially changes committed product direction, scope, or strategic posture |
+| PM Alignment | Reference / Attestation | Required when Product Direction Change = true; records accountable PM attestation |
 | Triggers | Text | What this decision triggers — Product Intent(s), PSD(s), Modeling Task(s), Initiative(s), or combination. Product Intent comes first when the decision commits to downstream product evolution. |
 | _Other fields to be refined._ | | |
 
@@ -69,6 +73,7 @@ Draft ──[evidence assembled, decision          Draft ──[abandoned before
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Upstream | Idea (Dim 1) | PDR validates/kills Idea(s) — may correspond to multiple Ideas |
+| Context | Discovery Case (Track 1) | PDR may be produced by a Discovery Case |
 | Downstream | Product Intent (Dim 1) | Go or Pivot PDRs create or update Product Intent(s) |
 | Downstream | PSD (Dim 1) | PDR justifies PSD(s) that refine Product Intent — a single PDR may justify multiple PSDs across different modules |
 | Downstream | ADR(s) (Dim 5) | PDR may trigger Architecture Decision Records for technical/architectural decisions required to implement the product decision |

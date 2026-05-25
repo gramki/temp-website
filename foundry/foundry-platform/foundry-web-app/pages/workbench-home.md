@@ -105,7 +105,7 @@ Grouped consoles for focused views.
 
 | Console | Purpose |
 |---------|---------|
-| **PI Console** | Product Intent Formation, Strategy Frame, Decisions, Traceability Maps |
+| **PI Console** | Discovery Cases, Product Intent types, Strategy Frame, Traceability Maps |
 | **Workspaces Console** | 6 Workspace views, active Work Orders per Workspace |
 | **Progress Console** | Work completion analytics, burndown |
 | **Track Console** | Per-Track work analytics (Discovery, Build, etc.) |

@@ -19,6 +19,7 @@ Research Task is distinct from **Signal Exploration Task**, which is the diverge
 | Field | Type | Description |
 |---|---|---|
 | Title | String | What specific question this research answers |
+| Originating Discovery Case | Reference (Track 1) | Discovery Case this research belongs to, if any |
 | Question | Text | The specific question or hypothesis being investigated |
 | Method | Enum | `Interview` / `Data Analysis` / `Competitive Analysis` / `Market Sizing` / `Regulatory Review` / `Other` |
 | Findings | Text | What was learned |
@@ -37,6 +38,7 @@ Research Task is distinct from **Signal Exploration Task**, which is the diverge
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
+| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case; carries bidirectional reference |
 | May support | Signal Exploration Task (Track 1) | May be spawned to gather specific data during exploration |
 | Validates | Idea (Dim 1) | Research Task validates/invalidates an Idea |
 | Referenced by | Product Decision Record (Dim 1) | PDR cites this Research Task as evidence |

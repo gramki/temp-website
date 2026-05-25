@@ -18,10 +18,11 @@
 | **Initiative** | Cross-track strategic program that advances Objectives, associates Signals, declares lever mix, and carries embedded targets. |
 | **Customer Promise** | Customer Value commitment: what value, service level, or compliance posture the product promises to a customer segment. |
 | **Customer Release Intent** | Strategy-layer intent for a planned customer-facing delivery outcome: what capabilities we intend to make available, to whom, why, and by when. |
+| **Discovery Case** | Cross-functional Discovery Track orchestration item. Groups investigation work until the case resolves in a PDR, Product Intent, another track case, parking, or dismissal. A Signal is optional. |
 | **Idea** | Hypothesis spawned from one or more Signals and validated through Discovery Track work. |
 | **PDR** | Product Decision Record: Go / Kill / Pivot decision that records evidence. A Go or Pivot PDR may create Product Intent, Modeling Tasks, or Initiative changes. |
 | **PSD** | Product Specification Document: the validated contract between Product and Engineering. PSDs are refined under Product Intent through Specification Tasks in the Product Specification Workspace. |
-| **Product Intent** | ACE asset that flows through Workspaces. Created or updated from an accepted Go or Pivot PDR; triggers Product Specification Workspace scenarios where PSDs are drafted and refined. |
+| **Product Intent** | ACE asset that flows through Workspaces. Created or updated from an accepted Go or Pivot PDR, requested as Discovery Support from a Discovery Case, or renewed from Release learnings. Carries an intent purpose; not every Product Intent in Build represents customer-committed delivery. |
 
 ---
 
@@ -37,7 +38,7 @@ The console should surface **relevant** PIR items — enough for a Product Manag
 |--------------------|------------------------|-------------------------------|
 | **Strategy** | Portfolio, Strategic Theme, Objective, KRA / SLA context, Initiative, Customer Release Intent | Shows product direction: where the Product sits, what strategic themes are active, what Objectives or commitments are being pursued, what Initiatives group the work, and what customer-facing delivery outcomes are intended. |
 | **Signals** | Problem, Need, Opportunity | Shows the unprocessed or active observations that warrant product attention. These are the raw inputs to Discovery, not requirements or commitments. |
-| **Hypotheses and decisions** | Idea, Product Decision Record (PDR) | Shows how Signals are synthesized into hypotheses, and how Go / Kill / Pivot decisions are recorded with evidence. |
+| **Hypotheses, cases, and decisions** | Idea, Discovery Case, Product Decision Record (PDR) | Shows how inputs are grouped into discovery investigations, synthesized into hypotheses, and resolved through Go / Kill / Pivot decisions. |
 | **Product Intents** | Product Intent | Shows the execution token created from Go/Pivot PDRs and routed through ACE Workspaces. |
 | **Specifications** | Product Specification Document (PSD) and PSD template references | Shows specification contracts refined under each Product Intent. |
 | **Vendor-value context** | Business Model, Pricing Tier / Package, Value Metric, Lever Portfolio, Business KPI / Cost KPI, Win Outcome, Win Barrier, Delivery Friction, Win Stakeholder role | Explains why an Initiative matters commercially, which lever mix is being activated, and how vendor-side success is measured. |
@@ -48,7 +49,7 @@ The console should surface **relevant** PIR items — enough for a Product Manag
 | Item type | Examples | Console treatment |
 |-----------|----------|-------------------|
 | **Standing strategy/context** | Portfolio, Strategic Theme, Objective, KRA / SLA context, Customer Release Intent, Business Model, Customer Segment, Win Outcome, Customer Promise | Display as filters, side-panel context, and traceability anchors. These items explain the frame for intent. |
-| **Flowing discovery items** | Problem, Need, Opportunity, Idea, PDR | Display as queues, cards, status flows, and detail pages through Discovery. |
+| **Flowing discovery items** | Problem, Need, Opportunity, Discovery Case, Idea, PDR | Display as queues, cards, status flows, and detail pages through Discovery. |
 | **Flowing execution items** | Product Intent, PSD | Display as queues and detail pages once a Go/Pivot PDR creates intent; PSD refinement is tracked under that intent. |
 
 ---
@@ -67,9 +68,9 @@ The console should surface **relevant** PIR items — enough for a Product Manag
 │   • SIG-244 Problem — FX rate-lock flow too slow         [Triage]   │
 ├─────────────────────────────────────────────────────────────────────┤
 │ DISCOVERY & COMMITMENT FLOW                                         │
-│   Discovery: Signals → Ideas → PDRs                                 │
-│   Commitment: PDR (Go/Pivot) → Product Intent → PSD refinement      │
-│   18 unprocessed │ 5 exploring │ 3 PDRs final │ 2 PIs in spec       │
+│   Discovery: Signals → Discovery Cases → Ideas → PDRs               │
+│   Commitment: PDR (Go/Pivot) → Product Intent (by type) → PSD       │
+│   18 unprocessed │ 4 open cases │ 3 PDRs final │ 2 PIs in spec     │
 ├─────────────────────────────────────────────────────────────────────┤
 │ PRODUCT INTENTS                                                     │
 │   [Active] [Archived] [All]                                         │
@@ -87,14 +88,17 @@ Default view. Shows Product Intent formation from multiple valid starting points
 
 ```text
 Strategy / Signals / Commitments / Release Learnings
+  -> Discovery Case (optional grouping)
   -> Product Decision / PDR
-  -> Product Intent
+  -> Product Intent (typed)
   -> PSD refinement
   -> Workspace execution
   -> Delivery / Renewal
 ```
 
-**Starting point filters:** Strategy, Signals, Decisions, KRA / SLA, Customer Promise, Customer Release Intent, Release Learning, Compliance / contractual commitment.
+**Starting point filters:** Strategy, Signals, Discovery Case, Decisions, KRA / SLA, Customer Promise, Customer Release Intent, Release Learning, Compliance / contractual commitment.
+
+**Product Intent purpose filters:** Evolution / Delivery, Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, Release Renewal. Default: All purposes; Delivery-only view for customer-commitment tracking.
 
 ### 2. Strategy Frame
 
@@ -153,12 +157,13 @@ Signals may inform strategy, but Signals are not strategy.
 Shows Product Decisions and the Product Intents they create.
 
 ```text
-PDR / Product Decision
-  -> Product Intent(s)
+Discovery Case
+  -> PDR / Product Decision
+  -> Product Intent(s) (with purpose)
   -> PSD(s)
 ```
 
-One PDR can create multiple Product Intents.
+One Discovery Case may produce zero, one, or many PDRs. One PDR can create multiple Product Intents. Product Intents can have different purposes.
 
 ### 5. Product Intents
 
@@ -170,6 +175,10 @@ Formed -> Accepted -> Parked -> In Specification -> Specified
   -> Superseded / Cancelled
 ```
 
+Each Product Intent card shows a purpose badge: Evolution / Delivery, Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, or Release Renewal.
+
+**Build-boundary note:** Discovery Support, Technical Validation, Internal / Enabling, and Operational Enablement Product Intents may enter Build Workspaces without implying a customer-committed delivery outcome.
+
 ### 6. Traceability Maps
 
 Traceability Maps replace generic graph exploration. Each map answers a stakeholder question with a predefined graph shape.
@@ -177,7 +186,8 @@ Traceability Maps replace generic graph exploration. Each map answers a stakehol
 | Map | Audience | Shape | Question answered |
 |-----|----------|-------|-------------------|
 | **Executive Strategy Map** | Executives, portfolio leaders | Strategic Theme -> Objective / KRA -> Initiative -> Product Intent -> Customer Release Intent / Delivered Outcome | Are strategic goals turning into product evolution? |
-| **Product Manager Intent Map** | Product Managers | Signal -> Idea -> PDR -> Product Intent -> PSD | Why does this intent exist and what refines it? |
+| **Product Manager Intent Map** | Product Managers | Signal / origin -> Discovery Case -> Idea -> PDR -> Product Intent (purpose) -> PSD | Why does this intent exist and what refines it? |
+| **Technical / Architecture Origin Map** | Architects, engineers, PMs | Technical Idea / Architecture Concern -> Discovery Case -> PDR -> Product Intent -> PSD / ADR / Build Work | How does technical work become product intent? |
 | **Delivery Execution Map** | Engineering managers, delivery leads | Product Intent -> PSD -> Work Orders -> Workspace Sessions -> Artifacts -> Release | What work is required and where is it blocked? |
 | **Governance Evidence Map** | Governance, compliance, audit | PDR -> Product Intent -> Governance Events -> PSD Approval -> QA Evidence -> Release Evidence | Was every transition governed and evidenced? |
 | **Customer Value Map** | Product, CS, GTM | Customer Segment -> Buying Persona / Business Outcome -> Customer Promise -> Product Intent -> Customer Release Intent -> Customer Value Metric | Which customer promise does this intent serve? |
@@ -191,11 +201,14 @@ Shows stalled items across the funnel:
 - Untriaged Signals
 - Old Triaged Signals
 - Ideas stuck in validation
+- Open Discovery Cases with no PDR progress
+- Discovery Cases stuck awaiting evidence
 - Draft PDRs
 - Product Intents stuck in Formed / Accepted
 - Product Intents stuck in Specification
 - PSDs stuck in Technical Review
 - Product Intents stuck in Evolution
+- Non-delivery Product Intents in Build without clear evidence outcome
 - Release renewals not acted on
 
 ---
@@ -253,18 +266,19 @@ Signals are the intake surface for discovery. The console emphasizes Signals tha
 
 ### 3. Discovery Flow
 
-The Discovery Flow section shows how Signals are converted into buildable direction. It does not replace Track Console analytics; it gives Product Managers the specific Signal -> Idea -> PDR -> Product Intent -> PSD chain for this Workbench.
+The Discovery Flow section shows how inputs are converted into buildable direction. It does not replace Track Console analytics; it gives Product Managers the specific origin -> Discovery Case -> Idea -> PDR -> Product Intent -> PSD chain for this Workbench.
 
 ```
-Signal
-  └── Signal Exploration Task
-        └── Idea
-              └── Research / Experiment / Prototype / Deliberation
+Origin (Signal, strategy, PM judgment, technical idea, release learning, etc.)
+  └── Discovery Case
+        └── Signal Exploration / Research / Experiment / Prototype / Deliberation
+              └── Idea
                     └── PDR (Go / Kill / Pivot)
                           ├── Kill → archived (no Product Intent)
                           ├── Modeling Task(s)
+                          ├── Discovery Support Product Intent → Build evidence
                           └── Go / Pivot
-                                └── Product Intent
+                                └── Evolution Product Intent
                                       └── PSD refinement (Specification Tasks)
                                             └── ACE Workspaces
 ```
@@ -273,10 +287,11 @@ Signal
 |-------|---------------------------|
 | **Signals** | New, Triaged, Exploring, Associated, Parked, Addressed, Dismissed |
 | **Exploration** | Signal Exploration Tasks and their open questions |
+| **Discovery Cases** | Open / Scoped / In Progress / In Deliberation / Decided / Routed / Closed / Parked / Dismissed |
 | **Ideas** | Proposed / Investigating / Validated / Killed hypotheses |
 | **Evidence** | Research Tasks, Experiments, Prototypes / Spikes, Deliberations |
 | **PDRs** | Draft / Final / Superseded decisions with Go / Kill / Pivot type |
-| **Product Intent** | Active and archived ACE Product Intents created from Go/Pivot PDRs |
+| **Product Intent** | Active and archived ACE Product Intents created from Go/Pivot PDRs, Discovery Support requests, or Release renewal; shown with purpose badge |
 | **PSDs** | Draft / In Technical Review / Approved / Superseded / Cancelled specification documents linked to parent Product Intent |
 
 ### 4. Product Intents
@@ -286,6 +301,8 @@ Product Intents remain visible in the PI Console, but they are shown as the comm
 | Element | Description |
 |---------|-------------|
 | **Active PIs** | Product Intents currently moving through Workspaces |
+| **Intent purpose** | Evolution / Delivery, Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, Release Renewal |
+| **Customer delivery indicator** | Delivery / Release Renewal may link Customer Release Intent; other purposes show "Not customer-committed delivery" |
 | **Archived PIs** | Completed or shipped Product Intents |
 | **View toggle** | Active / Archived / All |
 | **Sort options** | By start date, due date, health, Objective, Initiative |
@@ -311,9 +328,11 @@ Product Intents remain visible in the PI Console, but they are shown as the comm
 | **Overview** | Title, description, owner, dates, current Workspace |
 | **Strategic context** | Objective, Initiative, lever mix, embedded targets |
 | **Traceability** | Source Signals, Ideas, and authorizing PDR |
+| **Discovery Case** | Originating or linked Discovery Case, if any |
 | **Product Intent** | Intent identity, owner, lifecycle state, and current Workspace |
 | **Discovery evidence** | Research, experiments, prototypes, deliberations that support the PDR |
-| **Specification content** | PSD links and status; PSD is the contract for Product Specification and Build work |
+| **Intent purpose** | Why this intent exists and whether customer-committed delivery is in scope |
+| **Specification content** | PSD links and status; PSD is the contract for Product Specification and Build work when specification is required |
 | **Workspace timeline** | Visual flow through ACE Workspaces |
 | **Work Orders** | All WOs for this PI, grouped by Workspace |
 | **Artifacts** | Designs, code repositories, test suites, release artifacts |
@@ -346,10 +365,10 @@ In this console, "add to product backlog" means the PM acknowledges the Signal a
 
 ### Start Discovery Exploration
 
-1. PM selects a Triaged or Associated Signal.
-2. PM creates a Signal Exploration Task.
-3. Signal status becomes `Exploring`.
-4. Discovery work may spawn Ideas.
+1. PM or another authorized function opens or selects a Discovery Case.
+2. PM selects a Triaged or Associated Signal when the case is signal-led.
+3. PM creates a Signal Exploration Task, Research Task, Experiment, Prototype, or Deliberation under the case.
+4. Discovery work may spawn Ideas, evidence, PDRs, Modeling Tasks, or Discovery Support Product Intent.
 
 ### Convert Discovery to Product Intent
 
@@ -404,12 +423,15 @@ The PI Console should not become a replacement editor for PSDs or Workspace exec
 ## Filters
 
 - By Signal status: New, Triaged, Exploring, Associated, Parked, Addressed, Dismissed
+- By Discovery Case status: Opened, Scoped, In Progress, In Deliberation, Decided, Routed, Closed, Parked, Dismissed
 - By Signal type: Problem, Need, Opportunity
 - By Objective
 - By Initiative
 - By lever: Product, GTM, Sales Enablement, Customer Success, Operational
 - By Idea status: Proposed, Investigating, Validated, Killed
 - By PDR decision type: Go, Kill, Pivot
+- By Product Intent purpose: Evolution / Delivery, Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, Release Renewal
+- By customer delivery scope: Customer-committed delivery, Not customer-committed delivery
 - By PSD status: Draft, In Technical Review, Approved, Superseded, Cancelled
 - By Product Intent health: Green, Yellow, Red
 - By current Workspace
@@ -428,7 +450,11 @@ The PI Console should not become a replacement editor for PSDs or Workspace exec
 | **Exploration WIP** | Signals currently in Exploring state |
 | **Idea conversion** | Signals that spawned Ideas |
 | **Decision throughput** | PDRs finalized per period |
+| **Open Discovery Cases** | Cases in Opened, Scoped, In Progress, or In Deliberation |
+| **Case-to-decision cycle time** | Discovery Case opened to PDR Final |
 | **Intent creation rate** | Go/Pivot PDRs that produced Product Intent |
+| **PIs by purpose** | Active Product Intents grouped by purpose |
+| **Non-delivery PI WIP in Build** | Product Intents in Build Workspaces whose purpose is not Delivery |
 | **PSD refinement progress** | PSDs by status per active Product Intent |
 | **Objective coverage** | Active Objectives with at least one Initiative |
 | **Initiative signal coverage** | Signals associated per Initiative by type |

@@ -37,7 +37,7 @@ The two are the same word in different roles: a *type* and an *instance*. Some o
 
 | Folder | What it contains | Primary reader |
 |---|---|---|
-| [ace/](ace/README.md) | The Agent-Centric Engineering theory: why ACE exists, its objectives, formal concepts, the Product Evolution Cycle, governance, illustrations, and references. The starting point for understanding the system Foundry implements. | Builders + new joiners |
+| [ace/](ace/README.md) | The Agent-Centric Engineering theory: why ACE exists, its objectives, formal concepts, the Product Evolution Cycle, practitioner guidance for how product evolves, governance, illustrations, and references. The starting point for understanding the system Foundry implements. | Builders + new joiners |
 | [product-information-model/](product-information-model/README.md) | UPIM — the Unified Product Information Model. A formal information model with three layers: Definition Model (what the product is), Work Model (what work exists), Operating Model (how the org executes). UPIM is a concretization layer of ACE — it gives entities, dimensions, and lifecycles to what ACE governs — and can also stand independently. | Modelers, PMs, builders |
 | [foundry-platform/](foundry-platform/README.md) | Architecture, module specifications, UX, deployment, security/compliance, observability, and CI for the Foundry Platform — the implementation that delivers ACE and UPIM capabilities. | Builders |
 | [foundry-work-plan/](foundry-work-plan/README.md) | The project plan for building the platform: people, milestones, budget, governance cadences, value-realized checkpoints. | Builders + leadership |
@@ -51,7 +51,7 @@ The two are the same word in different roles: a *type* and an *instance*. Some o
 
 **Platform engineer (building or specifying a module):** start with [tldr.md](tldr.md) for context, then [tldr-faq.md](tldr-faq.md) for module design decisions, then [ace/concepts.md](ace/concepts.md) for the model entities, [ace/repositories.md](ace/repositories.md) for the repository taxonomy your module reads or writes, and [foundry-platform/README.md](foundry-platform/README.md) for where the module fits.
 
-**PM owning a workspace:** start with [ace/README.md](ace/README.md), then [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md), then the relevant doc under [ace/workspaces/](ace/workspaces/README.md). Cross-check entity definitions in [product-information-model/README.md](product-information-model/README.md).
+**PM owning a workspace:** start with [ace/README.md](ace/README.md), then [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md), then [ace/how-product-evolves/](ace/how-product-evolves/README.md), then the relevant doc under [ace/workspaces/](ace/workspaces/README.md). Cross-check entity definitions in [product-information-model/README.md](product-information-model/README.md).
 
 **Working with a customer engagement:** read [engagement-engineering/README.md](engagement-engineering/README.md) and [engagement-engineering/extension-to-ace.md](engagement-engineering/extension-to-ace.md) before the platform docs; the engagement extension reframes several ACE concepts (Workshop, Workforce, Repositories) for client delivery.
 

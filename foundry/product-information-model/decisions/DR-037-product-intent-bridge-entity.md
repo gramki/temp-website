@@ -47,6 +47,7 @@ Separating these prevents PSDs from becoming overloaded as both the commitment o
 ## Consequences
 
 - Add `dim1-product-intent.md` as the canonical Product Intent entity.
+- Add Intent Purpose to distinguish Evolution from Discovery Support and other non-delivery Build intents.
 - Update Dimension 1 references from `Signal -> Idea -> PDR -> PSD` to `Signal -> Idea -> PDR -> Product Intent -> PSD`.
 - Update Discovery Track outputs to include Product Intent.
 - Update Product Specification docs to frame PSD as refinement of Product Intent.

@@ -100,6 +100,7 @@ ACE describes intra-organization product development. When software is delivered
 | [objectives.md](objectives.md) | What ACE aims to achieve, and explicit non-goals. |
 | [concepts.md](concepts.md) | The formal model in narrative form, with cross-references to UPIM and the engagement extension. |
 | [product-evolution-cycle.md](product-evolution-cycle.md) | The intent flow in detail, with diagrams. |
+| [how-product-evolves/](how-product-evolves/README.md) | Practitioner guide for Discovery, Build, and track orchestration items. |
 | [governance.md](governance.md) | Governance Workspace and the rule that every transition invokes governance scenarios. |
 | [workspaces/](workspaces/README.md) | One short doc per workspace type. |
 | [relationships.md](relationships.md) | ACE ↔ UPIM ↔ Foundry Platform mapping. |
@@ -110,5 +111,6 @@ ACE describes intra-organization product development. When software is delivered
 ## Read next
 
 - New to ACE? Start with [why.md](why.md), then [concepts.md](concepts.md), then [product-evolution-cycle.md](product-evolution-cycle.md).
+- Practicing ACE in a Workbench? Read [how-product-evolves/](how-product-evolves/README.md), then [discovery.md](how-product-evolves/discovery.md) and [build.md](how-product-evolves/build.md).
 - Building a platform module? Start with [concepts.md](concepts.md), then [repositories.md](repositories.md), then [relationships.md](relationships.md).
 - Working with a customer engagement? Read this README, then jump to [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).

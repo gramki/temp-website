@@ -8,7 +8,7 @@
 
 Product Intent is the hybrid bridge entity that translates a product decision into downstream product evolution work. It records the committed direction — what the product intends to change, for whom, and why — after a Go or Pivot product decision, and it is the ACE-routable item that triggers work across Product Specification, UX Design, Development, QA, Release, and Governance.
 
-Product Intent is produced by Discovery Track outcomes, typically a Go or Pivot Product Decision Record (PDR). A Product Specification Document (PSD) refines Product Intent into a module-scoped build contract; the PSD does not create Product Intent.
+Product Intent is produced by Discovery Track outcomes, typically a Go or Pivot Product Decision Record (PDR). A Discovery Case may also create Discovery Support Product Intent to request bounded Build Track evidence before a final product-direction PDR. A Product Specification Document (PSD) refines Evolution Product Intent into a module-scoped build contract; the PSD does not create Product Intent.
 
 ## Purpose
 
@@ -32,13 +32,28 @@ Product Intent belongs to both model planes:
 | **Work Model** | Product Intent has lifecycle state, triggers Specification Tasks and downstream Work Orders, and is tracked through execution. |
 | **ACE routing** | Product Intent is the token ACE routes through Workspaces; every transition invokes governance scenarios. |
 
+## Intent Purpose
+
+| Value | Meaning |
+|---|---|
+| **Evolution** | Committed product direction from a Go or Pivot PDR. Default. Routes through the full Product Evolution Cycle and may produce customer-facing delivery. |
+| **Discovery Support** | Time-bounded request for Build Track evidence to inform an open Discovery Case. Does not commit product direction. May spawn Prototype/Spike or bounded Technical Tasks solely to produce discovery evidence. Cannot by itself author PSDs, enter Release Planning, or imply customer delivery. |
+| **Technical Validation** | Build work to validate technical feasibility, architecture options, integration behavior, or performance assumptions for a product-relevant question. |
+| **Internal / Enabling** | Internal product or platform capability needed to support future product evolution. |
+| **Operational Enablement** | Build work needed to satisfy SLA, reliability, readiness, observability, or operational commitments. |
+| **Release Renewal** | Follow-up intent generated from delivery evidence, release learnings, or feedback after Product Delivery. |
+
+**Boundary:** Discovery Support Product Intent answers "help us learn." Evolution Product Intent answers "we intend to change the product." Product Intent entering Build Track does not necessarily mean a committed customer deliverable.
+
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
 | Product Intent ID | String | Unique identifier, e.g. `PI-042` |
 | Title | String | Concise name of the intended product evolution |
+| Intent Purpose | Enum | Evolution, Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, Release Renewal |
 | Summary | Text | What change is intended and why |
+| Discovery Case Reference | Reference | Discovery Case that created or requested this intent, if applicable |
 | Source Decision(s) | List of References | PDRs or other product decision records that authorize the intent |
 | Source Signal(s) | List of References | Problems, Needs, or Opportunities that contributed to the decision |
 | Source Idea(s) | List of References | Hypotheses validated or pivoted by the decision |
@@ -52,6 +67,7 @@ Product Intent belongs to both model planes:
 | PSD References | List of References | PSDs refining this intent |
 | Work Order References | List of References | Work Orders created from this intent across Workspaces |
 | Governance Events | List of References | Transition validations and evidence records |
+| Outcome Type | Enum | Customer Delivered, Internal Delivered, Evidence Produced, Learning Produced, Superseded, Cancelled |
 
 ## Statuses
 
@@ -68,6 +84,8 @@ Product Intent belongs to both model planes:
 | Superseded | Replaced by another Product Intent due to pivot or new evidence |
 | Cancelled | Abandoned with rationale before delivery |
 
+Discovery Support intents use a shortened lifecycle: `Formed` → `Accepted` → `In Evidence Gathering` → `Evidence Delivered` → `Closed`, with `Cancelled` and `Superseded` as alternate outcomes.
+
 **State Diagram:**
 
 ```text
@@ -82,6 +100,7 @@ Formed -> Accepted -> In Specification -> Specified -> In Evolution -> Delivered
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Upstream | Product Decision Record (Dim 1) | A Go or Pivot PDR may create one or more Product Intents |
+| Upstream | Discovery Case (Track 1) | A Discovery Case may create Discovery Support Product Intent or produce PDRs that create Evolution Product Intent |
 | Upstream | Problem / Need / Opportunity (Dim 1) | Product Intent traces to source Signals through its decision chain |
 | Upstream | Idea (Dim 1) | Product Intent may trace to one or more validated or pivoted Ideas |
 | Context | Objective (Dim 1) | Product Intent may advance Objective(s) |
@@ -91,6 +110,7 @@ Formed -> Accepted -> In Specification -> Specified -> In Evolution -> Delivered
 | Downstream | PSD (Dim 1) | PSDs refine Product Intent into module-scoped build contracts |
 | Work Model | Specification Task (Track 1) | Specification Tasks refine Product Intent by authoring or revising PSDs |
 | Work Model | Epic (Track 2) | Approved PSDs decompose into Epics that execute the intent |
+| Work Model | Prototype / Spike or Technical Task (Track 1 / Track 2) | Discovery Support and Technical Validation intents may request bounded Build evidence work |
 | ACE | Workspace transitions | Product Intent is routed across Workspaces and governed on every transition |
 
 ## Source Decisions

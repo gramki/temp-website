@@ -20,8 +20,9 @@ The Bridge (Dimensions 8–9: Structural Topology and Data & Information) provid
 
 ### Q3: What enters the Discovery Track — a Signal or an Idea?
 
-**Both, at different stages.** The Discovery Track has two distinct phases of work, each with its own entity types:
+**Discovery can enter through a case, a Signal, or an Idea, depending on maturity.** The Discovery Track has an orchestration envelope and two distinct phases of work:
 
+0. **Discovery Case** (optional envelope: any origin → coordinated sub-work) — cross-functional investigations that may or may not involve Signals. A Discovery Case can open from PM judgment, technical ideas, architecture concerns, operational insights, customer commitments, release learnings, executive direction, or Signal-derived prioritization.
 1. **Signal Exploration** (input: Signal → output: Ideas) — **Signal Exploration Tasks** and **Deliberations** (brainstorms) are performed to deeply understand the Signal, identify root causes and adjacent patterns, and synthesize candidate solution hypotheses (Ideas).
 2. **Idea Validation** (input: Idea → output: Validated Idea or Kill) — **Research Tasks**, **Experiments**, **Prototypes/Spikes**, and **Deliberations** (evaluative councils) test whether a specific hypothesis holds up. A Deliberation may also directly produce a PDR without prior empirical validation, when an authorized group exercises collective judgment.
 
@@ -1208,5 +1209,49 @@ Deployment descriptors, incident records, and operational artifact versions have
 ### Q113: Why is ESR a reference layer, not a system of record?
 
 The system of record for customer data remains the organization's CRM/subscription management system. Duplicating full customer records into ESR would create synchronization burdens and data governance risks. ESR holds the minimum identity and reference pointers needed by the UPIM — organization name, segment classification, primary contacts, and a pointer back to the authoritative source system. This makes ESR lightweight, easy to synchronize periodically, and focused on its purpose: providing consistent external stakeholder references across FIR reporters, Win Case customers, Incident affected tenants, and Customer Release Intent targets. See DR-033 D3.
+
+---
+
+### Q114: Why introduce Discovery Case?
+
+Discovery Case is the Discovery Track orchestration envelope. Initiative is a strategic program in Dimension 1; Signal is an observation; PDR is a decision artifact. None of those is the cross-functional work container that says, "we are investigating this product-relevant question until we decide or route it."
+
+Discovery Case fills that gap. It can originate from a Signal, but does not require one. It can also originate from Product Manager judgment, technical ideas, architecture concerns, operational insights, customer commitments, release learnings, governance concerns, executive direction, or agent observations.
+
+The pattern mirrors FIR in the Win Track. FIR coordinates reactive product-in-operation feedback. Discovery Case coordinates proactive and cross-functional product learning.
+
+---
+
+### Q115: Why allow Discovery Support Product Intent?
+
+Discovery sometimes needs Build evidence before a final product-direction PDR can be written: a PoC, spike, prototype, technical feasibility check, integration proof, or performance validation. Without a routable item, this work either bypasses ACE governance or pretends to be delivery work.
+
+Discovery Support Product Intent answers "help us learn." It is time-bounded and scoped to evidence production. It can request bounded Build work, but it does not create customer delivery commitment, cannot by itself enter Customer Release Intent scope, and does not replace a Go/Pivot PDR for product evolution.
+
+If the Discovery Case later concludes Go or Pivot, the PDR creates a separate Evolution Product Intent.
+
+---
+
+### Q116: Is Discovery a Product Manager-only activity?
+
+No. Discovery is cross-functional. Any authorized function may originate or participate in a Discovery Case: Product, UX, Engineering, Architecture, QA, Run, Win, Governance, executive leadership, or agents.
+
+Product Management alignment is required when a PDR materially changes product direction. That alignment does not mean PMs are the only discoverers; it means product-direction decisions need accountable product ownership.
+
+---
+
+### Q117: Does Product Intent entering Build mean customer-committed delivery?
+
+No. Product Intent is the Build Track orchestration item, but it has purpose. Delivery Product Intents may represent customer-facing commitments. Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, and Release Renewal Product Intents may enter Build to produce evidence, internal capability, operational readiness, or follow-up learning.
+
+Build is therefore Product Intent-orchestrated, not customer-delivery-only.
+
+---
+
+### Q118: Where does architectural refactoring go?
+
+Architectural refactoring must find its product intent or move tracks. If it is required for an existing Product Intent, it is subordinate Build work. If it changes product capability, customer promise, scalability, reliability, extensibility, cost profile, compliance posture, or operational readiness, it should become Product Intent through a Discovery Case and product decision.
+
+If the work is operational response or readiness, route it to Run. If it changes engineering practice, architecture standards, guidance, or model structure, route it to Evolve. If it is small local hygiene, keep it local and do not promote it as a top-level Build orchestration item.
 
 ---

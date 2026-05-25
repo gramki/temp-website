@@ -36,9 +36,15 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Repositories (ACE sense).** The collection of stores that workshops use and update. ACE names a conceptual repository set in [ace/ace-model.md](ace/ace-model.md). The canonical inventory — UPIM-aligned with codes (PIR, DKB, DAR, POR, CAR, QVS, OPR, PFR, PPR, WR, WFR, ESR, PEIR) — lives in [ace/repositories.md](ace/repositories.md). Some repositories are Foundry-scoped (e.g. WFR), others are Workshop-scoped; see [foundry/1.TODO](1.TODO) line 9.
 
-**Product Intent.** Hybrid bridge entity in the Product Intent Repository (PIR): **definition-bearing** (committed direction with decision provenance), **work-triggering** (arrival invokes Workspace Scenarios), and **ACE-routable** (moves through the Product Evolution Cycle). Discovery and product decisions (Signal → Idea → PDR) establish or update Product Intent; PSDs refine it; Release renews it for the next cycle. Source: [product-information-model/entities/definition-model/dim1-product-intent.md](product-information-model/entities/definition-model/dim1-product-intent.md), [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md), [ace/concepts.md](ace/concepts.md).
+**Product Intent.** Hybrid bridge entity in the Product Intent Repository (PIR): **definition-bearing** (committed direction with decision provenance), **work-triggering** (arrival invokes Workspace Scenarios), and **ACE-routable** (moves through the Product Evolution Cycle). Build Track's primary orchestration item. Discovery and product decisions establish or update Product Intent; Discovery Cases may create Discovery Support Product Intent for evidence; PSDs refine Evolution Product Intent; Release renews intent for the next cycle. Source: [product-information-model/entities/definition-model/dim1-product-intent.md](product-information-model/entities/definition-model/dim1-product-intent.md), [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md), [ace/concepts.md](ace/concepts.md).
 
 **Product Intent Repository (PIR).** The repository that stores strategy, vendor/customer context, Discovery flowing items, PSDs, and routable Product Intent entities. Not every PIR item is a Product Intent; Product Intent is the ACE-routable bridge item inside the broader repository.
+
+**Discovery Case.** Discovery Track's primary orchestration item: a cross-functional, signal-optional case that organizes discovery work until a decision or routing outcome is reached. Source: [product-information-model/entities/work-model/track1-discovery-case.md](product-information-model/entities/work-model/track1-discovery-case.md).
+
+**Orchestration item.** Track-scoped coordination item the Foundry Orchestrator routes. Primary items include Discovery Case, Product Intent, Run Case, Customer Release Intent or Win Case, Evolve Case, and Governance Case. Source: [ace/how-product-evolves/orchestration-items.md](ace/how-product-evolves/orchestration-items.md).
+
+**Workspace Work Order.** A `(Track, Workspace, Scenario)` execution instance created from an orchestration item and executed by Work Order Runtime. Not the same as an orchestration item.
 
 **Product Evolution Cycle.** The named flow of Product Intent across workspaces. Detailed in [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md).
 

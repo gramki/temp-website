@@ -20,15 +20,18 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
 
 ### Track 1: The Discovery Track (Learning)
 
-* **Goal:** Set strategic direction, prioritize Signals for discovery, explore Signals (Problems, Needs, Opportunities) to generate solution hypotheses (Ideas), validate hypotheses through research, experiments, prototypes, and deliberation, create Product Intent from Go/Pivot product decisions, and refine that intent through PSD(s).
-* **Primary Owner:** Product Manager, UX Researcher, Executive Leadership (for strategic planning).
-* **Input:** Strategic Themes and Objectives from business strategy; Signals (Problems, Needs, Opportunities); Ideas requiring validation.
+* **Goal:** Set strategic direction, prioritize Signals for discovery, organize cross-functional Discovery Cases, explore product-relevant questions and Signals, validate hypotheses through research, experiments, prototypes, and deliberation, create Product Intent from Go/Pivot product decisions, request Build evidence when needed, and refine accepted intent through PSD(s).
+* **Primary Owner:** Product Management for product alignment; Discovery work may be originated and performed by Product, UX, Engineering, Architecture, QA, Run, Win, Governance, executives, and authorized agents.
+* **Input:** Strategic Themes and Objectives from business strategy; optional Signals (Problems, Needs, Opportunities); Ideas requiring validation; cross-functional discovery questions from any function (PM judgment, technical ideas, architecture concerns, operational insights, customer commitments, release learnings) via Discovery Case.
 * **Output:** Discovery produces four types of outputs:
   1. **PDR** — captures any significant decision affecting any dimension. A PDR may create Product Intent(s), justify PSDs (engineering changes), and/or trigger Definition Model updates (knowledge/model changes).
   2. **Product Intent** — the hybrid bridge item created or updated by Go/Pivot decisions, carrying committed product direction into ACE Workspace execution.
   3. **PSD(s)** — module-scoped specifications that refine Product Intent through Specification Tasks.
   4. **Definition Model updates** — evolution of entities in Dims 2–9 (via Modeling Task). Examples: new Customer Segments, refined Value Propositions, updated Value Streams, new Capabilities.
   Additionally: Objectives, Initiatives, Customer Release Intent definitions (Dimension 1); Idea status changes — either advanced to `Validated` (triggering PDR/Product Intent) or moved to `Killed`.
+
+* **Orchestration Entities:**
+  * **Discovery Case:** Cross-functional orchestration container for a bounded discovery investigation. Coordinates sub-work (Signal Exploration, Deliberation, Research, Experiment, Prototype/Spike, Modeling Task). Signal-optional. May request Build evidence through Discovery Support Product Intent. Closes when investigation is concluded — producing PDR(s), Ideas, Modeling Tasks, Product Intent(s), or routing outcomes. (e.g., "Discovery Case: assess event-sourcing for audit trail — origin: Architecture Concern, no Signal filed")
 
 * **Planning Entities:**
   * **Objective Setting Task:** Work to define or refine strategic Objectives for a planning horizon. (e.g., "Define H2 2026 product objectives based on board strategy review").
@@ -59,6 +62,12 @@ While the 9 Dimensions define the *Definition Model* of the product, the 5 Track
 
 * **Goal:** Plan releases and iterations, take validated PSDs, decompose them into Module-scoped Epics and System-scoped Technical Tasks, and continuously produce Component Versions, System Versions, and Product Versions through a three-tier versioning model (DR-036).
 * **Primary Owner:** Tech Lead, Developers, QA.
+
+* **Primary orchestration item:** **Product Intent**. Build Track does not independently orchestrate Epics, PSDs, ADRs, bugs, refactors, or technical tasks as top-level items. Those are subordinate to Product Intent or to another Track's orchestration item.
+
+> **Build boundary:** Product Intent entering Build does not necessarily mean customer-committed delivery. Delivery Product Intents may ship to customers; Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, and Release Renewal intents may enter Build to produce evidence, internal capability, operational readiness, or follow-up learning.
+>
+> **Architecture/refactoring rule:** Architecture and refactoring work must fit an existing Product Intent, become Product Intent through Discovery Case and product decision, route to Run/Evolve if operational or process-oriented, or remain local engineering hygiene if small and internal.
 
 > **Work Entities vs. Work Artifacts:** The Build Track distinguishes between *work entities* (work to be done — Epic, Story, Technical Task, Bug, Integration Epic, Integration Story) and *work artifacts* (things produced by work — Component Version, System Version, Product Version, ADR, Technical Debt Item). Work entities are planned, assigned, and tracked through status lifecycles. Work artifacts are *results* — they emerge from completed work.
 >

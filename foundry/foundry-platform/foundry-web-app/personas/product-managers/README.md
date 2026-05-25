@@ -2,7 +2,7 @@
 
 **Primary Workspace:** Product Specification
 
-**Role:** Define what to build — translate Signals through Discovery into Product Decisions (PDRs), commit direction as Product Intent, refine specifications (PSDs) under that intent, prioritize work, and track product evolution.
+**Role:** Define what to build — translate Signals and Discovery Cases into Product Decisions (PDRs), authorize evolution as typed Product Intent, refine specifications (PSDs) under that intent, prioritize work, and track product evolution.
 
 ---
 
@@ -15,6 +15,9 @@
 
 **Acceptance Criteria:**
 - Create Product Intent from linked PDR
+- Set Product Intent purpose (Evolution / Delivery, Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, Release Renewal)
+- Link Customer Release Intent when purpose is Delivery or Release Renewal
+- Surface "not customer-committed delivery" when purpose is not Delivery or Release Renewal
 - Preserve traceability to source Signals and Ideas
 - Capture decision rationale and evidence references
 - Assign to Workbench
@@ -109,7 +112,7 @@
 
 ### J8. Monitor Product Intent funnel
 **When** Product Intent is forming across many sources
-**I want to** see the funnel from Strategy / Signals / Commitments / Release Learnings to PDR, Product Intent, PSD refinement, and execution
+**I want to** see the funnel from Strategy / Signals / Commitments / Release Learnings through Discovery Case, PDR, typed Product Intent, PSD refinement when required, and execution
 **So that** I can see where product evolution is forming, blocked, or stale
 
 ---
@@ -121,7 +124,20 @@
 
 ---
 
-### J10. View Workbench-level KPIs
+### J10. Manage Discovery Cases
+**When** a product-relevant question needs grouped investigation
+**I want to** open and track a Discovery Case through evidence to PDR or routing outcome
+**So that** discovery progress is visible before Product Intent is formed
+
+**Acceptance Criteria:**
+- Create Discovery Case without requiring a Signal
+- Capture origin type and originating function
+- Track participating functions and accountable PM
+- Link evidence, PDR, Product Intent, Modeling Task, or cross-track routing outcome
+
+---
+
+### J11. View Workbench-level KPIs
 **When** I need to assess product health  
 **I want to** see velocity, say/do, quality, and cycle time metrics  
 **So that** I can identify improvement areas
@@ -134,35 +150,35 @@
 
 ---
 
-### J11. Track Product evolution over time
+### J12. Track Product evolution over time
 **When** I need to understand product history  
 **I want to** see the evolution of Product Intents and their outcomes  
 **So that** I can make informed decisions
 
 ---
 
-### J12. Access feedback repository (FIRs, customer signals)
+### J13. Access feedback repository (FIRs, customer signals)
 **When** I need raw customer input  
 **I want to** browse and search the Feedback repository  
 **So that** I can ground Product Intent in real signals
 
 ---
 
-### J13. Compare planned vs actual delivery
+### J14. Compare planned vs actual delivery
 **When** assessing predictability  
 **I want to** see what was planned vs what was delivered  
 **So that** I can improve estimation
 
 ---
 
-### J14. Manage dependencies between Work Orders
+### J15. Manage dependencies between Work Orders
 **When** Work Orders depend on each other  
 **I want to** visualize and manage dependencies  
 **So that** sequencing is correct
 
 ---
 
-### J15. Search and filter Work Orders
+### J16. Search and filter Work Orders
 **When** I need to find specific work  
 **I want to** search by status, track, workspace, date, assignee  
 **So that** I can locate it quickly

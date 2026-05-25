@@ -117,7 +117,7 @@ If you are about to write a module specification, use this guide to decide where
 
 1. **Need to know what entity to read or write?** → [repositories.md](repositories.md) and [../product-information-model/](../product-information-model/README.md).
 2. **Need to know which workspace owns this?** → [workspaces/](workspaces/README.md) and [concepts.md](concepts.md).
-3. **Need to know how intent gets to your module?** → [product-evolution-cycle.md](product-evolution-cycle.md).
+3. **Need to know how intent gets to your module?** → [product-evolution-cycle.md](product-evolution-cycle.md) and [how-product-evolves/orchestration-items.md](how-product-evolves/orchestration-items.md).
 4. **Need to know what governance applies?** → [governance.md](governance.md).
 5. **Need to know how this changes for client delivery?** → [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
 6. **Need to know what platform-level capability you depend on?** → [../foundry-platform/README.md](../foundry-platform/README.md).

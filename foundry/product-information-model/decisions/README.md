@@ -58,6 +58,7 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-036 | Versioning and Deployment Simplification — Component/System/Product Version Chain, Deployment Specifications, Package Removal | Accepted | 2026-05-19 |
 | DR-037 | Product Intent as Hybrid Bridge Entity | Accepted | 2026-05-24 |
 | DR-038 | Customer Release Intent and PI Console Formation Views | Accepted | 2026-05-25 |
+| DR-039 | Discovery Case and Build Orchestration | Accepted | 2026-05-25 |
 
 **Note:** DR-036 amends DR-004, DR-026, DR-027, DR-028, and DR-029 for operational deployment and versioning semantics. Historical bodies of those records are preserved with superseded banners; DR-036 is authoritative for current modeling.
 

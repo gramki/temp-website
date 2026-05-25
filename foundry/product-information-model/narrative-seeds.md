@@ -196,6 +196,24 @@ Product councils, architecture review boards, cross-functional brainstorms — t
 
 Much of discovery work involves understanding and documenting the product's context — defining customer segments, mapping value streams, designing pricing tiers — rather than specifying engineering changes. Before Modeling Task, this knowledge work was invisible and untracked. Making it explicit ensures it's plannable, traceable, and visible ("we're investing in understanding our customer, not just building features").
 
+### Discovery Case is the FIR of the Discovery Track
+
+Not all learning starts with a Signal. PMs re-evaluate pricing without filing an Opportunity. Architects raise concerns before anyone writes a Problem. Sales brings customer commitments that need feasibility work, not automatic Signal filing. SREs see operational patterns that may imply product change. Discovery Case makes this visible: a cross-functional envelope with optional Signals, coordinated sub-work, and explicit outputs.
+
+Discovery Case is not a replacement for Signal. Signal remains the governed observation type. Discovery Case is the orchestration wrapper that lets any authorized function organize learning until a decision or routing outcome is reached.
+
+### Discovery Support Product Intent separates learning from commitment
+
+Discovery may need Build evidence before a final PDR. A technical spike, PoC, prototype, or feasibility build may be essential to answer the Discovery Case. Discovery Support Product Intent prevents the anti-pattern of creating "fake" delivery intents or ungoverned engineering spikes just to learn something.
+
+Learn first with Discovery Support intent. Commit later with Evolution intent from a Go/Pivot PDR and Product Management alignment.
+
+### Technical ideas need product framing
+
+Engineering and architecture can originate Discovery Cases. But a technical idea does not become Product Intent merely because it is technically attractive. It must be framed in product terms: what customer promise, SLA, KRA, Customer Release Intent, vendor KPI, operational commitment, or product capability does it serve?
+
+If architecture work cannot fit an existing Product Intent, it must become Product Intent through Discovery, route to Run or Evolve, or remain local engineering hygiene.
+
 ### The Discovery Track produces four types of output
 
 1. **PDRs** — decisions (any dimension)

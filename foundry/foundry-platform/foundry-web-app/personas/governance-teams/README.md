@@ -33,6 +33,7 @@
 - Completeness indicators
 - Validation actions (verify, flag, reject)
 - Governance Evidence Map in PI Console showing PDR → Product Intent → Governance Events → PSD Approval → QA Evidence → Release Evidence
+- Distinguish Delivery Product Intents from Discovery Support, Technical Validation, Internal / Enabling, and Operational Enablement intents; Build evidence for non-delivery intents does not substitute for Customer Release Intent fulfillment evidence
 
 ---
 

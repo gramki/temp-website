@@ -113,11 +113,13 @@ These four are presentation clusters, not a substitute for the formal taxonomy. 
 
 ## Product Intent
 
-**Product Intent** is the hybrid bridge entity that flows through the workspaces. It is definition-bearing, work-triggering, and ACE-routable: Discovery and product decisions establish or update it in the Product Intent Repository, Product Specification refines it through PSDs, and Release renews it for the next cycle. Product Intent is not a ticket and not a PSD; it is the decision-to-evolution carrier that Workspaces act on. The full flow is detailed in [product-evolution-cycle.md](product-evolution-cycle.md).
+**Product Intent** is the hybrid bridge entity that flows through the workspaces. It is definition-bearing, work-triggering, and ACE-routable: Discovery and product decisions establish or update it in the Product Intent Repository, Discovery Cases may create Discovery Support Product Intent for Build evidence, Product Specification refines Evolution Product Intent through PSDs, and Release renews intent for the next cycle. Product Intent is not a ticket and not a PSD; it is the decision-to-evolution or evidence-production carrier that Workspaces act on. The full flow is detailed in [product-evolution-cycle.md](product-evolution-cycle.md).
 
 Product Intent items are owned. In the engagement view, the Engagement Workshop owns Product Intent items at the umbrella level — program-managed consolidation of intent for one or more Products (each evolved in its Workbench). Source: [../1.TODO](../1.TODO) line 11.
 
 In the Foundry Web App, the PI Console visualizes Product Intent formation: Strategy Frame, Signals, Decisions, Product Intents, PSD refinement, stakeholder-specific Traceability Maps, and Bottlenecks.
+
+For the practitioner walkthrough of Discovery and Build motion, see [how-product-evolves/](how-product-evolves/README.md).
 
 ## Governance Workspace
 

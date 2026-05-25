@@ -27,7 +27,7 @@
 **So that** I don't have to ask others or search for information
 
 **Acceptance Criteria:**
-- Product Intent graph visualization
+- Parent orchestration-item graph visualization (Product Intent for Build work)
 - Link to originating spec (PSD)
 - Link to related design artifacts
 - Prior Work Orders on this Product Intent
@@ -99,7 +99,7 @@
 - Links to design Work Order (UX Design)
 - Links to QA Work Orders
 - Links to Release Work Orders
-- Product Intent graph navigation
+- Parent orchestration-item graph navigation
 
 ---
 

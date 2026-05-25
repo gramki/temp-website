@@ -131,6 +131,8 @@
 
 **Acceptance Criteria:**
 - Release history by Product Intent and Customer Release Intent
+- Filter by Delivery and Release Renewal Product Intent purposes
+- Do not treat non-Delivery Build work as customer release scope
 - Release Renewal Map in PI Console showing Delivered Product Intent → Release Evidence → Feedback / Learnings → Renewed Product Intent
 - Links to evidence packs and renewed intent records
 

@@ -14,12 +14,12 @@
 
 | Track | Workspaces | Indicators |
 |-------|------------|------------|
-| **Discovery** | Product Specification, UX Design | Active WOs, items in discovery |
-| **Build** | Development, QA, Release | Active WOs, builds, tests, deployments |
-| **Run** | (Operations-focused) | Incidents, operational items |
-| **Win** | (Customer success-focused) | Feedback items, adoption metrics |
-| **Evolve** | (Evolution-focused) | Technical debt, improvements |
-| **Governance** | Governance | Gate reviews, compliance items |
+| **Discovery** | Product Specification, UX Design | Discovery Cases, active WOs, items in discovery |
+| **Build** | Development, QA, Release | Product Intents, active WOs, builds, tests, deployments |
+| **Run** | (Operations-focused) | Run Cases, incidents, operational items |
+| **Win** | (Customer success-focused) | Customer Release Intents, Win Cases, feedback items, adoption metrics |
+| **Evolve** | (Evolution-focused) | Evolve Cases, technical debt, improvements |
+| **Governance** | Governance | Governance Cases, gate reviews, compliance items |
 
 ### 2. Track Flow Visualization
 
@@ -33,7 +33,7 @@ Discovery ──→ Build ──→ Release ──→ Run
 
 | Element | Description |
 |---------|-------------|
-| **PI positions** | Where each PI currently sits |
+| **Primary item positions** | Where each Track's orchestration items currently sit |
 | **Flow rates** | Items moving between Tracks |
 | **Bottlenecks** | Tracks with accumulating items |
 
@@ -42,7 +42,7 @@ Discovery ──→ Build ──→ Release ──→ Run
 | Element | Description |
 |---------|-------------|
 | **Track header** | Name, description |
-| **Active PIs** | PIs with work in this Track |
+| **Active orchestration items** | Discovery Cases, Product Intents, Run Cases, Customer Release Intents / Win Cases, Evolve Cases, or Governance Cases for this Track |
 | **Work Orders** | WOs executing in this Track |
 | **Scenarios** | Scenarios available for this Track |
 | **Metrics** | Cycle time, throughput for this Track |

@@ -24,6 +24,7 @@ Deliberation may directly produce a PDR — "the product council deliberated and
 | Field | Type | Description |
 |---|---|---|
 | Title | String | What is being deliberated |
+| Originating Discovery Case | Reference (Track 1) | Discovery Case this deliberation belongs to, if any |
 | Purpose | Enum | `Exploration` (generate Ideas) / `Evaluation` (decide on Ideas) / `Both` |
 | Participants | List | Who participated (roles or names) |
 | Authority | Text | What this group is authorized to decide |
@@ -45,6 +46,7 @@ Deliberation may directly produce a PDR — "the product council deliberated and
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
+| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case; carries bidirectional reference |
 | Consumes | Signal (Dim 1) | May deliberate on Signals (exploration mode) |
 | Consumes | Idea (Dim 1) | May deliberate on Ideas (evaluation mode) |
 | Consumes | Research Task / Experiment / Prototype (Track 1) | May consume evidence from prior validation work |
