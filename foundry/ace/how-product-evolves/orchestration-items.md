@@ -11,7 +11,7 @@ An **orchestration item** is the Track-level coordination item the Foundry Orche
 | Run | **Run Case** | Change, incident, capacity, maintenance. |
 | Win | **Customer Release Intent** / **Win Case** | Proactive release/market delivery and reactive customer work. |
 | Evolve | **Evolve Case** | Process, model, and practice changes. |
-| Governance | **Governance Case** | Transition, evidence, approval, audit. |
+| Governance | **Governance Ritual** / **Governance Enforcement** | Rituals, policy assertion, evidence, approvals, findings, registers, recognition. |
 
 ## Orchestration item vs Workspace Work Order
 
@@ -27,7 +27,7 @@ Examples:
 
 - Moving Product Intent from Specification to Development is orchestration.
 - Running a `refine-psd` Scenario in Product Specification Workspace is a Workspace Work Order.
-- Opening a Governance Case on that transition is governance orchestration.
+- Opening Governance Enforcement on that transition is governance orchestration.
 
 ## Cross-track handoff examples
 
@@ -36,9 +36,12 @@ Discovery Case -> Product Intent
 Product Intent -> Run Case (deployment/change)
 Customer Release Intent -> Win Planning / Win Case
 Evolve Finding -> Evolve Case
-Any transition -> Governance Case
+Any transition -> Governance Enforcement
+Cadence/event -> Governance Ritual
 ```
 
 ## Rule
 
 Do not conflate Work Orders with the item being orchestrated. Work Orders are execution slices. Orchestration items are the durable coordination context.
+
+Governance Case is reserved for complex investigations or escalations. The default Governance Track orchestration items are Governance Ritual and Governance Enforcement.

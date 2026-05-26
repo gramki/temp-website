@@ -301,3 +301,17 @@ A **Customer Release Intent** (Definition Model, Dimension 1) is a cross-cutting
 A Customer Release Intent becomes `Launched` when required Deployment Specifications are successfully applied by Deployment Tasks to target environments, all Change Requests are complete, AND the business activates the realized release (Win Track).
 
 ---
+
+### Track 6: The Governance Track (ACE Extension)
+
+* **Goal:** Execute governance rituals and policy enforcement; produce decisions, evidence, findings, approvals, exceptions, register entries, action items, and recognition.
+* **Primary Owner:** Governance, Product Operations, Engineering Managers, Compliance, Security.
+* **Operating Model dependency:** Governance policies, ritual definitions, cadences, participant roles, decision authority, evidence requirements, reports, dashboards, and register definitions live in the Operating Model. Governance Track work executes those definitions.
+
+* **Primary orchestration items:**
+  * **Governance Ritual:** Cadence-based or event-triggered governance practice that brings participants, reports, dashboards, evidence, and decision authority together. Produces decisions, action items, findings, approvals, exceptions, risk/debt/compliance entries, and recognition.
+  * **Governance Enforcement:** Policy assertion/control execution against an orchestration item, transition, artifact, evidence bundle, or state. Produces pass/warn/fail/exception outcomes, findings, register entries, remediation work, or Evolve Cases.
+
+Governance Rituals and Governance Enforcement may trigger each other. A ritual may run enforcement. Enforcement may reveal a concern that requires a ritual. Repeated findings, policy drift, dashboard gaps, or ineffective rituals trigger **Evolve Cases** to evolve governance practice.
+
+---

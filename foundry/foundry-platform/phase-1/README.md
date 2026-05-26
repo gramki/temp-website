@@ -29,7 +29,7 @@ It should use the current ACE / UPIM concepts:
 - **Discovery Case** — Discovery Track orchestration item.
 - **Product Intent** — Build Track orchestration item.
 - **Workspace Work Order** — Scenario execution instance in a Workspace.
-- **Governance Case** — validation/evidence/audit item on transitions.
+- **Governance Ritual / Governance Enforcement** — governance orchestration items for rituals, policy assertion, evidence, findings, registers, and audit.
 - **Product Intent Repository (PIR)**, **Work Repository (WR)**, and evidence repositories as the durable stores.
 
 ## Eventual documentation set

@@ -27,7 +27,7 @@ Foundry Orchestrator is the coordination layer that moves work through the SDLC.
 | **Run** | Run Case | Change, incident, capacity, or maintenance case through Run-relevant Workspaces. |
 | **Win** | Customer Release Intent / Win Case | Customer Release Intent through proactive market delivery; Win Case through reactive response and resolution. |
 | **Evolve** | Evolve Case | Process/model/practice evolution through review, definition, and adoption. |
-| **Governance** | Governance Case | Transition/evidence/approval/audit case through Governance Workspace. |
+| **Governance** | Governance Ritual / Governance Enforcement | Rituals, policy assertion, evidence, approvals, findings, registers, recognition. |
 
 ## Orchestration item vs Workspace Work Order
 
@@ -45,6 +45,7 @@ Do not conflate them. Moving Product Intent from Specification to Development is
 
 - **Governance is distributed.** Definition is via Scenarios (Scenario Authoring), enforcement is via Orchestrator, evidence is captured in repositories.
 - **Governance Scenarios are first-class.** They're invoked like any other Scenario, but at transition points.
+- **Governance orchestration has two modes.** Rituals organize cadence/event reviews; Enforcement asserts policy and produces verdicts, findings, and register entries.
 - **Orchestration items are Track-scoped; Work Orders are Workspace-scoped.** One orchestration item can create many Workspace Work Orders.
 
 ## Open questions

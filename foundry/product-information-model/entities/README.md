@@ -157,7 +157,9 @@ entities/
     ├── track5-evolve-review.md            ← Structured assessment of process effectiveness and artifact quality
     ├── track5-evolve-definition-task.md   ← Core meta-work: create/update entity, artifact, DoD, and guidance definitions
     ├── track5-evolve-monitoring.md        ← Continuous process adherence and artifact quality monitoring
-    └── track5-evolve-findings.md          ← Transitional artifact produced by Evolve Reviews
+    ├── track5-evolve-findings.md          ← Transitional artifact produced by Evolve Reviews
+    ├── track6-governance-ritual.md        ← Governance orchestration: cadence/event ritual instances
+    └── track6-governance-enforcement.md   ← Governance orchestration: policy assertion/control execution
 ```
 
 ## Naming Convention

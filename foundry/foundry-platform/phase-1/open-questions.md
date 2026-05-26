@@ -14,12 +14,35 @@ The questions are organized by logical build area. Each section should eventuall
 - Which orchestration items are fully supported in Phase 1?
   - Discovery Case?
   - Product Intent?
-  - Governance Case?
+  - Governance Ritual?
+  - Governance Enforcement?
   - Customer Release Intent visibility only?
 - What is explicitly out of scope?
 - What counts as "Phase 1 complete" from a platform/product standpoint?
 - What demo should a builder be able to run at the end of Phase 1?
 - What must be real versus mocked or manually seeded?
+
+
+Discovery Track:
+- Create Objectives and Initiatives by clustering Signals
+- Create Product Intent based on Signals
+- Create Product Intent based on Customer Requirement
+- Create Customer Release Intent
+
+
+Governance:
+- Governance is modeled as Rituals with cadence or event triggers, plus Enforcement that asserts policies.
+- Which Governance Rituals are in Phase 1?
+  - Workbench Sprint / iteration ritual?
+  - Monthly Workbench summary?
+  - Workbench SLA adherence review?
+  - Release Intent progress and risk review?
+  - Intent retrospective?
+  - Product Intent retrospective?
+  - Team productivity / contribution review?
+- Which Governance Enforcement scenarios are in Phase 1?
+- Which reports and dashboards are required inputs to those rituals?
+- Which ritual outputs are supported: action items, findings, risk/debt entries, recognitions, Evolve Cases?
 
 ---
 
@@ -38,7 +61,7 @@ The questions are organized by logical build area. Each section should eventuall
 - Which module owns governance verdicts?
 - Which module owns evidence attachment and retrieval?
 - Which module owns traceability graph APIs?
-- Which module owns ID generation for Discovery Case, PDR, Product Intent, Work Order, Scenario, and Governance Case?
+- Which module owns ID generation for Discovery Case, PDR, Product Intent, Work Order, Scenario, Governance Ritual, and Governance Enforcement?
 - Is Foundry Management the system of record for repository metadata only, or for entity records too?
 - Is Orchestrator state stored by Orchestrator, Management, WR, or a shared service?
 
@@ -76,12 +99,12 @@ The questions are organized by logical build area. Each section should eventuall
 
 - What is the canonical platform representation of an orchestration item?
 - Does each orchestration item have a common interface?
-- Which fields are common across Discovery Case, Product Intent, Run Case, Win Case, Evolve Case, and Governance Case?
+- Which fields are common across Discovery Case, Product Intent, Run Case, Win Case, Evolve Case, Governance Ritual, and Governance Enforcement?
 - How does Orchestrator know which Track an item belongs to?
 - How does Orchestrator know which Workspaces participate for a given orchestration item?
 - How are cross-track links represented?
   - Discovery Case -> Product Intent
-  - Product Intent -> Governance Case
+  - Product Intent -> Governance Ritual / Governance Enforcement
   - Product Intent -> Run Case
   - Customer Release Intent -> Product Intent
 - Are orchestration item graphs DAGs, cyclic graphs, or typed relationship graphs?
@@ -293,7 +316,7 @@ WorkOrder.Completed(QA.VerifyProductIntent)
   - Work Order
   - Task
   - Scenario
-  - Governance Case
+  - Governance Ritual / Governance Enforcement
   - Evidence
   - Workspace Session
 - What ID format should each entity use?
@@ -376,7 +399,12 @@ completeTask()
 - Which Phase 1 transitions are governed?
 - Which are blocking vs advisory?
 - What evidence is required for each transition?
-- What is the minimum Governance Case schema?
+- What is the minimum Governance Ritual schema?
+- What is the minimum Governance Enforcement schema?
+- Which Governance Policies are implemented in Phase 1?
+- Which Ritual Definitions are implemented in Phase 1?
+- Which cadences are required versus deferred?
+- Which reports/dashboards are required as ritual inputs?
 - Who can approve or reject?
 - What happens on rejection?
 - How are policy exceptions handled?
@@ -384,6 +412,10 @@ completeTask()
 - How are governance verdicts shown in UI?
 - Which Governance Scenarios are required in Phase 1?
 - What audit trail is mandatory?
+- Are Risk Register, Debt Register, Compliance Register, and Kudos Register in scope?
+- How are Governance Findings stored?
+- Which governance outputs trigger Evolve Cases?
+- How are recognitions / Kudos captured and surfaced?
 
 Candidate governed transitions:
 
@@ -454,7 +486,7 @@ Release.Published
   - PDR
   - Product Intent
   - Work Order
-  - Governance Case
+  - Governance Ritual / Governance Enforcement
   - Evidence
 - What dashboards are needed for Phase 1?
 - How do we trace one Product Intent from creation to delivery?
@@ -467,6 +499,6 @@ Release.Published
 - Are Evolution and Delivery Product Intent separate purposes or one value?
 - Is Customer Release Intent in Phase 1 read-only context or actively managed?
 - Are Run/Win/Evolve orchestration items implemented or only named for future compatibility?
-- Is Governance Case a first-class persisted entity in Phase 1?
+- Are Governance Ritual and Governance Enforcement first-class persisted entities in Phase 1?
 - What is the minimum traceability map set?
 - What does "ready for Phase 1 engineering" mean for each module?

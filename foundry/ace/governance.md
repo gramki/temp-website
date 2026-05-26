@@ -14,18 +14,33 @@ Governance in ACE is **not a stage gate at the end of a pipeline**. It is **a pr
 
 The Governance Workspace does not own the work being transitioned. It owns the **discipline of the handoff**: validation that the right preconditions are met, that the right evidence is captured, that the right policy applies, and that the transition is recorded.
 
+Governance operates through two primary orchestration items:
+
+- **Governance Ritual** — cadence-based or event-triggered governance practice that brings participants, reports, dashboards, evidence, and decision authority together.
+- **Governance Enforcement** — policy assertion/control execution against an orchestration item, transition, artifact, evidence bundle, or state.
+
+Governance Case is reserved for complex investigations/escalations, not every governance action.
+
 ## Why governance is a workspace, not a pipeline stage
 
 If governance were a stage gate, it would sit between specific workspaces (e.g. between QA and Release). But every edge in the [Product Evolution Cycle](product-evolution-cycle.md) needs validation, including the bidirectional Specification ↔ UX edge and the optional return paths from Development and QA back to Specification. A stage-gate model would either miss those edges or apply heavy machinery to all of them. ACE chooses a different model: a workspace whose Scenarios are designed to validate transitions, invoked uniformly.
 
 The practical consequence is that governance is composable: new transition types (e.g. when Engagement Engineering extends the system for client delivery) can declare their own governance scenarios without rewriting the workspace topology.
 
+## How rituals and enforcement work
+
+Governance Rituals consume reports, dashboards, metrics, evidence, orchestration items, Work Orders, and register entries. They produce decisions, action items, approvals, rejections, exceptions, findings, risk/debt/compliance entries, recognition entries, and sometimes Evolve Cases.
+
+Governance Enforcement consumes policies, target items, transitions, artifacts, and evidence. It produces pass/fail/warn/exception verdicts, findings, violations, warnings, risk/debt entries, remediation Work Orders, and audit records.
+
+Rituals may contain enforcement. Enforcement may trigger rituals. Both may trigger Evolve Cases when governance practice itself needs improvement.
+
 ## What a governance scenario does
 
-A governance scenario, when invoked on a transition, is responsible for:
+A governance scenario, when invoked by a ritual or enforcement item, is responsible for:
 
 1. **Verifying preconditions** — does the source workspace's output meet the contract for the transition?
-2. **Applying policy** — what rules govern this kind of transition (security, compliance, release, audit), and do they pass?
+2. **Applying policy** — what rules govern this kind of transition (security, compliance, release, audit), and do they pass, warn, require exception, or create risk/debt?
 3. **Capturing evidence** — what artifacts, records, or signals must be persisted for audit and traceability? Where do they go in the repositories?
 4. **Recording the transition** — the transition itself is a recordable event in the workshop's history.
 
@@ -47,9 +62,11 @@ UPIM's Operating Model captures coordination patterns (ceremonies, cadences, dec
 
 The Practitioner Repository (PPR) and the Workforce Repository (WFR) are the relevant homes for governance content. PPR holds the standards, templates, practices, and verification policies; WFR holds the role bindings and skills (human and agent) that complete governance scenarios. See [repositories.md](repositories.md) and [../product-information-model/README.md](../product-information-model/README.md).
 
+The Operating Model now owns governance policies, ritual definitions, cadence, participant roles, decision authority, evidence requirements, reports/dashboards, and register definitions. Governance Track work executes those definitions. Evolve Track changes them when governance itself needs to improve.
+
 ## What governance is not
 
-- **Not a separate approval workflow.** Governance is invoked on transitions; it does not require a parallel ticketing system.
+- **Not only an approval workflow.** Governance includes rituals, policy enforcement, evidence capture, findings, registers, recognition, and evolution of governance practice.
 - **Not a final gate.** Governance runs on every transition, including bidirectional and return transitions, not only the QA → Release edge.
 - **Not a substitute for security or compliance engineering.** The platform provides those facilities; governance scenarios apply them at handoffs.
 - **Not optional.** A workspace that emits intent without invoking governance on the transition has not completed the transition; intent has not actually moved.

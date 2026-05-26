@@ -92,6 +92,7 @@ The Work Model describes **what work exists** — the entities, artifacts, and s
 | **Track 3: Run** (Stability) | Plan deployments, manage tenants, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, Tenant, System Monitoring, System Deployment Specification, Product Deployment Specification |
 | **Track 4: Win** (Value Realization) | Plan, equip, execute, respond, assess, monitor across AAARRR lifecycle to achieve Win Outcomes | Customer Success, Product Marketing, Sales, Support | Win Planning (5 subtypes), Win Enablement (4 subtypes), Win Activity (7 subtypes), Win Case, Win Review → Feedback, Win Monitoring |
 | **Track 5: Evolve** (Process Evolution) | Assess, define, and refine Work Model and Operating Model — entity definitions, artifact types, DoD criteria, guidance structures | Process Leads, Product Ops, Engineering Managers | Evolve Planning, Evolve Review → Evolve Findings, Evolve Definition Task, Evolve Monitoring |
+| **Track 6: Governance** (ACE extension) | Execute governance rituals and policy enforcement; produce findings, decisions, evidence, register entries, action items, and recognitions | Governance, Product Ops, Engineering Managers, Compliance, Security | Governance Ritual, Governance Enforcement |
 
 **Reference document:** `draft-work-model.md`
 **Execution framework:** `draft-work-execution-framework.md` — artifacts, artifact type catalog with assessment criteria, definition of done, and guidance patterns for all work entities
@@ -123,6 +124,7 @@ product-information-model/
 ├── draft-work-execution-framework.md ← Work execution dimensions: artifacts, DoD, guidance
 ├── draft-modeling-faqs.md            ← Design decisions and rationale (Q&A format)
 ├── narrative-seeds.md                ← Connective insights and perspectives for future narrative docs
+├── operating-model/                  ← Operating Model foundation, starting with governance
 ├── entities/                         ← One file per entity (canonical detail)
 │   ├── README.md                     ← Entity catalog structure and conventions
 │   ├── definition-model/             ← Entities from the 9 Dimensions
@@ -136,7 +138,8 @@ product-information-model/
 │       ├── track2-*.md               ← Build Track entities
 │       ├── track3-*.md               ← Run Track entities
 │       ├── track4-*.md               ← Win Track entities
-│       └── track5-*.md               ← Evolve Track entities
+│       ├── track5-*.md               ← Evolve Track entities
+│       └── track6-*.md               ← Governance Track entities (ACE extension)
 └── decisions/                        ← Decision records (ADR format)
     ├── README.md                     ← Decision record index
     └── DR-*.md                       ← Individual decision records

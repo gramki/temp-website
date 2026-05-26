@@ -84,7 +84,7 @@ A Discovery Case may create or coordinate:
 | Multiple Product Intents | One decision decomposes into several evolution threads. |
 | Discovery Support Product Intent | Build evidence requested before a final decision. |
 | Modeling Task | Definition Model update needed. |
-| Run / Win / Evolve / Governance Case | Routed to another track. |
+| Run Case / Win Case / Evolve Case / Governance Ritual or Enforcement | Routed to another track. |
 
 ## Discovery can request Build evidence
 

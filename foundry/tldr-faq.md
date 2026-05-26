@@ -31,7 +31,7 @@ A defined kind of work that a Workspace knows how to execute. Each Workspace own
 
 ### What is an orchestration item vs a Workspace Work Order?
 
-An **orchestration item** is the Track-level token the Orchestrator routes: Discovery Case, Product Intent, Run Case, Customer Release Intent or Win Case, Evolve Case, Governance Case. A **Workspace Work Order** is a Scenario instance executing in one Workspace, anchored to that item's context graph.
+An **orchestration item** is the Track-level token the Orchestrator routes: Discovery Case, Product Intent, Run Case, Customer Release Intent or Win Case, Evolve Case, Governance Ritual, or Governance Enforcement. A **Workspace Work Order** is a Scenario instance executing in one Workspace, anchored to that item's context graph.
 
 Build Track work centers on Product Intent, but Product Intent is not the only orchestration item in Foundry.
 

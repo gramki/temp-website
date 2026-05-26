@@ -19,7 +19,7 @@
 | **Run** | (Operations-focused) | Run Cases, incidents, operational items |
 | **Win** | (Customer success-focused) | Customer Release Intents, Win Cases, feedback items, adoption metrics |
 | **Evolve** | (Evolution-focused) | Evolve Cases, technical debt, improvements |
-| **Governance** | Governance | Governance Cases, gate reviews, compliance items |
+| **Governance** | Governance | Governance Rituals, Governance Enforcement, gate reviews, compliance items |
 
 ### 2. Track Flow Visualization
 
@@ -42,7 +42,7 @@ Discovery ──→ Build ──→ Release ──→ Run
 | Element | Description |
 |---------|-------------|
 | **Track header** | Name, description |
-| **Active orchestration items** | Discovery Cases, Product Intents, Run Cases, Customer Release Intents / Win Cases, Evolve Cases, or Governance Cases for this Track |
+| **Active orchestration items** | Discovery Cases, Product Intents, Run Cases, Customer Release Intents / Win Cases, Evolve Cases, Governance Rituals, or Governance Enforcement for this Track |
 | **Work Orders** | WOs executing in this Track |
 | **Scenarios** | Scenarios available for this Track |
 | **Metrics** | Cycle time, throughput for this Track |

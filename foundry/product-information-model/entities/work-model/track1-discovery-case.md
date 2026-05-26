@@ -56,7 +56,7 @@ Discovery Case is the Track 1 counterpart to FIR's envelope pattern in the Win T
 | Evidence References | List | Research, Experiment, Prototype/Spike, Deliberation, or Build evidence |
 | PDR References | List | PDRs produced by the case |
 | Product Intent References | List | Product Intents produced or requested by the case |
-| Routing Outcome | Enum / Text | Closed outcome: dismissed, parked, Product Intent, Run Case, Win Case, Evolve Case, Governance Case, etc. |
+| Routing Outcome | Enum / Text | Closed outcome: dismissed, parked, Product Intent, Run Case, Win Case, Evolve Case, Governance Ritual / Enforcement, etc. |
 
 ## Statuses
 
@@ -100,7 +100,7 @@ A Discovery Case may contain or coordinate:
 | Run Case | Operational follow-up required |
 | Win Case | Reactive customer/prospect work required |
 | Evolve Case | Process/model/practice change required |
-| Governance Case | Governance/evidence/approval issue requires handling |
+| Governance Ritual / Enforcement | Governance/evidence/approval issue requires handling |
 
 ## Product Alignment
 
@@ -118,7 +118,7 @@ Technical ADRs and operational ODRs do not substitute for PM alignment on produc
 | May request | Product Intent (Dim 1) | Case may create Discovery Support Product Intent for Build evidence |
 | May create | Product Intent (Dim 1) | Go/Pivot PDR from case may create Evolution Product Intent |
 | Contains | Signal Exploration / Research / Experiment / Prototype / Deliberation / Modeling Task | Discovery sub-work belongs to the case |
-| May route to | Run Case / Win Case / Evolve Case / Governance Case | Case may close by routing to another track |
+| May route to | Run Case / Win Case / Evolve Case / Governance Ritual / Governance Enforcement | Case may close by routing to another track |
 
 ## Examples
 

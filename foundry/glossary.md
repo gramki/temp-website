@@ -42,7 +42,7 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Discovery Case.** Discovery Track's primary orchestration item: a cross-functional, signal-optional case that organizes discovery work until a decision or routing outcome is reached. Source: [product-information-model/entities/work-model/track1-discovery-case.md](product-information-model/entities/work-model/track1-discovery-case.md).
 
-**Orchestration item.** Track-scoped coordination item the Foundry Orchestrator routes. Primary items include Discovery Case, Product Intent, Run Case, Customer Release Intent or Win Case, Evolve Case, and Governance Case. Source: [ace/how-product-evolves/orchestration-items.md](ace/how-product-evolves/orchestration-items.md).
+**Orchestration item.** Track-scoped coordination item the Foundry Orchestrator routes. Primary items include Discovery Case, Product Intent, Run Case, Customer Release Intent or Win Case, Evolve Case, and Governance Ritual / Governance Enforcement. Source: [ace/how-product-evolves/orchestration-items.md](ace/how-product-evolves/orchestration-items.md).
 
 **Workspace Work Order.** A `(Track, Workspace, Scenario)` execution instance created from an orchestration item and executed by Work Order Runtime. Not the same as an orchestration item.
 
@@ -77,6 +77,16 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 **Customer Promise.** A Customer Value commitment: the value, service level, or compliance posture the product promises to a Customer Segment. Customer Promises explain what customers should receive and how value is measured.
 
 **Customer Release Intent.** A Strategy & Intent entity: the planned customer-facing delivery outcome — what capabilities we intend to make available, to whom, why, and by when. Earlier drafts called this "Customer Release" in Dim 1. Reserve **Customer Release** for the realized release event/package that fulfills the intent.
+
+**Governance Ritual.** Governance Track orchestration item that executes a cadence-based or event-triggered Ritual Definition from the Operating Model. Consumes reports, dashboards, metrics, evidence, cases, and register entries; produces decisions, action items, findings, approvals, exceptions, recognitions, and register entries.
+
+**Governance Enforcement.** Governance Track orchestration item that evaluates a Governance Policy against a target item, transition, artifact, evidence bundle, or state. Produces pass/warn/fail/exception outcomes, findings, register entries, remediation work, or Evolve Cases.
+
+**Governance Policy.** Operating Model entity that defines a governance rule, invariant, evidence requirement, scope, and enforcement mode.
+
+**Governance Finding.** Governance work artifact that records an issue, gap, concern, observation, warning, violation, or other governance result.
+
+**Kudos Register.** Positive operating register that captures evidence-backed recognition surfaced through rituals or governance work. Entries may become reusable practice patterns through Evolve.
 
 ## Engagement terms
 

@@ -250,6 +250,13 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Evolve Definition Task** | Updated entity files, artifact type definitions, DoD criteria, guidance structures, Decision Records | Specification + Decision | Transitional (→ Work Model, Operating Model) | **Entity file exists** (`track5-evolve-definition-task.md`) |
 | **Evolve Monitoring** | Alert/trigger (when threshold breached), process health report/dashboard | Evidence + Assessment | Terminal (triggers Evolve Review, Evolve Planning) | **Entity file exists** (`track5-evolve-monitoring.md`) |
 
+### Track 6: Governance Track (ACE Extension)
+
+| Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
+|---|---|---|---|---|
+| **Governance Ritual** | Decisions, action items, findings, approvals/rejections, exceptions, register entries, recognition entries, ritual report | Decision + Evidence + Assessment | Transitional (→ Work Orders, → Registers, → Evolve Case) | **Entity file exists** (`track6-governance-ritual.md`) |
+| **Governance Enforcement** | Enforcement verdict, finding/violation/warning, evidence bundle, register entry, remediation Work Order, audit record | Decision + Evidence + Assessment | Transitional (→ Risk/Debt/Compliance register, → Evolve Case, → Work Order) | **Entity file exists** (`track6-governance-enforcement.md`) |
+
 ---
 
 ## 3. Definition of Done (DoD) Pattern

@@ -214,6 +214,22 @@ Engineering and architecture can originate Discovery Cases. But a technical idea
 
 If architecture work cannot fit an existing Product Intent, it must become Product Intent through Discovery, route to Run or Evolve, or remain local engineering hygiene.
 
+### Governance works through rituals and enforcement
+
+Governance is not only a gate. It has operating rhythm and control execution.
+
+**Governance Rituals** are cadence-based or event-triggered practices: release readiness reviews, Product Intent reviews, compliance evidence reviews, architecture review boards, discovery case reviews, governance trend reviews. A ritual brings the right participants, reports, dashboards, metrics, evidence, decision authority, and register state into one repeatable practice. It produces decisions, action items, findings, approvals, exceptions, register entries, and recognition.
+
+**Governance Enforcement** is policy assertion: evaluate a policy against an orchestration item, transition, artifact, evidence bundle, or state. Enforcement can pass, warn, fail, block, allow with debt, allow with risk, require exception, or create remediation work.
+
+This split keeps governance from becoming only punitive. Rituals should surface good practice as well as problems. Kudos / Recognition entries capture evidence-backed positive behavior — excellent collaboration, strong evidence discipline, effective incident handling, reusable patterns — so governance reinforces the operating model instead of merely policing deviations.
+
+### Governance evolves through Evolve Cases
+
+Governance policies, rituals, reports, dashboards, cadences, participant roles, evidence requirements, and playbooks are Operating Model content. They cannot be static.
+
+When rituals or enforcement produce repeated findings, policy drift, dashboard gaps, ineffective evidence requirements, or reusable positive patterns, the right response is often an **Evolve Case**. Evolve changes the governance practice itself: update the policy, change the ritual cadence, improve a dashboard, refine evidence requirements, or turn an observed good practice into a playbook.
+
 ### The Discovery Track produces four types of output
 
 1. **PDRs** — decisions (any dimension)

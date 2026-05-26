@@ -21,12 +21,14 @@ The active folder is:
 
 ## How Governance Scenarios work
 
-Governance Scenarios are **invoked by the [Orchestrator](../../orchestrator/README.md) at trigger points**. A Governance Scenario corresponds to a trigger — a point in the flow where validation, evidence capture, or policy enforcement is required.
+Governance Scenarios are **invoked by the [Orchestrator](../../orchestrator/README.md) through Governance Rituals or Governance Enforcement at trigger points**. A Governance Scenario corresponds to a trigger — a point in the flow where ritual work, validation, evidence capture, recognition, or policy enforcement is required.
 
 **Trigger points include:**
 - Workspace Work Order creation on an orchestration item
 - Work Order state transitions
 - Orchestration-item movement between Workspaces (including Product Intent and other primary items)
+- Cadence-based or event-triggered Governance Rituals
+- Policy assertion through Governance Enforcement
 - Artifact promotion (e.g., from build to release)
 - Gate checkpoints (quality gates, approval gates)
 - Track transitions
@@ -71,8 +73,10 @@ Beyond transition validation, Governance includes **management reporting and ana
 |----------|---------|--------------|
 | Validate Build Evidence | Artifact promotion | Checks that build artifacts have required evidence (tests passed, scans clean) |
 | Enforce Quality Gate | Work Order completion | Validates quality criteria before allowing state transition |
+| Run Product Intent Review Ritual | Cadence / on-demand | Reviews Product Intent status, evidence gaps, decisions, action items, and recognitions |
 | Capture Release Approval | Release publish | Records approval evidence, signs artifacts |
 | Validate Discovery to Build Handoff | Discovery Case closure → Product Intent acceptance | Confirms evidence, PDR, Product Intent purpose, and PM alignment are present |
+| Register Governance Finding | Enforcement warning/failure | Creates finding, risk/debt entry, exception, recognition, or remediation work |
 | Generate Compliance Report | Scheduled / on-demand | Produces compliance reports for management |
 | Calculate Velocity Metrics | Work Order completion | Updates velocity and throughput dashboards |
 | Audit Agent Effectiveness | Periodic | Analyzes agent performance across scenarios |
