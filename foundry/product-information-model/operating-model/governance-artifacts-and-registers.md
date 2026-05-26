@@ -9,21 +9,34 @@ Governance Rituals and Governance Enforcement produce durable outputs. These out
 | Governance Finding | Work Artifact | Durable record of issue, gap, concern, or observation found during ritual/enforcement. |
 | Violation | Finding subtype | Policy was not satisfied. |
 | Warning | Finding subtype | Concern exists but does not block. |
-| Exception Record | Work Artifact | Approved deviation from policy with rationale, approver, expiry, and conditions. |
+| Exception Record | Work Artifact | Time-bound authorized policy deviation for a specific target. Subtype: Waiver when the deviation is a skipped or abbreviated control step. |
 | Approval Record | Work Artifact | Durable record that gate/transition was approved. |
 | Rejection Record | Work Artifact | Durable record that gate/transition was rejected and why. |
 | Evidence Bundle | Work Artifact | Collection of evidence used to satisfy policy or ritual review. |
 | Audit Record | Work Artifact | Immutable record of governance action, actor, timestamp, input, and verdict. |
+| Catch-Up Plan | Work Artifact | Scheduled remediation for debt or deferred control; links Debt Register Entry, indicators, due date, and remediation Work Orders. |
+| Waiver Record | Work Artifact | Approved skip or abbreviation of a control step; includes rationale, approver, expiry, and linked target. |
 
 ## Register artifacts
 
 | Register entry | Classification | Notes |
 |----------------|----------------|-------|
-| Risk Register Entry | Register Artifact | Tracks exposure, severity, owner, mitigation, and due date. |
-| Debt Register Entry | Register Artifact | Tracks accepted or deferred non-compliance, quality debt, process debt, technical debt, or governance debt. |
+| Risk Register Entry | Register Artifact | Tracks exposure, severity, Risk Owner, mitigation, and due date. |
+| Debt Register Entry | Register Artifact | Tracks accepted non-compliance with mandatory Catch-Up Plan reference, Debt Owner, indicator snapshot, and due date. |
 | Compliance Register Entry | Register Artifact | Tracks compliance obligation, control status, and audit readiness. |
-| Deferred Obligation | Register Artifact | Commitment to remediate later after allowing progress. |
+| Deferred Obligation | Register Artifact | Deprecated term — use Debt Register Entry + Catch-Up Plan. Legacy alias for debt accepted with future remediation. |
 | Recognition Entry | Register Artifact | Evidence-backed appreciation or recognition surfaced through a ritual or governance work. |
+
+## Debt + Catch-Up vs Exception / Waiver
+
+When a control is not fully satisfied, enforcement mode determines which durable outcome path applies. These are not interchangeable.
+
+| Path | Enforcement mode | Meaning | Primary artifacts | Work may proceed? |
+|------|------------------|---------|-------------------|-------------------|
+| **Debt + Catch-Up** | `allow-with-debt`, `allow-with-risk` when debt is recorded | Objective not met, but progress is permitted with a tracked obligation to remediate. | Debt Register Entry, Catch-Up Plan, optional Governance Finding | Yes, with due date and repayment evidence |
+| **Exception / Waiver** | `require-exception` -> approved | Time-bounded, approver-granted deviation from the control for a specific target. A waiver is an authorized exception for a skipped/abbreviated control step. | Exception Record / Waiver Record | Yes, only after approval |
+
+Use Debt + Catch-Up when the objective still applies and remediation is planned. Use Exception / Waiver when policy allows a formal deviation for bounded time or scope. Block when neither path is permitted.
 
 ## Kudos Register
 

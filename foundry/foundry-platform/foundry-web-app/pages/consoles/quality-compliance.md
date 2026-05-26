@@ -62,7 +62,16 @@
 |---------|-------------|
 | **Current thresholds** | Active requirements |
 | **Threshold history** | Changes over time |
-| **Exceptions** | Approved deviations |
+| **Exceptions / Waivers** | Approved non-applicability, alternate controls, or bounded bypasses |
+| **Debt + Catch-Up** | Temporary deviations with remediation plan, Debt Owner, due date, and repayment evidence |
+
+### 7. Role Legend
+
+| Role | Console meaning |
+|------|-----------------|
+| **Governance Admin** | Configures thresholds, control objectives, and policy bindings where permitted |
+| **Control Owner** | Accountable party shown on each threshold/control row |
+| **Approver** | Decision authority for sign-off, exception/waiver, or Debt + Catch-Up |
 
 ---
 
@@ -70,10 +79,13 @@
 
 | Action | Who | Description |
 |--------|-----|-------------|
-| Sign off | Governance | Approve compliance |
-| Request exception | Manager | Ask for threshold waiver |
-| Approve exception | Governance | Grant waiver |
-| Update threshold | Governance, Admin | Change requirements |
+| Sign off | Approver | Approve compliance |
+| Request exception / waiver | Manager | Ask for approved non-applicability, alternate control, or bounded bypass |
+| Approve exception / waiver | Approver | Grant waiver with rationale, scope, and expiry |
+| Request Debt + Catch-Up | Manager | Request temporary deviation with remediation plan |
+| Approve Debt + Catch-Up | Approver | Approve debt, Debt Owner, due date, and repayment evidence |
+| Update threshold | Governance Admin | Change Control Objective Thresholds where permitted |
+| Close debt | Control Owner | Mark catch-up complete after evidence re-check |
 | View evidence | All | Access supporting data |
 
 ---

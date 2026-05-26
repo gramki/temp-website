@@ -60,6 +60,7 @@ Files are named: `DR-<NNN>-<short-description>.md` (e.g., `DR-001-strategic-enti
 | DR-038 | Customer Release Intent and PI Console Formation Views | Accepted | 2026-05-25 |
 | DR-039 | Discovery Case and Build Orchestration | Accepted | 2026-05-25 |
 | DR-040 | Governance Rituals, Enforcement, and Operating Model Foundation | Accepted | 2026-05-26 |
+| DR-041 | Governance Authority, Control Objectives, and Repository Mapping | Accepted | 2026-05-26 |
 
 **Note:** DR-036 amends DR-004, DR-026, DR-027, DR-028, and DR-029 for operational deployment and versioning semantics. Historical bodies of those records are preserved with superseded banners; DR-036 is authoritative for current modeling.
 

@@ -254,8 +254,8 @@ The following inventory identifies key artifacts produced by each track. This is
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
-| **Governance Ritual** | Decisions, action items, findings, approvals/rejections, exceptions, register entries, recognition entries, ritual report | Decision + Evidence + Assessment | Transitional (→ Work Orders, → Registers, → Evolve Case) | **Entity file exists** (`track6-governance-ritual.md`) |
-| **Governance Enforcement** | Enforcement verdict, finding/violation/warning, evidence bundle, register entry, remediation Work Order, audit record | Decision + Evidence + Assessment | Transitional (→ Risk/Debt/Compliance register, → Evolve Case, → Work Order) | **Entity file exists** (`track6-governance-enforcement.md`) |
+| **Governance Ritual** | Decisions, action items, findings, approvals/rejections, exceptions, Debt + Catch-Up outputs, register entries, recognition entries, ritual report | Decision + Evidence + Assessment | Transitional (→ Work Orders, → Registers, → Evolve Case) | **Entity file exists** (`track6-governance-ritual.md`) |
+| **Governance Enforcement** | Control evaluation result, Control Objective Indicator record, finding/violation/warning, evidence bundle, Debt Register Entry, Catch-Up Plan, Exception/Waiver Record, remediation Work Order, audit record | Decision + Evidence + Assessment | Transitional (→ Risk/Debt/Compliance register, → Evolve Case, → Work Order) | **Entity file exists** (`track6-governance-enforcement.md`) |
 
 ---
 

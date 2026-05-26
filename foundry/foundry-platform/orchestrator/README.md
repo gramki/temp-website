@@ -46,6 +46,7 @@ Do not conflate them. Moving Product Intent from Specification to Development is
 - **Governance is distributed.** Definition is via Scenarios (Scenario Authoring), enforcement is via Orchestrator, evidence is captured in repositories.
 - **Governance Scenarios are first-class.** They're invoked like any other Scenario, but at transition points.
 - **Governance orchestration has two modes.** Rituals organize cadence/event reviews; Enforcement asserts policy and produces verdicts, findings, and register entries.
+- **Governance Enforcement evaluates controls.** Enforcement resolves the effective Control Objective, Control Objective Indicators, thresholds, and Approver before allowing Debt + Catch-Up or Exception / Waiver outcomes.
 - **Orchestration items are Track-scoped; Work Orders are Workspace-scoped.** One orchestration item can create many Workspace Work Orders.
 
 ## Open questions
@@ -54,6 +55,8 @@ Do not conflate them. Moving Product Intent from Specification to Development is
 - Work Order creation API
 - Gate enforcement mechanics — blocking vs advisory
 - Governance Scenario invocation timing
+- How does Orchestrator resolve the effective Control Owner and Approver from the Governance Authority Matrix?
+- When Enforcement returns Debt + Catch-Up or Exception / Waiver, does Orchestrator block until the required register record exists?
 
 ## Read next
 

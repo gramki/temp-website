@@ -88,6 +88,24 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Kudos Register.** Positive operating register that captures evidence-backed recognition surfaced through rituals or governance work. Entries may become reusable practice patterns through Evolve.
 
+**Governance Admin.** Role authorized to configure governance definitions such as policies, controls, ritual definitions, thresholds, register definitions, dashboards, and inheritance rules. Distinct from Foundry Admin and distinct from Control Owner.
+
+**Control Owner.** Role accountable for a control's objective, indicators, evidence contract, and evolution over time.
+
+**Approver.** Role authorized to approve a specific governance decision such as transition approval, debt, exception, waiver, or risk acceptance.
+
+**Control Objective.** Required governance outcome: what must hold for a scope, artifact, transition, or orchestration item.
+
+**Control Objective Indicator.** Observable metric, evidence artifact, dashboard field, register state, or checklist item used to evaluate a Control Objective. Build Quality Indicator (BQI) is a Build-quality specialization.
+
+**Control Objective Threshold.** Pass/warn/fail boundary for a Control Objective Indicator at a given scope.
+
+**Debt + Catch-Up.** Temporary deviation path where progress is allowed with a Debt Register Entry, Catch-Up Plan, Debt Owner, due date, and repayment evidence.
+
+**Exception / Waiver.** Approved non-applicability, alternate control, or bounded bypass. Recorded with rationale, approver, scope, and expiry/conditions.
+
+**Governance Authority Matrix.** Operating Model artifact mapping controls, enforcement modes, effective Control Owners, Approvers, and scopes.
+
 ## Engagement terms
 
 **Engagement.** In Engagement Engineering, an **Engagement is a Workshop** — program-managed, consolidating Velocity, Predictability, Quality, Cost, and Risk for the Products delivered under it. Each Product built for that client corresponds to a **Workbench** inside the Engagement Workshop. Source: [engagement-engineering/extension-to-ace.md](engagement-engineering/extension-to-ace.md); [foundry/1.TODO](1.TODO) lines 5-12.

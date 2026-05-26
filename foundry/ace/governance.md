@@ -35,12 +35,57 @@ Governance Enforcement consumes policies, target items, transitions, artifacts, 
 
 Rituals may contain enforcement. Enforcement may trigger rituals. Both may trigger Evolve Cases when governance practice itself needs improvement.
 
+## Governance in plain language
+
+Governance is how ACE makes sure important work follows agreed rules, uses the right evidence, involves the right people, records decisions clearly, and learns from both violations and good practice.
+
+Useful shorthand:
+
+```text
+Admin configures.
+Owner is accountable.
+Approver authorizes.
+Enforcement evaluates.
+Registers remember.
+Evolve improves.
+```
+
+## Control hierarchy
+
+Controls inherit through ACE's operating structure:
+
+```text
+Foundry controls
+  -> Workspace controls
+    -> Workbench controls
+```
+
+Foundry-level controls define baseline expectations. Workspace and Workbench scopes may add controls or tighten inherited controls. They may override only where the parent scope permits. Exception and debt requests route to the effective Control Owner or delegated Approver after inheritance is resolved.
+
+## Control Objective and Indicator
+
+A **Control Objective** states what must hold. A **Control Objective Indicator** is the observable metric, evidence, dashboard field, or register state used to evaluate whether it holds.
+
+Build Quality Objectives and Indicators are specializations of this general model:
+
+- Build Quality Objective = Build-quality Control Objective.
+- Build Quality Indicator = Build-quality Control Objective Indicator.
+
+## Debt + Catch-Up vs Exception / Waiver
+
+- **Debt + Catch-Up** is for temporary deviations that still need remediation. Progress is allowed, but the debt is registered, assigned, given a repayment date, and closed only with repayment evidence.
+- **Exception / Waiver** is for non-applicability, alternate control, or bounded bypass approved by the relevant Approver. It is time-bound or scope-bound and does not silently erase the control.
+
+## Kudos and recognition
+
+Governance should not only find problems. Rituals may produce Kudos / Recognition entries when teams, people, or agents demonstrate strong evidence discipline, excellent collaboration, early risk surfacing, effective recovery, or reusable practice patterns.
+
 ## What governance work does
 
 Governance work, when invoked by a ritual or enforcement item, is responsible for:
 
 1. **Verifying preconditions** — does the source workspace's output meet the contract for the transition?
-2. **Applying policy** — what rules govern this kind of transition (security, compliance, release, audit), and do they pass, warn, require exception, or create risk/debt?
+2. **Evaluating controls** — for each applicable control, does the Control Objective hold as shown by its Control Objective Indicators? Outcome: pass, warn, block, Debt + Catch-Up, or Exception / Waiver per enforcement mode.
 3. **Capturing evidence** — what artifacts, records, or signals must be persisted for audit and traceability? Where do they go in the repositories?
 4. **Recording the transition** — the transition itself is a recordable event in the workshop's history.
 5. **Producing outputs** — decisions, findings, approvals, rejections, exceptions, register entries, recognition entries, remediation Work Orders, or Evolve Cases.
@@ -96,7 +141,7 @@ Consider a Specification → Development transition.
 - **Governance orchestration item:** Governance Enforcement for "Validate Specification → Development handoff."
 - **Policy assertions:** PSD references Product Intent and PDR; cross-dimensional impact assessment exists; impacted modules are identified; Source and Quality repositories are prepared; required evidence is present.
 - **Governance Workspace scenarios:** evaluate policy, capture evidence, record verdict, create finding/register entry if needed.
-- **Outcome:** the transition is allowed, warned, blocked, approved by exception, or allowed with risk/debt/remediation.
+- **Outcome:** the transition passes; warns; blocks; proceeds with Debt + Catch-Up; or proceeds with Exception / Waiver.
 
 Each task in this list is completed by the Governance Workspace's Human–Agent Team. Some tasks are fully automated; others may require a human practitioner to certify a judgment.
 

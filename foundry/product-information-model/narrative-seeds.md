@@ -230,6 +230,32 @@ Governance policies, rituals, reports, dashboards, cadences, participant roles, 
 
 When rituals or enforcement produce repeated findings, policy drift, dashboard gaps, ineffective evidence requirements, or reusable positive patterns, the right response is often an **Evolve Case**. Evolve changes the governance practice itself: update the policy, change the ritual cadence, improve a dashboard, refine evidence requirements, or turn an observed good practice into a playbook.
 
+### Admin configures, Owner is accountable, Approver authorizes
+
+Governance roles should name functions, not organization-specific titles. A real enterprise may bind a Control Owner or Debt Approver to its own job titles, but the UPIM should not encode those titles. The model separates three responsibilities:
+
+- **Admin configures** policies, controls, thresholds, rituals, dashboards, and register definitions.
+- **Owner is accountable** for a policy, control, evidence contract, risk, or debt over time.
+- **Approver authorizes** a specific decision: transition approval, debt, exception, waiver, or risk acceptance.
+
+This separation prevents the "admin can approve everything" anti-pattern and keeps governance portable across organizations.
+
+### Control Objective generalizes BQO
+
+Build Quality Objective and Build Quality Indicator are useful engineering terms, but they should not become the only governance quality pattern. A **Control Objective** states what must hold; a **Control Objective Indicator** measures current state; a **Control Objective Threshold** defines pass/warn/fail boundaries. BQO/BQI are Build-quality specializations of this general model.
+
+The same pattern works for release readiness, evidence completeness, PM alignment, operational readiness, compliance posture, and governance ritual health.
+
+### Debt + Catch-Up makes deviations operational
+
+An approved deviation should not disappear into a comment thread. If a control still applies and remediation is expected, the right outcome is **Debt + Catch-Up**: a Debt Register Entry, Catch-Up Plan, due date, accountable owner, and repayment evidence.
+
+Exception / Waiver remains available when the policy does not apply, an alternate control is accepted, or a bounded one-time bypass is approved. Debt says "we still owe this." Exception says "this control is waived or replaced for this scoped case."
+
+### Control inheritance prevents local chaos
+
+Controls inherit from Foundry to Workspace to Workbench. Foundry defines baselines. Workspace and Workbench scopes can add or tighten controls. They can override only where the parent scope permits. Effective controls are resolved at enforcement time so exception and debt requests route to the effective Control Owner or delegated Approver.
+
 ### The Discovery Track produces four types of output
 
 1. **PDRs** — decisions (any dimension)

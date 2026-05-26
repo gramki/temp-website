@@ -157,7 +157,7 @@
 **Acceptance Criteria:**
 - Quality trends dashboard
 - Defect open/close rates
-- BQI trends
+- Control Objective Indicator trends (including Build Quality Indicators)
 - Gate pass/fail rates
 - Severity distribution
 

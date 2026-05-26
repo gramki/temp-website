@@ -43,6 +43,12 @@ Governance:
 - Which Governance Enforcement scenarios are in Phase 1?
 - Which reports and dashboards are required inputs to those rituals?
 - Which ritual outputs are supported: action items, findings, risk/debt entries, recognitions, Evolve Cases?
+- Which Governance Admin roles are required in Phase 1?
+- What is the minimum Governance Authority Matrix?
+- Which Control Objectives and Control Objective Indicators are implemented in Phase 1?
+- Are BQO/BQI implemented as aliases of Control Objective / Control Objective Indicator?
+- What Debt + Catch-Up lifecycle is implemented?
+- What Exception / Waiver lifecycle is implemented?
 
 ---
 
@@ -402,6 +408,11 @@ completeTask()
 - What is the minimum Governance Ritual schema?
 - What is the minimum Governance Enforcement schema?
 - Which Governance Policies are implemented in Phase 1?
+- Which Control Objectives are implemented in Phase 1?
+- Which Control Objective Indicators are measured?
+- How are effective Control Owners resolved?
+- Who approves Debt + Catch-Up?
+- Who approves Exception / Waiver?
 - Which Ritual Definitions are implemented in Phase 1?
 - Which cadences are required versus deferred?
 - Which reports/dashboards are required as ritual inputs?
@@ -416,6 +427,7 @@ completeTask()
 - How are Governance Findings stored?
 - Which governance outputs trigger Evolve Cases?
 - How are recognitions / Kudos captured and surfaced?
+- Where are Debt Register entries, Catch-Up Plans, Exception Records, and Waivers stored?
 
 Candidate governed transitions:
 

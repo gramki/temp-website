@@ -3,7 +3,8 @@
 **Model:** Work Model
 **Track:** Track 6: Governance (ACE extension)
 **Category:** Orchestration
-**Owner:** Governance, Product Operations, Engineering Management, Compliance, Security, or delegated ritual owner
+**Owner:** Role accountable for ritual outcomes
+**Governance Admin:** Role that maintains the Ritual Definition this item executes
 
 ## Definition
 
@@ -21,6 +22,9 @@ Governance Ritual makes governance practices explicit and executable. It prevent
 |---|---|---|
 | Ritual ID | String | Unique ritual instance identifier |
 | Ritual Definition | Reference (Operating Model) | Definition being executed |
+| Governance Admin Scope | Reference | Foundry, Workspace, or Workbench scope where the ritual is configured |
+| Accountable Owner | Reference (WFR role binding) | Role accountable when ritual outputs age without follow-up |
+| Ritual Definition Maintainer | Reference (WFR role binding) | Governance Admin binding for the Operating Model definition |
 | Cadence / Trigger | Enum / Reference | Weekly, sprintly, release-bound, transition-triggered, quarterly, on-demand |
 | Participants | List | People, roles, teams, or agents involved |
 | Input Artifacts | List | Reports, dashboards, metrics, evidence, orchestration items, Work Orders, register entries |
