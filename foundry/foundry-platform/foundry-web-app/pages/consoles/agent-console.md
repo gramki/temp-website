@@ -103,4 +103,4 @@
 - **Team Console** — Human workforce
 - **Workspaces Console** — Where agents work
 - **Progress Console** — Overall task completion
-- **Risk Console** — Agent-related risks
+- **Registers** — Agent-related risks and recognitions

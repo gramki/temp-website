@@ -84,5 +84,5 @@
 ## Related Consoles
 
 - **CI Console** — Build/test pipelines
-- **Quality Compliance** — Governance thresholds
+- **Quality Controls** — Governance quality controls and thresholds
 - **Release Console** — Quality gates for release

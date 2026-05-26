@@ -371,6 +371,14 @@ Traceability API
 - Which module APIs does Workspaces Console call?
 - Which module APIs does Track Console call?
 - Which module APIs does Governance Console call?
+- Which governance consoles are Phase 1 versus later?
+  - Governance Overview?
+  - Controls & Enforcement?
+  - Registers?
+  - Reports & Dashboards?
+  - Quality Controls?
+  - Rituals?
+  - Governance Admin?
 - Which module APIs does Repositories & Tools call?
 - Which actions are available in Phase 1 UI?
 - Which views are read-only in Phase 1?

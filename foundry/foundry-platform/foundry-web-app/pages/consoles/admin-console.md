@@ -74,6 +74,20 @@
 | **API access** | Tokens, keys |
 | **Audit log** | Access history |
 
+### 8. Governance Configuration
+
+Phase 1 may expose basic governance configuration here before the full Governance Admin Console matures.
+
+| Element | Description |
+|---------|-------------|
+| **Governance Admin roles** | Foundry / Workspace / Workbench Governance Admin bindings visible for this Workbench |
+| **Effective controls** | Controls inherited from Foundry / Workspace and local Workbench additions |
+| **Control overrides** | Overrides allowed by parent scope |
+| **Authority matrix** | Effective Control Owners and Approvers |
+| **Threshold configuration** | Control Objective Thresholds where local configuration is permitted |
+| **Ritual configuration** | Ritual definitions and cadence visible or configurable at Workbench scope |
+| **Register configuration** | Register types, status lifecycles, required fields, escalation rules |
+
 ---
 
 ## Actions
@@ -87,6 +101,7 @@
 | Create code repo | Manager | New repo in GitHub Org |
 | Update Jira labels | Manager | Change label filters |
 | View audit log | Manager | See access history |
+| Configure governance | Governance Admin | Configure permitted local governance settings |
 
 ---
 
@@ -98,6 +113,7 @@
 4. **Repositories** — Git repo management
 5. **Notifications** — Alert settings
 6. **Access** — Permissions, API, audit
+7. **Governance** — Controls, authority, inheritance, rituals, registers
 
 ---
 
@@ -106,3 +122,4 @@
 - **Repositories & Tools** — Use configured integrations
 - **Team Console** — Team analytics (vs. management)
 - **Risk Console** — Notification triggers
+- **Governance Admin** — Full governance configuration vision

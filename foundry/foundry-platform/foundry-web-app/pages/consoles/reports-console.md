@@ -1,10 +1,10 @@
-# Reports Console
+# Reports & Dashboards Console
 
 **URL pattern:** `/workbenches/{workbenchId}/consoles/reports`
 
 **Group:** Governance
 
-**Purpose:** Generated reports, audit exports, and scheduled reporting.
+**Purpose:** Reports and dashboards used by governance rituals, leadership review, audit exports, and scheduled reporting.
 
 ---
 
@@ -21,6 +21,12 @@
 | **Team Report** | Contribution analytics |
 | **Agent Report** | Agent performance |
 | **Audit Report** | Compliance evidence |
+| **Governance Health Dashboard** | Overall governance status |
+| **Control Objective Compliance Dashboard** | Control pass/warn/fail trends |
+| **Evidence Completeness Report** | Missing and complete evidence by item/transition |
+| **Debt Aging Dashboard** | Active and overdue Debt + Catch-Up items |
+| **Exception Expiry Dashboard** | Exceptions/waivers nearing expiry |
+| **Kudos / Recognition Dashboard** | Recognition entries and reusable practice candidates |
 
 ### 2. Recent Reports
 
@@ -64,6 +70,17 @@
 | **Change history** | Repository changes |
 | **Access logs** | Who accessed what |
 
+### 6. Governance Dashboards
+
+| Dashboard | Description |
+|-----------|-------------|
+| **Ritual Completion** | Ritual cadence adherence, overdue rituals, action item closure |
+| **Control Objective Compliance** | Objective and indicator trends by scope |
+| **Risk / Debt / Exception** | Register trends and aging |
+| **Release Readiness** | Evidence, controls, debt, exceptions, approvals |
+| **Discovery Readiness** | Discovery Cases ready for PDR/Product Intent decisions |
+| **Governance Trend** | Findings, violations, recognitions, Evolve triggers |
+
 ---
 
 ## Actions
@@ -76,6 +93,9 @@
 | Share | All | Send to others |
 | Delete | Manager | Remove old reports |
 | Create custom | Manager | Build custom report |
+| Attach to ritual | Governance | Attach dashboard snapshot as ritual input |
+| Create finding | Governance | Create Governance Finding from a report/dashboard |
+| Create Evolve Case | Governance / Evolve | Route repeated dashboard issue to Evolve |
 
 ---
 
@@ -95,6 +115,9 @@
 - By date range
 - By team member
 - By component
+- By governance control
+- By register type
+- By ritual
 
 ---
 
@@ -103,4 +126,7 @@
 - **Progress Console** — Source for progress reports
 - **Quality Status** — Source for quality reports
 - **Risk Console** — Source for risk reports
+- **Governance Overview** — Governance health summary
+- **Rituals** — Reports and dashboards as ritual inputs
+- **Registers** — Register reports
 - **Team Console** — Source for team reports

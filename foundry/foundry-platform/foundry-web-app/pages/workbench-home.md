@@ -136,15 +136,19 @@ Grouped consoles for focused views.
 
 | Console | Purpose |
 |---------|---------|
-| **Risk Console** | Governance risk flags (drives PI badge colors) |
-| **Reports Console** | Generated reports, audit exports |
-| **Quality Compliance** | Required thresholds, audit evidence, sign-offs |
+| **Governance Overview** | Governance health, attention queue, pending approvals |
+| **Rituals** | Governance Rituals, cadence, inputs, outputs, action items |
+| **Controls & Enforcement** | Control Objectives, indicators, thresholds, enforcement outcomes |
+| **Registers** | Risk, debt, exceptions, compliance, deferred obligations, kudos |
+| **Reports & Dashboards** | Governance dashboards, ritual inputs, audit exports |
+| **Quality Controls** | Build/release quality controls and threshold evaluation |
 
 ### Settings
 
 | Console | Purpose |
 |---------|---------|
 | **Admin Console** | Workbench settings, team management, integrations |
+| **Governance Admin** | Governance authority, controls, inheritance, rituals, registers |
 
 ---
 

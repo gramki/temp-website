@@ -341,6 +341,28 @@ Product Intents remain visible in the PI Console, but they are shown as the comm
 
 ---
 
+## Governance Overlay
+
+Each Product Intent detail should expose governance state without forcing the user to leave the PI Console.
+
+| Element | Description |
+|---------|-------------|
+| **Governance status** | Pass, warning, blocked, debt, exception, evidence missing, approval pending |
+| **Active controls** | Control Objectives currently applicable to the Product Intent |
+| **Enforcement results** | Governance Enforcement outcomes by transition or artifact |
+| **Debt + Catch-Up** | Active debt, owner, due date, repayment evidence |
+| **Exceptions / Waivers** | Active exceptions, approver, expiry, conditions |
+| **Evidence completeness** | Required evidence present/missing |
+| **Linked rituals** | Rituals that reviewed or are scheduled to review this intent |
+| **Findings** | Governance Findings linked to the Product Intent |
+| **Release readiness** | Governance state for Delivery / Release Renewal intents |
+
+**Intent purpose behavior:**
+- **Delivery** and **Release Renewal** intents should show Customer Release Intent readiness and customer-facing governance.
+- **Discovery Support**, **Technical Validation**, **Internal / Enabling**, and **Operational Enablement** intents should clearly show "not customer-committed delivery" while still showing required controls and evidence.
+
+---
+
 ## Product Manager Workflows
 
 ### Triage a New Signal

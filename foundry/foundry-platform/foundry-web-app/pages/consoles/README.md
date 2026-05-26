@@ -39,15 +39,19 @@ Consoles are focused views accessible from the Workbench Home side navigation.
 
 | Console | File | Purpose |
 |---------|------|---------|
-| [Risk Console](risk-console.md) | `risk-console.md` | Risk flags (drives PI badge colors) |
-| [Reports Console](reports-console.md) | `reports-console.md` | Generated reports, exports |
-| [Quality Compliance](quality-compliance.md) | `quality-compliance.md` | Thresholds, sign-offs |
+| [Governance Overview](governance-overview.md) | `governance-overview.md` | Governance health, attention queue, pending approvals |
+| [Rituals](rituals-console.md) | `rituals-console.md` | Governance Ritual calendar, inputs, outputs, action items |
+| [Controls & Enforcement](controls-enforcement.md) | `controls-enforcement.md` | Control Objectives, indicators, thresholds, enforcement outcomes |
+| [Registers](registers-console.md) | `registers-console.md` | Risk, debt, exceptions, compliance, deferred obligations, kudos |
+| [Reports & Dashboards](reports-console.md) | `reports-console.md` | Governance dashboards, ritual inputs, audit exports |
+| [Quality Controls](quality-compliance.md) | `quality-compliance.md` | Build/release quality controls and threshold evaluation |
 
 ### Settings
 
 | Console | File | Purpose |
 |---------|------|---------|
 | [Admin Console](admin-console.md) | `admin-console.md` | Workbench configuration |
+| [Governance Admin](governance-admin.md) | `governance-admin.md` | Governance authority, controls, inheritance, rituals, registers |
 
 ## URL Pattern
 
@@ -74,9 +78,13 @@ Workbench Home
     │   ├── Team Console
     │   └── Agent Console
     ├── Governance
-    │   ├── Risk Console
-    │   ├── Reports Console
-    │   └── Quality Compliance
+    │   ├── Governance Overview
+    │   ├── Rituals
+    │   ├── Controls & Enforcement
+    │   ├── Registers
+    │   ├── Reports & Dashboards
+    │   └── Quality Controls
     └── Settings
-        └── Admin Console
+        ├── Admin Console
+        └── Governance Admin
 ```

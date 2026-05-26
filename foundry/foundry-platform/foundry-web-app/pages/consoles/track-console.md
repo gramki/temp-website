@@ -56,6 +56,17 @@ Discovery ──→ Build ──→ Release ──→ Run
 | **WIP** | Work in progress count |
 | **Wait time** | Time items spend waiting |
 
+### 5. Governance by Track
+
+| Track | Governance indicators |
+|-------|-----------------------|
+| **Discovery** | Open PDR approvals, PM alignment gaps, Discovery Case readiness, evidence completeness |
+| **Build** | Quality control failures, active debt, exceptions/waivers, evidence gaps |
+| **Run** | Change approvals, operational readiness, incident findings |
+| **Win** | Customer Release Intent readiness, customer commitment risks |
+| **Evolve** | Overdue governance evolution cases, policy/ritual updates |
+| **Governance** | Ritual completion, enforcement backlog, register aging |
+
 ---
 
 ## Filters
