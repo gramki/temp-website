@@ -46,6 +46,8 @@ A governance scenario, when invoked by a ritual or enforcement item, is responsi
 
 Scenarios in the Governance Workspace, like scenarios in any other workspace, decompose into Tasks completed by the workspace's Human–Agent Team. Some governance scenarios will be heavily automated; some will require human judgment. The workspace runs the same way either way.
 
+Scenarios are ACE Workspace definitions. They are not UPIM entities; UPIM supplies the policies, artifacts, register records, orchestration items, and evidence that governance scenarios read or write.
+
 ## Relationship to security, compliance, audit
 
 The Foundry Platform engineers security, compliance, audit, monitoring, and logging as first-class concerns of the Foundry Specification. Source: [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 1-9.

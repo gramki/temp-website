@@ -145,6 +145,8 @@ Product decision -> PSD -> Product Intent
 
 ACE uses Product Intent as the routed item in the Product Evolution Cycle. Arrival of Product Intent at a Workspace triggers that Workspace's Scenarios. Movement of Product Intent between Workspaces invokes Governance Workspace scenarios.
 
+Scenarios are ACE Workspace definitions, not UPIM entities. This section describes how the UPIM Product Intent entity is consumed by ACE routing; it does not add Scenario to the UPIM Definition Model or Work Model.
+
 Discovery Track work establishes or updates Product Intent. Release may renew Product Intent for the next cycle using delivery evidence, feedback, and learnings.
 
 ## Example
