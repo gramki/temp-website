@@ -15,9 +15,9 @@ Procedural memory is where agents become repeatable and reliable—when it is ve
 The word “procedural” shows up in three different cognitive layers:
 
 - **Procedural enterprise knowledge**: official SOPs/runbooks (what the enterprise asserts)  
-  See: [`../enterprise-knowledge/procedural-knowledge.md`](../enterprise-knowledge/procedural-knowledge.md)
+  See: [../enterprise-knowledge/procedural-knowledge.md](../enterprise-knowledge/procedural-knowledge.md)
 - **Procedural enterprise memory**: how work is actually done in practice (revealed behavior)  
-  See: [`../enterprise-memory/procedural-memory.md`](../enterprise-memory/procedural-memory.md)
+  See: [../enterprise-memory/procedural-memory.md](../enterprise-memory/procedural-memory.md)
 - **Procedural agent memory (this doc)**: agent-executable workflows/tool chains for repeatable action
 
 ## What to store
@@ -53,7 +53,7 @@ The word “procedural” shows up in three different cognitive layers:
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
-- Prev: [`preference-memory.md`](./preference-memory.md)
-- Next: [`context-building.md`](./context-building.md)
+- Back: [README.md](./README.md)
+- Prev: [preference-memory.md](./preference-memory.md)
+- Next: [context-building.md](./context-building.md)
 

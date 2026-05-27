@@ -130,6 +130,6 @@ Semantic Kernel excels as a **semantic memory + skill orchestration layer**, but
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
-- Related: [`context-building.md`](./context-building.md)
+- Back: [README.md](./README.md)
+- Related: [context-building.md](./context-building.md)
 

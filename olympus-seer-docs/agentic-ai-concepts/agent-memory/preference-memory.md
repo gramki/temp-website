@@ -48,7 +48,7 @@ Preference memory is not appropriate when:
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
-- Prev: [`semantic-memory.md`](./semantic-memory.md)
-- Next: [`procedural-memory.md`](./procedural-memory.md)
+- Back: [README.md](./README.md)
+- Prev: [semantic-memory.md](./semantic-memory.md)
+- Next: [procedural-memory.md](./procedural-memory.md)
 
