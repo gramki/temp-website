@@ -34,7 +34,7 @@ zeta-ai-product-strategy/
 
 ### 1. AOSM Meta-Model — Foundational Framework
 
-> **Path:** [`aosm-meta-model/`](./aosm-meta-model/)
+> **Path:** [aosm-meta-model/](./aosm-meta-model/)
 
 The **Agent-Oriented Systems Modeling (AOSM)** meta-model provides the theoretical foundation for designing human-AI collaborative systems.
 
@@ -54,21 +54,21 @@ The **Agent-Oriented Systems Modeling (AOSM)** meta-model provides the theoretic
 
 ### 2. Olympus Hub — Operations Management Platform
 
-> **Path:** [`olympus-hub-docs/`](./olympus-hub-docs/)
+> **Path:** [olympus-hub-docs/](./olympus-hub-docs/)
 
 **Olympus Hub** is an operations management platform for enterprises to model, manage, and optimize business operations through human-AI collaboration.
 
 | Section | Description | Path |
 |---------|-------------|------|
-| **Need & Value** | Primers for CIO, Process Architect, Developer | [`00-hub-need-and-value/`](./olympus-hub-docs/00-hub-need-and-value/) |
-| **Core Concepts** | Ontology, "Everything is Ops" philosophy | [`01-concepts/`](./olympus-hub-docs/01-concepts/) |
-| **System Design** | Architecture, implementation concepts | [`02-system-design/`](./olympus-hub-docs/02-system-design/) |
-| **Subsystems** | Signal Exchange, Memory, Registry, Task Management | [`04-subsystems/`](./olympus-hub-docs/04-subsystems/) |
-| **Infrastructure** | Platform dependencies, gateways, data services | [`05-infrastructure/`](./olympus-hub-docs/05-infrastructure/) |
-| **UX Architecture** | Desks, consoles, interaction channels | [`06-ux-architecture/`](./olympus-hub-docs/06-ux-architecture/) |
-| **Personas & Journeys** | Who uses Hub and how | [`08-personas-and-journeys/`](./olympus-hub-docs/08-personas-and-journeys/) |
-| **Composite Patterns** | Scenario as Agent, multi-workbench patterns | [`09-composite-systems-and-patterns/`](./olympus-hub-docs/09-composite-systems-and-patterns/) |
-| **Guides** | Practical how-to guides | [`10-guides/`](./olympus-hub-docs/10-guides/) |
+| **Need & Value** | Primers for CIO, Process Architect, Developer | [00-hub-need-and-value/](./olympus-hub-docs/00-hub-need-and-value/) |
+| **Core Concepts** | Ontology, "Everything is Ops" philosophy | [01-concepts/](./olympus-hub-docs/01-concepts/) |
+| **System Design** | Architecture, implementation concepts | [02-system-design/](./olympus-hub-docs/02-system-design/) |
+| **Subsystems** | Signal Exchange, Memory, Registry, Task Management | [04-subsystems/](./olympus-hub-docs/04-subsystems/) |
+| **Infrastructure** | Platform dependencies, gateways, data services | [05-infrastructure/](./olympus-hub-docs/05-infrastructure/) |
+| **UX Architecture** | Desks, consoles, interaction channels | [06-ux-architecture/](./olympus-hub-docs/06-ux-architecture/) |
+| **Personas & Journeys** | Who uses Hub and how | [08-personas-and-journeys/](./olympus-hub-docs/08-personas-and-journeys/) |
+| **Composite Patterns** | Scenario as Agent, multi-workbench patterns | [09-composite-systems-and-patterns/](./olympus-hub-docs/09-composite-systems-and-patterns/) |
+| **Guides** | Practical how-to guides | [10-guides/](./olympus-hub-docs/10-guides/) |
 
 **The Operational Pattern:**
 ```
@@ -90,15 +90,15 @@ Signal → Trigger → Request → Scenario → Hub Application → Activities �
 
 ### 3. Olympus Seer — Agent Lifecycle & Runtime Engine
 
-> **Path:** [`olympus-seer-docs/`](./olympus-seer-docs/)
+> **Path:** [olympus-seer-docs/](./olympus-seer-docs/)
 
 **Olympus Seer** is the control plane and runtime for enterprise AI agents — managing agent definition, lifecycle, deployment, and execution.
 
 | Section | Description | Path |
 |---------|-------------|------|
-| **Seer Design** | Subsystems, Hub integration, CRD specifications | [`seer-design/`](./olympus-seer-docs/seer-design/) |
-| **Requirements** | Enterprise agentic platform requirements | [`requirements-enterprise-agentic-platform/`](./olympus-seer-docs/requirements-enterprise-agentic-platform/) |
-| **Agentic AI Concepts** | Agent memory, enterprise knowledge foundations | [`agentic-ai-concepts/`](./olympus-seer-docs/agentic-ai-concepts/) |
+| **Seer Design** | Subsystems, Hub integration, CRD specifications | [seer-design/](./olympus-seer-docs/seer-design/) |
+| **Requirements** | Enterprise agentic platform requirements | [requirements-enterprise-agentic-platform/](./olympus-seer-docs/requirements-enterprise-agentic-platform/) |
+| **Agentic AI Concepts** | Agent memory, enterprise knowledge foundations | [agentic-ai-concepts/](./olympus-seer-docs/agentic-ai-concepts/) |
 
 **Key Seer Subsystems:**
 - **Agent Lifecycle Service** — Definition, versioning, deployment
@@ -265,12 +265,12 @@ Signal → Trigger → Request → Scenario → Hub Application → Activities �
 
 | Area | Description | Path |
 |------|-------------|------|
-| **Ibuki** | Agentic banking products (EON, relationship-aware tools) | [`ibuki/`](./ibuki/) |
-| **Pontus** | Data products and ETSL framework | [`pontus/`](./pontus/) |
-| **Quark** | Agentic operations design | [`quark/`](./quark/) |
-| **Tachyon** | CLM and customer servicing | [`tachyon/`](./tachyon/) |
-| **Market Study** | Enterprise gaps, customer needs, CIO research | [`market-study/`](./market-study/) |
-| **GTM Strategy** | Go-to-market themes and positioning | [`gtm-strategy/`](./gtm-strategy/) |
+| **Ibuki** | Agentic banking products (EON, relationship-aware tools) | [ibuki/](./ibuki/) |
+| **Pontus** | Data products and ETSL framework | [pontus/](./pontus/) |
+| **Quark** | Agentic operations design | [quark/](./quark/) |
+| **Tachyon** | CLM and customer servicing | [tachyon/](./tachyon/) |
+| **Market Study** | Enterprise gaps, customer needs, CIO research | [market-study/](./market-study/) |
+| **GTM Strategy** | Go-to-market themes and positioning | [gtm-strategy/](./gtm-strategy/) |
 
 ---
 
