@@ -87,6 +87,6 @@ Recommended frame sections (order matters):
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
-- Prev: [`procedural-memory.md`](./procedural-memory.md)
+- Back: [README.md](./README.md)
+- Prev: [procedural-memory.md](./procedural-memory.md)
 

@@ -22,6 +22,7 @@ Modeling Tasks make this knowledge work explicit and plannable:
 | Field | Type | Description |
 |---|---|---|
 | Title | String | What's being modeled (e.g., "Map Cross-Border Payout Processing value stream") |
+| Originating Discovery Case | Reference (Track 1) | Discovery Case this modeling work belongs to, if any |
 | Target Dimension | Enum | Which dimension the work affects (Dim 2–9) |
 | Target Entity Type | String | Which entity type is being created/updated |
 | Triggered By | Reference | PDR, Research Task findings, or ad-hoc |
@@ -41,10 +42,11 @@ Modeling Tasks make this knowledge work explicit and plannable:
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
+| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case; carries bidirectional reference |
 | Upstream | PDR (Dim 1) | PDR may trigger Modeling Task(s) |
 | Upstream | Research Task (Track 1) | Research findings may trigger Modeling Task(s) |
 | Produces | Definition Model Entity (any Dim) | Modeling Task creates/updates entity(ies) |
-| Sibling | Specification Task (Track 1) | Both are Discovery Track work; Spec Task produces PSDs, Modeling Task produces Definition Model updates |
+| Sibling | Specification Task (Track 1) | Both are Discovery Track work; Specification Task produces PSDs that refine Product Intent, Modeling Task produces Definition Model updates |
 
 ## Examples
 

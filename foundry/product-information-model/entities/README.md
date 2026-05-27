@@ -14,12 +14,13 @@ entities/
 │   ├── dim1-strategic-theme.md        ← Portfolio or Product scope; persistent cross-horizon direction
 │   ├── dim1-objective.md              ← Now references Theme + External Constraints
 │   ├── dim1-initiative.md             ← Now has Lever Mix, Embedded Targets, and cross-track Win Track relationships
-│   ├── dim1-customer-release.md
+│   ├── dim1-customer-release.md      ← Customer Release Intent (strategy-layer planned customer availability)
 │   ├── dim1-problem.md
 │   ├── dim1-need.md
 │   ├── dim1-opportunity.md
 │   ├── dim1-idea.md
 │   ├── dim1-pdr.md
+│   ├── dim1-product-intent.md        ← Hybrid bridge: product decision → routable evolution work
 │   ├── dim1-psd.md
 │   ├── dim2-business-model.md
 │   ├── dim2-win-stakeholder.md          ← AAARRR roles; engaged with segments
@@ -89,6 +90,7 @@ entities/
     ├── track1-objective-setting-task.md
     ├── track1-initiative-scoping-task.md
     ├── track1-prioritization-task.md
+    ├── track1-discovery-case.md          ← Cross-functional orchestration envelope; Signal-optional (DR-039)
     ├── track1-signal-exploration-task.md ← Divergent: Signal → Idea(s)
     ├── track1-deliberation.md          ← Collaborative group judgment (Ideas or PDRs)
     ├── track1-research-task.md         ← Convergent: targeted evidence gathering
@@ -155,7 +157,9 @@ entities/
     ├── track5-evolve-review.md            ← Structured assessment of process effectiveness and artifact quality
     ├── track5-evolve-definition-task.md   ← Core meta-work: create/update entity, artifact, DoD, and guidance definitions
     ├── track5-evolve-monitoring.md        ← Continuous process adherence and artifact quality monitoring
-    └── track5-evolve-findings.md          ← Transitional artifact produced by Evolve Reviews
+    ├── track5-evolve-findings.md          ← Transitional artifact produced by Evolve Reviews
+    ├── track6-governance-ritual.md        ← Governance orchestration: cadence/event ritual instances
+    └── track6-governance-enforcement.md   ← Governance orchestration: policy assertion/control execution
 ```
 
 ## Naming Convention

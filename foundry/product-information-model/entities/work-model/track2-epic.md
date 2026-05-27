@@ -12,7 +12,7 @@ A cross-Module PSD (or a PDR triggering multiple PSDs) results in multiple Epics
 
 ## Purpose
 
-The top-level work entity in the Build Track's functional hierarchy. Without Epics:
+The top-level work entity in the Build Track's functional hierarchy under Product Intent. Epic is not a primary Build orchestration item; Product Intent is. Without Epics:
 - PSDs have no decomposition into trackable build work — the gap between specification and sprint is unbridged
 - Release Planning has no unit to scope and sequence
 - Module-level progress is invisible — "how much of the Payments Module PSD is done?" has no structured answer
@@ -24,13 +24,14 @@ The top-level work entity in the Build Track's functional hierarchy. Without Epi
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Descriptive title (e.g., "Build Real-Time FX Rate Locking") |
+| Product Intent | Reference (Dim 1) | Parent Product Intent this Epic helps realize or validate |
 | PSD | Reference (Dim 1) | Which PSD this Epic is decomposed from |
 | Module | Reference (Dim 8) | Which Module this Epic advances |
 | Initiative | Reference (Dim 1) | Which Initiative this Epic is part of (inherited from PSD) |
 | Acceptance Criteria | Text | What must be true for this Epic to be considered complete |
 | Effort Estimate | String | High-level effort estimate (team-weeks, story points aggregate) |
 | Target Milestone | Reference (Track 2) | Which Milestone this Epic targets |
-| Customer Release | Reference (Dim 1) | Which Customer Release this Epic is part of |
+| Customer Release Intent | Reference (Dim 1) | Which Customer Release Intent this Epic is part of |
 
 ## Statuses
 
@@ -47,9 +48,10 @@ The top-level work entity in the Build Track's functional hierarchy. Without Epi
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Decomposed from | PSD (Dim 1) | Epic is decomposed from a PSD |
+| Parent | Product Intent (Dim 1) | Epic is subordinate to Product Intent orchestration |
 | Scoped to | Module (Dim 8) | Epic advances a specific Module |
 | Part of | Initiative (Dim 1) | Epic contributes to an Initiative |
-| Part of | Customer Release (Dim 1) | Epic is scoped to a Customer Release |
+| Part of | Customer Release Intent (Dim 1) | Epic is scoped to a Customer Release Intent |
 | Contains | Story(ies) (Track 2) | Epic contains Stories |
 | Referenced by | Integration Epic (Track 2) | Integration Epics reference the functional Epics they integrate |
 | Targeted by | Milestone (Track 2) | Epic may be gated by a Milestone |

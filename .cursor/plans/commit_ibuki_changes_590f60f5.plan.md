@@ -8,7 +8,7 @@ todos: []
 
 ## Changes to Commit
 
-All files in [`ibuki/ibuki-family-banking-value-prop-india/`](ibuki/ibuki-family-banking-value-prop-india/):
+All files in [ibuki/ibuki-family-banking-value-prop-india/](ibuki/ibuki-family-banking-value-prop-india/):
 
 | File | Description |
 |------|-------------|

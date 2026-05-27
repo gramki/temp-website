@@ -67,7 +67,7 @@ The Definition Model describes **what the product is** — its complete structur
 
 | Tier | Dimensions | What it covers |
 |---|---|---|
-| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), signals, ideas, decisions, specifications |
+| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), Customer Release Intents, signals, ideas, decisions, Product Intents, specifications |
 | **Business & Market** | Dim 2: Vendor Value (Why It Wins) | Win stakeholders, win outcomes (with achievement levers), delivery friction, business model (with lever portfolio), pricing tiers, value metrics, business KPIs, win barriers — across AAARRR lifecycle |
 | | Dim 3: Customer Value | Customer segments, buying personas, outcomes, pains, promises, metrics, barriers |
 | **Technical Execution** | Dim 4: User-Centric (Experience) | User personas, jobs (JTBD), UX channels (modality × engagement mode), user journeys. Touchpoints deprecated to work artifacts. |
@@ -87,11 +87,12 @@ The Work Model describes **what work exists** — the entities, artifacts, and s
 
 | Track | Goal | Primary Owner | Key Entities |
 |---|---|---|---|
-| **Track 1: Discovery** (Learning) | Set strategic direction, explore signals, validate ideas, author specifications | Product Management, UX Research | Objective Setting Task, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, Signal Monitoring |
+| **Track 1: Discovery** (Learning) | Set strategic direction, open Discovery Cases, explore signals/questions, validate ideas, create Product Intent, refine intent into specifications | Cross-functional; Product Management owns product alignment | Objective Setting Task, Discovery Case, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, Signal Monitoring |
 | **Track 2: Build** (Construction) | Plan releases, decompose PSDs into Module-scoped Epics and System-scoped Tasks, produce three-tier versioned artifacts (Component → System → Product) | Tech Lead, Developers, QA | Epic, Story, Technical Task, Bug, Integration Epic, Integration Story, Design Deliberation, Component Version, System Version, Product Version, Technical Debt Item, Build Monitoring |
 | **Track 3: Run** (Stability) | Plan deployments, manage tenants, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, Tenant, System Monitoring, System Deployment Specification, Product Deployment Specification |
 | **Track 4: Win** (Value Realization) | Plan, equip, execute, respond, assess, monitor across AAARRR lifecycle to achieve Win Outcomes | Customer Success, Product Marketing, Sales, Support | Win Planning (5 subtypes), Win Enablement (4 subtypes), Win Activity (7 subtypes), Win Case, Win Review → Feedback, Win Monitoring |
 | **Track 5: Evolve** (Process Evolution) | Assess, define, and refine Work Model and Operating Model — entity definitions, artifact types, DoD criteria, guidance structures | Process Leads, Product Ops, Engineering Managers | Evolve Planning, Evolve Review → Evolve Findings, Evolve Definition Task, Evolve Monitoring |
+| **Track 6: Governance** (ACE extension) | Execute governance rituals and policy enforcement; produce findings, decisions, evidence, register entries, action items, and recognitions | Governance, Product Ops, Engineering Managers, Compliance, Security | Governance Ritual, Governance Enforcement |
 
 **Reference document:** `draft-work-model.md`
 **Execution framework:** `draft-work-execution-framework.md` — artifacts, artifact type catalog with assessment criteria, definition of done, and guidance patterns for all work entities
@@ -123,6 +124,7 @@ product-information-model/
 ├── draft-work-execution-framework.md ← Work execution dimensions: artifacts, DoD, guidance
 ├── draft-modeling-faqs.md            ← Design decisions and rationale (Q&A format)
 ├── narrative-seeds.md                ← Connective insights and perspectives for future narrative docs
+├── operating-model/                  ← Operating Model foundation, starting with governance
 ├── entities/                         ← One file per entity (canonical detail)
 │   ├── README.md                     ← Entity catalog structure and conventions
 │   ├── definition-model/             ← Entities from the 9 Dimensions
@@ -136,7 +138,8 @@ product-information-model/
 │       ├── track2-*.md               ← Build Track entities
 │       ├── track3-*.md               ← Run Track entities
 │       ├── track4-*.md               ← Win Track entities
-│       └── track5-*.md               ← Evolve Track entities
+│       ├── track5-*.md               ← Evolve Track entities
+│       └── track6-*.md               ← Governance Track entities (ACE extension)
 └── decisions/                        ← Decision records (ADR format)
     ├── README.md                     ← Decision record index
     └── DR-*.md                       ← Individual decision records
@@ -154,13 +157,15 @@ product-information-model/
 
 4. **Cross-dimensional specifications.** PSDs are cross-dimensional impact assessments, not just feature specs. Every PSD acknowledges implications across all 9 Dimensions. (See FAQ Q9.)
 
-5. **Decision traceability.** The chain Signal → Idea → PDR → PSD provides full traceability from observation through reasoning to specification. No gaps, no implicit decisions. (See FAQ Q6, DR-013.)
+5. **Decision traceability.** The chain Signal → Idea → PDR → Product Intent → PSD provides full traceability from observation through reasoning, routable intent, and specification. No gaps, no implicit decisions. (See FAQ Q6, DR-013.)
 
 6. **Initiative as cross-track coordination.** Initiatives drive work across all five tracks, not just Discovery → Build. They carry a lever mix (weighted from the Business Model's Lever Portfolio) and embedded targets (like OKR Key Results). This makes cross-track investment explicit. (See FAQ Q32, DR-017.)
 
-7. **Operating Model deferred, not omitted.** Coordination and organizational design are explicitly scoped out of the Work Model — they belong to the Operating Model, which will be developed separately.
+7. **Strategy is decision-grade direction, not raw intake.** Strategy contains Themes, Objectives, Initiatives, Customer Release Intents, commitments, constraints, PDRs, and Product Intents. Raw requests, untriaged Signals, tasks, bugs, incidents, PSD body content, and deployment records may inform strategy, but they are not strategy themselves. (See DR-038.)
 
-8. **Self-evolving model.** The Work Model explicitly accounts for its own evolution through Track 5: Evolve. A model that cannot evolve is dead. Track 5 is the only track whose outputs directly modify both the Work Model and the Operating Model. (See FAQ Q62, DR-022.)
+8. **Operating Model deferred, not omitted.** Coordination and organizational design are explicitly scoped out of the Work Model — they belong to the Operating Model, which will be developed separately.
+
+9. **Self-evolving model.** The Work Model explicitly accounts for its own evolution through Track 5: Evolve. A model that cannot evolve is dead. Track 5 is the only track whose outputs directly modify both the Work Model and the Operating Model. (See FAQ Q62, DR-022.)
 
 ---
 

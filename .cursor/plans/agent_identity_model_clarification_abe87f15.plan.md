@@ -77,7 +77,7 @@ Key design decisions confirmed:
 
 ### 0.1 Update Identity Ambiguity Scratchpad with Clarifications
 
-**File**: [`olympus-hub-docs/scratchpad/0WIP-agent-identity-ambiguity-resolution.md`](olympus-hub-docs/scratchpad/0WIP-agent-identity-ambiguity-resolution.md) (UPDATE)
+**File**: [olympus-hub-docs/scratchpad/0WIP-agent-identity-ambiguity-resolution.md](olympus-hub-docs/scratchpad/0WIP-agent-identity-ambiguity-resolution.md) (UPDATE)
 
 **Changes**:
 
@@ -122,7 +122,7 @@ Key design decisions confirmed:
 
 ### 2.1 Update Agent Identity & Credentials
 
-**File**: [`olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md`](olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md](olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) (UPDATE)
 
 **Changes**:
 
@@ -133,7 +133,7 @@ Key design decisions confirmed:
 
 ### 2.2 Update Agent Lifecycle
 
-**File**: [`olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md`](olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md](olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) (UPDATE)
 
 **Changes**:
 
@@ -143,7 +143,7 @@ Key design decisions confirmed:
 
 ### 2.3 Update Cipher IAM Extensions Architecture
 
-**File**: [`olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/architecture.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/architecture.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/architecture.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/architecture.md) (UPDATE)
 
 **Changes**:
 
@@ -153,7 +153,7 @@ Key design decisions confirmed:
 
 ### 2.4 Update Profile Tags
 
-**File**: [`olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/profile-tags.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/profile-tags.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/profile-tags.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/profile-tags.md) (UPDATE)
 
 **Changes**:
 
@@ -162,7 +162,7 @@ Key design decisions confirmed:
 
 ### 2.5 Update Employment Spec CRD
 
-**File**: [`olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md`](olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md](olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md) (UPDATE)
 
 **Changes**:
 
@@ -173,7 +173,7 @@ Key design decisions confirmed:
 
 ### 2.6 Update Request-Scoped Delegation
 
-**File**: [`olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md`](olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md](olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md) (UPDATE)
 
 **Changes**:
 
@@ -183,7 +183,7 @@ Key design decisions confirmed:
 
 ### 2.7 Update Authority Delegation
 
-**File**: [`olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md) (UPDATE)
 
 **Changes**:
 
@@ -197,7 +197,7 @@ Key design decisions confirmed:
 
 ### 3.1 Update Agent Model
 
-**File**: [`olympus-hub-docs/02-system-design/agent-model.md`](olympus-hub-docs/02-system-design/agent-model.md) (UPDATE)
+**File**: [olympus-hub-docs/02-system-design/agent-model.md](olympus-hub-docs/02-system-design/agent-model.md) (UPDATE)
 
 **Changes**:
 
@@ -207,7 +207,7 @@ Key design decisions confirmed:
 
 ### 3.2 Update Scenario as Agent
 
-**File**: [`olympus-hub-docs/02-system-design/implementation-concepts/scenario-as-agent.md`](olympus-hub-docs/02-system-design/implementation-concepts/scenario-as-agent.md) (UPDATE)
+**File**: [olympus-hub-docs/02-system-design/implementation-concepts/scenario-as-agent.md](olympus-hub-docs/02-system-design/implementation-concepts/scenario-as-agent.md) (UPDATE)
 
 **Changes**:
 
@@ -217,7 +217,7 @@ Key design decisions confirmed:
 
 ### 3.3 Update Cipher IAM Infrastructure
 
-**File**: [`olympus-hub-docs/05-infrastructure/cipher-iam-infrastructure.md`](olympus-hub-docs/05-infrastructure/cipher-iam-infrastructure.md) (UPDATE)
+**File**: [olympus-hub-docs/05-infrastructure/cipher-iam-infrastructure.md](olympus-hub-docs/05-infrastructure/cipher-iam-infrastructure.md) (UPDATE)
 
 **Changes**:
 
@@ -231,7 +231,7 @@ Key design decisions confirmed:
 
 ### 4.1 Update Hub Agent vs Seer Agent Scratchpad
 
-**File**: [`olympus-hub-docs/scratchpad/0WIP-hub-agent-vs-seer-agent.md`](olympus-hub-docs/scratchpad/0WIP-hub-agent-vs-seer-agent.md) (UPDATE)
+**File**: [olympus-hub-docs/scratchpad/0WIP-hub-agent-vs-seer-agent.md](olympus-hub-docs/scratchpad/0WIP-hub-agent-vs-seer-agent.md) (UPDATE)
 
 **Changes**:
 
@@ -241,7 +241,7 @@ Key design decisions confirmed:
 
 ### 4.2 Finalize Identity Ambiguity Scratchpad
 
-**File**: [`olympus-hub-docs/scratchpad/0WIP-agent-identity-ambiguity-resolution.md`](olympus-hub-docs/scratchpad/0WIP-agent-identity-ambiguity-resolution.md) (UPDATE)
+**File**: [olympus-hub-docs/scratchpad/0WIP-agent-identity-ambiguity-resolution.md](olympus-hub-docs/scratchpad/0WIP-agent-identity-ambiguity-resolution.md) (UPDATE)
 
 **Changes**:
 
@@ -255,7 +255,7 @@ Key design decisions confirmed:
 
 ### 5.1 Update Delegation Chains
 
-**File**: [`olympus-seer-docs/seer-design/implementation-concepts/delegation-chains.md`](olympus-seer-docs/seer-design/implementation-concepts/delegation-chains.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/implementation-concepts/delegation-chains.md](olympus-seer-docs/seer-design/implementation-concepts/delegation-chains.md) (UPDATE)
 
 **Changes**:
 
@@ -265,7 +265,7 @@ Key design decisions confirmed:
 
 ### 5.2 Update Agent Lifecycle Service
 
-**File**: [`olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md`](olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md) (UPDATE)
+**File**: [olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md](olympus-seer-docs/seer-design/subsystems/agent-lifecycle-service.md) (UPDATE)
 
 **Changes**:
 
@@ -274,7 +274,7 @@ Key design decisions confirmed:
 
 ### 5.3 Update Why-Seer Agent Identity
 
-**File**: [`olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-1-agent-identity.md`](olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-1-agent-identity.md) (UPDATE)
+**File**: [olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-1-agent-identity.md](olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/03-1-agent-identity.md) (UPDATE)
 
 **Changes**:
 

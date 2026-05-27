@@ -36,7 +36,15 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Repositories (ACE sense).** The collection of stores that workshops use and update. ACE names a conceptual repository set in [ace/ace-model.md](ace/ace-model.md). The canonical inventory — UPIM-aligned with codes (PIR, DKB, DAR, POR, CAR, QVS, OPR, PFR, PPR, WR, WFR, ESR, PEIR) — lives in [ace/repositories.md](ace/repositories.md). Some repositories are Foundry-scoped (e.g. WFR), others are Workshop-scoped; see [foundry/1.TODO](1.TODO) line 9.
 
-**Product Intent.** The thread that flows through workspaces. Release Workspace produces Product Intent; Product Specification triggers on it; it moves to UX Design and back, then to Development and QA in parallel, on to Release as Product Delivery, optionally returning to Specification from Development or QA. Source: [ace/ace-model.md](ace/ace-model.md) lines 51-58.
+**Product Intent.** Hybrid bridge entity in the Product Intent Repository (PIR): **definition-bearing** (committed direction with decision provenance), **work-triggering** (arrival invokes Workspace Scenarios), and **ACE-routable** (moves through the Product Evolution Cycle). Build Track's primary orchestration item. Discovery and product decisions establish or update Product Intent; Discovery Cases may create Discovery Support Product Intent for evidence; PSDs refine Evolution Product Intent; Release renews intent for the next cycle. Source: [product-information-model/entities/definition-model/dim1-product-intent.md](product-information-model/entities/definition-model/dim1-product-intent.md), [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md), [ace/concepts.md](ace/concepts.md).
+
+**Product Intent Repository (PIR).** The repository that stores strategy, vendor/customer context, Discovery flowing items, PSDs, and routable Product Intent entities. Not every PIR item is a Product Intent; Product Intent is the ACE-routable bridge item inside the broader repository.
+
+**Discovery Case.** Discovery Track's primary orchestration item: a cross-functional, signal-optional case that organizes discovery work until a decision or routing outcome is reached. Source: [product-information-model/entities/work-model/track1-discovery-case.md](product-information-model/entities/work-model/track1-discovery-case.md).
+
+**Orchestration item.** Track-scoped coordination item the Foundry Orchestrator routes. Primary items include Discovery Case, Product Intent, Run Case, Customer Release Intent or Win Case, Evolve Case, and Governance Ritual / Governance Enforcement. Source: [ace/how-product-evolves/orchestration-items.md](ace/how-product-evolves/orchestration-items.md).
+
+**Workspace Work Order.** A `(Track, Workspace, Scenario)` execution instance created from an orchestration item and executed by Work Order Runtime. Not the same as an orchestration item.
 
 **Product Evolution Cycle.** The named flow of Product Intent across workspaces. Detailed in [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md).
 
@@ -65,6 +73,46 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 **Dimensions (1–9).** Strategy & Intent (1); Vendor Value (2); Customer Value (3); User-Centric Experience (4); Technical & Architectural (5); Ecosystem & Extensibility (6); Operational Runtime & DevOps (7); Structural Topology (8); Data & Information (9). Source: UPIM README.
 
 **Tracks (1–5).** Discovery (1); Build (2); Run (3); Win (4); Evolve (5). Each track owns its own planning alongside core activities. Source: UPIM README.
+
+**Customer Promise.** A Customer Value commitment: the value, service level, or compliance posture the product promises to a Customer Segment. Customer Promises explain what customers should receive and how value is measured.
+
+**Customer Release Intent.** A Strategy & Intent entity: the planned customer-facing delivery outcome — what capabilities we intend to make available, to whom, why, and by when. Earlier drafts called this "Customer Release" in Dim 1. Reserve **Customer Release** for the realized release event/package that fulfills the intent.
+
+**Governance Ritual.** Governance Track orchestration item that executes a cadence-based or event-triggered Ritual Definition from the Operating Model. Consumes reports, dashboards, metrics, evidence, cases, and register entries; produces decisions, action items, findings, approvals, exceptions, recognitions, and register entries.
+
+**Governance Enforcement.** Governance Track orchestration item that evaluates a Governance Policy against a target item, transition, artifact, evidence bundle, or state. Produces pass/warn/fail/exception outcomes, findings, register entries, remediation work, or Evolve Cases.
+
+**Governance Policy.** Operating Model entity that defines a governance rule, invariant, evidence requirement, scope, and enforcement mode.
+
+**Governance Finding.** Governance work artifact that records an issue, gap, concern, observation, warning, violation, or other governance result.
+
+**Kudos Register.** Workforce Repository register that captures evidence-backed recognition surfaced through rituals or governance work. Governance records the ritual context; WFR stores the recognition; PEIR preserves traceability; entries may become reusable practice patterns through Evolve.
+
+**Governance Admin.** Role authorized to configure governance definitions such as policies, controls, ritual definitions, thresholds, register definitions, dashboards, and inheritance rules. Distinct from Foundry Admin and distinct from Control Owner.
+
+**Control Owner.** Role accountable for a control's objective, indicators, evidence contract, and evolution over time.
+
+**Approver.** Role authorized to approve a specific governance decision such as transition approval, debt, exception, waiver, or risk acceptance.
+
+**Control Objective.** Required governance outcome: what must hold for a scope, artifact, transition, or orchestration item.
+
+**Control Objective Indicator.** Observable metric, evidence artifact, dashboard field, register state, or checklist item used to evaluate a Control Objective. Build Quality Indicator (BQI) is a Build-quality specialization.
+
+**Control Objective Threshold.** Pass/warn/fail boundary for a Control Objective Indicator at a given scope.
+
+**Debt + Catch-Up.** Temporary deviation path where progress is allowed with a Debt Register Entry, Catch-Up Plan, Debt Owner, due date, and repayment evidence.
+
+**Exception / Waiver.** Approved non-applicability, alternate control, or bounded bypass. Recorded with rationale, approver, scope, and expiry/conditions.
+
+**Governance Authority Matrix.** Operating Model artifact mapping controls, enforcement modes, effective Control Owners, Approvers, and scopes.
+
+**Work Cadence.** Team or track operating rhythm such as Daily Flow Review, Sprint Planning, Sprint Review, or Retrospective. Governance may check adherence and outputs, but the cadence itself belongs to Work/Workforce practice.
+
+**Release Readiness Review.** Governance Ritual that decides whether Product Delivery or Customer Release Intent realization is ready across multiple readiness families: build quality, documentation, SRE/operational, security, evidence, customer, GTM, data/migration, and dependency readiness.
+
+**Operating Health Indicator.** Metric used by governance to understand system health — for example cost, velocity, efficiency, cycle time, rework, debt aging, and exception aging. These are not individual surveillance metrics.
+
+**Console Group.** Navigation grouping in the Foundry Web App. Work consoles show work movement; Workforce consoles show people/agents/capacity/contribution/recognition; Governance consoles show health, controls, evidence, authority, risks/debt/exceptions, and improvement.
 
 ## Engagement terms
 

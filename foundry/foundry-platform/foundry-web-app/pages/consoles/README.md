@@ -2,16 +2,21 @@
 
 Consoles are focused views accessible from the Workbench Home side navigation.
 
+For guidance on when to use Work, Workforce, Governance, Build, Resources, and Settings consoles — and when to add a new console instead of expanding an existing one — see [CONSOLE-GUIDE.md](CONSOLE-GUIDE.md).
+
 ## Console Groups
 
 ### Work
 
 | Console | File | Purpose |
 |---------|------|---------|
-| [PI Console](pi-console.md) | `pi-console.md` | Product Intents — active and archived |
+| [PI Console](pi-console.md) | `pi-console.md` | Discovery Cases, Product Intent types, Strategy Frame, Traceability Maps |
 | [Workspaces Console](workspaces-console.md) | `workspaces-console.md` | 6 Workspaces, Work Orders |
 | [Progress Console](progress-console.md) | `progress-console.md` | Completion analytics, burndown |
 | [Track Console](track-console.md) | `track-console.md` | Per-Track work analytics |
+
+**Sub-pages:**
+- **Workspace Session Details** — `/workbenches/{workbenchId}/sessions/{sessionId}` — Full session activity, work done, time tracking (see [Workspaces Console](workspaces-console.md))
 
 ### Build
 
@@ -35,19 +40,26 @@ Consoles are focused views accessible from the Workbench Home side navigation.
 | [Team Console](team-console.md) | `team-console.md` | Team analytics, contributions |
 | [Agent Console](agent-console.md) | `agent-console.md` | Agent activity, performance |
 
+**Sub-pages:**
+- **Team Member Workbench Profile** — `/workbenches/{workbenchId}/team/{memberId}` — Full activity history and metrics for a team member (see [Team Console](team-console.md))
+
 ### Governance
 
 | Console | File | Purpose |
 |---------|------|---------|
-| [Risk Console](risk-console.md) | `risk-console.md` | Risk flags (drives PI badge colors) |
-| [Reports Console](reports-console.md) | `reports-console.md` | Generated reports, exports |
-| [Quality Compliance](quality-compliance.md) | `quality-compliance.md` | Thresholds, sign-offs |
+| [Governance Overview](governance-overview.md) | `governance-overview.md` | Governance health, attention queue, pending approvals |
+| [Rituals](rituals-console.md) | `rituals-console.md` | Governance Ritual calendar, inputs, outputs, action items |
+| [Controls & Enforcement](controls-enforcement.md) | `controls-enforcement.md` | Control Objectives, indicators, thresholds, enforcement outcomes |
+| [Registers](registers-console.md) | `registers-console.md` | Risk, debt, exceptions, compliance, findings |
+| [Reports & Dashboards](reports-console.md) | `reports-console.md` | Governance dashboards, ritual inputs, audit exports |
+| [Quality Controls](quality-compliance.md) | `quality-compliance.md` | Build/release quality controls and threshold evaluation |
 
 ### Settings
 
 | Console | File | Purpose |
 |---------|------|---------|
 | [Admin Console](admin-console.md) | `admin-console.md` | Workbench configuration |
+| [Governance Admin](governance-admin.md) | `governance-admin.md` | Governance authority, controls, inheritance, rituals, registers |
 
 ## URL Pattern
 
@@ -74,9 +86,13 @@ Workbench Home
     │   ├── Team Console
     │   └── Agent Console
     ├── Governance
-    │   ├── Risk Console
-    │   ├── Reports Console
-    │   └── Quality Compliance
+    │   ├── Governance Overview
+    │   ├── Rituals
+    │   ├── Controls & Enforcement
+    │   ├── Registers
+    │   ├── Reports & Dashboards
+    │   └── Quality Controls
     └── Settings
-        └── Admin Console
+        ├── Admin Console
+        └── Governance Admin
 ```

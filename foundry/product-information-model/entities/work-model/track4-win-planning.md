@@ -9,7 +9,7 @@
 
 A parent entity type for planning Win Track work, with five lever-specific subtypes. Each subtype plans a different kind of Win Track activity aligned to the lever it activates:
 
-1. **Customer Release Planning** (Product lever) — Coordinates market delivery of a Customer Release: segment sequencing, market readiness, and coordination with Build Track's Release Planning Task. This is the Win Track's counterpart to Build Track release planning — Build plans technical delivery, Win plans market delivery.
+1. **Customer Release Planning** (Product lever) — Coordinates market delivery that realizes a Customer Release Intent: segment sequencing, market readiness, and coordination with Build Track's Release Planning Task. This is the Win Track's counterpart to Build Track release planning — Build plans technical delivery, Win plans market delivery.
 
 2. **GTM Planning** (GTM lever) — Plans launch messaging, pricing communication, partnership execution, and marketing campaigns. Supersedes the earlier GTM Planning Task entity with broader lever-aligned scope.
 
@@ -22,7 +22,7 @@ A parent entity type for planning Win Track work, with five lever-specific subty
 ## Purpose
 
 Makes Win Track planning work explicit and lever-aligned. Without Win Planning:
-- Market delivery of Customer Releases happens ad hoc without coordinated sequencing
+- Market delivery of Customer Release Intents happens ad hoc without coordinated sequencing
 - GTM, Sales Enablement, and CS activities lack a planning artifact that connects them to Initiatives and Win Outcomes
 - There is no structured way to decide which customers and segments to prioritize for engagement
 - The relationship between planning and the enablement/engagement work it drives is invisible

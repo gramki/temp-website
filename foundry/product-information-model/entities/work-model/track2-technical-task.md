@@ -6,7 +6,7 @@
 
 ## Definition
 
-A granular engineering step scoped to a specific System (Dim 5) and optionally a Component (Dim 5). Technical Tasks represent the actual developer-level work: writing code, writing tests, configuring infrastructure, implementing contracts, fixing defects. Build Track Technical Tasks serve Stories and Integration Stories. See DR-026.
+A granular engineering step scoped to a specific System (Dim 5) and optionally a Component (Dim 5). Technical Tasks represent the actual developer-level work: writing code, writing tests, configuring infrastructure, implementing contracts, fixing defects, or producing bounded spike evidence. Build Track Technical Tasks serve Stories, Integration Stories, or Discovery Support / Technical Validation Product Intents. See DR-026 and DR-039.
 
 > **Technical Task is a per-track concept.** Each engineering track has its own Technical Tasks with the same entity structure but distinct track ownership. The Build Track's Technical Tasks serve Stories and Integration Stories (product engineering). The Run Track has its own Technical Tasks serving Run Stories (operational engineering). The Win Track may have Technical Tasks in the future (win engineering automation). This avoids cross-track borrowing and keeps ownership clean.
 
@@ -27,6 +27,7 @@ Captures the actual engineering work that produces System Versions. Without Tech
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Descriptive title (e.g., "Implement gRPC GetRate endpoint in fx-service") |
+| Product Intent | Reference (Dim 1) | Parent Product Intent that authorizes this work |
 | Story | Reference (Track 2) | Parent Story (or Integration Story) this Task implements |
 | System | Reference (Dim 5) | Which System this Task is implemented in |
 | Component | Reference (Dim 5) | Which Component within the System (optional, for complex Systems) |
@@ -50,6 +51,7 @@ Captures the actual engineering work that produces System Versions. Without Tech
 |---|---|---|
 | Implements | Story (Track 2) | Technical Task implements a Story |
 | Implements | Integration Story (Track 2) | Technical Task implements an Integration Story |
+| Authorized by | Product Intent (Dim 1) | Technical Task is subordinate to Product Intent orchestration |
 | Scoped to | System (Dim 5) | Task is implemented within a specific System |
 | Scoped to | Component (Dim 5) | Task may target a specific Component within the System (optional) |
 | Included in | System Version (Track 2) | Completed Task is included in the next System Version |

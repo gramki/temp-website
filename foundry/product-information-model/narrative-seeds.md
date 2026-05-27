@@ -97,7 +97,7 @@ The word "Signal" was chosen over "intake item," "backlog item," and "market sig
 
 ### The Strategy Dimension is a ledger, not a pipeline
 
-Dim 1 contains entities at very different levels of abstraction — Portfolio (organizational context), Strategic Themes (persistent direction), Objectives (time-bound goals), Initiatives (programs), Customer Releases (business deliveries), Signals (observations), Ideas (hypotheses), PDRs (decisions), PSDs (specifications). This isn't a pipeline where everything flows linearly. It's a ledger — a structured record of strategic intent at multiple levels, with explicit relationships between levels.
+Dim 1 contains entities at very different levels of abstraction — Portfolio (organizational context), Strategic Themes (persistent direction), Objectives (time-bound goals), Initiatives (programs), Customer Release Intents (planned customer availability), Signals (observations), Ideas (hypotheses), PDRs (decisions), Product Intents (routable commitments), PSDs (specifications). This isn't a pipeline where everything flows linearly. It's a ledger — a structured record of strategic intent at multiple levels, with explicit relationships between levels.
 
 ### The PDR fills a traceability gap
 
@@ -196,13 +196,90 @@ Product councils, architecture review boards, cross-functional brainstorms — t
 
 Much of discovery work involves understanding and documenting the product's context — defining customer segments, mapping value streams, designing pricing tiers — rather than specifying engineering changes. Before Modeling Task, this knowledge work was invisible and untracked. Making it explicit ensures it's plannable, traceable, and visible ("we're investing in understanding our customer, not just building features").
 
-### The Discovery Track produces three types of output
+### Discovery Case is the FIR of the Discovery Track
+
+Not all learning starts with a Signal. PMs re-evaluate pricing without filing an Opportunity. Architects raise concerns before anyone writes a Problem. Sales brings customer commitments that need feasibility work, not automatic Signal filing. SREs see operational patterns that may imply product change. Discovery Case makes this visible: a cross-functional envelope with optional Signals, coordinated sub-work, and explicit outputs.
+
+Discovery Case is not a replacement for Signal. Signal remains the governed observation type. Discovery Case is the orchestration wrapper that lets any authorized function organize learning until a decision or routing outcome is reached.
+
+### Discovery Support Product Intent separates learning from commitment
+
+Discovery may need Build evidence before a final PDR. A technical spike, PoC, prototype, or feasibility build may be essential to answer the Discovery Case. Discovery Support Product Intent prevents the anti-pattern of creating "fake" delivery intents or ungoverned engineering spikes just to learn something.
+
+Learn first with Discovery Support intent. Commit later with Evolution intent from a Go/Pivot PDR and Product Management alignment.
+
+### Technical ideas need product framing
+
+Engineering and architecture can originate Discovery Cases. But a technical idea does not become Product Intent merely because it is technically attractive. It must be framed in product terms: what customer promise, SLA, KRA, Customer Release Intent, vendor KPI, operational commitment, or product capability does it serve?
+
+If architecture work cannot fit an existing Product Intent, it must become Product Intent through Discovery, route to Run or Evolve, or remain local engineering hygiene.
+
+### Governance works through rituals and enforcement
+
+Governance is not only a gate. It has operating rhythm and control execution.
+
+**Governance Rituals** are cadence-based or event-triggered practices: release readiness reviews, Product Intent reviews, compliance evidence reviews, architecture review boards, discovery case reviews, governance trend reviews. A ritual brings the right participants, reports, dashboards, metrics, evidence, decision authority, and register state into one repeatable practice. It produces decisions, action items, findings, approvals, exceptions, register entries, and recognition.
+
+**Governance Enforcement** is policy assertion: evaluate a policy against an orchestration item, transition, artifact, evidence bundle, or state. Enforcement can pass, warn, fail, block, allow with debt, allow with risk, require exception, or create remediation work.
+
+This split keeps governance from becoming only punitive. Rituals should surface good practice as well as problems. Kudos / Recognition entries capture evidence-backed positive behavior — excellent collaboration, strong evidence discipline, effective incident handling, reusable patterns — so governance reinforces the operating model instead of merely policing deviations. Because recognition attaches to people, teams, and agents, the durable recognition entry belongs in the Workforce Repository, with PEIR retaining traceability and Evolve promoting reusable practices into PPR.
+
+### Governance evolves through Evolve Cases
+
+Governance policies, rituals, reports, dashboards, cadences, participant roles, evidence requirements, and playbooks are Operating Model content. They cannot be static.
+
+When rituals or enforcement produce repeated findings, policy drift, dashboard gaps, ineffective evidence requirements, or reusable positive patterns, the right response is often an **Evolve Case**. Evolve changes the governance practice itself: update the policy, change the ritual cadence, improve a dashboard, refine evidence requirements, or turn an observed good practice into a playbook.
+
+### Admin configures, Owner is accountable, Approver authorizes
+
+Governance roles should name functions, not organization-specific titles. A real enterprise may bind a Control Owner or Debt Approver to its own job titles, but the UPIM should not encode those titles. The model separates three responsibilities:
+
+- **Admin configures** policies, controls, thresholds, rituals, dashboards, and register definitions.
+- **Owner is accountable** for a policy, control, evidence contract, risk, or debt over time.
+- **Approver authorizes** a specific decision: transition approval, debt, exception, waiver, or risk acceptance.
+
+This separation prevents the "admin can approve everything" anti-pattern and keeps governance portable across organizations.
+
+### Control Objective generalizes BQO
+
+Build Quality Objective and Build Quality Indicator are useful engineering terms, but they should not become the only governance quality pattern. A **Control Objective** states what must hold; a **Control Objective Indicator** measures current state; a **Control Objective Threshold** defines pass/warn/fail boundaries. BQO/BQI are Build-quality specializations of this general model.
+
+The same pattern works for release readiness, evidence completeness, PM alignment, operational readiness, compliance posture, and governance ritual health.
+
+### Debt + Catch-Up makes deviations operational
+
+An approved deviation should not disappear into a comment thread. If a control still applies and remediation is expected, the right outcome is **Debt + Catch-Up**: a Debt Register Entry, Catch-Up Plan, due date, accountable owner, and repayment evidence.
+
+Exception / Waiver remains available when the policy does not apply, an alternate control is accepted, or a bounded one-time bypass is approved. Debt says "we still owe this." Exception says "this control is waived or replaced for this scoped case."
+
+### Control inheritance prevents local chaos
+
+Controls inherit from Foundry to Workspace to Workbench. Foundry defines baselines. Workspace and Workbench scopes can add or tighten controls. They can override only where the parent scope permits. Effective controls are resolved at enforcement time so exception and debt requests route to the effective Control Owner or delegated Approver.
+
+### Governance does not own every cadence
+
+Daily flow, sprint planning, sprint review, and retrospectives are Work or team operating cadences. Governance should not take them over. Governance checks whether required cadences happened, whether outputs were recorded, whether blockers were escalated, whether retrospective actions aged out, and whether repeated issues should trigger Evolve.
+
+### Release readiness is multi-dimensional
+
+Release readiness is not only build quality. A customer-facing release may also require documentation readiness, SRE/operational readiness, security readiness, evidence readiness, customer readiness, GTM readiness, data/migration readiness, and dependency readiness. Governance coordinates the readiness decision, but the underlying evidence comes from Build, Run, Win, Product, Security, Documentation, and other functions.
+
+### Cost, velocity, and efficiency are governance indicators
+
+Cost, velocity, and efficiency are not merely analytics and should not be used as individual surveillance metrics. They are operating health indicators. Work and Workforce systems produce the raw data; Governance uses trends and thresholds to detect systemic risk, debt, inefficiency, overcommitment, or improvement opportunities.
+
+### Console groups answer different questions
+
+Work consoles show the movement of work. Workforce consoles show the people and agents doing the work. Governance consoles show whether the work system is healthy, controlled, evidenced, authorized, efficient, compliant, and improving. New consoles should be added only when a distinct user question cannot be answered clearly as a tab, panel, or overlay inside an existing console.
+
+### The Discovery Track produces four types of output
 
 1. **PDRs** — decisions (any dimension)
-2. **PSDs** — engineering specifications (module changes, via Specification Task)
-3. **Definition Model updates** — knowledge changes (Dims 2–9, via Modeling Task)
+2. **Product Intents** — routable commitments from decisions into product evolution
+3. **PSDs** — engineering specifications that refine Product Intent (module changes, via Specification Task)
+4. **Definition Model updates** — knowledge changes (Dims 2–9, via Modeling Task)
 
-A single PDR may trigger both PSDs and Modeling Tasks. Or just one. Or neither (if the decision is "Kill").
+A single PDR may trigger Product Intent, PSDs, and Modeling Tasks. Or just one. Or neither (if the decision is "Kill").
 
 ---
 
@@ -236,29 +313,29 @@ But Modeling Tasks (Discovery Track) can update *any* dimension. The "home track
 
 A PSD is not just "what to build." It's a structured assessment of impact across all 9 dimensions — Pain implications (Dim 3), Win Outcome implications (Dim 2), UX impact (Dim 4), technical architecture (Dim 5), API changes (Dim 6), operational requirements (Dim 7), structural changes (Dim 8), data changes (Dim 9). The depth varies by module archetype, but every dimension must be acknowledged. This makes the PSD the most integrative artifact in the UPIM.
 
-### Customer Release, Customer Promise, Win Outcome — the commercial triad
+### Customer Release Intent, Customer Promise, Win Outcome — the commercial triad
 
 These three entities form a critical triangle spanning Dim 1 (Strategy), Dim 3 (Customer Value), and Dim 2 (Vendor Value):
 
 - **Customer Promise** (Dim 3) = what we commit to the customer — the explicit contract
 - **Win Outcome** (Dim 2) = what we need to achieve as a vendor — the implicit commercial target
-- **Customer Release** (Dim 1) = the delivery vehicle that fulfills promises and advances outcomes
+- **Customer Release Intent** (Dim 1) = the planned customer-facing delivery outcome that fulfills promises and advances outcomes
 
-They are the three faces of a single commercial exchange. Customer Promise says "here's what you get." Win Outcome says "here's what we need for this to work for us." Customer Release is the event where promise meets outcome — where the vendor delivers on its commitments and either advances toward or falls short of its Win Outcomes.
+They are the three faces of a single commercial exchange. Customer Promise says "here's what you get." Win Outcome says "here's what we need for this to work for us." Customer Release Intent says "here is the named customer-facing outcome we intend to make available." The realized Customer Release is the event where promise meets outcome — where the vendor delivers on its commitments and either advances toward or falls short of its Win Outcomes.
 
 The critical insight: **keeping promises and winning are not the same thing.** A product can keep every Customer Promise (99.9% uptime, sub-200ms latency) and still fail to achieve its Win Outcomes (CAC too high, Activation takes 90 days instead of 30). When promises are kept but the vendor isn't winning, the problem is in Dim 2 — the commercial model, the delivery economics, the Go-to-Market, the pricing structure. Conversely, if Win Outcomes are met but Customer Promises are not, it's a ticking time bomb — short-term revenue without long-term retention.
 
 This is why the PSD's cross-dimensional sections are ordered the way they are: Section 2 (Vendor Value Impact) and Section 3 (Customer Value Impact) force the spec author to reason about *both* sides of the exchange before engineering begins.
 
-### Customer Release is a Definition Model entity that the Win Track activates
+### Customer Release Intent is a Definition Model entity that the Win Track activates
 
-Customer Release sits in Dim 1 (Strategy) because it's a business planning construct — deliberately scoped, named, and scheduled. But it is *activated* by the Win Track: GTM Planning prepares the launch, Customer Release Planning sequences the market delivery, and Win Reviews assess whether the release achieved its Win Outcomes (with progress tracked via Initiative embedded targets).
+Customer Release Intent sits in Dim 1 (Strategy) because it's a business planning construct — deliberately scoped, named, and scheduled. But it is *activated* by the Win Track: GTM Planning prepares the launch, Customer Release Planning sequences the market delivery, and Win Reviews assess whether the realized release achieved its Win Outcomes (with progress tracked via Initiative embedded targets).
 
-This makes Customer Release the primary handoff point between strategic intent and commercial execution. The Discovery Track scopes it (which Initiatives are included). The Build Track assembles it (which Product Versions realize it). The Win Track activates it (GTM, onboarding, adoption). The Run Track sustains it (deployment, uptime). All four tracks converge on Customer Release — it's the entity that most explicitly crosses every track boundary.
+This makes Customer Release Intent the primary handoff point between strategic intent and commercial execution. The Discovery Track scopes it (which Initiatives and Product Intents are included). The Build Track assembles it (which Product Versions realize it). The Win Track activates it (GTM, onboarding, adoption). The Run Track sustains it (deployment, uptime). All four tracks converge on fulfilling the Customer Release Intent — it's the entity that most explicitly crosses every track boundary.
 
 ### Three-level versioning and the deliberate decoupling
 
-> **Superseded by DR-036 (Seeds 16–17).** Current chain: Component Version → System Version → Product Version → Customer Release. Retained below for design history.
+> **Superseded by DR-036 (Seeds 16–17) and DR-038.** Current chain: Component Version → System Version → Product Version → Customer Release Intent / realized Customer Release. Retained below for design history.
 
 System Version → Module Version → Product Version → Customer Release. Four levels, four different questions, four different owners:
 
@@ -548,7 +625,7 @@ When the same Job can be accomplished across multiple Channels, or when a user s
 
 ### UX Channels carry a lifecycle — channel investment is a PDR-level decision
 
-Deciding to build a new Channel (e.g., "build a mobile app," "add a chatbot") is a strategic investment that should be governed through Discovery: Deliberation → PDR → PSD. Channels carry statuses: `Proposed → Approved → Active → Deprecated → Retired`. This is consistent with how other structural entities with significant investment implications are governed (Pricing Tiers, Customer Releases).
+Deciding to build a new Channel (e.g., "build a mobile app," "add a chatbot") is a strategic investment that should be governed through Discovery: Deliberation → PDR → Product Intent → PSD. Channels carry statuses: `Proposed → Approved → Active → Deprecated → Retired`. This is consistent with how other structural entities with significant investment implications are governed (Pricing Tiers, Customer Releases).
 
 ### Embedded is a channel modality, not just a technical concern
 

@@ -16,6 +16,7 @@ Enables learning-by-doing within the Discovery Track. Prototypes test desirabili
 
 | Field | Type | Description |
 |---|---|---|
+| Originating Discovery Case | Reference (Track 1) | Discovery Case this prototype/spike belongs to, if any |
 | _To be refined._ | | |
 
 ## Statuses
@@ -28,8 +29,10 @@ Enables learning-by-doing within the Discovery Track. Prototypes test desirabili
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
+| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case; carries bidirectional reference |
 | Tests | Idea (Dim 1) | Prototype/Spike tests an Idea's feasibility or desirability |
 | Referenced by | Product Decision Record (Dim 1) | PDR cites this Prototype/Spike as evidence |
+| May be requested by | Product Intent (Dim 1) | Discovery Support or Technical Validation Product Intent may request bounded Build evidence work |
 
 ## Examples
 

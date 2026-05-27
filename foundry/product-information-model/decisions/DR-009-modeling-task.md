@@ -9,6 +9,8 @@ The Discovery Track originally produced two types of output:
 1. **Idea validation** — Research Tasks, Experiments, and Prototypes validate or kill Ideas
 2. **PSDs** — Specification Tasks author engineering specifications
 
+DR-037 later clarified that Product Intent sits between product decision and PSD refinement.
+
 However, discovery work frequently produces knowledge outputs that don't result in engineering specifications. When exploring a new market segment, a Product Manager must define Customer Segments (Dim 3), map Value Streams (Dim 8), document Compliance Posture (Dim 3), design Pricing Tiers (Dim 2), and define User Personas (Dim 4). This work is substantial, valuable, and distinct from PSD authoring — yet it had no representation in the Work Model.
 
 Without an explicit work entity, this knowledge work was invisible to planning systems, untrackable, and often neglected in favor of "more tangible" PSD-oriented work.
@@ -28,7 +30,7 @@ The naming "Modeling Task" was chosen over "Definition Task" (too similar to "Sp
 
 ### Why not fold this into Specification Task?
 
-Specification Tasks produce PSDs — engineering specifications scoped to modules. Modeling Tasks produce Definition Model updates — knowledge artifacts that may never result in engineering changes. Conflating them would either:
+Specification Tasks produce PSDs that refine Product Intent — engineering specifications scoped to modules. Modeling Tasks produce Definition Model updates — knowledge artifacts that may never result in engineering changes. Conflating them would either:
 - Overload PSDs with non-engineering content (segment definitions, compliance posture), or
 - Leave knowledge work untracked because "it doesn't produce a PSD"
 
@@ -36,13 +38,14 @@ Specification Tasks produce PSDs — engineering specifications scoped to module
 
 Research Tasks are investigation actions — interviews, competitive analysis, data pulls. They produce *findings*. Modeling Tasks consume those findings and formalize them into Definition Model entities. The relationship is sequential: Research Task → findings → Modeling Task → entity update. They are different types of work with different skills, outputs, and review processes.
 
-### Three output paths from Discovery
+### Output paths from Discovery
 
 | Output Type | Work Entity | What's Produced | Target |
 |---|---|---|---|
-| Engineering changes | Specification Task | PSD(s) | Build Track (Epic → Story) |
+| Product evolution commitment | PDR / Deliberation | Product Intent | ACE Product Evolution Cycle |
+| Engineering changes | Specification Task | PSD(s) refining Product Intent | Build Track (Epic → Story) |
 | Knowledge/model changes | **Modeling Task** | Definition Model entity updates (Dims 2–9) | Definition Model |
-| Decision records | (any Discovery work) | PDR | Decision archive; justifies PSDs and Modeling Tasks |
+| Decision records | (any Discovery work) | PDR | Decision archive; creates Product Intent and justifies PSDs and Modeling Tasks |
 
 ## Consequences
 

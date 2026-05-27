@@ -105,11 +105,11 @@ Typical promotion flows:
 
 ## Related concepts (Hub docs)
 
-- [`../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md`](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): CAF (governance control plane for memory capture/access/retention)
-- [`../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md`](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Enterprise Memory store and record types (stub)
+- [../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): CAF (governance control plane for memory capture/access/retention)
+- [../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Enterprise Memory store and record types (stub)
 
 ## Navigation
 
-- Back to overview: [`README.md`](./README.md)
-- Next: [`semantic-memory.md`](./semantic-memory.md)
+- Back to overview: [README.md](./README.md)
+- Next: [semantic-memory.md](./semantic-memory.md)
 

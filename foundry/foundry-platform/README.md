@@ -12,8 +12,8 @@ These docs use **Foundry Platform** consistently for the implementation. Bare "F
 
 The Foundry Platform is the system that turns the ACE model and UPIM entities into running software:
 
-- **Workshops** with their repositories and projects.
-- **Workbenchs** with intent routing, scenarios, and tasks (each Workbench corresponds to a Product in UPIM — the locus where that Product is evolved).
+- **Workshops** with their repositories.
+- **Workbenches** with intent routing, scenarios, and tasks (each Workbench corresponds to a Product in UPIM — the locus where that Product is evolved).
 - **Workspaces** (six types) with their IDE-mediated entry, scenario catalogs, and runtime engineering.
 - **Governance hooks** on every transition of Product Intent.
 - **Foundry CI** for evidence packs, test runners, build quality indicators, and agentic quality gates.
@@ -30,7 +30,7 @@ The platform decomposes into the following modules, each with its own folder. Se
 | **Foundry Management** | [management/](management/README.md) | Admin plane — Workbenches, repositories (as services), teams, agents, knowledge, tenancy |
 | **Foundry IDE** | [ide/](ide/README.md) | Builder-facing interface — workspace-specific views |
 | **Work Order Runtime** | [work-order-runtime/](work-order-runtime/README.md) | Execution engine — context compilation, agent lifecycle for WO execution, agent delegation, human-task surfacing |
-| **Foundry Orchestrator** | [orchestrator/](orchestrator/README.md) | Coordination — move Product Intent across workspaces, create Work Orders, invoke Governance Scenarios, enforce gates |
+| **Foundry Orchestrator** | [orchestrator/](orchestrator/README.md) | Coordination — route orchestration items per Track, create Workspace Work Orders, invoke Governance Scenarios, enforce gates |
 | **Scenario Authoring** | [scenario-authoring/](scenario-authoring/README.md) | Per (Track, Workspace) — scenario discovery & definition; Skills, Knowledge, Tools; agent recommendations |
 | **Release Tools** | [release-tools/](release-tools/README.md) | CI/CD pipelines with embedded agents, CD integrations, distribution stores |
 | **Platform Ops** | [platform-ops/](platform-ops/README.md) | Plumbing — observability dashboards, standard tooling, infrastructure |
@@ -39,6 +39,7 @@ The platform decomposes into the following modules, each with its own folder. Se
 
 - **Agent lifecycle is context-dependent.** Work Order Runtime owns it for Work Order execution; Release Tools (CI) owns it for pipeline-embedded agents.
 - **Governance is distributed.** Definition via Scenarios, enforcement via Orchestrator, evidence in repositories.
+- **Orchestration items are Track-scoped; Work Orders are Workspace-scoped.** One orchestration item can create many Workspace Work Orders.
 - **Repositories are services, not stores.** Each provides injection/access interfaces; Foundry Management exposes the access layer.
 - **Integrations are owned by modules.** Release Tools owns CI/CD integrations; no horizontal "Integrations" module.
 - **Scenario Authoring is scoped to (Track, Workspace) pairs.**
@@ -70,6 +71,7 @@ The intent is that any module specification reads first as an ACE/UPIM consumer 
 
 ## Read next
 
+- [phase-1/](phase-1/README.md) — Phase 1 implementation-readiness outline and open questions.
 - [platform.TODO](platform.TODO) — current build backlog.
 - [ci/ci.TODO](ci/ci.TODO) — current CI backlog.
 - [../ace/](../ace/README.md) — what the platform is realizing.

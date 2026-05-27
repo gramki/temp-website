@@ -16,10 +16,10 @@ Semantic memory is often built by consolidating episodic traces into **normalize
 
 - **Semantic agent memory (this doc)**: the agent’s local, tactical store of “what I know” to act effectively.
 - **Semantic enterprise memory (learned)**: institutional learned patterns derived from cases/episodes (shared across agents and humans).  
-  See: [`../enterprise-memory/semantic-memory.md`](../enterprise-memory/semantic-memory.md)
+  See: [../enterprise-memory/semantic-memory.md](../enterprise-memory/semantic-memory.md)
 
 If a semantic claim must **constrain behavior** (policy, eligibility, binding decision criteria), it belongs in **Enterprise Knowledge-of-record**, not in agent memory.  
-See: [`../enterprise-knowledge/README.md`](../enterprise-knowledge/README.md) and [`../enterprise-knowledge-memory-other-data.md`](../enterprise-knowledge-memory-other-data.md)
+See: [../enterprise-knowledge/README.md](../enterprise-knowledge/README.md) and [../enterprise-knowledge-memory-other-data.md](../enterprise-knowledge-memory-other-data.md)
 
 ## What to store
 
@@ -58,7 +58,7 @@ Avoid turning semantic memory into “truth” by accident: if it must bind beha
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
-- Prev: [`episodic-memory.md`](./episodic-memory.md)
-- Next: [`preference-memory.md`](./preference-memory.md)
+- Back: [README.md](./README.md)
+- Prev: [episodic-memory.md](./episodic-memory.md)
+- Next: [preference-memory.md](./preference-memory.md)
 

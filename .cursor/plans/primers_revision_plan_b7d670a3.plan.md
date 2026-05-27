@@ -30,7 +30,7 @@ todos:
 
 # Hub Primers and Landing Page Revision Plan
 
-Comprehensive revision of Hub documentation entry points to align with refined vision, mission, and foundational beliefs established in [`foundational-beliefs.md`](olympus-hub-docs/00-_why/foundational-beliefs.md) and [`vision.md`](olympus-hub-docs/00-_why/vision.md).
+Comprehensive revision of Hub documentation entry points to align with refined vision, mission, and foundational beliefs established in [foundational-beliefs.md](olympus-hub-docs/00-_why/foundational-beliefs.md) and [vision.md](olympus-hub-docs/00-_why/vision.md).
 
 ---
 

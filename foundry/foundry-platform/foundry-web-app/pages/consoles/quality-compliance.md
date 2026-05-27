@@ -1,10 +1,12 @@
-# Quality Compliance Console
+# Quality Controls Console
 
 **URL pattern:** `/workbenches/{workbenchId}/consoles/quality-compliance`
 
 **Group:** Governance
 
-**Purpose:** Required quality thresholds, audit evidence, and compliance sign-offs.
+**Purpose:** Specialized Controls & Enforcement view for build and release quality: Control Objectives, Control Objective Indicators, thresholds, evidence, Debt + Catch-Up, and Exception / Waiver status.
+
+> **Position:** Quality Controls covers the Build Quality Readiness family. It is one part of Release Readiness, alongside documentation, SRE/operational, security, evidence, customer, GTM, data/migration, and dependency readiness.
 
 ---
 
@@ -19,15 +21,15 @@
 | **Non-compliant PIs** | PIs with unmet requirements |
 | **Pending sign-offs** | Awaiting approval |
 
-### 2. Quality Thresholds
+### 2. Quality Control Objectives
 
-| Threshold | Required | Current | Status |
-|-----------|----------|---------|--------|
-| Test coverage | ≥80% | 78% | ⚠️ Below |
-| Test pass rate | ≥95% | 97% | ✓ Met |
-| Critical bugs | 0 | 0 | ✓ Met |
-| Security scan | Pass | Pass | ✓ Met |
-| Performance test | Pass | Pending | ⏳ Pending |
+| Control Objective | Indicator | Required / threshold | Current | Result |
+|-------------------|-----------|----------------------|---------|--------|
+| Unit test coverage healthy | Coverage % | ≥80% target | 78% | Debt required |
+| Test pass rate healthy | Pass rate % | ≥95% | 97% | Pass |
+| No critical bugs | Critical bug count | 0 | 0 | Pass |
+| Security scan passed | Scan verdict | Pass | Pass | Pass |
+| Performance tested | Performance verdict | Pass | Pending | Awaiting evidence |
 
 ### 3. Compliance by PI
 
@@ -60,9 +62,27 @@
 
 | Element | Description |
 |---------|-------------|
-| **Current thresholds** | Active requirements |
+| **Current thresholds** | Active Control Objective Thresholds |
 | **Threshold history** | Changes over time |
-| **Exceptions** | Approved deviations |
+| **Exceptions / Waivers** | Approved non-applicability, alternate controls, or bounded bypasses |
+| **Debt + Catch-Up** | Temporary deviations with remediation plan, Debt Owner, due date, and repayment evidence |
+
+### 7. Project Type and Maturity Configuration
+
+| Element | Description |
+|---------|-------------|
+| **Project type** | Microservice, library, ClusterSpec artifact, or other configured type |
+| **Maturity profile** | Alpha, Beta, Gamma, Theta, or configured maturity model |
+| **Effective thresholds** | Thresholds after type and maturity resolution |
+| **Maturity change request** | Request and approval status for maturity profile changes |
+
+### 8. Role Legend
+
+| Role | Console meaning |
+|------|-----------------|
+| **Governance Admin** | Configures thresholds, control objectives, and policy bindings where permitted |
+| **Control Owner** | Accountable party shown on each threshold/control row |
+| **Approver** | Decision authority for sign-off, exception/waiver, or Debt + Catch-Up |
 
 ---
 
@@ -70,10 +90,14 @@
 
 | Action | Who | Description |
 |--------|-----|-------------|
-| Sign off | Governance | Approve compliance |
-| Request exception | Manager | Ask for threshold waiver |
-| Approve exception | Governance | Grant waiver |
-| Update threshold | Governance, Admin | Change requirements |
+| Sign off | Approver | Approve compliance |
+| Request exception / waiver | Manager | Ask for approved non-applicability, alternate control, or bounded bypass |
+| Approve exception / waiver | Approver | Grant waiver with rationale, scope, and expiry |
+| Request Debt + Catch-Up | Manager | Request temporary deviation with remediation plan |
+| Approve Debt + Catch-Up | Approver | Approve debt, Debt Owner, due date, and repayment evidence |
+| Update threshold | Governance Admin | Change Control Objective Thresholds where permitted |
+| Request maturity change | Manager | Request project maturity profile change |
+| Close debt | Control Owner | Mark catch-up complete after evidence re-check |
 | View evidence | All | Access supporting data |
 
 ---
@@ -81,7 +105,10 @@
 ## Filters
 
 - By PI
-- By threshold type
+- By Control Objective
+- By Control Objective Indicator
+- By project type
+- By maturity profile
 - By compliance status
 - By date range
 
@@ -89,7 +116,8 @@
 
 ## Notifications
 
-- Threshold breach → immediate alert
+- Hard fail → immediate alert
+- Debt required → prompt for Catch-Up Plan
 - Pending sign-off → reminder to approvers
 - Exception expiring → advance notice
 
@@ -98,6 +126,7 @@
 ## Related Consoles
 
 - **Quality Status** — Current test results
-- **Risk Console** — Quality-related risks
-- **Reports Console** — Compliance reports
+- **Controls & Enforcement** — Generic control/enforcement view
+- **Registers** — Debt, exceptions, and risk entries
+- **Reports & Dashboards** — Compliance reports and quality dashboards
 - **Release Console** — Quality gates for release

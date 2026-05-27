@@ -31,7 +31,7 @@ The web app consumes and surfaces capabilities from all platform modules:
 | **Foundry Management** | Admin console — Workbenches, repositories, teams, agents, tenancy |
 | **Foundry IDE** | Links to/from IDE; context synchronization |
 | **Work Order Runtime** | Work Order views, Task queues, context display, progress tracking |
-| **Foundry Orchestrator** | Product Intent flow visualization, gate status, transition triggers |
+| **Foundry Orchestrator** | Orchestration item flow visualization, gate status, transition triggers |
 | **Scenario Authoring** | Scenario catalogue browsing (read-only for most personas) |
 | **Release Tools** | CI/CD status, release pipelines, artifact management |
 | **Platform Ops** | Health dashboards, observability (admin-facing) |
@@ -43,7 +43,7 @@ All personas share these capabilities:
 - **Search** — Find Work Orders, artifacts, decisions across the Foundry
 - **Notifications** — Alerts for tasks, blockers, completions
 - **Navigation** — Move between Workspaces, Workbenches, Work Orders
-- **Context** — Always see the Product Intent graph for current work
+- **Context** — Always see the parent orchestration-item graph for current work
 - **History** — View audit trail for any Work Order
 - **Help** — Access documentation, glossary, onboarding
 
@@ -51,7 +51,7 @@ All personas share these capabilities:
 
 1. **Workspace-centric views** — Each persona sees a view tailored to their Workspace
 2. **Work Order is the unit of focus** — Every action relates to a Work Order
-3. **Context flows with the work** — Product Intent graph is always accessible
+3. **Context flows with the work** — parent orchestration-item graph is always accessible
 4. **Agents are visible** — Agent Tasks and progress are surfaced, not hidden
 5. **Governance is integrated** — Gate status and evidence visible in-flow, not separate
 

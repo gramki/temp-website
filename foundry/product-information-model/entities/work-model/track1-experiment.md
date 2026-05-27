@@ -16,6 +16,7 @@ Provides structured, measurable validation within the Discovery Track. Unlike Re
 
 | Field | Type | Description |
 |---|---|---|
+| Originating Discovery Case | Reference (Track 1) | Discovery Case this experiment belongs to, if any |
 | _To be refined._ | | |
 
 ## Statuses
@@ -28,6 +29,7 @@ Provides structured, measurable validation within the Discovery Track. Unlike Re
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
+| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case; carries bidirectional reference |
 | Tests | Idea (Dim 1) | Experiment tests a specific Idea hypothesis |
 | Referenced by | Product Decision Record (Dim 1) | PDR cites this Experiment as evidence |
 

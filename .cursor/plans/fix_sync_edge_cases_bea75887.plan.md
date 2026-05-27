@@ -111,8 +111,8 @@ flowchart TB
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/sync_state.py`](_confluence_sync/scripts/sync_state.py)
-- [`_confluence_sync/scripts/content_preparer.py`](_confluence_sync/scripts/content_preparer.py)
+- [_confluence_sync/scripts/sync_state.py](_confluence_sync/scripts/sync_state.py)
+- [_confluence_sync/scripts/content_preparer.py](_confluence_sync/scripts/content_preparer.py)
 
 **Approach:**
 
@@ -143,8 +143,8 @@ State entry will include:
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/sync-to-confluence.py`](_confluence_sync/scripts/sync-to-confluence.py)
-- [`_confluence_sync/scripts/sync_state.py`](_confluence_sync/scripts/sync_state.py)
+- [_confluence_sync/scripts/sync-to-confluence.py](_confluence_sync/scripts/sync-to-confluence.py)
+- [_confluence_sync/scripts/sync_state.py](_confluence_sync/scripts/sync_state.py)
 
 **Approach:**
 
@@ -168,12 +168,12 @@ def find_by_signature(sync_state: Dict, signature: str, exclude_path: str) -> Op
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/sync-to-confluence.py`](_confluence_sync/scripts/sync-to-confluence.py)
-- [`_confluence_sync/scripts/confluence_sync.py`](_confluence_sync/scripts/confluence_sync.py)
+- [_confluence_sync/scripts/sync-to-confluence.py](_confluence_sync/scripts/sync-to-confluence.py)
+- [_confluence_sync/scripts/confluence_sync.py](_confluence_sync/scripts/confluence_sync.py)
 
 **New file:**
 
-- [`_confluence_sync/scripts/orphan_handler.py`](_confluence_sync/scripts/orphan_handler.py)
+- [_confluence_sync/scripts/orphan_handler.py](_confluence_sync/scripts/orphan_handler.py)
 
 **Approach:**
 
@@ -226,8 +226,8 @@ def delete_page(self, page_id: str) -> bool:
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/confluence_sync.py`](_confluence_sync/scripts/confluence_sync.py)
-- [`_confluence_sync/scripts/sync_state.py`](_confluence_sync/scripts/sync_state.py)
+- [_confluence_sync/scripts/confluence_sync.py](_confluence_sync/scripts/confluence_sync.py)
+- [_confluence_sync/scripts/sync_state.py](_confluence_sync/scripts/sync_state.py)
 
 **Approach:**
 
@@ -250,8 +250,8 @@ if title_changed:
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/content_preparer.py`](_confluence_sync/scripts/content_preparer.py)
-- [`_confluence_sync/scripts/sync-to-confluence.py`](_confluence_sync/scripts/sync-to-confluence.py)
+- [_confluence_sync/scripts/content_preparer.py](_confluence_sync/scripts/content_preparer.py)
+- [_confluence_sync/scripts/sync-to-confluence.py](_confluence_sync/scripts/sync-to-confluence.py)
 
 **Approach:**
 
@@ -278,7 +278,7 @@ if duplicates:
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/content_preparer.py`](_confluence_sync/scripts/content_preparer.py)
+- [_confluence_sync/scripts/content_preparer.py](_confluence_sync/scripts/content_preparer.py)
 
 **Approach:**
 
@@ -315,7 +315,7 @@ return f'<ac:link><ri:page ri:content-title="{escape_xml(page_title)}"/>...'
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/confluence_sync.py`](_confluence_sync/scripts/confluence_sync.py)
+- [_confluence_sync/scripts/confluence_sync.py](_confluence_sync/scripts/confluence_sync.py)
 
 **Approach:**
 
@@ -376,8 +376,8 @@ def _make_request_with_retry(
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/confluence_sync.py`](_confluence_sync/scripts/confluence_sync.py)
-- [`_confluence_sync/scripts/sync_state.py`](_confluence_sync/scripts/sync_state.py)
+- [_confluence_sync/scripts/confluence_sync.py](_confluence_sync/scripts/confluence_sync.py)
+- [_confluence_sync/scripts/sync_state.py](_confluence_sync/scripts/sync_state.py)
 
 **Approach:**
 
@@ -401,7 +401,7 @@ if existing_id:
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/content_preparer.py`](_confluence_sync/scripts/content_preparer.py)
+- [_confluence_sync/scripts/content_preparer.py](_confluence_sync/scripts/content_preparer.py)
 
 **Approach:**
 
@@ -432,12 +432,12 @@ def convert_html_links_to_confluence(self, html: str, ...):
 
 **New files:**
 
-- [`_confluence_sync/scripts/attachment_handler.py`](_confluence_sync/scripts/attachment_handler.py)
+- [_confluence_sync/scripts/attachment_handler.py](_confluence_sync/scripts/attachment_handler.py)
 
 **Files to modify:**
 
-- [`_confluence_sync/scripts/confluence_sync.py`](_confluence_sync/scripts/confluence_sync.py)
-- [`_confluence_sync/scripts/content_preparer.py`](_confluence_sync/scripts/content_preparer.py)
+- [_confluence_sync/scripts/confluence_sync.py](_confluence_sync/scripts/confluence_sync.py)
+- [_confluence_sync/scripts/content_preparer.py](_confluence_sync/scripts/content_preparer.py)
 
 **Approach:**
 

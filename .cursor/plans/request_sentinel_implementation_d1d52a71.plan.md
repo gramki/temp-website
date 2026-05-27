@@ -99,7 +99,7 @@ flowchart TB
 
 ### 2.1 Update Sentinel Spec Manager
 
-**File**: [`sentinel-spec-manager.md`](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/sentinel-spec-manager.md)
+**File**: [sentinel-spec-manager.md](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/sentinel-spec-manager.md)
 
 - Add `request` to Sentinel Type enum in Core Components table
 - Add "Request Sentinel" section after Analytical Sentinel
@@ -108,7 +108,7 @@ flowchart TB
 
 ### 2.2 Update Sentinel Directory
 
-**File**: [`sentinel-directory.md`](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/sentinel-directory.md)
+**File**: [sentinel-directory.md](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/sentinel-directory.md)
 
 - Add `sentinel_type: "request"` option to Registry Entry
 - Add new fields: `sentinel_scenario_specs`, `trained_agent_ref`, `participation_filters`
@@ -116,7 +116,7 @@ flowchart TB
 
 ### 2.3 Update Sentinel Operators
 
-**File**: [`sentinel-operators.md`](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/sentinel-operators.md)
+**File**: [sentinel-operators.md](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/sentinel-operators.md)
 
 - Update Registration Service for Request Sentinel type
 - Add validation for Trained Agent reference chain
@@ -124,7 +124,7 @@ flowchart TB
 
 ### 2.4 Update Sentinel Levers
 
-**File**: [`sentinel-levers.md`](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/sentinel-levers.md)
+**File**: [sentinel-levers.md](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/sentinel-levers.md)
 
 - Add Request Sentinel control actions (enable/disable, suspend, archive)
 - Add new states: `enrolled`, `suspended`
@@ -137,11 +137,11 @@ flowchart TB
 
 - Document how Hub Operators recognize SentinelScenarioSpec CRDs
 - Process flow: Convert to regular ScenarioSpec types internally
-- Reference: [`developer-operators.md`](olympus-hub-docs/04-subsystems/operators/developer-operators.md)
+- Reference: [developer-operators.md](olympus-hub-docs/04-subsystems/operators/developer-operators.md)
 
 ### 3.2 Update Signal Exchange Documentation
 
-**File**: [`olympus-hub-docs/04-subsystems/signal-exchange/README.md`](olympus-hub-docs/04-subsystems/signal-exchange/README.md)
+**File**: [olympus-hub-docs/04-subsystems/signal-exchange/README.md](olympus-hub-docs/04-subsystems/signal-exchange/README.md)
 
 - Add section "Request Sentinel Auto-Enrollment"
 - Document Request Creation Flow (query active Request Sentinels, apply filters, add as assignee)
@@ -149,7 +149,7 @@ flowchart TB
 
 ### 3.3 Update Request Hierarchy Documentation
 
-**File**: [`request-hierarchy.md`](olympus-hub-docs/04-subsystems/request-management/request-hierarchy.md)
+**File**: [request-hierarchy.md](olympus-hub-docs/04-subsystems/request-management/request-hierarchy.md)
 
 - Add section "Request Sentinel Child Requests"
 - Document that child requests use SentinelScenario (not parent's scenario)
@@ -159,7 +159,7 @@ flowchart TB
 
 ### 4.1 Update Sentinel README
 
-**File**: [`README.md`](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/README.md)
+**File**: [README.md](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/README.md)
 
 - Update "Two Sentinel Types" to "Three Sentinel Types"
 - Add Request Sentinel description and flow
@@ -167,14 +167,14 @@ flowchart TB
 
 ### 4.2 Update Sentinel SCOPE
 
-**File**: [`SCOPE.md`](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/SCOPE.md)
+**File**: [SCOPE.md](olympus-seer-docs/seer-design/subsystems/agent-session-sentinel/SCOPE.md)
 
 - Add Request Sentinel to scope description
 - Update Design Documents table with three new SentinelScenarioSpec documents
 
 ### 4.3 Update Implementation Concepts
 
-**File**: [`agent-session-supervision.md`](olympus-seer-docs/seer-design/implementation-concepts/agent-session-supervision.md)
+**File**: [agent-session-supervision.md](olympus-seer-docs/seer-design/implementation-concepts/agent-session-supervision.md)
 
 - Update "Two Sentinel Types" section to include Request Sentinel
 - Add Request Sentinel architecture diagram
@@ -202,10 +202,10 @@ flowchart TB
 ## Dependencies
 
 The following Hub components already exist and will be leveraged:
-- Hub Scenario Specification Types ([`developer-operators.md`](olympus-hub-docs/04-subsystems/operators/developer-operators.md))
-- Hub Request Hierarchy ([`request-hierarchy.md`](olympus-hub-docs/04-subsystems/request-management/request-hierarchy.md))
-- Hub Notification Service ([`README.md`](olympus-hub-docs/04-subsystems/notification-services/README.md))
-- Signal Exchange Observer Pattern ([`README.md`](olympus-hub-docs/04-subsystems/signal-exchange/README.md))
+- Hub Scenario Specification Types ([developer-operators.md](olympus-hub-docs/04-subsystems/operators/developer-operators.md))
+- Hub Request Hierarchy ([request-hierarchy.md](olympus-hub-docs/04-subsystems/request-management/request-hierarchy.md))
+- Hub Notification Service ([README.md](olympus-hub-docs/04-subsystems/notification-services/README.md))
+- Signal Exchange Observer Pattern ([README.md](olympus-hub-docs/04-subsystems/signal-exchange/README.md))
 
 ## File Summary
 

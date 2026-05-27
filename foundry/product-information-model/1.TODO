@@ -106,7 +106,7 @@
     ☐ Defined by Domain and Technical Architects
 
 # Win Track:
-    ✔ Works on Customer Releases @done(26-02-18 10:19)
+    ✔ Works on Customer Release Intents and realized Customer Releases @done(26-02-18 10:19)
     ✔ Receives Queries, Requests, Feedback, and other signals from the Customers, Win Stakeholders, and other stakeholders @done(26-02-18 10:19)
     ✔ Onboards, Activates, and Retains Customers @done(26-02-18 10:20)
     ✔ Reviews the Win Outcomes evolution and provides necessary feedback @done(26-02-18 10:19)
@@ -119,7 +119,7 @@
 
 # Run Track:
     - Works on Deployable Artifacts (Modules, Products, etc.)
-    - Decides what changes to deploy and when to deploy them to meet a Customer Release plan; Abides by the change freeze windows and compliance windows
+    - Decides what changes to deploy and when to deploy them to meet a Customer Release Intent plan; Abides by the change freeze windows and compliance windows
     - Creates and Manages the Deployment Environments (Region-based, Tenant-based, etc.) - Cloud Ops
     - Creates and Manages Change Freeze Windows and Compliance Windows
     - Works on Deployment and Rollback Strategies for each Artifact version Release (Blue-Green, Canary, Rolling, etc.)
@@ -164,7 +164,7 @@ Let me map this out systematically.
 
 ### Tier 1: Strategy & Intent — PM fully owns
 
-**Dimension 1 (Strategy)** — Already covered. PM owns all entities: Objectives, Initiatives, Customer Releases, Signals, Ideas, PDRs, PSDs.
+**Dimension 1 (Strategy)** — Already covered. PM owns all entities: Objectives, Initiatives, Customer Release Intents, Signals, Ideas, PDRs, Product Intents, PSDs.
 
 ### Tier 2: Business & Market — PM primarily owns
 
@@ -247,21 +247,22 @@ There are three levels of PM ownership across dimensions:
 |---|---|---|---|
 | **PM fully owns** | Dim 1, 2, 3 | PM creates and maintains entities directly | PDR + Definition Model update |
 | **PM co-owns** | Dim 4, 8, 9 (partially) | PM collaborates with UX/Architect/Data | PDR + Definition Model update or PSD |
-| **PM informs** | Dim 5, 6, 7 | PM specifies need, tech teams design/implement | PDR → PSD → Build Track |
+| **PM informs** | Dim 5, 6, 7 | PM specifies need, tech teams design/implement | PDR → Product Intent → PSD → Build Track |
 
 ## Proposed Output and Work Model
 
 ### Outputs (what discovery produces)
 
-Discovery Track should produce **three types of outputs**, not just one:
+Discovery Track should produce **four types of outputs**, not just one:
 
 | Output Type | What it captures | Destination | Example |
 |---|---|---|---|
 | **PDR** | Any significant decision affecting any dimension | Definition Model (Dim 1) — but references any dimension | "PDR-023: Go — Target LATAM CFOs as primary buyer" |
-| **PSD** | Engineering specification for a module change | Definition Model (Dim 1) → Build Track | "PSD-042: Real-Time FX Rate Lock" |
+| **Product Intent** | Routable commitment from product decision to evolution work | Definition Model (Dim 1) → ACE Workspaces | "PI-042: Real-Time FX Rate Lock in Invoice Flow" |
+| **PSD** | Engineering specification that refines Product Intent for a module change | Definition Model (Dim 1) → Build Track | "PSD-042: Real-Time FX Rate Lock" |
 | **Definition Update** | Non-engineering evolution of any Definition Model entity | Definition Model (Dims 2-9) | "Add User Persona: LATAM AP Clerk" to Dim 4 |
 
-The PDR's relationship should be broadened: currently `PDR justifies PSD(s)`. It should also `PDR justifies Definition Update(s)`. A single PDR might trigger both — "Go on LATAM" could justify PSDs (engineering changes) AND Definition Updates (new personas, new pricing tiers, new capabilities).
+The PDR's relationship should be broadened: `PDR creates/updates Product Intent`, `PDR justifies PSD(s)`, and `PDR justifies Definition Update(s)`. A single PDR might trigger all three — "Go on LATAM" could create Product Intent, justify PSDs (engineering changes), AND justify Definition Updates (new personas, new pricing tiers, new capabilities).
 
 ### Work (how that output is created)
 
@@ -272,7 +273,7 @@ Expanding the Discovery Track with a new work entity:
 | Research Task | Evidence, insights | Any dimension | Yes |
 | Experiment | Validated/invalidated hypothesis | Any dimension | Yes |
 | Prototype / Spike | Feasibility evidence | Any dimension | Yes |
-| Specification Task | PSD | Dim 1 → Build Track | Yes |
+| Specification Task | PSD refining Product Intent | Dim 1 → Build Track | Yes |
 | **Definition Task** | Definition Model updates | Dims 2-9 | **New** |
 
 **Definition Task** is the work of evolving Definition Model entities beyond Dimension 1 — defining personas, mapping journeys, designing pricing structures, modeling data domains, mapping capabilities and features. It's the PM's "product knowledge work" that keeps the product's self-description current.

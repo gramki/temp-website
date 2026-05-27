@@ -86,7 +86,7 @@ todos:
 
 ## Overview
 
-Implement documentation for Request-Scoped Authority Delegation across Hub and Seer. The comprehensive design document exists at [`request-scoped-delegation.md`](olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md). This plan covers all subsystem updates needed to integrate the concept.
+Implement documentation for Request-Scoped Authority Delegation across Hub and Seer. The comprehensive design document exists at [request-scoped-delegation.md](olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md). This plan covers all subsystem updates needed to integrate the concept.
 
 ## Architecture Context
 
@@ -217,7 +217,7 @@ The context summary will include:
 
 - Pointers to comprehensive doc sections for each flow
 
-**Location**: [`olympus-hub-docs/scratchpad/request-scoped-delegation-context-summary.md`](olympus-hub-docs/scratchpad/request-scoped-delegation-context-summary.md)
+**Location**: [olympus-hub-docs/scratchpad/request-scoped-delegation-context-summary.md](olympus-hub-docs/scratchpad/request-scoped-delegation-context-summary.md)
 
 ---
 
@@ -229,7 +229,7 @@ Before starting Phase 1, load context:
 
 1. Read context summary (created in Phase 0)
 2. Read comprehensive doc Sections 2-3 (Core Concepts, OAuth Mapping)
-3. Read existing [`cipher-iam-extensions/README.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/README.md) for current structure
+3. Read existing [cipher-iam-extensions/README.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/README.md) for current structure
 
 Core authority concepts must be documented first as all other components depend on them.
 
@@ -237,9 +237,9 @@ Core authority concepts must be documented first as all other components depend 
 
 |------|------|------|-------------|
 
-| 1.1 | [`cipher-iam-extensions/README.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/README.md) | UPDATE | Add Request-Scoped Delegation to capability overview |
+| 1.1 | [cipher-iam-extensions/README.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/README.md) | UPDATE | Add Request-Scoped Delegation to capability overview |
 
-| 1.2 | [`cipher-iam-extensions/authority-delegation.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md) | UPDATE | Add new delegation type; distinguish from User/Role/Bot |
+| 1.2 | [cipher-iam-extensions/authority-delegation.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md) | UPDATE | Add new delegation type; distinguish from User/Role/Bot |
 
 | 1.3 | `cipher-iam-extensions/delegation-templates.md` | NEW | Template CRD schema, registry, constraints, examples |
 
@@ -247,11 +247,11 @@ Core authority concepts must be documented first as all other components depend 
 
 | 1.5 | `cipher-iam-extensions/business-user-profiles.md` | NEW | Business user identity, claim import, federation |
 
-| 1.6 | [`cipher-iam-extensions/credential-management.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/credential-management.md) | UPDATE | Add Delegation Access Token lifecycle |
+| 1.6 | [cipher-iam-extensions/credential-management.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/credential-management.md) | UPDATE | Add Delegation Access Token lifecycle |
 
-| 1.7 | [`cipher-iam-extensions/policy-enforcement-points.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/policy-enforcement-points.md) | UPDATE | Add delegation token validation |
+| 1.7 | [cipher-iam-extensions/policy-enforcement-points.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/policy-enforcement-points.md) | UPDATE | Add delegation token validation |
 
-| 1.8 | [`cipher-iam-extensions/integration-patterns.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/integration-patterns.md) | UPDATE | Add request-scoped delegation patterns |
+| 1.8 | [cipher-iam-extensions/integration-patterns.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/integration-patterns.md) | UPDATE | Add request-scoped delegation patterns |
 
 ### Phase 1 Checkpoint (Self-Verify, then proceed)
 
@@ -271,7 +271,7 @@ Before starting Phase 2, load context:
 1. Re-read context summary (invariants, schemas)
 2. Read comprehensive doc Sections 4-5 (Delegation Flows, Component Responsibilities)
 3. Read Phase 1 outputs: `delegation-templates.md`, `delegation-certificates.md` (for consistency)
-4. Read existing [`signal-exchange/README.md`](olympus-hub-docs/04-subsystems/signal-exchange/README.md) for current structure
+4. Read existing [signal-exchange/README.md](olympus-hub-docs/04-subsystems/signal-exchange/README.md) for current structure
 
 Signal Exchange and Request Management handle the runtime flow.
 
@@ -281,13 +281,13 @@ Signal Exchange and Request Management handle the runtime flow.
 
 |------|------|------|-------------|
 
-| 2.1 | [`signal-exchange/README.md`](olympus-hub-docs/04-subsystems/signal-exchange/README.md) | UPDATE | Add AUTHORITY_REQUEST/GRANTED to overview |
+| 2.1 | [signal-exchange/README.md](olympus-hub-docs/04-subsystems/signal-exchange/README.md) | UPDATE | Add AUTHORITY_REQUEST/GRANTED to overview |
 
-| 2.2 | [`signal-exchange/message-envelope.md`](olympus-hub-docs/04-subsystems/signal-exchange/message-envelope.md) | UPDATE | Add `environment.auth.delegations` schema |
+| 2.2 | [signal-exchange/message-envelope.md](olympus-hub-docs/04-subsystems/signal-exchange/message-envelope.md) | UPDATE | Add `environment.auth.delegations` schema |
 
-| 2.3 | [`signal-exchange/observer-notifications.md`](olympus-hub-docs/04-subsystems/signal-exchange/observer-notifications.md) | UPDATE | Document Channel as delegation observer |
+| 2.3 | [signal-exchange/observer-notifications.md](olympus-hub-docs/04-subsystems/signal-exchange/observer-notifications.md) | UPDATE | Document Channel as delegation observer |
 
-| 2.4 | [`signal-exchange/request-factory.md`](olympus-hub-docs/04-subsystems/signal-exchange/request-factory.md) | UPDATE | Delegation context initialization |
+| 2.4 | [signal-exchange/request-factory.md](olympus-hub-docs/04-subsystems/signal-exchange/request-factory.md) | UPDATE | Delegation context initialization |
 
 | 2.5 | `signal-exchange/delegation-handling.md` | NEW | Token refresh, AUTHORITY_REQUEST routing |
 
@@ -297,13 +297,13 @@ Signal Exchange and Request Management handle the runtime flow.
 
 |------|------|------|-------------|
 
-| 2.6 | [`request-management/README.md`](olympus-hub-docs/04-subsystems/request-management/README.md) | UPDATE | Add delegation context to overview |
+| 2.6 | [request-management/README.md](olympus-hub-docs/04-subsystems/request-management/README.md) | UPDATE | Add delegation context to overview |
 
-| 2.7 | [`request-management/request-lifecycle.md`](olympus-hub-docs/04-subsystems/request-management/request-lifecycle.md) | UPDATE | Delegation context in state model |
+| 2.7 | [request-management/request-lifecycle.md](olympus-hub-docs/04-subsystems/request-management/request-lifecycle.md) | UPDATE | Delegation context in state model |
 
-| 2.8 | [`request-management/request-storage.md`](olympus-hub-docs/04-subsystems/request-management/request-storage.md) | UPDATE | Certificate/token storage |
+| 2.8 | [request-management/request-storage.md](olympus-hub-docs/04-subsystems/request-management/request-storage.md) | UPDATE | Certificate/token storage |
 
-| 2.9 | [`request-management/request-hierarchy.md`](olympus-hub-docs/04-subsystems/request-management/request-hierarchy.md) | UPDATE | Authority cascading rules |
+| 2.9 | [request-management/request-hierarchy.md](olympus-hub-docs/04-subsystems/request-management/request-hierarchy.md) | UPDATE | Authority cascading rules |
 
 | 2.10 | `request-management/delegation-context.md` | NEW | Delegation lookup API |
 
@@ -313,9 +313,9 @@ Signal Exchange and Request Management handle the runtime flow.
 
 |------|------|------|-------------|
 
-| 2.11 | [`request-update.md`](olympus-hub-docs/02-system-design/implementation-concepts/request-update.md) | UPDATE | Add AUTHORITY_REQUEST/GRANTED sub-types |
+| 2.11 | [request-update.md](olympus-hub-docs/02-system-design/implementation-concepts/request-update.md) | UPDATE | Add AUTHORITY_REQUEST/GRANTED sub-types |
 
-| 2.12 | [`observer-pattern.md`](olympus-hub-docs/02-system-design/implementation-concepts/observer-pattern.md) | UPDATE | Channels as delegation observers |
+| 2.12 | [observer-pattern.md](olympus-hub-docs/02-system-design/implementation-concepts/observer-pattern.md) | UPDATE | Channels as delegation observers |
 
 | 2.13 | `request-scoped-delegation.md` | NEW | Hub-side implementation concept; reference to Seer authoritative doc; Signal Provider vs Channel distinction |
 
@@ -338,7 +338,7 @@ Before starting Phase 3, load context:
 1. Re-read context summary (SDK API signatures, token validation patterns)
 2. Read comprehensive doc Sections 5, 8 (Component Responsibilities, SDK Usage)
 3. Read Phase 2 outputs: `delegation-handling.md`, `message-envelope.md` (for SX integration)
-4. Read existing [`seer-sidecar/README.md`](olympus-seer-docs/seer-design/subsystems/seer-sidecar/README.md) for current structure
+4. Read existing [seer-sidecar/README.md](olympus-seer-docs/seer-design/subsystems/seer-sidecar/README.md) for current structure
 
 How agents request, receive, and use delegation tokens.
 
@@ -348,11 +348,11 @@ How agents request, receive, and use delegation tokens.
 
 |------|------|------|-------------|
 
-| 3.1 | [`seer-sidecar/README.md`](olympus-seer-docs/seer-design/subsystems/seer-sidecar/README.md) | UPDATE | Add delegation check responsibility |
+| 3.1 | [seer-sidecar/README.md](olympus-seer-docs/seer-design/subsystems/seer-sidecar/README.md) | UPDATE | Add delegation check responsibility |
 
-| 3.2 | [`seer-sidecar/authority-enforcement-service.md`](olympus-seer-docs/seer-design/subsystems/seer-sidecar/authority-enforcement-service.md) | UPDATE | Token validation, Authority Request logic |
+| 3.2 | [seer-sidecar/authority-enforcement-service.md](olympus-seer-docs/seer-design/subsystems/seer-sidecar/authority-enforcement-service.md) | UPDATE | Token validation, Authority Request logic |
 
-| 3.3 | [`seer-sidecar/policy-enforcement-service.md`](olympus-seer-docs/seer-design/subsystems/seer-sidecar/policy-enforcement-service.md) | UPDATE | Policy composition (AND logic) |
+| 3.3 | [seer-sidecar/policy-enforcement-service.md](olympus-seer-docs/seer-design/subsystems/seer-sidecar/policy-enforcement-service.md) | UPDATE | Policy composition (AND logic) |
 
 | 3.4 | `seer-sidecar/delegation-service.md` | NEW | Pre-guardrail check, chaining, token injection |
 
@@ -362,11 +362,11 @@ How agents request, receive, and use delegation tokens.
 
 |------|------|------|-------------|
 
-| 3.5 | [`agent-ingress-gateway/README.md`](olympus-seer-docs/seer-design/subsystems/agent-ingress-gateway/README.md) | UPDATE | Delegation context forwarding |
+| 3.5 | [agent-ingress-gateway/README.md](olympus-seer-docs/seer-design/subsystems/agent-ingress-gateway/README.md) | UPDATE | Delegation context forwarding |
 
-| 3.6 | [`agent-ingress-gateway/request-routing.md`](olympus-seer-docs/seer-design/subsystems/agent-ingress-gateway/request-routing.md) | UPDATE | Token in request context |
+| 3.6 | [agent-ingress-gateway/request-routing.md](olympus-seer-docs/seer-design/subsystems/agent-ingress-gateway/request-routing.md) | UPDATE | Token in request context |
 
-| 3.7 | [`agent-ingress-gateway/signal-exchange-integration.md`](olympus-seer-docs/seer-design/subsystems/agent-ingress-gateway/signal-exchange-integration.md) | UPDATE | Token refresh from SX |
+| 3.7 | [agent-ingress-gateway/signal-exchange-integration.md](olympus-seer-docs/seer-design/subsystems/agent-ingress-gateway/signal-exchange-integration.md) | UPDATE | Token refresh from SX |
 
 ### Seer Agent SDK
 
@@ -374,11 +374,11 @@ How agents request, receive, and use delegation tokens.
 
 |------|------|------|-------------|
 
-| 3.8 | [`seer-agent-sdk/README.md`](olympus-seer-docs/seer-design/subsystems/seer-agent-sdk/README.md) | UPDATE | Add delegation APIs to overview |
+| 3.8 | [seer-agent-sdk/README.md](olympus-seer-docs/seer-design/subsystems/seer-agent-sdk/README.md) | UPDATE | Add delegation APIs to overview |
 
-| 3.9 | [`python-sdk/hub-integration-apis.md`](olympus-seer-docs/seer-design/subsystems/seer-agent-sdk/python-sdk/hub-integration-apis.md) | UPDATE | Add delegation APIs |
+| 3.9 | [python-sdk/hub-integration-apis.md](olympus-seer-docs/seer-design/subsystems/seer-agent-sdk/python-sdk/hub-integration-apis.md) | UPDATE | Add delegation APIs |
 
-| 3.10 | [`java-sdk/hub-integration-apis.md`](olympus-seer-docs/seer-design/subsystems/seer-agent-sdk/java-sdk/hub-integration-apis.md) | UPDATE | Add delegation APIs |
+| 3.10 | [java-sdk/hub-integration-apis.md](olympus-seer-docs/seer-design/subsystems/seer-agent-sdk/java-sdk/hub-integration-apis.md) | UPDATE | Add delegation APIs |
 
 | 3.11 | `seer-agent-sdk/python-sdk/delegation-apis.md` | NEW | Detailed Python delegation API reference |
 
@@ -404,7 +404,7 @@ Before starting Phase 4, load context:
 2. Read comprehensive doc Sections 7, 10 (Configuration, Relationships)
 3. Read Phase 1 output: `delegation-templates.md` (for template references in specs)
 4. Read Phase 3 output: `delegation-apis.md` (for SDK patterns specs should align with)
-5. Read existing [`channel.md`](olympus-hub-docs/02-system-design/implementation-concepts/channel.md) for current structure
+5. Read existing [channel.md](olympus-hub-docs/02-system-design/implementation-concepts/channel.md) for current structure
 
 Configuration surfaces for developers and operators.
 
@@ -414,13 +414,13 @@ Configuration surfaces for developers and operators.
 
 |------|------|------|-------------|
 
-| 4.1 | [`employment-spec-crd.md`](olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md) | UPDATE | Add `delegation_mode: deferred`, `request_scoped_delegation` |
+| 4.1 | [employment-spec-crd.md](olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md) | UPDATE | Add `delegation_mode: deferred`, `request_scoped_delegation` |
 
-| 4.2 | [`training-spec-crd.md`](olympus-seer-docs/seer-design/hub-integration/training-spec-crd.md) | UPDATE | Add `delegation_requirements` section |
+| 4.2 | [training-spec-crd.md](olympus-seer-docs/seer-design/hub-integration/training-spec-crd.md) | UPDATE | Add `delegation_requirements` section |
 
-| 4.3 | [`employed-agent.md`](olympus-seer-docs/seer-design/hub-integration/employed-agent.md) | UPDATE | OAuth client analogy |
+| 4.3 | [employed-agent.md](olympus-seer-docs/seer-design/hub-integration/employed-agent.md) | UPDATE | OAuth client analogy |
 
-| 4.4 | [`request-dispatch.md`](olympus-seer-docs/seer-design/hub-integration/request-dispatch.md) | UPDATE | Delegation token handling |
+| 4.4 | [request-dispatch.md](olympus-seer-docs/seer-design/hub-integration/request-dispatch.md) | UPDATE | Delegation token handling |
 
 ### Seer Implementation Concepts
 
@@ -428,13 +428,13 @@ Configuration surfaces for developers and operators.
 
 |------|------|------|-------------|
 
-| 4.5 | [`agent-identity-credentials.md`](olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) | UPDATE | Add Delegation Access Token, OAuth analogy |
+| 4.5 | [agent-identity-credentials.md](olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) | UPDATE | Add Delegation Access Token, OAuth analogy |
 
-| 4.6 | [`delegation-chains.md`](olympus-seer-docs/seer-design/implementation-concepts/delegation-chains.md) | UPDATE | Request-Scoped vs User/Role/Bot |
+| 4.6 | [delegation-chains.md](olympus-seer-docs/seer-design/implementation-concepts/delegation-chains.md) | UPDATE | Request-Scoped vs User/Role/Bot |
 
-| 4.7 | [`authority-enforcement.md`](olympus-seer-docs/seer-design/implementation-concepts/authority-enforcement.md) | UPDATE | Delegation token enforcement |
+| 4.7 | [authority-enforcement.md](olympus-seer-docs/seer-design/implementation-concepts/authority-enforcement.md) | UPDATE | Delegation token enforcement |
 
-| 4.8 | [`seer-sidecar.md`](olympus-seer-docs/seer-design/implementation-concepts/seer-sidecar.md) | UPDATE | Pre-guardrail delegation check |
+| 4.8 | [seer-sidecar.md](olympus-seer-docs/seer-design/implementation-concepts/seer-sidecar.md) | UPDATE | Pre-guardrail delegation check |
 
 ### Channel Documentation
 
@@ -442,11 +442,11 @@ Configuration surfaces for developers and operators.
 
 |------|------|------|-------------|
 
-| 4.9 | [`channel.md`](olympus-hub-docs/02-system-design/implementation-concepts/channel.md) | UPDATE | Delegation responsibilities |
+| 4.9 | [channel.md](olympus-hub-docs/02-system-design/implementation-concepts/channel.md) | UPDATE | Delegation responsibilities |
 
-| 4.10 | [`mcp-channels.md`](olympus-hub-docs/06-ux-architecture/tenant-domain/mcp-channels.md) | UPDATE | AI-to-AI delegation flow |
+| 4.10 | [mcp-channels.md](olympus-hub-docs/06-ux-architecture/tenant-domain/mcp-channels.md) | UPDATE | AI-to-AI delegation flow |
 
-| 4.11 | [`rest-channels.md`](olympus-hub-docs/06-ux-architecture/tenant-domain/rest-channels.md) | UPDATE | Programmatic delegation flow |
+| 4.11 | [rest-channels.md](olympus-hub-docs/06-ux-architecture/tenant-domain/rest-channels.md) | UPDATE | Programmatic delegation flow |
 
 ### Phase 4 Checkpoint (Self-Verify, then proceed)
 
@@ -503,7 +503,7 @@ Decision records, guides, and journeys.
 
 |------|------|------|-------------|
 
-| 5.8 | [`journeys/request-lifecycle.md`](olympus-hub-docs/08-personas-and-journeys/journeys/request-lifecycle.md) | UPDATE | Add delegation to journey |
+| 5.8 | [journeys/request-lifecycle.md](olympus-hub-docs/08-personas-and-journeys/journeys/request-lifecycle.md) | UPDATE | Add delegation to journey |
 
 | 5.9 | `journeys/delegation-workflow.md` | NEW | End-to-end delegation journey |
 
@@ -560,8 +560,8 @@ After completing Phase 5:
 
 **Notes:**
 
-- Comprehensive design already exists at [`request-scoped-delegation.md`](olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md) — all updates will reference this as the authoritative source.
-- Context summary will be created at [`request-scoped-delegation-context-summary.md`](olympus-hub-docs/scratchpad/request-scoped-delegation-context-summary.md) in Phase 0.
+- Comprehensive design already exists at [request-scoped-delegation.md](olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md) — all updates will reference this as the authoritative source.
+- Context summary will be created at [request-scoped-delegation-context-summary.md](olympus-hub-docs/scratchpad/request-scoped-delegation-context-summary.md) in Phase 0.
 - Each phase ends with a checkpoint for user review before proceeding.
 - The Hub-side implementation concept (Task 2.13) will include the Signal Provider vs Channel distinction for delegation.
 - ADR 5.5 formally documents why Channels can facilitate delegation while Signal Providers cannot.

@@ -92,11 +92,11 @@ After DR-027 (Module Package, Product Package) and DR-028 (SDD, MDD, PDD), the m
 
 **Rationale:** Maintenance Tasks may need change management but through different processes. Change Request is specifically designed for the deployment workflow — its completion requires all Deployment Tasks and Verification Tasks to pass. Emergency-Business changes may originate from Release Plan acceleration (e.g., campaign deadline).
 
-### D13: Customer Release may span multiple Deployment Trains
+### D13: Customer Release Intent may span multiple Deployment Trains
 
-**Decision:** A single Customer Release may be associated with multiple Deployment Trains when different modules follow different promotion paths.
+**Decision:** A single Customer Release Intent may be associated with multiple Deployment Trains when different modules follow different promotion paths.
 
-**Rationale:** A release like "LATAM Expansion" may include modules with different compliance requirements — payment modules on a PCI Regulated Train, marketing portal on a Fast-Track Train. The Customer Release is the commercial unit; the Train is the operational promotion unit.
+**Rationale:** A release intent like "LATAM Expansion" may include modules with different compliance requirements — payment modules on a PCI Regulated Train, marketing portal on a Fast-Track Train. The Customer Release Intent is the commercial planning unit; the Train is the operational promotion unit.
 
 ## Consequences
 

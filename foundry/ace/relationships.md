@@ -68,6 +68,8 @@ A small subset of the table (see [repositories.md](repositories.md) for the comp
 
 ACE specifies the repositories; UPIM specifies the entities and lifecycles that live in them.
 
+PIR stores strategy, Signals, Ideas, PDRs, PSDs, and routable Product Intent records. Not every PIR item is Product Intent: Product Intent is the ACE bridge entity inside the broader repository, while the other PIR contents provide context, provenance, decisions, and refinements.
+
 ## ACE ↔ Foundry Platform: who owns what
 
 The boundary between ACE (the model) and the Foundry Platform (the implementation) is the same as the boundary between *requirements* and *modules*. ACE does not specify modules; the platform does not invent semantics.
@@ -78,7 +80,7 @@ The boundary between ACE (the model) and the Foundry Platform (the implementatio
 | Repositories | What types exist, their conceptual purpose. | Authoring, storage, and serving infrastructure ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 11). |
 | IDE | That an IDE per workspace is the human entry surface. | The IDE realization (Olympus Rocket profiles, plugins, views) per [../engagement-engineering/tenant-developer-tooling/TD.TODO](../engagement-engineering/tenant-developer-tooling/TD.TODO). |
 | Scenarios and Tasks | That work is scenario-driven and decomposes into tasks. | Scenarios and Tasks Management ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 17). |
-| Product Intent | The asset, the cycle, the flow. | Routing of intent across workspaces ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 14). |
+| Product Intent | The hybrid bridge entity: definition-bearing, work-triggering, routable through the cycle. | Routing of intent across workspaces ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 14). |
 | Governance | That every transition invokes governance. | Governance Workspace Engineering ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 24). |
 | Security, compliance, audit, observability | That these are first-class concerns. | Foundry Specification ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 1-9). |
 | CI | (not specified by ACE; CI is consumed) | Foundry CI ([../foundry-platform/ci/](../foundry-platform/ci/README.md)). |
@@ -115,7 +117,7 @@ If you are about to write a module specification, use this guide to decide where
 
 1. **Need to know what entity to read or write?** → [repositories.md](repositories.md) and [../product-information-model/](../product-information-model/README.md).
 2. **Need to know which workspace owns this?** → [workspaces/](workspaces/README.md) and [concepts.md](concepts.md).
-3. **Need to know how intent gets to your module?** → [product-evolution-cycle.md](product-evolution-cycle.md).
+3. **Need to know how intent gets to your module?** → [product-evolution-cycle.md](product-evolution-cycle.md) and [how-product-evolves/orchestration-items.md](how-product-evolves/orchestration-items.md).
 4. **Need to know what governance applies?** → [governance.md](governance.md).
 5. **Need to know how this changes for client delivery?** → [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
 6. **Need to know what platform-level capability you depend on?** → [../foundry-platform/README.md](../foundry-platform/README.md).

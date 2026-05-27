@@ -1,0 +1,15 @@
+---
+description: Rules for working on the Corporate Payments presentation and book
+globs: us-bank-commercial-card/**
+alwaysApply: false
+---
+
+# Corporate Payments — Three-File Update Protocol
+
+When the user provides new inputs, concepts, or details related to the Corporate Payments domain (Tachyon, Electron, Spend Archetypes, Spend Mandates, three-domain model, bank/ESP/corporate entities, systems, integration), evaluate every input for relevant updates to ALL THREE files simultaneously:
+
+1. **`us-bank-commercial-card/corporate-payment-book-background-work/presentation-outline.md`** — slide structure, content, and flow for the bank-prospect presentation
+2. **`us-bank-commercial-card/corporate-payment-book-background-work/presentation-contents-discussion.md`** — per-slide talking points, supporting detail, visuals, pitfalls, and source references for the marketing team
+3. **`us-bank-commercial-card/corporate-payment-book-background-work/book-writing-backlog.md`** — new concepts or details not yet in the book ("Corporate Payments by Design")
+
+Do NOT silently skip any of the three. If a file does not need updating for a given input, state that explicitly rather than omitting it.

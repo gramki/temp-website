@@ -97,7 +97,7 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 | Milestone Definition | Build | Checkpoint criteria with entry/exit gates | Entry and exit criteria testable; dependencies identified; verification steps defined |
 | Iteration Plan | Build | Story/task assignments and capacity allocation | Capacity validated against team availability; stories sized; dependencies sequenced |
 | Deployment Runbook | Run | Environments, rollout strategy, rollback plan, verification steps | All target environments listed; rollback procedure tested; verification steps automated where possible; compliance windows noted |
-| Capacity Forecast | Run | Projected load, scaling requirements, infrastructure plan | Load projections based on Customer Release scope; scaling triggers defined; cost implications stated |
+| Capacity Forecast | Run | Projected load, scaling requirements, infrastructure plan | Load projections based on Customer Release Intent scope; scaling triggers defined; cost implications stated |
 | Market Delivery Plan | Win | Segment sequencing, readiness criteria, coordination checklist | Segment sequencing justified; readiness criteria testable; coordination with Build/Run Track confirmed |
 | GTM Launch Plan | Win | Messaging, deliverables list, stakeholder enablement checklist | Messaging aligned to Customer Promise (Dim 3); all enablement assets identified; launch timeline synchronized with deployment |
 | Enablement Program Plan | Win | Asset inventory, training schedule, competitive program scope | Asset gaps identified; training schedule realistic; competitive positioning current |
@@ -159,12 +159,13 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Objective Setting Task** | Objective definition (Dim 1 entity update) | Specification | Terminal (Dim 1) | Captured via Dim 1 entity |
 | **Initiative Scoping Task** | Initiative definition (Dim 1 entity update) with lever mix and targets | Specification | Terminal (Dim 1) | Captured via Dim 1 entity |
 | **Prioritization Task** | Prioritization rationale — ranked signal list with scoring and association decisions | Decision | Terminal | _To be detailed._ |
+| **Discovery Case** | Discovery Case record — origin, scope, sub-item references, findings summary, outputs (PDR, Ideas, Discovery Support Product Intent), routing outcome | Evidence + Decision + Specification | Transitional (→ PDR, → Product Intent, → sub-work entities) | **Entity file exists** (`track1-discovery-case.md`) |
 | **Signal Exploration Task** | Exploration findings — context, root causes, affected segments, patterns; Idea(s) generated | Evidence + Specification | Transitional (→ Ideas) | _To be detailed._ |
-| **Deliberation** | PDR — Product Decision Record; ADR — Architecture Decision Record (when scope is technical/architectural); ODR — Operations Decision Record (when scope is operational/infrastructure) | Decision | Transitional (→ Build, Run, Definition Model) | **Entity files exist** (`dim1-pdr.md`, `dim5-adr.md`, `dim7-odr.md`) |
+| **Deliberation** | PDR — Product Decision Record; Product Intent when a Go/Pivot PDR commits to evolution; ADR — Architecture Decision Record (when scope is technical/architectural); ODR — Operations Decision Record (when scope is operational/infrastructure) | Decision + Specification | Transitional (→ Product Evolution Cycle, Build, Run, Definition Model) | **Entity files exist** (`dim1-pdr.md`, `dim1-product-intent.md`, `dim5-adr.md`, `dim7-odr.md`) |
 | **Research Task** | Research findings — evidence for/against a hypothesis, data, interview summaries | Evidence | Terminal (informs Deliberation) | _To be detailed._ |
 | **Experiment** | Experiment results — hypothesis, method, measurements, pass/fail assessment | Evidence | Terminal (informs Deliberation) | _To be detailed._ |
 | **Prototype / Spike** | Prototype artifact or spike findings — what was learned about feasibility or desirability | Evidence + Delivery | Terminal (informs Deliberation) | _To be detailed._ |
-| **Specification Task** | PSD — Product Specification Document (includes UI journey specifications and touchpoint detail for HI Modules) | Specification | Transitional (→ Build Track) | **Entity file exists** (`dim1-psd.md`) |
+| **Specification Task** | PSD — Product Specification Document refining Product Intent (includes UI journey specifications and touchpoint detail for HI Modules) | Specification | Transitional (→ Build Track) | **Entity file exists** (`dim1-psd.md`) |
 | **Modeling Task** | Definition Model entity updates (Dims 2–9, including Dim 5 systems, components, dependencies, interaction flows, and Dim 6 personas, modules, operations, contracts) | Specification | Transitional (→ Definition Model) | Captured via entity files |
 | **Signal Monitoring** | Alert/trigger (when threshold breached), pipeline report/dashboard | Evidence + Assessment | Terminal (triggers Prioritization, Deliberation) | **Entity file exists** (`track1-signal-monitoring.md`) |
 
@@ -248,6 +249,13 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Evolve Review** | Evolve Findings — process gaps, artifact quality issues, guidance deficiencies | Evidence + Assessment | Transitional (→ Evolve Definition Task, or → Discovery as Signal) | **Entity file exists** (`track5-evolve-review.md`) |
 | **Evolve Definition Task** | Updated entity files, artifact type definitions, DoD criteria, guidance structures, Decision Records | Specification + Decision | Transitional (→ Work Model, Operating Model) | **Entity file exists** (`track5-evolve-definition-task.md`) |
 | **Evolve Monitoring** | Alert/trigger (when threshold breached), process health report/dashboard | Evidence + Assessment | Terminal (triggers Evolve Review, Evolve Planning) | **Entity file exists** (`track5-evolve-monitoring.md`) |
+
+### Track 6: Governance Track (ACE Extension)
+
+| Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
+|---|---|---|---|---|
+| **Governance Ritual** | Decisions, action items, findings, approvals/rejections, exceptions, Debt + Catch-Up outputs, register entries, recognition entries, ritual report | Decision + Evidence + Assessment | Transitional (→ Work Orders, → Registers, → Evolve Case) | **Entity file exists** (`track6-governance-ritual.md`) |
+| **Governance Enforcement** | Control evaluation result, Control Objective Indicator record, finding/violation/warning, evidence bundle, Debt Register Entry, Catch-Up Plan, Exception/Waiver Record, remediation Work Order, audit record | Decision + Evidence + Assessment | Transitional (→ Risk/Debt/Compliance register, → Evolve Case, → Work Order) | **Entity file exists** (`track6-governance-enforcement.md`) |
 
 ---
 

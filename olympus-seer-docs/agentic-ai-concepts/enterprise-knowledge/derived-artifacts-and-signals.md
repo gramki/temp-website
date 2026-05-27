@@ -35,5 +35,5 @@ They are not knowledge-of-record; they require interpretation and governance bef
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
+- Back: [README.md](./README.md)
 

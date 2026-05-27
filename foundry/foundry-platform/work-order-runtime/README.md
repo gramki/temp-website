@@ -18,9 +18,13 @@ Work Order Runtime is the execution engine that runs Work Orders. It provides:
 - **Work Order** — the unit of execution
 - **Scenario** — defines the kind of work; agents are spun up per Scenario
 - **Task** — Agent Tasks and Human Tasks within a Work Order
-- **Product Intent graph** — the context source; every Work Order belongs to a graph rooted at Product Intent
+- **Orchestration-item graph** — the context source; every Work Order belongs to a graph rooted at its Track's orchestration item
 - **Agent** — AI worker with skills, spun up per Scenario
 - **Workspace Session** — Coder-based ephemeral dev environment for human work
+
+## What Work Order Runtime does not do
+
+Work Order Runtime executes Workspace Work Orders. It does not route orchestration items, enforce cross-Workspace gates, or decide the next Work Order to create — those are Orchestrator responsibilities. When a Work Order completes, Runtime notifies the Orchestrator so the parent orchestration item can advance.
 
 ---
 
@@ -79,7 +83,7 @@ WO Runtime builds agent context by merging knowledge from multiple levels.
 ```
 ┌─────────────────────────────────────────┐
 │  Work Order Context                     │  ← Most specific
-│  (PI, WO-specific artifacts, state)     │
+│  (parent item, WO artifacts, state)     │
 ├─────────────────────────────────────────┤
 │  Workbench Knowledge                    │
 │  (product-context, architecture,        │
@@ -97,7 +101,7 @@ When an Agent Task is executed:
 ```
 1. Agent harness receives Task from Scenario
 2. Harness identifies required knowledge:
-   - WO context: PI, related artifacts, current state
+   - WO context: parent orchestration item, related artifacts, current state
    - Workbench knowledge: from workbenches/{product-code}/knowledge/
    - Workshop knowledge: from workshop-{id}/knowledge/
 3. Harness identifies required skills:
@@ -113,7 +117,7 @@ When an Agent Task is executed:
 |-------|--------------------------------------|----------|
 | **Workshop** | `knowledge/` | Domain knowledge, practices, standards |
 | **Workbench** | `workbenches/{product-code}/knowledge/` | Product context, architecture, conventions |
-| **Work Order** | Runtime state | PI artifacts, WO-specific data, current state |
+| **Work Order** | Runtime state | Parent orchestration item artifacts, WO-specific data, current state |
 
 ---
 
@@ -170,7 +174,7 @@ workbenches/{product-code}/workspaces/{workspace}/scenarios/
 ### Execution Flow
 
 ```
-1. Orchestrator (or user) triggers Scenario
+1. Orchestrator (or user) triggers Scenario on an orchestration item in a `(Track, Workspace)` context
 2. WO Runtime creates Work Order
 3. WO Runtime reads Scenario definition
 4. For each Task in Scenario:
@@ -183,7 +187,7 @@ workbenches/{product-code}/workspaces/{workspace}/scenarios/
       - Surface in Workspaces Console / IDE
       - Wait for human completion
 5. On WO completion, execute hooks (if defined)
-6. Update WO state, notify Orchestrator
+6. Update WO state; notify Orchestrator with orchestration item, Track, Workspace, Scenario, and verdict
 ```
 
 ### Hooks
@@ -203,7 +207,7 @@ Hooks are defined per Workspace: `workspaces/{workspace}/hooks/`
 
 - **Agent lifecycle is context-dependent.** Work Order Runtime owns agent lifecycle for Work Order execution. (Release Tools owns it for CI-embedded agents.)
 - **Agents are spun up per Scenario.** Not long-lived identities — each Scenario invocation gets its own agent.
-- **Context flows with the work.** Work Orders carry their context via the Product Intent graph.
+- **Context flows with the work.** Work Orders carry their context via the parent orchestration-item graph.
 - **Knowledge is hierarchical.** WO Runtime merges Workshop → Workbench → WO context for each agent invocation.
 - **Sessions are user-owned.** One person per Session; multiple WOs can be attached.
 
@@ -211,7 +215,7 @@ Hooks are defined per Workspace: `workspaces/{workspace}/hooks/`
 
 ## Open questions
 
-- Work Order graph schema — DAG or cyclic? typed edges?
+- Work Order / orchestration-item graph schema — DAG or cyclic? typed edges?
 - Agent runtime topology — process model, isolation, observability
 - Per-user vs shared agent infrastructure
 - Skill versioning — how to handle skill updates while Sessions are active
@@ -224,4 +228,5 @@ Hooks are defined per Workspace: `workspaces/{workspace}/hooks/`
 - [../management/workshop-repository.md](../management/workshop-repository.md) — Workshop Definition Repository structure
 - [../management/workbench-architecture.md](../management/workbench-architecture.md) — Workbench architecture
 - [../../ace/concepts.md](../../ace/concepts.md) — Work Order, Scenario, Task, Agent definitions
+- [../../ace/how-product-evolves/orchestration-items.md](../../ace/how-product-evolves/orchestration-items.md) — orchestration item vs Work Order
 - [../../tldr-faq.md](../../tldr-faq.md) — runtime design decisions

@@ -33,10 +33,10 @@ Each stage has architectural, algorithmic, and governance implications.
 
 This primer uses the canonical four memory types. The detailed pages live alongside this doc:
 
-- **Episodic memory**: [`episodic-memory.md`](./episodic-memory.md)
-- **Semantic memory**: [`semantic-memory.md`](./semantic-memory.md)
-- **Preference memory**: [`preference-memory.md`](./preference-memory.md)
-- **Procedural memory**: [`procedural-memory.md`](./procedural-memory.md)
+- **Episodic memory**: [episodic-memory.md](./episodic-memory.md)
+- **Semantic memory**: [semantic-memory.md](./semantic-memory.md)
+- **Preference memory**: [preference-memory.md](./preference-memory.md)
+- **Procedural memory**: [procedural-memory.md](./procedural-memory.md)
 
 ## 3. Identifying What Should Become Memory
 
@@ -142,7 +142,7 @@ One memory ≠ one database.
 
 Agent memory isn’t useful unless it can be retrieved and assembled into a turn’s reasoning context.
 
-- **Context building / context compiler**: [`context-building.md`](./context-building.md)
+- **Context building / context compiler**: [context-building.md](./context-building.md)
 
 ---
 
@@ -454,6 +454,6 @@ Engineers who design memory deliberately will build agents that are:
 
 ## Appendix: moved into dedicated pages
 
-- **Memory governance checklist**: [`governance.md`](./governance.md)
-- **OSS framework memory patterns**: [`frameworks.md`](./frameworks.md)
+- **Memory governance checklist**: [governance.md](./governance.md)
+- **OSS framework memory patterns**: [frameworks.md](./frameworks.md)
 

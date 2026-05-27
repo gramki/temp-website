@@ -40,7 +40,7 @@ A Foundry **hosts multiple Workshops**.
 A **Workshop** is the body of work owned by a product team, product suite, or organization inside a Foundry — not a single Product. A Workshop:
 
 - has multiple **Repositories**;
-- hosts multiple **Workbenchs**.
+- hosts multiple **Workbenches**.
 
 The repositories represent the workshop's accumulated state — what it knows (Knowledge), how it works (Skills/Practitioner), what it produces (Artifacts), and what it remembers (History). The repository taxonomy is part of ACE itself, with two levels of detail in this folder. The seed list in [ace-model.md](ace-model.md) lines 16-28 enumerates 12 types: Domain Knowledge, Practitioner, Skill, Product Intent, Product Ontology, Design, Product Evolution, Feedback, Source, Artifact, Quality & Verification, Work, and Workforce. The canonical conceptual specification expands these into 15 entries (with PFR sub-partitions) and gives codes (PIR, DKB, DAR, POR, CAR, QVS, OPR, PFR, PPR, WR, WFR, ESR, PEIR) along with UPIM dimension/track alignment — see [repositories.md](repositories.md). Both documents are ACE-native; UPIM provides alignment, not derivation.
 
@@ -54,7 +54,7 @@ A **Workbench** corresponds to a **Product** in UPIM: it is the venue — the lo
 
 A Workbench is the unit at which most operational metrics are captured: KPIs (Say/Do, Cost per Story Point, Velocity, Quality), agent efficiency and effectiveness, scenarios and tasks management, project-level reporting and analytics. Source: [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 14-17.
 
-> **Engagement Workshop.** Inside an Engagement Workshop, each Product under delivery is evolved in an **Engagement Workbench**. A **Contributing Workbench** is an Engagement Workbench that references a **Home Workbench** elsewhere; standalone engagement-specific Products exist only as Engagement Workbenchs whose Home Workshop is the Engagement Workshop itself. Full treatment: [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
+> **Engagement Workshop.** Inside an Engagement Workshop, each Product under delivery is evolved in an **Engagement Workbench**. A **Contributing Workbench** is an Engagement Workbench that references a **Home Workbench** elsewhere; standalone engagement-specific Products exist only as Engagement Workbenches whose Home Workshop is the Engagement Workshop itself. Full treatment: [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
 
 ## Workspace
 
@@ -75,7 +75,7 @@ ACE defines six workspace types, each owning a distinct concern:
 
 | Workspace | Concern |
 |---|---|
-| **Product Specification** | Translate Product Intent into specifications. |
+| **Product Specification** | Refine Product Intent into PSDs and specification artifacts. |
 | **UX Design** | Design the user experience for specified intent. |
 | **Development** | Build the specified solution. |
 | **QA** (Quality Assurance) | Verify and validate what is built. |
@@ -113,9 +113,13 @@ These four are presentation clusters, not a substitute for the formal taxonomy. 
 
 ## Product Intent
 
-**Product Intent** is the asset that flows through the workspaces. The Release Workspace produces it; the Specification Workspace acts on it; the cycle continues until intent is delivered as Product Delivery. The full flow is detailed in [product-evolution-cycle.md](product-evolution-cycle.md).
+**Product Intent** is the hybrid bridge entity that flows through the workspaces. It is definition-bearing, work-triggering, and ACE-routable: Discovery and product decisions establish or update it in the Product Intent Repository, Discovery Cases may create Discovery Support Product Intent for Build evidence, Product Specification refines Evolution Product Intent through PSDs, and Release renews intent for the next cycle. Product Intent is not a ticket and not a PSD; it is the decision-to-evolution or evidence-production carrier that Workspaces act on. The full flow is detailed in [product-evolution-cycle.md](product-evolution-cycle.md).
 
 Product Intent items are owned. In the engagement view, the Engagement Workshop owns Product Intent items at the umbrella level — program-managed consolidation of intent for one or more Products (each evolved in its Workbench). Source: [../1.TODO](../1.TODO) line 11.
+
+In the Foundry Web App, the PI Console visualizes Product Intent formation: Strategy Frame, Signals, Decisions, Product Intents, PSD refinement, stakeholder-specific Traceability Maps, and Bottlenecks.
+
+For the practitioner walkthrough of Discovery and Build motion, see [how-product-evolves/](how-product-evolves/README.md).
 
 ## Governance Workspace
 

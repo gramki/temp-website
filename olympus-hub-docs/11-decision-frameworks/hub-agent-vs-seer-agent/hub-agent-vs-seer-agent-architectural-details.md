@@ -39,9 +39,9 @@ The CRD contains:
 - `agent`: Agent Persona configuration (name, display name, capabilities)
 - `enrollment`: Task queue enrollment configuration (managed by Supervisor)
 
-For complete CRD schema and YAML examples, see [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md#scenarioasagent-crd).
+For complete CRD schema and YAML examples, see [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md#scenarioasagent-crd).
 
-> **Reference**: [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) provides the complete pattern definition and CRD structure. [`Developer Operators`](../../04-subsystems/operators/developer-operators.md#scenario-as-an-agent-operator) describes operator support.
+> **Reference**: [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) provides the complete pattern definition and CRD structure. [Developer Operators](../../04-subsystems/operators/developer-operators.md#scenario-as-an-agent-operator) describes operator support.
 
 ---
 
@@ -72,9 +72,9 @@ When a ScenarioAsAgent CRD is applied:
 Scenario → ScenarioAsAgent CRD → Cipher IAM → Agent Persona Registered → Enrollment Ready
 ```
 
-For implementation details on Cipher IAM registration, see [`Cipher IAM Infrastructure`](../../05-infrastructure/cipher-iam-infrastructure.md).
+For implementation details on Cipher IAM registration, see [Cipher IAM Infrastructure](../../05-infrastructure/cipher-iam-infrastructure.md).
 
-> **Reference**: [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) explains the Agent Persona identity layer. [`Cipher IAM Infrastructure`](../../05-infrastructure/cipher-iam-infrastructure.md) describes IAM integration.
+> **Reference**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) explains the Agent Persona identity layer. [Cipher IAM Infrastructure](../../05-infrastructure/cipher-iam-infrastructure.md) describes IAM integration.
 
 ---
 
@@ -95,9 +95,9 @@ Task queue enrollment is a Supervisor operation that adds an Agent Persona to a 
 - **One agent can be enrolled in multiple queues** — same Agent Persona, different queues
 - **Enrollment can be adjusted dynamically** — allocation weights, priorities, active/inactive
 
-For task queue management details, see [`Task Management`](../../04-subsystems/task-management/README.md).
+For task queue management details, see [Task Management](../../04-subsystems/task-management/README.md).
 
-> **Reference**: [`Task Allocation`](../../02-system-design/implementation-concepts/task-allocation.md) describes work distribution. [`Task Management`](../../04-subsystems/task-management/README.md) explains queue operations.
+> **Reference**: [Task Allocation](../../02-system-design/implementation-concepts/task-allocation.md) describes work distribution. [Task Management](../../04-subsystems/task-management/README.md) explains queue operations.
 
 ---
 
@@ -125,16 +125,16 @@ Delegation Access Tokens include both identity layers for Seer Agents:
 - `client_id`: SPIFFE ID (deployment identity) — present for Seer Agents, may be absent for non-Seer Hub Agents
 - `delegated_by`: Authority source (Scenario Identity Profile or Business User)
 
-For token structure details and parsing, see [`Cipher IAM Extensions: Authority Delegation`](../../../olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md).
+For token structure details and parsing, see [Cipher IAM Extensions: Authority Delegation](../../../olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md).
 
 ### Using Agent Persona vs SPIFFE ID
 
 - **Agent Persona**: Used for business authorization, audit logs, delegation chains
 - **SPIFFE ID**: Used for infrastructure authentication (mTLS, service mesh)
 
-For implementation details on token usage, see [`Agent Identity and Credentials`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md).
+For implementation details on token usage, see [Agent Identity and Credentials](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md).
 
-> **Reference**: [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) provides the complete two-layer identity model. [`Cipher IAM Extensions: Authority Delegation`](../../../olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md) describes token issuance.
+> **Reference**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) provides the complete two-layer identity model. [Cipher IAM Extensions: Authority Delegation](../../../olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md) describes token issuance.
 
 ---
 
@@ -158,9 +158,9 @@ Hub provides these protocol interfaces to ALL Hub Agents (regardless of runtime)
 
 Protocol selection is configured in ScenarioAsAgent CRD or Employment Spec, depending on agent type.
 
-For protocol implementation details, see [`Channel`](../../02-system-design/implementation-concepts/channel.md) and [`Headless Access Service`](../../02-system-design/implementation-concepts/headless-access-service.md).
+For protocol implementation details, see [Channel](../../02-system-design/implementation-concepts/channel.md) and [Headless Access Service](../../02-system-design/implementation-concepts/headless-access-service.md).
 
-> **Reference**: [`Channel`](../../02-system-design/implementation-concepts/channel.md) describes protocol interfaces. [`Agent Model`](../../02-system-design/agent-model.md) explains agent interaction channels.
+> **Reference**: [Channel](../../02-system-design/implementation-concepts/channel.md) describes protocol interfaces. [Agent Model](../../02-system-design/agent-model.md) explains agent interaction channels.
 
 ---
 
@@ -195,9 +195,9 @@ Task Queue
 Hub Agent (participation pattern)
 ```
 
-For Hub Application details, see [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md).
+For Hub Application details, see [Hub Application](../../02-system-design/implementation-concepts/hub-application.md).
 
-> **Reference**: [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) describes the automation artifact. [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) explains the participation pattern.
+> **Reference**: [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) describes the automation artifact. [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) explains the participation pattern.
 
 ---
 
@@ -214,9 +214,9 @@ A Seer Agent becomes a Hub Agent through:
 
 **Key Point**: Seer Agent deployment automatically creates a Hub Application. The ScenarioAsAgent CRD then enables Hub Agent participation.
 
-For Seer Agent deployment details, see [`Employed Agent as Hub Application`](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md).
+For Seer Agent deployment details, see [Employed Agent as Hub Application](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md).
 
-> **Reference**: [`Employed Agent as Hub Application`](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) explains Hub integration. [`Agent Lifecycle`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) describes the Raw → Trained → Employed progression.
+> **Reference**: [Employed Agent as Hub Application](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) explains Hub integration. [Agent Lifecycle](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) describes the Raw → Trained → Employed progression.
 
 ---
 
@@ -225,36 +225,36 @@ For Seer Agent deployment details, see [`Employed Agent as Hub Application`](../
 ### Testing
 
 For testing Hub Agent behavior:
-- [`Testing Hub Applications`](../../04-subsystems/testing/README.md) — General testing guidance
-- [`Scenario Testing`](../../02-system-design/implementation-concepts/scenario-testing.md) — Scenario-level testing
+- [Testing Hub Applications](../../04-subsystems/testing/README.md) — General testing guidance
+- [Scenario Testing](../../02-system-design/implementation-concepts/scenario-testing.md) — Scenario-level testing
 
 ### Troubleshooting
 
 For operational troubleshooting:
-- [`Operational Runbooks`](../../06-operations/runbooks/README.md) — Common operational issues
-- [`Observability`](../../06-operations/observability/README.md) — Monitoring and debugging
+- [Operational Runbooks](../../06-operations/runbooks/README.md) — Common operational issues
+- [Observability](../../06-operations/observability/README.md) — Monitoring and debugging
 
 ### Code Examples
 
 For runtime-specific code examples:
-- [`Rhea Workflow Engine`](../../04-subsystems/automation-runtimes/rhea-workflow-engine.md) — Rhea examples
-- [`Seer Agent SDK`](../../../olympus-seer-docs/seer-design/subsystems/seer-agent-sdk/README.md) — Seer Agent examples
-- [`Hub Application Development`](../../02-system-design/implementation-concepts/hub-application-development.md) — General development patterns
+- [Rhea Workflow Engine](../../04-subsystems/automation-runtimes/rhea-workflow-engine.md) — Rhea examples
+- [Seer Agent SDK](../../../olympus-seer-docs/seer-design/subsystems/seer-agent-sdk/README.md) — Seer Agent examples
+- [Hub Application Development](../../02-system-design/implementation-concepts/hub-application-development.md) — General development patterns
 
 ### Operational Concerns
 
 For operational considerations:
-- [`Deployment`](../../05-infrastructure/deployment/README.md) — Deployment patterns
-- [`Scaling`](../../06-operations/scaling/README.md) — Scaling considerations
-- [`Security`](../../06-operations/security/README.md) — Security practices
+- [Deployment](../../05-infrastructure/deployment/README.md) — Deployment patterns
+- [Scaling](../../06-operations/scaling/README.md) — Scaling considerations
+- [Security](../../06-operations/security/README.md) — Security practices
 
 ---
 
 ## Related Documentation
 
 ### This Documentation Suite
-- [`Hub Agent vs Seer Agent`](./hub-agent-vs-seer-agent.md) — Entry point and overview
-- [`Core Concepts`](./hub-agent-vs-seer-agent-core.md) — Understanding and decision framework
-- [`Examples`](./hub-agent-vs-seer-agent-examples.md) — Concrete use cases
-- [`Anti-patterns`](./hub-agent-vs-seer-agent-anti-patterns.md) — When NOT to use Hub Agent pattern
-- [`Customer Guide`](./hub-agent-vs-seer-agent-customer-guide.md) — Customer-facing explanations
+- [Hub Agent vs Seer Agent](./hub-agent-vs-seer-agent.md) — Entry point and overview
+- [Core Concepts](./hub-agent-vs-seer-agent-core.md) — Understanding and decision framework
+- [Examples](./hub-agent-vs-seer-agent-examples.md) — Concrete use cases
+- [Anti-patterns](./hub-agent-vs-seer-agent-anti-patterns.md) — When NOT to use Hub Agent pattern
+- [Customer Guide](./hub-agent-vs-seer-agent-customer-guide.md) — Customer-facing explanations

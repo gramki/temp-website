@@ -21,12 +21,14 @@ The active folder is:
 
 ## How Governance Scenarios work
 
-Governance Scenarios are **invoked by the [Orchestrator](../../orchestrator/README.md) at trigger points**. A Governance Scenario corresponds to a trigger — a point in the flow where validation, evidence capture, or policy enforcement is required.
+Governance Scenarios are **invoked by the [Orchestrator](../../orchestrator/README.md) through Governance Rituals or Governance Enforcement at trigger points**. A Governance Scenario corresponds to a trigger — a point in the flow where ritual work, validation, evidence capture, recognition, or policy enforcement is required.
 
 **Trigger points include:**
-- Work Order creation
+- Workspace Work Order creation on an orchestration item
 - Work Order state transitions
-- Product Intent movement between Workspaces
+- Orchestration-item movement between Workspaces (including Product Intent and other primary items)
+- Cadence-based or event-triggered Governance Rituals
+- Policy assertion through Governance Enforcement
 - Artifact promotion (e.g., from build to release)
 - Gate checkpoints (quality gates, approval gates)
 - Track transitions
@@ -71,7 +73,13 @@ Beyond transition validation, Governance includes **management reporting and ana
 |----------|---------|--------------|
 | Validate Build Evidence | Artifact promotion | Checks that build artifacts have required evidence (tests passed, scans clean) |
 | Enforce Quality Gate | Work Order completion | Validates quality criteria before allowing state transition |
+| Run Product Intent Review Ritual | Cadence / on-demand | Reviews Product Intent status, evidence gaps, decisions, action items, and recognitions |
 | Capture Release Approval | Release publish | Records approval evidence, signs artifacts |
+| Validate Discovery to Build Handoff | Discovery Case closure → Product Intent acceptance | Confirms evidence, PDR, Product Intent purpose, and PM alignment are present |
+| Register Governance Finding | Enforcement warning/failure | Creates finding, risk/debt entry, exception, recognition, or remediation work |
+| Evaluate Control Objective | Governance Enforcement | Evaluates Control Objective Indicators and thresholds against target evidence |
+| Create Debt and Catch-Up Plan | Enforcement allow-with-debt | Creates Debt Register Entry, Catch-Up Plan, due date, and remediation Work Order |
+| Review Exception or Waiver Request | Enforcement require-exception | Routes request to Approver and records Exception/Waiver outcome |
 | Generate Compliance Report | Scheduled / on-demand | Produces compliance reports for management |
 | Calculate Velocity Metrics | Work Order completion | Updates velocity and throughput dashboards |
 | Audit Agent Effectiveness | Periodic | Analyzes agent performance across scenarios |
@@ -86,6 +94,11 @@ Governance scenario definitions live in [governance/](governance/). A scenario d
 - Repositories written to
 - Verdict logic (pass/fail/warn criteria)
 - Report outputs (if applicable)
+- Control Objective / Control Objective Indicator references
+- Governance Authority Matrix row or resolution rule
+- Debt + Catch-Up outputs, if applicable
+- Exception / Waiver outputs, if applicable
+- Register outputs and audit-record requirements
 
 ## Read next
 

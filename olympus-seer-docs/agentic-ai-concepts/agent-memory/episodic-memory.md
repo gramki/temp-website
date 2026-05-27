@@ -45,6 +45,6 @@ Episodic memory is usually high-volume and time-ordered; it is often the raw sub
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
-- Next: [`semantic-memory.md`](./semantic-memory.md)
+- Back: [README.md](./README.md)
+- Next: [semantic-memory.md](./semantic-memory.md)
 

@@ -29,7 +29,7 @@ Signals (Problem, Need, Opportunity) may exist independently before being associ
 
 ## Consequences
 
-- **Positive:** Strategy → Initiative → Signals {P/N/O} → Idea → PDR → PSD chain is now complete from business strategy to technical specification.
+- **Positive:** Strategy → Initiative → Signals {P/N/O} → Idea → PDR → Product Intent → PSD chain is now complete from business strategy to technical specification.
 - **Positive:** Planning work is distributed across tracks, keeping it close to teams that execute.
-- **Negative:** Dimension 1 is now the largest dimension with 9 entity types (Objective, Initiative, Customer Release, Problem, Need, Opportunity, Idea, PDR, PSD). May warrant sub-grouping in documentation for readability.
+- **Negative:** Dimension 1 is now the largest dimension with 9 entity types (Objective, Initiative, Customer Release Intent, Problem, Need, Opportunity, Idea, PDR, PSD). May warrant sub-grouping in documentation for readability.
 - **New entities required:** Objective Setting Task, Initiative Scoping Task, Prioritization Task (Track 1 planning entities).

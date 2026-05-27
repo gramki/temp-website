@@ -189,9 +189,9 @@ This guide helps CSAs explain Hub Agent vs Seer Agent to customers and make reco
 ## Related Documentation
 
 ### This Documentation Suite
-- [`Hub Agent vs Seer Agent`](./hub-agent-vs-seer-agent.md) — Entry point and overview
-- [`Core Concepts`](./hub-agent-vs-seer-agent-core.md) — Technical understanding
-- [`Examples`](./hub-agent-vs-seer-agent-examples.md) — Concrete use cases
-- [`Decision Framework`](./hub-agent-vs-seer-agent-core.md#part-3-decision-framework) — When to use what
-- [`Anti-patterns`](./hub-agent-vs-seer-agent-anti-patterns.md) — When NOT to use Hub Agent pattern
-- [`Architectural Details`](./hub-agent-vs-seer-agent-architectural-details.md) — C2-level implementation references
+- [Hub Agent vs Seer Agent](./hub-agent-vs-seer-agent.md) — Entry point and overview
+- [Core Concepts](./hub-agent-vs-seer-agent-core.md) — Technical understanding
+- [Examples](./hub-agent-vs-seer-agent-examples.md) — Concrete use cases
+- [Decision Framework](./hub-agent-vs-seer-agent-core.md#part-3-decision-framework) — When to use what
+- [Anti-patterns](./hub-agent-vs-seer-agent-anti-patterns.md) — When NOT to use Hub Agent pattern
+- [Architectural Details](./hub-agent-vs-seer-agent-architectural-details.md) — C2-level implementation references

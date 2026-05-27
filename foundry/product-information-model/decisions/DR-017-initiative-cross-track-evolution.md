@@ -5,7 +5,7 @@
 
 ## Context
 
-Initiative was originally defined as "a strategic program to advance one or more Objectives" — primarily a mechanism for grouping Signals for discovery investment. Its relationships pointed to Objectives (upstream), Signals (associated), and Customer Releases (downstream). This framing was product-centric: Initiative → Discovery → PSD → Build.
+Initiative was originally defined as "a strategic program to advance one or more Objectives" — primarily a mechanism for grouping Signals for discovery investment. Its relationships pointed to Objectives (upstream), Signals (associated), and Customer Release Intents (downstream). This framing was product-centric: Initiative → Discovery → Product Intent → PSD → Build.
 
 The Dimension 2 restructure (DR-015) and the recognition that not all Win Outcomes are advanced by product capabilities alone (DR-016) revealed that Initiatives drive work across all four tracks. A "LATAM Enterprise Market Entry" Initiative requires product development (Build Track), GTM execution (Win Track), sales enablement (Win Track), CS programs (Win Track), and potentially infrastructure provisioning (Run Track) and organizational changes (Operating Model).
 

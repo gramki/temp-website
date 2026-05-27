@@ -14,10 +14,13 @@ Clear boundaries:
 """
 
 import base64
+import hashlib
 import re
+import struct
 import subprocess
 import tempfile
 import uuid
+import zlib
 from datetime import datetime, timezone
 from pathlib import Path
 from shutil import which
@@ -41,6 +44,9 @@ try:
     from mmdc import MermaidConverter as _MermaidConverter
 except ImportError:
     _MermaidConverter = None
+
+# Printed once per process when pip mmdc yields an effectively blank PNG (PhantomJS stack).
+_MERMAID_PHANTOM_BLANK_HINT_PRINTED = False
 
 
 def escape_xml(text: str) -> str:
@@ -132,6 +138,7 @@ class ContentPreparer:
         file_to_page_id: Optional[Dict[str, str]] = None,
         attachment_handler: Optional[Any] = None,
         confluence_base_url: Optional[str] = None,
+        mermaid_cache_dir: Optional[Path] = None,
     ):
         """
         Initialize content preparer.
@@ -145,6 +152,8 @@ class ContentPreparer:
             attachment_handler: Optional AttachmentHandler instance for image uploads
             confluence_base_url: Optional Confluence wiki base URL (e.g. https://site.atlassian.net/wiki).
                 When set, internal links use plain <a href="..."> for Fabric compatibility instead of ac:link.
+            mermaid_cache_dir: If set, rendered Mermaid PNGs are read/written here (SHA-256 of diagram
+                source → ``<hex>.png``). Speeds re-sync and keeps binaries on disk for inspection.
         """
         self.repo_root = repo_root
         self.github_repo_url = github_repo_url
@@ -154,6 +163,7 @@ class ContentPreparer:
         self.ignore_handler: Optional[IgnoreHandler] = None
         self.attachment_handler = attachment_handler
         self.confluence_base_url = (confluence_base_url or "").rstrip("/")
+        self.mermaid_cache_dir = Path(mermaid_cache_dir).resolve() if mermaid_cache_dir else None
     
     def markdown_to_storage_format(
         self,
@@ -173,8 +183,8 @@ class ContentPreparer:
             
         Returns:
             Tuple of (storage_format, mermaid_attachments). When PNG is rendered,
-            the image is embedded inline (data URL); mermaid_attachments is left empty.
-            When PNG is not available, a placeholder paragraph is emitted (no mermaid macro).
+            bodies reference attachments (``mermaid-N.png``); bytes are listed in
+            ``mermaid_attachments`` for upload. When PNG is unavailable, a placeholder paragraph is emitted.
         """
         # Extract Mermaid blocks before conversion (codehilite strips language and wraps in spans,
         # so post-processing would not see language-mermaid on <code>)
@@ -193,7 +203,9 @@ class ContentPreparer:
         html = md.convert(markdown_content)
         
         # Replace Mermaid placeholders (image macro + attachments when PNG available)
-        html, mermaid_attachments = self._replace_mermaid_placeholders(html, mermaid_blocks)
+        html, mermaid_attachments = self._replace_mermaid_placeholders(
+            html, mermaid_blocks, source_file=current_file_path
+        )
         
         # Add anchor macros to headings for deep linking
         html = self._add_anchors_to_headings(html)
@@ -253,28 +265,150 @@ class ContentPreparer:
         modified = pattern.sub(replace, markdown_content)
         return modified, mermaid_blocks
     
-    # Design: Mermaid diagrams → INLINE image (data URL in ac:image/ri:url ri:value).
-    # Do not switch to attachments; user preference is inline images.
-    def _render_mermaid_to_png(self, diagram_code: str) -> Optional[bytes]:
+    _PNG_MAGIC = b'\x89PNG\r\n\x1a\n'
+
+    @staticmethod
+    def _paeth_predictor(a: int, b: int, c: int) -> int:
+        p = a + b - c
+        pa, pb, pc = abs(p - a), abs(p - b), abs(p - c)
+        if pa <= pb and pa <= pc:
+            return a
+        if pb <= pc:
+            return b
+        return c
+
+    @classmethod
+    def _png_visible_ink_metrics(cls, png_bytes: bytes) -> Optional[Tuple[int, int]]:
         """
-        Render Mermaid diagram to PNG. Prefers the Python mmdc package (pip install mmdc);
-        falls back to mermaid-cli (mmdc) on PATH if the package is not installed.
-        Returns raw PNG bytes, or None if no renderer is available or rendering fails.
+        Count pixels that are likely diagram ink (not white/near-white background).
+        Returns (ink_pixel_count, total_pixels) or None if PNG is unsupported (e.g. interlaced).
+        Used to reject blank outputs from the legacy pip ``mmdc`` (PhantomJS) renderer.
         """
-        if not diagram_code.strip():
+        if not png_bytes or len(png_bytes) < 32 or not png_bytes.startswith(cls._PNG_MAGIC):
             return None
-        # Prefer Python mmdc package (no Node.js required)
-        if _MermaidConverter is not None:
-            try:
-                converter = _MermaidConverter()
-                png_bytes = converter.to_png(diagram_code)
-                if png_bytes:
-                    return png_bytes
-            except Exception:
-                pass
-        # Fall back to mermaid-cli (mmdc) on PATH
+        pos = 8
+        width = height = 0
+        bit_depth = 0
+        color_type = 0
+        interlace = 0
+        idat_parts: List[bytes] = []
+        try:
+            while pos + 8 <= len(png_bytes):
+                length = struct.unpack('>I', png_bytes[pos : pos + 4])[0]
+                ctype = png_bytes[pos + 4 : pos + 8]
+                chunk = png_bytes[pos + 8 : pos + 8 + length]
+                pos += 12 + length
+                if ctype == b'IHDR':
+                    width, height, bit_depth, color_type, _, _, interlace = struct.unpack(
+                        '>IIBBBBB', chunk
+                    )
+                elif ctype == b'IDAT':
+                    idat_parts.append(chunk)
+                elif ctype == b'IEND':
+                    break
+        except (struct.error, IndexError):
+            return None
+        if interlace != 0 or bit_depth != 8 or width <= 0 or height <= 0:
+            return None
+        if color_type == 6:
+            bpp = 4
+        elif color_type == 2:
+            bpp = 3
+        else:
+            return None
+        try:
+            raw = zlib.decompress(b''.join(idat_parts))
+        except zlib.error:
+            return None
+        stride = width * bpp
+        expected_len = height * (1 + stride)
+        if len(raw) < expected_len:
+            return None
+        ink = 0
+        total = width * height
+        i = 0
+        prev = bytearray(stride)
+        for _y in range(height):
+            if i >= len(raw):
+                return None
+            filt = raw[i]
+            i += 1
+            row = bytearray(raw[i : i + stride])
+            i += stride
+            if len(row) != stride:
+                return None
+            if filt == 1:  # Sub
+                for x in range(stride):
+                    left = row[x - bpp] if x >= bpp else 0
+                    row[x] = (row[x] + left) & 0xFF
+            elif filt == 2:  # Up
+                for x in range(stride):
+                    row[x] = (row[x] + prev[x]) & 0xFF
+            elif filt == 3:  # Average
+                for x in range(stride):
+                    left = row[x - bpp] if x >= bpp else 0
+                    row[x] = (row[x] + ((left + prev[x]) // 2)) & 0xFF
+            elif filt == 4:  # Paeth
+                for x in range(stride):
+                    a = row[x - bpp] if x >= bpp else 0
+                    b = prev[x]
+                    c = prev[x - bpp] if x >= bpp else 0
+                    row[x] = (row[x] + cls._paeth_predictor(a, b, c)) & 0xFF
+            elif filt != 0:
+                return None
+            prev = row
+            if color_type == 6:
+                for x in range(0, stride, 4):
+                    r, g, b, a = row[x], row[x + 1], row[x + 2], row[x + 3]
+                    if a < 200:
+                        continue
+                    if max(abs(r - 255), abs(g - 255), abs(b - 255)) > 18:
+                        ink += 1
+            else:
+                for x in range(0, stride, 3):
+                    r, g, b = row[x], row[x + 1], row[x + 2]
+                    if max(abs(r - 255), abs(g - 255), abs(b - 255)) > 18:
+                        ink += 1
+        return ink, total
+
+    @classmethod
+    def _mermaid_png_has_visible_diagram(cls, png_bytes: bytes) -> bool:
+        m = cls._png_visible_ink_metrics(png_bytes)
+        if m is None:
+            return True
+        ink, total = m
+        need = max(45, total // 2500)
+        return ink >= need
+
+    def _mermaid_cache_file(self, diagram_code: str) -> Optional[Path]:
+        """Content-addressed cache path for a diagram, or None if caching disabled."""
+        if not self.mermaid_cache_dir:
+            return None
+        digest = hashlib.sha256(diagram_code.encode('utf-8')).hexdigest()
+        return self.mermaid_cache_dir / f'{digest}.png'
+
+    @staticmethod
+    def _write_png_cache_atomic(cache_file: Path, png_bytes: bytes) -> None:
+        cache_file.parent.mkdir(parents=True, exist_ok=True)
+        tmp = cache_file.with_suffix('.png.tmp')
+        tmp.write_bytes(png_bytes)
+        tmp.replace(cache_file)
+
+    def _mermaid_cli_invocations(self) -> List[List[str]]:
+        """Return argv prefixes to try: global ``mmdc``, then ``npx @mermaid-js/mermaid-cli``."""
+        invocations: List[List[str]] = []
         mmdc_cmd = which('mmdc')
-        if not mmdc_cmd:
+        if mmdc_cmd:
+            invocations.append([mmdc_cmd])
+        npx_cmd = which('npx')
+        if npx_cmd:
+            invocations.append([npx_cmd, '-y', '@mermaid-js/mermaid-cli'])
+        return invocations
+
+    def _render_mermaid_via_cli(self, diagram_code: str) -> Optional[bytes]:
+        """@mermaid-js/mermaid-cli: modern Mermaid (global ``mmdc`` or ``npx -y``)."""
+        prefixes = self._mermaid_cli_invocations()
+        if not prefixes:
             return None
         try:
             with tempfile.TemporaryDirectory(prefix='mermaid_sync_') as tmpdir:
@@ -282,21 +416,117 @@ class ContentPreparer:
                 mmd_file = tmp / 'diagram.mmd'
                 png_file = tmp / 'diagram.png'
                 mmd_file.write_text(diagram_code, encoding='utf-8')
-                result = subprocess.run(
-                    [mmdc_cmd, '-i', str(mmd_file), '-o', str(png_file), '-b', 'transparent'],
-                    capture_output=True,
-                    text=True,
-                    timeout=30,
-                    cwd=str(tmp),
-                )
-                if result.returncode != 0 or not png_file.exists():
-                    return None
-                return png_file.read_bytes()
+                # Larger viewport + scale → sharper PNGs in Confluence (default CLI is 800×600 @1×).
+                args_tail = [
+                    '-i',
+                    str(mmd_file),
+                    '-o',
+                    str(png_file),
+                    '-b',
+                    'white',
+                    '-w',
+                    '2400',
+                    '-H',
+                    '1800',
+                    '-s',
+                    '2',
+                ]
+                for prefix in prefixes:
+                    result = subprocess.run(
+                        prefix + args_tail,
+                        capture_output=True,
+                        text=True,
+                        timeout=120,
+                        cwd=str(tmp),
+                    )
+                    if result.returncode == 0 and png_file.exists():
+                        data = png_file.read_bytes()
+                        if data:
+                            return data
         except (subprocess.TimeoutExpired, OSError, Exception):
             return None
+        return None
+
+    def _render_mermaid_via_python_package(self, diagram_code: str) -> Optional[bytes]:
+        """pip ``mmdc`` (PhantomJS). Often emits empty/white PNGs for modern Mermaid syntax."""
+        if _MermaidConverter is None:
+            return None
+        try:
+            converter = _MermaidConverter()
+            png_bytes = converter.to_png(diagram_code)
+            return png_bytes if png_bytes else None
+        except Exception:
+            return None
+
+    def _render_mermaid_to_png(self, diagram_code: str) -> Optional[bytes]:
+        """
+        Render Mermaid diagram to PNG.
+
+        Order: (1) Node ``mmdc`` (@mermaid-js/mermaid-cli) on PATH — recommended.
+        (2) pip ``mmdc`` (PhantomJS) — legacy; often produces blank PNGs; rejected if no visible ink.
+
+        When ``mermaid_cache_dir`` is set, caches only plausible PNGs.
+        """
+        global _MERMAID_PHANTOM_BLANK_HINT_PRINTED
+
+        if not diagram_code.strip():
+            return None
+        cache_file = self._mermaid_cache_file(diagram_code)
+        if cache_file is not None and cache_file.exists():
+            try:
+                cached = cache_file.read_bytes()
+                if (
+                    len(cached) >= 8
+                    and cached.startswith(self._PNG_MAGIC)
+                    and self._mermaid_png_has_visible_diagram(cached)
+                ):
+                    return cached
+                if len(cached) >= 8 and cached.startswith(self._PNG_MAGIC):
+                    cache_file.unlink(missing_ok=True)
+            except OSError:
+                pass
+
+        png_bytes: Optional[bytes] = None
+
+        # 1) Prefer official mermaid-cli (Puppeteer / current Mermaid)
+        candidate = self._render_mermaid_via_cli(diagram_code)
+        if candidate and self._mermaid_png_has_visible_diagram(candidate):
+            png_bytes = candidate
+
+        # 2) pip mmdc — keep only if pixels suggest real diagram (not all-white canvas)
+        if png_bytes is None and _MermaidConverter is not None:
+            candidate = self._render_mermaid_via_python_package(diagram_code)
+            if candidate and self._mermaid_png_has_visible_diagram(candidate):
+                png_bytes = candidate
+            elif candidate and not self._mermaid_png_has_visible_diagram(candidate):
+                if not _MERMAID_PHANTOM_BLANK_HINT_PRINTED:
+                    print(
+                        "  ⚠ pip package `mmdc` (PhantomJS) produced a blank PNG for at least one diagram. "
+                        "Install Node.js `@mermaid-js/mermaid-cli` and ensure `mmdc` is on PATH "
+                        "(npm i -g @mermaid-js/mermaid-cli) for reliable Mermaid rendering."
+                    )
+                    _MERMAID_PHANTOM_BLANK_HINT_PRINTED = True
+
+        if png_bytes and cache_file is not None:
+            try:
+                self._write_png_cache_atomic(cache_file, png_bytes)
+            except OSError:
+                pass
+        return png_bytes
     
+    def _mermaid_source_display_path(self, source_file: Optional[Path]) -> str:
+        if not source_file:
+            return '(unknown file)'
+        try:
+            return str(source_file.resolve().relative_to(self.repo_root.resolve()))
+        except ValueError:
+            return str(source_file)
+
     def _replace_mermaid_placeholders(
-        self, html: str, mermaid_blocks: List[str]
+        self,
+        html: str,
+        mermaid_blocks: List[str],
+        source_file: Optional[Path] = None,
     ) -> Tuple[str, List[Tuple[str, bytes]]]:
         """
         Replace MERMAID_PLACEHOLDER_N with PNG images only (Fabric-editor safe).
@@ -304,6 +534,7 @@ class ContentPreparer:
         to PNG via mmdc. When PNG is unavailable, emit a placeholder paragraph.
         """
         mermaid_attachments: List[Tuple[str, bytes]] = []
+        disp = self._mermaid_source_display_path(source_file)
         for idx, diagram_code in enumerate(mermaid_blocks):
             placeholder = f'<!-- MERMAID_PLACEHOLDER_{idx} -->'
             if not diagram_code:
@@ -320,6 +551,12 @@ class ContentPreparer:
                         '</ac:image></p>'
                     )
                 else:
+                    print(
+                        f"  ⚠ Mermaid PNG not generated: {disp} — "
+                        f"diagram block #{idx} (attachment would be mermaid-{idx}.png). "
+                        f"Install `mmdc` (pip install mmdc) and/or mermaid-cli (`mmdc` on PATH); "
+                        f"if tools are installed, check diagram syntax."
+                    )
                     macro_html = (
                         '<p><em>[Mermaid diagram: render with mmdc (npm install -g @mermaid-js/mermaid-cli) to see diagram here.]</em></p>'
                     )

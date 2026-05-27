@@ -1,14 +1,15 @@
 # Product Evolution Cycle
 
-The Product Evolution Cycle is the path along which **Product Intent** moves through the six workspaces. It is the dynamic counterpart to the static structure described in [concepts.md](concepts.md). The flow is the source of truth for how work proceeds in any Workbench; deviations are not optional flavor — they are events for the [Governance Workspace](governance.md) to validate.
+The Product Evolution Cycle is the path along which **Product Intent** moves through the six workspaces. It is the dynamic counterpart to the static structure described in [concepts.md](concepts.md). The flow is the source of truth for how work proceeds in any Workbench; deviations are not optional flavor — they are events for the [Governance Workspace](governance.md) to validate. Practitioner walkthroughs live in [how-product-evolves/](how-product-evolves/README.md).
 
-The cycle is named in [ace-model.md](ace-model.md) lines 51-58. This document elaborates it without changing it.
+The cycle is named in [ace-model.md](ace-model.md) lines 51-58. This document elaborates it and clarifies the Product Intent provenance now captured in UPIM.
 
 ## The flow
 
 ```mermaid
 flowchart LR
-  Release[Release Workspace] -- produces --> Intent((Product Intent))
+  Discovery[Discovery / Product Decisions] -- establishes --> Intent((Product Intent))
+  Release[Release Workspace] -- renews --> Intent
   Intent --> Spec[Product Specification]
   Spec <--> UX[UX Design]
   Spec --> Dev[Development]
@@ -21,8 +22,8 @@ flowchart LR
 
 In words:
 
-1. **Release Workspace produces Product Intent.** Direction, evidence, and learnings from a release crystallize into Product Intent for what comes next. Release is not just an exit — it is a source of intent.
-2. **Product Specification triggers on intent.** Intent arriving at Specification triggers Scenarios in the Specification Workspace; specifications are produced by the workspace's Human–Agent Team.
+1. **Discovery and product decisions establish Product Intent.** Signals, Ideas, and PDRs crystallize into Product Intent — the committed evolution thread that should enter workspace execution.
+2. **Product Specification triggers on intent.** Intent arriving at Specification triggers Scenarios in the Specification Workspace; PSDs and related specification artifacts refine the Product Intent.
 3. **Specification ↔ UX Design.** Intent moves between Specification and UX Design as specifications and the user experience co-evolve. The relationship is bidirectional by construction; either workspace may pull intent from the other.
 4. **Specification → Development and QA in parallel.** Once specifications are ready, intent fans out to both Development and QA simultaneously. QA is not a downstream stage — it is a parallel workspace that picks up intent at the same time Development does.
 5. **Development → QA.** Built artifacts move from Development to QA for verification and validation.
@@ -33,8 +34,8 @@ In words:
 
 | Workspace | Role in the cycle |
 |---|---|
-| **Release** | Produces Product Intent at cycle start; receives Product Delivery at cycle end. |
-| **Product Specification** | Translates Product Intent into specifications; co-evolves with UX Design. |
+| **Release** | Receives Product Delivery at cycle end; renews Product Intent for the next cycle. |
+| **Product Specification** | Refines Product Intent into PSDs and specification artifacts; co-evolves with UX Design. |
 | **UX Design** | Designs experience for specified intent; works with Specification bidirectionally. |
 | **Development** | Builds the specified solution; sends artifacts to QA; may return intent to Specification. |
 | **QA** | Verifies and validates built artifacts; releases verified intent to Release; may return intent to Specification. |
@@ -42,9 +43,9 @@ In words:
 
 ## Key properties of the flow
 
-### Intent is the asset
+### Intent is the bridge asset
 
-The thing that moves is **Product Intent** — not a ticket, not an artifact alone, not a deliverable. Tickets, artifacts, and deliverables are evidence of intent at various stages; intent itself is the asset that has provenance, ownership, and a path. The repository inventory in [repositories.md](repositories.md) provides the Product Intent Repository (PIR) as the canonical store.
+The thing that moves is **Product Intent** — not a ticket, not a PSD, not an artifact alone, not a deliverable. Tickets, artifacts, PSDs, and deliverables are evidence or refinements of intent at various stages; intent itself is the hybrid bridge entity with provenance, ownership, lifecycle state, and a path. The repository inventory in [repositories.md](repositories.md) provides the Product Intent Repository (PIR) as the canonical store.
 
 ### Parallel, not sequential, between Specification and Dev/QA
 
@@ -60,7 +61,7 @@ Returning intent from Development or QA to Specification is a **defined edge in 
 
 ### The cycle closes at Release
 
-The cycle is *cyclic* in the sense that Release both consumes (Product Delivery) and produces (new Product Intent). One pass through the cycle does not exhaust it. Release-anchored intent for a subsequent iteration is itself produced by Release — the system does not require an external author for the next round.
+The cycle is *cyclic* in the sense that Release consumes Product Delivery and can **renew** Product Intent for a subsequent iteration. One pass through the cycle does not exhaust it. Greenfield intent still originates from Discovery and product decisions; Release renewal incorporates delivery evidence, feedback, and learnings into the next cycle.
 
 ## Governance on transitions
 
@@ -70,15 +71,17 @@ The implication for the Foundry Platform is that intent routing and governance h
 
 ## How the cycle relates to UPIM tracks
 
-UPIM organizes work into five tracks: Discovery, Build, Run, Win, Evolve. The cycle described here is concentrated in **Build** (Specification → UX → Development → QA → Release), with Discovery feeding into Specification and Win feeding back into Release. Run (deployment, incidents) is handled outside the workspaces in this folder — see the engagement and Estate notes in [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md). Evolve is a cross-cutting track that mutates the model itself; it is not on the cycle but it can produce intent.
+UPIM organizes work into five tracks: Discovery, Build, Run, Win, Evolve. Discovery establishes Product Intent from product decisions and may request Discovery Support Product Intent for Build evidence. The cycle described here is concentrated in **Build** after that handoff (Specification → UX → Development → QA → Release), with Win and operational feedback informing Release renewal. Product Intent entering Build does not always mean customer-committed delivery; see [how-product-evolves/build.md](how-product-evolves/build.md). Run (deployment, incidents) is handled outside the workspaces in this folder — see the engagement and Estate notes in [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md). Evolve is a cross-cutting track that mutates the model itself; it is not on the cycle but it can produce or change intent.
 
 The mapping is sketched here so readers do not assume the cycle and the tracks are the same thing. Detailed mapping is in [relationships.md](relationships.md).
+
+The Foundry Web App's PI Console is the primary Product Intent Formation view for this cycle: it shows Strategy, Signals, Decisions, Product Intents, PSD refinement, Traceability Maps, and Bottlenecks before and during routing.
 
 ## Implementation expectations
 
 For the Foundry Platform, this cycle implies:
 
-- A first-class **Product Intent** entity, routable across workspaces, observable in the Product Intent Repository (PIR).
+- A first-class **Product Intent** entity, definition-bearing, work-triggering, routable across workspaces, and observable in the Product Intent Repository (PIR).
 - **Per-workspace scenarios** that can be triggered by intent arrival.
 - **Governance hooks** on every workspace-to-workspace transition.
 - **Bidirectional and parallel routing** as built-in capabilities — not modeled as exceptions to a sequential pipeline.

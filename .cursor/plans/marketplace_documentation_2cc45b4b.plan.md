@@ -71,7 +71,7 @@ This plan documents the Marketplace subsystem comprehensively, following Hub doc
 
 ## Phase 1: Marketplace Subsystem Core Documentation
 
-Create the subsystem folder at [`olympus-hub-docs/04-subsystems/marketplace/`](olympus-hub-docs/04-subsystems/marketplace/) with one file per component.
+Create the subsystem folder at [olympus-hub-docs/04-subsystems/marketplace/](olympus-hub-docs/04-subsystems/marketplace/) with one file per component.
 
 ### Files to Create
 
@@ -124,7 +124,7 @@ Platform-level service for publishing, discovering, and subscribing to Hub Packa
 
 ## Phase 2: Publisher Guides
 
-Create guides in [`olympus-hub-docs/10-guides/`](olympus-hub-docs/10-guides/) for publishers.
+Create guides in [olympus-hub-docs/10-guides/](olympus-hub-docs/10-guides/) for publishers.
 
 ### Files to Create
 
@@ -210,12 +210,12 @@ Update existing subsystem documentation to incorporate Marketplace integration.
 
 ### Operators Subsystem
 
-Update [`olympus-hub-docs/04-subsystems/operators/README.md`](olympus-hub-docs/04-subsystems/operators/README.md):
+Update [olympus-hub-docs/04-subsystems/operators/README.md](olympus-hub-docs/04-subsystems/operators/README.md):
 
 - Add **Marketplace Operators** section to architecture diagram
 - Add new operator table entry for `marketplace-operator`
 
-Create new file [`olympus-hub-docs/04-subsystems/operators/marketplace-operators.md`](olympus-hub-docs/04-subsystems/operators/marketplace-operators.md):
+Create new file [olympus-hub-docs/04-subsystems/operators/marketplace-operators.md](olympus-hub-docs/04-subsystems/operators/marketplace-operators.md):
 
 - Package Manifest CRD operator
 - BlueprintSpec operators (ScenarioBlueprintSpec, WorkbenchBlueprintSpec, etc.)
@@ -224,19 +224,19 @@ Create new file [`olympus-hub-docs/04-subsystems/operators/marketplace-operators
 
 ### Artifact Registry Subsystem
 
-Update [`olympus-hub-docs/04-subsystems/artifact-registry/README.md`](olympus-hub-docs/04-subsystems/artifact-registry/README.md):
+Update [olympus-hub-docs/04-subsystems/artifact-registry/README.md](olympus-hub-docs/04-subsystems/artifact-registry/README.md):
 
 - Add section on Marketplace Artifact Repository relationship
 - Document lazy container cloning from Marketplace
 
-Update [`olympus-hub-docs/04-subsystems/artifact-registry/promotion-model.md`](olympus-hub-docs/04-subsystems/artifact-registry/promotion-model.md):
+Update [olympus-hub-docs/04-subsystems/artifact-registry/promotion-model.md](olympus-hub-docs/04-subsystems/artifact-registry/promotion-model.md):
 
 - Add section on automatic package subscription during cross-workbench promotion
 - Document Blueprint-derived resource promotion behavior
 
 ### Workbench Management Subsystem
 
-Update [`olympus-hub-docs/04-subsystems/workbench-management/README.md`](olympus-hub-docs/04-subsystems/workbench-management/README.md):
+Update [olympus-hub-docs/04-subsystems/workbench-management/README.md](olympus-hub-docs/04-subsystems/workbench-management/README.md):
 
 - Add section on BlueprintSpecs in workbench
 - Document derived resource creation from BlueprintSpecs
@@ -244,7 +244,7 @@ Update [`olympus-hub-docs/04-subsystems/workbench-management/README.md`](olympus
 
 ### Registry Services Subsystem
 
-Update [`olympus-hub-docs/04-subsystems/registry-services/README.md`](olympus-hub-docs/04-subsystems/registry-services/README.md):
+Update [olympus-hub-docs/04-subsystems/registry-services/README.md](olympus-hub-docs/04-subsystems/registry-services/README.md):
 
 - Add section on platform-provided resource references in packages
 - Document Blueprint dependency resolution
@@ -253,7 +253,7 @@ Update [`olympus-hub-docs/04-subsystems/registry-services/README.md`](olympus-hu
 
 **Rationale:** Notification Services is focused on tenant business domain notifications (Request Updates via Signal Exchange). Marketplace notifications are platform-to-tenant notifications, which require a different subsystem.
 
-Create new subsystem at [`olympus-hub-docs/04-subsystems/platform-notifications/`](olympus-hub-docs/04-subsystems/platform-notifications/):
+Create new subsystem at [olympus-hub-docs/04-subsystems/platform-notifications/](olympus-hub-docs/04-subsystems/platform-notifications/):
 
 | File | Purpose |
 
@@ -288,7 +288,7 @@ Create new subsystem at [`olympus-hub-docs/04-subsystems/platform-notifications/
 
 ### Subscription Management Subsystem
 
-Update [`olympus-hub-docs/04-subsystems/subscription-management/README.md`](olympus-hub-docs/04-subsystems/subscription-management/README.md):
+Update [olympus-hub-docs/04-subsystems/subscription-management/README.md](olympus-hub-docs/04-subsystems/subscription-management/README.md):
 
 - Add section on Publisher registration workflow
 - Document publisher allow/disallow lists
@@ -303,19 +303,19 @@ Update [`olympus-hub-docs/04-subsystems/subscription-management/README.md`](olym
 
 |------|------|---------|
 
-| Automation Development Desk | [`automation-development-desk.md`](olympus-hub-docs/06-ux-architecture/tenant-domain/automation-development-desk.md) | Add Marketplace Console access, Package creation, Publishing workflow |
+| Automation Development Desk | [automation-development-desk.md](olympus-hub-docs/06-ux-architecture/tenant-domain/automation-development-desk.md) | Add Marketplace Console access, Package creation, Publishing workflow |
 
-| Scenario Design Desk | [`scenario-design-desk.md`](olympus-hub-docs/06-ux-architecture/tenant-domain/scenario-design-desk.md) | Add Marketplace Console access, BlueprintSpec browsing, Subscription initiation |
+| Scenario Design Desk | [scenario-design-desk.md](olympus-hub-docs/06-ux-architecture/tenant-domain/scenario-design-desk.md) | Add Marketplace Console access, BlueprintSpec browsing, Subscription initiation |
 
-| Automation Product Desk | [`automation-product-desk.md`](olympus-hub-docs/06-ux-architecture/tenant-domain/automation-product-desk.md) | Add Marketplace Console access, Package discovery |
+| Automation Product Desk | [automation-product-desk.md](olympus-hub-docs/06-ux-architecture/tenant-domain/automation-product-desk.md) | Add Marketplace Console access, Package discovery |
 
-| Hub Control Center | [`hub-control-center.md`](olympus-hub-docs/06-ux-architecture/tenant-domain/hub-control-center.md) | Add Marketplace Console (Admin view), Publisher management, Subscription authorization |
+| Hub Control Center | [hub-control-center.md](olympus-hub-docs/06-ux-architecture/tenant-domain/hub-control-center.md) | Add Marketplace Console (Admin view), Publisher management, Subscription authorization |
 
-| Hub Win Ops Center | [`hub-win-ops-center.md`](olympus-hub-docs/06-ux-architecture/publisher-domain/hub-win-ops-center.md) | Add Publisher Registration approval, Marketplace admin, Blacklisting |
+| Hub Win Ops Center | [hub-win-ops-center.md](olympus-hub-docs/06-ux-architecture/publisher-domain/hub-win-ops-center.md) | Add Publisher Registration approval, Marketplace admin, Blacklisting |
 
 ### New File: Marketplace Console
 
-Create [`olympus-hub-docs/06-ux-architecture/tenant-domain/marketplace-console.md`](olympus-hub-docs/06-ux-architecture/tenant-domain/marketplace-console.md):
+Create [olympus-hub-docs/06-ux-architecture/tenant-domain/marketplace-console.md](olympus-hub-docs/06-ux-architecture/tenant-domain/marketplace-console.md):
 
 - Discovery section (browse, search, filter packages)
 - Subscription section (subscribe, manage subscriptions)
@@ -328,7 +328,7 @@ Create [`olympus-hub-docs/06-ux-architecture/tenant-domain/marketplace-console.m
 
 ### CLI Updates
 
-Update [`olympus-hub-docs/06-ux-architecture/tenant-domain/cli-channels-for-developers.md`](olympus-hub-docs/06-ux-architecture/tenant-domain/cli-channels-for-developers.md):
+Update [olympus-hub-docs/06-ux-architecture/tenant-domain/cli-channels-for-developers.md](olympus-hub-docs/06-ux-architecture/tenant-domain/cli-channels-for-developers.md):
 
 - Add `hub marketplace` command section
 - Document all publisher commands (publish, packages list/get/update/withdraw/deprecate)
@@ -339,7 +339,7 @@ Update [`olympus-hub-docs/06-ux-architecture/tenant-domain/cli-channels-for-deve
 
 ## Phase 6: Decision Logs
 
-Create ADRs for key Marketplace decisions in [`olympus-hub-docs/decision-logs/`](olympus-hub-docs/decision-logs/):
+Create ADRs for key Marketplace decisions in [olympus-hub-docs/decision-logs/](olympus-hub-docs/decision-logs/):
 
 | ADR | Title | Key Decision |
 

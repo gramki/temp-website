@@ -26,9 +26,13 @@ Also suggest how we should approach writing such an analysis first.
 Significant emphasis should be in this area "Structural Shifts Creating Opportunity"
 We should present them with evidence and also the opportunities by segements.
 This is for future, historcial context may only be relevant to an extent. Also focusing on opportuntiies across the world may be spreading ourselves too thin. USA is the first market of prominence. India is easily accessible market. But in addiition, value could be sitting in specific jurisdictions. Suggest at most 1 or 2 such markets by the opportunity size. No more.
+=====
+My strategy:
 
+-   1. Engagement areas with RTP with product and implementation evidence. Expand to adjacency. Create visibility and increase the engagement surface for Tachyon and Photon.
+-   2. Identify high traction potential areas with a differentiable positioning. Build product and double down on it to create category leadership.
 
-
+=====
 =====
 ## Task
 
@@ -263,3 +267,5 @@ All raw research output must be preserved — not discarded after the document i
 - Do not discard research output. Every stream's raw findings must be saved to the `_research/` directory per the Research Retention section above.
 
 "If analyst coverage for this area is thin, adjust research streams to emphasize primary evidence sources (regulatory proposals, vendor product launches, patent activity, standards body publications) rather than analyst market sizing
+
+User CreatePlan tool to create the plan.

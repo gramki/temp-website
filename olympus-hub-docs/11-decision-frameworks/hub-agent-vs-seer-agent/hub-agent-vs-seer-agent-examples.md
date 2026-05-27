@@ -63,7 +63,7 @@ spec:
 - **Deployment Identity**: Rhea runtime-specific (not SPIFFE)
 - **Token Structure**: Only Agent Persona in `sub` claim (no `client_id`)
 
-> **Reference**: [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) describes the pattern. [`Rhea Workflow Engine`](../../04-subsystems/automation-runtimes/rhea-workflow-engine.md) explains Rhea runtime.
+> **Reference**: [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) describes the pattern. [Rhea Workflow Engine](../../04-subsystems/automation-runtimes/rhea-workflow-engine.md) explains Rhea runtime.
 
 ---
 
@@ -126,7 +126,7 @@ spec:
 - **Deployment Identity**: `spiffe://acme.hub.io/seer/agent/acme/fraud-analyst-pod-001` (from Employment)
 - **Token Structure**: Both identities included (`sub` = Persona, `client_id` = SPIFFE)
 
-> **Reference**: [`Agent Lifecycle`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) describes Raw → Trained → Employed progression. [`Employment Spec CRD`](../../../olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md) defines deployment configuration. [`Employed Agent as Hub Application`](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) explains Hub integration.
+> **Reference**: [Agent Lifecycle](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) describes Raw → Trained → Employed progression. [Employment Spec CRD](../../../olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md) defines deployment configuration. [Employed Agent as Hub Application](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) explains Hub integration.
 
 ---
 
@@ -204,7 +204,7 @@ spec:
     automation_type: rule-based
 ```
 
-> **Reference**: [`Hub Composite Application`](../../02-system-design/implementation-concepts/hub-composite-application.md) describes multi-agent coordination. [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) explains sub-personas for composite applications.
+> **Reference**: [Hub Composite Application](../../02-system-design/implementation-concepts/hub-composite-application.md) describes multi-agent coordination. [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) explains sub-personas for composite applications.
 
 ---
 
@@ -250,15 +250,15 @@ spec:
 
 **Why Hybrid**: Different parts of the process require different capabilities. Rule-based for deterministic checks, AI for complex analysis.
 
-> **Reference**: [`Decision Framework`](./hub-agent-vs-seer-agent-core.md#part-3-decision-framework) provides guidance on when to use which pattern. [`Customer Guide`](./hub-agent-vs-seer-agent-customer-guide.md) offers customer-facing explanations.
+> **Reference**: [Decision Framework](./hub-agent-vs-seer-agent-core.md#part-3-decision-framework) provides guidance on when to use which pattern. [Customer Guide](./hub-agent-vs-seer-agent-customer-guide.md) offers customer-facing explanations.
 
 ---
 
 ## Related Documentation
 
 ### This Documentation Suite
-- [`Hub Agent vs Seer Agent`](./hub-agent-vs-seer-agent.md) — Entry point and overview
-- [`Core Concepts`](./hub-agent-vs-seer-agent-core.md) — Understanding and decision framework
-- [`Anti-patterns`](./hub-agent-vs-seer-agent-anti-patterns.md) — When NOT to use Hub Agent pattern
-- [`Architectural Details`](./hub-agent-vs-seer-agent-architectural-details.md) — C2-level implementation references
-- [`Customer Guide`](./hub-agent-vs-seer-agent-customer-guide.md) — Customer-facing explanations
+- [Hub Agent vs Seer Agent](./hub-agent-vs-seer-agent.md) — Entry point and overview
+- [Core Concepts](./hub-agent-vs-seer-agent-core.md) — Understanding and decision framework
+- [Anti-patterns](./hub-agent-vs-seer-agent-anti-patterns.md) — When NOT to use Hub Agent pattern
+- [Architectural Details](./hub-agent-vs-seer-agent-architectural-details.md) — C2-level implementation references
+- [Customer Guide](./hub-agent-vs-seer-agent-customer-guide.md) — Customer-facing explanations

@@ -29,7 +29,7 @@ Makes the Initiative definition work explicit. An Initiative (Dimension 1) requi
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Produces | Initiative (Dim 1) | Initiative Scoping Tasks define Initiatives |
-| May produce | Customer Release (Dim 1) | Initiative scoping may define Customer Release(s) that the Initiative will deliver (see cross-track: Discovery defines CR as part of Initiative scoping) |
+| May produce | Customer Release Intent (Dim 1) | Initiative scoping may define Customer Release Intent(s) that the Initiative will deliver (see cross-track: Discovery defines CRI as part of Initiative scoping) |
 
 ## Example
 

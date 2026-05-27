@@ -105,4 +105,5 @@ Shows which version is deployed where.
 - **CI Console** — Builds producing artifacts
 - **Components Console** — System definitions
 - **Quality Status** — Quality gates for release
-- **Risk Console** — Release-related risks
+- **Governance Overview** — Release governance status
+- **Registers** — Release-related risks, debt, and exceptions

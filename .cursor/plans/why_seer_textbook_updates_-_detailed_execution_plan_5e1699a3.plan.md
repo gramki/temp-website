@@ -580,7 +580,7 @@ This plan executes the writing tasks identified in `writing-plan-2026-01-17.md` 
 
 **Key Additions:**
 
-- Section 3.6 entry: [`3.6 Request-Scoped Authority Delegation`](../part-2-how-seer-solves/03-identity-authority-in-seer/03-6-request-scoped-delegation.md)
+- Section 3.6 entry: [3.6 Request-Scoped Authority Delegation](../part-2-how-seer-solves/03-identity-authority-in-seer/03-6-request-scoped-delegation.md)
 - All Section 19-24 entries with proper file paths
 - Verify all existing entries still resolve
 

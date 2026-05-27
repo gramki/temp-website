@@ -17,7 +17,7 @@ Both were found to carry problematic connotations that would undermine the disco
 
 ### The Problem with "Intake Item"
 
-In practice, "intake" carries an implicit obligation to process and deliver. When a customer submits something through an "intake" process, organizations reflexively treat it as a **requirement** that *should* be completed. This conditioning suppresses the discovery, decision-making, and prioritization process that the UPIM explicitly mandates through its Idea → PDR → PSD chain.
+In practice, "intake" carries an implicit obligation to process and deliver. When a customer submits something through an "intake" process, organizations reflexively treat it as a **requirement** that *should* be completed. This conditioning suppresses the discovery, decision-making, and prioritization process that the UPIM explicitly mandates through its Idea → PDR → Product Intent → PSD chain.
 
 Observed organizational behaviors with "intake item" terminology:
 - Customer intake is treated as a customer requirement, not a hint or symptom
@@ -27,7 +27,7 @@ Observed organizational behaviors with "intake item" terminology:
 
 ### The Problem with "Backlog Item"
 
-- In Scrum, "Product Backlog Item" (PBI) refers to User Stories, Bugs, and Spikes — Build Track entities in our model. Using "backlog item" for Problems/Needs/Opportunities conflates two very different levels separated by several layers (Signal → Idea → PDR → PSD → Epic → Story).
+- In Scrum, "Product Backlog Item" (PBI) refers to User Stories, Bugs, and Spikes — Build Track entities in our model. Using "backlog item" for Problems/Needs/Opportunities conflates two very different levels separated by several layers (Signal → Idea → PDR → Product Intent → PSD → Epic → Story).
 - "Backlog" implies the item is already in a prioritized queue awaiting work. Many of these entities will sit unassociated and unranked indefinitely — they are not "in the backlog."
 - "Backlog" carries negative connotations — the ever-growing, never-shrinking list that teams feel guilty about.
 

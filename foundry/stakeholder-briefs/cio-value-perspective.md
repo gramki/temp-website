@@ -50,7 +50,7 @@ The Bank's software, once delivered, has to evolve — sometimes across product 
 
 - A **Workbench** corresponds to a **Product** in UPIM (the locus where the Product is evolved, not the Product entity itself).
 - A Product has a **Home Workbench** — the canonical Workbench for that Product across Workshops — with a **Home Workshop** where it primarily lives.
-- A Product may have **Contributing Workbenchs** in Engagement Workshops that reference the Home Workbench and its non-work repositories.
+- A Product may have **Contributing Workbenches** in Engagement Workshops that reference the Home Workbench and its non-work repositories.
 - A Product may evolve through different Workshops over time, in different Engagements.
 - A Product may be deployed across multiple **Estates** (production-operations boundary).
 

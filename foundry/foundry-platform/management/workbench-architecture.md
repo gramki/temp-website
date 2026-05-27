@@ -116,11 +116,11 @@ Manages references to all source code repos:
 
 ```
 intent-repo/
-├── PI-001/                    # Intent folder (PI ID from Metadata Service)
+├── PI-001/                    # Intent folder (PI ID from Metadata Service after Go/Pivot PDR)
 │   ├── README.md              # Intent overview
-│   ├── prd.md                 # Product Requirements Document
-│   ├── psd-overview.md        # Product Specification Document
-│   ├── psd-feature-a.md       # PSD can span multiple files
+│   ├── pdr.md                 # Authorizing Product Decision Record
+│   ├── psd-overview.md        # Product Specification Document refinement
+│   ├── psd-feature-a.md       # PSD refinement can span multiple files
 │   └── mockups/               # Mockups (or links to Figma)
 │       └── figma-links.md
 ├── PI-002/
@@ -130,7 +130,8 @@ intent-repo/
 
 **Key behaviors:**
 - PI ID required before creating Intent folder
-- PRD, PSD, Mockups, Visual Design stored under Intent
+- Product Intent is created from a Go/Pivot PDR
+- PDR, PSD refinements, Mockups, Visual Design stored under Intent
 - High-fidelity designs may link to Figma (URLs in PSDs)
 
 ### Design Repository (Git-based)

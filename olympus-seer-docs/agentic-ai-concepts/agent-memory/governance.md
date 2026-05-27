@@ -87,6 +87,6 @@ This enables:
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
-- Related: [`context-building.md`](./context-building.md)
+- Back: [README.md](./README.md)
+- Related: [context-building.md](./context-building.md)
 

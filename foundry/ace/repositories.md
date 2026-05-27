@@ -6,7 +6,7 @@
 - [Repository Landscape Overview](#repository-landscape-overview)
 
 ### Strategy & Definition
-- [Intent Repository](#intent-repository)
+- [Product Intent Repository](#product-intent-repository)
 - [Domain Repository](#domain-repository)
 - [Ontology Repository](#ontology-repository)
 
@@ -46,7 +46,7 @@ This guide defines the repository architecture for the Foundry -- the knowledge 
 
 | Repository Area               | Repository         | Scope                                                                                                                         | UPIM Mapping                     |
 |------------------------------|--------------------|-------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
-| **Strategy & Definition**    | **Intent**         | Strategy, Business Model, Customer Value, Signals, Ideas, PSDs                                                                | Strategy & Intent, Vendor Value, Customer ROI |
+| **Strategy & Definition**    | **Intent**         | Strategy, Business Model, Customer Value, Signals, Ideas, Product Intents, PSDs                                               | Strategy & Intent, Vendor Value, Customer ROI |
 |                              | **Domain**         | Domain knowledge, glossaries, ontologies, business rules                                                                      | Domain Knowledge                 |
 |                              | **Ontology**       | Product structure, capabilities, features, maturity                                                                           | Structural Topology              |
 | **Engineering Core**         | **Design**         | Architecture, API models, infrastructure, operational specs                                                                   | Technical, Ecosystem, Operational (definitions) |
@@ -65,23 +65,24 @@ This guide defines the repository architecture for the Foundry -- the knowledge 
 
 ---
 
-## Intent Repository
+## Product Intent Repository
 
 **UPIM Mapping:** Strategy & Intent, Vendor Value, Customer ROI
 
-**Intent:** The comprehensive ledger of strategic direction, business models, customer value propositions, signals, ideas, and product specifications.
+**Intent:** The comprehensive ledger of strategic direction, business models, customer value propositions, signals, ideas, Product Intents, and product specifications.
 
 **Contents (organized by section):**
 
 | Section | UPIM Mapping | Content |
 |---|---|---|
-| **Strategy** | Strategy & Intent | Strategic Themes, Objectives, Initiatives, Customer Releases, Lever Mix definitions |
+| **Strategy** | Strategy & Intent | Strategic Themes, Objectives, Initiatives, Customer Release Intents, Lever Mix definitions |
 | **Business Model** | Vendor Value | Business Model, Pricing Tiers/Packages, Value Metrics, Lever Portfolio, Business KPIs, Cost KPIs, Win Outcomes, Win Barriers, Delivery Frictions, Win Stakeholder role definitions |
 | **Customer Value** | Customer ROI | Customer Promises (Value Propositions, Service Commitments, Compliance Posture), Customer Value Metrics, Buying Personas, Business Outcomes, Customer Segments |
 | **Signals & Ideas** | Strategy & Intent (flowing items) | Problems, Needs, Opportunities (routed from FIRs or created directly), Ideas (Hypotheses), PDRs |
-| **Specifications** | Strategy & Intent (PSDs) | Product Specification Documents, PSD templates by module archetype |
+| **Product Intent** | Strategy & Intent (ACE bridge entity) | Routable Product Intent records created or updated by product decisions and renewed by Release |
+| **Specifications** | Strategy & Intent (PSDs) | Product Specification Documents that refine Product Intent, PSD templates by module archetype |
 
-**Purpose:** Central workspace for product intent, empowering agents to evaluate opportunities, model business value, and define customer promises.
+**Purpose:** Central workspace for strategic direction and the Product Intent bridge entity, empowering agents to evaluate opportunities, model business value, define customer promises, and route committed intent into ACE workspace execution.
 
 > **Renamed from Product Idea Repository.** Intent now encompasses Strategy & Intent, Vendor Value, and Customer ROI. See DR-033 D1.
 
@@ -676,7 +677,7 @@ graph TB
 
 ### Value Flow Narrative
 
-1. Product intent (Signals, Ideas, PSDs) is captured in **Intent**
+1. Discovery captures Signals and Ideas in **Intent**; product decisions (PDRs) establish or update **Product Intent**; PSDs refine Product Intent
 2. **Domain** checks domain feasibility and provides business rules
 3. **Design** produces architectural blueprints, API models, and infrastructure specifications
 4. **Code** implements design as code

@@ -8,7 +8,7 @@ This folder is the entry point for the ACE theory. [UPIM](../product-information
 
 ## What ACE is, in one paragraph
 
-ACE asserts that effective use of agents in software engineering depends on three governing models — a Product Model that says what we are building, a Work Model that says what work exists and how it transitions, and an Operating Model that says how the organization runs the work. These three models supply *meaning*. ACE then supplies *structure and motion*: a Foundry hosts Workshops; each Workshop is the body of work owned by a team or organization and hosts Workbenchs; each Workbench corresponds to a Product in UPIM and is the venue where that Product is evolved through specialized Workspaces in which Human–Agent Teams act on Scenarios that create Tasks. Across all of this flows Product Intent — the thread that turns intent into delivered software. Every transition of intent triggers governance. The result is a system that behaves like an assembly line for product evolution, with agents as members of the workforce rather than tools attached to it.
+ACE asserts that effective use of agents in software engineering depends on three governing models — a Product Model that says what we are building, a Work Model that says what work exists and how it transitions, and an Operating Model that says how the organization runs the work. These three models supply *meaning*. ACE then supplies *structure and motion*: a Foundry hosts Workshops; each Workshop is the body of work owned by a team or organization and hosts Workbenches; each Workbench corresponds to a Product in UPIM and is the venue where that Product is evolved through specialized Workspaces in which Human–Agent Teams act on Scenarios that create Tasks. Across all of this flows Product Intent — the definition-bearing, work-triggering bridge from product decision to delivered software. Every transition of intent triggers governance. The result is a system that behaves like an assembly line for product evolution, with agents as members of the workforce rather than tools attached to it.
 
 ## Foundry vs Foundry Platform
 
@@ -24,7 +24,7 @@ When in doubt, see [../glossary.md](../glossary.md).
 ```mermaid
 graph TD
   Foundry[Foundry - governed by Product, Work, Operating Models]
-  Foundry --> Workshop[Workshop - holds Repositories, hosts Workbenchs]
+  Foundry --> Workshop[Workshop - holds Repositories, hosts Workbenches]
   Workshop --> Repos[Repositories]
   Workshop --> Project[Workbench - corresponds to a Product, where work happens]
   Project --> Workspaces[Workspaces - specialized stations]
@@ -40,13 +40,13 @@ graph TD
   Workspace --> Scenarios[Scenarios that create Tasks]
 ```
 
-The same containment, in prose: a **Foundry** hosts multiple **Workshops**. A Workshop holds multiple **Repositories** and hosts multiple **Workbenchs**. A **Workbench** corresponds to a Product in UPIM — it is the venue where that Product is evolved; it contains multiple **Workspaces**, one per functional team. Each Workspace has a **Human–Agent Team and tools**, is interfaced by humans through an **IDE**, owns well-defined **Scenarios**, and produces **Tasks** completed by its team. Workspaces use and update the workshop's repositories. See [ace-model.md](ace-model.md) for the source.
+The same containment, in prose: a **Foundry** hosts multiple **Workshops**. A Workshop holds multiple **Repositories** and hosts multiple **Workbenches**. A **Workbench** corresponds to a Product in UPIM — it is the venue where that Product is evolved; it contains multiple **Workspaces**, one per functional team. Each Workspace has a **Human–Agent Team and tools**, is interfaced by humans through an **IDE**, owns well-defined **Scenarios**, and produces **Tasks** completed by its team. Workspaces use and update the workshop's repositories. See [ace-model.md](ace-model.md) for the source.
 
 ## The six workspace types
 
 | Workspace | Role |
 |---|---|
-| Product Specification | Translates Product Intent into specifications. |
+| Product Specification | Refines Product Intent into PSDs and specification artifacts. |
 | UX Design | Designs user experience for specified intent. |
 | Development | Builds the specified solution. |
 | QA | Verifies and validates what is built. |
@@ -57,16 +57,17 @@ Per-workspace detail lives in [workspaces/](workspaces/README.md).
 
 ## The Product Evolution Cycle
 
-Product Intent is the thread that moves through the workspaces from idea to delivery:
+Product Intent is the bridge entity that moves through the workspaces from product decision to delivery:
 
-1. **A Product Intent is published from Release Workspace.** Direction, evidence, and lessons from the previous cycle are gathered into the Product Intent for the next.
-2. **Product Specification Workspace translates the Product Intent to a Product Specification document.** This is where intent becomes the formal specification of what to build.
+1. **Discovery and product decisions establish or update Product Intent.** Signals, Ideas, and PDRs produce the committed Product Intent that enters workspace execution.
+2. **Product Specification Workspace refines Product Intent into PSDs.** This is where intent becomes the formal specification of what to build.
 3. **Product Specification Workspace and UX Design Workspace exchange the Product Intent back and forth.** The specification and the user experience evolve together until both converge.
 4. **Development Workspace and QA Workspace begin work on the Product Intent in parallel.** Once the Product Specification document is ready, Development Workspace starts building while QA Workspace prepares verification — both begin at the same time.
 5. **Development Workspace passes built artifacts to QA Workspace.** QA Workspace verifies the build against the Product Specification document.
 6. **QA Workspace passes verified work to Release Workspace as Product Delivery.** Release Workspace packages and ships the verified product.
 7. **Product Intent can return to Product Specification Workspace.** If Development Workspace or QA Workspace finds that the specification must change, the Product Intent returns to Product Specification Workspace for revision.
-8. **Governance Workspace runs Scenarios on every transition above.** It validates each transition — preconditions met, policy applied, evidence captured.
+8. **Release Workspace renews Product Intent for the next cycle.** Direction, evidence, and lessons from delivery can update or create next-cycle intent.
+9. **Governance Workspace runs Scenarios on every transition above.** It validates each transition — preconditions met, policy applied, evidence captured.
 
 Detail in [product-evolution-cycle.md](product-evolution-cycle.md). Governance treatment in [governance.md](governance.md).
 
@@ -99,6 +100,7 @@ ACE describes intra-organization product development. When software is delivered
 | [objectives.md](objectives.md) | What ACE aims to achieve, and explicit non-goals. |
 | [concepts.md](concepts.md) | The formal model in narrative form, with cross-references to UPIM and the engagement extension. |
 | [product-evolution-cycle.md](product-evolution-cycle.md) | The intent flow in detail, with diagrams. |
+| [how-product-evolves/](how-product-evolves/README.md) | Practitioner guide for Discovery, Build, and track orchestration items. |
 | [governance.md](governance.md) | Governance Workspace and the rule that every transition invokes governance scenarios. |
 | [workspaces/](workspaces/README.md) | One short doc per workspace type. |
 | [relationships.md](relationships.md) | ACE ↔ UPIM ↔ Foundry Platform mapping. |
@@ -109,5 +111,6 @@ ACE describes intra-organization product development. When software is delivered
 ## Read next
 
 - New to ACE? Start with [why.md](why.md), then [concepts.md](concepts.md), then [product-evolution-cycle.md](product-evolution-cycle.md).
+- Practicing ACE in a Workbench? Read [how-product-evolves/](how-product-evolves/README.md), then [discovery.md](how-product-evolves/discovery.md) and [build.md](how-product-evolves/build.md).
 - Building a platform module? Start with [concepts.md](concepts.md), then [repositories.md](repositories.md), then [relationships.md](relationships.md).
 - Working with a customer engagement? Read this README, then jump to [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).

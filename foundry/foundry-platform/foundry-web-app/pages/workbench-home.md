@@ -105,7 +105,7 @@ Grouped consoles for focused views.
 
 | Console | Purpose |
 |---------|---------|
-| **PI Console** | All Product Intents (active + archived), Intent details |
+| **PI Console** | Discovery Cases, Product Intent types, Strategy Frame, Traceability Maps |
 | **Workspaces Console** | 6 Workspace views, active Work Orders per Workspace |
 | **Progress Console** | Work completion analytics, burndown |
 | **Track Console** | Per-Track work analytics (Discovery, Build, etc.) |
@@ -136,15 +136,19 @@ Grouped consoles for focused views.
 
 | Console | Purpose |
 |---------|---------|
-| **Risk Console** | Governance risk flags (drives PI badge colors) |
-| **Reports Console** | Generated reports, audit exports |
-| **Quality Compliance** | Required thresholds, audit evidence, sign-offs |
+| **Governance Overview** | Governance health, attention queue, pending approvals |
+| **Rituals** | Governance Rituals, cadence, inputs, outputs, action items |
+| **Controls & Enforcement** | Control Objectives, indicators, thresholds, enforcement outcomes |
+| **Registers** | Risk, debt, exceptions, compliance, findings |
+| **Reports & Dashboards** | Governance dashboards, ritual inputs, audit exports |
+| **Quality Controls** | Build/release quality controls and threshold evaluation |
 
 ### Settings
 
 | Console | Purpose |
 |---------|---------|
 | **Admin Console** | Workbench settings, team management, integrations |
+| **Governance Admin** | Governance authority, controls, inheritance, rituals, registers |
 
 ---
 
@@ -188,7 +192,7 @@ Grouped consoles for focused views.
 
 | Action | Location |
 |--------|----------|
-| Create Intent | PI Console or Wall |
+| Create Intent from PDR | PI Console or Wall |
 | Create Work Order | Workspaces Console or Wall |
 | Complete Tasks | Wall (Due Today) or Workspaces Console |
 | Open IDE | Any Workspace context |

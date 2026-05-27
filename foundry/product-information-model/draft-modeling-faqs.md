@@ -14,14 +14,15 @@ The Bridge (Dimensions 8–9: Structural Topology and Data & Information) provid
 
 ### Q2: Should Definition Model entities (like Idea) appear in the Work Model?
 
-**No.** The Definition Model describes *what the product is* (static structure). The Work Model describes *what people do* (motion/process). Entities like Problem, Need, Opportunity, Idea, and PSD belong in Dimension 1 (Strategy). The Work Model's track entities are work items — Research Tasks, Experiments, etc. — that teams create and manage to *mutate* those definition entities. Including definition entities in the Work Model blurs this boundary.
+**No.** The Definition Model describes *what the product is* (static structure). The Work Model describes *what people do* (motion/process). Entities like Problem, Need, Opportunity, Idea, Product Intent, and PSD belong in Dimension 1 (Strategy). Product Intent is hybrid because it also has execution lifecycle and ACE routing semantics, but it remains a definition-bearing entity rather than a task. The Work Model's track entities are work items — Research Tasks, Experiments, etc. — that teams create and manage to *mutate* those definition entities. Including definition entities in the Work Model blurs this boundary.
 
 ---
 
 ### Q3: What enters the Discovery Track — a Signal or an Idea?
 
-**Both, at different stages.** The Discovery Track has two distinct phases of work, each with its own entity types:
+**Discovery can enter through a case, a Signal, or an Idea, depending on maturity.** The Discovery Track has an orchestration envelope and two distinct phases of work:
 
+0. **Discovery Case** (optional envelope: any origin → coordinated sub-work) — cross-functional investigations that may or may not involve Signals. A Discovery Case can open from PM judgment, technical ideas, architecture concerns, operational insights, customer commitments, release learnings, executive direction, or Signal-derived prioritization.
 1. **Signal Exploration** (input: Signal → output: Ideas) — **Signal Exploration Tasks** and **Deliberations** (brainstorms) are performed to deeply understand the Signal, identify root causes and adjacent patterns, and synthesize candidate solution hypotheses (Ideas).
 2. **Idea Validation** (input: Idea → output: Validated Idea or Kill) — **Research Tasks**, **Experiments**, **Prototypes/Spikes**, and **Deliberations** (evaluative councils) test whether a specific hypothesis holds up. A Deliberation may also directly produce a PDR without prior empirical validation, when an authorized group exercises collective judgment.
 
@@ -31,7 +32,7 @@ The act of arriving at Ideas for a given Signal is real, trackable work. Framing
 
 ### Q4: Is a PSD a Work Model entity or a Definition Model entity?
 
-**Definition Model (Dimension 1).** A PSD describes *what the product will be* — it is a specification, not a unit of work. The Discovery Track *produces* PSDs through its work entities (Research Tasks, Experiments, Specification Tasks), but the PSD itself lives in the Strategy Dimension as the formal contract between Product and Engineering.
+**Definition Model (Dimension 1).** A PSD describes *what the product will be* — it is a specification, not a unit of work. Product Intent is created or updated by a product decision; the Discovery Track then refines Product Intent into PSDs through Specification Tasks. The PSD itself lives in the Strategy Dimension as the formal contract between Product and Engineering.
 
 ---
 
@@ -39,21 +40,36 @@ The act of arriving at Ideas for a given Signal is real, trackable work. Framing
 
 **No.** A validated Idea confirms the bet is worth taking, but translating it into PSDs is substantial, separate work — scoping modules, defining acceptance criteria, coordinating with engineering, decomposing into shippable increments. Furthermore, a single validated Idea may fan out into **multiple PSDs** covering different modules.
 
-The refined chain in Dimension 1 is: **Idea → validated by → PDR → justifies → PSD(s).** The Product Decision Record (PDR) captures the evidence and reasoning, and PSDs reference it as their formal justification. The Discovery Track includes a **Specification Task** entity to represent the PSD-authoring work explicitly.
+The refined chain in Dimension 1 is: **Idea → validated by → PDR → creates/updates → Product Intent → refined by → PSD(s).** The Product Decision Record (PDR) captures the evidence and reasoning. Product Intent carries the decision into downstream evolution work. PSDs reference the PDR as their formal justification and refine the Product Intent into module-scoped contracts. The Discovery Track includes a **Specification Task** entity to represent the PSD-authoring work explicitly.
 
 ---
 
 ### Q6: Why add a Product Decision Record (PDR) to the Definition Model?
 
-The PDR fills a traceability gap. Without it, Dimension 1 has {Problem | Need | Opportunity} → Idea → PSD, but no artifact formally records *why* a decision was made or *what evidence* supports it. The Idea says "we bet on X." The PSD says "build X this way." Neither captures the reasoning in between.
+The PDR fills a traceability gap. Without it, Dimension 1 has {Problem | Need | Opportunity} → Idea → Product Intent / PSD, but no artifact formally records *why* a decision was made or *what evidence* supports it. The Idea says "we bet on X." Product Intent says "we intend to evolve the product in this direction." The PSD says "build X this way." The PDR captures the reasoning in between.
 
 The PDR is a **Definition Model entity** (not a Work Model entity) because it documents a persistent, referenceable product decision — not a workflow transition. It differs from the earlier-rejected Discovery Decision Record (DDR), which was a process artifact governing go/no-go workflow. The PDR is a knowledge artifact: "here is the reasoning, evidence, and trade-offs behind a product decision."
 
 Key design choices:
 - **Captures any significant decision** — Go, Kill, and Pivot alike. A "Kill" PDR is just as valuable for institutional memory as a "Go" PDR.
 - **References Work Model artifacts** (Research Tasks, Experiments, Prototypes) — creating cross-model traceability from evidence to decision.
-- **Referenced by PSD(s)** — one PDR can justify multiple PSDs across different modules.
-- **The revised Dimension 1 chain:** {Problem | Need | Opportunity} → spawns → Idea(s) → validated by → PDR → justifies → PSD(s).
+- **Creates or updates Product Intent(s)** — one PDR can produce multiple routable Product Intents.
+- **Referenced by PSD(s)** — one PDR can justify multiple PSDs across different modules; PSDs refine Product Intent.
+- **The revised Dimension 1 chain:** {Problem | Need | Opportunity} → spawns → Idea(s) → validated by → PDR → creates/updates → Product Intent → refined by → PSD(s).
+
+---
+
+### Q6a: Why does Product Intent sit between PDR and PSD?
+
+The PDR records *why* a decision was made and what evidence supports it. Product Intent records *what product evolution we are now committing to* and becomes the routable bridge into ACE workspace execution. PSD records *how each affected module will change* under that intent.
+
+Without Product Intent, PSD doubles as both the decision output and the execution token. That collapses discovery completion with specification detail and makes it look like a PSD creates intent. The intended separation is:
+
+```text
+Product decision / PDR -> Product Intent -> PSD refinement
+```
+
+One Go or Pivot PDR may create multiple Product Intents. Each Product Intent may then be refined by one or more PSDs, depending on how many modules are affected.
 
 ---
 
@@ -82,7 +98,8 @@ The UPIM deliberately uses **Specification** over **Requirements** because each 
 
 1. **Signals are captured upstream.** The Signal layer (Problem, Need, Opportunity) already captures *what warrants attention* — the observations, gaps, and strategic indicators. By the time the PSD is written, the Signal investigation phase is over.
 2. **Decisions are captured midstream.** The Product Decision Record (PDR) captures *what we're committing to and why* — the evidence and trade-offs. This is also not the PSD's job.
-3. **Specifications are what remains.** The PSD's job is to precisely *specify what to build and how it should behave* — scope boundaries, acceptance criteria, module decomposition, behavioral contracts. This is specification work, not requirements work.
+3. **Product Intent carries commitment.** Product Intent translates the decision into routable product evolution work.
+4. **Specifications refine intent.** The PSD's job is to precisely *specify what to build and how it should behave* under a Product Intent — scope boundaries, acceptance criteria, module decomposition, behavioral contracts. This is specification work, not requirements work.
 
 The terminology creates a clean separation of concerns across the chain:
 
@@ -90,9 +107,10 @@ The terminology creates a clean separation of concerns across the chain:
 |---|---|---|
 | Signal | Problem / Need / Opportunity | What warrants attention (observation) |
 | Decision | PDR | What we're committing to and why (evidence + rationale) |
-| Specification | PSD | Precisely what to build and how it should behave (contract) |
+| Intent | Product Intent | The routable product evolution commitment |
+| Specification | PSD | Precisely what to build and how it should behave under that intent (contract) |
 
-Additionally, **naming consistency**: the Work Model already has **Specification Task** as the work entity that produces PSDs. The PSD + Specification Task pairing is self-documenting.
+Additionally, **naming consistency**: the Work Model already has **Specification Task** as the work entity that refines Product Intent by producing PSDs. The PSD + Specification Task pairing is self-documenting.
 
 The trade-off is that "PRD" is deeply entrenched industry vocabulary. However, since the UPIM defines its own precise ontology, clarity within the model takes priority over convention.
 
@@ -130,7 +148,7 @@ Rather than creating a separate "Plan Track" (which would centralize planning un
 | Track | Planning Work | Definition Model Output |
 |---|---|---|
 | Discovery | Objective Setting, Initiative Scoping, Prioritization | Objectives, Initiatives (Dim 1) |
-| Build | Release Planning, Milestone Planning, Iteration Planning | Customer Release scope, Milestones |
+| Build | Release Planning, Milestone Planning, Iteration Planning | Customer Release Intent scope, Milestones |
 | Run | Deployment Planning, Capacity Planning | Deployment plans, infrastructure readiness |
 | Win | Go-to-Market Planning, Customer Rollout Planning | Launch plans, rollout schedules |
 
@@ -138,7 +156,7 @@ This distributed approach keeps planning close to the teams that execute, while 
 
 ---
 
-### Q12: Why use "Customer Release" instead of "Release," and why does it use names instead of version numbers?
+### Q12: Why use "Customer Release Intent" instead of "Release," and why does it use names instead of version numbers?
 
 The word "release" is deeply overloaded. In the DevOps ecosystem, "release" universally means a versioned build artifact that has passed quality gates — GitHub Releases, GitLab Releases, Helm releases, release pipelines, release branches, release tags. This usage is too entrenched to fight.
 
@@ -146,20 +164,21 @@ SAFe and the Continuous Delivery community explicitly **decouple "release" from 
 - **Deployment** = installing a software version on an environment (technical act)
 - **Release** = making software available to users (business act)
 
-The UPIM follows this convention but uses **"Customer Release"** to make the distinction unambiguous:
-- **"Customer Release"** = the business act of making capabilities available to customers (Definition Model, Dim 1)
+The UPIM follows this convention but uses **"Customer Release Intent"** to make the strategy-layer distinction unambiguous:
+- **"Customer Release Intent"** = the planned business act of making capabilities available to customers (Definition Model, Dim 1)
+- **"Customer Release"** = the realized release event/package that fulfills the intent
 - **"System Version with status Released"** = a versioned build artifact that has passed quality gates (Work Model, Build Track output)
 
-The qualifier "Customer" eliminates any collision — no one will confuse "Customer Release: LATAM Expansion" with "payments-service v2.3.3 (System Version) released to artifact registry."
+The qualifier "Intent" prevents the Strategy entity from being confused with the release execution event — no one should confuse "Customer Release Intent: LATAM Expansion" with "payments-service v2.3.3 (System Version) released to artifact registry."
 
-**Why names instead of version numbers?** Customer Releases use descriptive names (e.g., "LATAM Expansion", "Project Mercury") rather than semver or numbered versions because:
+**Why names instead of version numbers?** Customer Release Intents use descriptive names (e.g., "LATAM Expansion", "Project Mercury") rather than semver or numbered versions because:
 1. **Business identity:** Names convey what the release delivers; "Release 3.2" is meaningless to business stakeholders.
-2. **Decoupling:** A single Customer Release may span multiple Product Versions (e.g., v3.2.0 through v3.2.4 as patches are applied during rollout). Pinning to a version number creates a false 1:1 mapping.
+2. **Decoupling:** A single Customer Release Intent may be realized across multiple Product Versions (e.g., v3.2.0 through v3.2.4 as patches are applied during rollout). Pinning to a version number creates a false 1:1 mapping.
 3. **Precedent:** Many products use named releases (macOS Sonoma/Sequoia, Android codenames, enterprise program names).
 
 ---
 
-### Q13: Why distinguish System Version, Module Version, Product Version, and Customer Release as four separate concepts?
+### Q13: Why distinguish System Version, Module Version, Product Version, and Customer Release Intent as four separate concepts?
 
 > **Superseded for operational use by DR-036 (2026-05-19).** Current model: Component Version → System Version → Product Version; no Module Version tier. See Q13b below and `stories/versioning-alternatives-analysis.md`.
 
@@ -170,28 +189,28 @@ These four concepts operate at different levels and serve different purposes. Se
 | **System Version** | Per-system | Continuously produced CI/CD output — atomic deployment unit | Semver | Build Track |
 | **Module Version** | Per-module | Integration-verified composition of System Versions — integrated deployment unit + integration verification | Semver | Build Track |
 | **Product Version** | Product-wide | Certified composition of compatible Module Versions (BOM) — complete deployment unit + certification | Semver | Build Track |
-| **Customer Release** | Business | Named delivery of capabilities to customers | Named (no versions) | Discovery + Win Track |
+| **Customer Release Intent** | Business | Named intended delivery of capabilities to customers | Named (no versions) | Discovery + Win Track |
 
 **Why all four are necessary:**
 - Without **System Version**, there is no granular tracking of what each System's CI/CD pipeline produces, and no deployment unit for the Run Track.
 - Without **Module Version**, there is no integration verification layer — you jump from individual System testing to full-product testing (an O(n²) problem). Module Version proves that the Systems implementing a Module (Dim 8) work together.
 - Without **Product Version**, there is no way to certify that a specific composition of Module Versions is compatible, tested, and reproducible. This causes real problems: composition integrity failures, inability to reference "the product" for documentation/compliance, and difficulty reproducing production states.
-- Without **Customer Release**, there is no business-level planning construct that bundles outcomes of Initiatives into a coherent customer-facing delivery, decoupled from technical versioning.
+- Without **Customer Release Intent**, there is no business-level planning construct that bundles outcomes of Initiatives into a coherent customer-facing delivery target, decoupled from technical versioning.
 
-**System Version, Module Version, and Product Version are Work Model artifacts** (Build Track outputs) because they are *results* of engineering progress, not planned upfront. In CI/CD, versions are routinely and continuously incremented — they are byproducts of the build process. **Customer Release is a Definition Model entity** (Dimension 1, Strategy) because it is a business planning construct that is deliberately scoped, named, and scheduled.
+**System Version, Module Version, and Product Version are Work Model artifacts** (Build Track outputs) because they are *results* of engineering progress, not planned upfront. In CI/CD, versions are routinely and continuously incremented — they are byproducts of the build process. **Customer Release Intent is a Definition Model entity** (Dimension 1, Strategy) because it is a business planning construct that is deliberately scoped, named, and scheduled.
 
 **Each artifact tier is a composite system and a communication bridge.** Module Version and Product Version are not just verification checkpoints — they are systems in their own right, with emergent operational properties at each composition level (end-to-end latency, integrated failure modes, cross-module workflows). They are also communication bridges at progressively broader organizational scope: System Version is the shared vocabulary between Build and Run teams; Module Version bridges Build, Run, and Product teams (PMs, SREs, and engineers all reference "Payments Module v4.1"); Product Version is the ubiquitous language across all teams and customers (Win teams, compliance, customers all reference "Product v3.2"). See `stories/versioning-alternatives-analysis.md` for how alternative approaches address these challenges.
 
 ---
 
-### Q13b: Why Component Version, System Version, Product Version, and Customer Release?
+### Q13b: Why Component Version, System Version, Product Version, and Customer Release Intent?
 
 | Concept | Level | Nature | Owner |
 |---|---|---|---|
 | **Component Version** | Per-component | CI/CD output of a single Component; quality-gated | Build Track |
 | **System Version** | Per-system | Sealed BOM of Component Versions; component-integration verification; deployable unit for Run Track | Build Track |
 | **Product Version** | Product-wide | Certified flat BOM of System Versions | Build Track |
-| **Customer Release** | Business | Named delivery of capabilities to customers | Win / Strategy (Dim 1) |
+| **Customer Release Intent** | Business | Named intended delivery of capabilities to customers | Win / Strategy (Dim 1) |
 
 **Module (Dim 8)** remains the functional boundary for PSD scoping and capability mapping — not a versioning tier. Integration Epics feed **System Version** assembly and **Product Version** certification. Deployment uses **System Deployment Specification** and **Product Deployment Specification** (not SDD/MDD/PDD). See DR-036, `stories/versioning-alternatives-analysis.md`, and `stories/deployment-artifacts-analysis.md`.
 
@@ -239,7 +258,7 @@ The UPIM uses **Signal** as the collective term for Problem, Need, and Opportuni
 
 **Why not "intake item"?** In practice, "intake" carries an implicit obligation to process and deliver. When a customer submits something through an "intake" process, organizations tend to treat it as a requirement that *should* be completed. This conditioning suppresses the very discovery, decision-making, and prioritization process that the UPIM explicitly mandates. An "intake" from a customer is reflexively treated as a customer requirement — not as a hint, symptom, or observation that warrants investigation.
 
-**Why not "backlog item"?** In Scrum, "Product Backlog Item" (PBI) refers to User Stories, Bugs, and Spikes — Build Track entities in our model. Using "backlog item" for Problems/Needs/Opportunities conflates two very different levels separated by several layers (Signal → Idea → PDR → PSD → Epic → Story). Additionally, "backlog" implies the item is already in a prioritized queue awaiting work. Many Signals will sit unassociated and unranked indefinitely — they are not "in the backlog."
+**Why not "backlog item"?** In Scrum, "Product Backlog Item" (PBI) refers to User Stories, Bugs, and Spikes — Build Track entities in our model. Using "backlog item" for Problems/Needs/Opportunities conflates two very different levels separated by several layers (Signal → Idea → PDR → Product Intent → PSD → Epic → Story). Additionally, "backlog" implies the item is already in a prioritized queue awaiting work. Many Signals will sit unassociated and unranked indefinitely — they are not "in the backlog."
 
 **Why "Signal"?**
 
@@ -574,7 +593,7 @@ See DR-015 (Dim 2 restructure, where Lever Portfolio is defined) and DR-016 (Win
 
 ### Q32: Why did Initiative evolve from "Discovery program" to "cross-track coordination construct"?
 
-Originally, Initiative was defined as a mechanism for grouping Signals for discovery, implying a flow: Initiative → Discovery → PSD → Build. The Dim 2 restructure (DR-015) and the lever discussion (DR-016) revealed that an Initiative like "LATAM Enterprise Market Entry" drives work across *all four tracks* — product development (Build), GTM execution (Win), sales enablement (Win), CS programs (Win), infrastructure (Run), and potentially organizational changes (Operating Model).
+Originally, Initiative was defined as a mechanism for grouping Signals for discovery, implying a flow: Initiative → Discovery → Product Intent → PSD → Build. The Dim 2 restructure (DR-015) and the lever discussion (DR-016) revealed that an Initiative like "LATAM Enterprise Market Entry" drives work across *all four tracks* — product development (Build), GTM execution (Win), sales enablement (Win), CS programs (Win), infrastructure (Run), and potentially organizational changes (Operating Model).
 
 Three additions make the cross-track nature explicit:
 
@@ -1103,9 +1122,9 @@ Change Requests govern the formal change management workflow: approval → deplo
 
 ---
 
-### Q101: How does a Deployment Train relate to a Customer Release?
+### Q101: How does a Deployment Train relate to a Customer Release Intent?
 
-A single Customer Release may span multiple Deployment Trains when different modules follow different promotion paths. For example, an "LATAM Expansion" release might include payment modules on a PCI Regulated Train (72h soak, CAB approval) and a marketing portal on a Fast-Track Train (automated promotion, no soak). The Customer Release is the commercial unit; the Deployment Train is the operational promotion unit. They are associated but not constrained to a 1:1 relationship. See DR-029, D13.
+A single Customer Release Intent may be realized across multiple Deployment Trains when different modules follow different promotion paths. For example, "LATAM Expansion" might include payment modules on a PCI Regulated Train (72h soak, CAB approval) and a marketing portal on a Fast-Track Train (automated promotion, no soak). The Customer Release Intent is the commercial planning unit; the Deployment Train is the operational promotion unit. They are associated but not constrained to a 1:1 relationship. See DR-029, D13 and DR-038.
 
 ---
 
@@ -1189,6 +1208,50 @@ Deployment descriptors, incident records, and operational artifact versions have
 
 ### Q113: Why is ESR a reference layer, not a system of record?
 
-The system of record for customer data remains the organization's CRM/subscription management system. Duplicating full customer records into ESR would create synchronization burdens and data governance risks. ESR holds the minimum identity and reference pointers needed by the UPIM — organization name, segment classification, primary contacts, and a pointer back to the authoritative source system. This makes ESR lightweight, easy to synchronize periodically, and focused on its purpose: providing consistent external stakeholder references across FIR reporters, Win Case customers, Incident affected tenants, and Customer Release targets. See DR-033 D3.
+The system of record for customer data remains the organization's CRM/subscription management system. Duplicating full customer records into ESR would create synchronization burdens and data governance risks. ESR holds the minimum identity and reference pointers needed by the UPIM — organization name, segment classification, primary contacts, and a pointer back to the authoritative source system. This makes ESR lightweight, easy to synchronize periodically, and focused on its purpose: providing consistent external stakeholder references across FIR reporters, Win Case customers, Incident affected tenants, and Customer Release Intent targets. See DR-033 D3.
+
+---
+
+### Q114: Why introduce Discovery Case?
+
+Discovery Case is the Discovery Track orchestration envelope. Initiative is a strategic program in Dimension 1; Signal is an observation; PDR is a decision artifact. None of those is the cross-functional work container that says, "we are investigating this product-relevant question until we decide or route it."
+
+Discovery Case fills that gap. It can originate from a Signal, but does not require one. It can also originate from Product Manager judgment, technical ideas, architecture concerns, operational insights, customer commitments, release learnings, governance concerns, executive direction, or agent observations.
+
+The pattern mirrors FIR in the Win Track. FIR coordinates reactive product-in-operation feedback. Discovery Case coordinates proactive and cross-functional product learning.
+
+---
+
+### Q115: Why allow Discovery Support Product Intent?
+
+Discovery sometimes needs Build evidence before a final product-direction PDR can be written: a PoC, spike, prototype, technical feasibility check, integration proof, or performance validation. Without a routable item, this work either bypasses ACE governance or pretends to be delivery work.
+
+Discovery Support Product Intent answers "help us learn." It is time-bounded and scoped to evidence production. It can request bounded Build work, but it does not create customer delivery commitment, cannot by itself enter Customer Release Intent scope, and does not replace a Go/Pivot PDR for product evolution.
+
+If the Discovery Case later concludes Go or Pivot, the PDR creates a separate Evolution Product Intent.
+
+---
+
+### Q116: Is Discovery a Product Manager-only activity?
+
+No. Discovery is cross-functional. Any authorized function may originate or participate in a Discovery Case: Product, UX, Engineering, Architecture, QA, Run, Win, Governance, executive leadership, or agents.
+
+Product Management alignment is required when a PDR materially changes product direction. That alignment does not mean PMs are the only discoverers; it means product-direction decisions need accountable product ownership.
+
+---
+
+### Q117: Does Product Intent entering Build mean customer-committed delivery?
+
+No. Product Intent is the Build Track orchestration item, but it has purpose. Delivery Product Intents may represent customer-facing commitments. Discovery Support, Technical Validation, Internal / Enabling, Operational Enablement, and Release Renewal Product Intents may enter Build to produce evidence, internal capability, operational readiness, or follow-up learning.
+
+Build is therefore Product Intent-orchestrated, not customer-delivery-only.
+
+---
+
+### Q118: Where does architectural refactoring go?
+
+Architectural refactoring must find its product intent or move tracks. If it is required for an existing Product Intent, it is subordinate Build work. If it changes product capability, customer promise, scalability, reliability, extensibility, cost profile, compliance posture, or operational readiness, it should become Product Intent through a Discovery Case and product decision.
+
+If the work is operational response or readiness, route it to Run. If it changes engineering practice, architecture standards, guidance, or model structure, route it to Evolve. If it is small local hygiene, keep it local and do not promote it as a top-level Build orchestration item.
 
 ---

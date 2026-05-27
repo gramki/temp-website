@@ -12,7 +12,7 @@ This document places all eleven engagement areas on a common decision surface â€
 
 **What this document does not do:** recommend a portfolio. Portfolio decisions require judgment on deal velocity, engagement economics, sales capacity, competitive dynamics in live deals, and internal engineering allocation â€” inputs this analysis cannot provide.
 
-**Framework reference:** [`how-to.md`](how-to.md) defines the Right to Play / Right to Win framework used throughout. R2P assesses market attractiveness and structural demand. R2W assesses Zeta's competitive advantage in each segment.
+**Framework reference:** [how-to.md](how-to.md) defines the Right to Play / Right to Win framework used throughout. R2P assesses market attractiveness and structural demand. R2W assesses Zeta's competitive advantage in each segment.
 
 **Pillar structure:** Engagement areas are organized by strategic posture, not market taxonomy:
 
@@ -338,4 +338,4 @@ The following questions cannot be answered through analysis. They require judgme
 
 ---
 
-*Source documents: eleven engagement area analyses in [`engagement-areas/`](../engagement-areas/), research files in [`_research/`](../_research/), framework definition in [`how-to.md`](how-to.md).*
+*Source documents: eleven engagement area analyses in [engagement-areas/](../engagement-areas/), research files in [_research/](../_research/), framework definition in [how-to.md](how-to.md).*

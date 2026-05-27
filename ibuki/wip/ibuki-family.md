@@ -9,7 +9,7 @@
 - **Expected Outcomes (3–5 Years):** +5–10 point NPS, 2–5% revenue uplift, 15–20% lower cost-to-serve, increased retention through proactive/reversible automation.
 - **What Ibuki Family Banking Is:** A consumer-centric, agent-first product suite that delivers relationship banking with consented data, signed-intent execution, and continuous controls.
 - **What Ibuki Family Banking Is Not:** Not KYC/AML tooling nor a risk platform—those are dependencies controlled externally (see Operations Strategy).
-- **References:** See [`org-8.0/ibuki/agentic-banking-products.md`](org-8.0/ibuki/agentic-banking-products.md) for deeper taxonomy, technical architecture, and OEM requirements. This note focuses on retail decisions and board actions.
+- **References:** See [org-8.0/ibuki/agentic-banking-products.md](org-8.0/ibuki/agentic-banking-products.md) for deeper taxonomy, technical architecture, and OEM requirements. This note focuses on retail decisions and board actions.
 - **Autonomy Scope:** L0–L1 only (excludes L2/L3 autonomy).
 - **Pilots:** Initiate parallel pilots in India and the USA.
 - **Branding:** "Ibuki" is Zeta’s umbrella for agentic banking. This document describes the Family Banking experience, “Ibuki Family Banking.”

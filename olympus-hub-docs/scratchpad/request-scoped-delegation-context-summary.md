@@ -1,8 +1,8 @@
 # Request-Scoped Delegation: Context Summary
 
 > **Purpose**: Condensed reference for documentation updates across all phases  
-> **Authoritative Source**: [`request-scoped-delegation.md`](../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md)  
-> **Design Decisions**: [`0WIP-seer-request-scoped-authority-delegation.md`](./0WIP-seer-request-scoped-authority-delegation.md)
+> **Authoritative Source**: [request-scoped-delegation.md](../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md)  
+> **Design Decisions**: [0WIP-seer-request-scoped-authority-delegation.md](./0WIP-seer-request-scoped-authority-delegation.md)
 
 ---
 

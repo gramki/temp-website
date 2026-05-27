@@ -127,7 +127,7 @@ This diagram should be included in:
 
 ### 1. Glossary — Information-Centric Work
 
-**File:** [`olympus-hub-docs/01-concepts/glossary.md`](olympus-hub-docs/01-concepts/glossary.md)
+**File:** [olympus-hub-docs/01-concepts/glossary.md](olympus-hub-docs/01-concepts/glossary.md)
 
 **Change:** Add new subsection after "Contrast: Physical-Centric Work" (around line 52)
 
@@ -178,7 +178,7 @@ Key points:
 
 ### 2. Foundational Beliefs
 
-**File:** [`olympus-hub-docs/00-_why/foundational-beliefs.md`](olympus-hub-docs/00-_why/foundational-beliefs.md)
+**File:** [olympus-hub-docs/00-_why/foundational-beliefs.md](olympus-hub-docs/00-_why/foundational-beliefs.md)
 
 **Change:** Add new belief in "On the Nature of Work" section (after line 15)
 
@@ -194,7 +194,7 @@ Include the clarification that this refers to resolution, not definition. The no
 
 ### 3. Introduction — Collaboration Model
 
-**File:** [`olympus-hub-docs/01-concepts/introduction.md`](olympus-hub-docs/01-concepts/introduction.md)
+**File:** [olympus-hub-docs/01-concepts/introduction.md](olympus-hub-docs/01-concepts/introduction.md)
 
 **Changes:**
 
@@ -252,7 +252,7 @@ Add a row for "Pure automation" that clarifies full M2M execution with agent esc
 
 ### 4. Hub Applications
 
-**File:** [`olympus-hub-docs/01-concepts/hub-applications.md`](olympus-hub-docs/01-concepts/hub-applications.md)
+**File:** [olympus-hub-docs/01-concepts/hub-applications.md](olympus-hub-docs/01-concepts/hub-applications.md)
 
 **Change:** Add new section after "Overview" (around line 17)
 
@@ -276,7 +276,7 @@ Content:
 
 ### 5. Vision — Explanatory Text
 
-**File:** [`olympus-hub-docs/00-_why/vision.md`](olympus-hub-docs/00-_why/vision.md)
+**File:** [olympus-hub-docs/00-_why/vision.md](olympus-hub-docs/00-_why/vision.md)
 
 **Change:** Add clarifying paragraph in "Understanding the Vision" section (after line 30)
 
@@ -294,7 +294,7 @@ Clarify that:
 
 ### 6. Work Patterns README
 
-**File:** [`olympus-hub-docs/03-information-centric-work/README.md`](olympus-hub-docs/03-information-centric-work/README.md)
+**File:** [olympus-hub-docs/03-information-centric-work/README.md](olympus-hub-docs/03-information-centric-work/README.md)
 
 **Change:** Add new section after "How Patterns Compose" (around line 55)
 
@@ -316,7 +316,7 @@ Content:
 
 ### 7. Pattern Composition
 
-**File:** [`olympus-hub-docs/03-information-centric-work/pattern-composition.md`](olympus-hub-docs/03-information-centric-work/pattern-composition.md)
+**File:** [olympus-hub-docs/03-information-centric-work/pattern-composition.md](olympus-hub-docs/03-information-centric-work/pattern-composition.md)
 
 **Change:** Add new section before "Modeling Implications" (around line 240)
 

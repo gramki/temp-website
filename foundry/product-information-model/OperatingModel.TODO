@@ -22,7 +22,7 @@ See: DR-014, README.md (Operating Model section), FAQ Q28
 ### 2.1 Ceremonies and Cadences:
 
     ☐ Define ceremonies for each Work Model track:
-        ☐ Discovery Track: Signal Review, Prioritization Review, Deliberation scheduling, Initiative Review
+        ☐ Discovery Track: Discovery Case Review, Signal Review, Prioritization Review, Deliberation scheduling, Initiative Review
         ☐ Build Track: Sprint Planning, Release Planning ceremonies, Architecture Review Board
         ☐ Run Track: Deployment review, Incident review, Change Advisory Board
             ☐ Run Track engineering ceremonies: Run Epic planning, Run Sprint planning, operational system readiness review (DR-027)
@@ -91,6 +91,8 @@ The Work Model defines the *structure* of guidance (what a playbook should cover
 ### 4.1 Discovery Track Playbooks:
 
     ☐ Signal Exploration playbook (triggers, activities, decision points, pitfalls)
+    ☐ Discovery Case playbook (opening criteria, scoping, sub-item routing, closure with/without Signal, PM alignment on direction-changing PDRs)
+    ☐ Discovery Support Product Intent playbook (when to request Build evidence, scope limits, evidence DoD, handoff back to case)
     ☐ Deliberation playbook (preparation, facilitation, decision recording)
     ☐ Research Task playbook (methodology selection, bias management, evidence standards)
     ☐ Experiment playbook (hypothesis framing, sample sizing, pass/fail criteria)

@@ -14,7 +14,7 @@
 
 | Repository | Storage | Description | Content Actions |
 |------------|---------|-------------|-----------------|
-| **Intent** | GitHub | Product Intents, PRDs, PSDs | Browse, Add Intent, Add doc |
+| **Intent** | GitHub | Product Intents, PDRs, PSDs | Browse, Add Intent, Add doc |
 | **Design** | GitHub | Architecture, API models | Browse, Add doc |
 | **Code** | GitHub (multiple) | Source code repos | Browse only (edit in IDE) |
 | **Quality Automation** | GitHub | Test automation code | Browse only (edit in IDE) |
@@ -31,7 +31,7 @@ Some repositories support direct content management from the console:
 
 | Repository | Supported Actions |
 |------------|-------------------|
-| **Intent** | Create new Intent (gets PI ID from Metadata Service), add PRD/PSD docs, upload mockups, organize folders |
+| **Intent** | Create new Intent from PDR (gets PI ID from Metadata Service), add PDR/PSD docs, upload mockups, organize folders |
 | **Design** | Create design doc, add architecture diagrams, organize folders |
 | **Code** | Browse only — code editing happens in Workspace Sessions (IDE) |
 | **Quality Automation** | Browse only — test code editing happens in Workspace Sessions (IDE) |
@@ -40,9 +40,9 @@ Some repositories support direct content management from the console:
 
 | Action | Description |
 |--------|-------------|
-| **Create Intent** | Request PI ID from Metadata Service, create folder, add initial README |
-| **Add PRD** | Create/upload PRD document under Intent folder |
-| **Add PSD** | Create/upload PSD document(s) under Intent folder |
+| **Create Intent** | Request PI ID from Metadata Service after Go/Pivot PDR, create folder, add initial README |
+| **Add PDR** | Link or upload authorizing PDR under Intent folder |
+| **Add PSD** | Create/upload PSD document(s) that refine the Product Intent |
 | **Add Mockup** | Upload mockup images or add Figma links |
 | **Organize** | Move/rename folders (within Intent repo structure) |
 
@@ -126,8 +126,8 @@ Example entries:
 
 | Action | Who | Description |
 |--------|-----|-------------|
-| Create Intent | Manager, Member | Request PI ID, create Intent folder |
-| Add PRD/PSD | Manager, Member | Add document to Intent |
+| Create Intent | Manager, Member | Request PI ID from Go/Pivot PDR, create Intent folder |
+| Add PDR/PSD | Manager, Member | Add authorizing PDR or PSD refinement to Intent |
 | Add Design Doc | Manager, Member | Create design document |
 | Upload file | Manager, Member | Add mockups, diagrams |
 | Organize folders | Manager | Move/rename within repo |
