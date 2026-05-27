@@ -48,9 +48,9 @@ See [consoles/README.md](consoles/README.md) for all console pages.
 
 | Page | URL Pattern | Defined In |
 |------|-------------|------------|
-| Orchestration Item Details | `/workbenches/{id}/orchestration/{type}/{itemId}` | [orchestration-console.md](consoles/orchestration-console.md) |
-| Team Member Workbench Profile | `/workbenches/{id}/team/{memberId}` | [team-console.md](consoles/team-console.md) |
-| Workspace Session Details | `/workbenches/{id}/sessions/{sessionId}` | [Workspace consoles](consoles/README.md) |
+| Orchestration Item Details | `/workbenches/{id}/orchestration/{type}/{itemId}` | [orchestration-console.md](consoles/work/orchestration-console.md) |
+| Team Member Workbench Profile | `/workbenches/{id}/team/{memberId}` | [team-console.md](consoles/workforce/team-console.md) |
+| Workspace Session Details | `/workbenches/{id}/sessions/{sessionId}` | [Workspace consoles](consoles/workspaces/) |
 
 ## Planned Pages (TBD)
 
