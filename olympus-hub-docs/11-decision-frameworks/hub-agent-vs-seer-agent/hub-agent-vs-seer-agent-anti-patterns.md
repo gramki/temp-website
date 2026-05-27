@@ -30,7 +30,7 @@ These overheads are not justified for simple function calls.
 
 ### Use Instead
 
-[`Hub Application as Standalone Tool`](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) — direct HTTP tool invocation without Signal Exchange/Request lifecycle overhead.
+[Hub Application as Standalone Tool](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) — direct HTTP tool invocation without Signal Exchange/Request lifecycle overhead.
 
 ### Example
 
@@ -41,7 +41,7 @@ These overheads are not justified for simple function calls.
 
 These should be standalone tools, not Hub Agents.
 
-> **Reference**: [`Hub Application as Standalone Tool`](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) describes the pattern for direct tool invocation.
+> **Reference**: [Hub Application as Standalone Tool](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) describes the pattern for direct tool invocation.
 
 ---
 
@@ -61,7 +61,7 @@ Hub Agents operate via task queues (async):
 
 ### Use Instead
 
-- [`Hub Application as Standalone Tool`](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) for direct invocation
+- [Hub Application as Standalone Tool](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) for direct invocation
 - Direct API integration for system-to-system calls
 
 ### Example
@@ -93,7 +93,7 @@ If the operation doesn't fit this model, you're forcing a square peg into a roun
 
 ### Use Instead
 
-- Regular [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) triggered directly by Signal Exchange
+- Regular [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) triggered directly by Signal Exchange
 - Batch processing application for scheduled operations
 
 ### Example
@@ -105,7 +105,7 @@ If the operation doesn't fit this model, you're forcing a square peg into a roun
 
 These aren't "tasks" in the agent sense.
 
-> **Reference**: [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) describes event-driven applications without task queue participation.
+> **Reference**: [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) describes event-driven applications without task queue participation.
 
 ---
 
@@ -129,7 +129,7 @@ Re-evaluate the automation's design to include robust error handling and escalat
 - A workflow that must complete within a fixed time window with no fallback
 - Operations that cannot tolerate any failure mode
 
-> **Reference**: [`Agent Directability`](../../02-system-design/implementation-concepts/agent-directability.md) describes human intervention patterns.
+> **Reference**: [Agent Directability](../../02-system-design/implementation-concepts/agent-directability.md) describes human intervention patterns.
 
 ---
 
@@ -145,7 +145,7 @@ The overhead of task queue integration is unnecessary if the automation is a sta
 
 ### Use Instead
 
-Regular [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) that directly consumes signals from Signal Exchange.
+Regular [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) that directly consumes signals from Signal Exchange.
 
 ### Example
 
@@ -174,7 +174,7 @@ Introduces significant security, audit, and compliance risks:
 
 ### Use Instead
 
-Ensure the automation is properly registered as an Agent Persona in Cipher IAM via [`ScenarioAsAgent CRD`](../../02-system-design/implementation-concepts/scenario-as-agent.md) and uses the [`Unified Delegation Model`](../../decision-logs/0130-unified-delegation-model.md) for all actions.
+Ensure the automation is properly registered as an Agent Persona in Cipher IAM via [ScenarioAsAgent CRD](../../02-system-design/implementation-concepts/scenario-as-agent.md) and uses the [Unified Delegation Model](../../decision-logs/0130-unified-delegation-model.md) for all actions.
 
 ### Example
 
@@ -182,7 +182,7 @@ Ensure the automation is properly registered as an Agent Persona in Cipher IAM v
 - Quick automation without identity setup
 - Background jobs that act on user data without proper authorization
 
-> **Reference**: [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) explains identity requirements. [`ADR-0130: Unified Delegation Model`](../../decision-logs/0130-unified-delegation-model.md) describes authority delegation.
+> **Reference**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) explains identity requirements. [ADR-0130: Unified Delegation Model](../../decision-logs/0130-unified-delegation-model.md) describes authority delegation.
 
 ---
 
@@ -199,7 +199,7 @@ The Hub Agent pattern, especially with Seer Agents, is designed for complex, cog
 ### Use Instead
 
 - Simple rule in Automation Spec
-- [`Hub Application as Standalone Tool`](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) for reusable logic
+- [Hub Application as Standalone Tool](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) for reusable logic
 - Direct rule engine for simple conditionals
 
 ### Example
@@ -222,8 +222,8 @@ While Hub Agents participate in the Hub ecosystem, sometimes a more direct, ligh
 
 ### Use Instead
 
-- Direct signal emission to [`Signal Exchange`](../04-subsystems/signal-exchange/README.md) (if asynchronous and event-driven)
-- [`Hub Application as Standalone Tool`](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) (if synchronous and function-like)
+- Direct signal emission to [Signal Exchange](../04-subsystems/signal-exchange/README.md) (if asynchronous and event-driven)
+- [Hub Application as Standalone Tool](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) (if synchronous and function-like)
 
 ### Example
 
@@ -245,7 +245,7 @@ The Hub Agent pattern assumes these capabilities. If the automation is a "fire-a
 
 ### Use Instead
 
-A simpler [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) or a different integration pattern.
+A simpler [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) or a different integration pattern.
 
 ### Example
 
@@ -291,8 +291,8 @@ Use the Hub Agent pattern when the automation needs to:
 
 If any of these don't apply, consider:
 
-- [`Hub Application as Standalone Tool`](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) (for simple, synchronous operations)
-- Regular [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) (for event-driven, signal-based processing)
+- [Hub Application as Standalone Tool](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) (for simple, synchronous operations)
+- Regular [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) (for event-driven, signal-based processing)
 - Direct Integration (for system-to-system without queue overhead)
 
 ---
@@ -306,16 +306,16 @@ If any of these don't apply, consider:
 | **Regular Hub Application** | Event-driven processing, no task queues | Signal-driven, no enrollment, no Agent Persona required |
 | **Direct Integration** | System-to-system, controlled routing | Bypasses Hub patterns, direct API calls |
 
-> **Reference**: [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) describes regular applications. [`Hub Application as Standalone Tool`](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) describes tool invocation pattern.
+> **Reference**: [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) describes regular applications. [Hub Application as Standalone Tool](../../02-system-design/implementation-concepts/hub-application-as-standalone-tool.md) describes tool invocation pattern.
 
 ---
 
 ## Related Documentation
 
 ### This Documentation Suite
-- [`Hub Agent vs Seer Agent`](./hub-agent-vs-seer-agent.md) — Entry point and overview
-- [`Core Concepts`](./hub-agent-vs-seer-agent-core.md) — Understanding Hub Agent and Seer Agent
-- [`Examples`](./hub-agent-vs-seer-agent-examples.md) — Concrete use cases
-- [`Decision Framework`](./hub-agent-vs-seer-agent-core.md#part-3-decision-framework) — When to use what
-- [`Architectural Details`](./hub-agent-vs-seer-agent-architectural-details.md) — C2-level implementation references
-- [`Customer Guide`](./hub-agent-vs-seer-agent-customer-guide.md) — Customer-facing explanations
+- [Hub Agent vs Seer Agent](./hub-agent-vs-seer-agent.md) — Entry point and overview
+- [Core Concepts](./hub-agent-vs-seer-agent-core.md) — Understanding Hub Agent and Seer Agent
+- [Examples](./hub-agent-vs-seer-agent-examples.md) — Concrete use cases
+- [Decision Framework](./hub-agent-vs-seer-agent-core.md#part-3-decision-framework) — When to use what
+- [Architectural Details](./hub-agent-vs-seer-agent-architectural-details.md) — C2-level implementation references
+- [Customer Guide](./hub-agent-vs-seer-agent-customer-guide.md) — Customer-facing explanations

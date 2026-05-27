@@ -14,7 +14,7 @@
 
 **Seer Agent** is a concrete AI implementation. It follows the Raw → Trained → Employed lifecycle, runs on Seer runtime (Atlantis containers), and has AI-specific capabilities: LLM reasoning, tool use, and knowledge access. Seer Agents require Training Specs and Employment Specs.
 
-> **Reference**: [`Agent Model`](../../02-system-design/agent-model.md) describes how agents interact with Hub. [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) explains the pattern for exposing Scenarios as agents.
+> **Reference**: [Agent Model](../../02-system-design/agent-model.md) describes how agents interact with Hub. [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) explains the pattern for exposing Scenarios as agents.
 
 ### Relationship: Seer Agent ⊆ Hub Agent
 
@@ -36,7 +36,7 @@ graph TD
     TrainedAgent --> EmployedAgent["Employed Agent"]
 ```
 
-> **Reference**: [`Hub Architecture`](../../02-system-design/hub-architecture.md) describes the system model. [`Agent Model`](../../02-system-design/agent-model.md) explains agent types and collaboration.
+> **Reference**: [Hub Architecture](../../02-system-design/hub-architecture.md) describes the system model. [Agent Model](../../02-system-design/agent-model.md) explains agent types and collaboration.
 
 ### What Makes Something a "Hub Agent"?
 
@@ -48,7 +48,7 @@ A Scenario becomes a Hub Agent when it satisfies five criteria:
 4. **Produce Request Updates** — report decisions, memos, outcomes
 5. **Be enrolled/unenrolled** — Supervisor can manage participation
 
-> **Reference**: [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) defines the pattern and characteristics. [`Agent Model`](../../02-system-design/agent-model.md) describes agent capabilities.
+> **Reference**: [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) defines the pattern and characteristics. [Agent Model](../../02-system-design/agent-model.md) describes agent capabilities.
 
 ### Hub Agent Identity Model
 
@@ -70,7 +70,7 @@ Hub Agent identity is primarily the **Agent Persona** (business identity):
 
 **Key Point**: Hub Agent identity = Agent Persona. Deployment identity is a runtime concern.
 
-> **Reference**: [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) defines the two-layer identity model. [`Agent Model`](../../02-system-design/agent-model.md) describes AI Agent IAM.
+> **Reference**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) defines the two-layer identity model. [Agent Model](../../02-system-design/agent-model.md) describes AI Agent IAM.
 
 ### Seer Agent Identity Model
 
@@ -94,7 +94,7 @@ Seer Agents have a two-layer identity model (as defined in ADR-0129):
 - `client_id`: SPIFFE ID (deployment identity)
 - `delegated_by`: Authority source (Scenario Identity Profile or Business User)
 
-> **Reference**: [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) provides the complete two-layer identity model. [`Agent Identity and Credentials`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) describes Seer-specific identity details.
+> **Reference**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) provides the complete two-layer identity model. [Agent Identity and Credentials](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) describes Seer-specific identity details.
 
 ### Identity Composition: When Seer Agent is Hub Agent
 
@@ -125,7 +125,7 @@ graph TD
     BusinessLayer -->|"presents as"| InfrastructureLayer
 ```
 
-> **Reference**: [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) explains the identity composition. [`ADR-0130: Unified Delegation Model`](../../decision-logs/0130-unified-delegation-model.md) describes how delegation uses both identity layers.
+> **Reference**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) explains the identity composition. [ADR-0130: Unified Delegation Model](../../decision-logs/0130-unified-delegation-model.md) describes how delegation uses both identity layers.
 
 ### Protocol Interfaces
 
@@ -139,7 +139,7 @@ Hub provides these protocol interfaces to ALL Hub Agents (regardless of runtime)
 
 These are Hub capabilities, not Seer-specific. Seer Agents use these through Hub, not directly.
 
-> **Reference**: [`Channel`](../../02-system-design/implementation-concepts/channel.md) describes protocol interfaces. [`Agent Model`](../../02-system-design/agent-model.md) explains agent interaction channels.
+> **Reference**: [Channel](../../02-system-design/implementation-concepts/channel.md) describes protocol interfaces. [Agent Model](../../02-system-design/agent-model.md) explains agent interaction channels.
 
 ### Common Misconceptions
 
@@ -154,7 +154,7 @@ These are Hub capabilities, not Seer-specific. Seer Agents use these through Hub
 | "Agent Persona and SPIFFE are the same" | Agent Persona = business identity; SPIFFE = infrastructure identity |
 | "Delegation differs between Hub and Seer" | Both use unified delegation model (scenario-scoped or request-scoped) |
 
-> **Reference**: [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) clarifies identity distinctions. [`ADR-0130: Unified Delegation Model`](../../decision-logs/0130-unified-delegation-model.md) explains the unified delegation model.
+> **Reference**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) clarifies identity distinctions. [ADR-0130: Unified Delegation Model](../../decision-logs/0130-unified-delegation-model.md) explains the unified delegation model.
 
 ---
 
@@ -185,7 +185,7 @@ graph LR
     Enrollment --> HubAgent
 ```
 
-> **Reference**: [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) provides the complete pattern definition. [`ScenarioAsAgent CRD`](../../02-system-design/implementation-concepts/scenario-as-agent.md#scenarioasagent-crd) shows the CRD structure.
+> **Reference**: [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) provides the complete pattern definition. [ScenarioAsAgent CRD](../../02-system-design/implementation-concepts/scenario-as-agent.md#scenarioasagent-crd) shows the CRD structure.
 
 ### Seer Agent Creation Process
 
@@ -224,7 +224,7 @@ graph TD
     HubApp --> HubAgent
 ```
 
-> **Reference**: [`Agent Lifecycle`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) describes the Raw → Trained → Employed progression. [`Employed Agent as Hub Application`](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) explains Hub integration. [`Employment Spec CRD`](../../../olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md) defines the deployment configuration.
+> **Reference**: [Agent Lifecycle](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) describes the Raw → Trained → Employed progression. [Employed Agent as Hub Application](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) explains Hub integration. [Employment Spec CRD](../../../olympus-seer-docs/seer-design/hub-integration/employment-spec-crd.md) defines the deployment configuration.
 
 ---
 
@@ -269,7 +269,7 @@ graph TD
 | **Seer (Atlantis)** | AI reasoning, LLM, tool use | Yes (always a Hub Agent when deployed) | Cognitive tasks, natural language, reasoning |
 | **Atlantis (non-Seer)** | General container runtime | Yes (via ScenarioAsAgent) | Custom applications needing container runtime |
 
-> **Reference**: [`Automation Runtimes`](../../04-subsystems/automation-runtimes/README.md) describes available runtimes. [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) explains how any runtime can become a Hub Agent.
+> **Reference**: [Automation Runtimes](../../04-subsystems/automation-runtimes/README.md) describes available runtimes. [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) explains how any runtime can become a Hub Agent.
 
 ### Identity Model Decisions
 
@@ -279,7 +279,7 @@ graph TD
 | **Seer Agent** | Agent Persona + SPIFFE ID | Two-layer model required for Seer runtime |
 | **Regular Hub Application** | Application identity | No Agent Persona needed |
 
-> **Reference**: [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) explains when each identity layer is needed.
+> **Reference**: [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) explains when each identity layer is needed.
 
 ### Task Queue Participation Requirements
 
@@ -290,29 +290,29 @@ To participate in task queues, a Scenario must:
 3. Implement standard agent operations (start, complete, abandon, memo)
 4. Produce Request Updates for audit and coordination
 
-> **Reference**: [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) describes task queue participation. [`Task Allocation`](../../02-system-design/implementation-concepts/task-allocation.md) explains work distribution.
+> **Reference**: [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) describes task queue participation. [Task Allocation](../../02-system-design/implementation-concepts/task-allocation.md) explains work distribution.
 
 ---
 
 ## Related Documentation
 
 ### This Documentation Suite
-- [`Hub Agent vs Seer Agent`](./hub-agent-vs-seer-agent.md) — Entry point and overview
-- [`Examples`](./hub-agent-vs-seer-agent-examples.md) — Concrete use cases
-- [`Anti-patterns`](./hub-agent-vs-seer-agent-anti-patterns.md) — When NOT to use Hub Agent pattern
-- [`Architectural Details`](./hub-agent-vs-seer-agent-architectural-details.md) — C2-level implementation references
-- [`Customer Guide`](./hub-agent-vs-seer-agent-customer-guide.md) — Customer-facing explanations
+- [Hub Agent vs Seer Agent](./hub-agent-vs-seer-agent.md) — Entry point and overview
+- [Examples](./hub-agent-vs-seer-agent-examples.md) — Concrete use cases
+- [Anti-patterns](./hub-agent-vs-seer-agent-anti-patterns.md) — When NOT to use Hub Agent pattern
+- [Architectural Details](./hub-agent-vs-seer-agent-architectural-details.md) — C2-level implementation references
+- [Customer Guide](./hub-agent-vs-seer-agent-customer-guide.md) — Customer-facing explanations
 
 ### Hub Documentation
-- [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) — Pattern for creating Hub Agents
-- [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) — Automation artifact
-- [`Agent Model`](../../02-system-design/agent-model.md) — Agent interaction model
+- [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) — Pattern for creating Hub Agents
+- [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) — Automation artifact
+- [Agent Model](../../02-system-design/agent-model.md) — Agent interaction model
 
 ### Seer Documentation
-- [`Agent Lifecycle`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) — Raw → Trained → Employed progression
-- [`Employed Agent as Hub Application`](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) — Hub integration
-- [`Agent Identity and Credentials`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) — Seer identity model
+- [Agent Lifecycle](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) — Raw → Trained → Employed progression
+- [Employed Agent as Hub Application](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) — Hub integration
+- [Agent Identity and Credentials](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) — Seer identity model
 
 ### Architectural Decisions
-- [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) — Two-layer identity model
-- [`ADR-0130: Unified Delegation Model`](../../decision-logs/0130-unified-delegation-model.md) — Unified delegation model
+- [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) — Two-layer identity model
+- [ADR-0130: Unified Delegation Model](../../decision-logs/0130-unified-delegation-model.md) — Unified delegation model

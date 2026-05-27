@@ -167,15 +167,15 @@ This documentation suite consists of:
 ## Related Documentation
 
 ### Hub Documentation
-- [`Scenario as Agent`](../../02-system-design/implementation-concepts/scenario-as-agent.md) — Pattern for exposing Scenarios as agents
-- [`Hub Application`](../../02-system-design/implementation-concepts/hub-application.md) — Automation artifact that can become a Hub Agent
-- [`Agent Model`](../../02-system-design/agent-model.md) — How agents interact with Hub
+- [Scenario as Agent](../../02-system-design/implementation-concepts/scenario-as-agent.md) — Pattern for exposing Scenarios as agents
+- [Hub Application](../../02-system-design/implementation-concepts/hub-application.md) — Automation artifact that can become a Hub Agent
+- [Agent Model](../../02-system-design/agent-model.md) — How agents interact with Hub
 
 ### Seer Documentation
-- [`Agent Lifecycle`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) — Raw → Trained → Employed progression
-- [`Employed Agent as Hub Application`](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) — How Seer Agents integrate with Hub
-- [`Agent Identity and Credentials`](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) — Identity model for Seer Agents
+- [Agent Lifecycle](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md) — Raw → Trained → Employed progression
+- [Employed Agent as Hub Application](../../../olympus-seer-docs/seer-design/hub-integration/employed-agent.md) — How Seer Agents integrate with Hub
+- [Agent Identity and Credentials](../../../olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) — Identity model for Seer Agents
 
 ### Architectural Decisions
-- [`ADR-0129: Agent Identity Model`](../../decision-logs/0129-agent-identity-model.md) — Two-layer identity model (Deployment vs Persona)
-- [`ADR-0130: Unified Delegation Model`](../../decision-logs/0130-unified-delegation-model.md) — Unified delegation model (scenario-scoped vs request-scoped)
+- [ADR-0129: Agent Identity Model](../../decision-logs/0129-agent-identity-model.md) — Two-layer identity model (Deployment vs Persona)
+- [ADR-0130: Unified Delegation Model](../../decision-logs/0130-unified-delegation-model.md) — Unified delegation model (scenario-scoped vs request-scoped)
