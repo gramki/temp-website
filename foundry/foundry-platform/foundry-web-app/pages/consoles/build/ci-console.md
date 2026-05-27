@@ -83,6 +83,7 @@
 
 ## Related Consoles
 
-- **Release Console** — Deployments from builds
+- **Release Artifacts** — Deployments from builds
+- **Findings Console** — Scan findings from builds
 - **Quality Status** — Test results from CI
 - **Components Console** — Which System was built

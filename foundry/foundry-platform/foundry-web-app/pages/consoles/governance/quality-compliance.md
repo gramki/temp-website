@@ -126,7 +126,8 @@
 ## Related Consoles
 
 - **Quality Status** — Current test results
+- **Findings Console** — Build findings (vulnerabilities, violations)
 - **Controls & Enforcement** — Generic control/enforcement view
 - **Registers** — Debt, exceptions, and risk entries
 - **Reports & Dashboards** — Compliance reports and quality dashboards
-- **Release Console** — Quality gates for release
+- **Release Artifacts** — Quality gates for release

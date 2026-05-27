@@ -105,6 +105,7 @@ Workbench Home
     ├── Build
     │   ├── CI Console
     │   ├── Components Console
+    │   ├── Findings Console
     │   ├── Quality Status
     │   └── Release Artifacts
     ├── Workforce
