@@ -106,6 +106,14 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Governance Authority Matrix.** Operating Model artifact mapping controls, enforcement modes, effective Control Owners, Approvers, and scopes.
 
+**Work Cadence.** Team or track operating rhythm such as Daily Flow Review, Sprint Planning, Sprint Review, or Retrospective. Governance may check adherence and outputs, but the cadence itself belongs to Work/Workforce practice.
+
+**Release Readiness Review.** Governance Ritual that decides whether Product Delivery or Customer Release Intent realization is ready across multiple readiness families: build quality, documentation, SRE/operational, security, evidence, customer, GTM, data/migration, and dependency readiness.
+
+**Operating Health Indicator.** Metric used by governance to understand system health — for example cost, velocity, efficiency, cycle time, rework, debt aging, and exception aging. These are not individual surveillance metrics.
+
+**Console Group.** Navigation grouping in the Foundry Web App. Work consoles show work movement; Workforce consoles show people/agents/capacity/contribution/recognition; Governance consoles show health, controls, evidence, authority, risks/debt/exceptions, and improvement.
+
 ## Engagement terms
 
 **Engagement.** In Engagement Engineering, an **Engagement is a Workshop** — program-managed, consolidating Velocity, Predictability, Quality, Cost, and Risk for the Products delivered under it. Each Product built for that client corresponds to a **Workbench** inside the Engagement Workshop. Source: [engagement-engineering/extension-to-ace.md](engagement-engineering/extension-to-ace.md); [foundry/1.TODO](1.TODO) lines 5-12.

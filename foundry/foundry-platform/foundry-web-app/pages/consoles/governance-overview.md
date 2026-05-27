@@ -22,6 +22,9 @@
 | **Expiring exceptions / waivers** | Exceptions nearing expiry |
 | **Open risks** | Active Risk Register entries |
 | **Open rituals** | Governance Rituals scheduled, in progress, or overdue |
+| **Operating cadence adherence** | Daily/sprint cadence adherence and output health |
+| **Release readiness** | Readiness by build quality, documentation, SRE/operational, security, evidence, customer, GTM, data/migration, dependency |
+| **Cost / velocity / efficiency** | Operating health indicators reviewed through governance |
 | **Recent recognitions** | WFR Kudos / Recognition entries from recent rituals |
 
 ### 2. Attention Queue

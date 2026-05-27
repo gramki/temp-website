@@ -35,6 +35,8 @@ Governance Enforcement consumes policies, target items, transitions, artifacts, 
 
 Rituals may contain enforcement. Enforcement may trigger rituals. Both may trigger Evolve Cases when governance practice itself needs improvement.
 
+Recommended rituals and release-readiness control families are described in [governance-rituals.md](governance-rituals.md).
+
 ## Governance in plain language
 
 Governance is how ACE makes sure important work follows agreed rules, uses the right evidence, involves the right people, records decisions clearly, and learns from both violations and good practice.
@@ -79,6 +81,12 @@ Build Quality Objectives and Indicators are specializations of this general mode
 ## Kudos and recognition
 
 Governance should not only find problems. Rituals may produce Kudos / Recognition entries when teams, people, or agents demonstrate strong evidence discipline, excellent collaboration, early risk surfacing, effective recovery, or reusable practice patterns.
+
+## Work cadences vs governance rituals
+
+Daily Flow Review, Sprint / Iteration Planning, Sprint / Iteration Review, and Sprint / Iteration Retrospective are primarily Work or team operating cadences. Governance does not own those cadences. Governance may define controls that require evidence that those cadences occurred, produced expected outputs, escalated blockers, and routed repeated issues to Evolve.
+
+Cost, velocity, and efficiency are governance indicators of operating health, not individual surveillance metrics. Raw data may appear in Progress, Team, Agent, and Track consoles; Governance uses those metrics as Control Objective Indicators in rituals and operating reviews.
 
 ## What governance work does
 

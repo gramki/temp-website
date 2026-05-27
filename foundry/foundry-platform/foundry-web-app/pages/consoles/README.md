@@ -2,6 +2,8 @@
 
 Consoles are focused views accessible from the Workbench Home side navigation.
 
+For guidance on when to use Work, Workforce, Governance, Build, Resources, and Settings consoles — and when to add a new console instead of expanding an existing one — see [CONSOLE-GUIDE.md](CONSOLE-GUIDE.md).
+
 ## Console Groups
 
 ### Work

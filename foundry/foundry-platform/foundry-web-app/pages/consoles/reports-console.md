@@ -24,6 +24,9 @@
 | **Governance Health Dashboard** | Overall governance status |
 | **Control Objective Compliance Dashboard** | Control pass/warn/fail trends |
 | **Evidence Completeness Report** | Missing and complete evidence by item/transition |
+| **Release Readiness by Family** | Readiness across build quality, documentation, SRE/operational, security, evidence, customer, GTM, data/migration, dependency |
+| **Work Cadence Adherence** | Daily/sprint cadence occurrence, outputs, blockers, and follow-up |
+| **Cost / Velocity / Efficiency Dashboard** | Operating health indicators for Workbench governance review |
 | **Debt Aging Dashboard** | Active and overdue Debt + Catch-Up items |
 | **Exception Expiry Dashboard** | Exceptions/waivers nearing expiry |
 | **Workforce Recognition Dashboard** | WFR recognition entries and reusable practice candidates |

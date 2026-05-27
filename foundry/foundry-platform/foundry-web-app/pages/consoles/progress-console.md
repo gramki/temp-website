@@ -6,6 +6,8 @@
 
 **Purpose:** Work completion analytics — burndown, velocity, completion rates.
 
+> **Console boundary:** Progress Console owns raw flow metrics such as velocity, throughput, cycle time, and burndown. Governance consumes these as Control Objective Indicators in operating-health rituals; Progress Console does not own governance interpretation.
+
 ---
 
 ## Page Sections
@@ -79,3 +81,4 @@
 - **PI Console** — Drill into specific PI
 - **Track Console** — Track-level analytics
 - **Team Console** — Who's doing the work
+- **Reports & Dashboards** — Governance interpretation of cost, velocity, and efficiency trends

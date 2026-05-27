@@ -6,6 +6,8 @@
 
 **Purpose:** Specialized Controls & Enforcement view for build and release quality: Control Objectives, Control Objective Indicators, thresholds, evidence, Debt + Catch-Up, and Exception / Waiver status.
 
+> **Position:** Quality Controls covers the Build Quality Readiness family. It is one part of Release Readiness, alongside documentation, SRE/operational, security, evidence, customer, GTM, data/migration, and dependency readiness.
+
 ---
 
 ## Page Sections

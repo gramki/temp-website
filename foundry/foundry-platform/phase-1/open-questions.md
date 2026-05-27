@@ -43,6 +43,20 @@ Governance:
 - Which Governance Enforcement scenarios are in Phase 1?
 - Which reports and dashboards are required inputs to those rituals?
 - Which ritual outputs are supported: action items, findings, risk/debt entries, recognitions, Evolve Cases?
+- Which work/team operating cadences are tracked in Phase 1?
+- Is cadence adherence in scope for Phase 1 governance?
+- Is Release Readiness Review in scope?
+- Which Release Readiness control families are Phase 1?
+  - Build Quality Readiness?
+  - Documentation Readiness?
+  - SRE / Operational Readiness?
+  - Security Readiness?
+  - Evidence Readiness?
+  - Customer Readiness?
+  - GTM Readiness?
+  - Data / Migration Readiness?
+  - Dependency Readiness?
+- Are cost, velocity, and efficiency Control Objectives in scope?
 - Which Governance Admin roles are required in Phase 1?
 - What is the minimum Governance Authority Matrix?
 - Which Control Objectives and Control Objective Indicators are implemented in Phase 1?

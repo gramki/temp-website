@@ -6,6 +6,8 @@
 
 **Purpose:** Team analytics — contributions, workload, team composition.
 
+> **Console boundary:** Team Console owns workforce capacity, workload, contribution, skills, and WFR-backed recognition. Governance may consume team-level trends as operating-health indicators, but Team Console is not a governance enforcement surface.
+
 ---
 
 ## Page Sections

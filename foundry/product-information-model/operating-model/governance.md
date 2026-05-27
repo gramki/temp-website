@@ -44,6 +44,8 @@ Examples:
 - If a policy does not apply to a specific case, request an Exception / Waiver.
 - If a team demonstrates strong evidence discipline or excellent recovery, record recognition in the WFR-backed Kudos Register.
 
+Governance does not own every team cadence. Daily flow reviews and sprint/iteration ceremonies are Work or team operating cadences. Governance may define controls over adherence, outputs, and repeated patterns from those cadences.
+
 ## Admin, owner, approver
 
 Governance distinguishes configuration, accountability, and authorization.
@@ -220,6 +222,14 @@ Registers are durable management records. They may be created by rituals or enfo
 - Workforce Recognition / Kudos Register (WFR)
 
 The Kudos Register is the positive counterpart to risk and debt tracking, but it is not a governance obligation register. Governance should recognize good practice, not only police bad practice. The system of record for Kudos / Recognition entries is WFR because recognition attaches to people, teams, and agents.
+
+## Governance ritual catalog
+
+ACE provides the recommended enterprise software factory ritual catalog in [../../ace/governance-rituals.md](../../ace/governance-rituals.md). That catalog distinguishes Governance Rituals from Work/Team Operating Cadences and defines Release Readiness control families.
+
+## Operating health indicators
+
+Cost, velocity, and efficiency are Control Objective Indicators for operating health. Raw measurements may come from Work, Workforce, Agent, Progress, CI, or Platform Ops systems. Governance uses these indicators to detect systemic risk, debt, inefficiency, and improvement opportunities, not to rank individuals.
 
 ## Repository mapping
 

@@ -59,7 +59,7 @@
 
 ### 4. Ritual Types
 
-Examples:
+Governance Ritual examples:
 - Product Intent Review
 - Discovery Case Review
 - Release Readiness Review
@@ -72,6 +72,17 @@ Examples:
 - Product Intent Retrospective
 - Team Productivity / Contribution Review
 
+### 5. Work / Team Operating Cadences Governed by Controls
+
+These cadences are primarily Work or Workforce operating rhythm. Governance may check adherence, outputs, and repeated patterns, but does not own the cadence itself.
+
+| Cadence | Governance controls |
+|---------|---------------------|
+| Daily Flow Review | Blockers captured; aging WIP reviewed; severe blockers escalated |
+| Sprint / Iteration Planning | Commitments recorded; capacity considered; dependencies identified |
+| Sprint / Iteration Review | Completed work evidenced; carryover explained; outcomes recorded |
+| Sprint / Iteration Retrospective | Action items captured; repeated issues routed to Evolve; recognition captured |
+
 ---
 
 ## Actions
@@ -83,7 +94,8 @@ Examples:
 | Attach input | Participant | Attach dashboard, report, evidence, or register entry |
 | Record decision | Approver / Ritual lead | Capture approval, rejection, deferral, or exception |
 | Create finding | Participant | Record governance observation or issue |
-| Create register entry | Participant / Governance | Add risk, debt, exception, compliance, deferred obligation, or kudos |
+| Create register entry | Participant / Governance | Add risk, debt, exception, compliance, or finding |
+| Add recognition | Participant | Create WFR Recognition entry |
 | Create Evolve Case | Governance / Evolve | Improve governance practice based on ritual output |
 | Close ritual | Ritual lead | Close ritual instance with outputs recorded |
 

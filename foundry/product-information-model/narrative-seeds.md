@@ -256,6 +256,22 @@ Exception / Waiver remains available when the policy does not apply, an alternat
 
 Controls inherit from Foundry to Workspace to Workbench. Foundry defines baselines. Workspace and Workbench scopes can add or tighten controls. They can override only where the parent scope permits. Effective controls are resolved at enforcement time so exception and debt requests route to the effective Control Owner or delegated Approver.
 
+### Governance does not own every cadence
+
+Daily flow, sprint planning, sprint review, and retrospectives are Work or team operating cadences. Governance should not take them over. Governance checks whether required cadences happened, whether outputs were recorded, whether blockers were escalated, whether retrospective actions aged out, and whether repeated issues should trigger Evolve.
+
+### Release readiness is multi-dimensional
+
+Release readiness is not only build quality. A customer-facing release may also require documentation readiness, SRE/operational readiness, security readiness, evidence readiness, customer readiness, GTM readiness, data/migration readiness, and dependency readiness. Governance coordinates the readiness decision, but the underlying evidence comes from Build, Run, Win, Product, Security, Documentation, and other functions.
+
+### Cost, velocity, and efficiency are governance indicators
+
+Cost, velocity, and efficiency are not merely analytics and should not be used as individual surveillance metrics. They are operating health indicators. Work and Workforce systems produce the raw data; Governance uses trends and thresholds to detect systemic risk, debt, inefficiency, overcommitment, or improvement opportunities.
+
+### Console groups answer different questions
+
+Work consoles show the movement of work. Workforce consoles show the people and agents doing the work. Governance consoles show whether the work system is healthy, controlled, evidenced, authorized, efficient, compliant, and improving. New consoles should be added only when a distinct user question cannot be answered clearly as a tab, panel, or overlay inside an existing console.
+
 ### The Discovery Track produces four types of output
 
 1. **PDRs** — decisions (any dimension)
