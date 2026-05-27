@@ -20,10 +20,10 @@ Procedural memory often diverges from written SOPs; that divergence is itself a 
 The word “procedural” shows up in three different cognitive layers:
 
 - **Procedural enterprise knowledge**: official SOPs/runbooks (what the enterprise asserts)  
-  See: [`../enterprise-knowledge/procedural-knowledge.md`](../enterprise-knowledge/procedural-knowledge.md)
+  See: [../enterprise-knowledge/procedural-knowledge.md](../enterprise-knowledge/procedural-knowledge.md)
 - **Procedural enterprise memory (this doc)**: how work is actually done in practice (revealed behavior)
 - **Procedural agent memory**: agent-executable workflows/tool chains for repeatable action  
-  See: [`../agent-memory/procedural-memory.md`](../agent-memory/procedural-memory.md)
+  See: [../agent-memory/procedural-memory.md](../agent-memory/procedural-memory.md)
 
 ## What belongs here (signals worth remembering)
 
@@ -115,12 +115,12 @@ Promotion yields:
 
 ## Related concepts (Hub docs)
 
-- [`../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md`](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): CAF policy enforcement (especially important for procedural/tool safety)
-- [`../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md`](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Enterprise Memory record types and retention table (stub)
+- [../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): CAF policy enforcement (especially important for procedural/tool safety)
+- [../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Enterprise Memory record types and retention table (stub)
 
 ## Navigation
 
-- Back to overview: [`README.md`](./README.md)
-- Prev: [`semantic-memory.md`](./semantic-memory.md)
-- Next: [`preference-memory.md`](./preference-memory.md)
+- Back to overview: [README.md](./README.md)
+- Prev: [semantic-memory.md](./semantic-memory.md)
+- Next: [preference-memory.md](./preference-memory.md)
 

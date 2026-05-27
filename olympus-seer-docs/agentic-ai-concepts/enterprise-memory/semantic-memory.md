@@ -19,7 +19,7 @@ It answers:
 
 - **Semantic enterprise memory (this doc)**: institutional learned patterns/hypotheses derived from episodes (shared across agents and humans).
 - **Semantic agent memory**: an agent’s local store of stable facts/concepts used to act in-the-moment.  
-  See: [`../agent-memory/semantic-memory.md`](../agent-memory/semantic-memory.md)
+  See: [../agent-memory/semantic-memory.md](../agent-memory/semantic-memory.md)
 
 ## What belongs here (signals worth remembering)
 
@@ -109,12 +109,12 @@ Promotion creates **new truth** (versioned, owned, enforceable). Until then, sem
 
 ## Related concepts (Hub docs)
 
-- [`../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md`](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): CAF policy enforcement, retention, audit trails
-- [`../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md`](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Promotion to Enterprise Knowledge (stub)
+- [../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): CAF policy enforcement, retention, audit trails
+- [../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Promotion to Enterprise Knowledge (stub)
 
 ## Navigation
 
-- Back to overview: [`README.md`](./README.md)
-- Prev: [`episodic-memory.md`](./episodic-memory.md)
-- Next: [`procedural-memory.md`](./procedural-memory.md)
+- Back to overview: [README.md](./README.md)
+- Prev: [episodic-memory.md](./episodic-memory.md)
+- Next: [procedural-memory.md](./procedural-memory.md)
 

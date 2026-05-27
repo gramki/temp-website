@@ -11,17 +11,17 @@ The same database can hold multiple cognitive categories. A “knowledge base”
 
 See also:
 
-- Cognitive classification and vocabulary mapping: [`./enterprise-knowledge-memory-other-data.md`](./enterprise-knowledge-memory-other-data.md)
-- Enterprise Memory types: [`./enterprise-memory/README.md`](./enterprise-memory/README.md)
-- Enterprise Knowledge types: [`./enterprise-knowledge/README.md`](./enterprise-knowledge/README.md)
-- Agent context compiler mechanics: [`./agent-memory/context-building.md`](./agent-memory/context-building.md)
-- Worked example story (fraud case resolution): [`../../olympus-hub-docs/aosm-and-hub/fraud-case-resolution-agent.md`](../../olympus-hub-docs/aosm-and-hub/fraud-case-resolution-agent.md)
+- Cognitive classification and vocabulary mapping: [./enterprise-knowledge-memory-other-data.md](./enterprise-knowledge-memory-other-data.md)
+- Enterprise Memory types: [./enterprise-memory/README.md](./enterprise-memory/README.md)
+- Enterprise Knowledge types: [./enterprise-knowledge/README.md](./enterprise-knowledge/README.md)
+- Agent context compiler mechanics: [./agent-memory/context-building.md](./agent-memory/context-building.md)
+- Worked example story (fraud case resolution): [../../olympus-hub-docs/aosm-and-hub/fraud-case-resolution-agent.md](../../olympus-hub-docs/aosm-and-hub/fraud-case-resolution-agent.md)
 
 ## Where this doc fits (so you don’t read the wrong thing)
 
 - **This doc** is the applied “coach” guide: how to use all sources together in context compilation with worked examples.
-- **Canonical conceptual model** (definitions, “storage ≠ cognition”, vocabulary mapping): [`./enterprise-knowledge-memory-other-data.md`](./enterprise-knowledge-memory-other-data.md)
-- **Operational handbooks**: [`./enterprise-memory/README.md`](./enterprise-memory/README.md), [`./enterprise-knowledge/README.md`](./enterprise-knowledge/README.md), [`./agent-memory/README.md`](./agent-memory/README.md)
+- **Canonical conceptual model** (definitions, “storage ≠ cognition”, vocabulary mapping): [./enterprise-knowledge-memory-other-data.md](./enterprise-knowledge-memory-other-data.md)
+- **Operational handbooks**: [./enterprise-memory/README.md](./enterprise-memory/README.md), [./enterprise-knowledge/README.md](./enterprise-knowledge/README.md), [./agent-memory/README.md](./agent-memory/README.md)
 
 ---
 
@@ -57,7 +57,7 @@ See also:
 
 Use a context compiler, not “paste everything into the prompt”.
 
-Minimal pipeline (expanded in [`./agent-memory/context-building.md`](./agent-memory/context-building.md)):
+Minimal pipeline (expanded in [./agent-memory/context-building.md](./agent-memory/context-building.md)):
 
 1. **Clarify the goal** (decision + required output)
 2. **Select sources by type** (knowledge, enterprise memory, operational, agent memory)
@@ -255,8 +255,8 @@ Each example includes:
 
 ## 6) Where these concepts live in this repo
 
-- Enterprise Memory: [`./enterprise-memory/README.md`](./enterprise-memory/README.md)
-- Agent Memory and context compiler: [`./agent-memory/README.md`](./agent-memory/README.md)
-- Enterprise Knowledge: [`./enterprise-knowledge/README.md`](./enterprise-knowledge/README.md)
-- Cognitive classification + “storage ≠ cognition”: [`./enterprise-knowledge-memory-other-data.md`](./enterprise-knowledge-memory-other-data.md)
+- Enterprise Memory: [./enterprise-memory/README.md](./enterprise-memory/README.md)
+- Agent Memory and context compiler: [./agent-memory/README.md](./agent-memory/README.md)
+- Enterprise Knowledge: [./enterprise-knowledge/README.md](./enterprise-knowledge/README.md)
+- Cognitive classification + “storage ≠ cognition”: [./enterprise-knowledge-memory-other-data.md](./enterprise-knowledge-memory-other-data.md)
 

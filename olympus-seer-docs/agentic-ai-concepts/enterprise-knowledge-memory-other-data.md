@@ -945,8 +945,8 @@ They form a meta-vocabulary that can reference OLTP, data, and knowledge systems
 
 The “further reading” lists are maintained alongside the per-type Enterprise Memory pages:
 
-- [`./enterprise-memory/episodic-memory.md`](./enterprise-memory/episodic-memory.md)
-- [`./enterprise-memory/semantic-memory.md`](./enterprise-memory/semantic-memory.md)
-- [`./enterprise-memory/procedural-memory.md`](./enterprise-memory/procedural-memory.md)
-- [`./enterprise-memory/preference-memory.md`](./enterprise-memory/preference-memory.md)
-- Cross-cutting: [`./enterprise-memory/README.md`](./enterprise-memory/README.md)
+- [./enterprise-memory/episodic-memory.md](./enterprise-memory/episodic-memory.md)
+- [./enterprise-memory/semantic-memory.md](./enterprise-memory/semantic-memory.md)
+- [./enterprise-memory/procedural-memory.md](./enterprise-memory/procedural-memory.md)
+- [./enterprise-memory/preference-memory.md](./enterprise-memory/preference-memory.md)
+- Cross-cutting: [./enterprise-memory/README.md](./enterprise-memory/README.md)

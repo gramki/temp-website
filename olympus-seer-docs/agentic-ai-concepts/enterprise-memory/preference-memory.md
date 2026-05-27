@@ -187,11 +187,11 @@ Recommended practices:
 
 ## Related concepts (Hub docs)
 
-- [`../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md`](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): CAF governance (consent, retention, access logging)
-- [`../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md`](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Exception history and override records (stub)
+- [../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): CAF governance (consent, retention, access logging)
+- [../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Exception history and override records (stub)
 
 ## Navigation
 
-- Back to overview: [`README.md`](./README.md)
-- Prev: [`procedural-memory.md`](./procedural-memory.md)
+- Back to overview: [README.md](./README.md)
+- Prev: [procedural-memory.md](./procedural-memory.md)
 

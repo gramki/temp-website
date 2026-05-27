@@ -16,20 +16,20 @@ This folder breaks Enterprise Memory into four canonical types and makes each ty
 
 ## Doc ownership (avoid duplication)
 
-- **Canonical conceptual model** (definitions, OLTP placement, “storage ≠ cognition”, vocabulary mapping, core anti-patterns): [`../enterprise-knowledge-memory-other-data.md`](../enterprise-knowledge-memory-other-data.md)
+- **Canonical conceptual model** (definitions, OLTP placement, “storage ≠ cognition”, vocabulary mapping, core anti-patterns): [../enterprise-knowledge-memory-other-data.md](../enterprise-knowledge-memory-other-data.md)
 - **This folder** is the Enterprise Memory handbook (ESPP types + capture/retention/promotion guidance per type).
-- **Applied guide** with worked examples: [`../designing-an-agent.md`](../designing-an-agent.md)
+- **Applied guide** with worked examples: [../designing-an-agent.md](../designing-an-agent.md)
 
 ## Related docs
 
-- [`../enterprise-knowledge-memory-other-data.md`](../enterprise-knowledge-memory-other-data.md): Enterprise Knowledge vs Enterprise Memory vs Agent Memory (conceptual framing and anti-patterns)
-- [`../agent-memory/knowledge-memory-context-session.md`](../agent-memory/knowledge-memory-context-session.md): Knowledge vs Session vs Memory vs Context (agent-centric clarity that avoids common conflations)
-- [`../agent-memory/agent-memory-management.md`](../agent-memory/agent-memory-management.md): Memory lifecycle mechanics (useful patterns for retrieval/decay/eviction)
-- [`../designing-an-agent.md`](../designing-an-agent.md): Practical guide to using enterprise knowledge, enterprise memory, and operational stores in context compilation
+- [../enterprise-knowledge-memory-other-data.md](../enterprise-knowledge-memory-other-data.md): Enterprise Knowledge vs Enterprise Memory vs Agent Memory (conceptual framing and anti-patterns)
+- [../agent-memory/knowledge-memory-context-session.md](../agent-memory/knowledge-memory-context-session.md): Knowledge vs Session vs Memory vs Context (agent-centric clarity that avoids common conflations)
+- [../agent-memory/agent-memory-management.md](../agent-memory/agent-memory-management.md): Memory lifecycle mechanics (useful patterns for retrieval/decay/eviction)
+- [../designing-an-agent.md](../designing-an-agent.md): Practical guide to using enterprise knowledge, enterprise memory, and operational stores in context compilation
 - **Hub docs (implementation concepts)**:
-  - [`../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md`](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Enterprise Memory as a Hub subsystem concept (stub, but aligned)
-  - [`../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md`](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): Cognitive Audit Fabric (CAF) as governance control plane
-  - [`../../../olympus-hub-docs/04-subsystems/cognitive-audit-fabric/README.md`](../../../olympus-hub-docs/04-subsystems/cognitive-audit-fabric/README.md): CAF subsystem overview (stub)
+  - [../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md](../../../olympus-hub-docs/04-subsystems/memory-services/hub-enterprise-memory.md): Enterprise Memory as a Hub subsystem concept (stub, but aligned)
+  - [../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md](../../../olympus-hub-docs/02-system-design/implementation-concepts/cognitive-audit-fabric.md): Cognitive Audit Fabric (CAF) as governance control plane
+  - [../../../olympus-hub-docs/04-subsystems/cognitive-audit-fabric/README.md](../../../olympus-hub-docs/04-subsystems/cognitive-audit-fabric/README.md): CAF subsystem overview (stub)
 
 ## Why Enterprise Memory matters (especially with agentic systems)
 
@@ -46,19 +46,19 @@ Enterprise Memory is the missing institutional layer that makes decisions **expl
 
 - **Episodic Memory** — “What happened?”  
   Discrete events, interactions, decisions, incidents, traces.
-  - See: [`episodic-memory.md`](./episodic-memory.md)
+  - See: [episodic-memory.md](./episodic-memory.md)
 
 - **Semantic Memory (Learned)** — “What did we learn from experience?”  
   Probabilistic patterns/hypotheses derived from episodes, challengeable and revisable.
-  - See: [`semantic-memory.md`](./semantic-memory.md)
+  - See: [semantic-memory.md](./semantic-memory.md)
 
 - **Procedural Memory** — “How do we actually do this?”  
   The organization’s practiced workflows, runbooks, and operational heuristics (often diverging from written SOPs).
-  - See: [`procedural-memory.md`](./procedural-memory.md)
+  - See: [procedural-memory.md](./procedural-memory.md)
 
 - **Preference Memory** — “What do we tend to favor in practice?”  
   Revealed priorities and trade-offs inferred from repeated choices, overrides, and tolerated risk.
-  - See: [`preference-memory.md`](./preference-memory.md)
+  - See: [preference-memory.md](./preference-memory.md)
 
 ## A common lifecycle (make memory operable)
 
@@ -71,7 +71,7 @@ Across all types, treat Enterprise Memory as a managed lifecycle:
 
 Promotion paths should be deliberate:
 
-- **Promotion model (canonical)**: see [`../enterprise-knowledge-memory-other-data.md`](../enterprise-knowledge-memory-other-data.md) and [`../enterprise-knowledge/lifecycle-and-management.md`](../enterprise-knowledge/lifecycle-and-management.md)
+- **Promotion model (canonical)**: see [../enterprise-knowledge-memory-other-data.md](../enterprise-knowledge-memory-other-data.md) and [../enterprise-knowledge/lifecycle-and-management.md](../enterprise-knowledge/lifecycle-and-management.md)
 
 ## What Enterprise Memory is *not*
 
