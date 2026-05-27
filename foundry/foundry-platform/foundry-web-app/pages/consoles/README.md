@@ -15,6 +15,9 @@ For guidance on when to use Work, Workforce, Governance, Build, Resources, and S
 | [Progress Console](progress-console.md) | `progress-console.md` | Completion analytics, burndown |
 | [Track Console](track-console.md) | `track-console.md` | Per-Track work analytics |
 
+**Sub-pages:**
+- **Workspace Session Details** — `/workbenches/{workbenchId}/sessions/{sessionId}` — Full session activity, work done, time tracking (see [Workspaces Console](workspaces-console.md))
+
 ### Build
 
 | Console | File | Purpose |
@@ -36,6 +39,9 @@ For guidance on when to use Work, Workforce, Governance, Build, Resources, and S
 |---------|------|---------|
 | [Team Console](team-console.md) | `team-console.md` | Team analytics, contributions |
 | [Agent Console](agent-console.md) | `agent-console.md` | Agent activity, performance |
+
+**Sub-pages:**
+- **Team Member Workbench Profile** — `/workbenches/{workbenchId}/team/{memberId}` — Full activity history and metrics for a team member (see [Team Console](team-console.md))
 
 ### Governance
 

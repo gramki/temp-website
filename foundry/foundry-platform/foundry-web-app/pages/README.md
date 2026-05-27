@@ -8,13 +8,16 @@ This folder contains requirements for key pages in the Foundry Web App.
 Foundry Home (/)
 └── Workshop Home (/workshops/{workshopId})
     └── Workbench Home (/workbenches/{workbenchId})
-        └── Consoles (/workbenches/{id}/consoles/{consoleId})
-            ├── Work: PI, Workspaces, Progress, Track
-            ├── Build: CI, Components, Quality Status, Release
-            ├── Resources: Repositories & Tools
-            ├── Workforce: Team, Agent
-            ├── Governance: Risk, Reports, Quality Compliance
-            └── Settings: Admin
+        ├── Consoles (/workbenches/{id}/consoles/{consoleId})
+        │   ├── Work: PI, Workspaces, Progress, Track
+        │   ├── Build: CI, Components, Quality Status, Release
+        │   ├── Resources: Repositories & Tools
+        │   ├── Workforce: Team, Agent
+        │   ├── Governance: Risk, Reports, Quality Compliance
+        │   └── Settings: Admin
+        └── Detail Pages
+            ├── Team Member Profile (/workbenches/{id}/team/{memberId})
+            └── Workspace Session Details (/workbenches/{id}/sessions/{sessionId})
 ```
 
 ## Home Pages
@@ -37,6 +40,13 @@ See [consoles/README.md](consoles/README.md) for all console pages.
 | **Workforce** | Team, Agent |
 | **Governance** | Risk, Reports, Quality Compliance |
 | **Settings** | Admin |
+
+## Detail Pages
+
+| Page | URL Pattern | Defined In |
+|------|-------------|------------|
+| Team Member Workbench Profile | `/workbenches/{id}/team/{memberId}` | [team-console.md](consoles/team-console.md) |
+| Workspace Session Details | `/workbenches/{id}/sessions/{sessionId}` | [workspaces-console.md](consoles/workspaces-console.md) |
 
 ## Planned Pages (TBD)
 
