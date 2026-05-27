@@ -42,7 +42,7 @@ Examples:
 - Before release, prove the required QA evidence exists.
 - If a control is below target but above the hard minimum, allow progress only with Debt + Catch-Up.
 - If a policy does not apply to a specific case, request an Exception / Waiver.
-- If a team demonstrates strong evidence discipline or excellent recovery, record recognition in the Kudos Register.
+- If a team demonstrates strong evidence discipline or excellent recovery, record recognition in the WFR-backed Kudos Register.
 
 ## Admin, owner, approver
 
@@ -206,7 +206,7 @@ Examples:
 - Discovery Readiness Report
 - Product Intent Governance Status
 - Governance Trend Report
-- Kudos / Recognition Summary
+- Workforce Recognition Summary
 
 Dashboards can be ritual inputs and ritual outputs. Trends in dashboards may trigger Evolve Cases.
 
@@ -217,10 +217,9 @@ Registers are durable management records. They may be created by rituals or enfo
 - Risk Register
 - Debt Register
 - Compliance Register
-- Deferred Obligation Register
-- Kudos / Recognition Register
+- Workforce Recognition / Kudos Register (WFR)
 
-The Kudos Register is the positive counterpart to risk and debt registers. Governance should recognize good practice, not only police bad practice.
+The Kudos Register is the positive counterpart to risk and debt tracking, but it is not a governance obligation register. Governance should recognize good practice, not only police bad practice. The system of record for Kudos / Recognition entries is WFR because recognition attaches to people, teams, and agents.
 
 ## Repository mapping
 
@@ -239,7 +238,6 @@ Governance definitions and outputs map to semantic UPIM repositories, not implem
 | Risk Register Entry | WR while active; PEIR for history |
 | Debt Register Entry | WR while active; PEIR for history |
 | Catch-Up Plan | WR |
-| Deferred Obligation | WR |
 | Exception Request | WR |
 | Exception Record / Waiver | WR while active; PEIR for audit |
 | Approval / Rejection Record | PEIR |

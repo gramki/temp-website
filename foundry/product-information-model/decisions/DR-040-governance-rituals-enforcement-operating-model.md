@@ -36,7 +36,7 @@ Treating every governance action as a generic "Governance Case" made governance 
 
 4. Classify risk, debt, compliance, deferred obligation, and kudos/recognition entries as **Register Artifacts**.
 
-5. Treat **Kudos Register** / Recognition Entries as first-class positive outputs of rituals.
+5. Treat **Kudos Register** / Recognition Entries as first-class positive outputs of rituals, with Workforce Repository as the semantic home for recognition.
 
 6. Route evolution of governance practice through **Evolve Cases**:
    - policy updates;
@@ -55,5 +55,5 @@ Governance should reinforce good practice, not only punish violations. Rituals c
 - Add Governance Ritual and Governance Enforcement work entities.
 - Update ACE governance framing.
 - Update Orchestrator and orchestration-item docs.
-- Add governance artifacts/registers including Kudos Register.
+- Add governance artifacts/registers and clarify that recognition lives in WFR.
 - Update Phase 1 open questions to include governance ritual/enforcement MVP decisions.

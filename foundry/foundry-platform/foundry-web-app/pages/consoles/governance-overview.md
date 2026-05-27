@@ -22,7 +22,7 @@
 | **Expiring exceptions / waivers** | Exceptions nearing expiry |
 | **Open risks** | Active Risk Register entries |
 | **Open rituals** | Governance Rituals scheduled, in progress, or overdue |
-| **Recent recognitions** | Kudos / Recognition entries from recent rituals |
+| **Recent recognitions** | WFR Kudos / Recognition entries from recent rituals |
 
 ### 2. Attention Queue
 
@@ -42,7 +42,7 @@ Prioritized list of governance items needing action.
 | Debt | Count | Count | Up / flat / down |
 | Exceptions / Waivers | Count | Count | Up / flat / down |
 | Compliance | Count | Count | Up / flat / down |
-| Kudos / Recognition | Count | N/A | Up / flat / down |
+| Workforce Recognition | Count | N/A | Up / flat / down |
 
 ### 4. Ritual Calendar Snapshot
 
@@ -74,7 +74,7 @@ Examples:
 | Approve / reject | Approver | Decide pending approval |
 | Create remediation Work Order | Control Owner / Governance | Create follow-up work |
 | Create Evolve Case | Governance / Evolve | Improve policy, ritual, dashboard, or playbook |
-| Add recognition | Ritual participant | Record Kudos / Recognition entry |
+| Add recognition | Ritual participant | Create WFR Recognition entry linked to this ritual |
 | Export snapshot | Governance | Export governance health snapshot |
 
 ---
@@ -92,6 +92,7 @@ Examples:
 ## Related Consoles
 
 - **Controls & Enforcement** — control status and enforcement items
-- **Registers** — risk, debt, exceptions, compliance, kudos
+- **Registers** — risk, debt, exceptions, compliance, findings
+- **Team Console / Agent Console** — Workforce recognition and kudos views
 - **Rituals** — ritual calendar and outputs
 - **Reports & Dashboards** — governance dashboards and exports

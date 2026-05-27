@@ -26,7 +26,7 @@
 | **Evidence Completeness Report** | Missing and complete evidence by item/transition |
 | **Debt Aging Dashboard** | Active and overdue Debt + Catch-Up items |
 | **Exception Expiry Dashboard** | Exceptions/waivers nearing expiry |
-| **Kudos / Recognition Dashboard** | Recognition entries and reusable practice candidates |
+| **Workforce Recognition Dashboard** | WFR recognition entries and reusable practice candidates |
 
 ### 2. Recent Reports
 

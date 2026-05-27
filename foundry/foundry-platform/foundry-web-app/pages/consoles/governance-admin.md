@@ -83,7 +83,7 @@ Shows:
 | Debt | Catch-Up Plan fields, due dates, repayment evidence |
 | Exceptions / Waivers | Expiry rules, conditions, renewal |
 | Compliance | Control obligations and audit periods |
-| Kudos / Recognition | Recognition types, visibility, reusable practice candidate flag |
+| Workforce Recognition | Recognition types, visibility, reusable practice candidate flag (stored in WFR) |
 
 ---
 

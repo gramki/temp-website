@@ -86,7 +86,7 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Governance Finding.** Governance work artifact that records an issue, gap, concern, observation, warning, violation, or other governance result.
 
-**Kudos Register.** Positive operating register that captures evidence-backed recognition surfaced through rituals or governance work. Entries may become reusable practice patterns through Evolve.
+**Kudos Register.** Workforce Repository register that captures evidence-backed recognition surfaced through rituals or governance work. Governance records the ritual context; WFR stores the recognition; PEIR preserves traceability; entries may become reusable practice patterns through Evolve.
 
 **Governance Admin.** Role authorized to configure governance definitions such as policies, controls, ritual definitions, thresholds, register definitions, dashboards, and inheritance rules. Distinct from Foundry Admin and distinct from Control Owner.
 

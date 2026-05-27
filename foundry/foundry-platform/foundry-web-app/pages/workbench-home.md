@@ -139,7 +139,7 @@ Grouped consoles for focused views.
 | **Governance Overview** | Governance health, attention queue, pending approvals |
 | **Rituals** | Governance Rituals, cadence, inputs, outputs, action items |
 | **Controls & Enforcement** | Control Objectives, indicators, thresholds, enforcement outcomes |
-| **Registers** | Risk, debt, exceptions, compliance, deferred obligations, kudos |
+| **Registers** | Risk, debt, exceptions, compliance, findings |
 | **Reports & Dashboards** | Governance dashboards, ritual inputs, audit exports |
 | **Quality Controls** | Build/release quality controls and threshold evaluation |
 

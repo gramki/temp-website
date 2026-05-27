@@ -31,8 +31,8 @@ Governance Ritual makes governance practices explicit and executable. It prevent
 | Decisions | List | Decisions made during the ritual |
 | Action Items | List | Follow-up actions or Work Orders |
 | Findings | List | Governance Findings produced |
-| Recognitions | List | Recognition entries or Kudos outputs |
-| Register Outputs | List | Risk, debt, compliance, deferred obligation, or kudos entries |
+| Recognitions | List | WFR Recognition entries or Kudos outputs |
+| Register Outputs | List | Risk, debt, compliance, or finding entries |
 | Status | Enum | Current lifecycle status |
 
 ## Statuses
@@ -55,7 +55,7 @@ Governance Ritual makes governance practices explicit and executable. It prevent
 | Consumes | Reports / Dashboards / Evidence | Ritual reviews operating state and evidence |
 | May contain | Governance Enforcement (Track 6) | Ritual may run policy assertions as part of its work |
 | Produces | Governance Finding (artifact) | Ritual may produce findings |
-| Produces | Recognition Entry (register artifact) | Ritual may produce kudos/recognition |
+| Produces | Recognition Entry (WFR register artifact) | Ritual may produce kudos/recognition |
 | May trigger | Evolve Case (Track 5) | Ritual may trigger governance practice evolution |
 | May create | Workspace Work Order | Ritual may create action-item Work Orders |
 

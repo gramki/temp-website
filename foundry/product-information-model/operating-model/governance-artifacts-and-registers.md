@@ -25,7 +25,7 @@ Governance Rituals and Governance Enforcement produce durable outputs. These out
 | Debt Register Entry | Register Artifact | Tracks accepted non-compliance with mandatory Catch-Up Plan reference, Debt Owner, indicator snapshot, and due date. |
 | Compliance Register Entry | Register Artifact | Tracks compliance obligation, control status, and audit readiness. |
 | Deferred Obligation | Register Artifact | Deprecated term — use Debt Register Entry + Catch-Up Plan. Legacy alias for debt accepted with future remediation. |
-| Recognition Entry | Register Artifact | Evidence-backed appreciation or recognition surfaced through a ritual or governance work. |
+| Recognition Entry | Workforce Register Artifact | Evidence-backed appreciation or recognition surfaced through a ritual or governance work; stored in WFR because it recognizes people, teams, or agents. |
 
 ## Debt + Catch-Up vs Exception / Waiver
 
@@ -38,9 +38,11 @@ When a control is not fully satisfied, enforcement mode determines which durable
 
 Use Debt + Catch-Up when the objective still applies and remediation is planned. Use Exception / Waiver when policy allows a formal deviation for bounded time or scope. Block when neither path is permitted.
 
-## Kudos Register
+## Workforce Recognition / Kudos Register
 
 The **Kudos Register** records positive operating behavior surfaced through rituals, governance reviews, delivery recovery, incident handling, or cross-functional collaboration.
+
+Kudos is a positive output of governance, but its system of record is the **Workforce Repository (WFR)** because it recognizes people, teams, and agents. Governance records the ritual or enforcement context; WFR stores the recognition; PEIR preserves traceability; Evolve may promote reusable practices into PPR.
 
 Recognition entries may capture:
 
@@ -72,10 +74,12 @@ Recognition types may include:
 Some recognition entries should trigger Evolve work:
 
 ```text
-Recognition Entry
-  -> reusable practice identified
-  -> Evolve Case
-  -> playbook / standard / dashboard update
+Governance Ritual
+  -> Recognition Entry
+  -> WFR
+  -> PEIR trace
+  -> Evolve Case, if reusable practice identified
+  -> PPR playbook / standard / dashboard update
 ```
 
 This keeps governance from being purely punitive. Governance should reinforce the operating model by recognizing practices worth repeating.

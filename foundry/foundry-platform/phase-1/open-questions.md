@@ -431,7 +431,7 @@ completeTask()
 - How are governance verdicts shown in UI?
 - Which Governance Scenarios are required in Phase 1?
 - What audit trail is mandatory?
-- Are Risk Register, Debt Register, Compliance Register, and Kudos Register in scope?
+- Are Risk Register, Debt Register, Compliance Register, and WFR-backed Kudos Register in scope?
 - How are Governance Findings stored?
 - Which governance outputs trigger Evolve Cases?
 - How are recognitions / Kudos captured and surfaced?

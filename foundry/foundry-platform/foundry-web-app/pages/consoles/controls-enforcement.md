@@ -105,6 +105,6 @@
 ## Related Consoles
 
 - **Governance Overview** — attention queue and health summary
-- **Registers** — debt, exceptions, risks, compliance, kudos
+- **Registers** — debt, exceptions, risks, compliance, findings
 - **Quality Controls** — build/release quality specialization
 - **Governance Admin** — control configuration and inheritance

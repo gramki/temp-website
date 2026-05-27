@@ -222,7 +222,7 @@ Governance is not only a gate. It has operating rhythm and control execution.
 
 **Governance Enforcement** is policy assertion: evaluate a policy against an orchestration item, transition, artifact, evidence bundle, or state. Enforcement can pass, warn, fail, block, allow with debt, allow with risk, require exception, or create remediation work.
 
-This split keeps governance from becoming only punitive. Rituals should surface good practice as well as problems. Kudos / Recognition entries capture evidence-backed positive behavior — excellent collaboration, strong evidence discipline, effective incident handling, reusable patterns — so governance reinforces the operating model instead of merely policing deviations.
+This split keeps governance from becoming only punitive. Rituals should surface good practice as well as problems. Kudos / Recognition entries capture evidence-backed positive behavior — excellent collaboration, strong evidence discipline, effective incident handling, reusable patterns — so governance reinforces the operating model instead of merely policing deviations. Because recognition attaches to people, teams, and agents, the durable recognition entry belongs in the Workforce Repository, with PEIR retaining traceability and Evolve promoting reusable practices into PPR.
 
 ### Governance evolves through Evolve Cases
 

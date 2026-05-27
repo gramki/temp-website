@@ -6,7 +6,7 @@
 
 **Purpose:** Governance risk flags — view, manage, and respond to risks.
 
-> **Position:** Risk Console is a focused Risk Register view. The broader governance register surface is [Registers Console](registers-console.md), which includes risk, debt, exceptions/waivers, compliance, deferred obligations, and kudos.
+> **Position:** Risk Console is a focused Risk Register view. The broader governance register surface is [Registers Console](registers-console.md), which includes risk, debt, exceptions/waivers, compliance obligations, and findings. Kudos / Recognition lives in the Workforce Repository and is surfaced through Team, Agent, and Governance Overview views.
 
 ---
 

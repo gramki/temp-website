@@ -42,7 +42,7 @@ Consoles are focused views accessible from the Workbench Home side navigation.
 | [Governance Overview](governance-overview.md) | `governance-overview.md` | Governance health, attention queue, pending approvals |
 | [Rituals](rituals-console.md) | `rituals-console.md` | Governance Ritual calendar, inputs, outputs, action items |
 | [Controls & Enforcement](controls-enforcement.md) | `controls-enforcement.md` | Control Objectives, indicators, thresholds, enforcement outcomes |
-| [Registers](registers-console.md) | `registers-console.md` | Risk, debt, exceptions, compliance, deferred obligations, kudos |
+| [Registers](registers-console.md) | `registers-console.md` | Risk, debt, exceptions, compliance, findings |
 | [Reports & Dashboards](reports-console.md) | `reports-console.md` | Governance dashboards, ritual inputs, audit exports |
 | [Quality Controls](quality-compliance.md) | `quality-compliance.md` | Build/release quality controls and threshold evaluation |
 

@@ -4,7 +4,7 @@
 
 **Group:** Governance
 
-**Purpose:** Unified view of governance register artifacts: risks, debt, exceptions/waivers, compliance obligations, deferred obligations, and kudos/recognition.
+**Purpose:** Unified view of governance obligation and control-outcome register artifacts: risks, debt, exceptions/waivers, compliance obligations, and findings. Recognition/Kudos lives in the Workforce Repository and is surfaced through Team/Agent/Governance Overview views.
 
 ---
 
@@ -16,8 +16,7 @@
 | **Debt + Catch-Up** | Approved temporary deviations and repayment plans |
 | **Exceptions / Waivers** | Approved policy deviations, alternate controls, and bounded bypasses |
 | **Compliance** | Compliance obligations and audit readiness |
-| **Deferred Obligations** | Obligations allowed to proceed with later remediation |
-| **Kudos / Recognition** | Positive evidence-backed recognition |
+| **Findings** | Governance Findings, warnings, and violations |
 
 ---
 
@@ -26,7 +25,7 @@
 | Field | Description |
 |-------|-------------|
 | Entry ID | Unique register entry |
-| Type | Risk, debt, exception, compliance, deferred obligation, recognition |
+| Type | Risk, debt, exception/waiver, compliance obligation, finding |
 | Source | Governance Ritual, Governance Enforcement, Work Order, Product Intent, Discovery Case, etc. |
 | Linked item | Orchestration item or Work Order affected |
 | Owner | Accountable owner for risk/debt/compliance/remediation |
@@ -72,14 +71,6 @@
 - compliance status
 - evidence bundle
 
-### Kudos / Recognition
-
-- recognized person/team/agent
-- reason
-- recognition type
-- evidence reference
-- reusable practice candidate
-
 ---
 
 ## Actions
@@ -104,14 +95,15 @@
 | Maturity | Scope |
 |----------|-------|
 | Phase 1 | Risk, debt, exception/waiver, and compliance entries required by governance MVP |
-| Phase 2 | Deferred obligations and stronger workflows |
-| Phase 3 | Kudos dashboard, recognition analytics, reusable practice candidates |
+| Phase 2 | Stronger finding, risk, debt, and exception workflows |
+| Phase 3 | Cross-register analytics and Evolve triggers |
 
 ---
 
 ## Related Consoles
 
-- **Governance Overview** — summary across registers
+- **Governance Overview** — summary across registers and recent recognition
 - **Controls & Enforcement** — enforcement outcomes that create register entries
 - **Rituals** — rituals that produce register entries
 - **Reports & Dashboards** — register trends and exports
+- **Team Console / Agent Console** — Workforce recognition and kudos views

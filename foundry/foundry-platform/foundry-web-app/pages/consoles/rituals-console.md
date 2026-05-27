@@ -53,8 +53,8 @@
 | **Decisions** | Approvals, rejections, deferrals, risk/debt/exception decisions |
 | **Action items** | Follow-up Work Orders or tasks |
 | **Findings** | Governance Findings produced |
-| **Registers** | Risk, debt, exception, compliance, deferred obligation entries |
-| **Recognitions** | Kudos / Recognition entries |
+| **Registers** | Risk, debt, exception, compliance, and finding entries |
+| **Recognitions** | WFR Recognition entries produced by the ritual |
 | **Evolve candidates** | Suggestions to improve policy, ritual, dashboard, or playbook |
 
 ### 4. Ritual Types
