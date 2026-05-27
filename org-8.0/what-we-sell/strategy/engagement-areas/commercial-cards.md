@@ -362,4 +362,4 @@ This analysis draws on data from 60+ sources across six research streams. All ci
 
 **Industry media:** [PYMNTS](https://www.pymnts.com/); [Finextra](https://www.finextra.com/); [Payments Dive](https://www.paymentsdive.com/); [Inc42](https://inc42.com/)
 
-**Cross-references:** [`_research/payments/`](../_research/payments/) — FIS, Fiserv, Marqeta, i2c, Galileo competitive profiles overlap; [`market-study/tokenization-card-issuance-digital-instruments.md`](../../../../market-study/tokenization-card-issuance-digital-instruments.md) — virtual card issuance and tokenization data overlap
+**Cross-references:** [_research/payments/](../_research/payments/) — FIS, Fiserv, Marqeta, i2c, Galileo competitive profiles overlap; [market-study/tokenization-card-issuance-digital-instruments.md](../../../../market-study/tokenization-card-issuance-digital-instruments.md) — virtual card issuance and tokenization data overlap
