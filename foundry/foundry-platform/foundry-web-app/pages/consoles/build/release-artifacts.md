@@ -1,10 +1,10 @@
-# Release Console
+# Release Artifacts Console
 
-**URL pattern:** `/workbenches/{workbenchId}/consoles/release`
+**URL pattern:** `/workbenches/{workbenchId}/consoles/release-artifacts`
 
 **Group:** Build
 
-**Purpose:** Deployment status, release history, and Olympus Weave integration.
+**Purpose:** Deployment status, release history, versions, and Olympus Weave integration.
 
 ---
 

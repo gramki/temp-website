@@ -100,7 +100,8 @@
 
 ## Related Consoles
 
+- **Workforce Overview** — Team + Agent summary
 - **Team Console** — Human workforce
-- **Workspaces Console** — Where agents work
+- **Workspaces Overview** — Where agents work
 - **Progress Console** — Overall task completion
 - **Registers** — Agent-related risks and recognitions

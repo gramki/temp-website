@@ -78,7 +78,7 @@
 
 ## Related Consoles
 
-- **PI Console** — Drill into specific PI
-- **Track Console** — Track-level analytics
+- **Orchestration Console** — Drill into specific orchestration items
+- **Work Overview** — Attention queue and navigation
 - **Team Console** — Who's doing the work
 - **Reports & Dashboards** — Governance interpretation of cost, velocity, and efficiency trends

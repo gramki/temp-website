@@ -39,9 +39,9 @@ Each metric count in the roster is clickable and opens a side panel:
 
 | Metric Clicked | Side Panel Contents | Drill-down Link |
 |----------------|---------------------|-----------------|
-| Active Sessions | List of member's active Workspace Sessions with Workspace type, started time, attached WOs | Each session links to Workspaces Console filtered to that session |
-| Work Orders | List of assigned Work Orders with title, status, Workspace type, due date | Each WO links to PI Console at the specific Work Order |
-| Past Due | List of overdue Work Orders with title, days overdue, Workspace type | Each WO links to PI Console at the specific Work Order |
+| Active Sessions | List of member's active Workspace Sessions with Workspace type, started time, attached WOs | Each session links to Workspace Session Details page |
+| Work Orders | List of assigned Work Orders with title, status, Workspace type, due date | Each WO links to Orchestration Console at the specific Work Order |
+| Past Due | List of overdue Work Orders with title, days overdue, Workspace type | Each WO links to Orchestration Console at the specific Work Order |
 
 Side panel includes:
 - Member name header
@@ -155,7 +155,7 @@ Metrics specifically for Governance Teams:
 |--------|-----|-------------|
 | Assign Work Order | Manager | Assign new WO to this member |
 | Change role | Manager | Promote/demote role |
-| View sessions | All | Jump to Workspaces Console filtered to member |
+| View sessions | All | Jump to Workspaces Overview filtered to member |
 | Export report | Manager | Download member activity report |
 | Contact | All | Email or message member |
 
@@ -192,9 +192,10 @@ Metrics specifically for Governance Teams:
 
 ## Related Consoles
 
+- **Workforce Overview** — Team + Agent summary
 - **Agent Console** — Non-human workforce
 - **Progress Console** — Overall completion
-- **Workspaces Console** — Who's working where
+- **Workspaces Overview** — Who's working where
 - **Admin Console** — Team management settings
 
 ---
@@ -210,5 +211,5 @@ The Team Member Workbench Profile page (`/workbenches/{workbenchId}/team/{member
 | Activity feeds | Actor in activity |
 | Risk items | Associated member |
 | Governance reports | Member under review |
-| Workspaces Console | Session owner link |
+| Workspace consoles | Session owner link |
 | Workbench Wall | Activity attribution |
