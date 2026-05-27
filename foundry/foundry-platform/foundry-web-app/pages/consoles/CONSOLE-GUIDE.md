@@ -218,6 +218,7 @@ Console types describe the interaction pattern, independent of which group (Work
 | Workspaces | **Governance Workspace**    | Queue, List + Detail      |
 | Build      | **CI Console**              | Queue, Analytics          |
 | Build      | **Components Console**      | List + Detail             |
+| Build      | **Findings Console**        | Queue, Analytics          |
 | Build      | **Quality Status**          | Analytics                 |
 | Build      | **Release Artifacts**       | List + Detail, Workflow   |
 | Workforce  | **Workforce Overview**      | Landing                   |

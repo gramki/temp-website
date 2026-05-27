@@ -11,7 +11,7 @@ Foundry Home (/)
         ├── Consoles (/workbenches/{id}/consoles/{consoleId})
         │   ├── Work: Overview, Orchestration, Progress, Rituals, My Work
         │   ├── Workspaces: Overview, Product Spec, UX Design, Development, QA, Release, Governance
-        │   ├── Build: CI, Components, Quality Status, Release Artifacts
+        │   ├── Build: CI, Components, Findings, Quality Status, Release Artifacts
         │   ├── Workforce: Overview, Team, Agent
         │   ├── Governance: Overview, Rituals, Controls, Registers, Reports, Quality Controls
         │   ├── Resources: Repositories & Tools
@@ -38,7 +38,7 @@ See [consoles/README.md](consoles/README.md) for all console pages.
 |-------|----------|
 | **Work** | Work Overview, Orchestration, Progress, Rituals, My Work |
 | **Workspaces** | Workspaces Overview, Product Specification, UX Design, Development, QA, Release Workspace, Governance Workspace |
-| **Build** | CI, Components, Quality Status, Release Artifacts |
+| **Build** | CI, Components, Findings, Quality Status, Release Artifacts |
 | **Workforce** | Workforce Overview, Team, Agent |
 | **Governance** | Governance Overview, Rituals, Controls & Enforcement, Registers, Reports & Dashboards, Quality Controls |
 | **Resources** | Repositories & Tools |

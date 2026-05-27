@@ -39,7 +39,8 @@ For guidance on when to use console groups — and when to add a new console ins
 | Console | File | Purpose |
 |---------|------|---------|
 | [CI Console](build/ci-console.md) | `build/ci-console.md` | Build/pipeline status |
-| [Components Console](build/components-console.md) | `build/components-console.md` | Ontology — Systems, capabilities |
+| [Components Console](build/components-console.md) | `build/components-console.md` | Ontology — Systems, capabilities; Supply Chain (SBOM, dependencies) |
+| [Findings Console](build/findings-console.md) | `build/findings-console.md` | Vulnerabilities, license violations, code quality, policy violations |
 | [Quality Status](build/quality-status.md) | `build/quality-status.md` | Test results, coverage |
 | [Release Artifacts](build/release-artifacts.md) | `build/release-artifacts.md` | Versions, deployments, Weave integration |
 

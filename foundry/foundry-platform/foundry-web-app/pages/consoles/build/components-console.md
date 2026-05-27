@@ -63,6 +63,58 @@ Product (Workbench)
 | **Impact analysis** | What's affected by changes |
 | **Circular detection** | Flag circular dependencies |
 
+### 5. Supply Chain Tab
+
+Software Bill of Materials (SBOM) and dependency inventory for each component.
+
+#### SBOM Overview
+
+| Element | Description |
+|---------|-------------|
+| **Component selector** | Choose System or component to view |
+| **SBOM format** | CycloneDX, SPDX export options |
+| **Last generated** | When SBOM was last updated |
+| **Total dependencies** | Direct + transitive count |
+
+#### Dependency List
+
+| Column | Description |
+|--------|-------------|
+| **Name** | Dependency package name |
+| **Version** | Currently used version |
+| **Latest** | Latest available version |
+| **Type** | Direct or transitive |
+| **License** | SPDX license identifier |
+| **Source** | Package registry (npm, Maven, PyPI, etc.) |
+| **Used by** | Which components use this dependency |
+
+#### Dependency Graph
+
+| Element | Description |
+|---------|-------------|
+| **Tree view** | Hierarchical dependency tree |
+| **Graph view** | Visual dependency graph |
+| **Depth filter** | Limit transitive depth |
+| **Highlight outdated** | Flag dependencies behind latest |
+
+#### License Summary
+
+| Element | Description |
+|---------|-------------|
+| **License distribution** | Breakdown by license type |
+| **Approved licenses** | Count on approved list |
+| **Unapproved licenses** | Count requiring review |
+| **License details** | Per-dependency license info |
+
+#### Supply Chain Actions
+
+| Action | Who | Description |
+|--------|-----|-------------|
+| **Export SBOM** | All | Download CycloneDX or SPDX format |
+| **View dependency** | All | See dependency details, where used |
+| **Check for updates** | Engineer | See available upgrades |
+| **View findings** | All | Jump to Findings Console filtered by this dependency |
+
 ---
 
 ## Actions
@@ -97,6 +149,7 @@ Product (Workbench)
 
 ## Related Consoles
 
-- **Release Console** — Deployments by System
+- **Findings Console** — Vulnerabilities, license violations derived from Supply Chain
+- **Release Artifacts** — Deployments by System
 - **CI Console** — Builds by repository
 - **Repositories & Tools** — Code repos
