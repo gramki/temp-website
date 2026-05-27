@@ -188,6 +188,68 @@ destinations:
       dry_run: false
       parallel_threads: 12
 
+  - id: foundry-cto
+    name: Foundry (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Foundry
+      root_page_id: null
+    source:
+      folders:
+        - path: foundry
+          create_root_parent: false
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: corporate-payments-book-cto
+    name: Corporate Payments Book (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Corporate Payments Book
+      root_page_id: null
+    source:
+      folders:
+        - path: us-bank-commercial-card/corporate-payments-book
+          create_root_parent: true
+          title: Corporate Payments Book
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: zapp-incident-cto
+    name: Learnings from ZAPP Account Incident (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Learnings from ZAPP Account Incident
+      root_page_id: null
+    source:
+      folders:
+        - path: ../writing-work/learnings-from-zapp-account-incident
+          create_root_parent: true
+          title: Learnings from ZAPP Account Incident
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
   - id: org-8
     name: Org 8.0 (Z8 Space)
     confluence:
