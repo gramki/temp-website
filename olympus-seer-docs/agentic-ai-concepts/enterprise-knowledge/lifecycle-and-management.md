@@ -73,5 +73,5 @@ Enterprise memory (episodic/semantic/procedural/preference) is the discovery sub
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
+- Back: [README.md](./README.md)
 

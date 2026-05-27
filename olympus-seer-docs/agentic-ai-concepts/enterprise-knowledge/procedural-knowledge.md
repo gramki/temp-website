@@ -18,9 +18,9 @@ The word “procedural” shows up in three different cognitive layers:
 
 - **Procedural enterprise knowledge (this doc)**: official SOPs/runbooks (what the enterprise asserts)
 - **Procedural enterprise memory**: how work is actually done in practice (revealed behavior)  
-  See: [`../enterprise-memory/procedural-memory.md`](../enterprise-memory/procedural-memory.md)
+  See: [../enterprise-memory/procedural-memory.md](../enterprise-memory/procedural-memory.md)
 - **Procedural agent memory**: agent-executable workflows/tool chains for repeatable action  
-  See: [`../agent-memory/procedural-memory.md`](../agent-memory/procedural-memory.md)
+  See: [../agent-memory/procedural-memory.md](../agent-memory/procedural-memory.md)
 
 ## Important distinction: procedural knowledge vs procedural memory
 
@@ -47,5 +47,5 @@ When the two diverge, that divergence is a signal:
 
 ## Navigation
 
-- Back: [`README.md`](./README.md)
+- Back: [README.md](./README.md)
 
