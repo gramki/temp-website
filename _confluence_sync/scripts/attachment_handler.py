@@ -13,6 +13,32 @@ from typing import Dict, List, Optional, Set, Tuple
 from confluence_sync import ConfluenceSync
 
 
+def _guess_mime_type(filename: str) -> str:
+    """Best-effort MIME type for multipart upload (Confluence may validate PNG/JPEG)."""
+    lower = filename.lower()
+    if lower.endswith('.png'):
+        return 'image/png'
+    if lower.endswith(('.jpg', '.jpeg')):
+        return 'image/jpeg'
+    if lower.endswith('.gif'):
+        return 'image/gif'
+    if lower.endswith('.webp'):
+        return 'image/webp'
+    if lower.endswith('.svg'):
+        return 'image/svg+xml'
+    return 'application/octet-stream'
+
+
+def _log_attachment_error(response, filename: str, page_id: str) -> None:
+    """Print response body to help debug 4xx attachment failures."""
+    body = ''
+    try:
+        body = (response.text or '')[:2000]
+    except Exception:
+        pass
+    print(f"  ⚠ Attachment API {response.status_code} for {filename!r} (page {page_id}): {body or '(no body)'}")
+
+
 class AttachmentHandler:
     """Handles attachment uploads and image reference conversion."""
     
@@ -89,24 +115,25 @@ class AttachmentHandler:
             return attachment_name
         
         try:
-            # Attachment upload uses legacy REST API (v1); v2 has no POST for attachments
-            # POST /rest/api/content/{id}/child/attachment
+            # Legacy REST: use PUT (create-or-update). POST only creates; duplicate filename → 400.
+            # See https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content---attachments/
             import requests
             url = f"{self.confluence.base_url}/rest/api/content/{page_id}/child/attachment"
             headers = {
                 'X-Atlassian-Token': 'no-check'  # Required for file uploads
             }
+            mime = _guess_mime_type(attachment_name)
             
             with open(file_path, 'rb') as f:
                 files = {
-                    'file': (attachment_name, f, 'application/octet-stream')
+                    'file': (attachment_name, f, mime)
                 }
                 data = {
                     'comment': f'Uploaded by Confluence Sync'
                 }
                 
                 response = requests.request(
-                    'POST',
+                    'PUT',
                     url,
                     auth=self.confluence.auth,
                     headers=headers,
@@ -114,6 +141,8 @@ class AttachmentHandler:
                     data=data,
                     timeout=60
                 )
+                if not response.ok:
+                    _log_attachment_error(response, attachment_name, page_id)
                 response.raise_for_status()
                 
                 # Track uploaded attachment
@@ -147,12 +176,15 @@ class AttachmentHandler:
             import requests
             url = f"{self.confluence.base_url}/rest/api/content/{page_id}/child/attachment"
             headers = {'X-Atlassian-Token': 'no-check'}
-            files = {'file': (filename, io.BytesIO(data), 'application/octet-stream')}
+            mime = _guess_mime_type(filename)
+            files = {'file': (filename, io.BytesIO(data), mime)}
             data_payload = {'comment': 'Uploaded by Confluence Sync (Mermaid diagram)'}
             response = requests.request(
-                'POST', url, auth=self.confluence.auth, headers=headers,
+                'PUT', url, auth=self.confluence.auth, headers=headers,
                 files=files, data=data_payload, timeout=60
             )
+            if not response.ok:
+                _log_attachment_error(response, filename, page_id)
             response.raise_for_status()
             if page_id not in self.page_attachments:
                 self.page_attachments[page_id] = []

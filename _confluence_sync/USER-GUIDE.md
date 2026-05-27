@@ -55,14 +55,13 @@ The Confluence Sync tool automatically syncs Markdown files from your Git reposi
 
 ### Installation
 
-The sync tool uses a Python virtual environment that is automatically managed by the wrapper script. No manual installation needed!
+The sync tool uses a Python virtual environment that is automatically managed when you run the sync entrypoints. No manual installation needed!
 
 #### Automatic Setup (Recommended)
 
-The wrapper script (`scripts/sync-wrapper.sh`) automatically:
-- Creates and manages the virtual environment in `scripts/venv/`
-- Installs all required dependencies from `requirements.txt`
-- Loads environment variables from `data/.env`
+From `_confluence_sync/`, **`run-sync-with-env.py`** loads `data/.env`, uses `scripts/venv` when present (same dependencies as `requirements.txt`), and runs the sync script.
+
+Alternatively, from the repo root, **`scripts/sync-wrapper.sh`** creates/activates the venv, loads `.env`, and runs `sync-to-confluence.py`.
 
 #### Manual Setup (Optional)
 
@@ -131,16 +130,16 @@ export CONFLUENCE_TOKEN=your-api-token-here
 
 3. Run your first sync:
 
-Using the wrapper script (recommended):
+```bash
+cd _confluence_sync && python3 run-sync-with-env.py --destination my-docs
+```
+
+Replace `my-docs` with your destination `id` from `data/confluence-destinations.yaml` (e.g. `org-8`).
+
+Optional — from repo root using the shell wrapper:
 
 ```bash
 bash _confluence_sync/scripts/sync-wrapper.sh --destination my-docs
-```
-
-Or run directly (if venv is already activated):
-
-```bash
-python _confluence_sync/scripts/sync-to-confluence.py --destination my-docs
 ```
 
 ### Verifying Results
@@ -371,30 +370,46 @@ If multiple folders have files with the same relative path, they will be synced 
 
 ### Basic Commands
 
+Run these from the **`_confluence_sync`** directory (or use absolute paths to `run-sync-with-env.py`).
+
 #### Sync a Specific Destination
 
 ```bash
-bash _confluence_sync/scripts/sync-wrapper.sh --destination hub-docs
+cd _confluence_sync && python3 run-sync-with-env.py --destination org-8
 ```
+
+Use the destination `id` from `data/confluence-destinations.yaml` (e.g. `org-8`, `hub-docs`, `corporate-payments-book-cto`).
 
 #### Sync All Destinations
 
 ```bash
-python _confluence_sync/sync-to-confluence.py --all
+cd _confluence_sync && python3 run-sync-with-env.py --all
 ```
 
 #### Dry Run (Preview Changes)
 
 ```bash
-python _confluence_sync/sync-to-confluence.py --destination hub-docs --dry-run
+cd _confluence_sync && python3 run-sync-with-env.py --destination hub-docs --dry-run
+```
+
+#### Force Update All Pages
+
+```bash
+cd _confluence_sync && python3 run-sync-with-env.py --destination org-8 --force-update
 ```
 
 #### Use Custom Config File
 
 ```bash
-python _confluence_sync/sync-to-confluence.py \
-  --config path/to/custom-config.yaml \
+cd _confluence_sync && python3 run-sync-with-env.py \
+  --config data/path/to/custom-config.yaml \
   --destination hub-docs
+```
+
+#### Optional: shell wrapper from repo root
+
+```bash
+bash _confluence_sync/scripts/sync-wrapper.sh --destination org-8
 ```
 
 ### Command-Line Arguments
@@ -410,23 +425,22 @@ python _confluence_sync/sync-to-confluence.py \
 #### Sync Single Destination
 
 ```bash
-# Set token
+# Set token (or use _confluence_sync/data/.env)
 export CONFLUENCE_TOKEN=your-token
 
-# Sync
-python _confluence_sync/sync-to-confluence.py --destination hub-docs
+cd _confluence_sync && python3 run-sync-with-env.py --destination hub-docs
 ```
 
 #### Sync Multiple Destinations
 
 ```bash
-python _confluence_sync/sync-to-confluence.py --all
+cd _confluence_sync && python3 run-sync-with-env.py --all
 ```
 
 #### Preview Before Syncing
 
 ```bash
-python _confluence_sync/sync-to-confluence.py --destination hub-docs --dry-run
+cd _confluence_sync && python3 run-sync-with-env.py --destination hub-docs --dry-run
 ```
 
 ---
@@ -620,13 +634,41 @@ The script:
 
 ### Mermaid diagram rendering
 
-For Mermaid diagrams to render as images in Confluence (instead of plain text or blank), the sync tool embeds a pre-rendered PNG **inline** (data URL in the page body) when the Python package [mmdc](https://pypi.org/project/mmdc/) is installed (no Node.js required):
+Each ` ```mermaid ``` ` block is rendered to PNG and uploaded as a page attachment (`mermaid-0.png`, …).
+
+**Recommended: Node [@mermaid-js/mermaid-cli](https://github.com/mermaid-js/mermaid-cli)** (current Mermaid, reliable layout):
 
 ```bash
-pip install mmdc
+# Either install globally:
+npm i -g @mermaid-js/mermaid-cli
+# Or rely on npx (no global install; first run may download the package):
+# Sync tries `mmdc` on PATH, then `npx -y @mermaid-js/mermaid-cli`.
 ```
 
-After installing, run sync as usual; each ` ```mermaid ``` ` block will be rendered to PNG and embedded inline in the page (no attachments). If `mmdc` is not installed, the tool falls back to the Node.js [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) (`mmdc` on PATH) if available; otherwise the macro is sent with the diagram source only—some Confluence Mermaid apps may not display it without the embedded image.
+The CLI is invoked with a **white** background so diagrams are visible on Confluence’s light page canvas. Export uses a **large viewport** (`-w 2400 -H 1800`) and **scale 2** for sharper PNGs (readable text in Confluence).
+
+**`stateDiagram-v2` notes:** Do not use `note right of State : line1;line2` — the **`;`** is treated as a **statement separator**, which creates stray nodes (garbled text along the top). Use a block instead:
+
+```text
+    note right of Draft
+        Allocation defined · not yet available for spend
+    end note
+```
+
+For line breaks in **transition** labels, use **`<br/>`** (not the two-character sequence `\n` in the Markdown source), or the renderer may show literal `\n`.
+
+To bulk-fix older diagrams, run:  
+`python3 _confluence_sync/scripts/fix_state_diagram_mermaid.py path/to/file.md`
+
+**Legacy: pip package [mmdc](https://pypi.org/project/mmdc/)** uses PhantomJS and an old Mermaid bundle. It often emits SVG with invalid layout (`viewBox` with `-Infinity`) and **blank or all-white PNGs** for real-world diagrams (nested subgraphs, styles, HTML in labels). The sync **rejects** those empty-looking PNGs and will **not** cache them. If neither Node CLI nor a plausible pip render is available, you get a placeholder and **`⚠ Mermaid PNG not generated:`** per block.
+
+```bash
+pip install mmdc   # optional fallback only; prefer Node CLI above
+```
+
+**Local cache:** plausible PNGs are stored under `_confluence_sync/data/mermaid-cache/` as `<sha256-of-diagram-source>.png`. Delete that folder to force a full re-render. Stale blank entries from older syncs are removed automatically when detected.
+
+During **Phase 1** (prepare), if a non-empty Mermaid block does not produce an acceptable PNG, the sync prints **`⚠ Mermaid PNG not generated:`** (source path, block index, and `mermaid-N.png` filename). If pip `mmdc` produced a rejected blank, you may also see a one-time hint to install `@mermaid-js/mermaid-cli`.
 
 ### Environment File Wrapper
 
@@ -674,6 +716,8 @@ Patterns support:
 ---
 
 ## Troubleshooting
+
+**Broken images or Mermaid diagrams after sync** (missing attachments, `400` on upload, re-sync): see **[IMAGE_FAILURES_DEBUGGING.md](./IMAGE_FAILURES_DEBUGGING.md)**.
 
 ### Common Errors and Solutions
 
@@ -867,7 +911,7 @@ export CONFLUENCE_TOKEN=your-token
 
 3. **Run sync**:
 ```bash
-python _confluence_sync/sync-to-confluence.py --destination docs
+cd _confluence_sync && python3 run-sync-with-env.py --destination docs
 ```
 
 ### Converting Existing `.env` Setup
