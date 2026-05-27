@@ -74,7 +74,7 @@ todos:
 
 ## Overview
 
-Create 9 guide documents in [`olympus-seer-docs/seer-design/guides/multi-agent-topologies/`](olympus-seer-docs/seer-design/guides/multi-agent-topologies/) explaining how to implement each topology from [multi-agent-topologies.md](olympus-seer-docs/agentic-ai-concepts/multi-agent-topologies.md) using Hub and Seer capabilities.
+Create 9 guide documents in [olympus-seer-docs/seer-design/guides/multi-agent-topologies/](olympus-seer-docs/seer-design/guides/multi-agent-topologies/) explaining how to implement each topology from [multi-agent-topologies.md](olympus-seer-docs/agentic-ai-concepts/multi-agent-topologies.md) using Hub and Seer capabilities.
 
 ---
 

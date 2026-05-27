@@ -71,7 +71,7 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`decision-logs/0102-hub-application-blueprints.md`](olympus-hub-docs/decision-logs/0102-hub-application-blueprints.md) | Document decision to add HubApplicationBlueprintSpec with recipe-based builds |
+| [decision-logs/0102-hub-application-blueprints.md](olympus-hub-docs/decision-logs/0102-hub-application-blueprints.md) | Document decision to add HubApplicationBlueprintSpec with recipe-based builds |
 
 ---
 
@@ -83,9 +83,9 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`04-subsystems/marketplace/blueprints-and-packages.md`](olympus-hub-docs/04-subsystems/marketplace/blueprints-and-packages.md) | Add HubApplicationBlueprintSpec to Blueprint types table; add Build Recipe section |
+| [04-subsystems/marketplace/blueprints-and-packages.md](olympus-hub-docs/04-subsystems/marketplace/blueprints-and-packages.md) | Add HubApplicationBlueprintSpec to Blueprint types table; add Build Recipe section |
 
-| [`04-subsystems/marketplace/README.md`](olympus-hub-docs/04-subsystems/marketplace/README.md) | Add Hub Application Blueprints to package content types |
+| [04-subsystems/marketplace/README.md](olympus-hub-docs/04-subsystems/marketplace/README.md) | Add Hub Application Blueprints to package content types |
 
 ### Create New File
 
@@ -93,7 +93,7 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`04-subsystems/marketplace/hub-application-blueprints.md`](olympus-hub-docs/04-subsystems/marketplace/hub-application-blueprints.md) | Detailed documentation of HubApplicationBlueprintSpec, build recipes, recipe types, security model |
+| [04-subsystems/marketplace/hub-application-blueprints.md](olympus-hub-docs/04-subsystems/marketplace/hub-application-blueprints.md) | Detailed documentation of HubApplicationBlueprintSpec, build recipes, recipe types, security model |
 
 **Key sections for `hub-application-blueprints.md`:**
 
@@ -109,13 +109,13 @@ Create ADR for Hub Application Blueprints:
 
 ## Phase 3: Implementation Concept Updates
 
-**HubApplicationSpec CRD is defined in:** [`02-system-design/implementation-concepts/hub-application.md`](olympus-hub-docs/02-system-design/implementation-concepts/hub-application.md)
+**HubApplicationSpec CRD is defined in:** [02-system-design/implementation-concepts/hub-application.md](olympus-hub-docs/02-system-design/implementation-concepts/hub-application.md)
 
 | File | Changes |
 
 |------|---------|
 
-| [`02-system-design/implementation-concepts/hub-application.md`](olympus-hub-docs/02-system-design/implementation-concepts/hub-application.md) | Add `blueprint` field to HubApplicationSpec structure; add "Blueprint-Based Applications" section explaining the alternative source model |
+| [02-system-design/implementation-concepts/hub-application.md](olympus-hub-docs/02-system-design/implementation-concepts/hub-application.md) | Add `blueprint` field to HubApplicationSpec structure; add "Blueprint-Based Applications" section explaining the alternative source model |
 
 **Changes to add:**
 
@@ -131,7 +131,7 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`04-subsystems/automation-runtimes/README.md`](olympus-hub-docs/04-subsystems/automation-runtimes/README.md) | Add note in "Hub Application" section (line 92) that applications can be built from Marketplace Blueprints |
+| [04-subsystems/automation-runtimes/README.md](olympus-hub-docs/04-subsystems/automation-runtimes/README.md) | Add note in "Hub Application" section (line 92) that applications can be built from Marketplace Blueprints |
 
 **Minor addition:** A sentence noting that Hub Applications for any runtime can be sourced from Marketplace Blueprints, with the runtime determined by the Blueprint.
 
@@ -143,9 +143,9 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`04-subsystems/ci-subsystem/README.md`](olympus-hub-docs/04-subsystems/ci-subsystem/README.md) | Add Blueprint-based builds section; reference new detailed doc |
+| [04-subsystems/ci-subsystem/README.md](olympus-hub-docs/04-subsystems/ci-subsystem/README.md) | Add Blueprint-based builds section; reference new detailed doc |
 
-| [`04-subsystems/ci-subsystem/blueprint-based-builds.md`](olympus-hub-docs/04-subsystems/ci-subsystem/blueprint-based-builds.md) | **New file**: CI flow for Blueprint-based applications, recipe execution, sandboxing |
+| [04-subsystems/ci-subsystem/blueprint-based-builds.md](olympus-hub-docs/04-subsystems/ci-subsystem/blueprint-based-builds.md) | **New file**: CI flow for Blueprint-based applications, recipe execution, sandboxing |
 
 **Key sections for `blueprint-based-builds.md`:**
 
@@ -165,7 +165,7 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`04-subsystems/operators/marketplace-operators.md`](olympus-hub-docs/04-subsystems/operators/marketplace-operators.md) | Add `HubApplicationBlueprintSpec` to BlueprintSpec types table |
+| [04-subsystems/operators/marketplace-operators.md](olympus-hub-docs/04-subsystems/operators/marketplace-operators.md) | Add `HubApplicationBlueprintSpec` to BlueprintSpec types table |
 
 ---
 
@@ -177,7 +177,7 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`10-guides/publishing-hub-application-blueprints.md`](olympus-hub-docs/10-guides/publishing-hub-application-blueprints.md) | Step-by-step guide for publishing Hub Application Blueprints |
+| [10-guides/publishing-hub-application-blueprints.md](olympus-hub-docs/10-guides/publishing-hub-application-blueprints.md) | Step-by-step guide for publishing Hub Application Blueprints |
 
 **Key sections:**
 
@@ -193,7 +193,7 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`10-guides/using-hub-application-blueprints.md`](olympus-hub-docs/10-guides/using-hub-application-blueprints.md) | Guide for using Hub Application Blueprints in HubApplicationSpec |
+| [10-guides/using-hub-application-blueprints.md](olympus-hub-docs/10-guides/using-hub-application-blueprints.md) | Guide for using Hub Application Blueprints in HubApplicationSpec |
 
 **Key sections:**
 
@@ -211,7 +211,7 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`scratchpad/hub-marketplace-exploration.md`](olympus-hub-docs/scratchpad/hub-marketplace-exploration.md) | Add new topic (Topic 15) covering Hub Application Blueprints discussion and decisions |
+| [scratchpad/hub-marketplace-exploration.md](olympus-hub-docs/scratchpad/hub-marketplace-exploration.md) | Add new topic (Topic 15) covering Hub Application Blueprints discussion and decisions |
 
 ---
 

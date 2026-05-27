@@ -361,7 +361,7 @@ All documents must follow a technical textbook narrative style:
 
 ### Citation and Reference Requirements
 
-- **Inline markdown links**: Use [`Document Name`](../path/to/doc.md) format for all internal references
+- **Inline markdown links**: Use [Document Name](../path/to/doc.md) format for all internal references
 - **Reference all claims**: Every architectural statement, design decision, or technical claim must have a reference
 - **Link to source documents**: 
   - ADRs for design decisions (e.g., [ADR-0129](../decision-logs/0129-agent-identity-model.md))

@@ -36,13 +36,13 @@ The background folder has **7 content files** (not 4 as previously indexed):
 
 | File | Content Summary |
 |------|-----------------|
-| [`enterprise-ai-agent-platform-backdrop.md`](market-study/agentic-systems-development-platforms/background/enterprise-ai-agent-platform-backdrop.md) | Market analysis, players by archetype, strategic gaps |
-| [`players-and-products.md`](market-study/agentic-systems-development-platforms/background/players-and-products.md) | 25+ vendor catalog with links and descriptions |
-| [`agentic-systems-platform-tam.md`](market-study/agentic-systems-development-platforms/background/agentic-systems-platform-tam.md) | TAM estimates, geo/industry splits |
-| [`agentic-systems-vs-agent-fleets.md`](market-study/agentic-systems-development-platforms/background/agentic-systems-vs-agent-fleets.md) | Architectural distinctions, vendor gaps, paths forward |
-| [`why-should-enterprises-adopt.md`](market-study/agentic-systems-development-platforms/background/why-should-enterprises-adopt.md) | **Business drivers, adoption forces, industry x size ranking** |
-| [`player-product-comparision.md`](market-study/agentic-systems-development-platforms/background/player-product-comparision.md) | **Extended capability matrix (8 dimensions, ~10 vendors)** |
-| [`enterprise-ai-automation-platform.md`](market-study/agentic-systems-development-platforms/background/enterprise-ai-automation-platform.md) | **Platform categories (6 buckets) with vendor mapping** |
+| [enterprise-ai-agent-platform-backdrop.md](market-study/agentic-systems-development-platforms/background/enterprise-ai-agent-platform-backdrop.md) | Market analysis, players by archetype, strategic gaps |
+| [players-and-products.md](market-study/agentic-systems-development-platforms/background/players-and-products.md) | 25+ vendor catalog with links and descriptions |
+| [agentic-systems-platform-tam.md](market-study/agentic-systems-development-platforms/background/agentic-systems-platform-tam.md) | TAM estimates, geo/industry splits |
+| [agentic-systems-vs-agent-fleets.md](market-study/agentic-systems-development-platforms/background/agentic-systems-vs-agent-fleets.md) | Architectural distinctions, vendor gaps, paths forward |
+| [why-should-enterprises-adopt.md](market-study/agentic-systems-development-platforms/background/why-should-enterprises-adopt.md) | **Business drivers, adoption forces, industry x size ranking** |
+| [player-product-comparision.md](market-study/agentic-systems-development-platforms/background/player-product-comparision.md) | **Extended capability matrix (8 dimensions, ~10 vendors)** |
+| [enterprise-ai-automation-platform.md](market-study/agentic-systems-development-platforms/background/enterprise-ai-automation-platform.md) | **Platform categories (6 buckets) with vendor mapping** |
 
 ---
 

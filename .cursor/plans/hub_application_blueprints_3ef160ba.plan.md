@@ -92,7 +92,7 @@ Create ADR for Hub Application Blueprints:
 
 |------|---------|
 
-| [`decision-logs/0102-hub-application-blueprints.md`](olympus-hub-docs/decision-logs/0102-hub-application-blueprints.md) | Document decision to add HubApplicationBlueprintSpec with recipe-based builds |
+| [decision-logs/0102-hub-application-blueprints.md](olympus-hub-docs/decision-logs/0102-hub-application-blueprints.md) | Document decision to add HubApplicationBlueprintSpec with recipe-based builds |
 
 ---
 
@@ -104,15 +104,15 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`02-system-design/implementation-concepts/hub-package.md`](olympus-hub-docs/02-system-design/implementation-concepts/hub-package.md) | Define Hub Package as atomic unit of Marketplace publishing |
+| [02-system-design/implementation-concepts/hub-package.md](olympus-hub-docs/02-system-design/implementation-concepts/hub-package.md) | Define Hub Package as atomic unit of Marketplace publishing |
 
-| [`02-system-design/implementation-concepts/blueprintspec.md`](olympus-hub-docs/02-system-design/implementation-concepts/blueprintspec.md) | Define BlueprintSpec transformation (ScenarioNormativeSpec → ScenarioBlueprintSpec, etc.) |
+| [02-system-design/implementation-concepts/blueprintspec.md](olympus-hub-docs/02-system-design/implementation-concepts/blueprintspec.md) | Define BlueprintSpec transformation (ScenarioNormativeSpec → ScenarioBlueprintSpec, etc.) |
 
-| [`02-system-design/implementation-concepts/package-subscription.md`](olympus-hub-docs/02-system-design/implementation-concepts/package-subscription.md) | Define Package Subscription composite (package, tenant, workbench) |
+| [02-system-design/implementation-concepts/package-subscription.md](olympus-hub-docs/02-system-design/implementation-concepts/package-subscription.md) | Define Package Subscription composite (package, tenant, workbench) |
 
-| [`02-system-design/implementation-concepts/build-recipe.md`](olympus-hub-docs/02-system-design/implementation-concepts/build-recipe.md) | Define Build Recipe mechanism for Blueprint-based applications |
+| [02-system-design/implementation-concepts/build-recipe.md](olympus-hub-docs/02-system-design/implementation-concepts/build-recipe.md) | Define Build Recipe mechanism for Blueprint-based applications |
 
-| [`02-system-design/implementation-concepts/publisher.md`](olympus-hub-docs/02-system-design/implementation-concepts/publisher.md) | Define Publisher entity and registration |
+| [02-system-design/implementation-concepts/publisher.md](olympus-hub-docs/02-system-design/implementation-concepts/publisher.md) | Define Publisher entity and registration |
 
 ### Update Implementation Concepts README
 
@@ -120,7 +120,7 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`02-system-design/implementation-concepts/README.md`](olympus-hub-docs/02-system-design/implementation-concepts/README.md) | Add new "Marketplace Architecture" section with 5 new concepts |
+| [02-system-design/implementation-concepts/README.md](olympus-hub-docs/02-system-design/implementation-concepts/README.md) | Add new "Marketplace Architecture" section with 5 new concepts |
 
 **New section to add:**
 
@@ -146,9 +146,9 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`04-subsystems/marketplace/blueprints-and-packages.md`](olympus-hub-docs/04-subsystems/marketplace/blueprints-and-packages.md) | Add HubApplicationBlueprintSpec to Blueprint types table; add Build Recipe section; reference implementation concepts |
+| [04-subsystems/marketplace/blueprints-and-packages.md](olympus-hub-docs/04-subsystems/marketplace/blueprints-and-packages.md) | Add HubApplicationBlueprintSpec to Blueprint types table; add Build Recipe section; reference implementation concepts |
 
-| [`04-subsystems/marketplace/README.md`](olympus-hub-docs/04-subsystems/marketplace/README.md) | Add Hub Application Blueprints to package content types; reference new implementation concepts |
+| [04-subsystems/marketplace/README.md](olympus-hub-docs/04-subsystems/marketplace/README.md) | Add Hub Application Blueprints to package content types; reference new implementation concepts |
 
 ### Create New File
 
@@ -156,21 +156,21 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`04-subsystems/marketplace/hub-application-blueprints.md`](olympus-hub-docs/04-subsystems/marketplace/hub-application-blueprints.md) | Detailed documentation of HubApplicationBlueprintSpec, build recipes, recipe types, security model |
+| [04-subsystems/marketplace/hub-application-blueprints.md](olympus-hub-docs/04-subsystems/marketplace/hub-application-blueprints.md) | Detailed documentation of HubApplicationBlueprintSpec, build recipes, recipe types, security model |
 
 ---
 
 ## Phase 4: Implementation Concept Updates
 
-**HubApplicationSpec CRD is defined in:** [`02-system-design/implementation-concepts/hub-application.md`](olympus-hub-docs/02-system-design/implementation-concepts/hub-application.md)
+**HubApplicationSpec CRD is defined in:** [02-system-design/implementation-concepts/hub-application.md](olympus-hub-docs/02-system-design/implementation-concepts/hub-application.md)
 
 | File | Changes |
 
 |------|---------|
 
-| [`02-system-design/implementation-concepts/hub-application.md`](olympus-hub-docs/02-system-design/implementation-concepts/hub-application.md) | Add `blueprint` field to HubApplicationSpec structure; add "Blueprint-Based Applications" section; reference BlueprintSpec and Build Recipe concepts |
+| [02-system-design/implementation-concepts/hub-application.md](olympus-hub-docs/02-system-design/implementation-concepts/hub-application.md) | Add `blueprint` field to HubApplicationSpec structure; add "Blueprint-Based Applications" section; reference BlueprintSpec and Build Recipe concepts |
 
-| [`02-system-design/implementation-concepts/blueprint.md`](olympus-hub-docs/02-system-design/implementation-concepts/blueprint.md) | Add disambiguation note: Blueprint (workbench template) vs BlueprintSpec (Marketplace artifact); cross-reference to BlueprintSpec concept |
+| [02-system-design/implementation-concepts/blueprint.md](olympus-hub-docs/02-system-design/implementation-concepts/blueprint.md) | Add disambiguation note: Blueprint (workbench template) vs BlueprintSpec (Marketplace artifact); cross-reference to BlueprintSpec concept |
 
 ---
 
@@ -180,7 +180,7 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`04-subsystems/automation-runtimes/README.md`](olympus-hub-docs/04-subsystems/automation-runtimes/README.md) | Add note in "Hub Application" section that applications can be built from Marketplace Blueprints |
+| [04-subsystems/automation-runtimes/README.md](olympus-hub-docs/04-subsystems/automation-runtimes/README.md) | Add note in "Hub Application" section that applications can be built from Marketplace Blueprints |
 
 ---
 
@@ -190,9 +190,9 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`04-subsystems/ci-subsystem/README.md`](olympus-hub-docs/04-subsystems/ci-subsystem/README.md) | Add Blueprint-based builds section; reference new detailed doc and Build Recipe concept |
+| [04-subsystems/ci-subsystem/README.md](olympus-hub-docs/04-subsystems/ci-subsystem/README.md) | Add Blueprint-based builds section; reference new detailed doc and Build Recipe concept |
 
-| [`04-subsystems/ci-subsystem/blueprint-based-builds.md`](olympus-hub-docs/04-subsystems/ci-subsystem/blueprint-based-builds.md) | **New file**: CI flow for Blueprint-based applications, recipe execution, sandboxing |
+| [04-subsystems/ci-subsystem/blueprint-based-builds.md](olympus-hub-docs/04-subsystems/ci-subsystem/blueprint-based-builds.md) | **New file**: CI flow for Blueprint-based applications, recipe execution, sandboxing |
 
 ---
 
@@ -202,7 +202,7 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`04-subsystems/operators/marketplace-operators.md`](olympus-hub-docs/04-subsystems/operators/marketplace-operators.md) | Add `HubApplicationBlueprintSpec` to BlueprintSpec types table |
+| [04-subsystems/operators/marketplace-operators.md](olympus-hub-docs/04-subsystems/operators/marketplace-operators.md) | Add `HubApplicationBlueprintSpec` to BlueprintSpec types table |
 
 ---
 
@@ -214,7 +214,7 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`10-guides/publishing-hub-application-blueprints.md`](olympus-hub-docs/10-guides/publishing-hub-application-blueprints.md) | Step-by-step guide for publishing Hub Application Blueprints |
+| [10-guides/publishing-hub-application-blueprints.md](olympus-hub-docs/10-guides/publishing-hub-application-blueprints.md) | Step-by-step guide for publishing Hub Application Blueprints |
 
 ### Subscriber Guide
 
@@ -222,7 +222,7 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`10-guides/using-hub-application-blueprints.md`](olympus-hub-docs/10-guides/using-hub-application-blueprints.md) | Guide for using Hub Application Blueprints in HubApplicationSpec |
+| [10-guides/using-hub-application-blueprints.md](olympus-hub-docs/10-guides/using-hub-application-blueprints.md) | Guide for using Hub Application Blueprints in HubApplicationSpec |
 
 ---
 
@@ -232,7 +232,7 @@ Create implementation concept documents for new Marketplace-related concepts:
 
 |------|---------|
 
-| [`scratchpad/hub-marketplace-exploration.md`](olympus-hub-docs/scratchpad/hub-marketplace-exploration.md) | Add new topic (Topic 15) covering Hub Application Blueprints discussion and decisions |
+| [scratchpad/hub-marketplace-exploration.md](olympus-hub-docs/scratchpad/hub-marketplace-exploration.md) | Add new topic (Topic 15) covering Hub Application Blueprints discussion and decisions |
 
 ---
 
