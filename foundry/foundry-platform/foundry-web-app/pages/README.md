@@ -9,15 +9,17 @@ Foundry Home (/)
 └── Workshop Home (/workshops/{workshopId})
     └── Workbench Home (/workbenches/{workbenchId})
         ├── Consoles (/workbenches/{id}/consoles/{consoleId})
-        │   ├── Work: PI, Workspaces, Progress, Track
-        │   ├── Build: CI, Components, Quality Status, Release
+        │   ├── Work: Overview, Orchestration, Progress, Rituals, My Work
+        │   ├── Workspaces: Overview, Product Spec, UX Design, Development, QA, Release, Governance
+        │   ├── Build: CI, Components, Quality Status, Release Artifacts
+        │   ├── Workforce: Overview, Team, Agent
+        │   ├── Governance: Overview, Rituals, Controls, Registers, Reports, Quality Controls
         │   ├── Resources: Repositories & Tools
-        │   ├── Workforce: Team, Agent
-        │   ├── Governance: Risk, Reports, Quality Compliance
-        │   └── Settings: Admin
+        │   └── Settings: Admin, Governance Admin
         └── Detail Pages
+            ├── Orchestration Item (/workbenches/{id}/orchestration/{type}/{itemId})
             ├── Team Member Profile (/workbenches/{id}/team/{memberId})
-            └── Workspace Session Details (/workbenches/{id}/sessions/{sessionId})
+            └── Workspace Session (/workbenches/{id}/sessions/{sessionId})
 ```
 
 ## Home Pages
@@ -34,25 +36,26 @@ See [consoles/README.md](consoles/README.md) for all console pages.
 
 | Group | Consoles |
 |-------|----------|
-| **Work** | PI, Workspaces, Progress, Track |
-| **Build** | CI, Components, Quality Status, Release |
+| **Work** | Work Overview, Orchestration, Progress, Rituals, My Work |
+| **Workspaces** | Workspaces Overview, Product Specification, UX Design, Development, QA, Release Workspace, Governance Workspace |
+| **Build** | CI, Components, Quality Status, Release Artifacts |
+| **Workforce** | Workforce Overview, Team, Agent |
+| **Governance** | Governance Overview, Rituals, Controls & Enforcement, Registers, Reports & Dashboards, Quality Controls |
 | **Resources** | Repositories & Tools |
-| **Workforce** | Team, Agent |
-| **Governance** | Risk, Reports, Quality Compliance |
-| **Settings** | Admin |
+| **Settings** | Admin, Governance Admin |
 
 ## Detail Pages
 
 | Page | URL Pattern | Defined In |
 |------|-------------|------------|
+| Orchestration Item Details | `/workbenches/{id}/orchestration/{type}/{itemId}` | [orchestration-console.md](consoles/orchestration-console.md) |
 | Team Member Workbench Profile | `/workbenches/{id}/team/{memberId}` | [team-console.md](consoles/team-console.md) |
-| Workspace Session Details | `/workbenches/{id}/sessions/{sessionId}` | [workspaces-console.md](consoles/workspaces-console.md) |
+| Workspace Session Details | `/workbenches/{id}/sessions/{sessionId}` | [Workspace consoles](consoles/README.md) |
 
 ## Planned Pages (TBD)
 
 | Page | URL Pattern | Notes |
 |------|-------------|-------|
-| Intent Details | `/workbenches/{id}/intents/{piId}` | Product Intent detail view |
 | Work Order Details | `/workbenches/{id}/work-orders/{woId}` | Work Order progress, Tasks |
 | Task View | `/workbenches/{id}/tasks/{taskId}` | Human Task execution |
 

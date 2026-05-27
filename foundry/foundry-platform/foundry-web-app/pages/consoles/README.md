@@ -2,7 +2,7 @@
 
 Consoles are focused views accessible from the Workbench Home side navigation.
 
-For guidance on when to use Work, Workforce, Governance, Build, Resources, and Settings consoles — and when to add a new console instead of expanding an existing one — see [CONSOLE-GUIDE.md](CONSOLE-GUIDE.md).
+For guidance on when to use console groups — and when to add a new console instead of expanding an existing one — see [CONSOLE-GUIDE.md](CONSOLE-GUIDE.md).
 
 ## Console Groups
 
@@ -10,13 +10,29 @@ For guidance on when to use Work, Workforce, Governance, Build, Resources, and S
 
 | Console | File | Purpose |
 |---------|------|---------|
-| [PI Console](pi-console.md) | `pi-console.md` | Discovery Cases, Product Intent types, Strategy Frame, Traceability Maps |
-| [Workspaces Console](workspaces-console.md) | `workspaces-console.md` | 6 Workspaces, Work Orders |
-| [Progress Console](progress-console.md) | `progress-console.md` | Completion analytics, burndown |
-| [Track Console](track-console.md) | `track-console.md` | Per-Track work analytics |
+| [Work Overview](work-overview.md) | `work-overview.md` | Attention queue, blocked items, due soon, navigation |
+| [Orchestration](orchestration-console.md) | `orchestration-console.md` | All orchestration items (PI, Discovery Case, Release Intent) |
+| [Progress](progress-console.md) | `progress-console.md` | By Orchestration/Track/Workspace/Initiative/Release; Burndown; Say/Do |
+| [Rituals](work-rituals.md) | `work-rituals.md` | Standups; Sprint (Build); Kanban (Discovery, Run, Win, Evolve) |
+| [My Work](my-work.md) | `my-work.md` | My Day / My Week / My Month |
 
 **Sub-pages:**
-- **Workspace Session Details** — `/workbenches/{workbenchId}/sessions/{sessionId}` — Full session activity, work done, time tracking (see [Workspaces Console](workspaces-console.md))
+- **Orchestration Item Details** — `/workbenches/{workbenchId}/orchestration/{type}/{itemId}` — Full item detail (see [Orchestration](orchestration-console.md))
+
+### Workspaces
+
+| Console | File | Purpose |
+|---------|------|---------|
+| [Workspaces Overview](workspaces-overview.md) | `workspaces-overview.md` | Sessions, capacity, work distribution across workspaces |
+| [Product Specification](workspace-product-spec.md) | `workspace-product-spec.md` | Product Specification workspace work |
+| [UX Design](workspace-ux-design.md) | `workspace-ux-design.md` | UX Design workspace work |
+| [Development](workspace-development.md) | `workspace-development.md` | Development workspace work |
+| [QA](workspace-qa.md) | `workspace-qa.md` | QA workspace work |
+| [Release Workspace](workspace-release.md) | `workspace-release.md` | Release workspace work |
+| [Governance Workspace](workspace-governance.md) | `workspace-governance.md` | Transition validation work |
+
+**Sub-pages:**
+- **Workspace Session Details** — `/workbenches/{workbenchId}/sessions/{sessionId}` — Full session activity, work done, time tracking
 
 ### Build
 
@@ -25,23 +41,18 @@ For guidance on when to use Work, Workforce, Governance, Build, Resources, and S
 | [CI Console](ci-console.md) | `ci-console.md` | Build/pipeline status |
 | [Components Console](components-console.md) | `components-console.md` | Ontology — Systems, capabilities |
 | [Quality Status](quality-status.md) | `quality-status.md` | Test results, coverage |
-| [Release Console](release-console.md) | `release-console.md` | Deployments, Weave integration |
-
-### Resources
-
-| Console | File | Purpose |
-|---------|------|---------|
-| [Repositories & Tools](repositories-tools.md) | `repositories-tools.md` | Git repos, external tools |
+| [Release Artifacts](release-artifacts.md) | `release-artifacts.md` | Versions, deployments, Weave integration |
 
 ### Workforce
 
 | Console | File | Purpose |
 |---------|------|---------|
-| [Team Console](team-console.md) | `team-console.md` | Team analytics, contributions |
-| [Agent Console](agent-console.md) | `agent-console.md` | Agent activity, performance |
+| [Workforce Overview](workforce-overview.md) | `workforce-overview.md` | Team + Agent summary, capacity |
+| [Team Console](team-console.md) | `team-console.md` | People, roles, kudos, capacity |
+| [Agent Console](agent-console.md) | `agent-console.md` | Agents, metrics, performance |
 
 **Sub-pages:**
-- **Team Member Workbench Profile** — `/workbenches/{workbenchId}/team/{memberId}` — Full activity history and metrics for a team member (see [Team Console](team-console.md))
+- **Team Member Workbench Profile** — `/workbenches/{workbenchId}/team/{memberId}` — Full activity history and metrics (see [Team Console](team-console.md))
 
 ### Governance
 
@@ -53,6 +64,12 @@ For guidance on when to use Work, Workforce, Governance, Build, Resources, and S
 | [Registers](registers-console.md) | `registers-console.md` | Risk, debt, exceptions, compliance, findings |
 | [Reports & Dashboards](reports-console.md) | `reports-console.md` | Governance dashboards, ritual inputs, audit exports |
 | [Quality Controls](quality-compliance.md) | `quality-compliance.md` | Build/release quality controls and threshold evaluation |
+
+### Resources
+
+| Console | File | Purpose |
+|---------|------|---------|
+| [Repositories & Tools](repositories-tools.md) | `repositories-tools.md` | Git repos, external tools |
 
 ### Settings
 
@@ -71,18 +88,26 @@ All consoles follow: `/workbenches/{workbenchId}/consoles/{consoleId}`
 Workbench Home
 └── Side Nav
     ├── Work
-    │   ├── PI Console
-    │   ├── Workspaces Console
-    │   ├── Progress Console
-    │   └── Track Console
+    │   ├── Work Overview
+    │   ├── Orchestration
+    │   ├── Progress
+    │   ├── Rituals
+    │   └── My Work
+    ├── Workspaces
+    │   ├── Workspaces Overview
+    │   ├── Product Specification
+    │   ├── UX Design
+    │   ├── Development
+    │   ├── QA
+    │   ├── Release Workspace
+    │   └── Governance Workspace
     ├── Build
     │   ├── CI Console
     │   ├── Components Console
     │   ├── Quality Status
-    │   └── Release Console
-    ├── Resources
-    │   └── Repositories & Tools
+    │   └── Release Artifacts
     ├── Workforce
+    │   ├── Workforce Overview
     │   ├── Team Console
     │   └── Agent Console
     ├── Governance
@@ -92,6 +117,8 @@ Workbench Home
     │   ├── Registers
     │   ├── Reports & Dashboards
     │   └── Quality Controls
+    ├── Resources
+    │   └── Repositories & Tools
     └── Settings
         ├── Admin Console
         └── Governance Admin

@@ -6,48 +6,70 @@ This guide helps Foundry Platform product, design, and engineering teams decide 
 
 | Console group | Primary question |
 |---------------|------------------|
-| **Work** | What work is moving, where is it, and what happens next? |
-| **Workforce** | Who or what is doing the work, with what capacity, skill, contribution, and recognition? |
-| **Governance** | Is the work healthy, controlled, evidenced, authorized, efficient, compliant, and improving? |
+| **Work** | What orchestration items exist? What's their progress? What rituals drive the work? |
+| **Workspaces** | What's happening in each Workspace? Who's working where? What sessions are active? |
 | **Build** | What is the engineering/build/release state of artifacts and systems? |
+| **Workforce** | Who or what is doing the work, with what capacity, contribution, and recognition? |
+| **Governance** | Is the work healthy, controlled, evidenced, authorized, efficient, compliant, and improving? |
 | **Resources** | Where are repositories, tools, and external systems? |
 | **Settings** | How is the Workbench configured? |
 
 ## Work consoles
 
-Use Work consoles when the primary object is work movement.
+Use Work consoles when the primary object is orchestration items, progress tracking, work rituals, or personal work views.
 
 Belongs here:
 
-- orchestration item state;
-- Work Orders;
-- Track flow;
-- Workspace execution;
-- Product Intent;
-- Discovery Case;
-- work state and progress;
-- bottlenecks;
-- handoffs.
+- orchestration items (Product Intent, Discovery Case, Release Intent);
+- progress by Orchestration / Track / Workspace / Initiative / Release;
+- burndown and say/do ratio;
+- work rituals (standups, sprint ceremonies, kanban boards);
+- personal work views (my day, my week, my month);
+- blocked items and attention queues.
 
 Examples:
 
-- PI Console
-- Workspaces Console
-- Progress Console
-- Track Console
+- Work Overview
+- Orchestration
+- Progress
+- Rituals
+- My Work
 
-Do not put team skill inventory, agent performance, governance authority, risk/debt registers, or repository configuration primarily in Work.
+Do not put workspace execution details, team/agent management, governance authority, risk/debt registers, or repository configuration in Work.
+
+## Workspaces consoles
+
+Use Workspaces consoles when the primary object is execution within a specific Workspace type.
+
+Belongs here:
+
+- Workspace Sessions;
+- Work Orders within a Workspace;
+- Session capacity and distribution;
+- Workspace-specific queues and work execution.
+
+Examples:
+
+- Workspaces Overview
+- Product Specification
+- UX Design
+- Development
+- QA
+- Release Workspace
+- Governance Workspace
+
+Each of the 6 ACE Workspace types has its own console for focused execution view. Workspaces Overview provides the cross-workspace landing.
 
 ## Workforce consoles
 
-Use Workforce consoles when the primary object is people, teams, agents, roles, capacity, skill, contribution, or recognition.
+Use Workforce consoles when the primary object is people, teams, agents, roles, capacity, contribution, or recognition.
 
 Belongs here:
 
 - human contributors;
 - agents;
 - teams;
-- roles and skills;
+- roles;
 - capacity and workload;
 - contribution and effectiveness;
 - availability;
@@ -56,10 +78,11 @@ Belongs here:
 
 Examples:
 
+- Workforce Overview
 - Team Console
 - Agent Console
 
-Kudos / Recognition belongs here because the system of record is the Workforce Repository.
+Kudos / Recognition belongs here because the system of record is the Workforce Repository. Workforce Overview provides a landing page with combined team and agent summary.
 
 ## Governance consoles
 
@@ -107,7 +130,7 @@ Governance may check:
 
 ### Velocity
 
-Raw velocity charts belong in Progress Console.
+Raw velocity charts belong in Progress.
 
 Velocity below a Control Objective belongs in Governance Overview / Reports & Dashboards.
 
@@ -131,15 +154,15 @@ Examples:
 
 | Need | Expand | Why |
 |------|--------|-----|
-| Product Intent type filter | PI Console | Same entity, filter is enough |
-| Governance status on Product Intent | PI Console | Overlay badge, not separate console |
-| Work Order governance badges | Workspaces Console | Overlay badge on existing queue |
+| Product Intent type filter | Orchestration | Same entity, filter is enough |
+| Governance status on orchestration item | Orchestration | Overlay badge, not separate console |
+| Work Order governance badges | Workspace consoles | Overlay badge on existing queue |
 | Team recognition (Kudos) | Team Console | Workforce data, same persona |
 | Agent cost per task | Agent Console | Analytics view on same entity |
 | Debt aging chart | Registers | Same register entity, analytics view |
 | Build quality threshold breach | Quality Controls (Governance) | Governance evaluates build thresholds |
 | Test coverage trends | Quality Status (Build) | Build-time quality metrics |
-| Release readiness status | Release Console + Governance overlay | Release owns status; Governance adds gate badge |
+| Release readiness status | Release Artifacts + Governance overlay | Release owns status; Governance adds gate badge |
 
 ## When to create a new console
 
@@ -179,27 +202,36 @@ Console types describe the interaction pattern, independent of which group (Work
 
 ## Console type examples
 
-| Console | Group | Type(s) |
-|---------|-------|---------|
-| **PI Console** | Work | List + Detail |
-| **Workspaces Console** | Work | Queue, List + Detail |
-| **Progress Console** | Work | Analytics |
-| **Track Console** | Work | Analytics |
-| **CI Console** | Build | Queue, Analytics |
-| **Components Console** | Build | List + Detail |
-| **Quality Status** | Build | Analytics |
-| **Release Console** | Build | List + Detail, Workflow |
-| **Repositories & Tools** | Resources | Resource |
-| **Team Console** | Workforce | List + Detail, Analytics |
-| **Agent Console** | Workforce | List + Detail, Analytics |
-| **Governance Overview** | Governance | Landing |
-| **Rituals** | Governance | Workflow |
-| **Controls & Enforcement** | Governance | List + Detail, Workflow |
-| **Registers** | Governance | Queue, List + Detail |
-| **Reports & Dashboards** | Governance | Analytics |
-| **Quality Controls** | Governance | List + Detail, Workflow |
-| **Admin Console** | Settings | Admin |
-| **Governance Admin** | Settings | Admin |
+| Group      | Console                     | Type(s)                   |
+|------------|-----------------------------|---------------------------|
+| Work       | **Work Overview**           | Landing                   |
+| Work       | **Orchestration**           | List + Detail             |
+| Work       | **Progress**                | Analytics                 |
+| Work       | **Rituals**                 | Workflow                  |
+| Work       | **My Work**                 | Landing                   |
+| Workspaces | **Workspaces Overview**     | Landing                   |
+| Workspaces | **Product Specification**   | Queue, List + Detail      |
+| Workspaces | **UX Design**               | Queue, List + Detail      |
+| Workspaces | **Development**             | Queue, List + Detail      |
+| Workspaces | **QA**                      | Queue, List + Detail      |
+| Workspaces | **Release Workspace**       | Queue, List + Detail      |
+| Workspaces | **Governance Workspace**    | Queue, List + Detail      |
+| Build      | **CI Console**              | Queue, Analytics          |
+| Build      | **Components Console**      | List + Detail             |
+| Build      | **Quality Status**          | Analytics                 |
+| Build      | **Release Artifacts**       | List + Detail, Workflow   |
+| Workforce  | **Workforce Overview**      | Landing                   |
+| Workforce  | **Team Console**            | List + Detail, Analytics  |
+| Workforce  | **Agent Console**           | List + Detail, Analytics  |
+| Governance | **Governance Overview**     | Landing                   |
+| Governance | **Rituals**                 | Workflow                  |
+| Governance | **Controls & Enforcement**  | List + Detail, Workflow   |
+| Governance | **Registers**               | Queue, List + Detail      |
+| Governance | **Reports & Dashboards**    | Analytics                 |
+| Governance | **Quality Controls**        | List + Detail, Workflow   |
+| Resources  | **Repositories & Tools**    | Resource                  |
+| Settings   | **Admin Console**           | Admin                     |
+| Settings   | **Governance Admin**        | Admin                     |
 
 ## Detail pages vs consoles
 
@@ -207,8 +239,9 @@ Some consoles have **detail pages** — standalone pages for deep inspection of 
 
 | Detail page | Parent console | URL pattern |
 |-------------|----------------|-------------|
+| Orchestration Item Details | Orchestration | `/workbenches/{id}/orchestration/{type}/{itemId}` |
 | Team Member Workbench Profile | Team Console | `/workbenches/{id}/team/{memberId}` |
-| Workspace Session Details | Workspaces Console | `/workbenches/{id}/sessions/{sessionId}` |
+| Workspace Session Details | Workspace consoles | `/workbenches/{id}/sessions/{sessionId}` |
 
 Detail pages are appropriate when:
 - The entity has enough content for a full page (history, metrics, actions).
@@ -236,10 +269,10 @@ Before adding a new console, answer:
 
 | Maturity | Console guidance |
 |----------|------------------|
-| Phase 1 | All consoles listed in README.md exist. Focus on core workflows: PI lifecycle, Workspace Sessions, Governance Overview, Registers, Controls & Enforcement, Rituals. Detail pages for Team Member Profile and Workspace Session. |
-| Phase 2 | Richer Reports & Dashboards, fuller Registers workflows, release governance overlays, workforce recognition views, advanced Team/Agent analytics. |
-| Phase 3 | Full Governance Admin with authority matrix editor, control inheritance UI, cross-Workbench governance views, recognition trend analytics, advanced detail pages. |
+| Phase 1 | All consoles listed in README.md exist. Focus on core workflows: Work Overview, Orchestration, Workspaces Overview + per-workspace consoles, Governance Overview, Registers, Controls & Enforcement. Detail pages for Orchestration Items, Team Member Profile, and Workspace Session. |
+| Phase 2 | Richer Progress analytics, full Rituals coverage (sprint and kanban), fuller Registers workflows, release governance overlays, workforce recognition views, advanced Team/Agent analytics. |
+| Phase 3 | Full Governance Admin with authority matrix editor, control inheritance UI, cross-Workbench governance views, recognition trend analytics, My Work personalization, advanced detail pages. |
 
 ## Canonical statement
 
-Work consoles show the movement of work. Workforce consoles show the people and agents doing the work. Governance consoles show whether the work system is healthy, controlled, evidenced, authorized, efficient, compliant, and improving. A new console is justified only when it answers a distinct user question that cannot be served clearly as a tab, panel, or overlay inside an existing console.
+Work consoles show orchestration items, progress, and rituals. Workspaces consoles show execution within each Workspace type. Workforce consoles show the people and agents doing the work. Governance consoles show whether the work system is healthy, controlled, evidenced, authorized, efficient, compliant, and improving. A new console is justified only when it answers a distinct user question that cannot be served clearly as a tab, panel, or overlay inside an existing console.
