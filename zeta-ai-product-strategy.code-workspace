@@ -3,6 +3,15 @@
 		{
 			"name": "zeta-ai-product-strategy",
 			"path": "."
+		},
+		{
+			"path": "../personal-projects"
+		},
+		{
+			"path": "../olympus-estate-ramki-docs"
+		},
+		{
+			"path": "../writing-work"
 		}
 	],
 	"settings": {}
