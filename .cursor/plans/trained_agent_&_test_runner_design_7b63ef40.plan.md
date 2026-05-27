@@ -127,17 +127,17 @@ flowchart TB
 
 |------|-------------|
 
-| [`trained-agent-lifecycle-manager/training-spec-manager.md`](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/training-spec-manager.md) | Spec structure, validation, Raw Agent compatibility |
+| [trained-agent-lifecycle-manager/training-spec-manager.md](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/training-spec-manager.md) | Spec structure, validation, Raw Agent compatibility |
 
-| [`trained-agent-lifecycle-manager/trained-agent-directory.md`](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/trained-agent-directory.md) | Registry, search, Employed Agent discovery |
+| [trained-agent-lifecycle-manager/trained-agent-directory.md](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/trained-agent-directory.md) | Registry, search, Employed Agent discovery |
 
-| [`trained-agent-lifecycle-manager/trained-agent-operators.md`](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/trained-agent-operators.md) | Lifecycle management, state transitions |
+| [trained-agent-lifecycle-manager/trained-agent-operators.md](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/trained-agent-operators.md) | Lifecycle management, state transitions |
 
-| [`trained-agent-lifecycle-manager/trained-agent-levers.md`](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/trained-agent-levers.md) | Publication controls, deprecation |
+| [trained-agent-lifecycle-manager/trained-agent-levers.md](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/trained-agent-levers.md) | Publication controls, deprecation |
 
-| [`trained-agent-lifecycle-manager/training-feedback-services.md`](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/training-feedback-services.md) | Feedback collection from COS, Developer, APO/PA, team |
+| [trained-agent-lifecycle-manager/training-feedback-services.md](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/training-feedback-services.md) | Feedback collection from COS, Developer, APO/PA, team |
 
-| [`trained-agent-lifecycle-manager/SCOPE.md`](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/SCOPE.md) | Coverage summary, design status |
+| [trained-agent-lifecycle-manager/SCOPE.md](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/SCOPE.md) | Coverage summary, design status |
 
 ---
 
@@ -206,15 +206,15 @@ flowchart TB
 
 |------|-------------|
 
-| [`agent-test-runner/test-deployment-jobs.md`](olympus-seer-docs/seer-design/subsystems/agent-test-runner/test-deployment-jobs.md) | Temporary Employed Agent deployment for testing |
+| [agent-test-runner/test-deployment-jobs.md](olympus-seer-docs/seer-design/subsystems/agent-test-runner/test-deployment-jobs.md) | Temporary Employed Agent deployment for testing |
 
-| [`agent-test-runner/behavior-validations.md`](olympus-seer-docs/seer-design/subsystems/agent-test-runner/behavior-validations.md) | Consistency and quality validations |
+| [agent-test-runner/behavior-validations.md](olympus-seer-docs/seer-design/subsystems/agent-test-runner/behavior-validations.md) | Consistency and quality validations |
 
-| [`agent-test-runner/health-validations.md`](olympus-seer-docs/seer-design/subsystems/agent-test-runner/health-validations.md) | Pod health, connectivity, stability checks |
+| [agent-test-runner/health-validations.md](olympus-seer-docs/seer-design/subsystems/agent-test-runner/health-validations.md) | Pod health, connectivity, stability checks |
 
-| [`agent-test-runner/safety-validations.md`](olympus-seer-docs/seer-design/subsystems/agent-test-runner/safety-validations.md) | Guardrail enforcement validation |
+| [agent-test-runner/safety-validations.md](olympus-seer-docs/seer-design/subsystems/agent-test-runner/safety-validations.md) | Guardrail enforcement validation |
 
-| [`agent-test-runner/SCOPE.md`](olympus-seer-docs/seer-design/subsystems/agent-test-runner/SCOPE.md) | Coverage summary, MVP vs parked scope |
+| [agent-test-runner/SCOPE.md](olympus-seer-docs/seer-design/subsystems/agent-test-runner/SCOPE.md) | Coverage summary, MVP vs parked scope |
 
 ---
 

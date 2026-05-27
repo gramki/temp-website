@@ -55,7 +55,7 @@ todos:
 
 ## Objective
 
-Create comprehensive implementation concept documents for 8 missing critical concepts in the Seer design scope, using the standard template at [`_templates/implementation-concept.md`](_templates/implementation-concept.md).
+Create comprehensive implementation concept documents for 8 missing critical concepts in the Seer design scope, using the standard template at [_templates/implementation-concept.md](_templates/implementation-concept.md).
 
 ---
 
@@ -87,13 +87,13 @@ Create comprehensive implementation concept documents for 8 missing critical con
 
 ### 1. Sentinels (Rename + Enhance)
 
-**File**: Rename [`agent-session-supervision.md`](olympus-seer-docs/seer-design/implementation-concepts/agent-session-supervision.md) to `sentinels.md`
+**File**: Rename [agent-session-supervision.md](olympus-seer-docs/seer-design/implementation-concepts/agent-session-supervision.md) to `sentinels.md`
 
 **Source Material**:
 
-- [`seer-sentinels/README.md`](olympus-seer-docs/seer-design/subsystems/seer-sentinels/README.md) - Architecture overview
-- [`seer-sentinels/SCOPE.md`](olympus-seer-docs/seer-design/subsystems/seer-sentinels/SCOPE.md) - Complete scope coverage
-- [`sentinel-spec-manager.md`](olympus-seer-docs/seer-design/subsystems/seer-sentinels/sentinel-spec-manager.md) - Spec structure
+- [seer-sentinels/README.md](olympus-seer-docs/seer-design/subsystems/seer-sentinels/README.md) - Architecture overview
+- [seer-sentinels/SCOPE.md](olympus-seer-docs/seer-design/subsystems/seer-sentinels/SCOPE.md) - Complete scope coverage
+- [sentinel-spec-manager.md](olympus-seer-docs/seer-design/subsystems/seer-sentinels/sentinel-spec-manager.md) - Spec structure
 - All sentinel service documents (realtime, analytical, request)
 
 **Key Sections to Add/Enhance**:
@@ -115,10 +115,10 @@ Create comprehensive implementation concept documents for 8 missing critical con
 
 **Source Material**:
 
-- [`agent-runtime/README.md`](olympus-seer-docs/seer-design/subsystems/agent-runtime/README.md) - Overview
-- [`runtime-deployment.md`](olympus-seer-docs/seer-design/subsystems/agent-runtime/runtime-deployment.md) - Core deployment
-- [`signal-exchange-integration.md`](olympus-seer-docs/seer-design/subsystems/agent-runtime/signal-exchange-integration.md) - sx-observer
-- [`authority-change-respawning.md`](olympus-seer-docs/seer-design/subsystems/agent-runtime/authority-change-respawning.md) - Respawn logic
+- [agent-runtime/README.md](olympus-seer-docs/seer-design/subsystems/agent-runtime/README.md) - Overview
+- [runtime-deployment.md](olympus-seer-docs/seer-design/subsystems/agent-runtime/runtime-deployment.md) - Core deployment
+- [signal-exchange-integration.md](olympus-seer-docs/seer-design/subsystems/agent-runtime/signal-exchange-integration.md) - sx-observer
+- [authority-change-respawning.md](olympus-seer-docs/seer-design/subsystems/agent-runtime/authority-change-respawning.md) - Respawn logic
 - ADR-0074 (Runtime on Atlantis)
 
 **Key Sections**:
@@ -140,11 +140,11 @@ Create comprehensive implementation concept documents for 8 missing critical con
 
 **Source Material**:
 
-- [`seer-sidecar/README.md`](olympus-seer-docs/seer-design/subsystems/seer-sidecar/README.md) - Overview
-- [`guardrail-service.md`](olympus-seer-docs/seer-design/subsystems/seer-sidecar/guardrail-service.md) - Guardrail execution
-- [`authority-enforcement-service.md`](olympus-seer-docs/seer-design/subsystems/seer-sidecar/authority-enforcement-service.md) - Authority checks
-- [`policy-enforcement-service.md`](olympus-seer-docs/seer-design/subsystems/seer-sidecar/policy-enforcement-service.md) - OPA policies
-- Existing [`guardrails.md`](olympus-seer-docs/seer-design/implementation-concepts/guardrails.md) and [`authority-enforcement.md`](olympus-seer-docs/seer-design/implementation-concepts/authority-enforcement.md)
+- [seer-sidecar/README.md](olympus-seer-docs/seer-design/subsystems/seer-sidecar/README.md) - Overview
+- [guardrail-service.md](olympus-seer-docs/seer-design/subsystems/seer-sidecar/guardrail-service.md) - Guardrail execution
+- [authority-enforcement-service.md](olympus-seer-docs/seer-design/subsystems/seer-sidecar/authority-enforcement-service.md) - Authority checks
+- [policy-enforcement-service.md](olympus-seer-docs/seer-design/subsystems/seer-sidecar/policy-enforcement-service.md) - OPA policies
+- Existing [guardrails.md](olympus-seer-docs/seer-design/implementation-concepts/guardrails.md) and [authority-enforcement.md](olympus-seer-docs/seer-design/implementation-concepts/authority-enforcement.md)
 
 **Key Sections**:
 
@@ -166,9 +166,9 @@ Create comprehensive implementation concept documents for 8 missing critical con
 
 **Source Material**:
 
-- [`agent-lifecycle-manager/agent-levers.md`](olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/agent-levers.md) - Kill switch lever
-- [`sentinel-levers.md`](olympus-seer-docs/seer-design/subsystems/seer-sentinels/sentinel-levers.md) - Emergency controls
-- [`iam-provisioning.md`](olympus-seer-docs/seer-design/subsystems/agent-runtime/iam-provisioning.md) - IAM revocation on kill
+- [agent-lifecycle-manager/agent-levers.md](olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/agent-levers.md) - Kill switch lever
+- [sentinel-levers.md](olympus-seer-docs/seer-design/subsystems/seer-sentinels/sentinel-levers.md) - Emergency controls
+- [iam-provisioning.md](olympus-seer-docs/seer-design/subsystems/agent-runtime/iam-provisioning.md) - IAM revocation on kill
 
 **Key Sections**:
 
@@ -189,9 +189,9 @@ Create comprehensive implementation concept documents for 8 missing critical con
 
 **Source Material**:
 
-- [`cipher-iam-extensions/authority-delegation.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md) - Delegation model
-- [`why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/`](olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/) - Conceptual foundation
-- [`agent-identity-credentials.md`](olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) - Related concept
+- [cipher-iam-extensions/authority-delegation.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/authority-delegation.md) - Delegation model
+- [why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/](olympus-seer-docs/why-seer/part-2-how-seer-solves/03-identity-authority-in-seer/) - Conceptual foundation
+- [agent-identity-credentials.md](olympus-seer-docs/seer-design/implementation-concepts/agent-identity-credentials.md) - Related concept
 
 **Key Sections**:
 
@@ -213,9 +213,9 @@ Create comprehensive implementation concept documents for 8 missing critical con
 
 **Source Material**:
 
-- [`agent-lifecycle-manager/agent-levers.md`](olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/agent-levers.md) - Employed agent levers
-- [`trained-agent-lifecycle-manager/trained-agent-levers.md`](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/trained-agent-levers.md) - Trained agent levers
-- [`sentinel-levers.md`](olympus-seer-docs/seer-design/subsystems/seer-sentinels/sentinel-levers.md) - Sentinel levers
+- [agent-lifecycle-manager/agent-levers.md](olympus-seer-docs/seer-design/subsystems/agent-lifecycle-manager/agent-levers.md) - Employed agent levers
+- [trained-agent-lifecycle-manager/trained-agent-levers.md](olympus-seer-docs/seer-design/subsystems/trained-agent-lifecycle-manager/trained-agent-levers.md) - Trained agent levers
+- [sentinel-levers.md](olympus-seer-docs/seer-design/subsystems/seer-sentinels/sentinel-levers.md) - Sentinel levers
 
 **Key Sections**:
 
@@ -232,12 +232,12 @@ Create comprehensive implementation concept documents for 8 missing critical con
 
 ### 7. Raw Agent Lifecycle (Expand Existing)
 
-**File**: Expand [`agent-lifecycle.md`](olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md)
+**File**: Expand [agent-lifecycle.md](olympus-seer-docs/seer-design/implementation-concepts/agent-lifecycle.md)
 
 **Source Material**:
 
-- [`raw-agent-lifecycle-manager/README.md`](olympus-seer-docs/seer-design/subsystems/raw-agent-lifecycle-manager/README.md) - Subsystem overview
-- [`hub-integration/raw-agent.md`](olympus-seer-docs/seer-design/hub-integration/raw-agent.md) - Hub context
+- [raw-agent-lifecycle-manager/README.md](olympus-seer-docs/seer-design/subsystems/raw-agent-lifecycle-manager/README.md) - Subsystem overview
+- [hub-integration/raw-agent.md](olympus-seer-docs/seer-design/hub-integration/raw-agent.md) - Hub context
 
 **Key Sections to Add**:
 
@@ -257,8 +257,8 @@ Create comprehensive implementation concept documents for 8 missing critical con
 
 **Source Material**:
 
-- [`cipher-iam-extensions/human-accountability.md`](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/human-accountability.md) - Implementation
-- [`aosm-meta-model/agent-oriented-system.md`](aosm-meta-model/agent-oriented-system.md) - AOSM foundations
+- [cipher-iam-extensions/human-accountability.md](olympus-seer-docs/seer-design/subsystems/cipher-iam-extensions/human-accountability.md) - Implementation
+- [aosm-meta-model/agent-oriented-system.md](aosm-meta-model/agent-oriented-system.md) - AOSM foundations
 
 **Key Sections**:
 
