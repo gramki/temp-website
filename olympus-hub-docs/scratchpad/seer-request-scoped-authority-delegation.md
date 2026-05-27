@@ -3,7 +3,7 @@
 > **Status**: ✅ **DOCUMENTATION COMPLETE** (2026-01-17)  
 >
 > **Comprehensive Document**: The design has been consolidated into a single implementation concept:  
-> [`olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md`](../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md)
+> [olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md](../../olympus-seer-docs/seer-design/implementation-concepts/request-scoped-delegation.md)
 >
 > **Implementation Plan**: See [request-scoped_delegation_docs.plan.md](../../.cursor/plans/request-scoped_delegation_docs_39e9c2a9.plan.md)
 >

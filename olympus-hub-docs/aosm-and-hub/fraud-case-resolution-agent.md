@@ -159,11 +159,11 @@ Design these artifacts first; they are the backbone of auditability and learning
 
 ## Related docs (in this folder)
 
-- Canonical cognitive model: [`../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md`](../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md)
-- Applied guide: [`../../olympus-seer-docs/agentic-ai-concepts/designing-an-agent.md`](../../olympus-seer-docs/agentic-ai-concepts/designing-an-agent.md)
-- Context compiler mechanics: [`../../olympus-seer-docs/agentic-ai-concepts/agent-memory/context-building.md`](../../olympus-seer-docs/agentic-ai-concepts/agent-memory/context-building.md)
-- Agent memory governance: [`../../olympus-seer-docs/agentic-ai-concepts/agent-memory/governance.md`](../../olympus-seer-docs/agentic-ai-concepts/agent-memory/governance.md)
-- Enterprise knowledge lifecycle: [`../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/lifecycle-and-management.md`](../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/lifecycle-and-management.md)
-- Derived artifacts vs signals: [`../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/derived-artifacts-and-signals.md`](../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/derived-artifacts-and-signals.md)
+- Canonical cognitive model: [../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md](../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md)
+- Applied guide: [../../olympus-seer-docs/agentic-ai-concepts/designing-an-agent.md](../../olympus-seer-docs/agentic-ai-concepts/designing-an-agent.md)
+- Context compiler mechanics: [../../olympus-seer-docs/agentic-ai-concepts/agent-memory/context-building.md](../../olympus-seer-docs/agentic-ai-concepts/agent-memory/context-building.md)
+- Agent memory governance: [../../olympus-seer-docs/agentic-ai-concepts/agent-memory/governance.md](../../olympus-seer-docs/agentic-ai-concepts/agent-memory/governance.md)
+- Enterprise knowledge lifecycle: [../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/lifecycle-and-management.md](../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/lifecycle-and-management.md)
+- Derived artifacts vs signals: [../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/derived-artifacts-and-signals.md](../../olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge/derived-artifacts-and-signals.md)
 
 
