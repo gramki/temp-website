@@ -10,7 +10,7 @@ Foundry Management is the administrative layer of the platform. It provides:
 - **Workbench provisioning** — create and configure Workbenches for Products
 - **Repository management** — repositories as services with injection/access interfaces
 - **Team management** — teams, roles, permissions
-- **Agent management** — agent configurations, skill assignments, availability
+- **Agent management** — Capable Agent registry, Skilled Agent definitions, credential hierarchy
 - **Knowledge management** — knowledge ingestion, organization (integral to each repository)
 - **Tenancy** — tenant provisioning, isolation, configuration, quotas
 - **External tool integrations** — GitHub, Figma, TestRail, Jira, Olympus Weave
@@ -89,6 +89,8 @@ See [workbench-architecture.md](workbench-architecture.md) for detailed reposito
 - **Workbench** — corresponds to a Product in UPIM; where Product is evolved
 - **Repositories** — the 15 canonical repositories defined in [../../ace/repositories.md](../../ace/repositories.md)
 - **Workforce** — agents and humans, managed here
+- **Capable Agent** — whitelisted frontier model/agent system (Cursor, Copilot, Claude Code)
+- **Skilled Agent** — Capable Agent + Skills + Guardrails for a (Workspace, Scenario)
 
 ## UPIM entities involved
 
@@ -114,5 +116,7 @@ See [workbench-architecture.md](workbench-architecture.md) for detailed reposito
 
 - [workbench-architecture.md](workbench-architecture.md) — detailed Workbench architecture
 - [workshop-repository.md](workshop-repository.md) — Workshop/Workbench definition repository structure
+- [../agent-model/README.md](../agent-model/README.md) — Agent Model (Capable, Skilled, Employed Agents)
+- [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO Runtime execution engine
 - [../../ace/repositories.md](../../ace/repositories.md) — the repository taxonomy
 - [../../tldr-faq.md](../../tldr-faq.md) — module design decisions

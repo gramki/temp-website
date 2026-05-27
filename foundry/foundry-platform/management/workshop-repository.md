@@ -15,6 +15,7 @@ workshop-{id}/
 │   ├── domain.yaml                   # Domain repo config
 │   ├── practices.yaml                # Practices repo config
 │   └── stakeholders.yaml             # Stakeholders registry config
+├── capable-agents.yaml               # Workshop-level Capable Agent overrides (optional)
 ├── workspaces/                       # Workshop-level workspaces (BASE - all 6 required)
 │   ├── product-specification/
 │   │   ├── workspace.yaml
@@ -22,7 +23,11 @@ workshop-{id}/
 │   │   │   └── devcontainer.json
 │   │   ├── scenarios/
 │   │   │   ├── catalog.yaml
-│   │   │   └── *.yaml
+│   │   │   ├── {scenario}.yaml
+│   │   │   └── {scenario}/           # Optional Skilled Agent for scenario
+│   │   │       └── skilled-agent/
+│   │   │           ├── agent.yaml    # Skilled Agent definition
+│   │   │           └── skills/       # Skills this agent uses
 │   │   ├── skills/
 │   │   │   ├── skills.yaml
 │   │   │   └── {skill}/
@@ -36,8 +41,9 @@ workshop-{id}/
 │   └── {product-code}/
 │       ├── workbench.yaml            # Workbench metadata
 │       ├── repositories.yaml         # Repo links (Intent, Design, Code)
-│       ├── integrations.yaml         # External tools
+│       ├── integrations.yaml         # External tools (includes Jira WO project)
 │       ├── team.yaml                 # Team references
+│       ├── capable-agents.yaml       # Workbench-level Capable Agent overrides (optional)
 │       ├── knowledge/                # Workbench-level knowledge
 │       │   ├── product-context/
 │       │   ├── architecture/
@@ -46,7 +52,10 @@ workshop-{id}/
 │       └── workspaces/               # OVERRIDES (sparse - only files that differ)
 │           ├── development/
 │           │   ├── scenarios/
-│           │   │   └── custom-scenario.yaml   # Added scenario
+│           │   │   ├── custom-scenario.yaml   # Added scenario
+│           │   │   └── custom-scenario/       # Skilled Agent for custom scenario
+│           │   │       └── skilled-agent/
+│           │   │           └── agent.yaml
 │           │   └── skills/
 │           │       └── product-specific-skill/  # Added skill
 │           └── ...                   # Only workspaces with overrides
@@ -216,6 +225,7 @@ spec:
       operations: JSM-OPS
       feedback: JIRA-FB
       work: JIRA-WORK
+      workOrders: CHKOUT-WO     # Dedicated project for Work Orders (one per Workbench)
   weave:
     connected: true
     productCode: CHKOUT-001
@@ -227,6 +237,8 @@ spec:
       url: "https://datadog.internal/checkout"
       category: monitoring
 ```
+
+**Note:** The `workOrders` project is dedicated to this Workbench (not shared). Orchestrator creates Work Orders as Epics in this project; WO Runtime creates Tasks as Stories/Sub-tasks. See [../work-order-runtime/task-execution.md](../work-order-runtime/task-execution.md) for Jira schema details.
 
 ### `workbenches/{product-code}/team.yaml`
 
@@ -447,6 +459,96 @@ The Workshop Definition Repository is the source of truth. Foundry Management mo
 - Applies changes to the running platform
 
 Changes to `workbench.yaml`, `integrations.yaml`, etc. are reflected in the Foundry Web App after sync.
+
+---
+
+## Capable Agents Configuration
+
+Capable Agents are configured at three levels with inheritance (see [../agent-model/capable-agents.md](../agent-model/capable-agents.md)):
+
+### Hierarchy
+
+```
+Foundry (org-level) ← foundry.yaml
+    │
+    └── Workshop (team-level) ← capable-agents.yaml
+            │
+            └── Workbench (product-level) ← capable-agents.yaml
+```
+
+### Workshop Level (`capable-agents.yaml`)
+
+```yaml
+capable-agents:
+  cursor-agent:
+    enabled: true
+    models:
+      claude-opus:
+        credentials:
+          api-key: ${WORKSHOP_ANTHROPIC_API_KEY}
+          
+  copilot:
+    enabled: false  # Disabled for this Workshop
+```
+
+### Workbench Level (`workbenches/{product-code}/capable-agents.yaml`)
+
+```yaml
+capable-agents:
+  cursor-agent:
+    models:
+      claude-opus:
+        credentials:
+          api-key: ${PROJECT_ANTHROPIC_API_KEY}  # Project-specific key
+```
+
+### Resolution Rules
+
+- **Disable cascades down** — disabled at Workshop = disabled for all Workbenches
+- **Credentials resolve upward** — Workbench → Workshop → Foundry (first found wins)
+
+---
+
+## Skilled Agents
+
+Skilled Agents are defined per (Workspace, Scenario). See [../agent-model/skilled-agents.md](../agent-model/skilled-agents.md).
+
+### Folder Structure
+
+```
+workspaces/{workspace}/scenarios/{scenario}/
+├── {scenario}.yaml           # Scenario definition
+└── skilled-agent/            # Optional - if scenario has agent automation
+    ├── agent.yaml            # Skilled Agent definition
+    └── skills/               # Skills this agent uses
+        ├── skill-a/
+        │   ├── SKILL.md
+        │   └── ...
+        └── skill-b/
+```
+
+### agent.yaml Example
+
+```yaml
+name: feature-implementation-agent
+description: Implements features based on specifications
+
+compatible-capable-agents:
+  - agent: cursor-agent
+    models:
+      - claude-opus
+      - claude-sonnet
+
+skills:
+  - code-generator
+  - test-writer
+
+guardrails:
+  - no-force-push
+  - require-tests-for-new-code
+```
+
+If a Scenario does not have a `skilled-agent/` folder, tasks for that Scenario are queued for human completion.
 
 ---
 

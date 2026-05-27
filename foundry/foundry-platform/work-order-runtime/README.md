@@ -7,11 +7,65 @@
 Work Order Runtime is the execution engine that runs Work Orders. It provides:
 
 - **Context compilation** — resolve and assemble the context a Work Order needs from the knowledge hierarchy
-- **Agent lifecycle** — spin up agents per Scenario, configure with skills, manage lifecycle during WO execution
-- **Agent delegation** — assign Tasks to agents, orchestrate multi-agent work within a Work Order
-- **Human-task surfacing** — identify Tasks waiting on humans, surface them in the IDE
-- **Workspace Session management** — create and manage Coder-based ephemeral dev environments for human work
+- **Agent spawning** — spawn Employed Agents from Skilled Agent definitions with full harness (environment, tools, skills, knowledge, delegation)
+- **Task tree management** — manage task trees with dependencies, state transitions, and completion tracking
+- **Jira integration** — use Jira as the system of record for Work Orders and Tasks via MCP
+- **Human-task surfacing** — identify Tasks without Skilled Agents, surface them in the web console and IDE
+- **Workspace Session management** — create and manage Coder-based ephemeral dev environments
+- **IDE integration** — VS Code plugin for Work Orders Panel, agent chat tabs, and terminal windows
 - **Skill injection** — copy skills from Workbench into Session containers at launch
+
+## Architecture
+
+WO Runtime runs as a **daemon** within each Workspace Session:
+
+```
+Workspace Session (Coder)
+    │
+    ├── WO Runtime Daemon
+    │   ├── Polls Jira for assigned WOs (via MCP)
+    │   ├── Manages task tree and dependencies
+    │   ├── Spawns Employed Agents for tasks
+    │   └── Reports completion to Orchestrator
+    │
+    └── Employed Agent Processes
+        ├── Execute skills
+        ├── Create sub-tasks (via Jira MCP)
+        └── Route model calls through Access Gateway
+```
+
+See [end-to-end-work-order-flow.md](end-to-end-work-order-flow.md) for the complete lifecycle.
+
+## Agent Model Integration
+
+WO Runtime works with the [Agent Model](../agent-model/README.md):
+
+| Concept | WO Runtime Role |
+|---------|-----------------|
+| **Capable Agent** | Selected based on Skilled Agent definition |
+| **Skilled Agent** | Read from Scenario definition |
+| **Employed Agent** | Spawned by WO Runtime with delegation token |
+| **Access Gateway** | All model calls routed through gateway |
+
+See:
+- [agent-spawning.md](agent-spawning.md) — how agents are spawned
+- [../agent-model/employed-agents.md](../agent-model/employed-agents.md) — Employed Agent lifecycle
+
+## Jira Integration
+
+Jira is the system of record for Work Orders and Tasks:
+
+| Entity | Jira Representation |
+|--------|---------------------|
+| Work Order | Epic in Workbench project |
+| Root Task | Story under Epic |
+| Sub-Task | Sub-task under Story |
+| Dependencies | Custom field or linked issues |
+| Scenario | Custom field |
+
+WO Runtime accesses Jira through **Jira MCP Server**, which provides tools for querying and updating issues.
+
+See [task-execution.md](task-execution.md) for task state machine and Jira schema details.
 
 ## ACE concepts realized
 
@@ -30,7 +84,7 @@ Work Order Runtime executes Workspace Work Orders. It does not route orchestrati
 
 ## Workspace Sessions
 
-Workspace Sessions are ephemeral development environments for humans to work on Tasks.
+Workspace Sessions are ephemeral development environments for humans and agents to work on Tasks.
 
 | Aspect | Detail |
 |--------|--------|
@@ -223,8 +277,20 @@ Hooks are defined per Workspace: `workspaces/{workspace}/hooks/`
 
 ---
 
+## Module Documents
+
+| Document | Content |
+|----------|---------|
+| [end-to-end-work-order-flow.md](end-to-end-work-order-flow.md) | Complete WO lifecycle from Orchestrator to completion |
+| [task-execution.md](task-execution.md) | Task tree, state machine, Jira representation |
+| [agent-spawning.md](agent-spawning.md) | Harness preparation and agent spawning |
+| [ide-integration.md](ide-integration.md) | VS Code plugin architecture |
+| [implementation-todos.md](implementation-todos.md) | Open items for engineering |
+
 ## Read next
 
+- [../agent-model/README.md](../agent-model/README.md) — Agent Model architecture (Capable, Skilled, Employed)
+- [../orchestrator/README.md](../orchestrator/README.md) — WO creation and session activation
 - [../management/workshop-repository.md](../management/workshop-repository.md) — Workshop Definition Repository structure
 - [../management/workbench-architecture.md](../management/workbench-architecture.md) — Workbench architecture
 - [../../ace/concepts.md](../../ace/concepts.md) — Work Order, Scenario, Task, Agent definitions

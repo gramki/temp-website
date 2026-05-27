@@ -30,6 +30,20 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides:
 - **"Builder"** is the term for Foundry IDE users
 - **Workspace Session** was considered to disambiguate VS Code Workspace from ACE Workspace, but dropped — the 1:1 per-user mapping makes the overload theoretical, not practical
 
+## WO Runtime Plugin
+
+The IDE includes a **WO Runtime Plugin** that provides the user interface for Work Order execution:
+
+| Component | Purpose |
+|-----------|---------|
+| **Work Orders Panel** | Tree view of assigned WOs and task trees with status |
+| **Agent Chat Tabs** | Chat interface for agent-user interaction |
+| **Agent Terminal Windows** | Terminal interface for CLI agents |
+
+The plugin is a UI layer only — VS Code does not mediate agent I/O. Agents communicate directly with users through the UI components.
+
+See [../work-order-runtime/ide-integration.md](../work-order-runtime/ide-integration.md) for full plugin architecture.
+
 ## Open questions
 
 - VS Code: fork vs extension vs hosted instance?
@@ -38,5 +52,7 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides:
 
 ## Read next
 
+- [../work-order-runtime/ide-integration.md](../work-order-runtime/ide-integration.md) — WO Runtime plugin architecture
+- [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO Runtime module
 - [../../ace/workspaces/](../../ace/workspaces/README.md) — the six Workspace types
 - [../../tldr-faq.md](../../tldr-faq.md) — interface design decisions
