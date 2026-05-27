@@ -63,7 +63,7 @@ Create a board-level background section for evaluating a new product line in the
 
 ### Three-Way Cognitive Classification
 
-From [`olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md`](olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md):
+From [olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md](olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-data.md):
 
 | Layer | Question | Nature |
 |-------|----------|--------|
@@ -77,7 +77,7 @@ From [`olympus-seer-docs/agentic-ai-concepts/enterprise-knowledge-memory-other-d
 
 ### Platform Taxonomy (Extend Existing Research)
 
-From [`olympus-seer-docs/agentic-ai-concepts/enterprise-agent-platform.md`](olympus-seer-docs/agentic-ai-concepts/enterprise-agent-platform.md), extend to:
+From [olympus-seer-docs/agentic-ai-concepts/enterprise-agent-platform.md](olympus-seer-docs/agentic-ai-concepts/enterprise-agent-platform.md), extend to:
 
 | Level | What It Does | Who Offers It |
 |-------|-------------|---------------|
