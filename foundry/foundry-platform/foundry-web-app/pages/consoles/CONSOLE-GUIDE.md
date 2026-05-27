@@ -129,16 +129,17 @@ Expand an existing console when:
 
 Examples:
 
-| Need | Expand |
-|------|--------|
-| Product Intent type filter | PI Console |
-| Governance status on Product Intent | PI Console |
-| Work Order governance badges | Workspaces Console |
-| Team recognition | Team Console |
-| Agent cost per task | Agent Console |
-| Debt aging chart | Registers / Governance Overview |
-| Build quality threshold detail | Quality Controls |
-| Release readiness status | Release Console + Governance overlay |
+| Need | Expand | Why |
+|------|--------|-----|
+| Product Intent type filter | PI Console | Same entity, filter is enough |
+| Governance status on Product Intent | PI Console | Overlay badge, not separate console |
+| Work Order governance badges | Workspaces Console | Overlay badge on existing queue |
+| Team recognition (Kudos) | Team Console | Workforce data, same persona |
+| Agent cost per task | Agent Console | Analytics view on same entity |
+| Debt aging chart | Registers | Same register entity, analytics view |
+| Build quality threshold breach | Quality Controls (Governance) | Governance evaluates build thresholds |
+| Test coverage trends | Quality Status (Build) | Build-time quality metrics |
+| Release readiness status | Release Console + Governance overlay | Release owns status; Governance adds gate badge |
 
 ## When to create a new console
 
@@ -164,28 +165,57 @@ Examples:
 
 ## Console type patterns
 
-| Type | Meaning |
-|------|---------|
-| **Landing console** | Overview / health / summary |
-| **Operational queue** | Items needing action |
-| **Detail console** | Deep view of one entity type |
-| **Analytics console** | Metrics, trends, reports |
-| **Admin console** | Configuration and permissions |
-| **Resource console** | Repositories/tools/external systems |
+Console types describe the interaction pattern, independent of which group (Work, Workforce, etc.) the console belongs to.
 
-Examples:
+| Type | Meaning | Primary interaction |
+|------|---------|---------------------|
+| **Landing** | Overview / health / summary | Scan, triage, navigate |
+| **Queue** | Items needing action | Pick up, process, complete |
+| **List + Detail** | Browse entities, drill into one | Browse, select, inspect |
+| **Analytics** | Metrics, trends, reports | Analyze, export, share |
+| **Workflow** | Multi-step process management | Configure, schedule, review |
+| **Admin** | Configuration and permissions | Configure, authorize |
+| **Resource** | Repositories / tools / external systems | Access, link, manage |
 
-| Console | Type |
-|---------|------|
-| Governance Overview | Landing |
-| Workspaces Console | Operational queue |
-| PI Console | Operational + traceability |
-| Registers | Operational queue + detail |
-| Reports & Dashboards | Analytics |
-| Governance Admin | Admin |
-| Repositories & Tools | Resource |
-| Team Console | Workforce analytics + profile |
-| Agent Console | Workforce analytics |
+## Console type examples
+
+| Console | Group | Type(s) |
+|---------|-------|---------|
+| **PI Console** | Work | List + Detail |
+| **Workspaces Console** | Work | Queue, List + Detail |
+| **Progress Console** | Work | Analytics |
+| **Track Console** | Work | Analytics |
+| **CI Console** | Build | Queue, Analytics |
+| **Components Console** | Build | List + Detail |
+| **Quality Status** | Build | Analytics |
+| **Release Console** | Build | List + Detail, Workflow |
+| **Repositories & Tools** | Resources | Resource |
+| **Team Console** | Workforce | List + Detail, Analytics |
+| **Agent Console** | Workforce | List + Detail, Analytics |
+| **Governance Overview** | Governance | Landing |
+| **Rituals** | Governance | Workflow |
+| **Controls & Enforcement** | Governance | List + Detail, Workflow |
+| **Registers** | Governance | Queue, List + Detail |
+| **Reports & Dashboards** | Governance | Analytics |
+| **Quality Controls** | Governance | List + Detail, Workflow |
+| **Admin Console** | Settings | Admin |
+| **Governance Admin** | Settings | Admin |
+
+## Detail pages vs consoles
+
+Some consoles have **detail pages** — standalone pages for deep inspection of a single entity, accessible via URL.
+
+| Detail page | Parent console | URL pattern |
+|-------------|----------------|-------------|
+| Team Member Workbench Profile | Team Console | `/workbenches/{id}/team/{memberId}` |
+| Workspace Session Details | Workspaces Console | `/workbenches/{id}/sessions/{sessionId}` |
+
+Detail pages are appropriate when:
+- The entity has enough content for a full page (history, metrics, actions).
+- Multiple consoles need to link to the same entity view.
+- The URL must be shareable and bookmarkable.
+
+Detail pages are NOT new consoles — they don't appear in side navigation.
 
 ## New console checklist
 
@@ -206,9 +236,9 @@ Before adding a new console, answer:
 
 | Maturity | Console guidance |
 |----------|------------------|
-| Phase 1 | Prefer fewer consoles, strong overlays, clear action queues. Add Governance Overview, Controls & Enforcement, Registers. Enhance PI, Workspaces, Track, Reports, Quality Controls, Admin. |
-| Phase 2 | Add/expand Rituals, richer Reports & Dashboards, fuller Registers workflows, release governance overlays, workforce recognition views. |
-| Phase 3 | Full Governance Admin, authority matrix editor, control inheritance UI, advanced analytics, cross-Workbench governance, recognition trend analytics. |
+| Phase 1 | All consoles listed in README.md exist. Focus on core workflows: PI lifecycle, Workspace Sessions, Governance Overview, Registers, Controls & Enforcement, Rituals. Detail pages for Team Member Profile and Workspace Session. |
+| Phase 2 | Richer Reports & Dashboards, fuller Registers workflows, release governance overlays, workforce recognition views, advanced Team/Agent analytics. |
+| Phase 3 | Full Governance Admin with authority matrix editor, control inheritance UI, cross-Workbench governance views, recognition trend analytics, advanced detail pages. |
 
 ## Canonical statement
 
