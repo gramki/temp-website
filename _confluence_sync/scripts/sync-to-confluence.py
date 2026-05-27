@@ -43,7 +43,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 try:
     from ignore_handler import IgnoreHandler
     from config_loader import load_destination_config, get_destination, resolve_credentials, ConfigError, get_repo_root
-    from sync_state import load_sync_state, get_page_history, update_page_history, update_destination_metadata, compute_content_hash, find_by_signature, get_metadata_file_path, compact_sync_state, get_destination_data_dir
+    from sync_state import load_sync_state, get_page_history, update_page_history, update_destination_metadata, compute_content_hash, find_by_signature, get_metadata_file_path, compact_sync_state, get_destination_data_dir, get_mermaid_cache_dir
     from git_utils import get_current_commit_hash, get_file_commit_hash, get_file_commit_date, get_file_github_url, get_github_repo_url, get_repo_root as get_git_repo_root
     from report_generator import SyncResult, generate_sync_report, save_report_to_file
     from content_preparer import ContentPreparer, PreparedContent, _numeric_prefix_and_rest
@@ -240,6 +240,7 @@ def sync_destination(
     
     # Load sync state
     sync_state = load_sync_state(destination_id, data_dir)
+    mermaid_cache_dir = get_mermaid_cache_dir(data_dir)
     
     # Initialize Confluence sync client
     base_url = confluence_config['url']
@@ -253,7 +254,9 @@ def sync_destination(
     print(f"Root page: {root_page_title}")
     if dry_run:
         print("DRY RUN MODE - No changes will be made")
-    print(f"{'='*80}\n")
+    print(f"{'='*80}")
+    print(f"  Mermaid PNG cache: {mermaid_cache_dir}")
+    print()
     
     # Initialize Confluence sync client (needed for dry-run validation)
     try:
@@ -274,6 +277,7 @@ def sync_destination(
             add_git_metadata=add_git_metadata,
             attachment_handler=None,  # No attachments in dry-run
             confluence_base_url=confluence_sync.base_url,
+            mermaid_cache_dir=mermaid_cache_dir,
         )
         
         # Get root page ID for validation
@@ -557,6 +561,7 @@ def sync_destination(
             add_git_metadata=add_git_metadata,
             attachment_handler=attachment_handler,
             confluence_base_url=confluence_sync.base_url,
+            mermaid_cache_dir=mermaid_cache_dir,
         )
         
         # Find or create root page
@@ -1275,7 +1280,8 @@ def sync_destination(
         
         # Phase 3.5: Delete old-format pages (titles without numeric prefix) when we now use prefix-in-title
         # So that e.g. "Prologue" is removed after we've synced "00 - Prologue" for the same file
-        parent_to_prepared = defaultdict(list)
+        from collections import defaultdict as _defaultdict
+        parent_to_prepared = _defaultdict(list)
         for p in all_prepared_contents:
             if p.parent_id and (p.page_id or getattr(p, 'legacy_title', None)):
                 parent_to_prepared[p.parent_id].append(p)

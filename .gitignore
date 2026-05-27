@@ -3,6 +3,7 @@
 # Confluence sync files
 _confluence_sync/data/**/sync-report-*
 _confluence_sync/data/**/.env
+_confluence_sync/data/mermaid-cache/
 _confluence_sync/**/*.tmp
 _confluence_sync/**/*.temp
 _confluence_sync/**/.cache/

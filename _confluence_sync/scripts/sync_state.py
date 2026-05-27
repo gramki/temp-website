@@ -31,6 +31,16 @@ def get_data_dir(data_dir: Optional[Path] = None) -> Path:
     return script_dir.parent / 'data'
 
 
+def get_mermaid_cache_dir(data_dir: Optional[Path] = None) -> Path:
+    """
+    Directory for persisted Mermaid PNG renders (content-addressed by diagram hash).
+    Shared across destinations; safe to delete to force full re-render.
+    """
+    d = get_data_dir(data_dir) / 'mermaid-cache'
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
 def get_destination_data_dir(destination_id: str, data_dir: Optional[Path] = None) -> Path:
     """
     Get the data directory for a specific destination.
