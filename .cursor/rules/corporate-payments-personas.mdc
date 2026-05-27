@@ -1,0 +1,53 @@
+---
+description: Domain personas for corporate payments content — use to validate proposals from each persona's vantage point
+globs: us-bank-commercial-card/corporate-payment*/**
+alwaysApply: false
+---
+
+# Corporate Payments — Persona-Grounded Review
+
+When writing or reviewing content for the corporate payments presentation or book, evaluate proposals from the vantage point of the personas below. Before finalizing any content, ask:
+
+- Would this persona recognize this language as native to their work?
+- Would they care about this point, or is it irrelevant to their function?
+- Does the example resonate with their daily concerns?
+- Is anything attributed to their domain that they would never touch?
+- Are motivations accurate — not just structurally correct but commercially authentic?
+
+## Bank Domain Personas
+
+- **Credit Risk Officer**: credit exposure, concentration risk, delinquency staging, provisioning, covenant compliance, facility adequacy
+- **Compliance / AML Officer**: KYB/KYC completeness, sanctions screening, suspicious activity, regulatory reporting, audit trails
+- **Treasury / ALM Manager**: float income optimization, funding costs, interest rate exposure on facilities, settlement timing — treasury income is a primary bank motivation, not secondary
+- **Product Manager (Bank)**: Account Product and Virtual Card Product catalog, fee structures, interchange optimization, scheme compliance, BIN management
+- **Operations Manager**: authorization throughput, decline rates, dispute volumes, exception handling, SLA compliance
+- **Network / Scheme Relations**: Visa/MC/RuPay compliance, interchange qualification, settlement rules, dispute protocols
+- **Partner / VBO Manager**: ESP onboarding, catalog access grants, revenue sharing, partner compliance
+
+## ESP Domain Personas
+
+- **Product Manager (ESP)**: variant and CPP design, archetype coverage, component program configuration, competitive positioning, pricing
+- **Client Relationship Manager**: contract terms, renewals, portfolio growth, corporate satisfaction, cross-sell
+- **Onboarding Manager**: KYB coordination with bank, program setup, configuration, corporate training
+- **Billing / Finance (ESP)**: consolidated invoicing, relationship-level rebates, volume commitments, collections
+- **Support / Servicing**: day-to-day corporate support, card lifecycle issues, dispute mediation, notifications
+- **Portfolio Analyst**: ESP-wide metrics, churn, product mix, revenue optimization
+
+## Corporate Domain Personas
+
+- **CFO / Finance Controller**: total credit exposure across programs, budget adherence, GL accuracy, audit readiness, DPO optimization, policy leakage, consolidated multi-entity multi-currency reporting
+- **VP / Director of Procurement**: supplier onboarding efficiency, PO-to-payment cycle time, three-way match rates, supplier satisfaction, early payment discounts vs DPO extension, supplier diversity
+- **Head of AP**: invoice processing automation, payment accuracy, duplicate prevention, reconciliation labor, ERP integration, month-end close efficiency
+- **Treasury Manager (Corporate)**: settlement timing, cash positioning, FX exposure, auto-sweep configuration, bank account management
+- **Travel Manager**: booking-linked issuance, duty of care, agency lodge card management, traveler experience, itinerary reconciliation
+- **Department Head / Cost Center Owner**: budget visibility, spending against allocation, team enrollment, card requests, expense approval workflows
+- **Internal Audit**: policy enforcement evidence, exception trails, authority chain verification, segregation of duties
+- **Employee (Cardholder)**: card availability, spending limits, expense simplification
+
+## Common Mistakes This Rule Prevents
+
+- Describing bank motivations as "risk management" alone — treasury income (float, interchange, facility interest) is a primary commercial driver
+- Describing corporate motivations as "governance" alone — payment cost and process efficiency (DPO, reconciliation labor, policy leakage) are equally important
+- Using placeholder phrases ("AP automation story", "AR story") instead of language a Finance Controller or Head of AP would use
+- Attributing concepts to the wrong domain (e.g., suggesting a corporate admin never sees credit facility utilization — the CFO absolutely tracks it)
+- Reasoning from abstract domain models instead of from the actual personas who operate within them
