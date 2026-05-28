@@ -2,6 +2,16 @@
 
 This document details the architecture of a Workbench — the locus where a Product is evolved.
 
+## The Workbench Analogy
+
+A Foundry Workbench is like a physical workbench in a repair shop: a dedicated surface where skilled workers (human or agent) perform specialized tasks using the right tools for the job.
+
+![Workbench with Workspaces](workbench-visual.png)
+
+Just as a bike repair workbench has dedicated workspaces — one for precision wheel truing, another for hydraulic work, a third for drivetrain cleaning — a Foundry Workbench has six standard Workspaces: Product Specification, UX Design, Development, QA, Release, and Governance. Each Workspace has its own tools (Scenarios), its own specialists (Skilled Agents), and its own part of the product to focus on.
+
+The Workbench itself provides the shared infrastructure: the bench surface (repositories), the tool storage (Capable Agents), the parts catalog (Ontology), and the work tracking system (Jira integration). Workers move between Workspaces as needed, but each Workspace maintains its specialized focus.
+
 ## Workbench Identity
 
 Each Workbench has a **single Workbench ID** used for:
