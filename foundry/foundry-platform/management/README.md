@@ -1,32 +1,216 @@
 # Foundry Management
 
-**Module scope:** Admin plane — Workshops, Workbenches, repositories (as services), teams, agents, knowledge, tenancy, and external tool integrations.
+**Module scope:** Admin plane — Workshops, Workbenches, repositories, teams, configuration services, scenario management, and external tool integrations.
+
+## Purpose
+
+Foundry Management is the administrative foundation that makes everything else possible. Before any Work Order can execute, before any agent can be spawned, before any code can be committed — someone must provision the Workbench, configure the repositories, set up the team, and integrate the tools. That's Management.
+
+The module treats infrastructure as configuration. A Workbench is not just a database entry — it's a GitHub org, a Jira project, a TestRail instance, a Figma workspace, all wired together. Management handles this complexity by providing declarative provisioning: admins describe what they want, and the module creates and connects all the pieces.
+
+Management also owns the configuration pipeline: when Workshop Definition Repos are updated, Management validates the changes, syncs them to the Metadata Service, and makes them available to the platform. Orchestrator, WO Runtime, and other modules query Management for configuration — they never read from git directly.
 
 ## What this module does
-
-Foundry Management is the administrative layer of the platform. It provides:
 
 - **Workshop provisioning** — create and configure Workshops (divisions/units)
 - **Workbench provisioning** — create and configure Workbenches for Products
 - **Repository management** — repositories as services with injection/access interfaces
+- **Configuration services** — validate, sync, and serve Workshop/Workbench configuration
+- **Scenario Management** — scenario schema, validation, and agent recommendations
 - **Team management** — teams, roles, permissions
-- **Agent management** — agent configurations, skill assignments, availability
-- **Knowledge management** — knowledge ingestion, organization (integral to each repository)
+- **Knowledge Management** — Domain, Ontology, Practices repositories with hierarchical inheritance
 - **Tenancy** — tenant provisioning, isolation, configuration, quotas
 - **External tool integrations** — GitHub, Figma, TestRail, Jira, Olympus Weave
 
+## What this module does NOT do
+
+| Boundary | Owned By |
+|----------|----------|
+| Execute Work Orders | WO Runtime |
+| Orchestrate work / route items | Orchestrator |
+| Track WO state | Orchestrator + Jira |
+| Manage agent runtime | Agent Fabric (Skills/quotas), WO Runtime (spawning) |
+| Store product artifacts | Repositories (which Management provisions) |
+| Define scenario templates | Scenario Catalogue (content folder) |
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              Foundry Management                                  │
+│                                                                                  │
+│  ┌────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        Configuration Services                               │ │
+│  │                                                                             │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │ │
+│  │  │    Workshop     │  │    Workshop     │  │    Metadata     │            │ │
+│  │  │   Validation    │  │      Sync       │  │    Service      │            │ │
+│  │  │    Service      │  │    Service      │  │                 │            │ │
+│  │  └────────┬────────┘  └────────┬────────┘  └────────┬────────┘            │ │
+│  │           │ validates          │ writes             │ serves              │ │
+│  │           │                    │                    │                     │ │
+│  │           └────────────────────┴────────────────────┘                     │ │
+│  └────────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                  │
+│  ┌────────────────────────────────────────────────────────────────────────────┐ │
+│  │                        Provisioning Services                                │ │
+│  │                                                                             │ │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐       │ │
+│  │  │  Workshop   │  │  Workbench  │  │ Repository  │  │   Foundry   │       │ │
+│  │  │Provisioning │  │Provisioning │  │  Manager    │  │Provisioning │       │ │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘       │ │
+│  └────────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                  │
+│  ┌────────────────────────────────────────────────────────────────────────────┐ │
+│  │                          Subsystems                                         │ │
+│  │                                                                             │ │
+│  │  ┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐      │ │
+│  │  │ Foundry Mgmt      │  │ Team Management   │  │ Scenario Mgmt     │      │ │
+│  │  │                   │  │                   │  │                   │      │ │
+│  │  │ • Lifecycle       │  │ • Users, teams    │  │ • Schema          │      │ │
+│  │  │ • Tenancy         │  │ • Roles, perms    │  │ • Validation      │      │ │
+│  │  │ • Settings        │  │ • Authorization   │  │ • Recommendations │      │ │
+│  │  └───────────────────┘  └───────────────────┘  └───────────────────┘      │ │
+│  │                                                                             │ │
+│  │  ┌───────────────────┐  ┌───────────────────────────────────────────┐    │ │
+│  │  │ Knowledge Mgmt    │  │                Ontology Service            │    │ │
+│  │  │                   │  │    Product structure, capabilities         │    │ │
+│  │  │ • Domain          │  └───────────────────────────────────────────┘    │ │
+│  │  │ • Practices       │                                                    │ │
+│  │  │ • Inheritance     │                                                    │ │
+│  │  └───────────────────┘                                                    │ │
+│  └────────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                  │
+│  ┌────────────────────────────────────────────────────────────────────────────┐ │
+│  │                       External Integrations                                 │ │
+│  │  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐         │ │
+│  │  │ GitHub  │  │  Jira   │  │TestRail │  │  Figma  │  │ Olympus │         │ │
+│  │  │  App    │  │  OAuth  │  │  OAuth  │  │  OAuth  │  │  Weave  │         │ │
+│  │  └─────────┘  └─────────┘  └─────────┘  └─────────┘  └─────────┘         │ │
+│  └────────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────────┘
+           │                              ▲
+           │ webhooks                     │ queries
+           ▼                              │
+    ┌─────────────┐               ┌───────┴───────┬───────────────┐
+    │  Workshop   │               │               │               │
+    │Definition   │               │ Orchestrator  │  WO Runtime   │
+    │   Repo      │               │               │               │
+    └─────────────┘               └───────────────┴───────────────┘
+```
+
+## The Workbench Concept
+
+A Workbench is the locus where a Product is evolved. Think of it like a physical workbench in a repair shop:
+
+![Workbench with Workspaces](workbench-visual.png)
+
+Just as a bike repair workbench has dedicated workspaces for different tasks — precision wheel truing, hydraulic work, drivetrain cleaning — a Foundry Workbench has six standard Workspaces (Product Specification, UX Design, Development, QA, Release, Governance). Each Workspace has specialized tools (Scenarios) and specialists (Skilled Agents).
+
+The Workbench provides shared infrastructure: repositories (the work surface), Capable Agents (tool storage), Ontology (parts catalog), and Jira integration (work tracking). Management provisions all of this as a single coordinated unit.
+
+→ [workbench-architecture.md](workbench-architecture.md) for detailed Workbench architecture
+
 ## Key Services
 
-### Workbench Metadata Service
+### Configuration Services
 
-A single service per Workbench that provides:
+These services manage the flow of configuration from Workshop Definition Repos to platform consumers.
 
-| Function | Behavior |
-|----------|----------|
-| **Product Intent IDs** | Consulted **before** creating an Intent to get unique PI ID |
-| **Commit tracking** | Tracks **all commits** to all linked git repos (Intent, Design, Code) |
-| **Code Repo references** | Manages references to all source code repos |
-| **Design tracking** | Tracks changes (no ID required before create) |
+| Service | Purpose | Documentation |
+|---------|---------|---------------|
+| **Workshop Validation** | Validates PRs, gates merges to main | [services/workshop-validation.md](services/workshop-validation.md) |
+| **Workshop Sync** | Processes webhooks, populates Metadata Service | [services/workshop-sync.md](services/workshop-sync.md) |
+| **Metadata Service** | Central config store, ID generation, query APIs | [services/metadata-service.md](services/metadata-service.md) |
+
+**Configuration flow:**
+
+```
+Workshop Repo (Git)
+       │
+       │ PR opened
+       ▼
+Workshop Validation Service ──── gates merge
+       │
+       │ merge to main (webhook)
+       ▼
+Workshop Sync Service
+       │
+       │ writes
+       ▼
+Metadata Service ◄──── queries ──── Orchestrator, WO Runtime, Web App
+```
+
+→ [services/README.md](services/README.md) for service architecture details
+
+### Metadata Service
+
+Central configuration store for all Foundry, Workshop, Workbench, Workspace, and Scenario configuration:
+
+| Capability | Description |
+|------------|-------------|
+| **ID Generation** | Unique IDs for PI, WO, RI, DC, RC |
+| **Commit Tracking** | Track commits to Intent, Design, Code repos |
+| **Config Store** | All Workshop/Workbench/Workspace/Scenario config |
+| **Query APIs** | REST APIs for platform consumers |
+
+→ [services/metadata-service.md](services/metadata-service.md) for full details
+
+### Foundry Management
+
+Subsystem for Foundry-level administration (Foundry = Tenant):
+
+| Capability | Description |
+|------------|-------------|
+| **Lifecycle Management** | Create, activate, archive, delete Foundries |
+| **Tenant Provisioning** | Database, storage, repos, identity registration |
+| **Tenant Isolation** | Enforce data separation across all layers |
+| **Foundry Settings** | Identity, agents, integrations, governance, defaults |
+| **Resource Quotas** | Limits on storage, users, workbenches, model usage |
+| **Admin Console** | UI for Foundry configuration |
+
+→ [foundry-management/README.md](foundry-management/README.md) for Foundry management details
+
+### Team Management
+
+Subsystem for users, teams, roles, and permissions:
+
+| Capability | Description |
+|------------|-------------|
+| **User Management** | Provision and sync users from Olympus Cipher |
+| **Team Management** | Create teams, manage membership |
+| **Role Management** | Built-in and custom roles with permission sets |
+| **Permission Management** | Assign roles at Foundry/Workshop/Workbench/Workspace scopes |
+| **Authorization Service** | Real-time permission checks for all services |
+
+→ [team-management/README.md](team-management/README.md) for team management details
+
+### Scenario Management
+
+Subsystem that defines what work Workspaces can do:
+
+| Capability | Description |
+|------------|-------------|
+| **Schema Definition** | YAML schema for scenario definitions |
+| **Validation Logic** | Rules for validating scenario content |
+| **Agent Recommendations** | Match scenarios to suitable Skilled Agents |
+
+→ [scenario-management/README.md](scenario-management/README.md) for scenario management details
+
+### Knowledge Management
+
+Subsystem that manages Domain, Ontology, and Practices repositories:
+
+| Capability | Description |
+|------------|-------------|
+| **Repository Provisioning** | Create Domain, Practices folders; provision Ontology Service |
+| **Inheritance Resolution** | Merge knowledge from Foundry → Workshop → Workbench |
+| **Workspace Scope** | Resolve universal vs workspace-specific knowledge |
+| **Query APIs** | Serve resolved knowledge to WO Runtime and agents |
+
+Knowledge follows a three-level hierarchy (Foundry → Workshop → Workbench), with workspace-specific content overriding universal at each level.
+
+→ [knowledge-management/README.md](knowledge-management/README.md) for knowledge management details
 
 ### Ontology Service
 
@@ -36,7 +220,7 @@ A single service per Workbench that provides:
 
 ## GitHub Integration
 
-Workbench acts as a **GitHub App** with org management capabilities:
+Foundry operates as a **GitHub App** registered in the organization:
 
 | Aspect | Detail |
 |--------|--------|
@@ -44,32 +228,22 @@ Workbench acts as a **GitHub App** with org management capabilities:
 | Org sharing | Multiple Workbenches can share one GitHub Org |
 | Repo tagging | FoundryID, Workshop, Workbench, Product Code |
 | Repo creation | All repos created through Workbench interfaces |
-| Access model | Workbench = org manager; team members = repo-level access only |
+| PR validation | Workshop Validation Service runs checks |
+| Merge control | Only Validation Service can merge to main |
 
 ## External Tool Integrations (Phase 1)
 
 | Tool | Integration Type | Purpose |
 |------|------------------|---------|
-| **GitHub** | GitHub App | Org management, repo creation, commit tracking |
+| **GitHub** | GitHub App | Org management, repo creation, PR validation |
 | **Figma** | OAuth | Design asset linking |
 | **TestRail** | OAuth | Test case management (Quality repo SoT) |
 | **Jira** | OAuth | Operations (JSM), Feedback, Work repositories |
 | **Olympus Weave** | OAuth | Publish, deploy, track versions, EoS |
-| **Others** | URL reference | External resource linking |
 
 **Workbench ID** is used as the OAuth client ID for all integrations.
 
-### Olympus Weave
-
-Workbench acts as **Publisher** to Olympus Weave (deployment platform):
-- Product Code assigned by Weave on Workbench creation
-- Olympus Product Module code assigned per System
-- Deployment tracking via webhook (Weave → Foundry) + polling
-- EoS/deprecation metadata owned by Weave, surfaced in Foundry
-
 ## Repository Architecture
-
-See [workbench-architecture.md](workbench-architecture.md) for detailed repository storage model.
 
 | Repository | Storage | Service Role |
 |------------|---------|--------------|
@@ -83,36 +257,71 @@ See [workbench-architecture.md](workbench-architecture.md) for detailed reposito
 | **Work** | Jira | Label-filtered; linked at setup |
 | **Evolution** | TBD | Deferred (not Phase 1) |
 
-## ACE concepts realized
+→ [workbench-architecture.md](workbench-architecture.md) for detailed repository storage model
 
-- **Workshop** — division/unit in a Foundry
-- **Workbench** — corresponds to a Product in UPIM; where Product is evolved
-- **Repositories** — the 15 canonical repositories defined in [../../ace/repositories.md](../../ace/repositories.md)
-- **Workforce** — agents and humans, managed here
+## ACE Concepts Realized
 
-## UPIM entities involved
+| Concept | How Management realizes it |
+|---------|---------------------------|
+| **Workshop** | Provisions divisions/units in a Foundry |
+| **Workbench** | Provisions Product containers with all integrations |
+| **Repositories** | Provisions and connects the 15 canonical repositories |
+| **Workforce** | Manages teams, roles, permissions |
+| **Scenario** | Schema, validation, storage via Scenario Management |
+| **Capable Agent** | Stores registry configuration (Agent Fabric uses it) |
 
-- Definition Model entities (stored in repositories)
-- Work Model entities (stored in repositories)
-- Operating Model entities (teams, roles)
+## Key Design Decisions
 
-## Key design decisions
-
-- **Repositories are services, not stores.** Each repository provides interfaces to inject and access contents, and manages its own organization, layout, and knowledge management.
-- **Content evolves via Work Order execution** (or independently for Domain, Practices repositories).
-- **Single Metadata Service per Workbench** handles PI IDs, commit tracking, and code repo references.
+- **Repositories are services, not stores.** Each repository provides interfaces to inject and access contents.
+- **Configuration flows through Metadata Service.** Consumers never read from git directly.
+- **Workshop Validation gates merges.** No invalid config reaches main.
+- **Single Metadata Service per Workbench** handles IDs, tracking, and configuration.
 - **Workbench as GitHub org manager** — team members don't have direct org management access.
+- **Declarative provisioning** — admins describe desired state; module creates and connects components.
+- **Scenario Management is a subsystem** — not a separate module; tightly integrated with config services.
 
-## Open questions
+## Open Questions
 
 - Workbench lifecycle — creation, archival, deletion
 - Repository import workflow for existing GitHub orgs
-- Team/agent management UX
-- Tenant onboarding flow
+- Scenario versioning and A/B testing
+- Foundry migration between PG instances
+- Cross-Foundry collaboration patterns
 
-## Read next
+## Module Documents
 
-- [workbench-architecture.md](workbench-architecture.md) — detailed Workbench architecture
-- [workshop-repository.md](workshop-repository.md) — Workshop/Workbench definition repository structure
+| Document | Content |
+|----------|---------|
+| **Configuration Services** | |
+| [services/README.md](services/README.md) | Configuration services overview |
+| [services/workshop-validation.md](services/workshop-validation.md) | PR validation and merge gating |
+| [services/workshop-sync.md](services/workshop-sync.md) | Webhook processing and sync |
+| [services/metadata-service.md](services/metadata-service.md) | Central config store |
+| **Foundry Management** | |
+| [foundry-management/README.md](foundry-management/README.md) | Foundry lifecycle, tenancy, settings |
+| [foundry-management/foundry-onboarding-journey.md](foundry-management/foundry-onboarding-journey.md) | End-to-end Foundry creation and setup |
+| [foundry-management/foundry-settings.md](foundry-management/foundry-settings.md) | Complete settings specification |
+| **Team Management** | |
+| [team-management/README.md](team-management/README.md) | Users, teams, roles, permissions |
+| [team-management/requirements.md](team-management/requirements.md) | Implementation requirements, APIs, schema |
+| **Scenario Management** | |
+| [scenario-management/README.md](scenario-management/README.md) | Scenario Management subsystem |
+| [scenario-management/scenario-schema.md](scenario-management/scenario-schema.md) | Scenario YAML schema |
+| **Knowledge Management** | |
+| [knowledge-management/README.md](knowledge-management/README.md) | Knowledge Management subsystem |
+| [knowledge-management/knowledge-hierarchy.md](knowledge-management/knowledge-hierarchy.md) | Inheritance model and resolution rules |
+| [knowledge-management/knowledge-apis.md](knowledge-management/knowledge-apis.md) | REST API specifications |
+| [foundry-definition-repository.md](foundry-definition-repository.md) | Foundry repository structure |
+| **Architecture** | |
+| [workbench-architecture.md](workbench-architecture.md) | Workbench repository storage model |
+| [workshop-repository.md](workshop-repository.md) | Workshop Definition Repository structure |
+| [git-infrastructure.md](git-infrastructure.md) | Git repositories — provisioning, access, webhooks |
+
+## Read Next
+
+- [../orchestrator/README.md](../orchestrator/README.md) — WO creation and routing
+- [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO Runtime execution engine
+- [../agent-fabric/README.md](../agent-fabric/README.md) — Agent infrastructure
+- [../scenario-catalogue/README.md](../scenario-catalogue/README.md) — Reference scenario definitions
+- [../foundry-platform-admin-web-app/README.md](../foundry-platform-admin-web-app/README.md) — Platform Admin interface
 - [../../ace/repositories.md](../../ace/repositories.md) — the repository taxonomy
-- [../../tldr-faq.md](../../tldr-faq.md) — module design decisions

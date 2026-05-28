@@ -2,6 +2,16 @@
 
 This document details the architecture of a Workbench — the locus where a Product is evolved.
 
+## The Workbench Analogy
+
+A Foundry Workbench is like a physical workbench in a repair shop: a dedicated surface where skilled workers (human or agent) perform specialized tasks using the right tools for the job.
+
+![Workbench with Workspaces](workbench-visual.png)
+
+Just as a bike repair workbench has dedicated workspaces — one for precision wheel truing, another for hydraulic work, a third for drivetrain cleaning — a Foundry Workbench has six standard Workspaces: Product Specification, UX Design, Development, QA, Release, and Governance. Each Workspace has its own tools (Scenarios), its own specialists (Skilled Agents), and its own part of the product to focus on.
+
+The Workbench itself provides the shared infrastructure: the bench surface (repositories), the tool storage (Capable Agents), the parts catalog (Ontology), and the work tracking system (Jira integration). Workers move between Workspaces as needed, but each Workspace maintains its specialized focus.
+
 ## Workbench Identity
 
 Each Workbench has a **single Workbench ID** used for:
@@ -23,13 +33,15 @@ Workbench
 │   ├── Design Repo (git)
 │   ├── Code Repos (multiple git repos)
 │   └── Quality Automation Repo (git)
-├── Jira Integration (label-filtered)
-│   ├── Operations (JSM)
-│   ├── Feedback
-│   └── Work
+├── Jira Integration
+│   ├── Operations (JSM, label-filtered)
+│   ├── Feedback (label-filtered)
+│   ├── Work (label-filtered)
+│   └── Work Orders (dedicated project per Workbench)
 ├── Olympus Weave (Publisher)
 │   ├── Product Code (assigned by Weave)
 │   └── Olympus Product Module codes (per System)
+├── Capable Agents (inherited from Foundry/Workshop, overridable)
 ├── Standard Workspaces (6)
 │   ├── Product Specification
 │   ├── UX Design
@@ -173,16 +185,24 @@ Similar structure to Intent:
 
 ### Jira-based Repositories
 
-| Repository | Jira Product | Purpose |
-|------------|--------------|---------|
-| **Operations** | JSM (Jira Service Management) | Problems, incidents requiring on-call |
-| **Feedback** | Jira | FIRs, bug reports, relevant JSM problems |
-| **Work** | Jira | All Work Model entities (Work Orders, Tasks) |
+| Repository | Jira Product | Scope | Purpose |
+|------------|--------------|-------|---------|
+| **Operations** | JSM | Label-filtered (shared) | Problems, incidents requiring on-call |
+| **Feedback** | Jira | Label-filtered (shared) | FIRs, bug reports, relevant JSM problems |
+| **Work** | Jira | Label-filtered (shared) | Work Model entities |
+| **Work Orders** | Jira | **Dedicated project** | WO Runtime execution (one project per Workbench) |
 
 **Configuration:**
-- Jira projects **not exclusive** to Workbench
-- Foundry configured with **simple label filter** per Workbench
-- Linked **manually** at Workbench setup
+- Operations, Feedback, Work: Jira projects **shared** with label filter
+- Work Orders: **Dedicated Jira project per Workbench** (e.g., `CHKOUT-WO`)
+- All linked at Workbench setup
+
+**Work Orders Jira Project:**
+- One dedicated project per Workbench (not shared)
+- Orchestrator creates Work Orders as Epics
+- WO Runtime creates Tasks as Stories/Sub-tasks under Epics
+- Custom fields: `scenario`, `dependencies`, `foundry-track`, `foundry-workspace`
+- See [../work-order-runtime/task-execution.md](../work-order-runtime/task-execution.md) for schema details
 
 **JSM specifics (Operations):**
 - Tracks problems in JSM
@@ -269,6 +289,52 @@ For unsupported tools:
 
 - Managers and Members get **repo-level** access
 - No one gets **org-level** access (only Workbench)
+
+## Capable Agents
+
+Capable Agents (whitelisted frontier models/agent systems) are managed hierarchically. See [../agent-fabric/capable-agents.md](../agent-fabric/capable-agents.md).
+
+### Hierarchy
+
+```
+Foundry (org-level defaults)
+    │
+    └── Workshop (team-level overrides)
+            │
+            └── Workbench (product-level overrides)
+```
+
+### Inheritance Rules
+
+| Rule | Behavior |
+|------|----------|
+| **Enable/disable** | Disabled at higher level = disabled for all lower levels |
+| **Credentials** | Resolved upward: Workbench → Workshop → Foundry (first found) |
+| **Models** | Configured per Capable Agent at each level |
+
+### Workbench Configuration
+
+In `workbenches/{product-code}/capable-agents.yaml`:
+
+```yaml
+capable-agents:
+  cursor-agent:
+    models:
+      claude-opus:
+        credentials:
+          api-key: ${PROJECT_ANTHROPIC_API_KEY}
+```
+
+### Available Capable Agents (Examples)
+
+| Agent | Type | Provider |
+|-------|------|----------|
+| Cursor Agent | IDE agent | Cursor |
+| GitHub Copilot | IDE agent | GitHub |
+| Claude Code | CLI agent | Anthropic |
+| Codex CLI | CLI agent | OpenAI |
+
+---
 
 ## Workspaces
 

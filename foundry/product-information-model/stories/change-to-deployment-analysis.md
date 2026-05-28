@@ -1,4 +1,4 @@
-# Change-to-Deployment Workflow: Analysis and Guide
+# Change-to-Deployment Workflow: Analysis and Guide (Story)
 
 This document provides a comprehensive analysis of the change-to-deployment workflow — from the moment a deployable artifact is ready through governed change management, promotion across environments, post-deployment verification, and release activation. It covers the entity architecture, the end-to-end process, the design rationale, and the trade-offs of the approach.
 

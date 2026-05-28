@@ -1,5 +1,7 @@
-ACE: Agent Centric Engineering
-An Agent Centric Product Development System
+# ACE Model
+
+ACE: Agent Centric Engineering  
+An Agent Centric Product Development System  
 For the Engineers, By the Engineers
 
 ----

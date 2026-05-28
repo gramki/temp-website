@@ -27,13 +27,24 @@ The platform decomposes into the following modules, each with its own folder. Se
 
 | Module | Folder | Scope |
 |--------|--------|-------|
-| **Foundry Management** | [management/](management/README.md) | Admin plane — Workbenches, repositories (as services), teams, agents, knowledge, tenancy |
+| **Foundry Management** | [management/](management/README.md) | Admin plane — configuration services, Workbenches, repositories, teams, scenario management, tenancy |
 | **Foundry IDE** | [ide/](ide/README.md) | Builder-facing interface — workspace-specific views |
+| **Agent Fabric** | [agent-fabric/](agent-fabric/README.md) | Agent infrastructure — Skill Registry, Capable Agents, quota, gateway policy |
 | **Work Order Runtime** | [work-order-runtime/](work-order-runtime/README.md) | Execution engine — context compilation, agent lifecycle for WO execution, agent delegation, human-task surfacing |
 | **Foundry Orchestrator** | [orchestrator/](orchestrator/README.md) | Coordination — route orchestration items per Track, create Workspace Work Orders, invoke Governance Scenarios, enforce gates |
-| **Scenario Authoring** | [scenario-authoring/](scenario-authoring/README.md) | Per (Track, Workspace) — scenario discovery & definition; Skills, Knowledge, Tools; agent recommendations |
 | **Release Tools** | [release-tools/](release-tools/README.md) | CI/CD pipelines with embedded agents, CD integrations, distribution stores |
-| **Platform Ops** | [platform-ops/](platform-ops/README.md) | Plumbing — observability dashboards, standard tooling, infrastructure |
+| **Foundry Web App** | [foundry-web-app/](foundry-web-app/README.md) | User-facing web interface for Foundry members and Foundry Admins |
+| **Platform Admin Web App** | [foundry-platform-admin-web-app/](foundry-platform-admin-web-app/README.md) | Super-admin interface for foundry-platform-admin users managing the entire platform |
+
+## Content Folders
+
+These folders contain reference content (not platform code):
+
+| Folder | Content |
+|--------|---------|
+| **Scenario Catalogue** | [scenario-catalogue/](scenario-catalogue/README.md) | Reference scenario definitions organized by (Track, Workspace) |
+
+> **Note:** Scenario Management (schema, validation, agent recommendations) is a subsystem of the Management module. The Scenario Catalogue contains reference templates that Workshops can adopt.
 
 ### Key design decisions
 
@@ -42,7 +53,8 @@ The platform decomposes into the following modules, each with its own folder. Se
 - **Orchestration items are Track-scoped; Work Orders are Workspace-scoped.** One orchestration item can create many Workspace Work Orders.
 - **Repositories are services, not stores.** Each provides injection/access interfaces; Foundry Management exposes the access layer.
 - **Integrations are owned by modules.** Release Tools owns CI/CD integrations; no horizontal "Integrations" module.
-- **Scenario Authoring is scoped to (Track, Workspace) pairs.**
+- **Configuration flows through Metadata Service.** Consumers query Management, not git directly.
+- **Scenario Management is a subsystem of Management.** Schema, validation, and recommendations are in Management; templates are in Scenario Catalogue.
 
 ### Legacy structure
 
@@ -55,6 +67,14 @@ The [ci/](release-tools/ci/README.md) folder (now under Release Tools) contains 
 ### Where Engagement Engineering belongs
 
 Engagement Engineering is documented separately as an **extension to ACE** at [../engagement-engineering/](../engagement-engineering/README.md), because it changes ACE concepts for client delivery rather than only adding platform features.
+
+### Deferred modules
+
+The `_deferred/` folder contains module stubs that are not part of the current implementation scope:
+
+- **Platform Ops** — observability dashboards, standard tooling, infrastructure (deferred to later phases)
+
+To defer a module, move it to `_deferred/` and update this list.
 
 ## How to write specifications under this folder
 
@@ -71,7 +91,7 @@ The intent is that any module specification reads first as an ACE/UPIM consumer 
 
 ## Read next
 
-- [phase-1/](phase-1/README.md) — Phase 1 implementation-readiness outline and open questions.
+- [../foundry-work-plan/phase-1/](../foundry-work-plan/phase-1/README.md) — Phase 1 implementation-readiness outline and open questions.
 - [platform.TODO](platform.TODO) — current build backlog.
 - [ci/ci.TODO](ci/ci.TODO) — current CI backlog.
 - [../ace/](../ace/README.md) — what the platform is realizing.

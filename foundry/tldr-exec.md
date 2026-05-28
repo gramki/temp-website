@@ -1,4 +1,4 @@
-# Foundry — the platform for agent-driven software delivery
+# Foundry — Executive TL;DR
 
 ## Why
 
