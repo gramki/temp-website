@@ -1,4 +1,4 @@
-# Foundry Management
+# Foundry Management — Lifecycle
 
 **Module scope:** Subsystem of Management — Foundry lifecycle, tenancy, settings, and admin console.
 

@@ -1,4 +1,4 @@
-# Platform Ops
+# Platform Ops (Deferred)
 
 **Module scope:** Plumbing — observability dashboards, standard tooling, infrastructure.
 
