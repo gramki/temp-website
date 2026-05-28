@@ -31,25 +31,27 @@ Workspace Session (Coder)
     └── Employed Agent Processes
         ├── Execute skills
         ├── Create sub-tasks (via Jira MCP)
-        └── Route model calls through Access Gateway
+        └── Route model calls through Gateway Policy Layer
 ```
 
 See [end-to-end-work-order-flow.md](end-to-end-work-order-flow.md) for the complete lifecycle.
 
-## Agent Model Integration
+## Agent Fabric Integration
 
-WO Runtime works with the [Agent Model](../agent-model/README.md):
+WO Runtime works with the [Agent Fabric](../agent-fabric/README.md):
 
 | Concept | WO Runtime Role |
 |---------|-----------------|
-| **Capable Agent** | Selected based on Skilled Agent definition |
-| **Skilled Agent** | Read from Scenario definition |
+| **Capable Agent** | Selected based on Skilled Agent definition, with auto-fallback |
+| **Skilled Agent** | Read from Scenario definition (local manifest) |
+| **Skills** | Installed from [Skill Registry](../agent-fabric/skill-registry.md) at session start |
 | **Employed Agent** | Spawned by WO Runtime with delegation token |
-| **Access Gateway** | All model calls routed through gateway |
+| **Gateway Policy** | All model calls routed through configured LLM gateway |
 
 See:
-- [agent-spawning.md](agent-spawning.md) — how agents are spawned
-- [../agent-model/employed-agents.md](../agent-model/employed-agents.md) — Employed Agent lifecycle
+- [agent-spawning.md](agent-spawning.md) — how agents are spawned with skills
+- [../agent-fabric/employed-agents.md](../agent-fabric/employed-agents.md) — Employed Agent lifecycle
+- [../agent-fabric/skill-registry.md](../agent-fabric/skill-registry.md) — Skill packaging and distribution
 
 ## Jira Integration
 
@@ -177,39 +179,29 @@ When an Agent Task is executed:
 
 ## Skill Management
 
-Skills are defined per Workspace at two levels: Workshop (base) and Workbench (overrides).
+Skills are **packages published to registries** and **referenced by Skilled Agent manifests**. See [Skill Registry](../agent-fabric/skill-registry.md) for full details.
 
-### Skill Storage
-
-```
-Workshop level (base):
-workshop-{id}/workspaces/{workspace}/skills/
-├── skills.yaml           # Base skill index
-├── code-generator/
-├── test-writer/
-└── ...
-
-Workbench level (overrides):
-workshop-{id}/workbenches/{product-code}/workspaces/{workspace}/skills/
-├── skills.yaml           # Additional skills (MERGED with Workshop)
-├── product-analyzer/     # Workbench-specific skill
-└── ...
-```
-
-### Skill Injection
+### Skill Installation
 
 At Session launch:
-1. WO Runtime reads `skills/` from Workshop workspace (base)
-2. WO Runtime reads `skills/` from Workbench workspace (overrides)
-3. Merges `skills.yaml` indexes (Workbench entries added to Workshop entries)
-4. For skill folders: Workbench replaces Workshop if same name
-5. Re-prepares merged `skills.yaml` index
-6. Copies merged skills into Session container at `/workspace/skills/`
+1. WO Runtime collects skill references from all Skilled Agent manifests
+2. For each skill reference (name + version constraint + registry):
+   - Check Foundry registry first, then Global registry
+   - Resolve version from constraint (e.g., `^2.1.0` → `2.1.3`)
+   - Download if not cached
+3. Installs to `~/.foundry/skills/{skill}@{version}/`
+4. Sets `FOUNDRY_SKILLS_PATH` environment variable
 
-At Agent Task execution:
-1. Scenario specifies which skill(s) to use
-2. Agent harness loads skill definition from `/workspace/skills/{skill}/skill.yaml`
-3. Harness configures agent with skill's prompts, tools, constraints
+### Skill Version Pinning
+
+At task start, WO Runtime records resolved skill versions in task metadata for reproducibility and auditability.
+
+### Skill Injection at Agent Spawn
+
+1. Scenario specifies which Skilled Agent to use
+2. Skilled Agent manifest lists skill references
+3. Agent harness loads installed skill packages
+4. Harness configures agent with skill's prompts, rules, templates
 
 ---
 
@@ -272,7 +264,6 @@ Hooks are defined per Workspace: `workspaces/{workspace}/hooks/`
 - Work Order / orchestration-item graph schema — DAG or cyclic? typed edges?
 - Agent runtime topology — process model, isolation, observability
 - Per-user vs shared agent infrastructure
-- Skill versioning — how to handle skill updates while Sessions are active
 - Knowledge caching — how often to refresh from Workshop Definition Repo
 
 ---
@@ -289,7 +280,9 @@ Hooks are defined per Workspace: `workspaces/{workspace}/hooks/`
 
 ## Read next
 
-- [../agent-model/README.md](../agent-model/README.md) — Agent Model architecture (Capable, Skilled, Employed)
+- [../agent-fabric/README.md](../agent-fabric/README.md) — Agent Fabric (Capable, Skilled, Employed Agents)
+- [../agent-fabric/skill-registry.md](../agent-fabric/skill-registry.md) — Skill packaging, publishing, and CLI tooling
+- [../agent-fabric/gateway-policy.md](../agent-fabric/gateway-policy.md) — LLM gateway configuration
 - [../orchestrator/README.md](../orchestrator/README.md) — WO creation and session activation
 - [../management/workshop-repository.md](../management/workshop-repository.md) — Workshop Definition Repository structure
 - [../management/workbench-architecture.md](../management/workbench-architecture.md) — Workbench architecture
