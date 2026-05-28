@@ -29,7 +29,7 @@ The platform decomposes into the following modules, each with its own folder. Se
 |--------|--------|-------|
 | **Foundry Management** | [management/](management/README.md) | Admin plane — Workbenches, repositories (as services), teams, agents, knowledge, tenancy |
 | **Foundry IDE** | [ide/](ide/README.md) | Builder-facing interface — workspace-specific views |
-| **Agent Model** | [agent-model/](agent-model/README.md) | Agent architecture — Capable Agents, Skilled Agents, Employed Agents, Access Gateway |
+| **Agent Fabric** | [agent-fabric/](agent-fabric/README.md) | Agent infrastructure — Skill Registry, Capable Agents, quota, gateway policy |
 | **Work Order Runtime** | [work-order-runtime/](work-order-runtime/README.md) | Execution engine — context compilation, agent lifecycle for WO execution, agent delegation, human-task surfacing |
 | **Foundry Orchestrator** | [orchestrator/](orchestrator/README.md) | Coordination — route orchestration items per Track, create Workspace Work Orders, invoke Governance Scenarios, enforce gates |
 | **Scenario Authoring** | [scenario-authoring/](scenario-authoring/README.md) | Per (Track, Workspace) — scenario discovery & definition; Skills, Knowledge, Tools; agent recommendations |

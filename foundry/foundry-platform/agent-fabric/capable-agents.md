@@ -188,7 +188,7 @@ credentials:
 
 ## Access Gateway Integration
 
-All Capable Agent model calls route through the [Access Gateway](access-gateway.md):
+All Capable Agent model calls route through the [Gateway Policy Layer](gateway-policy.md):
 
 ```
 Employed Agent
@@ -204,16 +204,110 @@ Access Gateway
 Model Provider (Anthropic, OpenAI, etc.)
 ```
 
+## Auto-Fallback
+
+When a preferred model or capable agent is unavailable, the system automatically falls back to alternatives.
+
+### Fallback Order
+
+For a Skilled Agent with this configuration:
+
+```yaml
+compatible-capable-agents:
+  - agent: cursor-agent
+    models:
+      - claude-opus      # 1st preference
+      - claude-sonnet    # 2nd preference
+  - agent: copilot
+    models:
+      - gpt-5-thinking   # 3rd preference
+      - gpt-5            # 4th preference
+```
+
+Fallback proceeds:
+1. Try `cursor-agent` with `claude-opus`
+2. If unavailable, try `cursor-agent` with `claude-sonnet`
+3. If Cursor Agent entirely unavailable, try `copilot` with `gpt-5-thinking`
+4. If unavailable, try `copilot` with `gpt-5`
+5. If all fail, task enters recoverable failure state
+
+### Unavailability Triggers
+
+| Trigger | Detection | Fallback Behavior |
+|---------|-----------|-------------------|
+| Model rate-limited | 429 from gateway | Try next model |
+| Model unavailable | 503 from provider | Try next model |
+| Capable Agent disabled | Config check | Try next capable agent |
+| Spawn failure | Process won't start | Try next capable agent |
+| Gateway unreachable | Connection timeout | Retry, then fail |
+
+### Fallback Logging
+
+All fallback events are logged:
+
+```json
+{
+  "event": "agent_fallback",
+  "task": "TASK-890",
+  "attempted": { "agent": "cursor-agent", "model": "claude-opus" },
+  "reason": "model_rate_limited",
+  "fallback_to": { "agent": "cursor-agent", "model": "claude-sonnet" }
+}
+```
+
+---
+
+## Disabled Agent Handling
+
+If a Capable Agent is disabled mid-execution, tasks using it enter a **recoverable failure** state.
+
+### Behavior
+
+```
+Task executing with cursor-agent
+    │
+    ├── Admin disables cursor-agent at Workbench level
+    │
+    ├── WO Runtime detects agent disabled
+    │
+    ├── If fallback available:
+    │   └── Attempt fallback to next capable agent
+    │
+    └── If no fallback:
+        └── Task pauses (recoverable failure)
+            └── Resumes when agent re-enabled
+```
+
+### Recoverable Failure States
+
+| Failure Type | Behavior | Resume Trigger |
+|--------------|----------|----------------|
+| Capable Agent disabled | Task pauses | Agent re-enabled |
+| Quota exhausted | Task pauses | Quota refreshes or increased |
+| All fallbacks exhausted | Task pauses | Any fallback option restored |
+
+### User Notification
+
+When a task enters recoverable failure:
+
+1. Task status in Jira: `Blocked` with reason
+2. Notification in IDE Work Orders Panel
+3. Alert to session owner
+4. Optionally: alert to Workbench admin
+
+---
+
 ## Adding a New Capable Agent
 
 To whitelist a new Capable Agent:
 
 1. **Foundry Admin** adds the agent to Foundry-level `capable-agents.yaml`
 2. Define supported models and default credentials
-3. Workshops and Workbenches can then enable/disable and override credentials
+3. Implement spawn adapter in WO Runtime (agent-specific)
+4. Workshops and Workbenches can then enable/disable and override credentials
 
 ## Read Next
 
 - [skilled-agents.md](skilled-agents.md) — How Skilled Agents use Capable Agents
-- [access-gateway.md](access-gateway.md) — How credentials are used at runtime
+- [gateway-policy.md](gateway-policy.md) — How credentials are used at runtime
 - [../work-order-runtime/agent-spawning.md](../work-order-runtime/agent-spawning.md) — How Capable Agents are spawned

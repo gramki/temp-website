@@ -145,30 +145,64 @@ Agent calls jira_create_issue
 
 ## Skills Loading
 
-Skills are copied from the Workshop Definition Repository to the workspace.
+Skills are fetched from the [Skill Registry](../agent-fabric/skill-registry.md) and installed to the workspace at session start.
 
-### Skill Location
+### Skill Installation (Session Start)
 
-```
-Workshop Definition Repository:
-workspaces/{workspace-type}/scenarios/{scenario}/skilled-agent/skills/
-
-Workspace (after copy):
-~/.foundry/skills/{scenario}/
-```
-
-### Skill Copy Process
+At Workspace Session start, before any tasks execute:
 
 ```
-1. Read skilled-agent/agent.yaml to get skill list
-2. For each skill:
-   a. Locate skill folder in Workshop repo
-   b. Copy to workspace skills directory
-   c. Set permissions (read-only)
-3. Configure SKILL_PATH environment variable
+1. WO Runtime reads Skilled Agent manifests for all enabled Scenarios
+2. Collects skill references: name + version constraint + registry
+3. Resolves versions:
+   - Check Foundry registry first
+   - Fall back to Global registry
+4. Downloads skills not in local cache
+5. Installs to ~/.foundry/skills/{skill}@{resolved-version}/
+6. Sets FOUNDRY_SKILLS_PATH environment variable
 ```
 
-### Skill Injection
+Skills are installed **once per session**, not per task.
+
+### Skill Location (After Installation)
+
+```
+~/.foundry/skills/
+├── code-generator@2.1.3/
+│   ├── SKILL.md
+│   ├── package.yaml
+│   ├── rules/
+│   └── templates/
+├── test-writer@1.5.7/
+│   ├── SKILL.md
+│   └── ...
+└── documentation-updater@3.0.1/
+    └── ...
+```
+
+### Version Pinning at Task Start
+
+When a task starts, WO Runtime records the resolved skill versions in task metadata:
+
+```yaml
+task_metadata:
+  task_key: TASK-890
+  skilled_agent: feature-implementation-agent
+  resolved_skills:
+    - name: code-generator
+      version: 2.1.3
+      registry: foundry
+    - name: test-writer
+      version: 1.5.7
+      registry: global
+```
+
+This ensures:
+- Reproducibility: Re-running a task uses same skill versions
+- Auditability: Know exactly which skills were used
+- Debugging: Pinpoint skill version in failure analysis
+
+### Skill Injection into Agent
 
 Skills are injected into agent context:
 
@@ -176,8 +210,8 @@ Skills are injected into agent context:
 Capable Agent: Cursor Agent
     │
     ├── System prompt includes SKILL.md content
-    ├── Rules from skills/rules/ added to rules
-    └── Templates from skills/templates/ available
+    ├── Rules from skills/rules/ added to agent rules
+    └── Templates from skills/templates/ available as references
 ```
 
 ## Knowledge Context
@@ -248,7 +282,7 @@ WO Runtime generates token:
 4. Access Gateway validates token on each call
 ```
 
-See [access-gateway.md](../agent-model/access-gateway.md) for token flow details.
+See [gateway-policy.md](../agent-fabric/gateway-policy.md) for token flow details.
 
 ## Agent Spawning
 
@@ -394,9 +428,74 @@ Agents notify task completion via Jira MCP:
 
 Alternatively, the user can mark tasks complete through the IDE UI.
 
+---
+
+## Recoverable Failures
+
+Certain failures pause task execution without failing the task permanently. Tasks can resume when the blocking condition resolves.
+
+### Recoverable Failure Types
+
+| Failure | Trigger | Resolution | Resume Behavior |
+|---------|---------|------------|-----------------|
+| **Quota Exhausted** | 429 from Gateway | Quota refreshes or increased | Automatic resume |
+| **Capable Agent Disabled** | Agent disabled mid-task | Admin re-enables agent | Automatic resume |
+| **All Fallbacks Exhausted** | All compatible agents unavailable | Any agent restored | Automatic resume |
+| **Model Rate Limited** | Temporary 429 from provider | Wait + retry | Automatic after backoff |
+| **Credential Expired** | Token refresh needed | Session re-authentication | Automatic after refresh |
+
+### Recoverable Failure Flow
+
+```
+Task executing
+    │
+    ├── Failure detected (quota, agent disabled, etc.)
+    │
+    ├── WO Runtime attempts fallback (if configured)
+    │   └── Try next capable agent/model in preference order
+    │
+    ├── If all fallbacks fail:
+    │   ├── Task state → Blocked (recoverable)
+    │   ├── Jira status → "Blocked"
+    │   ├── Record: blocked_reason, blocked_at
+    │   └── Notify session owner via IDE panel
+    │
+    └── When condition resolves:
+        ├── WO Runtime detects resolution (polling)
+        ├── Task state → Ready
+        └── Task resumes (possibly with different agent)
+```
+
+### Task Metadata for Blocked Tasks
+
+```yaml
+task_metadata:
+  task_key: TASK-890
+  status: blocked
+  blocked_reason: quota_exhausted
+  blocked_at: 2026-05-28T03:00:00Z
+  last_attempt:
+    capable_agent: cursor-agent
+    model: claude-opus
+    error: "429: Monthly quota exceeded"
+  fallbacks_tried:
+    - cursor-agent/claude-sonnet (failed: quota)
+    - copilot/gpt-5-thinking (failed: agent disabled)
+```
+
+### IDE Notification
+
+When a task enters recoverable failure:
+
+1. Work Orders Panel shows task as "Blocked"
+2. Tooltip shows reason and resolution path
+3. Toast notification to session owner
+4. Optional: Alert to Workbench admin (for quota/agent issues)
+
 ## Read Next
 
 - [ide-integration.md](ide-integration.md) — VS Code plugin for agent I/O
 - [task-execution.md](task-execution.md) — Task tree and dependencies
-- [../agent-model/employed-agents.md](../agent-model/employed-agents.md) — Employed Agent lifecycle
-- [../agent-model/access-gateway.md](../agent-model/access-gateway.md) — Token validation and model access
+- [../agent-fabric/employed-agents.md](../agent-fabric/employed-agents.md) — Employed Agent lifecycle
+- [../agent-fabric/gateway-policy.md](../agent-fabric/gateway-policy.md) — Quota and token policies
+- [../agent-fabric/capable-agents.md](../agent-fabric/capable-agents.md) — Auto-fallback configuration

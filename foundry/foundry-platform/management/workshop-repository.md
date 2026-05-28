@@ -464,7 +464,7 @@ Changes to `workbench.yaml`, `integrations.yaml`, etc. are reflected in the Foun
 
 ## Capable Agents Configuration
 
-Capable Agents are configured at three levels with inheritance (see [../agent-model/capable-agents.md](../agent-model/capable-agents.md)):
+Capable Agents are configured at three levels with inheritance (see [../agent-fabric/capable-agents.md](../agent-fabric/capable-agents.md)):
 
 ### Hierarchy
 
@@ -511,7 +511,7 @@ capable-agents:
 
 ## Skilled Agents
 
-Skilled Agents are defined per (Workspace, Scenario). See [../agent-model/skilled-agents.md](../agent-model/skilled-agents.md).
+Skilled Agents are defined per (Workspace, Scenario). See [../agent-fabric/skilled-agents.md](../agent-fabric/skilled-agents.md).
 
 ### Folder Structure
 

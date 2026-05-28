@@ -205,6 +205,6 @@ Within a single Workspace Session:
 ## Read Next
 
 - [skilled-agents.md](skilled-agents.md) — Skilled Agent definitions
-- [access-gateway.md](access-gateway.md) — How Delegation Tokens are used
+- [gateway-policy.md](gateway-policy.md) — How Delegation Tokens are used
 - [../work-order-runtime/agent-spawning.md](../work-order-runtime/agent-spawning.md) — How Employed Agents are spawned
 - [../work-order-runtime/end-to-end-work-order-flow.md](../work-order-runtime/end-to-end-work-order-flow.md) — Full execution flow

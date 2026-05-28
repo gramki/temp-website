@@ -335,4 +335,4 @@ Options:
 - [agent-spawning.md](agent-spawning.md) — How agents are spawned for tasks
 - [ide-integration.md](ide-integration.md) — How tasks appear in the IDE
 - [end-to-end-work-order-flow.md](end-to-end-work-order-flow.md) — Full WO lifecycle
-- [../agent-model/skilled-agents.md](../agent-model/skilled-agents.md) — Skilled Agent definitions
+- [../agent-fabric/skilled-agents.md](../agent-fabric/skilled-agents.md) — Skilled Agent definitions

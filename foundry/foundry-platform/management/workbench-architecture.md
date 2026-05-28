@@ -282,7 +282,7 @@ For unsupported tools:
 
 ## Capable Agents
 
-Capable Agents (whitelisted frontier models/agent systems) are managed hierarchically. See [../agent-model/capable-agents.md](../agent-model/capable-agents.md).
+Capable Agents (whitelisted frontier models/agent systems) are managed hierarchically. See [../agent-fabric/capable-agents.md](../agent-fabric/capable-agents.md).
 
 ### Hierarchy
 

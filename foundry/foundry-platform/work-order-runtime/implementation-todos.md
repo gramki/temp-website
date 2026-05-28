@@ -1,6 +1,6 @@
 # Implementation TODOs
 
-This document captures open questions and implementation details needed for a senior engineer to take the WO Runtime and Agent Model architecture to implementation.
+This document captures open questions and implementation details needed for a senior engineer to take the WO Runtime and Agent Fabric architecture to implementation.
 
 ## 1. Data Model / Schemas
 

@@ -1,15 +1,26 @@
 # Skilled Agents
 
-Skilled Agents are agent definitions that combine a Capable Agent with specific Skills, Guardrails, and Evaluation criteria for a particular (Workspace Type, Scenario) context.
+Skilled Agents are **local manifests** that combine Capable Agents with Skills and Guardrails for a particular (Workspace Type, Scenario) context.
+
+## Key Distinction: Manifests vs Packages
+
+| Concept | What It Is | Where It Lives |
+|---------|------------|----------------|
+| **Skill** | Reusable capability package | [Skill Registry](skill-registry.md) (published) |
+| **Skilled Agent** | Manifest referencing skills | Workshop/Workbench repo (local) |
+
+**Skills are packages; Skilled Agents are manifests.** This is analogous to:
+- Skills = npm packages
+- Skilled Agent = `package.json` (declares which packages to use)
 
 ## Definition
 
-A **Skilled Agent** is an agent definition that specifies:
+A **Skilled Agent** manifest specifies:
 
-- **Compatible Capable Agents** — Which agent systems and models can execute this definition
-- **Skills** — Skill packages that define what the agent can do
+- **Compatible Capable Agents** — Which agent systems and models can execute
+- **Skills** — References to published skill packages (name + version)
 - **Guardrails** — Constraints on agent behavior
-- **Evaluation** — Metrics and criteria for assessing agent performance
+- **Evaluation** — Metrics for assessing agent performance
 
 Skilled Agents represent the "persona" — what an agent *should* do for a specific context.
 
@@ -31,15 +42,14 @@ workspaces/
         └── implement-feature/
             ├── scenario.yaml           # Scenario definition
             └── skilled-agent/          # Skilled Agent for this scenario
-                ├── agent.yaml          # Agent definition
-                └── skills/             # Skills this agent uses
-                    ├── code-generator/
-                    │   ├── SKILL.md
-                    │   └── ...
-                    └── test-writer/
-                        ├── SKILL.md
-                        └── ...
+                ├── agent.yaml          # Manifest (references skills from registry)
+                ├── guardrails/         # Guardrail definitions (optional overrides)
+                │   └── custom-rules.yaml
+                └── eval/               # Evaluation data (optional)
+                    └── golden-dataset.jsonl
 ```
+
+**Note:** Skills are NOT stored in the repository. Skills are fetched from the [Skill Registry](skill-registry.md) at Workspace Session start. The `agent.yaml` manifest references skills by name and version.
 
 Skilled Agents follow the same inheritance model as other workspace content:
 
@@ -57,17 +67,22 @@ description: Implements features based on specifications and designs
 compatible-capable-agents:
   - agent: cursor-agent
     models:
-      - claude-opus      # Primary - best for complex implementation
-      - claude-sonnet    # Fallback - faster, cheaper
+      - claude-opus      # 1st preference
+      - claude-sonnet    # 2nd preference (fallback)
   - agent: copilot
     models:
-      - gpt-5-thinking   # For deep analysis
-      - gpt-5            # For quick implementation
+      - gpt-5-thinking   # 3rd preference
+      - gpt-5            # 4th preference
 
 skills:
-  - code-generator
-  - test-writer
-  - documentation-updater
+  - name: code-generator
+    version: ^2.1.0
+    registry: foundry           # or 'global'
+  - name: test-writer
+    version: ~1.5.0
+    registry: global
+  - name: documentation-updater
+    version: latest
 
 guardrails:
   - no-force-push
@@ -90,76 +105,47 @@ evaluation:
 |----------|------|-------------|
 | `name` | string | Unique identifier for this skilled agent |
 | `description` | string | Human-readable description |
-| `compatible-capable-agents` | list | Capable agents and models that can run this |
+| `compatible-capable-agents` | list | Capable agents and models (in fallback order) |
 | `compatible-capable-agents[].agent` | string | Capable agent identifier |
 | `compatible-capable-agents[].models` | list | Supported models (in preference order) |
-| `skills` | list | Skill package names to include |
+| `skills` | list | Skill references (name + version + registry) |
+| `skills[].name` | string | Skill package name |
+| `skills[].version` | string | Version constraint (semver) |
+| `skills[].registry` | string | `foundry` (default) or `global` |
 | `guardrails` | list | Behavioral constraints |
 | `evaluation.metrics` | list | Metrics to track |
 | `evaluation.golden-datasets` | list | Paths to evaluation data |
 
 ## Skills
 
-Skills are reusable packages that define agent capabilities. Each skill is a folder containing:
-
-```
-skills/
-└── code-generator/
-    ├── SKILL.md                    # Main definition (YAML frontmatter + instructions)
-    ├── rules/                      # Rule files referenced by SKILL.md
-    │   ├── coding-standards.md
-    │   └── security-rules.md
-    ├── templates/                  # Output templates
-    │   └── commit-message.md
-    ├── examples/                   # Few-shot examples
-    │   ├── good-implementation.md
-    │   └── bad-implementation.md
-    └── eval/                       # Evaluation harness
-        ├── golden-dataset.jsonl
-        └── eval-config.yaml
-```
-
-### SKILL.md Format
-
-Skills follow the [Agent Skills specification](https://agentic.ai/):
+Skills are published packages fetched from the [Skill Registry](skill-registry.md). The Skilled Agent manifest references skills by name and version:
 
 ```yaml
----
-name: code-generator
-description: Generate production-quality code from specifications
----
-
-# Code Generator
-
-## Role
-
-You are a code generation agent that implements features based on specifications.
-
-## Workflow
-
-1. Analyze the specification
-2. Identify affected files
-3. Generate implementation
-4. Generate tests
-5. Update documentation
-
-## Rules
-
-See [rules/coding-standards.md](rules/coding-standards.md) for coding standards.
-
-## Task Creation
-
-When breaking down work, use the task creation tool:
-
+skills:
+  - name: code-generator
+    version: ^2.1.0         # Semver constraint
+    registry: foundry       # foundry (private) or global (public)
 ```
-create_task(
-  title="Implement {component}",
-  scenario="implement-component",
-  parent_task=current_task,
-  dependencies=[...]
-)
-```
-```
+
+### Version Resolution
+
+| Constraint | Meaning |
+|------------|---------|
+| `2.1.3` | Exact version |
+| `^2.1.0` | Compatible (≥2.1.0, <3.0.0) |
+| `~2.1.0` | Patch only (≥2.1.0, <2.2.0) |
+| `latest` | Latest published |
+
+At task start, WO Runtime resolves version constraints and records the resolved versions in task metadata. See [skill-registry.md](skill-registry.md) for full details on skill packaging and publishing.
+
+### Skill Installation
+
+Skills are installed to the Workspace Session at session start:
+
+1. WO Runtime collects skill references from all enabled Skilled Agents
+2. Resolves versions against Foundry then Global registry
+3. Downloads to `~/.foundry/skills/{skill}@{version}/`
+4. Sets `FOUNDRY_SKILLS_PATH` environment variable
 
 ## Guardrails
 
@@ -246,6 +232,7 @@ If a Scenario does not have a `skilled-agent/` folder:
 
 ## Read Next
 
+- [skill-registry.md](skill-registry.md) — Skill packaging, publishing, and CLI tooling
 - [capable-agents.md](capable-agents.md) — What Capable Agents are available
 - [employed-agents.md](employed-agents.md) — How Skilled Agents become Employed Agents
 - [../work-order-runtime/agent-spawning.md](../work-order-runtime/agent-spawning.md) — How agents are spawned with skills
