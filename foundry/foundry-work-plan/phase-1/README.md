@@ -1,4 +1,4 @@
-# Foundry Platform Phase 1
+# Foundry Work Plan — Phase 1
 
 This folder is the implementation-readiness workspace for **Phase 1 of the Foundry Platform**. It is for product and engineering teams building the platform, not for restating ACE theory.
 
@@ -74,7 +74,8 @@ The following docs should be created under this folder as decisions are answered
 | [../orchestrator/](../orchestrator/README.md) | Coordination module concepts. |
 | [../work-order-runtime/](../work-order-runtime/README.md) | Execution module concepts. |
 | [../foundry-web-app/](../foundry-web-app/README.md) | Web app surfaces and personas. |
-| [../scenario-authoring/](../scenario-authoring/README.md) | Scenario catalog structure. |
+| [../scenario-catalogue/](../scenario-catalogue/README.md) | Reference scenario definitions. |
+| [../management/scenario-management/](../management/scenario-management/README.md) | Scenario schema and validation. |
 
 ## Current status
 
