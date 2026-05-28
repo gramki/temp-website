@@ -6,12 +6,21 @@ Capable Agents are whitelisted frontier models and agent systems that provide th
 
 A **Capable Agent** is an agent system with orchestration, tool use, context management, and swarm capabilities. It represents the "engine" — what an agent *can* do structurally.
 
-**Examples:**
+**Current examples:**
 - Cursor Agent
 - GitHub Copilot
 - Claude Code
 - Codex CLI
 - Gemini CLI
+
+**Candidate agents under evaluation:**
+- OpenHands
+- Goose
+- Cline
+- Aider
+- OpenCode
+
+→ See [Capable Agent Candidates](#capable-agent-candidates) for the full evaluation matrix
 
 ## Capable Agent vs Model
 
@@ -76,9 +85,12 @@ This allows:
 # foundry.yaml or capable-agents.yaml at Foundry level
 capable-agents:
   cursor-agent:
-    type: ide-agent
     provider: cursor
     enabled: true
+    interfaces:
+      - type: cli
+        protocol: spawn-stdio
+        recommended: true
     models:
       claude-opus:
         enabled: true
@@ -90,9 +102,12 @@ capable-agents:
           api-key: ${ANTHROPIC_API_KEY}
           
   copilot:
-    type: ide-agent
     provider: github
     enabled: true
+    interfaces:
+      - type: cli
+        protocol: spawn-stdio
+        recommended: true
     models:
       gpt-5:
         enabled: true
@@ -100,9 +115,12 @@ capable-agents:
         enabled: true
         
   claude-code:
-    type: cli-agent
     provider: anthropic
     enabled: true
+    interfaces:
+      - type: cli
+        protocol: spawn-stdio
+        recommended: true
     models:
       claude-opus:
         enabled: true
@@ -110,14 +128,54 @@ capable-agents:
           api-key: ${ANTHROPIC_API_KEY}
           
   codex-cli:
-    type: cli-agent
     provider: openai
     enabled: true
+    interfaces:
+      - type: app-server
+        protocol: json-rpc
+        recommended: true
+      - type: cli
+        protocol: spawn-stdio
     models:
       codex-3:
         enabled: true
         credentials:
           api-key: ${OPENAI_API_KEY}
+          
+  # Candidate agents (when approved)
+  openhands:
+    provider: openhands
+    enabled: false  # Enable when ready
+    interfaces:
+      - type: agent-server
+        protocol: rest-websocket
+        recommended: true
+      - type: sdk
+        protocol: embedded
+      - type: cli
+        protocol: spawn-stdio
+    models:
+      claude-opus:
+        enabled: true
+      gpt-5:
+        enabled: true
+      # Provider-neutral: supports many models
+      
+  cline:
+    provider: cline
+    enabled: false
+    interfaces:
+      - type: sdk
+        protocol: embedded
+        recommended: true
+      - type: cli
+        protocol: spawn-stdio
+    models:
+      claude-opus:
+        enabled: true
+      gpt-5:
+        enabled: true
+      # Provider-neutral
 ```
 
 ### Workshop Level (Override)
@@ -152,12 +210,38 @@ capable-agents:
 
 | Property | Description |
 |----------|-------------|
-| `type` | Agent type: `ide-agent`, `cli-agent` |
-| `provider` | Provider name: `cursor`, `github`, `anthropic`, `openai` |
+| `provider` | Provider name: `cursor`, `github`, `anthropic`, `openai`, `openhands`, `block`, `cline`, `aider` |
 | `enabled` | Whether this agent is available at this level |
+| `interfaces` | List of supported interfaces (see below) |
+| `interfaces.{}.type` | Interface type: `app-server`, `agent-server`, `sdk`, `api`, `cli` |
+| `interfaces.{}.protocol` | Protocol: `json-rpc`, `rest-websocket`, `embedded`, `rest`, `spawn-stdio`, `jsonl` |
+| `interfaces.{}.recommended` | Whether this is the preferred interface |
 | `models` | Map of model configurations |
 | `models.{model}.enabled` | Whether this model is available |
 | `models.{model}.credentials` | Credential configuration |
+
+## Supported Interfaces
+
+Capable Agents expose different interfaces for WO Runtime integration. Richer interfaces provide more control.
+
+| Interface Type | Protocol | Capabilities | Examples |
+|----------------|----------|--------------|----------|
+| **app-server** | JSON-RPC, bidirectional | Session lifecycle, events, approvals, tool governance | Codex |
+| **agent-server** | REST/WebSocket | Session lifecycle, events, workspace abstraction | OpenHands |
+| **sdk** | Embedded library | Lifecycle hooks, callbacks, typed interfaces | Cline |
+| **api** | REST calls | Programmatic control, per-call | Goose |
+| **cli** | Spawn + stdio | Process-based, env/arg config | Aider, Claude Code |
+| **cli-jsonl** | Spawn + JSONL output | Structured output parsing | OpenCode |
+
+### Interface Preference
+
+When a Capable Agent supports multiple interfaces, WO Runtime should prefer richer interfaces:
+
+1. **app-server / agent-server** — richest control
+2. **sdk** — embedded integration
+3. **api** — programmatic
+4. **cli-jsonl** — structured output
+5. **cli** — fallback
 
 ## Credential Management
 
@@ -297,17 +381,148 @@ When a task enters recoverable failure:
 
 ---
 
+## Capable Agent Candidates
+
+The following agent systems are candidates for inclusion in the Capable Agent registry. This matrix captures their interfaces, provider neutrality, and readiness.
+
+→ For detailed architecture comparison, see [Agent Harness Comparison](../work-order-runtime/agent_harness_comparison_codex_openhands_goose_cline_aider.md)
+
+### Candidate Matrix
+
+| Agent | Provider | Primary Interface | Other Interfaces | Model Neutrality | Open Source | Status |
+|-------|----------|-------------------|------------------|------------------|-------------|--------|
+| **Cursor Agent** | Cursor | CLI | — | Multi-model | No | Current |
+| **GitHub Copilot** | GitHub | CLI | — | Multi-model | No | Current |
+| **Claude Code** | Anthropic | CLI | — | Anthropic-only | Yes | Current |
+| **Codex CLI** | OpenAI | App-server (JSON-RPC) | CLI | OpenAI-only | Partial | Current |
+| **Gemini CLI** | Google | CLI | — | Google-only | Yes | Current |
+| **OpenHands** | OpenHands | Agent Server (REST/WS) | SDK, CLI | High | Yes | Candidate |
+| **Goose** | Block | API | CLI, Desktop | Very High | Yes | Candidate |
+| **Cline** | Cline | SDK (TypeScript) | CLI | Very High | Yes | Candidate |
+| **Aider** | Aider | CLI | — | Very High | Yes | Candidate |
+| **OpenCode** | OpenCode | CLI (JSONL) | — | Very High | Yes | Candidate |
+
+### Model Neutrality Levels
+
+| Level | Description |
+|-------|-------------|
+| **Very High** | Works with any OpenAI-compatible API; trivial to add providers |
+| **High** | Supports multiple providers with configuration |
+| **Multi-model** | Supports multiple models from limited providers |
+| **Provider-only** | Locked to single provider (Anthropic, OpenAI, Google) |
+
+### Candidate Evaluation Criteria
+
+| Criterion | Weight | Description |
+|-----------|--------|-------------|
+| Interface richness | High | App-server/Agent Server preferred over CLI |
+| Model neutrality | High | Provider flexibility for fallback |
+| Production readiness | High | Used in production by originating org |
+| Open source | Medium | Source available for extension/debugging |
+| Community activity | Medium | Active development and support |
+| Foundry alignment | Medium | Fits WO Runtime architecture |
+
+### Candidate Notes
+
+**OpenHands**
+- Strongest open platform architecture
+- REST/WebSocket Agent Server aligns with WO Runtime needs
+- Event-sourced architecture good for audit/replay
+- Already provider-neutral
+- Recommended for: Production agent platform
+
+**Goose**
+- Very broad model provider support
+- MCP extensions central to architecture
+- Recipes for workflow packaging
+- Local-first orientation
+- Recommended for: General automation beyond coding
+
+**Cline**
+- TypeScript SDK allows embedding
+- Strong lifecycle hooks for policy/observability
+- IDE heritage may assume VS Code
+- Recommended for: TypeScript-based runtime embedding
+
+**Aider**
+- Excellent terminal experience
+- Very provider-neutral
+- No app-server protocol (CLI-only)
+- Recommended for: Terminal-first workflows
+
+**OpenCode**
+- JSONL output mode for structured parsing
+- Provider-neutral
+- Emerging; evaluate maturity
+- Recommended for: Model-flexible CLI integration
+
+---
+
 ## Adding a New Capable Agent
 
 To whitelist a new Capable Agent:
 
-1. **Foundry Admin** adds the agent to Foundry-level `capable-agents.yaml`
-2. Define supported models and default credentials
-3. Implement spawn adapter in WO Runtime (agent-specific)
-4. Workshops and Workbenches can then enable/disable and override credentials
+### 1. Evaluate Candidate
+
+- Review against [Candidate Evaluation Criteria](#candidate-evaluation-criteria)
+- Document interfaces, models, and provider neutrality
+- Assess integration complexity with WO Runtime
+
+### 2. Implement WO Runtime Adapter
+
+Based on the agent's primary interface:
+
+| Interface | Adapter Implementation |
+|-----------|------------------------|
+| App-server | Implement JSON-RPC client with session management |
+| Agent Server | Implement REST/WebSocket client |
+| SDK | Embed library, implement lifecycle callbacks |
+| API | Implement REST client |
+| CLI | Implement process spawn with env/arg config |
+| CLI-JSONL | Implement process spawn with output parsing |
+
+→ See [WO Runtime Design Discussion](../work-order-runtime/design-discussion-control-plane-and-agent-interfaces.md) for adapter architecture options
+
+### 3. Register in Capable Agent Registry
+
+**Foundry Admin** adds the agent to Foundry-level `capable-agents.yaml`:
+
+```yaml
+capable-agents:
+  new-agent:
+    provider: provider-name
+    enabled: true
+    interfaces:
+      - type: app-server  # or agent-server, sdk, api, cli
+        protocol: json-rpc
+        recommended: true
+    models:
+      model-a:
+        enabled: true
+        credentials:
+          api-key: ${API_KEY}
+```
+
+### 4. Test Integration
+
+- Spawn agent with test harness
+- Verify session lifecycle (create, attach, terminate)
+- Verify tool execution and governance
+- Verify fallback behavior
+- Test quota enforcement
+
+### 5. Document
+
+- Add agent to [Candidate Matrix](#candidate-matrix) with "Current" status
+- Document any agent-specific configuration
+- Update [Agent Spawning](../work-order-runtime/agent-spawning.md) with spawn config
+
+---
 
 ## Read Next
 
 - [skilled-agents.md](skilled-agents.md) — How Skilled Agents use Capable Agents
 - [gateway-policy.md](gateway-policy.md) — How credentials are used at runtime
 - [../work-order-runtime/agent-spawning.md](../work-order-runtime/agent-spawning.md) — How Capable Agents are spawned
+- [../work-order-runtime/design-discussion-control-plane-and-agent-interfaces.md](../work-order-runtime/design-discussion-control-plane-and-agent-interfaces.md) — Control plane and adapter architecture options
+- [../work-order-runtime/agent_harness_comparison_codex_openhands_goose_cline_aider.md](../work-order-runtime/agent_harness_comparison_codex_openhands_goose_cline_aider.md) — Detailed comparison of agent harnesses
