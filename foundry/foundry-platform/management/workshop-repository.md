@@ -7,10 +7,24 @@ Workshop and Workbench definitions are managed declaratively in a Git repository
 ```
 workshop-{id}/
 ├── workshop.yaml                     # Workshop metadata
-├── knowledge/                        # Workshop-level knowledge (shared)
-│   ├── domain/
-│   ├── practices/
-│   └── standards/
+├── domain/                           # Workshop-level domain knowledge
+│   ├── universal/                    # Applies to all workspaces
+│   │   ├── glossary.md
+│   │   └── business-rules/
+│   ├── product-specification/        # Workspace-specific
+│   ├── development/
+│   ├── qa/
+│   └── ...
+├── practices/                        # Workshop-level practices
+│   ├── universal/
+│   │   ├── review-policies.md
+│   │   └── communication-standards.md
+│   ├── product-specification/
+│   ├── development/
+│   │   └── coding-standards.md
+│   ├── qa/
+│   │   └── testing-methodology.md
+│   └── ...
 ├── shared/
 │   ├── domain.yaml                   # Domain repo config
 │   ├── practices.yaml                # Practices repo config
@@ -44,11 +58,18 @@ workshop-{id}/
 │       ├── integrations.yaml         # External tools (includes Jira WO project)
 │       ├── team.yaml                 # Team references
 │       ├── capable-agents.yaml       # Workbench-level Capable Agent overrides (optional)
-│       ├── knowledge/                # Workbench-level knowledge
-│       │   ├── product-context/
-│       │   ├── architecture/
-│       │   ├── conventions/
-│       │   └── templates/
+│       ├── ontology/                 # Product structure, capabilities, features
+│       │   ├── capabilities.yaml
+│       │   ├── features.yaml
+│       │   └── modules.yaml
+│       ├── domain/                   # Workbench-level domain knowledge
+│       │   ├── universal/
+│       │   │   └── product-glossary.md
+│       │   └── {workspace-type}/
+│       ├── practices/                # Workbench-level practices
+│       │   ├── universal/
+│       │   │   └── architecture-conventions.md
+│       │   └── {workspace-type}/
 │       └── workspaces/               # OVERRIDES (sparse - only files that differ)
 │           ├── development/
 │           │   ├── scenarios/
@@ -145,14 +166,49 @@ spec:
 
 ### Workshop Knowledge
 
-Workshop-level knowledge is shared across all Workbenches in the Workshop.
+Workshop-level knowledge is shared across all Workbenches in the Workshop. Knowledge is organized into Domain and Practices repositories, each with universal and workspace-specific scopes.
+
+#### Domain
 
 ```
-knowledge/
-├── domain/           # Domain knowledge, glossaries, business rules
-├── practices/        # Standards, templates, policies
-└── standards/        # Coding standards, conventions
+domain/
+├── universal/                    # Applies to ALL workspaces
+│   ├── glossary.md              # Division terminology
+│   ├── business-rules/          # Business logic, constraints
+│   └── regulatory/              # Division-specific compliance
+├── product-specification/        # Product Specification workspace only
+├── ux-design/
+├── development/
+│   └── api-naming-conventions.md
+├── qa/
+│   └── defect-classification.md
+├── release/
+└── governance/
 ```
+
+#### Practices
+
+```
+practices/
+├── universal/                    # Applies to ALL workspaces
+│   ├── review-policies.md       # Division review standards
+│   ├── communication.md         # Documentation standards
+│   └── security/                # Security practices
+├── product-specification/
+│   └── spec-writing-guidelines.md
+├── ux-design/
+│   └── design-system.md
+├── development/
+│   └── coding-standards.md
+├── qa/
+│   └── testing-methodology.md
+├── release/
+│   └── release-checklist.md
+└── governance/
+    └── approval-workflows.md
+```
+
+→ [knowledge-management/README.md](knowledge-management/README.md) for knowledge inheritance details
 
 ---
 
@@ -261,15 +317,47 @@ spec:
 
 ### Workbench Knowledge
 
-Workbench-level knowledge is specific to the Product.
+Workbench-level knowledge is specific to the Product. It includes Ontology (product structure), Domain knowledge, and Practices.
+
+#### Ontology
+
+Product structure, capabilities, and features (Workbench-only, no inheritance):
 
 ```
-knowledge/
-├── product-context/      # Product-specific context
-├── architecture/         # Architecture docs, diagrams
-├── conventions/          # Product-specific conventions
-└── templates/            # Product-specific templates
+ontology/
+├── capabilities.yaml    # What the product can do
+├── features.yaml        # Features organized by capability
+├── modules.yaml         # System/component structure
+└── maturity.yaml        # Feature maturity states (beta, ga, deprecated)
 ```
+
+#### Domain
+
+```
+domain/
+├── universal/                    # Applies to ALL workspaces
+│   └── product-glossary.md      # Product-specific terminology
+├── product-specification/
+├── development/
+│   └── api-conventions.md       # Product API naming
+├── qa/
+└── ...
+```
+
+#### Practices
+
+```
+practices/
+├── universal/
+│   └── architecture-conventions.md   # Product architecture guidelines
+├── development/
+│   └── pr-template.md               # Product-specific PR template
+├── qa/
+│   └── test-coverage-thresholds.md  # Product-specific quality gates
+└── ...
+```
+
+→ [knowledge-management/knowledge-hierarchy.md](knowledge-management/knowledge-hierarchy.md) for resolution rules
 
 ---
 
@@ -432,22 +520,38 @@ hooks/
 
 ## Knowledge Hierarchy (Agent Context)
 
-WO Runtime builds agent context from the knowledge hierarchy:
+WO Runtime builds agent context from the knowledge hierarchy. Knowledge resolves from three levels, with workspace-specific content overriding universal:
 
 ```
-┌─────────────────────────────────────────┐
-│  Work Order Context                     │
-│  (PI, WO-specific artifacts, state)     │
-├─────────────────────────────────────────┤
-│  Workbench Knowledge                    │
-│  (product-context, architecture, etc.)  │
-├─────────────────────────────────────────┤
-│  Workshop Knowledge                     │
-│  (domain, practices, standards)         │
-└─────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Work Order Context                                                          │
+│  (PI, WO-specific artifacts, current state)                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Workbench Knowledge                                                         │
+│  ├── Ontology (product structure, capabilities)                             │
+│  ├── Domain (universal + {workspace-type})                                  │
+│  └── Practices (universal + {workspace-type})                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Workshop Knowledge                                                          │
+│  ├── Domain (universal + {workspace-type})                                  │
+│  └── Practices (universal + {workspace-type})                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Foundry Knowledge                                                           │
+│  ├── Domain (universal + {workspace-type})                                  │
+│  └── Practices (universal + {workspace-type})                               │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+### Resolution Rules
+
+1. **Closest level wins** — Workbench overrides Workshop overrides Foundry
+2. **Workspace-specific overrides universal** — At each level, `{workspace-type}/` content overrides `universal/`
+3. **File-level override** — Individual files are replaced, not merged
 
 The agent harness (WO Runtime) merges these layers to build the right context for each agent invocation.
+
+→ [knowledge-management/knowledge-hierarchy.md](knowledge-management/knowledge-hierarchy.md) for detailed resolution algorithm
+→ [knowledge-management/knowledge-apis.md](knowledge-management/knowledge-apis.md) for query APIs
 
 ---
 
@@ -558,3 +662,9 @@ If a Scenario does not have a `skilled-agent/` folder, tasks for that Scenario a
 - Rollback mechanism for configuration changes
 - Validation rules and schema enforcement
 - Secrets management (OAuth tokens referenced but stored separately)
+
+## Read Next
+
+- [foundry-definition-repository.md](foundry-definition-repository.md) — Foundry-level repo structure
+- [knowledge-management/README.md](knowledge-management/README.md) — Knowledge Management subsystem
+- [knowledge-management/knowledge-hierarchy.md](knowledge-management/knowledge-hierarchy.md) — Inheritance model
