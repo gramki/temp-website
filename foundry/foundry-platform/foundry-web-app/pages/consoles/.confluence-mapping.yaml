@@ -1,0 +1,4 @@
+# Confluence folder titles (space-wide uniqueness). Local paths unchanged.
+folders:
+  workspaces: "Workspace Consoles"
+  governance: "Governance Consoles"

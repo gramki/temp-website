@@ -1,0 +1,366 @@
+# Module Documentation Structure
+
+Apply this rule when creating or updating documentation for any module under `foundry-platform/`.
+
+## Required Documents
+
+Every module MUST have these documents:
+
+| Document | Purpose |
+|----------|---------|
+| `README.md` | Module overview, architecture, design decisions |
+| `requirements.md` | Implementation requirements: APIs, database, error handling, observability |
+| `{entity}-journey.md` | End-to-end walkthrough of the module's primary flow (required if module has complex flows) |
+
+## README.md Structure
+
+Every module MUST have a README.md with these sections in order:
+
+```markdown
+# {Module Name}
+
+**Module scope:** {One-line scope statement — what the module owns}
+
+## Purpose
+
+{2-3 paragraphs: why this module exists, what problem it solves, who benefits}
+
+## What this module does
+
+- **{Capability}** — {description}
+{List all primary capabilities}
+
+## What this module does NOT do
+
+{Explicit boundaries — capabilities that belong to OTHER modules}
+{Prevents scope creep and clarifies integration points}
+
+## Architecture
+
+{ASCII diagram or Mermaid showing:}
+- Internal components
+- Data flow
+- Integration points with other modules
+
+## Key Services / Components
+
+### {Service Name}
+{Brief description}
+→ [{detail-doc}.md]({detail-doc}.md)
+
+{Repeat for each major service/component}
+
+## ACE Concepts Realized
+
+| Concept | How this module realizes it |
+|---------|----------------------------|
+
+## Key Design Decisions
+
+- **{Decision}** — {rationale}
+
+## Open Questions
+
+- {Unresolved design decisions}
+
+## Module Documents
+
+| Document | Content |
+|----------|---------|
+| [requirements.md](requirements.md) | Implementation requirements |
+| [{entity}-journey.md]({entity}-journey.md) | End-to-end walkthrough |
+
+## Read Next
+
+- {Links to related modules and ACE conceptual docs}
+```
+
+---
+
+## requirements.md Structure (Required)
+
+Every module MUST have a requirements.md with implementation details for engineers.
+
+```markdown
+# {Module Name} Requirements
+
+This document specifies detailed implementation requirements for the {Module Name}.
+
+## Architecture Overview
+
+{Detailed ASCII diagram showing:}
+- All internal components
+- External integrations
+- Data stores
+- Message flows
+
+## Core Components
+
+### {Component Name}
+
+{Description of component responsibility}
+
+| Aspect | Detail |
+|--------|--------|
+| Responsibility | {what it does} |
+| Input | {what it receives} |
+| Output | {what it produces} |
+| Dependencies | {what it calls} |
+
+{Repeat for each component}
+
+## Database Schema
+
+| Table | Purpose |
+|-------|---------|
+| `{table_name}` | {description} |
+
+{Include key columns, indexes, relationships}
+
+## Integration Details
+
+### {External System}
+
+| Aspect | Detail |
+|--------|--------|
+| Integration type | {REST API, Webhooks, MCP, etc.} |
+| Direction | {inbound, outbound, bidirectional} |
+| Authentication | {method} |
+
+{Include custom fields, attributes, event types}
+
+## Processing Logic
+
+{Pseudocode or flowcharts for complex logic}
+
+```python
+def process_{entity}(event):
+    # Key processing steps
+    pass
+```
+
+## Error Handling
+
+### Retry Policy
+
+| Failure Type | Strategy |
+|--------------|----------|
+| {failure type} | {retry strategy} |
+
+### Recovery
+
+{DLQ, compensation, manual intervention procedures}
+
+## Authorization
+
+| Role | Scope | Permissions |
+|------|-------|-------------|
+| {role} | {scope} | {what they can do} |
+
+## API Specification
+
+### {Endpoint Group}
+
+```
+{METHOD} /api/v1/{path}
+Request: { ... }
+Response: { ... }
+```
+
+{Repeat for all endpoints}
+
+## Scalability
+
+{Partitioning strategy, horizontal scaling, bottlenecks}
+
+## Observability
+
+### Metrics
+
+| Metric | Type | Description |
+|--------|------|-------------|
+| `{metric_name}` | {counter/gauge/histogram} | {what it measures} |
+
+### Logging
+
+{Structured log format, key fields, correlation IDs}
+
+### Tracing
+
+{OpenTelemetry spans, trace context propagation}
+
+## External Dependencies
+
+| Dependency | Integration | Failure Mode |
+|------------|-------------|--------------|
+| {system} | {how integrated} | {what happens on failure} |
+
+## Open Implementation Questions
+
+- {Unresolved engineering decisions}
+```
+
+---
+
+## {entity}-journey.md Structure (Required for Complex Flows)
+
+Modules with complex multi-step flows MUST have a journey document.
+
+```markdown
+# {Entity} Journey
+
+This document walks through the complete lifecycle of a {Entity} from {start} to {end}, demonstrating how {Module} coordinates/executes the flow.
+
+## Overview
+
+{One-line flow diagram}
+
+```
+Step A → Step B → Step C → Step D → Step E
+```
+
+## The Journey
+
+### Phase 1: {Phase Name}
+
+**Location:** {Where this happens — system, workspace, etc.}  
+**Actor:** {Who/what initiates — user role, service, agent}
+
+#### Step 1.1: {Step Name}
+
+{Narrative description of what happens}
+
+1. **{Action}:** {description}
+   ```
+   {API call, code snippet, or data example}
+   ```
+2. **{Action}:** {description}
+
+{Include diagrams at key transitions:}
+
+```
+┌─────────┐      ┌─────────┐      ┌─────────┐
+│ State A │─────▶│ State B │─────▶│ State C │
+└─────────┘      └─────────┘      └─────────┘
+```
+
+#### Step 1.2: {Step Name}
+
+{Continue pattern...}
+
+### Phase 2: {Phase Name}
+
+**Location:** {Where}  
+**Actor:** {Who}
+
+{Continue pattern for each phase...}
+
+## Summary
+
+| Phase | Location | Actor | Key Output |
+|-------|----------|-------|------------|
+| 1. {name} | {where} | {who} | {what it produces} |
+
+## Read Next
+
+- {Links to related journeys, requirements, schemas}
+```
+
+---
+
+## Additional Supporting Documents
+
+Create these documents when needed:
+
+| Document | When to Create | Structure |
+|----------|----------------|-----------|
+| `{schema}.md` or `.yaml` | Declarative configuration exists | Schema definition with examples |
+| `{component}.md` | Component warrants deep-dive | Purpose, interface, implementation details |
+| `implementation-todos.md` | Active development | Open engineering questions |
+
+---
+
+## Writing Guidelines
+
+1. **Module scope** — Keep to ONE line; this appears in tables elsewhere
+2. **"Does NOT do"** — Always include; absence causes scope confusion
+3. **Architecture diagrams** — Use ASCII art or Mermaid; avoid external images
+4. **Tables over prose** — Prefer tables for comparisons and catalogs
+5. **Links** — Use relative paths; verify links work
+6. **ACE alignment** — Every module must map to ACE concepts
+7. **Design decisions** — State the decision AND the rationale
+8. **Open questions** — Track unresolved items; remove when resolved
+9. **API examples** — Include request/response examples for all endpoints
+10. **Pseudocode** — Use for complex processing logic; language-agnostic preferred
+
+## Cross-References
+
+When referencing other modules:
+- Link to their README: `[Module Name](../module-name/README.md)`
+- For specific concepts, link to the detail doc: `[Concept](../module-name/concept.md)`
+
+## Section Details
+
+### Purpose vs "What this module does"
+
+- **Purpose** — The "why": business value, problem solved, who benefits
+- **What this module does** — The "what": concrete capabilities as a bullet list
+
+### "What this module does NOT do"
+
+This section is critical for modules that share boundaries. Examples:
+
+- **Orchestrator** does NOT execute Work Orders (that's WO Runtime)
+- **WO Runtime** does NOT route orchestration items (that's Orchestrator)
+- **Agent Fabric** does NOT spawn agents (that's WO Runtime)
+- **Management** does NOT track Work Order state (that's Orchestrator + Jira)
+
+### Architecture Diagrams
+
+Prefer ASCII art for version control friendliness:
+
+```
+┌─────────────┐     ┌─────────────┐
+│  Component  │────▶│  Component  │
+└─────────────┘     └─────────────┘
+```
+
+Or use Mermaid for complex flows:
+
+```mermaid
+sequenceDiagram
+    A->>B: Request
+    B-->>A: Response
+```
+
+### Key Design Decisions Format
+
+Each decision should be:
+- **Stated as a principle** — not just a fact
+- **Followed by rationale** — why this choice over alternatives
+
+Example:
+- **Skills are packages, Skilled Agents are manifests.** Skills are published to registries for reuse; Skilled Agents are local configuration that reference skills, enabling customization without forking.
+
+## Example Modules
+
+Reference these as templates:
+
+| Module | Strengths |
+|--------|-----------|
+| `orchestrator/` | Has requirements.md, journey doc, schema doc, sample YAML |
+| `agent-fabric/` | Has component deep-dives, journey doc, clear service breakdown |
+| `work-order-runtime/` | Has requirements.md, architecture diagram, clear "does NOT do" |
+
+## Checklist for New Modules
+
+- [ ] README.md with all required sections
+- [ ] Module scope is one line
+- [ ] "Does NOT do" section present
+- [ ] Architecture diagram included
+- [ ] ACE concepts mapped
+- [ ] At least 3 design decisions documented
+- [ ] **requirements.md with APIs, database, error handling, observability**
+- [ ] **{entity}-journey.md if module has complex flows**
+- [ ] Links to related modules verified
+- [ ] Added to `foundry-platform/README.md` modules table
