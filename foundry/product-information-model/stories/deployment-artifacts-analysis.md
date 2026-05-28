@@ -1,4 +1,4 @@
-# Deployment Artifacts: From Build to Production
+# Deployment Artifacts: From Build to Production (Story)
 
 This document explains how UPIM separates **what is built and verified**, **how it is deployed to a specific environment**, and **the governed act of applying that specification** — using a **three-layer deployment model** aligned to DR-036.
 
