@@ -17,16 +17,69 @@ Foundry Management is the administrative layer of the platform. It provides:
 
 ## Key Services
 
-### Workbench Metadata Service
+### Metadata Service
 
-A single service per Workbench that provides:
+A single service per Workbench that provides identity, tracking, and reference management.
+
+#### ID Generation
+
+The Metadata Service generates unique identifiers for orchestration items and work artifacts.
+
+**API Endpoint:**
+```
+POST /metadata/ids/{type}
+Response: { "id": "<type-prefix>-<sequence>" }
+```
+
+**Supported Types:**
+
+| Type | Prefix | Example | Consumers |
+|------|--------|---------|-----------|
+| `product-intent` | `PI` | `PI-456` | IDE extensions, Orchestrator |
+| `release-intent` | `RI` | `RI-78` | Web console, Orchestrator |
+| `work-order` | `WO` | `WO-1234` | Orchestrator |
+| `discovery-case` | `DC` | `DC-89` | IDE extensions, Orchestrator |
+| `run-case` | `RC` | `RC-45` | IDE extensions, Orchestrator |
+
+**Sequence Management:**
+- Sequences are scoped per Workbench
+- Monotonically increasing integers
+- Gap-free sequence is not guaranteed (failed transactions may consume IDs)
+- IDs are unique within a Workbench (not globally unique)
+
+**Usage Flow:**
+
+```
+1. User initiates "Create Product Intent" in IDE
+2. IDE extension calls Metadata Service: POST /metadata/ids/product-intent
+3. Metadata Service returns: { "id": "PI-456" }
+4. IDE creates PI folder in Intent Repository: intent-repo/PI-456/
+5. PI ID is used in Jira item and all subsequent references
+```
+
+#### Commit Tracking
 
 | Function | Behavior |
 |----------|----------|
-| **Product Intent IDs** | Consulted **before** creating an Intent to get unique PI ID |
-| **Commit tracking** | Tracks **all commits** to all linked git repos (Intent, Design, Code) |
-| **Code Repo references** | Manages references to all source code repos |
-| **Design tracking** | Tracks changes (no ID required before create) |
+| **Intent commits** | Tracks all commits to Intent Repository |
+| **Design commits** | Tracks all commits to Design Repository |
+| **Code commits** | Tracks all commits to all Code Repositories |
+
+Commit tracking enables:
+- Traceability from PI to code changes
+- Audit trail for compliance
+- Change impact analysis
+
+#### Code Repository References
+
+Manages references to all source code repositories in the Workbench:
+
+| Operation | API |
+|-----------|-----|
+| List repos | `GET /metadata/code-repos` |
+| Add repo | `POST /metadata/code-repos` |
+| Remove repo | `DELETE /metadata/code-repos/{id}` |
+| Get repo | `GET /metadata/code-repos/{id}` |
 
 ### Ontology Service
 
@@ -112,11 +165,12 @@ See [workbench-architecture.md](workbench-architecture.md) for detailed reposito
 - Team/agent management UX
 - Tenant onboarding flow
 
-## Read next
+## Read Next
 
 - [workbench-architecture.md](workbench-architecture.md) — detailed Workbench architecture
 - [workshop-repository.md](workshop-repository.md) — Workshop/Workbench definition repository structure
-- [../agent-model/README.md](../agent-model/README.md) — Agent Model (Capable, Skilled, Employed Agents)
+- [../orchestrator/pi-journey.md](../orchestrator/pi-journey.md) — End-to-end PI walkthrough showing Metadata Service usage
+- [../agent-fabric/README.md](../agent-fabric/README.md) — Agent Fabric (Capable, Skilled, Employed Agents)
 - [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO Runtime execution engine
 - [../../ace/repositories.md](../../ace/repositories.md) — the repository taxonomy
 - [../../tldr-faq.md](../../tldr-faq.md) — module design decisions
