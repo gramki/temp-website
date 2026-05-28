@@ -196,15 +196,28 @@ Upon completion:
 | `failed` | Block; require human intervention |
 | `cancelled` | Record cancellation; may unblock alternatives |
 
-## Open questions
+## Orchestration Item Workflows
 
-- Gate enforcement mechanics — blocking vs advisory
-- Governance Scenario invocation timing
+Each orchestration item type has a YAML workflow definition that specifies:
+- **Stages** — Named states the item progresses through
+- **Handlers** — Event-driven logic (when/then blocks)
+- **Actions** — Operations like creating WOs or transitioning stages
+
+Workflows are defined at Foundry, Workshop, or Workbench level (closest wins).
+
+See [orchestration-item-workflow.md](orchestration-item-workflow.md) for the complete schema specification and [sample-pi-workflow.yaml](sample-pi-workflow.yaml) for a working Product Intent example.
+
+## Open Questions
+
 - How does Orchestrator resolve the effective Control Owner and Approver from the Governance Authority Matrix?
 - When Enforcement returns Debt + Catch-Up or Exception / Waiver, does Orchestrator block until the required register record exists?
 
-## Read next
+## Read Next
 
+- [pi-journey.md](pi-journey.md) — end-to-end Product Intent walkthrough
+- [orchestrator-requirements.md](orchestrator-requirements.md) — detailed module requirements
+- [orchestration-item-workflow.md](orchestration-item-workflow.md) — workflow YAML schema
+- [sample-pi-workflow.yaml](sample-pi-workflow.yaml) — complete PI workflow example
 - [../work-order-runtime/end-to-end-work-order-flow.md](../work-order-runtime/end-to-end-work-order-flow.md) — complete WO lifecycle including Orchestrator phases
 - [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO Runtime execution engine
 - [../../ace/governance.md](../../ace/governance.md) — governance model
