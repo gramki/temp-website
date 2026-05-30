@@ -42,6 +42,7 @@ Workbench
     QA Workspace
     Release Workspace
     Governance Workspace
+* naming note: workspace names denote functions (teams). "Product Specification" (not "Product") avoids conflation with Product the UPIM entity; "Release" (not "Release Engineering") keeps the station name stable without fixing the team's title. See concepts.md.
 
 Workspace
 * has Human-Agent Team and Tools
