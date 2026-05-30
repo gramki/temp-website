@@ -1,32 +1,12 @@
 # Foundry Platform
 
-This folder is the home of the **engineering documentation for the Foundry Platform** — the implementation that **delivers ACE and UPIM capabilities**. It contains architecture, module specifications, UX, deployment, security/compliance posture, observability, and CI documentation. Module-level specs grow here as they are produced.
+Engineering documentation for the **Foundry Platform** — the implementation that delivers ACE and UPIM capabilities. Module-level specs grow here as they are produced.
 
-The primary readers are the product and engineering teams **building the Foundry Platform**. If you are looking for the model the platform delivers, read [../ace/](../ace/README.md). If you are looking for the formal information schema the platform stores and mutates, read [../product-information-model/](../product-information-model/README.md).
+**Audience:** Product and engineering teams building the Foundry Platform. For the model the platform delivers, read [../ace/](../ace/README.md). For the formal information schema, read [../product-information-model/](../product-information-model/README.md).
 
-## Foundry vs Foundry Platform
-
-These docs use **Foundry Platform** consistently for the implementation. Bare "Foundry" is reserved for the architectural construct in ACE. See [../glossary.md](../glossary.md) and the [top-level README](../README.md) for the full disambiguation.
-
-## What the platform delivers
-
-The Foundry Platform is the system that turns the ACE model and UPIM entities into running software:
-
-- **Workshops** with their repositories.
-- **Workbenches** with intent routing, scenarios, and tasks (each Workbench corresponds to a Product in UPIM — the locus where that Product is evolved).
-- **Workspaces** (six types) with their IDE-mediated entry, scenario catalogs, and runtime engineering.
-- **Workspace Sessions** — ephemeral K8s/Coder development environments provisioned per builder, where Work Orders execute.
-- **Work Catalog execution** — OI Workflows and Scenarios as the executable realization of the UPIM Work Model, with hierarchical resolution (Platform → Foundry → Workshop → Workbench → User).
-- **Personal Work** — workspace-local Work Orders for ad-hoc agent usage not tied to orchestrated tasks.
-- **Governance hooks** on every transition of Product Intent.
-- **Foundry CI** for evidence packs, test runners, build quality indicators, and agentic quality gates.
-- **UPIM-backed data** — storage, lifecycles, and APIs for the entities UPIM defines (Definition, Work, Operating Model layers), without introducing divergent ontology.
-- **Engagement Engineering** is documented separately as an ACE extension; it is *not* a Foundry Platform module — see [../engagement-engineering/](../engagement-engineering/README.md).
-- **Propeller** is *not* part of the Foundry Platform — it is a parallel workstream of cross-stack frameworks consumed by Workspaces. See [../propeller/](../propeller/README.md).
+**Terminology:** "Foundry Platform" = this implementation. Bare "Foundry" = the ACE architectural construct. See [../glossary.md](../glossary.md).
 
 ## Platform Modules
-
-The platform decomposes into the following modules, each with its own folder. See [../tldr.md](../tldr.md) for the one-page overview and [../tldr-faq.md](../tldr-faq.md) for module design decisions.
 
 | Module | Folder | Scope |
 |--------|--------|-------|
@@ -41,82 +21,25 @@ The platform decomposes into the following modules, each with its own folder. Se
 | **Foundry Web App** | [foundry-web-app/](foundry-web-app/README.md) | User-facing web interface for Foundry members and Foundry Admins |
 | **Platform Admin Web App** | [foundry-platform-admin-web-app/](foundry-platform-admin-web-app/README.md) | Super-admin interface for foundry-platform-admin users managing the entire platform |
 
-## Content Folders
+See [../tldr.md](../tldr.md) for the one-page overview and [../tldr-faq.md](../tldr-faq.md) for design decisions.
 
-These folders contain reference content (not platform code):
+## Content Folders
 
 | Folder | Content |
 |--------|---------|
-| **Platform Concepts** | [concepts/](concepts/README.md) | Cross-module definitions (Work Order, Scenario, Personal Work, Workspace Session, Orchestration Item, etc.) — reference these rather than duplicating |
-| **Work Catalogues** | [work-catalogues/](work-catalogues/README.md) | OI Workflows and Scenarios organized by hierarchy (Track → OI → Workspace); see [platform-defaults/](work-catalogues/platform-defaults/README.md) for shipped Build and Discovery workflows |
+| **Platform Concepts** | [concepts/](concepts/README.md) | Cross-module definitions — Work Order, Scenario, Personal Work, Workspace Session, Orchestration Item |
+| **Work Catalogues** | [work-catalogues/](work-catalogues/README.md) | OI Workflows and Scenarios; see [platform-defaults/](work-catalogues/platform-defaults/README.md) for shipped Build and Discovery workflows |
 
-> **Note:** Work Catalog Management (schema, validation, resolution algorithm) is a subsystem of the Management module. The Work Catalogues folder contains the conceptual overview, user guide, and platform default content. Build and Discovery tracks have complete OI workflows with indicative scenario stubs; other tracks remain stubs.
+## Deferred Modules
 
-### Key design decisions
+The `_deferred/` folder contains module stubs outside current scope:
 
-- **Agent lifecycle is context-dependent.** Work Order Runtime owns it for Work Order execution; Release Tools (CI) owns it for pipeline-embedded agents.
-- **Governance is distributed.** Definition via Scenarios, enforcement via Orchestrator, evidence in repositories.
-- **Orchestration items are Track-scoped; Work Orders are Workspace-scoped.** One orchestration item can create many Workspace Work Orders.
-- **Repositories are services, not stores.** Each provides injection/access interfaces; Foundry Management exposes the access layer.
-- **Integrations are owned by modules.** Release Tools owns CI/CD integrations; no horizontal "Integrations" module.
-- **Configuration flows through Metadata Service.** Consumers query Management, not git directly.
-- **Validation gates Foundry configuration.** The Validation module validates all Foundry-scope repos before merge; Release Tools CI handles product-repo build/test only — no cross-module dependency.
-- **Workspaces are functional teams, not lifecycle stages.** The same six stations (Product Specification, UX Design, Development, QA, Release, Governance) serve every Track; OI workflow stages route Work Orders to them. See [../ace/workspaces/README.md](../ace/workspaces/README.md).
-- **Sessions are Kubernetes pods.** Workspace Session Infrastructure spawns pods on a Foundry-admin-provided K8s cluster; URLs are generated via Coder's wildcard proxy.
-- **Session lifecycle is a control-plane concern.** Workspace Session Management owns lifecycle; WO Runtime is the in-session worker that acknowledges state transitions.
-- **Foundry admin provides cluster endpoints.** The platform does not provision Kubernetes clusters — it consumes them via Foundry settings.
-
-### Legacy structure
-
-The backlog in [platform.TODO](platform.TODO) uses an older structure (Foundry Specification, Workshop Engineering, etc.). That structure is superseded by the module breakdown above, but the backlog items remain valid and should be mapped to the new modules.
-
-### CI folder
-
-The [ci/](release-tools/platform-developer-guide/ci/README.md) folder (under Release Tools platform-developer-guide) contains Foundry CI documentation. Release Tools extends and generalizes the CI work.
-
-### Where Engagement Engineering belongs
-
-Engagement Engineering is documented separately as an **extension to ACE** at [../engagement-engineering/](../engagement-engineering/README.md), because it changes ACE concepts for client delivery rather than only adding platform features.
-
-### Deferred modules
-
-The `_deferred/` folder contains module stubs that are not part of the current implementation scope:
-
-- **Platform Ops** — observability dashboards, standard tooling, infrastructure (deferred to later phases)
-
-To defer a module, move it to `_deferred/` and update this list.
-
-## How to write documentation under this folder
-
-Platform documentation uses a **three-track layout** per module. See [`_templates/STYLE-GUIDE.md`](_templates/STYLE-GUIDE.md) for voice, structure, and cross-linking rules.
-
-| Track | Location | Content |
-|-------|----------|---------|
-| Concepts | `{module}/README.md` | Scope, boundaries, architecture summary, documentation index — no step-by-step tasks |
-| User guide | `{module}/user-guide/` | Task-oriented docs for admins and builders |
-| Foundry Platform developer guide | `{module}/platform-developer-guide/` | Implementation specs for platform engineers |
-
-Copy starter files from [`_templates/`](_templates/): `module-README.template.md`, `user-guide-README.template.md`, `user-guide-doc.template.md`, `platform-developer-guide-README.template.md`, and `platform-developer-guide-doc.template.md`.
-
-### Specification content (Foundry Platform developer guide)
-
-Specs in `platform-developer-guide/` should:
-
-1. **Open with the ACE concept being realized.** Cite [../ace/concepts.md](../ace/concepts.md) or [../ace/repositories.md](../ace/repositories.md) for the concept the module operationalizes.
-2. **Identify the UPIM entities involved.** Cite [../product-information-model/README.md](../product-information-model/README.md) and the relevant entity files. The platform stores and mutates UPIM-defined entities; it must not introduce divergent ontology.
-3. **Specify the module itself.** Architecture, interfaces, dependencies, deployment, security, observability — at the level of detail appropriate to the module.
-4. **Identify governance scenarios that apply.** What transitions does this module participate in, and what governance scenarios run on those transitions? See [../ace/governance.md](../ace/governance.md).
-5. **Identify reusable foundations.** If the module relies on Propeller frameworks/libraries, cite [../propeller/](../propeller/README.md).
-6. **Identify engagement-extension behavior.** If the module behaves differently in an Engagement context, document the variance and cross-link to [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md).
-
-The intent is that any module specification reads first as an ACE/UPIM consumer and second as a piece of independent engineering — never the other way around.
+- **Platform Ops** — observability dashboards, standard tooling, infrastructure
 
 ## Read next
 
-- [concepts/](concepts/README.md) — platform-wide concept definitions.
-- [../foundry-work-plan/phase-1/](../foundry-work-plan/phase-1/README.md) — Phase 1 implementation-readiness outline and open questions.
-- [platform.TODO](platform.TODO) — current build backlog.
-- [release-tools/platform-developer-guide/ci/ci.TODO](release-tools/platform-developer-guide/ci/ci.TODO) — current CI backlog.
-- [../ace/](../ace/README.md) — what the platform is realizing.
-- [../product-information-model/](../product-information-model/README.md) — the formal schema the platform implements.
-- [../foundry-work-plan/](../foundry-work-plan/README.md) — the project plan for building this platform.
+- [concepts/](concepts/README.md) — platform-wide definitions
+- [_templates/STYLE-GUIDE.md](_templates/STYLE-GUIDE.md) — documentation structure and contributor guide
+- [../tldr-faq.md](../tldr-faq.md) — design decisions
+- [../ace/](../ace/README.md) — the model this platform realizes
+- [../product-information-model/](../product-information-model/README.md) — the schema the platform implements

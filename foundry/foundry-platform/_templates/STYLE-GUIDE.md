@@ -1,6 +1,6 @@
 # Foundry Platform documentation style guide
 
-This guide defines voice, structure, and cross-linking rules for all documentation under [`foundry/foundry-platform/`](../README.md). Use it when authoring new docs, normalizing indexes after a restructure, or planning substantive rewrites (see [`REWRITE-TODO.md`](../REWRITE-TODO.md)).
+This guide defines voice, structure, and cross-linking rules for all documentation under [`foundry/foundry-platform/`](../README.md). Use it when authoring new docs or normalizing indexes after a restructure.
 
 ## Three documentation tracks
 
@@ -68,7 +68,7 @@ All three tracks should respect the platform’s relationship to the model and s
 
 - Step-by-step tasks (belong in `user-guide/`)
 - API field lists, OpenAPI fragments, or FR-/NFR-style requirements (belong in `platform-developer-guide/`)
-- Long journey narratives without a concepts framing (move to user guide or split per REWRITE-TODO)
+- Long journey narratives without a concepts framing (move to user guide or split)
 
 **Standard closing section:**
 
@@ -97,7 +97,7 @@ Omit the platform-developer-guide row only when the module has no implementation
 
 ### Individual task documents
 
-Use this section order (add empty headers during normalization if missing; full rewrites may reorder in REWRITE-TODO):
+Use this section order (add empty headers during normalization if missing):
 
 | Section | Required | Notes |
 |---------|----------|-------|
@@ -124,7 +124,7 @@ Use this section order (add empty headers during normalization if missing; full 
 
 ### Individual specification documents
 
-Use this section order (sections may be empty placeholders during migration; substantive content tracked in REWRITE-TODO):
+Use this section order:
 
 | Section | Required | Notes |
 |---------|----------|-------|
@@ -140,6 +140,19 @@ Use this section order (sections may be empty placeholders during migration; sub
 **Design discussions** live under `platform-developer-guide/design-discussions/` until promoted to ADRs. Label them as exploratory, not normative spec.
 
 **Do not:** Builder-facing click paths or admin onboarding journeys — those belong in the user guide.
+
+### Spec authoring checklist
+
+When writing a new spec in `platform-developer-guide/`:
+
+1. **Open with the ACE concept being realized.** Cite [`foundry/ace/concepts.md`](../../ace/concepts.md) or [`foundry/ace/repositories.md`](../../ace/repositories.md) for the concept the module operationalizes.
+2. **Identify the UPIM entities involved.** Cite [`foundry/product-information-model/README.md`](../../product-information-model/README.md) and the relevant entity files. The platform stores and mutates UPIM-defined entities; it must not introduce divergent ontology.
+3. **Specify the module itself.** Architecture, interfaces, dependencies, deployment, security, observability — at the level of detail appropriate to the module.
+4. **Identify governance scenarios that apply.** What transitions does this module participate in, and what governance scenarios run on those transitions? See [`foundry/ace/governance.md`](../../ace/governance.md).
+5. **Identify reusable foundations.** If the module relies on Propeller frameworks/libraries, cite [`foundry/propeller/`](../../propeller/README.md).
+6. **Identify engagement-extension behavior.** If the module behaves differently in an Engagement context, document the variance and cross-link to [`foundry/engagement-engineering/extension-to-ace.md`](../../engagement-engineering/extension-to-ace.md).
+
+The intent is that any module specification reads first as an ACE/UPIM consumer and second as a piece of independent engineering — never the other way around.
 
 ## FR/NFR ID convention
 
@@ -198,11 +211,11 @@ Replace `{placeholders}` with module-specific names and paths. Delete optional s
 
 ## Restructure vs rewrite
 
-| During documentation restructure (moves/indexes) | During rewrite backlog (REWRITE-TODO) |
-|--------------------------------------------------|--------------------------------------|
+| During documentation restructure (moves/indexes) | During substantive rewrite |
+|--------------------------------------------------|----------------------------|
 | Add guide READMEs from templates | Split mixed-audience files |
 | Add Documentation index table to module README | Convert journeys to task steps |
 | Fix links after moves | Dedupe overlapping docs |
 | Add missing section headers only | Add FR-/NFR- IDs, new prose |
 
-When in doubt, move and index first; improve prose in a follow-up tracked in REWRITE-TODO.
+When in doubt, move and index first; improve prose in a follow-up.

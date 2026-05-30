@@ -266,6 +266,34 @@ Choices made during the tldr's iteration, recorded so the rationale doesn't get 
 
 ---
 
+## On platform structure
+
+### How does configuration flow?
+
+**Configuration flows through Metadata Service.** Consumers query Foundry Management, not git directly. Management exposes resolved configuration to runtime modules.
+
+### What gates Foundry-scope configuration?
+
+**Validation gates Foundry configuration.** The Validation module validates all Foundry-scope repos before merge. Release Tools CI handles product-repo build/test only — no cross-module dependency between Validation and Release Tools.
+
+### Are Workspaces lifecycle stages?
+
+No. **Workspaces are functional teams, not lifecycle stages.** The same six stations (Product Specification, UX Design, Development, QA, Release, Governance) serve every Track. OI workflow stages route Work Orders to stations; a single stage may fan out to multiple stations in parallel, and a station may be engaged across multiple stages. See [ace/workspaces/README.md](ace/workspaces/README.md).
+
+### How are Workspace Sessions hosted?
+
+**Sessions are Kubernetes pods.** Workspace Session Infrastructure spawns pods on a Foundry-admin-provided K8s cluster; URLs are generated via Coder's wildcard proxy.
+
+### Who owns session lifecycle?
+
+**Session lifecycle is a control-plane concern.** Workspace Session Management owns lifecycle state; WO Runtime is the in-session worker that acknowledges state transitions.
+
+### Does the platform provision clusters?
+
+No. **Foundry admin provides cluster endpoints.** The platform does not provision Kubernetes clusters — it consumes them via Foundry settings.
+
+---
+
 ## Deferred / open questions
 
 The tldr does not commit to these. Each will be addressed in deeper docs — ACE concepts, the platform spec, or onboarding material.
