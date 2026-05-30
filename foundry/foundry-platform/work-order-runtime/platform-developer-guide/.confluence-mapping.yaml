@@ -1,0 +1,5 @@
+pages:
+  agent-spawning.md: "Agent Spawning (Developer Guide)"
+  ide-integration.md: "IDE Integration (Developer Guide)"
+  requirements.md: "Work Order Runtime Requirements (Developer Guide)"
+  task-execution.md: "Task Execution (Developer Guide)"

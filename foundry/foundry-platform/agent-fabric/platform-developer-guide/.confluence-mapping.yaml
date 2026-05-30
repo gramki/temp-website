@@ -1,0 +1,5 @@
+pages:
+  requirements.md: "Agent Fabric Requirements (Developer Guide)"
+  capable-agents.md: "Capable Agents (Developer Guide)"
+  employed-agents.md: "Employed Agents (Developer Guide)"
+  skilled-agents.md: "Skilled Agents (Developer Guide)"
