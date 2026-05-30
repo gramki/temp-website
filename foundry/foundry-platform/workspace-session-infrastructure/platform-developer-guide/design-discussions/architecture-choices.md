@@ -1,10 +1,14 @@
 # Architecture Choices
 
-Design decisions for Workspace Session Infrastructure. Each section documents options considered, trade-offs, and the chosen direction.
+Design decisions for Workspace Session Infrastructure. Each section documents options considered, the decision taken, and rationale.
+
+> **Status:** Decisions marked **DECIDED** are normative for implementation. Options not selected remain documented as escape paths.
+
+---
 
 ## 1. Coder vs raw Kubernetes pods
 
-Do we run Coder (workspace provider model, template registry, dashboard) or deploy Code Server directly in pods managed by Session Infrastructure?
+Do we run Coder (workspace provider, template registry, dashboard) or deploy Code Server directly in pods managed by Session Infrastructure?
 
 | Aspect | Coder | Raw Code Server in Pod |
 |--------|-------|------------------------|
@@ -12,22 +16,19 @@ Do we run Coder (workspace provider model, template registry, dashboard) or depl
 | Template registry | Coder templates (Terraform-based) | K8s manifests managed by Session Infrastructure directly |
 | Dashboard / admin UI | Coder dashboard for session visibility | Must build in Foundry Web App or rely on Session Management API |
 | Dotfiles sync | Built-in per-user | Must implement separately |
-| Networking | Coder's built-in proxy (wildcard app routing) | Standard K8s Ingress (we control fully) |
+| Networking | Coder's built-in proxy (wildcard app routing) | Standard K8s Ingress (full control) |
 | Licensing | Open-source (AGPLv3); enterprise features require license | No licensing concern |
-| Abstraction layer | Adds a layer between Session Infrastructure and K8s | Direct K8s control; no intermediary |
+| Abstraction layer | Adds layer between Session Infrastructure and K8s | Direct K8s control; no intermediary |
 | Multi-cluster | Coder supports multiple provisioners | Must build multi-cluster routing |
-| Customization | Constrained by Coder's template model and lifecycle hooks | Full control over pod spec, init containers, volumes |
+| Customization | Constrained by Coder's template model | Full control over pod spec, init containers, volumes |
 
-### DECISION: Coder as thin provisioner
+### **DECIDED: Coder as thin provisioner**
 
-Use Coder's workspace provisioner pointing at the K8s cluster (Coder's intended deployment model). This gives stop/start/resume, the proxy layer for session URLs, and dotfiles sync for free.
+Use Coder's workspace provisioner pointing at the Foundry-admin-provided K8s cluster. Session Infrastructure owns **template definitions** (Kubernetes provider directly, not Terraform templates). Session Management is the **source of truth** for session state — not Coder's internal state. WO Runtime acks to Session Management; Coder's agent is not Foundry's WO Runtime.
 
-Constraints that keep Foundry in control:
-- Session Infrastructure owns **template definitions** (Coder Kubernetes provider directly, not Terraform templates)
-- Session Management is the **source of truth** for session state — not Coder's internal state
-- WO Runtime still acks to Session Management — Coder's agent is not Foundry's WO Runtime; Coder ensures the container runs
+**Rationale:** Stop/start/resume and wildcard proxy routing come for free. Avoids rebuilding session resume and URL routing. Foundry retains control of lifecycle decisions and pod spec ownership.
 
-**Escape path:** Replace Coder API calls with direct K8s pod creation. Pod spec and volumes are owned by Session Infrastructure either way.
+**Escape path:** Replace Coder API calls with direct K8s calls. Pod spec, volumes, and networking are owned by Session Infrastructure either way.
 
 → [coder-on-kubernetes.md](../coder-on-kubernetes.md)
 
@@ -40,48 +41,44 @@ Does WO Runtime run as a sidecar container alongside Code Server, or as a proces
 | Aspect | Single Container | Sidecar |
 |--------|-----------------|---------|
 | Filesystem sharing | Trivial (same filesystem) | Requires shared volume mount |
-| Independent restart | WO Runtime crash = container restart = Code Server restart | WO Runtime crash restarts only sidecar; Code Server unaffected |
+| Independent restart | WO Runtime crash = supervisor restart; Code Server unaffected | WO Runtime crash restarts only sidecar |
 | Resource accounting | Single resource limit for both | Independent CPU/memory limits |
-| Health probes | One probe must cover both | Independent probes per container |
+| Health probes | One probe covers WO Runtime readiness | Independent probes per container |
 | Logging | Shared stdout; must demux | Separate log streams |
 | Deployment coupling | Same image contains both | Can version/update independently |
-| Complexity | Simpler pod spec; process supervision inside (supervisord) | More K8s-native; standard sidecar pattern |
+| Complexity | Simpler pod spec | Standard sidecar pattern |
 
-### DECISION: Single container with process supervision
+### **DECIDED: Single container with process supervision**
 
-WO Runtime and Code Server run as processes within one container, managed by supervisord.
+Code Server, WO Runtime, and Capable Agent processes run in one container managed by supervisord. WO Runtime and agents need direct access to the same workspace files; shared filesystem is the natural model. Supervisord handles independent process restarts (`autorestart=true`) without killing Code Server.
 
-Rationale:
-- Simpler pod spec and networking — no shared volume mounts for filesystem access
-- WO Runtime and agents need direct access to the same workspace files
-- Process supervision handles WO Runtime restarts independently (`autorestart=true`) without killing Code Server
-- One container, one set of resource limits, one image
-- Finer-grained isolation available later via cgroups within the container
+**Rationale:** Simpler pod spec and networking. One container, one set of resource limits, one image. Process-level crashes handled by supervisor; container-level OOM handled by K8s pod restart with PVC intact.
 
-→ [pod-lifecycle.md](../pod-lifecycle.md) — Pod spec
-→ [../concepts/session-pod.md](../../concepts/session-pod.md)
+**Future option:** cgroups at process level within the container if finer-grained resource isolation is needed.
+
+→ [pod-lifecycle.md](../pod-lifecycle.md) — Pod spec and supervisord layout
 
 ---
 
-## 3. Ingress-per-session vs shared ingress with path routing
+## 3. Ingress-per-session vs wildcard subdomain
 
 | Aspect | Wildcard Subdomain | Path-based Routing |
 |--------|-------------------|-------------------|
 | URL format | `{session-id}.sessions.foundry.example.com` | `sessions.foundry.example.com/{session-id}/` |
 | DNS | Wildcard A record | Single A record |
 | TLS | Wildcard cert (one covers all) | Single cert for one domain |
-| WebSocket | Clean (host-based routing works natively) | Requires path-stripping; Code Server base-path config |
-| Code Server compatibility | Works out of the box (served at root `/`) | Requires `--base-path` flag; some extensions break |
-| Ingress resource count | One per session (could be 1000s) | One shared Ingress |
-| Coder compatibility | Coder's wildcard app routing uses this pattern | Coder does not support path-based routing |
+| WebSocket | Clean (host-based routing) | Requires path-stripping; Code Server base-path config |
+| Code Server compatibility | Works out of the box | Requires `--base-path`; extensions break |
+| Ingress resource count | One per session (without Coder) | One shared Ingress |
+| Coder compatibility | Coder's wildcard routing uses this pattern | Coder does not support path-based routing |
 
-### DECISION: Wildcard subdomain via Coder proxy
+### **DECIDED: Wildcard subdomain via Coder proxy**
 
-Code Server and Coder assume host-based routing. Path-based routing breaks extensions that construct absolute URLs.
+Session URLs follow `{session-id}.sessions.{ingress-domain}`. One wildcard DNS record and one wildcard certificate. Coder proxy routes by workspace name — **zero per-session Ingress objects**.
 
-With Coder's built-in proxy: one wildcard cert, one DNS record, Coder routes `{session-id}.sessions.{domain}` to the correct pod — **zero per-session Ingress objects**.
+**Rationale:** Code Server and Coder assume host-based routing. Path-based routing breaks extensions that construct absolute URLs. Coder proxy eliminates the "thousands of Ingress objects" concern.
 
-Fallback without Coder: single wildcard Ingress + ExternalDNS service discovery.
+**Escape path:** Single wildcard Ingress with ExternalDNS + service discovery if Coder is removed.
 
 → [networking.md](../networking.md)
 
@@ -91,24 +88,22 @@ Fallback without Coder: single wildcard Ingress + ExternalDNS service discovery.
 
 | Aspect | Standalone Service | Management Subsystem |
 |--------|-------------------|---------------------|
-| Scaling driver | Heartbeats: 15s × N sessions = ~67/s per 1000 sessions | Coupled to Management's config-read load |
-| Failure isolation | Session Management crash does not affect Validation, WCM | Shared fate with all Management subsystems |
-| Event throughput | High-frequency (heartbeats + state events) | Mixes with Management's low-frequency config events |
-| Latency | Heartbeat + query must be fast (200ms) | Management is less latency-sensitive |
-| Data relationships | FK references to Foundry/Workbench/User (Management tables) | Natural join; same DB |
-| Operational surface | +1 service to deploy and monitor | No additional deployment |
+| Scaling driver | Heartbeats: 15s × N sessions | Coupled to Management config-read load |
+| Failure isolation | Session Mgmt crash does not affect Validation, WCM | Shared fate with all Management subsystems |
+| Event throughput | High-frequency heartbeats + state events | Mixes with low-frequency config events |
+| Latency | Heartbeat + query must be fast (200ms) | Management less latency-sensitive |
+| Data relationships | FK references by ID only | Natural join; same DB with FKs |
+| Operational surface | +1 service to deploy | No additional deployment |
 
-### DECISION: Standalone service, shared database, no FK constraints
+### **DECIDED: Standalone service, shared database, no FK constraints**
 
-Session Management is a standalone service (separate container, own scaling, own release cycle) sharing the same PostgreSQL instance but using its own schema/tables.
+Session Management deploys as a separate container with its own schema in the same PostgreSQL instance. References Foundry/Workbench/User by ID — no foreign key constraints to Management tables. Deploy in the same K8s namespace as Management.
 
-- References Foundry/Workbench/User by ID — **no foreign key constraints** to Management tables
-- Logically coupled by convention, physically decoupled at schema level
-- Deploy as separate container in same K8s namespace as Management
+**Rationale:** Heartbeat throughput (~67/s per 1000 sessions) and failure isolation. A bug in liveness timeout logic should not take down Validation or WCM. Easy to extract to its own database later.
 
-This decision affects Session Management (Phase 2), documented here because Session Infrastructure's interface contracts depend on Session Management being independently scalable.
+*Note: This decision applies to Session Management, documented here for cross-module context.*
 
-→ [../../workspace-session-management/platform-developer-guide/design-discussions/standalone-vs-subsystem.md](../../workspace-session-management/platform-developer-guide/design-discussions/standalone-vs-subsystem.md) (Phase 2)
+→ [../../workspace-session-management/platform-developer-guide/design-discussions/standalone-vs-subsystem.md](../../workspace-session-management/platform-developer-guide/design-discussions/standalone-vs-subsystem.md)
 
 ---
 
@@ -121,32 +116,30 @@ One image per workspace type (6 images) vs universal image with activation?
 | Image size | Smaller per-type | Larger (union of all tools) |
 | Build pipeline | 6 parallel builds | 1 build |
 | Content overlap | ~95% shared | Naturally deduplicated |
-| Workspace-type differences | Language runtimes, test frameworks, release tools | Activation via env var at session start |
+| Workspace-type differences | Language runtimes, test frameworks, signing tools | Activation via env var + init script |
 
-### DECISION: Single base image + workspace-type activation at session start
+### **DECIDED: Single base image + workspace-type activation at session start**
 
-Six workspace types share ~95% content. Differences (language runtimes for Dev, test frameworks for QA, signing tools for Release) are applied as an activation layer at session start via init container or activation scripts.
+Six workspace types share ~95% content. Differences (language runtimes for Dev, test frameworks for QA, signing tools for Release) are applied as an activation layer at session start via init container or devcontainer features. Foundry admin Layer 3 overlay handles per-workspace customization using the same mechanism.
 
-- Keeps build pipeline simple (one release artifact)
-- Foundry admin Layer 3 overlay handles per-workspace customization using the same mechanism
-- Activation cache pre-staged in image — no runtime network required
+**Rationale:** Simple build pipeline. Activation caches baked into the image keep startup fast without network fetch. Type-specific tooling remains available without maintaining six separate image build pipelines.
 
 → [container-image-spec.md](../container-image-spec.md)
 → [../../concepts/platform-base-image.md](../../concepts/platform-base-image.md)
 
 ---
 
-## Summary
+## Decision summary
 
-| # | Decision |
-|---|----------|
-| 1 | **Coder ok** — thin provisioner; Session Management owns lifecycle |
-| 2 | **Single container** — supervisord manages Code Server + WO Runtime |
-| 3 | **Wildcard ingress ok** — via Coder proxy; no per-session Ingress |
-| 4 | **Session Management standalone** — shared DB, no FK (Phase 2 module) |
-| 5 | **Single base image + activation** — not six separate images |
+| # | Question | Decision |
+|---|----------|----------|
+| 1 | Coder vs raw K8s | **Coder as thin provisioner** |
+| 2 | Single container vs sidecar | **Single container + supervisord** |
+| 3 | URL routing | **Wildcard subdomain via Coder proxy** |
+| 4 | Session Management deployment | **Standalone service** (cross-module) |
+| 5 | Image strategy | **Single base image + activation** |
 
 ## Related documentation
 
-- [../README.md](../README.md) — Module overview
-- [requirements.md](../requirements.md) — Requirements derived from these decisions
+- [../README.md](../README.md) — Module README with decision summary
+- [../../README.md](../../README.md) — Platform-wide design decisions
