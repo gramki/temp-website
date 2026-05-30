@@ -32,7 +32,7 @@ The web app consumes and surfaces capabilities from all platform modules:
 | **Foundry IDE** | Links to/from IDE; context synchronization |
 | **Work Order Runtime** | Work Order views, Task queues, context display, progress tracking |
 | **Foundry Orchestrator** | Orchestration item flow visualization, gate status, transition triggers |
-| **Scenario Catalogue** | Scenario catalogue browsing (read-only for most personas) |
+| **Work Catalogs** | Work Catalogs browsing (read-only for most personas) |
 | **Release Tools** | CI/CD status, release pipelines, artifact management |
 | **Platform Ops** | Health dashboards, observability (admin-facing) |
 

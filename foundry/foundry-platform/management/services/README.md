@@ -83,4 +83,4 @@ Foundry operates as a **GitHub App** registered in the organization:
 - [workshop-validation.md](workshop-validation.md) — PR validation and merge gating
 - [workshop-sync.md](workshop-sync.md) — Webhook processing and sync
 - [metadata-service.md](metadata-service.md) — Central config store
-- [../scenario-management/README.md](../scenario-management/README.md) — Scenario schema and recommendations
+- [../work-catalog-management/README.md](../work-catalog-management/README.md) — Work Catalog Management (schemas, resolution, validation)

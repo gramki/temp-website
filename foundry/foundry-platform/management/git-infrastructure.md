@@ -19,8 +19,18 @@ Configuration repositories managed by the Foundry Platform for declarative infra
 
 | Repository | Scope | Provisioned By | Provisioned When | Purpose |
 |------------|-------|----------------|------------------|---------|
-| `foundry-{id}/` | Foundry | Platform Admin | Foundry creation | Foundry metadata, Domain, Practices, Capable Agents |
-| `workshop-{id}/` | Workshop | Foundry Admin | Workshop creation | Workshop + Workbench config, Domain, Practices, Ontology, Workspaces |
+| `foundry-{id}/` | Foundry | Platform Admin | Foundry creation | Foundry metadata, Domain, Practices, Capable Agents, Work Catalog |
+| `workshop-{id}/` | Workshop | Foundry Admin | Workshop creation | Workshop + Workbench config, Domain, Practices, Ontology, Workspaces, Work Catalog |
+
+### User Work Catalog Repositories
+
+Personal Work Catalog repositories for builder experimentation.
+
+| Repository | Scope | Provisioned By | Provisioned When | Purpose |
+|------------|-------|----------------|------------------|---------|
+| `user-work-catalog-{userId}/` | User | Auto-provisioned | First user catalog activation | Personal OI Workflows and Scenarios |
+
+User Work Catalog repos are auto-provisioned when a user first activates their personal catalog (via session flag or profile setting). One repo per user per Foundry.
 
 ### Product Repositories (Workbench-Managed)
 
@@ -48,12 +58,20 @@ GitHub Organization (one per Workshop or Foundry)
 │   ├── practices/                       #   Foundry-level practices
 │   │   ├── universal/
 │   │   └── {workspace-type}/
+│   ├── work-catalog/                    #   Foundry-level Work Catalog
+│   │   └── {track}/                     #     Track-level content
+│   │       └── {oi-type}/               #       OI-level content
+│   │           ├── workflow.yaml        #         OI Workflow
+│   │           └── {workspace}/         #         Workspace-level
+│   │               └── scenarios/       #           Scenarios
 │   └── capable-agents.yaml              #   Foundry-level agent config
 │
 ├── workshop-payments/                   # Workshop Definition Repository
 │   ├── workshop.yaml                    #   Workshop metadata
 │   ├── domain/                          #   Workshop-level domain knowledge
 │   ├── practices/                       #   Workshop-level practices
+│   ├── work-catalog/                    #   Workshop-level Work Catalog
+│   │   └── (same structure as Foundry)
 │   ├── workspaces/                      #   Base workspace configurations (all 6)
 │   └── workbenches/
 │       └── checkout/                    #   Workbench configuration
@@ -61,7 +79,11 @@ GitHub Organization (one per Workshop or Foundry)
 │           ├── ontology/                #   Product structure, capabilities
 │           ├── domain/                  #   Workbench-level domain knowledge
 │           ├── practices/               #   Workbench-level practices
+│           ├── work-catalog/            #   Workbench-level Work Catalog (sparse)
 │           └── workspaces/              #   Workspace overrides (sparse)
+│
+├── user-work-catalog-{userId}/          # User Work Catalog Repository
+│   └── (same structure as work-catalog/)
 │
 └── (Product repos - per Workbench)
     ├── checkout-intent/                 # Intent Repository
@@ -152,6 +174,51 @@ Workshop Admin creates Workbench
 Product repos created and tagged
 Code repos created later as Systems are defined
 ```
+
+### 4. User Work Catalog Provisioning
+
+User Work Catalog repos are auto-provisioned when a user first activates their personal catalog:
+
+```
+User activates personal catalog (session or profile)
+        │
+        ▼
+┌─────────────────────────────────────────┐
+│ User Catalog Provisioning               │
+│                                         │
+│ 1. Create user-work-catalog-{userId}/   │
+│ 2. Initialize with template structure   │
+│ 3. Configure webhook → Workshop Sync    │
+│ 4. Grant user write access              │
+│ 5. Register in Metadata Service         │
+└─────────────────────────────────────────┘
+        │
+        ▼
+User Work Catalog repo created with:
+  - README.md (usage instructions)
+  - .gitignore
+  - Empty track folder structure
+```
+
+**User Work Catalog template structure:**
+
+```
+user-work-catalog-{userId}/
+├── README.md                     # Usage instructions
+├── .gitignore
+└── build/                        # Track folder (others as needed)
+    └── product-intent/           # OI folder
+        ├── workflow.yaml         # Optional OI Workflow override
+        └── development/          # Workspace folder
+            └── scenarios/        # Scenario overrides
+                └── .gitkeep
+```
+
+**Activation triggers:**
+- Session flag: User enables "Use personal catalog" in Workspace Session settings
+- Profile setting: User enables "Personal catalog" in user profile
+
+**One repo per user per Foundry** — if a user works in multiple Foundries, they get one repo per Foundry.
 
 ---
 
@@ -350,6 +417,7 @@ repoType: intent
 |-----------|---------|---------|
 | Foundry Definition | `foundry-{foundry-id}` | `foundry-zeta` |
 | Workshop Definition | `workshop-{workshop-id}` | `workshop-payments` |
+| User Work Catalog | `user-work-catalog-{user-id}` | `user-work-catalog-jsmith` |
 
 ### Product Repositories
 
@@ -360,12 +428,33 @@ repoType: intent
 | Code | `{product}-{component}` | `checkout-api`, `checkout-ui` |
 | Quality Automation | `{product}-tests` | `checkout-tests` |
 
+### Work Catalog Content Structure
+
+Work Catalog content follows a consistent path structure across all catalog levels:
+
+```
+{catalog-root}/
+└── {track}/                      # build, discovery, run, win, evolve, governance
+    └── {oi-type}/                # product-intent, discovery-case, etc.
+        ├── README.md             # OI description (optional)
+        ├── workflow.yaml         # OI Workflow definition
+        └── {workspace}/          # development, qa, release, etc.
+            └── scenarios/
+                ├── {scenario-id}.yaml
+                └── ...
+```
+
+**File naming:**
+- OI Workflow: Always `workflow.yaml` in the OI folder
+- Scenarios: `{scenario-id}.yaml` — ID must be unique within the Workspace
+
 ### Constraints
 
 - Lowercase alphanumeric with hyphens
 - Max 100 characters
 - Must be unique within GitHub Org
 - Product name derived from `workbench.yaml` metadata
+- User ID derived from identity provider (Olympus Cipher)
 
 ---
 

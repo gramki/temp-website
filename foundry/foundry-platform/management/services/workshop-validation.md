@@ -147,4 +147,4 @@ Response: { status, errors[], warnings[] }
 
 - [workshop-sync.md](workshop-sync.md) — What happens after merge
 - [metadata-service.md](metadata-service.md) — Where validated config ends up
-- [../scenario-management/scenario-schema.md](../scenario-management/scenario-schema.md) — Scenario schema details
+- [../work-catalog-management/scenario-schema.md](../work-catalog-management/scenario-schema.md) — Scenario schema details

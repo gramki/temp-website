@@ -92,6 +92,34 @@ Ephemeral development environments for humans and agents to work on Tasks.
 | **WO relationship** | Multiple Work Orders can be attached to one Session |
 | **Lifecycle** | User explicitly closes; states: Active, Stopped, Archived |
 
+### Work Catalog Resolution
+
+WO Runtime resolves Scenarios from the **Work Catalog** hierarchy:
+
+```
+Platform Default                    ← work-catalogues/platform-defaults/
+└── Foundry Catalog                 ← foundry-{id}/work-catalog/
+    └── Workshop Catalog            ← workshop-{id}/work-catalog/
+        └── Workbench Catalog       ← workbench settings
+            └── User Catalog        ← user-work-catalog-{id}/ (if activated)
+```
+
+**Resolution rules:**
+- Closest wins: User → Workbench → Workshop → Foundry → Platform
+- Scenarios at lower levels override (not merge with) parent levels
+- User catalog must be explicitly activated (see below)
+
+**User catalog activation:**
+| Method | Description |
+|--------|-------------|
+| **Session flag** | Per-session opt-in via Workspace Session settings |
+| **User profile** | Persistent preference in user profile settings |
+
+When user catalog is active, the user's personal `user-work-catalog-{id}/` repository is included in resolution. This allows builders to experiment with Scenario modifications without affecting team workflows.
+
+→ [../work-catalogues/README.md](../work-catalogues/README.md) — Work Catalog overview
+→ [../management/work-catalog-management/resolution-algorithm.md](../management/work-catalog-management/resolution-algorithm.md) — Full resolution algorithm
+
 ### Knowledge Hierarchy
 
 WO Runtime builds agent context by merging knowledge from multiple levels:
@@ -146,6 +174,8 @@ WO Runtime accesses Jira through **Jira MCP Server**.
 
 ## Key Design Decisions
 
+- **Work Catalog is the source for Scenarios.** Scenarios are resolved from the Work Catalog hierarchy (Platform → Foundry → Workshop → Workbench → User). This enables org-wide defaults with product-specific overrides.
+- **User catalogs are opt-in.** Builders must explicitly activate their personal Work Catalog (per session or in profile) to include it in resolution. This prevents accidental interference with team workflows.
 - **Agent lifecycle is context-dependent.** Work Order Runtime owns agent lifecycle for Work Order execution. (Release Tools owns it for CI-embedded agents.)
 - **Agents are spun up per Scenario.** Not long-lived identities — each Scenario invocation gets its own agent.
 - **Context flows with the work.** Work Orders carry their context via the parent orchestration-item graph.

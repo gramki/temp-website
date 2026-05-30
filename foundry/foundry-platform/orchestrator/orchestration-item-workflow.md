@@ -1,6 +1,6 @@
-# Orchestration Item Workflow Schema
+# Orchestration Item Workflow Guide
 
-This document specifies the YAML schema for defining orchestration item workflows in Foundry.
+This document provides an authoring guide and reference for OI Workflow definitions. For the canonical YAML schema, see [../management/work-catalog-management/oi-workflow-schema.md](../management/work-catalog-management/oi-workflow-schema.md).
 
 ## Overview
 
@@ -10,7 +10,12 @@ Each orchestration item type (Product Intent, Release Intent, Discovery Case, et
 - **Handlers** — Event-driven logic that executes actions
 - **Actions** — Operations like creating Work Orders or transitioning stages
 
-Workflows are defined at Foundry, Workshop, or Workbench level. The closest definition wins (Workbench > Workshop > Foundry).
+Workflows are sourced from the **Work Catalog** with hierarchical resolution: Platform → Foundry → Workshop → Workbench → User. The closest definition wins.
+
+**Audience:** This guide is for platform admins and foundry admins who author or customize OI Workflows. Builders typically interact with workflows indirectly through Work Orders.
+
+**Schema reference:** [../management/work-catalog-management/oi-workflow-schema.md](../management/work-catalog-management/oi-workflow-schema.md)
+**Platform defaults:** [../work-catalogues/platform-defaults/](../work-catalogues/platform-defaults/)
 
 ## Schema Structure
 
@@ -358,20 +363,28 @@ Workbench Managers and Program Managers can manually transition stages:
 
 Manual transitions bypass workflow handlers but are logged in `transition_history`.
 
-## Workflow Hierarchy
+## Workflow Hierarchy (Work Catalog Resolution)
+
+OI Workflows are resolved from the Work Catalog hierarchy:
 
 ```
-Foundry
-└── Workshop
-    └── Workbench
+Platform Default                    ← work-catalogues/platform-defaults/
+└── Foundry Catalog                 ← foundry-{id}/work-catalog/
+    └── Workshop Catalog            ← workshop-{id}/work-catalog/
+        └── Workbench Catalog       ← workbench settings
+            └── User Catalog        ← user-work-catalog-{id}/ (if activated)
 ```
 
 Resolution order:
-1. Check Workbench `workflows/{type}.yaml`
-2. If not found, check Workshop `workflows/{type}.yaml`
-3. If not found, check Foundry `workflows/{type}.yaml`
+1. Check User catalog (if user catalog is activated for the session)
+2. Check Workbench-level catalog
+3. Check Workshop-level catalog
+4. Check Foundry-level catalog
+5. Check Platform defaults
 
-Workshop and Workbench workflows **replace** (not merge with) parent workflows.
+Workflows at a lower level **replace** (not merge with) parent workflows.
+
+For full resolution algorithm details, see [../management/work-catalog-management/resolution-algorithm.md](../management/work-catalog-management/resolution-algorithm.md).
 
 ## Complete Example
 
@@ -541,5 +554,5 @@ stages:
 ## Read Next
 
 - [orchestrator-requirements.md](orchestrator-requirements.md) — Orchestrator module requirements
-- [sample-pi-workflow.yaml](sample-pi-workflow.yaml) — Complete PI workflow example
+- [workflow.yaml](../work-catalogues/platform-defaults/build/product-intent/workflow.yaml) — Complete PI workflow example
 - [pi-journey.md](pi-journey.md) — End-to-end PI walkthrough
