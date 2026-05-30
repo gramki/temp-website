@@ -26,12 +26,13 @@ Module-specific concepts (internals):
 | Context Compilation | [../concepts/context-compilation.md](../concepts/context-compilation.md) |
 | Completion Reporter | [../concepts/completion-reporter.md](../concepts/completion-reporter.md) |
 | Local State Store | [../concepts/local-state-store.md](../concepts/local-state-store.md) |
+| Management Plane Interface | [../concepts/management-plane-interface.md](../concepts/management-plane-interface.md) |
 
 ## ACE alignment
 
 | ACE concept | How this module realizes it |
 |-------------|---------------------------|
-| **Workspace** | Runs within Workspace Sessions (Coder environments) |
+| **Workspace** | Runs within Workspace Sessions (Coder/K8s environments); does not create sessions |
 | **Work Order** | Attaches, schedules, and executes WOs within sessions |
 | **Task** | Manages task trees with dependencies and state transitions |
 | **Agent** | Spawns Employed Agents (runtime instances of Skilled Agents) |
@@ -91,7 +92,7 @@ Module-specific concepts (internals):
 
 **WOR-FR-0001:** The WO Runtime Daemon SHALL coordinate all WO/task execution within a Workspace Session.
 
-**WOR-FR-0002:** The WO Runtime Daemon SHALL start with the workspace, run continuously, and stop with the workspace.
+**WOR-FR-0002:** The WO Runtime Daemon SHALL start with the workspace container, run continuously, and stop when the session stops. WO Runtime does not create sessions — it boots inside a pod provisioned by Session Infrastructure and acknowledges liveness to Session Management.
 
 | Aspect | Detail |
 |--------|--------|
@@ -676,12 +677,34 @@ OpenTelemetry spans for:
 
 ---
 
+---
+
+## Management Plane Interface
+
+WO Runtime communicates with [Workspace Session Management](../../workspace-session-management/README.md) as an in-session worker. See [../concepts/management-plane-interface.md](../concepts/management-plane-interface.md).
+
+**WOR-FR-0030:** On boot, WO Runtime SHALL send liveness acknowledgment to Session Management within 30 seconds.
+
+**WOR-FR-0031:** WO Runtime SHALL send heartbeat to Session Management every 15 seconds while the session is Active.
+
+**WOR-FR-0032:** On receiving stop or drain command (via heartbeat response or explicit API), WO Runtime SHALL drain active tasks within the configured grace period, then send shutdown acknowledgment.
+
+**WOR-FR-0033:** WO Runtime SHALL expose `GET /health` for Kubernetes readiness and liveness probes.
+
+| Aspect | Detail |
+|--------|--------|
+| Liveness ack endpoint | Session Management `POST /api/v1/sessions/{id}/ack` |
+| Heartbeat interval | 15 seconds |
+| Grace period on stop | Configurable; default 30 seconds |
+| Health probe | `/health` returns `{ status, session_id, uptime_seconds }` |
+
+---
+
 ## Open Implementation Questions
 
 - Exact Jira custom field IDs and project configuration per Workbench
-- Coder workspace template customization for WO Runtime daemon
-- Agent process isolation model (containers vs processes)
-- Session persistence on Coder workspace stop/restart
+- Coder workspace template customization for WO Runtime daemon (owned by Session Infrastructure)
+- Session persistence on stop/restart (owned by Session Management + Session Infrastructure)
 - Knowledge context refresh policy
 - Agent crash detection and recovery timing
 - IDE extension communication protocol (WebSocket vs polling)

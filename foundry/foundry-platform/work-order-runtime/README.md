@@ -1,6 +1,6 @@
 # Work Order Runtime
 
-**Module scope:** Execution engine — context compilation, agent lifecycle for WO execution, agent delegation, human-task surfacing, Workspace Session management.
+**Module scope:** Execution engine — context compilation, agent lifecycle for WO execution, agent delegation, human-task surfacing, session-local execution and management-plane agent.
 
 ## Purpose
 
@@ -17,7 +17,8 @@ Primary beneficiaries are builders who work in Workspace Sessions (developers, P
 - **Task tree management** — manage task trees with dependencies, state transitions, and completion tracking
 - **Jira integration** — use Jira as the system of record for Work Orders and Tasks via MCP
 - **Human-task surfacing** — identify Tasks without Skilled Agents, surface them in the web console and IDE
-- **Workspace Session management** — create and manage Coder-based ephemeral dev environments
+- **Session-local execution** — execute tasks, spawn agents, and manage work inside a provisioned session pod
+- **Management-plane agent** — acknowledge liveness, send heartbeats, and honor stop/drain commands from Session Management
 - **IDE integration** — VS Code plugin for Work Orders Panel, agent chat tabs, and terminal windows
 - **Skill injection** — install and load skills from registries into Session containers
 
@@ -28,6 +29,7 @@ Primary beneficiaries are builders who work in Workspace Sessions (developers, P
 - **Does not decide what Work Order to create next** — Orchestrator's workflow engine handles this
 - **Does not manage Capable Agents or Skills** — Agent Fabric provides the registry and policy
 - **Does not provision Workbenches** — Management module handles provisioning
+- **Does not create or lifecycle-manage sessions** — [Workspace Session Management](../workspace-session-management/README.md) owns session lifecycle; [Workspace Session Infrastructure](../workspace-session-infrastructure/README.md) provisions pods
 
 When a Work Order completes, Runtime notifies the Orchestrator so the parent orchestration item can advance.
 
@@ -78,19 +80,34 @@ WO Runtime runs as a **daemon** within each Workspace Session:
 4. Agents execute tasks, creating sub-tasks via Jira MCP
 5. Completion Reporter notifies Orchestrator when WO finishes
 
+## WO Runtime as distributed worker
+
+WO Runtime is an **in-session worker** — a process running inside a Kubernetes pod provisioned by Session Infrastructure. It has two interfaces:
+
+| Interface | Serves | Operations |
+|-----------|--------|------------|
+| **Management plane** | [Workspace Session Management](../workspace-session-management/README.md) | Liveness ack, heartbeat, shutdown ack, stop/drain |
+| **User/local** | Builder in session | Task execution, agent spawning, IDE plugin API, `foundry workspace` CLI |
+
+WO Runtime does **not** create sessions. On boot it acknowledges liveness to Session Management; the session becomes Active only after that ack. Work Order assignment is Orchestrator's responsibility — WO Runtime discovers assignments via Orchestrator events and/or Work repo (Jira) polling.
+
+→ [concepts/management-plane-interface.md](concepts/management-plane-interface.md) — management plane protocol
+
 ## Key Components
 
 ### Workspace Sessions
 
-Ephemeral development environments for humans and agents to work on Tasks.
+WO Runtime runs **inside** sessions provisioned by Session Infrastructure. It does not create them.
 
 | Aspect | Detail |
 |--------|--------|
-| **Technology** | Coder (similar to GitHub Codespaces) |
+| **Provisioning** | [Session Infrastructure](../workspace-session-infrastructure/README.md) spawns K8s pod; [Session Management](../workspace-session-management/README.md) tracks lifecycle |
+| **Activation** | WO Runtime sends liveness ack on boot → Session Management marks Active |
+| **Technology** | Coder workspace on K8s (Code Server + WO Runtime in single container) |
 | **Template** | Per (Workspace Type, Workbench) — from `.devcontainer/` in Workshop Definition Repo |
 | **Ownership** | Owned by one person (not shared) |
-| **WO relationship** | Multiple Work Orders can be attached to one Session |
-| **Lifecycle** | User explicitly closes; states: Active, Stopped, Archived |
+| **WO relationship** | Multiple Work Orders can attach to one Session |
+| **Lifecycle** | Managed by Session Management: Created → Starting → Active → Stopping → Stopped → Archived |
 
 ### Work Catalog Resolution
 
@@ -170,7 +187,7 @@ WO Runtime accesses Jira through **Jira MCP Server**.
 | **Scenario** | Reads Scenario definitions; spawns agents per Scenario |
 | **Task** | Manages Agent Tasks and Human Tasks within WOs |
 | **Agent** | Spawns Employed Agents with context and skills |
-| **Workspace Session** | Creates and manages Coder-based dev environments |
+| **Workspace Session** | Runs inside sessions; acknowledges liveness; executes work locally |
 
 ## Key Design Decisions
 
@@ -181,7 +198,17 @@ WO Runtime accesses Jira through **Jira MCP Server**.
 - **Context flows with the work.** Work Orders carry their context via the parent orchestration-item graph.
 - **Knowledge is hierarchical.** WO Runtime merges Workshop → Workbench → WO context for each agent invocation.
 - **Sessions are user-owned.** One person per Session; multiple WOs can be attached.
+- **Session lifecycle is a control-plane concern.** Session Management owns lifecycle; WO Runtime is the in-session worker.
 - **Skills are installed at session launch.** Version resolution happens once; pinned versions recorded for reproducibility.
+
+## Dependencies
+
+| Dependency | Relationship |
+|------------|--------------|
+| [Workspace Session Management](../workspace-session-management/README.md) | WO Runtime acks liveness, sends heartbeats, receives stop/drain |
+| [Workspace Session Infrastructure](../workspace-session-infrastructure/README.md) | Pod and image that WO Runtime runs inside |
+| [Orchestrator](../orchestrator/README.md) | Assigns WOs; receives completion notifications |
+| [Agent Fabric](../agent-fabric/README.md) | Skills, Capable Agents, delegation policy |
 
 ## Open Questions
 
@@ -207,7 +234,7 @@ These concepts are defined centrally and used across Foundry modules:
 | [Task](../concepts/task.md) | Manages Agent Tasks and Human Tasks within WOs |
 | [Scenario](../concepts/scenario.md) | Reads definitions; spawns agents per Scenario |
 | [Agent Model](../concepts/agent-model.md) | Spawns Employed Agents with context and skills |
-| [Workspace Session](../concepts/workspace-session.md) | Creates and manages Coder-based dev environments |
+| [Workspace Session](../concepts/workspace-session.md) | In-session worker; liveness ack and local execution |
 | [Delegation](../concepts/delegation.md) | Issues delegation tokens for Employed Agents |
 | [Work Catalog](../concepts/work-catalog.md) | Resolves Scenarios from hierarchy |
 | [Knowledge Hierarchy](../concepts/knowledge-hierarchy.md) | Merges Workshop → Workbench → WO context |
@@ -218,6 +245,7 @@ These concepts describe WO Runtime internals:
 
 | Concept | Definition |
 |---------|------------|
+| [Management Plane Interface](concepts/management-plane-interface.md) | Liveness ack, heartbeat, shutdown protocol with Session Management |
 | [WO Runtime Daemon](concepts/wo-runtime-daemon.md) | Long-running process that coordinates WO execution |
 | [Task Manager](concepts/task-manager.md) | Manages task trees, dependencies, and state transitions |
 | [Agent Spawner](concepts/agent-spawner.md) | Prepares harnesses and spawns Employed Agents |
@@ -237,6 +265,8 @@ These concepts describe WO Runtime internals:
 
 ## Read Next
 
+- [../workspace-session-management/README.md](../workspace-session-management/README.md) — session lifecycle control plane
+- [../workspace-session-infrastructure/README.md](../workspace-session-infrastructure/README.md) — session pod provisioning
 - [../orchestrator/README.md](../orchestrator/README.md) — WO creation and routing
 - [../agent-fabric/README.md](../agent-fabric/README.md) — Agent infrastructure (Skills, Capable Agents)
 - [../management/README.md](../management/README.md) — Workbench provisioning
