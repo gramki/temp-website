@@ -23,7 +23,7 @@ For now, yes. The set is defined in [ace/workspaces/README.md](ace/workspaces/RE
 
 ### What's a Scenario, formally?
 
-A defined kind of work that a Workspace knows how to execute. Each Workspace owns a catalogue of Scenarios. A Scenario is automated by an agent with skills and decomposes into Tasks.
+A defined kind of work that a Workspace knows how to execute — the **ingress contract** that defines what work a Workspace accepts. Each Workspace owns a catalogue of Scenarios. A Scenario is automated by an agent with skills and decomposes into Tasks. Scenarios have a **scope**: `workspace-ingress` (external contract, invoked by Orchestrator) or `workspace-internal` (invoked only by Tasks within the Workspace).
 
 ---
 

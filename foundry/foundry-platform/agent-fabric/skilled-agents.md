@@ -2,6 +2,15 @@
 
 Skilled Agents are **local manifests** that combine Capable Agents with Skills and Guardrails for a particular (Workspace Type, Scenario) context.
 
+## Scenario vs Skilled Agent: Contract vs Implementation
+
+| Concept | Defines | Analogy |
+|---------|---------|---------|
+| **Scenario** | **WHAT** — the work contract a Workspace accepts | Interface / API contract |
+| **Skilled Agent** | **HOW** — the implementation that fulfills the contract | Implementation class |
+
+A Scenario is the ingress contract: it specifies inputs, expected outcomes, and scope (`workspace-ingress` or `workspace-internal`). The Skilled Agent is the implementation: it specifies which agent, skills, and guardrails execute that Scenario. One defines the obligation; the other fulfills it.
+
 ## Key Distinction: Manifests vs Packages
 
 | Concept | What It Is | Where It Lives |

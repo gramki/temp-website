@@ -34,8 +34,8 @@ Track
 | Per-workspace station stubs | [../workspaces/](../workspaces/README.md) |
 | UPIM entity definitions | [../../product-information-model/](../../product-information-model/README.md) |
 | Platform implementation modules | [../../foundry-platform/](../../foundry-platform/README.md) |
-| Scenario definitions | [../../foundry-platform/scenario-catalogue/](../../foundry-platform/scenario-catalogue/README.md) |
-| Scenario management | [../../foundry-platform/management/scenario-management/](../../foundry-platform/management/scenario-management/README.md) |
+| Work Catalogs (OI Workflows + Scenarios) | [../../foundry-platform/work-catalogues/](../../foundry-platform/work-catalogues/README.md) |
+| Work Catalog Management | [../../foundry-platform/management/work-catalog-management/](../../foundry-platform/management/work-catalog-management/README.md) |
 
 ## Phase 1 emphasis
 
