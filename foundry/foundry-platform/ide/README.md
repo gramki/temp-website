@@ -67,6 +67,9 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides workspace
 | [Employed Agents Panel](concepts/employed-agents-panel.md) | Session-wide agent roster in the right panel |
 | [Task Graph View](concepts/task-graph-view.md) | WO detail + folder-style task tree in editor tabs |
 | [Agent Employment](concepts/agent-employment.md) | Employing agents during Human Tasks and Personal Work |
+| [Foundry Workspace Panel](concepts/foundry-workspace-panel.md) | Workspace/workbench context, quick links, WO Runtime settings |
+| [Scenario Authoring](concepts/scenario-authoring.md) | Create Scenario scaffold in user-work-catalog |
+| [Workspace Folder Structure](concepts/workspace-folder-structure.md) | Session folder tree, WO repos, work-context sync |
 
 → [concepts/README.md](concepts/README.md) — Full module concept index
 
