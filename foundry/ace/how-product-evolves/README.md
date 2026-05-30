@@ -35,7 +35,7 @@ Track
 | UPIM entity definitions | [../../product-information-model/](../../product-information-model/README.md) |
 | Platform implementation modules | [../../foundry-platform/](../../foundry-platform/README.md) |
 | Work Catalogs (OI Workflows + Scenarios) | [../../foundry-platform/work-catalogues/](../../foundry-platform/work-catalogues/README.md) |
-| Work Catalog Management | [../../foundry-platform/management/work-catalog-management/](../../foundry-platform/management/work-catalog-management/README.md) |
+| Work Catalog Management | [../../foundry-platform/management/platform-developer-guide/work-catalog-management/](../../foundry-platform/management/platform-developer-guide/work-catalog-management/README.md) |
 
 ## Phase 1 emphasis
 

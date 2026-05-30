@@ -4,13 +4,9 @@
 
 ## What this module does
 
-Foundry IDE is the builder-facing interface to Workspaces. It provides:
+Foundry IDE is the builder-facing interface to Workspaces. It provides workspace-specific views, Work Order visibility, Human Task surfacing, and context access for builders working in Workspace Sessions.
 
-- **Workspace-specific views** — each Workspace type (Product Specification, UX Design, Development, QA, Release, Governance) has tailored views
-- **Work Order visibility** — Work Orders in flight, progress, status
-- **Human Task surfacing** — tasks waiting on the builder
-- **Context access** — Product context from UPIM, pre-loaded per Workspace
-- **Context refinement** — builders can add or refine context in Work Orders
+→ [user-guide/workspace-sessions.md](user-guide/workspace-sessions.md) for builder-facing capabilities and session model
 
 ## ACE concepts realized
 
@@ -30,56 +26,28 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides:
 - **"Builder"** is the term for Foundry IDE users
 - **Workspace Session** was considered to disambiguate VS Code Workspace from ACE Workspace, but dropped — the 1:1 per-user mapping makes the overload theoretical, not practical
 
-## WO Runtime Plugin
+→ [platform-developer-guide/extensions.md](platform-developer-guide/extensions.md) for WO Runtime Plugin and Scenario Editor Extension specs
 
-The IDE includes a **WO Runtime Plugin** that provides the user interface for Work Order execution:
+## Key Concepts
 
-| Component | Purpose |
-|-----------|---------|
-| **Work Orders Panel** | Tree view of assigned WOs and task trees with status |
-| **Agent Chat Tabs** | Chat interface for agent-user interaction |
-| **Agent Terminal Windows** | Terminal interface for CLI agents |
+### Platform-wide concepts
 
-The plugin is a UI layer only — VS Code does not mediate agent I/O. Agents communicate directly with users through the UI components.
+| Concept | What IDE does with it |
+|---------|----------------------|
+| [Workspace Session](../concepts/workspace-session.md) | Provides the visual interface to Sessions |
+| [Work Order](../concepts/work-order.md) | Displays in Work Orders Panel |
+| [Task](../concepts/task.md) | Surfaces Human Tasks; provides chat tabs for Agent Tasks |
+| [Scenario](../concepts/scenario.md) | Provides the Scenario Editor for authoring |
 
-See [../work-order-runtime/ide-integration.md](../work-order-runtime/ide-integration.md) for full plugin architecture.
+### Module-specific concepts
 
-## Scenario Editor Extension
+| Concept | Definition |
+|---------|------------|
+| [Builder](concepts/builder.md) | Human user of the Foundry IDE |
+| [Workspace Views](concepts/workspace-views.md) | Per-Workspace-type UI customizations |
+| [Scenario Editor](concepts/scenario-editor.md) | Schema-aware YAML editor for Work Catalog Scenarios |
 
-The IDE includes a **Scenario Editor Extension** for authoring and testing Work Catalog content:
-
-| Feature | Description |
-|---------|-------------|
-| **Schema-aware YAML editing** | Autocomplete, validation, and hover docs for Scenario and OI Workflow schemas |
-| **Effective catalog browser** | Browse resolved catalog for current Workbench context |
-| **Dry-run execution** | Test scenarios with mock inputs before publishing |
-| **Preview effective catalog** | See how changes affect the merged catalog |
-| **Publish CLI integration** | Publish to User catalog or create PRs to team catalogs |
-
-### Schema Support
-
-| Schema | Features |
-|--------|----------|
-| **Scenario schema** | Field completion, skill reference validation, scope hints |
-| **OI Workflow schema** | Stage completion, action templates, event suggestions |
-
-### Authoring Workflow
-
-1. **Create/edit YAML file** — Schema-aware editor with real-time validation
-2. **Preview in catalog** — See where the item fits in the hierarchy
-3. **Dry-run test** — Execute with mock inputs, observe behavior
-4. **Publish** — Push to User catalog (direct) or create PR (team catalogs)
-
-### Publish Targets
-
-| Target | Method | Who |
-|--------|--------|-----|
-| **User catalog** | Direct push | All builders |
-| **Workbench catalog** | PR to Workshop repo | Workbench Members |
-| **Workshop catalog** | PR to Workshop repo | Workshop Members |
-| **Foundry catalog** | PR to Foundry repo | Foundry Members |
-
-See [../work-catalogues/user-guide/authoring-scenarios.md](../work-catalogues/user-guide/authoring-scenarios.md) for the complete authoring guide.
+→ [concepts/README.md](concepts/README.md) — Full module concept index
 
 ## Open questions
 
@@ -87,9 +55,17 @@ See [../work-catalogues/user-guide/authoring-scenarios.md](../work-catalogues/us
 - Workspace-specific view customization mechanism
 - Session lifecycle, cost model, isolation
 
+## Documentation
+
+| Guide | Audience | Index |
+|-------|----------|-------|
+| [Concepts](concepts/) | Anyone | Module-specific concept definitions |
+| [User guide](user-guide/) | Admins, builders | Task-oriented usage |
+| [Foundry Platform developer guide](platform-developer-guide/) | Platform engineers | Implementation specs |
+
 ## Read next
 
-- [../work-order-runtime/ide-integration.md](../work-order-runtime/ide-integration.md) — WO Runtime plugin architecture
-- [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO Runtime module
+- [user-guide/workspace-sessions.md](user-guide/workspace-sessions.md) — builder-facing Workspace Session capabilities
+- [platform-developer-guide/extensions.md](platform-developer-guide/extensions.md) — WO Runtime Plugin and Scenario Editor
+- [../work-order-runtime/platform-developer-guide/ide-integration.md](../work-order-runtime/platform-developer-guide/ide-integration.md) — WO Runtime plugin architecture
 - [../../ace/workspaces/](../../ace/workspaces/README.md) — the six Workspace types
-- [../../tldr-faq.md](../../tldr-faq.md) — interface design decisions

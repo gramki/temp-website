@@ -2,26 +2,6 @@
 
 The Foundry Web App is the primary web interface for the Foundry Platform. It serves multiple personas across all Workspaces, providing access to Work Orders, Tasks, context, analytics, and administration.
 
-## Key Pages
-
-| Page | Path | Description |
-|------|------|-------------|
-| [Foundry Home](pages/foundry-home.md) | `/` | Entry point; Foundry-wide dashboard |
-| [Workshop Home](pages/workshop-home.md) | `/workshops/{id}` | Workshop dashboard; Workbenches list |
-| [Workbench Home](pages/workbench-home.md) | `/workbenches/{id}` | Product dashboard; primary work surface |
-
-## Personas
-
-| Persona | Folder | Primary Workspace |
-|---------|--------|-------------------|
-| [Developers](personas/developers/README.md) | `personas/developers/` | Development |
-| [Product Managers](personas/product-managers/README.md) | `personas/product-managers/` | Product Specification |
-| [Quality Teams](personas/quality-teams/README.md) | `personas/quality-teams/` | QA |
-| [UX Teams](personas/ux-teams/README.md) | `personas/ux-teams/` | UX Design |
-| [Release Teams](personas/release-teams/README.md) | `personas/release-teams/` | Release |
-| [Governance Teams](personas/governance-teams/README.md) | `personas/governance-teams/` | Governance |
-| [Foundry Admins](personas/foundry-admins/README.md) | `personas/foundry-admins/` | Foundry Management |
-
 ## Relationship to Platform Modules
 
 The web app consumes and surfaces capabilities from all platform modules:
@@ -61,10 +41,20 @@ Phase 1 commits to four Tracks: Discovery, Build, Release, and Governance. The w
 
 - All seven personas
 - Subset of Scenarios per (Track, Workspace)
-- Core JTBD for each persona (see persona folders)
+- Core JTBD for each persona (see [user-guide/personas/](user-guide/personas/))
+
+## Documentation
+
+| Guide | Audience | Index |
+|-------|----------|-------|
+| Concepts | Anyone | This README |
+| [User guide](user-guide/) | Admins, builders | Task-oriented usage |
+| [Foundry Platform developer guide](platform-developer-guide/) | Platform engineers | Implementation specs |
 
 ## Read Next
 
+- [user-guide/personas/README.md](user-guide/personas/README.md) — persona index
+- [platform-developer-guide/pages/README.md](platform-developer-guide/pages/README.md) — page specifications
 - [../README.md](../README.md) — Foundry Platform overview
 - [../../ace/workspaces/](../../ace/workspaces/README.md) — Workspace definitions
 - [../../tldr.md](../../tldr.md) — One-page Foundry overview

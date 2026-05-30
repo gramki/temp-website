@@ -1,0 +1,90 @@
+# Foundry CI Roadmap
+
+This document outlines the phased implementation plan for Foundry CI capabilities.
+
+## Phase 1: Core CI Infrastructure
+
+Foundational CI capabilities that compose existing CI primitives into Workshop-aware experiences.
+
+| Item | Description | Dependencies |
+|------|-------------|--------------|
+| **Test Runners** | Standardized test execution with Workshop-scoped configuration | GitHub Actions adapter |
+| **Test Reports** | Unified test result aggregation across code repos | Quality Service |
+| **Evidence Packs** | Structured collection of build evidence (tests, coverage, security scans) | Test Reports |
+
+### Evidence Packs
+
+Evidence Packs aggregate proof artifacts for release readiness:
+- Test results (unit, integration, e2e)
+- Coverage reports
+- Security scan findings
+- Static analysis results
+- Performance benchmarks
+- Compliance attestations
+
+Evidence Packs are attached to Release Intents and reviewed before release approval.
+
+## Phase 2: Quality Intelligence
+
+Build quality measurement and trend analysis.
+
+| Item | Description | Dependencies |
+|------|-------------|--------------|
+| **BQI (Build Quality Indicators)** | Composite metrics for build health | Test Reports, Evidence Packs |
+| **Tech Debt Tracking** | Integration with debt registers for automated detection | Governance module |
+| **Quality Thresholds** | Configurable gates based on BQI scores | BQI |
+
+### Build Quality Indicators (BQI)
+
+BQI provides a single score representing build health:
+- Test pass rate (weighted by criticality)
+- Code coverage (weighted by change scope)
+- Security findings (weighted by severity)
+- Static analysis issues (weighted by category)
+- Build time and stability
+
+BQI thresholds are configured at Workshop and Workbench levels.
+
+## Phase 3: Agentic Quality Gates
+
+Agent-powered quality evaluation and automated remediation.
+
+| Item | Description | Dependencies |
+|------|-------------|--------------|
+| **Agentic Quality Gates** | Skilled Agents evaluate changes against quality criteria | Agent Fabric, BQI |
+| **Crowd-sourced Skills** | Community skills for specialized quality checks | Skill Registry |
+| **Project-Template-Specific Triggers** | Quality gates customized per project type | Work Catalog |
+
+### Agentic Quality Gates
+
+Quality gates can invoke Skilled Agents for:
+- Security vulnerability triage and fix suggestions
+- Test generation for uncovered code paths
+- Documentation validation
+- Breaking change detection
+- Performance regression analysis
+
+## Phase 4: Integration Enhancements
+
+Extended integrations with external tools and communication platforms.
+
+| Item | Description | Dependencies |
+|------|-------------|--------------|
+| **MS Teams Integration** | CI notifications and status via Workspace Settings | Workspace Settings |
+| **TestRail Integration** | Test suite synchronization with release pipelines | Quality Service |
+| **Jira Integration** | Automated issue creation from CI failures | Work Repository |
+
+### TestRail Test Suite Support
+
+Release pipelines can:
+- Execute TestRail test runs as part of CI
+- Sync results back to TestRail
+- Include TestRail results in Evidence Packs
+- Gate releases on TestRail test plan completion
+
+## Implementation Notes
+
+- CI agents use a **separate harness** from WO Runtime agents — see [ci-agent-architecture.md](../ci-agent-architecture.md)
+- All CI features respect Workshop-scoped configuration
+- Quality metrics flow to Governance module for compliance reporting
+- Integration with [Validation module](../../../management/platform-developer-guide/validation/README.md) for pre-merge gates (Foundry-scope config only)

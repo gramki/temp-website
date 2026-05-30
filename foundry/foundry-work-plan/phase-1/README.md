@@ -75,7 +75,7 @@ The following docs should be created under this folder as decisions are answered
 | [../work-order-runtime/](../work-order-runtime/README.md) | Execution module concepts. |
 | [../foundry-web-app/](../foundry-web-app/README.md) | Web app surfaces and personas. |
 | [../work-catalogues/](../work-catalogues/README.md) | Work Catalogs (OI Workflows + Scenarios). |
-| [../management/work-catalog-management/](../management/work-catalog-management/README.md) | Work Catalog schema, validation, and resolution. |
+| [../management/platform-developer-guide/work-catalog-management/](../management/platform-developer-guide/work-catalog-management/README.md) | Work Catalog schema, validation, and resolution. |
 
 ## Current status
 

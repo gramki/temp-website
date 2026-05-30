@@ -136,8 +136,8 @@ Level        | Status      | Repository
 User         | (none)      | -
 Workbench    | ★ Active    | checkout-team/checkout-workbench
 Workshop     | Shadowed    | checkout-workshop/work-catalog
-Foundry      | Shadowed    | acme-foundry/work-catalog
-Platform     | Shadowed    | platform-defaults/build/...
+Foundry      | Shadowed    | foundry-{id}/work-catalog
+Platform     | Shadowed    | platform-defaults/work-catalog/build/...
 ```
 
 The ★ marks which level is currently active (winning in resolution).

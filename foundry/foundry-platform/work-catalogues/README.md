@@ -40,11 +40,11 @@ Platform (shipped with product)
 
 | Level | Repository | Provisioned By |
 |-------|------------|----------------|
-| Platform | `platform-defaults/` in this module | Platform release |
-| Foundry | `<foundry-id>-work-catalog` repo | Foundry provisioning |
-| Workshop | `workshops/<workshop>/work-catalog/` | Workshop provisioning |
-| Workbench | `workbenches/<workbench>/work-catalog/` | Workbench provisioning |
-| User | `users/<user>/work-catalog/` | On first publish |
+| Platform | `platform-defaults/work-catalog/` in this module | Platform release |
+| Foundry | `foundry-{id}/work-catalog/` (embedded in Foundry repo) | Foundry provisioning |
+| Workshop | `workshop-{id}/work-catalog/` (in Workshop definition repo) | Workshop provisioning |
+| Workbench | `workshop-{id}/workbenches/{wb}/work-catalog/` | Workbench provisioning |
+| User | `user-work-catalog-{userId}/work-catalog/` | On first publish |
 
 User catalogs are provisioned lazily when a user first publishes a personal scenario.
 
@@ -53,7 +53,7 @@ User catalogs are provisioned lazily when a user first publishes a personal scen
 Each catalog (at any level) follows this structure:
 
 ```
-<catalog>/
+work-catalog/
 ├── <track>/                      # e.g., build, discovery, run, win, evolve, governance
 │   └── <orchestration-item>/     # e.g., product-intent, discovery-case
 │       ├── workflow.yaml         # OI Workflow definition
@@ -63,7 +63,7 @@ Each catalog (at any level) follows this structure:
 │               └── scenario-b.yaml
 ```
 
-The path `build/product-intent/development/scenarios/implement-feature.yaml` means:
+The path `work-catalog/build/product-intent/development/scenarios/implement-feature.yaml` means:
 - Track: Build
 - Orchestration Item: Product Intent
 - Workspace: Development
@@ -123,7 +123,8 @@ The effective catalog view shows:
 
 For implementation specifics (schemas, APIs, validation rules, resolution algorithm):
 
-→ [../management/work-catalog-management/](../management/work-catalog-management/)
+→ [../management/platform-developer-guide/work-catalog-management/](../management/platform-developer-guide/work-catalog-management/) — Schemas, resolution, sync  
+→ [../management/platform-developer-guide/validation/README.md](../management/platform-developer-guide/validation/README.md) — Validation module (pre-publish gate)
 
 ## Module Contents
 
@@ -132,9 +133,19 @@ For implementation specifics (schemas, APIs, validation rules, resolution algori
 | [user-guide/](user-guide/) | How to browse, author, test, and publish Work Catalog content |
 | [platform-defaults/](platform-defaults/) | Platform-shipped OI Workflows and Scenarios |
 
+## Documentation
+
+| Guide | Audience | Index |
+|-------|----------|-------|
+| Concepts | Anyone | This README |
+| [User guide](user-guide/) | Admins, builders | Task-oriented usage |
+
+Implementation specs (schemas, validation, resolution) live under [Management platform-developer-guide](../management/platform-developer-guide/work-catalog-management/).
+
 ## Read Next
 
 - [user-guide/how-work-flows.md](user-guide/how-work-flows.md) — Conceptual guide: OI → Workflow → Scenario → Agent
 - [user-guide/authoring-scenarios.md](user-guide/authoring-scenarios.md) — How to create Scenarios
-- [platform-defaults/build/product-intent/](platform-defaults/build/product-intent/) — Example OI Workflow
-- [../management/work-catalog-management/](../management/work-catalog-management/) — Implementation details
+- [platform-defaults/work-catalog/build/product-intent/](platform-defaults/work-catalog/build/product-intent/) — Example OI Workflow
+- [../management/platform-developer-guide/validation/README.md](../management/platform-developer-guide/validation/README.md) — Validation module
+- [../management/platform-developer-guide/work-catalog-management/](../management/platform-developer-guide/work-catalog-management/) — Schemas, resolution, sync

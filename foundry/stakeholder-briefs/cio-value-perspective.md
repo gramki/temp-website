@@ -24,7 +24,7 @@ A Bank's regulatory environment requires evidence — not narratives — that co
 
 - The Foundry Specification engineers Security, Compliance, Audit, Monitoring, Logging as first-class concerns ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 5-9).
 - Release in an Engagement context produces Customer Product Artifacts, Verification Artifacts, Documentation Artifacts, **Evidence Artifacts**, and a Knowledge Base ([../engagement-engineering/1.TODO](../engagement-engineering/1.TODO) lines 17-26).
-- Foundry CI engineers Evidence Packs, Test Runners and Reports, Build Quality Indicators, Tech Debt Management, Agentic Quality Gates ([../foundry-platform/ci/ci.TODO](../foundry-platform/ci/ci.TODO)).
+- Foundry CI engineers Evidence Packs, Test Runners and Reports, Build Quality Indicators, Tech Debt Management, Agentic Quality Gates ([../foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO](../foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO)).
 - The Quality & Verification Repository (QVS) is the canonical home for verification evidence; the Product Evolution & Impact Repository (PEIR) holds traceability ([../ace/repositories.md](../ace/repositories.md)).
 
 A CIO asking "show me the evidence for this release" should get a deterministic answer drawn from the repositories, not assembled by hand.
@@ -67,7 +67,7 @@ A CIO buying into Foundry will not take any of the above on faith. The claims th
 | Claim | What evidence the platform must produce | Where it lives in the engineering docs |
 |---|---|---|
 | "Governance runs on every transition." | Demonstrable invocation of governance scenarios on each handoff, with persisted records. | [../ace/governance.md](../ace/governance.md), [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 24. |
-| "Evidence is a property of construction." | A working evidence pack pipeline tied to releases. | [../foundry-platform/ci/ci.TODO](../foundry-platform/ci/ci.TODO), [../engagement-engineering/1.TODO](../engagement-engineering/1.TODO) lines 17-26. |
+| "Evidence is a property of construction." | A working evidence pack pipeline tied to releases. | [../foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO](../foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO), [../engagement-engineering/1.TODO](../engagement-engineering/1.TODO) lines 17-26. |
 | "Agents are workforce members." | A populated Workforce Repository (WFR) with both human and agent roles. | [../ace/repositories.md](../ace/repositories.md) (WFR row), UPIM coverage of Operating Model. |
 | "Multi-tenant readiness without rewrites." | Engagement and Estate behavior across multiple Workshops and Estates working in production. | [../engagement-engineering/extension-to-ace.md](../engagement-engineering/extension-to-ace.md). |
 | "Health is observable across an Engagement." | Tempus-like visibility, project health dashboards, requirements/sprint/release risk monitoring. | [../engagement-engineering/1.TODO](../engagement-engineering/1.TODO) lines 8-13. |

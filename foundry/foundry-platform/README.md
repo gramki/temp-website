@@ -27,7 +27,7 @@ The platform decomposes into the following modules, each with its own folder. Se
 
 | Module | Folder | Scope |
 |--------|--------|-------|
-| **Foundry Management** | [management/](management/README.md) | Admin plane — configuration services, Workbenches, repositories, teams, scenario management, tenancy |
+| **Foundry Management** | [management/](management/README.md) | Admin plane — Validation, configuration services, Work Catalog Management, Workbenches, repositories, teams, tenancy |
 | **Foundry IDE** | [ide/](ide/README.md) | Builder-facing interface — workspace-specific views |
 | **Agent Fabric** | [agent-fabric/](agent-fabric/README.md) | Agent infrastructure — Skill Registry, Capable Agents, quota, gateway policy |
 | **Work Order Runtime** | [work-order-runtime/](work-order-runtime/README.md) | Execution engine — context compilation, agent lifecycle for WO execution, agent delegation, human-task surfacing |
@@ -54,7 +54,8 @@ These folders contain reference content (not platform code):
 - **Repositories are services, not stores.** Each provides injection/access interfaces; Foundry Management exposes the access layer.
 - **Integrations are owned by modules.** Release Tools owns CI/CD integrations; no horizontal "Integrations" module.
 - **Configuration flows through Metadata Service.** Consumers query Management, not git directly.
-- **Work Catalog Management is a subsystem of Management.** Schema, validation, resolution, and recommendations are in Management; conceptual docs, user guide, and platform defaults are in Work Catalogues.
+- **Validation gates Foundry configuration.** The Validation module validates all Foundry-scope repos before merge; Release Tools CI handles product-repo build/test only — no cross-module dependency.
+- **Work Catalog Management is a subsystem of Management.** Schema, validation rules, resolution, and recommendations are in Management; conceptual docs, user guide, and platform defaults are in Work Catalogues.
 
 ### Legacy structure
 
@@ -62,7 +63,7 @@ The backlog in [platform.TODO](platform.TODO) uses an older structure (Foundry S
 
 ### CI folder
 
-The [ci/](release-tools/ci/README.md) folder (now under Release Tools) contains Foundry CI documentation. Release Tools extends and generalizes the CI work.
+The [ci/](release-tools/platform-developer-guide/ci/README.md) folder (under Release Tools platform-developer-guide) contains Foundry CI documentation. Release Tools extends and generalizes the CI work.
 
 ### Where Engagement Engineering belongs
 
@@ -76,9 +77,21 @@ The `_deferred/` folder contains module stubs that are not part of the current i
 
 To defer a module, move it to `_deferred/` and update this list.
 
-## How to write specifications under this folder
+## How to write documentation under this folder
 
-Module specifications added here should:
+Platform documentation uses a **three-track layout** per module. See [`_templates/STYLE-GUIDE.md`](_templates/STYLE-GUIDE.md) for voice, structure, and cross-linking rules.
+
+| Track | Location | Content |
+|-------|----------|---------|
+| Concepts | `{module}/README.md` | Scope, boundaries, architecture summary, documentation index — no step-by-step tasks |
+| User guide | `{module}/user-guide/` | Task-oriented docs for admins and builders |
+| Foundry Platform developer guide | `{module}/platform-developer-guide/` | Implementation specs for platform engineers |
+
+Copy starter files from [`_templates/`](_templates/): `module-README.template.md`, `user-guide-README.template.md`, `user-guide-doc.template.md`, `platform-developer-guide-README.template.md`, and `platform-developer-guide-doc.template.md`.
+
+### Specification content (Foundry Platform developer guide)
+
+Specs in `platform-developer-guide/` should:
 
 1. **Open with the ACE concept being realized.** Cite [../ace/concepts.md](../ace/concepts.md) or [../ace/repositories.md](../ace/repositories.md) for the concept the module operationalizes.
 2. **Identify the UPIM entities involved.** Cite [../product-information-model/README.md](../product-information-model/README.md) and the relevant entity files. The platform stores and mutates UPIM-defined entities; it must not introduce divergent ontology.
@@ -93,7 +106,7 @@ The intent is that any module specification reads first as an ACE/UPIM consumer 
 
 - [../foundry-work-plan/phase-1/](../foundry-work-plan/phase-1/README.md) — Phase 1 implementation-readiness outline and open questions.
 - [platform.TODO](platform.TODO) — current build backlog.
-- [ci/ci.TODO](ci/ci.TODO) — current CI backlog.
+- [release-tools/platform-developer-guide/ci/ci.TODO](release-tools/platform-developer-guide/ci/ci.TODO) — current CI backlog.
 - [../ace/](../ace/README.md) — what the platform is realizing.
 - [../product-information-model/](../product-information-model/README.md) — the formal schema the platform implements.
 - [../foundry-work-plan/](../foundry-work-plan/README.md) — the project plan for building this platform.

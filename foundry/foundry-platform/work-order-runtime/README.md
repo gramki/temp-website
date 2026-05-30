@@ -118,7 +118,7 @@ Platform Default                    ← work-catalogues/platform-defaults/
 When user catalog is active, the user's personal `user-work-catalog-{id}/` repository is included in resolution. This allows builders to experiment with Scenario modifications without affecting team workflows.
 
 → [../work-catalogues/README.md](../work-catalogues/README.md) — Work Catalog overview
-→ [../management/work-catalog-management/resolution-algorithm.md](../management/work-catalog-management/resolution-algorithm.md) — Full resolution algorithm
+→ [../management/platform-developer-guide/work-catalog-management/resolution-algorithm.md](../management/platform-developer-guide/work-catalog-management/resolution-algorithm.md) — Full resolution algorithm
 
 ### Knowledge Hierarchy
 
@@ -144,7 +144,7 @@ WO Runtime builds agent context by merging knowledge from multiple levels:
 |---------|-----------------|
 | **Capable Agent** | Selected based on Skilled Agent definition, with auto-fallback |
 | **Skilled Agent** | Read from Scenario definition (local manifest) |
-| **Skills** | Installed from [Skill Registry](../agent-fabric/skill-registry.md) at session start |
+| **Skills** | Installed from [Skill Registry](../agent-fabric/platform-developer-guide/skill-registry.md) at session start |
 | **Employed Agent** | Spawned by WO Runtime with delegation token |
 | **Gateway Policy** | All model calls routed through configured LLM gateway |
 
@@ -193,25 +193,52 @@ WO Runtime accesses Jira through **Jira MCP Server**.
 - **Agent adapter architecture** — Per-agent adapters vs. unified protocol?
 - **Priority Capable Agents** — Which agents to support first?
 
-→ See [Design Discussion](design-discussion-control-plane-and-agent-interfaces.md) for options and trade-offs
+→ See [platform-developer-guide/design-discussions/control-plane-and-agent-interfaces.md](platform-developer-guide/design-discussions/control-plane-and-agent-interfaces.md) for options and trade-offs
 
-## Module Documents
+## Key Concepts
 
-| Document | Content |
-|----------|---------|
-| [requirements.md](requirements.md) | Implementation requirements (APIs, database, observability) |
-| [design-discussion-control-plane-and-agent-interfaces.md](design-discussion-control-plane-and-agent-interfaces.md) | Control plane options and agent interface patterns (decisions needed) |
-| [agent_harness_comparison_codex_openhands_goose_cline_aider.md](agent_harness_comparison_codex_openhands_goose_cline_aider.md) | Comparative analysis of agent harness projects |
-| [end-to-end-work-order-flow.md](end-to-end-work-order-flow.md) | Complete WO lifecycle from Orchestrator to completion |
-| [task-execution.md](task-execution.md) | Task tree, state machine, Jira representation |
-| [agent-spawning.md](agent-spawning.md) | Harness preparation and agent spawning |
-| [ide-integration.md](ide-integration.md) | VS Code plugin architecture |
-| [implementation-todos.md](implementation-todos.md) | Open items for engineering |
+### Platform-wide concepts
+
+These concepts are defined centrally and used across Foundry modules:
+
+| Concept | What WO Runtime does with it |
+|---------|------------------------------|
+| [Work Order](../concepts/work-order.md) | Executes WOs as units of work |
+| [Task](../concepts/task.md) | Manages Agent Tasks and Human Tasks within WOs |
+| [Scenario](../concepts/scenario.md) | Reads definitions; spawns agents per Scenario |
+| [Agent Model](../concepts/agent-model.md) | Spawns Employed Agents with context and skills |
+| [Workspace Session](../concepts/workspace-session.md) | Creates and manages Coder-based dev environments |
+| [Delegation](../concepts/delegation.md) | Issues delegation tokens for Employed Agents |
+| [Work Catalog](../concepts/work-catalog.md) | Resolves Scenarios from hierarchy |
+| [Knowledge Hierarchy](../concepts/knowledge-hierarchy.md) | Merges Workshop → Workbench → WO context |
+
+### Module-specific concepts
+
+These concepts describe WO Runtime internals:
+
+| Concept | Definition |
+|---------|------------|
+| [WO Runtime Daemon](concepts/wo-runtime-daemon.md) | Long-running process that coordinates WO execution |
+| [Task Manager](concepts/task-manager.md) | Manages task trees, dependencies, and state transitions |
+| [Agent Spawner](concepts/agent-spawner.md) | Prepares harnesses and spawns Employed Agents |
+| [Context Compilation](concepts/context-compilation.md) | Assembles hierarchical knowledge into agent context |
+| [Completion Reporter](concepts/completion-reporter.md) | Notifies Orchestrator when Work Orders complete |
+| [Local State Store](concepts/local-state-store.md) | Per-session SQLite database for WO and task state |
+
+→ [concepts/README.md](concepts/README.md) — Full module concept index
+
+## Documentation
+
+| Guide | Audience | Index |
+|-------|----------|-------|
+| Concepts | Anyone | This README, [concepts/](concepts/) |
+| [User guide](user-guide/) | Admins, builders | Task-oriented usage |
+| [Foundry Platform developer guide](platform-developer-guide/) | Platform engineers | Implementation specs |
 
 ## Read Next
 
 - [../orchestrator/README.md](../orchestrator/README.md) — WO creation and routing
 - [../agent-fabric/README.md](../agent-fabric/README.md) — Agent infrastructure (Skills, Capable Agents)
 - [../management/README.md](../management/README.md) — Workbench provisioning
-- [../management/workshop-repository.md](../management/workshop-repository.md) — Workshop Definition Repository structure
+- [../management/platform-developer-guide/workshop-repository.md](../management/platform-developer-guide/workshop-repository.md) — Workshop Definition Repository structure
 - [../../ace/concepts.md](../../ace/concepts.md) — Work Order, Scenario, Task, Agent definitions
