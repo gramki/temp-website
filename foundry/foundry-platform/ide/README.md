@@ -28,7 +28,7 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides workspace
 |--------|------------------|
 | [Session Infrastructure](../workspace-session-infrastructure/README.md) | Packages IDE extensions into base image (Layer 1); Foundry admins can add extensions via admin layering (Layer 3) |
 | [Session Management](../workspace-session-management/README.md) | Session must be Active before IDE is accessible |
-| [WO Runtime](../work-order-runtime/README.md) | Provides Work Orders Panel data and agent chat via plugin protocol |
+| [WO Runtime](../work-order-runtime/README.md) | Provides Work Orders Panel, task graph, Employed Agents panel, and agent output via plugin protocol |
 
 ## Dependencies
 
@@ -43,7 +43,8 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides workspace
 - **"Builder"** is the term for Foundry IDE users
 - **Workspace Session** was considered to disambiguate VS Code Workspace from ACE Workspace, but dropped — the 1:1 per-user mapping makes the overload theoretical, not practical
 
-→ [platform-developer-guide/extensions.md](platform-developer-guide/extensions.md) for WO Runtime Plugin and Scenario Editor Extension specs
+→ [platform-developer-guide/extensions.md](platform-developer-guide/extensions.md) for WO Runtime Plugin and Scenario Editor Extension specs  
+→ [platform-developer-guide/ux-requirements.md](platform-developer-guide/ux-requirements.md) for IDE UX requirements and Figma mockup index
 
 ## Key Concepts
 
@@ -63,6 +64,9 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides workspace
 | [Builder](concepts/builder.md) | Human user of the Foundry IDE |
 | [Workspace Views](concepts/workspace-views.md) | Per-Workspace-type UI customizations |
 | [Scenario Editor](concepts/scenario-editor.md) | Schema-aware YAML editor for Work Catalog Scenarios |
+| [Employed Agents Panel](concepts/employed-agents-panel.md) | Session-wide agent roster in the right panel |
+| [Task Graph View](concepts/task-graph-view.md) | WO detail + folder-style task tree in editor tabs |
+| [Agent Employment](concepts/agent-employment.md) | Employing agents during Human Tasks and Personal Work |
 
 → [concepts/README.md](concepts/README.md) — Full module concept index
 

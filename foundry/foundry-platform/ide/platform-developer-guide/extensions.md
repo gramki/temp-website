@@ -8,15 +8,52 @@ The Foundry IDE includes extensions that provide Work Order execution UI and Wor
 
 The IDE includes a **WO Runtime Plugin** that provides the user interface for Work Order execution:
 
-| Component | Purpose |
-|-----------|---------|
-| **Work Orders Panel** | Tree view of assigned WOs and task trees with status |
-| **Agent Chat Tabs** | Chat interface for agent-user interaction |
-| **Agent Terminal Windows** | Terminal interface for CLI agents |
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| **Work Orders Panel** | Sidebar | Tree of assigned WOs, task trees, Personal Work entry |
+| **Employed Agents Panel** | Right view | Session-wide agent roster with search/sort/filter |
+| **WO Detail + Task Tree tab** | Editor | Collapsible WO detail + folder-style task tree |
+| **Agent Output Tabs** | Editor | Live or read-only chat/terminal per agent session |
+| **Task Association Prompt** | Modal | Associate new agent session with Human Task or Personal Work |
+| **Bottom terminal panel** | Panel | AGENT TERMINAL, TERMINAL, OUTPUT, PROBLEMS (ambient CLI) |
 
-The plugin is a UI layer only — VS Code does not mediate agent I/O. Agents communicate directly with users through the UI components.
+The plugin is the UI layer for orchestration and navigation. Agent message and terminal streams are direct between user and agent process; WO Runtime supplies metadata, graphs, transcripts, and association.
 
-See [../../work-order-runtime/platform-developer-guide/ide-integration.md](../../work-order-runtime/platform-developer-guide/ide-integration.md) for full plugin architecture, data flows, and WO Runtime Daemon protocol.
+See [ux-requirements.md](ux-requirements.md) for numbered UX requirements and [../../work-order-runtime/platform-developer-guide/ide-integration.md](../../work-order-runtime/platform-developer-guide/ide-integration.md) for daemon protocols.
+
+### Employed Agents Panel
+
+- Register as `foundry.employedAgents` webview or tree view in the right auxiliary bar.
+- Subscribe to `AgentSessionEvent` from WO Runtime (WebSocket or polling).
+- Render fat entries per [Employed Agents Panel](../concepts/employed-agents-panel.md).
+- On click: `vscode.commands.executeCommand('foundry.openAgentOutput', { agentSessionId })`.
+
+### WO Detail + Task Tree tab
+
+- Command: `foundry.openWorkOrder` opens editor tab with split view.
+- Top: webview or embedded content mirroring Web App WO detail ([orchestration item detail](../../foundry-web-app/platform-developer-guide/pages/consoles/work/orchestration-console.md) pattern).
+- Bottom: `TreeView` (or custom tree) with indented rows, expand/collapse, and inline dependency hints; data from `GET /wo/{id}/task-graph` (parent-child tree + dependency metadata).
+- Collapse state and split ratio persisted in `workspaceState`.
+- `+ Add Task` invokes `foundry.createTask` modal (see Task Association / Create Task).
+
+### Agent Output Tabs
+
+| Mode | Surface | Banner |
+|------|---------|--------|
+| Live chat | `WebviewPanel` + process pipe | Green: "LIVE — you can send messages" |
+| Live terminal | `Terminal` profile bound to agent PID | Green |
+| Completed | Read-only webview or readonly terminal buffer | Gray: "COMPLETED — read-only transcript" |
+| Failed | Same + error header | Red; actions Retry, Escalate to Human |
+
+Tabs are keyed by `agentSessionId`; reusable from Employed Agents Panel, task graph, or notifications.
+
+### Task Association Prompt
+
+Triggered when `POST /agent-sessions/start` returns `requiresAssociation: true`. QuickPick or modal listing in-progress Human Tasks and Personal Work. Never auto-select pending tasks.
+
+### Create Task dialog
+
+Fields only: title, description, parent task, dependencies. Buttons: Cancel, Create, Create & Start. No Skilled Agent or model fields — see [Agent Employment](../concepts/agent-employment.md).
 
 ## Extension packaging
 

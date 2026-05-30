@@ -77,9 +77,77 @@ The Work Orders Panel displays your assigned Work Orders and their task trees.
 | **Completed** | Task finished successfully | Review if needed |
 | **Failed** | Task encountered an error | Review error, retry or escalate |
 
-## Agent Chat Tabs
+## Employed Agents Panel
 
-When an agent executes a task in chat mode, a dedicated chat tab opens.
+The right panel lists every agent employed in your session across all Work Orders and Personal Work.
+
+| Control | What it does |
+|---------|-------------|
+| **Search** | Filter by task title, WO ID, or agent name |
+| **Sort / Filter** | By status, WO, or recency |
+| **Click entry** | Opens that agent's output in an editor tab |
+
+Status badges help you spot agents **waiting for your input** versus those still working. Each entry shows WO > Task, task title, agent name, and how long it has been running.
+
+→ [../concepts/employed-agents-panel.md](../concepts/employed-agents-panel.md)
+
+## WO Detail and Task Graph
+
+Click a Work Order in the sidebar to open a tab with:
+
+1. **WO detail** (top) — Same information as the web app: Scenario, parent intent, description, acceptance criteria. Collapse this section to give more room to the graph.
+2. **Task tree** (bottom) — Folder-style indented list of tasks (like the Explorer), with expand/collapse. Status icons and `[Agent]` / `[Human]` labels show who owns each row. Blocked tasks show which dependency they are waiting on. Local-only tasks appear greyed.
+
+Click a row to open agent output or your Human Task workspace. Use **+ Add Task** to create a manual task.
+
+→ [../concepts/task-graph-view.md](../concepts/task-graph-view.md)
+
+## Agent Output Tabs (editor)
+
+Primary agent interaction happens in **editor tabs**, not the right panel. You can drag a tab into its own window for side-by-side work.
+
+| State | What you see |
+|-------|--------------|
+| **Live** | Green banner; you can send messages or type in the terminal |
+| **Completed** | Gray banner; read-only transcript and artifacts the agent produced |
+| **Failed** | Red banner; error summary with Retry or Escalate options |
+
+→ [../platform-developer-guide/ux-requirements.md](../platform-developer-guide/ux-requirements.md)
+
+## Creating manual tasks
+
+1. Open a WO tab and click **+ Add Task**, or right-click the WO in the sidebar → **Create Task**.
+2. Enter title, description, parent task (anywhere in the tree), and optional dependencies.
+3. Choose **Create** (adds to graph) or **Create & Start** (you pick it up immediately — even if some dependencies are not finished yet).
+
+You do not assign agents at creation time.
+
+## Employing agents during a Human Task
+
+While working a Human Task:
+
+- Click **[+ Employ Agent]** in the task tab to start an agent with that task's context.
+
+Starting an agent elsewhere (command palette, CLI):
+
+- The IDE asks you to **associate** the session with an in-progress Human Task or **Personal Work**.
+- The system does not auto-assign to a waiting task.
+
+You may employ multiple agents on one task over time; each appears in the Employed Agents Panel.
+
+→ [../concepts/agent-employment.md](../concepts/agent-employment.md)
+
+## Personal Work
+
+**Personal Work** is a local-only Work Order in your sidebar for exploration not tied to an assigned task — e.g. "help me understand this repo."
+
+When you associate a new agent session with Personal Work, it appears under that entry. It is not synced to Jira but still uses your normal agent quota.
+
+→ [../../concepts/personal-work.md](../../concepts/personal-work.md)
+
+## Agent Chat Tabs (legacy note)
+
+When an agent executes a task in chat mode, interaction is shown in an **editor Agent Output tab** (preferred). The patterns below apply to that tab surface.
 
 ### What you see
 
@@ -285,6 +353,10 @@ For complete authoring guidance, see [Authoring Scenarios](../../work-catalogues
 - [Scenario](../../concepts/scenario.md) — Ingress contract defining what work a Workspace accepts
 - [Builder](../concepts/builder.md) — Human user of the Foundry IDE (module-specific)
 - [Workspace Views](../concepts/workspace-views.md) — Per-Workspace-type UI customizations (module-specific)
+- [Employed Agents Panel](../concepts/employed-agents-panel.md) — Session agent roster (module-specific)
+- [Task Graph View](../concepts/task-graph-view.md) — WO task tree in the editor (module-specific)
+- [Agent Employment](../concepts/agent-employment.md) — Employing agents on tasks (module-specific)
+- [Personal Work](../../concepts/personal-work.md) — Ad-hoc local work
 
 ### Guides
 

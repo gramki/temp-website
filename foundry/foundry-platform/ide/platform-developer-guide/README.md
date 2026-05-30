@@ -19,6 +19,7 @@ The Foundry IDE is based on VS Code and provides builder-facing Workspace views 
 | Document | Scope |
 |----------|-------|
 | [extensions.md](extensions.md) | WO Runtime Plugin, Scenario Editor Extension, Publish CLI integration |
+| [ux-requirements.md](ux-requirements.md) | IDE UX requirements and Figma mockup frame index (IDE-UX-001+) |
 
 ## Dependencies
 
