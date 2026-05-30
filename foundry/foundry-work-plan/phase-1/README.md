@@ -74,8 +74,8 @@ The following docs should be created under this folder as decisions are answered
 | [../orchestrator/](../orchestrator/README.md) | Coordination module concepts. |
 | [../work-order-runtime/](../work-order-runtime/README.md) | Execution module concepts. |
 | [../foundry-web-app/](../foundry-web-app/README.md) | Web app surfaces and personas. |
-| [../scenario-catalogue/](../scenario-catalogue/README.md) | Reference scenario definitions. |
-| [../management/scenario-management/](../management/scenario-management/README.md) | Scenario schema and validation. |
+| [../work-catalogues/](../work-catalogues/README.md) | Work Catalogs (OI Workflows + Scenarios). |
+| [../management/work-catalog-management/](../management/work-catalog-management/README.md) | Work Catalog schema, validation, and resolution. |
 
 ## Current status
 
