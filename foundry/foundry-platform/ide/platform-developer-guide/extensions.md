@@ -18,6 +18,27 @@ The plugin is a UI layer only — VS Code does not mediate agent I/O. Agents com
 
 See [../../work-order-runtime/platform-developer-guide/ide-integration.md](../../work-order-runtime/platform-developer-guide/ide-integration.md) for full plugin architecture, data flows, and WO Runtime Daemon protocol.
 
+## Extension packaging
+
+Foundry IDE extensions are **not installed at runtime** — they ship pre-installed in the session container image.
+
+| Layer | Who owns it | IDE content |
+|-------|-------------|-------------|
+| **Layer 1 (base image)** | [Session Infrastructure](../../workspace-session-infrastructure/README.md) | WO Runtime Plugin, Scenario Editor Extension, platform IDE extensions |
+| **Layer 3 (admin overlay)** | Foundry admin via `workspace-infrastructure/<workspace>/` | Additional VS Code extensions, CLI tools |
+
+Extension versions are tied to platform release. Session Infrastructure rebuilds the base image when platform extensions change.
+
+Foundry admins can add extensions via the admin layering mechanism documented in [../../workspace-session-infrastructure/user-guide/customizing-workspace-images.md](../../workspace-session-infrastructure/user-guide/customizing-workspace-images.md).
+
+## Integration dependencies
+
+| Module | Relationship |
+|--------|--------------|
+| [Session Infrastructure](../../workspace-session-infrastructure/README.md) | Packages extensions into base image |
+| [Session Management](../../workspace-session-management/README.md) | IDE available only when session is Active |
+| [WO Runtime](../../work-order-runtime/README.md) | Plugin protocol for panels and agent chat |
+
 ## Scenario Editor Extension
 
 The IDE includes a **Scenario Editor Extension** for authoring and testing Work Catalog content:

@@ -16,10 +16,27 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides workspace
 
 ## Technical direction
 
-- Based on **VS Code**
-- Think **GitHub Codespaces**, but for agentic software work
-- Per-builder, per-Workspace sessions
+- Based on **VS Code** (Code Server) running inside a Kubernetes pod
+- Pod provisioned by [Workspace Session Infrastructure](../workspace-session-infrastructure/README.md); IDE extensions ship pre-installed in the platform base image
+- IDE is available only when a session is **Active** per [Session Management](../workspace-session-management/concepts/session-lifecycle.md) state machine
+- Per-builder, per-Workspace sessions at `{session-id}.sessions.{domain}`
 - At runtime, the VS Code Workspace *is* the Foundry Workspace for that builder
+
+## Relationship to session modules
+
+| Module | IDE relationship |
+|--------|------------------|
+| [Session Infrastructure](../workspace-session-infrastructure/README.md) | Packages IDE extensions into base image (Layer 1); Foundry admins can add extensions via admin layering (Layer 3) |
+| [Session Management](../workspace-session-management/README.md) | Session must be Active before IDE is accessible |
+| [WO Runtime](../work-order-runtime/README.md) | Provides Work Orders Panel data and agent chat via plugin protocol |
+
+## Dependencies
+
+| Dependency | Relationship |
+|------------|--------------|
+| [Workspace Session Infrastructure](../workspace-session-infrastructure/README.md) | Image packaging pipeline for IDE extensions |
+| [Workspace Session Management](../workspace-session-management/README.md) | Session must be Active for IDE access |
+| [Work Order Runtime](../work-order-runtime/README.md) | Plugin protocol for Work Orders and agents |
 
 ## Key design decisions
 
@@ -53,7 +70,6 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides workspace
 
 - VS Code: fork vs extension vs hosted instance?
 - Workspace-specific view customization mechanism
-- Session lifecycle, cost model, isolation
 
 ## Documentation
 
@@ -65,6 +81,8 @@ Foundry IDE is the builder-facing interface to Workspaces. It provides workspace
 
 ## Read next
 
+- [../workspace-session-infrastructure/README.md](../workspace-session-infrastructure/README.md) — extension packaging in session images
+- [../workspace-session-management/README.md](../workspace-session-management/README.md) — session lifecycle
 - [user-guide/workspace-sessions.md](user-guide/workspace-sessions.md) — builder-facing Workspace Session capabilities
 - [platform-developer-guide/extensions.md](platform-developer-guide/extensions.md) — WO Runtime Plugin and Scenario Editor
 - [../work-order-runtime/platform-developer-guide/ide-integration.md](../work-order-runtime/platform-developer-guide/ide-integration.md) — WO Runtime plugin architecture
