@@ -1,0 +1,55 @@
+apiVersion: scenario/v1
+name: test-developed-feature
+description: >
+  Execute the prepared test suite against a developed feature, report results,
+  and raise defects for any failures.
+workspace: qa
+scope: workspace-ingress
+
+inputs:
+  - name: specification_id
+    type: string
+    required: true
+    description: ID of the Product Specification under test
+  - name: implementation_pr_url
+    type: string
+    required: true
+    description: Pull request / build to test
+  - name: test_plan_id
+    type: string
+    required: true
+    description: Test plan to execute
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: test_run_id
+    type: string
+    description: ID of the executed test run
+  - name: pass_rate
+    type: number
+    description: Percentage of test cases that passed
+  - name: defect_ids
+    type: array
+    items: string
+    description: Defects raised for failed cases
+
+required-skills:
+  - test-execution
+  - defect-reporting
+  - test-automation
+
+tasks:
+  - id: execute-suite
+    type: agent
+    description: Execute the automated and manual test suite against the build
+  - id: triage-results
+    type: agent
+    description: Triage results and raise defects for failures
+    depends-on: [execute-suite]
+  - id: sign-off
+    type: human
+    description: QA lead signs off on the test run outcome
+    depends-on: [triage-results]

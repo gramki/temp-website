@@ -1,0 +1,47 @@
+apiVersion: scenario/v1
+name: record-product-decision
+description: >
+  Record the Product Decision Record (PDR) — the recommendation and rationale
+  derived from synthesized insights, with a proposed outcome (build/park/drop).
+workspace: product-specification
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: insights_id
+    type: string
+    required: true
+    description: Synthesized insights to base the decision on
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: pdr_id
+    type: string
+    description: ID of the recorded Product Decision Record
+  - name: recommended_outcome
+    type: enum
+    values: [proceed-to-build, park, drop]
+    description: Recommended outcome for stakeholder decision
+  - name: rationale
+    type: array
+    items: string
+    description: Evidence-backed rationale supporting the recommendation
+
+required-skills:
+  - decision-recording
+  - product-strategy
+
+tasks:
+  - id: draft-recommendation
+    type: agent
+    description: Draft the recommendation and outcome from the insights
+  - id: record-pdr
+    type: agent
+    description: Record the PDR with rationale and traceability
+    depends-on: [draft-recommendation]

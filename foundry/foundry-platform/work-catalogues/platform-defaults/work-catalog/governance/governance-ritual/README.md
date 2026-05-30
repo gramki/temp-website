@@ -34,14 +34,15 @@ findings-documented → remediation-tracked → ritual-complete → end
 | `remediation-tracked` | Action items being addressed |
 | `ritual-complete` | Ritual complete, next occurrence scheduled |
 
-## Workspaces (Proposed)
+## Station and scenarios (Proposed)
 
-| Workspace | Purpose |
-|-----------|---------|
-| Compliance | Regulatory compliance checks |
-| Security Review | Security audits and assessments |
-| Architecture Review | Technical architecture governance |
-| Process Audit | Process adherence verification |
+Governance is a **single** cross-cutting [station](../../../../../../ace/workspaces/README.md) (functional team), not four. The items below are governance scenarios run by that one team — not separate workspaces.
+
+| Station | Governance scenarios (activities) |
+|---------|-----------------------------------|
+| Governance | Compliance check, security review, architecture review, process audit |
+
+The Governance station's scenarios are also invoked by other tracks at transitions (see Cross-Track Integration below).
 
 ## Cross-Track Integration
 
@@ -58,7 +59,7 @@ Governance Rituals are invoked by other tracks at key transitions:
 ## TODO
 
 - [ ] Define `workflow.yaml` for Governance Ritual lifecycle
-- [ ] Create workspace folders with scenario placeholders
+- [ ] Add governance scenario files under the single Governance station folder
 - [ ] Document governance scenario interface contract
 - [ ] Define recurring schedule mechanisms
 

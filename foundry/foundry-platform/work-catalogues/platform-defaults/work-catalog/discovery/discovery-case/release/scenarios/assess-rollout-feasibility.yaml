@@ -1,0 +1,47 @@
+apiVersion: scenario/v1
+name: assess-rollout-feasibility
+description: >
+  Assess operational and rollout feasibility of a discovery concept — delivery,
+  deployment, support, and compliance considerations if it were to ship.
+workspace: release
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: concept_brief
+    type: string
+    required: false
+    description: Concept brief to assess for rollout feasibility
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: low
+
+outputs:
+  - name: rollout_report_id
+    type: string
+    description: ID of the rollout feasibility assessment
+  - name: rollout_rating
+    type: enum
+    values: [straightforward, manageable, high-effort]
+    description: Overall rollout feasibility rating
+  - name: operational_risks
+    type: array
+    items: string
+    description: Operational, support, and compliance risks
+
+required-skills:
+  - release-planning
+  - operational-readiness
+
+tasks:
+  - id: assess-delivery-path
+    type: agent
+    description: Assess delivery, deployment, and support implications
+  - id: rate-rollout
+    type: agent
+    description: Rate rollout feasibility and capture operational risks
+    depends-on: [assess-delivery-path]

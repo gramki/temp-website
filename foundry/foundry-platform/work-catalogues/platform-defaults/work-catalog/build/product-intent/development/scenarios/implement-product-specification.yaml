@@ -1,0 +1,60 @@
+apiVersion: scenario/v1
+name: implement-product-specification
+description: >
+  Implement a specified and designed Product Intent — produce code, tests,
+  and a pull request that satisfies the specification and UX design.
+workspace: development
+scope: workspace-ingress
+
+inputs:
+  - name: specification_id
+    type: string
+    required: true
+    description: ID of the Product Specification to implement
+  - name: design_id
+    type: string
+    required: false
+    description: UX design package to implement against
+  - name: target_branch
+    type: string
+    required: false
+    default: main
+    description: Branch to open the implementation PR against
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: implementation_pr_url
+    type: string
+    description: URL of the pull request with the implementation
+  - name: files_changed
+    type: array
+    items: string
+    description: Files modified by the implementation
+  - name: unit_test_coverage_percentage
+    type: number
+    description: Unit test coverage achieved by the implementation
+
+required-skills:
+  - code-generation
+  - test-writing
+  - git-operations
+
+tasks:
+  - id: plan-implementation
+    type: agent
+    description: Analyze the specification and design, plan the implementation
+  - id: implement-changes
+    type: agent
+    description: Implement the code changes with unit tests
+    depends-on: [plan-implementation]
+  - id: open-pull-request
+    type: agent
+    description: Open a pull request with the implementation
+    depends-on: [implement-changes]
+  - id: peer-review
+    type: human
+    description: Engineer reviews the implementation PR
+    depends-on: [open-pull-request]

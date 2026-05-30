@@ -1,0 +1,52 @@
+apiVersion: scenario/v1
+name: run-discovery-spike
+description: >
+  Run a time-boxed engineering spike or proof of concept to retire a specific
+  technical unknown surfaced during a Discovery Case.
+workspace: development
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: unknown_to_resolve
+    type: string
+    required: true
+    description: The specific technical unknown the spike should resolve
+  - name: time_box
+    type: string
+    required: false
+    default: 3d
+    description: Time box for the spike
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: spike_id
+    type: string
+    description: ID of the spike record
+  - name: spike_outcome
+    type: enum
+    values: [resolved, inconclusive]
+    description: Whether the unknown was resolved
+  - name: spike_findings
+    type: array
+    items: string
+    description: Findings and any throwaway artifacts produced
+
+required-skills:
+  - prototyping
+  - code-generation
+
+tasks:
+  - id: build-spike
+    type: agent
+    description: Build a throwaway spike to probe the unknown
+  - id: record-findings
+    type: agent
+    description: Record findings and conclusion
+    depends-on: [build-spike]

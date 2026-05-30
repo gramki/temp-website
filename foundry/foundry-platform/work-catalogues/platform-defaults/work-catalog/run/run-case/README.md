@@ -34,19 +34,24 @@ resolution-implemented → verified → case-closed → end
 | `verified` | Resolution confirmed working |
 | `case-closed` | Case complete, documentation updated |
 
-## Workspaces (Proposed)
+## Stations and scenarios (Proposed)
 
-| Workspace | Purpose |
-|-----------|---------|
-| Incident Response | Handle production incidents |
-| Change Management | Manage planned changes |
-| Maintenance | Execute maintenance activities |
-| Monitoring | Configure and respond to alerts |
+Run reuses the canonical six [workspace stations](../../../../../../ace/workspaces/README.md) — functional teams, not stages. Operational activities are run-flavored ingress scenarios on those same teams; the items below are scenarios, not new workspaces.
+
+| Station | Run scenarios (activities) |
+|---------|----------------------------|
+| Development | Implement change/fix, execute maintenance action |
+| QA | Verify resolution, post-change validation |
+| Release | Deploy change, roll back, maintenance window execution |
+| Product Specification | Incident triage and ownership, change scoping |
+| Governance | Change approval, incident review (cross-cutting) |
+
+Run typically uses *some* stations (Development, QA, Release) heavily and others lightly. Monitoring/alerting is tooling consumed across stations, not a workspace.
 
 ## TODO
 
 - [ ] Define `workflow.yaml` for Run Case lifecycle
-- [ ] Create workspace folders with scenario placeholders
+- [ ] Add run scenario files under the relevant station folders (no new workspaces)
 - [ ] Document SLA tracking and escalation
 - [ ] Define integration with incident management systems
 

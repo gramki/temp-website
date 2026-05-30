@@ -1,0 +1,51 @@
+apiVersion: scenario/v1
+name: assess-technical-feasibility
+description: >
+  Assess the technical feasibility of a discovery concept — architecture fit,
+  integration risk, effort range, and key technical unknowns.
+workspace: development
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: hypotheses
+    type: array
+    items: string
+    description: Hypotheses with a technical dimension
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: feasibility_report_id
+    type: string
+    description: ID of the feasibility report
+  - name: feasibility_rating
+    type: enum
+    values: [feasible, feasible-with-risk, infeasible]
+    description: Overall feasibility rating
+  - name: technical_risks
+    type: array
+    items: string
+    description: Identified technical risks and unknowns
+
+required-skills:
+  - architecture-analysis
+  - feasibility-assessment
+
+tasks:
+  - id: analyze-architecture-fit
+    type: agent
+    description: Analyze fit with existing architecture and integrations
+  - id: identify-risks
+    type: agent
+    description: Identify technical risks, unknowns, and effort range
+    depends-on: [analyze-architecture-fit]
+  - id: feasibility-review
+    type: human
+    description: Tech lead reviews the feasibility conclusion
+    depends-on: [identify-risks]

@@ -1,0 +1,55 @@
+apiVersion: scenario/v1
+name: prepare-customer-release
+description: >
+  Package an accepted Product Intent into a customer release — release notes,
+  versioned artifacts, and a deployable package ready for the release gate.
+workspace: release
+scope: workspace-ingress
+
+inputs:
+  - name: product_intent_id
+    type: string
+    required: true
+    description: ID of the accepted Product Intent to package
+  - name: implementation_pr_url
+    type: string
+    required: true
+    description: Merged implementation to package
+  - name: version
+    type: string
+    required: false
+    description: Target version for the release (auto-derived if omitted)
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: release_package_id
+    type: string
+    description: ID of the produced release package
+  - name: release_notes_url
+    type: string
+    description: URL of the generated release notes
+  - name: artifact_refs
+    type: array
+    items: string
+    description: References to versioned, deployable artifacts
+
+required-skills:
+  - release-engineering
+  - artifact-packaging
+  - release-notes-authoring
+
+tasks:
+  - id: assemble-artifacts
+    type: agent
+    description: Assemble and version the deployable artifacts
+  - id: generate-release-notes
+    type: agent
+    description: Generate customer-facing release notes
+    depends-on: [assemble-artifacts]
+  - id: package-release
+    type: agent
+    description: Produce the customer release package
+    depends-on: [generate-release-notes]

@@ -1,0 +1,44 @@
+apiVersion: scenario/v1
+name: product-specification-review
+description: >
+  Governance gate at the specification transition: confirm the Product
+  Specification is complete, traceable to intent, and compliant before UX work.
+workspace: governance
+scope: workspace-ingress
+
+inputs:
+  - name: product_intent_id
+    type: string
+    required: true
+    description: Product Intent being governed
+  - name: specification_id
+    type: string
+    required: true
+    description: Product Specification under review
+
+outputs:
+  - name: decision
+    type: enum
+    values: [approved, rejected]
+    description: Governance decision
+  - name: findings
+    type: array
+    items: string
+    description: Findings that must be addressed if rejected
+
+required-skills:
+  - governance-review
+  - requirements-analysis
+
+tasks:
+  - id: check-completeness
+    type: agent
+    description: Check specification completeness and traceability to intent
+  - id: check-compliance
+    type: agent
+    description: Check compliance with policy and standards
+    depends-on: [check-completeness]
+  - id: record-decision
+    type: agent
+    description: Record the governance decision and findings
+    depends-on: [check-compliance]

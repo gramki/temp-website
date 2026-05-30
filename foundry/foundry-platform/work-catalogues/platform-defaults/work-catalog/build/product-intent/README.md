@@ -10,10 +10,12 @@ A Product Intent (PI) represents a product idea or feature request that will pro
 
 ```
 start → draft-ready → ready-for-specification → in-specification → 
-specified → in-development → in-qa → ready-for-release → released → end
+in-ux-design → specified → in-qa → ready-for-release → released → end
 ```
 
 ### Stage Descriptions
+
+> Stages are Product Intent coordination points that **route Work Orders to functional [stations](../../../../../../ace/workspaces/README.md)** — they are not the stations themselves. One stage can create Work Orders in several stations at once (e.g., `specified`), and a station can be engaged across multiple stages.
 
 | Stage | Description | Work Orders Created |
 |-------|-------------|---------------------|
@@ -21,7 +23,8 @@ specified → in-development → in-qa → ready-for-release → released → en
 | `draft-ready` | PI submitted, awaiting PO approval | User task for approval |
 | `ready-for-specification` | Approved, awaiting Release Intent milestone | — |
 | `in-specification` | Specification work in progress | Product Specification WO |
-| `specified` | Spec complete, ready for development | Development + QA prep WOs |
+| `in-ux-design` | Spec approved, UX design in progress | UX Design WO |
+| `specified` | Spec + UX complete, ready for development | Development + QA prep WOs |
 | `in-qa` | Development complete, QA testing | QA test WO |
 | `ready-for-release` | QA passed, preparing release | Release acceptance + prep WOs |
 | `released` | Released to customers | — |
@@ -40,25 +43,28 @@ Key features:
 
 ## Workspaces and Scenarios
 
+> **Indicative specs.** The scenario `*.yaml` files below are worked examples. Their inputs, outputs, skills, and tasks are placeholders and do not capture the true detail or structure — they will be replaced with real definitions during specification. The `workflow.yaml` orchestration is the reliable part.
+
 | Workspace | Scenarios | Purpose |
 |-----------|-----------|---------|
 | [product-specification/](product-specification/) | `create-product-specification` | Define detailed requirements |
-| [ux-design/](ux-design/) | `design-user-experience` | Design UI/UX |
-| [development/](development/) | `implement-product-specification`, `implement-bugfix` | Build the feature |
-| [qa/](qa/) | `prepare-test-suite`, `test-developed-feature` | Test the implementation |
+| [ux-design/](ux-design/) | `design-user-experience` | Design the experience for the spec |
+| [development/](development/) | `implement-product-specification` | Build the feature |
+| [qa/](qa/) | `prepare-test-suite-for-product-specification`, `test-developed-feature` | Test the implementation |
 | [release/](release/) | `accept-completed-product-intent`, `prepare-customer-release` | Release to customers |
-| [governance/](governance/) | `product-specification-review`, `code-review-gate`, etc. | Governance checks |
+| [governance/](governance/) | `product-specification-review`, `ux-design-review`, `test-plan-review`, `test-coverage-review`, `customer-release-package-review` | Governance gates at each transition |
 
 ## Example Flow
 
 1. **PI "Add dark mode" created** → enters `start`, immediately transitions to `draft-ready`
 2. **Product Owner approves** → transitions to `ready-for-specification`
 3. **Release Intent milestone reached** → creates WO in Product Specification, transitions to `in-specification`
-4. **Specification WO completes** → governance check, transitions to `specified`
-5. **Creates parallel WOs** → Development implements, QA prepares test suite
-6. **Both WOs complete** → governance check, transitions to `in-qa`
-7. **QA WO completes successfully** → governance check, transitions to `ready-for-release`
-8. **Release WO completes** → governance check, transitions to `released`, then `end`
+4. **Specification WO completes** → `product-specification-review` governance check, transitions to `in-ux-design`
+5. **UX Design WO completes** → `ux-design-review` governance check, transitions to `specified`
+6. **Creates parallel WOs** → Development implements, QA prepares test suite
+7. **Both WOs complete** → `test-plan-review` governance check, transitions to `in-qa`
+8. **QA WO completes successfully** → `test-coverage-review` governance check, transitions to `ready-for-release`
+9. **Release WOs complete** → `customer-release-package-review` (hard block), transitions to `released`, then `end`
 
 ## Customization
 
@@ -69,7 +75,7 @@ Organizations can override this workflow at:
 Common customizations:
 - Add/remove governance gates
 - Modify timeout durations
-- Add additional workspaces (e.g., Security Review)
+- Add additional scenarios on the existing stations (e.g., a Security Review governance scenario)
 - Change notification channels
 
 ## Related

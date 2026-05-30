@@ -10,7 +10,7 @@
 #
 # Stages:
 #   start → draft-ready → ready-for-specification → in-specification →
-#   specified → in-development → in-qa → ready-for-release → released → end
+#   in-ux-design → specified → in-qa → ready-for-release → released → end
 
 orchestration-item: product-intent
 version: "1.0"
@@ -134,7 +134,7 @@ stages:
               on-reject: soft-block
           - action: transition-orchestration-item
             params:
-              to-stage: specified
+              to-stage: in-ux-design
 
       # Specification WO failed or abandoned
       - when:
@@ -170,8 +170,71 @@ stages:
               assignee: workbench-queue
 
   # ─────────────────────────────────────────────────────────────────────────
+  # IN UX DESIGN
+  # Specification approved. UX Design produces the experience for the spec
+  # before development begins. ACE flow: Specification → UX Design → Development.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: in-ux-design
+    timeout: 14d
+    on-enter:
+      - action: notify
+        params:
+          channel: ux-team
+          template: pi-ready-for-ux-design
+      - action: create-work-order
+        params:
+          wo-label: ux-wo
+          workspace: ux-design
+          scenario: design-user-experience
+          assignee: auto
+          priority: normal
+    handlers:
+      # UX design completed - governance review, then proceed to build
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: ux-wo
+            status: success
+        then:
+          - action: invoke-governance-scenario
+            params:
+              scenario: ux-design-review
+              on-reject: soft-block
+          - action: transition-orchestration-item
+            params:
+              to-stage: specified
+
+      # UX design failed - route to design lead
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: ux-wo
+            status: failed
+        then:
+          - action: create-user-task
+            params:
+              task-label: ux-failure-review
+              title: "UX design failed for PI: ${orchestration-item.title}"
+              assignee: role:design-lead
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: pi-ux-design-failed
+
+      # Timeout
+      - when:
+          event: work-order-timeout
+          params:
+            wo-label: ux-wo
+        then:
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: wo-stalled
+
+  # ─────────────────────────────────────────────────────────────────────────
   # SPECIFIED
-  # Specification complete. Trigger parallel Development and QA prep work.
+  # Specification and UX complete. Trigger parallel Development and QA prep work.
   # ─────────────────────────────────────────────────────────────────────────
   - name: specified
     on-enter:

@@ -732,6 +732,59 @@ Module concepts: [Workspace-Local Tasks](../concepts/workspace-local-tasks.md), 
 
 ---
 
+## Workspace Folder Management
+
+Module concept: [Workspace Folder Structure](../../ide/concepts/workspace-folder-structure.md).
+
+### Folder structure
+
+**WOR-FR-0044:** WO Runtime SHALL provision the session workspace root at `$HOME/<workbench>-<workspace>/` with top-level folders: `.foundry/`, `workbench-knowledge/`, `user-work-catalog/`, `workspace-work-catalog/`, and `work-orders/`.
+
+**WOR-FR-0045:** WO Runtime SHALL populate `workbench-knowledge/` with read-only clones or syncs of workbench-level Domain, Practices, and Ontology content from the workshop repository paths for the active workbench.
+
+**WOR-FR-0046:** WO Runtime SHALL maintain `user-work-catalog/` as a writable sync of the builder's `user-work-catalog-{userId}/` repository for the Foundry.
+
+**WOR-FR-0047:** WO Runtime SHALL compute and materialize `workspace-work-catalog/` as the effective Work Catalog for the session, merging Foundry → Workshop → Workbench → User layers. The computed catalog SHALL be read-only in the IDE.
+
+### Repo cloning (Model B)
+
+**WOR-FR-0048:** When a Work Order is assigned to the session, WO Runtime SHALL create `work-orders/WO-{id}/` with `repos/` and `work-context/` subfolders.
+
+**WOR-FR-0049:** WO Runtime SHALL clone product repositories into `work-orders/WO-{id}/repos/` based on workspace type:
+
+| Workspace Type | Repos cloned |
+|----------------|--------------|
+| Product Specification | Intent, Design |
+| Development | All Code repos in workbench scope, Design |
+| QA | Code (read-oriented checkout), Quality (Tests) |
+| UX Design | Design (+ assets per workbench policy) |
+| Release | Intent, Design, selected Code per workbench policy |
+| Governance | As defined by workbench policy (typically no product code repos) |
+
+**WOR-FR-0050:** All repos cloned for a WO SHALL reside under `work-orders/WO-{id}/repos/`; WO Runtime SHALL NOT share a single product-repo checkout across concurrent WOs.
+
+### WO branch lifecycle
+
+**WOR-FR-0051:** For each repo under `work-orders/WO-{id}/repos/`, WO Runtime SHALL create a local branch `wo/WO-{id}` from the session default branch and check out that branch for builder and agent work.
+
+**WOR-FR-0052:** On WO terminal state, WO Runtime SHALL push `wo/WO-{id}` to the remote **only for repos with unpushed commits**. Repos with no changes SHALL NOT receive a remote branch push.
+
+**WOR-FR-0053:** WO Runtime SHALL open pull requests only for repos that were pushed with changes. After a configurable retention period, WO Runtime MAY archive `work-orders/WO-{id}/` locally while preserving audit metadata in the Local State Store.
+
+### work-context sync
+
+**WOR-FR-0054:** `work-context/` SHALL contain artifacts from all completed tasks across all Work Orders in the parent Orchestration Item, not only tasks in the current WO.
+
+**WOR-FR-0055:** WO Runtime SHALL subscribe to completion events for tasks in sibling WOs within the same OI and refresh `work-context/` for every assigned WO folder in the session that shares that OI.
+
+**WOR-FR-0056:** WO Runtime SHALL perform periodic `work-context/` sync polling as a fallback when event delivery is delayed or missed. The polling interval SHALL be configurable via session settings (surfaced in the Foundry Workspace Panel).
+
+**WOR-FR-0057:** WO Runtime SHALL maintain `work-context/.sync/` containing: `last-sync.json` (timestamp, OI ID, trigger type), append-only `sync-log.ndjson`, and per-run `manifest-{timestamp}.json` change manifests.
+
+**WOR-FR-0058:** The internal layout under `work-context/` SHALL follow OI-type based conventions defined by the OI Workflow/Scenario for that OI. The platform SHALL NOT enforce a fixed global path schema; track and OI identifiers are not required in artifact paths.
+
+---
+
 ## Open Implementation Questions
 
 - Exact Jira custom field IDs and project configuration per Workbench

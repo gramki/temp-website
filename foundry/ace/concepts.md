@@ -84,6 +84,12 @@ ACE defines six workspace types, each owning a distinct concern:
 
 Per-workspace detail is in [workspaces/](workspaces/README.md).
 
+> **Workspace naming.** The six names denote **functions (teams)**, not stages or artifacts. Two are named after the workspace's concern rather than the team, to avoid collisions:
+> - **Product Specification** (not "Product") — "Product" is the UPIM entity a Workbench evolves; naming the team "Product" would conflate the function with the entity it acts on.
+> - **Release** (not "Release Engineering") — kept as "Release" so the station identity stays stable without committing "Release Engineering" as the canonical team title (which can vary by organization).
+>
+> The other four (UX Design, Development, QA, Governance) already read as functions. See [../glossary.md](../glossary.md).
+
 ### Human–Agent Team
 
 A workspace's team is composed of human practitioners and AI agents working on the same scenarios and tasks. Both kinds of participants are members of the Workforce; both have role bindings, skills, availability, and governance recorded in the Workforce Repository. Agents are not a layer added to a human team; they are members of it. Source: [ace-model.md](ace-model.md) line 43; UPIM repository description for WFR in [repositories.md](repositories.md).

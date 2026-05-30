@@ -1,0 +1,44 @@
+apiVersion: scenario/v1
+name: ux-design-review
+description: >
+  Governance gate at the UX transition: confirm the design satisfies the
+  specification, meets accessibility standards, and is ready for development.
+workspace: governance
+scope: workspace-ingress
+
+inputs:
+  - name: product_intent_id
+    type: string
+    required: true
+    description: Product Intent being governed
+  - name: design_id
+    type: string
+    required: true
+    description: UX design package under review
+
+outputs:
+  - name: decision
+    type: enum
+    values: [approved, rejected]
+    description: Governance decision
+  - name: findings
+    type: array
+    items: string
+    description: Findings that must be addressed if rejected
+
+required-skills:
+  - governance-review
+  - accessibility-review
+
+tasks:
+  - id: check-spec-alignment
+    type: agent
+    description: Confirm the design covers the specified scope and flows
+  - id: check-accessibility
+    type: agent
+    description: Check accessibility and design-system compliance
+    depends-on: [check-spec-alignment]
+  - id: record-decision
+    type: agent
+    description: Record the governance decision and findings
+    depends-on: [check-accessibility]

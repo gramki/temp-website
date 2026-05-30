@@ -18,6 +18,9 @@ This folder contains module-specific concept definitions for the Foundry IDE. Ea
 | [Employed Agents Panel](employed-agents-panel.md) | Right panel listing all employed agents in the session with status and filters |
 | [Task Graph View](task-graph-view.md) | Editor-tab folder-style task tree for a Work Order with WO detail header |
 | [Agent Employment](agent-employment.md) | How builders employ agents during Human Tasks and Personal Work |
+| [Foundry Workspace Panel](foundry-workspace-panel.md) | Collapsible sidebar for workspace/workbench context, links, and WO Runtime settings |
+| [Scenario Authoring](scenario-authoring.md) | Create Scenario journey scaffolding ingress/internal scenarios in user-work-catalog |
+| [Workspace Folder Structure](workspace-folder-structure.md) | Local session folder layout, WO repos, work-context, and branch lifecycle |
 
 ## Relationship to Platform Concepts
 
@@ -36,4 +39,6 @@ These module concepts specialize and extend platform-wide concepts:
 - [builder.md](builder.md) — The term for Foundry IDE users
 - [workspace-views.md](workspace-views.md) — How each Workspace type gets tailored UI
 - [scenario-editor.md](scenario-editor.md) — Authoring Scenarios in the IDE
+- [foundry-workspace-panel.md](foundry-workspace-panel.md) — Session context in the sidebar
+- [workspace-folder-structure.md](workspace-folder-structure.md) — On-disk layout for repos and work-context
 - [../../concepts/README.md](../../concepts/README.md) — Platform-wide concepts

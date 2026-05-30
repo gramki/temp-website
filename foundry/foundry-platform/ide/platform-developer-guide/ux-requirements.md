@@ -153,6 +153,51 @@ This document captures UX decisions and mockup requirements for the Foundry IDE,
 - **IDE-UX-069:** Agent output tabs are navigable from: (a) clicking task nodes in the graph, (b) clicking entries in the Employed Agents panel, (c) notifications.
 - **IDE-UX-070:** "Back to Graph" navigation in agent output tabs SHALL return focus to the WO Detail + Task Graph tab.
 
+## Sidebar — Foundry Workspace Panel
+
+Module concept: [Foundry Workspace Panel](../concepts/foundry-workspace-panel.md).
+
+- **IDE-UX-078:** The sidebar SHALL include a collapsible **Foundry Workspace** section, placed above the Work Orders tree by default.
+- **IDE-UX-079:** The panel SHALL display workspace metadata: name, ID, workspace type, and environment (dev / staging / prod).
+- **IDE-UX-080:** The panel SHALL display workbench metadata: workbench name, team summary, and product scope.
+- **IDE-UX-081:** A **Quick Links** subsection SHALL list related Git repositories and external links (Jira, Confluence, dashboards). Clicking a repo link SHALL reveal the path in Explorer or open the repo root; external links SHALL open in the browser.
+- **IDE-UX-082:** A **WO Runtime Settings** subsection SHALL expose session-scoped settings (default capable agent, quota summary, approval policies, work-context sync interval). Writable settings SHALL persist via WO Runtime for the active session.
+- **IDE-UX-083:** Collapse/expand state for the Foundry Workspace section SHALL persist for the builder across sessions (local IDE preference).
+- **IDE-UX-084:** When WO Runtime metadata is unavailable (degraded mode), the panel SHALL show a clear placeholder and retry affordance without blocking the Work Orders Panel.
+
+## Sidebar — Work Orders Panel (Historic Work)
+
+- **IDE-UX-085:** The Work Orders Panel SHALL support a **Historic Work** view in addition to active assigned WOs.
+- **IDE-UX-086:** Historic view SHALL be toggled via a control in the panel header (e.g. "Active" / "Historic" segmented control or filter chip).
+- **IDE-UX-087:** Historic WOs SHALL support filters: status (completed, failed, cancelled), date range, and scenario name.
+- **IDE-UX-088:** Historic WOs SHALL support sort: by completion date (default), duration, and task count.
+- **IDE-UX-089:** The panel SHALL support search across WO ID, title, and task titles (debounced typeahead).
+- **IDE-UX-090:** Opening a historic WO SHALL use the same WO Detail + Task Graph tab as active WOs; task tree and agent output tabs SHALL be read-only when the WO is terminal.
+
+## Create Scenario Journey
+
+Module concept: [Scenario Authoring](../concepts/scenario-authoring.md).
+
+- **IDE-UX-091:** Builders SHALL create scenarios via: (a) Command Palette — "Foundry: Create Scenario", (b) context menu on `user-work-catalog/` in Explorer — "Create Scenario".
+- **IDE-UX-092:** Create Scenario SHALL open a modal with fields: Scenario name (required), trigger type (Ingress / Internal), optional parent scenario (searchable catalog picker).
+- **IDE-UX-093:** Ingress SHALL map to `scope: workspace-ingress`; Internal SHALL map to `scope: workspace-internal`.
+- **IDE-UX-094:** On submit, the IDE SHALL scaffold `scenario.yaml`, `skilled-agent.yaml`, and `agent-skill.md` under `user-work-catalog/work-catalog/{track}/{oi-type}/{workspace}/scenarios/{name}/`.
+- **IDE-UX-095:** After scaffold, the IDE SHALL open `scenario.yaml` in the Scenario Editor and reveal the new folder in Explorer.
+- **IDE-UX-096:** Parent scenario selection SHALL be optional; when set, the scaffold SHALL include an `extends:` reference and copy applicable defaults without modifying the parent file.
+- **IDE-UX-097:** Create Scenario SHALL NOT require an active Work Order or Orchestration Item context.
+- **IDE-UX-098:** Validation errors from WO Runtime or catalog schema SHALL surface inline in the modal before scaffold completes.
+
+## Workspace Explorer View
+
+Module concept: [Workspace Folder Structure](../concepts/workspace-folder-structure.md).
+
+- **IDE-UX-099:** The VS Code Explorer SHALL reflect the session folder root `$HOME/<workbench>-<workspace>/` with top-level folders: `workbench-knowledge/`, `user-work-catalog/`, `workspace-work-catalog/`, `work-orders/`.
+- **IDE-UX-100:** Read-only roots (`workbench-knowledge/`, `workspace-work-catalog/`) SHALL use a visual indicator (badge, dimmed label, or lock icon) distinct from writable roots.
+- **IDE-UX-101:** Under `work-orders/WO-{id}/`, Explorer SHALL show `work-context/` and `repos/` as expandable children.
+- **IDE-UX-102:** Under `repos/`, each cloned product repo SHALL appear as a workspace folder root with the active `wo/WO-{id}` branch indicated in the status bar when that WO is focused.
+- **IDE-UX-103:** `work-context/` SHALL display OI-scoped artifacts using the OI-type convention layout; the IDE does not enforce a fixed subdirectory schema.
+- **IDE-UX-104:** Explorer or a work-context decoration SHALL show work-context sync status: last sync time from `work-context/.sync/last-sync.json` and optional pending-change indicator when WO Runtime reports drift.
+
 ## Figma Mockup Frames
 
 The following frames SHALL be created in the Figma file (`lgbHENxIZV4deGmSyk6u2p`):
@@ -168,6 +213,12 @@ The following frames SHALL be created in the Figma file (`lgbHENxIZV4deGmSyk6u2p
 | 6 | Task Failed | Red banner, error summary, [Retry] / [Escalate to Human] |
 | 7 | Create Task Dialog | Modal with task metadata fields (title, description, parent, dependencies). No agent config. |
 | 8 | Employ Agent Prompt | Task association picker shown when starting an agent session from outside a task context |
+| 9 | Foundry Workspace Panel | Collapsible sidebar: workspace/workbench info, quick links, WO Runtime settings |
+| 10 | Work Orders — Historic | Historic WO list with filter, sort, and search controls |
+| 11 | Create Scenario Dialog | Modal: name, trigger type (Ingress/Internal), parent scenario picker |
+| 12 | Workspace Explorer | Multi-root Explorer with work-context expanded and sync status |
+
+Frames 0 and 1 SHALL include the Foundry Workspace Panel (expanded in Frame 0, collapsed in Frame 1).
 
 ## Open Design Questions
 

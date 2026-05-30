@@ -1,0 +1,48 @@
+apiVersion: scenario/v1
+name: run-usability-experiment
+description: >
+  Run a usability experiment against a prototype or concept to measure whether
+  a proposed experience resolves the discovery question.
+workspace: ux-design
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: prototype_ref
+    type: string
+    required: true
+    description: Prototype or concept to test
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: experiment_id
+    type: string
+    description: ID of the usability experiment
+  - name: experiment_results
+    type: array
+    items: string
+    description: Measured results and observations
+
+required-skills:
+  - usability-testing
+  - experiment-design
+  - data-analysis
+
+tasks:
+  - id: design-experiment
+    type: agent
+    description: Design the experiment, tasks, and success metrics
+  - id: run-sessions
+    type: agent
+    description: Run the usability sessions and capture results
+    depends-on: [design-experiment]
+  - id: report-results
+    type: agent
+    description: Analyze and report experiment results
+    depends-on: [run-sessions]

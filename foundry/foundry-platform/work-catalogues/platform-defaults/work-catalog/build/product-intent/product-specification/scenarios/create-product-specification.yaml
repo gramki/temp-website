@@ -1,0 +1,56 @@
+apiVersion: scenario/v1
+name: create-product-specification
+description: >
+  Refine an approved Product Intent into a buildable Product Specification
+  (PSD) with acceptance criteria, scope boundaries, and a decomposed backlog.
+workspace: product-specification
+scope: workspace-ingress
+
+inputs:
+  - name: product_intent_id
+    type: string
+    required: true
+    description: ID of the approved Product Intent to specify
+  - name: target_release
+    type: string
+    required: false
+    description: Release Intent / milestone this specification targets
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: specification_id
+    type: string
+    description: ID of the produced Product Specification (PSD)
+  - name: epic_ids
+    type: array
+    items: string
+    description: Epics decomposed from the specification
+  - name: open_questions
+    type: array
+    items: string
+    description: Unresolved questions requiring stakeholder input
+
+required-skills:
+  - requirements-analysis
+  - specification-authoring
+  - backlog-decomposition
+
+tasks:
+  - id: analyze-intent
+    type: agent
+    description: Analyze the Product Intent and gather context from repositories
+  - id: draft-specification
+    type: agent
+    description: Draft the Product Specification document with acceptance criteria
+    depends-on: [analyze-intent]
+  - id: decompose-backlog
+    type: agent
+    description: Decompose the specification into epics and stories
+    depends-on: [draft-specification]
+  - id: review-specification
+    type: human
+    description: Product owner reviews the specification for completeness
+    depends-on: [decompose-backlog]

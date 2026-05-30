@@ -1,0 +1,44 @@
+apiVersion: scenario/v1
+name: customer-release-package-review
+description: >
+  Final governance gate (hard block) before release: confirm the customer
+  release package is complete, compliant, and authorized to ship.
+workspace: governance
+scope: workspace-ingress
+
+inputs:
+  - name: product_intent_id
+    type: string
+    required: true
+    description: Product Intent being governed
+  - name: release_package_id
+    type: string
+    required: true
+    description: Customer release package under review
+
+outputs:
+  - name: decision
+    type: enum
+    values: [approved, rejected]
+    description: Governance decision (hard block on reject)
+  - name: findings
+    type: array
+    items: string
+    description: Blocking issues that must be addressed if rejected
+
+required-skills:
+  - governance-review
+  - release-compliance
+
+tasks:
+  - id: verify-package
+    type: agent
+    description: Verify package completeness, versioning, and release notes
+  - id: check-release-compliance
+    type: agent
+    description: Check licensing, security, and release-policy compliance
+    depends-on: [verify-package]
+  - id: authorize-release
+    type: human
+    description: Release authority records the ship/hold decision
+    depends-on: [check-release-compliance]

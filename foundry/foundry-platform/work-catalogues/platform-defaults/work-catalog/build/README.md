@@ -14,7 +14,7 @@ The Build track uses **Product Intent (PI)** as its orchestration item. A Produc
 
 ## Workspaces
 
-The Build track spans these Workspaces:
+The Build track uses the canonical six [workspace stations](../../../../../ace/workspaces/README.md) — functional teams shared across all tracks:
 
 | Workspace | Purpose |
 |-----------|---------|
@@ -24,6 +24,8 @@ The Build track spans these Workspaces:
 | QA | Test the implementation |
 | Release | Package and release to customers |
 | Governance | Cross-cutting governance checks |
+
+> **Stages route work to teams; stages are not the teams.** The workflow stages below are Product Intent coordination points, not the stations themselves. A single stage may create Work Orders in several stations at once (e.g., `specified` fans out to Development and QA in parallel), and a station may be engaged across multiple stages. The Build flow looks pipelined only because Product Intent naturally moves Specification → Development → QA → Release.
 
 ## Workflow Summary
 
@@ -36,11 +38,14 @@ draft-ready ─────────────────────→ r
                                    in-specification
                                        (Product Specification WO)
                                            ↓
+                                   in-ux-design
+                                       (UX Design WO)
+                                           ↓
                                    specified ───────────────────→ in-qa
                                        (Dev + QA prep WOs parallel)  (QA WO)
                                                                        ↓
                                                                ready-for-release
-                                                                   (Release WO)
+                                                                   (Release WOs)
                                                                        ↓
                                                                    released
                                                                        ↓

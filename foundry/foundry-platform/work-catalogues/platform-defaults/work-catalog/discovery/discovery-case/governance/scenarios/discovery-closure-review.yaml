@@ -1,0 +1,48 @@
+apiVersion: scenario/v1
+name: discovery-closure-review
+description: >
+  Governance gate at closure: confirm the Discovery Case is properly closed —
+  decision recorded, learnings captured, and any Build handoff well-formed.
+workspace: governance
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: Discovery Case being closed
+  - name: pdr_id
+    type: string
+    required: true
+    description: Product Decision Record for the case
+  - name: handoff_product_intent_id
+    type: string
+    required: false
+    description: Product Intent created on a proceed-to-build decision, if any
+
+outputs:
+  - name: decision
+    type: enum
+    values: [approved, rejected]
+    description: Governance decision
+  - name: findings
+    type: array
+    items: string
+    description: Closure concerns that must be addressed if rejected
+
+required-skills:
+  - governance-review
+  - knowledge-management
+
+tasks:
+  - id: verify-closure
+    type: agent
+    description: Verify decision recorded and learnings captured to repositories
+  - id: verify-handoff
+    type: agent
+    description: If proceed-to-build, verify the Product Intent handoff is well-formed
+    depends-on: [verify-closure]
+  - id: record-decision
+    type: agent
+    description: Record the governance decision and findings
+    depends-on: [verify-handoff]
