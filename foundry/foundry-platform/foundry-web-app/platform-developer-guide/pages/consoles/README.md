@@ -1,4 +1,4 @@
-# Workbench Consoles
+# Workbench Consoles (Developer Guide)
 
 Consoles are focused views accessible from the Workbench Home side navigation.
 

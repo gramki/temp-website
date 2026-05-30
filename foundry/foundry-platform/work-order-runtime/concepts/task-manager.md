@@ -132,6 +132,21 @@ The Task Manager detects newly created tasks during its next poll cycle and adds
 
 These are abuse/accident prevention limits, not conceptual constraints.
 
+## Workspace-local tasks
+
+The Task Manager handles [Workspace-Local Tasks](workspace-local-tasks.md) alongside synced tasks:
+
+- **Creation** — Builder-initiated via IDE; rows written to Local State Store with `sync_scope = 'local'`; no Jira MCP calls.
+- **Graph** — Local tasks appear in the full DAG returned to the IDE; dependency edges are enforced in the local store for display and optional scheduling hints.
+- **Manual start with unmet dependencies** — When a builder uses Create & Start on a manual Human Task, the Task Manager transitions to In-Progress without requiring dependencies to be terminal (WOR-FR-0043).
+- **Agent sessions under Human Tasks** — WO Runtime may record each builder-employed agent session as a local child task for uniform tracking; these are not exported to Jira.
+
+Synced tasks continue to use Jira as system of record; local tasks use the Local State Store only.
+
+## Personal Work
+
+The Task Manager maintains the [Personal Work](../../concepts/personal-work.md) Work Order (`is_personal_work = 1`). Agent sessions associated with Personal Work are attached as local tasks under that WO. Personal Work does not participate in Orchestrator completion reporting.
+
 ## Completion criteria
 
 **Task completion:** Agent marks complete via Jira MCP, or human marks complete in UI.

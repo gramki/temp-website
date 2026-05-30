@@ -29,15 +29,19 @@ Cached Work Order metadata and state:
 
 ```sql
 CREATE TABLE work_orders (
-    id TEXT PRIMARY KEY,              -- WO-567
-    jira_key TEXT NOT NULL,
-    scenario TEXT NOT NULL,
+    id TEXT PRIMARY KEY,              -- WO-567 or PERSONAL-WORK
+    jira_key TEXT,                    -- NULL for local-only WOs
+    scenario TEXT,                    -- NULL for Personal Work
     status TEXT NOT NULL,             -- in_progress, completed, failed
-    orchestration_item TEXT,          -- PI-456
+    orchestration_item TEXT,          -- PI-456; NULL for Personal Work
+    sync_scope TEXT NOT NULL DEFAULT 'synced',  -- synced | local
+    is_personal_work INTEGER NOT NULL DEFAULT 0,  -- 1 for Personal Work WO
     attached_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     completed_at DATETIME
 );
 ```
+
+Personal Work uses a single row per session with `is_personal_work = 1` and `sync_scope = 'local'`. Orchestrated WOs use `sync_scope = 'synced'` and a non-null `jira_key` when attached from Jira.
 
 ### `tasks` table
 
@@ -45,10 +49,14 @@ Task tree with dependencies and state:
 
 ```sql
 CREATE TABLE tasks (
-    id TEXT PRIMARY KEY,              -- TASK-890
+    id TEXT PRIMARY KEY,              -- TASK-890 or LOCAL-xxx
     work_order_id TEXT NOT NULL REFERENCES work_orders(id),
     parent_task_id TEXT,
-    scenario TEXT NOT NULL,
+    scenario TEXT,                    -- NULL for manual local tasks
+    title TEXT NOT NULL,
+    description TEXT,
+    executor_type TEXT NOT NULL,      -- agent | human
+    sync_scope TEXT NOT NULL DEFAULT 'synced',  -- synced | local
     state TEXT NOT NULL,              -- blocked, ready, in_progress, completed, failed, cancelled
     skilled_agent TEXT,
     dependencies TEXT,                -- JSON array of task IDs
@@ -116,8 +124,9 @@ The Local State Store syncs bidirectionally with Jira:
 
 | Direction | Trigger | What syncs |
 |-----------|---------|------------|
-| Jira → Local | Poll cycle (5s) | New WOs, task state changes |
-| Local → Jira | State change | Task status transitions |
+| Jira → Local | Poll cycle (5s) | New WOs, task state changes (`sync_scope = 'synced'` only) |
+| Local → Jira | State change | Task status transitions (`sync_scope = 'synced'` only) |
+| Local only | Builder / daemon | Personal Work WO, workspace-local tasks, agent-session rows — never synced |
 
 ### Conflict resolution
 
@@ -161,6 +170,8 @@ AND state NOT IN ('completed', 'cancelled');
 - [Task Manager](task-manager.md) — Reads/writes task state
 - [Agent Spawner](agent-spawner.md) — Writes agent state
 - [Context Compilation](context-compilation.md) — Uses context cache
+- [Workspace-Local Tasks](workspace-local-tasks.md) — Rows with `sync_scope = 'local'`
+- [Personal Work](../../concepts/personal-work.md) — `is_personal_work` Work Order row
 
 ## Further reading
 

@@ -15,6 +15,9 @@ This folder contains module-specific concept definitions for the Foundry IDE. Ea
 | [Builder](builder.md) | Human user of the Foundry IDE — the term for anyone working in a Workspace Session |
 | [Workspace Views](workspace-views.md) | Per-Workspace-type UI customizations providing context-specific panels, layouts, and tooling |
 | [Scenario Editor](scenario-editor.md) | Schema-aware YAML editor extension for authoring Work Catalog Scenarios |
+| [Employed Agents Panel](employed-agents-panel.md) | Right panel listing all employed agents in the session with status and filters |
+| [Task Graph View](task-graph-view.md) | Editor-tab folder-style task tree for a Work Order with WO detail header |
+| [Agent Employment](agent-employment.md) | How builders employ agents during Human Tasks and Personal Work |
 
 ## Relationship to Platform Concepts
 
@@ -25,7 +28,8 @@ These module concepts specialize and extend platform-wide concepts:
 | [Workspace Session](../../concepts/workspace-session.md) | IDE provides the visual interface to Sessions via Builder UX |
 | [Scenario](../../concepts/scenario.md) | IDE provides the Scenario Editor for authoring |
 | [Work Order](../../concepts/work-order.md) | IDE provides the Work Orders Panel for visibility |
-| [Task](../../concepts/task.md) | IDE provides chat tabs and terminal windows for task execution |
+| [Task](../../concepts/task.md) | IDE provides task graph, Employed Agents panel, and editor Agent Output tabs |
+| [Personal Work](../../concepts/personal-work.md) | IDE shows Personal Work in sidebar; association prompt for ad-hoc agents |
 
 ## Read next
 

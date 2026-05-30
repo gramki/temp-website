@@ -1,4 +1,4 @@
-# Foundry Web App — Pages
+# Foundry Web App — Pages (Developer Guide)
 
 This folder contains requirements for key pages in the Foundry Web App.
 

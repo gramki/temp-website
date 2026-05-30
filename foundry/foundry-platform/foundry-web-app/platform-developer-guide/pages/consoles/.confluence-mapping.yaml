@@ -1,4 +1,9 @@
-# Confluence folder titles (space-wide uniqueness). Local paths unchanged.
+# Console groups moved under platform-developer-guide/pages/consoles/
 folders:
-  workspaces: "Workspace Consoles"
-  governance: "Governance Consoles"
+  build: "Build (Developer Guide)"
+  work: "Work (Developer Guide)"
+  workforce: "Workforce (Developer Guide)"
+  resources: "Resources (Developer Guide)"
+  settings: "Settings (Developer Guide)"
+  workspaces: "Workspace Consoles (Developer Guide)"
+  governance: "Governance Consoles (Developer Guide)"

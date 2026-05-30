@@ -30,6 +30,7 @@ This folder contains platform-wide concept definitions for the Foundry Platform.
 | [Task](task.md) | Unit of work completed by human-agent teams |
 | [Work Order](work-order.md) | Instantiation of a Scenario for execution |
 | [Workspace Session](workspace-session.md) | Ephemeral development environment for Work Order execution |
+| [Personal Work](personal-work.md) | Workspace-local WO for ad-hoc agent usage not tied to orchestrated tasks |
 
 ### Agents & Skills
 

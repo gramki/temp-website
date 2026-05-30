@@ -1,4 +1,4 @@
-# Foundry CI (2)
+# Foundry CI (Developer Guide)
 
 Foundry CI composes existing CI primitives into a workshop-aware experience.
 

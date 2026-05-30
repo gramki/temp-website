@@ -1,4 +1,4 @@
-# Foundry Management user guide
+# Foundry Management — User Guide
 
 This guide covers administrative tasks for Foundry Admins and Workbench Managers — Foundry onboarding, settings, Workbench provisioning, and Workbench architecture.
 

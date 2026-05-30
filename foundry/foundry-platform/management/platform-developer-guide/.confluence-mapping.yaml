@@ -1,0 +1,8 @@
+folders:
+  services: "Management Services (Developer Guide)"
+  team-management: "Team Management (Developer Guide)"
+  knowledge-management: "Knowledge Management (Developer Guide)"
+
+pages:
+  git-infrastructure.md: "Git Infrastructure for a Foundry (Developer Guide)"
+  requirements.md: "Management Module Requirements (Developer Guide)"
