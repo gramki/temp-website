@@ -117,6 +117,17 @@ Substantive content rewrites deferred from the [three-track restructure plan](.c
 
 ---
 
+## workspace-session-infrastructure / workspace-session-management
+
+| ID | File | Rewrite needed |
+|----|------|----------------|
+| WS-1 | `work-order-runtime/README.md` | Session lifecycle prose moved to Session Management; verify no stale "creates sessions" language remains in user guides. |
+| WS-2 | `work-order-runtime/platform-developer-guide/design-discussions/control-plane-and-agent-interfaces.md` | Update "Workspace lifecycle" row — session creation owned by Session Management/Infrastructure, not WO Runtime. |
+| WS-3 | `management/platform-developer-guide/foundry-management/README.md` | Add `workspace_infrastructure` settings block documentation for K8s cluster config. |
+| WS-4 | `management/platform-developer-guide/foundry-definition-repository.md` | Document `workspace-infrastructure/<workspace>/` folder structure for admin layering. |
+
+---
+
 ## Priority order (suggested)
 
 1. **O-1 / WC-2** — OI Workflow authoring dedupe (highest duplication)

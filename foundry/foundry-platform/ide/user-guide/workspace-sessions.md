@@ -18,8 +18,21 @@ Builders — developers, product managers, QA engineers, UX designers, and other
 ## Prerequisites
 
 - Access to a Workbench and Workspace
-- An active Workspace Session (Coder-based ephemeral dev environment)
+- An **Active** Workspace Session — see [Session lifecycle](../../workspace-session-management/concepts/session-lifecycle.md)
 - Familiarity with [ACE Workspaces](../../../ace/workspaces/README.md) — the six Workspace types
+
+## How sessions start
+
+Before you can use the IDE, a session must reach **Active** state:
+
+1. **Orchestrator** needs to assign work → queries or creates a session via Session Management
+2. **Session Management** delegates provisioning to Session Infrastructure
+3. **Session Infrastructure** spawns a K8s pod (Code Server + WO Runtime)
+4. **WO Runtime** boots and sends liveness acknowledgment to Session Management
+5. Session becomes **Active**; you access the IDE at the session URL
+
+→ [../../workspace-session-management/concepts/session-lifecycle.md](../../workspace-session-management/concepts/session-lifecycle.md) — full state machine
+→ [../../workspace-session-infrastructure/README.md](../../workspace-session-infrastructure/README.md) — pod provisioning
 
 ## Builder-facing capabilities
 

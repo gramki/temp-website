@@ -1,10 +1,10 @@
 # Builder
 
-A Builder is a human user of the Foundry IDE — the term for anyone working in a Workspace Session to complete Tasks, interact with agents, and produce work artifacts.
+A Builder is Foundry's term for any human using the IDE in a Workspace Session — to complete Tasks, interact with agents, and produce work artifacts.
 
 ## What it is
 
-"Builder" is the deliberate term choice for Foundry IDE users. It encompasses all human practitioners who work within Workspace Sessions:
+Foundry uses "Builder" for all human practitioners who work within Workspace Sessions:
 
 - **Developers** writing and reviewing code in Development Workspaces
 - **Product Managers** refining specifications in Product Specification Workspaces
@@ -13,7 +13,7 @@ A Builder is a human user of the Foundry IDE — the term for anyone working in 
 - **Release Engineers** managing artifacts in Release Workspaces
 - **Governance participants** conducting rituals in Governance Workspaces
 
-The term "Builder" avoids role-specific language because the IDE experience is consistent across disciplines. Everyone who uses the IDE is building something — whether code, specifications, designs, test cases, or evidence packs.
+The label applies across disciplines because the IDE experience is the same regardless of UPIM role.
 
 Key Builder capabilities in the IDE:
 
@@ -32,11 +32,13 @@ Builders own their [Workspace Sessions](../../concepts/workspace-session.md) —
 | Module | Responsibility |
 |--------|----------------|
 | **IDE** | Builder-facing interface; all IDE features target Builders |
-| **WO Runtime** | Creates sessions for Builders; assigns Work Orders |
+| **Session Management** | Lifecycle for Builder-owned sessions |
+| **WO Runtime** | Executes Work Orders in Builder sessions; surfaces Human Tasks |
+| **Orchestrator** | Assigns Work Orders to Builders |
 | **Web App** | Alternative interface for Builders who don't need IDE |
 | **Workbench** | Defines Builder roles and permissions |
 
-The Builder concept affects documentation structure:
+## Documentation map
 
 ```
 ide/
@@ -55,6 +57,8 @@ ide/
 | Practitioner | ACE term; Foundry uses "Builder" for IDE context |
 
 From ACE: "ACE treats each Workspace as having its own IDE context." The Builder is the human who enters that context.
+
+### UPIM alignment
 
 In UPIM's Workforce Repository, Builders are practitioners assigned to Workbenches with specific roles (Developer, Product Manager, etc.). The IDE abstracts over these roles — regardless of UPIM role, everyone using the IDE is a Builder.
 

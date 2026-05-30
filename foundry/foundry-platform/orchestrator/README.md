@@ -14,8 +14,8 @@ The primary beneficiaries are Program Managers (who see work flowing through the
 
 - **Orchestration-item routing** — move each Track's primary orchestration item across Workspaces and link items at cross-track handoffs
 - **Workspace Work Order creation** — instantiate `(Track, Workspace, Scenario)` as Work Orders when triggered by workflow events
-- **Work Order assignment** — assign WOs to users based on skill matching, capacity, and affinity
-- **Session activation** — activate user Workspace Sessions when WOs are assigned (per user configuration)
+- **Work Order assignment** — assign WOs to users based on skill matching, capacity, and affinity; WO Runtime discovers assignments via events and Work repo
+- **Session coordination** — query Session Management for active sessions, or request session creation before WO assignment
 - **Governance invocation** — invoke Governance Scenarios at gates and transitions
 - **Gate enforcement** — validate transitions, block or allow based on Governance Scenario outcomes
 - **Completion handling** — receive WO completion notifications and advance orchestration items
@@ -29,6 +29,7 @@ The primary beneficiaries are Program Managers (who see work flowing through the
 - **Does not store artifacts** — Repositories store code, designs, specs; Orchestrator only links to them
 - **Does not define Scenarios** — Work Catalog Management (in Management module) defines schema; Work Catalogues module contains definitions
 - **Does not manage Workbenches** — Management module provisions and configures Workbenches
+- **Does not lifecycle-manage sessions** — [Workspace Session Management](../workspace-session-management/README.md) owns session lifecycle; Orchestrator queries/creates sessions and assigns WOs
 
 ## Architecture
 
@@ -134,6 +135,15 @@ Do not conflate them. Moving Product Intent from Specification to Development is
 - **Closest workflow wins.** User overrides Workbench overrides Workshop overrides Foundry overrides Platform — allows org-wide defaults with product-specific exceptions.
 - **Jira is bidirectional.** Orchestrator reads (webhooks) AND writes (REST API) to Jira.
 - **Separate state database.** Postgres for workflow state; Jira is secondary for work items.
+- **Session coordination via Session Management.** Before assigning a WO, Orchestrator queries Session Management for an active session matching (user, workspace-type, workbench). If none exists, it requests creation and waits for `session-activated` before assigning.
+- **WO assignment is Orchestrator's responsibility.** WO Runtime discovers assignments via Orchestrator events and/or Work repo (Jira) polling — Session Management does not know about Work Orders.
+
+## Dependencies
+
+| Dependency | Relationship |
+|------------|--------------|
+| [Workspace Session Management](../workspace-session-management/README.md) | Query/create sessions; listen to session events |
+| [Work Order Runtime](../work-order-runtime/README.md) | Executes WOs; receives completion notifications |
 
 ## Open Questions
 
@@ -179,6 +189,7 @@ These concepts describe Orchestrator internals:
 
 ## Read Next
 
+- [../workspace-session-management/README.md](../workspace-session-management/README.md) — session query and creation
 - [user-guide/product-intent-journey.md](user-guide/product-intent-journey.md) — end-to-end Product Intent walkthrough
 - [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO Runtime execution engine
 - [../agent-fabric/README.md](../agent-fabric/README.md) — Agent infrastructure
