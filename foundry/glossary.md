@@ -24,7 +24,7 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Workspace types (six).** Product Specification, UX Design, Development, QA, Release, Governance. Each has its own role in the Product Evolution Cycle.
 
-**Workspace Session.** A Coder-based ephemeral development environment for working in a Workspace. Created by the Work Order Runtime module using templates specific to the (Workspace Type, Workbench) pair. Sessions are owned by a single person (not shared), can have multiple Work Orders attached, and persist until the user explicitly closes them. States: Active (running), Stopped (persisted but not running), Archived (read-only snapshot). Source: [foundry-platform/foundry-web-app/pages/consoles/workspaces-console.md](foundry-platform/foundry-web-app/pages/consoles/workspaces-console.md).
+**Workspace Session.** A Coder-based ephemeral development environment for working in a Workspace. Created by the Work Order Runtime module using templates specific to the (Workspace Type, Workbench) pair. Sessions are owned by a single person (not shared), can have multiple Work Orders attached, and persist until the user explicitly closes them. States: Active (running), Stopped (persisted but not running), Archived (read-only snapshot). Source: [foundry-platform/foundry-web-app/platform-developer-guide/pages/consoles/workspaces/workspaces-overview.md](foundry-platform/foundry-web-app/platform-developer-guide/pages/consoles/workspaces/workspaces-overview.md).
 
 **Human–Agent Team.** The composition of human practitioners and AI agents that completes the work of a Workspace. ACE treats agents as members of the workforce, not as external automations.
 
@@ -136,7 +136,7 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 ## Tooling and workstream terms
 
-**Foundry CI.** The CI capability inside the Foundry Platform. Concrete components include evidence packs, test runners and reports, build quality indicators, technical-debt management, agentic quality gates, MS Teams integration, Test Rail support. Source: [foundry-platform/ci/ci.TODO](foundry-platform/ci/ci.TODO).
+**Foundry CI.** The CI capability inside the Foundry Platform. Concrete components include evidence packs, test runners and reports, build quality indicators, technical-debt management, agentic quality gates, MS Teams integration, Test Rail support. Source: [foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO](foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO).
 
 **Olympus Workspace.** The concrete workspace implementation in Zeta tooling, one per Foundry Workshop (multiple workspaces per workshop). Source: [engagement-engineering/tenant-developer-tooling/TD.TODO](engagement-engineering/tenant-developer-tooling/TD.TODO).
 

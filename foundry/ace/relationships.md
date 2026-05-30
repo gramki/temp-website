@@ -83,7 +83,7 @@ The boundary between ACE (the model) and the Foundry Platform (the implementatio
 | Product Intent | The hybrid bridge entity: definition-bearing, work-triggering, routable through the cycle. | Routing of intent across workspaces ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 14). |
 | Governance | That every transition invokes governance. | Governance Workspace Engineering ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 24). |
 | Security, compliance, audit, observability | That these are first-class concerns. | Foundry Specification ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) lines 1-9). |
-| CI | (not specified by ACE; CI is consumed) | Foundry CI ([../foundry-platform/ci/](../foundry-platform/ci/README.md)). |
+| CI | (not specified by ACE; CI is consumed) | Foundry CI ([../foundry-platform/release-tools/platform-developer-guide/ci/](../foundry-platform/release-tools/platform-developer-guide/ci/README.md)). |
 | Metrics & KPIs | Agent effectiveness as a goal ([objectives.md](objectives.md)). | Concrete metrics: Say/Do, Cost per Story Point, Velocity, Quality, etc. ([../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 15). |
 
 ## Foundry Platform ↔ UPIM

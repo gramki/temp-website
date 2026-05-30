@@ -56,7 +56,7 @@ ACE specifies that each workspace has an IDE context. It does not aim to build a
 
 ### B. Not a CI vendor replacement
 
-Foundry CI is the CI capability inside the Foundry Platform. It composes existing CI primitives (test runners, evidence packs, build quality indicators, agentic quality gates) into a workshop-aware experience. It is not aiming to displace standard CI infrastructure where that infrastructure already serves. Source: [../foundry-platform/ci/ci.TODO](../foundry-platform/ci/ci.TODO).
+Foundry CI is the CI capability inside the Foundry Platform. It composes existing CI primitives (test runners, evidence packs, build quality indicators, agentic quality gates) into a workshop-aware experience. It is not aiming to displace standard CI infrastructure where that infrastructure already serves. Source: [../foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO](../foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO).
 
 ### C. Not a substitute for UPIM
 

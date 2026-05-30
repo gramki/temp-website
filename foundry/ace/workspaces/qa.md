@@ -43,7 +43,7 @@ See [../repositories.md](../repositories.md).
 
 ## CI integration
 
-QA leans on Foundry CI for evidence packs, test runners and reports, build quality indicators, and agentic quality gates. See [../../foundry-platform/ci/ci.TODO](../../foundry-platform/ci/ci.TODO).
+QA leans on Foundry CI for evidence packs, test runners and reports, build quality indicators, and agentic quality gates. See [../../foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO](../../foundry-platform/release-tools/platform-developer-guide/ci/ci.TODO).
 
 ## See also
 

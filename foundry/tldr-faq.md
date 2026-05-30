@@ -288,5 +288,5 @@ The tldr does not commit to these. Each will be addressed in deeper docs — ACE
 - **Jira label naming convention** — standard label format for Workbench filtering.
 
 **Resolved (documented elsewhere):**
-- ~~Foundry Management specifics~~ — Workbench architecture now documented in [foundry-platform/management/workbench-architecture.md](foundry-platform/management/workbench-architecture.md).
+- ~~Foundry Management specifics~~ — Workbench architecture now documented in [foundry-platform/management/user-guide/workbench-architecture.md](foundry-platform/management/user-guide/workbench-architecture.md).
 - ~~Repository storage model~~ — Quality (TestRail + Git), Operations/Feedback/Work (Jira/JSM) now documented. Evolution deferred.

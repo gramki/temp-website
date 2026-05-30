@@ -40,4 +40,4 @@ Development depends heavily on the **Propeller** workstream — the cross-stack 
 - [../product-evolution-cycle.md](../product-evolution-cycle.md) — the cycle this workspace participates in.
 - [../governance.md](../governance.md) — governance on intent transitions.
 - [../../foundry-platform/platform.TODO](../../foundry-platform/platform.TODO) — Development Workspace Engineering.
-- [../../foundry-platform/ci/](../../foundry-platform/ci/README.md) — Foundry CI capabilities used here.
+- [../../foundry-platform/release-tools/platform-developer-guide/ci/](../../foundry-platform/release-tools/platform-developer-guide/ci/README.md) — Foundry CI capabilities used here.
