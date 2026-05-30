@@ -1,7 +1,7 @@
 # Evolve Monitoring
 
 **Model:** Work Model
-**Track:** Track 5: Evolve (Process Evolution)
+**Track:** Evolve
 **Owner:** Process Leads, Product Ops, Engineering Managers
 
 ## Definition
@@ -46,8 +46,8 @@ Each track has its own monitoring entity (Signal Monitoring, Build Monitoring, S
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Triggers | Evolve Review (Track 5) | Threshold breaches trigger ad hoc or accelerated reviews |
-| Informs | Evolve Planning (Track 5) | Monitoring trends inform evolution cycle scoping |
+| Triggers | Evolve Review (Evolve) | Threshold breaches trigger ad hoc or accelerated reviews |
+| Informs | Evolve Planning (Evolve) | Monitoring trends inform evolution cycle scoping |
 | Monitors | Work entities (Tracks 1–5) | Tracks process adherence and DoD compliance |
 | Monitors | Artifact types (all tracks) | Tracks artifact quality against assessment criteria |
 

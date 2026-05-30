@@ -1,7 +1,7 @@
 # Product Version
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction) — Artifact
+**Track:** Build — Artifact
 **Owner:** Tech Lead, Release Engineering
 
 ## Definition
@@ -12,9 +12,9 @@ Product Versions are results of integration and certification work, not planned 
 
 > **Product Version as ubiquitous language.** Product Version is the shared vocabulary across all teams and external stakeholders. Win teams reference it in support cases: "customer X is running v4.0.0." Release Notes are written against it. Compliance certifies it. Customers identify what they're running. Component Version is Build engineering language; System Version is Build + Run language; Product Version is the lingua franca for cross-team and customer-facing communication.
 
-> **Composes System Versions directly — no Module Version tier.** Product Version references System Versions, not Module Versions or Component Versions directly. Module (Dim 8) remains the functional boundary customers recognize ("Payments Module"), but traceability flows Module → System (Dim 5) → System Version in the Product Version BOM. Module is not an operational versioning tier. See DR-036 D3, D12.
+> **Composes System Versions directly — no Module Version tier.** Product Version references System Versions, not Module Versions or Component Versions directly. Module (Structural) remains the functional boundary customers recognize ("Payments Module"), but traceability flows Module → System (Technical) → System Version in the Product Version BOM. Module is not an operational versioning tier. See DR-036 D3, D12.
 
-> **"Highest-order composition" uses "composition" in the systems-thinking sense.** Product Version is not a System entity (Dim 5). It is a whole composed of interacting System Versions with emergent product-level properties that do not exist at the System or Component level.
+> **"Highest-order composition" uses "composition" in the systems-thinking sense.** Product Version is not a System entity (Technical). It is a whole composed of interacting System Versions with emergent product-level properties that do not exist at the System or Component level.
 
 ## Purpose
 
@@ -52,11 +52,11 @@ Product Version solves these by providing a certified System Versions BOM and a 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Composes | System Version(s) (Track 2) | Product Version composes System Versions via BOM |
-| Instantiated from | Product Specification (Dim 5) | Product Version is the Work Model instance of the Product Specification's System composition |
-| Described by | Product Deployment Specification(s) (Track 3) | Environment-specific full-product deployment is specified by Product Deployment Specifications |
-| Referenced by | Customer Release Intent (Dim 1) | Customer Release Intents reference Product Version(s) |
-| Supersedes | Product Version (Track 2) | Each Product Version supersedes the previous |
+| Composes | System Version(s) (Build) | Product Version composes System Versions via BOM |
+| Instantiated from | Product Specification (Technical) | Product Version is the Work Model instance of the Product Specification's System composition |
+| Described by | Product Deployment Specification(s) (Run) | Environment-specific full-product deployment is specified by Product Deployment Specifications |
+| Referenced by | Customer Release Intent (Strategy) | Customer Release Intents reference Product Version(s) |
+| Supersedes | Product Version (Build) | Each Product Version supersedes the previous |
 
 ## Example
 
@@ -89,6 +89,6 @@ Certification Date: 2026-05-15T18:00:00Z
 Status: Certified
 ```
 
-Capability traceability example: **Real-Time FX Rate Lock** (Capability, Dim 8) → FX Module (Dim 8) → fx-system (Dim 5) → fx-system v2.0.1 in Product v4.0.0 BOM. No Module Version entity is required.
+Capability traceability example: **Real-Time FX Rate Lock** (Capability, Structural) → FX Module (Structural) → fx-system (Technical) → fx-system v2.0.1 in Product v4.0.0 BOM. No Module Version entity is required.
 
 ---

@@ -1,13 +1,13 @@
 # System Monitoring
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Category:** Monitoring
 **Owner:** DevOps, SRE
 
 ## Definition
 
-Continuous tracking of operational health across Systems (Dim 5), composed **System Versions** and **Product Versions** in deployment, Tenant health, and cross-System operational wiring. System Monitoring sits between periodic assessment (Capacity Planning, deployment reviews) and reactive work (Incident, Change Request) — it surfaces when thresholds are breached, when capacity is strained, when SLAs are at risk, or when Tenant-level metrics degrade.
+Continuous tracking of operational health across Systems (Technical), composed **System Versions** and **Product Versions** in deployment, Tenant health, and cross-System operational wiring. System Monitoring sits between periodic assessment (Capacity Planning, deployment reviews) and reactive work (Incident, Change Request) — it surfaces when thresholds are breached, when capacity is strained, when SLAs are at risk, or when Tenant-level metrics degrade.
 
 System Monitoring is the Run Track's **operational** monitoring entity — it monitors the health of running systems and compositions. It is distinct from Run Engineering Monitoring, which tracks the engineering velocity and quality of Run Track engineering work (Run Epics, Run Stories, Technical Tasks). System Monitoring is the most established monitoring practice in the model — SRE and DevOps teams routinely run 24/7 monitoring — and is now explicitly represented as a work entity.
 
@@ -27,11 +27,11 @@ Makes the continuous oversight of production and infrastructure explicit as a wo
 | Field | Type | Description |
 |---|---|---|
 | Scope | Text | What is being monitored (e.g., "Production US — API latency and uptime", "FX service — capacity and error rate") |
-| Metrics Tracked | List (text or reference to Dim 7) | Uptime, latency (P50/P95/P99), error rate, capacity utilization, SLA metrics |
+| Metrics Tracked | List (text or reference to Operational) | Uptime, latency (P50/P95/P99), error rate, capacity utilization, SLA metrics |
 | Thresholds / Alerts | List (text) | When does monitoring trigger action (e.g., "Latency P95 > 500ms", "Error rate > 1%") |
 | Cadence | Enum | `Continuous` / `Daily` / `Weekly` |
 | Owner | String | Role/person or team responsible (e.g., SRE on-call) |
-| Environment(s) | Reference (Dim 7) | Which environment(s) this monitoring covers |
+| Environment(s) | Reference (Operational) | Which environment(s) this monitoring covers |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -54,12 +54,12 @@ Makes the continuous oversight of production and infrastructure explicit as a wo
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Produces | Incident (Track 3, artifact) | Monitoring produces Incident records when service degradation is detected |
-| Triggers | Incident Response Task (Track 3) | Incident creation triggers response work |
-| May trigger | Change Request (Track 3) | Monitoring may surface need for capacity or config change |
-| May trigger | Run Epic (Track 3) | Monitoring may reveal operational tooling gaps requiring engineering |
-| Informs | Capacity Planning Task (Track 3) | Utilization and growth trends inform capacity forecasts |
-| Informs | Deployment Task (Track 3) | Monitoring validates post-deployment health |
-| May inform | Customer Value Metric (Dim 3) | SLA metrics may evidence Service Commitment fulfillment |
+| Triggers | Incident Response Task (Run) | Incident creation triggers response work |
+| May trigger | Change Request (Run) | Monitoring may surface need for capacity or config change |
+| May trigger | Run Epic (Run) | Monitoring may reveal operational tooling gaps requiring engineering |
+| Informs | Capacity Planning Task (Run) | Utilization and growth trends inform capacity forecasts |
+| Informs | Deployment Task (Run) | Monitoring validates post-deployment health |
+| May inform | Customer Value Metric (Customer Value) | SLA metrics may evidence Service Commitment fulfillment |
 
 ## Example
 

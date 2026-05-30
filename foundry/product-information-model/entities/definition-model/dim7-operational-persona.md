@@ -1,7 +1,7 @@
 # Operational Persona
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** Engineering Leadership, Platform Engineering
 
 ## Definition
@@ -10,7 +10,7 @@ A functional archetype who operates the product — not an organizational role (
 
 > **Role definition, not agent identity.** Operational Persona is a **role** in the Definition Model. Specific people or AI agents who fulfill this role are tracked in the Workforce Repository (WFR) with role bindings referencing this persona. See DR-034.
 
-Distinct from User Persona (Dim 4) and Developer Persona (Dim 6) — different interaction paradigm, different quality criteria, different concerns. The same human may appear in multiple dimensions: a Dim 4 User Persona when using the Developer Portal, a Dim 6 Developer Persona when writing API integration code, a Dim 7 Operational Persona when operating the monitoring dashboard.
+Distinct from User Persona (User Experience) and Developer Persona (Ecosystem) — different interaction paradigm, different quality criteria, different concerns. The same human may appear in multiple dimensions: a User Experience User Persona when using the Developer Portal, a Ecosystem Developer Persona when writing API integration code, a Operational Operational Persona when operating the monitoring dashboard.
 
 ## Purpose
 
@@ -19,7 +19,7 @@ Captures who operates the product and what their needs are, enabling operational
 - Operational Pains have no persona to anchor to — they float without an endurer
 - Product investment in operational capabilities lacks a demand signal from a defined persona
 
-**Discovery process:** Operational Personas are identified through operational experience, surfaced as observations or research findings in Discovery, and formally documented in Dim 7 through Modeling Tasks triggered by PDRs. Operational Personas are Signal *sources*, not entity authors — they contribute operational observations that become Signals.
+**Discovery process:** Operational Personas are identified through operational experience, surfaced as observations or research findings in Discovery, and formally documented in Operational through Modeling Tasks triggered by PDRs. Operational Personas are Signal *sources*, not entity authors — they contribute operational observations that become Signals.
 
 ## Fields
 
@@ -29,25 +29,25 @@ Captures who operates the product and what their needs are, enabling operational
 | Quality Domain | Enum | Primary quality taxonomy area: `Reliability` / `Performance` / `Security` / `Compliance` / `Cost Efficiency` / `Observability` / `Scalability` / `Platform` / `Data` |
 | Role Context | Text | What they do and why they interact with the product operationally |
 | Key Concerns | List | What matters most (e.g., availability, incident MTTR, SLO compliance, cost control) |
-| Operational Pain(s) | List of References (Dim 7) | Current operational suffering |
-| Operational Job(s) | List of References (Dim 7) | What they need to accomplish |
-| Primary Module(s) | List of References (Dim 8) | Which operational modules they primarily use |
-| UX Channel(s) | List of References (Dim 4) | How they access the product (Web, CLI, Email, Mobile, etc.) |
+| Operational Pain(s) | List of References (Operational) | Current operational suffering |
+| Operational Job(s) | List of References (Operational) | What they need to accomplish |
+| Primary Module(s) | List of References (Structural) | Which operational modules they primarily use |
+| UX Channel(s) | List of References (User Experience) | How they access the product (Web, CLI, Email, Mobile, etc.) |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Operates | Deployment Environment (Dim 7) | Operational Personas operate specific environments |
-| Has | Operational Job (Dim 7) | Operational Personas have jobs to accomplish |
-| Follows | Operational Journey (Dim 7) | Operational Personas follow journeys through operational modules |
-| Endures | Operational Pain (Dim 7) | Operational Personas experience operational suffering |
-| Responsible for | Operational Target (Dim 7) | Operational Personas own specific operational targets |
-| Accesses via | UX Channel (Dim 4) | Cross-dimensional: Operational Personas access the product through UX Channels |
-| Uses | Module (Dim 8) | Operational Personas use operational modules (admin consoles, monitoring dashboards, CLIs) |
-| Uses | Integration Module (Dim 6) | Operational Personas use integration modules to third-party ops tools (Datadog, PagerDuty) |
-| Discovery | Research Task (Track 1) | Operational needs studied via research |
-| Signals | Signal (Dim 1) | Operational observations become Signals |
+| Operates | Deployment Environment (Operational) | Operational Personas operate specific environments |
+| Has | Operational Job (Operational) | Operational Personas have jobs to accomplish |
+| Follows | Operational Journey (Operational) | Operational Personas follow journeys through operational modules |
+| Endures | Operational Pain (Operational) | Operational Personas experience operational suffering |
+| Responsible for | Operational Target (Operational) | Operational Personas own specific operational targets |
+| Accesses via | UX Channel (User Experience) | Cross-dimensional: Operational Personas access the product through UX Channels |
+| Uses | Module (Structural) | Operational Personas use operational modules (admin consoles, monitoring dashboards, CLIs) |
+| Uses | Integration Module (Ecosystem) | Operational Personas use integration modules to third-party ops tools (Datadog, PagerDuty) |
+| Discovery | Research Task (Discovery) | Operational needs studied via research |
+| Signals | Signal (Strategy) | Operational observations become Signals |
 
 ## Quality-Taxonomy Archetypes
 

@@ -1,35 +1,35 @@
 # Interaction Pattern
 
 **Model:** Definition Model
-**Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)
+**Dimension:** Technical
 **Owner:** Tech Leads, Architects
 
 ## Definition
 
-How Systems communicate to fulfill Value Streams (Dim 8). The technical realization of the functional flow — where Value Stream captures the business narrative ("Cross-Border Payout Processing traverses Invoice → FX → Compliance → Payment → Settlement"), Interaction Pattern captures the technical narrative ("payment request enters via REST at payments-api → FX rate fetched via gRPC from fx-service → compliance check via async Kafka event → settlement confirmation via Kafka event"). Interaction Patterns anchor sequence diagrams and data flow diagrams — the entity defines the pattern; the diagram is a visualization artifact.
+How Systems communicate to fulfill Value Streams (Structural). The technical realization of the functional flow — where Value Stream captures the business narrative ("Cross-Border Payout Processing traverses Invoice → FX → Compliance → Payment → Settlement"), Interaction Pattern captures the technical narrative ("payment request enters via REST at payments-api → FX rate fetched via gRPC from fx-service → compliance check via async Kafka event → settlement confirmation via Kafka event"). Interaction Patterns anchor sequence diagrams and data flow diagrams — the entity defines the pattern; the diagram is a visualization artifact.
 
 ## Purpose
 
 Captures the technical communication architecture between Systems. Without Interaction Patterns:
-- Value Streams (Dim 8) describe functional flows but not how they are technically realized
+- Value Streams (Structural) describe functional flows but not how they are technically realized
 - Integration architecture is implicit — sync vs. async, protocol choices, error handling strategies are undocumented
 - Sequence diagrams and data flow diagrams have no Definition Model anchor — they exist as tribal knowledge or ad-hoc wiki pages
 - Cross-system failure modes are invisible — "what happens when compliance-service doesn't respond within 5s?" has no structured answer
 
-**Value Stream (Dim 8) vs. Interaction Pattern (Dim 5):** Same flow, different lens. Value Stream is the functional narrative (for PMs — which capabilities are exercised in what order). Interaction Pattern is the technical narrative (for architects — which systems communicate via what protocols with what error handling). A single Value Stream may have multiple Interaction Patterns (e.g., a sync path for real-time and a batch path for bulk processing).
+**Value Stream (Structural) vs. Interaction Pattern (Technical):** Same flow, different lens. Value Stream is the functional narrative (for PMs — which capabilities are exercised in what order). Interaction Pattern is the technical narrative (for architects — which systems communicate via what protocols with what error handling). A single Value Stream may have multiple Interaction Patterns (e.g., a sync path for real-time and a batch path for bulk processing).
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
 | Name | String | Pattern name (e.g., "Cross-Border Payout Processing Flow," "Batch Settlement Reconciliation") |
-| Realizes | List of References (Dim 8) | Which Value Stream(s) this pattern realizes (technical counterpart) |
-| Participating Systems | Ordered List of References (Dim 5) | Which Systems participate, in sequence |
+| Realizes | List of References (Structural) | Which Value Stream(s) this pattern realizes (technical counterpart) |
+| Participating Systems | Ordered List of References (Technical) | Which Systems participate, in sequence |
 | Steps | Structured List | Each step: source System → target System, integration style, protocol, data format, timeout/SLA |
 | Integration Style | Enum per step | `Sync request-reply` / `Async event` / `Async request-reply` / `Batch` / `RPC` / `Streaming` |
 | Error Handling Strategy | Text | Retry policy, circuit breaker, compensation/saga, dead-letter queue, fallback behavior |
 | Data Format | Enum | `JSON` / `Protobuf` / `Avro` / `CSV` / `XML` / `ISO20022` / `Mixed` |
-| External Dependencies | List of References (Dim 5) | Dependencies involved in this pattern (e.g., external APIs, bank networks) |
+| External Dependencies | List of References (Technical) | Dependencies involved in this pattern (e.g., external APIs, bank networks) |
 
 ## Statuses
 
@@ -44,18 +44,18 @@ Captures the technical communication architecture between Systems. Without Inter
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Realizes | Value Stream(s) (Dim 8) | Interaction Pattern is the technical realization of a functional Value Stream |
-| Involves | System(s) (Dim 5) | Systems participate in this pattern |
-| Uses | Dependency(ies) (Dim 5) | External dependencies involved in the flow |
-| Decisions | ADR(s) (Dim 5) | Pattern design decisions are recorded as ADRs |
-| Context | Architecture Model (Dim 5) | Architecture Model's style determines available patterns |
-| Related to | Operational Target(s) (Dim 7) | End-to-end latency/availability targets may apply to the entire pattern |
-| Realized by | Integration Epic (Track 2) | Integration Epics validate Interaction Patterns end-to-end during build work |
+| Realizes | Value Stream(s) (Structural) | Interaction Pattern is the technical realization of a functional Value Stream |
+| Involves | System(s) (Technical) | Systems participate in this pattern |
+| Uses | Dependency(ies) (Technical) | External dependencies involved in the flow |
+| Decisions | ADR(s) (Technical) | Pattern design decisions are recorded as ADRs |
+| Context | Architecture Model (Technical) | Architecture Model's style determines available patterns |
+| Related to | Operational Target(s) (Operational) | End-to-end latency/availability targets may apply to the entire pattern |
+| Realized by | Integration Epic (Build) | Integration Epics validate Interaction Patterns end-to-end during build work |
 
 ## Examples
 
 **"Cross-Border Payout Processing Flow" (real-time path)**
-- Realizes: "Cross-Border Payout Processing" (Dim 8 Value Stream)
+- Realizes: "Cross-Border Payout Processing" (Structural Value Stream)
 - Participating Systems: merchant-portal → payments-api → fx-service → compliance-service → bank-adapter → settlement-service
 - Steps:
   1. merchant-portal → payments-api: REST POST /payments (sync, JSON, timeout 10s)
@@ -68,7 +68,7 @@ Captures the technical communication architecture between Systems. Without Inter
 - Data Format: Mixed (JSON at boundaries, Protobuf internal, Avro for Kafka)
 
 **"Batch Settlement Reconciliation" (batch path)**
-- Realizes: "Cross-Border Payout Processing" (Dim 8 Value Stream — settlement reconciliation segment)
+- Realizes: "Cross-Border Payout Processing" (Structural Value Stream — settlement reconciliation segment)
 - Participating Systems: bank-adapter → settlement-service → analytics-service
 - Steps:
   1. bank-adapter: SFTP pull settlement files from bank (batch, CSV/MT940, daily at 02:00 UTC)

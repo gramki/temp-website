@@ -31,7 +31,7 @@ The original `track3-incident.md` was a skeletal work entity with "To be refined
 
 **Decision:** Introduce Post-Incident Review as a standalone entity, not a subtype of another entity.
 
-**Rationale:** PIR parallels Deliberation (Track 1) and Win Review (Track 4) — all are structured assessment activities that produce structured outputs. Making it standalone ensures it has its own fields, statuses, and output types appropriate to incident learning.
+**Rationale:** PIR parallels Deliberation (Discovery) and Win Review (Win) — all are structured assessment activities that produce structured outputs. Making it standalone ensures it has its own fields, statuses, and output types appropriate to incident learning.
 
 ### D5: SEV-0/1/2 incidents require PIR; Operating Model may override
 
@@ -77,7 +77,7 @@ The original `track3-incident.md` was a skeletal work entity with "To be refined
 - SEV-based PIR mandate provides a sensible default while remaining Operating Model-flexible
 - Known Error/Workaround pattern reuses existing Bug entity without new entities
 - Incident-to-planning feedback loops are explicit rather than implicit
-- Definition Model assessment connections are formalized: Customer Promise (Dim 3), Operational Target (Dim 7), Operational Readiness (Dim 7), Operational Pain (Dim 7)
+- Definition Model assessment connections are formalized: Customer Promise (Customer Value), Operational Target (Operational), Operational Readiness (Operational), Operational Pain (Operational)
 
 **Negative:**
 - More entities to maintain (3 new work entities + 1 refactored artifact)

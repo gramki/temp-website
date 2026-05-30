@@ -29,7 +29,7 @@ Shows the Build Track producing Component Versions, System Versions, and Product
 ```mermaid
 flowchart TD
     subgraph BuildTrack [Build Track]
-        PSD["PSD (Dim 1)"] --> Epic["Epic (Module-scoped)"]
+        PSD["PSD (Strategy)"] --> Epic["Epic (Module-scoped)"]
         Epic --> Story["Story (Module-scoped)"]
         Story --> TechTask["Technical Task (System-scoped)"]
         TechTask --> CompVer["Component Version (atomic build)"]
@@ -55,19 +55,19 @@ flowchart TD
 **Source:** Plan `change-to-deployment_workflow_d93f53f7`
 **Reflects:** DR-029 (Change-to-Deployment Workflow Redesign), DR-027, DR-028
 
-Shows Dim 5 Product Specification, Dim 7 Deployment Train/Station, and Track 3 deployment workflow per DR-036.
+Shows Technical Product Specification, Operational Deployment Train/Station, and Track 3 deployment workflow per DR-036.
 
 ```mermaid
 graph TB
   subgraph defModel [Definition Model]
-    ProdSpec["Product Specification (Dim 5)"]
-    Train[Deployment Train (Dim 7)]
+    ProdSpec["Product Specification (Technical)"]
+    Train[Deployment Train (Operational)]
     Station[Station]
     DepEnv[Deployment Environment]
 
     Train -->|contains| Station
     Station -->|targets| DepEnv
-    ProdSpec -->|declares| Systems["Systems (Dim 5)"]
+    ProdSpec -->|declares| Systems["Systems (Technical)"]
   end
 
   subgraph workModel [Work Model - Track 3]
@@ -128,12 +128,12 @@ flowchart TD
 
     subgraph outputs [Outputs]
         PIReport["Post-Incident Report"]
-        BUG["Bug (Track 2)"]
-        SIG["Signal (Track 1)"]
-        RE["Run Epic (Track 3)"]
-        CR["Change Request (Track 3)"]
-        ODR["ODR (Dim 7)"]
-        EF["Evolve Finding (Track 5)"]
+        BUG["Bug (Build)"]
+        SIG["Signal (Discovery)"]
+        RE["Run Epic (Run)"]
+        CR["Change Request (Run)"]
+        ODR["ODR (Operational)"]
+        EF["Evolve Finding (Evolve)"]
     end
 
     subgraph planning [Run Track Planning Consumers]
@@ -165,7 +165,7 @@ flowchart TD
 
 ---
 
-## 4. Track 5: Evolve Flow
+## 4. Evolve Flow
 
 **Source:** Plan `track_5_evolve_and_artifact_catalog_abc94030`
 **Reflects:** DR-022 (Track 5: Evolve and Artifact Type Catalog)
@@ -174,7 +174,7 @@ Shows how Evolve Monitoring triggers Evolve Review, which produces Evolve Findin
 
 ```mermaid
 flowchart TD
-    subgraph Track5 ["Track 5: Evolve"]
+    subgraph Track5 ["Evolve"]
         EP["Evolve Planning"]
         ER["Evolve Review"]
         EDT["Evolve Definition Task"]
@@ -261,7 +261,7 @@ flowchart TB
     subgraph Routed ["Routed Sub-Items"]
         INC["Incident<br/>(Track 3, OPR)"]
         BUG_R["Bug<br/>(Track 2, WR)"]
-        SIG["Signal<br/>(Dim 1, PIR)<br/>Problem / Need / Opportunity"]
+        SIG["Signal<br/>(Strategy, PIR)<br/>Problem / Need / Opportunity"]
         WC["Win Case<br/>(Track 4, WR)<br/>Query / Complaint / Escalation"]
         MT["Maintenance Task<br/>(Track 3, WR)"]
     end
@@ -296,26 +296,26 @@ flowchart TB
 
 ```mermaid
 graph TB
-    subgraph Strategy_Definition ["Strategy & Definition (Dim 1, 2, 3, 9)"]
-        PIR[("PIR<br/>Product Intent<br/>Dim 1, 2, 3")]
-        DKB[("DKB<br/>Domain Knowledge<br/>Dim 9")]
+    subgraph Strategy_Definition ["Strategy & Definition (Strategy, 2, 3, 9)"]
+        PIR[("PIR<br/>Product Intent<br/>Strategy, 2, 3")]
+        DKB[("DKB<br/>Domain Knowledge<br/>Data")]
     end
 
-    subgraph Product_Structure ["Product Structure (Dim 5, 6, 7, 8)"]
-        DAR[("DAR<br/>Design & Arch<br/>Dim 5, 6, 7")]
-        POR[("POR<br/>Product Ontology<br/>Dim 8")]
+    subgraph Product_Structure ["Product Structure (Technical, 6, 7, 8)"]
+        DAR[("DAR<br/>Design & Arch<br/>Technical, 6, 7")]
+        POR[("POR<br/>Product Ontology<br/>Structural")]
     end
 
-    subgraph Engineering ["Engineering (Track 2)"]
+    subgraph Engineering ["Engineering (Build)"]
         CAR[("CAR<br/>Code Artifacts")]
         QVS[("QVS<br/>Quality & Verify<br/>Build-time")]
     end
 
-    subgraph Operations ["Operations (Track 3)"]
+    subgraph Operations ["Operations (Run)"]
         OPR[("OPR<br/>Operations<br/>Run-time")]
     end
 
-    subgraph Feedback ["Feedback (Track 4)"]
+    subgraph Feedback ["Feedback (Win)"]
         PFR_W[("PFR-Win<br/>FIRs, Win Cases")]
         PFR_R[("PFR-Run<br/>Incident Mirrors")]
         PFR_B[("PFR-Build<br/>Bug Mirrors")]

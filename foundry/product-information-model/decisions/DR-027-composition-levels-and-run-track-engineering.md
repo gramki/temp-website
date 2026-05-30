@@ -5,7 +5,7 @@
 **Status:** Accepted (refined by DR-029)
 **Date:** 2026-02-15
 **Related FAQ:** Q92, Q93, Q94, Q95
-**Refined by:** DR-029 — Module Package and Product Package split into Definition Model specifications (Dim 7) + Work Model versioned instances (renamed Module Package Version, Product Package Version)
+**Refined by:** DR-029 — Module Package and Product Package split into Definition Model specifications (Operational) + Work Model versioned instances (renamed Module Package Version, Product Package Version)
 
 ## Context
 
@@ -13,23 +13,23 @@ After the Build Track detailing (DR-026), several conceptual gaps were identifie
 
 1. **Module Version and Product Version are not just verification checkpoints.** They are composite systems with emergent operational properties, deployable at their composition level, and serve as communication bridges across organizational scopes. Calling System Version "the unit of deployment" understated the deployability of Module and Product compositions.
 
-2. **Environment-specific work is not just configuration.** The Run Track introduces code — operational subsystems (probes, reconcilers, automation) — per environment. These are legitimate Systems (Dim 5) with code, repos, and System Versions. The Run Track is an engineering track, not just an operational track.
+2. **Environment-specific work is not just configuration.** The Run Track introduces code — operational subsystems (probes, reconcilers, automation) — per environment. These are legitimate Systems (Technical) with code, repos, and System Versions. The Run Track is an engineering track, not just an operational track.
 
 3. **The deployed composition is richer than the built composition.** Module Version (Build Track artifact) is verified but lacks operator-facing observability and maintenance tooling. What's deployed includes operator-facing systems and environment-specific configuration. There was no entity to represent this enriched, deployable composition.
 
 4. **The Run Track lacked work decomposition entities.** While the Build Track had Epics, Stories, and Technical Tasks for engineering work, the Run Track had no equivalent for its operational engineering work. Operational system development was informal and invisible.
 
-5. **Technical Task scoping to "System" was ambiguous.** Module Version and Product Version are "systems" in the systems-thinking sense (composite systems with emergent properties), but Technical Tasks are scoped to Dim 5 Systems (atomic level). The word "system" was used at all three composition levels without disambiguation.
+5. **Technical Task scoping to "System" was ambiguous.** Module Version and Product Version are "systems" in the systems-thinking sense (composite systems with emergent properties), but Technical Tasks are scoped to Technical Systems (atomic level). The word "system" was used at all three composition levels without disambiguation.
 
 6. **Module Version lacked binding configuration.** The composition-level decisions (which adapters, protocol versions, capability flags) that constrain a composition to its legal form were not modeled.
 
-7. **System (Dim 5) lacked a Purpose field.** There was no way to distinguish product Systems (serving end-user Personas) from operational Systems (serving Operational Personas) in the definition model.
+7. **System (Technical) lacked a Purpose field.** There was no way to distinguish product Systems (serving end-user Personas) from operational Systems (serving Operational Personas) in the definition model.
 
 ## Decisions
 
 ### C1: Composition Levels (Atomic, Integrated, Complete)
 
-**Decision:** Formalize three composition levels: **Atomic** (System, Dim 5), **Integrated** (Module, Dim 8 realized through Module Version/Package), **Complete** (Product, realized through Product Version/Package). All three levels are deployable and operationally real.
+**Decision:** Formalize three composition levels: **Atomic** (System, Technical), **Integrated** (Module, Structural realized through Module Version/Package), **Complete** (Product, realized through Product Version/Package). All three levels are deployable and operationally real.
 
 **Rationale:** "System" in the systems-thinking sense applies at all three levels, but each level has distinct entity names, deployment mechanisms, and operational characteristics. Formalizing composition levels prevents ambiguity when discussing Technical Task scoping (atomic), Module Package deployment (integrated), or Product Package deployment (complete).
 
@@ -67,7 +67,7 @@ After the Build Track detailing (DR-026), several conceptual gaps were identifie
 
 ### C7: System Purpose Field (Persona Reference)
 
-**Decision:** Add a Purpose / Serving Persona(s) field to System (Dim 5) that references Persona(s) from Dim 4 and Operational Personas from Dim 7.
+**Decision:** Add a Purpose / Serving Persona(s) field to System (Technical) that references Persona(s) from User Experience and Operational Personas from Operational.
 
 **Rationale:** Distinguishes product Systems (serving end-user Personas) from operational Systems (serving Operational Personas) through Persona references rather than a static enum. This connects System purpose to the existing Persona model and makes the distinction extensible.
 
@@ -82,7 +82,7 @@ After the Build Track detailing (DR-026), several conceptual gaps were identifie
 **Positive:**
 - All three composition levels (atomic, integrated, complete) are formally named, deployable, and disambiguated
 - Run Track engineering work is visible and plannable through Run Epics and Run Stories
-- Operational systems are modeled as legitimate Systems (Dim 5) with purpose-based distinction via Personas
+- Operational systems are modeled as legitimate Systems (Technical) with purpose-based distinction via Personas
 - Module Package and Product Package provide clean ownership boundary: Build Track produces verified artifacts, Run Track produces deployable compositions
 - Binding configuration captures legal composition constraints on Module Version
 - Build Track's two-layer nature is documented for organizational clarity

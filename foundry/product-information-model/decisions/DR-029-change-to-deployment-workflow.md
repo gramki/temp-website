@@ -20,33 +20,33 @@ After DR-027 (Module Package, Product Package) and DR-028 (SDD, MDD, PDD), the m
 
 ## Decisions
 
-### D1: Module Package (specification) is a Dim 7 Definition Model entity
+### D1: Module Package (specification) is an Operational Definition Model entity
 
-**Decision:** Introduce Module Package as a Dim 7 entity — a composition specification defining which operational systems and wiring enrich a Module (Dim 8).
+**Decision:** Introduce Module Package as an Operational entity — a composition specification defining which operational systems and wiring enrich a Module (Structural).
 
-**Rationale:** The structural definition of what constitutes a package (healthcheck, reconciler, operational wiring) is a stable, reusable template. It belongs in the Definition Model alongside other Dim 7 operational entities. It lives in Dim 7 (not Dim 8) because package composition is an operator-facing concern (probes, dashboards, reconcilers — not tenant-serving systems), not visible to customers.
+**Rationale:** The structural definition of what constitutes a package (healthcheck, reconciler, operational wiring) is a stable, reusable template. It belongs in the Definition Model alongside other Operational entities. It lives in Operational (not Structural) because package composition is an operator-facing concern (probes, dashboards, reconcilers — not tenant-serving systems), not visible to customers.
 
-### D2: Product Package (specification) is a Dim 7 Definition Model entity
+### D2: Product Package (specification) is an Operational Definition Model entity
 
-**Decision:** Introduce Product Package as a Dim 7 entity — a composition specification defining which Module Packages and cross-module wiring compose a deployable product.
+**Decision:** Introduce Product Package as an Operational entity — a composition specification defining which Module Packages and cross-module wiring compose a deployable product.
 
 **Rationale:** Same reasoning as D1, applied at the product level.
 
 ### D3: Module Package Version and Product Package Version are Work Model artifacts
 
-**Decision:** Rename the existing `Module Package` (Track 3) to `Module Package Version` and `Product Package` (Track 3) to `Product Package Version`. These are versioned instances that instantiate their respective Dim 7 specifications.
+**Decision:** Rename the existing `Module Package` (Run Track) to `Module Package Version` and `Product Package` (Run Track) to `Product Package Version`. These are versioned instances that instantiate their respective Operational specifications.
 
-**Rationale:** Follows the Definition Model → Work Model pattern: Module (Dim 8) → Module Version (Track 2). The specification defines the template; the version is the specific instance produced by work.
+**Rationale:** Follows the Definition Model → Work Model pattern: Module (Structural) → Module Version (Build Track). The specification defines the template; the version is the specific instance produced by work.
 
-### D4: Deployment Train is a Dim 7 entity
+### D4: Deployment Train is an Operational entity
 
-**Decision:** Introduce Deployment Train as a Dim 7 entity — a reusable, ordered promotion path with contractual and governance significance.
+**Decision:** Introduce Deployment Train as an Operational entity — a reusable, ordered promotion path with contractual and governance significance.
 
 **Rationale:** Promotion paths are not ad-hoc workflows; they are structured entities that carry contractual commitments (tenants rely on them for planning), governance requirements (regulated vs. standard), and operating model enablement (certain models require certain trains). The same train is reused across releases.
 
-### D5: Station is a Dim 7 entity
+### D5: Station is an Operational entity
 
-**Decision:** Introduce Station as a Dim 7 entity — a checkpoint within a Deployment Train targeting a specific Deployment Environment.
+**Decision:** Introduce Station as an Operational entity — a checkpoint within a Deployment Train targeting a specific Deployment Environment.
 
 **Rationale:** Each stop in the promotion path needs structured entry criteria, exit criteria, approval requirements, and soak times. The same environment can be a station in multiple trains with different governance per train.
 
@@ -119,10 +119,10 @@ After DR-027 (Module Package, Product Package) and DR-028 (SDD, MDD, PDD), the m
 
 | Entity | Model | Layer | Entity File |
 |---|---|---|---|
-| Module Package (spec) | Definition Model, Dim 7 | `dim7-module-package.md` |
-| Product Package (spec) | Definition Model, Dim 7 | `dim7-product-package.md` |
-| Deployment Train | Definition Model, Dim 7 | `dim7-deployment-train.md` |
-| Station | Definition Model, Dim 7 | `dim7-station.md` |
+| Module Package (spec) | Definition Model, Operational | `dim7-module-package.md` |
+| Product Package (spec) | Definition Model, Operational | `dim7-product-package.md` |
+| Deployment Train | Definition Model, Operational | `dim7-deployment-train.md` |
+| Station | Definition Model, Operational | `dim7-station.md` |
 | Deployment Plan | Work Model, Track 3 | `track3-deployment-plan.md` |
 | Deployment Task | Work Model, Track 3 | `track3-deployment-task.md` |
 | Verification Task | Work Model, Track 3 | `track3-verification-task.md` |

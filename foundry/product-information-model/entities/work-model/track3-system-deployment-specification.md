@@ -1,7 +1,7 @@
 # System Deployment Specification
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations) — Artifact
+**Track:** Run — Artifact
 **Owner:** DevOps, Platform Engineering, SRE
 
 ## Definition
@@ -29,8 +29,8 @@ Separates *what is built and verified* (System Version) from *how it runs in a s
 
 | Field | Type | Description |
 |---|---|---|
-| System Version | Reference (Track 2) | The sealed System Version this specification deploys |
-| Target Environment | Reference (Dim 7) | The Deployment Environment this specification targets |
+| System Version | Reference (Build) | The sealed System Version this specification deploys |
+| Target Environment | Reference (Operational) | The Deployment Environment this specification targets |
 | Specification Version | String | Deployment progression version (e.g., `sds-1.0`, `sds-1.2`) — independent of System Version |
 | Resource Configuration | Structured Config | CPU limits, memory limits, storage, GPU allocation — environment-specific resource sizing |
 | Replica Configuration | Structured Config | Replica count, autoscaling policies, availability zone distribution |
@@ -55,11 +55,11 @@ Separates *what is built and verified* (System Version) from *how it runs in a s
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Specifies deployment of | System Version (Track 2) | References a sealed System Version |
-| Targets | Deployment Environment (Dim 7) | Targets a specific environment |
-| Composed into | Product Deployment Specification (Track 3) | Composed by reference into Product Deployment Specifications |
-| Applied by | Deployment Task (Track 3) | Applied to an environment by a Deployment Task (System-level) |
-| Produced by | Deployment Planning Task (Track 3) | Deployment Planning Task creates/updates specification versions |
+| Specifies deployment of | System Version (Build) | References a sealed System Version |
+| Targets | Deployment Environment (Operational) | Targets a specific environment |
+| Composed into | Product Deployment Specification (Run) | Composed by reference into Product Deployment Specifications |
+| Applied by | Deployment Task (Run) | Applied to an environment by a Deployment Task (System-level) |
+| Produced by | Deployment Planning Task (Run) | Deployment Planning Task creates/updates specification versions |
 
 ## Example
 

@@ -1,18 +1,18 @@
 # Operational Readiness
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** Engineering Leadership, Platform Engineering, SRE
 
 ## Definition
 
-A per-System assessment of whether a specific System (Dim 5) meets the operational acceptance criteria for a specific Deployment Environment. The criteria span the Operational Quality Taxonomy: observability, security, performance, operability, DR, and compliance. Operational Readiness captures the criteria definition (what "production-ready" means) and the readiness state (does this System meet those criteria here?).
+A per-System assessment of whether a specific System (Technical) meets the operational acceptance criteria for a specific Deployment Environment. The criteria span the Operational Quality Taxonomy: observability, security, performance, operability, DR, and compliance. Operational Readiness captures the criteria definition (what "production-ready" means) and the readiness state (does this System meet those criteria here?).
 
-Distinct from Evolve Track (Track 5), which assesses process effectiveness ("are our entity definitions and DoD criteria working?"). Operational Readiness assesses System readiness ("is this System ready for production in this environment?"). The criteria definition is a Definition Model concern; the assessment work is Run Track (Track 3) activity.
+Distinct from Evolve, which assesses process effectiveness ("are our entity definitions and DoD criteria working?"). Operational Readiness assesses System readiness ("is this System ready for production in this environment?"). The criteria definition is a Definition Model concern; the assessment work is Run activity.
 
 > **Why per-System, not per-Module?** The Run Track operates Systems — SREs deploy `payments-service`, monitor `fx-service` metrics, write runbooks for `bank-adapter` failover. Observability, security scans, performance benchmarks, DR procedures — all are naturally System-scoped. The System is the operational unit, just as it is the deployment unit (System Version) and the build unit (CI/CD pipeline). Module-level readiness ("is the Payments capability ready for production in LATAM?") is a derived view that aggregates readiness across all Systems implementing that Module. If any constituent System has gaps, the Module has gaps.
 >
-> **Module-level operational concern remains legitimate (DR-036).** Module (Dim 8) is a functional boundary — SREs reason about "the Payments Module" for capability-level health. Module-level readiness is a **derived view** aggregating constituent Systems' readiness. Emergent cross-System concerns within a Module (e.g., "end-to-end payout latency exceeds SLO though each System meets its target") are surfaced via Product Version certification and cross-System monitoring — not a separate Module Version entity. Primary assessment granularity remains System × Environment. See DR-036.
+> **Module-level operational concern remains legitimate (DR-036).** Module (Structural) is a functional boundary — SREs reason about "the Payments Module" for capability-level health. Module-level readiness is a **derived view** aggregating constituent Systems' readiness. Emergent cross-System concerns within a Module (e.g., "end-to-end payout latency exceeds SLO though each System meets its target") are surfaced via Product Version certification and cross-System monitoring — not a separate Module Version entity. Primary assessment granularity remains System × Environment. See DR-036.
 
 ## Purpose
 
@@ -30,8 +30,8 @@ Captures the operational acceptance criteria that every System must meet before 
 
 | Field | Type | Description |
 |---|---|---|
-| System | Reference (Dim 5) | Which System is being assessed |
-| Deployment Environment | Reference (Dim 7) | Which environment this assessment applies to |
+| System | Reference (Technical) | Which System is being assessed |
+| Deployment Environment | Reference (Operational) | Which environment this assessment applies to |
 | Overall Status | Enum | `Not Assessed` / `Gaps Identified` / `Conditionally Ready` / `Fully Ready` |
 | Observability | Text + Status | Logs, metrics, traces, SLIs defined? Readiness status for this dimension. |
 | Security | Text + Status | Encryption, access control, vulnerability scanning, key management? |
@@ -55,24 +55,24 @@ Captures the operational acceptance criteria that every System must meet before 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scoped to | System (Dim 5) | Readiness is assessed per-System |
-| Scoped to | Deployment Environment (Dim 7) | Readiness is assessed per-environment |
-| Aggregates to | Module (Dim 8) | Module-level readiness is derived from constituent Systems' readiness |
-| References | Operational Target (Dim 7) | Readiness criteria reference target compliance (e.g., "SLIs defined for all active Operational Targets") |
-| Assessed by | Run Track activities (Track 3) | Readiness assessment is Run Track operational work |
-| Triggers | Run Epic (Track 3) | Readiness gaps trigger Run Epics for operational engineering work (e.g., missing probes, insufficient automation) |
-| Context from | Infrastructure Model (Dim 7) | Infrastructure Model determines which criteria are relevant |
-| Informs | Deployment Plan (Track 3) | Deployment Plan deliberation considers readiness status |
-| Informs | Deployment Task (Track 3) | Deployment execution considers readiness status |
-| Informs | System Deployment Specification (Track 3) | Readiness status informs whether a deployment specification should be created and what operational prerequisites exist |
-| Informed by | Incident history (Track 3) | Incident patterns per System x Environment reveal readiness gaps — e.g., a System with recurring SEV-1 incidents in one environment but not another indicates environment-specific readiness issues |
-| Fed by | System Version (Track 2) | System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness assessment |
-| Updated by | Post-Incident Review (Track 3) | PIR findings may downgrade readiness posture for affected System x Environment |
+| Scoped to | System (Technical) | Readiness is assessed per-System |
+| Scoped to | Deployment Environment (Operational) | Readiness is assessed per-environment |
+| Aggregates to | Module (Structural) | Module-level readiness is derived from constituent Systems' readiness |
+| References | Operational Target (Operational) | Readiness criteria reference target compliance (e.g., "SLIs defined for all active Operational Targets") |
+| Assessed by | Run activities | Readiness assessment is Run operational work |
+| Triggers | Run Epic | Readiness gaps trigger Run Epics for operational engineering work (e.g., missing probes, insufficient automation) |
+| Context from | Infrastructure Model (Operational) | Infrastructure Model determines which criteria are relevant |
+| Informs | Deployment Plan (Run) | Deployment Plan deliberation considers readiness status |
+| Informs | Deployment Task (Run) | Deployment execution considers readiness status |
+| Informs | System Deployment Specification (Run) | Readiness status informs whether a deployment specification should be created and what operational prerequisites exist |
+| Informed by | Incident history (Run) | Incident patterns per System x Environment reveal readiness gaps — e.g., a System with recurring SEV-1 incidents in one environment but not another indicates environment-specific readiness issues |
+| Fed by | System Version (Build) | System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness assessment |
+| Updated by | Post-Incident Review | PIR findings may downgrade readiness posture for affected System x Environment |
 
 ## Example
 
 **"payments-service in Production US-East"**
-- System: payments-service (Dim 5)
+- System: payments-service (Technical)
 - Environment: Production US-East
 - Overall Status: **Conditionally Ready**
 - Observability: **Fully Ready** — structured JSON logs, Prometheus metrics (15 golden signals), distributed traces via OpenTelemetry, SLIs defined for all 4 Operational Targets

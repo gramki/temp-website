@@ -18,7 +18,7 @@ The Foundry repository architecture was originally designed around the "Agent-Na
 
 ### D1: PIR renamed to Product Intent Repository
 
-The scope of PIR expands to be the comprehensive ledger of strategic direction, business models, customer value propositions, and product evolution ideas. Internal structure: Strategy (Dim 1 strategic entities), Business Model (Dim 2), Customer Value (Dim 3), Signals & Ideas (Dim 1 flowing items), Product Intents (routable bridge items), Specifications (PSDs that refine Product Intent).
+The scope of PIR expands to be the comprehensive ledger of strategic direction, business models, customer value propositions, and product evolution ideas. Internal structure: Strategy (strategic entities), Business Model (Vendor Value), Customer Value, Signals & Ideas (Strategy flowing items), Product Intents (routable bridge items), Specifications (PSDs that refine Product Intent).
 
 **Rationale:** "Product Idea Repository" implied PIR held only ideas. The repository actually holds the product's strategic intent across three dimensions. "Product Intent Repository" accurately reflects this scope while retaining the PIR abbreviation.
 
@@ -77,10 +77,10 @@ QVS owns evidence about code quality (test results, coverage, security scans, pe
 
 | Abbreviation | Full Name | Scope | UPIM Mapping |
 |---|---|---|---|
-| PIR | Product Intent Repository | Strategy, Business Model, Customer Value, Signals, Ideas, Product Intents, PSDs | Dim 1, 2, 3 |
-| DKB | Domain Knowledge Base | Domain knowledge, glossaries, ontologies, business rules | Dim 9 |
-| DAR | Design & Architecture Repository | Architecture, API models, infrastructure, operational specs | Dim 5, 6, 7 (definitions) |
-| POR | Product Ontology Repository | Product structure, capabilities, features, maturity | Dim 8 |
+| PIR | Product Intent Repository | Strategy, Business Model, Customer Value, Signals, Ideas, Product Intents, PSDs | Strategy, Vendor Value, Customer Value |
+| DKB | Domain Knowledge Base | Domain knowledge, glossaries, ontologies, business rules | Data |
+| DAR | Design & Architecture Repository | Architecture, API models, infrastructure, operational specs | Technical, Ecosystem, Operational (definitions) |
+| POR | Product Ontology Repository | Product structure, capabilities, features, maturity | Structural |
 | CAR | Code Artifact Repository | Source code, build artifacts | Track 2 + Track 3 engineering code |
 | QVS | Quality & Verification Store | Test cases, acceptance tests, build-time quality evidence | Track 2 quality verification |
 | OPR | Operations Repository | Deployment descriptors/records, incidents, PIR reports, operational artifact versions | Track 3 artifacts |

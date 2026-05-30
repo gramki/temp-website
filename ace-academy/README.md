@@ -1,4 +1,4 @@
-# ACE Academy
+# ACE Academy — Home
 
 **Agent Centric Engineering Academy** — learn how to work effectively with AI agents across the software development lifecycle.
 

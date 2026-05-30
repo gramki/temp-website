@@ -448,5 +448,5 @@ Default timeouts:
 
 - [orchestrator-requirements.md](orchestrator-requirements.md) — Orchestrator module requirements
 - [orchestration-item-workflow.md](orchestration-item-workflow.md) — Workflow YAML schema
-- [sample-pi-workflow.yaml](sample-pi-workflow.yaml) — Complete PI workflow example
+- [workflow.yaml](../work-catalogues/platform-defaults/build/product-intent/workflow.yaml) — Complete PI workflow example
 - [../work-order-runtime/end-to-end-work-order-flow.md](../work-order-runtime/end-to-end-work-order-flow.md) — WO lifecycle details

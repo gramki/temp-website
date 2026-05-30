@@ -1,12 +1,12 @@
 # Developer Persona
 
 **Model:** Definition Model
-**Dimension / Track:** Dimension 6: Ecosystem & Extensibility (Platform)
+**Dimension:** Ecosystem
 **Owner:** Product Management (API/Platform), Developer Relations
 
 ## Definition
 
-A Developer Persona is a named archetype representing the human who builds integrations, extensions, or applications using the product's programmatic surfaces. Developer Personas have fundamentally different concerns from Dim 4 User Personas — their interaction paradigm is programmatic/contractual (reading docs, writing code, testing in sandboxes, debugging error responses) rather than visual/experiential.
+A Developer Persona is a named archetype representing the human who builds integrations, extensions, or applications using the product's programmatic surfaces. Developer Personas have fundamentally different concerns from User Experience User Personas — their interaction paradigm is programmatic/contractual (reading docs, writing code, testing in sandboxes, debugging error responses) rather than visual/experiential.
 
 > **Role definition, not agent identity.** Developer Persona is a **role** in the Definition Model describing an external builder archetype. Individual developers (internal or external) who fulfill this role may be tracked in the Workforce Repository (WFR, for internal API consumers) or the External Stakeholder Registry (ESR, for external developers with sandbox access or partnership agreements). See DR-034.
 
@@ -32,14 +32,14 @@ Captures who the product's programmatic surfaces are designed for, enabling API 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Consumes | API Module (Dim 6) | Primary consumer of API surface |
-| Consumes | SDK/Library Module (Dim 6) | Uses language-specific client |
-| Consumes | Extension Module (Dim 6) | Builds extensions/plugins |
-| Overlaps with | User Persona (Dim 4) | Same human may appear as Dim 4 Persona when using Developer Portal (Web + Self-serve) |
-| Informs | API Operation (Dim 6) | Drives operation design and SLO targets |
-| Referenced by | API Compatibility Contract (Dim 6) | Contract commitments are promises to this persona |
-| Discovery | Research Task (Track 1) | Developer needs studied via research |
-| Win | Win Activity (Track 4) | Developer community, partner enablement |
+| Consumes | API Module (Ecosystem) | Primary consumer of API surface |
+| Consumes | SDK/Library Module (Ecosystem) | Uses language-specific client |
+| Consumes | Extension Module (Ecosystem) | Builds extensions/plugins |
+| Overlaps with | User Persona (User Experience) | Same human may appear as User Experience Persona when using Developer Portal (Web + Self-serve) |
+| Informs | API Operation (Ecosystem) | Drives operation design and SLO targets |
+| Referenced by | API Compatibility Contract (Ecosystem) | Contract commitments are promises to this persona |
+| Discovery | Research Task (Discovery) | Developer needs studied via research |
+| Win | Win Activity (Win) | Developer community, partner enablement |
 
 ## Example
 

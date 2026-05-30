@@ -230,4 +230,4 @@ Consumers can subscribe to invalidate local caches.
 
 - [workshop-sync.md](workshop-sync.md) — How config gets into Metadata Service
 - [workshop-validation.md](workshop-validation.md) — How config is validated
-- [../scenario-management/README.md](../scenario-management/README.md) — Scenario-specific logic
+- [../work-catalog-management/README.md](../work-catalog-management/README.md) — Work Catalog Management (schemas, resolution, validation)

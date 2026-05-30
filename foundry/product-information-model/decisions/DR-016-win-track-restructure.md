@@ -51,7 +51,7 @@ Work items vary in duration and don't align to sprint boundaries. Planning is pe
 
 - **Enablement vs. Engagement** captures the fundamental distinction between building the arsenal (one-to-many) and deploying it (one-to-one or one-to-segment)
 - **Win Review → Feedback** parallels **Deliberation → PDR** — structured work producing traceable artifacts
-- **Win Case** makes reactive work visible, connecting to Service Commitments (Dim 3) and Cost-to-Serve (Dim 2)
+- **Win Case** makes reactive work visible, connecting to Service Commitments (Customer Value) and Cost-to-Serve (Vendor Value)
 - **Targets in Initiatives** follows the OKR pattern and avoids creating entities that are really just fields
 - **Six categories** (Plan, Equip, Execute, Respond, Assess, Learn) provide a complete, non-overlapping taxonomy of Win Track work
 
@@ -59,7 +59,7 @@ Work items vary in duration and don't align to sprint boundaries. Planning is pe
 
 ### Positive
 - Complete Win Track entity landscape covering proactive and reactive work
-- Clear connection between Win Track work and Dim 2 entities (Win Outcomes, Win Stakeholders, Business KPIs)
+- Clear connection between Win Track work and Vendor Value entities (Win Outcomes, Win Stakeholders, Business KPIs)
 - Initiative becomes the universal coordination construct across all tracks
 - Reactive work (Win Case) makes Service Commitment testing and Cost-to-Serve visible
 - Win Review provides structured learning mechanism parallel to Discovery Track's Deliberation

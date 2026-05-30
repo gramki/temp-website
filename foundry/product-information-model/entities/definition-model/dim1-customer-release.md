@@ -1,7 +1,7 @@
 # Customer Release Intent
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Product Management, Product Marketing
 
 ## Definition
@@ -23,9 +23,9 @@ Customer Release Intent is a cross-cutting strategy entity whose realization spa
 | Name | String | Descriptive business name (e.g., "LATAM Expansion", "Project Mercury"). No version numbers. |
 | Description | Text | Intended customer-facing delivery outcome and business rationale |
 | Target Date | Date | Planned or committed customer availability date |
-| Customer Segment(s) | List of References (Dim 3) | Customer segments targeted by this release intent |
-| Customer Promise(s) | List of References (Dim 3) | Customer promises this release intent fulfills, strengthens, or introduces |
-| Product Intent(s) | List of References (Dim 1) | Product Intents expected to realize this release intent |
+| Customer Segment(s) | List of References (Customer Value) | Customer segments targeted by this release intent |
+| Customer Promise(s) | List of References (Customer Value) | Customer promises this release intent fulfills, strengthens, or introduces |
+| Product Intent(s) | List of References (Strategy) | Product Intents expected to realize this release intent |
 | Product Version(s) | Reference | Product Version(s) (Work Model) expected to compose the realized release |
 | _Other fields to be refined._ | | |
 
@@ -43,19 +43,19 @@ Customer Release Intent is a cross-cutting strategy entity whose realization spa
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Initiative (Dim 1) | Customer Release Intent advances Initiative(s) (many-to-many) |
-| Downstream | Product Intent (Dim 1) | Customer Release Intent is realized through one or more Product Intents |
-| Fulfills / strengthens | Customer Promise (Dim 3) | Customer Release Intent may fulfill, strengthen, or introduce Customer Promises |
+| Upstream | Initiative (Strategy) | Customer Release Intent advances Initiative(s) (many-to-many) |
+| Downstream | Product Intent (Strategy) | Customer Release Intent is realized through one or more Product Intents |
+| Fulfills / strengthens | Customer Promise (Customer Value) | Customer Release Intent may fulfill, strengthen, or introduce Customer Promises |
 | References | Product Version (Work Model) | Customer Release Intent may reference Product Version(s) expected to underpin the realized delivery |
 | Realized by | Customer Release (Release / Win execution) | The actual customer-facing release event fulfills this intent |
-| Deployed via | Product Deployment Specification(s) (Track 3) | Realization may be deployed via Product Deployment Specifications referencing certified Product Version(s) |
-| May span | Deployment Train(s) (Dim 7) | A realized Customer Release may span multiple Deployment Trains when different modules follow different promotion paths |
-| Governed by | Change Request(s) (Track 3) | Deployment-related changes for this release intent are governed by Change Requests scoped to Deployment Trains |
-| Work Model | Initiative Scoping Task (Track 1) | Customer Release Intent may be defined as part of Initiative scoping (strategic planning) |
-| Work Model | Release Planning Task (Track 2) | Release Planning Tasks scope the technical content, PSDs, and timeline needed to realize the intent |
-| Work Model | Deployment Planning Task (Track 3) | Deployment Planning Tasks produce System and Product Deployment Specifications for required deployables |
-| Work Model | Go-to-Market Planning Task (Track 4) | GTM Planning Tasks prepare the launch |
-| Work Model | Customer Rollout Planning Task (Track 4) | Rollout Planning Tasks plan phased customer delivery |
+| Deployed via | Product Deployment Specification(s) (Run) | Realization may be deployed via Product Deployment Specifications referencing certified Product Version(s) |
+| May span | Deployment Train(s) (Operational) | A realized Customer Release may span multiple Deployment Trains when different modules follow different promotion paths |
+| Governed by | Change Request(s) (Run) | Deployment-related changes for this release intent are governed by Change Requests scoped to Deployment Trains |
+| Work Model | Initiative Scoping Task (Discovery) | Customer Release Intent may be defined as part of Initiative scoping (strategic planning) |
+| Work Model | Release Planning Task (Build) | Release Planning Tasks scope the technical content, PSDs, and timeline needed to realize the intent |
+| Work Model | Deployment Planning Task (Run) | Deployment Planning Tasks produce System and Product Deployment Specifications for required deployables |
+| Work Model | Go-to-Market Planning Task (Win) | GTM Planning Tasks prepare the launch |
+| Work Model | Customer Rollout Planning Task (Win) | Rollout Planning Tasks plan phased customer delivery |
 
 ## Example
 

@@ -1,7 +1,7 @@
 # Verification Task
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Owner:** SRE, QA, DevOps
 
 ## Definition
@@ -28,8 +28,8 @@ Makes post-deployment verification explicit and auditable in the Run Track. With
 
 | Field | Type | Description |
 |---|---|---|
-| Deployment Task | Reference (Track 3) | The Deployment Task being verified (may be null if verifying a broader scope) |
-| Change Request | Reference (Track 3) | The Change Request this verification belongs to |
+| Deployment Task | Reference (Run) | The Deployment Task being verified (may be null if verifying a broader scope) |
+| Change Request | Reference (Run) | The Change Request this verification belongs to |
 | Verification Type | Enum | `Smoke Test` / `Integration Test` / `SLA Verification` / `Compliance Audit` / `Business Metric Validation` / `Security Scan` |
 | Verification Criteria | Text | Specific pass/fail criteria (e.g., "P95 latency < 300ms for 24h post-deployment") |
 | Evidence | Text | Verification results, logs, metrics, screenshots, or references to evidence artifacts |
@@ -49,11 +49,11 @@ Makes post-deployment verification explicit and auditable in the Run Track. With
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Verifies | Deployment Task (Track 3) | Verification Task validates a specific Deployment Task's outcome |
-| Governed by | Change Request (Track 3) | Verification Task completion is required for Change Request closure |
-| Governed by | Deployment Plan (Track 3) | Verification Task is produced by and executed within a Deployment Plan |
-| Created by | Deployment Planning Task (Track 3) | Deployment Planning produces Verification Tasks as part of the plan |
-| Validates at | Station (Dim 7) | Verification at a station validates deployment quality before promotion |
+| Verifies | Deployment Task (Run) | Verification Task validates a specific Deployment Task's outcome |
+| Governed by | Change Request (Run) | Verification Task completion is required for Change Request closure |
+| Governed by | Deployment Plan (Run) | Verification Task is produced by and executed within a Deployment Plan |
+| Created by | Deployment Planning Task (Run) | Deployment Planning produces Verification Tasks as part of the plan |
+| Validates at | Station (Operational) | Verification at a station validates deployment quality before promotion |
 
 ## Examples
 

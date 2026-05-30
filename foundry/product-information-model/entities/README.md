@@ -33,18 +33,18 @@ entities/
 │   ├── dim3-customer-segment.md
 │   ├── dim3-buying-persona.md         ← Roles: Economic, Technical, User, Coach/Champion
 │   ├── dim3-business-outcome.md
-│   ├── dim3-pain.md                   ← Endured by User Persona (Dim 4), cared about by Buying Persona
+│   ├── dim3-pain.md                   ← Endured by User Persona (User Experience), cared about by Buying Persona
 │   ├── dim3-customer-promise.md       ← Subtypes: Value Proposition, Service Commitment, Compliance Posture
 │   ├── dim3-customer-value-metric.md  ← Subtypes: ROI, Service Level, Compliance
 │   ├── dim3-adoption-barrier.md       ← 8 types; may challenge Customer Promises
 │   ├── dim4-user-persona.md           ← Role archetype; has Jobs, endures Pains
-│   ├── dim4-job.md                    ← JTBD — bridges Dim 4 (intent) → Dim 8 (structure) → Dim 3 (justification)
+│   ├── dim4-job.md                    ← JTBD — bridges User Experience (intent) → Structural (structure) → Customer Value (justification)
 │   ├── dim4-ux-channel.md             ← Typed by (Interaction Modality, Engagement Mode); implemented by HI Module
 │   ├── dim4-user-journey.md           ← Path to accomplish Job through Channel; cross-channel references
 │   ├── dim4-touchpoint.md             ← DEPRECATED — Touchpoints are Build Track work artifacts, not Def Model entities
-│   ├── dim6-developer-persona.md       ← Human building integrations; distinct from Dim 4 User Persona
+│   ├── dim6-developer-persona.md       ← Human building integrations; distinct from User Experience User Persona
 │   ├── dim6-programmatic-user-persona.md ← Application/system consuming API at runtime (non-human)
-│   ├── dim6-api-module.md             ← Protocol-agnostic programmatic surface; structurally a Dim 8 Module
+│   ├── dim6-api-module.md             ← Protocol-agnostic programmatic surface; structurally a Structural Module
 │   ├── dim6-integration-module.md     ← Pre-built bridge/connector to specific external systems
 │   ├── dim6-extension-module.md       ← Plugin/hook/workflow extension framework
 │   ├── dim6-sdk-library-module.md     ← Language-specific client (Client-Distributed topology)
@@ -53,8 +53,8 @@ entities/
 │   ├── dim5-class-component.md           ← DELETED (DR-035) — was DEPRECATED; removed from repo
 │   ├── dim5-function-method.md           ← DELETED (DR-035) — was DEPRECATED; removed from repo
 │   ├── dim5-architecture-model.md        ← Root entity: architectural style, principles, technology strategy
-│   ├── dim5-product-specification.md     ← Technical twin of Product (Dim 8); 1:1; declares all Systems (product-facing + operational) — DR-036
-│   ├── dim5-system.md                    ← Operational deployment grouping of Components; sealed System Version is what SRE deploys; many-to-many with Module (Dim 8) — DR-035, DR-036
+│   ├── dim5-product-specification.md     ← Technical twin of Product (Structural); 1:1; declares all Systems (product-facing + operational) — DR-036
+│   ├── dim5-system.md                    ← Operational deployment grouping of Components; sealed System Version is what SRE deploys; many-to-many with Module (Structural) — DR-035, DR-036
 │   ├── dim5-component.md                 ← Atomic deployable artifact within a System; Component Version is the CI build output — DR-035, DR-036
 │   ├── dim5-dependency.md                ← External system/service/resource the product depends on
 │   ├── dim5-interaction-flow.md       ← Technical realization of Value Streams; inter-system communication
@@ -66,7 +66,7 @@ entities/
 │   ├── dim7-container-process.md        ← DEPRECATED — below waterline; PSD/Run Track artifact (DR-023)
 │   ├── dim7-infrastructure-model.md     ← Root entity: hosting strategy, tenancy architecture, cost model
 │   ├── dim7-operational-persona.md      ← Functional archetype who operates the product (quality-taxonomy typed)
-│   ├── dim7-operational-job.md          ← Operational JTBD — bridges Dim 7 (intent) → Dim 8 (structure)
+│   ├── dim7-operational-job.md          ← Operational JTBD — bridges Operational (intent) → Structural (structure)
 │   ├── dim7-operational-journey.md      ← End-to-end path through operational modules for a job
 │   ├── dim7-deployment-environment.md   ← Named, typed infrastructure target with vendor purpose
 │   ├── dim7-operational-target.md       ← Infrastructure-level SLO with achievement levers
@@ -74,8 +74,8 @@ entities/
 │   ├── dim7-operational-pain.md         ← Concrete operational suffering endured by Operational Personas
 │   ├── dim7-operational-readiness.md    ← Per-System × per-environment operational acceptance assessment
 │   ├── dim7-odr.md                     ← Operations Decision Record; operational counterpart of PDR/ADR (DR-025)
-│   ├── dim7-module-package.md          ← DELETED (DR-036) — superseded by Product Specification (Dim 5) listing all Systems equally
-│   ├── dim7-product-package.md         ← DELETED (DR-036) — superseded by Product Specification (Dim 5)
+│   ├── dim7-module-package.md          ← DELETED (DR-036) — superseded by Product Specification (Technical) listing all Systems equally
+│   ├── dim7-product-package.md         ← DELETED (DR-036) — superseded by Product Specification (Technical)
 │   ├── dim7-deployment-train.md      ← Reusable promotion path with contractual and governance significance
 │   ├── dim7-station.md               ← Checkpoint within a Deployment Train targeting a Deployment Environment
 │   ├── ...
@@ -102,9 +102,9 @@ entities/
     ├── track2-release-planning-task.md  ← Identifies Epics and Integration Epics from PSDs
     ├── track2-milestone-planning-task.md ← Cross-Epic dependency gating, integration verification gates
     ├── track2-iteration-planning-task.md ← Assigns Stories, Integration Stories, Technical Tasks to sprints
-    ├── track2-epic.md                   ← Module-scoped (Dim 8), decomposed from PSD
-    ├── track2-story.md                  ← Module-scoped (Dim 8), unit of work within an Epic (renamed from User Story)
-    ├── track2-technical-task.md          ← System/Component-scoped (Dim 5), implements Stories and Integration Stories
+    ├── track2-epic.md                   ← Module-scoped (Structural), decomposed from PSD
+    ├── track2-story.md                  ← Module-scoped (Structural), unit of work within an Epic (renamed from User Story)
+    ├── track2-technical-task.md          ← System/Component-scoped (Technical), implements Stories and Integration Stories
     ├── track2-bug.md                    ← Provenance: Build / Run / Win
     ├── track2-integration-epic.md       ← Cross-System integration work, references PSD-derived Epics
     ├── track2-integration-story.md      ← Unit of integration work, produces contracts and test suites
@@ -120,7 +120,7 @@ entities/
     ├── track3-deployment-plan.md          ← Deliberation activity: scopes rollout, produces planning tasks, drills, verification tasks
     ├── track3-run-epic.md                ← Module-scoped operational engineering work (Run Track as engineering track)
     ├── track3-run-story.md               ← Unit of operational engineering work within a Run Epic
-    ├── track3-technical-task.md          ← System/Component-scoped (Dim 5), implements Run Stories (per-track Technical Task)
+    ├── track3-technical-task.md          ← System/Component-scoped (Technical), implements Run Stories (per-track Technical Task)
     ├── track3-deployment.md              ← Run Track artifact: durable record that a descriptor was applied to an environment (DR-029)
     ├── track3-deployment-task.md          ← Work entity: applies a deployment descriptor to an environment, produces Deployment record
     ├── track3-verification-task.md        ← Post-deployment verification work (standalone, required for Change Request closure)

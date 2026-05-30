@@ -1,12 +1,12 @@
 # Story
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction)
+**Track:** Build
 **Owner:** Tech Lead, Developers, QA
 
 ## Definition
 
-A unit of work within an Epic, representing a functional increment within the Epic's Module (Dim 8). Stories describe *what* needs to be built in Module/Capability language — not necessarily user-facing. A Story may be technical ("Set up Kafka consumer for payment events") or user-facing ("Lock FX rate for 24 hours"). Stories are implemented by Technical Tasks scoped to Systems and Components (Dim 5).
+A unit of work within an Epic, representing a functional increment within the Epic's Module (Structural). Stories describe *what* needs to be built in Module/Capability language — not necessarily user-facing. A Story may be technical ("Set up Kafka consumer for payment events") or user-facing ("Lock FX rate for 24 hours"). Stories are implemented by Technical Tasks scoped to Systems and Components (Technical).
 
 > **Renamed from User Story:** Not all Stories are written from a user's perspective. Technical stories, infrastructure stories, and data migration stories are equally valid. "Story" is the more general term. The Story inherits its Module scope from its parent Epic.
 
@@ -24,14 +24,14 @@ Translates Epics into deliverable increments of functionality within a Module. W
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Descriptive title |
-| Epic | Reference (Track 2) | Parent Epic this Story belongs to |
-| Module | Reference (Dim 8) | Inherited from parent Epic — the Module this Story advances |
-| Capability | Reference (Dim 8) | Which Capability this Story contributes to (optional, more specific than Module) |
+| Epic | Reference (Build) | Parent Epic this Story belongs to |
+| Module | Reference (Structural) | Inherited from parent Epic — the Module this Story advances |
+| Capability | Reference (Structural) | Which Capability this Story contributes to (optional, more specific than Module) |
 | Description | Text | What needs to be built — acceptance criteria, functional requirements |
 | Story Type | Enum | `Functional` / `Technical` / `Enablement` |
 | Effort Estimate | String | Story points or time estimate |
 | Priority | Enum | `Must Have` / `Should Have` / `Could Have` |
-| Iteration | Reference (Track 2) | Which sprint/iteration this Story is assigned to |
+| Iteration | Reference (Build) | Which sprint/iteration this Story is assigned to |
 
 ## Statuses
 
@@ -47,12 +47,12 @@ Translates Epics into deliverable increments of functionality within a Module. W
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | Epic (Track 2) | Story is a unit within an Epic |
-| Scoped to | Module (Dim 8) | Story represents work within a Module (inherited from Epic) |
-| Maps to | Capability (Dim 8) | Story may map to a specific Capability |
-| Implemented by | Technical Task(s) (Track 2) | Story is implemented by Technical Tasks in System(s) |
-| Assigned to | Iteration (Track 2) | Story is assigned to a sprint via Iteration Planning |
-| May contain | Bug(s) (Track 2) | Bugs may be discovered during Story implementation |
+| Belongs to | Epic (Build) | Story is a unit within an Epic |
+| Scoped to | Module (Structural) | Story represents work within a Module (inherited from Epic) |
+| Maps to | Capability (Structural) | Story may map to a specific Capability |
+| Implemented by | Technical Task(s) (Build) | Story is implemented by Technical Tasks in System(s) |
+| Assigned to | Iteration (Build) | Story is assigned to a sprint via Iteration Planning |
+| May contain | Bug(s) (Build) | Bugs may be discovered during Story implementation |
 
 ## Examples
 

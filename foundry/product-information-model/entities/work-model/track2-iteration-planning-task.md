@@ -1,7 +1,7 @@
 # Iteration Planning Task
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction)
+**Track:** Build
 **Owner:** Tech Lead, Developers
 
 ## Definition
@@ -21,13 +21,13 @@ The tactical planning unit within the Build Track. Without Iteration Planning Ta
 |---|---|---|
 | Title | String | Descriptive title (e.g., "Sprint 14 Planning — FX Team") |
 | Iteration | String | Sprint/iteration identifier (e.g., "Sprint 14") |
-| Stories Assigned | List of References (Track 2) | Stories pulled into this iteration |
-| Integration Stories Assigned | List of References (Track 2) | Integration Stories pulled into this iteration |
-| Technical Tasks Assigned | List of References (Track 2) | Technical Tasks assigned to developers for this iteration |
+| Stories Assigned | List of References (Build) | Stories pulled into this iteration |
+| Integration Stories Assigned | List of References (Build) | Integration Stories pulled into this iteration |
+| Technical Tasks Assigned | List of References (Build) | Technical Tasks assigned to developers for this iteration |
 | Capacity | Text | Team capacity — available person-days, velocity, PTO adjustments |
 | Dependencies | Text | Cross-team, cross-System dependencies for this iteration |
 | Sprint Goal | Text | Overarching goal for the iteration |
-| Carry-Over | List of References (Track 2) | Incomplete Stories/Tasks from previous iteration |
+| Carry-Over | List of References (Build) | Incomplete Stories/Tasks from previous iteration |
 
 ## Statuses
 
@@ -42,11 +42,11 @@ The tactical planning unit within the Build Track. Without Iteration Planning Ta
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Assigns | Story(ies) (Track 2) | Iteration Planning assigns Stories to iterations |
-| Assigns | Integration Story(ies) (Track 2) | Iteration Planning assigns Integration Stories to iterations |
-| Assigns | Technical Task(s) (Track 2) | Iteration Planning assigns Technical Tasks to iterations |
-| Part of | Milestone (Track 2) | Iteration contributes to Milestone progress |
-| Tracks | Bug(s) (Track 2) | Iteration may include Bug resolution work |
+| Assigns | Story(ies) (Build) | Iteration Planning assigns Stories to iterations |
+| Assigns | Integration Story(ies) (Build) | Iteration Planning assigns Integration Stories to iterations |
+| Assigns | Technical Task(s) (Build) | Iteration Planning assigns Technical Tasks to iterations |
+| Part of | Milestone (Build) | Iteration contributes to Milestone progress |
+| Tracks | Bug(s) (Build) | Iteration may include Bug resolution work |
 
 ## Examples
 

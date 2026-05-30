@@ -1,7 +1,7 @@
 # Deployment Drill Task
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Owner:** SRE, DevOps, Release Engineering
 
 ## Definition
@@ -25,8 +25,8 @@ Makes deployment rehearsal explicit in the Run Track. Without Deployment Drill T
 
 | Field | Type | Description |
 |---|---|---|
-| Deployment Plan | Reference (Track 3) | The Deployment Plan being rehearsed |
-| Drill Environment | Reference (Dim 7) | The non-production Deployment Environment used for the drill (e.g., staging, drill-specific environment) |
+| Deployment Plan | Reference (Run) | The Deployment Plan being rehearsed |
+| Drill Environment | Reference (Operational) | The non-production Deployment Environment used for the drill (e.g., staging, drill-specific environment) |
 | Drill Scope | Text | What is being rehearsed: full plan, specific station sequence, specific specification application with rollback |
 | Drill Results | Text | Outcome of the drill: what succeeded, what failed, what was learned, adjustments made to the plan |
 | Drilled At | DateTime | When the drill was executed |
@@ -44,10 +44,10 @@ Makes deployment rehearsal explicit in the Run Track. Without Deployment Drill T
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Rehearses | Deployment Plan (Track 3) | Drill Task rehearses a Deployment Plan's procedure |
-| Predecessor to | Deployment Task(s) (Track 3) | When present, drill must pass before actual Deployment Tasks proceed |
-| Targets | Deployment Environment (Dim 7) | Drill is executed against a non-production environment |
-| Governed by | Deployment Plan (Track 3) | Drill Task is produced by and scoped within a Deployment Plan |
+| Rehearses | Deployment Plan (Run) | Drill Task rehearses a Deployment Plan's procedure |
+| Predecessor to | Deployment Task(s) (Run) | When present, drill must pass before actual Deployment Tasks proceed |
+| Targets | Deployment Environment (Operational) | Drill is executed against a non-production environment |
+| Governed by | Deployment Plan (Run) | Drill Task is produced by and scoped within a Deployment Plan |
 
 ## Examples
 

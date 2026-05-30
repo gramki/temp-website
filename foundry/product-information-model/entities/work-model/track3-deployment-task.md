@@ -1,7 +1,7 @@
 # Deployment Task
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Owner:** DevOps, Site Reliability Engineers (SRE)
 
 ## Definition
@@ -24,8 +24,8 @@ Makes deployment execution a distinct, trackable work entity in the Run Track. W
 | Field | Type | Description |
 |---|---|---|
 | Deployment Scope | Enum | `System` / `Product` |
-| Specification | Reference (Track 3) | System Deployment Specification or Product Deployment Specification being applied |
-| Target Environment | Reference (Dim 7) | The Deployment Environment being targeted |
+| Specification | Reference (Run) | System Deployment Specification or Product Deployment Specification being applied |
+| Target Environment | Reference (Operational) | The Deployment Environment being targeted |
 | Deployment Strategy | Enum | `Canary` / `Blue-Green` / `Rolling` / `Direct` |
 | Deployer | String | Person or automation that executes the deployment |
 | Scheduled Time | DateTime | When the deployment is scheduled to execute |
@@ -43,15 +43,15 @@ Makes deployment execution a distinct, trackable work entity in the Run Track. W
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Applies | System Deployment Specification (Track 3) | System-scoped deployment |
-| Applies | Product Deployment Specification (Track 3) | Product-scoped deployment |
-| Produces | Deployment (Track 3) | Produces a Deployment record |
-| Governed by | Deployment Plan (Track 3) | Executed within a Deployment Plan |
-| Preceded by | Deployment Drill Task (Track 3) | When present, drill must pass before execution |
-| Targets | Deployment Environment (Dim 7) | Targets a specific environment |
-| Verified by | Verification Task(s) (Track 3) | Post-deployment validation |
-| Enables | Customer Release Intent (Dim 1) | Successful deployment enables Customer Release Intent activation |
-| Informed by | Operational Readiness (Dim 7) | Readiness status informs go/no-go |
+| Applies | System Deployment Specification (Run) | System-scoped deployment |
+| Applies | Product Deployment Specification (Run) | Product-scoped deployment |
+| Produces | Deployment (Run) | Produces a Deployment record |
+| Governed by | Deployment Plan (Run) | Executed within a Deployment Plan |
+| Preceded by | Deployment Drill Task (Run) | When present, drill must pass before execution |
+| Targets | Deployment Environment (Operational) | Targets a specific environment |
+| Verified by | Verification Task(s) (Run) | Post-deployment validation |
+| Enables | Customer Release Intent (Strategy) | Successful deployment enables Customer Release Intent activation |
+| Informed by | Operational Readiness (Operational) | Readiness status informs go/no-go |
 
 ## Examples
 

@@ -1,7 +1,7 @@
 # Evolve Findings
 
 **Model:** Work Model
-**Track:** Track 5: Evolve (Process Evolution)
+**Track:** Evolve
 **Category:** Artifact (transitional)
 **Owner:** Process Leads, Product Ops, Engineering Managers
 
@@ -42,17 +42,17 @@ Evolve Findings is the Evolve Track's analog of Feedback (Track 4 → Track 1). 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Produced by | Evolve Review (Track 5) | Reviews produce findings as their primary output |
-| Consumed by | Evolve Definition Task (Track 5) | Findings trigger definition/update work |
-| May promote to | Signal (Dim 1, Discovery Track) | When a process gap reveals a product-level issue |
-| Feeds | Evolve Planning (Track 5) | Unactioned findings inform next cycle's planning |
+| Produced by | Evolve Review (Evolve) | Reviews produce findings as their primary output |
+| Consumed by | Evolve Definition Task (Evolve) | Findings trigger definition/update work |
+| May promote to | Signal (Strategy, Discovery Track) | When a process gap reveals a product-level issue |
+| Feeds | Evolve Planning (Evolve) | Unactioned findings inform next cycle's planning |
 
 ## Transitional Nature
 
 Evolve Findings is a **transitional artifact** with two consumption paths:
 
 1. **Evolve Track consumption** (primary): Findings feed Evolve Definition Tasks that update Work Model or Operating Model definitions. This is the normal path — most findings result in process improvements.
-2. **Discovery Track consumption** (secondary): When a finding reveals that a process gap is actually a product gap (e.g., "Build Track has no entity for API contract testing because Dim 6 API Compatibility Contracts weren't properly linked to Build Track work"), the finding is promoted to a Signal for Discovery investigation.
+2. **Discovery Track consumption** (secondary): When a finding reveals that a process gap is actually a product gap (e.g., "Build Track has no entity for API contract testing because Ecosystem API Compatibility Contracts weren't properly linked to Build Track work"), the finding is promoted to a Signal for Discovery investigation.
 
 Not every finding leads to action. Findings that don't warrant changes are archived with rationale — "process is working as intended despite perceived gap" or "cost of change exceeds benefit."
 
@@ -62,7 +62,7 @@ Not every finding leads to action. Findings that don't warrant changes are archi
 **Source Review:** Q3 Win Track Artifact Quality Review
 **Finding Type:** Artifact Quality Issue
 **Severity:** High
-**Affected Track(s):** Track 4: Win
+**Affected Track(s):** Win
 **Affected Entity/Artifact:** Implementation/Onboarding (Win Activity subtype)
 **Evidence:** 35% of Implementation/Onboarding records closed without integration verification step; 3 post-implementation escalations traced to unverified integrations in Q2
 **Recommendation:** Define DoD for Implementation/Onboarding with mandatory integration verification checklist; add "Integration Verification Report" as a required artifact

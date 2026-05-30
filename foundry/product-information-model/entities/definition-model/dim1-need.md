@@ -1,7 +1,7 @@
 # Need
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Product Management
 
 ## Definition
@@ -23,7 +23,7 @@ One of three Signal types in the Strategy Dimension (alongside Problem and Oppor
 | Source | Text | Who/where this Signal came from |
 | Source Type | Enum | `Customer` / `Prospect` / `Internal - Engineering` / `Internal - Operations` / `Internal - Strategy` / `Internal - Support` / `Data/Analytics` |
 | Date Captured | Date | When first recorded |
-| Related Signals | List of References (Dim 1) | Links to Signals that may point to the same underlying issue |
+| Related Signals | List of References (Strategy) | Links to Signals that may point to the same underlying issue |
 
 ## Need-Specific Fields
 
@@ -74,13 +74,13 @@ New ──[PM reviews, confirms legitimacy]──► Triaged
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Downstream | Idea (Dim 1) | Need spawns Idea(s) — one Need may generate multiple candidate hypotheses |
-| Work Model | Signal Exploration Task (Track 1) | Signal Exploration Tasks investigate this Need |
-| Work Model | Research Task (Track 1) | Research Tasks may gather targeted evidence about this Need |
-| Work Model | Deliberation (Track 1) | Deliberations may discuss this Need |
-| Associated | Initiative (Dim 1) | Need ← associated → Initiative(s) (many-to-many, during planning) |
-| Related | Signal (Dim 1) | Related Signals that may point to the same underlying issue |
-| Upstream | Feedback (Track 4) | A Feedback item from the Win Track may correspond to a Need |
+| Downstream | Idea (Strategy) | Need spawns Idea(s) — one Need may generate multiple candidate hypotheses |
+| Work Model | Signal Exploration Task (Discovery) | Signal Exploration Tasks investigate this Need |
+| Work Model | Research Task (Discovery) | Research Tasks may gather targeted evidence about this Need |
+| Work Model | Deliberation (Discovery) | Deliberations may discuss this Need |
+| Associated | Initiative (Strategy) | Need ← associated → Initiative(s) (many-to-many, during planning) |
+| Related | Signal (Strategy) | Related Signals that may point to the same underlying issue |
+| Upstream | Feedback (Win) | A Feedback item from the Win Track may correspond to a Need |
 | May originate from | FIR (Track 4, PFR-Win) | A Need Signal may be routed from an FIR when triage identifies a missing capability request (DR-032) |
 
 ## Example

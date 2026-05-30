@@ -1,14 +1,14 @@
 # Operational Constraint
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** Engineering Leadership, Compliance, Legal
 
 ## Definition
 
-A non-negotiable infrastructure requirement imposed by regulation, compliance, customer contract, or architectural decision. Operational Constraints are structural impediments to operational choices — they limit what the product's infrastructure can do and how it can be configured. Parallel to Win Barrier (Dim 2), which captures structural impediments to commercial success.
+A non-negotiable infrastructure requirement imposed by regulation, compliance, customer contract, or architectural decision. Operational Constraints are structural impediments to operational choices — they limit what the product's infrastructure can do and how it can be configured. Parallel to Win Barrier (Vendor Value), which captures structural impediments to commercial success.
 
-When an Operational Constraint is unmet, it may surface as an Adoption Barrier (Dim 3) — preventing customers from adopting — or a Win Barrier (Dim 2) — preventing the vendor from winning commercially.
+When an Operational Constraint is unmet, it may surface as an Adoption Barrier (Customer Value) — preventing customers from adopting — or a Win Barrier (Vendor Value) — preventing the vendor from winning commercially.
 
 ## Purpose
 
@@ -27,9 +27,9 @@ Captures the non-negotiable requirements that constrain Deployment Environments,
 | Type | Enum | `Data Residency` / `Compliance Boundary` / `Network Segmentation` / `Security Standard` / `Change Window` / `Audit Requirement` / `Regulatory` |
 | Source | Text | Where this constraint comes from (regulation, customer contract, architectural decision) |
 | Description | Text | What the constraint requires |
-| Affected Environment(s) | List of References (Dim 7) | Which Deployment Environments are constrained |
+| Affected Environment(s) | List of References (Operational) | Which Deployment Environments are constrained |
 | Enforcement Mechanism | Text | How compliance with this constraint is verified |
-| Structural Root (Dim 8) | List of References (Dim 8) | When the constraint affects specific modules or capabilities |
+| Structural Root (Structural) | List of References (Structural) | When the constraint affects specific modules or capabilities |
 
 ## Statuses
 
@@ -45,15 +45,15 @@ Captures the non-negotiable requirements that constrain Deployment Environments,
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Imposed by | Compliance Posture (Dim 3) | Compliance Posture's customer-facing commitments impose operational constraints |
-| Constrains | Deployment Environment (Dim 7) | Constraints limit what environments can do |
-| May surface as | Adoption Barrier (Dim 3) | When unmet, constraint blocks customer adoption |
-| May surface as | Win Barrier (Dim 2) | When unmet, constraint blocks vendor commercial success |
-| May root in | Module / Capability (Dim 8) | Constraint may affect specific product structure |
-| Frames | Infrastructure Model (Dim 7) | Constraints shape the overall infrastructure strategy |
-| Decisions | ODR(s) (Dim 7) | Operational decisions that introduce or modify constraints are recorded as ODRs |
-| Work Model | Modeling Task (Track 1) | Constraints are documented through Modeling Tasks |
-| Signals | Signal (Dim 1) | Constraint gaps surface as Problem Signals |
+| Imposed by | Compliance Posture (Customer Value) | Compliance Posture's customer-facing commitments impose operational constraints |
+| Constrains | Deployment Environment (Operational) | Constraints limit what environments can do |
+| May surface as | Adoption Barrier (Customer Value) | When unmet, constraint blocks customer adoption |
+| May surface as | Win Barrier (Vendor Value) | When unmet, constraint blocks vendor commercial success |
+| May root in | Module / Capability (Structural) | Constraint may affect specific product structure |
+| Frames | Infrastructure Model (Operational) | Constraints shape the overall infrastructure strategy |
+| Decisions | ODR(s) (Operational) | Operational decisions that introduce or modify constraints are recorded as ODRs |
+| Work Model | Modeling Task (Discovery) | Constraints are documented through Modeling Tasks |
+| Signals | Signal (Strategy) | Constraint gaps surface as Problem Signals |
 
 ## Examples
 

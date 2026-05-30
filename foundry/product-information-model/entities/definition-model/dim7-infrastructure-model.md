@@ -1,18 +1,18 @@
 # Infrastructure Model
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** Engineering Leadership, Platform Engineering, DevOps Leadership
 
 ## Definition
 
-The fundamental hosting and operations strategy — how the vendor operates the product in production. The Infrastructure Model is the structural root of Dimension 7 — all other Dim 7 entities derive from or operate within it. Parallel to Business Model (Dim 2): "how we make money" vs. "how we run it."
+The fundamental hosting and operations strategy — how the vendor operates the product in production. The Infrastructure Model is the structural root of Dimension 7 — all other Operational entities derive from or operate within it. Parallel to Business Model (Vendor Value): "how we make money" vs. "how we run it."
 
-The Infrastructure Model also defines the product's **Tenancy Architecture** — the pattern for how customer tenants are organized within Deployment Environments. Actual Tenants are Run Track (Track 3) operational artifacts; Dim 7 defines the architecture pattern.
+The Infrastructure Model also defines the product's **Tenancy Architecture** — the pattern for how customer tenants are organized within Deployment Environments. Actual Tenants are Run operational artifacts; Operational defines the architecture pattern.
 
 ## Purpose
 
-Anchors the Operational dimension by establishing the macro-level infrastructure strategy. Like Business Model (Dim 2), the Infrastructure Model is a lightweight, rarely-changing entity — it provides context for the more dynamic entities (Operational Targets, Constraints, Pains). It changes at the scale of years (e.g., migrating from single-cloud to multi-cloud, shifting from shared tenancy to hybrid), not quarters. Without Infrastructure Model:
+Anchors the Operational dimension by establishing the macro-level infrastructure strategy. Like Business Model (Vendor Value), the Infrastructure Model is a lightweight, rarely-changing entity — it provides context for the more dynamic entities (Operational Targets, Constraints, Pains). It changes at the scale of years (e.g., migrating from single-cloud to multi-cloud, shifting from shared tenancy to hybrid), not quarters. Without Infrastructure Model:
 - Deployment Environments lack a strategic frame — they exist without explaining *why* this topology
 - Cost strategy is implicit — no explicit model for cost allocation or scaling economics
 - Tenancy decisions are undocumented — shared vs. dedicated is a critical architectural decision
@@ -38,13 +38,13 @@ _Not applicable — the Infrastructure Model is a structural descriptor that cha
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Downstream | Deployment Environment (Dim 7) | Infrastructure Model defines the frame for Deployment Environments |
-| Context for | Operational Target (Dim 7) | Infrastructure Model provides the operational context for targets |
-| Context for | Operational Constraint (Dim 7) | Infrastructure Model frames which constraints apply |
-| Context for | Operational Readiness (Dim 7) | Infrastructure Model determines readiness criteria scope |
-| Work Model | Modeling Task (Track 1) | Infrastructure Model is evolved through Modeling Tasks |
-| Justified by | PDR (Dim 1) | Infrastructure strategy changes are justified by PDRs |
-| Justified by | ODR(s) (Dim 7) | Operational decisions that shape the Infrastructure Model are recorded as ODRs |
+| Downstream | Deployment Environment (Operational) | Infrastructure Model defines the frame for Deployment Environments |
+| Context for | Operational Target (Operational) | Infrastructure Model provides the operational context for targets |
+| Context for | Operational Constraint (Operational) | Infrastructure Model frames which constraints apply |
+| Context for | Operational Readiness (Operational) | Infrastructure Model determines readiness criteria scope |
+| Work Model | Modeling Task (Discovery) | Infrastructure Model is evolved through Modeling Tasks |
+| Justified by | PDR (Strategy) | Infrastructure strategy changes are justified by PDRs |
+| Justified by | ODR(s) (Operational) | Operational decisions that shape the Infrastructure Model are recorded as ODRs |
 
 ## Example
 

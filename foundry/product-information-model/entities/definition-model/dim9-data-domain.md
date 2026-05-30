@@ -1,7 +1,7 @@
 # Data Domain
 
 **Model:** Definition Model
-**Dimension:** Dimension 9: The Data & Information Dimension (State & Flow)
+**Dimension:** Data
 **Owner:** Enterprise Architects, Business Analysts
 
 ## Definition
@@ -26,7 +26,7 @@ _Not applicable — structural descriptor._
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Contains | Data Entity (Dim 9) | Domain manages Data Entities |
+| Contains | Data Entity (Data) | Domain manages Data Entities |
 
 ## Example
 

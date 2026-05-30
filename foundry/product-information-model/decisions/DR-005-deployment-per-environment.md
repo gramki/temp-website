@@ -12,7 +12,7 @@ The model needed to represent how System Versions move from "quality-gated artif
 
 A single System Version (e.g., `payments-service v2.3.3`) may need to be deployed to **multiple environments** — staging, production-us, production-eu, production-ap, disaster recovery — at different times, with different strategies, and potentially with different outcomes. "Deployed" is not a binary attribute of the version; it is a per-environment event.
 
-> **Updated from original DR-005:** The original decision referenced "Module Version" as the deployable artifact. DR-026 renamed this to "System Version" — the Build Track builds Systems (Dim 5), and the Run Track deploys System Versions to environments.
+> **Updated from original DR-005:** The original decision referenced "Module Version" as the deployable artifact. DR-026 renamed this to "System Version" — the Build Track builds Systems (Technical), and the Run Track deploys System Versions to environments.
 
 ## Decision
 
@@ -22,7 +22,7 @@ System Version status lifecycle: `Building → Released` (only two states).
 
 Deployment entity tracks:
 - Which System Version
-- Which Environment (Dim 7)
+- Which Environment (Operational)
 - Deployment strategy (Canary / Blue-Green / Rolling / Direct)
 - Per-environment status (`Planned → In Progress → Succeeded / Failed / Rolled Back`)
 - Timestamp

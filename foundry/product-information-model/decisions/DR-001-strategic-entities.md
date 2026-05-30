@@ -8,13 +8,13 @@
 
 ## Context
 
-The original UPIM Dimension 1 (Strategy) contained only Signal entities (Problem, Need, Opportunity), solution entities (Idea, PDR, PSD), and no strategic direction entities. This meant every Signal was an equal candidate for discovery at every point in time — there was no mechanism to prioritize discovery based on business strategy.
+The original UPIM Strategy contained only Signal entities (Problem, Need, Opportunity), solution entities (Idea, PDR, PSD), and no strategic direction entities. This meant every Signal was an equal candidate for discovery at every point in time — there was no mechanism to prioritize discovery based on business strategy.
 
 The question arose: how should strategic planning be represented in the model? Should there be a separate "Plan Track" in the Work Model, or should strategic entities live in the Definition Model?
 
 ## Decision
 
-Add **Objective** and **Initiative** as Definition Model entities in Dimension 1 (Strategy):
+Add **Objective** and **Initiative** as Definition Model entities in Strategy:
 
 - **Objective:** A strategic goal over a defined planning horizon. Answers "where are we going?"
 - **Initiative:** A strategic program to advance Objectives. The prioritization vehicle that associates Signals for discovery investment.
@@ -31,5 +31,5 @@ Signals (Problem, Need, Opportunity) may exist independently before being associ
 
 - **Positive:** Strategy → Initiative → Signals {P/N/O} → Idea → PDR → Product Intent → PSD chain is now complete from business strategy to technical specification.
 - **Positive:** Planning work is distributed across tracks, keeping it close to teams that execute.
-- **Negative:** Dimension 1 is now the largest dimension with 9 entity types (Objective, Initiative, Customer Release Intent, Problem, Need, Opportunity, Idea, PDR, PSD). May warrant sub-grouping in documentation for readability.
+- **Negative:** Strategy is now the largest dimension with 9 entity types (Objective, Initiative, Customer Release Intent, Problem, Need, Opportunity, Idea, PDR, PSD). May warrant sub-grouping in documentation for readability.
 - **New entities required:** Objective Setting Task, Initiative Scoping Task, Prioritization Task (Track 1 planning entities).

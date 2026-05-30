@@ -1,7 +1,7 @@
 # Signal Monitoring
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Learning)
+**Track:** Discovery
 **Category:** Monitoring
 **Owner:** Product Manager, Discovery Lead
 
@@ -30,7 +30,7 @@ Makes the continuous oversight of the discovery pipeline explicit. Without Signa
 | Thresholds / Alerts | List (text) | When does monitoring trigger action (e.g., "Backlog > 50 unprioritized Signals", "Signal aged > 90 days without exploration") |
 | Cadence | Enum | `Continuous` / `Daily` / `Weekly` |
 | Owner | String | Role/person responsible for watching |
-| Initiative(s) | List of References (Dim 1) | Which Initiative(s) this monitoring supports (if scoped) |
+| Initiative(s) | List of References (Strategy) | Which Initiative(s) this monitoring supports (if scoped) |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -52,10 +52,10 @@ Makes the continuous oversight of the discovery pipeline explicit. Without Signa
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Informs | Prioritization Task (Track 1) | Monitoring surfaces need for re-prioritization |
-| May trigger | Signal (Dim 1) | Monitoring may surface need for new Signal creation |
-| Feeds | Deliberation (Track 1) | Pipeline reports feed Deliberation preparation |
-| Scoped to | Initiative (Dim 1) | Monitoring may be scoped to specific Initiative pipelines |
+| Informs | Prioritization Task (Discovery) | Monitoring surfaces need for re-prioritization |
+| May trigger | Signal (Strategy) | Monitoring may surface need for new Signal creation |
+| Feeds | Deliberation (Discovery) | Pipeline reports feed Deliberation preparation |
+| Scoped to | Initiative (Strategy) | Monitoring may be scoped to specific Initiative pipelines |
 
 ## Example
 

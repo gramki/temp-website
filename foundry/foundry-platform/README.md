@@ -42,9 +42,9 @@ These folders contain reference content (not platform code):
 
 | Folder | Content |
 |--------|---------|
-| **Scenario Catalogue** | [scenario-catalogue/](scenario-catalogue/README.md) | Reference scenario definitions organized by (Track, Workspace) |
+| **Work Catalogues** | [work-catalogues/](work-catalogues/README.md) | OI Workflows and Scenarios organized by hierarchy (Track → OI → Workspace) |
 
-> **Note:** Scenario Management (schema, validation, agent recommendations) is a subsystem of the Management module. The Scenario Catalogue contains reference templates that Workshops can adopt.
+> **Note:** Work Catalog Management (schema, validation, resolution algorithm) is a subsystem of the Management module. The Work Catalogues folder contains the conceptual overview, user guide, and platform default content that Foundries can adopt and override.
 
 ### Key design decisions
 
@@ -54,7 +54,7 @@ These folders contain reference content (not platform code):
 - **Repositories are services, not stores.** Each provides injection/access interfaces; Foundry Management exposes the access layer.
 - **Integrations are owned by modules.** Release Tools owns CI/CD integrations; no horizontal "Integrations" module.
 - **Configuration flows through Metadata Service.** Consumers query Management, not git directly.
-- **Scenario Management is a subsystem of Management.** Schema, validation, and recommendations are in Management; templates are in Scenario Catalogue.
+- **Work Catalog Management is a subsystem of Management.** Schema, validation, resolution, and recommendations are in Management; conceptual docs, user guide, and platform defaults are in Work Catalogues.
 
 ### Legacy structure
 

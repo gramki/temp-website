@@ -1,21 +1,21 @@
 # Win Outcome
 
 **Model:** Definition Model
-**Dimension:** Dimension 2: The Vendor Value Dimension (Why It Wins)
+**Dimension:** Vendor Value
 **Owner:** Product Marketing, Sales Leadership, Customer Success Leadership
 
 ## Definition
 
-What success looks like for the vendor at a specific AAARRR stage for a specific Customer Segment. A Win Outcome is a structural definition of "what winning means here" — not a time-bound Objective (Dim 1) but a persistent target that Objectives and Initiatives reference. Win Outcomes are scoped to Customer Segments because the definition of success varies dramatically by segment.
+What success looks like for the vendor at a specific AAARRR stage for a specific Customer Segment. A Win Outcome is a structural definition of "what winning means here" — not a time-bound Objective (Strategy) but a persistent target that Objectives and Initiatives reference. Win Outcomes are scoped to Customer Segments because the definition of success varies dramatically by segment.
 
 ## Purpose
 
-Analogous to Business Outcome (Dim 3), which captures what the *customer* needs to achieve. Win Outcome captures what the *vendor* needs to achieve — per AAARRR stage, per segment. Without Win Outcomes:
-- Objectives (Dim 1) lack granular commercial targets — "Expand to LATAM" doesn't specify what winning looks like at each stage
+Analogous to Business Outcome (Customer Value), which captures what the *customer* needs to achieve. Win Outcome captures what the *vendor* needs to achieve — per AAARRR stage, per segment. Without Win Outcomes:
+- Objectives (Strategy) lack granular commercial targets — "Expand to LATAM" doesn't specify what winning looks like at each stage
 - Business KPIs float without context — "CAC < $25K" is a number; the Win Outcome explains *what commercial success that number represents*
 - Without Win Outcomes, Initiative targets lack a structural definition to anchor to — they set quantitative measures without defining what "success" means
 
-**Distinction from Objectives (Dim 1):** An Objective is time-bound and strategic ("Expand to LATAM currencies by H2 2026"). A Win Outcome is structural and persistent ("LATAM Enterprise — Activation: first live transaction within 30 days of contract"). Objectives *reference* Win Outcomes as their commercial targets; Win Outcomes persist across Objectives.
+**Distinction from Objectives (Strategy):** An Objective is time-bound and strategic ("Expand to LATAM currencies by H2 2026"). A Win Outcome is structural and persistent ("LATAM Enterprise — Activation: first live transaction within 30 days of contract"). Objectives *reference* Win Outcomes as their commercial targets; Win Outcomes persist across Objectives.
 
 ## Fields
 
@@ -23,12 +23,12 @@ Analogous to Business Outcome (Dim 3), which captures what the *customer* needs 
 |---|---|---|
 | Title | String | Concise success statement |
 | AAARRR Stage | Enum | `Awareness` / `Acquisition` / `Activation` / `Retention` / `Revenue` / `Referral` |
-| Customer Segment | Reference (Dim 3) | Which segment this Win Outcome applies to |
+| Customer Segment | Reference (Customer Value) | Which segment this Win Outcome applies to |
 | Success Definition | Text | What achieving this outcome means — qualitative and quantitative |
-| Win Stakeholder(s) responsible | List of References (Dim 2) | Who owns achieving this outcome |
-| Business KPI(s) evidencing | List of References (Dim 2) | Which KPIs measure whether this outcome is being achieved |
+| Win Stakeholder(s) responsible | List of References (Vendor Value) | Who owns achieving this outcome |
+| Business KPI(s) evidencing | List of References (Vendor Value) | Which KPIs measure whether this outcome is being achieved |
 | Achievement Levers | List (Lever + Primary/Secondary) | Categorized from the Business Model's Lever Portfolio. Identifies what kinds of effort can advance this Win Outcome. Forces the question: "Is this primarily a product problem, a GTM problem, or both?" |
-| Enabled by (Dim 8) | List of References (Dim 8) | When Product is an Achievement Lever, which Value Streams or Capabilities structurally support this outcome. Provides traceability from commercial target to product structure. Optional when Product is not a lever. |
+| Enabled by (Structural) | List of References (Structural) | When Product is an Achievement Lever, which Value Streams or Capabilities structurally support this outcome. Provides traceability from commercial target to product structure. Optional when Product is not a lever. |
 
 ## Statuses
 
@@ -43,21 +43,21 @@ Analogous to Business Outcome (Dim 3), which captures what the *customer* needs 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scoped to | Customer Segment (Dim 3) | Win Outcome is defined per Customer Segment |
-| Evidenced by | Business KPI (Dim 2) | Business KPIs measure whether Win Outcome is achieved |
-| Responsibility of | Win Stakeholder (Dim 2) | Win Stakeholders own specific Win Outcomes |
-| Undermined by | Delivery Friction (Dim 2) | Delivery Frictions make Win Outcomes harder to achieve |
-| Blocked by | Win Barrier (Dim 2) | Win Barriers structurally prevent achieving Win Outcomes |
-| Referenced by | Objective (Dim 1) | Objectives target specific Win Outcomes |
-| Targeted by | Initiative (Dim 1) | Initiatives target Win Outcomes with lever mix and embedded targets |
-| Advanced by | Win Activity (Track 4) | Win Activities advance specific Win Outcomes |
-| Supported by | Win Enablement (Track 4) | Win Enablement assets support achieving Win Outcomes |
-| Assessed by | Win Review (Track 4) | Win Reviews assess progress toward Win Outcomes |
-| Enabled by | Value Stream / Capability (Dim 8) | When Product is an Achievement Lever, identifies which product structures support this outcome |
+| Scoped to | Customer Segment (Customer Value) | Win Outcome is defined per Customer Segment |
+| Evidenced by | Business KPI (Vendor Value) | Business KPIs measure whether Win Outcome is achieved |
+| Responsibility of | Win Stakeholder (Vendor Value) | Win Stakeholders own specific Win Outcomes |
+| Undermined by | Delivery Friction (Vendor Value) | Delivery Frictions make Win Outcomes harder to achieve |
+| Blocked by | Win Barrier (Vendor Value) | Win Barriers structurally prevent achieving Win Outcomes |
+| Referenced by | Objective (Strategy) | Objectives target specific Win Outcomes |
+| Targeted by | Initiative (Strategy) | Initiatives target Win Outcomes with lever mix and embedded targets |
+| Advanced by | Win Activity (Win) | Win Activities advance specific Win Outcomes |
+| Supported by | Win Enablement (Win) | Win Enablement assets support achieving Win Outcomes |
+| Assessed by | Win Review (Win) | Win Reviews assess progress toward Win Outcomes |
+| Enabled by | Value Stream / Capability (Structural) | When Product is an Achievement Lever, identifies which product structures support this outcome |
 
 ## Examples
 
-| AAARRR Stage | Segment | Win Outcome | Evidencing KPIs | Achievement Levers | Enabled by (Dim 8) |
+| AAARRR Stage | Segment | Win Outcome | Evidencing KPIs | Achievement Levers | Enabled by (Structural) |
 |---|---|---|---|---|---|
 | Awareness | LATAM Enterprise | "80% unaided brand recall in LATAM fintech CFO community" | Brand awareness score, LATAM inbound pipeline | GTM (primary), Product (secondary) | — |
 | Acquisition | LATAM Enterprise | "Close LATAM enterprise deals within 90-day sales cycle at $500K+ ACV" | Sales cycle length, ACV, competitive win rate | Sales Enablement (primary), Product (secondary), GTM (secondary) | Sandbox / Demo Environment (Capability) |

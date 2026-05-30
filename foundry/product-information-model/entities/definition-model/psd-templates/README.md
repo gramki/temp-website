@@ -38,10 +38,10 @@ PSDs are authored in two phases (DR-035, D8):
 
 > **Note:** The legacy file names (`psd-human-interactive.md`, etc.) are preserved for continuity. The template names — Experience, Integration, Processing — are the canonical names used in PSD authoring. The Capability Template field on the Capability entity uses these three values.
 
-## Relationship to Capability Templates (Dim 8)
+## Relationship to Capability Templates (Structural)
 
 The `Capability Template` field on the `dim8-capability.md` entity takes one of three values: `Experience` / `Integration` / `Processing`. This field records which template a PM used or would use to specify that Capability. It is informational and does not constrain the Architect's System mapping.
 
-## Relationship to System/Component Archetypes (Dim 5)
+## Relationship to System/Component Archetypes (Technical)
 
 Capability Templates are **decoupled from System and Component Archetypes**. A PM selecting an "Experience" template is not prescribing that an HI-style System will realize it. The Architect independently decides which Systems and Components address the Capability. This decoupling is a deliberate design decision (DR-035, D5).

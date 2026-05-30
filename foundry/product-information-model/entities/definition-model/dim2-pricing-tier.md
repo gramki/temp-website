@@ -1,12 +1,12 @@
 # Pricing Tier / Package
 
 **Model:** Definition Model
-**Dimension:** Dimension 2: The Vendor Value Dimension (Why It Wins)
+**Dimension:** Vendor Value
 **Owner:** Product Marketing, Executive Leadership
 
 ## Definition
 
-A bundled commercial offering targeting a specific Customer Segment. A Package groups Features (Dim 8) into a marketable unit with associated pricing structured around Value Metrics. Pricing Tiers are the vendor's commercial packaging of the product — they define what the customer gets and what they pay.
+A bundled commercial offering targeting a specific Customer Segment. A Package groups Features (Structural) into a marketable unit with associated pricing structured around Value Metrics. Pricing Tiers are the vendor's commercial packaging of the product — they define what the customer gets and what they pay.
 
 ## Purpose
 
@@ -20,10 +20,10 @@ Connects the vendor's business model to the product's functional reality by defi
 | Field | Type | Description |
 |---|---|---|
 | Name | String | Market-facing tier name (e.g., "Enterprise Volume Plan") |
-| Target Segment(s) | List of References (Dim 3) | Which Customer Segments this tier is designed for |
-| Included Features | List of References (Dim 8) | Which Features are available in this tier |
-| Add-on Features | List of References (Dim 8) | Optional features available at additional cost |
-| Value Metric(s) | List of References (Dim 2) | Which pricing axes apply to this tier |
+| Target Segment(s) | List of References (Customer Value) | Which Customer Segments this tier is designed for |
+| Included Features | List of References (Structural) | Which Features are available in this tier |
+| Add-on Features | List of References (Structural) | Optional features available at additional cost |
+| Value Metric(s) | List of References (Vendor Value) | Which pricing axes apply to this tier |
 | Base Price | Text | Fixed/recurring component (e.g., "$5K/month platform fee") |
 | Variable Pricing | Text | Usage-based component (e.g., "0.5% per transaction") |
 | Contract Terms | Text | Typical commitment (e.g., "Annual, with quarterly billing") |
@@ -42,12 +42,12 @@ Connects the vendor's business model to the product's functional reality by defi
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Business Model (Dim 2) | Pricing Tier operates within the Business Model |
-| Targets | Customer Segment (Dim 3) | Pricing Tier is designed for specific segments |
-| Contains | Feature (Dim 8) | Pricing Tier includes specific Features |
-| Priced along | Value Metric (Dim 2) | Pricing Tier uses specific Value Metrics |
-| Challenged by | Win Barrier (Dim 2) | Win Barriers may challenge the competitiveness of a Pricing Tier |
-| Referenced by | PSD Section 2 (Dim 1) | PSDs reference pricing/packaging implications |
+| Upstream | Business Model (Vendor Value) | Pricing Tier operates within the Business Model |
+| Targets | Customer Segment (Customer Value) | Pricing Tier is designed for specific segments |
+| Contains | Feature (Structural) | Pricing Tier includes specific Features |
+| Priced along | Value Metric (Vendor Value) | Pricing Tier uses specific Value Metrics |
+| Challenged by | Win Barrier (Vendor Value) | Win Barriers may challenge the competitiveness of a Pricing Tier |
+| Referenced by | PSD Section 2 (Strategy) | PSDs reference pricing/packaging implications |
 
 ## Example
 

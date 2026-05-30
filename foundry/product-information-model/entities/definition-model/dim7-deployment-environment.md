@@ -1,7 +1,7 @@
 # Deployment Environment
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** Platform Engineering, DevOps Leadership
 
 ## Definition
@@ -30,7 +30,7 @@ Captures the strategic infrastructure decisions about where the product runs and
 | Tenancy Architecture | Enum | `Shared` / `Dedicated` / `Hybrid` — inherited from Infrastructure Model or overridden per environment |
 | Compliance Zone | Text | Compliance standards enforced in this environment (e.g., "PCI-DSS Level 1," "LGPD data residency") |
 | Scale Policy | Text | Scaling behavior for this environment (e.g., "auto-scale 3–12 nodes," "fixed 2 nodes") |
-| Hosted Modules | List of References (Dim 8) | Which modules are deployed in this environment |
+| Hosted Modules | List of References (Structural) | Which modules are deployed in this environment |
 | Change Windows | Text | When changes are permitted in this environment (e.g., "weekdays 10am-4pm EST," "24/7 with approval") |
 | Freeze Periods | Text | When changes are prohibited (e.g., "PCI audit weeks," "end-of-quarter processing freeze," "holiday blackout Dec 20-Jan 5") |
 | Cycle Cadence | Text | Recurring change cycle pattern (e.g., "2-week change cycles with 3-day freeze before cycle end," "continuous") |
@@ -51,20 +51,20 @@ Captures the strategic infrastructure decisions about where the product runs and
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Defined by | Infrastructure Model (Dim 7) | Infrastructure Model frames this environment's strategy |
-| Hosts | Module(s) (Dim 8) | Modules are deployed to this environment (functional view) |
-| Hosts | System(s) (Dim 5) | Systems are deployed to this environment (technical view — the deployable units) |
-| Hosts | Tenant(s) (Track 3) | Tenants are provisioned within this environment (Run Track) |
-| Constrained by | Operational Constraint (Dim 7) | Constraints limit what this environment can do |
-| Has | Operational Target(s) (Dim 7) | Environment-level operational targets |
-| Operated by | Operational Persona(s) (Dim 7) | Operational Personas manage this environment |
-| Scoped by | Operational Readiness (Dim 7) | System readiness is assessed per-environment |
-| Justified by | PDR (Dim 1) | New environment provisioning is justified by PDRs |
-| Decisions | ODR(s) (Dim 7) | Operational decisions affecting this environment are recorded as ODRs |
-| Targeted by | System Deployment Specification / Product Deployment Specification (Track 3) | Deployment specifications target this environment |
-| Targeted by | Station(s) (Dim 7) | Stations within Deployment Trains target this environment as a governance checkpoint |
-| Work Model | Deployment Task (Track 3) | Deployment Tasks apply descriptors to this environment |
-| Work Model | Capacity Planning Task (Track 3) | Capacity is planned per-environment |
+| Defined by | Infrastructure Model (Operational) | Infrastructure Model frames this environment's strategy |
+| Hosts | Module(s) (Structural) | Modules are deployed to this environment (functional view) |
+| Hosts | System(s) (Technical) | Systems are deployed to this environment (technical view — the deployable units) |
+| Hosts | Tenant(s) (Run) | Tenants are provisioned within this environment (Run Track) |
+| Constrained by | Operational Constraint (Operational) | Constraints limit what this environment can do |
+| Has | Operational Target(s) (Operational) | Environment-level operational targets |
+| Operated by | Operational Persona(s) (Operational) | Operational Personas manage this environment |
+| Scoped by | Operational Readiness (Operational) | System readiness is assessed per-environment |
+| Justified by | PDR (Strategy) | New environment provisioning is justified by PDRs |
+| Decisions | ODR(s) (Operational) | Operational decisions affecting this environment are recorded as ODRs |
+| Targeted by | System Deployment Specification / Product Deployment Specification (Run) | Deployment specifications target this environment |
+| Targeted by | Station(s) (Operational) | Stations within Deployment Trains target this environment as a governance checkpoint |
+| Work Model | Deployment Task (Run) | Deployment Tasks apply descriptors to this environment |
+| Work Model | Capacity Planning Task (Run) | Capacity is planned per-environment |
 
 ## Examples
 

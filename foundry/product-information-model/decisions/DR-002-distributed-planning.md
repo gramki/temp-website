@@ -19,10 +19,10 @@ Each track owns its own planning work. No separate "Plan Track" is created.
 
 | Track | Planning Entities |
 |---|---|
-| Discovery (Track 1) | Objective Setting Task, Initiative Scoping Task, Prioritization Task |
-| Build (Track 2) | Release Planning Task, Milestone Planning Task, Iteration Planning Task |
-| Run (Track 3) | Deployment Planning Task, Capacity Planning Task |
-| Win (Track 4) | Go-to-Market Planning Task, Customer Rollout Planning Task |
+| Discovery (Discovery) | Objective Setting Task, Initiative Scoping Task, Prioritization Task |
+| Build (Build) | Release Planning Task, Milestone Planning Task, Iteration Planning Task |
+| Run (Run) | Deployment Planning Task, Capacity Planning Task |
+| Win (Win) | Go-to-Market Planning Task, Customer Rollout Planning Task |
 
 ## Rationale
 

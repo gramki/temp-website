@@ -8,7 +8,7 @@ The Adoption Goal entity has been eliminated. Targets (time-bound, quantitative 
 
 **Rationale:**
 - "Adoption" was stage-specific (only Activation), but targets span all AAARRR stages
-- "Goal" conflicted with Objectives (Dim 1), creating hierarchy confusion
+- "Goal" conflicted with Objectives (Strategy), creating hierarchy confusion
 - Targets are naturally attributes of the coordination construct (Initiative), not independent entities
 - Win Reviews assess Initiative target progress directly
 

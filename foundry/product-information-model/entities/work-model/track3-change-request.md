@@ -1,12 +1,12 @@
 # Change Request
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Owner:** DevOps, SRE, Release Engineering, Change Advisory Board (CAB)
 
 ## Definition
 
-A formal change management envelope governing deployment-related changes to production environments, scoped to a Deployment Train (Dim 7) or a specific Station within a train. A Change Request captures the justification, approval workflow, and completion criteria for a set of deployment-related work — it is the **auditable container** within which Deployment Plans, Deployment Tasks, and Verification Tasks execute.
+A formal change management envelope governing deployment-related changes to production environments, scoped to a Deployment Train (Operational) or a specific Station within a train. A Change Request captures the justification, approval workflow, and completion criteria for a set of deployment-related work — it is the **auditable container** within which Deployment Plans, Deployment Tasks, and Verification Tasks execute.
 
 A Change Request is **successfully completed** when all Deployment Tasks AND all Verification Tasks associated with it have passed. This completion model ensures that deployments are not considered "done" until they are both executed and verified.
 
@@ -38,13 +38,13 @@ Without Change Requests:
 |---|---|---|
 | Type | Enum | `Standard` / `Emergency-Technical` / `Emergency-Business` |
 | Deployment Scope | Enum | `System` / `Product` — whether this CR governs a System or Product deployment |
-| Scope | Reference (Dim 7) | Deployment Train or specific Station this change request targets |
+| Scope | Reference (Operational) | Deployment Train or specific Station this change request targets |
 | Requestor | String | Person or team requesting the change |
 | Justification | Text | Why this change is needed (may reference Customer Release Intent, Incident, business exigency) |
 | Impact Assessment | Text | Blast radius, affected tenants, affected services, risk level |
 | CAB Decision | Text | Change Advisory Board decision and rationale (if applicable) |
 | Completion Criteria | Text | What must be true for this CR to be considered complete (all Deployment Tasks + Verification Tasks succeed) |
-| Customer Release Intent | Reference (Dim 1) | Customer Release Intent this change supports (if applicable) |
+| Customer Release Intent | Reference (Strategy) | Customer Release Intent this change supports (if applicable) |
 | Emergency Justification | Text | For Emergency types: why normal process is being bypassed; documented waiver; ODR reference |
 
 ## Statuses
@@ -62,14 +62,14 @@ Without Change Requests:
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scoped to | Deployment Train (Dim 7) | Change Request follows a Deployment Train's promotion path |
-| Scoped to | Station (Dim 7) | Change Request may be scoped to a specific Station within a Train |
-| Contains | Deployment Plan(s) (Track 3) | Change Request contains the Deployment Plan(s) that scope the rollout |
-| Contains | Verification Task(s) (Track 3) | Change Request contains Verification Tasks (created by planning or added independently) |
-| May reference | Customer Release Intent (Dim 1) | Change Request may support a Customer Release Intent's deployment needs |
+| Scoped to | Deployment Train (Operational) | Change Request follows a Deployment Train's promotion path |
+| Scoped to | Station (Operational) | Change Request may be scoped to a specific Station within a Train |
+| Contains | Deployment Plan(s) (Run) | Change Request contains the Deployment Plan(s) that scope the rollout |
+| Contains | Verification Task(s) (Run) | Change Request contains Verification Tasks (created by planning or added independently) |
+| May reference | Customer Release Intent (Strategy) | Change Request may support a Customer Release Intent's deployment needs |
 | May originate from | Incident (Track 3, artifact) | Emergency-Technical changes may originate from an Incident; triggered via Incident Response Task |
-| May originate from | Release Planning Task (Track 2) | Emergency-Business changes may originate from accelerated Release Plans |
-| Respects | Deployment Environment Change Cycle (Dim 7) | Change Request timing respects the target environment's change windows and freeze periods |
+| May originate from | Release Planning Task (Build) | Emergency-Business changes may originate from accelerated Release Plans |
+| Respects | Deployment Environment Change Cycle (Operational) | Change Request timing respects the target environment's change windows and freeze periods |
 
 ## Examples
 

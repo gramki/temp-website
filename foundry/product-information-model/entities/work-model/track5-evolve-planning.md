@@ -1,7 +1,7 @@
 # Evolve Planning
 
 **Model:** Work Model
-**Track:** Track 5: Evolve (Process Evolution)
+**Track:** Evolve
 **Owner:** Process Leads, Product Ops, Engineering Managers
 
 ## Definition
@@ -38,11 +38,11 @@ Without deliberate planning, process evolution happens reactively (only when som
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Produces | Evolve Review (Track 5) | Plans which reviews to conduct |
-| Produces | Evolve Definition Task (Track 5) | Plans which definitions to create or update |
-| Informed by | Evolve Findings (Track 5) | Previous cycle findings feed next cycle planning |
-| Informed by | Evolve Monitoring (Track 5) | Monitoring alerts inform planning priorities |
-| Aligns to | Objective (Dim 1) | May align to strategic improvement objectives |
+| Produces | Evolve Review (Evolve) | Plans which reviews to conduct |
+| Produces | Evolve Definition Task (Evolve) | Plans which definitions to create or update |
+| Informed by | Evolve Findings (Evolve) | Previous cycle findings feed next cycle planning |
+| Informed by | Evolve Monitoring (Evolve) | Monitoring alerts inform planning priorities |
+| Aligns to | Objective (Strategy) | May align to strategic improvement objectives |
 
 ## Example
 

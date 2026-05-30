@@ -5,7 +5,7 @@
 **Status:** Superseded — see `track4-win-planning.md`
 
 **Model:** Work Model
-**Track:** Track 4: The Win Track (Value Realization)
+**Track:** Win
 **Owner:** Customer Success, Product Marketing
 
 ## Definition
@@ -32,7 +32,7 @@ Not all customers should receive new capabilities simultaneously. Phased rollout
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Plans for | Customer Release Intent (Dim 1) | Customer Rollout Planning Tasks plan phased delivery that realizes a Customer Release Intent |
+| Plans for | Customer Release Intent (Strategy) | Customer Rollout Planning Tasks plan phased delivery that realizes a Customer Release Intent |
 
 ## Example
 

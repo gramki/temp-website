@@ -1,4 +1,4 @@
-> **📌 Note (DR-035, 2026-05-19):** In the new Dim 5 model (DR-035), the atomic deployable artifact is a **Component** (not a System). This means the "System Version" construct in this DR — which was defined as the atomic build artifact for a single deployable — logically maps to what should be called "Component Version." The System is now the operational deployment grouping of Components. The versioning model rename (System Version → Component Version) is deferred to **DR-036** to avoid scope explosion. References to "System Version" in this DR should be read with this context in mind.
+> **📌 Note (DR-035, 2026-05-19):** In the new Technical model (DR-035), the atomic deployable artifact is a **Component** (not a System). This means the "System Version" construct in this DR — which was defined as the atomic build artifact for a single deployable — logically maps to what should be called "Component Version." The System is now the operational deployment grouping of Components. The versioning model rename (System Version → Component Version) is deferred to **DR-036** to avoid scope expansion. References to "System Version" in this DR should be read with this context in mind.
 
 # DR-026: Build Track Detailing — Work Entity/Artifact Distinction, Scoping Corrections, Three-Tier Versioning
 
@@ -9,13 +9,13 @@
 
 ## Context
 
-The Build Track (Track 2) had 10 skeletal entity files with minimal detail. During the detailing session, several structural issues were identified:
+Build had 10 skeletal entity files with minimal detail. During the detailing session, several structural issues were identified:
 
 1. **Work entities and work artifacts were conflated.** Module Version and Product Version were listed alongside Epics and Stories as "build entities," but they are fundamentally different: Epics are *work to be done*; Module Versions are *things produced by work*. This conflation obscured the Build Track's structure.
 
-2. **Scoping was incorrect.** Epics and Stories were not explicitly scoped. In practice, PMs plan Epics at the Module level (Dim 8 — functional boundary) while developers implement Technical Tasks at the System level (Dim 5 — technical boundary). The original skeletal files did not capture this distinction.
+2. **Scoping was incorrect.** Epics and Stories were not explicitly scoped. In practice, PMs plan Epics at the Module level (Structural — functional boundary) while developers implement Technical Tasks at the System level (Technical — technical boundary). The original skeletal files did not capture this distinction.
 
-3. **The versioning model was incomplete.** "Module Version" was misnamed — the Build Track builds Systems (Dim 5), not Modules (Dim 8). `payments-service v2.3.3` is a System Version, not a Module Version. The gap between individual System Versions and Product Version (no integration verification layer) was also unaddressed.
+3. **The versioning model was incomplete.** "Module Version" was misnamed — the Build Track builds Systems (Technical), not Modules (Structural). `payments-service v2.3.3` is a System Version, not a Module Version. The gap between individual System Versions and Product Version (no integration verification layer) was also unaddressed.
 
 4. **Integration work was invisible.** Cross-System integration work had no dedicated entities — it was assumed to be part of regular Epics, hiding it from planning and tracking.
 
@@ -29,27 +29,27 @@ The Build Track (Track 2) had 10 skeletal entity files with minimal detail. Duri
 
 **Rationale:** Work entities have assignees, sprints, and status lifecycles driven by human effort. Work artifacts emerge from completed work and have quality-gated lifecycles. Conflating them obscures what the Build Track actually does.
 
-### S2: Epic = Module Scope (Dim 8)
+### S2: Epic = Module Scope (Structural)
 
-**Decision:** Epics are scoped to a single Module (Dim 8), decomposed from a PSD. A cross-Module PSD produces multiple Epics — one per affected Module.
+**Decision:** Epics are scoped to a single Module (Structural), decomposed from a PSD. A cross-Module PSD produces multiple Epics — one per affected Module.
 
 **Rationale:** PMs and Tech Leads plan at the Module level ("Build the FX Rate Locking feature for the FX Module"). Module scope keeps Epics accessible to product stakeholders while deferring technical decomposition to Technical Tasks.
 
-### S3: Story = Module Scope (Dim 8), Renamed from User Story
+### S3: Story = Module Scope (Structural), Renamed from User Story
 
 **Decision:** Rename "User Story" to "Story." Stories are Module-scoped, inheriting from their parent Epic. Stories are not necessarily user-facing — they may be technical or enablement Stories.
 
 **Rationale:** "User Story" implies user-facing work. Many Stories are infrastructure, data migration, or technical enablement — calling them "User Stories" is misleading. "Story" is the more general term.
 
-### S4: Technical Task = System/Component Scope (Dim 5)
+### S4: Technical Task = System/Component Scope (Technical)
 
-**Decision:** Technical Tasks are scoped to a specific System (Dim 5) and optionally a Component. They serve both regular Stories and Integration Stories.
+**Decision:** Technical Tasks are scoped to a specific System (Technical) and optionally a Component. They serve both regular Stories and Integration Stories.
 
-**Rationale:** Developers work on Systems, not Modules. "Implement gRPC endpoint in fx-service" is how engineering work is actually assigned. Technical Tasks bridge the functional intent (Stories, Module-scoped) to technical implementation (Systems, Dim 5).
+**Rationale:** Developers work on Systems, not Modules. "Implement gRPC endpoint in fx-service" is how engineering work is actually assigned. Technical Tasks bridge the functional intent (Stories, Module-scoped) to technical implementation (Systems, Technical).
 
 ### S5: System Version (Renamed from Module Version)
 
-**Decision:** Rename the original "Module Version" to "System Version." System Version is a versioned, quality-gated artifact of a single System (Dim 5) — the atomic deployment unit.
+**Decision:** Rename the original "Module Version" to "System Version." System Version is a versioned, quality-gated artifact of a single System (Technical) — the atomic deployment unit.
 
 **Rationale:** The Build Track builds Systems, not Modules. Engineers produce `payments-service v2.3.3` (a System Version), not "Payments Module v2.3.3." The Run Track deploys System Versions to environments.
 
@@ -65,7 +65,7 @@ Beyond verification scope, each tier fulfills two additional roles. First, **eac
 
 ### S7: Module Version as Composite System and Integration Artifact
 
-**Decision:** Introduce a new "Module Version" entity as a **composite system** — an integration-verified composition of System Versions for a Module (Dim 8). Contains integration contracts and integration test suites. Has emergent operational properties and serves as the shared vocabulary between Build, Run, and Product teams.
+**Decision:** Introduce a new "Module Version" entity as a **composite system** — an integration-verified composition of System Versions for a Module (Structural). Contains integration contracts and integration test suites. Has emergent operational properties and serves as the shared vocabulary between Build, Run, and Product teams.
 
 **Rationale:** Product Version cannot verify all Systems at once — that's an O(n²) integration problem. Module Version provides Module-scoped integration verification: "do the Systems implementing the Payments Module work together?" This is verified before Product Version certification. Module Version also provides a shared reference point that Build, Run, and Product teams can all use — without it, PMs say "the Payments capability," engineers say "payments-service v2.3.3," and SREs translate between the two ad hoc.
 
@@ -73,7 +73,7 @@ Beyond verification scope, each tier fulfills two additional roles. First, **eac
 
 **Decision:** Introduce Integration Epic and Integration Story as distinct entities, separate from regular Epics and Stories.
 
-**Rationale:** Integration work has fundamentally different characteristics from feature work: it spans multiple Systems (potentially from different Modules), validates Interaction Flows (Dim 5), and produces integration contracts and test suites. Conflating integration work into feature Epics hides cross-cutting work from planning. Integration Epics reference the PSD-derived Epics they integrate.
+**Rationale:** Integration work has fundamentally different characteristics from feature work: it spans multiple Systems (potentially from different Modules), validates Interaction Flows (Technical), and produces integration contracts and test suites. Conflating integration work into feature Epics hides cross-cutting work from planning. Integration Epics reference the PSD-derived Epics they integrate.
 
 ### S9: Design Deliberation
 
@@ -95,7 +95,7 @@ Beyond verification scope, each tier fulfills two additional roles. First, **eac
 
 ### S12: System Version Quality Gates Feed Operational Readiness
 
-**Decision:** System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness (Dim 7) assessments.
+**Decision:** System Version quality gate results (test coverage, security scan, performance benchmarks) feed Operational Readiness (Operational) assessments.
 
 **Rationale:** Operational Readiness assesses whether a System is production-ready in a given environment. Build Track quality gate data is a key input — if a System Version was released with security warnings, Operational Readiness should reflect that. Operational Readiness is per-System × per-Environment (not per-Module), because the Run Track operates Systems: SREs deploy, monitor, and write runbooks for `payments-service`, not "the Payments Module." Module-level readiness is a derived aggregation.
 

@@ -1,7 +1,7 @@
 # PSD (Product Specification Document)
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Product Management
 
 ## Definition
@@ -37,7 +37,7 @@ The PSD refines Product Intent into a buildable specification with scope, accept
 | Product Intent Reference | Reference | The Product Intent this PSD refines |
 | PDR Reference | Reference | The Product Decision Record that justifies this PSD |
 | Source Signals | List of References | The Signal(s) — Problem(s), Need(s), or Opportunity(ies) — that originated this work |
-| Target Module | Reference (Dim 8) | The Module being changed |
+| Target Module | Reference (Structural) | The Module being changed |
 | Module Functional Classification | Enum | The functional category of the target Module: `Record` / `Enforcement` / `Data` / `Engagement` / `Action` / `Intelligence` / `Identity` / `Influence` / `Memory` / `Product` / `Innovation` / `Integration` — drawn from the Twelve System Types vocabulary (DR-035, D9). |
 | Product Archetype | String | e.g., B2B + SaaS + SLG |
 | Change Type | Enum | New Feature(s) / Feature Refinement / Feature Retirement |
@@ -50,7 +50,7 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| Module | Reference (Dim 8) | The Module being changed |
+| Module | Reference (Structural) | The Module being changed |
 | Capabilities Added | List | New Capabilities introduced |
 | Capabilities Modified | List | Existing Capabilities being refined |
 | Capabilities Retired | List | Capabilities being removed |
@@ -76,7 +76,7 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| Pain Implications | Text | Which user Pains (Dim 3) does this change address or relieve? Reference specific Pains and the User Personas (Dim 4) who endure them. Pain is the visceral urgency that motivates purchase — lead with it. |
+| Pain Implications | Text | Which user Pains (Customer Value) does this change address or relieve? Reference specific Pains and the User Personas (User Experience) who endure them. Pain is the visceral urgency that motivates purchase — lead with it. |
 | Buying Persona Implications | Text | Does this change which roles care about the product? Consider all role types: Economic Buyer, Technical Buyer, User Buyer, Coach/Champion. |
 | Business Outcome Changes | Text | New or strengthened buyer outcomes |
 | Customer Promise Implications | Text | New or changed Value Propositions, Service Commitments, or Compliance Posture? |
@@ -89,7 +89,7 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| Affected User Personas | List of References (Dim 4) | Personas impacted by the change |
+| Affected User Personas | List of References (User Experience) | Personas impacted by the change |
 | New / Modified User Journeys | List with flow descriptions | End-to-end paths added or changed |
 | Touchpoint Specifications | Attachments / descriptions | Wireframes, interaction flows, UI copy |
 | Accessibility Considerations | Text | WCAG compliance, assistive technology impact |
@@ -100,7 +100,7 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| New / Modified Systems | List of References (Dim 5) | Systems added or changed (see `dim5-system.md`) |
+| New / Modified Systems | List of References (Technical) | Systems added or changed (see `dim5-system.md`) |
 | Key Component Specifications | Text | Behavioral contracts for critical components |
 | Architecture Decision Records | List of References | ADRs for significant technical choices |
 | Performance Requirements | Text | Latency, throughput, resource bounds |
@@ -111,7 +111,7 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| New / Modified API Operations | List of References (Dim 6) | API Operations (Command, Query, Event, Callback, Batch) added or changed; SLO targets |
+| New / Modified API Operations | List of References (Ecosystem) | API Operations (Command, Query, Event, Callback, Batch) added or changed; SLO targets |
 | API Contract Changes | Text | Contract diffs (request/response semantics, SLO changes), breaking-change assessment. Payload schema details are Build Track artifacts. |
 | Backward Compatibility Plan | Text | Versioning strategy, deprecation timeline |
 | Webhook / Event Contract Changes | Text | New events, modified payloads, removed events |
@@ -134,7 +134,7 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| New / Modified Data Entities | List of References (Dim 9) | Entities added or changed |
+| New / Modified Data Entities | List of References (Data) | Entities added or changed |
 | Attribute / Field Changes | Text | New fields, modified types, removed fields |
 | State Lifecycle Changes | Text | New states, new transitions |
 | Data Migration Requirements | Text | Migration scripts, backfill strategy |
@@ -154,7 +154,7 @@ Always required. The "table of contents" of the change.
 
 | Field | Type | Description |
 |---|---|---|
-| Proposed Epics | List of References (Track 2) | The Build Track entry points |
+| Proposed Epics | List of References (Build) | The Build Track entry points |
 | Dependencies & Sequencing | Text | Order constraints, blocking dependencies |
 | Risks & Open Questions | List | Unresolved items to address during Build |
 
@@ -172,26 +172,26 @@ Always required. The "table of contents" of the change.
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Product Intent (Dim 1) | PSD refines Product Intent into a module-scoped build contract |
-| Upstream | Product Decision Record (Dim 1) | PSD references PDR as its justification |
-| Scoped to | Module / Domain (Dim 8) | PSD is scoped to a single Module |
-| Specifies | Capability (Dim 8) | PSD adds, modifies, or retires Capabilities |
-| Specifies | Feature (Dim 8) | PSD adds, modifies, or retires Features |
-| Downstream | Epic (Track 2) | PSD decomposes into Epics in the Build Track |
-| Sibling | PSD (Dim 1) | Related PSDs from the same Product Intent / PDR (cross-module coordination) |
-| Work Model | Specification Task (Track 1) | Specification Tasks represent the work of authoring this PSD |
+| Upstream | Product Intent (Strategy) | PSD refines Product Intent into a module-scoped build contract |
+| Upstream | Product Decision Record (Strategy) | PSD references PDR as its justification |
+| Scoped to | Module / Domain (Structural) | PSD is scoped to a single Module |
+| Specifies | Capability (Structural) | PSD adds, modifies, or retires Capabilities |
+| Specifies | Feature (Structural) | PSD adds, modifies, or retires Features |
+| Downstream | Epic (Build) | PSD decomposes into Epics in the Build Track |
+| Sibling | PSD (Strategy) | Related PSDs from the same Product Intent / PDR (cross-module coordination) |
+| Work Model | Specification Task (Discovery) | Specification Tasks represent the work of authoring this PSD |
 
 ## Change Type Behavior
 
 | Section | New Feature | Refinement | Retirement |
 |---|---|---|---|
-| Structural (Dim 8) | Full spec of new M/C/F | Delta description | Removal plan + timeline |
+| Structural (Structural) | Full spec of new M/C/F | Delta description | Removal plan + timeline |
 | Business (Dims 2–3) | Full pricing/ROI analysis | Impact delta | Revenue impact, customer notification |
-| UX (Dim 4) | Full journey/touchpoint design | Modified flows only | Migration UX, sunset communication |
-| Technical (Dim 5) | Full architecture spec | Targeted changes | Deprecation plan, dead code removal |
-| Extensibility (Dim 6) | Full API contract | Versioning strategy | Sunset schedule, migration guide |
-| Operational (Dim 7) | Full infra requirements | Delta requirements | Decommissioning plan |
-| Data (Dim 9) | Full entity/schema design | Migration plan | Data archival/deletion policy |
+| UX (User Experience) | Full journey/touchpoint design | Modified flows only | Migration UX, sunset communication |
+| Technical (Technical) | Full architecture spec | Targeted changes | Deprecation plan, dead code removal |
+| Extensibility (Ecosystem) | Full API contract | Versioning strategy | Sunset schedule, migration guide |
+| Operational (Operational) | Full infra requirements | Delta requirements | Decommissioning plan |
+| Data (Data) | Full entity/schema design | Migration plan | Data archival/deletion policy |
 
 ## Example
 

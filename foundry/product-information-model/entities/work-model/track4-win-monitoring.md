@@ -1,7 +1,7 @@
 # Win Monitoring
 
 **Model:** Work Model
-**Track:** Track 4: The Win Track (Value Realization)
+**Track:** Win
 **Category:** Monitoring
 **Owner:** Customer Success, Product Marketing, Sales Operations
 
@@ -26,12 +26,12 @@ Makes the continuous oversight of commercial and customer health explicit. Witho
 | Field | Type | Description |
 |---|---|---|
 | Scope | Text | What is being monitored (e.g., "LATAM Enterprise — health and revenue", "All segments — pipeline and NRR") |
-| Metrics Tracked | List (text or reference) | Customer health score, adoption/usage, NPS, pipeline value, NRR, churn indicators, Customer Value Metric status, competitive win/loss trends; **FIR volume, resolution time, and routing patterns**; **API SLO compliance**, **developer adoption metrics** (when product has Dim 6 surfaces) |
+| Metrics Tracked | List (text or reference) | Customer health score, adoption/usage, NPS, pipeline value, NRR, churn indicators, Customer Value Metric status, competitive win/loss trends; **FIR volume, resolution time, and routing patterns**; **API SLO compliance**, **developer adoption metrics** (when product has Ecosystem surfaces) |
 | Thresholds / Alerts | List (text) | When does monitoring trigger action (e.g., "Health score drop > 20 points", "Account inactive 30 days", "Pipeline stage stall > 45 days") |
 | Cadence | Enum | `Continuous` / `Daily` / `Weekly` |
 | Owner | String | Role/person responsible for watching |
-| Customer Segment(s) | List of References (Dim 3) | Which segment(s) this monitoring covers |
-| Initiative(s) | List of References (Dim 1) | Which Initiative(s) this monitoring supports |
+| Customer Segment(s) | List of References (Customer Value) | Which segment(s) this monitoring covers |
+| Initiative(s) | List of References (Strategy) | Which Initiative(s) this monitoring supports |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -53,16 +53,16 @@ Makes the continuous oversight of commercial and customer health explicit. Witho
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| May trigger | Win Activity (Track 4) | Monitoring surfaces need for Retention or Expansion engagement |
-| May trigger | Win Case (Track 4) | Monitoring may surface need for case escalation |
-| Feeds | Win Review (Track 4) | Dashboards and reports feed Win Review preparation |
-| Monitors | FIR (Track 4) | FIR volume, resolution time, triage quality, and routing patterns (DR-032) |
-| May produce | Feedback (Track 4) | Patterns may become Feedback and then Signal |
-| References | Business KPI (Dim 2) | Revenue and cost metrics are tracked |
-| References | Customer Value Metric (Dim 3) | Promise fulfillment metrics are tracked |
-| References | API Operation (Dim 6) | Monitors API SLO compliance per operation (when product has API surfaces) |
-| Scoped to | Customer Segment (Dim 3) | Monitoring is scoped to segment(s) |
-| Aligned to | Initiative (Dim 1) | Monitoring supports Initiative target tracking |
+| May trigger | Win Activity (Win) | Monitoring surfaces need for Retention or Expansion engagement |
+| May trigger | Win Case (Win) | Monitoring may surface need for case escalation |
+| Feeds | Win Review (Win) | Dashboards and reports feed Win Review preparation |
+| Monitors | FIR (Win) | FIR volume, resolution time, triage quality, and routing patterns (DR-032) |
+| May produce | Feedback (Win) | Patterns may become Feedback and then Signal |
+| References | Business KPI (Vendor Value) | Revenue and cost metrics are tracked |
+| References | Customer Value Metric (Customer Value) | Promise fulfillment metrics are tracked |
+| References | API Operation (Ecosystem) | Monitors API SLO compliance per operation (when product has API surfaces) |
+| Scoped to | Customer Segment (Customer Value) | Monitoring is scoped to segment(s) |
+| Aligned to | Initiative (Strategy) | Monitoring supports Initiative target tracking |
 
 ## Example
 

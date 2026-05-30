@@ -30,7 +30,7 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **IDE (in ACE).** The interface a human uses to enter a Workspace. ACE treats each Workspace as having its own IDE context — the same human can step into different Workspaces and find different views, plugins, and behaviors. The concrete realization in Zeta tooling uses Olympus Workspace and Olympus Rocket; see [engagement-engineering/tenant-developer-tooling/TD.TODO](engagement-engineering/tenant-developer-tooling/TD.TODO).
 
-**Scenario.** A well-defined situation a Workspace is set up to handle. A Scenario, when triggered, creates Tasks.
+**Scenario.** A well-defined situation a Workspace is set up to handle — the **ingress contract** that defines what work a Workspace accepts. A Scenario, when triggered, creates Tasks. Scenarios have a **scope** attribute: `workspace-ingress` (external contract invoked by the Orchestrator or cross-Workspace handoffs) or `workspace-internal` (invoked only by Tasks within the same Workspace). See [foundry-platform/work-catalogues/README.md](foundry-platform/work-catalogues/README.md) for full treatment.
 
 **Task.** A unit of work created by a Scenario, completed by the Workspace's Human–Agent Team.
 

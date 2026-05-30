@@ -1,7 +1,7 @@
 # Technical Debt Item
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction) — Artifact
+**Track:** Build — Artifact
 **Owner:** Tech Lead, Developers
 
 ## Definition
@@ -23,15 +23,15 @@ Makes technical debt visible and manageable. Without Technical Debt Items:
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Brief description (e.g., "payments-service: synchronous bank calls should be async") |
-| System | Reference (Dim 5) | Which System contains this debt |
-| Component | Reference (Dim 5) | Which Component (optional, if debt is localized) |
+| System | Reference (Technical) | Which System contains this debt |
+| Component | Reference (Technical) | Which Component (optional, if debt is localized) |
 | Debt Category | Enum | `Code Quality` / `Architecture` / `Infrastructure` / `Testing` / `Documentation` / `Dependency` |
 | Description | Text | What the debt is — current state vs. desired state |
 | Impact | Text | What problems this debt causes or risks it introduces |
 | Effort to Resolve | String | Estimated effort to address (e.g., "2-3 sprints", "1 story") |
 | Discovery Source | Text | How this debt was identified (Story, Task, code review, Incident, Design Deliberation) |
-| Resolution Epic | Reference (Track 2) | Epic created to resolve this debt (when prioritized) |
-| Resolution Story | Reference (Track 2) | Story created to resolve this debt (if contained) |
+| Resolution Epic | Reference (Build) | Epic created to resolve this debt (when prioritized) |
+| Resolution Story | Reference (Build) | Story created to resolve this debt (if contained) |
 
 ## Statuses
 
@@ -47,14 +47,14 @@ Makes technical debt visible and manageable. Without Technical Debt Items:
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Located in | System (Dim 5) | Debt exists within a System |
-| Located in | Component (Dim 5) | Debt may be localized to a Component |
-| Discovered during | Story (Track 2) | Debt may be discovered during Story implementation |
-| Discovered during | Technical Task (Track 2) | Debt may be discovered during Task implementation |
-| Discovered during | Incident (Track 3) | Production incident may reveal architectural debt |
-| Discovered during | Design Deliberation (Track 2) | Deliberation may identify debt as a side finding |
-| Resolved via | Epic (Track 2) | Significant debt is resolved via an Epic |
-| Resolved via | Story (Track 2) | Contained debt may be resolved via a Story |
+| Located in | System (Technical) | Debt exists within a System |
+| Located in | Component (Technical) | Debt may be localized to a Component |
+| Discovered during | Story (Build) | Debt may be discovered during Story implementation |
+| Discovered during | Technical Task (Build) | Debt may be discovered during Task implementation |
+| Discovered during | Incident (Run) | Production incident may reveal architectural debt |
+| Discovered during | Design Deliberation (Build) | Deliberation may identify debt as a side finding |
+| Resolved via | Epic (Build) | Significant debt is resolved via an Epic |
+| Resolved via | Story (Build) | Contained debt may be resolved via a Story |
 
 ## Examples
 

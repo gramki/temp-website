@@ -1,14 +1,14 @@
 # UX Channel
 
 **Model:** Definition Model
-**Dimension:** Dimension 4: The User-Centric Dimension (Experience)
+**Dimension:** User Experience
 **Owner:** Product Management, UX Design
 
 ## Definition
 
-The access mechanism through which a human persona reaches the product, typed by two orthogonal axes: **Interaction Modality** (by technology) and **Engagement Mode** (by service model). Each UX Channel is implemented by exactly one Human-Interactive Module (Dim 8). A product defines which cells in the Modality × Mode matrix it occupies; most products serve a subset.
+The access mechanism through which a human persona reaches the product, typed by two orthogonal axes: **Interaction Modality** (by technology) and **Engagement Mode** (by service model). Each UX Channel is implemented by exactly one Human-Interactive Module (Structural). A product defines which cells in the Modality × Mode matrix it occupies; most products serve a subset.
 
-UX Channels serve **all human personas** — Dim 4 User Personas and Dim 7 Operational Personas. An SRE uses Web dashboards, receives Email alerts, runs CLI commands, gets Voice/IVR escalation calls, and uses Mobile apps for on-call — the same interaction modalities and engagement modes. The channel taxonomy is universal for any human accessing the product. UX Channel is defined in Dim 4 (the natural home for human experience concepts) but referenced cross-dimensionally by Dim 7 Operational Journeys. See DR-023.
+UX Channels serve **all human personas** — User Experience User Personas and Operational Operational Personas. An SRE uses Web dashboards, receives Email alerts, runs CLI commands, gets Voice/IVR escalation calls, and uses Mobile apps for on-call — the same interaction modalities and engagement modes. The channel taxonomy is universal for any human accessing the product. UX Channel is defined in User Experience (the natural home for human experience concepts) but referenced cross-dimensionally by Operational Operational Journeys. See DR-023.
 
 ## Purpose
 
@@ -46,9 +46,9 @@ UX Channel answers "through what medium does the persona access the product?" Th
 | Name | String | Descriptive channel name (e.g., "Customer Dashboard — Web Self-serve") |
 | Interaction Modality | Enum | `Web` / `Mobile` / `Chat` / `Voice` / `Email` / `CLI` / `Embedded` |
 | Engagement Mode | Enum | `Self-serve` / `Assisted` / `Managed` |
-| Implemented by | Reference (Dim 8) | Which Human-Interactive Module implements this channel |
-| Target Persona(s) | List of References (Dim 4) | Which User Personas primarily use this channel |
-| Journeys Supported | List of References (Dim 4) | Which User Journeys are experienced through this channel |
+| Implemented by | Reference (Structural) | Which Human-Interactive Module implements this channel |
+| Target Persona(s) | List of References (User Experience) | Which User Personas primarily use this channel |
+| Journeys Supported | List of References (User Experience) | Which User Journeys are experienced through this channel |
 | Rationale | Text | Why this channel exists — what user need or strategic goal it serves |
 | Accessibility Standard | String | Accessibility compliance target (e.g., WCAG 2.1 AA, Section 508). Influences HI Module design and testing requirements. |
 
@@ -66,18 +66,18 @@ UX Channel answers "through what medium does the persona access the product?" Th
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Implemented by | Human-Interactive Module (Dim 8) | One-to-one: each Channel is implemented by one HI Module |
-| Supports | User Journey (Dim 4) | Channel supports one or more Journeys |
-| Used by | User Persona (Dim 4) | User Personas access the product through this Channel |
-| Used by | Operational Persona (Dim 7) | Operational Personas access the product through this Channel (cross-dimensional) |
-| Referenced by | Operational Journey (Dim 7) | Operational Journeys are experienced through UX Channels |
-| Justified by | PDR (Dim 1) | Channel investment is justified by a PDR |
-| Work Model | Deliberation (Track 1) | Channel decisions emerge from Deliberations |
-| Work Model | Specification Task (Track 1) | PSDs specify Channel's HI Module |
+| Implemented by | Human-Interactive Module (Structural) | One-to-one: each Channel is implemented by one HI Module |
+| Supports | User Journey (User Experience) | Channel supports one or more Journeys |
+| Used by | User Persona (User Experience) | User Personas access the product through this Channel |
+| Used by | Operational Persona (Operational) | Operational Personas access the product through this Channel (cross-dimensional) |
+| Referenced by | Operational Journey (Operational) | Operational Journeys are experienced through UX Channels |
+| Justified by | PDR (Strategy) | Channel investment is justified by a PDR |
+| Work Model | Deliberation (Discovery) | Channel decisions emerge from Deliberations |
+| Work Model | Specification Task (Discovery) | PSDs specify Channel's HI Module |
 
 ## Examples
 
-| Channel | Modality | Mode | HI Module (Dim 8) | Personas | Status |
+| Channel | Modality | Mode | HI Module (Structural) | Personas | Status |
 |---|---|---|---|---|---|
 | Customer Dashboard | Web | Self-serve | Dashboard Web Module | AP Clerk, Treasury Analyst, Finance Admin | Active |
 | Mobile Approvals | Mobile | Self-serve | Mobile Approvals App | AP Manager, Treasury Analyst | Active |
@@ -88,6 +88,6 @@ UX Channel answers "through what medium does the persona access the product?" Th
 | Payment Chatbot | Chat | Self-serve | Chatbot Module | AP Clerk | Proposed |
 | Payment Widget | Embedded | Self-serve | Payment Widget Module | Customer's End-User (via customer's app) | Active |
 | Salesforce Plugin | Embedded | Self-serve | Salesforce Integration Module | Account Executive (via Salesforce) | Active |
-| Monitoring Dashboard | Web | Self-serve | Monitoring Dashboard Module | Reliability Operator (Dim 7) | Active |
-| On-Call Alerts | Email + Voice | Self-serve | Alert Notification Module | Reliability Operator (Dim 7) | Active |
-| Ops CLI | CLI | Self-serve | Ops CLI Module | Platform Operator, Reliability Operator (Dim 7) | Active |
+| Monitoring Dashboard | Web | Self-serve | Monitoring Dashboard Module | Reliability Operator (Operational) | Active |
+| On-Call Alerts | Email + Voice | Self-serve | Alert Notification Module | Reliability Operator (Operational) | Active |
+| Ops CLI | CLI | Self-serve | Ops CLI Module | Platform Operator, Reliability Operator (Operational) | Active |

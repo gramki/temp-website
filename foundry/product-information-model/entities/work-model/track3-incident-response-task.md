@@ -1,13 +1,13 @@
 # Incident Response Task
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Category:** Work Entity (Reactive)
 **Owner:** DevOps, Site Reliability Engineers (SRE)
 
 ## Definition
 
-The primary work entity for triaging, investigating, and resolving an Incident. An Incident Response Task is created when an Incident (artifact) is produced; it captures the work of restoring service to SLO-compliant state. The Incident Response Task's Definition of Done is **service restored** — not root cause eliminated. Root cause resolution is downstream work: Bugs (Track 2), Run Epics (Track 3), or Signals (Track 1).
+The primary work entity for triaging, investigating, and resolving an Incident. An Incident Response Task is created when an Incident (artifact) is produced; it captures the work of restoring service to SLO-compliant state. The Incident Response Task's Definition of Done is **service restored** — not root cause eliminated. Root cause resolution is downstream work: Bugs (Build), Run Epics (Run), or Signals (Discovery).
 
 > **Escalation within response.** SEV-0 and SEV-1 incidents often involve escalation from initial responders to specialized teams (e.g., database team, security team, vendor support). The Incident Response Task captures escalation as fields (Escalation Level, Escalated To). The escalation *policy* — who gets called at each level — is an Operating Model concern.
 >
@@ -25,15 +25,15 @@ Makes the work of incident response visible, trackable, and measurable. Without 
 
 | Field | Type | Description |
 |---|---|---|
-| Incident | Reference (Track 3) | The Incident artifact this task responds to |
+| Incident | Reference (Run) | The Incident artifact this task responds to |
 | Severity | Enum | `SEV-0` / `SEV-1` / `SEV-2` / `SEV-3` / `SEV-4` — inherited from Incident, may be revised during triage |
 | Assigned Responder(s) | List (String) | Person(s) or team(s) assigned to respond |
 | Escalation Level | Enum | `L1` / `L2` / `L3` / `Vendor` — current escalation level |
 | Escalated To | List (String) | Team(s) or individual(s) the incident has been escalated to |
-| Affected System(s) | List of References (Dim 5) | Which System(s) are degraded (inherited from Incident, may be refined) |
-| Affected Module(s) | List of References (Dim 8) | Which Module(s) are impacted (inherited from Incident, may be refined) |
-| Affected Environment(s) | List of References (Dim 7) | Which Deployment Environment(s) are affected |
-| Affected Tenant(s) | List of References (Track 3) | Optional — when impact is localized to specific tenants |
+| Affected System(s) | List of References (Technical) | Which System(s) are degraded (inherited from Incident, may be refined) |
+| Affected Module(s) | List of References (Structural) | Which Module(s) are impacted (inherited from Incident, may be refined) |
+| Affected Environment(s) | List of References (Operational) | Which Deployment Environment(s) are affected |
+| Affected Tenant(s) | List of References (Run) | Optional — when impact is localized to specific tenants |
 | Impact Scope | Text | Quantified impact: tenant count, transaction volume affected, revenue impact estimate |
 | Workaround Applied | Text | Description of any temporary workaround applied to restore service (feeds Bug's Workaround field if a Bug is created) |
 | Root Cause (Preliminary) | Text | Initial root cause assessment during response — may be refined in Post-Incident Review |
@@ -69,26 +69,26 @@ Triggers:
 ## Definition of Done
 
 **Service restored to SLO-compliant state.** The Incident Response Task is "done" when:
-1. The affected System(s) are operating within their Operational Targets (Dim 7)
-2. The Service Commitments (Dim 3) tested by this incident are no longer being breached
+1. The affected System(s) are operating within their Operational Targets (Operational)
+2. The Service Commitments (Customer Value) tested by this incident are no longer being breached
 3. A resolution summary is documented
 4. Any follow-up work items (Bug, Signal, emergency Change Request) have been created
 
-Root cause elimination is **not** part of this DoD — it is downstream work tracked via Bug (Track 2), Run Epic (Track 3), or Signal → Discovery (Track 1).
+Root cause elimination is **not** part of this DoD — it is downstream work tracked via Bug (Build), Run Epic (Run), or Signal → Discovery (Discovery).
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Responds to | Incident (Track 3) | Incident Response Task responds to an Incident artifact |
-| Coordinates with | Customer Communication Task (Track 3) | Communication work runs in parallel with response |
-| Followed by | Post-Incident Review (Track 3) | PIR follows response for SEV-0/1/2 incidents |
-| May produce | Bug (Track 2) | Response investigation may reveal a product defect (provenance: Run) |
-| May produce | Signal — Problem (Dim 1) | Recurring or systemic issues may surface as Signals for Discovery |
-| May trigger | Change Request (Track 3) | Emergency-Technical changes may originate from incident response |
-| May trigger | Maintenance Task (Track 3) | Corrective maintenance may be needed |
-| Restores | Operational Target / SLO (Dim 7) | Response restores service to SLO-compliant state |
-| Tests | Service Commitment (Dim 3) | Response effectiveness tests whether SLA restoration meets commitments |
+| Responds to | Incident (Run) | Incident Response Task responds to an Incident artifact |
+| Coordinates with | Customer Communication Task (Run) | Communication work runs in parallel with response |
+| Followed by | Post-Incident Review (Run) | PIR follows response for SEV-0/1/2 incidents |
+| May produce | Bug (Build) | Response investigation may reveal a product defect (provenance: Run) |
+| May produce | Signal — Problem (Strategy) | Recurring or systemic issues may surface as Signals for Discovery |
+| May trigger | Change Request (Run) | Emergency-Technical changes may originate from incident response |
+| May trigger | Maintenance Task (Run) | Corrective maintenance may be needed |
+| Restores | Operational Target / SLO (Operational) | Response restores service to SLO-compliant state |
+| Tests | Service Commitment (Customer Value) | Response effectiveness tests whether SLA restoration meets commitments |
 
 ## Examples
 

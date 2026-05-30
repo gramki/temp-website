@@ -188,6 +188,26 @@ destinations:
       dry_run: false
       parallel_threads: 12
 
+  - id: ace-academy-cto
+    name: ACE Academy (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: ACE Academy
+      root_page_id: null
+    source:
+      folders:
+        - path: ace-academy
+          create_root_parent: false
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
   - id: foundry-cto
     name: Foundry (CTO Space)
     confluence:

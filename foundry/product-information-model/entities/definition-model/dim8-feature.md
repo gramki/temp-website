@@ -1,7 +1,7 @@
 # Feature
 
 **Model:** Definition Model
-**Dimension:** Dimension 8: The Structural Dimension (Topology)
+**Dimension:** Structural
 **Owner:** Enterprise Architects, Product Management
 
 ## Definition
@@ -18,7 +18,7 @@ Features represent individual product behaviors that users or consuming systems 
 |---|---|---|
 | Name | String | Feature name (e.g., "Real-time FX auto-conversion lock," "One-click OFAC re-screen") |
 | Description | Text | What behavior this Feature provides — 1–2 sentences |
-| Capability | Reference (Dim 8) | The Capability this Feature belongs to |
+| Capability | Reference (Structural) | The Capability this Feature belongs to |
 | Maturity Stage | Enum | `Alpha` (experimental, not for production use) / `Beta` (limited availability) / `GA` (generally available, stable) — inherited from or consistent with parent Capability Maturity |
 
 ## Statuses
@@ -34,9 +34,9 @@ Features represent individual product behaviors that users or consuming systems 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Capability (Dim 8) | Feature belongs to a Capability |
-| Specified in | Product Specification Document (Dim 1) | PSDs add, modify, or retire this Feature |
-| Implemented by | Story (Track 2) | Build Track Stories implement Features |
+| Upstream | Capability (Structural) | Feature belongs to a Capability |
+| Specified in | Product Specification Document (Strategy) | PSDs add, modify, or retire this Feature |
+| Implemented by | Story (Build) | Build Track Stories implement Features |
 
 > **Note:** Features are NOT directly linked to Pricing Tiers. Entitlement is managed at the Module level (D7). This may evolve in future.
 

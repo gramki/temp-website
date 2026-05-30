@@ -1,7 +1,7 @@
 # Product
 
 **Model:** Definition Model
-**Dimension:** Dimension 8: The Structural Dimension (Topology)
+**Dimension:** Structural
 **Owner:** Product Management, Enterprise Architecture
 
 ## Definition
@@ -10,7 +10,7 @@ A complete, marketable software offering — the top-level entity in the structu
 
 ## Purpose
 
-Anchors the Structural Dimension as the root of the Product → Module → Capability → Feature hierarchy. Bridges Strategy/Business intent to Technical execution. A Product defines the entitlement boundary at the highest level; Pricing Tier (Dim 2) operates at the Module level within a Product.
+Anchors the Structural Dimension as the root of the Product → Module → Capability → Feature hierarchy. Bridges Strategy/Business intent to Technical execution. A Product defines the entitlement boundary at the highest level; Pricing Tier (Vendor Value) operates at the Module level within a Product.
 
 ## Fields
 
@@ -39,14 +39,14 @@ Anchors the Structural Dimension as the root of the Product → Module → Capab
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | Portfolio (Dim 1) | Product belongs to a Portfolio |
-| Contains | Module (Dim 8) | Product contains one or more Modules |
-| Expresses | Value Stream(s) (Dim 8) | Product expresses Value Streams — horizontal flows across Modules |
-| Referenced by | Product Decision Record (Dim 1) | PDRs specify strategic decisions affecting this Product |
-| Referenced by | Product Specification Document (Dim 1) | PSDs specify changes to Modules within this Product |
-| Delivered as | Product Version (Track 2) | Build Track produces versioned, certified Product Versions |
-| Made available as | Customer Release Intent (Dim 1) | Customer Release Intents bundle intended Product capability delivery |
-| Technical twin | Product Specification (Dim 5) | Declares which Systems compose the product (product-facing and operational alike) |
+| Belongs to | Portfolio (Strategy) | Product belongs to a Portfolio |
+| Contains | Module (Structural) | Product contains one or more Modules |
+| Expresses | Value Stream(s) (Structural) | Product expresses Value Streams — horizontal flows across Modules |
+| Referenced by | Product Decision Record (Strategy) | PDRs specify strategic decisions affecting this Product |
+| Referenced by | Product Specification Document (Strategy) | PSDs specify changes to Modules within this Product |
+| Delivered as | Product Version (Build) | Build Track produces versioned, certified Product Versions |
+| Made available as | Customer Release Intent (Strategy) | Customer Release Intents bundle intended Product capability delivery |
+| Technical twin | Product Specification (Technical) | Declares which Systems compose the product (product-facing and operational alike) |
 
 ## Example
 

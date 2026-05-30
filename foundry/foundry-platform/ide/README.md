@@ -44,6 +44,43 @@ The plugin is a UI layer only — VS Code does not mediate agent I/O. Agents com
 
 See [../work-order-runtime/ide-integration.md](../work-order-runtime/ide-integration.md) for full plugin architecture.
 
+## Scenario Editor Extension
+
+The IDE includes a **Scenario Editor Extension** for authoring and testing Work Catalog content:
+
+| Feature | Description |
+|---------|-------------|
+| **Schema-aware YAML editing** | Autocomplete, validation, and hover docs for Scenario and OI Workflow schemas |
+| **Effective catalog browser** | Browse resolved catalog for current Workbench context |
+| **Dry-run execution** | Test scenarios with mock inputs before publishing |
+| **Preview effective catalog** | See how changes affect the merged catalog |
+| **Publish CLI integration** | Publish to User catalog or create PRs to team catalogs |
+
+### Schema Support
+
+| Schema | Features |
+|--------|----------|
+| **Scenario schema** | Field completion, skill reference validation, scope hints |
+| **OI Workflow schema** | Stage completion, action templates, event suggestions |
+
+### Authoring Workflow
+
+1. **Create/edit YAML file** — Schema-aware editor with real-time validation
+2. **Preview in catalog** — See where the item fits in the hierarchy
+3. **Dry-run test** — Execute with mock inputs, observe behavior
+4. **Publish** — Push to User catalog (direct) or create PR (team catalogs)
+
+### Publish Targets
+
+| Target | Method | Who |
+|--------|--------|-----|
+| **User catalog** | Direct push | All builders |
+| **Workbench catalog** | PR to Workshop repo | Workbench Members |
+| **Workshop catalog** | PR to Workshop repo | Workshop Members |
+| **Foundry catalog** | PR to Foundry repo | Foundry Members |
+
+See [../work-catalogues/user-guide/authoring-scenarios.md](../work-catalogues/user-guide/authoring-scenarios.md) for the complete authoring guide.
+
 ## Open questions
 
 - VS Code: fork vs extension vs hosted instance?

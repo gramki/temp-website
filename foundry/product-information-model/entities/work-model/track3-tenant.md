@@ -1,13 +1,13 @@
 # Tenant
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Category:** Operational
 **Owner:** DevOps, SRE, Platform Engineering
 
 ## Definition
 
-A logical isolation unit within a Deployment Environment (Dim 7), belonging to a Customer (instance of Customer Segment, Dim 3), with a customer-facing purpose. Tenants are provisioned, configured, monitored, scaled, and eventually decommissioned as Run Track operational work.
+A logical isolation unit within a Deployment Environment (Operational), belonging to a Customer (instance of Customer Segment, Customer Value), with a customer-facing purpose. Tenants are provisioned, configured, monitored, scaled, and eventually decommissioned as Run Track operational work.
 
 A single Customer may have multiple Tenants in the same environment (e.g., one for production use, one for UAT). The Deployment Environment defines the infrastructure; the Tenant defines the customer's logical slice within it.
 
@@ -29,12 +29,12 @@ Makes the customer's operational presence explicit in the Run Track. Without Ten
 | ID | String | Unique tenant identifier (e.g., `tenant-itau-prod-latam`) |
 | Name | String | Human-readable name (e.g., "Banco Itaú — Production LATAM") |
 | Customer | Reference (ESR) | Which customer organization this tenant belongs to |
-| Deployment Environment | Reference (Dim 7) | Which environment this tenant resides in |
+| Deployment Environment | Reference (Operational) | Which environment this tenant resides in |
 | Purpose | Enum | `Production` / `UAT` / `Sandbox` / `Trial` / `DR` — the customer-facing purpose, distinct from the environment's vendor purpose |
 | Isolation Model | Text | How isolation is achieved (e.g., "dedicated schema", "shared schema with row-level isolation", "dedicated namespace") |
-| Subscription Tier | Reference (Dim 2) | Which Pricing Tier / Package the customer's subscription corresponds to |
+| Subscription Tier | Reference (Vendor Value) | Which Pricing Tier / Package the customer's subscription corresponds to |
 | SLO Tier | Text | Which SLO tier applies to this tenant (derived from subscription or negotiated) |
-| Provisioned Modules | List of References (Dim 8) | Which Modules are provisioned for this tenant |
+| Provisioned Modules | List of References (Structural) | Which Modules are provisioned for this tenant |
 | Configuration | Text / Reference | Tenant-specific configuration — feature flags, capacity limits, integration settings |
 | _Other fields to be refined._ | | |
 
@@ -61,14 +61,14 @@ Requested ──► Provisioning ──► Active ──► Suspended ──► 
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | Belongs to | Customer (ESR) | Tenant is a customer's operational slice |
-| Resides in | Deployment Environment (Dim 7) | Tenant lives within an environment |
-| Governed by | Subscription Tier / Pricing Tier (Dim 2) | Tenant's entitlements are derived from subscription |
-| Provisioned with | Module (Dim 8) | Which modules are available to this tenant |
+| Resides in | Deployment Environment (Operational) | Tenant lives within an environment |
+| Governed by | Subscription Tier / Pricing Tier (Vendor Value) | Tenant's entitlements are derived from subscription |
+| Provisioned with | Module (Structural) | Which modules are available to this tenant |
 | Affected by | Incident (Track 3, artifact) | Incidents may optionally specify affected tenants |
 | Affected by | Deployment (Track 3, artifact) | Deployments to the tenant's environment affect this tenant |
-| Monitored by | System Monitoring (Track 3) | Tenant-level metrics are monitored |
-| Scoped by | Change Request (Track 3) | Changes may be scoped to specific tenants |
-| Referenced by | FIR (Track 4) | FIRs may reference the affected tenant |
+| Monitored by | System Monitoring (Run) | Tenant-level metrics are monitored |
+| Scoped by | Change Request (Run) | Changes may be scoped to specific tenants |
+| Referenced by | FIR (Win) | FIRs may reference the affected tenant |
 
 ## Example
 

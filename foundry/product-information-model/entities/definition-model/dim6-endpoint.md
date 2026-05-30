@@ -1,7 +1,7 @@
 # Endpoint / Event Topic
 
 **Model:** Definition Model
-**Dimension:** Dimension 6: The Ecosystem & Extensibility Dimension (Platform)
+**Dimension:** Ecosystem
 **Owner:** Tech Leads, Developers
 
 ## Definition
@@ -28,9 +28,9 @@ Defines the specific integration points. Endpoints trigger Functions (Dimension 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Interface Type (Dim 6) | Endpoint belongs to an Interface Type |
-| Triggers | Function / Method (Dim 5) | Endpoint triggers Functions |
-| Defines | Payload Schema (Dim 6) | Endpoint sends/receives a Payload Schema |
+| Upstream | Interface Type (Ecosystem) | Endpoint belongs to an Interface Type |
+| Triggers | Function / Method (Technical) | Endpoint triggers Functions |
+| Defines | Payload Schema (Ecosystem) | Endpoint sends/receives a Payload Schema |
 
 ## Example
 

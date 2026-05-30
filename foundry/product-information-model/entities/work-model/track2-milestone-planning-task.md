@@ -1,7 +1,7 @@
 # Milestone Planning Task
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction)
+**Track:** Build
 **Owner:** Tech Lead, Product Management
 
 ## Definition
@@ -24,11 +24,11 @@ Milestones provide intermediate verification points within a Customer Release In
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Descriptive title (e.g., "Define 'API Complete' Milestone for LATAM R1") |
-| Customer Release Intent | Reference (Dim 1) | Which Customer Release Intent these Milestones belong to |
+| Customer Release Intent | Reference (Strategy) | Which Customer Release Intent these Milestones belong to |
 | Milestone Name | String | Name of the milestone (e.g., "API Complete", "Integration Verified", "Compliance Ready") |
 | Entry Criteria | Text | What must be true to enter this milestone |
 | Exit Criteria | Text | What must be true to pass this milestone |
-| Epic Dependencies | List of References (Track 2) | Epics that must be complete or at specific status |
+| Epic Dependencies | List of References (Build) | Epics that must be complete or at specific status |
 | Integration Gate | Text | Integration verification requirements (e.g., which System Versions must be Released; Product Version certification scope) |
 | Quality Gate | Text | System Version quality thresholds required (e.g., "All Systems > 90% test coverage") |
 | Target Date | Date | When this milestone should be achieved |
@@ -47,11 +47,11 @@ Milestones provide intermediate verification points within a Customer Release In
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Part of | Customer Release Intent (Dim 1) | Milestones are checkpoints within a Customer Release Intent |
-| Verifies | Epic(s) (Track 2) | Milestones verify completion or progress of specific Epics |
-| Verifies | Integration Epic(s) (Track 2) | Milestones may gate Integration Epic completion |
-| Gates | System Version(s) (Track 2) | Milestones require System Versions to meet quality thresholds |
-| Gates | Product Version (Track 2) | Milestones may require Product Version certification or scoped System Versions at Released |
+| Part of | Customer Release Intent (Strategy) | Milestones are checkpoints within a Customer Release Intent |
+| Verifies | Epic(s) (Build) | Milestones verify completion or progress of specific Epics |
+| Verifies | Integration Epic(s) (Build) | Milestones may gate Integration Epic completion |
+| Gates | System Version(s) (Build) | Milestones require System Versions to meet quality thresholds |
+| Gates | Product Version (Build) | Milestones may require Product Version certification or scoped System Versions at Released |
 
 ## Examples
 

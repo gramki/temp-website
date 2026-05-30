@@ -8,7 +8,7 @@
 
 ## Context
 
-The UPIM Dimension 1 (Strategy) classifies inputs into three types: Problem, Need, and Opportunity. A collective term was needed to refer to all three. Two established candidates were considered:
+The UPIM Strategy classifies inputs into three types: Problem, Need, and Opportunity. A collective term was needed to refer to all three. Two established candidates were considered:
 
 1. **"Intake item"** — the term used in early model iterations.
 2. **"Backlog item"** — the term common in Agile/Scrum.
@@ -71,7 +71,7 @@ Terms like "market signal" were explicitly rejected because they would alienate 
 
 ### 3. No terminology collision within the UPIM
 
-Within Dimension 1 (Strategy), "Signal" is unambiguous — it means {Problem | Need | Opportunity}. Infrastructure monitoring signals, analytics signals, and system events are not entities in Dimension 1, so there is no collision within the model context.
+Within Strategy, "Signal" is unambiguous — it means {Problem | Need | Opportunity}. Infrastructure monitoring signals, analytics signals, and system events are not entities in Dimension 1, so there is no collision within the model context.
 
 ### 4. Natural language properties
 

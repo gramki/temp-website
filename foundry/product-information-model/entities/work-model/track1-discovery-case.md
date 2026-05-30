@@ -1,7 +1,7 @@
 # Discovery Case
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Learning)
+**Track:** Discovery
 **Category:** Orchestration
 **Owner:** Product Management for product alignment; originating and participating functions may vary
 
@@ -112,11 +112,11 @@ Technical ADRs and operational ODRs do not substitute for PM alignment on produc
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| May include | Signal (Dim 1) | Case may originate from or later collect Signals |
-| Produces | Idea (Dim 1) | Case may synthesize Ideas |
-| Produces | Product Decision Record (Dim 1) | Case may produce PDRs |
-| May request | Product Intent (Dim 1) | Case may create Discovery Support Product Intent for Build evidence |
-| May create | Product Intent (Dim 1) | Go/Pivot PDR from case may create Evolution Product Intent |
+| May include | Signal (Strategy) | Case may originate from or later collect Signals |
+| Produces | Idea (Strategy) | Case may synthesize Ideas |
+| Produces | Product Decision Record (Strategy) | Case may produce PDRs |
+| May request | Product Intent (Strategy) | Case may create Discovery Support Product Intent for Build evidence |
+| May create | Product Intent (Strategy) | Go/Pivot PDR from case may create Evolution Product Intent |
 | Contains | Signal Exploration / Research / Experiment / Prototype / Deliberation / Modeling Task | Discovery sub-work belongs to the case |
 | May route to | Run Case / Win Case / Evolve Case / Governance Ritual / Governance Enforcement | Case may close by routing to another track |
 

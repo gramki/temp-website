@@ -1,12 +1,12 @@
 # Architecture Decision Record (ADR)
 
 **Model:** Definition Model
-**Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)
+**Dimension:** Technical
 **Owner:** Architects, Tech Leads, Engineering Leadership
 
 ## Definition
 
-A formal, referenceable record of a significant technical or architectural decision — the Dim 5 counterpart of PDR (Dim 1). Where PDR captures product-level decisions ("Go on LATAM market," "Add mobile channel"), ADR captures technical-level decisions ("Use PostgreSQL for transactional data," "Adopt event-driven architecture for inter-service communication," "Split payments monolith into three services"). Follows the Nygard ADR format (Context, Decision, Consequences, Status).
+A formal, referenceable record of a significant technical or architectural decision — the Technical counterpart of PDR (Strategy). Where PDR captures product-level decisions ("Go on LATAM market," "Add mobile channel"), ADR captures technical-level decisions ("Use PostgreSQL for transactional data," "Adopt event-driven architecture for inter-service communication," "Split payments monolith into three services"). Follows the Nygard ADR format (Context, Decision, Consequences, Status).
 
 ## Purpose
 
@@ -21,7 +21,7 @@ Fills the traceability gap between product decisions (PDRs) and technical implem
 2. **ADR exists independently:** Purely technical decisions that don't require product-level deliberation. "ADR: Migrate from Log4j to SLF4J" or "ADR: Adopt OpenTelemetry for distributed tracing."
 3. **ADR constrains PDR:** An architectural reality limits product options. "We can't offer real-time FX because the current batch architecture (ADR-005) doesn't support it; a new PDR is needed to justify the architecture change."
 
-**Dual provenance:** ADRs can be produced by both the Discovery Track (Deliberation-driven — strategic architecture decisions) and the Build Track (implementation-driven — decisions that emerge during build work). Both paths produce the same Dim 5 entity; provenance is tracked through relationships.
+**Dual provenance:** ADRs can be produced by both the Discovery Track (Deliberation-driven — strategic architecture decisions) and the Build Track (implementation-driven — decisions that emerge during build work). Both paths produce the same Technical entity; provenance is tracked through relationships.
 
 ## Fields
 
@@ -34,11 +34,11 @@ Fills the traceability gap between product decisions (PDRs) and technical implem
 | Decision | Text | What was decided — the chosen approach |
 | Consequences | Text | What follows from the decision — both positive and negative |
 | Quality Attributes Addressed | List | Which quality attributes this decision serves (e.g., reliability, maintainability, performance) |
-| Triggered by PDR | Reference (Dim 1) | If this ADR was triggered by a product decision (optional) |
-| Supersedes | Reference (Dim 5) | Which ADR(s) this supersedes (optional) |
-| Superseded by | Reference (Dim 5) | Which ADR supersedes this one (optional) |
-| Affected Systems | List of References (Dim 5) | Which Systems are affected by this decision |
-| Affected Dependencies | List of References (Dim 5) | Which Dependencies are affected |
+| Triggered by PDR | Reference (Strategy) | If this ADR was triggered by a product decision (optional) |
+| Supersedes | Reference (Technical) | Which ADR(s) this supersedes (optional) |
+| Superseded by | Reference (Technical) | Which ADR supersedes this one (optional) |
+| Affected Systems | List of References (Technical) | Which Systems are affected by this decision |
+| Affected Dependencies | List of References (Technical) | Which Dependencies are affected |
 | Decision Date | Date | When the decision was made |
 | Decision Makers | List | Who participated (roles or names) |
 
@@ -55,16 +55,16 @@ Fills the traceability gap between product decisions (PDRs) and technical implem
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Triggered by | PDR (Dim 1) | Product decision that necessitated this architectural decision |
-| Affects | System(s) (Dim 5) | Systems impacted by this decision |
-| Affects | Dependency(ies) (Dim 5) | Dependencies introduced, removed, or changed |
-| Affects | Interaction Flow(s) (Dim 5) | Communication patterns changed by this decision |
-| Affects | Component(s) (Dim 5) | Components introduced, removed, or redesigned |
-| Justifies | Architecture Model (Dim 5) | ADR justifies aspects of the Architecture Model |
-| Supersedes | ADR (Dim 5) | This ADR replaces a previous ADR |
-| Produced by | Deliberation (Track 1) | When ADR originates from Discovery Track |
-| Downstream | ODR(s) (Dim 7) | ADR may trigger Operations Decision Records for operational provisioning required to implement the architectural decision |
-| Produced by | Build Track work (Track 2) | When ADR originates from implementation work |
+| Triggered by | PDR (Strategy) | Product decision that necessitated this architectural decision |
+| Affects | System(s) (Technical) | Systems impacted by this decision |
+| Affects | Dependency(ies) (Technical) | Dependencies introduced, removed, or changed |
+| Affects | Interaction Flow(s) (Technical) | Communication patterns changed by this decision |
+| Affects | Component(s) (Technical) | Components introduced, removed, or redesigned |
+| Justifies | Architecture Model (Technical) | ADR justifies aspects of the Architecture Model |
+| Supersedes | ADR (Technical) | This ADR replaces a previous ADR |
+| Produced by | Deliberation (Discovery) | When ADR originates from Discovery Track |
+| Downstream | ODR(s) (Operational) | ADR may trigger Operations Decision Records for operational provisioning required to implement the architectural decision |
+| Produced by | Build Track work (Build) | When ADR originates from implementation work |
 
 ## Examples
 
@@ -81,7 +81,7 @@ Fills the traceability gap between product decisions (PDRs) and technical implem
 **"ADR-019: Adopt OpenTelemetry for distributed tracing"**
 - Status: Accepted
 - Context: Event-driven architecture (ADR-012) made request tracing across services difficult. Debugging production incidents requires manual log correlation across 5+ services. Current logging is unstructured and inconsistent.
-- Decision: Adopt OpenTelemetry SDK for all services. Structured JSON logs with trace-id/span-id correlation. Export traces to Datadog (via Datadog Observability Integration Module, Dim 6).
+- Decision: Adopt OpenTelemetry SDK for all services. Structured JSON logs with trace-id/span-id correlation. Export traces to Datadog (via Datadog Observability Integration Module, Ecosystem).
 - Consequences: (+) End-to-end request tracing, structured searchable logs, Datadog dashboard integration, standard across all languages. (−) SDK integration effort (~2 days per service), slight performance overhead (measured at <1% in POC), Datadog trace ingestion cost.
 - Quality Attributes: Observability, Maintainability
 - Triggered by: — (independent technical decision)

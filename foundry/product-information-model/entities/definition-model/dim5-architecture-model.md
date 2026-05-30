@@ -1,12 +1,12 @@
 # Architecture Model
 
 **Model:** Definition Model
-**Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)
+**Dimension:** Technical
 **Owner:** Chief Architect, Engineering Leadership
 
 ## Definition
 
-The macro-level architectural strategy — how the product is designed and constructed. The Architecture Model is the structural root of Dimension 5: all other Dim 5 entities exist within its frame. Parallel to Business Model (Dim 2) — "how we make money" — and Infrastructure Model (Dim 7) — "how we run it." The Architecture Model captures "how we build it."
+The macro-level architectural strategy — how the product is designed and constructed. The Architecture Model is the structural root of Dimension 5: all other Technical entities exist within its frame. Parallel to Business Model (Vendor Value) — "how we make money" — and Infrastructure Model (Operational) — "how we run it." The Architecture Model captures "how we build it."
 
 ## Purpose
 
@@ -35,13 +35,13 @@ _Not applicable — the Architecture Model is a structural descriptor that chang
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Context for | System (Dim 5) | Architecture Model frames how Systems are designed and decomposed |
-| Context for | Component (Dim 5) | Architecture Model's principles guide Component design |
-| Context for | Interaction Flow (Dim 5) | Architecture Model's style determines available Interaction Flow types |
-| Context for | Dependency (Dim 5) | Architecture Model's technology strategy guides dependency selection |
-| Justified by | ADR(s) (Dim 5) | Major architectural choices are recorded as ADRs |
-| Complementary | Infrastructure Model (Dim 7) | "How we build it" (Dim 5) complements "how we run it" (Dim 7) |
-| Work Model | Modeling Task (Track 1) | Architecture Model is evolved through Modeling Tasks |
+| Context for | System (Technical) | Architecture Model frames how Systems are designed and decomposed |
+| Context for | Component (Technical) | Architecture Model's principles guide Component design |
+| Context for | Interaction Flow (Technical) | Architecture Model's style determines available Interaction Flow types |
+| Context for | Dependency (Technical) | Architecture Model's technology strategy guides dependency selection |
+| Justified by | ADR(s) (Technical) | Major architectural choices are recorded as ADRs |
+| Complementary | Infrastructure Model (Operational) | "How we build it" (Technical) complements "how we run it" (Operational) |
+| Work Model | Modeling Task (Discovery) | Architecture Model is evolved through Modeling Tasks |
 
 ## Example
 

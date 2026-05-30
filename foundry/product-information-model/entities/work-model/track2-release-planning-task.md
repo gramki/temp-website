@@ -1,7 +1,7 @@
 # Release Planning Task
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction)
+**Track:** Build
 **Owner:** Product Management, Tech Lead
 
 ## Definition
@@ -26,12 +26,12 @@ Makes the release scoping work explicit in the Build Track. Without Release Plan
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Descriptive title (e.g., "Release Planning: LATAM Expansion R1") |
-| Customer Release Intent | Reference (Dim 1) | Which Customer Release Intent is being realized |
-| PSDs in Scope | List of References (Dim 1) | PSDs included in this release |
-| Initiatives | List of References (Dim 1) | Initiatives advanced by this release |
-| Epics Identified | List of References (Track 2) | PSD-derived Epics identified during planning |
-| Integration Epics Identified | List of References (Track 2) | Integration Epics identified during planning |
-| Milestones Defined | List of References (Track 2) | Milestones defined for this release |
+| Customer Release Intent | Reference (Strategy) | Which Customer Release Intent is being realized |
+| PSDs in Scope | List of References (Strategy) | PSDs included in this release |
+| Initiatives | List of References (Strategy) | Initiatives advanced by this release |
+| Epics Identified | List of References (Build) | PSD-derived Epics identified during planning |
+| Integration Epics Identified | List of References (Build) | Integration Epics identified during planning |
+| Milestones Defined | List of References (Build) | Milestones defined for this release |
 | Capacity Plan | Text | Team allocation, velocity assumptions, timeline |
 | Risks and Dependencies | Text | Known risks, external dependencies, blockers |
 
@@ -48,12 +48,12 @@ Makes the release scoping work explicit in the Build Track. Without Release Plan
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scopes | Customer Release Intent (Dim 1) | Release Planning Tasks scope Customer Release Intent realization |
-| References | PSD (Dim 1) | Release Planning considers which PSDs are included |
-| References | Initiative (Dim 1) | Release Planning considers which Initiatives are advanced |
-| Produces | Epic(s) (Track 2) | Release Planning decomposes PSDs into Epics |
-| Produces | Integration Epic(s) (Track 2) | Release Planning identifies cross-System integration work |
-| Produces | Milestone(s) (Track 2) | Release Planning defines Milestones for the release |
+| Scopes | Customer Release Intent (Strategy) | Release Planning Tasks scope Customer Release Intent realization |
+| References | PSD (Strategy) | Release Planning considers which PSDs are included |
+| References | Initiative (Strategy) | Release Planning considers which Initiatives are advanced |
+| Produces | Epic(s) (Build) | Release Planning decomposes PSDs into Epics |
+| Produces | Integration Epic(s) (Build) | Release Planning identifies cross-System integration work |
+| Produces | Milestone(s) (Build) | Release Planning defines Milestones for the release |
 
 ## Examples
 

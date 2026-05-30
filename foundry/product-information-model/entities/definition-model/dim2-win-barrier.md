@@ -1,17 +1,17 @@
 # Win Barrier
 
 **Model:** Definition Model
-**Dimension:** Dimension 2: The Vendor Value Dimension (Why It Wins)
+**Dimension:** Vendor Value
 **Owner:** Product Marketing, Sales Leadership
 
 ## Definition
 
-A known structural impediment that prevents the vendor from achieving a Win Outcome for a given Customer Segment. Always articulated with the aggrieved party as a Win Stakeholder or the vendor generally. Distinct from Adoption Barrier (Dim 3), which captures the *customer's* impediment to purchasing or adopting. Win Barrier captures the *vendor's* impediment to winning commercially.
+A known structural impediment that prevents the vendor from achieving a Win Outcome for a given Customer Segment. Always articulated with the aggrieved party as a Win Stakeholder or the vendor generally. Distinct from Adoption Barrier (Customer Value), which captures the *customer's* impediment to purchasing or adopting. Win Barrier captures the *vendor's* impediment to winning commercially.
 
 ## Purpose
 
-Analogous to Adoption Barrier (Dim 3), which captures what blocks the customer from buying or adopting. Win Barrier captures what blocks the vendor from succeeding commercially. Without Win Barriers:
-- Competitive threats, market limitations, and structural disadvantages have no Dim 2 home
+Analogous to Adoption Barrier (Customer Value), which captures what blocks the customer from buying or adopting. Win Barrier captures what blocks the vendor from succeeding commercially. Without Win Barriers:
+- Competitive threats, market limitations, and structural disadvantages have no Vendor Value home
 - Product decisions to address vendor-side blockers (e.g., "add free trial to compete") lack a formal entity to trace to
 - The gap between "what we want to achieve" (Win Outcomes) and "what prevents us" (Win Barriers) is implicit
 
@@ -24,11 +24,11 @@ Analogous to Adoption Barrier (Dim 3), which captures what blocks the customer f
 | Title | String | Concise description of the barrier |
 | Type | Enum | `Competitive` / `Technical` / `Regulatory` / `Operational` / `Financial` / `Contractual` / `Resource` / `Market` |
 | AAARRR Stage | Enum | `Awareness` / `Acquisition` / `Activation` / `Retention` / `Revenue` / `Referral` |
-| Customer Segment | Reference (Dim 3) | Which segment this barrier blocks |
-| Aggrieved Party | Reference (Dim 2) or "Vendor" | Which Win Stakeholder is affected, or the vendor broadly |
+| Customer Segment | Reference (Customer Value) | Which segment this barrier blocks |
+| Aggrieved Party | Reference (Vendor Value) or "Vendor" | Which Win Stakeholder is affected, or the vendor broadly |
 | Impact on Win Outcome | Text | Which Win Outcome is blocked and how |
-| Challenges | Reference (Dim 2) | Which Pricing Tier or other Dim 2 entity is challenged |
-| Structural Root (Dim 8) | List of References (Dim 8) | When the barrier points to a product gap, which Capability or Feature is missing or insufficient. Enables product-level impact analysis. Optional — non-product barriers (Financial, Contractual, Market) typically have no product root. |
+| Challenges | Reference (Vendor Value) | Which Pricing Tier or other Vendor Value entity is challenged |
+| Structural Root (Structural) | List of References (Structural) | When the barrier points to a product gap, which Capability or Feature is missing or insufficient. Enables product-level impact analysis. Optional — non-product barriers (Financial, Contractual, Market) typically have no product root. |
 
 ## Statuses
 
@@ -44,13 +44,13 @@ Analogous to Adoption Barrier (Dim 3), which captures what blocks the customer f
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Blocks | Win Outcome (Dim 2) | Win Barrier prevents achieving specific Win Outcomes |
-| Affects | Win Stakeholder (Dim 2) | Win Barrier impacts specific Win Stakeholders or the vendor |
-| Scoped to | Customer Segment (Dim 3) | Win Barrier is specific to Customer Segment(s) |
-| Challenges | Pricing Tier / Package (Dim 2) | Win Barrier may challenge the competitiveness of a Pricing Tier |
-| May surface as | Signal — Problem or Opportunity (Dim 1) | Observations of barriers become Signals for Discovery |
-| Work Model | Modeling Task (Track 1) | Modeling Tasks document Win Barriers in Dim 2 |
-| Structural root | Capability / Feature (Dim 8) | When barrier points to a product gap, identifies the missing or insufficient product structure |
+| Blocks | Win Outcome (Vendor Value) | Win Barrier prevents achieving specific Win Outcomes |
+| Affects | Win Stakeholder (Vendor Value) | Win Barrier impacts specific Win Stakeholders or the vendor |
+| Scoped to | Customer Segment (Customer Value) | Win Barrier is specific to Customer Segment(s) |
+| Challenges | Pricing Tier / Package (Vendor Value) | Win Barrier may challenge the competitiveness of a Pricing Tier |
+| May surface as | Signal — Problem or Opportunity (Strategy) | Observations of barriers become Signals for Discovery |
+| Work Model | Modeling Task (Discovery) | Modeling Tasks document Win Barriers in Vendor Value |
+| Structural root | Capability / Feature (Structural) | When barrier points to a product gap, identifies the missing or insufficient product structure |
 
 ## Win Barrier Types
 
@@ -67,7 +67,7 @@ Analogous to Adoption Barrier (Dim 3), which captures what blocks the customer f
 
 ## Examples
 
-| Barrier | Type | Stage | Segment | Aggrieved | Blocks Win Outcome | Structural Root (Dim 8) |
+| Barrier | Type | Stage | Segment | Aggrieved | Blocks Win Outcome | Structural Root (Structural) |
 |---|---|---|---|---|---|---|
 | "Competitor offers 30-day free trial" | Competitive | Acquisition | US Mid-Market | Account Executive | "Self-service onboarding within 4 hours" | Trial / Freemium (Capability — missing) |
 | "No LGPD data residency in Brazil" | Regulatory | Acquisition | LATAM Enterprise | Account Executive, Pre-Sales Engineer | "Close LATAM deals within 90-day cycle" | Data Storage — Regional Residency (Capability — missing) |

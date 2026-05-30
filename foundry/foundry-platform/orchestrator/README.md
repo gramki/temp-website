@@ -27,7 +27,7 @@ The primary beneficiaries are Program Managers (who see work flowing through the
 - **Does not manage agents** — Agent Fabric manages Capable Agents, Skills, and quotas
 - **Does not spawn agents** — WO Runtime spawns Employed Agents within Workspace Sessions
 - **Does not store artifacts** — Repositories store code, designs, specs; Orchestrator only links to them
-- **Does not define Scenarios** — Scenario Management (in Management module) defines schema; Scenario Catalogue contains templates
+- **Does not define Scenarios** — Scenario Management (in Management module) defines schema; Work Catalogues module contains definitions
 - **Does not manage Workbenches** — Management module provisions and configures Workbenches
 
 ## Architecture
@@ -73,9 +73,11 @@ Receives events from Jira and routes them to the Workflow Engine.
 
 ### Workflow Engine
 
-Loads workflow YAML definitions and evaluates handlers against incoming events. Workflows are defined at Foundry, Workshop, or Workbench level (closest wins).
+Loads workflow YAML definitions and evaluates handlers against incoming events. Workflows are sourced from the **Work Catalog** with hierarchical resolution: Platform → Foundry → Workshop → Workbench → User (closest wins).
 
-→ [orchestration-item-workflow.md](orchestration-item-workflow.md) — YAML schema specification
+→ [orchestration-item-workflow.md](orchestration-item-workflow.md) — Workflow authoring guide
+→ [../management/work-catalog-management/oi-workflow-schema.md](../management/work-catalog-management/oi-workflow-schema.md) — Canonical OI Workflow schema
+→ [../work-catalogues/platform-defaults/](../work-catalogues/platform-defaults/) — Platform default OI Workflows
 
 ### Action Executor
 
@@ -122,12 +124,13 @@ Do not conflate them. Moving Product Intent from Specification to Development is
 
 ## Key Design Decisions
 
-- **Governance is distributed.** Definition is via Scenarios (Scenario Catalogue), enforcement is via Orchestrator, evidence is captured in repositories.
+- **Governance is distributed.** Definition is via Scenarios (Work Catalogues), enforcement is via Orchestrator, evidence is captured in repositories.
 - **Governance Scenarios are first-class.** They're invoked like any other Scenario, but at transition points.
 - **Governance orchestration has two modes.** Rituals organize cadence/event reviews; Enforcement asserts policy and produces verdicts, findings, and register entries.
 - **Orchestration items are Track-scoped; Work Orders are Workspace-scoped.** One orchestration item can create many Workspace Work Orders.
 - **Workflows are declarative YAML.** Coordination logic is configuration, not code — enables customization without development.
-- **Closest workflow wins.** Workbench overrides Workshop overrides Foundry — allows org-wide defaults with product-specific exceptions.
+- **Work Catalog is the source for OI Workflows.** Workflows are resolved from the Work Catalog hierarchy (Platform → Foundry → Workshop → Workbench → User). Users with activated personal catalogs can experiment with workflow modifications in their sessions.
+- **Closest workflow wins.** User overrides Workbench overrides Workshop overrides Foundry overrides Platform — allows org-wide defaults with product-specific exceptions.
 - **Jira is bidirectional.** Orchestrator reads (webhooks) AND writes (REST API) to Jira.
 - **Separate state database.** Postgres for workflow state; Jira is secondary for work items.
 
@@ -141,9 +144,18 @@ Do not conflate them. Moving Product Intent from Specification to Development is
 | Document | Content |
 |----------|---------|
 | [orchestrator-requirements.md](orchestrator-requirements.md) | Detailed implementation requirements (architecture, APIs, scalability) |
-| [orchestration-item-workflow.md](orchestration-item-workflow.md) | YAML workflow schema specification |
-| [sample-pi-workflow.yaml](sample-pi-workflow.yaml) | Complete Product Intent workflow example |
+| [orchestration-item-workflow.md](orchestration-item-workflow.md) | OI Workflow authoring guide and reference |
+| [workflow.yaml](../work-catalogues/platform-defaults/build/product-intent/workflow.yaml) | Complete Product Intent workflow example |
 | [pi-journey.md](pi-journey.md) | End-to-end Product Intent walkthrough |
+
+**Work Catalog Integration:**
+
+| Document | Content |
+|----------|---------|
+| [../work-catalogues/README.md](../work-catalogues/README.md) | Work Catalog conceptual overview |
+| [../work-catalogues/platform-defaults/build/product-intent/](../work-catalogues/platform-defaults/build/product-intent/) | Platform default Product Intent workflow |
+| [../management/work-catalog-management/oi-workflow-schema.md](../management/work-catalog-management/oi-workflow-schema.md) | Canonical OI Workflow YAML schema |
+| [../management/work-catalog-management/resolution-algorithm.md](../management/work-catalog-management/resolution-algorithm.md) | Hierarchy resolution implementation |
 
 ## Read Next
 

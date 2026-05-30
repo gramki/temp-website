@@ -16,7 +16,8 @@ Management also owns the configuration pipeline: when Workshop Definition Repos 
 - **Workbench provisioning** — create and configure Workbenches for Products
 - **Repository management** — repositories as services with injection/access interfaces
 - **Configuration services** — validate, sync, and serve Workshop/Workbench configuration
-- **Scenario Management** — scenario schema, validation, and agent recommendations
+- **Work Catalog Management** — OI Workflow and Scenario schemas, validation, resolution, and agent recommendations
+- **Work Catalog provisioning** — Foundry, Workshop, Workbench, and User Work Catalog repositories
 - **Team management** — teams, roles, permissions
 - **Knowledge Management** — Domain, Ontology, Practices repositories with hierarchical inheritance
 - **Tenancy** — tenant provisioning, isolation, configuration, quotas
@@ -31,7 +32,7 @@ Management also owns the configuration pipeline: when Workshop Definition Repos 
 | Track WO state | Orchestrator + Jira |
 | Manage agent runtime | Agent Fabric (Skills/quotas), WO Runtime (spawning) |
 | Store product artifacts | Repositories (which Management provisions) |
-| Define scenario templates | Scenario Catalogue (content folder) |
+| Define scenario templates | work-catalogues module |
 
 ## Architecture
 
@@ -65,11 +66,12 @@ Management also owns the configuration pipeline: when Workshop Definition Repos 
 │  │                          Subsystems                                         │ │
 │  │                                                                             │ │
 │  │  ┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐      │ │
-│  │  │ Foundry Mgmt      │  │ Team Management   │  │ Scenario Mgmt     │      │ │
+│  │  │ Foundry Mgmt      │  │ Team Management   │  │ Work Catalog Mgmt │      │ │
 │  │  │                   │  │                   │  │                   │      │ │
-│  │  │ • Lifecycle       │  │ • Users, teams    │  │ • Schema          │      │ │
-│  │  │ • Tenancy         │  │ • Roles, perms    │  │ • Validation      │      │ │
-│  │  │ • Settings        │  │ • Authorization   │  │ • Recommendations │      │ │
+│  │  │ • Lifecycle       │  │ • Users, teams    │  │ • OI/Scenario     │      │ │
+│  │  │ • Tenancy         │  │ • Roles, perms    │  │   schemas         │      │ │
+│  │  │ • Settings        │  │ • Authorization   │  │ • Resolution      │      │ │
+│  │  │                   │  │                   │  │ • Validation      │      │ │
 │  │  └───────────────────┘  └───────────────────┘  └───────────────────┘      │ │
 │  │                                                                             │ │
 │  │  ┌───────────────────┐  ┌───────────────────────────────────────────┐    │ │
@@ -185,17 +187,34 @@ Subsystem for users, teams, roles, and permissions:
 
 → [team-management/README.md](team-management/README.md) for team management details
 
-### Scenario Management
+### Work Catalog Management
 
-Subsystem that defines what work Workspaces can do:
+Subsystem that manages OI Workflows and Scenarios — the executable content of Work Catalogs:
 
 | Capability | Description |
 |------------|-------------|
-| **Schema Definition** | YAML schema for scenario definitions |
-| **Validation Logic** | Rules for validating scenario content |
+| **Schema Definition** | YAML schemas for Scenarios and OI Workflows |
+| **Validation Logic** | Rules for validating Work Catalog content |
+| **Resolution Algorithm** | Hierarchy resolution (Platform → Foundry → Workshop → Workbench → User) |
 | **Agent Recommendations** | Match scenarios to suitable Skilled Agents |
+| **Catalog Sync** | Sync Work Catalog repos to Metadata Service |
 
-→ [scenario-management/README.md](scenario-management/README.md) for scenario management details
+→ [work-catalog-management/README.md](work-catalog-management/README.md) for Work Catalog management details
+
+### Work Catalog Repository Provisioning
+
+Work Catalog repositories are provisioned at multiple levels:
+
+| Level | Repository | Provisioned By | Purpose |
+|-------|------------|----------------|---------|
+| **Foundry** | `foundry-{id}/work-catalog/` | Foundry Admin | Foundry-wide defaults |
+| **Workshop** | `workshop-{id}/work-catalog/` | Workshop Admin | Workshop-level defaults |
+| **Workbench** | Workbench config in Workshop repo | Workbench Manager | Product-specific overrides |
+| **User** | `user-work-catalog-{user-id}/` | User (auto-provisioned) | Personal experimentation |
+
+User Work Catalog repos are auto-provisioned on first activation (one per user per Foundry).
+
+→ [git-infrastructure.md](git-infrastructure.md) for repository conventions
 
 ### Knowledge Management
 
@@ -304,9 +323,11 @@ Foundry operates as a **GitHub App** registered in the organization:
 | **Team Management** | |
 | [team-management/README.md](team-management/README.md) | Users, teams, roles, permissions |
 | [team-management/requirements.md](team-management/requirements.md) | Implementation requirements, APIs, schema |
-| **Scenario Management** | |
-| [scenario-management/README.md](scenario-management/README.md) | Scenario Management subsystem |
-| [scenario-management/scenario-schema.md](scenario-management/scenario-schema.md) | Scenario YAML schema |
+| **Work Catalog Management** | |
+| [work-catalog-management/README.md](work-catalog-management/README.md) | Work Catalog Management subsystem |
+| [work-catalog-management/scenario-schema.md](work-catalog-management/scenario-schema.md) | Scenario YAML schema |
+| [work-catalog-management/oi-workflow-schema.md](work-catalog-management/oi-workflow-schema.md) | OI Workflow YAML schema |
+| [work-catalog-management/resolution-algorithm.md](work-catalog-management/resolution-algorithm.md) | Hierarchy resolution implementation |
 | **Knowledge Management** | |
 | [knowledge-management/README.md](knowledge-management/README.md) | Knowledge Management subsystem |
 | [knowledge-management/knowledge-hierarchy.md](knowledge-management/knowledge-hierarchy.md) | Inheritance model and resolution rules |
@@ -322,6 +343,6 @@ Foundry operates as a **GitHub App** registered in the organization:
 - [../orchestrator/README.md](../orchestrator/README.md) — WO creation and routing
 - [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO Runtime execution engine
 - [../agent-fabric/README.md](../agent-fabric/README.md) — Agent infrastructure
-- [../scenario-catalogue/README.md](../scenario-catalogue/README.md) — Reference scenario definitions
+- [../work-catalogues/README.md](../work-catalogues/README.md) — Work Catalog overview and platform defaults
 - [../foundry-platform-admin-web-app/README.md](../foundry-platform-admin-web-app/README.md) — Platform Admin interface
 - [../../ace/repositories.md](../../ace/repositories.md) — the repository taxonomy

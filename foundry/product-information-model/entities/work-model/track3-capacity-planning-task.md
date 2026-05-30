@@ -1,7 +1,7 @@
 # Capacity Planning Task
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Owner:** DevOps, Site Reliability Engineers (SRE)
 
 ## Definition
@@ -28,8 +28,8 @@ Ensures the infrastructure is ready to support the capabilities being delivered.
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Supports | Customer Release Intent (Dim 1) | Capacity Planning ensures infrastructure readiness for Customer Release Intent realization |
-| References | Environment (Dim 7) | Capacity Planning targets specific environments |
+| Supports | Customer Release Intent (Strategy) | Capacity Planning ensures infrastructure readiness for Customer Release Intent realization |
+| References | Environment (Operational) | Capacity Planning targets specific environments |
 
 ## Example
 

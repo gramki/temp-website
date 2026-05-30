@@ -3,7 +3,7 @@
 > **DEPRECATED** — Superseded by **Deployment Environment** (`dim7-deployment-environment.md`), which adds vendor purpose, tenancy architecture, compliance zone, scale policy, and full relationship set. See DR-023.
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** DevOps, SRE
 
 ## Definition
@@ -30,7 +30,7 @@ Establishes the top-level operational boundary. Environments contain Clusters/Ho
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Contains | Cluster / Host (Dim 7) | Environment contains Clusters |
+| Contains | Cluster / Host (Operational) | Environment contains Clusters |
 
 ## Example
 

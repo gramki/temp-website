@@ -1,12 +1,12 @@
 # API Compatibility Contract
 
 **Model:** Definition Model
-**Dimension / Track:** Dimension 6: Ecosystem & Extensibility (Platform)
+**Dimension:** Ecosystem
 **Owner:** Product Management (API/Platform), Engineering
 
 ## Definition
 
-An API Compatibility Contract is the module-level versioning and backward-compatibility commitment for an API Module's programmatic surface. It captures the product's promise to Developer and Programmatic User Personas about stability — the Dim 6 analog of Customer Promise (Dim 3) for programmatic consumers.
+An API Compatibility Contract is the module-level versioning and backward-compatibility commitment for an API Module's programmatic surface. It captures the product's promise to Developer and Programmatic User Personas about stability — the Ecosystem analog of Customer Promise (Customer Value) for programmatic consumers.
 
 ## Purpose
 
@@ -28,12 +28,12 @@ Establishes trust with external consumers by declaring how the product manages c
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Governs | API Module (Dim 6) | Defines stability commitments for this module |
-| Governs | API Operation(s) (Dim 6) | Operations subject to these versioning rules |
-| Promise to | Developer Persona (Dim 6) | Developers depend on these stability guarantees |
-| Promise to | Programmatic User Persona (Dim 6) | Systems depend on interface and performance stability |
-| Parallels | Customer Promise (Dim 3) | Dim 6 analog of customer-facing commitments |
-| Assessed by | Win Review (Track 4) | Contract compliance assessed in reviews |
+| Governs | API Module (Ecosystem) | Defines stability commitments for this module |
+| Governs | API Operation(s) (Ecosystem) | Operations subject to these versioning rules |
+| Promise to | Developer Persona (Ecosystem) | Developers depend on these stability guarantees |
+| Promise to | Programmatic User Persona (Ecosystem) | Systems depend on interface and performance stability |
+| Parallels | Customer Promise (Customer Value) | Ecosystem analog of customer-facing commitments |
+| Assessed by | Win Review (Win) | Contract compliance assessed in reviews |
 
 ## Example
 

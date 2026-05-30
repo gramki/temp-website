@@ -1,7 +1,7 @@
 # Problem
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Product Management
 
 ## Definition
@@ -23,14 +23,14 @@ One of three Signal types in the Strategy Dimension (alongside Need and Opportun
 | Source | Text | Who/where this Signal came from |
 | Source Type | Enum | `Customer` / `Prospect` / `Internal - Engineering` / `Internal - Operations` / `Internal - Strategy` / `Internal - Support` / `Data/Analytics` |
 | Date Captured | Date | When first recorded |
-| Related Signals | List of References (Dim 1) | Links to Signals that may point to the same underlying issue |
+| Related Signals | List of References (Strategy) | Links to Signals that may point to the same underlying issue |
 
 ## Problem-Specific Fields
 
 | Field | Type | Description |
 |---|---|---|
 | Granularity | Enum (M/C/F) | The level at which the problem is specified: Module, Capability, or Feature |
-| Affected Entity | Reference (Dim 8) | The specific M/C/F this problem is associated with |
+| Affected Entity | Reference (Structural) | The specific M/C/F this problem is associated with |
 | Reporter | Reference | The stakeholder who reported the problem |
 | Upvotes | Count | Number of stakeholders who have expressed interest in resolution |
 
@@ -84,14 +84,14 @@ New ──[PM reviews, confirms legitimacy]──► Triaged
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Downstream | Idea (Dim 1) | Problem spawns Idea(s) — one Problem may generate multiple candidate hypotheses |
-| Structural ref | Module / Capability / Feature (Dim 8) | Problem references the M/C/F it is associated with |
-| Work Model | Signal Exploration Task (Track 1) | Signal Exploration Tasks investigate this Problem |
-| Work Model | Research Task (Track 1) | Research Tasks may gather targeted evidence about this Problem |
-| Work Model | Deliberation (Track 1) | Deliberations may discuss this Problem |
-| Associated | Initiative (Dim 1) | Problem ← associated → Initiative(s) (many-to-many, during planning) |
-| Related | Signal (Dim 1) | Related Signals that may point to the same underlying issue |
-| Upstream | Feedback (Track 4) | A Feedback item from the Win Track may correspond to a Problem |
+| Downstream | Idea (Strategy) | Problem spawns Idea(s) — one Problem may generate multiple candidate hypotheses |
+| Structural ref | Module / Capability / Feature (Structural) | Problem references the M/C/F it is associated with |
+| Work Model | Signal Exploration Task (Discovery) | Signal Exploration Tasks investigate this Problem |
+| Work Model | Research Task (Discovery) | Research Tasks may gather targeted evidence about this Problem |
+| Work Model | Deliberation (Discovery) | Deliberations may discuss this Problem |
+| Associated | Initiative (Strategy) | Problem ← associated → Initiative(s) (many-to-many, during planning) |
+| Related | Signal (Strategy) | Related Signals that may point to the same underlying issue |
+| Upstream | Feedback (Win) | A Feedback item from the Win Track may correspond to a Problem |
 | May originate from | FIR (Track 4, PFR-Win) | A Problem Signal may be routed from an FIR when triage identifies a product limitation (DR-032) |
 
 ## Example

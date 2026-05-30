@@ -1,7 +1,7 @@
 # Opportunity
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Product Management, Strategy, Sales Leadership
 
 ## Definition
@@ -23,7 +23,7 @@ One of three Signal types in the Strategy Dimension (alongside Problem and Need)
 | Source | Text | Who/where this Signal came from |
 | Source Type | Enum | `Customer` / `Prospect` / `Internal - Engineering` / `Internal - Operations` / `Internal - Strategy` / `Internal - Support` / `Data/Analytics` |
 | Date Captured | Date | When first recorded |
-| Related Signals | List of References (Dim 1) | Links to Signals that may point to the same underlying issue |
+| Related Signals | List of References (Strategy) | Links to Signals that may point to the same underlying issue |
 
 ## Opportunity-Specific Fields
 
@@ -75,15 +75,15 @@ New ──[PM reviews, confirms legitimacy]──► Triaged
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Downstream | Idea (Dim 1) | Opportunity spawns Idea(s) — one Opportunity may generate multiple candidate hypotheses |
-| Targets | Business KPI (Dim 2) | Opportunity targets improvement in vendor Business KPIs |
-| References | Delivery Friction (Dim 2) | Opportunity may aim to address a known Delivery Friction |
-| References | Win Barrier (Dim 2) | Opportunity may aim to overcome a known Win Barrier |
-| Work Model | Signal Exploration Task (Track 1) | Signal Exploration Tasks investigate this Opportunity |
-| Work Model | Research Task (Track 1) | Research Tasks may gather targeted evidence about this Opportunity |
-| Work Model | Deliberation (Track 1) | Deliberations may discuss this Opportunity |
-| Associated | Initiative (Dim 1) | Opportunity ← associated → Initiative(s) (many-to-many, during planning) |
-| Related | Signal (Dim 1) | Related Signals that may point to the same underlying issue |
+| Downstream | Idea (Strategy) | Opportunity spawns Idea(s) — one Opportunity may generate multiple candidate hypotheses |
+| Targets | Business KPI (Vendor Value) | Opportunity targets improvement in vendor Business KPIs |
+| References | Delivery Friction (Vendor Value) | Opportunity may aim to address a known Delivery Friction |
+| References | Win Barrier (Vendor Value) | Opportunity may aim to overcome a known Win Barrier |
+| Work Model | Signal Exploration Task (Discovery) | Signal Exploration Tasks investigate this Opportunity |
+| Work Model | Research Task (Discovery) | Research Tasks may gather targeted evidence about this Opportunity |
+| Work Model | Deliberation (Discovery) | Deliberations may discuss this Opportunity |
+| Associated | Initiative (Strategy) | Opportunity ← associated → Initiative(s) (many-to-many, during planning) |
+| Related | Signal (Strategy) | Related Signals that may point to the same underlying issue |
 | May originate from | FIR (Track 4, PFR-Win) | An Opportunity Signal may be routed from an FIR when triage identifies a vendor-side optimization (DR-032) |
 
 ## Example

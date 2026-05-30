@@ -538,5 +538,5 @@ OpenTelemetry spans for:
 ## Read Next
 
 - [orchestration-item-workflow.md](orchestration-item-workflow.md) — Workflow YAML schema
-- [sample-pi-workflow.yaml](sample-pi-workflow.yaml) — Complete PI workflow example
+- [workflow.yaml](../work-catalogues/platform-defaults/build/product-intent/workflow.yaml) — Complete PI workflow example
 - [pi-journey.md](pi-journey.md) — End-to-end PI walkthrough

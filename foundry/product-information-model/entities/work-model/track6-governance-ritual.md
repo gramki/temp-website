@@ -1,7 +1,7 @@
 # Governance Ritual
 
 **Model:** Work Model
-**Track:** Track 6: Governance (ACE extension)
+**Track:** Governance
 **Category:** Orchestration
 **Owner:** Role accountable for ritual outcomes
 **Governance Admin:** Role that maintains the Ritual Definition this item executes
@@ -53,10 +53,10 @@ Governance Ritual makes governance practices explicit and executable. It prevent
 |---|---|---|
 | Executes | Ritual Definition (Operating Model) | Ritual is an instance of an Operating Model ritual definition |
 | Consumes | Reports / Dashboards / Evidence | Ritual reviews operating state and evidence |
-| May contain | Governance Enforcement (Track 6) | Ritual may run policy assertions as part of its work |
+| May contain | Governance Enforcement (Governance) | Ritual may run policy assertions as part of its work |
 | Produces | Governance Finding (artifact) | Ritual may produce findings |
 | Produces | Recognition Entry (WFR register artifact) | Ritual may produce kudos/recognition |
-| May trigger | Evolve Case (Track 5) | Ritual may trigger governance practice evolution |
+| May trigger | Evolve Case (Evolve) | Ritual may trigger governance practice evolution |
 | May create | Workspace Work Order | Ritual may create action-item Work Orders |
 
 ## Examples

@@ -28,12 +28,12 @@ Incident (SEV-0/SEV-1, artifact)
 
 | Entity | Track | Fast-Path Behavior | Standard Behavior |
 |---|---|---|---|
-| Bug | Build (Track 2) | P0, Run provenance — sprint bypass; immediate triage | P1-P3 — scheduled into sprint |
-| Technical Task | Build (Track 2) | Inherits P0 sprint bypass — immediate allocation outside sprint capacity | Allocated within sprint |
-| System Version | Build (Track 2) | Emergency gate profile — peer review + security scan + smoke tests only | Standard gate profile — all gates required |
-| Change Request | Run (Track 3) | Emergency-Technical — abbreviated soak, documented waivers | Standard — full Train traversal, CAB approval |
-| Deployment Task | Run (Track 3) | May skip Deployment Drill; direct deployment with documented justification | Drill may precede deployment |
-| Verification Task | Run (Track 3) | Focused smoke/SLA verification; may use shorter verification windows | Full verification criteria |
+| Bug | Build (Build) | P0, Run provenance — sprint bypass; immediate triage | P1-P3 — scheduled into sprint |
+| Technical Task | Build (Build) | Inherits P0 sprint bypass — immediate allocation outside sprint capacity | Allocated within sprint |
+| System Version | Build (Build) | Emergency gate profile — peer review + security scan + smoke tests only | Standard gate profile — all gates required |
+| Change Request | Run (Run) | Emergency-Technical — abbreviated soak, documented waivers | Standard — full Train traversal, CAB approval |
+| Deployment Task | Run (Run) | May skip Deployment Drill; direct deployment with documented justification | Drill may precede deployment |
+| Verification Task | Run (Run) | Focused smoke/SLA verification; may use shorter verification windows | Full verification criteria |
 
 ## Timing Expectations
 
@@ -106,8 +106,8 @@ The Emergency-Technical Change Request and the P0 Bug/Emergency System Version a
 
 | Concern | Entity | Track | DR |
 |---|---|---|---|
-| **How fast do we fix?** | Bug (P0) → Technical Task → System Version (Emergency) | Build (Track 2) | DR-031 |
-| **How fast do we deploy?** | Change Request (Emergency-Technical) → Deployment Task | Run (Track 3) | DR-029 |
+| **How fast do we fix?** | Bug (P0) → Technical Task → System Version (Emergency) | Build (Build) | DR-031 |
+| **How fast do we deploy?** | Change Request (Emergency-Technical) → Deployment Task | Run (Run) | DR-029 |
 
 Together they form the complete hotfix workflow. The Build Track fast-path produces the Emergency System Version; the Run Track fast-path deploys it with abbreviated governance. Neither is sufficient alone — a P0 Bug with Standard CR would wait for the normal change cycle; an Emergency-Technical CR with a Standard System Version would wait for full regression.
 

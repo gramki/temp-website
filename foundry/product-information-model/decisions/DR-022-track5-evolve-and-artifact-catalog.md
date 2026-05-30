@@ -1,4 +1,4 @@
-# DR-022: Track 5 — Evolve (Process Evolution) and Artifact Type Catalog
+# DR-022: Evolve Track and Artifact Type Catalog
 
 **Status:** Accepted
 **Date:** 2026-02-19
@@ -13,9 +13,9 @@ Separately, the Work Execution Framework's artifact taxonomy had five top-level 
 
 ## Decisions
 
-### D1: Process evolution is Track 5, not a bridge document or per-track addition
+### D1: Process evolution is the Evolve Track, not a bridge document or per-track addition
 
-Process evolution work is modeled as **Track 5: Evolve** with full track structural conventions — entity files, relationships, artifacts, DoD, the complete template. The "bridge" between Work Model and Operating Model is a *relationship characteristic* of Track 5, not an alternative structural form.
+Process evolution work is modeled as **Evolve** with full track structural conventions — entity files, relationships, artifacts, DoD, the complete template. The "bridge" between Work Model and Operating Model is a *relationship characteristic* of Track 5, not an alternative structural form.
 
 A model that cannot account for its own evolution is dead. Track 5 ensures the model stays alive by making process evolution explicit, structured, and assessable.
 

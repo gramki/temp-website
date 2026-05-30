@@ -1,7 +1,7 @@
 # Interface Type
 
 **Model:** Definition Model
-**Dimension:** Dimension 6: The Ecosystem & Extensibility Dimension (Platform)
+**Dimension:** Ecosystem
 **Owner:** Tech Leads, Developers
 
 ## Definition
@@ -26,7 +26,7 @@ _Not applicable — structural descriptor._
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Contains | Endpoint / Event Topic (Dim 6) | Interface Type groups Endpoints |
+| Contains | Endpoint / Event Topic (Ecosystem) | Interface Type groups Endpoints |
 
 ## Example
 

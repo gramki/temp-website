@@ -179,11 +179,11 @@ UPIM versions compositions at three tiers. Each tier is a **composite system** i
 | **Integrated** | **System Version** | All Component Versions that deploy together as one operational unit | Integration verification within the System boundary: APIs, events, data consistency across Components | Build + Run + SRE ("deploy Payments System v3.1") |
 | **Complete** | **Product Version** | All System Versions that constitute the product release | Certification: end-to-end tests, compliance, cross-System compatibility | Ubiquitous language — Product, Win, customers, auditors ("customer X runs Product v3.2") |
 
-**Component** (Dim 5) is the atomic build and artifact unit — what CI/CD produces and tags. **System** (Dim 5) is the operational deployment boundary — what SRE versions and applies as a whole. **Product** (Dim 8) is the commercial and customer-facing whole.
+**Component** (Technical) is the atomic build and artifact unit — what CI/CD produces and tags. **System** (Technical) is the operational deployment boundary — what SRE versions and applies as a whole. **Product** (Structural) is the commercial and customer-facing whole.
 
 ### Why There Is No Module Version
 
-**Module** (Dim 8) is a **functional and commercial boundary** — what the product *does* for customers ("Payments Module," "Compliance Module"). It is not an operational deployment boundary.
+**Module** (Structural) is a **functional and commercial boundary** — what the product *does* for customers ("Payments Module," "Compliance Module"). It is not an operational deployment boundary.
 
 A Module may be realized by **multiple Systems** (many-to-many). Deploying "the Payments Module" in production is not a single atomic act — SRE deploys **Systems** (each with its own System Version), not Modules. Versioning at the Module tier would imply a deployable artifact that does not exist in operations: there is no single "Module deployment" independent of the Systems that realize it.
 
@@ -191,7 +191,7 @@ Treating Module as a versioning tier also duplicated System Version awkwardly af
 
 Modules remain essential in the Definition Model — for capabilities, entitlement, PSD structure, and Epic scoping — but **composition verification and deployment versioning align to System and Product**, not Module.
 
-| Concern | Module (Dim 8) | System (Dim 5) |
+| Concern | Module (Structural) | System (Technical) |
 |---|---|---|
 | Primary question | What business capability does this deliver? | What do we deploy and operate as one unit? |
 | Versioned artifact? | No | Yes (System Version) |
@@ -210,7 +210,7 @@ System Version and Product Version are not administrative checkpoints. They are 
 
 ### Operator-Facing Systems Without a Separate Version Tier
 
-Probes, reconcilers, dashboards, and automation are **ordinary Systems** in the Product Specification (Dim 5), distinguished by **Purpose / Serving Persona** — typically Operational Personas (Dim 7) rather than end-user Personas (Dim 4).
+Probes, reconcilers, dashboards, and automation are **ordinary Systems** in the Product Specification (Technical), distinguished by **Purpose / Serving Persona** — typically Operational Personas (Operational) rather than end-user Personas (User Experience).
 
 They are built through Run Track engineering (Run Epics, Run Stories) and produce **Component Versions** and **System Versions** like any other System. They are **included in System Version and Product Version** composition — not segregated into a parallel "Run Artifact" or "Module Package" layer (superseded by DR-036).
 

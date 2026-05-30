@@ -1,7 +1,7 @@
 # Component
 
 **Model:** Definition Model
-**Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)
+**Dimension:** Technical
 **Owner:** Tech Leads, Developers
 
 ## Definition
@@ -18,7 +18,7 @@ Captures the deployable composition of a System — which artifacts exist, how t
 - Capability-to-artifact tracing is missing — "which artifact implements Real-Time FX Rate Lock?"
 - Build Track System Version has no constituent artifact list
 
-Components are the units that CI/CD pipelines build and tag. Each Component is versioned as a **Component Version** (Track 2). Component Versions compose into their parent System's **System Version** — the System Version is the composed snapshot of all constituent Component Versions.
+Components are the units that CI/CD pipelines build and tag. Each Component is versioned as a **Component Version** (Build). Component Versions compose into their parent System's **System Version** — the System Version is the composed snapshot of all constituent Component Versions.
 
 ## Fields
 
@@ -26,11 +26,11 @@ Components are the units that CI/CD pipelines build and tag. Each Component is v
 |---|---|---|
 | Name | String | Component name — lowercase kebab-case artifact identifier (e.g., "payments-service," "fx-engine," "portal-web-app") |
 | Archetype | Enum | Deployment artifact type — see Component Archetypes below |
-| Parent System | Reference (Dim 5) | The System this Component belongs to |
+| Parent System | Reference (Technical) | The System this Component belongs to |
 | Tech Stack | String | Technology stack (e.g., "Java 21 / Spring Boot 3.2," "TypeScript / React") — specify when different from parent System |
 | Repository Reference | String | Source code repository identifier (e.g., GitHub org/repo) |
 | Artifact Reference | String | Container registry / package registry path (e.g., "ghcr.io/org/payments-service") |
-| Capability Mapping | List of References (Dim 8) | Which Dim 8 Capabilities this Component implements or contributes to (Architect-defined) |
+| Capability Mapping | List of References (Structural) | Which Structural Capabilities this Component implements or contributes to (Architect-defined) |
 
 ## Component Archetypes
 
@@ -53,15 +53,15 @@ _Inherits from parent System — Components do not have an independent lifecycle
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | System (Dim 5) | Component is contained by a System |
-| Maps to | Capability(ies) (Dim 8) | Component implements or contributes to specific Capabilities (Architect-defined) |
-| Decisions | ADR(s) (Dim 5) | Architectural decisions affecting this Component are recorded as ADRs |
-| Versioned as | Component Version (Track 2) | Build Track produces versioned, quality-gated Component Versions per artifact |
-| Composes into | System Version (Track 2) | Component Versions from all Components in a System compose that System's System Version |
+| Belongs to | System (Technical) | Component is contained by a System |
+| Maps to | Capability(ies) (Structural) | Component implements or contributes to specific Capabilities (Architect-defined) |
+| Decisions | ADR(s) (Technical) | Architectural decisions affecting this Component are recorded as ADRs |
+| Versioned as | Component Version (Build) | Build Track produces versioned, quality-gated Component Versions per artifact |
+| Composes into | System Version (Build) | Component Versions from all Components in a System compose that System's System Version |
 
 ## Examples
 
-| Component | Archetype | Parent System | Tech Stack | Maps to (Dim 8 Capability) |
+| Component | Archetype | Parent System | Tech Stack | Maps to (Structural Capability) |
 |---|---|---|---|---|
 | payments-service | API Service | payments-system | Java 21 / Spring Boot 3.2 | Cross-Border B2B Payments, Domestic Payment Initiation |
 | payment-reconciler | Batch Job | payments-system | Python 3.12 | Settlement Reconciliation |

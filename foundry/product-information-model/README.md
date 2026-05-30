@@ -67,15 +67,15 @@ The Definition Model describes **what the product is** — its complete structur
 
 | Tier | Dimensions | What it covers |
 |---|---|---|
-| **Strategy & Intent** | Dim 1: Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), Customer Release Intents, signals, ideas, decisions, Product Intents, specifications |
-| **Business & Market** | Dim 2: Vendor Value (Why It Wins) | Win stakeholders, win outcomes (with achievement levers), delivery friction, business model (with lever portfolio), pricing tiers, value metrics, business KPIs, win barriers — across AAARRR lifecycle |
-| | Dim 3: Customer Value | Customer segments, buying personas, outcomes, pains, promises, metrics, barriers |
-| **Technical Execution** | Dim 4: User-Centric (Experience) | User personas, jobs (JTBD), UX channels (modality × engagement mode), user journeys. Touchpoints deprecated to work artifacts. |
-| | Dim 5: Technical & Architectural | Architecture model, systems (many-to-many with Dim 8 modules), components, dependencies, interaction flows, architecture decision records (ADR), technical knowledge base. Technical counterpart to Dim 8's functional view. See DR-024. |
-| | Dim 6: Ecosystem & Extensibility | Developer personas, programmatic user personas, API/Integration/Extension/SDK modules, API operations (Command/Query/Event/Callback/Batch with SLOs), API compatibility contracts. Deliberate extensibility strategy, not incidental APIs. Integration Modules also serve Operational Personas (DR-023). |
-| | Dim 7: Operational (Runtime & DevOps) | Infrastructure model, operational personas (quality-taxonomy archetypes), operational jobs, operational journeys, deployment environments, operational targets (SLOs with achievement levers), operational constraints, operational pains, operational readiness, operations decision records (ODR). Completes the PDR/ADR/ODR decision record triad. See DR-023, DR-025. |
-| **Bridge (Taxonomy)** | Dim 8: Structural (Topology) | Products, modules, capabilities, features, value streams |
-| | Dim 9: Data & Information | Data domains, entities, attributes, states |
+| **Strategy & Intent** | Strategy | Portfolio context, strategic themes, objectives, initiatives (with lever mix and embedded targets), Customer Release Intents, signals, ideas, decisions, Product Intents, specifications |
+| **Business & Market** | Vendor Value | Win stakeholders, win outcomes (with achievement levers), delivery friction, business model (with lever portfolio), pricing tiers, value metrics, business KPIs, win barriers — across AAARRR lifecycle |
+| | Customer Value | Customer segments, buying personas, outcomes, pains, promises, metrics, barriers |
+| **Technical Execution** | User Experience | User personas, jobs (JTBD), UX channels (modality × engagement mode), user journeys. Touchpoints deprecated to work artifacts. |
+| | Technical | Architecture model, systems (many-to-many with Structural modules), components, dependencies, interaction flows, architecture decision records (ADR), technical knowledge base. Technical counterpart to Structural's functional view. See DR-024. |
+| | Ecosystem | Developer personas, programmatic user personas, API/Integration/Extension/SDK modules, API operations (Command/Query/Event/Callback/Batch with SLOs), API compatibility contracts. Deliberate extensibility strategy, not incidental APIs. Integration Modules also serve Operational Personas (DR-023). |
+| | Operational | Infrastructure model, operational personas (quality-taxonomy archetypes), operational jobs, operational journeys, deployment environments, operational targets (SLOs with achievement levers), operational constraints, operational pains, operational readiness, operations decision records (ODR). Completes the PDR/ADR/ODR decision record triad. See DR-023, DR-025. |
+| **Bridge (Taxonomy)** | Structural | Products, modules, capabilities, features, value streams |
+| | Data | Data domains, entities, attributes, states |
 
 **Reference document:** `draft-definition-model.md`
 
@@ -87,12 +87,12 @@ The Work Model describes **what work exists** — the entities, artifacts, and s
 
 | Track | Goal | Primary Owner | Key Entities |
 |---|---|---|---|
-| **Track 1: Discovery** (Learning) | Set strategic direction, open Discovery Cases, explore signals/questions, validate ideas, create Product Intent, refine intent into specifications | Cross-functional; Product Management owns product alignment | Objective Setting Task, Discovery Case, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, Signal Monitoring |
-| **Track 2: Build** (Construction) | Plan releases, decompose PSDs into Module-scoped Epics and System-scoped Tasks, produce three-tier versioned artifacts (Component → System → Product) | Tech Lead, Developers, QA | Epic, Story, Technical Task, Bug, Integration Epic, Integration Story, Design Deliberation, Component Version, System Version, Product Version, Technical Debt Item, Build Monitoring |
-| **Track 3: Run** (Stability) | Plan deployments, manage tenants, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, Tenant, System Monitoring, System Deployment Specification, Product Deployment Specification |
-| **Track 4: Win** (Value Realization) | Plan, equip, execute, respond, assess, monitor across AAARRR lifecycle to achieve Win Outcomes | Customer Success, Product Marketing, Sales, Support | Win Planning (5 subtypes), Win Enablement (4 subtypes), Win Activity (7 subtypes), Win Case, Win Review → Feedback, Win Monitoring |
-| **Track 5: Evolve** (Process Evolution) | Assess, define, and refine Work Model and Operating Model — entity definitions, artifact types, DoD criteria, guidance structures | Process Leads, Product Ops, Engineering Managers | Evolve Planning, Evolve Review → Evolve Findings, Evolve Definition Task, Evolve Monitoring |
-| **Track 6: Governance** (ACE extension) | Execute governance rituals and policy enforcement; produce findings, decisions, evidence, register entries, action items, and recognitions | Governance, Product Ops, Engineering Managers, Compliance, Security | Governance Ritual, Governance Enforcement |
+| **Discovery** | Set strategic direction, open Discovery Cases, explore signals/questions, validate ideas, create Product Intent, refine intent into specifications | Cross-functional; Product Management owns product alignment | Objective Setting Task, Discovery Case, Signal Exploration Task, Deliberation, Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, Signal Monitoring |
+| **Build** | Plan releases, decompose PSDs into Module-scoped Epics and System-scoped Tasks, produce three-tier versioned artifacts (Component → System → Product) | Tech Lead, Developers, QA | Epic, Story, Technical Task, Bug, Integration Epic, Integration Story, Design Deliberation, Component Version, System Version, Product Version, Technical Debt Item, Build Monitoring |
+| **Run** | Plan deployments, manage tenants, maintain SLA/uptime | DevOps, SRE | Deployment, Incident, Change Request, Maintenance Task, Tenant, System Monitoring, System Deployment Specification, Product Deployment Specification |
+| **Win** | Plan, equip, execute, respond, assess, monitor across AAARRR lifecycle to achieve Win Outcomes | Customer Success, Product Marketing, Sales, Support | Win Planning (5 subtypes), Win Enablement (4 subtypes), Win Activity (7 subtypes), Win Case, Win Review → Feedback, Win Monitoring |
+| **Evolve** | Assess, define, and refine Work Model and Operating Model — entity definitions, artifact types, DoD criteria, guidance structures | Process Leads, Product Ops, Engineering Managers | Evolve Planning, Evolve Review → Evolve Findings, Evolve Definition Task, Evolve Monitoring |
+| **Governance** (ACE extension) | Execute governance rituals and policy enforcement; produce findings, decisions, evidence, register entries, action items, and recognitions | Governance, Product Ops, Engineering Managers, Compliance, Security | Governance Ritual, Governance Enforcement |
 
 **Reference document:** `draft-work-model.md`
 **Execution framework:** `draft-work-execution-framework.md` — artifacts, artifact type catalog with assessment criteria, definition of done, and guidance patterns for all work entities
@@ -110,7 +110,7 @@ The Operating Model describes **how the organization executes** — the coordina
 
 These facets are **co-designed** — every coordination choice implies organizational requirements, and every organizational reality constrains coordination options. They are not layered; they are entangled.
 
-> **Status:** The Operating Model's internal structure (subdivision terminology, entity catalog) will emerge from the modeling work. The Definition Model has 9 Dimensions and the Work Model has 5 Tracks — the Operating Model's organizational pattern will earn its name when we build it out. Track 5 (Evolve) is the structural bridge between the Work Model and Operating Model — it is the only track whose outputs directly modify both models.
+> **Status:** The Operating Model's internal structure (subdivision terminology, entity catalog) will emerge from the modeling work. The Definition Model has 9 Dimensions and the Work Model has 5 Tracks — the Operating Model's organizational pattern will earn its name when we build it out. Evolve is the structural bridge between the Work Model and Operating Model — it is the only track whose outputs directly modify both models.
 
 ---
 
@@ -128,18 +128,18 @@ product-information-model/
 ├── entities/                         ← One file per entity (canonical detail)
 │   ├── README.md                     ← Entity catalog structure and conventions
 │   ├── definition-model/             ← Entities from the 9 Dimensions
-│   │   ├── dim1-*.md                 ← Strategy Dimension entities
-│   │   ├── dim2-*.md                 ← Vendor Value (Why It Wins) entities
+│   │   ├── dim1-*.md                 ← Strategy entities
+│   │   ├── dim2-*.md                 ← Vendor Value entities
 │   │   ├── dim3-*.md                 ← Customer Value entities
 │   │   ├── dim4-*.md through dim9-*.md
 │   │   └── psd-templates/            ← PSD templates by module archetype
 │   └── work-model/                   ← Entities from the 5 Tracks
-│       ├── track1-*.md               ← Discovery Track entities
-│       ├── track2-*.md               ← Build Track entities
-│       ├── track3-*.md               ← Run Track entities
-│       ├── track4-*.md               ← Win Track entities
-│       ├── track5-*.md               ← Evolve Track entities
-│       └── track6-*.md               ← Governance Track entities (ACE extension)
+│       ├── track1-*.md               ← Discovery entities
+│       ├── track2-*.md               ← Build entities
+│       ├── track3-*.md               ← Run entities
+│       ├── track4-*.md               ← Win entities
+│       ├── track5-*.md               ← Evolve entities
+│       └── track6-*.md               ← Governance entities (ACE extension)
 └── decisions/                        ← Decision records (ADR format)
     ├── README.md                     ← Decision record index
     └── DR-*.md                       ← Individual decision records
@@ -165,7 +165,7 @@ product-information-model/
 
 8. **Operating Model deferred, not omitted.** Coordination and organizational design are explicitly scoped out of the Work Model — they belong to the Operating Model, which will be developed separately.
 
-9. **Self-evolving model.** The Work Model explicitly accounts for its own evolution through Track 5: Evolve. A model that cannot evolve is dead. Track 5 is the only track whose outputs directly modify both the Work Model and the Operating Model. (See FAQ Q62, DR-022.)
+9. **Self-evolving model.** The Work Model explicitly accounts for its own evolution through Evolve. A model that cannot evolve is dead. Track 5 is the only track whose outputs directly modify both the Work Model and the Operating Model. (See FAQ Q62, DR-022.)
 
 ---
 

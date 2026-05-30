@@ -1,12 +1,12 @@
 # Evolve Review
 
 **Model:** Work Model
-**Track:** Track 5: Evolve (Process Evolution)
+**Track:** Evolve
 **Owner:** Process Leads, Product Ops, Engineering Managers
 
 ## Definition
 
-Evolve Review is a structured assessment of current process effectiveness, artifact quality, and guidance adequacy across one or more tracks. It is the Evolve Track's equivalent of Win Review (Track 4) and Deliberation (Track 1) — a collaborative, judgment-based assessment that produces structured findings.
+Evolve Review is a structured assessment of current process effectiveness, artifact quality, and guidance adequacy across one or more tracks. It is the Evolve Track's equivalent of Win Review (Win) and Deliberation (Discovery) — a collaborative, judgment-based assessment that produces structured findings.
 
 ## Purpose
 
@@ -46,9 +46,9 @@ Tracks 1–4 produce work and artifacts but do not systematically assess whether
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scoped by | Evolve Planning (Track 5) | Planning cycle defines which reviews to conduct |
-| Produces | Evolve Findings (Track 5) | Structured observations, gaps, and recommendations |
-| Informed by | Evolve Monitoring (Track 5) | Monitoring data provides quantitative evidence |
+| Scoped by | Evolve Planning (Evolve) | Planning cycle defines which reviews to conduct |
+| Produces | Evolve Findings (Evolve) | Structured observations, gaps, and recommendations |
+| Informed by | Evolve Monitoring (Evolve) | Monitoring data provides quantitative evidence |
 | Assesses | Work entities (Tracks 1–5) | Reviews assess entity definitions, usage patterns, and effectiveness |
 | Assesses | Artifact types (all tracks) | Reviews assess artifact quality against assessment criteria |
 

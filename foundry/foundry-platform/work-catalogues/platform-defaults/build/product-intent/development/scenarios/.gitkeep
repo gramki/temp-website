@@ -1,0 +1,9 @@
+# Placeholder for Development workspace scenarios
+# 
+# Platform-default scenarios for this workspace will be added here.
+# Expected scenarios:
+#   - implement-product-specification.yaml (scope: workspace-ingress)
+#   - implement-bugfix.yaml (scope: workspace-ingress)
+#   - review-code.yaml (scope: workspace-internal)
+#
+# Organizations can override these at Foundry/Workshop/Workbench levels.

@@ -94,9 +94,11 @@ The IDE is the human's entry surface into a Workspace. ACE treats each Workspace
 
 ### Scenarios and Tasks
 
-A **Scenario** is a well-defined situation a Workspace is set up to handle. When a scenario triggers, it creates one or more **Tasks**. Tasks are the unit of work completed by the Human–Agent Team.
+A **Scenario** is a well-defined situation a Workspace is set up to handle — the **ingress contract** that defines what work a Workspace accepts. When a scenario triggers, it creates one or more **Tasks**. Tasks are the unit of work completed by the Human–Agent Team.
 
 Scenarios are not free-form prompts. They are defined entities, with inputs, expected outcomes, and the workspace they belong to. The Foundry Platform engineers scenario and task management explicitly. Source: [../foundry-platform/platform.TODO](../foundry-platform/platform.TODO) line 17.
+
+> **Scenario scope.** Scenarios have a **scope** attribute that determines their visibility: `workspace-ingress` Scenarios are externally invocable (by the Orchestrator or cross-Workspace handoffs) and form the Workspace's public contract; `workspace-internal` Scenarios are invocable only by Tasks within the same Workspace. See [../foundry-platform/work-catalogues/README.md](../foundry-platform/work-catalogues/README.md) for the full explanation of Work Catalogues and scope semantics.
 
 ## Repositories
 

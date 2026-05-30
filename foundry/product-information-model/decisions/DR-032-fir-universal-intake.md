@@ -5,7 +5,7 @@
 
 ## Context
 
-The UPIM Work Model has multiple reactive/responsive entities across tracks — Win Case (Track 4), Incident (Track 3), Bug (Track 2), Signal (Dim 1) — that can all originate from product-in-operation feedback. Without a universal intake mechanism, the same customer report may create disconnected work items across tracks with no common parent, no consistent triage process, and incomplete traceability from initial report to resolution.
+The UPIM Work Model has multiple reactive/responsive entities across tracks — Win Case (Win), Incident (Run), Bug (Build), Signal (Strategy) — that can all originate from product-in-operation feedback. Without a universal intake mechanism, the same customer report may create disconnected work items across tracks with no common parent, no consistent triage process, and incomplete traceability from initial report to resolution.
 
 ITSM frameworks establish the principle of a "single point of contact" for all service interactions. The UPIM needed an equivalent pattern that works across all tracks, not just the Run Track.
 
