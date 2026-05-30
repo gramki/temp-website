@@ -1,0 +1,7 @@
+# Placeholder for Product Specification workspace scenarios
+# 
+# Platform-default scenarios for this workspace will be added here.
+# Expected scenarios:
+#   - create-product-specification.yaml
+#
+# Organizations can override these at Foundry/Workshop/Workbench levels.

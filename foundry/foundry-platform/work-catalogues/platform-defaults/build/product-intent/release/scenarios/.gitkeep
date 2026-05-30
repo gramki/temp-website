@@ -1,0 +1,9 @@
+# Placeholder for Release workspace scenarios
+# 
+# Platform-default scenarios for this workspace will be added here.
+# Expected scenarios:
+#   - accept-completed-product-intent.yaml (scope: workspace-ingress)
+#   - prepare-customer-release.yaml (scope: workspace-ingress)
+#   - generate-release-notes.yaml (scope: workspace-internal)
+#
+# Organizations can override these at Foundry/Workshop/Workbench levels.

@@ -1,0 +1,416 @@
+# Product Intent Workflow
+#
+# This workflow defines the complete lifecycle of a Product Intent (PI)
+# from creation to release. It demonstrates:
+#   - Manual approval gates
+#   - Release Intent milestone triggers
+#   - WO Groups for parallel execution
+#   - Governance invocation at transitions
+#   - Timeout handling
+#
+# Stages:
+#   start → draft-ready → ready-for-specification → in-specification →
+#   specified → in-development → in-qa → ready-for-release → released → end
+
+orchestration-item: product-intent
+version: "1.0"
+
+stages:
+  # ─────────────────────────────────────────────────────────────────────────
+  # START
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: start
+    handlers:
+      - when:
+          event: orchestration-item-created
+        then:
+          - action: transition-orchestration-item
+            params:
+              to-stage: draft-ready
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # DRAFT READY
+  # PI draft has been submitted. Awaits manual review and approval.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: draft-ready
+    timeout: 14d
+    on-enter:
+      - action: create-user-task
+        params:
+          task-label: draft-approval
+          title: "Review and approve PI: ${orchestration-item.title}"
+          description: |
+            A new Product Intent has been submitted for review.
+            
+            PI ID: ${orchestration-item.id}
+            Author: ${orchestration-item.author}
+            
+            Please review the PI draft and approve if ready for specification.
+          assignee: role:product-owner
+      - action: notify
+        params:
+          channel: product-owners
+          template: pi-draft-submitted
+    handlers:
+      # Manual approval completes - transition to ready for specification
+      - when:
+          event: user-task-completed
+          params:
+            task-label: draft-approval
+        then:
+          - action: transition-orchestration-item
+            params:
+              to-stage: ready-for-specification
+
+      # Timeout - escalate to workbench manager
+      - when:
+          event: work-order-timeout
+        then:
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: pi-draft-stalled
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # READY FOR SPECIFICATION
+  # PI is approved, waiting for Release Intent milestone to trigger work.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: ready-for-specification
+    timeout: 90d
+    on-enter:
+      - action: notify
+        params:
+          channel: author
+          template: pi-ready-for-specification
+    handlers:
+      # Release Intent milestone triggers specification work
+      - when:
+          event: release-intent-milestone-reached
+          params:
+            milestone: product-specification-development-start
+        then:
+          - action: create-work-order
+            params:
+              wo-label: spec-wo
+              workspace: product-specification
+              scenario: create-product-specification
+              assignee: auto
+              priority: normal
+          - action: transition-orchestration-item
+            params:
+              to-stage: in-specification
+
+      # Long wait - notify stakeholders
+      - when:
+          event: work-order-timeout
+        then:
+          - action: notify
+            params:
+              channel: program-managers
+              template: pi-awaiting-release-intent
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # IN SPECIFICATION
+  # Product specification work in progress.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: in-specification
+    timeout: 21d
+    on-enter:
+      - action: notify
+        params:
+          channel: author
+          template: pi-specification-started
+    handlers:
+      # Specification completed successfully
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: spec-wo
+            status: success
+        then:
+          - action: invoke-governance-scenario
+            params:
+              scenario: product-specification-review
+              on-reject: soft-block
+          - action: transition-orchestration-item
+            params:
+              to-stage: specified
+
+      # Specification WO failed or abandoned
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: spec-wo
+            status: failed
+        then:
+          - action: create-user-task
+            params:
+              task-label: spec-failure-review
+              title: "Specification failed for PI: ${orchestration-item.title}"
+              assignee: role:product-owner
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: pi-specification-failed
+
+      # Timeout
+      - when:
+          event: work-order-timeout
+          params:
+            wo-label: spec-wo
+        then:
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: wo-stalled
+          - action: create-user-task
+            params:
+              task-label: spec-escalation
+              title: "Specification WO stalled for PI: ${orchestration-item.id}"
+              assignee: workbench-queue
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # SPECIFIED
+  # Specification complete. Trigger parallel Development and QA prep work.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: specified
+    on-enter:
+      - action: notify
+        params:
+          channel: dev-team
+          template: pi-ready-for-development
+      - action: create-work-order-group
+        params:
+          group-label: dev-and-qa-prep
+          work-orders:
+            - wo-label: dev-wo
+              workspace: development
+              scenario: implement-product-specification
+              priority: normal
+            - wo-label: qa-prep-wo
+              workspace: qa
+              scenario: prepare-test-suite-for-product-specification
+              priority: normal
+    handlers:
+      # Both development and QA prep completed
+      - when:
+          event: work-order-group-completed
+          params:
+            group-label: dev-and-qa-prep
+            status: completed
+        then:
+          - action: invoke-governance-scenario
+            params:
+              scenario: test-plan-review
+              on-reject: soft-block
+          - action: transition-orchestration-item
+            params:
+              to-stage: in-qa
+
+      # WO group partially completed (some failed)
+      - when:
+          event: work-order-group-completed
+          params:
+            group-label: dev-and-qa-prep
+            status: partial
+        then:
+          - action: create-user-task
+            params:
+              task-label: dev-qa-partial-review
+              title: "Dev/QA prep partially failed for PI: ${orchestration-item.id}"
+              assignee: workbench-queue
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: wo-group-partial
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # IN QA
+  # Development complete. QA executes tests against the built feature.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: in-qa
+    timeout: 14d
+    on-enter:
+      - action: notify
+        params:
+          channel: qa-team
+          template: pi-ready-for-qa
+      - action: create-work-order
+        params:
+          wo-label: qa-test-wo
+          workspace: qa
+          scenario: test-developed-feature
+          priority: normal
+    handlers:
+      # QA passed
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: qa-test-wo
+            status: success
+        then:
+          - action: invoke-governance-scenario
+            params:
+              scenario: test-coverage-review
+              on-reject: soft-block
+          - action: transition-orchestration-item
+            params:
+              to-stage: ready-for-release
+
+      # QA failed - route back for fixes
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: qa-test-wo
+            status: failed
+        then:
+          - action: create-work-order
+            params:
+              wo-label: qa-fix-wo
+              workspace: development
+              scenario: implement-product-specification
+              priority: high
+          - action: notify
+            params:
+              channel: dev-team
+              template: qa-failed-needs-fix
+
+      # QA fix completed - retry QA
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: qa-fix-wo
+            status: success
+        then:
+          - action: create-work-order
+            params:
+              wo-label: qa-retest-wo
+              workspace: qa
+              scenario: test-developed-feature
+              priority: high
+
+      # QA retest passed
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: qa-retest-wo
+            status: success
+        then:
+          - action: invoke-governance-scenario
+            params:
+              scenario: test-coverage-review
+              on-reject: soft-block
+          - action: transition-orchestration-item
+            params:
+              to-stage: ready-for-release
+
+      # Timeout
+      - when:
+          event: work-order-timeout
+          params:
+            wo-label: qa-test-wo
+        then:
+          - action: notify
+            params:
+              channel: qa-managers
+              template: qa-stalled
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # READY FOR RELEASE
+  # QA passed. Release team accepts and prepares customer release.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: ready-for-release
+    timeout: 7d
+    on-enter:
+      - action: notify
+        params:
+          channel: release-team
+          template: pi-ready-for-release
+      - action: create-work-order
+        params:
+          wo-label: accept-wo
+          workspace: release
+          scenario: accept-completed-product-intent
+          priority: normal
+    handlers:
+      # Acceptance completed - create release WO
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: accept-wo
+            status: success
+        then:
+          - action: create-work-order
+            params:
+              wo-label: release-wo
+              workspace: release
+              scenario: prepare-customer-release
+              priority: normal
+
+      # Acceptance rejected - route back
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: accept-wo
+            status: failed
+        then:
+          - action: create-user-task
+            params:
+              task-label: acceptance-failure-review
+              title: "PI acceptance failed: ${orchestration-item.id}"
+              assignee: workbench-queue
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: pi-acceptance-rejected
+
+      # Release preparation completed
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: release-wo
+            status: success
+        then:
+          - action: invoke-governance-scenario
+            params:
+              scenario: customer-release-package-review
+              on-reject: hard-block
+          - action: transition-orchestration-item
+            params:
+              to-stage: released
+
+      # Timeout
+      - when:
+          event: work-order-timeout
+          params:
+            wo-label: release-wo
+        then:
+          - action: notify
+            params:
+              channel: release-managers
+              template: release-stalled
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # RELEASED
+  # PI has been released to customers. Transition to end.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: released
+    on-enter:
+      - action: notify
+        params:
+          channel: workbench-managers
+          template: pi-released
+      - action: notify
+        params:
+          channel: author
+          template: pi-released-to-author
+      - action: transition-orchestration-item
+        params:
+          to-stage: end
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # END
+  # Terminal stage. No handlers. PI lifecycle complete.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: end
+    # Terminal stage - no handlers needed

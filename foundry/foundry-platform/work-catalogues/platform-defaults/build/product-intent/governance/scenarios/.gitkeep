@@ -1,0 +1,11 @@
+# Placeholder for Governance workspace scenarios
+# 
+# Platform-default governance scenarios for Product Intent workflow.
+# Expected scenarios:
+#   - product-specification-review.yaml
+#   - test-plan-review.yaml
+#   - test-coverage-review.yaml
+#   - customer-release-package-review.yaml
+#
+# These are invoked at workflow transitions via invoke-governance-scenario action.
+# Organizations can override these at Foundry/Workshop/Workbench levels.

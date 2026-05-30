@@ -1,0 +1,9 @@
+# Placeholder for QA workspace scenarios
+# 
+# Platform-default scenarios for this workspace will be added here.
+# Expected scenarios:
+#   - prepare-test-suite-for-product-specification.yaml (scope: workspace-ingress)
+#   - test-developed-feature.yaml (scope: workspace-ingress)
+#   - run-regression-tests.yaml (scope: workspace-internal)
+#
+# Organizations can override these at Foundry/Workshop/Workbench levels.
