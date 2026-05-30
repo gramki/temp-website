@@ -1,38 +1,38 @@
 # Workspace Session
 
-A Workspace Session is an ephemeral development environment — a Coder-based container where humans and agents work together on Tasks, with full IDE access, installed Skills, and repository bindings.
+A Workspace Session is an ephemeral development environment — a Kubernetes pod (Coder workspace) where humans and agents work together on Tasks, with full IDE access, installed Skills, and repository bindings.
 
 ## What it is
 
 Workspace Sessions are the runtime environments where Work Orders actually execute. They provide:
 
-- **Coder-based containers** — Similar to GitHub Codespaces, with consistent tooling
-- **IDE access** — VS Code with workspace-specific views and extensions
+- **Kubernetes pods** — Coder workspace on a Foundry-admin-provided cluster
+- **IDE access** — VS Code (Code Server) with workspace-specific views and extensions
 - **Repository bindings** — Access to relevant Workshop repositories
 - **Skill injection** — Skills installed from registries at session start
 - **Agent processes** — Employed Agents spawned within the session
-- **WO Runtime daemon** — Polls for work, manages Tasks, reports completion
+- **WO Runtime daemon** — In-session worker; polls for work, manages Tasks, reports completion
 
 Key characteristics:
 
 | Aspect | Detail |
 |--------|--------|
-| **Technology** | Coder (ephemeral dev environments) |
+| **Technology** | Coder on Kubernetes (single container: Code Server + WO Runtime) |
 | **Template** | Per (Workspace Type, Workbench) — from `.devcontainer/` in Workshop repo |
 | **Ownership** | Owned by one person (not shared) |
 | **WO relationship** | Multiple Work Orders can attach to one Session |
-| **Lifecycle** | User explicitly closes; states: Active, Stopped, Archived |
+| **Lifecycle** | Managed by Session Management: Created → Starting → Active → Stopping → Stopped → Archived |
 
 Sessions are **user-owned** — each session belongs to a single human practitioner. Multiple Work Orders from the same Workbench can be attached to one session, allowing a developer to work on several features simultaneously.
 
-The WO Runtime daemon runs inside each session:
+The WO Runtime daemon runs inside each session pod:
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────┐
-│                        Workspace Session (Coder)                          │
+│                   Workspace Session Pod (K8s / Coder)                     │
 │                                                                           │
 │  ┌─────────────────────────────────────────────────────────────────────┐ │
-│  │                      WO Runtime Daemon                               │ │
+│  │  workspace container (Code Server + WO Runtime via process supervisor)│ │
 │  │  Jira Poller → Task Manager → Agent Spawner → Completion Reporter   │ │
 │  └─────────────────────────────────────────────────────────────────────┘ │
 │                                                                           │
@@ -43,21 +43,26 @@ The WO Runtime daemon runs inside each session:
 └───────────────────────────────────────────────────────────────────────────┘
 ```
 
-Sessions are activated when Work Orders are assigned. Depending on user configuration, assignment can automatically activate a session or wait for manual activation.
+Sessions become Active when WO Runtime acknowledges liveness to Session Management after the pod is provisioned. Orchestrator queries or creates sessions and assigns Work Orders; WO Runtime discovers assignments independently.
 
 ## Where it lives in Foundry
 
 | Module | Responsibility |
 |--------|----------------|
-| **WO Runtime** | Creates sessions, runs daemon, manages lifecycle |
+| **Session Infrastructure** | K8s provisioning, container images, networking, URL generation |
+| **Session Management** | Lifecycle control plane, state tracking, session events |
+| **WO Runtime** | In-session worker; liveness ack, task execution, agent spawning |
+| **IDE** | User interface within the session; Work Orders panel, agent chat tabs |
+| **Orchestrator** | Queries/creates sessions; assigns Work Orders (does not execute) |
 | **Agent Fabric** | Provides Skills installed at session start |
-| **IDE** | User interface; Work Orders panel, agent chat tabs |
-| **Coder** | Underlying container infrastructure |
-| **Orchestrator** | Triggers session activation on WO assignment |
 
-Session templates are defined in Workshop Definition Repositories:
+Session templates and admin overlays are defined in Foundry and Workshop Definition Repositories:
 
 ```
+foundry-{id}/
+└── workspace-infrastructure/
+    └── {workspace-type}/          # Foundry admin Layer 3 overlay
+
 workshop-{id}/
 └── workbenches/
     └── {product-code}/
@@ -89,7 +94,8 @@ Sessions operationalize this by providing workspace-specific views, plugins, and
 
 ## Further reading
 
-- [../work-order-runtime/README.md](../work-order-runtime/README.md) — Session management and daemon
-- [../work-order-runtime/platform-developer-guide/requirements.md](../work-order-runtime/platform-developer-guide/requirements.md) — Session requirements
+- [../workspace-session-infrastructure/README.md](../workspace-session-infrastructure/README.md) — Pod provisioning and images
+- [../workspace-session-management/README.md](../workspace-session-management/README.md) — Session lifecycle control plane
+- [../work-order-runtime/README.md](../work-order-runtime/README.md) — In-session execution and management-plane agent
 - [../ide/README.md](../ide/README.md) — IDE integration
 - [../../ace/concepts.md#ide](../../ace/concepts.md#ide) — ACE IDE definition

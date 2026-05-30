@@ -30,8 +30,10 @@ The platform decomposes into the following modules, each with its own folder. Se
 | **Foundry Management** | [management/](management/README.md) | Admin plane — Validation, configuration services, Work Catalog Management, Workbenches, repositories, teams, tenancy |
 | **Foundry IDE** | [ide/](ide/README.md) | Builder-facing interface — workspace-specific views |
 | **Agent Fabric** | [agent-fabric/](agent-fabric/README.md) | Agent infrastructure — Skill Registry, Capable Agents, quota, gateway policy |
-| **Work Order Runtime** | [work-order-runtime/](work-order-runtime/README.md) | Execution engine — context compilation, agent lifecycle for WO execution, agent delegation, human-task surfacing |
+| **Work Order Runtime** | [work-order-runtime/](work-order-runtime/README.md) | In-session execution — task management, agent spawning, management-plane agent |
 | **Foundry Orchestrator** | [orchestrator/](orchestrator/README.md) | Coordination — route orchestration items per Track, create Workspace Work Orders, invoke Governance Scenarios, enforce gates |
+| **Workspace Session Infrastructure** | [workspace-session-infrastructure/](workspace-session-infrastructure/README.md) | Session runtime infra — K8s pod provisioning, container images, Coder integration, networking, multi-tenant isolation |
+| **Workspace Session Management** | [workspace-session-management/](workspace-session-management/README.md) | Session control plane — lifecycle, state tracking, session events, URL registry |
 | **Release Tools** | [release-tools/](release-tools/README.md) | CI/CD pipelines with embedded agents, CD integrations, distribution stores |
 | **Foundry Web App** | [foundry-web-app/](foundry-web-app/README.md) | User-facing web interface for Foundry members and Foundry Admins |
 | **Platform Admin Web App** | [foundry-platform-admin-web-app/](foundry-platform-admin-web-app/README.md) | Super-admin interface for foundry-platform-admin users managing the entire platform |
@@ -56,6 +58,9 @@ These folders contain reference content (not platform code):
 - **Configuration flows through Metadata Service.** Consumers query Management, not git directly.
 - **Validation gates Foundry configuration.** The Validation module validates all Foundry-scope repos before merge; Release Tools CI handles product-repo build/test only — no cross-module dependency.
 - **Work Catalog Management is a subsystem of Management.** Schema, validation rules, resolution, and recommendations are in Management; conceptual docs, user guide, and platform defaults are in Work Catalogues.
+- **Sessions are Kubernetes pods.** Workspace Session Infrastructure spawns pods on a Foundry-admin-provided K8s cluster; URLs are generated via Coder's wildcard proxy.
+- **Session lifecycle is a control-plane concern.** Workspace Session Management owns lifecycle; WO Runtime is the in-session worker that acknowledges state transitions.
+- **Foundry admin provides cluster endpoints.** The platform does not provision Kubernetes clusters — it consumes them via Foundry settings.
 
 ### Legacy structure
 
