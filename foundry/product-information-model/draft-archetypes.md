@@ -8,7 +8,7 @@ A Product Archetype defines *what* is being sold, *who* is buying it, and *how* 
 
 To define a Product Archetype, we map it across three primary dimensions:
 
-#### Dimension 1: The Target Market (Audience Axis)
+#### Dimension 1: Target Market (Audience Axis)
 
 Who extracts the primary business value and who signs the check?
 
@@ -17,7 +17,7 @@ Who extracts the primary business value and who signs the check?
 * **B2B2C (Business-to-Business-to-Consumer):** A platform sold to a business, which uses it to serve its own consumers (e.g., Shopify, Stripe).
 * **Internal / Enterprise IT:** Built exclusively for employees. Focuses on operational cost reduction; no external sales mechanism.
 
-#### Dimension 2: The Delivery Model (Cloud Stack Axis)
+#### Dimension 2: Delivery Model (Cloud Stack Axis)
 
 How much of the operational burden does the vendor carry?
 
@@ -26,7 +26,7 @@ How much of the operational burden does the vendor carry?
 * **IaaS:** Vendor provides raw compute/storage/networking. Customer manages OS and above (e.g., AWS EC2).
 * **On-Premise / Self-Hosted:** Customer runs everything on their own infrastructure.
 
-#### Dimension 3: The Go-To-Market Strategy (Growth Axis)
+#### Dimension 3: Go-To-Market Strategy (Growth Axis)
 
 * **PLG (Product-Led Growth):** Product drives its own adoption through freemium, self-serve, viral loops (e.g., Slack, Notion).
 * **SLG (Sales-Led Growth):** Requires human sales intervention (e.g., Oracle ERP).
@@ -60,7 +60,7 @@ Classification is drawn from the **Twelve System Types** framework — a vocabul
 | `Innovation` | Hosts experimental or emerging capabilities not yet classified into a stable functional category. |
 | `Integration` | Bridges between systems or external partners — transformation, protocol adaptation, routing. |
 
-> **Note:** Module Functional Classification answers the PM's question: "what does this module do for the customer?" It does not prescribe technical implementation. A single Module may be realized by multiple Systems of multiple types. The technical deployment concerns are captured in Dim 5 (System, Component).
+> **Note:** Module Functional Classification answers the PM's question: "what does this module do for the customer?" It does not prescribe technical implementation. A single Module may be realized by multiple Systems of multiple types. The technical deployment concerns are captured in Technical (System, Component).
 
 **Example:** Core Payment Gateway modules:
 
@@ -93,7 +93,7 @@ Three templates are available. See `psd-templates/` for full template content.
 
 ### Part 4: Component Archetypes (Deployment Artifact Types)
 
-A Component Archetype classifies the deployment artifact type of a Dim 5 Component. See `dim5-component.md` for the full Component definition and examples.
+A Component Archetype classifies the deployment artifact type of a Technical Component. See `dim5-component.md` for the full Component definition and examples.
 
 | Archetype | Description |
 |---|---|

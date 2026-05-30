@@ -56,7 +56,7 @@ Not all artifacts pass through every state. A Component Version goes `Building �
 
 The five artifact categories above (Decision, Evidence, Specification, Delivery, Assessment) are top-level classifications. Within each category, specific **named artifact types** exist per track — each with a description and **assessment criteria** that define what a good instance of that artifact looks like.
 
-Assessment criteria serve two purposes: (1) they define quality expectations for artifact producers, and (2) they provide the evaluation basis for Evolve Reviews (Track 5) when assessing artifact quality across tracks.
+Assessment criteria serve two purposes: (1) they define quality expectations for artifact producers, and (2) they provide the evaluation basis for Evolve Reviews (Evolve) when assessing artifact quality across tracks.
 
 > **Scope note:** Assessment criteria below are initial/skeletal. They will be refined iteratively as each track is detailed through the Work Execution Framework phasing plan. Track 5 (Evolve) owns the work of refining these criteria over time.
 
@@ -65,8 +65,8 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 | Type | Track | Description | Assessment Criteria |
 |---|---|---|---|
 | PDR (Product Decision Record) | Discovery | Recorded product decision with context, rationale, consequences, and stakeholder acknowledgment | Alternatives considered and documented; consequences stated (positive and negative); all affected dimensions identified; stakeholders acknowledged |
-| ADR (Architecture Decision Record) | Discovery, Build | Recorded technical/architectural decision with context, decision, consequences (Dim 5 entity). May be triggered by PDR or independent. | Context describes forces at play; decision is specific and actionable; consequences include both positive and negative; affected Systems identified; quality attributes addressed stated |
-| ODR (Operations Decision Record) | Discovery, Run | Recorded operational/infrastructure decision with context, decision, consequences (Dim 7 entity). May be triggered by PDR, ADR, or independent. Scope: cloud provider/services, deployment strategy, data governance/archival, DR/BCP, compliance zones, capacity, cost optimization. | Context describes operational forces; decision is specific and actionable; consequences include both positive and negative; affected Environments and Systems identified; category classified; quality attributes addressed stated |
+| ADR (Architecture Decision Record) | Discovery, Build | Recorded technical/architectural decision with context, decision, consequences (Technical entity). May be triggered by PDR or independent. | Context describes forces at play; decision is specific and actionable; consequences include both positive and negative; affected Systems identified; quality attributes addressed stated |
+| ODR (Operations Decision Record) | Discovery, Run | Recorded operational/infrastructure decision with context, decision, consequences (Operational entity). May be triggered by PDR, ADR, or independent. Scope: cloud provider/services, deployment strategy, data governance/archival, DR/BCP, compliance zones, capacity, cost optimization. | Context describes operational forces; decision is specific and actionable; consequences include both positive and negative; affected Environments and Systems identified; category classified; quality attributes addressed stated |
 | Prioritization Rationale | Discovery | Ranked signal list with scoring methodology and association decisions | Scoring criteria transparent and consistently applied; all active Signals considered; association decisions justified against Initiative alignment |
 | Change Record | Run | Recorded production change with approval chain and verification | Approval chain complete; rollback plan documented; verification results recorded; compliance window respected |
 | Win/Loss Analysis Finding | Win | Post-deal decision analysis identifying contributing factors | Both win and loss factors identified; product vs. non-product attribution explicit; actionable patterns extracted; competitive intelligence captured |
@@ -80,7 +80,7 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 | Research Findings | Discovery | Data, interview summaries, and analysis for/against a hypothesis | Research question clearly stated; methodology appropriate; evidence directly addresses hypothesis; bias acknowledged |
 | Experiment Results | Discovery | Hypothesis, method, measurements, and pass/fail assessment | Pass/fail criteria defined before execution; sample size and duration justified; measurements reproducible; conclusions follow from data |
 | Prototype/Spike Findings | Discovery | Feasibility or desirability evidence from throwaway artifacts | Assumption tested is explicit; findings distinguish feasibility from desirability; limitations of prototype acknowledged |
-| Proposal/SOW | Win | Pre-sales proposal or statement of work for a prospect | Scope aligned to prospect's stated needs; pricing consistent with Pricing Tier (Dim 2); technical feasibility confirmed; timeline realistic |
+| Proposal/SOW | Win | Pre-sales proposal or statement of work for a prospect | Scope aligned to prospect's stated needs; pricing consistent with Pricing Tier (Vendor Value); technical feasibility confirmed; timeline realistic |
 | POC Results | Win | Proof-of-concept evaluation summary | Success criteria defined upfront; results measured against criteria; technical and business evaluation separated; next steps clear |
 | Monitoring Alert/Report | All | Threshold breach notification or periodic health dashboard | Alert condition clearly defined; data source identified; false positive rate acceptable; escalation path specified |
 | Evolve Findings | Evolve | Structured observations from process effectiveness, artifact quality, or guidance adequacy reviews | Finding type classified; severity justified with evidence; affected track(s) identified; recommendation actionable |
@@ -89,17 +89,17 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 
 | Type | Track | Description | Assessment Criteria |
 |---|---|---|---|
-| Objective Definition | Discovery | Strategic objective for a planning horizon (Dim 1 entity update) | Measurable; time-bound; aligned to Strategic Theme; achievable within planning horizon |
-| Initiative Definition | Discovery | Initiative scope with lever mix, targets, and Signal associations (Dim 1 entity update) | Lever mix totals 100%; embedded targets are measurable; associated Signals identified; cross-track implications stated |
-| PSD (Product Specification Document) | Discovery | Engineering specification for module changes | Cross-dimensional review completed; acceptance criteria testable; affected modules identified; Dim 6 contract implications addressed (if applicable) |
-| Definition Model Entity Update | Discovery | Evolution of entities in Dims 2–9 via Modeling Task | Entity fields complete; relationships bidirectionally consistent; examples provided; FAQ updated if design decision involved |
+| Objective Definition | Discovery | Strategic objective for a planning horizon (Strategy entity update) | Measurable; time-bound; aligned to Strategic Theme; achievable within planning horizon |
+| Initiative Definition | Discovery | Initiative scope with lever mix, targets, and Signal associations (Strategy entity update) | Lever mix totals 100%; embedded targets are measurable; associated Signals identified; cross-track implications stated |
+| PSD (Product Specification Document) | Discovery | Engineering specification for module changes | Cross-dimensional review completed; acceptance criteria testable; affected modules identified; Ecosystem contract implications addressed (if applicable) |
+| Definition Model Entity Update | Discovery | Evolution of entities in Dimensions 2–9 via Modeling Task | Entity fields complete; relationships bidirectionally consistent; examples provided; FAQ updated if design decision involved |
 | Release Plan | Build | Scope, timeline, milestones, team allocation, risk assessment | All included PSDs/Initiatives listed; milestone criteria defined; risks identified with mitigations; team capacity validated |
 | Milestone Definition | Build | Checkpoint criteria with entry/exit gates | Entry and exit criteria testable; dependencies identified; verification steps defined |
 | Iteration Plan | Build | Story/task assignments and capacity allocation | Capacity validated against team availability; stories sized; dependencies sequenced |
 | Deployment Runbook | Run | Environments, rollout strategy, rollback plan, verification steps | All target environments listed; rollback procedure tested; verification steps automated where possible; compliance windows noted |
 | Capacity Forecast | Run | Projected load, scaling requirements, infrastructure plan | Load projections based on Customer Release Intent scope; scaling triggers defined; cost implications stated |
 | Market Delivery Plan | Win | Segment sequencing, readiness criteria, coordination checklist | Segment sequencing justified; readiness criteria testable; coordination with Build/Run Track confirmed |
-| GTM Launch Plan | Win | Messaging, deliverables list, stakeholder enablement checklist | Messaging aligned to Customer Promise (Dim 3); all enablement assets identified; launch timeline synchronized with deployment |
+| GTM Launch Plan | Win | Messaging, deliverables list, stakeholder enablement checklist | Messaging aligned to Customer Promise (Customer Value); all enablement assets identified; launch timeline synchronized with deployment |
 | Enablement Program Plan | Win | Asset inventory, training schedule, competitive program scope | Asset gaps identified; training schedule realistic; competitive positioning current |
 | CS Program Plan | Win | Onboarding playbook scope, retention program design, QBR cadence | Segment coverage complete; health score model defined; expansion triggers identified |
 | Engagement Priority List | Win | Prospect/customer/segment ranking, sequencing, resource allocation | Ranking criteria transparent; resource allocation feasible; Initiative alignment stated |
@@ -114,15 +114,15 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 | Working Software Increment | Build | Code changes with acceptance test results (Story output) | Acceptance criteria met; unit tests pass; code reviewed; for HI Modules: UI touchpoint implementation verified |
 | Epic Completion | Build | Completed capability with all Stories delivered (Module-scoped) | All Stories accepted; acceptance criteria met end-to-end |
 | Bug Fix | Build | Root cause analysis, fix verification, regression test results | Root cause identified; fix verified; regression tests added; no new defects introduced; provenance documented |
-| Component Version | Build | Atomic quality-gated build artifact of a Component (Dim 5). CI output. | All quality gates passed (or Emergency profile per DR-031) |
-| System Version | Build | Sealed BOM of Component Versions for a System (Dim 5) — operational deployment unit. Build+Run shared vocabulary. | Integration contracts validated; integration tests pass; all Component Versions released |
+| Component Version | Build | Atomic quality-gated build artifact of a Component (Technical). CI output. | All quality gates passed (or Emergency profile per DR-031) |
+| System Version | Build | Sealed BOM of Component Versions for a System (Technical) — operational deployment unit. Build+Run shared vocabulary. | Integration contracts validated; integration tests pass; all Component Versions released |
 | Product Version | Build | Certified composition of System Versions (flat BOM). Ubiquitous language. | End-to-end tests pass; compliance/security certification complete |
 | System Deployment Specification | Run | Environment-specific deployment spec for a System Version | System Version referenced; environment config and scripts validated |
 | Product Deployment Specification | Run | Environment-specific deployment spec for a Product Version; composes System specs | Product Version referenced; ordering and cross-System scripts validated |
 | Deployment Record | Run | Which specification was applied, to which environment, when, verification results | Environment and specification version recorded; verification documented |
 | Tenant Provisioning Record | Run | What tenant was provisioned, in which environment, for which customer, with what purpose and configuration | Customer and segment identified; tenant purpose documented; isolation level verified; SLO tier assigned; initial health check passed |
 | Maintenance Record | Run | What maintenance was done, verification results | Work completed as specified; verification results recorded; no service impact (or impact documented) |
-| GTM Enablement Asset | Win | Marketing collateral, positioning docs, campaign assets | Messaging consistent with Customer Promise (Dim 3); segment-appropriate; reviewed by Product Marketing |
+| GTM Enablement Asset | Win | Marketing collateral, positioning docs, campaign assets | Messaging consistent with Customer Promise (Customer Value); segment-appropriate; reviewed by Product Marketing |
 | Sales Enablement Asset | Win | Battlecards, demo environments, ROI calculators, playbooks | Competitive positioning current; demo data realistic; ROI model validated; training materials reviewed |
 | CS Enablement Asset | Win | Onboarding playbooks, health score models, QBR templates, education assets | Segment-specific; health score thresholds validated; education content accurate and current |
 | Partner Enablement Asset | Win | Partner demo environments, co-marketing kits, partner training | Partner-appropriate (not internal jargon); certification criteria clear; co-marketing approved |
@@ -152,12 +152,12 @@ Assessment criteria serve two purposes: (1) they define quality expectations for
 
 The following inventory identifies key artifacts produced by each track. This is the current known state — individual tracks will be detailed iteratively. Items marked `_To be detailed._` indicate artifacts where the structure, fields, and quality criteria have not yet been specified.
 
-### Track 1: Discovery Track
+### Discovery
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
-| **Objective Setting Task** | Objective definition (Dim 1 entity update) | Specification | Terminal (Dim 1) | Captured via Dim 1 entity |
-| **Initiative Scoping Task** | Initiative definition (Dim 1 entity update) with lever mix and targets | Specification | Terminal (Dim 1) | Captured via Dim 1 entity |
+| **Objective Setting Task** | Objective definition (Strategy entity update) | Specification | Terminal (Strategy) | Captured via Strategy entity |
+| **Initiative Scoping Task** | Initiative definition (Strategy entity update) with lever mix and targets | Specification | Terminal (Strategy) | Captured via Strategy entity |
 | **Prioritization Task** | Prioritization rationale — ranked signal list with scoring and association decisions | Decision | Terminal | _To be detailed._ |
 | **Discovery Case** | Discovery Case record — origin, scope, sub-item references, findings summary, outputs (PDR, Ideas, Discovery Support Product Intent), routing outcome | Evidence + Decision + Specification | Transitional (→ PDR, → Product Intent, → sub-work entities) | **Entity file exists** (`track1-discovery-case.md`) |
 | **Signal Exploration Task** | Exploration findings — context, root causes, affected segments, patterns; Idea(s) generated | Evidence + Specification | Transitional (→ Ideas) | _To be detailed._ |
@@ -166,30 +166,30 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Experiment** | Experiment results — hypothesis, method, measurements, pass/fail assessment | Evidence | Terminal (informs Deliberation) | _To be detailed._ |
 | **Prototype / Spike** | Prototype artifact or spike findings — what was learned about feasibility or desirability | Evidence + Delivery | Terminal (informs Deliberation) | _To be detailed._ |
 | **Specification Task** | PSD — Product Specification Document refining Product Intent (includes UI journey specifications and touchpoint detail for HI Modules) | Specification | Transitional (→ Build Track) | **Entity file exists** (`dim1-psd.md`) |
-| **Modeling Task** | Definition Model entity updates (Dims 2–9, including Dim 5 systems, components, dependencies, interaction flows, and Dim 6 personas, modules, operations, contracts) | Specification | Transitional (→ Definition Model) | Captured via entity files |
+| **Modeling Task** | Definition Model entity updates (Dimensions 2–9, including Technical systems, components, dependencies, interaction flows, and Ecosystem personas, modules, operations, contracts) | Specification | Transitional (→ Definition Model) | Captured via entity files |
 | **Signal Monitoring** | Alert/trigger (when threshold breached), pipeline report/dashboard | Evidence + Assessment | Terminal (triggers Prioritization, Deliberation) | **Entity file exists** (`track1-signal-monitoring.md`) |
 
-### Track 2: Build Track
+### Build
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
 | **Release Planning Task** | Release plan — scope, timeline, milestones, team allocation, risk assessment; Epic and Integration Epic identification | Specification | Terminal (internal planning) | **Entity file exists** (`track2-release-planning-task.md`) |
 | **Milestone Planning Task** | Milestone definition — checkpoint criteria, entry/exit gates, cross-Epic dependency gating, integration verification gates | Specification | Terminal (internal planning) | **Entity file exists** (`track2-milestone-planning-task.md`) |
 | **Iteration Planning Task** | Iteration plan — Story/Integration Story/Technical Task assignments, capacity allocation | Specification | Terminal (internal planning) | **Entity file exists** (`track2-iteration-planning-task.md`) |
-| **Epic** | Completed Epic — acceptance criteria met, all Stories delivered (Module-scoped, Dim 8) | Delivery | Terminal | **Entity file exists** (`track2-epic.md`) |
-| **Story** | Working software increment, acceptance test results; for HI Modules includes UI touchpoint implementation (Module-scoped, Dim 8) | Delivery | Terminal | **Entity file exists** (`track2-story.md`) |
-| **Technical Task** | Code changes, test results, technical documentation updates (System/Component-scoped, Dim 5). Serves Build Track Stories and Integration Stories. | Delivery | Terminal | **Entity file exists** (`track2-technical-task.md`) |
+| **Epic** | Completed Epic — acceptance criteria met, all Stories delivered (Module-scoped, Structural) | Delivery | Terminal | **Entity file exists** (`track2-epic.md`) |
+| **Story** | Working software increment, acceptance test results; for HI Modules includes UI touchpoint implementation (Module-scoped, Structural) | Delivery | Terminal | **Entity file exists** (`track2-story.md`) |
+| **Technical Task** | Code changes, test results, technical documentation updates (System/Component-scoped, Technical). Serves Build Track Stories and Integration Stories. | Delivery | Terminal | **Entity file exists** (`track2-technical-task.md`) |
 | **Bug** | Bug fix — root cause analysis, fix verification, regression test results. Provenance: Build / Run / Win | Delivery + Evidence | Terminal | **Entity file exists** (`track2-bug.md`) |
 | **Integration Epic** | Verified cross-System integration; contributes to System Version assembly and Product Version certification | Delivery | Terminal | **Entity file exists** (`track2-integration-epic.md`) |
 | **Integration Story** | Integration contracts (API schemas, event schemas), integration test suites | Delivery + Evidence | Terminal | **Entity file exists** (`track2-integration-story.md`) |
-| **Design Deliberation** | ADR(s) — architectural decisions emerging during build work | Decision | Transitional (→ Definition Model, Dim 5) | **Entity file exists** (`track2-design-deliberation.md`) |
-| **Component Version** | Atomic quality-gated build artifact of a Component (Dim 5) | Delivery | Transitional (→ System Version assembly) | **Entity file exists** (`track2-component-version.md`) |
+| **Design Deliberation** | ADR(s) — architectural decisions emerging during build work | Decision | Transitional (→ Definition Model, Technical) | **Entity file exists** (`track2-design-deliberation.md`) |
+| **Component Version** | Atomic quality-gated build artifact of a Component (Technical) | Delivery | Transitional (→ System Version assembly) | **Entity file exists** (`track2-component-version.md`) |
 | **System Version** | Sealed BOM of Component Versions — operational deployment unit | Delivery | Transitional (→ Run Track) | **Entity file exists** (`track2-system-version.md`) |
 | **Product Version** | Certified composition of System Versions (flat BOM) | Delivery | Transitional (→ Run Track, → Win Track) | **Entity file exists** (`track2-product-version.md`) |
 | **Technical Debt Item** | Documented technical debt — debt category, impact, resolution path | Evidence | Terminal (resolved via Epic or Story) | **Entity file exists** (`track2-technical-debt-item.md`) |
 | **Build Monitoring** | Alert/trigger (when threshold breached), quality report/dashboard | Evidence + Assessment | Terminal (triggers Bug, Technical Debt Item, planning) | **Entity file exists** (`track2-build-monitoring.md`) |
 
-### Track 3: Run Track
+### Run
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
@@ -197,10 +197,10 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Capacity Planning Task** | Capacity forecast — projected load, scaling requirements, infrastructure plan | Specification | Terminal (operational) | _To be detailed._ |
 | **Run Epic** | Completed operational engineering capability — operational System Versions via Build Track (Module-scoped) | Delivery | Terminal | **Entity file exists** (`track3-run-epic.md`) |
 | **Run Story** | Operational System Version — versioned artifact of an operational System (e.g., probe, reconciler) | Delivery | Terminal | **Entity file exists** (`track3-run-story.md`) |
-| **Technical Task (Run Track)** | Code changes, test results, documentation updates for operational Systems (System/Component-scoped, Dim 5). Serves Run Stories. Same entity structure as Build Track Technical Tasks, distinct track ownership. | Delivery | Terminal | **Entity file exists** (`track3-technical-task.md`) |
+| **Technical Task (Run Track)** | Code changes, test results, documentation updates for operational Systems (System/Component-scoped, Technical). Serves Run Stories. Same entity structure as Build Track Technical Tasks, distinct track ownership. | Delivery | Terminal | **Entity file exists** (`track3-technical-task.md`) |
 | **Deployment** | Deployment record — which Deployment Specification was applied, when, by whom. Produced by a Deployment Task. | Delivery | Terminal | **Entity file exists** (`track3-deployment.md`) |
 | **Incident (Artifact)** | Incident record — observation of service degradation: severity (SEV-0..4), detection source, affected systems/modules/environments/tenants, customer impact, SLA breach, response/resolution times, correlation (parent/related/caused-by) | Evidence | Terminal (observation record; triggers work entities) | **Entity file exists** (`track3-incident.md`) |
-| **Incident Response Task** | Resolution summary, workaround documentation; may produce Bug (Track 2), Signal (Track 1), emergency Change Request (Track 3) | Delivery + Evidence | Transitional (→ Bug, → Signal, → Change Request) | **Entity file exists** (`track3-incident-response-task.md`) |
+| **Incident Response Task** | Resolution summary, workaround documentation; may produce Bug (Build), Signal (Discovery), emergency Change Request (Run) | Delivery + Evidence | Transitional (→ Bug, → Signal, → Change Request) | **Entity file exists** (`track3-incident-response-task.md`) |
 | **Post-Incident Review** | Post-Incident Report — timeline reconstruction, final RCA, contributing factors, quantified impact, corrective actions with owners. Routes follow-ups to Build (Bug), Run (Run Epic, Maintenance), Discovery (Signal), Evolve (Finding), Definition Model (ODR) | Assessment | Transitional (→ multiple tracks) | **Entity file exists** (`track3-post-incident-review.md`) |
 | **Customer Communication Task** | Incident communication record — status updates issued, channels used, audience reached, resolution summary (external), follow-up commitments | Evidence | Terminal | **Entity file exists** (`track3-customer-communication-task.md`) |
 | **Change Request** | Change record — what changed, approval chain, verification, rollback status | Decision | Terminal | _To be detailed._ |
@@ -212,11 +212,11 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Deployment Task** | Deployment execution record — descriptor applied, environment targeted, deployer, result. Produces Deployment (artifact). | Delivery | Terminal | **Entity file exists** (`track3-deployment-task.md`) |
 | **Verification Task** | Post-deployment verification evidence — criteria, type, pass/fail, evidence. Required for Change Request closure. | Assessment | Terminal | **Entity file exists** (`track3-verification-task.md`) |
 | **Deployment Drill Task** | Drill results — rehearsal of deployment procedure in non-production environment. Optional predecessor to Deployment Tasks. | Assessment | Terminal | **Entity file exists** (`track3-deployment-drill-task.md`) |
-| **(Run-originated ODR)** | Operations Decision Record — operational decisions emerging from Run Deliberations within Run Epics | Decision | Transitional (→ Definition Model, Dim 7) | **Entity file exists** (`dim7-odr.md`) |
+| **(Run-originated ODR)** | Operations Decision Record — operational decisions emerging from Run Deliberations within Run Epics | Decision | Transitional (→ Definition Model, Operational) | **Entity file exists** (`dim7-odr.md`) |
 | **System Monitoring** | Alert/trigger (when threshold breached), SLA report/dashboard, Tenant health report, Operational Target compliance report. Monitors operational health across all composition levels. | Evidence + Assessment | Terminal (triggers Incident, Change Request, Capacity Planning, Run Epic) | **Entity file exists** (`track3-system-monitoring.md`) |
 | **Run Engineering Monitoring** | Alert/trigger (when threshold breached), engineering quality report/dashboard. Monitors Run Track engineering health (operational system CI/CD, Run Epic velocity). | Evidence + Assessment | Terminal (triggers Run Story, Run Epic scope adjustment) | **Entity file exists** (`track3-run-engineering-monitoring.md`) |
 
-### Track 4: Win Track
+### Win
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
@@ -236,12 +236,12 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Segment Engagement** | Campaign/event results — reach, engagement metrics, conversion outcomes; customer training delivery | Assessment | Terminal | _To be detailed._ |
 | **Partner Engagement** | Partner onboarding outcome, co-sell results, pipeline contribution | Assessment | Terminal (PRM-linked) | _To be detailed._ |
 | **Revenue Operations Engagement** | Billing/collections record, renewal outcome, revenue recognition status | Assessment | Terminal | _To be detailed._ |
-| **FIR (First Information Report)** | FIR Resolution Record — original report, triage assessment, sub-item references, resolution summary; routed sub-items (Incident, Bug, Signal, Win Case, Maintenance Task) | Evidence + Specification | Transitional (→ Track 2 Bug, → Track 3 Incident, → Dim 1 Signal, → Track 4 Win Case, → Track 3 Maintenance Task) | **Entity file exists** (`track4-fir.md`) |
+| **FIR (First Information Report)** | FIR Resolution Record — original report, triage assessment, sub-item references, resolution summary; routed sub-items (Incident, Bug, Signal, Win Case, Maintenance Task) | Evidence + Specification | Transitional (→ Track 2 Bug, → Track 3 Incident, → Strategy Signal, → Track 4 Win Case, → Track 3 Maintenance Task) | **Entity file exists** (`track4-fir.md`) |
 | **Win Case** | Resolution record — issue description, resolution steps, time-to-resolution, CSAT score. Always originates from an FIR (DR-032). | Assessment | Terminal (patterns → Win Review) | _To be detailed._ |
 | **Win Review** | Feedback (qualitative) + Target progress updates (quantitative) | Evidence + Assessment | Transitional (Feedback → Discovery) | **Entity files exist** (`track4-win-review.md`, `track4-feedback.md`) |
 | **Win Monitoring** | Alert/trigger (when threshold breached), health/revenue report/dashboard | Evidence + Assessment | Terminal (triggers Win Activity, Win Case escalation, Win Review) | **Entity file exists** (`track4-win-monitoring.md`) |
 
-### Track 5: Evolve Track
+### Evolve
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
@@ -250,7 +250,7 @@ The following inventory identifies key artifacts produced by each track. This is
 | **Evolve Definition Task** | Updated entity files, artifact type definitions, DoD criteria, guidance structures, Decision Records | Specification + Decision | Transitional (→ Work Model, Operating Model) | **Entity file exists** (`track5-evolve-definition-task.md`) |
 | **Evolve Monitoring** | Alert/trigger (when threshold breached), process health report/dashboard | Evidence + Assessment | Terminal (triggers Evolve Review, Evolve Planning) | **Entity file exists** (`track5-evolve-monitoring.md`) |
 
-### Track 6: Governance Track (ACE Extension)
+### Governance (ACE Extension)
 
 | Work Entity | Artifact(s) Produced | Category | Transitional? | Current State |
 |---|---|---|---|---|
