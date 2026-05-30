@@ -42,7 +42,7 @@ Earlier modeling used **four layers**, including a separate **Run Artifact** tie
 
 | Retired construct | Replacement |
 |---|---|
-| Run Artifact layer (Module Package, Product Package) | Operator-facing Systems are ordinary Dim 5 Systems; their Component/System Versions appear in System Version and Product Version BOMs |
+| Run Artifact layer (Module Package, Product Package) | Operator-facing Systems are ordinary Technical Systems; their Component/System Versions appear in System Version and Product Version BOMs |
 | SDD / MDD / PDD | **System Deployment Specification**, **Product Deployment Specification** |
 | Module-level deployment descriptor | None — Module is not a deployment boundary |
 | Separate "enrichment" version stream for ops Systems | Same Component → System → Product versioning; Purpose / Serving Persona distinguishes operator-facing Systems |
@@ -59,7 +59,7 @@ Build artifacts are **environment-independent**. They answer: "What composition 
 
 A **Component Version** is the quality-gated output for one deployable artifact — container image, Lambda package, frontend bundle, etc. It is what CI/CD produces and tags.
 
-- Scoped to one **Component** (Dim 5) within a parent **System**.
+- Scoped to one **Component** (Technical) within a parent **System**.
 - Verified by atomic quality gates (tests, security scans, performance baselines).
 - Listed in the parent **System Version** BOM.
 
@@ -67,7 +67,7 @@ A **Component Version** is the quality-gated output for one deployable artifact 
 
 A **System Version** is the verified composition of all **Component Versions** that deploy together as one operational unit — the release SRE applies when deploying "Payments System v3.1."
 
-- Scoped to one **System** (Dim 5).
+- Scoped to one **System** (Technical).
 - Includes **binding configuration** — legal composition constraints (adapter variants, protocol bindings, capability activation).
 - Integration-verified across Components within the System boundary.
 - May include Components from **operator-facing Systems** (reconcilers, probes) when those Components belong to this System.
@@ -76,7 +76,7 @@ A **System Version** is the verified composition of all **Component Versions** t
 
 A **Product Version** is the certified composition of **System Versions** across the product — the reference Win teams, customers, and auditors use.
 
-- Scoped to the **Product** (Dim 8).
+- Scoped to the **Product** (Structural).
 - End-to-end and compliance verification across Systems.
 - Commercially meaningful unit ("Product v3.2").
 
@@ -88,7 +88,7 @@ A **Product Version** is the certified composition of **System Versions** across
 | System Version | Any constituent Component Version changes, or binding configuration changes | Payments System 3.1 → 3.2 |
 | Product Version | Any constituent System Version changes, or product-level certification scope changes | Product 3.2 → 3.3 |
 
-There is **no Module Version** in the build layer. Module (Dim 8) does not produce a deployable BOM; Systems do.
+There is **no Module Version** in the build layer. Module (Structural) does not produce a deployable BOM; Systems do.
 
 ---
 

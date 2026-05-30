@@ -26,15 +26,15 @@ A structured deployment workflow resolves this tension by making governance a fi
 The deployment workflow separates concerns into three layers (DR-036):
 
 ```
-Layer 1: Build Artifacts (Track 2)
+Layer 1: Build Artifacts (Build)
   Component Version → System Version → Product Version
   "What is built, composed, and verified — environment-independent"
 
-Layer 2: Deployment Specifications (Track 3)
+Layer 2: Deployment Specifications (Run)
   System Deployment Specification, Product Deployment Specification
   "How a sealed version deploys to a specific environment"
 
-Layer 3: Deployment Execution (Track 3)
+Layer 3: Deployment Execution (Run)
   Change Request → Deployment Plan → Deployment Task → Deployment (record)
   "The governed, auditable act of applying a specification"
 ```
@@ -52,7 +52,7 @@ Each layer has a distinct responsibility. Changes at one layer do not necessaril
 | Retired construct | Replacement |
 |---|---|
 | Module Version | Product Version composes System Versions directly |
-| Module Package / Product Package | Operational Systems are ordinary Dim 5 Systems in Product Specification |
+| Module Package / Product Package | Operational Systems are ordinary Technical Systems in Product Specification |
 | SDD / MDD / PDD | System Deployment Specification, Product Deployment Specification |
 | Run Artifact layer | Same Component → System → Product versioning for all Systems |
 
@@ -62,7 +62,7 @@ Each layer has a distinct responsibility. Changes at one layer do not necessaril
 
 A common confusion is conflating **what was built** with **how it is deployed**. DR-036 draws a hard line:
 
-| Aspect | System Version (Track 2) | System Deployment Specification (Track 3) |
+| Aspect | System Version (Build) | System Deployment Specification (Run) |
 |---|---|---|
 | **Nature** | Sealed, immutable BOM of Component Versions | Environment-specific deployment configuration |
 | **Changes when** | Code, composition, or integration contracts change | Resource sizing, env vars, scripts, rollout strategy change |
@@ -102,8 +102,8 @@ References a **certified Product Version** and composes System Deployment Specif
 
 | Stream | What It Versions | Example Change |
 |---|---|---|
-| **Build artifacts** (Track 2) | Functional composition — which Component/System Versions are verified together | New payments-service with rate-lock feature → new System Version → new Product Version |
-| **Deployment specifications** (Track 3) | How a fixed version deploys to an environment | New rollback script, changed replica count for production-latam |
+| **Build artifacts** (Build) | Functional composition — which Component/System Versions are verified together | New payments-service with rate-lock feature → new System Version → new Product Version |
+| **Deployment specifications** (Run) | How a fixed version deploys to an environment | New rollback script, changed replica count for production-latam |
 
 A monitoring threshold change is a **System Deployment Specification** version bump, not a System Version change. A new API endpoint is a **System Version** change (new Component Version in the BOM).
 
@@ -203,7 +203,7 @@ Standard deployment flow with compressed timelines
 
 ### What Is a Deployment Train?
 
-A Deployment Train is a reusable, ordered promotion path — the defined sequence of environments a deployment progresses through, with governance, approval, and soak requirements at each stop. Trains are Definition Model entities (Dim 7).
+A Deployment Train is a reusable, ordered promotion path — the defined sequence of environments a deployment progresses through, with governance, approval, and soak requirements at each stop. Trains are Definition Model entities (Operational).
 
 **Product-level governance (DR-036):** Deployment Trains operate at the Product level. System-scoped deployments still traverse the Train when targeting environments on a regulated promotion path.
 
@@ -266,7 +266,7 @@ Change Requests are scoped to:
 
 ### Relationship to Customer Release
 
-Customer Release (Dim 1) references a Product Version. The Change Request and Deployment workflow is how that Product Version reaches production environments. Customer Release activation may be gated on Change Request completion for regulated environments.
+Customer Release (Strategy) references a Product Version. The Change Request and Deployment workflow is how that Product Version reaches production environments. Customer Release activation may be gated on Change Request completion for regulated environments.
 
 ---
 
@@ -275,7 +275,7 @@ Customer Release (Dim 1) references a Product Version. The Change Request and De
 Verification Tasks are mandatory work entities that produce evidence a deployment meets acceptance criteria:
 
 - Smoke tests (System-scoped or cross-System via Product Deployment Specification scripts)
-- SLO compliance checks against Operational Targets (Dim 7)
+- SLO compliance checks against Operational Targets (Operational)
 - Security and compliance scans
 - Canary metric evaluation at promotion gates
 
@@ -285,7 +285,7 @@ Verification failure blocks Change Request completion even if Deployment Tasks s
 
 ## 10. Entity Summary
 
-### Build Artifacts (Track 2)
+### Build Artifacts (Build)
 
 | Entity | Role |
 |---|---|
@@ -293,14 +293,14 @@ Verification failure blocks Change Request completion even if Deployment Tasks s
 | System Version | Sealed BOM of Component Versions; Component-integration verified |
 | Product Version | Certified composition of System Versions; cross-System verified |
 
-### Deployment Specifications (Track 3)
+### Deployment Specifications (Run)
 
 | Entity | Role |
 |---|---|
 | System Deployment Specification | System Version + environment config |
 | Product Deployment Specification | Product Version + composed System Deployment Specs + coordination |
 
-### Deployment Execution (Track 3)
+### Deployment Execution (Run)
 
 | Entity | Role |
 |---|---|
@@ -311,14 +311,14 @@ Verification failure blocks Change Request completion even if Deployment Tasks s
 | Deployment | Durable record of what was applied |
 | Verification Task | Post-deployment validation |
 
-### Definition Model (Dim 5 / Dim 7)
+### Definition Model (Technical / Operational)
 
 | Entity | Role |
 |---|---|
-| Product Specification (Dim 5) | Declares all Systems composing the product |
-| System (Dim 5) | Operational deployment grouping of Components |
-| Deployment Environment (Dim 7) | Target for deployment specifications |
-| Deployment Train / Station (Dim 7) | Promotion path governance |
+| Product Specification (Technical) | Declares all Systems composing the product |
+| System (Technical) | Operational deployment grouping of Components |
+| Deployment Environment (Operational) | Target for deployment specifications |
+| Deployment Train / Station (Operational) | Promotion path governance |
 
 ### Removed Entities (DR-036)
 
@@ -330,7 +330,7 @@ Module Version, Module Package Specification, Module Package Version, Product Pa
 
 ### Why remove Module Version?
 
-Module (Dim 8) is essential for product language, PSD scoping, and entitlement — but it is not an operational versioning boundary. System Version already provides composed, verified packages. Product Version provides cross-System verification. Module Version duplicated integration ceremony without distinct deployment semantics.
+Module (Structural) is essential for product language, PSD scoping, and entitlement — but it is not an operational versioning boundary. System Version already provides composed, verified packages. Product Version provides cross-System verification. Module Version duplicated integration ceremony without distinct deployment semantics.
 
 ### Why remove the Package layer?
 

@@ -10,7 +10,7 @@ The UPIM needs an incident management design that:
 2. **Provides structured severity classification** — so the organization responds proportionally
 3. **Enables incident correlation** — so a single root cause isn't counted as N incidents
 4. **Closes feedback loops** — to Run Track planning, Discovery, Build, Win, and the Definition Model
-5. **Tracks SLA performance** — so Customer Promises (Dim 3) are evidenced, not assumed
+5. **Tracks SLA performance** — so Customer Promises (Customer Value) are evidenced, not assumed
 
 ## The Artifact/Entity Separation
 
@@ -31,7 +31,7 @@ This narrow DoD is critical. Without it, incident response tasks stay open until
 
 ### 2. Post-Incident Review
 
-The learning entity. Parallels Deliberation (Track 1) and Win Review (Track 4). PIR produces the Post-Incident Report (durable knowledge artifact) and routes corrective actions to appropriate tracks.
+The learning entity. Parallels Deliberation (Discovery) and Win Review (Win). PIR produces the Post-Incident Report (durable knowledge artifact) and routes corrective actions to appropriate tracks.
 
 The PIR mandate — SEV-0, SEV-1, and SEV-2 incidents require PIR — is a Work Model default. The Operating Model can adjust: require PIR for all SEV-3 incidents in a mission-critical module, or waive PIR for SEV-2 incidents resolved within 15 minutes with no customer impact.
 
@@ -59,19 +59,19 @@ Incidents are not contained within the Run Track. They produce structured output
 
 ### From Incident Response Task
 
-- **Bug (Track 2)** — root cause is a product defect; provenance: Run; carries Workaround field for Known Error documentation
-- **Signal — Problem (Track 1)** — recurring or systemic issue surfaced for Discovery
-- **Emergency Change Request (Track 3)** — SEV-0/SEV-1 requiring immediate deployment fix
+- **Bug (Build)** — root cause is a product defect; provenance: Run; carries Workaround field for Known Error documentation
+- **Signal — Problem (Discovery)** — recurring or systemic issue surfaced for Discovery
+- **Emergency Change Request (Run)** — SEV-0/SEV-1 requiring immediate deployment fix
 
 ### From Post-Incident Review
 
 - **Post-Incident Report** — durable knowledge artifact
-- **Bug (Track 2)** — deeper root cause identified during RCA
-- **Run Epic (Track 3)** — operational tooling gap (e.g., missing probes, manual failover)
-- **Signal (Track 1)** — systemic product issue for Discovery
-- **ODR (Dim 7)** — operational decision (e.g., "multi-AZ deployment required for stateful services")
-- **Evolve Finding (Track 5)** — process gap (e.g., "runbook was outdated", "escalation policy unclear")
-- **Maintenance Task (Track 3)** — corrective maintenance
+- **Bug (Build)** — deeper root cause identified during RCA
+- **Run Epic (Run)** — operational tooling gap (e.g., missing probes, manual failover)
+- **Signal (Discovery)** — systemic product issue for Discovery
+- **ODR (Operational)** — operational decision (e.g., "multi-AZ deployment required for stateful services")
+- **Evolve Finding (Evolve)** — process gap (e.g., "runbook was outdated", "escalation policy unclear")
+- **Maintenance Task (Run)** — corrective maintenance
 
 ## Incident-to-Planning Feedback
 
@@ -89,20 +89,20 @@ This three-consumer model (PIR looks backward, Discovery looks at systemic patte
 
 Incidents are evidence against the product's promises. The UPIM makes these assessment connections explicit:
 
-### Dim 3: Customer Value Dimension
+### Customer Value
 
 - **Customer Promise (Service Commitment)** — every SEV-0/1/2 incident *tests* whether Service Commitments are being met. The Incident artifact's SLA Breach field records which commitments were tested and whether they held.
 - **Customer Value Metric (Service Level Metric)** — incident response/resolution times feed the actual performance data. "SEV-1 MTTR this quarter: 3.2 hours vs. 4-hour SLA" is derived from Incident artifacts.
 - **Customer Promise (Compliance Posture)** — incidents involving data breaches or audit-trail gaps may constitute compliance violations.
 
-### Dim 7: Operational Dimension
+### Operational
 
 - **Operational Target (SLO)** — incidents consume error budget. Every incident erodes the margin between current performance and the target.
 - **Operational Readiness** — incident patterns per System x Environment reveal readiness gaps. "payments-service has 3 SEV-1s in LATAM but zero in NA" indicates LATAM-specific readiness issues.
 - **Operational Pain** — recurring incident patterns are concrete evidence for Operational Pains. "Manual certificate rotation causes 2 SEV-1 incidents per quarter" is a documented Operational Pain with measurable impact.
 - **Operational Constraint** — incidents may reveal undocumented constraints (e.g., "compliance freeze prevented hotfix during incident").
 
-### Dim 5: Technology & Architecture
+### Technical
 
 - **System** — incidents are scoped to affected Systems. System-level incident rates inform Build Track quality gate evolution.
 - **Interaction Flow** — incidents often reveal failure points in cross-system flows. The Post-Incident Report references which Interaction Flow failed and where.

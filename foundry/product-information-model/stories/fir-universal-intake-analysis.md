@@ -58,11 +58,11 @@ The Win team's customer support function triages FIRs. Triage involves:
 |---|---|---|---|
 | Service Degradation | Incident + Win Case (complaint) | Track 3 + Track 4 | Incident artifact + Win Case |
 | Defect | Bug | Track 2 | Bug (provenance: Win or Run) |
-| Missing Capability | Signal (Need) | Dim 1 | Need |
-| Dissatisfaction | Win Case (complaint) + possibly Signal (Problem) | Track 4 + Dim 1 | Win Case + Problem |
+| Missing Capability | Signal (Need) | Strategy | Need |
+| Dissatisfaction | Win Case (complaint) + possibly Signal (Problem) | Win + Strategy | Win Case + Problem |
 | Question | Direct resolution (zero sub-items) | — | — |
 | Request | Win Case (service request) | Track 4 | Win Case |
-| Observation | Signal (Problem or Opportunity) | Dim 1 | Problem or Opportunity |
+| Observation | Signal (Problem or Opportunity) | Strategy | Problem or Opportunity |
 
 ### Direct Resolution
 
@@ -87,13 +87,13 @@ The FIR-first principle enables full cross-track traceability chains:
 
 ```
 FIR-2026-04291 (Customer: "FX API was down for 3 hours")
-  ├── INC-2026-0847 (Track 3: Service degradation - SRE investigating)
-  │     └── BUG-2026-0893 (Track 2: Root cause fix - provenance: Run)
-  │           └── SV-payments-v3.2.1 (Track 2: System Version with fix)
-  │                 └── DEP-2026-0315 (Track 3: Deployment to production)
-  ├── WC-2026-1203 (Track 4: Complaint - customer communication)
-  └── SIG-2026-0412 (Dim 1: Problem signal - "FX cache invalidation fragile")
-        └── IDEA-2026-0089 (Dim 1: "Replace FX cache with event-driven refresh")
+  ├── INC-2026-0847 (Run: Service degradation - SRE investigating)
+  │     └── BUG-2026-0893 (Build: Root cause fix - provenance: Run)
+  │           └── SV-payments-v3.2.1 (Build: System Version with fix)
+  │                 └── DEP-2026-0315 (Run: Deployment to production)
+  ├── WC-2026-1203 (Win: Complaint - customer communication)
+  └── SIG-2026-0412 (Strategy: Problem signal - "FX cache invalidation fragile")
+        └── IDEA-2026-0089 (Strategy: "Replace FX cache with event-driven refresh")
 ```
 
 Every node in this chain carries references back to the parent FIR. Win Reviews can assess the entire chain: "From initial report to resolution, how long did it take? How many tracks were involved? Was the customer notified at each stage?"

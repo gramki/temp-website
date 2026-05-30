@@ -2,7 +2,7 @@
 # Items from VP Review:
 
     ## High Priority:
-        ✔ Feature Flags / Feature Toggles — Resolved: Reframed. "Feature flag" is not a single modeling entity. Release toggles are part of deployment workflow (Product/System Deployment Specification scripts). Experiment toggles are part of Experiment entity. Ops toggles are operational configuration (deployment specification environment config). Entitlement toggles (Capability Activation Policy) are Pricing Tier (Dim 2) → Capability (Dim 8) relationships, enforced at runtime. The mechanism is not a UPIM entity — the concerns are already distributed across existing entities. @done
+        ✔ Feature Flags / Feature Toggles — Resolved: Reframed. "Feature flag" is not a single modeling entity. Release toggles are part of deployment workflow (Product/System Deployment Specification scripts). Experiment toggles are part of Experiment entity. Ops toggles are operational configuration (deployment specification environment config). Entitlement toggles (Capability Activation Policy) are Pricing Tier (Vendor Value) → Capability (Structural) relationships, enforced at runtime. The mechanism is not a UPIM entity — the concerns are already distributed across existing entities. @done
         ✔ Hotfix / Emergency Fix Path — Resolved: P0 Bug implies sprint bypass; System Version gains Emergency gate profile (peer review + security scan + smoke tests non-negotiable; regression + benchmarks deferrable); deferred-gate obligation tracked via Bug's Deferred Gate Obligation field. Hotfix branch strategy deferred to Operating Model. DR-031. @done
         ✔ Incident entity file is skeletal — Resolved: Refactored from skeletal work entity to detailed work artifact (observation record) in DR-030. Introduced Incident Response Task, Post-Incident Review, Customer Communication Task. SEV-0..4 severity model. Full fields, statuses, relationships, and examples. @done
         ✔ Deployment Planning Task entity file is skeletal — Resolved: Elevated to detailed entity in DR-028; updated for DR-036 to produce System Deployment Specification and Product Deployment Specification versions. Fields, Statuses, and Relationships fully specified. @done
@@ -16,14 +16,14 @@
         ☐ Rollback not modeled as structured workflow — currently a status on Deployment artifact (Active → Rolled Back). DR-029 establishes that rollback is a new Deployment Task applying a previous deployment specification version, producing a new Deployment record. However, cascading rollback (Product Deployment Specification rollback → constituent System Deployment Specification / System Version rollbacks, dependency-aware rollforward) is not yet modeled. Consider structured rollback workflow as future work.
         ✔ Post-mortem under-modeled — Resolved: Replaced by Post-Incident Report (assessment artifact) produced by Post-Incident Review (deliberation entity) in DR-030. PIR has structured fields for timeline reconstruction, root cause analysis, contributing factors, impact assessment, and corrective actions with owners. @done
         ☐ Continuous deployment mode not well-supported — planning entities (Release Planning, Milestone Planning) assume cadenced delivery. Teams deploying 20x/day need System Version verification and Product Version certification as continuous-integration-level activities, not milestone-gated. Acknowledge CD operating mode explicitly.
-        ✔ Environment promotion path not explicit — Resolved: DR-029 introduces Deployment Train (Dim 7) as a reusable promotion path with Stations (Dim 7) as checkpoints. Each Station targets a Deployment Environment with entry/exit criteria, approval requirements, and soak times. Change Requests scope to Trains/Stations. @done
+        ✔ Environment promotion path not explicit — Resolved: DR-029 introduces Deployment Train (Operational) as a reusable promotion path with Stations (Operational) as checkpoints. Each Station targets a Deployment Environment with entry/exit criteria, approval requirements, and soak times. Change Requests scope to Trains/Stations. @done
         ✔ Module Package Operational System Version reference — Resolved: Operational System Versions are the same System Version entity type, produced by Run Track engineering. Removed "(Track 2/3)" notation from all entity files. @done
 
     ## Low Priority:
         ✔ Run Track engineering velocity not monitored — Resolved: Created `track3-run-engineering-monitoring.md` as the Run Track's counterpart to Build Monitoring. Monitors operational system CI/CD health, Run Epic/Story velocity, and engineering quality. @done
-        ☐ Non-functional requirements traceability thin — performance, security, accessibility addressed via quality gates but no traceability chain from requirement origin (PSD, Operational Target in Dim 7) through verification (Component Version gate, System Version assembly, Product Version certification).
+        ☐ Non-functional requirements traceability thin — performance, security, accessibility addressed via quality gates but no traceability chain from requirement origin (PSD, Operational Target in Operational) through verification (Component Version gate, System Version assembly, Product Version certification).
         ✔ "System Monitoring" scope — Resolved: Kept the name but updated definition to acknowledge broader scope (System and Product Version health in BOM, Tenant health, cross-System wiring). Added scope note blockquote. @done
-        ☐ External dependency management — third-party libraries, external APIs, cloud service dependencies not modeled as entities. Dependency events (SDK upgrade, API deprecation) trigger significant work. Quality gate on System Version exists but dependency entity itself is absent from Dim 5.
+        ☐ External dependency management — third-party libraries, external APIs, cloud service dependencies not modeled as entities. Dependency events (SDK upgrade, API deprecation) trigger significant work. Quality gate on System Version exists but dependency entity itself is absent from Technical.
         ☐ Cross-Module Technical Task coordination — a Story may spawn Technical Tasks in multiple Systems owned by different teams. Coordination pattern is partly Operating Model concern but Work Model could acknowledge it.
         ☐ Security and compliance workflow — security scanning is a quality gate, but penetration testing, threat modeling, security review of Design Deliberation outcomes, vulnerability management as ongoing work are not explicitly modeled.
     
@@ -48,7 +48,7 @@
     - Component Version update → System Version assembly → System Deployment Specification update → System-scoped deployment → verification; Product Version certification → Product Deployment Specification → product-scoped deployment when needed.
     - If a deployment is not acceptable because deployed products will become incompatible, the Change Request / deployment is not permitted.
 
-    - Run and Win Tracks may introduce operational Systems via Build Track (same versioning chain). Product Specification (Dim 5) catalogs all Systems for a product.
+    - Run and Win Tracks may introduce operational Systems via Build Track (same versioning chain). Product Specification (Technical) catalogs all Systems for a product.
     - Customer-specific solutions compose Product Versions and deployment specifications per tenant/environment — not a separate Package layer.
 
     - Data Migration and Schema Changes. In enterprise systems, database schema changes and data migrations are a significant category of engineering work that often requires coordination across Systems and careful rollout planning (rollback of schema changes is harder than code rollback). The model doesn't explicitly address this — it would likely be a Story or Technical Task, but the unique rollout/rollback characteristics of schema changes might warrant acknowledgment.
@@ -61,7 +61,7 @@
     - Entities across the Definition Model
     - Status of the entities
 
-# Dimension 3: Business Value Dimension (Customer ROI):
+# Customer Value:
 ✔ Value Streams? @done(26-02-16 03:50)
     ✔ if yes, how are these organized? @done(26-02-16 03:50)
     ✔ Pain and Gain Statements? @done(26-02-16 03:50)
@@ -88,7 +88,7 @@
 ✔ @done(26-02-16 03:50)
 ✔ Effectiveness and Efficiency of the Product? @done(26-02-16 03:50)
 
-# User Centric Dimension:
+# User Experience:
     ✔ Disocvery, Deliberatin, PDRs @done(26-02-18 10:18)
     ✔ User Personas, JTBD, User Journeys, User Touchpoints @done(26-02-18 10:18)
     ✔ Channels, Modules, Capabilities, Features @done(26-02-18 10:18)
@@ -96,7 +96,7 @@
     ✔ Enumeration of Channel Types (By Technology: Web, Mobile, Chat, Voice, Email, etc.) @done(26-02-18 10:18)
     ✔ Enumeration of Channel Types (By Service Model: Self-serve, Assisted, and Managed Services) @done(26-02-18 10:18)
 
-# Technical and Architectural Dimension:
+# Technical:
     ✔ Subsystems, Components, Functions — Resolved: System redefined as operational deployment grouping of Components (DR-035 D10). Component redefined as atomic deployable artifact with Component Archetype enum. Three deprecated entity files deleted (dim5-subsystem.md, dim5-function-method.md, dim5-class-component.md). @done
     ☐ Integration Patterns
     ☐ Operations and Automation Patterns
@@ -245,9 +245,9 @@ There are three levels of PM ownership across dimensions:
 
 | Level | Dimensions | PM Role | Discovery Output |
 |---|---|---|---|
-| **PM fully owns** | Dim 1, 2, 3 | PM creates and maintains entities directly | PDR + Definition Model update |
-| **PM co-owns** | Dim 4, 8, 9 (partially) | PM collaborates with UX/Architect/Data | PDR + Definition Model update or PSD |
-| **PM informs** | Dim 5, 6, 7 | PM specifies need, tech teams design/implement | PDR → Product Intent → PSD → Build Track |
+| **PM fully owns** | Strategy, Vendor Value, Customer Value | PM creates and maintains entities directly | PDR + Definition Model update |
+| **PM co-owns** | User Experience, Structural, Data (partially) | PM collaborates with UX/Architect/Data | PDR + Definition Model update or PSD |
+| **PM informs** | Technical, Ecosystem, Operational | PM specifies need, tech teams design/implement | PDR → Product Intent → PSD → Build Track |
 
 ## Proposed Output and Work Model
 
@@ -257,10 +257,10 @@ Discovery Track should produce **four types of outputs**, not just one:
 
 | Output Type | What it captures | Destination | Example |
 |---|---|---|---|
-| **PDR** | Any significant decision affecting any dimension | Definition Model (Dim 1) — but references any dimension | "PDR-023: Go — Target LATAM CFOs as primary buyer" |
-| **Product Intent** | Routable commitment from product decision to evolution work | Definition Model (Dim 1) → ACE Workspaces | "PI-042: Real-Time FX Rate Lock in Invoice Flow" |
-| **PSD** | Engineering specification that refines Product Intent for a module change | Definition Model (Dim 1) → Build Track | "PSD-042: Real-Time FX Rate Lock" |
-| **Definition Update** | Non-engineering evolution of any Definition Model entity | Definition Model (Dims 2-9) | "Add User Persona: LATAM AP Clerk" to Dim 4 |
+| **PDR** | Any significant decision affecting any dimension | Definition Model (Strategy) — but references any dimension | "PDR-023: Go — Target LATAM CFOs as primary buyer" |
+| **Product Intent** | Routable commitment from product decision to evolution work | Definition Model (Strategy) → ACE Workspaces | "PI-042: Real-Time FX Rate Lock in Invoice Flow" |
+| **PSD** | Engineering specification that refines Product Intent for a module change | Definition Model (Strategy) → Build Track | "PSD-042: Real-Time FX Rate Lock" |
+| **Definition Update** | Non-engineering evolution of any Definition Model entity | Definition Model (Vendor Value through Data) | "Add User Persona: LATAM AP Clerk" to User Experience |
 
 The PDR's relationship should be broadened: `PDR creates/updates Product Intent`, `PDR justifies PSD(s)`, and `PDR justifies Definition Update(s)`. A single PDR might trigger all three — "Go on LATAM" could create Product Intent, justify PSDs (engineering changes), AND justify Definition Updates (new personas, new pricing tiers, new capabilities).
 
@@ -273,7 +273,7 @@ Expanding the Discovery Track with a new work entity:
 | Research Task | Evidence, insights | Any dimension | Yes |
 | Experiment | Validated/invalidated hypothesis | Any dimension | Yes |
 | Prototype / Spike | Feasibility evidence | Any dimension | Yes |
-| Specification Task | PSD refining Product Intent | Dim 1 → Build Track | Yes |
+| Specification Task | PSD refining Product Intent | Strategy → Build Track | Yes |
 | **Definition Task** | Definition Model updates | Dims 2-9 | **New** |
 
 **Definition Task** is the work of evolving Definition Model entities beyond Dimension 1 — defining personas, mapping journeys, designing pricing structures, modeling data domains, mapping capabilities and features. It's the PM's "product knowledge work" that keeps the product's self-description current.
@@ -296,7 +296,7 @@ Discovery Work (Research Tasks, Experiments, Prototypes/Spikes)
        │                                   → Build Track
        │
        └── justifies → Definition Update(s)  [knowledge/model changes, via Definition Task]
-                                               → Definition Model (Dims 2-9)
+                                               → Definition Model (Vendor Value through Data)
 ```
 
 Does this framing capture what you're after — the dual output (PSD + Definition Update), the broadened PDR, and the new Definition Task as the work entity? Or should we zoom further into specific dimensions to refine which entities truly need this treatment?
@@ -334,12 +334,12 @@ Does this framing capture what you're after — the dual output (PSD + Definitio
 
 ## Open Items
 
-- [ ] Complete narrative seeds for remaining dimensions (Dim 5, 8, 9 coverage is thin)
-- [x] DR-036: Versioning and deployment simplification — Resolved: DR-036 written; Component Version → System Version → Product Version chain; Module Version / Package layer / MDD-SDD-PDD removed; Product Specification (Dim 5); narrative Seeds 16–17; supporting docs updated in Agent E pass. Entity files and Track 3 cross-references remain in follow-on items below. @done
+- [ ] Complete narrative seeds for remaining dimensions (Technical, Structural, Data coverage is thin)
+- [x] DR-036: Versioning and deployment simplification — Resolved: DR-036 written; Component Version → System Version → Product Version chain; Module Version / Package layer / MDD-SDD-PDD removed; Product Specification (Technical); narrative Seeds 16–17; supporting docs updated in Agent E pass. Entity files and Track 3 cross-references remain in follow-on items below. @done
 - [x] DR-036 follow-on: Update Track 3 entity files to System/Product Deployment Specification and Product Version BOM semantics — done in DR-036 doc consistency pass (2026-05-19). @done
-- [x] DR-036 follow-on: Sweep Dim 7, draft docs, narrative seeds (superseded banners), DR-004/026–029 banners, TODOs — done in DR-036 doc consistency pass (2026-05-19). @done
-- [ ] Dim 5 Component Archetype elaboration — the current 8 archetypes (API Service, Web Application, etc.) are a starting taxonomy. Enrich with FinTech-specific subtypes as deployment patterns emerge.
-- [x] Detail Dim 8 entities (product, module, capability, feature) — Resolved: All four entities fully detailed with fields, statuses, relationships, examples (DR-035). @done
+- [x] DR-036 follow-on: Sweep Operational, draft docs, narrative seeds (superseded banners), DR-004/026–029 banners, TODOs — done in DR-036 doc consistency pass (2026-05-19). @done
+- [ ] Technical Component Archetype elaboration — the current 8 archetypes (API Service, Web Application, etc.) are a starting taxonomy. Enrich with FinTech-specific subtypes as deployment patterns emerge.
+- [x] Detail Structural entities (product, module, capability, feature) — Resolved: All four entities fully detailed with fields, statuses, relationships, examples (DR-035). @done
 - [ ] Detail remaining "To be detailed" work entities in draft-work-execution-framework.md
 - [ ] Create entity files for Win Track planning entities (Customer Release Planning, GTM Planning, etc.)
 - [ ] Draft the Operating Model foundation (process definitions from OperatingModel.TODO)
