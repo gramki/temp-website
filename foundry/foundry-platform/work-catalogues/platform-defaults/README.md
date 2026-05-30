@@ -2,6 +2,8 @@
 
 Platform-shipped Work Catalog content that bootstraps every new Foundry tenant.
 
+> **Scenario specs are indicative.** The scenario `*.yaml` files shipped here illustrate the *shape* of each track's work — station ownership, scope, and the flow the OI workflow orchestrates. Their `inputs`, `outputs`, `required-skills`, and `tasks` are placeholders, not the true detail or structure. Treat them as worked examples to be replaced with real definitions during specification, not as authoritative contracts. The `workflow.yaml` files are the more reliable artifact; the per-scenario internals are not.
+
 ## Structure
 
 ```
@@ -34,8 +36,8 @@ work-catalog/{track}/{oi-type}/{workspace}/scenarios/*.yaml
 
 | Track | OI type | Status |
 |-------|---------|--------|
-| build | product-intent | Complete (workflow + workspace stubs) |
-| discovery | discovery-case | Stub |
+| build | product-intent | Workflow complete + indicative scenarios |
+| discovery | discovery-case | Workflow complete + indicative scenarios |
 | run | run-case | Stub |
 | win | customer-release-intent | Stub |
 | evolve | evolve-case | Stub |

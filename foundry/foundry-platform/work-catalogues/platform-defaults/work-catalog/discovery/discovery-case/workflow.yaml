@@ -1,0 +1,317 @@
+# Discovery Case Workflow
+#
+# Defines the lifecycle of a Discovery Case (DC) — a discovery initiative that
+# explores unknowns, validates hypotheses, and produces a Product Decision
+# Record (PDR) that informs whether to build, park, or drop.
+#
+# Demonstrates:
+#   - Parallel research fan-out across multiple stations (WO Group)
+#   - Governance invocation (PDR alignment, discovery closure)
+#   - Human decision gate
+#   - Cross-track handoff: a "build" decision creates a Build-track Product Intent
+#
+# Stations are functional teams reused from the canonical six — Discovery does
+# not get its own teams. A single stage fans Work Orders out to several stations.
+#
+# Stages:
+#   start → discovery-initiated → research-in-progress → insights-synthesized →
+#   recommendations-ready → decision-made → end
+
+orchestration-item: discovery-case
+version: "1.0"
+
+stages:
+  # ─────────────────────────────────────────────────────────────────────────
+  # START
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: start
+    handlers:
+      - when:
+          event: orchestration-item-created
+        then:
+          - action: transition-orchestration-item
+            params:
+              to-stage: discovery-initiated
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # DISCOVERY INITIATED
+  # Frame the case: scope, hypotheses, and success criteria.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: discovery-initiated
+    timeout: 14d
+    on-enter:
+      - action: notify
+        params:
+          channel: discovery-stakeholders
+          template: dc-initiated
+      - action: create-work-order
+        params:
+          wo-label: frame-wo
+          workspace: product-specification
+          scenario: frame-discovery-case
+          assignee: auto
+          priority: normal
+    handlers:
+      # Framing complete - begin parallel research
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: frame-wo
+            status: success
+        then:
+          - action: transition-orchestration-item
+            params:
+              to-stage: research-in-progress
+
+      # Framing failed - route to product owner
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: frame-wo
+            status: failed
+        then:
+          - action: create-user-task
+            params:
+              task-label: framing-review
+              title: "Discovery framing failed: ${orchestration-item.title}"
+              assignee: role:product-owner
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: dc-framing-failed
+
+      - when:
+          event: work-order-timeout
+        then:
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: wo-stalled
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # RESEARCH IN PROGRESS
+  # One stage, many stations: fan research out in parallel to UX, Development,
+  # QA, and Release. This is the canonical "stage routes to teams" pattern.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: research-in-progress
+    timeout: 30d
+    on-enter:
+      - action: notify
+        params:
+          channel: discovery-stakeholders
+          template: dc-research-started
+      - action: create-work-order-group
+        params:
+          group-label: discovery-research
+          work-orders:
+            - wo-label: ux-research-wo
+              workspace: ux-design
+              scenario: conduct-user-research
+              priority: normal
+            - wo-label: feasibility-wo
+              workspace: development
+              scenario: assess-technical-feasibility
+              priority: normal
+            - wo-label: testability-wo
+              workspace: qa
+              scenario: assess-testability
+              priority: normal
+            - wo-label: rollout-wo
+              workspace: release
+              scenario: assess-rollout-feasibility
+              priority: low
+    handlers:
+      # All research streams complete
+      - when:
+          event: work-order-group-completed
+          params:
+            group-label: discovery-research
+            status: completed
+        then:
+          - action: transition-orchestration-item
+            params:
+              to-stage: insights-synthesized
+
+      # Some research streams failed - synthesize with partial evidence
+      - when:
+          event: work-order-group-completed
+          params:
+            group-label: discovery-research
+            status: partial
+        then:
+          - action: create-user-task
+            params:
+              task-label: partial-research-review
+              title: "Discovery research partially completed: ${orchestration-item.id}"
+              assignee: role:product-owner
+          - action: notify
+            params:
+              channel: discovery-stakeholders
+              template: dc-research-partial
+          - action: transition-orchestration-item
+            params:
+              to-stage: insights-synthesized
+
+      - when:
+          event: work-order-timeout
+        then:
+          - action: notify
+            params:
+              channel: workbench-managers
+              template: wo-group-stalled
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # INSIGHTS SYNTHESIZED
+  # Product Specification synthesizes research streams into evidence; QA
+  # validates the experiment evidence.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: insights-synthesized
+    timeout: 14d
+    on-enter:
+      - action: create-work-order-group
+        params:
+          group-label: synthesis
+          work-orders:
+            - wo-label: synthesize-wo
+              workspace: product-specification
+              scenario: synthesize-evidence
+              priority: normal
+            - wo-label: validate-evidence-wo
+              workspace: qa
+              scenario: validate-experiment-evidence
+              priority: normal
+    handlers:
+      - when:
+          event: work-order-group-completed
+          params:
+            group-label: synthesis
+            status: completed
+        then:
+          - action: transition-orchestration-item
+            params:
+              to-stage: recommendations-ready
+
+      - when:
+          event: work-order-group-completed
+          params:
+            group-label: synthesis
+            status: partial
+        then:
+          - action: create-user-task
+            params:
+              task-label: synthesis-review
+              title: "Synthesis incomplete for DC: ${orchestration-item.id}"
+              assignee: role:product-owner
+          - action: notify
+            params:
+              channel: discovery-stakeholders
+              template: dc-synthesis-partial
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # RECOMMENDATIONS READY
+  # Record the Product Decision Record (PDR); governance reviews alignment;
+  # stakeholders make the build / park / drop decision.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: recommendations-ready
+    timeout: 21d
+    on-enter:
+      - action: create-work-order
+        params:
+          wo-label: pdr-wo
+          workspace: product-specification
+          scenario: record-product-decision
+          assignee: auto
+          priority: normal
+    handlers:
+      # PDR recorded - governance review, then open the decision gate
+      - when:
+          event: work-order-completed
+          params:
+            wo-label: pdr-wo
+            status: success
+        then:
+          - action: invoke-governance-scenario
+            params:
+              scenario: pdr-alignment-review
+              on-reject: soft-block
+          - action: create-user-task
+            params:
+              task-label: decision-gate
+              title: "Decide outcome of Discovery Case: ${orchestration-item.title}"
+              description: |
+                Research and synthesis are complete and the PDR is recorded.
+
+                DC ID: ${orchestration-item.id}
+
+                Choose the outcome:
+                  - proceed-to-build — create a Build-track Product Intent
+                  - park — hold for a later cycle
+                  - drop — close without further action
+              assignee: role:product-owner
+          - action: notify
+            params:
+              channel: discovery-stakeholders
+              template: dc-recommendations-ready
+
+      # Decision: proceed to build - hand off to the Build track
+      - when:
+          event: user-task-completed
+          params:
+            task-label: decision-gate
+            outcome: proceed-to-build
+        then:
+          - action: create-orchestration-item
+            params:
+              track: build
+              orchestration-item: product-intent
+              seed-from: ${orchestration-item.id}
+              title: "Build: ${orchestration-item.title}"
+          - action: transition-orchestration-item
+            params:
+              to-stage: decision-made
+
+      # Decision: park or drop - close the case without a handoff
+      - when:
+          event: user-task-completed
+          params:
+            task-label: decision-gate
+            outcome: park
+        then:
+          - action: transition-orchestration-item
+            params:
+              to-stage: decision-made
+
+      - when:
+          event: user-task-completed
+          params:
+            task-label: decision-gate
+            outcome: drop
+        then:
+          - action: transition-orchestration-item
+            params:
+              to-stage: decision-made
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # DECISION MADE
+  # Governance closes the case; notify stakeholders; terminate.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: decision-made
+    on-enter:
+      - action: invoke-governance-scenario
+        params:
+          scenario: discovery-closure-review
+          on-reject: soft-block
+      - action: notify
+        params:
+          channel: discovery-stakeholders
+          template: dc-decision-made
+      - action: transition-orchestration-item
+        params:
+          to-stage: end
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # END
+  # Terminal stage. No handlers. Discovery Case lifecycle complete.
+  # ─────────────────────────────────────────────────────────────────────────
+  - name: end
+    # Terminal stage - no handlers needed

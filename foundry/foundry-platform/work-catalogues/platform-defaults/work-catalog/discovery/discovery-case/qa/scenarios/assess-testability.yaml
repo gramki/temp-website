@@ -1,0 +1,47 @@
+apiVersion: scenario/v1
+name: assess-testability
+description: >
+  Assess how testable a discovery concept would be if built — observability,
+  test-data needs, and verification risk — so quality cost is known up front.
+workspace: qa
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: concept_brief
+    type: string
+    required: false
+    description: Concept brief to assess for testability
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: testability_report_id
+    type: string
+    description: ID of the testability assessment
+  - name: testability_rating
+    type: enum
+    values: [testable, testable-with-effort, hard-to-test]
+    description: Overall testability rating
+  - name: verification_risks
+    type: array
+    items: string
+    description: Verification risks and test-data/observability gaps
+
+required-skills:
+  - test-strategy
+  - quality-assessment
+
+tasks:
+  - id: assess-observability
+    type: agent
+    description: Assess observability and test-data requirements
+  - id: rate-testability
+    type: agent
+    description: Rate testability and capture verification risks
+    depends-on: [assess-observability]

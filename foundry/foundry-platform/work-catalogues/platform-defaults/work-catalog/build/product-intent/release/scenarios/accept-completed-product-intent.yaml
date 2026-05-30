@@ -1,0 +1,48 @@
+apiVersion: scenario/v1
+name: accept-completed-product-intent
+description: >
+  Verify that a QA-passed Product Intent meets its acceptance criteria and is
+  ready to be packaged for customer release; accept or reject for rework.
+workspace: release
+scope: workspace-ingress
+
+inputs:
+  - name: product_intent_id
+    type: string
+    required: true
+    description: ID of the Product Intent being accepted
+  - name: test_run_id
+    type: string
+    required: true
+    description: QA test run to validate against acceptance criteria
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: acceptance_decision
+    type: enum
+    values: [accepted, rejected]
+    description: Whether the Product Intent is accepted for release
+  - name: acceptance_notes
+    type: array
+    items: string
+    description: Notes supporting the acceptance decision
+
+required-skills:
+  - acceptance-validation
+  - release-coordination
+
+tasks:
+  - id: verify-acceptance-criteria
+    type: agent
+    description: Verify the build against the specification's acceptance criteria
+  - id: confirm-qa-evidence
+    type: agent
+    description: Confirm QA evidence (pass rate, open defects) supports release
+    depends-on: [verify-acceptance-criteria]
+  - id: acceptance-decision
+    type: human
+    description: Release owner records the accept/reject decision
+    depends-on: [confirm-qa-evidence]

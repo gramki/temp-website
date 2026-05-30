@@ -1,0 +1,55 @@
+apiVersion: scenario/v1
+name: design-user-experience
+description: >
+  Produce the user experience for a specified Product Intent — flows,
+  wireframes, and a high-fidelity design that Development can implement.
+workspace: ux-design
+scope: workspace-ingress
+
+inputs:
+  - name: specification_id
+    type: string
+    required: true
+    description: ID of the Product Specification to design for
+  - name: design_system_ref
+    type: string
+    required: false
+    description: Design system / component library to build against
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: design_id
+    type: string
+    description: ID of the produced UX design package
+  - name: design_artifact_url
+    type: string
+    description: URL of the design file (e.g., Figma) for the experience
+  - name: design_handoff_notes
+    type: array
+    items: string
+    description: Implementation notes for Development
+
+required-skills:
+  - user-experience-design
+  - interaction-design
+  - design-system-usage
+
+tasks:
+  - id: map-user-flows
+    type: agent
+    description: Map the user flows implied by the specification
+  - id: produce-wireframes
+    type: agent
+    description: Produce wireframes for each flow
+    depends-on: [map-user-flows]
+  - id: high-fidelity-design
+    type: agent
+    description: Produce high-fidelity designs against the design system
+    depends-on: [produce-wireframes]
+  - id: design-review
+    type: human
+    description: Design lead reviews the experience before handoff
+    depends-on: [high-fidelity-design]

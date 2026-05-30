@@ -1,0 +1,50 @@
+apiVersion: scenario/v1
+name: prepare-test-suite-for-product-specification
+description: >
+  Prepare a test plan and automated test suite for a specified Product Intent,
+  in parallel with development, so QA can execute as soon as the build lands.
+workspace: qa
+scope: workspace-ingress
+
+inputs:
+  - name: specification_id
+    type: string
+    required: true
+    description: ID of the Product Specification to prepare tests for
+  - name: design_id
+    type: string
+    required: false
+    description: UX design package, for experience-level test cases
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: test_plan_id
+    type: string
+    description: ID of the produced test plan
+  - name: test_suite_ref
+    type: string
+    description: Reference to the automated test suite
+  - name: test_case_count
+    type: number
+    description: Number of test cases prepared
+
+required-skills:
+  - test-planning
+  - test-automation
+  - requirements-analysis
+
+tasks:
+  - id: derive-test-cases
+    type: agent
+    description: Derive test cases from the specification and acceptance criteria
+  - id: author-test-plan
+    type: agent
+    description: Author the test plan covering functional and edge cases
+    depends-on: [derive-test-cases]
+  - id: build-automated-suite
+    type: agent
+    description: Build the automated test suite skeleton
+    depends-on: [author-test-plan]

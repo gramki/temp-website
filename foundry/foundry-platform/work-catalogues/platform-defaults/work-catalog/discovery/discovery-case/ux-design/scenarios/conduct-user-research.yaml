@@ -1,0 +1,48 @@
+apiVersion: scenario/v1
+name: conduct-user-research
+description: >
+  Conduct user research for a Discovery Case — interviews, surveys, and
+  observation to gather qualitative and quantitative evidence on user needs.
+workspace: ux-design
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: hypotheses
+    type: array
+    items: string
+    description: Hypotheses the research should test
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: research_report_id
+    type: string
+    description: ID of the user research report
+  - name: key_findings
+    type: array
+    items: string
+    description: Key findings from the research
+
+required-skills:
+  - user-research
+  - interview-facilitation
+  - data-analysis
+
+tasks:
+  - id: plan-research
+    type: agent
+    description: Plan the research method and participant criteria
+  - id: gather-evidence
+    type: agent
+    description: Run interviews/surveys and gather evidence
+    depends-on: [plan-research]
+  - id: analyze-findings
+    type: agent
+    description: Analyze and report key findings
+    depends-on: [gather-evidence]

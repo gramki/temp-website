@@ -1,0 +1,47 @@
+apiVersion: scenario/v1
+name: validate-experiment-evidence
+description: >
+  Validate the rigor of experiment evidence gathered during discovery — sample
+  adequacy, bias, and reproducibility — before it informs the decision.
+workspace: qa
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: experiment_ids
+    type: array
+    items: string
+    description: Experiments whose evidence should be validated
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: validation_id
+    type: string
+    description: ID of the evidence validation record
+  - name: evidence_confidence
+    type: enum
+    values: [high, medium, low]
+    description: Confidence level in the evidence
+  - name: validation_notes
+    type: array
+    items: string
+    description: Notes on sample, bias, and reproducibility concerns
+
+required-skills:
+  - experiment-validation
+  - statistical-analysis
+
+tasks:
+  - id: check-rigor
+    type: agent
+    description: Check sample adequacy, bias, and reproducibility
+  - id: rate-confidence
+    type: agent
+    description: Rate evidence confidence and record concerns
+    depends-on: [check-rigor]

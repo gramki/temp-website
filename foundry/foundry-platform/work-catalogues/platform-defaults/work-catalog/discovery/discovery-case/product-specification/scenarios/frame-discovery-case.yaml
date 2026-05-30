@@ -1,0 +1,52 @@
+apiVersion: scenario/v1
+name: frame-discovery-case
+description: >
+  Frame a Discovery Case — define the question, scope boundaries, hypotheses,
+  and success criteria so research streams have a clear charter.
+workspace: product-specification
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case to frame
+  - name: trigger_context
+    type: string
+    required: false
+    description: Originating signal (feedback, market input, strategic bet)
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: discovery_charter_id
+    type: string
+    description: ID of the framing charter
+  - name: hypotheses
+    type: array
+    items: string
+    description: Hypotheses to validate during research
+  - name: success_criteria
+    type: array
+    items: string
+    description: Criteria that determine discovery success
+
+required-skills:
+  - discovery-framing
+  - hypothesis-design
+  - requirements-analysis
+
+tasks:
+  - id: clarify-question
+    type: agent
+    description: Clarify the discovery question and scope boundaries
+  - id: define-hypotheses
+    type: agent
+    description: Define testable hypotheses and success criteria
+    depends-on: [clarify-question]
+  - id: charter-review
+    type: human
+    description: Product owner reviews the discovery charter
+    depends-on: [define-hypotheses]

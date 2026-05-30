@@ -1,0 +1,47 @@
+apiVersion: scenario/v1
+name: build-design-prototype
+description: >
+  Build a low- or high-fidelity prototype to make a discovery concept tangible
+  for experiments and stakeholder review.
+workspace: ux-design
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case
+  - name: concept_brief
+    type: string
+    required: true
+    description: Concept brief describing what to prototype
+  - name: fidelity
+    type: enum
+    values: [low, medium, high]
+    default: low
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: prototype_ref
+    type: string
+    description: Reference to the produced prototype
+  - name: prototype_notes
+    type: array
+    items: string
+    description: Notes on assumptions and scope of the prototype
+
+required-skills:
+  - prototyping
+  - interaction-design
+
+tasks:
+  - id: sketch-concept
+    type: agent
+    description: Sketch the concept and primary flows
+  - id: build-prototype
+    type: agent
+    description: Build the prototype at the requested fidelity
+    depends-on: [sketch-concept]

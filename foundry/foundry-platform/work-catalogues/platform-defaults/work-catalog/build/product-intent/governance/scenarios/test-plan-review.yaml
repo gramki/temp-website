@@ -1,0 +1,40 @@
+apiVersion: scenario/v1
+name: test-plan-review
+description: >
+  Governance gate after development and QA prep: confirm the test plan
+  adequately covers the specification before QA execution begins.
+workspace: governance
+scope: workspace-ingress
+
+inputs:
+  - name: product_intent_id
+    type: string
+    required: true
+    description: Product Intent being governed
+  - name: test_plan_id
+    type: string
+    required: true
+    description: Test plan under review
+
+outputs:
+  - name: decision
+    type: enum
+    values: [approved, rejected]
+    description: Governance decision
+  - name: findings
+    type: array
+    items: string
+    description: Coverage gaps that must be addressed if rejected
+
+required-skills:
+  - governance-review
+  - test-planning
+
+tasks:
+  - id: assess-coverage
+    type: agent
+    description: Assess test plan coverage against specification and risk areas
+  - id: record-decision
+    type: agent
+    description: Record the governance decision and findings
+    depends-on: [assess-coverage]

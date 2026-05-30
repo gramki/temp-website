@@ -1,0 +1,44 @@
+apiVersion: scenario/v1
+name: pdr-alignment-review
+description: >
+  Governance gate at the recommendation transition: confirm the Product
+  Decision Record is evidence-backed and aligned with strategy and policy.
+workspace: governance
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: Discovery Case being governed
+  - name: pdr_id
+    type: string
+    required: true
+    description: Product Decision Record under review
+
+outputs:
+  - name: decision
+    type: enum
+    values: [approved, rejected]
+    description: Governance decision
+  - name: findings
+    type: array
+    items: string
+    description: Alignment concerns that must be addressed if rejected
+
+required-skills:
+  - governance-review
+  - product-strategy
+
+tasks:
+  - id: check-evidence-traceability
+    type: agent
+    description: Confirm the PDR recommendation is traceable to evidence
+  - id: check-strategic-alignment
+    type: agent
+    description: Check alignment with strategy and policy
+    depends-on: [check-evidence-traceability]
+  - id: record-decision
+    type: agent
+    description: Record the governance decision and findings
+    depends-on: [check-strategic-alignment]

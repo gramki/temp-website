@@ -1,0 +1,51 @@
+apiVersion: scenario/v1
+name: synthesize-evidence
+description: >
+  Synthesize research streams (user research, feasibility, testability, rollout)
+  into a coherent set of insights and findings against the hypotheses.
+workspace: product-specification
+scope: workspace-ingress
+
+inputs:
+  - name: discovery_case_id
+    type: string
+    required: true
+    description: ID of the Discovery Case being synthesized
+  - name: research_outputs
+    type: array
+    items: string
+    description: References to the completed research stream outputs
+  - name: priority
+    type: enum
+    values: [low, normal, high, critical]
+    default: normal
+
+outputs:
+  - name: insights_id
+    type: string
+    description: ID of the synthesized insights artifact
+  - name: validated_hypotheses
+    type: array
+    items: string
+    description: Hypotheses confirmed by the evidence
+  - name: refuted_hypotheses
+    type: array
+    items: string
+    description: Hypotheses refuted by the evidence
+
+required-skills:
+  - evidence-synthesis
+  - insight-generation
+
+tasks:
+  - id: consolidate-evidence
+    type: agent
+    description: Consolidate evidence from all research streams
+  - id: evaluate-hypotheses
+    type: agent
+    description: Evaluate each hypothesis against the consolidated evidence
+    depends-on: [consolidate-evidence]
+  - id: synthesis-review
+    type: human
+    description: Reviewer validates the synthesis narrative
+    depends-on: [evaluate-hypotheses]

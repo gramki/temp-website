@@ -38,11 +38,14 @@ draft-ready ─────────────────────→ r
                                    in-specification
                                        (Product Specification WO)
                                            ↓
+                                   in-ux-design
+                                       (UX Design WO)
+                                           ↓
                                    specified ───────────────────→ in-qa
                                        (Dev + QA prep WOs parallel)  (QA WO)
                                                                        ↓
                                                                ready-for-release
-                                                                   (Release WO)
+                                                                   (Release WOs)
                                                                        ↓
                                                                    released
                                                                        ↓
