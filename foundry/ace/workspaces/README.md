@@ -2,6 +2,8 @@
 
 ACE defines six workspace types. Each is a specialized station inside a Workbench, owned by a single functional team, with a Human–Agent Team and an IDE context, owning Scenarios that decompose into Tasks. Each workspace reads and writes the workshop's repositories and participates in the [Product Evolution Cycle](../product-evolution-cycle.md).
 
+> **Stations are functional teams, not stages.** The six workspaces are reused across all tracks (Build, Discovery, Run, Win, Evolve, Governance) — they represent *who* does the work by SDLC function, not *where* in a lifecycle the work sits. The Build ordering below (Specification → UX → Development → QA → Release) is incidental to how Product Intent happens to flow; other tracks route work to the same teams in different patterns, often fanning a single OI stage out to several stations in parallel. A track does not get its own teams.
+
 The docs in this folder are **stub-grade** today. They establish purpose, primary scenarios, intent inbound/outbound, and the key repositories each workspace touches. Detailed scenario catalogs, runtime specifications, and per-workspace platform engineering live under [../../foundry-platform/](../../foundry-platform/README.md) as those modules are specified.
 
 ## Index

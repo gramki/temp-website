@@ -33,19 +33,25 @@ recommendations-ready → decision-made → end
 | `recommendations-ready` | Recommendations prepared for decision |
 | `decision-made` | Stakeholders have decided next steps |
 
-## Workspaces (Proposed)
+## Stations and scenarios (Proposed)
 
-| Workspace | Purpose |
-|-----------|---------|
-| User Research | Conduct user interviews, surveys, analysis |
-| Market Analysis | Competitive and market research |
-| Technical Discovery | Feasibility and architecture exploration |
-| Synthesis | Compile insights and recommendations |
+Discovery reuses the canonical six [workspace stations](../../../../../../ace/workspaces/README.md) — functional teams, not stages. Discovery work is discovery-flavored ingress scenarios on those same teams; the items below are scenarios, not new workspaces.
+
+| Station | Discovery scenarios (activities) |
+|---------|----------------------------------|
+| Product Specification | Frame the case, market/product research, deliberation, evidence synthesis, record the PDR, Definition-Model updates |
+| UX Design | User research, usability experiments, design prototypes |
+| Development | Technical feasibility, spikes, proofs of concept |
+| QA | Testability assessment, experiment-evidence validation |
+| Release | Operational/rollout feasibility assessment |
+| Governance | PDR alignment review, discovery closure review (cross-cutting) |
+
+Discovery typically uses *some* stations heavily (Product Specification, UX Design, Development) and others lightly. The Discovery Case workflow may fan one stage out to several stations in parallel.
 
 ## TODO
 
 - [ ] Define `workflow.yaml` for Discovery Case lifecycle
-- [ ] Create workspace folders with scenario placeholders
+- [ ] Add discovery scenario files under the relevant station folders (no new workspaces)
 - [ ] Document governance checkpoints
 - [ ] Define handoff to Build track (when discovery leads to Product Intent)
 

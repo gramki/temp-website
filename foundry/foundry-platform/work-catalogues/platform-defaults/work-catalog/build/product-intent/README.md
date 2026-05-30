@@ -15,6 +15,8 @@ specified → in-development → in-qa → ready-for-release → released → en
 
 ### Stage Descriptions
 
+> Stages are Product Intent coordination points that **route Work Orders to functional [stations](../../../../../../ace/workspaces/README.md)** — they are not the stations themselves. One stage can create Work Orders in several stations at once (e.g., `specified`), and a station can be engaged across multiple stages.
+
 | Stage | Description | Work Orders Created |
 |-------|-------------|---------------------|
 | `start` | Initial state | — |

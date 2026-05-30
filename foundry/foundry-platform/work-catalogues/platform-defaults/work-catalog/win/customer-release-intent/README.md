@@ -34,19 +34,24 @@ customers-enabled → adoption-tracked → success-confirmed → end
 | `adoption-tracked` | Monitoring customer adoption metrics |
 | `success-confirmed` | Adoption goals met, case closed |
 
-## Workspaces (Proposed)
+## Stations and scenarios (Proposed)
 
-| Workspace | Purpose |
-|-----------|---------|
-| Enablement Planning | Plan rollout strategy |
-| Documentation | Create/update customer-facing docs |
-| Training | Develop and deliver training materials |
-| Customer Success | Track adoption and address issues |
+Win reuses the canonical six [workspace stations](../../../../../../ace/workspaces/README.md) — functional teams, not stages. Customer enablement is win-flavored ingress scenarios on those same teams; the items below are scenarios, not new workspaces.
+
+| Station | Win scenarios (activities) |
+|---------|----------------------------|
+| Product Specification | Plan rollout/enablement strategy, define adoption goals |
+| UX Design | Produce customer-facing docs and training materials |
+| Release | Enable customer access, stage rollout |
+| QA | Track adoption metrics, confirm success criteria |
+| Governance | Release-readiness/customer-commitment review (cross-cutting) |
+
+Win uses *some* stations per release. Documentation, Training, and Customer Success are activities/scenarios, not workspaces.
 
 ## TODO
 
 - [ ] Define `workflow.yaml` for Customer Release Intent lifecycle
-- [ ] Create workspace folders with scenario placeholders
+- [ ] Add win scenario files under the relevant station folders (no new workspaces)
 - [ ] Document handoff from Build track
 - [ ] Define adoption metrics and success criteria
 
