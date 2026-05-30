@@ -27,6 +27,7 @@ Module-specific concepts (internals):
 | Completion Reporter | [../concepts/completion-reporter.md](../concepts/completion-reporter.md) |
 | Local State Store | [../concepts/local-state-store.md](../concepts/local-state-store.md) |
 | Management Plane Interface | [../concepts/management-plane-interface.md](../concepts/management-plane-interface.md) |
+| Workspace-Local Tasks | [../concepts/workspace-local-tasks.md](../concepts/workspace-local-tasks.md) |
 
 ## ACE alignment
 
@@ -697,6 +698,37 @@ WO Runtime communicates with [Workspace Session Management](../../workspace-sess
 | Heartbeat interval | 15 seconds |
 | Grace period on stop | Configurable; default 30 seconds |
 | Health probe | `/health` returns `{ status, session_id, uptime_seconds }` |
+
+---
+
+## Workspace-Local Tasks and Personal Work
+
+Module concepts: [Workspace-Local Tasks](../concepts/workspace-local-tasks.md), platform [Personal Work](../../concepts/personal-work.md).
+
+**WOR-FR-0034:** WO Runtime SHALL allow builders to create workspace-local tasks (manual Human Tasks and agent-session records under Human Tasks). Local tasks SHALL be stored in the Local State Store with `sync_scope = 'local'` and SHALL NOT be synced to Jira.
+
+**WOR-FR-0035:** WO Runtime SHALL maintain a single Personal Work Work Order per Workspace Session, created on first ad-hoc agent employment associated with Personal Work. Personal Work SHALL have `sync_scope = 'local'` and SHALL NOT be synced to Jira or reported to the Orchestrator.
+
+**WOR-FR-0036:** WO Runtime SHALL allow builders to employ agents against any in-progress Human Task (local or synced) or against the Personal Work WO. Each employed agent SHALL be spawned using the standard Agent Spawner harness preparation flow (environment, MCP, skills, knowledge, Delegation Token).
+
+**WOR-FR-0037:** When an agent session is started from outside a task context, WO Runtime SHALL prompt the builder (via IDE) to associate the session with one of: an active in-progress Human Task, or Personal Work. WO Runtime SHALL NOT auto-assign agent sessions to pending Human Tasks.
+
+**WOR-FR-0038:** WO Runtime Daemon SHALL push agent status updates to the IDE Employed Agents Panel. Status values SHALL include: `queued`, `working`, `waiting_for_input`, `completed`, `failed`.
+
+| Aspect | Detail |
+|--------|--------|
+| Panel scope | All employed agents in the session across all WOs |
+| Entry payload | WO ID, task ID, task title, skilled agent label, capable agent, model, duration, status snippet |
+
+**WOR-FR-0039:** WO Runtime SHALL provide the full task tree for a Work Order (including workspace-local tasks) to the IDE via the plugin protocol. Each node SHALL include: task ID, title, state, executor type (agent/human), agent summary (if any), duration, `sync_scope`, parent task ID, and dependency list. The IDE SHALL render parent-child as a folder-style tree; dependencies SHALL be shown inline on rows, not as graph edges.
+
+**WOR-FR-0040:** WO Runtime SHALL stream agent I/O (chat messages or terminal output) to the IDE for Agent Output Tabs. Live sessions SHALL be interactive; completed sessions SHALL be served as read-only transcripts for the session lifetime.
+
+**WOR-FR-0041:** Workspace-local tasks and the Personal Work WO SHALL persist in the Local State Store across session restarts. They SHALL be archived (not deleted) when the session is archived.
+
+**WOR-FR-0042:** Agent employment under workspace-local tasks and Personal Work SHALL consume the builder's standard Delegation Token and quota via Access Gateway. The `sync_scope` distinction is for tracking and export only.
+
+**WOR-FR-0043:** WO Runtime SHALL allow manual Human Tasks to transition to In-Progress via builder action even when declared dependencies are not in terminal state. Dependency metadata SHALL remain for display; the builder assumes responsibility for coordination.
 
 ---
 

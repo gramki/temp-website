@@ -9,9 +9,9 @@ For the builder experience (what users see and how to interact), see [IDE user g
 | ACE concept | How this module realizes it |
 |-------------|---------------------------|
 | **Workspace** | Provides the IDE surface for human interaction with Workspace Sessions |
-| **IDE** | Implements the ACE IDE concept via VS Code extension (Work Orders Panel, Chat, Terminal) |
-| **Agent** | Renders agent I/O through Chat Tabs and Terminal Windows |
-| **Task** | Displays task tree and status via Work Orders Panel |
+| **IDE** | Implements the ACE IDE concept via VS Code extension (Work Orders Panel, Employed Agents Panel, editor tabs) |
+| **Agent** | Renders agent I/O through editor Agent Output Tabs (chat or terminal) |
+| **Task** | Displays folder-style task tree and status via sidebar and editor tabs |
 
 ## Architecture Overview
 
@@ -43,17 +43,21 @@ graph TB
 
 ## VS Code Plugin Components
 
-The WO Runtime VS Code plugin provides three main components:
+The WO Runtime VS Code plugin provides these components:
 
 | Component | Purpose | Interaction |
 |-----------|---------|-------------|
-| **Work Orders Panel** | Task tree view and status | Read (WO Runtime → Panel) |
-| **Chat Tabs** | Agent conversation UI | Bidirectional (User ↔ Agent) |
-| **Terminal Windows** | Agent terminal UI | Bidirectional (User ↔ Agent) |
+| **Work Orders Panel** (sidebar) | WO list, task tree, Personal Work entry | Read (WO Runtime → Panel) |
+| **Employed Agents Panel** (right) | All employed agents in session; search/sort/filter | Read (WO Runtime → Panel); click opens output tab |
+| **WO Detail + Task Tree tab** (editor) | Web-app-style WO detail + folder-style task tree | Read tree payload; click row opens output tab |
+| **Agent Output Tabs** (editor) | Live or read-only chat/terminal transcript per agent session | Bidirectional when live (User ↔ Agent); read-only when completed |
+| **Task Association Prompt** | Modal when starting agent outside task context | Builder selects Human Task or Personal Work |
+
+Legacy bottom-panel terminal tabs (AGENT TERMINAL, TERMINAL, OUTPUT) remain for ambient CLI output; primary agent interaction is in editor tabs.
 
 ### Key Principle
 
-VS Code is purely a UI layer. WO Runtime does not mediate user-agent interaction. Agents communicate directly with the user through VS Code UI components.
+VS Code is the UI layer for orchestration and navigation. WO Runtime does not mediate user-agent message content. Agents communicate directly with the user through Agent Output Tab surfaces (webview chat or integrated terminal). WO Runtime mediates metadata: task graph, agent list status, association prompts, and transcript persistence for completed sessions.
 
 ## WO Runtime Daemon Protocol
 
@@ -166,6 +170,77 @@ const terminal = vscode.window.createTerminal({
   env: harnessEnvironment
 });
 ```
+
+## Employed Agents Panel Data Flow
+
+WO Runtime pushes agent session records to the IDE (WOR-FR-0038):
+
+```
+WO Runtime Daemon
+    │
+    ├── Agent Spawner starts/completes/fails session
+    ├── Updates agents + tasks tables (Local State Store)
+    └── Pushes AgentSessionEvent to IDE
+            │
+            └── Employed Agents Panel re-renders list
+```
+
+Example payload:
+
+```json
+{
+  "sessionId": "uuid",
+  "workOrderId": "WO-1234",
+  "taskId": "TASK-892",
+  "taskTitle": "Implement auth service",
+  "skilledAgent": "foundry-dev-agent",
+  "capableAgent": "cursor-agent",
+  "model": "claude-4",
+  "status": "waiting_for_input",
+  "statusSnippet": "Approve PR?",
+  "durationSeconds": 840,
+  "ioMode": "chat"
+}
+```
+
+Status values: `queued`, `working`, `waiting_for_input`, `completed`, `failed`.
+
+## Task Tree Protocol
+
+When the builder opens a WO tab, the plugin requests the task tree (WOR-FR-0039):
+
+```
+IDE → GET /wo/{workOrderId}/task-graph
+WO Runtime → { nodes: [{ id, parentTaskId, title, state, syncScope, dependencies, ... }], ... }
+```
+
+The IDE builds a folder tree from `parentTaskId` (indentation + expand/collapse). Cross-task `dependencies` are rendered as inline text or badges on rows, not as graph edges.
+
+Each node includes `syncScope` (`synced` | `local`) so the IDE can grey local-only rows. Clicking a row with an agent session requests output stream or transcript URL.
+
+## Agent Output Tab Lifecycle
+
+| Phase | IDE behavior | WO Runtime role |
+|-------|--------------|-----------------|
+| **Live** | Green banner; interactive input; opens webview or terminal bound to process | Optional transcript append to local store |
+| **Completed** | Gray banner; read-only; artifacts list | Serves stored transcript (WOR-FR-0040) |
+| **Failed** | Red banner; error summary; Retry / Escalate | Returns failure metadata + log tail |
+
+Opening from Employed Agents Panel or task tree uses the same tab type keyed by `agentSessionId`.
+
+## Task Association Prompt Protocol
+
+When the builder starts an agent without task context (WOR-FR-0037):
+
+```
+IDE → POST /agent-sessions/start { capableAgentHint? }
+WO Runtime → { requiresAssociation: true, choices: [ { taskId, title, woId }, ... , { personalWork: true } ] }
+IDE → shows picker
+Builder selects → POST /agent-sessions/{id}/associate { taskId | personalWork: true }
+WO Runtime → spawns harness with task or Personal Work context
+```
+
+WO Runtime SHALL NOT pre-select a pending Human Task.
 
 ## Read Next
 

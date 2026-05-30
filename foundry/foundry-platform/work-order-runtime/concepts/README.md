@@ -19,6 +19,7 @@ This folder contains module-specific concept definitions for the Work Order Runt
 | [Context Compilation](context-compilation.md) | Process of assembling hierarchical knowledge into agent context |
 | [Completion Reporter](completion-reporter.md) | Component that notifies the Orchestrator when Work Orders complete |
 | [Local State Store](local-state-store.md) | Per-session SQLite database for WO and task state |
+| [Workspace-Local Tasks](workspace-local-tasks.md) | Tasks not synced to Jira; manual and agent-session tracking in the session |
 
 ## Relationship to Platform Concepts
 
