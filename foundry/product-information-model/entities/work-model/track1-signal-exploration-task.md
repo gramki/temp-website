@@ -1,7 +1,7 @@
 # Signal Exploration Task
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Learning)
+**Track:** Discovery
 **Owner:** Product Manager, UX Researcher
 
 ## Definition
@@ -22,12 +22,12 @@ These require different mindsets, different skills, and different outputs. Signa
 | Field | Type | Description |
 |---|---|---|
 | Title | String | What Signal is being explored |
-| Originating Discovery Case | Reference (Track 1) | Discovery Case this task belongs to, when exploration is case-scoped |
-| Signal(s) | List of References (Dim 1) | Which Signal(s) this exploration investigates |
-| Initiative | Reference (Dim 1) | Which Initiative this exploration supports (if associated) |
+| Originating Discovery Case | Reference (Discovery) | Discovery Case this task belongs to, when exploration is case-scoped |
+| Signal(s) | List of References (Strategy) | Which Signal(s) this exploration investigates |
+| Initiative | Reference (Strategy) | Which Initiative this exploration supports (if associated) |
 | Exploration Scope | Text | What aspects are being investigated (context, root cause, segment impact, etc.) |
 | Findings | Text | What was learned during exploration |
-| Ideas Generated | List of References (Dim 1) | Which Ideas were synthesized from this exploration |
+| Ideas Generated | List of References (Strategy) | Which Ideas were synthesized from this exploration |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -42,13 +42,13 @@ These require different mindsets, different skills, and different outputs. Signa
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Input | Signal — Problem / Need / Opportunity (Dim 1) | Explores one or more Signals |
-| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case; carries bidirectional reference |
-| Context | Initiative (Dim 1) | May be scoped by an Initiative |
-| Output | Idea (Dim 1) | Produces one or more Ideas (hypotheses) |
-| Sibling | Deliberation (Track 1) | A Deliberation may also generate Ideas from Signals |
-| Downstream | Research Task (Track 1) | Research Tasks may be spawned to gather specific evidence during exploration |
-| May trigger | Modeling Task (Track 1) | Exploration findings may reveal gaps in Definition Model |
+| Input | Signal — Problem / Need / Opportunity (Strategy) | Explores one or more Signals |
+| Originates from | Discovery Case (Discovery) | Sub-item of a Discovery Case; carries bidirectional reference |
+| Context | Initiative (Strategy) | May be scoped by an Initiative |
+| Output | Idea (Strategy) | Produces one or more Ideas (hypotheses) |
+| Sibling | Deliberation (Discovery) | A Deliberation may also generate Ideas from Signals |
+| Downstream | Research Task (Discovery) | Research Tasks may be spawned to gather specific evidence during exploration |
+| May trigger | Modeling Task (Discovery) | Exploration findings may reveal gaps in Definition Model |
 
 ## Examples
 

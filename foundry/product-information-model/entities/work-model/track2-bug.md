@@ -1,7 +1,7 @@
 # Bug
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction)
+**Track:** Build
 **Owner:** QA, Developers
 
 ## Definition
@@ -10,8 +10,8 @@ A work entity for defect resolution — a report of incorrect, unexpected, or br
 
 Bugs carry a **provenance** field indicating where the defect was discovered:
 - **Build** — discovered during Build Track work (development, testing, code review)
-- **Run** — originated from Incident Response Task (Track 3) during incident investigation, or from Post-Incident Review corrective actions. Links back to the Incident artifact.
-- **Win** — originated from a Win Track Win Case (Track 4), where a customer complaint or escalation reveals a product defect
+- **Run** — originated from Incident Response Task (Run) during incident investigation, or from Post-Incident Review corrective actions. Links back to the Incident artifact.
+- **Win** — originated from a Win Track Win Case (Win), where a customer complaint or escalation reveals a product defect
 
 Provenance enables traceability: a Run-originated Bug links back to its Incident (artifact) and the Incident Response Task or Post-Incident Review that identified it; a Win-originated Bug links back to its Win Case.
 
@@ -24,7 +24,7 @@ Provenance enables traceability: a Run-originated Bug links back to its Incident
 Captures unplanned defect-resolution work within the Build Track. Without Bugs:
 - Defect work is invisible — it hides inside Stories or is tracked outside the model
 - Root cause traceability is lost — was this defect caught in testing, or did it cause a production incident?
-- Cross-Track feedback loops are broken — Incidents (Track 3) and Win Cases (Track 4) have no mechanism to trigger fixes
+- Cross-Track feedback loops are broken — Incidents (Run) and Win Cases (Win) have no mechanism to trigger fixes
 
 ## Fields
 
@@ -35,18 +35,18 @@ Captures unplanned defect-resolution work within the Build Track. Without Bugs:
 | Provenance | Enum | `Build` / `Run` / `Win` — where this Bug was discovered |
 | Severity | Enum | `Critical` / `Major` / `Minor` / `Cosmetic` |
 | Priority | Enum | `P0` / `P1` / `P2` / `P3` |
-| System | Reference (Dim 5) | Which System the defect is in |
-| Component | Reference (Dim 5) | Which Component within the System (optional) |
-| Epic | Reference (Track 2) | Which Epic this Bug is associated with (if applicable) |
-| Story | Reference (Track 2) | Which Story this Bug was discovered during (if Build provenance) |
-| Incident | Reference (Track 3) | Source Incident (if Run provenance) |
-| Win Case | Reference (Track 4) | Source Win Case (if Win provenance) |
-| Originating FIR | Reference (Track 4) | Optional — the FIR from which this Bug was routed, for Win-provenance and Run-provenance Bugs that trace back to an FIR (DR-032) |
-| Environment | Reference (Dim 7) | Where the defect was observed |
+| System | Reference (Technical) | Which System the defect is in |
+| Component | Reference (Technical) | Which Component within the System (optional) |
+| Epic | Reference (Build) | Which Epic this Bug is associated with (if applicable) |
+| Story | Reference (Build) | Which Story this Bug was discovered during (if Build provenance) |
+| Incident | Reference (Run) | Source Incident (if Run provenance) |
+| Win Case | Reference (Win) | Source Win Case (if Win provenance) |
+| Originating FIR | Reference (Win) | Optional — the FIR from which this Bug was routed, for Win-provenance and Run-provenance Bugs that trace back to an FIR (DR-032) |
+| Environment | Reference (Operational) | Where the defect was observed |
 | Assignee | String | Developer assigned |
 | Root Cause | Text | Root cause analysis (filled after resolution) |
 | Workaround | Text | Temporary workaround for the defect, if known (e.g., from Incident Response Task). Makes this Bug discoverable as a Known Error for future incidents of the same type. |
-| Deferred Gate Obligation | Reference (Track 2) | Optional — when a P0 Bug is fixed via an Emergency System Version, references the System Version carrying deferred quality gates. Bug stays at `Fixed` until deferred gates pass on a subsequent Standard System Version, then moves to `Verified`/`Closed`. See DR-031 D3. |
+| Deferred Gate Obligation | Reference (Build) | Optional — when a P0 Bug is fixed via an Emergency System Version, references the System Version carrying deferred quality gates. Bug stays at `Fixed` until deferred gates pass on a subsequent Standard System Version, then moves to `Verified`/`Closed`. See DR-031 D3. |
 
 ## Statuses
 
@@ -65,16 +65,16 @@ Captures unplanned defect-resolution work within the Build Track. Without Bugs:
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| May relate to | Epic (Track 2) | Bug may be discovered during Epic execution |
-| May relate to | Story (Track 2) | Bug may be discovered during Story implementation |
-| Scoped to | System (Dim 5) | Bug is a defect within a specific System |
-| Scoped to | Component (Dim 5) | Bug may be within a specific Component (optional) |
+| May relate to | Epic (Build) | Bug may be discovered during Epic execution |
+| May relate to | Story (Build) | Bug may be discovered during Story implementation |
+| Scoped to | System (Technical) | Bug is a defect within a specific System |
+| Scoped to | Component (Technical) | Bug may be within a specific Component (optional) |
 | Originated from | Incident (Track 3, artifact) | Run-provenance Bug originated from a production Incident |
-| Produced by | Incident Response Task or Post-Incident Review (Track 3) | The work entity that identified this defect during incident handling |
-| Originated from | Win Case (Track 4) | Win-provenance Bug originated from a customer complaint/escalation |
+| Produced by | Incident Response Task or Post-Incident Review (Run) | The work entity that identified this defect during incident handling |
+| Originated from | Win Case (Win) | Win-provenance Bug originated from a customer complaint/escalation |
 | May originate from | FIR (Track 4, PFR-Win) | Win/Run-provenance Bugs may trace back to an FIR (DR-032) |
-| Fixed in | System Version (Track 2) | Bug fix is included in a System Version |
-| Fixed in (Emergency) | System Version (Track 2) | P0 fix via Emergency gate profile; deferred gates tracked via this Bug's Deferred Gate Obligation field (DR-031) |
+| Fixed in | System Version (Build) | Bug fix is included in a System Version |
+| Fixed in (Emergency) | System Version (Build) | P0 fix via Emergency gate profile; deferred gates tracked via this Bug's Deferred Gate Obligation field (DR-031) |
 
 ## Examples
 

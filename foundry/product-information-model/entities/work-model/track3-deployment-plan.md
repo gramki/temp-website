@@ -1,7 +1,7 @@
 # Deployment Plan
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Owner:** SRE, DevOps, Release Engineering
 
 ## Definition
@@ -26,10 +26,10 @@ Makes deployment scoping and deliberation explicit in the Run Track. Without Dep
 
 | Field | Type | Description |
 |---|---|---|
-| Change Request | Reference (Track 3) | The Change Request this plan fulfills |
+| Change Request | Reference (Run) | The Change Request this plan fulfills |
 | Scope | Text | What is being deployed: System or Product deployment scope, Train/Station targets |
 | Deployment Scope | Enum | `System` / `Product` — primary granularity of this plan |
-| Deployment Train | Reference (Dim 7) | The Deployment Train this plan follows (may be derived from Change Request scope) |
+| Deployment Train | Reference (Operational) | The Deployment Train this plan follows (may be derived from Change Request scope) |
 | Planning Participants | List | Roles and individuals involved in the planning deliberation |
 | Risk Assessment Summary | Text | Overall risk analysis for this rollout: blast radius, rollback complexity, coordination requirements |
 | Target Timeline | Text | Planned deployment timeline across stations |
@@ -47,14 +47,14 @@ Makes deployment scoping and deliberation explicit in the Run Track. Without Dep
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Governed by | Change Request (Track 3) | Deployment Plan is governed by a Change Request |
-| Follows | Deployment Train (Dim 7) | Deployment Plan follows a Deployment Train's promotion path |
-| Produces | Deployment Planning Task(s) (Track 3) | Planning produces leaf-level tasks that create Deployment Specifications |
-| May produce | Deployment Drill Task (Track 3) | Planning may produce an optional rehearsal task |
-| May produce | Verification Task(s) (Track 3) | Planning produces verification tasks for post-deployment validation |
-| May produce | Maintenance Task(s) (Track 3) | Planning may discover maintenance prerequisites |
-| Contains | Deployment Task(s) (Track 3) | Deployment Tasks execute within the scope of this plan |
-| Informed by | Operational Readiness (Dim 7) | Planning considers environment readiness status |
+| Governed by | Change Request (Run) | Deployment Plan is governed by a Change Request |
+| Follows | Deployment Train (Operational) | Deployment Plan follows a Deployment Train's promotion path |
+| Produces | Deployment Planning Task(s) (Run) | Planning produces leaf-level tasks that create Deployment Specifications |
+| May produce | Deployment Drill Task (Run) | Planning may produce an optional rehearsal task |
+| May produce | Verification Task(s) (Run) | Planning produces verification tasks for post-deployment validation |
+| May produce | Maintenance Task(s) (Run) | Planning may discover maintenance prerequisites |
+| Contains | Deployment Task(s) (Run) | Deployment Tasks execute within the scope of this plan |
+| Informed by | Operational Readiness (Operational) | Planning considers environment readiness status |
 
 ## Examples
 

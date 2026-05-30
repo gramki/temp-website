@@ -1,7 +1,7 @@
 # Win Activity
 
 **Model:** Work Model
-**Track:** Track 4: The Win Track (Value Realization)
+**Track:** Win
 **Category:** Activity
 **Owner:** Sales, Pre-Sales Engineering, Customer Success, Account Management, Product Marketing
 
@@ -17,7 +17,7 @@ Win Activities operate at two granularities:
 
 ## Purpose
 
-Makes customer-facing execution work explicit in the Win Track. Without Win Activity, the model captures *what winning looks like* (Dim 2) and *what to plan* (Win Planning) but not *the actual work of engaging customers and prospects*. Win Activity is where value realization happens — through POCs, onboarding, health interventions, upsell conversations, and segment-wide programs.
+Makes customer-facing execution work explicit in the Win Track. Without Win Activity, the model captures *what winning looks like* (Vendor Value) and *what to plan* (Win Planning) but not *the actual work of engaging customers and prospects*. Win Activity is where value realization happens — through POCs, onboarding, health interventions, upsell conversations, and segment-wide programs.
 
 The seven subtypes cover the full AAARRR lifecycle:
 
@@ -39,11 +39,11 @@ The seven subtypes cover the full AAARRR lifecycle:
 | Subtype | Enum | `Pre-sales` / `Implementation` / `Retention` / `Expansion` / `Segment` / `Partner` / `Revenue Operations` |
 | Granularity | Enum | `Account` / `Segment` |
 | AAARRR Stage | Enum | `Awareness` / `Acquisition` / `Activation` / `Retention` / `Revenue` / `Referral` |
-| Customer / Prospect | Reference (Dim 3) | The specific customer or prospect account (for Account-level engagements) |
-| Customer Segment | Reference (Dim 3) | The target customer segment (for Segment-level engagements) |
-| Win Outcome(s) | List of References (Dim 2) | Which Win Outcomes this engagement advances |
-| Win Stakeholder(s) | List of References (Dim 2) | Which Win Stakeholders perform this engagement work |
-| Initiative | Reference (Dim 1) | Which Initiative this engagement aligns to |
+| Customer / Prospect | Reference (Customer Value) | The specific customer or prospect account (for Account-level engagements) |
+| Customer Segment | Reference (Customer Value) | The target customer segment (for Segment-level engagements) |
+| Win Outcome(s) | List of References (Vendor Value) | Which Win Outcomes this engagement advances |
+| Win Stakeholder(s) | List of References (Vendor Value) | Which Win Stakeholders perform this engagement work |
+| Initiative | Reference (Strategy) | Which Initiative this engagement aligns to |
 | Win Enablement Assets | List of References | Which enablement assets are used in this engagement |
 | CRM Deal / Opportunity | External Reference | CRM deal or opportunity record (for Pre-sales subtype; external entity, not UPIM) |
 | PRM Partner | External Reference | Partner record in PRM system (for Partner subtype; external entity, not UPIM) |
@@ -121,17 +121,17 @@ Status lifecycle varies by subtype:
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Advances | Win Outcome (Dim 2) | Win Activity advances specific Win Outcomes |
-| Aligned to | Initiative (Dim 1) | Win Activity aligns to strategic Initiatives |
-| Performed by | Win Stakeholder (Dim 2) | Win Activity is performed by Win Stakeholders |
+| Advances | Win Outcome (Vendor Value) | Win Activity advances specific Win Outcomes |
+| Aligned to | Initiative (Strategy) | Win Activity aligns to strategic Initiatives |
+| Performed by | Win Stakeholder (Vendor Value) | Win Activity is performed by Win Stakeholders |
 | Uses | Win Enablement | Win Activity uses enablement assets (decks, demos, playbooks) |
-| Scoped to | Customer Segment (Dim 3) | Segment Engagements target a specific Customer Segment |
+| Scoped to | Customer Segment (Customer Value) | Segment Engagements target a specific Customer Segment |
 | References | CRM Deal / Opportunity (External) | Pre-sales Engagements reference external CRM records |
 | References | PRM Partner (External) | Partner Engagements reference external PRM (Partner Relationship Management) records |
-| Driven by | Win Planning (Track 4) | Win Planning drives engagement activities |
-| Assessed by | Win Review (Track 4) | Win Reviews assess engagement results and may produce Feedback |
-| Serves | Developer Persona (Dim 6) | Developer-facing engagement work (API POCs, developer workshops, integration support) |
-| References | API Module (Dim 6) | Engagement may involve API integration work |
+| Driven by | Win Planning (Win) | Win Planning drives engagement activities |
+| Assessed by | Win Review (Win) | Win Reviews assess engagement results and may produce Feedback |
+| Serves | Developer Persona (Ecosystem) | Developer-facing engagement work (API POCs, developer workshops, integration support) |
+| References | API Module (Ecosystem) | Engagement may involve API integration work |
 
 ## Examples
 
@@ -165,7 +165,7 @@ Status lifecycle varies by subtype:
 - **Customer Segment:** LATAM Enterprise (developers/integration engineers)
 - **Win Stakeholder:** Developer Relations, Implementation Consultants
 - **Win Enablement:** Cross-Border API developer onboarding guide, sandbox
-- **References:** Cross-Border Payments API Module (Dim 6)
+- **References:** Cross-Border Payments API Module (Ecosystem)
 
 **Partner Engagement (Account-level):**
 

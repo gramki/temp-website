@@ -1,7 +1,7 @@
 # Run Engineering Monitoring
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Category:** Monitoring
 **Owner:** SRE Lead, Platform Engineering Lead
 
@@ -9,7 +9,7 @@
 
 Continuous tracking of Run Track **engineering** health — CI/CD pipeline health for operational systems, quality metrics (test coverage, defect rates for probes/reconcilers/automation), and velocity trends for Run Epics and Run Stories. Run Engineering Monitoring sits between periodic assessment (Run Epic retrospectives, operational engineering reviews) and reactive work (Run Stories, Technical Tasks) — it surfaces when operational system quality degrades, when engineering velocity stalls, or when operational tooling gaps accumulate.
 
-Run Engineering Monitoring is the Run Track's counterpart to Build Monitoring (Track 2). Where Build Monitoring watches product system CI/CD health and Build Track velocity, Run Engineering Monitoring watches operational system CI/CD health and Run Track engineering velocity. It is distinct from System Monitoring, which watches the operational health of running systems in production.
+Run Engineering Monitoring is the Run Track's counterpart to Build Monitoring (Build). Where Build Monitoring watches product system CI/CD health and Build Track velocity, Run Engineering Monitoring watches operational system CI/CD health and Run Track engineering velocity. It is distinct from System Monitoring, which watches the operational health of running systems in production.
 
 > **Why separate from System Monitoring?** System Monitoring watches production health (SLAs, latency, availability, Tenant health). Run Engineering Monitoring watches the *engineering process* that produces operational systems. A healthy production system (System Monitoring green) can coexist with a struggling operational engineering pipeline (Run Engineering Monitoring red — Run Epics behind schedule, probe test coverage declining, operational system CI flaky). Conflating the two would hide engineering velocity problems behind operational health.
 
@@ -32,7 +32,7 @@ Makes the continuous oversight of Run Track engineering health explicit. Without
 | Thresholds / Alerts | List (text) | When does monitoring trigger action (e.g., "Operational system build failure 2 consecutive runs", "Run Epic velocity < 50% of planned") |
 | Cadence | Enum | `Continuous` / `Daily` / `Weekly` |
 | Owner | String | Role/person responsible for watching (e.g., SRE Lead) |
-| Module(s) | Reference (Dim 8) | Which Module(s) this monitoring covers (Run Epics are Module-scoped) |
+| Module(s) | Reference (Structural) | Which Module(s) this monitoring covers (Run Epics are Module-scoped) |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -54,11 +54,11 @@ Makes the continuous oversight of Run Track engineering health explicit. Without
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| May trigger | Run Story (Track 3) | Monitoring surfaces operational system quality issues requiring engineering |
-| Informs | Run Epic (Track 3) | Velocity and quality trends inform Run Epic scope and scheduling |
-| Informs | Operational Readiness (Dim 7) | Operational system quality feeds readiness assessment |
-| Complements | System Monitoring (Track 3) | Run Engineering Monitoring tracks engineering health; System Monitoring tracks operational health |
-| Complements | Build Monitoring (Track 2) | Run Engineering Monitoring is the Run Track's counterpart to Build Monitoring |
+| May trigger | Run Story (Run) | Monitoring surfaces operational system quality issues requiring engineering |
+| Informs | Run Epic (Run) | Velocity and quality trends inform Run Epic scope and scheduling |
+| Informs | Operational Readiness (Operational) | Operational system quality feeds readiness assessment |
+| Complements | System Monitoring (Run) | Run Engineering Monitoring tracks engineering health; System Monitoring tracks operational health |
+| Complements | Build Monitoring (Build) | Run Engineering Monitoring is the Run Track's counterpart to Build Monitoring |
 
 ## Example
 

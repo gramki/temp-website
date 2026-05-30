@@ -1,7 +1,7 @@
 # Incident
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Category:** Work Artifact (Observation Record)
 **Owner:** DevOps, Site Reliability Engineers (SRE)
 
@@ -19,7 +19,7 @@ Captures the factual record of service degradation as a structured, queryable ar
 - The observation (what happened) is conflated with the response (what we did about it) — making it impossible to assess response effectiveness independently
 - Incident correlation (parent/child, recurrence) has no anchor entity
 - The feedback loop from incidents to Run Track planning (Deployment Planning, Capacity Planning, Run Epic scoping) has no structured input
-- SLA breach tracking against Customer Promises (Dim 3) and error budget consumption against Operational Targets (Dim 7) has no evidence entity
+- SLA breach tracking against Customer Promises (Customer Value) and error budget consumption against Operational Targets (Operational) has no evidence entity
 - Change-caused incident tracking (linking a deployment to the incident it caused) has no formal mechanism
 
 ## Fields
@@ -30,19 +30,19 @@ Captures the factual record of service degradation as a structured, queryable ar
 | Title | String | Brief description (e.g., "FX API latency spiked to 5000ms") |
 | Description | Text | Detailed description of the observed degradation |
 | Severity | Enum | `SEV-0` / `SEV-1` / `SEV-2` / `SEV-3` / `SEV-4` |
-| Originating FIR | Reference (Track 4) | Optional — the FIR from which this Incident was routed (DR-032). Present when a customer report or operator observation created an FIR that was triaged as a service degradation. Auto-created FIRs from monitoring alerts also carry this reference. |
+| Originating FIR | Reference (Win) | Optional — the FIR from which this Incident was routed (DR-032). Present when a customer report or operator observation created an FIR that was triaged as a service degradation. Auto-created FIRs from monitoring alerts also carry this reference. |
 | Detection Source | Enum | `Alert` (from System Monitoring) / `Complaint` (from Win Case) / `Observation` (operator-detected) / `Dependent` (reported by upstream/downstream system) |
 | Detection Time | Timestamp | When the degradation was first detected |
-| Affected System(s) | List of References (Dim 5) | Which System(s) are degraded |
-| Affected Module(s) | List of References (Dim 8) | Which Module(s) are impacted |
-| Affected Environment(s) | List of References (Dim 7) | Which Deployment Environment(s) are affected |
-| Affected Tenant(s) | List of References (Track 3) | Optional — when impact is localized to specific tenants in an environment |
+| Affected System(s) | List of References (Technical) | Which System(s) are degraded |
+| Affected Module(s) | List of References (Structural) | Which Module(s) are impacted |
+| Affected Environment(s) | List of References (Operational) | Which Deployment Environment(s) are affected |
+| Affected Tenant(s) | List of References (Run) | Optional — when impact is localized to specific tenants in an environment |
 | Customer Impact Summary | Text | Business-level impact description (e.g., "All LATAM cross-border payments failing; ~200 tenants affected; estimated $50K/hour revenue impact") |
 | Timeline | List (timestamp + event) | Key events: detection, acknowledgment, escalations, mitigation steps, resolution |
-| Parent Incident | Reference (Track 3) | Optional — when this incident is a symptom of a broader root-cause incident (e.g., database failure causing incidents in Payments, FX, and Settlements) |
-| Related Incidents | List of References (Track 3) | Optional — links to prior incidents of the same type (recurrence tracking) or concurrent incidents from the same root cause |
-| Caused By | Reference (Track 3) | Optional — references a Deployment (artifact) or Change Request when the incident was caused by a deployment or change |
-| SLA Breach | Text | Whether any Service Commitments (Dim 3) were breached, and which ones |
+| Parent Incident | Reference (Run) | Optional — when this incident is a symptom of a broader root-cause incident (e.g., database failure causing incidents in Payments, FX, and Settlements) |
+| Related Incidents | List of References (Run) | Optional — links to prior incidents of the same type (recurrence tracking) or concurrent incidents from the same root cause |
+| Caused By | Reference (Run) | Optional — references a Deployment (artifact) or Change Request when the incident was caused by a deployment or change |
+| SLA Breach | Text | Whether any Service Commitments (Customer Value) were breached, and which ones |
 | Response Time | Duration | Time from detection to first responder acknowledgment |
 | Resolution Time | Duration | Time from detection to service restored to SLO-compliant state |
 
@@ -62,21 +62,21 @@ Captures the factual record of service degradation as a structured, queryable ar
 | Direction | Related Entity | Relationship |
 |---|---|---|
 | May originate from | FIR (Track 4, PFR-Win) | Incidents routed from FIR intake — customer reports, operator observations, or auto-created monitoring FIRs (DR-032) |
-| Produced by | System Monitoring (Track 3) | Alert-detected incidents are produced by System Monitoring |
-| Corresponds to | Win Case — Complaint (Track 4) | Customer-reported degradation may have a corresponding Incident record |
-| Responded to by | Incident Response Task (Track 3) | The work of triaging, investigating, and resolving the incident |
-| Communicated by | Customer Communication Task (Track 3) | The work of communicating status, impact, and resolution to affected parties |
-| Reviewed by | Post-Incident Review (Track 3) | Structured learning activity; mandatory for SEV-0/1/2 |
-| References | Service Commitment (Dim 3) | Incident tests whether Service Commitments are being met |
-| References | Operational Target / SLO (Dim 7) | Incident consumes error budget against Operational Targets |
-| Reveals gaps in | Operational Readiness (Dim 7) | Incident patterns per System x Environment reveal readiness gaps |
-| Evidences | Operational Pain (Dim 7) | Recurring incidents are evidence for Operational Pains |
-| Caused by | Deployment (Track 3) or Change Request (Track 3) | When a deployment or change caused the incident |
-| Informs | Deployment Planning Task (Track 3) | Incident history informs deployment risk assessment |
-| Informs | Capacity Planning Task (Track 3) | Capacity-related incidents inform forecasting |
-| Informs | Run Epic (Track 3) | Incident patterns inform operational engineering prioritization |
-| Feeds | Customer Value Metric (Dim 3) | Incident response/resolution times feed Service Level Metric actuals |
-| May affect | Interaction Flow (Dim 5) | Incidents often reveal failure points in cross-system flows |
+| Produced by | System Monitoring (Run) | Alert-detected incidents are produced by System Monitoring |
+| Corresponds to | Win Case — Complaint (Win) | Customer-reported degradation may have a corresponding Incident record |
+| Responded to by | Incident Response Task (Run) | The work of triaging, investigating, and resolving the incident |
+| Communicated by | Customer Communication Task (Run) | The work of communicating status, impact, and resolution to affected parties |
+| Reviewed by | Post-Incident Review (Run) | Structured learning activity; mandatory for SEV-0/1/2 |
+| References | Service Commitment (Customer Value) | Incident tests whether Service Commitments are being met |
+| References | Operational Target / SLO (Operational) | Incident consumes error budget against Operational Targets |
+| Reveals gaps in | Operational Readiness (Operational) | Incident patterns per System x Environment reveal readiness gaps |
+| Evidences | Operational Pain (Operational) | Recurring incidents are evidence for Operational Pains |
+| Caused by | Deployment (Run) or Change Request (Run) | When a deployment or change caused the incident |
+| Informs | Deployment Planning Task (Run) | Incident history informs deployment risk assessment |
+| Informs | Capacity Planning Task (Run) | Capacity-related incidents inform forecasting |
+| Informs | Run Epic (Run) | Incident patterns inform operational engineering prioritization |
+| Feeds | Customer Value Metric (Customer Value) | Incident response/resolution times feed Service Level Metric actuals |
+| May affect | Interaction Flow (Technical) | Incidents often reveal failure points in cross-system flows |
 
 ## Severity Definitions
 

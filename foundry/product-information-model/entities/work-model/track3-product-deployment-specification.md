@@ -1,7 +1,7 @@
 # Product Deployment Specification
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations) — Artifact
+**Track:** Run
 **Owner:** SRE, Release Engineering, DevOps
 
 ## Definition
@@ -29,10 +29,10 @@ Orchestrates full-product deployment to a specific environment. Without Product 
 
 | Field | Type | Description |
 |---|---|---|
-| Product Version | Reference (Track 2) | The Product Version this specification deploys |
-| Target Environment | Reference (Dim 7) | The Deployment Environment this specification targets |
+| Product Version | Reference (Build) | The Product Version this specification deploys |
+| Target Environment | Reference (Operational) | The Deployment Environment this specification targets |
 | Specification Version | String | Deployment progression version (e.g., `pds-1.0`, `pds-2.0`) — independent of Product Version |
-| System Deployment Specifications | List of References (Track 3) | System Deployment Specification versions composed by reference — one per System in the Product Version BOM |
+| System Deployment Specifications | List of References (Run) | System Deployment Specification versions composed by reference — one per System in the Product Version BOM |
 | Deployment Ordering | Ordered List | System deployment sequence with dependencies (e.g., deploy compliance-system before payments-system) |
 | Cross-System Environment Configuration | Structured Config | Product-wide environment-specific configuration: cross-System monitoring dashboards, product-level alerting rules, cross-System scaling coordination |
 | Cross-System Deployment Scripts | List | Scripts/applications for product-level coordination: pre-rollout health check across all Systems, end-to-end smoke test, coordinated cross-System rollback |
@@ -51,12 +51,12 @@ Orchestrates full-product deployment to a specific environment. Without Product 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Specifies deployment of | Product Version (Track 2) | References a certified Product Version |
-| Composes | System Deployment Specification(s) (Track 3) | Composes System Deployment Specifications by reference for all Systems in the Product Version |
-| Targets | Deployment Environment (Dim 7) | Targets a specific environment |
-| Applied by | Deployment Task (Track 3) | Applied to an environment by a Deployment Task (Product-level) |
-| Produced by | Deployment Planning Task (Track 3) | Deployment Planning Task creates/updates specification versions |
-| Enables | Customer Release Intent (Dim 1) | Successful Product Deployment Specification deployment enables Customer Release Intent activation |
+| Specifies deployment of | Product Version (Build) | References a certified Product Version |
+| Composes | System Deployment Specification(s) (Run) | Composes System Deployment Specifications by reference for all Systems in the Product Version |
+| Targets | Deployment Environment (Operational) | Targets a specific environment |
+| Applied by | Deployment Task (Run) | Applied to an environment by a Deployment Task (Product-level) |
+| Produced by | Deployment Planning Task (Run) | Deployment Planning Task creates/updates specification versions |
+| Enables | Customer Release Intent (Strategy) | Successful Product Deployment Specification deployment enables Customer Release Intent activation |
 
 ## Example
 

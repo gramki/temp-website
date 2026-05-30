@@ -1,7 +1,7 @@
 # Initiative Scoping Task
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Learning)
+**Track:** Discovery
 **Owner:** Product Management
 
 ## Definition
@@ -28,8 +28,8 @@ Makes the Initiative definition work explicit. An Initiative (Dimension 1) requi
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Produces | Initiative (Dim 1) | Initiative Scoping Tasks define Initiatives |
-| May produce | Customer Release Intent (Dim 1) | Initiative scoping may define Customer Release Intent(s) that the Initiative will deliver (see cross-track: Discovery defines CRI as part of Initiative scoping) |
+| Produces | Initiative (Strategy) | Initiative Scoping Tasks define Initiatives |
+| May produce | Customer Release Intent (Strategy) | Initiative scoping may define Customer Release Intent(s) that the Initiative will deliver (see cross-track: Discovery defines CRI as part of Initiative scoping) |
 
 ## Example
 

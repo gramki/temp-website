@@ -1,7 +1,7 @@
 # Deliberation
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Learning)
+**Track:** Discovery
 **Owner:** Product Manager (facilitates); participants include any authorized stakeholders — product council, architecture review board, customer advisory board, cross-functional teams, executive leadership.
 
 ## Definition
@@ -24,14 +24,14 @@ Deliberation may directly produce a PDR — "the product council deliberated and
 | Field | Type | Description |
 |---|---|---|
 | Title | String | What is being deliberated |
-| Originating Discovery Case | Reference (Track 1) | Discovery Case this deliberation belongs to, if any |
+| Originating Discovery Case | Reference (Discovery) | Discovery Case this deliberation belongs to, if any |
 | Purpose | Enum | `Exploration` (generate Ideas) / `Evaluation` (decide on Ideas) / `Both` |
 | Participants | List | Who participated (roles or names) |
 | Authority | Text | What this group is authorized to decide |
 | Input | List of References | Signals, Ideas, Research findings, or other context informing the deliberation |
 | Outcome | Text | What was decided, generated, or concluded |
-| Ideas Generated | List of References (Dim 1) | Ideas produced (if Exploration) |
-| PDR Produced | Reference (Dim 1) | PDR produced (if Evaluation) |
+| Ideas Generated | List of References (Strategy) | Ideas produced (if Exploration) |
+| PDR Produced | Reference (Strategy) | PDR produced (if Evaluation) |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -46,14 +46,14 @@ Deliberation may directly produce a PDR — "the product council deliberated and
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case; carries bidirectional reference |
-| Consumes | Signal (Dim 1) | May deliberate on Signals (exploration mode) |
-| Consumes | Idea (Dim 1) | May deliberate on Ideas (evaluation mode) |
-| Consumes | Research Task / Experiment / Prototype (Track 1) | May consume evidence from prior validation work |
-| Produces | Idea (Dim 1) | May generate Ideas (exploration mode) |
-| Produces | PDR (Dim 1) | May produce a PDR (evaluation mode — Go/Kill/Pivot) |
-| Sibling | Signal Exploration Task (Track 1) | Both can generate Ideas from Signals |
-| May trigger | Modeling Task (Track 1) | Deliberation outcomes may require Definition Model updates |
+| Originates from | Discovery Case (Discovery) | Sub-item of a Discovery Case; carries bidirectional reference |
+| Consumes | Signal (Strategy) | May deliberate on Signals (exploration mode) |
+| Consumes | Idea (Strategy) | May deliberate on Ideas (evaluation mode) |
+| Consumes | Research Task / Experiment / Prototype (Discovery) | May consume evidence from prior validation work |
+| Produces | Idea (Strategy) | May generate Ideas (exploration mode) |
+| Produces | PDR (Strategy) | May produce a PDR (evaluation mode — Go/Kill/Pivot) |
+| Sibling | Signal Exploration Task (Discovery) | Both can generate Ideas from Signals |
+| May trigger | Modeling Task (Discovery) | Deliberation outcomes may require Definition Model updates |
 
 ## Examples
 

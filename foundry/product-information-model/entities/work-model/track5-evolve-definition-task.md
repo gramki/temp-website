@@ -1,7 +1,7 @@
 # Evolve Definition Task
 
 **Model:** Work Model
-**Track:** Track 5: Evolve (Process Evolution)
+**Track:** Evolve
 **Owner:** Process Leads, Product Ops, Engineering Managers
 
 ## Definition
@@ -38,8 +38,8 @@ The Work Model and Operating Model are living documents that must evolve as the 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scoped by | Evolve Planning (Track 5) | Planning cycle defines which definitions to create or update |
-| Triggered by | Evolve Findings (Track 5) | Findings identify gaps that require definition work |
+| Scoped by | Evolve Planning (Evolve) | Planning cycle defines which definitions to create or update |
+| Triggered by | Evolve Findings (Evolve) | Findings identify gaps that require definition work |
 | Updates | Work entities (Tracks 1–5) | Creates or modifies entity definitions |
 | Updates | Artifact types (all tracks) | Creates or modifies artifact type definitions and assessment criteria |
 | Updates | Operating Model guidance | Creates or modifies playbook templates, ceremony definitions, role descriptions |
@@ -59,7 +59,7 @@ The Work Model and Operating Model are living documents that must evolve as the 
 
 **Name:** "Define DoD for Win Activity entities"
 **Definition Scope:** DoD Criteria
-**Target Track(s):** Track 4: Win
+**Target Track(s):** Win
 **Target Entity/Artifact:** Win Activity (all 7 subtypes)
 **Change Type:** New
 **Triggered by:** Evolve Findings from "Q3 Win Track Artifact Quality Review" — finding: Implementation/Onboarding missing integration verification in 35% of cases

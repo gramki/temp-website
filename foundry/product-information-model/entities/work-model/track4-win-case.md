@@ -1,7 +1,7 @@
 # Win Case
 
 **Model:** Work Model
-**Track:** Track 4: The Win Track (Value Realization)
+**Track:** Win
 **Category:** Reactive
 **Owner:** Customer Success, Sales, Support
 
@@ -15,7 +15,7 @@ Reactive, customer-initiated work of Win Teams — queries, requests, complaints
 
 1. **Query** — Customer or prospect seeking information (e.g., "What currencies do you support for LATAM corridors?")
 2. **Service Request** — Customer asking for a specific action (e.g., "Please add a new approver to our payout workflow")
-3. **Complaint** — Customer expressing dissatisfaction with a product capability or commercial process. Complaints test Service Commitments from Dim 3 — they reveal whether Customer Promises are being met.
+3. **Complaint** — Customer expressing dissatisfaction with a product capability or commercial process. Complaints test Service Commitments from Customer Value — they reveal whether Customer Promises are being met.
 4. **Escalation** — Issue requiring elevated attention due to severity, customer importance, or unresolved prior cases.
 
 **Distinction from Run Track:** Win Cases are customer-facing and commercial. Run Track entities (Incident, Change Request) are infrastructure- and system-facing. A system outage is a Run Track Incident; a customer calling to ask about it is a Win Case.
@@ -36,12 +36,12 @@ Makes the reactive, responsive work of Win Teams visible in the model. Without W
 | ID | String | Unique identifier for the case |
 | Title | String | Brief description of the case |
 | Type | Enum | `Query` / `Service Request` / `Complaint` / `Escalation` |
-| Originating FIR | Reference (Track 4) | **Required.** The FIR from which this Win Case was routed. Every Win Case is a sub-item of an FIR (DR-032). |
+| Originating FIR | Reference (Win) | **Required.** The FIR from which this Win Case was routed. Every Win Case is a sub-item of an FIR (DR-032). |
 | Customer / Prospect | Reference (ESR) | Customer or prospect who initiated the case — references External Stakeholder Registry |
-| Customer Segment | Reference (Dim 3) | Which segment the case pertains to |
+| Customer Segment | Reference (Customer Value) | Which segment the case pertains to |
 | Priority | Enum | `Critical` / `High` / `Medium` / `Low` |
 | Description | Text | Detailed description of the customer's query, request, complaint, or escalation |
-| Assigned Win Stakeholder | Reference (Dim 2) | Which Win Stakeholder is handling this case |
+| Assigned Win Stakeholder | Reference (Vendor Value) | Which Win Stakeholder is handling this case |
 | CRM Reference | String (external) | Link to the case in the external CRM system |
 | Resolution | Text | How the case was resolved |
 | SLA Target | Duration | The target resolution time based on case type, priority, and segment |
@@ -62,16 +62,16 @@ Makes the reactive, responsive work of Win Teams visible in the model. Without W
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scoped to | Customer Segment (Dim 3) | Win Case pertains to a specific segment |
-| Assigned to | Win Stakeholder (Dim 2) | Win Case is handled by a Win Stakeholder |
-| Tests | Service Commitment / Customer Promise (Dim 3) | Complaints test whether Service Commitments are being met |
-| Measured by | Business KPI (Dim 2) | Win Case volume and resolution contribute to Cost-to-Serve KPIs |
-| Assessed by | Win Review (Track 4) | Case patterns are assessed by Win Reviews (Case Pattern Review type) |
-| May generate | Feedback (Track 4) | Patterns or individual cases may produce Feedback that enters the Signal pipeline |
-| References | API Operation (Dim 6) | Cases may relate to specific API operations (SLO breaches, contract issues) |
+| Scoped to | Customer Segment (Customer Value) | Win Case pertains to a specific segment |
+| Assigned to | Win Stakeholder (Vendor Value) | Win Case is handled by a Win Stakeholder |
+| Tests | Service Commitment / Customer Promise (Customer Value) | Complaints test whether Service Commitments are being met |
+| Measured by | Business KPI (Vendor Value) | Win Case volume and resolution contribute to Cost-to-Serve KPIs |
+| Assessed by | Win Review (Win) | Case patterns are assessed by Win Reviews (Case Pattern Review type) |
+| May generate | Feedback (Win) | Patterns or individual cases may produce Feedback that enters the Signal pipeline |
+| References | API Operation (Ecosystem) | Cases may relate to specific API operations (SLO breaches, contract issues) |
 | May correspond to | Incident (Track 3, artifact) | A Win Case Complaint about service degradation may have a corresponding Incident record in the Run Track — the Win Case is customer-facing, the Incident is system-facing |
-| Originates from | FIR (Track 4) | Every Win Case is a sub-item of an FIR — the universal intake envelope (DR-032) |
-| May produce | Bug (Track 2) | Complaints/escalations may reveal product defects (provenance: Win) |
+| Originates from | FIR (Win) | Every Win Case is a sub-item of an FIR — the universal intake envelope (DR-032) |
+| May produce | Bug (Build) | Complaints/escalations may reveal product defects (provenance: Win) |
 
 ## Examples
 

@@ -1,12 +1,12 @@
 # Run Story
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Owner:** SRE, Platform Engineers
 
 ## Definition
 
-A unit of operational engineering work within a Run Epic, representing a functional increment of operational capability. Run Stories describe *what* operational capability needs to be built in Module (Dim 8) language — mirroring how Build Track Stories describe functional increments. Run Stories are implemented by Technical Tasks scoped to operational Systems (Dim 5).
+A unit of operational engineering work within a Run Epic, representing a functional increment of operational capability. Run Stories describe *what* operational capability needs to be built in Module (Structural) language — mirroring how Build Track Stories describe functional increments. Run Stories are implemented by Technical Tasks scoped to operational Systems (Technical).
 
 Run Stories may be technical ("Create synthetic payment probe for end-to-end path verification") or automation-focused ("Build daily settlement reconciliation job for LATAM banks"). They produce operational System Versions — versioned, quality-gated artifacts of operational Systems.
 
@@ -22,9 +22,9 @@ Provides granular decomposition of operational engineering work. Without Run Sto
 | Field | Type | Description |
 |---|---|---|
 | Name | String | Descriptive name (e.g., "Create synthetic payment probe for BRL corridor") |
-| Run Epic | Reference (Track 3) | Parent Run Epic |
-| Module | Reference (Dim 8) | Inherited from parent Run Epic |
-| Operational System | Reference (Dim 5) | Which operational System this Story targets |
+| Run Epic | Reference (Run) | Parent Run Epic |
+| Module | Reference (Structural) | Inherited from parent Run Epic |
+| Operational System | Reference (Technical) | Which operational System this Story targets |
 | Acceptance Criteria | Text | What "done" looks like for this operational capability increment |
 
 ## Statuses
@@ -39,10 +39,10 @@ Provides granular decomposition of operational engineering work. Without Run Sto
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | Run Epic (Track 3) | Run Story is a unit of work within a Run Epic |
-| Scoped to | Module (Dim 8) | Inherited from parent Run Epic |
-| Targets | Operational System (Dim 5) | Run Story targets a specific operational System |
-| Implemented by | Technical Task(s) (Track 3) | Run Story is implemented by Run Track Technical Tasks scoped to the operational System |
+| Belongs to | Run Epic (Run) | Run Story is a unit of work within a Run Epic |
+| Scoped to | Module (Structural) | Inherited from parent Run Epic |
+| Targets | Operational System (Technical) | Run Story targets a specific operational System |
+| Implemented by | Technical Task(s) (Run) | Run Story is implemented by Run Track Technical Tasks scoped to the operational System |
 | Produces | Operational System Version | Run Story work produces a versioned artifact of the operational System (System Version entity) |
 
 ## Examples

@@ -1,12 +1,12 @@
 # Component Version
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction) — Artifact
+**Track:** Build — Artifact
 **Owner:** Tech Lead, Developers, QA
 
 ## Definition
 
-A versioned, quality-gated build artifact of a single Component (Dim 5) — the container image, Lambda package, frontend bundle, or equivalent deployable produced by that Component's CI/CD pipeline. Component Versions are *results* of engineering progress, not planned entities; they are routinely and continuously incremented as Technical Tasks flow through the pipeline. A Component Version with status `Released` has passed all quality gates and is available for assembly into a System Version.
+A versioned, quality-gated build artifact of a single Component (Technical) — the container image, Lambda package, frontend bundle, or equivalent deployable produced by that Component's CI/CD pipeline. Component Versions are *results* of engineering progress, not planned entities; they are routinely and continuously incremented as Technical Tasks flow through the pipeline. A Component Version with status `Released` has passed all quality gates and is available for assembly into a System Version.
 
 Component Version is the **atomic build artifact** — the first tier of the three-tier versioning model: **Component Version** (atomic) → System Version (composed, sealed BOM) → Product Version (complete product composition). See DR-036.
 
@@ -21,13 +21,13 @@ Captures the atomic output of Build Track work at Component granularity. Without
 - Quality gate results have no structured home at the atomic tier
 - Technical Tasks and Bug fixes have no versioned artifact to attach to
 
-**Quality gate fields on Component Version feed System Version assembly and Operational Readiness (Dim 7).** When Component Versions are composed into a released System Version, their quality gate results contribute to the System's operational acceptance assessment in each Deployment Environment.
+**Quality gate fields on Component Version feed System Version assembly and Operational Readiness (Operational).** When Component Versions are composed into a released System Version, their quality gate results contribute to the System's operational acceptance assessment in each Deployment Environment.
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| Component | Reference (Dim 5) | Which Component this version belongs to |
+| Component | Reference (Technical) | Which Component this version belongs to |
 | Version | Semver | Semantic version number (e.g., `2.3.1`) |
 | Build Timestamp | DateTime | When the artifact was produced |
 | Artifact URI | String | Location in the artifact registry (e.g., `ghcr.io/org/payments-service:2.3.1`) |
@@ -40,7 +40,7 @@ Captures the atomic output of Build Track work at Component granularity. Without
 | Quality Gate — Dependency Audit | Enum + Text | `Pass` / `Fail`; known vulnerabilities in dependencies |
 | Gate Profile | Enum | `Standard` / `Emergency`. Standard = all gates required. Emergency = peer review + security scan + smoke tests required; full regression + performance benchmarks + static analysis deferred. See DR-031 D2. |
 | Release Notes | Text | What changed — features, fixes, breaking changes |
-| Included Work | List of References (Track 2) | Technical Tasks, Bug fixes included in this version |
+| Included Work | List of References (Build) | Technical Tasks, Bug fixes included in this version |
 
 ## Statuses
 
@@ -53,11 +53,11 @@ Captures the atomic output of Build Track work at Component granularity. Without
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | Component (Dim 5) | Component Version is a versioned artifact of a Component |
-| Composed into | System Version (Track 2) | Component Versions are sealed into a System Version BOM |
-| Contains | Technical Task(s) (Track 2) | Component Version includes completed Technical Tasks |
-| Contains | Bug fix(es) (Track 2) | Component Version includes Bug fixes |
-| Reflects in | Operational Readiness (Dim 7) | Quality gate results contribute when composed into a released System Version |
+| Belongs to | Component (Technical) | Component Version is a versioned artifact of a Component |
+| Composed into | System Version (Build) | Component Versions are sealed into a System Version BOM |
+| Contains | Technical Task(s) (Build) | Component Version includes completed Technical Tasks |
+| Contains | Bug fix(es) (Build) | Component Version includes Bug fixes |
+| Reflects in | Operational Readiness (Operational) | Quality gate results contribute when composed into a released System Version |
 
 ## Example
 

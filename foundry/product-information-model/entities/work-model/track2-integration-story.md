@@ -1,7 +1,7 @@
 # Integration Story
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction)
+**Track:** Build
 **Owner:** Tech Lead, Developers
 
 ## Definition
@@ -22,13 +22,13 @@ Decomposes Integration Epics into plannable and trackable units of integration w
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Descriptive title (e.g., "Validate gRPC contract: payments-service → fx-service GetRate") |
-| Integration Epic | Reference (Track 2) | Parent Integration Epic |
-| Systems Under Test | List of References (Dim 5) | Systems being integrated by this Story |
+| Integration Epic | Reference (Build) | Parent Integration Epic |
+| Systems Under Test | List of References (Technical) | Systems being integrated by this Story |
 | Integration Type | Enum | `API Contract` / `Event Flow` / `Data Consistency` / `End-to-End Scenario` |
 | Contract Specification | Text | API schema, event schema, or data contract being validated |
 | Test Suite | Text / Reference | Integration test suite produced by this Story |
 | Acceptance Criteria | Text | What must pass for this integration to be considered verified |
-| Iteration | Reference (Track 2) | Which sprint/iteration this Integration Story is assigned to |
+| Iteration | Reference (Build) | Which sprint/iteration this Integration Story is assigned to |
 
 ## Statuses
 
@@ -44,14 +44,14 @@ Decomposes Integration Epics into plannable and trackable units of integration w
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | Integration Epic (Track 2) | Integration Story is a unit within an Integration Epic |
-| Tests | System(s) (Dim 5) | Integration Story tests interoperability between Systems |
-| Implemented by | Technical Task(s) (Track 2) | Integration Story is implemented by Technical Tasks |
+| Belongs to | Integration Epic (Build) | Integration Story is a unit within an Integration Epic |
+| Tests | System(s) (Technical) | Integration Story tests interoperability between Systems |
+| Implemented by | Technical Task(s) (Build) | Integration Story is implemented by Technical Tasks |
 | Produces | Integration Contract(s) | API schemas, event schemas validated by this Story |
 | Produces | Integration Test Suite | Test suite verifying the integration |
-| Contributes to | System Version(s) (Track 2) | Integration Stories verify contracts for System Version assembly |
-| Contributes to | Product Version (Track 2) | Cross-System stories contribute to Product Version certification |
-| Assigned to | Iteration (Track 2) | Integration Story is assigned to a sprint |
+| Contributes to | System Version(s) (Build) | Integration Stories verify contracts for System Version assembly |
+| Contributes to | Product Version (Build) | Cross-System stories contribute to Product Version certification |
+| Assigned to | Iteration (Build) | Integration Story is assigned to a sprint |
 
 ## Examples
 

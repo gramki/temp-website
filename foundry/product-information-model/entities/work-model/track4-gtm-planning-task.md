@@ -3,7 +3,7 @@
 > **Note:** GTM Planning is a subtype of Win Planning. See `track4-win-planning.md` for the parent entity and other subtypes. (File retains legacy filename `track4-gtm-planning-task.md` for backward compatibility.)
 
 **Model:** Work Model
-**Track:** Track 4: The Win Track (Value Realization)
+**Track:** Win
 **Category:** Planning
 **Owner:** Product Marketing, Sales, Customer Success
 
@@ -15,7 +15,7 @@ Work to prepare launch messaging, pricing communication, partnership execution, 
 
 Makes the go-to-market preparation work explicit in the Win Track. A Customer Release Intent requires deliberate GTM effort to become a realized Customer Release — the business doesn't just "flip a switch." Sales teams need enablement, marketing needs messaging, support needs documentation, customers need communication, and Win Stakeholders across all AAARRR stages need preparation.
 
-**Dim 2 connection:** GTM Planning Tasks reference Dim 2 entities to ensure commercial coherence:
+**Vendor Value connection:** GTM Planning Tasks reference Vendor Value entities to ensure commercial coherence:
 - Which **Win Outcomes** does this launch target? (e.g., Acquisition, Activation outcomes for LATAM Enterprise)
 - Which **Pricing Tiers** are affected? (e.g., new LATAM Enterprise tier, modifications to existing Enterprise Volume Plan)
 - Which **Win Stakeholders** need enablement? (e.g., Pre-Sales Engineers need LATAM demo environment, Account Executives need new pricing deck)
@@ -26,10 +26,10 @@ Makes the go-to-market preparation work explicit in the Win Track. A Customer Re
 | Field | Type | Description |
 |---|---|---|
 | Title | String | Brief description of the GTM work |
-| Customer Release Intent | Reference (Dim 1) | Which Customer Release Intent this GTM work prepares to realize |
-| Target Win Outcomes | List of References (Dim 2) | Which Win Outcomes this launch targets |
-| Affected Pricing Tiers | List of References (Dim 2) | Which Pricing Tiers are involved |
-| Win Stakeholders to enable | List of References (Dim 2) | Which Win Stakeholders need preparation |
+| Customer Release Intent | Reference (Strategy) | Which Customer Release Intent this GTM work prepares to realize |
+| Target Win Outcomes | List of References (Vendor Value) | Which Win Outcomes this launch targets |
+| Affected Pricing Tiers | List of References (Vendor Value) | Which Pricing Tiers are involved |
+| Win Stakeholders to enable | List of References (Vendor Value) | Which Win Stakeholders need preparation |
 | Deliverables | List (text) | Specific outputs — sales deck, webinar, help articles, pricing page, etc. |
 | _Other fields to be refined._ | | |
 
@@ -46,13 +46,13 @@ Makes the go-to-market preparation work explicit in the Win Track. A Customer Re
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Subtype of | Win Planning (Track 4) | GTM Planning is a subtype of Win Planning |
-| Advances | Initiative (Dim 1) | GTM Planning advances one or more Initiatives |
-| Prepares for | Customer Release Intent (Dim 1) | GTM Planning Tasks prepare the launch that realizes a Customer Release Intent |
-| Targets | Win Outcome (Dim 2) | GTM work targets specific Win Outcomes |
-| References | Pricing Tier (Dim 2) | GTM work may involve pricing/packaging communication |
-| Enables | Win Stakeholder (Dim 2) | GTM work enables Win Stakeholders with materials and training |
-| Addresses | Win Barrier (Dim 2) | GTM messaging may proactively address known Win Barriers |
+| Subtype of | Win Planning (Win) | GTM Planning is a subtype of Win Planning |
+| Advances | Initiative (Strategy) | GTM Planning advances one or more Initiatives |
+| Prepares for | Customer Release Intent (Strategy) | GTM Planning Tasks prepare the launch that realizes a Customer Release Intent |
+| Targets | Win Outcome (Vendor Value) | GTM work targets specific Win Outcomes |
+| References | Pricing Tier (Vendor Value) | GTM work may involve pricing/packaging communication |
+| Enables | Win Stakeholder (Vendor Value) | GTM work enables Win Stakeholders with materials and training |
+| Addresses | Win Barrier (Vendor Value) | GTM messaging may proactively address known Win Barriers |
 
 ## Example
 

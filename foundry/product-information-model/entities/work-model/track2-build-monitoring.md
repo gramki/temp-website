@@ -1,7 +1,7 @@
 # Build Monitoring
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction)
+**Track:** Build
 **Category:** Monitoring
 **Owner:** Tech Lead, QA Lead
 
@@ -30,7 +30,7 @@ Makes the continuous oversight of build and quality health explicit. Without Bui
 | Thresholds / Alerts | List (text) | When does monitoring trigger action (e.g., "Build failure 3 consecutive runs", "Coverage drop below 80%") |
 | Cadence | Enum | `Continuous` / `Daily` / `Weekly` |
 | Owner | String | Role/person responsible for watching |
-| System(s) / Customer Release Intent | Reference | Which System(s) (Dim 5) or Customer Release Intent this monitoring supports (if scoped) |
+| System(s) / Customer Release Intent | Reference | Which System(s) (Technical) or Customer Release Intent this monitoring supports (if scoped) |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -52,11 +52,11 @@ Makes the continuous oversight of build and quality health explicit. Without Bui
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| May trigger | Bug (Track 2) | Monitoring surfaces defects requiring resolution |
-| May trigger | Technical Debt Item (Track 2) | Monitoring may surface technical debt requiring documentation |
-| May trigger | Maintenance Task (Track 3) | Monitoring may surface infra or hygiene work |
-| Informs | Release Planning Task (Track 2) | Velocity and quality trends inform release scope |
-| Informs | Milestone Planning Task (Track 2) | Quality gates inform milestone criteria |
+| May trigger | Bug (Build) | Monitoring surfaces defects requiring resolution |
+| May trigger | Technical Debt Item (Build) | Monitoring may surface technical debt requiring documentation |
+| May trigger | Maintenance Task (Run) | Monitoring may surface infra or hygiene work |
+| Informs | Release Planning Task (Build) | Velocity and quality trends inform release scope |
+| Informs | Milestone Planning Task (Build) | Quality gates inform milestone criteria |
 
 ## Example
 

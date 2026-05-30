@@ -1,7 +1,7 @@
 # Deployment Planning Task
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Owner:** DevOps, Site Reliability Engineers (SRE)
 
 ## Definition
@@ -22,7 +22,7 @@ Makes deployment planning explicit in the Run Track. Deploying to production is 
 |---|---|---|
 | Deployment Scope | Enum | `System` / `Product` — whether planning targets one System or a full Product deployment |
 | Deployable Artifact | Reference | **System Version** (System scope) or **Product Version** (Product scope) being deployed |
-| Target Environment | Reference (Dim 7) | The Deployment Environment being targeted |
+| Target Environment | Reference (Operational) | The Deployment Environment being targeted |
 | Deployment Strategy | Enum | `Canary` / `Blue-Green` / `Rolling` / `Direct` |
 | Compliance Windows | List | Relevant compliance/change-freeze windows that constrain deployment timing |
 | Pre-rollout Scripts | List | Scripts to include in the specification: migrations, cache warming, prerequisite validation |
@@ -43,15 +43,15 @@ Makes deployment planning explicit in the Run Track. Deploying to production is 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Governed by | Deployment Plan (Track 3) | Deployment Planning Task is produced by and governed by a Deployment Plan |
-| Produces | System Deployment Specification (Track 3) | Produces System-scoped specifications (System scope) |
-| Produces | Product Deployment Specification (Track 3) | Produces Product-scoped specifications (Product scope) |
-| Plans for | Deployment Task (Track 3) | Produces the specification for Deployment Task execution |
-| May produce | Verification Task(s) (Track 3) | Planning may produce Verification Tasks for post-deployment validation |
-| May produce | Maintenance Task(s) (Track 3) | Planning may discover maintenance prerequisites |
-| Considers | Operational Readiness (Dim 7) | Planning considers System readiness in the target environment |
-| Informed by | Incident history (Track 3) | Recent incidents for affected Systems inform deployment risk assessment |
-| Supports | Customer Release Intent (Dim 1) | Ensures Customer Release Intent's Product Version reaches target environments |
+| Governed by | Deployment Plan (Run) | Deployment Planning Task is produced by and governed by a Deployment Plan |
+| Produces | System Deployment Specification (Run) | Produces System-scoped specifications (System scope) |
+| Produces | Product Deployment Specification (Run) | Produces Product-scoped specifications (Product scope) |
+| Plans for | Deployment Task (Run) | Produces the specification for Deployment Task execution |
+| May produce | Verification Task(s) (Run) | Planning may produce Verification Tasks for post-deployment validation |
+| May produce | Maintenance Task(s) (Run) | Planning may discover maintenance prerequisites |
+| Considers | Operational Readiness (Operational) | Planning considers System readiness in the target environment |
+| Informed by | Incident history (Run) | Recent incidents for affected Systems inform deployment risk assessment |
+| Supports | Customer Release Intent (Strategy) | Ensures Customer Release Intent's Product Version reaches target environments |
 
 ## Examples
 

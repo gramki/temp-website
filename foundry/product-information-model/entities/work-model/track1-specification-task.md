@@ -1,7 +1,7 @@
 # Specification Task
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Learning)
+**Track:** Discovery
 **Owner:** Product Manager
 
 ## Definition
@@ -16,7 +16,7 @@ Makes the PSD-authoring work explicit in the Work Model. A Go or Pivot PDR may c
 
 | Field | Type | Description |
 |---|---|---|
-| Originating Discovery Case | Reference (Track 1) | Discovery Case this specification work belongs to, if any |
+| Originating Discovery Case | Reference (Discovery) | Discovery Case this specification work belongs to, if any |
 | _To be refined._ | | |
 
 ## Statuses
@@ -29,10 +29,10 @@ Makes the PSD-authoring work explicit in the Work Model. A Go or Pivot PDR may c
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case when specification work is case-scoped |
-| Refines | Product Intent (Dim 1) | Specification Tasks refine an accepted Product Intent |
-| Produces | PSD (Dim 1) | Specification Tasks produce PSDs under a Product Intent |
-| Justified by | Product Decision Record (Dim 1) | Work is authorized by a Go or Pivot decision in a PDR |
+| Originates from | Discovery Case (Discovery) | Sub-item of a Discovery Case when specification work is case-scoped |
+| Refines | Product Intent (Strategy) | Specification Tasks refine an accepted Product Intent |
+| Produces | PSD (Strategy) | Specification Tasks produce PSDs under a Product Intent |
+| Justified by | Product Decision Record (Strategy) | Work is authorized by a Go or Pivot decision in a PDR |
 
 ## Example
 

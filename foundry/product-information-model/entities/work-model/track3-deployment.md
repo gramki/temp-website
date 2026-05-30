@@ -1,7 +1,7 @@
 # Deployment
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations) — Artifact
+**Track:** Run
 **Owner:** DevOps, Site Reliability Engineers (SRE)
 
 ## Definition
@@ -28,12 +28,12 @@ As an artifact, the Deployment record provides:
 |---|---|---|
 | Deployment Scope | Enum | `System` / `Product` — whether a System or Product Deployment Specification was applied |
 | Specification | Reference | The specification version applied: System Deployment Specification or Product Deployment Specification |
-| Environment | Reference (Dim 7) | The Deployment Environment where the specification was applied |
+| Environment | Reference (Operational) | The Deployment Environment where the specification was applied |
 | Deployment Strategy | Enum | `Canary` / `Blue-Green` / `Rolling` / `Direct` — the strategy used |
 | Deployment Timestamp | DateTime | When the deployment was executed |
 | Deployer | String | Person or automation that executed the deployment |
-| Deployment Task | Reference (Track 3) | The Deployment Task that produced this record (provenance) |
-| Previous Deployment | Reference (Track 3) | The Deployment record this one supersedes (if any) |
+| Deployment Task | Reference (Run) | The Deployment Task that produced this record (provenance) |
+| Previous Deployment | Reference (Run) | The Deployment record this one supersedes (if any) |
 
 ## Statuses
 
@@ -47,12 +47,12 @@ As an artifact, the Deployment record provides:
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Produced by | Deployment Task (Track 3) | Deployment record is produced by a Deployment Task |
-| Records application of | System Deployment Specification (Track 3) | System-scoped deployment |
-| Records application of | Product Deployment Specification (Track 3) | Product-scoped deployment |
-| Targets | Deployment Environment (Dim 7) | Records which environment the specification was applied to |
-| Supersedes | Deployment (Track 3) | A newer Deployment supersedes the previous one in the same environment |
-| Enables | Customer Release Intent (Dim 1) | Successful deployments enable Customer Release Intent activation |
+| Produced by | Deployment Task (Run) | Deployment record is produced by a Deployment Task |
+| Records application of | System Deployment Specification (Run) | System-scoped deployment |
+| Records application of | Product Deployment Specification (Run) | Product-scoped deployment |
+| Targets | Deployment Environment (Operational) | Records which environment the specification was applied to |
+| Supersedes | Deployment (Run) | A newer Deployment supersedes the previous one in the same environment |
+| Enables | Customer Release Intent (Strategy) | Successful deployments enable Customer Release Intent activation |
 
 ## Examples
 

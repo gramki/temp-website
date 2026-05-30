@@ -1,7 +1,7 @@
 # Research Task
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Learning)
+**Track:** Discovery
 **Owner:** Product Manager, UX Researcher
 
 ## Definition
@@ -19,11 +19,11 @@ Research Task is distinct from **Signal Exploration Task**, which is the diverge
 | Field | Type | Description |
 |---|---|---|
 | Title | String | What specific question this research answers |
-| Originating Discovery Case | Reference (Track 1) | Discovery Case this research belongs to, if any |
+| Originating Discovery Case | Reference (Discovery) | Discovery Case this research belongs to, if any |
 | Question | Text | The specific question or hypothesis being investigated |
 | Method | Enum | `Interview` / `Data Analysis` / `Competitive Analysis` / `Market Sizing` / `Regulatory Review` / `Other` |
 | Findings | Text | What was learned |
-| Supports Idea | Reference (Dim 1) | Which Idea this research validates/invalidates (if applicable) |
+| Supports Idea | Reference (Strategy) | Which Idea this research validates/invalidates (if applicable) |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -38,19 +38,19 @@ Research Task is distinct from **Signal Exploration Task**, which is the diverge
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Originates from | Discovery Case (Track 1) | Sub-item of a Discovery Case; carries bidirectional reference |
-| May support | Signal Exploration Task (Track 1) | May be spawned to gather specific data during exploration |
-| Validates | Idea (Dim 1) | Research Task validates/invalidates an Idea |
-| Referenced by | Product Decision Record (Dim 1) | PDR cites this Research Task as evidence |
-| Sibling | Experiment (Track 1) | Both produce evidence for Idea Validation |
-| Sibling | Prototype / Spike (Track 1) | Both produce evidence for Idea Validation |
+| Originates from | Discovery Case (Discovery) | Sub-item of a Discovery Case; carries bidirectional reference |
+| May support | Signal Exploration Task (Discovery) | May be spawned to gather specific data during exploration |
+| Validates | Idea (Strategy) | Research Task validates/invalidates an Idea |
+| Referenced by | Product Decision Record (Strategy) | PDR cites this Research Task as evidence |
+| Sibling | Experiment (Discovery) | Both produce evidence for Idea Validation |
+| Sibling | Prototype / Spike (Discovery) | Both produce evidence for Idea Validation |
 
 ## Examples
 
 - "Conduct 5 user interviews on FX rate-lock workflow to validate Idea: one-click FX lock"
 - "Pull usage data to quantify batch payout demand (for Idea: CSV/SFTP batch ingestion)"
 - "Run competitor API analysis: how does Competitor X handle multi-currency settlement?"
-- "Contextual inquiry with LATAM AP Clerks — identify Jobs (JTBD), validate Persona hypothesis, document current workflow frustrations" (Dim 4 — User Persona + Job discovery)
-- "Diary study with Treasury Analysts — map daily FX monitoring jobs and channel preferences" (Dim 4 — Job + Channel preference discovery)
-- "Developer experience study: interview 8 integration engineers on API onboarding friction, time-to-first-call, and SDK preferences" (Dim 6 — Developer Persona discovery)
-- "Integration requirements analysis: survey 12 enterprise customers on system-to-system integration patterns, volume profiles, and SLO expectations" (Dim 6 — Programmatic User Persona discovery)
+- "Contextual inquiry with LATAM AP Clerks — identify Jobs (JTBD), validate Persona hypothesis, document current workflow frustrations" (User Experience — User Persona + Job discovery)
+- "Diary study with Treasury Analysts — map daily FX monitoring jobs and channel preferences" (User Experience — Job + Channel preference discovery)
+- "Developer experience study: interview 8 integration engineers on API onboarding friction, time-to-first-call, and SDK preferences" (Ecosystem — Developer Persona discovery)
+- "Integration requirements analysis: survey 12 enterprise customers on system-to-system integration patterns, volume profiles, and SLO expectations" (Ecosystem — Programmatic User Persona discovery)

@@ -1,7 +1,7 @@
 # Governance Enforcement
 
 **Model:** Work Model
-**Track:** Track 6: Governance (ACE extension)
+**Track:** Governance
 **Category:** Orchestration
 **Owner:** Role accountable for enforcement outcome follow-up
 **Governance Admin:** Role that maintains the policy/control definition being enforced
@@ -76,11 +76,11 @@ Governance Enforcement makes policy application explicit. It determines whether 
 |---|---|---|
 | Evaluates | Governance Policy (Operating Model) | Enforcement applies a policy |
 | Targets | Orchestration item / transition / artifact / evidence | Enforcement evaluates a specific target |
-| May be contained in | Governance Ritual (Track 6) | Ritual may run enforcement |
+| May be contained in | Governance Ritual (Governance) | Ritual may run enforcement |
 | Produces | Governance Finding / Violation / Warning | Enforcement may produce findings |
 | Produces | Risk / Debt / Compliance entry | Enforcement may create governance register entries |
 | May create | Remediation Work Order | Enforcement may create follow-up work |
-| May trigger | Evolve Case (Track 5) | Repeated failures or policy gaps may trigger governance evolution |
+| May trigger | Evolve Case (Evolve) | Repeated failures or policy gaps may trigger governance evolution |
 
 ## Examples
 

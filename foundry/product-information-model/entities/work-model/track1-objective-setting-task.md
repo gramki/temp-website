@@ -1,7 +1,7 @@
 # Objective Setting Task
 
 **Model:** Work Model
-**Track:** Track 1: The Discovery Track (Learning)
+**Track:** Discovery
 **Owner:** Executive Leadership, Product Management
 
 ## Definition
@@ -28,7 +28,7 @@ Makes the strategic planning work explicit in the Work Model. Objectives (Dimens
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Produces | Objective (Dim 1) | Objective Setting Tasks produce/refine Objectives |
+| Produces | Objective (Strategy) | Objective Setting Tasks produce/refine Objectives |
 
 ## Example
 

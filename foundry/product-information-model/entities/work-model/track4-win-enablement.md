@@ -1,7 +1,7 @@
 # Win Enablement
 
 **Model:** Work Model
-**Track:** Track 4: The Win Track (Value Realization)
+**Track:** Win
 **Category:** Enablement
 **Owner:** Product Marketing, Sales, Customer Success
 
@@ -33,8 +33,8 @@ Makes the one-to-many enablement work of Win Teams explicit. Without Win Enablem
 | Subtype | Enum | `GTM Enablement` / `Sales Enablement Asset` / `CS Enablement` / `Partner Enablement` |
 | Lever | Enum | `GTM` / `Sales Enablement` / `Customer Success` (Partner Enablement uses GTM lever; distinct from internal Sales Enablement) |
 | AAARRR Stage(s) Supported | List of Enums | Which stage(s) this asset supports (`Awareness` / `Acquisition` / `Activation` / `Retention` / `Revenue` / `Referral`) |
-| Win Stakeholder(s) | List of References (Dim 2) | Which Win Stakeholders will use this asset |
-| Initiative | Reference (Dim 1) | Which Initiative this enablement is aligned to |
+| Win Stakeholder(s) | List of References (Vendor Value) | Which Win Stakeholders will use this asset |
+| Initiative | Reference (Strategy) | Which Initiative this enablement is aligned to |
 | Output / Deliverable | Text | Description of what this enablement produces (e.g., "Competitive battlecard for LATAM market") |
 | Owner | String | Role/person accountable for creating and maintaining this asset |
 | _Other fields to be refined._ | | |
@@ -52,12 +52,12 @@ Makes the one-to-many enablement work of Win Teams explicit. Without Win Enablem
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Aligned to | Initiative (Dim 1) | Win Enablement is aligned to one or more Initiatives |
-| Used by | Win Stakeholder (Dim 2) | Win Stakeholders use enablement assets in their work |
-| Supports | Win Activity (Track 4) | Enablement assets are used in specific engagements |
-| Driven by | Win Planning (Track 4) | Win Planning drives the creation of enablement assets |
-| Assessed by | Win Review (Track 4) | Campaign/Program Reviews assess enablement effectiveness |
-| Serves | Developer Persona (Dim 6) | Developer-facing enablement assets (API docs, SDK guides, sandbox environments, developer training) |
+| Aligned to | Initiative (Strategy) | Win Enablement is aligned to one or more Initiatives |
+| Used by | Win Stakeholder (Vendor Value) | Win Stakeholders use enablement assets in their work |
+| Supports | Win Activity (Win) | Enablement assets are used in specific engagements |
+| Driven by | Win Planning (Win) | Win Planning drives the creation of enablement assets |
+| Assessed by | Win Review (Win) | Campaign/Program Reviews assess enablement effectiveness |
+| Serves | Developer Persona (Ecosystem) | Developer-facing enablement assets (API docs, SDK guides, sandbox environments, developer training) |
 
 ## Examples
 

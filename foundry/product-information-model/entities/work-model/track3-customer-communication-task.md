@@ -1,7 +1,7 @@
 # Customer Communication Task
 
 **Model:** Work Model
-**Track:** Track 3: The Run Track (Stability & Operations)
+**Track:** Run
 **Category:** Work Entity (Reactive)
 **Owner:** SRE, DevOps, Engineering Leadership
 
@@ -24,8 +24,8 @@ Makes incident communication visible as structured work. Without Customer Commun
 
 | Field | Type | Description |
 |---|---|---|
-| Incident | Reference (Track 3) | The Incident artifact this communication addresses |
-| Incident Response Task | Reference (Track 3) | The associated response task (for coordination) |
+| Incident | Reference (Run) | The Incident artifact this communication addresses |
+| Incident Response Task | Reference (Run) | The associated response task (for coordination) |
 | Communication Channel(s) | List (Enum) | `Status Page` / `Tenant Notification` / `Internal Slack/Teams` / `Email` / `Phone` / `Customer Portal` |
 | Audience | Enum | `All Tenants` / `Affected Tenants` / `Internal Stakeholders` / `Specific Customers` |
 | Updates Issued | List (timestamp + channel + content summary) | Chronological record of communications sent |
@@ -44,12 +44,12 @@ Makes incident communication visible as structured work. Without Customer Commun
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Communicates | Incident (Track 3) | Communicates the status and resolution of an Incident |
-| Coordinates with | Incident Response Task (Track 3) | Runs in parallel; communication content depends on response progress |
-| Assessed by | Post-Incident Review (Track 3) | PIR evaluates communication effectiveness (timeliness, accuracy, coverage) |
-| Consumed by | Win Review (Track 4) | Win Track consumes summarized incident communication in reviews |
-| Consumed by | Win Activity (Track 4) | Win Track may reference communication outputs in proactive customer engagement |
-| May reference | Service Commitment (Dim 3) | Communication may acknowledge SLA breach and reference remedies |
+| Communicates | Incident (Run) | Communicates the status and resolution of an Incident |
+| Coordinates with | Incident Response Task (Run) | Runs in parallel; communication content depends on response progress |
+| Assessed by | Post-Incident Review (Run) | PIR evaluates communication effectiveness (timeliness, accuracy, coverage) |
+| Consumed by | Win Review (Win) | Win Track consumes summarized incident communication in reviews |
+| Consumed by | Win Activity (Win) | Win Track may reference communication outputs in proactive customer engagement |
+| May reference | Service Commitment (Customer Value) | Communication may acknowledge SLA breach and reference remedies |
 
 ## Examples
 

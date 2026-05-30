@@ -1,7 +1,7 @@
 # Feedback
 
 **Model:** Work Model
-**Track:** Track 4: The Win Track (Value Realization)
+**Track:** Win
 **Category:** Artifact
 **Owner:** Customer Success, Product Marketing
 
@@ -9,7 +9,7 @@
 
 A transitional artifact — the structured observation record produced by Win Reviews. Feedback captures qualitative findings from structured assessments (QBRs, Win/Loss Analyses, Post-Implementation Reviews, etc.) and serves as the bridge between the Win Track and the Discovery Track.
 
-Feedback is **not** a work item — it is an output of Win Review activity. It records what was observed, by whom, and with what severity, then enters a promotion pipeline where it may become a Signal in Dim 1 or be archived.
+Feedback is **not** a work item — it is an output of Win Review activity. It records what was observed, by whom, and with what severity, then enters a promotion pipeline where it may become a Signal in Strategy or be archived.
 
 > **Feedback vs. FIR.** Feedback is a *synthesized assessment artifact* — pattern observations from periodic Win Reviews. FIR is a *reactive event-driven intake* — a specific report from a specific reporter about a specific issue. A Win Review analyzing FIR patterns produces Feedback; the FIR is the raw record, Feedback is the structured insight. They serve complementary purposes: FIR ensures every individual event is tracked; Feedback ensures patterns and trends are identified and acted upon. See DR-032.
 
@@ -17,7 +17,7 @@ Feedback is **not** a work item — it is an output of Win Review activity. It r
 
 1. **Customer Feedback** → Observations about customer experience captured during Win Reviews. A Feedback item may produce a **Problem** Signal (limitation/gap in existing product) or a **Need** Signal (request for missing capability). A *pattern* of customer Feedback may also inspire an Opportunity Signal, though Opportunities are created by internal stakeholders who analyze the patterns.
 
-2. **Win Stakeholder Feedback** → Win Stakeholders (Pre-Sales Engineers, Implementation Consultants, CS Managers, Account Managers) observe Delivery Frictions and Win Barriers in the field. These observations enter the Signal pipeline as **Problem** or **Opportunity** Signals in Dim 1, which Discovery then investigates and may translate into Dim 2 entity updates (Delivery Friction documented, Win Barrier identified) through PDR-triggered Modeling Tasks.
+2. **Win Stakeholder Feedback** → Win Stakeholders (Pre-Sales Engineers, Implementation Consultants, CS Managers, Account Managers) observe Delivery Frictions and Win Barriers in the field. These observations enter the Signal pipeline as **Problem** or **Opportunity** Signals in Strategy, which Discovery then investigates and may translate into Vendor Value entity updates (Delivery Friction documented, Win Barrier identified) through PDR-triggered Modeling Tasks.
 
 ## Purpose
 
@@ -38,12 +38,12 @@ Without Feedback:
 | Title | String | Brief description of the feedback |
 | Source Type | Enum | `Customer` / `Win Stakeholder` |
 | Source | Text | Who provided the feedback (customer name, Win Stakeholder role) |
-| Win Review | Reference (Track 4) | Which Win Review produced this Feedback |
-| Customer Segment | Reference (Dim 3) | Which segment the feedback pertains to |
+| Win Review | Reference (Win) | Which Win Review produced this Feedback |
+| Customer Segment | Reference (Customer Value) | Which segment the feedback pertains to |
 | AAARRR Stage | Enum | Which stage of the vendor lifecycle the feedback relates to (if applicable) |
 | Content | Text | The feedback itself — what was observed, what was said |
 | Severity | Enum | `Critical` / `Major` / `Minor` / `Informational` |
-| Signal Produced | Reference (Dim 1) | The Signal (Problem/Need/Opportunity) created from this feedback, if promoted |
+| Signal Produced | Reference (Strategy) | The Signal (Problem/Need/Opportunity) created from this feedback, if promoted |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -59,16 +59,16 @@ Without Feedback:
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Produced by | Win Review (Track 4) | Feedback is an output of Win Review activity |
-| Produces | Problem (Dim 1) | Customer Feedback may be promoted to a Problem Signal |
-| Produces | Need (Dim 1) | Customer Feedback may be promoted to a Need Signal |
-| Inspires | Opportunity (Dim 1) | Patterns in Feedback may inspire Opportunity Signals (created by internal stakeholders) |
-| Observed by | Win Stakeholder (Dim 2) | Win Stakeholder Feedback surfaces vendor-side frictions and barriers |
-| Scoped to | Customer Segment (Dim 3) | Feedback pertains to a specific segment |
-| May inform | Delivery Friction (Dim 2) | Win Stakeholder observations may lead to Delivery Friction documentation (via Signal → PDR → Modeling Task) |
-| May inform | Win Barrier (Dim 2) | Win Stakeholder observations may lead to Win Barrier identification (via Signal → PDR → Modeling Task) |
-| Generated by | Win Case (Track 4) | Win Case patterns or individual cases may generate Feedback |
-| May reference | API Module (Dim 6) | Feedback may relate to API capabilities, performance, or developer experience |
+| Produced by | Win Review (Win) | Feedback is an output of Win Review activity |
+| Produces | Problem (Strategy) | Customer Feedback may be promoted to a Problem Signal |
+| Produces | Need (Strategy) | Customer Feedback may be promoted to a Need Signal |
+| Inspires | Opportunity (Strategy) | Patterns in Feedback may inspire Opportunity Signals (created by internal stakeholders) |
+| Observed by | Win Stakeholder (Vendor Value) | Win Stakeholder Feedback surfaces vendor-side frictions and barriers |
+| Scoped to | Customer Segment (Customer Value) | Feedback pertains to a specific segment |
+| May inform | Delivery Friction (Vendor Value) | Win Stakeholder observations may lead to Delivery Friction documentation (via Signal → PDR → Modeling Task) |
+| May inform | Win Barrier (Vendor Value) | Win Stakeholder observations may lead to Win Barrier identification (via Signal → PDR → Modeling Task) |
+| Generated by | Win Case (Win) | Win Case patterns or individual cases may generate Feedback |
+| May reference | API Module (Ecosystem) | Feedback may relate to API capabilities, performance, or developer experience |
 
 ## Examples
 

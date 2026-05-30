@@ -1,16 +1,16 @@
 # Design Deliberation
 
 **Model:** Work Model
-**Track:** Track 2: The Build Track (Construction)
+**Track:** Build
 **Owner:** Tech Lead, Developers, Architects
 
 ## Definition
 
 A collaborative technical discussion that arises during Build Track work when a significant architectural or design question requires deliberate resolution. Design Deliberation is the Build Track's counterpart to the Discovery Track's Deliberation — but with a narrower scope focused on **implementation-time** architectural questions.
 
-Design Deliberation produces one or more ADRs (Dim 5). The ADR captures the decision; the Design Deliberation captures the process (who participated, what was considered, why the chosen option was selected).
+Design Deliberation produces one or more ADRs (Technical). The ADR captures the decision; the Design Deliberation captures the process (who participated, what was considered, why the chosen option was selected).
 
-> **Discovery Deliberation vs. Design Deliberation:** Discovery Track Deliberation is *strategic* — it addresses questions that shape the product's direction and produces PDRs (Dim 1) and sometimes ADRs. Design Deliberation is *tactical* — it addresses questions that arise during engineering (e.g., "Should we use gRPC or REST for this service-to-service call?" or "Should we shard the payments database now or later?"). Both produce ADRs, but the provenance differs. See DR-026.
+> **Discovery Deliberation vs. Design Deliberation:** Discovery Track Deliberation is *strategic* — it addresses questions that shape the product's direction and produces PDRs (Strategy) and sometimes ADRs. Design Deliberation is *tactical* — it addresses questions that arise during engineering (e.g., "Should we use gRPC or REST for this service-to-service call?" or "Should we shard the payments database now or later?"). Both produce ADRs, but the provenance differs. See DR-026.
 
 ## Purpose
 
@@ -25,13 +25,13 @@ Makes architectural decision-making during build work explicit and traceable. Wi
 |---|---|---|
 | Title | String | Descriptive title (e.g., "gRPC vs REST for fx-service ↔ payments-service") |
 | Trigger | Text | What prompted this deliberation (Epic, Story, Technical Task, code review finding) |
-| Epic | Reference (Track 2) | Which Epic this deliberation is related to (if applicable) |
-| Story | Reference (Track 2) | Which Story this deliberation arose from (if applicable) |
-| System(s) | List of References (Dim 5) | Which Systems are affected by this decision |
+| Epic | Reference (Build) | Which Epic this deliberation is related to (if applicable) |
+| Story | Reference (Build) | Which Story this deliberation arose from (if applicable) |
+| System(s) | List of References (Technical) | Which Systems are affected by this decision |
 | Participants | List of Strings | Who participated in the deliberation |
 | Options Considered | Text | What alternatives were evaluated |
 | Decision | Text | Summary of the chosen option and rationale |
-| ADR(s) Produced | List of References (Dim 5) | ADR(s) produced by this deliberation |
+| ADR(s) Produced | List of References (Technical) | ADR(s) produced by this deliberation |
 
 ## Statuses
 
@@ -46,11 +46,11 @@ Makes architectural decision-making during build work explicit and traceable. Wi
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Triggered by | Epic (Track 2) | Deliberation may be triggered by an Epic |
-| Triggered by | Story (Track 2) | Deliberation may be triggered by a Story |
-| Triggered by | Technical Task (Track 2) | Deliberation may be triggered during Task implementation |
-| Affects | System(s) (Dim 5) | Deliberation affects one or more Systems |
-| Produces | ADR(s) (Dim 5) | Design Deliberation produces Architecture Decision Records |
+| Triggered by | Epic (Build) | Deliberation may be triggered by an Epic |
+| Triggered by | Story (Build) | Deliberation may be triggered by a Story |
+| Triggered by | Technical Task (Build) | Deliberation may be triggered during Task implementation |
+| Affects | System(s) (Technical) | Deliberation affects one or more Systems |
+| Produces | ADR(s) (Technical) | Design Deliberation produces Architecture Decision Records |
 
 ## Examples
 
