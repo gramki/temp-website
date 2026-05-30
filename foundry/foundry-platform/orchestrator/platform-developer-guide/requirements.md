@@ -611,6 +611,25 @@ OpenTelemetry spans for:
 
 ---
 
+## Session Management Integration
+
+Orchestrator coordinates with [Workspace Session Management](../../workspace-session-management/README.md) before assigning Work Orders. Session Management does not know about Work Orders — Orchestrator bridges sessions and WOs.
+
+**ORC-FR-0020:** Before assigning a WO, the Orchestrator SHALL query Session Management for an active session matching (user, workspace-type, workbench).
+
+**ORC-FR-0021:** If no active session exists, the Orchestrator SHALL request Session Management to create one.
+
+**ORC-FR-0022:** When a session was newly created, the Orchestrator SHALL listen for `session-activated` event before assigning the WO.
+
+| Aspect | Detail |
+|--------|--------|
+| Query API | `GET /api/v1/sessions?user=&workspace_type=&workbench=&state=active` |
+| Create API | `POST /api/v1/sessions` |
+| Event | `session-activated` (session-id, session-url) |
+| WO assignment | Write to Work repo (Jira); WO Runtime discovers independently |
+
+---
+
 ## External Dependencies
 
 | Dependency | Integration | Failure Mode |
@@ -619,6 +638,7 @@ OpenTelemetry spans for:
 | Management (Metadata Service) | REST API | Retry with backoff |
 | Message Queue | Kafka/RabbitMQ | Retry with backoff |
 | Postgres | Connection pool | Retry with backoff |
+| Session Management | REST API + events | Retry query; wait for session-activated on create |
 
 ---
 
