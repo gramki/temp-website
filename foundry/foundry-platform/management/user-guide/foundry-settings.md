@@ -609,8 +609,47 @@ Settings are validated on write:
 
 ---
 
+## Web App UI Mapping
+
+This section maps settings categories to the Foundry Web App pages where they are exposed.
+
+### Foundry-Level Settings Pages
+
+| Settings category | Web App page | URL pattern | Notes |
+|-------------------|--------------|-------------|-------|
+| Work Catalog policy | [Foundry Work Catalogs Settings](../../foundry-web-app/platform-developer-guide/pages/foundry-settings/work-catalogs.md) | `/foundries/{foundryId}/settings/work-catalogs` | User catalog policy, Platform version |
+| Identity | TBD | `/foundries/{foundryId}/settings/identity` | Page spec pending |
+| Capable Agents | TBD | `/foundries/{foundryId}/settings/agents` | Page spec pending |
+| Integrations | TBD | `/foundries/{foundryId}/settings/integrations` | Page spec pending |
+| Notifications | TBD | `/foundries/{foundryId}/settings/notifications` | Page spec pending |
+| Governance | TBD | `/foundries/{foundryId}/settings/governance` | Page spec pending |
+| Defaults | TBD | `/foundries/{foundryId}/settings/defaults` | Page spec pending |
+| Quotas | [Foundry Home](../../foundry-web-app/platform-developer-guide/pages/foundry-home.md) | `/` | View-only in dashboard |
+
+### Workbench-Level Settings Inheritance
+
+Settings that cascade to Workbenches are managed in the [Admin Console](../../foundry-web-app/platform-developer-guide/pages/consoles/settings/admin-console.md):
+
+| Settings category | Admin Console section | Override behavior |
+|-------------------|----------------------|-------------------|
+| Integrations | Integration Settings | Workbench can add connections |
+| Notifications | Notification Settings | Workbench can customize channels |
+| Governance | Governance Configuration | Subject to inheritance rules |
+
+See [governance-admin.md](../../foundry-web-app/platform-developer-guide/pages/consoles/settings/governance-admin.md) for governance inheritance configuration.
+
+### Cross-Reference Notes
+
+1. **Foundry Home page** references "Platform Settings" navigation but detailed page specs for most Foundry settings categories are pending.
+2. **Work Catalog settings** are fully specified in the Web App page specs.
+3. **Governance settings** have detailed Web App specs at the Workbench level (Governance Admin Console) but Foundry-level governance settings page spec is pending.
+4. **Quota settings** are read-only and displayed in Foundry Home dashboard; no dedicated settings page required.
+
+---
+
 ## Read Next
 
 - [README.md](README.md) — Foundry Management overview
-- [foundry-onboarding-journey.md](foundry-onboarding-journey.md) — Initial settings during onboarding
-- [../services/metadata-service.md](../services/metadata-service.md) — Where settings are stored
+- [foundry-onboarding.md](foundry-onboarding.md) — Initial settings during onboarding
+- [../platform-developer-guide/services/metadata-service.md](../platform-developer-guide/services/metadata-service.md) — Where settings are stored
+- [../../foundry-web-app/platform-developer-guide/pages/README.md](../../foundry-web-app/platform-developer-guide/pages/README.md) — Web App pages overview

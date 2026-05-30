@@ -2,6 +2,15 @@
 
 This document specifies detailed implementation requirements for the Work Catalog Management subsystem within the Management module.
 
+## ACE alignment
+
+| ACE concept | How this module realizes it |
+|-------------|---------------------------|
+| **Scenario** | Schema Service defines and validates Scenario YAML; Resolution Engine computes effective Scenarios |
+| **Track** | OI Workflows are Track-specific; schema includes `orchestration-item` field for Track binding |
+| **Workspace** | Scenarios are scoped to Workspace types; scope attribute (`workspace-ingress`/`workspace-internal`) controls invocability |
+| **Agent** | Agent Recommender matches Scenarios to suitable Skilled Agents |
+
 ## Architecture Overview
 
 ```
@@ -9,10 +18,10 @@ This document specifies detailed implementation requirements for the Work Catalo
 │                           Work Catalog Management                                    │
 │                                                                                      │
 │  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐                 │
-│  │  Schema Service │    │   Validation    │    │     Agent       │                 │
-│  │                 │    │    Service      │    │  Recommender    │                 │
-│  │  • OI Workflow  │    │  • Validate PRs │    │  • Match skills │                 │
-│  │  • Scenario     │    │  • Check refs   │    │  • Score agents │                 │
+│  │  Schema Service │    │ Validation Rules│    │     Agent       │                 │
+│  │                 │    │       API       │    │  Recommender    │                 │
+│  │  • OI Workflow  │    │  • Schema rules │    │  • Match skills │                 │
+│  │  • Scenario     │    │  • Ref checks   │    │  • Score agents │                 │
 │  │  • Versioning   │    │  • OI→Scenario  │    │                 │                 │
 │  └────────┬────────┘    └────────┬────────┘    └────────┬────────┘                 │
 │           │                      │                      │                           │
@@ -30,17 +39,21 @@ This document specifies detailed implementation requirements for the Work Catalo
 │                           └─────────────┘                                           │
 └────────────────────────────────────────────────────────────────────────────────────┘
          │                         │                         │
-         ▼                         ▼                         ▼
+         ▲                         ▼                         ▼
 ┌─────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐
-│  Work Catalog   │    │    Metadata         │    │    Orchestrator     │
-│  Repo Validation│    │    Service          │    │    + WO Runtime     │
-│    Services     │    │   (storage)         │    │   (consumers)       │
+│  Validation     │    │    Metadata         │    │    Orchestrator     │
+│    module       │────│    Service          │    │    + WO Runtime     │
+│  (calls WCM)    │    │   (storage)         │    │   (consumers)       │
 └─────────────────┘    └─────────────────────┘    └─────────────────────┘
 ```
 
 ## Core Components
 
 ### Schema Service
+
+**WCM-FR-0001:** The Schema Service SHALL manage schema versions for OI Workflows and Scenarios.
+
+**WCM-FR-0002:** The Schema Service SHALL provide schemas for validation by the Validation module.
 
 | Aspect | Detail |
 |--------|--------|
@@ -49,16 +62,28 @@ This document specifies detailed implementation requirements for the Work Catalo
 | Output | Schema definitions, schema metadata |
 | Dependencies | PostgreSQL for schema storage |
 
-### Validation Service
+### Validation Rules API
+
+**WCM-FR-0003:** The Validation Rules API SHALL validate OI Workflow and Scenario content against schemas.
+
+**WCM-FR-0004:** The Validation Rules API SHALL validate skill references against the Skill Registry.
+
+**WCM-FR-0005:** The Validation Rules API SHALL validate Scenario references in OI Workflows against the effective catalog.
 
 | Aspect | Detail |
 |--------|--------|
-| Responsibility | Validate OI Workflow and Scenario YAML against schema and cross-references |
-| Input | Raw YAML from PR content or sync |
+| Responsibility | Provide validation rules and API for OI Workflow and Scenario content; called by the external Validation module |
+| Input | Raw YAML content from Validation module |
 | Output | Validation results (errors, warnings) |
 | Dependencies | Schema Service, Skill Registry (for skill validation), Metadata Service (for reference resolution) |
 
 ### Resolution Engine
+
+**WCM-FR-0006:** The Resolution Engine SHALL compute effective Work Catalog by walking the hierarchy: Platform > Foundry > Workshop > Workbench > User (if active).
+
+**WCM-FR-0007:** The Resolution Engine SHALL track the source of each artifact in the effective catalog.
+
+**WCM-FR-0008:** The Resolution Engine SHALL include User catalog only when user catalog activation is enabled.
 
 | Aspect | Detail |
 |--------|--------|
@@ -68,6 +93,10 @@ This document specifies detailed implementation requirements for the Work Catalo
 | Dependencies | Metadata Service (catalog storage), Session Service (user activation) |
 
 ### Agent Recommender
+
+**WCM-FR-0009:** The Agent Recommender SHALL recommend Skilled Agents for Scenario execution based on skill matching.
+
+**WCM-FR-0010:** The Agent Recommender SHALL return a ranked list of agents with scores, skills matched, and skills missing.
 
 | Aspect | Detail |
 |--------|--------|
@@ -240,12 +269,12 @@ CREATE INDEX idx_recommendation_cache_expires ON recommendation_cache(expires_at
 
 ## Integration Details
 
-### Work Catalog Repo Validation Integration
+### Validation module integration
 
 | Aspect | Detail |
 |--------|--------|
 | Integration type | Internal REST API call |
-| Direction | Repo Validation → Work Catalog Management |
+| Direction | Validation module → Work Catalog Management |
 | Trigger | On PR with OI Workflow or Scenario file changes |
 
 **Flow:**
@@ -253,7 +282,7 @@ CREATE INDEX idx_recommendation_cache_expires ON recommendation_cache(expires_at
 ```
 PR opened with work catalog change
     │
-    ├── Work Catalog Repo Validation receives PR check trigger
+    ├── Validation module receives PR check trigger
     │
     ├── Extracts changed OI Workflow and Scenario files
     │
@@ -270,6 +299,7 @@ PR opened with work catalog change
     │
     └── Returns validation result
         { valid: true/false, errors: [], warnings: [] }
+        (reported as foundry-validation GitHub check)
 ```
 
 ### Orchestrator Integration
@@ -323,6 +353,14 @@ PR opened with work catalog change
 
 ### Schema Validation
 
+**WCM-FR-0011:** Schema validation SHALL parse YAML and reject invalid YAML with a clear error.
+
+**WCM-FR-0012:** Schema validation SHALL verify the `kind` field matches the expected artifact type.
+
+**WCM-FR-0013:** Schema validation SHALL reject unknown API versions.
+
+**WCM-FR-0014:** Schema validation SHALL validate artifact structure against the schema before checking cross-references.
+
 ```python
 def validate_artifact(
     artifact_type: str,      # "oi-workflow" or "scenario"
@@ -370,6 +408,10 @@ def validate_artifact(
 
 ### OI Workflow Reference Validation
 
+**WCM-FR-0015:** OI Workflow validation SHALL verify all referenced Scenarios exist in the effective catalog.
+
+**WCM-FR-0016:** OI Workflow validation SHALL reject references to Scenarios with `workspace-internal` scope (Orchestrator cannot invoke them).
+
 ```python
 def validate_workflow_references(workflow: dict, context: ValidationContext) -> list[str]:
     errors = []
@@ -401,6 +443,16 @@ def validate_workflow_references(workflow: dict, context: ValidationContext) -> 
 ```
 
 ### Scenario Reference Validation
+
+**WCM-FR-0017:** Scenario validation SHALL verify all skill references exist in the Skill Registry.
+
+**WCM-FR-0018:** Scenario validation SHALL verify referenced Skilled Agents exist for the specified workspace type.
+
+**WCM-FR-0019:** Scenario validation SHALL reject Orchestrator triggers for `workspace-internal` scope Scenarios.
+
+**WCM-FR-0020:** Scenario validation SHALL reject task triggers for `workspace-ingress` scope Scenarios.
+
+**WCM-FR-0021:** Scenario validation SHALL detect and reject circular dependencies in task dependencies.
 
 ```python
 def validate_scenario_references(scenario: dict, context: ValidationContext) -> list[str]:
@@ -471,6 +523,8 @@ def get_effective_catalog(context: ResolutionContext) -> EffectiveCatalog:
     return catalog
 
 
+**WCM-FR-0022:** User catalog activation SHALL check session override first, then fall back to user profile setting.
+
 def is_user_catalog_active(context: ResolutionContext) -> bool:
     """Check if user catalog should be included in resolution."""
     
@@ -537,6 +591,14 @@ def get_recommendations(scenario_id: str, workspace_id: str) -> list[Recommendat
 
 ### Retry Policy
 
+**WCM-NFR-0001:** Skill Registry checks SHALL retry up to 3 times with 100ms backoff.
+
+**WCM-NFR-0002:** Metadata Service queries SHALL retry up to 3 times with 100ms backoff.
+
+**WCM-NFR-0003:** Schema lookup SHALL use cached schema if the service is unavailable.
+
+**WCM-NFR-0004:** Cache operations SHALL skip cache on failure and query directly.
+
 | Operation | Strategy |
 |-----------|----------|
 | Skill Registry check | Retry 3x with 100ms backoff |
@@ -552,7 +614,7 @@ def get_recommendations(scenario_id: str, workspace_id: str) -> list[Recommendat
 
 | Caller | Permission |
 |--------|------------|
-| Work Catalog Repo Validation Service | Service account (internal) |
+| Validation module | Service account (internal) |
 | Admin CLI | Foundry Admin |
 
 ### Resolution API
@@ -566,6 +628,10 @@ def get_recommendations(scenario_id: str, workspace_id: str) -> list[Recommendat
 
 ### Schema Management
 
+**WCM-FR-0023:** Foundry Admins SHALL be able to create and update schema versions.
+
+**WCM-FR-0024:** Workshop Admins and Developers SHALL have read-only access to schemas.
+
 | Role | Permission |
 |------|------------|
 | Foundry Admin | Create/update schema versions |
@@ -573,6 +639,10 @@ def get_recommendations(scenario_id: str, workspace_id: str) -> list[Recommendat
 | Developer | Read schemas |
 
 ### User Catalog Management
+
+**WCM-FR-0025:** Users SHALL be able to activate/deactivate and sync their own catalog.
+
+**WCM-FR-0026:** Workbench Managers SHALL be able to view user catalog status for team members.
 
 | Role | Permission |
 |------|------------|
@@ -605,6 +675,14 @@ def get_recommendations(scenario_id: str, workspace_id: str) -> list[Recommendat
 | Schema version published | Validation cache |
 
 ### Performance Targets
+
+**WCM-NFR-0005:** Validation of a single artifact SHALL complete in < 200ms.
+
+**WCM-NFR-0006:** Resolution of effective catalog SHALL complete in < 100ms.
+
+**WCM-NFR-0007:** Resolution of a single artifact SHALL complete in < 50ms.
+
+**WCM-NFR-0008:** Recommendation lookup SHALL complete in < 100ms.
 
 | Operation | Target |
 |-----------|--------|

@@ -2,7 +2,7 @@
 
 This document specifies the canonical YAML schema for Orchestration Item (OI) Workflows in Foundry.
 
-**This is the single source of truth for OI Workflow schema.** The [Orchestrator module](../../orchestrator/orchestration-item-workflow.md) documents usage and examples; this document defines the schema.
+**This is the single source of truth for OI Workflow schema.** For authoring guidance, see [Authoring OI Workflows](../../../work-catalogues/user-guide/authoring-oi-workflows.md). For runtime execution details, see [How the Orchestrator Consumes OI Workflows](../../../orchestrator/user-guide/orchestration-item-workflow.md).
 
 ## Overview
 
@@ -581,5 +581,5 @@ spec:
 - [scenario-schema.md](scenario-schema.md) — Scenario YAML schema
 - [resolution-algorithm.md](resolution-algorithm.md) — Hierarchy resolution
 - [validation-rules.md](validation-rules.md) — Validation specification
-- [../../orchestrator/README.md](../../orchestrator/README.md) — Orchestrator module (consumer)
-- [../../work-catalogues/platform-defaults/](../../work-catalogues/platform-defaults/) — Platform default workflows
+- [../../../orchestrator/README.md](../../../orchestrator/README.md) — Orchestrator module (consumer)
+- [../../../work-catalogues/platform-defaults/](../../../work-catalogues/platform-defaults/) — Platform default workflows

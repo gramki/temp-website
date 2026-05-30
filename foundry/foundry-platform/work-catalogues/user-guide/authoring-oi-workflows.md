@@ -63,12 +63,12 @@ stages:
 
 Place workflow files in the Work Catalog at:
 ```
-<catalog>/<track>/<oi-type>/workflow.yaml
+work-catalog/<track>/<oi-type>/workflow.yaml
 ```
 
 For example:
-- Platform default: `platform-defaults/build/product-intent/workflow.yaml`
-- Foundry override: `<foundry>/work-catalog/build/product-intent/workflow.yaml`
+- Platform default: `platform-defaults/work-catalog/build/product-intent/workflow.yaml`
+- Foundry override: `foundry-{id}/work-catalog/build/product-intent/workflow.yaml`
 
 ### Using the IDE
 
@@ -299,7 +299,7 @@ Validates:
 
 ## Example: Complete Product Intent Workflow
 
-See [platform-defaults/build/product-intent/workflow.yaml](../platform-defaults/build/product-intent/workflow.yaml) for a complete example demonstrating:
+See [platform-defaults/work-catalog/build/product-intent/workflow.yaml](../platform-defaults/work-catalog/build/product-intent/workflow.yaml) for a complete example demonstrating:
 
 - Full lifecycle from draft to release
 - Parallel Work Order groups
@@ -315,3 +315,21 @@ After creating an OI Workflow:
 2. **Test** — Use dry-run mode to simulate transitions
 3. **Publish** — Follow the [publishing workflow](publishing-workflow.md)
 4. **Monitor** — Watch OI progression in the Orchestration Dashboard
+
+## Related
+
+- [OI Workflow Schema](../../management/platform-developer-guide/work-catalog-management/oi-workflow-schema.md) — canonical YAML schema reference
+- [How the Orchestrator Consumes OI Workflows](../../orchestrator/user-guide/orchestration-item-workflow.md) — runtime execution model
+- [Work Catalog Resolution Algorithm](../../management/platform-developer-guide/work-catalog-management/resolution-algorithm.md) — hierarchy resolution (Platform → Foundry → Workshop → Workbench → User)
+- [Orchestrator Concepts](../../orchestrator/README.md) — module boundaries and architecture
+
+## Troubleshooting
+
+| Symptom | Likely cause | What to do |
+|---------|--------------|------------|
+| Workflow validation fails | Invalid stage reference or missing required fields | Run `foundry workflow validate` and check error details |
+| Stage transition not firing | Handler `when` clause not matching the event | Verify `event` and `params` match the actual event payload |
+| Work Order not created | Referenced scenario missing or not `workspace-ingress` | Check scenario exists in effective Work Catalog with correct scope |
+| Timeout not firing | Timeout duration not set on stage | Add `timeout: <duration>` to stage definition |
+
+See [troubleshooting.md](troubleshooting.md) for additional common issues.

@@ -1,6 +1,6 @@
 # Work Catalog Validation Rules
 
-This document specifies the comprehensive validation rules applied to OI Workflows and Scenarios during PR checks and sync operations.
+This document specifies the comprehensive validation rules applied to OI Workflows and Scenarios during PR checks (via the Validation module) and sync operations.
 
 ## Overview
 
@@ -248,44 +248,29 @@ Content-Type: application/json
 
 ---
 
-## Validation in CI
+## Validation module integration
+
+The Validation module invokes Work Catalog Management validation rules when Work Catalog files change. Results are reported as a GitHub check named `foundry-validation`.
 
 ### GitHub Check Integration
 
-```yaml
-# .github/workflows/work-catalog-validation.yml
-name: Work Catalog Validation
+When a PR touches Work Catalog paths, the Validation module:
 
-on:
-  pull_request:
-    paths:
-      - 'work-catalog/**'
-      - 'workbenches/*/work-catalog/**'
-
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Validate Work Catalog
-        uses: foundry/work-catalog-validate@v1
-        with:
-          foundry_id: ${{ secrets.FOUNDRY_ID }}
-          api_token: ${{ secrets.FOUNDRY_API_TOKEN }}
-```
+1. Identifies changed files under `work-catalog/**` or `workbenches/*/work-catalog/**`
+2. Calls `POST /api/v1/work-catalog/validate` for each artifact
+3. Reports results to GitHub as the `foundry-validation` check
 
 ### Validation Output Format
 
 ```
-❌ work-catalog/workspaces/development/scenarios/implement-feature.yaml
+❌ work-catalog/build/product-intent/development/scenarios/implement-feature.yaml
    Line 6: [SC-005] Invalid scope: external. Must be 'workspace-ingress' or 'workspace-internal'
    Line 25: [SC-030] Unknown skill: advanced-coding
 
-⚠️ work-catalog/workflows/product-intent.yaml
+⚠️ work-catalog/build/product-intent/workflow.yaml
    Line 45: [OI-013] Unreachable stage: legacy-approval
 
-✅ work-catalog/workspaces/qa/scenarios/execute-test-suite.yaml
+✅ work-catalog/build/product-intent/qa/scenarios/execute-test-suite.yaml
 
 Summary: 1 file failed, 1 file with warnings, 1 file passed
 ```

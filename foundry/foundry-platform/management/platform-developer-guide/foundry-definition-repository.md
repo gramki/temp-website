@@ -36,6 +36,8 @@ foundry-{id}/
 │   └── governance/
 │       └── approval-workflows.md
 ├── capable-agents.yaml              # Foundry-level Capable Agent config
+├── work-catalog/                    # Foundry-level Work Catalog
+│   └── {track}/{oi-type}/...        # OI Workflows and Scenarios
 └── README.md
 ```
 
@@ -185,7 +187,7 @@ Capable Agent configuration cascades down:
 - Disabled at Foundry = disabled everywhere
 - Credentials resolve upward (Workbench → Workshop → Foundry)
 
-See [../agent-fabric/capable-agents.md](../agent-fabric/capable-agents.md) for full configuration details.
+See [../agent-fabric/platform-developer-guide/capable-agents.md](..//agent-fabric/platform-developer-guide/capable-agents.md) for full configuration details.
 
 ---
 
@@ -227,13 +229,13 @@ Foundry Repo (Git)
        │
        │ PR opened
        ▼
-Workshop Validation Service ──── validates Foundry config
+Validation Module ──── validates Foundry config (foundry-validation)
        │
        │ merge to main (webhook)
        ▼
 Workshop Sync Service
        │
-       │ writes
+       │ writes (re-validates as safety net)
        ▼
 Metadata Service ◄──── queries ──── All platform consumers
 ```
@@ -243,6 +245,7 @@ Metadata Service ◄──── queries ──── All platform consumers
 | Content | Sync Behavior |
 |---------|---------------|
 | `foundry.yaml` | Parsed and stored in Metadata Service |
+| `work-catalog/**` | OI Workflows and Scenarios synced to Work Catalog registry |
 | `domain/**` | Indexed for agent context assembly |
 | `practices/**` | Indexed for agent context assembly |
 | `capable-agents.yaml` | Parsed and stored; cascades to Workshops/Workbenches |
@@ -251,12 +254,13 @@ Metadata Service ◄──── queries ──── All platform consumers
 
 ## Validation Rules
 
-The Workshop Validation Service validates Foundry repository PRs:
+The [Validation module](validation/README.md) validates Foundry repository PRs via **KnowledgeValidator** (among others):
 
 | Rule | Validation |
 |------|------------|
 | **Schema** | `foundry.yaml` conforms to Foundry schema |
 | **Folder Structure** | `domain/` and `practices/` use valid workspace-type names |
+| **Work Catalog paths** | `work-catalog/{track}/{oi-type}/...` conforms to canonical model |
 | **No Secrets** | No hardcoded credentials in any files |
 | **Valid YAML** | All `.yaml` files are syntactically valid |
 | **Markdown Lint** | Markdown files pass linting rules |
@@ -322,6 +326,7 @@ The Workshop Validation Service validates Foundry repository PRs:
 
 ## Read Next
 
+- [validation/README.md](validation/README.md) — Validation module (pre-publish gate)
 - [knowledge-management/README.md](knowledge-management/README.md) — Knowledge Management subsystem
 - [knowledge-management/knowledge-hierarchy.md](knowledge-management/knowledge-hierarchy.md) — Inheritance model
 - [workshop-repository.md](workshop-repository.md) — Workshop Definition Repository (Workshop/Workbench levels)

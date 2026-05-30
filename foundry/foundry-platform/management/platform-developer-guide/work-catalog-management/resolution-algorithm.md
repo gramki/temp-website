@@ -26,30 +26,30 @@ Platform defaults are shipped with every Foundry installation. They provide base
 
 | Content Type | Location |
 |--------------|----------|
-| OI Workflows | `platform-defaults/{track}/{oi}/workflow.yaml` |
-| Scenarios | `platform-defaults/{track}/{oi}/{workspace}/scenarios/*.yaml` |
+| OI Workflows | `platform-defaults/work-catalog/{track}/{oi-type}/workflow.yaml` |
+| Scenarios | `platform-defaults/work-catalog/{track}/{oi-type}/{workspace}/scenarios/*.yaml` |
 
 ### Foundry Level
 
-**Source:** Foundry Work Catalog Repository
+**Source:** Foundry Definition Repository (`foundry-{id}/`)
 
-Each Foundry has a dedicated Work Catalog repository that can override or extend Platform defaults.
+Foundry-level Work Catalog content is embedded in the Foundry Definition Repository, not a separate repository. It can override or extend Platform defaults.
 
 | Content Type | Location |
 |--------------|----------|
-| OI Workflows | `workflows/{oi}.yaml` |
-| Scenarios | `{workspace}/scenarios/*.yaml` |
+| OI Workflows | `work-catalog/{track}/{oi-type}/workflow.yaml` |
+| Scenarios | `work-catalog/{track}/{oi-type}/{workspace}/scenarios/*.yaml` |
 
 ### Workshop Level
 
-**Source:** Workshop Definition Repository (work-catalog section)
+**Source:** Workshop Definition Repository (`workshop-{id}/`)
 
 Workshops can customize the Work Catalog for their specific domain.
 
 | Content Type | Location |
 |--------------|----------|
-| OI Workflows | `work-catalog/workflows/{oi}.yaml` |
-| Scenarios | `work-catalog/workspaces/{workspace}/scenarios/*.yaml` |
+| OI Workflows | `work-catalog/{track}/{oi-type}/workflow.yaml` |
+| Scenarios | `work-catalog/{track}/{oi-type}/{workspace}/scenarios/*.yaml` |
 
 ### Workbench Level
 
@@ -59,19 +59,19 @@ Workbenches can further customize for team-specific needs.
 
 | Content Type | Location |
 |--------------|----------|
-| OI Workflows | `workbenches/{workbench}/work-catalog/workflows/{oi}.yaml` |
-| Scenarios | `workbenches/{workbench}/work-catalog/workspaces/{workspace}/scenarios/*.yaml` |
+| OI Workflows | `workbenches/{workbench}/work-catalog/{track}/{oi-type}/workflow.yaml` |
+| Scenarios | `workbenches/{workbench}/work-catalog/{track}/{oi-type}/{workspace}/scenarios/*.yaml` |
 
 ### User Level
 
-**Source:** User Work Catalog Repository (one per user per Foundry)
+**Source:** User Work Catalog Repository (`user-work-catalog-{userId}/`, one per user per Foundry)
 
 Users can create personal customizations for experimentation. User catalogs require explicit activation.
 
 | Content Type | Location |
 |--------------|----------|
-| OI Workflows | `workflows/{oi}.yaml` |
-| Scenarios | `{workspace}/scenarios/*.yaml` |
+| OI Workflows | `work-catalog/{track}/{oi-type}/workflow.yaml` |
+| Scenarios | `work-catalog/{track}/{oi-type}/{workspace}/scenarios/*.yaml` |
 
 ## Resolution Algorithm
 
@@ -308,7 +308,7 @@ Every artifact in the effective catalog includes source information for transpar
     "level": "workbench",
     "id": "checkout",
     "repository": "acme/checkout-workshop-definition",
-    "path": "workbenches/checkout/work-catalog/workspaces/development/scenarios/implement-feature.yaml",
+    "path": "workbenches/checkout/work-catalog/build/product-intent/development/scenarios/implement-feature.yaml",
     "commit_sha": "abc123"
   }
 }

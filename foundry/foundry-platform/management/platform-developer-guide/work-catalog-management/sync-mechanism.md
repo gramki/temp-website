@@ -39,82 +39,87 @@ Work Catalogs are stored in Git repositories at multiple hierarchy levels. Chang
 
 ```
 platform-defaults/
-├── build/
-│   └── product-intent/
-│       ├── workflow.yaml
-│       └── development/
-│           └── scenarios/
-│               └── implement-feature.yaml
-├── discovery/
-│   └── discovery-case/
-│       └── workflow.yaml
-└── ...
+└── work-catalog/
+    ├── build/
+    │   └── product-intent/
+    │       ├── workflow.yaml
+    │       └── development/
+    │           └── scenarios/
+    │               └── implement-feature.yaml
+    └── discovery/
+        └── discovery-case/
+            ├── workflow.yaml
+            └── development/
+                └── scenarios/
+                    └── ...
 ```
 
-### Foundry Work Catalog Repository
+### Foundry Work Catalog (embedded in Foundry Definition Repo)
 
-**Location:** `{org}/{foundry-id}-work-catalog` (GitHub)
+**Location:** Embedded in Foundry Definition Repository (`foundry-{id}/`)
 
 **Sync trigger:** Push to main branch (webhook)
 
 **Structure:**
 
 ```
-foundry-work-catalog/
-├── workflows/
-│   ├── product-intent.yaml
-│   └── discovery-case.yaml
-└── workspaces/
-    ├── development/
-    │   └── scenarios/
-    │       └── implement-feature.yaml
-    └── qa/
-        └── scenarios/
-            └── execute-test-suite.yaml
+foundry-acme/
+└── work-catalog/
+    ├── build/
+    │   └── product-intent/
+    │       ├── workflow.yaml
+    │       └── development/
+    │           └── scenarios/
+    │               └── implement-feature.yaml
+    └── discovery/
+        └── discovery-case/
+            └── workflow.yaml
 ```
 
 ### Workshop Work Catalog (within Workshop Definition Repo)
 
-**Location:** Within Workshop Definition Repository
+**Location:** Workshop Definition Repository (`workshop-{id}/`)
 
 **Sync trigger:** Push to main branch (webhook)
 
 **Structure:**
 
 ```
-workshop-definition-repo/
+workshop-ecommerce/
 ├── work-catalog/
-│   ├── workflows/
-│   │   └── product-intent.yaml      # Workshop override
-│   └── workspaces/
-│       └── development/
-│           └── scenarios/
-│               └── implement-feature.yaml
+│   └── build/
+│       └── product-intent/
+│           ├── workflow.yaml          # Workshop override
+│           └── development/
+│               └── scenarios/
+│                   └── implement-feature.yaml
 └── workbenches/
     └── checkout/
         └── work-catalog/
-            └── workspaces/
-                └── development/
-                    └── scenarios/
-                        └── implement-feature.yaml  # Workbench override
+            └── build/
+                └── product-intent/
+                    └── development/
+                        └── scenarios/
+                            └── implement-feature.yaml  # Workbench override
 ```
 
 ### User Work Catalog Repository
 
-**Location:** `{org}/{user-id}-work-catalog` (GitHub, private)
+**Location:** `user-work-catalog-{userId}/` (GitHub, private)
 
 **Sync trigger:** Push to main branch (webhook) OR manual sync request
 
 **Structure:**
 
 ```
-user-work-catalog/
-├── workflows/
-│   └── product-intent.yaml          # User's experimental workflow
-└── workspaces/
-    └── development/
-        └── scenarios/
-            └── implement-feature.yaml  # User's experimental scenario
+user-work-catalog-alice/
+└── work-catalog/
+    └── build/
+        └── product-intent/
+            ├── workflow.yaml          # User's experimental workflow
+            └── development/
+                └── scenarios/
+                    └── implement-feature.yaml  # User's experimental scenario
 ```
 
 ## Sync Flow
@@ -239,8 +244,8 @@ async def upsert_scenario(scenario: ParsedScenario, job: SyncJob):
 def is_oi_workflow(file: RepoFile) -> bool:
     """Check if file is an OI Workflow definition."""
     
-    # Path pattern: workflows/*.yaml or */workflows/*.yaml
-    if not re.match(r"(.*\/)?workflows\/[^\/]+\.ya?ml$", file.path):
+    # Path pattern: work-catalog/{track}/{oi-type}/workflow.yaml
+    if not re.match(r"(.*\/)?work-catalog\/[^\/]+\/[^\/]+\/workflow\.ya?ml$", file.path):
         return False
     
     # Content check: kind: OIWorkflow
@@ -257,8 +262,8 @@ def is_oi_workflow(file: RepoFile) -> bool:
 def is_scenario(file: RepoFile) -> bool:
     """Check if file is a Scenario definition."""
     
-    # Path pattern: */scenarios/*.yaml
-    if not re.match(r".*\/scenarios\/[^\/]+\.ya?ml$", file.path):
+    # Path pattern: work-catalog/{track}/{oi-type}/{workspace}/scenarios/*.yaml
+    if not re.match(r"(.*\/)?work-catalog\/[^\/]+\/[^\/]+\/[^\/]+\/scenarios\/[^\/]+\.ya?ml$", file.path):
         return False
     
     # Content check: kind: Scenario

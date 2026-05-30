@@ -4,7 +4,7 @@ Operational guide to Git repositories in the Foundry Platform — provisioning, 
 
 ## Purpose
 
-This document provides a consolidated view of all Git repositories involved in a Foundry, focused on infrastructure operations: provisioning sequences, access control, webhook configuration, validation pipelines, and naming conventions.
+This document provides a consolidated view of all Git repositories involved in a Foundry, focused on infrastructure operations: provisioning sequences, access control, webhook configuration, the Validation module, and naming conventions.
 
 For conceptual repository definitions, see [../../ace/repositories.md](../../ace/repositories.md).
 For logical Workbench architecture, see [workbench-architecture.md](workbench-architecture.md).
@@ -83,7 +83,8 @@ GitHub Organization (one per Workshop or Foundry)
 │           └── workspaces/              #   Workspace overrides (sparse)
 │
 ├── user-work-catalog-{userId}/          # User Work Catalog Repository
-│   └── (same structure as work-catalog/)
+│   └── work-catalog/                    #   User-level Work Catalog
+│       └── (same structure as Foundry)
 │
 └── (Product repos - per Workbench)
     ├── checkout-intent/                 # Intent Repository
@@ -206,12 +207,13 @@ User Work Catalog repo created with:
 user-work-catalog-{userId}/
 ├── README.md                     # Usage instructions
 ├── .gitignore
-└── build/                        # Track folder (others as needed)
-    └── product-intent/           # OI folder
-        ├── workflow.yaml         # Optional OI Workflow override
-        └── development/          # Workspace folder
-            └── scenarios/        # Scenario overrides
-                └── .gitkeep
+└── work-catalog/                 # User catalog root
+    └── build/                    # Track folder (others as needed)
+        └── product-intent/       # OI folder
+            ├── workflow.yaml     # Optional OI Workflow override
+            └── development/      # Workspace folder
+                └── scenarios/    # Scenario overrides
+                    └── .gitkeep
 ```
 
 **Activation triggers:**
@@ -269,6 +271,7 @@ user-work-catalog-{userId}/
 |-----------|---------------|--------|---------|
 | Foundry Definition | Workshop Sync Service | `push`, `pull_request` | Sync Foundry config to Metadata Service |
 | Workshop Definition | Workshop Sync Service | `push`, `pull_request` | Sync Workshop/Workbench config to Metadata Service |
+| User Work Catalog | Workshop Sync Service | `push` | Sync user Work Catalog to Metadata Service |
 
 ### Product Repositories
 
@@ -290,7 +293,7 @@ GitHub Webhook
 │                                         │
 │ 1. Validate payload signature           │
 │ 2. Parse changed files                  │
-│ 3. Validate configuration (if PR)       │
+│ 3. Re-validate configuration (safety net)│
 │ 4. Update Metadata Service (if push)    │
 │ 5. Trigger downstream notifications     │
 └─────────────────────────────────────────┘
@@ -315,11 +318,22 @@ GitHub Webhook
 |---------|-------|-----------|
 | Require PR | Yes | All changes reviewed |
 | Required reviewers | 1+ | Depends on governance policy |
-| Required status checks | Workshop Validation Service | Config must be valid |
+| Required status checks | `foundry-validation` | Config must be valid |
 | Dismiss stale reviews | Yes | Re-review after changes |
 | Require linear history | Yes (squash) | Clean history |
 | Allow force push | No | Audit trail |
 | Allow deletion | No | Protection |
+
+### User Work Catalog Repositories
+
+| Setting | Value | Rationale |
+|---------|-------|-----------|
+| Require PR | No | Direct push for experimentation |
+| Required status checks | None (merge gate N/A) | Validation runs on push, reports status |
+| Allow force push | No | Audit trail |
+| Allow deletion | No | Protection |
+
+User catalogs use **direct push to main**. The [Validation module](validation/README.md) validates on push and reports via the `foundry-validation` check, but does not block pushes or require PR approval.
 
 ### Product Repositories
 
@@ -332,16 +346,20 @@ GitHub Webhook
 
 ---
 
-## Validation Pipeline
+## Validation Module
 
-### Definition Repository Validation
+Pre-publish gate for all Foundry-scope configuration. Single module under [validation/](validation/README.md) — not CI. Reports as GitHub check **`foundry-validation`**.
+
+### Definition Repository Validation (PR gate)
 
 ```
-PR Opened to Definition Repo
+PR Opened to Definition Repo (foundry-{id}/ or workshop-{id}/)
         │
         ▼
 ┌─────────────────────────────────────────┐
-│ Workshop Validation Service             │
+│ Validation Module                       │
+│ (ConfigValidator, WorkCatalogValidator, │
+│  KnowledgeValidator)                    │
 │                                         │
 │ Schema Validation                       │
 │ ├── foundry.yaml conforms to schema     │
@@ -352,6 +370,7 @@ PR Opened to Definition Repo
 │ Folder Structure Validation             │
 │ ├── domain/ uses valid workspace types  │
 │ ├── practices/ uses valid workspace types│
+│ ├── work-catalog/ uses canonical paths  │
 │ └── No unknown folders at scope level   │
 │                                         │
 │ Content Validation                      │
@@ -367,13 +386,32 @@ PR Opened to Definition Repo
 └─────────────────────────────────────────┘
         │
         ▼
-    Pass/Fail reported to GitHub
+    foundry-validation check (pass/fail)
         │
-        ▼ (on merge)
+        ▼ (on merge — Validation module merges)
 Workshop Sync Service updates Metadata Service
 ```
 
-→ [services/workshop-validation.md](services/workshop-validation.md) for validation rules
+### User Work Catalog Validation (push, no merge gate)
+
+```
+Push to main (user-work-catalog-{userId}/)
+        │
+        ▼
+┌─────────────────────────────────────────┐
+│ Validation Module                       │
+│ (same rules; work-catalog/{track}/...)  │
+└─────────────────────────────────────────┘
+        │
+        ▼
+    foundry-validation check (report only)
+        │
+        ▼
+Workshop Sync Service updates Metadata Service
+```
+
+→ [validation/README.md](validation/README.md) for module scope and path model  
+→ [services/workshop-validation.md](services/workshop-validation.md) for GitHub integration appendix
 
 ---
 
@@ -430,10 +468,17 @@ repoType: intent
 
 ### Work Catalog Content Structure
 
-Work Catalog content follows a consistent path structure across all catalog levels:
+Work Catalog content follows a consistent path structure across all catalog levels. Legacy paths (`workbenches/{wb}/workspaces/{ws}/scenarios/`) are not supported.
+
+| Level | Catalog path |
+|-------|--------------|
+| Foundry | `foundry-{id}/work-catalog/{track}/{oi-type}/...` |
+| Workshop | `workshop-{id}/work-catalog/{track}/{oi-type}/...` |
+| Workbench | `workshop-{id}/workbenches/{wb}/work-catalog/{track}/{oi-type}/...` |
+| User | `user-work-catalog-{userId}/work-catalog/{track}/{oi-type}/...` |
 
 ```
-{catalog-root}/
+work-catalog/
 └── {track}/                      # build, discovery, run, win, evolve, governance
     └── {oi-type}/                # product-intent, discovery-case, etc.
         ├── README.md             # OI description (optional)
@@ -556,6 +601,7 @@ If Metadata Service loses sync with Git:
 - [foundry-definition-repository.md](foundry-definition-repository.md) — Foundry repo structure
 - [workshop-repository.md](workshop-repository.md) — Workshop repo structure
 - [workbench-architecture.md](workbench-architecture.md) — Workbench logical architecture
-- [services/workshop-validation.md](services/workshop-validation.md) — PR validation
+- [validation/README.md](validation/README.md) — Validation module (pre-publish gate)
+- [services/workshop-validation.md](services/workshop-validation.md) — GitHub integration appendix
 - [services/workshop-sync.md](services/workshop-sync.md) — Webhook processing
 - [../../ace/repositories.md](../../ace/repositories.md) — UPIM repository concepts

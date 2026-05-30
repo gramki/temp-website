@@ -2,6 +2,17 @@
 
 This guide covers how to browse, author, test, and publish Work Catalog content.
 
+## Validation
+
+Catalog content is checked by the **Validation module** (not CI). Behavior differs by publish target:
+
+| Target | When validation runs | Gated by approval? |
+|--------|----------------------|--------------------|
+| User catalog | On push to `user-work-catalog-{userId}/` | No — direct publish |
+| Workbench, Workshop, Foundry | On PR to shared catalog repo | Yes — PR must pass Validation and be approved before merge |
+
+Run validation locally before publishing: `foundry scenario validate` or `foundry workflow validate`. See [testing-scenarios.md](testing-scenarios.md) and [troubleshooting.md](troubleshooting.md).
+
 ## Audience
 
 | Role | Primary Interest |

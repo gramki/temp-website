@@ -12,7 +12,7 @@ Authored → PR Validated → Merged → Synced to Registry → OI Workflow Refe
 
 The journey involves multiple modules:
 - **Work Catalog Management** — Schema, validation, resolution, recommendations
-- **Work Catalog Repo Validation** — PR gating for catalogs at each level
+- **Validation module** — PR gating for catalogs at each level
 - **Work Catalog Sync Service** — Config propagation to registry
 - **Metadata Service** — Storage and queries
 - **Orchestrator** — OI Workflow execution, WO creation
@@ -44,14 +44,15 @@ For this example, a Workbench Admin creates a custom `implement-feature` scenari
 The admin creates the scenario in the Workshop Definition Repo (Workbench section):
 
 ```
-workshop-definition-repo/
+workshop-ecommerce/
 └── workbenches/
     └── checkout/
         └── work-catalog/
-            └── workspaces/
-                └── development/
-                    └── scenarios/
-                        └── implement-feature.yaml  # New file
+            └── build/
+                └── product-intent/
+                    └── development/
+                        └── scenarios/
+                            └── implement-feature.yaml  # New file
 ```
 
 #### Step 1.3: Write Scenario YAML
@@ -106,7 +107,7 @@ spec:
 #### Step 1.4: Create Pull Request
 
 ```bash
-git add workbenches/checkout/work-catalog/workspaces/development/scenarios/implement-feature.yaml
+git add workbenches/checkout/work-catalog/build/product-intent/development/scenarios/implement-feature.yaml
 git commit -m "Add checkout-specific implement-feature scenario"
 git push origin feature/checkout-implement-scenario
 # Creates PR #42
@@ -116,12 +117,12 @@ git push origin feature/checkout-implement-scenario
 
 ### Phase 2: PR Validation
 
-**Location:** GitHub / Work Catalog Repo Validation Service  
-**Actor:** Work Catalog Repo Validation Service (automated)
+**Location:** GitHub / Validation module  
+**Actor:** Validation module (automated)
 
 #### Step 2.1: PR Check Triggered
 
-GitHub webhook notifies the Validation Service:
+GitHub webhook notifies the Validation module:
 
 ```json
 {
@@ -138,16 +139,16 @@ GitHub webhook notifies the Validation Service:
 
 #### Step 2.2: Identify Changed Files
 
-The Validation Service identifies work catalog files:
+The Validation module identifies work catalog files:
 
 ```
 Changed files:
-  + workbenches/checkout/work-catalog/workspaces/development/scenarios/implement-feature.yaml
+  + workbenches/checkout/work-catalog/build/product-intent/development/scenarios/implement-feature.yaml
 ```
 
 #### Step 2.3: Validate Scenario
 
-The service calls Work Catalog Management:
+The Validation module calls Work Catalog Management:
 
 ```
 POST /api/v1/work-catalog/validate
@@ -202,12 +203,12 @@ Response:
 
 #### Step 2.4: Report Check Status
 
-The Validation Service reports to GitHub:
+The Validation module reports to GitHub:
 
 ```
 POST /repos/acme/ecommerce-workshop-definition/check-runs
 {
-  "name": "foundry-work-catalog-validation",
+  "name": "foundry-validation",
   "head_sha": "abc123",
   "status": "completed",
   "conclusion": "success",
@@ -245,7 +246,7 @@ GitHub sends push webhook after merge:
   "ref": "refs/heads/main",
   "after": "def456",
   "commits": [{
-    "added": ["workbenches/checkout/work-catalog/workspaces/development/scenarios/implement-feature.yaml"]
+    "added": ["workbenches/checkout/work-catalog/build/product-intent/development/scenarios/implement-feature.yaml"]
   }]
 }
 ```
@@ -298,7 +299,7 @@ Scenario is stored with full hierarchy context:
   "workbench_id": "checkout",
   "user_id": null,
   "source_repository": "acme/ecommerce-workshop-definition",
-  "source_path": "workbenches/checkout/work-catalog/workspaces/development/scenarios/implement-feature.yaml",
+  "source_path": "workbenches/checkout/work-catalog/build/product-intent/development/scenarios/implement-feature.yaml",
   "source_commit_sha": "def456",
   "synced_at": "2026-05-28T10:30:00Z"
 }
@@ -335,7 +336,7 @@ await cache.invalidate_pattern("resolve:scenario:implement-feature:acme:ecommerc
 The Product Intent workflow (defined at Foundry level) includes:
 
 ```yaml
-# workflows/product-intent.yaml (at Foundry level)
+# work-catalog/build/product-intent/workflow.yaml (at Foundry level)
 stages:
   - name: ready-for-development
     handlers:
@@ -491,7 +492,7 @@ Since user catalog is not active, resolution returns the Workbench version:
     "level": "workbench",
     "id": "checkout",
     "repository": "acme/ecommerce-workshop-definition",
-    "path": "workbenches/checkout/work-catalog/...",
+    "path": "workbenches/checkout/work-catalog/build/product-intent/development/scenarios/implement-feature.yaml",
     "commit_sha": "def456"
   }
 }
@@ -625,7 +626,7 @@ This allows Alice to experiment with scenario changes without affecting other te
 | Phase | Location | Actor | Key Output |
 |-------|----------|-------|------------|
 | 1. Authoring | Work Catalog Repo | Admin | Scenario YAML file |
-| 2. Validation | Validation Service | Automated | PR check status (schema + scope) |
+| 2. Validation | Validation module | Automated | PR check status (schema + scope) |
 | 3. Sync | Sync Service | Automated | Scenario in registry with hierarchy |
 | 4. OI Reference | OI Workflow | Orchestrator | Validated scenario reference |
 | 5. WO Creation | Orchestrator | Workflow Engine | Work Order with resolved scenario |
@@ -637,8 +638,8 @@ This allows Alice to experiment with scenario changes without affecting other te
 
 ```
 ┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐
-│   Work Catalog   │────▶│   Work Catalog   │────▶│    Metadata      │
-│      Repos       │ PR  │    Validation    │sync │    Service       │
+│   Work Catalog   │────▶│   Validation     │────▶│    Metadata      │
+│      Repos       │ PR  │     module       │sync │    Service       │
 │  (5 levels)      │     │    + Sync        │     │   (registry)     │
 └──────────────────┘     └──────────────────┘     └──────────────────┘
                                 │                         │
@@ -657,5 +658,5 @@ This allows Alice to experiment with scenario changes without affecting other te
 - [resolution-algorithm.md](resolution-algorithm.md) — Hierarchy resolution details
 - [scenario-schema.md](scenario-schema.md) — Full YAML schema
 - [validation-rules.md](validation-rules.md) — Validation specification
-- [../../orchestrator/README.md](../../orchestrator/README.md) — How Orchestrator uses OI Workflows
-- [../../work-order-runtime/README.md](../../work-order-runtime/README.md) — WO execution details
+- [../../orchestrator/README.md](../../../orchestrator/README.md) — How Orchestrator uses OI Workflows
+- [../../work-order-runtime/README.md](../../../work-order-runtime/README.md) — WO execution details

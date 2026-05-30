@@ -2,6 +2,39 @@
 
 This document specifies detailed implementation requirements for the Foundry Management module.
 
+## Key Concepts
+
+This module implements several platform concepts. For definitions, see:
+
+| Concept | Link |
+|---------|------|
+| Containment Hierarchy | [../../concepts/containment-hierarchy.md](../../concepts/containment-hierarchy.md) |
+| Repositories | [../../concepts/repositories.md](../../concepts/repositories.md) |
+| Knowledge Hierarchy | [../../concepts/knowledge-hierarchy.md](../../concepts/knowledge-hierarchy.md) |
+| Metadata Service | [../../concepts/metadata-service.md](../../concepts/metadata-service.md) |
+| Work Catalog | [../../concepts/work-catalog.md](../../concepts/work-catalog.md) |
+| Scenario | [../../concepts/scenario.md](../../concepts/scenario.md) |
+
+Module-specific concepts (internals):
+
+| Concept | Link |
+|---------|------|
+| Declarative Provisioning | [../concepts/declarative-provisioning.md](../concepts/declarative-provisioning.md) |
+| Validation Module | [../concepts/validation-module.md](../concepts/validation-module.md) |
+| Workshop Sync | [../concepts/workshop-sync.md](../concepts/workshop-sync.md) |
+| Integration Service | [../concepts/integration-service.md](../concepts/integration-service.md) |
+| Work Catalog Resolution | [../concepts/work-catalog-resolution.md](../concepts/work-catalog-resolution.md) |
+
+## ACE alignment
+
+| ACE concept | How this module realizes it |
+|-------------|---------------------------|
+| **Workshop** | Workshop Service provisions and configures Workshops (divisions/units) |
+| **Workbench** | Workbench Service provisions Product containers with GitHub, Jira, and other integrations |
+| **Repositories** | Repository Service manages the 15 canonical repository types |
+| **Workforce** | Team Service manages users, teams, roles, and permissions |
+| **Scenario** | Work Catalog Management stores and validates Scenario schemas |
+
 ## Architecture Overview
 
 ```
@@ -39,6 +72,8 @@ This document specifies detailed implementation requirements for the Foundry Man
 
 ### Workshop Service
 
+**MGT-FR-0001:** The Workshop Service SHALL manage Workshop (division/unit) lifecycle including create, read, update, and archive.
+
 Manages Workshop (division/unit) lifecycle.
 
 #### API Endpoints
@@ -71,6 +106,10 @@ Workshop:
 
 #### Creation Process
 
+**MGT-FR-0002:** Workshop creation SHALL validate name and code uniqueness within the Foundry.
+
+**MGT-FR-0003:** Workshop creation SHALL create a Workshop Definition Repository (Git repo) and initialize it with scaffold structure.
+
 1. Validate workshop name and code uniqueness within Foundry
 2. Create Workshop record in database
 3. Create Workshop Definition Repository (Git repo)
@@ -80,6 +119,8 @@ Workshop:
 ---
 
 ### Workbench Service
+
+**MGT-FR-0004:** The Workbench Service SHALL manage Workbench (Product) lifecycle including create, read, update, archive, and integration management.
 
 Manages Workbench (Product) lifecycle.
 
@@ -122,6 +163,16 @@ Workbench:
 
 #### Provisioning Process
 
+**MGT-FR-0005:** Workbench provisioning SHALL validate name and product_code uniqueness within the Workshop.
+
+**MGT-FR-0006:** Workbench provisioning SHALL create an Intent Repository and Design Repository in the GitHub org.
+
+**MGT-FR-0007:** Workbench provisioning SHALL create a Jira project for Work Orders.
+
+**MGT-FR-0008:** Workbench provisioning SHALL provision Metadata Service and Ontology Service instances.
+
+**MGT-FR-0009:** Workbench provisioning SHALL set status to `active` only after all provisioning steps complete successfully.
+
 ```
 1. Validate workbench name and product_code uniqueness
 2. Create Workbench record (status: provisioning)
@@ -141,6 +192,12 @@ Workbench:
 
 #### Archival Process
 
+**MGT-FR-0010:** Workbench archival SHALL verify no active Work Orders exist before proceeding.
+
+**MGT-FR-0011:** Workbench archival SHALL preserve GitHub repos and Jira history while disabling access.
+
+**MGT-FR-0012:** Workbench archival SHALL retain all data for audit purposes.
+
 ```
 1. Verify no active Work Orders
 2. Set status to archived
@@ -153,6 +210,8 @@ Workbench:
 ---
 
 ### Metadata Service
+
+**MGT-FR-0013:** The Metadata Service SHALL be provisioned per-Workbench for identity and tracking.
 
 Per-Workbench service for identity and tracking.
 
@@ -168,6 +227,10 @@ DELETE /api/v1/workbenches/{id}/metadata/code-repos/{repo_id}  # Remove repo
 ```
 
 #### ID Generation
+
+**MGT-FR-0014:** ID generation SHALL use database sequences per (workbench_id, type) for atomicity.
+
+**MGT-FR-0015:** IDs SHALL be formatted as `{prefix}-{value}` (e.g., `PI-456`).
 
 ```yaml
 IDSequence:
@@ -197,6 +260,12 @@ TrackedCommit:
   files_changed: string[]
   orchestration_item_refs: string[]  # PI-123, etc.
 ```
+
+**MGT-FR-0016:** Commit tracking SHALL use GitHub webhook listener for push events.
+
+**MGT-FR-0017:** Commit tracking SHALL parse commit messages for orchestration item references (e.g., PI-123).
+
+**MGT-FR-0018:** Commit metadata SHALL be stored for traceability queries.
 
 Implementation:
 - GitHub webhook listener for push events
@@ -235,6 +304,8 @@ PUT    /api/v1/workbenches/{id}/repositories/{type}    # Update repository
 
 ### Team Service
 
+**MGT-FR-0019:** The Team Service SHALL manage teams, roles, and permissions within a Workbench.
+
 Manages teams, roles, and permissions.
 
 #### API Endpoints
@@ -268,6 +339,18 @@ TeamMember:
 
 #### Roles and Permissions
 
+**MGT-FR-0020:** Foundry Admins SHALL be able to create workshops and manage foundry settings.
+
+**MGT-FR-0021:** Workshop Admins SHALL be able to create workbenches and manage workshop settings.
+
+**MGT-FR-0022:** Workbench Admins SHALL be able to configure integrations and manage teams.
+
+**MGT-FR-0023:** Team Admins SHALL be able to manage team membership.
+
+**MGT-FR-0024:** Team Members SHALL be able to access workbench resources and execute WOs.
+
+**MGT-FR-0025:** Viewers SHALL have read-only access.
+
 | Role | Capabilities |
 |------|--------------|
 | **Foundry Admin** | Create workshops, manage foundry settings |
@@ -280,6 +363,8 @@ TeamMember:
 ---
 
 ### Integration Service
+
+**MGT-FR-0026:** The Integration Service SHALL manage external tool integrations (GitHub, Jira, TestRail, Figma, Olympus Weave).
 
 Manages external tool integrations.
 
@@ -473,6 +558,14 @@ CREATE TABLE team_members (
 
 ### Retry Policy
 
+**MGT-NFR-0001:** GitHub API calls SHALL retry up to 3 times with exponential backoff (1s, 2s, 4s).
+
+**MGT-NFR-0002:** Jira API calls SHALL retry up to 3 times with exponential backoff (1s, 2s, 4s).
+
+**MGT-NFR-0003:** Database operations SHALL retry up to 2 times with fixed 100ms backoff.
+
+**MGT-NFR-0004:** Webhook delivery SHALL retry up to 5 times with exponential backoff (1m, 2m, 4m, 8m, 16m).
+
 | Operation | Retry Count | Backoff |
 |-----------|-------------|---------|
 | GitHub API | 3 | Exponential (1s, 2s, 4s) |
@@ -485,6 +578,12 @@ CREATE TABLE team_members (
 ## Scalability
 
 ### Multi-Tenancy
+
+**MGT-NFR-0005:** Each Foundry SHALL be isolated at the database level using row-level security.
+
+**MGT-NFR-0006:** API authentication SHALL include Foundry context.
+
+**MGT-NFR-0007:** Cross-Foundry queries SHALL be prohibited.
 
 - Each Foundry is isolated at the database level (row-level security)
 - API authentication includes Foundry context
@@ -543,17 +642,33 @@ GET /health/ready    # Readiness probe (includes DB, GitHub, Jira connectivity)
 
 ### Authentication
 
+**MGT-NFR-0008:** API requests SHALL be authenticated via JWT tokens.
+
+**MGT-NFR-0009:** Inter-service communication SHALL use service accounts.
+
+**MGT-NFR-0010:** OAuth tokens for external integrations SHALL be encrypted at rest.
+
 - API requests authenticated via JWT tokens
 - Service accounts for inter-service communication
 - OAuth tokens for external integrations (encrypted at rest)
 
 ### Authorization
 
+**MGT-NFR-0011:** Authorization SHALL use role-based access control (RBAC) with Foundry Admin > Workshop Admin > Workbench Admin hierarchy.
+
+**MGT-NFR-0012:** API endpoints SHALL enforce authorization based on user's highest role in scope.
+
 - Role-based access control (RBAC)
 - Foundry Admin → Workshop Admin → Workbench Admin hierarchy
 - API endpoints enforce authorization based on user's highest role in scope
 
 ### Secrets Management
+
+**MGT-NFR-0013:** Integration credentials SHALL be stored encrypted using AES-256.
+
+**MGT-NFR-0014:** Encryption keys SHALL be stored in a secrets manager (HashiCorp Vault, AWS Secrets Manager).
+
+**MGT-NFR-0015:** Credentials SHALL never be logged or exposed in API responses.
 
 - Integration credentials stored encrypted (AES-256)
 - Encryption key in secrets manager (e.g., HashiCorp Vault, AWS Secrets Manager)
@@ -573,4 +688,4 @@ GET /health/ready    # Readiness probe (includes DB, GitHub, Jira connectivity)
 
 - [workbench-architecture.md](workbench-architecture.md) — Workbench repository storage model
 - [workshop-repository.md](workshop-repository.md) — Workshop Definition Repository structure
-- [../orchestrator/orchestrator-requirements.md](../orchestrator/orchestrator-requirements.md) — Orchestrator requirements
+- [../orchestrator/platform-developer-guide/requirements.md](..//orchestrator/platform-developer-guide/requirements.md) — Orchestrator requirements

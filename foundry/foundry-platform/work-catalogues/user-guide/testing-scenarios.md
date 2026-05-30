@@ -145,7 +145,7 @@ For full end-to-end testing, publish to your User catalog and execute with real 
 foundry scenario publish ./scenarios/implement-feature.yaml --to user
 ```
 
-This creates/updates the scenario in `users/<you>/work-catalog/`.
+This creates/updates the scenario in `user-work-catalog-{userId}/work-catalog/`.
 
 ### Step 2: Enable User Catalog
 

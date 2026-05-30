@@ -64,8 +64,8 @@ tasks:
 1. **Open Work Catalog Explorer** (Cmd/Ctrl+Shift+W)
 
 2. **Navigate to the target folder:**
-   - For Workbench scenarios: `workbenches/<workbench>/work-catalog/<track>/<oi>/<workspace>/scenarios/`
-   - For User catalog: `users/<you>/work-catalog/<track>/<oi>/<workspace>/scenarios/`
+   - For Workbench scenarios: `workshop-{id}/workbenches/{wb}/work-catalog/{track}/{oi}/{workspace}/scenarios/`
+   - For User catalog: `user-work-catalog-{userId}/work-catalog/<track>/<oi>/<workspace>/scenarios/`
 
 3. **Create new file:** Right-click > "New Scenario"
 

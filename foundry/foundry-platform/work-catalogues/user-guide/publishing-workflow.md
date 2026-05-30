@@ -34,19 +34,20 @@ This:
 
 ### User Catalog Path
 
-Your user catalog is at:
+Your user catalog is a dedicated repository provisioned on first publish:
 ```
-users/<your-user-id>/work-catalog/
+user-work-catalog-{userId}/
 ```
 
-Content is organized the same as other catalogs:
+Content follows the same layout as other catalogs:
 ```
-users/<you>/work-catalog/
-└── build/
-    └── product-intent/
-        └── development/
-            └── scenarios/
-                └── implement-feature.yaml
+user-work-catalog-{userId}/
+└── work-catalog/
+    └── build/
+        └── product-intent/
+            └── development/
+                └── scenarios/
+                    └── implement-feature.yaml
 ```
 
 ## Publishing to Workbench/Workshop/Foundry
@@ -70,11 +71,15 @@ Copy your tested scenario to the appropriate location:
 ```bash
 # For Workbench
 cp ./implement-feature.yaml \
-   workbenches/<workbench>/work-catalog/build/product-intent/development/scenarios/
+   workshop-{id}/workbenches/{wb}/work-catalog/build/product-intent/development/scenarios/
 
 # For Workshop
 cp ./implement-feature.yaml \
-   workshops/<workshop>/work-catalog/build/product-intent/development/scenarios/
+   workshop-{id}/work-catalog/build/product-intent/development/scenarios/
+
+# For Foundry
+cp ./implement-feature.yaml \
+   foundry-{id}/work-catalog/build/product-intent/development/scenarios/
 ```
 
 ### Step 3: Validate
@@ -228,7 +233,7 @@ Common rejection reasons:
 - Required skills not approved for this level
 - Scope too broad for target level
 - Missing documentation/description
-- Validation errors in CI
+- Validation module errors on the PR
 
 ## Monitoring Published Content
 

@@ -78,86 +78,13 @@ The module follows the "provide policy, not operations" principle. It doesn't ru
 
 ## Key Services
 
-### Skill Registry Service
-
-Two-tier registry for skill packages:
-
-| Registry | Scope | Contents |
-|----------|-------|----------|
-| **Global** | Cross-Foundry (public) | Community skills, vendor-provided skills |
-| **Foundry** | Org-scoped (private) | Internal skills, forked/modified skills |
-
-Skills are published following the [Agent Skills specification](https://agentic.ai/) (SKILL.md + supporting files).
-
-→ [skill-registry.md](skill-registry.md)
-
-### Skill CLI Tooling
-
-GitHub CLI extensions for skill lifecycle:
-
-| Command | Purpose |
-|---------|---------|
-| `gh foundry-skill init` | Scaffold new skill |
-| `gh foundry-skill build` | Validate and build |
-| `gh foundry-skill test` | Run evaluation harness |
-| `gh foundry-skill publish` | Publish to registry |
-| `gh foundry-skill install` | Install to workspace |
-| `gh foundry-skill search` | Search registries |
-
-→ [skill-registry.md](skill-registry.md)
-
-### Capable Agent Registry
-
-Manage whitelisted agent systems at Foundry / Workbench levels:
-
-- Enable/disable agents with cascade rules
-- Configure supported models per agent
-- Credential management (references to secure storage)
-- Auto-fallback configuration
-
-→ [capable-agents.md](capable-agents.md)
-
-### Quota Management
-
-Configurable quotas at multiple levels:
-
-| Level | Scope | Example |
-|-------|-------|---------|
-| Foundry | Global org limit | $50K/month total |
-| Workbench | Product limit | $2K/month for Checkout |
-| (Foundry, User) | User's global limit | Alice: $500/month |
-| (Workbench, User) | User's product limit | Alice on Checkout: $200/month |
-
-Effective quota = minimum of all applicable limits.
-
-### Gateway Policy
-
-Configuration for an OSS LLM gateway (not built-in). Recommended gateways:
-
-| Gateway | License | Strengths |
-|---------|---------|-----------|
-| **LiteLLM Proxy** | MIT | 100+ providers, spend tracking, caching |
-| **Portkey** | Apache 2.0 | Enterprise features, load balancing |
-| **Helicone** | Apache 2.0 | Observability, cost tracking |
-
-The module provides:
-- Quota policy configuration for the gateway
-- Delegation token validation hooks
-- Credential injection from Capable Agent registry
-- Audit log aggregation
-
-→ [gateway-policy.md](gateway-policy.md)
-
-### Usage Analytics
-
-Metrics for skill and agent utilization:
-
-| Metric | Description |
-|--------|-------------|
-| Invocation count | Per skill, per Skilled Agent |
-| Cost attribution | By Foundry / Workbench / User / Skill |
-| Automation coverage | Scenarios with vs without Skilled Agents |
-| Failure rates | By skill, by capable agent |
+| Service | Role | Specification |
+|---------|------|---------------|
+| **Skill Registry** | Global + Foundry-scoped registries for skill packages | [skill-registry.md](platform-developer-guide/skill-registry.md) |
+| **Capable Agent Registry** | Whitelist and configure agent systems (Cursor, Copilot, Claude Code) | [capable-agents.md](platform-developer-guide/capable-agents.md) |
+| **Quota Management** | Configurable limits at Foundry, Workbench, and User levels | [gateway-policy.md](platform-developer-guide/gateway-policy.md) |
+| **Gateway Policy** | Configuration for OSS LLM gateway (quota, routing, audit) | [gateway-policy.md](platform-developer-guide/gateway-policy.md) |
+| **Usage Analytics** | Skill invocation metrics, cost attribution, automation coverage | [requirements.md](platform-developer-guide/requirements.md) |
 
 ## Agent Model
 
@@ -220,17 +147,41 @@ The module manages a three-tier agent model:
 - Skill signing and verification
 - Offline/air-gapped Foundry support (registry mirroring)
 
-## Module Documents
+## Key Concepts
 
-| Document | Content |
-|----------|---------|
-| [requirements.md](requirements.md) | Implementation requirements (APIs, database, observability) |
-| [agent-lifecycle-journey.md](agent-lifecycle-journey.md) | End-to-end agent lifecycle walkthrough |
-| [skill-registry.md](skill-registry.md) | Skill distribution, packaging, and CLI tooling |
-| [capable-agents.md](capable-agents.md) | Capable Agent registry, fallback, credentials |
-| [skilled-agents.md](skilled-agents.md) | Skilled Agent manifest structure and guardrails |
-| [employed-agents.md](employed-agents.md) | Runtime instantiation and delegation model |
-| [gateway-policy.md](gateway-policy.md) | OSS gateway configuration and quota enforcement |
+### Platform-wide concepts
+
+These concepts are defined centrally and used across Foundry modules:
+
+| Concept | What Agent Fabric does with it |
+|---------|--------------------------------|
+| [Agent Model](../concepts/agent-model.md) | Manages the three-tier hierarchy (Capable → Skilled → Employed) |
+| [Skill](../concepts/skill.md) | Packages capabilities via Skill Registry |
+| [Delegation](../concepts/delegation.md) | Provides delegation token infrastructure |
+| [Scenario](../concepts/scenario.md) | Skilled Agents are defined per (Workspace, Scenario) |
+| [Governance](../concepts/governance.md) | Quota enforcement as governance over agent resources |
+
+### Module-specific concepts
+
+These concepts describe Agent Fabric internals:
+
+| Concept | Definition |
+|---------|------------|
+| [Capable Agent](concepts/capable-agent.md) | Whitelisted agent system (Cursor, Copilot, Claude Code) |
+| [Skilled Agent](concepts/skilled-agent.md) | Local manifest combining skills + guardrails |
+| [Employed Agent](concepts/employed-agent.md) | Runtime instance within a Workspace Session |
+| [Quota Management](concepts/quota-management.md) | Configurable limits at Foundry, Workbench, and User levels |
+| [Usage Analytics](concepts/usage-analytics.md) | Skill invocation metrics, cost attribution |
+
+→ [concepts/README.md](concepts/README.md) — Full module concept index
+
+## Documentation
+
+| Guide | Audience | Index |
+|-------|----------|-------|
+| Concepts | Anyone | This README, [concepts/](concepts/) |
+| [User guide](user-guide/) | Admins, builders | Task-oriented usage |
+| [Foundry Platform developer guide](platform-developer-guide/) | Platform engineers | Implementation specs |
 
 ## Read Next
 

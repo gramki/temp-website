@@ -26,9 +26,9 @@ Level      | Found | Path
 -----------|-------|---------------------------------------------
 User       | No    | -
 Workbench  | No    | -
-Workshop   | Yes   | workshop/work-catalog/build/.../implement-feature.yaml
-Foundry    | Yes   | foundry/work-catalog/build/.../implement-feature.yaml
-Platform   | Yes   | platform-defaults/build/.../implement-feature.yaml
+Workshop   | Yes   | workshop-{id}/work-catalog/build/.../implement-feature.yaml
+Foundry    | Yes   | foundry-{id}/work-catalog/build/.../implement-feature.yaml
+Platform   | Yes   | platform-defaults/work-catalog/build/.../implement-feature.yaml
 
 Active: Workshop level
 ```
@@ -314,7 +314,7 @@ For `hard-block`:
 ## "PR validation failed"
 
 ### Symptom
-CI validation fails when trying to merge catalog changes.
+The Validation module rejects catalog changes when trying to merge a PR to a shared catalog (Workbench, Workshop, or Foundry). User catalog pushes are validated on push but are not gated by PR approval.
 
 ### Common Failures
 

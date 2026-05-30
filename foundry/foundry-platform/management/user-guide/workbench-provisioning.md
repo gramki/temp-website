@@ -1,37 +1,91 @@
-# Workbench Provisioning Journey
+# Provisioning a New Workbench
 
-This document walks through the complete process of provisioning a new Workbench, from initial request to a fully operational product workspace.
+## Purpose
 
-## Overview
+This guide walks through the complete process of provisioning a new Workbench — the locus where a Product is evolved — from request submission through automated setup to a fully operational product workspace.
 
-```
-Request → Validate → Create Record → GitHub Setup → Jira Setup →
-Metadata Service → Ontology Service → Repository Scaffold → Team Setup → Active
-```
+## Audience
 
-Provisioning involves:
-- **Management module** — Orchestrates the entire process
-- **GitHub** — Organization and repositories
-- **Jira** — Projects for work tracking
-- **Internal services** — Metadata Service, Ontology Service
+| Role | When to use this guide |
+|------|------------------------|
+| Workshop Admin | When creating a new Workbench for a product within your Workshop |
+| Foundry Admin | When assisting Workshop Admins with Workbench provisioning |
 
 ## Prerequisites
 
-Before provisioning a Workbench:
+- **Access:** Workshop Admin role or higher in the target Workshop
+- **Workshop:** Parent Workshop must exist and be active
+- **GitHub:** Foundry GitHub App must be installed on the target GitHub organization
+- **Jira:** Workshop must have Jira integration configured
+- **Prior reading:** [Workshop provisioning](workshop-provisioning.md), [Workbench architecture](workbench-architecture.md)
 
-1. **Workshop exists** — Workbench belongs to a Workshop
-2. **GitHub App installed** — Foundry GitHub App must be installed on the target org (or new org will be created)
-3. **Jira connected** — Workshop must have Jira integration configured
-4. **Admin permissions** — User must be Workshop Admin or higher
+---
 
-## Phase 1: Request and Validation
+## When to Create a Workbench vs a Workshop
 
-**Location:** Web Console or API  
-**Actor:** Workshop Admin
+Use this decision tree before provisioning:
 
-### Step 1.1: Submit Provisioning Request
+```
+Does this product belong to an existing business unit / team structure?
+│
+├─ YES → Is there already a Workshop for that business unit?
+│        │
+│        ├─ YES → Create a Workbench within that Workshop
+│        │
+│        └─ NO  → Create a Workshop first, then create the Workbench
+│
+└─ NO  → Is this a cross-cutting platform or shared service?
+         │
+         ├─ YES → Create a dedicated Workshop, then create the Workbench
+         │
+         └─ NO  → Consult your Foundry Admin about organizational placement
+```
 
-Admin submits a request via the web console:
+**Key distinctions:**
+
+| Construct | Scope | When to create |
+|-----------|-------|----------------|
+| **Workshop** | Business unit, department, or product line | New organizational boundary, new team structure, different governance needs |
+| **Workbench** | Individual product within a Workshop | New product, new service, new system within an existing team structure |
+
+**Examples:**
+
+| Situation | Create |
+|-----------|--------|
+| New "Checkout Service" for the Retail team | Workbench (in existing "Retail" Workshop) |
+| New "Platform Infrastructure" team forming | Workshop (then Workbenches for each platform product) |
+| Second product for an existing team | Workbench (in the team's existing Workshop) |
+| Splitting a monolith into microservices | Multiple Workbenches (in the same Workshop) |
+
+---
+
+## Steps
+
+### 1. Navigate to the Workshop and initiate provisioning (Workshop Admin)
+
+In the Foundry Web App, navigate to your Workshop and click **Create Workbench**.
+
+```
+Foundry Web App
+└── Workshops
+    └── {Your Workshop}
+        └── Workbenches
+            └── [+ Create Workbench]
+```
+
+### 2. Provide Workbench details (Workshop Admin)
+
+Fill in the Workbench creation form:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Human-readable Workbench name (e.g., "Checkout Service") |
+| `product_code` | Yes | Unique identifier within the Workshop (e.g., "checkout") |
+| `description` | Yes | Brief description of the product |
+| `github_org` | Yes | GitHub organization (existing or new) |
+| `capable_agents` | No | Capable Agents to enable (defaults inherited from Workshop) |
+
+Example request payload:
 
 ```json
 {
@@ -41,71 +95,40 @@ Admin submits a request via the web console:
   "description": "Customer checkout and payment processing",
   "config": {
     "capable_agents": ["cursor-agent", "copilot"],
-    "github_org": "acme-retail"  // existing or new
+    "github_org": "acme-retail"
   }
 }
 ```
 
-### Step 1.2: Validate Request
+### 3. Submit the creation request (Workshop Admin)
 
-Management validates:
+Click **Create Workbench**. The platform validates your request:
 
-```
-1. Workshop exists and is active
-2. Product code is unique within Workshop
-3. User has Workshop Admin permissions
-4. GitHub org exists OR can be created
-5. Jira integration is configured at Workshop level
-```
+| Validation | What is checked |
+|------------|-----------------|
+| Workshop exists | Workshop is active |
+| Product code unique | No existing Workbench in Workshop with this code |
+| User permissions | You have Workshop Admin role |
+| GitHub org | Org exists OR can be created |
+| Jira integration | Configured at Workshop level |
 
-### Step 1.3: Create Workbench Record
+If validation passes, a Workbench record is created with status **provisioning**.
 
-```sql
-INSERT INTO workbenches (id, workshop_id, name, product_code, status, config)
-VALUES ('wb-checkout', 'ws-acme-retail', 'Checkout Service', 'checkout', 'provisioning', {...});
-```
+### 4. Wait for GitHub setup (Platform)
 
-Status: **provisioning**
+The platform configures GitHub resources:
 
-## Phase 2: GitHub Setup
+| Step | What happens |
+|------|--------------|
+| **Resolve GitHub org** | Verifies Foundry GitHub App is installed with required permissions |
+| **Create Intent repo** | Creates `{product_code}-intent` repository with scaffold |
+| **Create Design repo** | Creates `{product_code}-design` repository with scaffold |
+| **Configure webhooks** | Sets up webhooks for push and pull request events |
 
-**Location:** Management → GitHub API  
-**Actor:** Management Service (automated)
-
-### Step 2.1: Resolve GitHub Organization
-
-**Option A: Use existing org**
+**Intent Repository scaffold:**
 
 ```
-1. Verify Foundry GitHub App is installed on org
-2. Verify app has required permissions (repo:admin, org:read)
-3. Tag org with Foundry metadata
-```
-
-**Option B: Create new org** (if user requested)
-
-```
-1. Create org via GitHub API (requires enterprise account)
-2. Install Foundry GitHub App
-3. Tag org with Foundry metadata
-```
-
-### Step 2.2: Create Intent Repository
-
-```
-POST /orgs/acme-retail/repos
-{
-  "name": "checkout-intent",
-  "description": "Product Intent repository for Checkout Service",
-  "private": true,
-  "auto_init": true
-}
-```
-
-Initialize with scaffold:
-
-```
-checkout-intent/
+{product_code}-intent/
 ├── README.md
 ├── .foundry/
 │   └── config.yaml
@@ -113,22 +136,10 @@ checkout-intent/
     └── .gitkeep
 ```
 
-### Step 2.3: Create Design Repository
+**Design Repository scaffold:**
 
 ```
-POST /orgs/acme-retail/repos
-{
-  "name": "checkout-design",
-  "description": "Design artifacts for Checkout Service",
-  "private": true,
-  "auto_init": true
-}
-```
-
-Initialize with scaffold:
-
-```
-checkout-design/
+{product_code}-design/
 ├── README.md
 ├── .foundry/
 │   └── config.yaml
@@ -137,51 +148,19 @@ checkout-design/
 └── prototypes/
 ```
 
-### Step 2.4: Configure Webhooks
+### 5. Wait for Jira setup (Platform)
 
-For each repository:
+The platform configures Jira resources:
 
-```
-POST /repos/acme-retail/checkout-intent/hooks
-{
-  "name": "web",
-  "config": {
-    "url": "https://foundry.acme.com/webhooks/github",
-    "content_type": "json",
-    "secret": "..."
-  },
-  "events": ["push", "pull_request"]
-}
-```
+| Step | What happens |
+|------|--------------|
+| **Create Work Orders project** | Creates `{PRODUCT_CODE}-WO` project for Work Orders |
+| **Configure custom fields** | Creates Foundry-specific fields for scenario tracking |
+| **Configure issue types** | Ensures Epic, Story, Sub-task are available |
+| **Link shared projects** | Links Operations and Feedback projects from Workshop |
+| **Configure webhooks** | Sets up webhooks for issue events |
 
-### Step 2.5: Update Workbench Record
-
-```sql
-UPDATE workbenches
-SET config = config || '{"github_org": "acme-retail", "github_repos": ["checkout-intent", "checkout-design"]}'
-WHERE id = 'wb-checkout';
-```
-
-## Phase 3: Jira Setup
-
-**Location:** Management → Jira API  
-**Actor:** Management Service (automated)
-
-### Step 3.1: Create Work Orders Project
-
-```
-POST /rest/api/3/project
-{
-  "key": "CHECKOUT-WO",
-  "name": "Checkout Service - Work Orders",
-  "projectTypeKey": "software",
-  "projectTemplateKey": "com.atlassian.jira-software-project-management:kanban"
-}
-```
-
-### Step 3.2: Configure Custom Fields
-
-Create Foundry-specific custom fields:
+**Custom fields created:**
 
 | Field | Type | Purpose |
 |-------|------|---------|
@@ -193,112 +172,24 @@ Create Foundry-specific custom fields:
 | `foundry-parent-wo` | Text | Parent WO (for delegated tasks) |
 | `foundry-task-workspace` | Text | Workspace session ID |
 
-### Step 3.3: Configure Issue Types
+### 6. Wait for internal services setup (Platform)
 
-Ensure project has:
-- **Epic** — for Work Orders
-- **Story** — for Root Tasks
-- **Sub-task** — for Sub-tasks
+The platform provisions internal services:
 
-### Step 3.4: Link Existing Jira Projects
+| Service | What happens |
+|---------|--------------|
+| **Metadata Service** | Creates instance with ID sequences for PI, RI, WO |
+| **Ontology Service** | Creates instance with initial product structure |
+| **Health check** | Verifies both services are responding |
 
-If Workshop has shared Jira projects for Operations/Feedback:
+### 7. Wait for Workshop Definition Repository setup (Platform)
 
-```sql
-UPDATE workbenches
-SET integrations = integrations || '{
-  "jira": {
-    "work_orders_project": "CHECKOUT-WO",
-    "operations_project": "ACME-OPS",
-    "feedback_project": "ACME-FEEDBACK"
-  }
-}'
-WHERE id = 'wb-checkout';
-```
-
-### Step 3.5: Configure Webhooks
+The platform creates the Workbench scaffold in the Workshop Definition Repository:
 
 ```
-POST /rest/webhooks/1.0/webhook
-{
-  "name": "Foundry Checkout",
-  "url": "https://foundry.acme.com/webhooks/jira",
-  "events": ["jira:issue_created", "jira:issue_updated"],
-  "filters": {
-    "issue-related-events-section": "project = CHECKOUT-WO"
-  }
-}
-```
-
-## Phase 4: Internal Services Setup
-
-**Location:** Management → Internal Infrastructure  
-**Actor:** Management Service (automated)
-
-### Step 4.1: Provision Metadata Service
-
-Create dedicated Metadata Service instance for this Workbench:
-
-```yaml
-MetadataServiceConfig:
-  workbench_id: wb-checkout
-  database:
-    host: postgres-checkout.internal
-    name: checkout_metadata
-  sequences:
-    product-intent: { prefix: PI, start: 1 }
-    release-intent: { prefix: RI, start: 1 }
-    work-order: { prefix: WO, start: 1 }
-```
-
-Initialize sequences:
-
-```sql
-INSERT INTO id_sequences (workbench_id, type, current_value, prefix)
-VALUES
-  ('wb-checkout', 'product-intent', 0, 'PI'),
-  ('wb-checkout', 'release-intent', 0, 'RI'),
-  ('wb-checkout', 'work-order', 0, 'WO');
-```
-
-### Step 4.2: Provision Ontology Service
-
-Create dedicated Ontology Service instance:
-
-```yaml
-OntologyServiceConfig:
-  workbench_id: wb-checkout
-  database:
-    host: postgres-checkout.internal
-    name: checkout_ontology
-  initial_schema:
-    product: Checkout Service
-    capabilities: []
-    features: []
-```
-
-### Step 4.3: Health Check
-
-Verify services are responding:
-
-```
-GET https://metadata.checkout.foundry.internal/health
-GET https://ontology.checkout.foundry.internal/health
-```
-
-## Phase 5: Workshop Definition Repository Setup
-
-**Location:** Management → Workshop Definition Repo  
-**Actor:** Management Service (automated)
-
-### Step 5.1: Create Workbench Scaffold
-
-In the Workshop Definition Repository, create the Workbench folder structure:
-
-```
-workshop-acme-retail/
+workshop-{workshop-slug}/
 └── workbenches/
-    └── checkout/
+    └── {product_code}/
         ├── config.yaml
         ├── knowledge/
         │   └── README.md
@@ -316,220 +207,139 @@ workshop-acme-retail/
         └── integrations.yaml
 ```
 
-### Step 5.2: Create Workbench Config
+**Workbench config.yaml:**
 
 ```yaml
-# workbenches/checkout/config.yaml
-name: Checkout Service
-product_code: checkout
-description: Customer checkout and payment processing
+name: {Workbench name}
+product_code: {product_code}
+description: {description}
 
 capable_agents:
   - cursor-agent
   - copilot
 
 defaults:
-  jira_project: CHECKOUT-WO
-  github_org: acme-retail
+  jira_project: {PRODUCT_CODE}-WO
+  github_org: {github_org}
 ```
 
-### Step 5.3: Create Integrations Config
+### 8. Create the default team (Workshop Admin)
 
-```yaml
-# workbenches/checkout/integrations.yaml
-github:
-  org: acme-retail
-  intent_repo: checkout-intent
-  design_repo: checkout-design
-
-jira:
-  work_orders:
-    project_key: CHECKOUT-WO
-    issue_type_mapping:
-      work_order: Epic
-      task: Story
-      subtask: Sub-task
-```
-
-### Step 5.4: Commit and Push
-
-```bash
-git add workbenches/checkout/
-git commit -m "Initialize Checkout Service Workbench"
-git push origin main
-```
-
-## Phase 6: Team Setup
-
-**Location:** Web Console or API  
-**Actor:** Workbench Admin
-
-### Step 6.1: Create Default Team
+After provisioning completes, create the initial team:
 
 ```json
-POST /api/v1/workbenches/wb-checkout/teams
+POST /api/v1/workbenches/{workbench_id}/teams
 {
-  "name": "Checkout Team",
-  "description": "Core team for Checkout Service development",
+  "name": "{Product} Team",
+  "description": "Core team for {Product} development",
   "workspace_types": ["development", "qa", "release"]
 }
 ```
 
-### Step 6.2: Add Team Members
+### 9. Add team members (Workshop Admin)
+
+Add team members with appropriate roles:
+
+| Role | Capabilities |
+|------|--------------|
+| `admin` | Full Workbench configuration, manage teams, add Scenario Catalogs |
+| `member` | Access Workspaces, execute Scenarios, add components |
 
 ```json
-POST /api/v1/workbenches/wb-checkout/teams/team-checkout/members
+POST /api/v1/workbenches/{workbench_id}/teams/{team_id}/members
 {
   "user_id": "alice@acme.com",
   "role": "admin"
 }
 ```
 
-### Step 6.3: Sync with GitHub
+Team members are automatically synced to the GitHub organization with appropriate permissions.
 
-Add team members to GitHub org with appropriate permissions:
+### 10. Verify activation (Workshop Admin)
 
-```
-PUT /orgs/acme-retail/teams/checkout-devs/memberships/alice
-{
-  "role": "maintainer"
-}
-```
+The platform performs final validation and activates the Workbench:
 
-## Phase 7: Activation
+| Check | Requirement |
+|-------|-------------|
+| GitHub repos | Accessible |
+| Jira project | Configured |
+| Metadata Service | Healthy |
+| Ontology Service | Healthy |
+| Repository scaffold | Committed |
+| Team | At least one exists |
 
-**Location:** Management  
-**Actor:** Management Service (automated)
+Status updates to **active** and notifications are sent.
 
-### Step 7.1: Final Validation
+---
 
-```
-1. GitHub repos accessible ✓
-2. Jira project configured ✓
-3. Metadata Service healthy ✓
-4. Ontology Service healthy ✓
-5. Workshop Definition Repo scaffold committed ✓
-6. At least one team exists ✓
-```
+## Expected outcome
 
-### Step 7.2: Update Status
+After completing all steps:
 
-```sql
-UPDATE workbenches
-SET status = 'active',
-    updated_at = NOW()
-WHERE id = 'wb-checkout';
-```
+- Workbench status is **Active**
+- GitHub repositories created: `{product_code}-intent`, `{product_code}-design`
+- Jira project created: `{PRODUCT_CODE}-WO`
+- Metadata Service and Ontology Service running
+- Workshop Definition Repository contains Workbench scaffold
+- Team created with at least one admin member
+- Workbench appears in the Workshop's Workbench list
 
-### Step 7.3: Send Notifications
-
-- Email Workbench Admin: "Checkout Service is ready"
-- Slack notification to Workshop channel (if configured)
-
-## Sequence Diagram
-
-```mermaid
-sequenceDiagram
-    participant Admin as Workshop Admin
-    participant Mgmt as Management
-    participant DB as Database
-    participant GH as GitHub
-    participant Jira as Jira
-    participant Meta as Metadata Svc
-    participant Onto as Ontology Svc
-    participant Repo as Workshop Repo
-
-    Admin->>Mgmt: Create Workbench request
-    Mgmt->>DB: Validate & create record (provisioning)
-    
-    Mgmt->>GH: Create Intent Repository
-    GH-->>Mgmt: checkout-intent created
-    Mgmt->>GH: Create Design Repository
-    GH-->>Mgmt: checkout-design created
-    Mgmt->>GH: Configure webhooks
-    
-    Mgmt->>Jira: Create Work Orders project
-    Jira-->>Mgmt: CHECKOUT-WO created
-    Mgmt->>Jira: Configure custom fields
-    Mgmt->>Jira: Configure webhooks
-    
-    Mgmt->>Meta: Provision Metadata Service
-    Meta-->>Mgmt: Service healthy
-    Mgmt->>Onto: Provision Ontology Service
-    Onto-->>Mgmt: Service healthy
-    
-    Mgmt->>Repo: Create Workbench scaffold
-    Mgmt->>Repo: Commit and push
-    
-    Admin->>Mgmt: Create team
-    Mgmt->>DB: Store team
-    Mgmt->>GH: Sync team permissions
-    
-    Mgmt->>DB: Update status to active
-    Mgmt-->>Admin: Workbench ready notification
-```
-
-## Error Recovery
-
-### GitHub Creation Failed
-
-```
-1. Log error with GitHub API response
-2. If org creation failed:
-   a. Clean up partial resources
-   b. Mark Workbench as failed
-   c. Notify admin with retry option
-3. If repo creation failed:
-   a. Delete any created repos
-   b. Retry with exponential backoff
-   c. After 3 failures, mark as failed
-```
-
-### Jira Setup Failed
-
-```
-1. Log error with Jira API response
-2. GitHub resources remain (can be reused)
-3. Retry Jira setup
-4. If auth failed, prompt admin to re-authorize
-```
-
-### Service Provisioning Failed
-
-```
-1. Log error with service details
-2. Attempt to restart service
-3. If persistent failure:
-   a. Alert infrastructure team
-   b. Mark Workbench as degraded
-   c. Allow manual completion when resolved
-```
+---
 
 ## Provisioning Timeline
 
 | Phase | Typical Duration | Can Fail? |
 |-------|------------------|-----------|
 | Validation | < 1s | Yes |
-| GitHub Setup | 5-15s | Yes |
-| Jira Setup | 5-10s | Yes |
-| Metadata Service | 2-5s | Yes |
-| Ontology Service | 2-5s | Yes |
-| Repository Scaffold | 3-5s | Yes |
-| **Total** | **20-45s** | |
+| GitHub Setup | 5–15s | Yes |
+| Jira Setup | 5–10s | Yes |
+| Metadata Service | 2–5s | Yes |
+| Ontology Service | 2–5s | Yes |
+| Repository Scaffold | 3–5s | Yes |
+| **Total** | **20–45s** | |
 
-## Post-Provisioning
+---
+
+## Post-Provisioning Tasks
 
 Once active, the Workbench Admin can:
 
 1. **Add code repositories** — Link existing repos to the Workbench
-2. **Configure integrations** — Add Figma, TestRail, etc.
+2. **Configure additional integrations** — Add Figma, TestRail, etc.
 3. **Define Scenarios** — Create scenario definitions in workspace folders
 4. **Define Skilled Agents** — Create agent manifests for scenarios
 5. **Create first Product Intent** — Start the product evolution cycle
 
-## Read Next
+---
 
-- [requirements.md](requirements.md) — Detailed API and database requirements
-- [workbench-architecture.md](workbench-architecture.md) — Repository storage model
-- [workshop-repository.md](workshop-repository.md) — Workshop Definition Repository structure
-- [../orchestrator/pi-journey.md](../orchestrator/pi-journey.md) — What happens after Workbench is ready
+## Related
+
+### Concepts
+
+- [Containment Hierarchy](../../concepts/containment-hierarchy.md) — Foundry → Workshop → Workbench → Workspace nesting structure
+- [Repositories](../../concepts/repositories.md) — The 15 canonical repository types
+- [Metadata Service](../../concepts/metadata-service.md) — Central configuration store
+- [Declarative Provisioning](../concepts/declarative-provisioning.md) — Admins describe desired state (module-specific)
+
+### Guides
+
+- [Workbench architecture](workbench-architecture.md) — What a Workbench contains and how it works
+- [Workshop provisioning](workshop-provisioning.md) — Creating Workshops (parent of Workbenches)
+- [Workshop Definition Repository](../platform-developer-guide/workshop-repository.md) — Repository structure
+- [Product Intent journey](../../orchestrator/user-guide/product-intent-journey.md) — What happens after Workbench is ready
+- [Management README](README.md) — Foundry Management overview
+
+---
+
+## Troubleshooting
+
+| Symptom | Likely cause | What to do |
+|---------|--------------|------------|
+| Validation fails: "Workshop not found" | Workshop ID incorrect or Workshop not active | Verify Workshop exists and is active; check Workshop ID |
+| Validation fails: "Product code not unique" | Another Workbench uses this code | Choose a different product code |
+| GitHub repo creation fails | GitHub App not installed or insufficient permissions | Verify Foundry GitHub App is installed on the org with `repo:admin`, `org:read` |
+| Jira project creation fails | OAuth token expired or insufficient permissions | Re-authorize Jira connection; verify account has project creation permissions |
+| Metadata Service provisioning fails | Infrastructure issue | Check service logs; contact infrastructure team if persistent |
+| Workbench stuck in "provisioning" | One or more provisioning steps failed | Check error details in UI; retry failed step or contact support |
+| Team sync fails | GitHub org membership issues | Verify team members have GitHub accounts; check GitHub App permissions |
+| "No Jira integration" error | Workshop-level Jira not configured | Workshop Admin must configure Jira integration on the Workshop first |

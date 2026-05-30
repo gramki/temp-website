@@ -91,7 +91,7 @@ Work Catalog Management uses events for coordination between services and cachin
     },
     "source": {
       "repository": "acme/ecommerce-workshop-definition",
-      "path": "work-catalog/workspaces/development/scenarios/implement-feature.yaml",
+      "path": "work-catalog/build/product-intent/development/scenarios/implement-feature.yaml",
       "commit_sha": "abc123"
     }
   }

@@ -86,9 +86,9 @@ Platform                    ← Platform defaults (shipped with Foundry)
          │                        │                        │
          ▼                        ▼                        ▼
 ┌─────────────────┐   ┌────────────────────┐   ┌────────────────────┐
-│   Work Catalog  │   │     Metadata       │   │    Orchestrator    │
-│  Repo Validation│   │     Service        │   │    + WO Runtime    │
-│    Services     │   │    (storage)       │   │   (consumers)      │
+│   Validation    │   │     Metadata       │   │    Orchestrator    │
+│     module      │   │     Service        │   │    + WO Runtime    │
+│                 │   │    (storage)       │   │   (consumers)      │
 └─────────────────┘   └────────────────────┘   └────────────────────┘
 ```
 
@@ -103,7 +103,7 @@ Provides canonical schemas for both OI Workflows and Scenarios. Manages schema v
 
 ### Validation Service
 
-Called by Work Catalog Repo validation services to validate files in PRs:
+Called by the Validation module to validate files in PRs:
 
 ```
 POST /api/v1/work-catalog/validate
@@ -186,7 +186,7 @@ Scenarios have a `scope` field that determines their visibility and invocation c
 
 ## Key Design Decisions
 
-- **Work Catalog Management is a subsystem, not a standalone module.** Tightly coupled to Metadata Service (storage), Work Catalog Repo Validation (PR checks), and Work Catalog Sync (parsing) — separating it would create artificial integration boundaries.
+- **Work Catalog Management is a subsystem, not a standalone module.** Tightly coupled to Metadata Service (storage), Validation module (PR checks), and Work Catalog Sync (parsing) — separating it would create artificial integration boundaries.
 
 - **Schemas are versioned.** Breaking changes increment `apiVersion`; non-breaking additions don't. Enables evolution without disrupting existing definitions.
 
@@ -215,7 +215,7 @@ Scenarios have a `scope` field that determines their visibility and invocation c
 | [oi-workflow-schema.md](oi-workflow-schema.md) | OI Workflow YAML schema (canonical) |
 | [scenario-schema.md](scenario-schema.md) | Scenario YAML schema (canonical) |
 | [resolution-algorithm.md](resolution-algorithm.md) | Hierarchy resolution implementation |
-| [validation-rules.md](validation-rules.md) | CI validation specification |
+| [validation-rules.md](validation-rules.md) | Validation rules specification |
 | [apis.md](apis.md) | REST API specification |
 | [sync-mechanism.md](sync-mechanism.md) | Git sync and registry updates |
 | [events-and-caching.md](events-and-caching.md) | Events, caching, metrics |
@@ -224,10 +224,10 @@ Scenarios have a `scope` field that determines their visibility and invocation c
 
 ## Read Next
 
-- [../../work-catalogues/README.md](../../work-catalogues/README.md) — Conceptual overview of Work Catalogs
+- [../../work-catalogues/README.md](../../../work-catalogues/README.md) — Conceptual overview of Work Catalogs
+- [../validation/README.md](../validation/README.md) — Validation module (upstream PR gating)
 - [../services/metadata-service.md](../services/metadata-service.md) — Where validated artifacts are stored
-- [../services/workshop-validation.md](../services/workshop-validation.md) — How artifacts are validated in PRs
 - [../services/workshop-sync.md](../services/workshop-sync.md) — How artifacts are synced to Metadata Service
-- [../../orchestrator/README.md](../../orchestrator/README.md) — How Orchestrator consumes OI Workflows
-- [../../work-order-runtime/README.md](../../work-order-runtime/README.md) — How WO Runtime consumes Scenarios
-- [../../agent-fabric/skilled-agents.md](../../agent-fabric/skilled-agents.md) — Skilled Agent definitions
+- [../../orchestrator/README.md](../../../orchestrator/README.md) — How Orchestrator consumes OI Workflows
+- [../../work-order-runtime/README.md](../../../work-order-runtime/README.md) — How WO Runtime consumes Scenarios
+- [../../agent-fabric/user-guide/skilled-agents.md](../../../agent-fabric/user-guide/skilled-agents.md) — Skilled Agent definitions

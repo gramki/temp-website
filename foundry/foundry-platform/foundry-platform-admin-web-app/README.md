@@ -64,22 +64,6 @@ This separation ensures that platform-level operations — which affect all Foun
 - Configure default quotas for new Foundries
 - Manage platform-level integrations (e.g., GitHub App)
 
-## Application Pages
-
-| Page | Purpose |
-|------|---------|
-| [Dashboard](pages/dashboard.md) | Platform health overview, alerts |
-| [Foundries](pages/foundries.md) | List and create Foundries |
-| [Foundry Detail](pages/foundry-detail.md) | Single Foundry management |
-| [Infrastructure](pages/infrastructure.md) | Database and storage monitoring |
-| [Platform Settings](pages/platform-settings.md) | Global configuration |
-
-## Personas
-
-| Persona | Description |
-|---------|-------------|
-| [Platform Admin](personas/platform-admin/README.md) | foundry-platform-admin user managing the platform |
-
 ## Technology Stack
 
 The Platform Admin Web App follows the same technology choices as Foundry Web App for consistency:
@@ -141,10 +125,18 @@ The Platform Admin Web App consumes Platform Management APIs:
 | `GET /api/v1/admin/settings` | Get platform settings |
 | `PATCH /api/v1/admin/settings` | Update platform settings |
 
+## Documentation
+
+| Guide | Audience | Index |
+|-------|----------|-------|
+| Concepts | Anyone | This README |
+| [User guide](user-guide/) | Admins, builders | Task-oriented usage |
+| [Foundry Platform developer guide](platform-developer-guide/) | Platform engineers | Implementation specs |
+
 ## Read Next
 
-- [pages/dashboard.md](pages/dashboard.md) — Dashboard page specification
-- [pages/foundries.md](pages/foundries.md) — Foundries page specification
-- [personas/platform-admin/README.md](personas/platform-admin/README.md) — Platform Admin persona
-- [../management/foundry-management/README.md](../management/foundry-management/README.md) — Foundry Management subsystem
+- [platform-developer-guide/pages/dashboard.md](platform-developer-guide/pages/dashboard.md) — Dashboard page specification
+- [platform-developer-guide/pages/foundries.md](platform-developer-guide/pages/foundries.md) — Foundries page specification
+- [user-guide/personas/platform-admin/README.md](user-guide/personas/platform-admin/README.md) — Platform Admin persona
+- [../management/platform-developer-guide/foundry-management/README.md](../management/platform-developer-guide/foundry-management/README.md) — Foundry Management subsystem
 - [../foundry-web-app/README.md](../foundry-web-app/README.md) — Foundry Web App (for comparison)

@@ -294,7 +294,7 @@ spec:
       category: monitoring
 ```
 
-**Note:** The `workOrders` project is dedicated to this Workbench (not shared). Orchestrator creates Work Orders as Epics in this project; WO Runtime creates Tasks as Stories/Sub-tasks. See [../work-order-runtime/task-execution.md](../work-order-runtime/task-execution.md) for Jira schema details.
+**Note:** The `workOrders` project is dedicated to this Workbench (not shared). Orchestrator creates Work Orders as Epics in this project; WO Runtime creates Tasks as Stories/Sub-tasks. See [../work-order-runtime/platform-developer-guide/task-execution.md](..//work-order-runtime/platform-developer-guide/task-execution.md) for Jira schema details.
 
 ### `workbenches/{product-code}/team.yaml`
 
@@ -568,7 +568,7 @@ Changes to `workbench.yaml`, `integrations.yaml`, etc. are reflected in the Foun
 
 ## Capable Agents Configuration
 
-Capable Agents are configured at three levels with inheritance (see [../agent-fabric/capable-agents.md](../agent-fabric/capable-agents.md)):
+Capable Agents are configured at three levels with inheritance (see [../agent-fabric/platform-developer-guide/capable-agents.md](..//agent-fabric/platform-developer-guide/capable-agents.md)):
 
 ### Hierarchy
 
@@ -615,7 +615,7 @@ capable-agents:
 
 ## Skilled Agents
 
-Skilled Agents are defined per (Workspace, Scenario). See [../agent-fabric/skilled-agents.md](../agent-fabric/skilled-agents.md).
+Skilled Agents are defined per (Workspace, Scenario). See [../agent-fabric/user-guide/skilled-agents.md](..//agent-fabric/user-guide/skilled-agents.md).
 
 ### Folder Structure
 

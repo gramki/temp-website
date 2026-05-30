@@ -111,8 +111,8 @@ GET /api/v1/work-catalog/effective
       "source": {
         "level": "foundry",
         "id": "acme",
-        "repository": "acme/foundry-work-catalog",
-        "path": "workflows/product-intent.yaml",
+        "repository": "acme/foundry-acme",
+        "path": "work-catalog/build/product-intent/workflow.yaml",
         "commit_sha": "abc123"
       }
     }
@@ -126,8 +126,8 @@ GET /api/v1/work-catalog/effective
       "source": {
         "level": "user",
         "id": "alice",
-        "repository": "acme/alice-work-catalog",
-        "path": "development/scenarios/implement-feature.yaml",
+        "repository": "acme/user-work-catalog-alice",
+        "path": "work-catalog/build/product-intent/development/scenarios/implement-feature.yaml",
         "commit_sha": "def456"
       }
     }
@@ -167,8 +167,8 @@ GET /api/v1/work-catalog/resolve
   "source": {
     "level": "user",
     "id": "alice",
-    "repository": "acme/alice-work-catalog",
-    "path": "development/scenarios/implement-feature.yaml",
+    "repository": "acme/user-work-catalog-alice",
+    "path": "work-catalog/build/product-intent/development/scenarios/implement-feature.yaml",
     "commit_sha": "def456"
   },
   "resolved_at": "2026-05-28T10:30:00Z"
@@ -485,7 +485,7 @@ GET /api/v1/scenarios/effective
 
 | Caller | Permission |
 |--------|------------|
-| Work Catalog Repo Validation Service | Service account (internal) |
+| Validation module | Service account (internal) |
 | Admin CLI | Foundry Admin |
 
 ### Resolution API
