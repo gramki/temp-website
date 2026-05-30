@@ -1,2 +1,10 @@
+folders:
+  governance: "Governance — Product Intent"
+  development: "Development — Product Intent"
+  product-specification: "Product Specification — Product Intent"
+  qa: "QA — Product Intent"
+  release: "Release — Product Intent"
+  ux-design: "UX Design — Product Intent"
+
 pages:
   README.md: "Product Intent (Work Catalog)"

@@ -1,2 +1,10 @@
+folders:
+  governance: "Governance — Discovery Case"
+  development: "Development — Discovery Case"
+  product-specification: "Product Specification — Discovery Case"
+  qa: "QA — Discovery Case"
+  release: "Release — Discovery Case"
+  ux-design: "UX Design — Discovery Case"
+
 pages:
   README.md: "Discovery Case (Work Catalog)"

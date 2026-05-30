@@ -15,6 +15,9 @@ The Foundry Platform is the system that turns the ACE model and UPIM entities in
 - **Workshops** with their repositories.
 - **Workbenches** with intent routing, scenarios, and tasks (each Workbench corresponds to a Product in UPIM — the locus where that Product is evolved).
 - **Workspaces** (six types) with their IDE-mediated entry, scenario catalogs, and runtime engineering.
+- **Workspace Sessions** — ephemeral K8s/Coder development environments provisioned per builder, where Work Orders execute.
+- **Work Catalog execution** — OI Workflows and Scenarios as the executable realization of the UPIM Work Model, with hierarchical resolution (Platform → Foundry → Workshop → Workbench → User).
+- **Personal Work** — workspace-local Work Orders for ad-hoc agent usage not tied to orchestrated tasks.
 - **Governance hooks** on every transition of Product Intent.
 - **Foundry CI** for evidence packs, test runners, build quality indicators, and agentic quality gates.
 - **UPIM-backed data** — storage, lifecycles, and APIs for the entities UPIM defines (Definition, Work, Operating Model layers), without introducing divergent ontology.
@@ -44,9 +47,10 @@ These folders contain reference content (not platform code):
 
 | Folder | Content |
 |--------|---------|
-| **Work Catalogues** | [work-catalogues/](work-catalogues/README.md) | OI Workflows and Scenarios organized by hierarchy (Track → OI → Workspace) |
+| **Platform Concepts** | [concepts/](concepts/README.md) | Cross-module definitions (Work Order, Scenario, Personal Work, Workspace Session, Orchestration Item, etc.) — reference these rather than duplicating |
+| **Work Catalogues** | [work-catalogues/](work-catalogues/README.md) | OI Workflows and Scenarios organized by hierarchy (Track → OI → Workspace); see [platform-defaults/](work-catalogues/platform-defaults/README.md) for shipped Build and Discovery workflows |
 
-> **Note:** Work Catalog Management (schema, validation, resolution algorithm) is a subsystem of the Management module. The Work Catalogues folder contains the conceptual overview, user guide, and platform default content that Foundries can adopt and override.
+> **Note:** Work Catalog Management (schema, validation, resolution algorithm) is a subsystem of the Management module. The Work Catalogues folder contains the conceptual overview, user guide, and platform default content. Build and Discovery tracks have complete OI workflows with indicative scenario stubs; other tracks remain stubs.
 
 ### Key design decisions
 
@@ -57,7 +61,7 @@ These folders contain reference content (not platform code):
 - **Integrations are owned by modules.** Release Tools owns CI/CD integrations; no horizontal "Integrations" module.
 - **Configuration flows through Metadata Service.** Consumers query Management, not git directly.
 - **Validation gates Foundry configuration.** The Validation module validates all Foundry-scope repos before merge; Release Tools CI handles product-repo build/test only — no cross-module dependency.
-- **Work Catalog Management is a subsystem of Management.** Schema, validation rules, resolution, and recommendations are in Management; conceptual docs, user guide, and platform defaults are in Work Catalogues.
+- **Workspaces are functional teams, not lifecycle stages.** The same six stations (Product Specification, UX Design, Development, QA, Release, Governance) serve every Track; OI workflow stages route Work Orders to them. See [../ace/workspaces/README.md](../ace/workspaces/README.md).
 - **Sessions are Kubernetes pods.** Workspace Session Infrastructure spawns pods on a Foundry-admin-provided K8s cluster; URLs are generated via Coder's wildcard proxy.
 - **Session lifecycle is a control-plane concern.** Workspace Session Management owns lifecycle; WO Runtime is the in-session worker that acknowledges state transitions.
 - **Foundry admin provides cluster endpoints.** The platform does not provision Kubernetes clusters — it consumes them via Foundry settings.
@@ -109,6 +113,7 @@ The intent is that any module specification reads first as an ACE/UPIM consumer 
 
 ## Read next
 
+- [concepts/](concepts/README.md) — platform-wide concept definitions.
 - [../foundry-work-plan/phase-1/](../foundry-work-plan/phase-1/README.md) — Phase 1 implementation-readiness outline and open questions.
 - [platform.TODO](platform.TODO) — current build backlog.
 - [release-tools/platform-developer-guide/ci/ci.TODO](release-tools/platform-developer-guide/ci/ci.TODO) — current CI backlog.
