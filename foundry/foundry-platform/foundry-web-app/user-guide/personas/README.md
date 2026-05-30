@@ -1,4 +1,4 @@
-# Foundry Web App — Personas
+# Workbench Personas — User Guide
 
 This folder contains Jobs-to-be-Done (JTBD) specifications for each persona using the Foundry Web App.
 
