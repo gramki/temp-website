@@ -1,7 +1,7 @@
 # Dependency
 
 **Model:** Definition Model
-**Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)
+**Dimension:** Technical
 **Owner:** Tech Leads, Engineering Leadership, Platform Engineering
 
 ## Definition
@@ -14,10 +14,10 @@ Makes the product's external dependencies explicit and manageable. Without Depen
 - Risk assessment is implicit — "what happens if this provider goes down?" has no entity to anchor to
 - Cost modeling is incomplete — third-party service costs and infrastructure resource costs are invisible in the Definition Model
 - Architectural evaluation lacks dependency analysis — over-reliance on a single provider is untracked
-- Operational planning (Dim 7) lacks dependency context — Operational Constraints may flow from Dependency limitations
+- Operational planning (Operational) lacks dependency context — Operational Constraints may flow from Dependency limitations
 - Vendor lock-in risk is undocumented — no visibility into which dependencies have alternatives
 
-**Dependency vs. Integration Module (Dim 6):** Integration Module is a product capability — a pre-built bridge the product ships to connect with external systems. Dependency is the external system itself that the product relies on. An Integration Module (Dim 6) "SAP ERP Connector" may depend on (Dim 5) "SAP BAPI API" as a Dependency. The Integration Module is what the product provides; the Dependency is what the product consumes.
+**Dependency vs. Integration Module (Ecosystem):** Integration Module is a product capability — a pre-built bridge the product ships to connect with external systems. Dependency is the external system itself that the product relies on. An Integration Module (Ecosystem) "SAP ERP Connector" may depend on (Technical) "SAP BAPI API" as a Dependency. The Integration Module is what the product provides; the Dependency is what the product consumes.
 
 ## Fields
 
@@ -32,7 +32,7 @@ Makes the product's external dependencies explicit and manageable. Without Depen
 | Alternative / Fallback | Text | Is there a fallback? Migration path? Multi-provider strategy? |
 | Cost Model | Text | How this dependency is priced (per-call, per-GB, reserved, etc.) |
 | Provider SLA | String | The provider's availability/performance commitment |
-| Used by | List of References (Dim 5) | Which System(s) depend on this |
+| Used by | List of References (Technical) | Which System(s) depend on this |
 
 ## Statuses
 
@@ -48,12 +48,12 @@ Makes the product's external dependencies explicit and manageable. Without Depen
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Used by | System(s) (Dim 5) | Systems depend on this external resource |
-| Used in | Interaction Flow(s) (Dim 5) | Interaction Flows may involve external Dependencies |
-| May impose | Operational Constraint(s) (Dim 7) | Dependency limitations may become operational constraints |
-| Cost for | Infrastructure Model (Dim 7) | Dependency costs feed the Infrastructure Model's Cost Model |
-| Decisions | ADR(s) (Dim 5) | Dependency selection decisions are recorded as ADRs |
-| Distinct from | Integration Module (Dim 6) | Integration Module is what the product provides; Dependency is what it consumes |
+| Used by | System(s) (Technical) | Systems depend on this external resource |
+| Used in | Interaction Flow(s) (Technical) | Interaction Flows may involve external Dependencies |
+| May impose | Operational Constraint(s) (Operational) | Dependency limitations may become operational constraints |
+| Cost for | Infrastructure Model (Operational) | Dependency costs feed the Infrastructure Model's Cost Model |
+| Decisions | ADR(s) (Technical) | Dependency selection decisions are recorded as ADRs |
+| Distinct from | Integration Module (Ecosystem) | Integration Module is what the product provides; Dependency is what it consumes |
 
 ## Examples
 

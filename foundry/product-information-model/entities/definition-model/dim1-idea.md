@@ -1,7 +1,7 @@
 # Idea (Hypothesis)
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Product Management
 
 ## Definition
@@ -18,8 +18,8 @@ The Idea bridges Signals (Problems, Needs, Opportunities) to a potential solutio
 |---|---|---|
 | Title | String | Short hypothesis name |
 | Hypothesis Statement | Text | Structured hypothesis: "If we build X, we expect Y because Z" |
-| Source Signal(s) | List of References (Dim 1) | Which Signals spawned this Idea |
-| Target Customer Segment(s) | List of References (Dim 3) | Which segments benefit |
+| Source Signal(s) | List of References (Strategy) | Which Signals spawned this Idea |
+| Target Customer Segment(s) | List of References (Customer Value) | Which segments benefit |
 | Expected Impact | Text | What metric moves and by how much (e.g., "reduce FX transaction cost by 60%") |
 | Confidence Level | Enum | `Low` / `Medium` / `High` (pre-validation estimate; may change during validation) |
 | Effort Estimate | Enum | `XS` / `S` / `M` / `L` / `XL` (rough T-shirt size, pre-PSD) |
@@ -61,16 +61,16 @@ Proposed ──[Discovery work begins               Proposed ──[Deliberation
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Problem (Dim 1) | Problem spawns this Idea |
-| Upstream | Need (Dim 1) | Need spawns this Idea |
-| Upstream | Opportunity (Dim 1) | Opportunity spawns this Idea |
-| Downstream | Product Decision Record (Dim 1) | Idea is validated/killed by PDR |
-| Downstream | Product Intent (Dim 1) | A Go or Pivot PDR for this Idea may create Product Intent |
-| Work Model | Signal Exploration Task (Track 1) | Signal Exploration may produce this Idea |
-| Work Model | Research Task (Track 1) | Research Tasks validate this Idea |
-| Work Model | Experiment (Track 1) | Experiments test this Idea's hypothesis |
-| Work Model | Prototype / Spike (Track 1) | Prototypes explore this Idea's feasibility or desirability |
-| Work Model | Deliberation (Track 1) | Deliberations may evaluate this Idea |
+| Upstream | Problem (Strategy) | Problem spawns this Idea |
+| Upstream | Need (Strategy) | Need spawns this Idea |
+| Upstream | Opportunity (Strategy) | Opportunity spawns this Idea |
+| Downstream | Product Decision Record (Strategy) | Idea is validated/killed by PDR |
+| Downstream | Product Intent (Strategy) | A Go or Pivot PDR for this Idea may create Product Intent |
+| Work Model | Signal Exploration Task (Discovery) | Signal Exploration may produce this Idea |
+| Work Model | Research Task (Discovery) | Research Tasks validate this Idea |
+| Work Model | Experiment (Discovery) | Experiments test this Idea's hypothesis |
+| Work Model | Prototype / Spike (Discovery) | Prototypes explore this Idea's feasibility or desirability |
+| Work Model | Deliberation (Discovery) | Deliberations may evaluate this Idea |
 
 ## Example
 

@@ -1,16 +1,16 @@
 # Customer Segment
 
 **Model:** Definition Model
-**Dimension:** Dimension 3: The Customer Value Dimension (Why Buy)
+**Dimension:** Customer Value (Why Buy)
 **Owner:** Product Management, Product Marketing
 
 ## Definition
 
-A defined group of potential buyers sharing common characteristics — industry vertical, company size, geography, maturity stage. Segments have distinct buyer personas, outcomes, promise expectations, and adoption patterns. All other Dim 3 entities are anchored to one or more Customer Segments.
+A defined group of potential buyers sharing common characteristics — industry vertical, company size, geography, maturity stage. Segments have distinct buyer personas, outcomes, promise expectations, and adoption patterns. All other Customer Value entities are anchored to one or more Customer Segments.
 
 ## Purpose
 
-Customer Segment is the organizing entity for the entire Customer Value Dimension. Without it, buyer personas are unanchored ("CFO" is too generic), business outcomes can't be differentiated by market, and Customer Promises can't be tailored. Segments also connect to Pricing Tiers (Dim 2), enabling segment-specific packaging and pricing.
+Customer Segment is the organizing entity for the entire Customer Value Dimension. Without it, buyer personas are unanchored ("CFO" is too generic), business outcomes can't be differentiated by market, and Customer Promises can't be tailored. Segments also connect to Pricing Tiers (Vendor Value), enabling segment-specific packaging and pricing.
 
 ## Fields
 
@@ -36,7 +36,7 @@ Each Customer Segment carries a competitive context that captures the segment-sp
 |---|---|---|
 | Key Competitors | List of Strings | Named competitors active in this segment |
 | Competitive Position | Enum | `Leader` / `Challenger` / `Niche` / `New Entrant` — vendor's position relative to competitors in this segment |
-| Primary Competitive Threats | List of References (Dim 2) | References to Competitive-type Win Barriers that affect this segment |
+| Primary Competitive Threats | List of References (Vendor Value) | References to Competitive-type Win Barriers that affect this segment |
 | Key Differentiators | Text | What distinguishes the vendor's offering in this segment (summary-level; detailed positioning lives in Value Proposition) |
 | Incumbent / Status Quo | Text | What customers in this segment currently use (competitor product, manual process, in-house solution) |
 
@@ -53,16 +53,16 @@ Each Customer Segment carries a competitive context that captures the segment-sp
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Downstream | Buying Persona (Dim 3) | Segment has Buying Persona(s) |
-| Downstream | Business Outcome (Dim 3) | Segment has Business Outcome(s) pursued by its Buying Personas |
-| Downstream | Pain (Dim 3) | Segment has Pain(s) |
-| Downstream | Customer Promise (Dim 3) | Segment is promised Customer Promise(s) |
-| Downstream | Adoption Barrier (Dim 3) | Segment is blocked by Adoption Barrier(s) |
-| Cross-dim | Pricing Tier / Package (Dim 2) | Segment may map to Pricing Tier(s) |
-| Cross-dim | Win Outcome (Dim 2) | Win Outcomes are scoped to this Segment |
-| Cross-dim | Win Barrier (Dim 2) | Win Barriers are scoped to this Segment (Competitive Context references Competitive-type barriers) |
-| Work Model | Modeling Task (Track 1) | Modeling Tasks define/refine Segments |
-| Work Model | Segment Engagement (Track 4) | Win Track engagements target specific Segments |
+| Downstream | Buying Persona (Customer Value) | Segment has Buying Persona(s) |
+| Downstream | Business Outcome (Customer Value) | Segment has Business Outcome(s) pursued by its Buying Personas |
+| Downstream | Pain (Customer Value) | Segment has Pain(s) |
+| Downstream | Customer Promise (Customer Value) | Segment is promised Customer Promise(s) |
+| Downstream | Adoption Barrier (Customer Value) | Segment is blocked by Adoption Barrier(s) |
+| Cross-dim | Pricing Tier / Package (Vendor Value) | Segment may map to Pricing Tier(s) |
+| Cross-dim | Win Outcome (Vendor Value) | Win Outcomes are scoped to this Segment |
+| Cross-dim | Win Barrier (Vendor Value) | Win Barriers are scoped to this Segment (Competitive Context references Competitive-type barriers) |
+| Work Model | Modeling Task (Discovery) | Modeling Tasks define/refine Segments |
+| Work Model | Segment Engagement (Win) | Win Track engagements target specific Segments |
 
 ## Examples
 

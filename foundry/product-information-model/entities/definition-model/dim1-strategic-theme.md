@@ -1,7 +1,7 @@
 # Strategic Theme
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Executive Leadership (Portfolio scope); Product Management (Product scope)
 
 ## Definition
@@ -28,9 +28,9 @@ Portfolio-scoped Themes reference the thin Portfolio entity for traceability. Pr
 
 | Dimension | How Theme informs |
 |---|---|
-| Dim 1 (Strategy) | Which Objectives to pursue, which Initiatives to scope |
-| Dim 3 (Customer Value) | Which Customer Segments to focus on, which Value Propositions to craft, which Pains to prioritize |
-| Dim 8 (Structure) | Which Value Streams and Capabilities to invest in |
+| Strategy (Strategy) | Which Objectives to pursue, which Initiatives to scope |
+| Customer Value (Customer Value) | Which Customer Segments to focus on, which Value Propositions to craft, which Pains to prioritize |
+| Structural (Structure) | Which Value Streams and Capabilities to invest in |
 | Work Model (Discovery) | How to allocate discovery capacity across Signal Exploration |
 
 ## Fields
@@ -39,11 +39,11 @@ Portfolio-scoped Themes reference the thin Portfolio entity for traceability. Pr
 |---|---|---|
 | Name | String | Descriptive theme name (e.g., "LATAM Market Leadership") |
 | Scope | Enum | `Portfolio` / `Product` |
-| Portfolio | Reference (Dim 1) | For Portfolio scope: reference to the Portfolio entity. For Product scope: null. |
+| Portfolio | Reference (Strategy) | For Portfolio scope: reference to the Portfolio entity. For Product scope: null. |
 | Description | Text | What this theme means and why it matters |
 | Investment Guidance | Text | Approximate resource allocation intent (e.g., "40% of discovery capacity in H2 2026") |
-| Influenced Segments | List of References (Dim 3) | Which Customer Segments this theme focuses on |
-| Influenced Capabilities / Value Streams | List of References (Dim 8) | Which structural elements this theme drives investment in |
+| Influenced Segments | List of References (Customer Value) | Which Customer Segments this theme focuses on |
+| Influenced Capabilities / Value Streams | List of References (Structural) | Which structural elements this theme drives investment in |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -79,11 +79,11 @@ Active ──[strategic direction abandoned]──► Retired
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Origin (Portfolio) | Portfolio (Dim 1) | Portfolio-scoped Themes originate from Portfolio strategy |
-| Downstream | Objective (Dim 1) | Theme is pursued through Objective(s) across horizons |
-| Influences | Customer Segment (Dim 3) | Theme focuses investment on specific segments |
-| Influences | Value Stream / Capability (Dim 8) | Theme drives structural investment |
-| Work Model | Deliberation (Track 1) | Theme-level strategy Deliberations may shape Themes |
+| Origin (Portfolio) | Portfolio (Strategy) | Portfolio-scoped Themes originate from Portfolio strategy |
+| Downstream | Objective (Strategy) | Theme is pursued through Objective(s) across horizons |
+| Influences | Customer Segment (Customer Value) | Theme focuses investment on specific segments |
+| Influences | Value Stream / Capability (Structural) | Theme drives structural investment |
+| Work Model | Deliberation (Discovery) | Theme-level strategy Deliberations may shape Themes |
 
 ## Examples
 

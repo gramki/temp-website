@@ -1,7 +1,7 @@
 # Portfolio
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Executive Leadership
 
 ## Definition
@@ -31,8 +31,8 @@ _Not applicable — reference entity._
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Contains | Product (Dim 8) | This Portfolio contains this Product (and potentially others, outside this UPIM's scope) |
-| Downstream | Strategic Theme (Dim 1) | Portfolio-scoped Themes originate from Portfolio strategy |
+| Contains | Product (Structural) | This Portfolio contains this Product (and potentially others, outside this UPIM's scope) |
+| Downstream | Strategic Theme (Strategy) | Portfolio-scoped Themes originate from Portfolio strategy |
 
 ## Example
 

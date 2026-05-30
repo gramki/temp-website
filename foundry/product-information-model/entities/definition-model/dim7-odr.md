@@ -1,12 +1,12 @@
 # Operations Decision Record (ODR)
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** SRE, Platform Engineering, DevOps Leadership
 
 ## Definition
 
-A formal, referenceable record of a significant operational or infrastructure decision — the Dim 7 counterpart of PDR (Dim 1) and ADR (Dim 5). Where PDR captures product-level decisions ("Go on LATAM market"), ADR captures architectural decisions ("Adopt event-driven architecture"), ODR captures operational decisions ("Use AWS MSK for Kafka in 3-AZ deployment with 7-day retention," "Archive transaction data to S3 Glacier after 24 months," "Adopt blue-green deployments for payment-critical services"). Follows the same Nygard-inspired format (Context, Decision, Consequences, Status) as ADR for consistency across the decision record triad.
+A formal, referenceable record of a significant operational or infrastructure decision — the Operational counterpart of PDR (Strategy) and ADR (Technical). Where PDR captures product-level decisions ("Go on LATAM market"), ADR captures architectural decisions ("Adopt event-driven architecture"), ODR captures operational decisions ("Use AWS MSK for Kafka in 3-AZ deployment with 7-day retention," "Archive transaction data to S3 Glacier after 24 months," "Adopt blue-green deployments for payment-critical services"). Follows the same Nygard-inspired format (Context, Decision, Consequences, Status) as ADR for consistency across the decision record triad.
 
 ## Purpose
 
@@ -19,9 +19,9 @@ Fills the traceability gap between architectural decisions (ADRs) and operationa
 - Compliance zone decisions are invisible — why PCI scope includes certain environments but not others
 
 **PDR / ADR / ODR — the decision record triad:**
-- **PDR (Dim 1):** What should the product *do*? Product strategy and intent. Audience: PM, business stakeholders.
-- **ADR (Dim 5):** How should the product be *built*? Architecture and technology. Audience: Architects, engineering leadership.
-- **ODR (Dim 7):** How should the product be *run*? Operations, infrastructure, and data governance. Audience: SRE, Platform Engineering, DevOps.
+- **PDR (Strategy):** What should the product *do*? Product strategy and intent. Audience: PM, business stakeholders.
+- **ADR (Technical):** How should the product be *built*? Architecture and technology. Audience: Architects, engineering leadership.
+- **ODR (Operational):** How should the product be *run*? Operations, infrastructure, and data governance. Audience: SRE, Platform Engineering, DevOps.
 
 **ODR relationship patterns (paralleling ADR):**
 1. **PDR triggers ODR(s):** A product decision has operational implications. "PDR: Go on LATAM" triggers "ODR: Provision sa-east-1 with LGPD-compliant encryption and dedicated tenancy for Tier-1 banks."
@@ -29,7 +29,7 @@ Fills the traceability gap between architectural decisions (ADRs) and operationa
 3. **ODR exists independently:** Purely operational decisions that don't require architectural or product deliberation. "ODR: Migrate from DataDog to Grafana for cost optimization" or "ODR: Increase financial data archival retention from 5 to 7 years per new regulation."
 4. **ODR constrains ADR/PDR:** An operational reality limits architectural or product options. "Our 4-hour RTO (ODR-003) means active-active architecture isn't justified for this tier" or "Data residency constraint (ODR-007) means no cross-region read replicas for PII."
 
-**Dual provenance:** ODRs can be produced by both the Discovery Track (Deliberation-driven — strategic infrastructure decisions like cloud provider selection) and the Run Track (operationally-driven — decisions emerging from operational experience, incidents, or capacity reviews). Both paths produce the same Dim 7 entity; provenance is tracked through relationships.
+**Dual provenance:** ODRs can be produced by both the Discovery Track (Deliberation-driven — strategic infrastructure decisions like cloud provider selection) and the Run Track (operationally-driven — decisions emerging from operational experience, incidents, or capacity reviews). Both paths produce the same Operational entity; provenance is tracked through relationships.
 
 **ODR scope categories:**
 
@@ -58,13 +58,13 @@ Fills the traceability gap between architectural decisions (ADRs) and operationa
 | Decision | Text | What was decided — the chosen approach |
 | Consequences | Text | What follows from the decision — both positive and negative |
 | Quality Attributes Addressed | List | Which quality attributes this decision serves (e.g., availability, durability, cost efficiency, compliance) |
-| Triggered by PDR | Reference (Dim 1) | If this ODR was triggered by a product decision (optional) |
-| Triggered by ADR | Reference (Dim 5) | If this ODR was triggered by an architectural decision (optional) |
-| Supersedes | Reference (Dim 7) | Which ODR(s) this supersedes (optional) |
-| Superseded by | Reference (Dim 7) | Which ODR supersedes this one (optional) |
-| Affected Environments | List of References (Dim 7) | Which Deployment Environments are affected |
-| Affected Systems | List of References (Dim 5) | Which Systems are operationally affected |
-| Affected Dependencies | List of References (Dim 5) | Which Dependencies are affected (e.g., cloud service changes) |
+| Triggered by PDR | Reference (Strategy) | If this ODR was triggered by a product decision (optional) |
+| Triggered by ADR | Reference (Technical) | If this ODR was triggered by an architectural decision (optional) |
+| Supersedes | Reference (Operational) | Which ODR(s) this supersedes (optional) |
+| Superseded by | Reference (Operational) | Which ODR supersedes this one (optional) |
+| Affected Environments | List of References (Operational) | Which Deployment Environments are affected |
+| Affected Systems | List of References (Technical) | Which Systems are operationally affected |
+| Affected Dependencies | List of References (Technical) | Which Dependencies are affected (e.g., cloud service changes) |
 | Decision Date | Date | When the decision was made |
 | Decision Makers | List | Who participated (roles or names) |
 
@@ -81,20 +81,20 @@ Fills the traceability gap between architectural decisions (ADRs) and operationa
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Triggered by | PDR (Dim 1) | Product decision with operational implications |
-| Triggered by | ADR (Dim 5) | Architectural decision requiring operational provisioning |
-| Affects | Deployment Environment(s) (Dim 7) | Environments impacted by this decision |
-| Affects | Operational Target(s) (Dim 7) | Targets influenced by this decision (e.g., RTO/RPO from DR decisions) |
-| Affects | Operational Constraint(s) (Dim 7) | Constraints introduced or modified |
-| Justifies | Infrastructure Model (Dim 7) | ODR justifies aspects of the Infrastructure Model |
-| Affects | System(s) (Dim 5) | Systems operationally affected (e.g., deployment strategy applies to specific systems) |
-| Affects | Dependency(ies) (Dim 5) | Dependencies introduced, changed, or removed operationally |
-| Constrains | ADR (Dim 5) | ODR may constrain architectural options |
-| Constrains | PDR (Dim 1) | ODR may constrain product options |
-| Supersedes | ODR (Dim 7) | This ODR replaces a previous ODR |
-| Produced by | Deliberation (Track 1) | When ODR originates from Discovery Track |
-| Produced by | Run Track work (Track 3) | When ODR originates from operational experience |
-| Produced by | Run Epic / Run Deliberation (Track 3) | Run Deliberations within Run Epics produce ODRs for operational engineering decisions (probe strategy, automation approach, monitoring architecture) |
+| Triggered by | PDR (Strategy) | Product decision with operational implications |
+| Triggered by | ADR (Technical) | Architectural decision requiring operational provisioning |
+| Affects | Deployment Environment(s) (Operational) | Environments impacted by this decision |
+| Affects | Operational Target(s) (Operational) | Targets influenced by this decision (e.g., RTO/RPO from DR decisions) |
+| Affects | Operational Constraint(s) (Operational) | Constraints introduced or modified |
+| Justifies | Infrastructure Model (Operational) | ODR justifies aspects of the Infrastructure Model |
+| Affects | System(s) (Technical) | Systems operationally affected (e.g., deployment strategy applies to specific systems) |
+| Affects | Dependency(ies) (Technical) | Dependencies introduced, changed, or removed operationally |
+| Constrains | ADR (Technical) | ODR may constrain architectural options |
+| Constrains | PDR (Strategy) | ODR may constrain product options |
+| Supersedes | ODR (Operational) | This ODR replaces a previous ODR |
+| Produced by | Deliberation (Discovery) | When ODR originates from Discovery Track |
+| Produced by | Run Track work (Run) | When ODR originates from operational experience |
+| Produced by | Run Epic / Run Deliberation (Run) | Run Deliberations within Run Epics produce ODRs for operational engineering decisions (probe strategy, automation approach, monitoring architecture) |
 
 ## Examples
 

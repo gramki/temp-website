@@ -1,14 +1,14 @@
 # API Operation
 
 **Model:** Definition Model
-**Dimension / Track:** Dimension 6: Ecosystem & Extensibility (Platform)
+**Dimension:** Ecosystem
 **Owner:** Product Management (API/Platform), Engineering
 
 ## Definition
 
 An API Operation is a named, versioned, contractual programmatic operation within an API Module. It is the atomic unit of programmatic capability that external consumers depend on. Each operation is classified by its interaction pattern (Command, Query, Event, Callback, Batch), and carries pattern-appropriate SLOs as strategic performance commitments.
 
-API Operations are the Dim 6 analog of User Journeys in Dim 4 — purposeful, named interactions that consumers depend on. Specific URL paths, HTTP methods, Kafka topic names, and payload schemas are PSD and Build Track territory; the Definition Model captures the operation's identity, pattern, and commitments.
+API Operations are the Ecosystem analog of User Journeys in User Experience — purposeful, named interactions that consumers depend on. Specific URL paths, HTTP methods, Kafka topic names, and payload schemas are PSD and Build Track territory; the Definition Model captures the operation's identity, pattern, and commitments.
 
 ## Purpose
 
@@ -49,15 +49,15 @@ Captures what the product's programmatic surface commits to — the named operat
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | API Module (Dim 6) | Part of this module's contractual surface |
-| Maps to | Capability(ies) (Dim 8) | Exercises specific product capabilities |
-| SLOs feed | Customer Promise (Dim 3) | SLAs in contracts derive from operation SLOs |
-| Governed by | API Compatibility Contract (Dim 6) | Subject to versioning and stability commitments |
-| Consumed by | Developer Persona (Dim 6) | Developers integrate against this operation |
-| Consumed by | Programmatic User Persona (Dim 6) | Systems depend on this operation at runtime |
-| Monitored by | System Monitoring (Track 3) | Runtime performance tracked |
-| Monitored by | Win Monitoring (Track 4) | SLO compliance tracked |
-| Assessed by | Win Review (Track 4) | Operation health and adoption assessed |
+| Belongs to | API Module (Ecosystem) | Part of this module's contractual surface |
+| Maps to | Capability(ies) (Structural) | Exercises specific product capabilities |
+| SLOs feed | Customer Promise (Customer Value) | SLAs in contracts derive from operation SLOs |
+| Governed by | API Compatibility Contract (Ecosystem) | Subject to versioning and stability commitments |
+| Consumed by | Developer Persona (Ecosystem) | Developers integrate against this operation |
+| Consumed by | Programmatic User Persona (Ecosystem) | Systems depend on this operation at runtime |
+| Monitored by | System Monitoring (Run) | Runtime performance tracked |
+| Monitored by | Win Monitoring (Win) | SLO compliance tracked |
+| Assessed by | Win Review (Win) | Operation health and adoption assessed |
 
 ## Example
 

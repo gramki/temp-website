@@ -1,23 +1,23 @@
 # Operational Target (SLO)
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** Engineering Leadership, SRE/Platform Engineering
 
 ## Definition
 
-An infrastructure-level objective that backs Service Commitments (Dim 3) and API Operation SLOs (Dim 6). The operational "how we deliver on promises." Each Operational Target carries **Achievement Levers** — categorized as Product (build self-healing, improve error handling, add circuit breakers) or Operational (improve procedures, add redundancy, scale infrastructure) — connecting Dim 7 into the Initiative/Lever framework. This parallels Win Outcome (Dim 2), which carries Achievement Levers from the Business Model's Lever Portfolio.
+An infrastructure-level objective that backs Service Commitments (Customer Value) and API Operation SLOs (Ecosystem). The operational "how we deliver on promises." Each Operational Target carries **Achievement Levers** — categorized as Product (build self-healing, improve error handling, add circuit breakers) or Operational (improve procedures, add redundancy, scale infrastructure) — connecting Operational into the Initiative/Lever framework. This parallels Win Outcome (Vendor Value), which carries Achievement Levers from the Business Model's Lever Portfolio.
 
 SLIs (Service Level Indicators) — the specific metrics that feed into the SLO — are fields on the Operational Target, not separate entities.
 
 ## Purpose
 
-Analogous to Win Outcome (Dim 2), which captures what commercial success looks like. Operational Target captures what operational success looks like — per quality taxonomy type, per module or environment. Without Operational Targets:
-- Service Commitments (Dim 3) have no infrastructure-level backing — "99.9% uptime" is a customer promise with no corresponding operational objective
-- API Operation SLOs (Dim 6) float without infrastructure targets — "p99 < 500ms" is declared but not operationally committed
+Analogous to Win Outcome (Vendor Value), which captures what commercial success looks like. Operational Target captures what operational success looks like — per quality taxonomy type, per module or environment. Without Operational Targets:
+- Service Commitments (Customer Value) have no infrastructure-level backing — "99.9% uptime" is a customer promise with no corresponding operational objective
+- API Operation SLOs (Ecosystem) float without infrastructure targets — "p99 < 500ms" is declared but not operationally committed
 - Operational investment lacks a lever framework — improvements happen reactively rather than through strategic Initiative planning
 
-**Three-layer SLO structure:** Customer-facing SLA (Dim 3 Service Commitment) → API Operation SLO (Dim 6) → Infrastructure Operational Target (Dim 7). Each layer is progressively more specific: the SLA promises "99.9% uptime" to the customer; the API SLO commits "99.95% availability per operation"; the Operational Target sets "99.99% compute availability per environment."
+**Three-layer SLO structure:** Customer-facing SLA (Customer Value Service Commitment) → API Operation SLO (Ecosystem) → Infrastructure Operational Target (Operational). Each layer is progressively more specific: the SLA promises "99.9% uptime" to the customer; the API SLO commits "99.95% availability per operation"; the Operational Target sets "99.99% compute availability per environment."
 
 ## Fields
 
@@ -30,10 +30,10 @@ Analogous to Win Outcome (Dim 2), which captures what commercial success looks l
 | SLI Definition | Text | What is measured and where (e.g., "percentage of non-5xx responses measured at load balancer") |
 | Measurement Cadence | String | How often measured (e.g., "continuous," "hourly aggregation," "monthly") |
 | Scope | Enum | `Product-level` / `Environment-level` / `Module-level` |
-| Scoped Module | Reference (Dim 8) | Which module this target applies to (if module-level) |
-| Scoped Environment | Reference (Dim 7) | Which environment this target applies to |
+| Scoped Module | Reference (Structural) | Which module this target applies to (if module-level) |
+| Scoped Environment | Reference (Operational) | Which environment this target applies to |
 | Achievement Levers | List (Lever + Primary/Secondary) | What kinds of effort can improve this target: **Product** (build capabilities) or **Operational** (improve procedures/infrastructure). Forces the question: "Is this primarily a product engineering problem or an operational problem?" |
-| Responsible Persona(s) | List of References (Dim 7) | Which Operational Persona(s) own this target |
+| Responsible Persona(s) | List of References (Operational) | Which Operational Persona(s) own this target |
 
 ## Statuses
 
@@ -50,17 +50,17 @@ Analogous to Win Outcome (Dim 2), which captures what commercial success looks l
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Backs | Service Commitment (Dim 3) | Operational Targets deliver the customer-facing SLA |
-| Delivers | API Operation SLOs (Dim 6) | Operational Targets back per-operation performance commitments |
-| Scoped to | Module (Dim 8) + Deployment Environment (Dim 7) | Target applies to a specific module in a specific environment |
-| Monitored by | System Monitoring (Track 3) | Runtime performance tracked against target |
+| Backs | Service Commitment (Customer Value) | Operational Targets deliver the customer-facing SLA |
+| Delivers | API Operation SLOs (Ecosystem) | Operational Targets back per-operation performance commitments |
+| Scoped to | Module (Structural) + Deployment Environment (Operational) | Target applies to a specific module in a specific environment |
+| Monitored by | System Monitoring (Run) | Runtime performance tracked against target |
 | Consumed by | Incident (Track 3, artifact) | Incidents consume error budget against Operational Targets — every incident erodes the margin toward breach |
-| Responsibility of | Operational Persona (Dim 7) | Operational Personas own specific targets |
-| Undermined by | Operational Pain (Dim 7) | Operational Pains make targets harder to achieve |
-| Referenced by | Operational Readiness (Dim 7) | Readiness criteria reference target compliance |
-| Referenced by | Objective / Initiative (Dim 1) | Initiatives may target Operational Target improvement |
-| Measured by | Operational Job (Dim 7) | Jobs are measured against their relevant targets |
-| Decisions | ODR(s) (Dim 7) | Operational decisions influencing targets (e.g., DR decisions setting RTO/RPO) are recorded as ODRs |
+| Responsibility of | Operational Persona (Operational) | Operational Personas own specific targets |
+| Undermined by | Operational Pain (Operational) | Operational Pains make targets harder to achieve |
+| Referenced by | Operational Readiness (Operational) | Readiness criteria reference target compliance |
+| Referenced by | Objective / Initiative (Strategy) | Initiatives may target Operational Target improvement |
+| Measured by | Operational Job (Operational) | Jobs are measured against their relevant targets |
+| Decisions | ODR(s) (Operational) | Operational decisions influencing targets (e.g., DR decisions setting RTO/RPO) are recorded as ODRs |
 
 ## Examples
 

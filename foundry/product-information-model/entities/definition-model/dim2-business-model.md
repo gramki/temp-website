@@ -1,7 +1,7 @@
 # Business Model
 
 **Model:** Definition Model
-**Dimension:** Dimension 2: The Vendor Value Dimension (Why It Wins)
+**Dimension:** Vendor Value
 **Owner:** Executive Leadership, Product Marketing
 
 ## Definition
@@ -10,7 +10,7 @@ The fundamental revenue engine that describes how the vendor generates income fr
 
 ## Purpose
 
-Anchors the Vendor Value dimension by establishing the macro-level commercial structure. The Business Model is a lightweight, rarely-changing entity — it provides context for the more dynamic entities in Dim 2. It changes at the scale of years (e.g., shifting from perpetual license to SaaS), not quarters.
+Anchors the Vendor Value dimension by establishing the macro-level commercial structure. The Business Model is a lightweight, rarely-changing entity — it provides context for the more dynamic entities in Vendor Value. It changes at the scale of years (e.g., shifting from perpetual license to SaaS), not quarters.
 
 ## Fields
 
@@ -19,7 +19,7 @@ Anchors the Vendor Value dimension by establishing the macro-level commercial st
 | Name | String | Descriptive name (e.g., "Transaction-based B2B SaaS") |
 | Revenue Model Type | Enum | `Subscription` / `Transaction-based` / `Usage-based` / `License` / `Marketplace` / `Hybrid` |
 | Revenue Streams | List (text) | Distinct revenue sources — e.g., "Per-transaction fees, FX markup, Platform subscription, Implementation services" |
-| Target Markets | List of References (Dim 3) | Which Customer Segments this business model serves |
+| Target Markets | List of References (Customer Value) | Which Customer Segments this business model serves |
 | Cost Structure Summary | Text | Key cost categories — infrastructure, compliance, support, sales. Not a full cost model; enough for unit economics context. |
 | _Other fields to be refined._ | | |
 
@@ -35,7 +35,7 @@ The Business Model defines the product's **Lever Portfolio** — the finite, ref
 | **Customer Success** | Onboarding programs, health monitoring, retention, expansion, advocacy | Win | Activation, Retention, Revenue, Referral |
 | **Operational** | Internal process, tooling, automation, hiring, training | Operating Model | All stages |
 
-> **Design vs. Execution boundary:** The lever portfolio captures the *execution* side. Pricing *design* (tier structure, rates) is a Dim 2 / Discovery concern modeled through Modeling Tasks. Partnership *strategy* (who to partner with) is a Dim 1/Dim 2 strategic decision. GTM covers pricing *communication*, partnership *execution*, and marketing *execution*.
+> **Design vs. Execution boundary:** The lever portfolio captures the *execution* side. Pricing *design* (tier structure, rates) is a Vendor Value / Discovery concern modeled through Modeling Tasks. Partnership *strategy* (who to partner with) is a Strategy/Vendor Value strategic decision. GTM covers pricing *communication*, partnership *execution*, and marketing *execution*.
 
 ## Statuses
 
@@ -45,11 +45,11 @@ _Not applicable — the Business Model is a structural descriptor that changes e
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Downstream | Pricing Tier / Package (Dim 2) | Business Model defines the commercial frame for Packages |
-| Downstream | Value Metric (Dim 2) | Business Model defines available pricing axes |
-| Context for | Win Outcome (Dim 2) | Business Model provides the commercial context for Win Outcomes |
-| Context for | Business KPI (Dim 2) | Business Model determines which KPIs are relevant |
-| Serves | Customer Segment (Dim 3) | Business Model targets specific segments |
+| Downstream | Pricing Tier / Package (Vendor Value) | Business Model defines the commercial frame for Packages |
+| Downstream | Value Metric (Vendor Value) | Business Model defines available pricing axes |
+| Context for | Win Outcome (Vendor Value) | Business Model provides the commercial context for Win Outcomes |
+| Context for | Business KPI (Vendor Value) | Business Model determines which KPIs are relevant |
+| Serves | Customer Segment (Customer Value) | Business Model targets specific segments |
 | Defines | Lever Portfolio | Business Model defines the available levers for Win Outcomes and Initiatives |
 
 ## Example

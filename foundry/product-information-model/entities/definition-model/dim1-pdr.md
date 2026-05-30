@@ -1,7 +1,7 @@
 # Product Decision Record (PDR)
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Product Management
 
 ## Definition
@@ -30,10 +30,10 @@ Key design choices:
 | PDR ID | String | Unique identifier (e.g., PDR-017) |
 | Title | String | Short description of the decision |
 | Decision Type | Enum | `Go` / `Kill` / `Pivot` |
-| Idea(s) | List of References (Dim 1) | Which Idea(s) this decision addresses (may be empty for strategic decisions) |
+| Idea(s) | List of References (Strategy) | Which Idea(s) this decision addresses (may be empty for strategic decisions) |
 | Decision Date | Date | When the decision was made |
 | Decision Makers | List | Who participated in the decision (roles or names) |
-| Evidence References | List of References (Track 1) | Research Tasks, Experiments, Prototypes, Deliberations that produced evidence |
+| Evidence References | List of References (Discovery) | Research Tasks, Experiments, Prototypes, Deliberations that produced evidence |
 | Rationale | Text | Why this decision was made — the reasoning |
 | Trade-offs | Text | What was considered and rejected — alternatives and their downsides |
 | Confidence Level | Enum | `Low` / `Medium` / `High` |
@@ -72,19 +72,19 @@ Draft ──[evidence assembled, decision          Draft ──[abandoned before
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Idea (Dim 1) | PDR validates/kills Idea(s) — may correspond to multiple Ideas |
-| Context | Discovery Case (Track 1) | PDR may be produced by a Discovery Case |
-| Downstream | Product Intent (Dim 1) | Go or Pivot PDRs create or update Product Intent(s) |
-| Downstream | PSD (Dim 1) | PDR justifies PSD(s) that refine Product Intent — a single PDR may justify multiple PSDs across different modules |
-| Downstream | ADR(s) (Dim 5) | PDR may trigger Architecture Decision Records for technical/architectural decisions required to implement the product decision |
-| Downstream | ODR(s) (Dim 7) | PDR may trigger Operations Decision Records for infrastructure/operational decisions required to support the product decision |
-| Downstream | Modeling Task (Track 1) | PDR may trigger Modeling Tasks for Definition Model updates |
-| Downstream | Initiative (Dim 1) | PDR may trigger or refine Initiatives |
-| Evidence | Research Task (Track 1) | PDR references Research Tasks as evidence |
-| Evidence | Experiment (Track 1) | PDR references Experiments as evidence |
-| Evidence | Prototype / Spike (Track 1) | PDR references Prototypes/Spikes as evidence |
-| Evidence | Deliberation (Track 1) | PDR references Deliberations as evidence/decision source |
-| Supersedes | PDR (Dim 1) | A newer PDR may supersede this one |
+| Upstream | Idea (Strategy) | PDR validates/kills Idea(s) — may correspond to multiple Ideas |
+| Context | Discovery Case (Discovery) | PDR may be produced by a Discovery Case |
+| Downstream | Product Intent (Strategy) | Go or Pivot PDRs create or update Product Intent(s) |
+| Downstream | PSD (Strategy) | PDR justifies PSD(s) that refine Product Intent — a single PDR may justify multiple PSDs across different modules |
+| Downstream | ADR(s) (Technical) | PDR may trigger Architecture Decision Records for technical/architectural decisions required to implement the product decision |
+| Downstream | ODR(s) (Operational) | PDR may trigger Operations Decision Records for infrastructure/operational decisions required to support the product decision |
+| Downstream | Modeling Task (Discovery) | PDR may trigger Modeling Tasks for Definition Model updates |
+| Downstream | Initiative (Strategy) | PDR may trigger or refine Initiatives |
+| Evidence | Research Task (Discovery) | PDR references Research Tasks as evidence |
+| Evidence | Experiment (Discovery) | PDR references Experiments as evidence |
+| Evidence | Prototype / Spike (Discovery) | PDR references Prototypes/Spikes as evidence |
+| Evidence | Deliberation (Discovery) | PDR references Deliberations as evidence/decision source |
+| Supersedes | PDR (Strategy) | A newer PDR may supersede this one |
 
 ## Example
 

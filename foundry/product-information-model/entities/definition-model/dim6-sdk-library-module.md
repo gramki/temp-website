@@ -1,12 +1,12 @@
 # SDK/Library Module
 
 **Model:** Definition Model
-**Dimension / Track:** Dimension 6: Ecosystem & Extensibility (Platform)
+**Dimension:** Ecosystem
 **Owner:** Product Management (API/Platform), Developer Relations, Engineering
 
 ## Definition
 
-An SDK/Library Module is a language-specific client providing idiomatic access to API Modules. It wraps Dim 6 API Module operations in language-specific abstractions — typed models, error handling patterns, retry logic, and async support. An SDK/Library Module is structurally a Dim 8 Module with a **Client-Distributed** deployment topology (published via package registry, instantiated in the customer's codebase).
+An SDK/Library Module is a language-specific client providing idiomatic access to API Modules. It wraps Ecosystem API Module operations in language-specific abstractions — typed models, error handling patterns, retry logic, and async support. An SDK/Library Module is structurally a Structural Module with a **Client-Distributed** deployment topology (published via package registry, instantiated in the customer's codebase).
 
 ## Purpose
 
@@ -28,11 +28,11 @@ Reduces time-to-first-call and integration complexity for developers working in 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Is a | Module (Dim 8) | Structurally a Dim 8 Module (Client-Distributed topology) |
-| Wraps | API Module (Dim 6) | Provides idiomatic access to API surface |
-| Serves | Developer Persona (Dim 6) | Used by developers in this language |
-| Versioned with | API Compatibility Contract (Dim 6) | SDK versions track API versions |
-| Assessed by | Win Review (Track 4) | SDK adoption and developer satisfaction reviewed |
+| Is a | Module (Structural) | Structurally a Structural Module (Client-Distributed topology) |
+| Wraps | API Module (Ecosystem) | Provides idiomatic access to API surface |
+| Serves | Developer Persona (Ecosystem) | Used by developers in this language |
+| Versioned with | API Compatibility Contract (Ecosystem) | SDK versions track API versions |
+| Assessed by | Win Review (Win) | SDK adoption and developer satisfaction reviewed |
 
 ## Example
 

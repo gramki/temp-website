@@ -1,28 +1,28 @@
 # Technical Knowledge Base
 
 **Model:** Definition Model
-**Dimension:** Dimension 5: The Technical & Architectural Dimension (Engineering)
+**Dimension:** Technical
 **Owner:** Tech Leads, Engineering Leadership
 
 ## Definition
 
-A per-System assessment of whether the system's technical knowledge is current and complete — covering documentation, guides, and playbooks that enable Run and Win teams to understand and operate the system. Parallels Operational Readiness (Dim 7): a single instance per System with knowledge-type dimensions and coverage status. The actual documents are Work Model artifacts; this entity tracks "does the knowledge exist and is it current?"
+A per-System assessment of whether the system's technical knowledge is current and complete — covering documentation, guides, and playbooks that enable Run and Win teams to understand and operate the system. Parallels Operational Readiness (Operational): a single instance per System with knowledge-type dimensions and coverage status. The actual documents are Work Model artifacts; this entity tracks "does the knowledge exist and is it current?"
 
 ## Purpose
 
 Makes documentation gaps visible in the Definition Model rather than leaving them as implicit Work Model concerns. Without Technical Knowledge Base:
-- "Production-ready" is assessed without documentation — a System can pass Operational Readiness (Dim 7) checks but have no runbook for the Run Team
+- "Production-ready" is assessed without documentation — a System can pass Operational Readiness (Operational) checks but have no runbook for the Run Team
 - Win Teams lack technical context — pre-sales and customer success have no structured way to know which Systems have technical guides and which don't
 - Documentation currency is untracked — an integration guide written 18 months ago may be dangerously stale
 - Documentation investment decisions have no entity to anchor to — "we need to write runbooks" has no structured gap analysis
 
-**Technical Knowledge Base vs. Operational Readiness (Dim 7):** Both are per-System assessments with quality dimensions. Operational Readiness asks "is this System ready for production in this environment?" (observability, security, performance, DR criteria). Technical Knowledge Base asks "is this System's knowledge documented and current?" (architecture docs, runbooks, guides). They are complementary — a System can be operationally ready (metrics, alerts, failover all configured) but poorly documented (no runbook, stale integration guide). Both gaps matter.
+**Technical Knowledge Base vs. Operational Readiness (Operational):** Both are per-System assessments with quality dimensions. Operational Readiness asks "is this System ready for production in this environment?" (observability, security, performance, DR criteria). Technical Knowledge Base asks "is this System's knowledge documented and current?" (architecture docs, runbooks, guides). They are complementary — a System can be operationally ready (metrics, alerts, failover all configured) but poorly documented (no runbook, stale integration guide). Both gaps matter.
 
 ## Fields
 
 | Field | Type | Description |
 |---|---|---|
-| System | Reference (Dim 5) | Which System this assessment covers |
+| System | Reference (Technical) | Which System this assessment covers |
 | Overall Status | Enum | `Not Assessed` / `Gaps Identified` / `Partially Documented` / `Fully Documented` |
 | Architecture Documentation | Text + Status | System design, boundaries, data model, event contracts, dependencies. Status: Missing / Stale / Current |
 | Operational Runbook | Text + Status | Deployment procedures, failover steps, scaling instructions, common troubleshooting. Status: Missing / Stale / Current |
@@ -46,11 +46,11 @@ Makes documentation gaps visible in the Definition Model rather than leaving the
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Scoped to | System (Dim 5) | Knowledge Base is assessed per-System |
+| Scoped to | System (Technical) | Knowledge Base is assessed per-System |
 | Assessed by | Build Track / Run Track activities | Documentation creation and maintenance is work |
-| Complements | Operational Readiness (Dim 7) | Technical knowledge complements operational readiness |
-| Enables | Win Track (Track 4) | Win Technical Guide enables pre-sales and CS work |
-| Enables | Run Track (Track 3) | Operational Runbook and Troubleshooting Playbook enable Run work |
+| Complements | Operational Readiness (Operational) | Technical knowledge complements operational readiness |
+| Enables | Win Track (Win) | Win Technical Guide enables pre-sales and CS work |
+| Enables | Run Track (Run) | Operational Runbook and Troubleshooting Playbook enable Run work |
 
 ## Example
 

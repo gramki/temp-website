@@ -1,7 +1,7 @@
 # Objective
 
 **Model:** Definition Model
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Executive Leadership, Product Management
 
 ## Definition
@@ -21,7 +21,7 @@ Objectives may optionally belong to a Strategic Theme, which provides persistent
 | ID | String | Unique identifier (e.g., `OBJ-2026-H2-01`) |
 | Title | String | Concise statement of the strategic goal |
 | Horizon | String | Planning period (e.g., "H2 2026", "FY2027") |
-| Strategic Theme | Reference (Dim 1) | Optional — which Theme this Objective advances |
+| Strategic Theme | Reference (Strategy) | Optional — which Theme this Objective advances |
 | Sponsor | Role/Person | Executive sponsor accountable for the Objective |
 | Success Criteria | Text | Measurable criteria for achievement |
 | External Constraints | List (text) | Regulatory deadlines, partnership timelines, competitive threats, contractual obligations that constrain timing or scope |
@@ -62,10 +62,10 @@ Draft ──[approved by leadership]──► Active
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Strategic Theme (Dim 1) | Objective may advance a Strategic Theme (optional) |
-| Downstream | Initiative (Dim 1) | Objective is pursued through Initiative(s) |
-| Targets | Win Outcome (Dim 2) | Objective may target specific Win Outcomes (per AAARRR stage, per segment) |
-| Work Model | Objective Setting Task (Track 1) | Objective Setting Tasks produce/refine Objectives |
+| Upstream | Strategic Theme (Strategy) | Objective may advance a Strategic Theme (optional) |
+| Downstream | Initiative (Strategy) | Objective is pursued through Initiative(s) |
+| Targets | Win Outcome (Vendor Value) | Objective may target specific Win Outcomes (per AAARRR stage, per segment) |
+| Work Model | Objective Setting Task (Discovery) | Objective Setting Tasks produce/refine Objectives |
 
 ## Example
 

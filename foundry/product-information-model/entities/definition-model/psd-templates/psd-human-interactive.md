@@ -30,10 +30,10 @@ The template structures the PM's specification at the Capability level. The Arch
 
 | Field | Type | Guidance |
 |---|---|---|
-| User Persona(s) | References (Dim 4) | Who uses this capability? Reference Dim 4 User Personas directly. |
-| Job-to-be-Done | Reference (Dim 4) | What job is this capability helping the user accomplish? |
+| User Persona(s) | References (User Experience) | Who uses this capability? Reference User Experience User Personas directly. |
+| Job-to-be-Done | Reference (User Experience) | What job is this capability helping the user accomplish? |
 | User Journey | Description / Attachment | End-to-end flow: what does the user do, what does the system show/do at each step? Wireframes, flow diagrams, or textual description. |
-| UX Channel | Enum / Reference (Dim 4) | Web App / Mobile App / CLI / Chat / Email / Embedded Widget / Other |
+| UX Channel | Enum / Reference (User Experience) | Web App / Mobile App / CLI / Chat / Email / Embedded Widget / Other |
 | Interaction Model | Text | How does the user interact? (Form-driven, data table + actions, wizard, dashboard, conversational, etc.) |
 | Key Screens / Views | List | Name and brief description of key screens or views introduced or changed |
 | Accessibility Requirements | Text | WCAG level, screen reader support, keyboard navigation, colour contrast requirements |
@@ -71,7 +71,7 @@ The Architect selects and maps the specific Systems and Components. The PM does 
 
 | Field | Value |
 |---|---|
-| User Persona(s) | AP Clerk (Dim 4) |
+| User Persona(s) | AP Clerk (User Experience) |
 | JTBD | "When I manage cross-border payments, I want to see all pending and completed payments across currencies in one view so I can reconcile without switching between screens." |
 | UX Channel | Web Application |
 | Key Screens | (1) Payment List with currency filter; (2) Payment Detail drawer; (3) FX Rate indicator |

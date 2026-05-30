@@ -1,7 +1,7 @@
 # Value Metric (Pricing Axis)
 
 **Model:** Definition Model
-**Dimension:** Dimension 2: The Vendor Value Dimension (Why It Wins)
+**Dimension:** Vendor Value
 **Owner:** Product Marketing, Executive Leadership
 
 ## Definition
@@ -12,7 +12,7 @@ The unit of measurement along which revenue scales — the pricing axis that tie
 
 Defines the commercial mechanism that makes the Business Model concrete. Value Metrics answer "what exactly does the customer pay for?" The choice of Value Metric is a critical product decision — it determines whether revenue scales with customer value (aligning incentives) or independently of it (creating friction).
 
-**Alignment with Customer Value Metric (Dim 3):** Ideally, the vendor's Value Metric aligns with the customer's Customer Value Metric — the vendor charges based on the value delivered. "Per-transaction fee" aligns with "transaction volume processed" (customer value). Misalignment (e.g., per-seat pricing for a product where value scales with data volume) creates commercial friction.
+**Alignment with Customer Value Metric (Customer Value):** Ideally, the vendor's Value Metric aligns with the customer's Customer Value Metric — the vendor charges based on the value delivered. "Per-transaction fee" aligns with "transaction volume processed" (customer value). Misalignment (e.g., per-seat pricing for a product where value scales with data volume) creates commercial friction.
 
 ## Fields
 
@@ -22,7 +22,7 @@ Defines the commercial mechanism that makes the Business Model concrete. Value M
 | Unit | String | What is measured (e.g., "successful cross-border transaction", "API call", "user seat") |
 | Rate Structure | Text | How the price is calculated (e.g., "0.5% of transaction value", "$0.01 per API call", "$50/seat/month") |
 | Scaling Behavior | Text | How revenue scales with usage (linear, tiered/volume discounts, capped) |
-| Used by Tier(s) | List of References (Dim 2) | Which Pricing Tiers use this Value Metric |
+| Used by Tier(s) | List of References (Vendor Value) | Which Pricing Tiers use this Value Metric |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -33,9 +33,9 @@ _Not applicable — Value Metric is a structural descriptor. Changes are rare an
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Business Model (Dim 2) | Value Metric is defined by the Business Model |
-| Used by | Pricing Tier / Package (Dim 2) | Value Metric is used by Pricing Tiers |
-| Aligns with | Customer Value Metric (Dim 3) | Value Metric should ideally align with Customer Value Metrics |
+| Upstream | Business Model (Vendor Value) | Value Metric is defined by the Business Model |
+| Used by | Pricing Tier / Package (Vendor Value) | Value Metric is used by Pricing Tiers |
+| Aligns with | Customer Value Metric (Customer Value) | Value Metric should ideally align with Customer Value Metrics |
 
 ## Examples
 

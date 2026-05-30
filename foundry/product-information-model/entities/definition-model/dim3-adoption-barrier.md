@@ -1,17 +1,17 @@
 # Adoption Barrier
 
 **Model:** Definition Model
-**Dimension:** Dimension 3: The Customer Value Dimension (Why Buy)
+**Dimension:** Customer Value (Why Buy)
 **Owner:** Product Management, Sales, Customer Success
 
 ## Definition
 
-A known impediment to purchase or adoption within a Customer Segment. Barriers capture the "Why NOT buy" logic that complements the "Why Buy" logic of other Dim 3 entities. They may originate from sales objection tracking, churn analysis, lost-deal reviews, or customer research.
+A known impediment to purchase or adoption within a Customer Segment. Barriers capture the "Why NOT buy" logic that complements the "Why Buy" logic of other Customer Value entities. They may originate from sales objection tracking, churn analysis, lost-deal reviews, or customer research.
 
 ## Purpose
 
 Understanding barriers is as important as understanding outcomes. A product can deliver great ROI but fail if barriers aren't addressed. Adoption Barriers:
-- Inform discovery prioritization — a barrier may surface as a Signal (Problem or Need) in Dim 1
+- Inform discovery prioritization — a barrier may surface as a Signal (Problem or Need) in Strategy
 - May directly challenge or undermine a Customer Promise — exposing gaps between what the product promises and what prevents the customer from realizing that promise
 - Guide investment decisions — overcoming a Blocker-severity barrier for a high-value segment may warrant an Initiative
 
@@ -32,12 +32,12 @@ Understanding barriers is as important as understanding outcomes. A product can 
 
 | Field | Type | Description |
 |---|---|---|
-| Customer Segment | Reference (Dim 3) | Which segment this barrier affects |
+| Customer Segment | Reference (Customer Value) | Which segment this barrier affects |
 | Barrier Type | Enum | `Regulatory` / `Technical` / `Organizational` / `Competitive` / `Financial` / `Contractual` / `Data` / `Cultural` |
 | Description | Text | What the barrier is and why it prevents adoption |
 | Severity | Enum | `Blocker` (cannot adopt) / `Friction` (can adopt but with difficulty) |
-| Challenges Promise | List of References (Dim 3) | Which Customer Promise(s) this barrier undermines or contradicts |
-| Structural Root (Dim 8) | List of References (Dim 8) | When the barrier points to a product gap, which Capability or Feature is missing or insufficient. Enables product-level impact analysis. Optional — non-product barriers (Contractual, Cultural, Financial) typically have no product root. |
+| Challenges Promise | List of References (Customer Value) | Which Customer Promise(s) this barrier undermines or contradicts |
+| Structural Root (Structural) | List of References (Structural) | When the barrier points to a product gap, which Capability or Feature is missing or insufficient. Enables product-level impact analysis. Optional — non-product barriers (Contractual, Cultural, Financial) typically have no product root. |
 
 ## Statuses
 
@@ -51,12 +51,12 @@ Understanding barriers is as important as understanding outcomes. A product can 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Blocks | Customer Segment (Dim 3) | Adoption Barrier blocks a Customer Segment |
-| Challenges | Customer Promise (Dim 3) | Barrier may undermine or contradict a Customer Promise |
-| May surface as | Signal (Dim 1) | Barrier may generate a Problem or Need Signal |
-| May inform | Initiative (Dim 1) | Overcoming a barrier may become an Initiative |
-| Work Model | Modeling Task (Track 1) | Modeling Tasks identify and document barriers |
-| Structural root | Capability / Feature (Dim 8) | When barrier points to a product gap, identifies the missing or insufficient product structure |
+| Blocks | Customer Segment (Customer Value) | Adoption Barrier blocks a Customer Segment |
+| Challenges | Customer Promise (Customer Value) | Barrier may undermine or contradict a Customer Promise |
+| May surface as | Signal (Strategy) | Barrier may generate a Problem or Need Signal |
+| May inform | Initiative (Strategy) | Overcoming a barrier may become an Initiative |
+| Work Model | Modeling Task (Discovery) | Modeling Tasks identify and document barriers |
+| Structural root | Capability / Feature (Structural) | When barrier points to a product gap, identifies the missing or insufficient product structure |
 
 ## Examples
 

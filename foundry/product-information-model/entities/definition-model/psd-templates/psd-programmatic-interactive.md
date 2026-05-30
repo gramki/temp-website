@@ -30,7 +30,7 @@ The PM specifies the business intent of the integration — what the capability 
 
 | Field | Type | Guidance |
 |---|---|---|
-| Consumer Persona(s) | References (Dim 6) | Who/what consumes this capability? Reference Dim 6 Developer Persona or Programmatic User Persona. |
+| Consumer Persona(s) | References (Ecosystem) | Who/what consumes this capability? Reference Ecosystem Developer Persona or Programmatic User Persona. |
 | Consumer Use Case | Text | What does the consumer do with this capability? Why do they need it? |
 | Interface Type | Enum | REST API / gRPC / Event Stream (Kafka/SNS) / Webhook / Batch File (SFTP/S3) / GraphQL / Other |
 | API Intent | Text | What operations does this capability need to support? (e.g., "initiate a payment, check payment status, cancel a pending payment"). Do NOT specify endpoints or payloads — that is a Build Track artifact. |
@@ -70,7 +70,7 @@ The Architect maps this Integration Capability to Systems and Components in Sect
 
 | Field | Value |
 |---|---|
-| Consumer Persona | Programmatic User Persona: Customer ERP System (Dim 6) |
+| Consumer Persona | Programmatic User Persona: Customer ERP System (Ecosystem) |
 | Consumer Use Case | Customer's ERP submits cross-border payment instructions in bulk via API; ERP polls for status updates |
 | Interface Type | REST API |
 | API Intent | Initiate payment, batch-initiate payments, get payment status, cancel pending payment, list payments by date range |

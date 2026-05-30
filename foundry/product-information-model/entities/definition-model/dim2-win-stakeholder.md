@@ -1,7 +1,7 @@
 # Win Stakeholder
 
 **Model:** Definition Model
-**Dimension:** Dimension 2: The Vendor Value Dimension (Why It Wins)
+**Dimension:** Vendor Value
 **Owner:** Product Marketing, Sales Leadership, Customer Success Leadership
 
 ## Definition
@@ -12,12 +12,12 @@ A role in the vendor's AAARRR lifecycle — a specific function that engages wit
 
 ## Purpose
 
-Analogous to Buying Persona (Dim 3), which models the customer's buying committee. Win Stakeholder models the vendor's "winning committee" — the roles required for the product's commercial success across the full AAARRR lifecycle. Without Win Stakeholders:
+Analogous to Buying Persona (Customer Value), which models the customer's buying committee. Win Stakeholder models the vendor's "winning committee" — the roles required for the product's commercial success across the full AAARRR lifecycle. Without Win Stakeholders:
 - Delivery Frictions have no one who "endures" them — they're abstract vendor problems with no human face
 - Win Outcomes have no one responsible — success criteria float without ownership
 - Product decisions that affect vendor-side workflows (e.g., "build self-service onboarding to reduce implementation cost") have no explicit beneficiary to trace to
 
-Win Stakeholders are **definition entities, not organizational roles**. The Operating Model will define team structures and staffing. Dim 2 defines what functional roles the product's commercial model *requires*. A startup may have one person covering Pre-Sales, Implementation, and CS; the Win Stakeholder model still distinguishes the three functions.
+Win Stakeholders are **definition entities, not organizational roles**. The Operating Model will define team structures and staffing. Vendor Value defines what functional roles the product's commercial model *requires*. A startup may have one person covering Pre-Sales, Implementation, and CS; the Win Stakeholder model still distinguishes the three functions.
 
 ## Fields
 
@@ -26,8 +26,8 @@ Win Stakeholders are **definition entities, not organizational roles**. The Oper
 | Name | String | Descriptive role name (e.g., "Pre-Sales Engineer") |
 | AAARRR Stage(s) | List of Enum | `Awareness` / `Acquisition` / `Activation` / `Retention` / `Revenue` / `Referral` |
 | Key Concerns | Text | What this stakeholder cares about — their evaluation lens |
-| Engaged Segments | List of References (Dim 3) | Which Customer Segments this stakeholder engages with |
-| Delivery Frictions cared about | List of References (Dim 2) | Which Delivery Frictions this stakeholder endures or cares about |
+| Engaged Segments | List of References (Customer Value) | Which Customer Segments this stakeholder engages with |
+| Delivery Frictions cared about | List of References (Vendor Value) | Which Delivery Frictions this stakeholder endures or cares about |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -38,11 +38,11 @@ _Not applicable — Win Stakeholder is a structural descriptor, not a lifecycle 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Engaged with | Customer Segment (Dim 3) | Win Stakeholder engages with specific Customer Segments |
-| Endures | Delivery Friction (Dim 2) | Win Stakeholder endures specific Delivery Frictions |
-| Responsible for | Win Outcome (Dim 2) | Win Stakeholder is responsible for achieving Win Outcomes at their AAARRR stage |
-| Aggrieved by | Win Barrier (Dim 2) | Win Barriers affect specific Win Stakeholders |
-| Interacts with | Buying Persona (Dim 3) | Win Stakeholders interact with Buying Personas during the sales and implementation process |
+| Engaged with | Customer Segment (Customer Value) | Win Stakeholder engages with specific Customer Segments |
+| Endures | Delivery Friction (Vendor Value) | Win Stakeholder endures specific Delivery Frictions |
+| Responsible for | Win Outcome (Vendor Value) | Win Stakeholder is responsible for achieving Win Outcomes at their AAARRR stage |
+| Aggrieved by | Win Barrier (Vendor Value) | Win Barriers affect specific Win Stakeholders |
+| Interacts with | Buying Persona (Customer Value) | Win Stakeholders interact with Buying Personas during the sales and implementation process |
 | Fulfilled by | Agent (WFR) | Agents in WFR are bound to Win Stakeholder roles via role bindings (DR-034) |
 
 ## AAARRR Stage Mapping

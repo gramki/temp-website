@@ -1,7 +1,7 @@
 # Payload Schema
 
 **Model:** Definition Model
-**Dimension:** Dimension 6: The Ecosystem & Extensibility Dimension (Platform)
+**Dimension:** Ecosystem
 **Owner:** Tech Leads, Developers
 
 ## Definition
@@ -26,7 +26,7 @@ _Not applicable — structural descriptor._
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Endpoint / Event Topic (Dim 6) | Payload Schema is defined for an Endpoint |
+| Upstream | Endpoint / Event Topic (Ecosystem) | Payload Schema is defined for an Endpoint |
 
 ## Example
 

@@ -1,12 +1,12 @@
 # Station
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** Platform Engineering, Release Engineering
 
 ## Definition
 
-A checkpoint within a Deployment Train (Dim 7), targeting a specific Deployment Environment with defined entry criteria, exit/promotion criteria, and approval requirements. Stations make the promotion path auditable and contractually enforceable — each station transition produces evidence that the deployment met the required quality, compliance, and safety bars before advancing.
+A checkpoint within a Deployment Train (Operational), targeting a specific Deployment Environment with defined entry criteria, exit/promotion criteria, and approval requirements. Stations make the promotion path auditable and contractually enforceable — each station transition produces evidence that the deployment met the required quality, compliance, and safety bars before advancing.
 
 A Station is not the same as a Deployment Environment. A Deployment Environment is an infrastructure target (where things run). A Station is a **governance checkpoint** in a promotion path (what must be true before code can enter or leave this environment). The same Deployment Environment may be a Station in multiple Deployment Trains with different entry/exit criteria.
 
@@ -24,7 +24,7 @@ Captures the governance and quality gates at each step of a Deployment Train. Wi
 | Field | Type | Description |
 |---|---|---|
 | Name | String | Station name (e.g., "Staging Gate," "Production US-East Gate," "LATAM Regulatory Gate") |
-| Deployment Environment | Reference (Dim 7) | The target Deployment Environment for this station |
+| Deployment Environment | Reference (Operational) | The target Deployment Environment for this station |
 | Sequence Position | Integer | Position in the Deployment Train's ordered list (1-based) |
 | Entry Criteria | Text | What must be true before a deployment can enter this station (e.g., "previous station soak complete," "all integration tests pass") |
 | Exit / Promotion Criteria | Text | What must be verified before promotion to the next station (e.g., "72-hour soak with zero SEV-1 incidents," "canary metrics within SLO thresholds") |
@@ -44,10 +44,10 @@ Captures the governance and quality gates at each step of a Deployment Train. Wi
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Belongs to | Deployment Train (Dim 7) | Station is a checkpoint within a Deployment Train |
-| Targets | Deployment Environment (Dim 7) | Station targets a specific Deployment Environment |
-| Scoped by | Change Request(s) (Track 3) | Change Requests may be scoped to a specific Station |
-| Verified by | Verification Task(s) (Track 3) | Verification Tasks at this station validate deployment quality |
+| Belongs to | Deployment Train (Operational) | Station is a checkpoint within a Deployment Train |
+| Targets | Deployment Environment (Operational) | Station targets a specific Deployment Environment |
+| Scoped by | Change Request(s) (Run) | Change Requests may be scoped to a specific Station |
+| Verified by | Verification Task(s) (Run) | Verification Tasks at this station validate deployment quality |
 
 ## Examples
 

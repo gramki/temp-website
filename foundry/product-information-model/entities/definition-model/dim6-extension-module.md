@@ -1,12 +1,12 @@
 # Extension Module
 
 **Model:** Definition Model
-**Dimension / Track:** Dimension 6: Ecosystem & Extensibility (Platform)
+**Dimension:** Ecosystem
 **Owner:** Product Management (API/Platform), Engineering
 
 ## Definition
 
-An Extension Module is a framework enabling third parties to extend the product's behavior through plugins, hooks, custom workflows, or custom rules. It provides governed extensibility points from one or more Dim 8 Modules, with controls for isolation, permissions, and lifecycle management. An Extension Module is structurally a Dim 8 Module carrying Dim 6 concerns.
+An Extension Module is a framework enabling third parties to extend the product's behavior through plugins, hooks, custom workflows, or custom rules. It provides governed extensibility points from one or more Structural Modules, with controls for isolation, permissions, and lifecycle management. An Extension Module is structurally a Structural Module carrying Ecosystem concerns.
 
 ## Purpose
 
@@ -22,17 +22,17 @@ Enables customers and partners to customize and extend product behavior without 
 | Governance Model | Text | How extensions are reviewed, approved, and published (marketplace, admin-approval, self-service) |
 | Sandboxing | Text | Isolation mechanism (separate runtime, resource limits, permission boundaries) |
 | Permission Model | Text | What resources/data an extension can access |
-| Composes From | Reference(s) | Dim 8 Module(s) whose extensibility points this surfaces |
+| Composes From | Reference(s) | Structural Module(s) whose extensibility points this surfaces |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Is a | Module (Dim 8) | Structurally a Dim 8 Module with Dim 6 extensibility concerns |
-| Composes from | Module(s) (Dim 8) | Surfaces extensibility points from underlying modules |
-| Serves | Developer Persona (Dim 6) | Developers building extensions |
-| Governed by | API Compatibility Contract (Dim 6) | Extension API stability commitments |
-| Assessed by | Win Review (Track 4) | Extension adoption and ecosystem health reviewed |
+| Is a | Module (Structural) | Structurally a Structural Module with Ecosystem extensibility concerns |
+| Composes from | Module(s) (Structural) | Surfaces extensibility points from underlying modules |
+| Serves | Developer Persona (Ecosystem) | Developers building extensions |
+| Governed by | API Compatibility Contract (Ecosystem) | Extension API stability commitments |
+| Assessed by | Win Review (Win) | Extension adoption and ecosystem health reviewed |
 
 ## Example
 

@@ -1,18 +1,18 @@
 # Programmatic User Persona
 
 **Model:** Definition Model
-**Dimension / Track:** Dimension 6: Ecosystem & Extensibility (Platform)
+**Dimension:** Ecosystem
 **Owner:** Product Management (API/Platform), Solutions Architecture
 
 ## Definition
 
-A Programmatic User Persona is a named archetype representing an application or system that consumes the product's API at runtime. These are non-human consumers — a customer's ERP, a partner's middleware, a third-party application — with throughput needs, SLA dependencies, integration requirements, and error-handling expectations. They cannot be modeled as Dim 4 User Personas.
+A Programmatic User Persona is a named archetype representing an application or system that consumes the product's API at runtime. These are non-human consumers — a customer's ERP, a partner's middleware, a third-party application — with throughput needs, SLA dependencies, integration requirements, and error-handling expectations. They cannot be modeled as User Experience User Personas.
 
 > **Role definition, not agent identity.** Programmatic User Persona is a **role** in the Definition Model describing an application archetype. Specific consuming applications (e.g., "Banco Itau's Treasury System") are tracked in the External Stakeholder Registry (ESR) as external parties with API access scope and SLA requirements. See DR-034.
 
 ## Purpose
 
-Captures the runtime consumption profile of programmatic consumers, enabling SLO design, capacity planning, rate limit tiering, and integration testing strategy. Without Programmatic User Personas, API design optimizes for developer convenience (Dim 6 Developer Persona) but may miss runtime production requirements.
+Captures the runtime consumption profile of programmatic consumers, enabling SLO design, capacity planning, rate limit tiering, and integration testing strategy. Without Programmatic User Personas, API design optimizes for developer convenience (Ecosystem Developer Persona) but may miss runtime production requirements.
 
 ## Fields
 
@@ -34,12 +34,12 @@ Captures the runtime consumption profile of programmatic consumers, enabling SLO
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Consumes | API Module (Dim 6) | Runtime consumer of API surface |
-| Consumes | API Operation (Dim 6) | Depends on specific operations and their SLOs |
-| Maps to | Customer Segment (Dim 3) | Owner of this system belongs to a segment |
-| Informs | API Operation SLOs (Dim 6) | Volume and latency profiles drive SLO targets |
-| Assessed by | Win Review (Track 4) | Integration health assessed in reviews |
-| Monitored by | Win Monitoring (Track 4) | Runtime health tracked continuously |
+| Consumes | API Module (Ecosystem) | Runtime consumer of API surface |
+| Consumes | API Operation (Ecosystem) | Depends on specific operations and their SLOs |
+| Maps to | Customer Segment (Customer Value) | Owner of this system belongs to a segment |
+| Informs | API Operation SLOs (Ecosystem) | Volume and latency profiles drive SLO targets |
+| Assessed by | Win Review (Win) | Integration health assessed in reviews |
+| Monitored by | Win Monitoring (Win) | Runtime health tracked continuously |
 
 ## Example
 

@@ -1,7 +1,7 @@
 # Customer Value Metric
 
 **Model:** Definition Model
-**Dimension:** Dimension 3: The Customer Value Dimension (Why Buy)
+**Dimension:** Customer Value (Why Buy)
 **Owner:** Product Management, Customer Success
 
 ## Definition
@@ -63,10 +63,10 @@ Measures Compliance Posture adherence.
 | SLA Threshold | String | The contractual minimum before breach consequences (e.g., "99.5% before credits apply"). May not apply to all metric subtypes. |
 | Measurement Method | Text | How it's measured (financial analysis, monitoring, audit) |
 | Frequency | Enum | Real-time / Daily / Weekly / Monthly / Quarterly / Annually |
-| Measures | Reference (Dim 3) | Which Customer Promise this metric evidences |
+| Measures | Reference (Customer Value) | Which Customer Promise this metric evidences |
 | _Other fields to be refined._ | | |
 
-> **Note:** The Definition Model captures metric *definitions and targets* — what we promise and the threshold at which we breach. Actual measured values are operational state tracked in runtime systems and Win Track (Track 4) activities, not part of the product's self-description.
+> **Note:** The Definition Model captures metric *definitions and targets* — what we promise and the threshold at which we breach. Actual measured values are operational state tracked in runtime systems and Win activities, not part of the product's self-description.
 
 ## Statuses
 
@@ -76,9 +76,9 @@ _Not applicable — metrics are continuously measured. Metric definitions may be
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Customer Promise (Dim 3) | Customer Value Metric evidences a Customer Promise |
+| Upstream | Customer Promise (Customer Value) | Customer Value Metric evidences a Customer Promise |
 | Fed by | Incident (Track 3, artifact) | Incident response/resolution times feed Service Level Metric actuals (e.g., "SEV-1 incident MTTR: 3.2 hours vs. 4-hour SLA") |
-| Work Model | Modeling Task (Track 1) | Modeling Tasks define metric targets and measurement methods |
+| Work Model | Modeling Task (Discovery) | Modeling Tasks define metric targets and measurement methods |
 
 ## Example
 

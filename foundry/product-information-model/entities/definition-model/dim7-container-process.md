@@ -1,9 +1,9 @@
 # ~~Container / Process~~ (DEPRECATED)
 
-> **DEPRECATED** — Below the Definition Model waterline. Runtime instances (Docker containers, processes, serverless functions) belong in PSD/Run Track artifacts. Same deprecation pattern as Touchpoint (Dim 4) and Payload Schema (Dim 6). See DR-023.
+> **DEPRECATED** — Below the Definition Model waterline. Runtime instances (Docker containers, processes, serverless functions) belong in PSD/Run Track artifacts. Same deprecation pattern as Touchpoint (User Experience) and Payload Schema (Ecosystem). See DR-023.
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** DevOps, SRE
 
 ## Definition
@@ -30,8 +30,8 @@ Connects the operational dimension to the technical dimension by defining the ru
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Cluster / Host (Dim 7) | Container runs within a Cluster |
-| Executes | Subsystem / Service (Dim 5) | Container executes a Subsystem |
+| Upstream | Cluster / Host (Operational) | Container runs within a Cluster |
+| Executes | Subsystem / Service (Technical) | Container executes a Subsystem |
 
 ## Example
 

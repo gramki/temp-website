@@ -1,7 +1,7 @@
 # Product Intent
 
 **Model:** Definition Model and Work Model bridge
-**Dimension:** Dimension 1: The Strategy Dimension
+**Dimension:** Strategy
 **Owner:** Product Management
 
 ## Definition
@@ -99,17 +99,17 @@ Formed -> Accepted -> In Specification -> Specified -> In Evolution -> Delivered
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Product Decision Record (Dim 1) | A Go or Pivot PDR may create one or more Product Intents |
-| Upstream | Discovery Case (Track 1) | A Discovery Case may create Discovery Support Product Intent or produce PDRs that create Evolution Product Intent |
-| Upstream | Problem / Need / Opportunity (Dim 1) | Product Intent traces to source Signals through its decision chain |
-| Upstream | Idea (Dim 1) | Product Intent may trace to one or more validated or pivoted Ideas |
-| Context | Objective (Dim 1) | Product Intent may advance Objective(s) |
-| Context | Initiative (Dim 1) | Product Intent may advance Initiative(s), but it is not limited to Initiative-sourced decisions |
-| Context | Customer Release Intent (Dim 1) | Product Intent may contribute to a Customer Release Intent |
+| Upstream | Product Decision Record (Strategy) | A Go or Pivot PDR may create one or more Product Intents |
+| Upstream | Discovery Case (Discovery) | A Discovery Case may create Discovery Support Product Intent or produce PDRs that create Evolution Product Intent |
+| Upstream | Problem / Need / Opportunity (Strategy) | Product Intent traces to source Signals through its decision chain |
+| Upstream | Idea (Strategy) | Product Intent may trace to one or more validated or pivoted Ideas |
+| Context | Objective (Strategy) | Product Intent may advance Objective(s) |
+| Context | Initiative (Strategy) | Product Intent may advance Initiative(s), but it is not limited to Initiative-sourced decisions |
+| Context | Customer Release Intent (Strategy) | Product Intent may contribute to a Customer Release Intent |
 | Context | Business / Customer Value entities (Dims 2-3) | Product Intent may target Win Outcomes, Business KPIs, Customer Promises, or Customer Value Metrics |
-| Downstream | PSD (Dim 1) | PSDs refine Product Intent into module-scoped build contracts |
-| Work Model | Specification Task (Track 1) | Specification Tasks refine Product Intent by authoring or revising PSDs |
-| Work Model | Epic (Track 2) | Approved PSDs decompose into Epics that execute the intent |
+| Downstream | PSD (Strategy) | PSDs refine Product Intent into module-scoped build contracts |
+| Work Model | Specification Task (Discovery) | Specification Tasks refine Product Intent by authoring or revising PSDs |
+| Work Model | Epic (Build) | Approved PSDs decompose into Epics that execute the intent |
 | Work Model | Prototype / Spike or Technical Task (Track 1 / Track 2) | Discovery Support and Technical Validation intents may request bounded Build evidence work |
 | ACE | Workspace transitions | Product Intent is routed across Workspaces and governed on every transition |
 

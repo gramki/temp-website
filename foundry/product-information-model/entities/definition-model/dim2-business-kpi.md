@@ -1,7 +1,7 @@
 # Business KPI
 
 **Model:** Definition Model
-**Dimension:** Dimension 2: The Vendor Value Dimension (Why It Wins)
+**Dimension:** Vendor Value
 **Owner:** Product Marketing, Executive Leadership, Finance
 
 ## Definition
@@ -10,10 +10,10 @@ A quantitative measure of the product's commercial health at a specific AAARRR s
 
 ## Purpose
 
-Analogous to Customer Value Metric (Dim 3), which measures whether the product keeps its promises to customers. Business KPI measures whether the product delivers on the vendor's commercial expectations. Without Business KPIs with teeth:
+Analogous to Customer Value Metric (Customer Value), which measures whether the product keeps its promises to customers. Business KPI measures whether the product delivers on the vendor's commercial expectations. Without Business KPIs with teeth:
 - Win Outcomes are aspirational statements without measurable evidence
-- Opportunities (Dim 1) reference vague "business improvement" rather than specific KPI targets
-- Initiative targets have no Dim 2 anchor to calibrate against
+- Opportunities (Strategy) reference vague "business improvement" rather than specific KPI targets
+- Initiative targets have no Vendor Value anchor to calibrate against
 
 **AAARRR staging:** Each Business KPI is tagged to an AAARRR stage, making it possible to diagnose *where* in the vendor lifecycle the product is underperforming. "Revenue is down" is a symptom; "Acquisition CAC is 2x target while Activation rate is healthy" is a diagnosis.
 
@@ -26,12 +26,12 @@ Analogous to Customer Value Metric (Dim 3), which measures whether the product k
 | Name | String | Metric name (e.g., "Customer Acquisition Cost") |
 | AAARRR Stage | Enum | `Awareness` / `Acquisition` / `Activation` / `Retention` / `Revenue` / `Referral` |
 | Type | Enum | `Revenue` / `Cost` / `Activity` |
-| Customer Segment | Reference (Dim 3) | Which segment this KPI target applies to (may differ per segment) |
+| Customer Segment | Reference (Customer Value) | Which segment this KPI target applies to (may differ per segment) |
 | Target | Text | The goal value (e.g., "< $25K", "95%", "$500K") |
 | Threshold | Text | The minimum acceptable value / alert threshold (e.g., "$40K — above this, deal is unprofitable") |
 | Measurement Cadence | Enum | `Daily` / `Weekly` / `Monthly` / `Quarterly` / `Annually` |
 | Owner | String | Role/person accountable for this KPI |
-| Win Outcome(s) evidenced | List of References (Dim 2) | Which Win Outcomes this KPI measures |
+| Win Outcome(s) evidenced | List of References (Vendor Value) | Which Win Outcomes this KPI measures |
 | _Other fields to be refined._ | | |
 
 ## Statuses
@@ -42,12 +42,12 @@ _Not applicable — Business KPI is a metric definition. Targets may be revised 
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Evidences | Win Outcome (Dim 2) | Business KPI measures whether Win Outcomes are achieved |
-| Scoped to | Customer Segment (Dim 3) | KPI targets may differ per segment |
-| Referenced by | Opportunity (Dim 1) | Opportunity Signals may target improvement of a Business KPI |
-| Tracked by | Initiative (Dim 1) | Initiative embedded targets operationalize Business KPIs |
-| Assessed by | Win Review (Track 4) | Win Reviews assess Business KPI progress |
-| Context | Business Model (Dim 2) | Business Model determines which KPIs are relevant |
+| Evidences | Win Outcome (Vendor Value) | Business KPI measures whether Win Outcomes are achieved |
+| Scoped to | Customer Segment (Customer Value) | KPI targets may differ per segment |
+| Referenced by | Opportunity (Strategy) | Opportunity Signals may target improvement of a Business KPI |
+| Tracked by | Initiative (Strategy) | Initiative embedded targets operationalize Business KPIs |
+| Assessed by | Win Review (Win) | Win Reviews assess Business KPI progress |
+| Context | Business Model (Vendor Value) | Business Model determines which KPIs are relevant |
 
 ## KPI Types with Examples
 

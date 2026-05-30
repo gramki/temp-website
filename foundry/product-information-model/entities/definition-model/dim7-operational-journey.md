@@ -1,12 +1,12 @@
 # Operational Journey
 
 **Model:** Definition Model
-**Dimension:** Dimension 7: The Operational Dimension (Runtime & DevOps)
+**Dimension:** Operational
 **Owner:** Engineering Leadership, Platform Engineering
 
 ## Definition
 
-The end-to-end path an Operational Persona follows to accomplish an Operational Job, traversing operational modules and integration modules. Operational Journeys trace through both native operational modules (admin consoles, deployment dashboards, CLIs) and integration modules to third-party ops tooling (Datadog, PagerDuty, Terraform). Independent from User Journey (Dim 4) — same structural concept, different domain.
+The end-to-end path an Operational Persona follows to accomplish an Operational Job, traversing operational modules and integration modules. Operational Journeys trace through both native operational modules (admin consoles, deployment dashboards, CLIs) and integration modules to third-party ops tooling (Datadog, PagerDuty, Terraform). Independent from User Journey (User Experience) — same structural concept, different domain.
 
 The Operational Journey captures the path through the product's modules only. The broader operational workflow (including external tools not integrated via the product, human communication protocols, escalation procedures) is Operating Model territory.
 
@@ -24,24 +24,24 @@ Without Operational Journeys:
 | Field | Type | Description |
 |---|---|---|
 | Name | Text | Descriptive journey name (e.g., "Diagnose and resolve a SEV-1 incident") |
-| Accomplishes | Reference (Dim 7) | Which Operational Job(s) this journey accomplishes |
-| Followed by | List of References (Dim 7) | Which Operational Persona(s) follow this journey |
-| Traverses | List of References (Dim 8) | Which Module(s) are traversed (in order) |
-| UX Channel(s) | List of References (Dim 4) | Through which UX Channels the journey is experienced |
-| Capabilities Engaged | List of References (Dim 8) | Which Capabilities are exercised during the journey |
-| Integration Modules Used | List of References (Dim 6) | Which Integration Modules to third-party ops tools are used |
+| Accomplishes | Reference (Operational) | Which Operational Job(s) this journey accomplishes |
+| Followed by | List of References (Operational) | Which Operational Persona(s) follow this journey |
+| Traverses | List of References (Structural) | Which Module(s) are traversed (in order) |
+| UX Channel(s) | List of References (User Experience) | Through which UX Channels the journey is experienced |
+| Capabilities Engaged | List of References (Structural) | Which Capabilities are exercised during the journey |
+| Integration Modules Used | List of References (Ecosystem) | Which Integration Modules to third-party ops tools are used |
 
 ## Relationships
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Accomplishes | Operational Job (Dim 7) | Journey accomplishes one or more Operational Jobs |
-| Followed by | Operational Persona (Dim 7) | Operational Personas follow this journey |
-| Traverses | Module (Dim 8) | Journey traverses operational modules in sequence |
-| Experienced through | UX Channel (Dim 4) | Cross-dimensional: journey steps use specific channels |
-| Engages | Capability (Dim 8) | Journey exercises specific capabilities |
-| Uses | Integration Module (Dim 6) | Journey steps may use integration modules to third-party ops tools |
-| Work Model | Modeling Task (Track 1) | Operational Journeys are documented through Modeling Tasks |
+| Accomplishes | Operational Job (Operational) | Journey accomplishes one or more Operational Jobs |
+| Followed by | Operational Persona (Operational) | Operational Personas follow this journey |
+| Traverses | Module (Structural) | Journey traverses operational modules in sequence |
+| Experienced through | UX Channel (User Experience) | Cross-dimensional: journey steps use specific channels |
+| Engages | Capability (Structural) | Journey exercises specific capabilities |
+| Uses | Integration Module (Ecosystem) | Journey steps may use integration modules to third-party ops tools |
+| Work Model | Modeling Task (Discovery) | Operational Journeys are documented through Modeling Tasks |
 
 ## Example
 

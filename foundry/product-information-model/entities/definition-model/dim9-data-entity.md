@@ -1,7 +1,7 @@
 # Data Entity
 
 **Model:** Definition Model
-**Dimension:** Dimension 9: The Data & Information Dimension (State & Flow)
+**Dimension:** Data
 **Owner:** Enterprise Architects, Developers
 
 ## Definition
@@ -28,9 +28,9 @@ Defines the information the system persists. Data Entities contain Attributes/Fi
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Data Domain (Dim 9) | Entity belongs to a Data Domain |
-| Contains | Attribute / Field (Dim 9) | Entity contains Attributes |
-| Governed by | State (Dim 9) | Entity progresses through States |
+| Upstream | Data Domain (Data) | Entity belongs to a Data Domain |
+| Contains | Attribute / Field (Data) | Entity contains Attributes |
+| Governed by | State (Data) | Entity progresses through States |
 
 ## Example
 

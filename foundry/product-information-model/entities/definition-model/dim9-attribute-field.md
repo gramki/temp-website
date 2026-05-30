@@ -1,7 +1,7 @@
 # Attribute / Field
 
 **Model:** Definition Model
-**Dimension:** Dimension 9: The Data & Information Dimension (State & Flow)
+**Dimension:** Data
 **Owner:** Developers, Business Analysts
 
 ## Definition
@@ -26,7 +26,7 @@ _Not applicable — structural descriptor._
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Data Entity (Dim 9) | Attribute belongs to a Data Entity |
+| Upstream | Data Entity (Data) | Attribute belongs to a Data Entity |
 
 ## Example
 

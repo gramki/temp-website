@@ -1,7 +1,7 @@
 # State
 
 **Model:** Definition Model
-**Dimension:** Dimension 9: The Data & Information Dimension (State & Flow)
+**Dimension:** Data
 **Owner:** Business Analysts, Developers
 
 ## Definition
@@ -26,7 +26,7 @@ _Not applicable — State itself defines statuses for Data Entities, not for its
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Governs | Data Entity (Dim 9) | State defines the lifecycle of a Data Entity |
+| Governs | Data Entity (Data) | State defines the lifecycle of a Data Entity |
 
 ## Example
 

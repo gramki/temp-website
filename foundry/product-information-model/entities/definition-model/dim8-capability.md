@@ -1,7 +1,7 @@
 # Capability
 
 **Model:** Definition Model
-**Dimension:** Dimension 8: The Structural Dimension (Topology)
+**Dimension:** Structural
 **Owner:** Enterprise Architects, Business Analysts
 
 ## Definition
@@ -19,7 +19,7 @@ Provides the mid-level taxonomy between Module and Feature. Capabilities represe
 | Name | String | Capability name (e.g., "Real-Time FX Rate Lock," "Cross-Border B2B Payments") |
 | Description | Text | What this Capability enables — outcome-focused, 1–3 sentences |
 | Capability Template | Enum | PM specification guide for this Capability: `Experience` (user interaction focus) / `Integration` (programmatic API focus) / `Processing` (background computation focus). See psd-templates/ for template content. |
-| Module | Reference (Dim 8) | The Module this Capability belongs to |
+| Module | Reference (Structural) | The Module this Capability belongs to |
 | Maturity | Enum | How proven this Capability is: `Alpha` (early, experimental) / `Beta` (limited availability, stabilizing) / `Gamma` (proven, stable). Independent of Lifecycle Stage. A GA Module may contain Alpha Capabilities. |
 | Lifecycle Stage | Enum | Where in the usage lifecycle: `Planned` (not yet available) / `Available` (customers can use it) / `Deprecated` (available but actively discouraged, replacement exists) / `Retired` (no longer available). Independent of Maturity. |
 
@@ -31,11 +31,11 @@ Provides the mid-level taxonomy between Module and Feature. Capabilities represe
 
 | Direction | Related Entity | Relationship |
 |---|---|---|
-| Upstream | Module (Dim 8) | Capability belongs to a Module |
-| Contains | Feature(s) (Dim 8) | Capability contains Features |
-| Mapped to | System(s) (Dim 5) | Capability is mapped to one or more Systems by the Architect (many-to-many, Architect-defined — D12) |
-| Engaged by | Value Stream(s) (Dim 8) | Value Streams engage Capabilities at steps in the flow |
-| Specified in | Product Specification Document (Dim 1) | PSDs add, modify, or retire this Capability |
+| Upstream | Module (Structural) | Capability belongs to a Module |
+| Contains | Feature(s) (Structural) | Capability contains Features |
+| Mapped to | System(s) (Technical) | Capability is mapped to one or more Systems by the Architect (many-to-many, Architect-defined — D12) |
+| Engaged by | Value Stream(s) (Structural) | Value Streams engage Capabilities at steps in the flow |
+| Specified in | Product Specification Document (Strategy) | PSDs add, modify, or retire this Capability |
 | Templated by | Capability Template (psd-templates/) | PM uses a Capability Template to specify this Capability in a PSD |
 
 ## Example
