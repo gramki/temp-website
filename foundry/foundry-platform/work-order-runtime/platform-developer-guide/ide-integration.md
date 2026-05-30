@@ -52,6 +52,9 @@ The WO Runtime VS Code plugin provides these components:
 | **WO Detail + Task Tree tab** (editor) | Web-app-style WO detail + folder-style task tree | Read tree payload; click row opens output tab |
 | **Agent Output Tabs** (editor) | Live or read-only chat/terminal transcript per agent session | Bidirectional when live (User ↔ Agent); read-only when completed |
 | **Task Association Prompt** | Modal when starting agent outside task context | Builder selects Human Task or Personal Work |
+| **Foundry Workspace Panel** (sidebar) | Workspace/workbench metadata, quick links, WO Runtime settings | Read/write settings via WO Runtime API |
+| **Workspace Explorer** | Multi-root folder tree for session layout | Read folder manifest; read-only badges |
+| **Create Scenario** (command) | Scaffold user-catalog scenario folder | POST scaffold API; opens Scenario Editor |
 
 Legacy bottom-panel terminal tabs (AGENT TERMINAL, TERMINAL, OUTPUT) remain for ambient CLI output; primary agent interaction is in editor tabs.
 
@@ -241,6 +244,116 @@ WO Runtime → spawns harness with task or Personal Work context
 ```
 
 WO Runtime SHALL NOT pre-select a pending Human Task.
+
+## Workspace Folder Protocol
+
+On session ready, the IDE requests the folder manifest (WOR-FR-0044):
+
+```
+IDE → GET /workspace/folders
+WO Runtime → {
+  root: "$HOME/checkout-dev/",
+  folders: [
+    { path: "workbench-knowledge/", writable: false, label: "Workbench Knowledge" },
+    { path: "user-work-catalog/", writable: true, label: "User Work Catalog" },
+    { path: "workspace-work-catalog/", writable: false, label: "Effective Catalog" },
+    { path: "work-orders/WO-1234/", writable: true, workOrderId: "WO-1234", children: ["repos/", "work-context/"] }
+  ]
+}
+```
+
+The IDE registers VS Code workspace folders from this manifest. When a new WO is assigned, WO Runtime pushes `WorkspaceFolderEvent` so the IDE adds `work-orders/WO-{id}/` without restarting the session.
+
+Clone and branch status per repo:
+
+```
+IDE → GET /wo/{workOrderId}/repos
+WO Runtime → {
+  repos: [
+    { name: "checkout-api", path: "work-orders/WO-1234/repos/checkout-api/", branch: "wo/WO-1234", cloneState: "ready", pushPending: false }
+  ]
+}
+```
+
+## Foundry Workspace Panel Protocol
+
+Panel data is loaded at session start and on metadata change:
+
+```
+IDE → GET /workspace/metadata
+WO Runtime → {
+  workspace: { id, name, type, environment },
+  workbench: { id, name, teamSummary, productScope },
+  quickLinks: [
+    { type: "repo", label: "checkout-intent", path: "workbench-knowledge/..." },
+    { type: "external", label: "Jira", url: "https://..." }
+  ],
+  settings: {
+    defaultCapableAgent: "cursor-agent",
+    workContextSyncIntervalSeconds: 60,
+    approvalPolicy: "inline"
+  }
+}
+```
+
+Settings updates:
+
+```
+IDE → PATCH /workspace/settings { workContextSyncIntervalSeconds: 120 }
+WO Runtime → { ok: true, settings: { ... } }
+```
+
+## Create Scenario API
+
+Scaffold is builder-initiated; no WO context required (IDE-UX-097):
+
+```
+IDE → POST /catalog/scenarios/scaffold
+  {
+    name: "my-feature-flow",
+    scope: "workspace-ingress",
+    track: "build",
+    oiType: "feature",
+    workspace: "development",
+    parentScenario: "implement-feature"
+  }
+WO Runtime → {
+  folderPath: "user-work-catalog/work-catalog/build/feature/development/scenarios/my-feature-flow/",
+  files: ["scenario.yaml", "skilled-agent.yaml", "agent-skill.md"]
+}
+```
+
+WO Runtime validates schema references before write. Git commit/push to `user-work-catalog-{userId}/` is handled by the catalog publish flow, not this endpoint.
+
+## work-context Sync Protocol
+
+Sync status for Explorer decoration (IDE-UX-104):
+
+```
+IDE → GET /wo/{workOrderId}/work-context/sync
+WO Runtime → {
+  lastSyncAt: "2026-05-30T10:00:00Z",
+  oiId: "OI-456",
+  trigger: "event",
+  pendingChanges: false,
+  manifestPath: "work-context/.sync/manifest-2026-05-30T10-00-00Z.json"
+}
+```
+
+WO Runtime pushes `WorkContextSyncEvent` to the IDE when a sync completes:
+
+```json
+{
+  "workOrderId": "WO-1234",
+  "oiId": "OI-456",
+  "lastSyncAt": "2026-05-30T10:05:00Z",
+  "added": ["specifications/auth-requirements.md"],
+  "updated": [],
+  "removed": []
+}
+```
+
+Event-driven updates (WOR-FR-0055) originate from Orchestrator or internal task-completion hooks; polling (WOR-FR-0056) runs on the configured interval from Foundry Workspace Panel settings.
 
 ## Read Next
 

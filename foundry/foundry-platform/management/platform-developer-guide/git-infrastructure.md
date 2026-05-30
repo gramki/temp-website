@@ -536,6 +536,53 @@ Mapping between Git repositories and UPIM conceptual repositories.
 
 ---
 
+## WO Branch Management
+
+When WO Runtime provisions Work Orders under [Workspace Folder Management](../../work-order-runtime/platform-developer-guide/requirements.md#workspace-folder-management), product repositories use an isolated branch per WO (Model B: clone per WO).
+
+### Branch naming
+
+| Element | Convention |
+|---------|------------|
+| Branch name | `wo/WO-{id}` (e.g. `wo/WO-1234`) |
+| Scope | One branch per cloned repo under `work-orders/WO-{id}/repos/` |
+| Base | Session default branch (typically `main`) at clone time |
+
+### Workspace-type to repos
+
+WO Runtime selects repos to clone per workspace type (see WOR-FR-0049). Git Infrastructure does not duplicate clone logic — this table aligns Management inventory with Runtime behavior:
+
+| Workspace Type | Typical product repos |
+|----------------|----------------------|
+| Product Specification | `{product}-intent`, `{product}-design` |
+| Development | `{product}-design`, all `{product}-{component}` Code repos in workbench scope |
+| QA | Code repos (read), `{product}-tests` (Quality) |
+| UX Design | `{product}-design` |
+| Release | Intent, Design, subset of Code per policy |
+| Governance | Usually none under `repos/`; knowledge from `workbench-knowledge/` |
+
+### Conditional push policy
+
+| Condition | Action |
+|-----------|--------|
+| WO reaches terminal state, repo has no commits beyond branch creation | Do not push `wo/WO-{id}` to remote |
+| WO reaches terminal state, repo has unpushed commits | Push `wo/WO-{id}` to origin |
+| Push succeeded with changes | Open PR (one per changed repo) |
+
+PR titles and bodies SHOULD reference WO ID and Orchestration Item for traceability. Multi-repo WOs may produce multiple PRs; merging is coordinated by the builder or release process, not atomic across repos.
+
+### Cleanup and archival
+
+| Phase | Policy |
+|-------|--------|
+| Active WO | `work-orders/WO-{id}/` retained on session volume |
+| Post-terminal | Remote branches and PRs follow team git policy |
+| Retention elapsed | WO Runtime may remove local `work-orders/WO-{id}/`; Git history remains on remote where pushed |
+
+Concurrent WOs on the same session MUST use separate `wo/WO-{id}` branches; builders MUST NOT share a single working tree across WOs for the same product repo.
+
+---
+
 ## Backup and Recovery
 
 ### Definition Repositories
