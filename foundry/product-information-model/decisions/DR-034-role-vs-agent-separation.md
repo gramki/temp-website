@@ -5,7 +5,7 @@
 
 ## Context
 
-The UPIM has persona/stakeholder entities across four dimensions: Win Stakeholder (Dim 2), User Persona (Dim 4), Developer Persona and Programmatic User Persona (Dim 6), and Operational Persona (Dim 7). Simultaneously, the Workforce Repository (WFR, formerly AWR) tracks agents who do work, and work items reference both "who should do this" (role) and "who is doing this" (agent).
+The UPIM has persona/stakeholder entities across four dimensions: Win Stakeholder (Vendor Value), User Persona (User Experience), Developer Persona and Programmatic User Persona (Ecosystem), and Operational Persona (Operational). Simultaneously, the Workforce Repository (WFR, formerly AWR) tracks agents who do work, and work items reference both "who should do this" (role) and "who is doing this" (agent).
 
 Without a clear separation, "Pre-Sales Engineer" could mean either "the product's commercial model requires this function" (a product definition concern) or "John Smith is assigned to this Win Case" (a workforce concern). This ambiguity affects entity ownership, repository placement, and relationship modeling.
 
@@ -13,7 +13,7 @@ Without a clear separation, "Pre-Sales Engineer" could mean either "the product'
 
 ### D1: Roles are Definition Model entities
 
-Win Stakeholder (Dim 2), User Persona (Dim 4), Developer Persona (Dim 6), Programmatic User Persona (Dim 6), and Operational Persona (Dim 7) are all **role definitions** in the Definition Model. They describe *what* a role is — responsibilities, JTBD, outcomes, barriers, frictions, journeys. They are abstract, durable, and product-scoped.
+Win Stakeholder (Vendor Value), User Persona (User Experience), Developer Persona (Ecosystem), Programmatic User Persona (Ecosystem), and Operational Persona (Operational) are all **role definitions** in the Definition Model. They describe *what* a role is — responsibilities, JTBD, outcomes, barriers, frictions, journeys. They are abstract, durable, and product-scoped.
 
 **Rationale:** These entities describe what the product *requires* to succeed (a Pre-Sales Engineer function, a Merchant Admin persona, an SRE operator role) — not specific people. This is a product definition concern that belongs in the Definition Model alongside other structural descriptions of what the product is.
 
@@ -29,7 +29,7 @@ Specific people or AI agents who fulfill roles are tracked in the Workforce Repo
 
 WFR's internal structure includes:
 - **Agent Registry:** Identity, type (human/AI), contact/endpoint, onboarding status
-- **Role Binding:** Which Definition Model roles an agent is qualified for and currently assigned to (references Dim 2, 4, 6, 7 role entities)
+- **Role Binding:** Which Definition Model roles an agent is qualified for and currently assigned to (references Vendor Value, User Experience, Ecosystem, Operational role entities)
 - **Skills & Capabilities:** Certifications, domain expertise, tool proficiency
 - **Track Access:** Which tracks the agent can pick up work in
 - **Availability & Capacity:** Current workload, schedule, allocation
@@ -51,7 +51,7 @@ Customers, partners, prospects, and third-party developers are tracked in the Ex
 **Positive:**
 - Clear separation of concerns: Definition Model owns role descriptions, WFR owns agent-to-role bindings, WR owns work assignments
 - No ambiguity between "the product needs a Pre-Sales Engineer" and "John Smith is assigned"
-- Cross-dimensional pattern is explicit and consistent (Dim 2/4/6/7 all follow the same role-definition pattern)
+- Cross-dimensional pattern is explicit and consistent (Vendor Value/User Experience/Ecosystem/Operational all follow the same role-definition pattern)
 - WFR can be designed for workforce management without conflating product definition
 - ESR provides a clean, separate registry for external parties
 
@@ -64,9 +64,9 @@ Customers, partners, prospects, and third-party developers are tracked in the Ex
 
 | Dimension | Role Entity | What It Defines |
 |---|---|---|
-| Dim 2 (Vendor Value) | Win Stakeholder | Vendor-side roles in the AAARRR lifecycle |
-| Dim 4 (User-Centric) | User Persona | End-user roles with JTBD, journeys, channels |
-| Dim 6 (Ecosystem) | Developer Persona, Programmatic User Persona | External builder/consumer roles |
-| Dim 7 (Operations) | Operational Persona | Operator roles with operational jobs, journeys, pains |
+| Vendor Value | Win Stakeholder | Vendor-side roles in the AAARRR lifecycle |
+| User Experience | User Persona | End-user roles with JTBD, journeys, channels |
+| Ecosystem | Developer Persona, Programmatic User Persona | External builder/consumer roles |
+| Operational | Operational Persona | Operator roles with operational jobs, journeys, pains |
 
 All follow the pattern: **role defines** → **agent fulfills** → **work executes**.

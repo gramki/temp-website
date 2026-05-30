@@ -11,7 +11,7 @@ A gap analysis of the Win Track (and the Work Model generally) identified four a
 
 2. **Partner/channel work** — GTM and the lever portfolio mentioned "partnership execution" and "channel," but there were no work entities for partner-facing enablement or engagement. Products with partner/channel models have substantial Win Track work (partner onboarding, co-selling, partner enablement) that is distinct from internal sales enablement and customer engagement.
 
-3. **Revenue realization** — The Revenue AAARRR stage had Expansion Engagement (upsell/cross-sell) but lacked (a) operational work to ensure revenue is collected (billing, invoicing, collections, renewal processing) and (b) explicit revenue monitoring. Revenue realization is an essential signal for Dim 2; the Win Track is the right home for both commercial operations and revenue intelligence.
+3. **Revenue realization** — The Revenue AAARRR stage had Expansion Engagement (upsell/cross-sell) but lacked (a) operational work to ensure revenue is collected (billing, invoicing, collections, renewal processing) and (b) explicit revenue monitoring. Revenue realization is an essential signal for Vendor Value; the Win Track is the right home for both commercial operations and revenue intelligence.
 
 4. **PLG/self-service acknowledgment** — The model assumed human-mediated engagement. For segments where the Product lever dominates (self-service onboarding, free trial), the Win Track's role shifts from execution to monitoring + exception-based intervention. This needed to be acknowledged so that the same entities are interpreted correctly for PLG segments.
 
@@ -21,10 +21,10 @@ A gap analysis of the Win Track (and the Work Model generally) identified four a
 
 ### 1. Introduce monitoring as a work entity in all four tracks
 
-- **Track 1: Signal Monitoring** — Continuous tracking of signal pipeline health, discovery velocity, theme trends. Triggers: Prioritization re-evaluation, Signal creation, Deliberation scheduling.
-- **Track 2: Build Monitoring** — Continuous tracking of build health, quality metrics, velocity. Triggers: Bug creation, Maintenance Task, Release Planning adjustment.
-- **Track 3: System Monitoring** — Continuous tracking of infrastructure health, SLA/uptime, capacity. Triggers: Incident creation, Change Request, Capacity Planning adjustment.
-- **Track 4: Win Monitoring** — Continuous tracking of customer health, revenue metrics, competitive intelligence, Customer Promise fulfillment. Includes revenue monitoring. Triggers: Win Activity creation, Win Case escalation, Win Review preparation.
+- **Discovery: Signal Monitoring** — Continuous tracking of signal pipeline health, discovery velocity, theme trends. Triggers: Prioritization re-evaluation, Signal creation, Deliberation scheduling.
+- **Build: Build Monitoring** — Continuous tracking of build health, quality metrics, velocity. Triggers: Bug creation, Maintenance Task, Release Planning adjustment.
+- **Run: System Monitoring** — Continuous tracking of infrastructure health, SLA/uptime, capacity. Triggers: Incident creation, Change Request, Capacity Planning adjustment.
+- **Win: Win Monitoring** — Continuous tracking of customer health, revenue metrics, competitive intelligence, Customer Promise fulfillment. Includes revenue monitoring. Triggers: Win Activity creation, Win Case escalation, Win Review preparation.
 
 Each monitoring entity has scope, metrics tracked, thresholds/alerts, cadence, owner, and produces Alert/Trigger and Report/Dashboard artifacts.
 

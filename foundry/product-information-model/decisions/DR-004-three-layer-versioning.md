@@ -24,10 +24,10 @@ Introduce a four-level versioning model (three artifact tiers + one business ent
 
 | Layer | Entity | Nature | Versioning | Model Location |
 |---|---|---|---|---|
-| System level | **System Version** | Continuous CI/CD output per System (Dim 5) — atomic deployment unit | Semver | Work Model — Build Track artifact |
-| Module level | **Module Version** | Integration-verified composition of System Versions for a Module (Dim 8) — unit of integration verification | Semver | Work Model — Build Track artifact |
+| System level | **System Version** | Continuous CI/CD output per System (Technical) — atomic deployment unit | Semver | Work Model — Build Track artifact |
+| Module level | **Module Version** | Integration-verified composition of System Versions for a Module (Structural) — unit of integration verification | Semver | Work Model — Build Track artifact |
 | Product level | **Product Version** | Certified composition (BOM) of compatible Module Versions | Semver | Work Model — Build Track artifact |
-| Business level | **Customer Release Intent** | Named intended delivery of capabilities to customers | Named (no versions) | Definition Model — Dim 1 (Strategy) |
+| Business level | **Customer Release Intent** | Named intended delivery of capabilities to customers | Named (no versions) | Definition Model — Strategy |
 
 **Product Version uses a Bill of Materials (BOM)** with two facets:
 - **Declared BOM:** Compatible version ranges per Module Version (e.g., `Payments Module ^2.3.0`)
@@ -39,7 +39,7 @@ All three artifact tiers are **Work Model artifacts** (Build Track outputs) beca
 
 ## Rationale
 
-1. **System Version replaces the original "Module Version"** — the Build Track builds Systems (Dim 5), not Modules (Dim 8). `payments-service v2.3.3` is a System Version. Avoids PI acronym collision with SAFe, and correctly positions versions as continuous CI/CD results.
+1. **System Version replaces the original "Module Version"** — the Build Track builds Systems (Technical), not Modules (Structural). `payments-service v2.3.3` is a System Version. Avoids PI acronym collision with SAFe, and correctly positions versions as continuous CI/CD results.
 2. **Module Version as integration layer** — reduces the integration verification problem from O(n²) across all Systems to O(k) within each Module. Proves that Systems implementing a Module work together before Product-level certification.
 3. **Product Version solves real composition problems:**
    - **Integrity:** Which Module Versions are compatible with each other?
@@ -59,4 +59,4 @@ All three artifact tiers are **Work Model artifacts** (Build Track outputs) beca
 - **Negative:** Introduces Module Version (integration artifact) as an additional concept to manage. Organizations must invest in tooling to automate BOM assembly, integration verification, and Product-level certification.
 - **Negative:** Small/single-module products may find Product Version and Module Version unnecessary — they add value primarily for multi-module, multi-system products.
 - **Negative:** Cultural adoption required — teams must actually use Module Version and Product Version as their shared vocabulary, not just produce them as artifacts nobody references. The communication-bridge value depends on organizational buy-in.
-- **Negative:** Module boundary stability assumption — Module Versions are meaningful only if Module boundaries (Dim 8) are stable. Frequent Module restructuring destabilizes composition history.
+- **Negative:** Module boundary stability assumption — Module Versions are meaningful only if Module boundaries (Structural) are stable. Frequent Module restructuring destabilizes composition history.

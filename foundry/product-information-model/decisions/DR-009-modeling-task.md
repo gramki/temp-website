@@ -11,13 +11,13 @@ The Discovery Track originally produced two types of output:
 
 DR-037 later clarified that Product Intent sits between product decision and PSD refinement.
 
-However, discovery work frequently produces knowledge outputs that don't result in engineering specifications. When exploring a new market segment, a Product Manager must define Customer Segments (Dim 3), map Value Streams (Dim 8), document Compliance Posture (Dim 3), design Pricing Tiers (Dim 2), and define User Personas (Dim 4). This work is substantial, valuable, and distinct from PSD authoring — yet it had no representation in the Work Model.
+However, discovery work frequently produces knowledge outputs that don't result in engineering specifications. When exploring a new market segment, a Product Manager must define Customer Segments (Customer Value), map Value Streams (Structural), document Compliance Posture (Customer Value), design Pricing Tiers (Vendor Value), and define User Personas (User Experience). This work is substantial, valuable, and distinct from PSD authoring — yet it had no representation in the Work Model.
 
 Without an explicit work entity, this knowledge work was invisible to planning systems, untrackable, and often neglected in favor of "more tangible" PSD-oriented work.
 
 ## Decision
 
-Introduce **Modeling Task** as a Discovery Track work entity that produces updates to Definition Model entities in any dimension (Dims 2–9).
+Introduce **Modeling Task** as a Discovery Track work entity that produces updates to Definition Model entities in any dimension (Vendor Value, Customer Value, User Experience, Technical, Ecosystem, Operational, Structural, Data).
 
 Modeling Task sits alongside Research Task, Experiment, Prototype/Spike, and Specification Task as a co-equal Discovery Track work entity. It may be triggered by:
 - A PDR (decision affecting a dimension)
@@ -54,9 +54,9 @@ Research Tasks are investigation actions — interviews, competitive analysis, d
 - Definition Model updates are traceable to the discovery work that produced them
 - PMs can justify "we're investing in understanding, not just building"
 - Clean separation: Specification Task → engineering output, Modeling Task → knowledge output
-- Dims 2–9 are no longer "things that exist" but "things that are actively maintained through explicit work"
+- All dimensions are no longer "things that exist" but "things that are actively maintained through explicit work"
 
 ### Negative
 - One more work entity type in the Discovery Track (now six: Research Task, Experiment, Prototype/Spike, Specification Task, Modeling Task, plus the planning entities)
-- Teams must distinguish between Specification Task and Modeling Task scope — a PSD that also introduces a new Capability would need both a Specification Task (for the PSD) and a Modeling Task (for the Capability definition in Dim 8)
+- Teams must distinguish between Specification Task and Modeling Task scope — a PSD that also introduces a new Capability would need both a Specification Task (for the PSD) and a Modeling Task (for the Capability definition in Structural)
 - Modeling Tasks may feel "abstract" to teams accustomed to only tracking engineering work

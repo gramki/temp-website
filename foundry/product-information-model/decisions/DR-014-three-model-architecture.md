@@ -60,7 +60,7 @@ The single Operating Model:
 
 ### Why defer the internal structure?
 
-The Definition Model's 9 Dimensions and the Work Model's 4 Tracks earned their names through iterative modeling work. Naming the Operating Model's subdivisions before the content exists would be premature — like naming Dimension 3 "The ROI Dimension" before discovering it's really about the full buying committee, pain, promises, and adoption barriers.
+The Definition Model's 9 Dimensions and the Work Model's 5 Tracks earned their names through iterative modeling work. Naming the Operating Model's subdivisions before the content exists would be premature — like naming Customer Value "The ROI Dimension" before discovering it's really about the full buying committee, pain, promises, and adoption barriers.
 
 What we know today:
 - The Operating Model covers Coordination and Organization

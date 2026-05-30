@@ -1,4 +1,4 @@
-# DR-035: Dim 8 & PSD Structural Decisions — Module Functional Classification, Capability Templates, System/Component Redefinition, PSD Authorship Split
+# DR-035: Structural & PSD Decisions — Module Functional Classification, Capability Templates, System/Component Redefinition, PSD Authorship Split
 
 **Status:** Accepted
 **Date:** 2026-05-19
@@ -9,13 +9,13 @@
 
 Three overlapping design pressures converged in this session:
 
-1. **Dim 8 entity detailing.** The Module entity in Dim 8 carried an "archetype" field inherited from early architecture-oriented thinking (HI / Programmatic / Reactive). This taxonomy described *how* a module was built, not *what business function* it served. Customer-value-oriented classification was missing.
+1. **Structural entity detailing.** The Module entity in Structural carried an "archetype" field inherited from early architecture-oriented thinking (HI / Programmatic / Reactive). This taxonomy described *how* a module was built, not *what business function* it served. Customer-value-oriented classification was missing.
 
 2. **PSD authorship clarity gap.** The Product Specification Document had no formal partition of PM-authored vs. architect-authored sections, leading to uncertainty about scope, readiness gates, and who was responsible for what before a PSD could enter the Build Track.
 
-3. **Dim 5 System/Component inversion.** DR-024 defined System as "independently deployable technical unit" and Component as "significant architectural building block within a System." This inverted the operational reality: engineers deploy Systems (the whole), not individual Components. A Component in the real world (a container image, a Lambda package) is individually buildable but always deployed as part of its parent System. The DR-024 definitions had inadvertently elevated Components to deployment-unit status and conflated internal code building blocks with deployable artifacts.
+3. **Technical System/Component inversion.** DR-024 defined System as "independently deployable technical unit" and Component as "significant architectural building block within a System." This inverted the operational reality: engineers deploy Systems (the whole), not individual Components. A Component in the real world (a container image, a Lambda package) is individually buildable but always deployed as part of its parent System. The DR-024 definitions had inadvertently elevated Components to deployment-unit status and conflated internal code building blocks with deployable artifacts.
 
-These three design pressures were resolved together because the Dim 5 redefinition directly affects the PSD authorship split (architect-authored sections reference Dim 5 entities), and the Module Functional Classification feeds the PSD header. They are logically one decision set.
+These three design pressures were resolved together because the Technical redefinition directly affects the PSD authorship split (architect-authored sections reference Technical entities), and the Module Functional Classification feeds the PSD header. They are logically one decision set.
 
 ---
 
@@ -71,7 +71,7 @@ These three design pressures were resolved together because the Dim 5 redefiniti
 | **Integration** | API intent, consumer personas, SLO targets, contract shape, backward compatibility requirements |
 | **Processing** | Trigger/input, processing intent, data produced/consumed, SLA requirements, error handling expectations |
 
-**Rationale:** PM specifications need to be concrete, bounded, and actionable for architect review — but PMs should not be specifying technical architecture. The three templates establish what PMs *do* specify (functional intent, user impact, quality expectations) without requiring them to specify what belongs in the architect-authored sections (Dim 5/6/7/9 mapping). Decoupling from System Archetypes means the templates remain stable even when system architecture evolves.
+**Rationale:** PM specifications need to be concrete, bounded, and actionable for architect review — but PMs should not be specifying technical architecture. The three templates establish what PMs *do* specify (functional intent, user impact, quality expectations) without requiring them to specify what belongs in the architect-authored sections (Technical/Ecosystem/Operational/Data mapping). Decoupling from System Archetypes means the templates remain stable even when system architecture evolves.
 
 ---
 
@@ -90,7 +90,7 @@ These attributes are set independently. A GA Module may contain Alpha Capabiliti
 
 ### D7: Entitlement at Module level
 
-**Decision:** Pricing Tier (Dim 2) is linked to Module, not to Feature. Feature-level entitlement is explicitly out of scope for the Definition Model.
+**Decision:** Pricing Tier (Vendor Value) is linked to Module, not to Feature. Feature-level entitlement is explicitly out of scope for the Definition Model.
 
 **Rationale:** Entitlement at Feature granularity would require the Definition Model to track every commercial variation of every capability — a maintenance burden that belongs in billing systems, not in a product model. Module-level entitlement aligns with how products are actually sold (customers buy access to modules/products, not individual features). Feature-level entitlement is a pricing enforcement concern handled below the Definition Model waterline.
 
@@ -108,8 +108,8 @@ These attributes are set independently. A GA Module may contain Alpha Capabiliti
 - Epic decomposition proposal
 
 **Architect-Authored Zone (Technical Review phase):**
-- System mapping (Dim 5 — which Systems realize the Module)
-- Dim 5, Dim 6, Dim 7, Dim 9 sections (technical, ecosystem, operational, security mapping)
+- System mapping (Technical — which Systems realize the Module)
+- Technical, Ecosystem, Operational, Data sections (technical, ecosystem, operational, security mapping)
 
 **Gate — Approved status:** Both zones complete and signed off → Product Intent is sufficiently refined for Build Track entry
 
@@ -125,20 +125,20 @@ These attributes are set independently. A GA Module may contain Alpha Capabiliti
 
 ---
 
-### D10: Dim 5 System and Component redefined
+### D10: Technical System and Component redefined
 
-**Decision:** System and Component in Dim 5 are redefined as follows:
+**Decision:** System and Component in Technical are redefined as follows:
 
-**System** = a named operational grouping of Components. Versioned as a whole. Deployed as a whole by SRE/ops. Maps many-to-many to Dim 8 Modules.
+**System** = a named operational grouping of Components. Versioned as a whole. Deployed as a whole by SRE/ops. Maps many-to-many to Structural Modules.
 
 **Component** = an individual deployable artifact within a System (container image, Lambda package, frontend bundle). Independently buildable with its own artifact version. Not independently deployed to production — always deployed as part of its parent System.
 
 **Component Archetypes:**
 `API Service` / `Web Application` / `Event-Driven Worker` / `Batch Job` / `Data Store` / `Integration Adapter` / `Gateway` / `CLI/SDK`
 
-**Retired from Dim 5:** Internal code building blocks (FX Rate Calculator, Payment State Machine, etc.) are code-level concerns below the Definition Model waterline.
+**Retired from Technical:** Internal code building blocks (FX Rate Calculator, Payment State Machine, etc.) are code-level concerns below the Definition Model waterline.
 
-**Three deprecated Dim 5 files removed:** `dim5-subsystem.md`, `dim5-function-method.md`, `dim5-class-component.md` (previously deprecated by DR-024) are formally deleted.
+**Three deprecated Technical files removed:** `dim5-subsystem.md`, `dim5-function-method.md`, `dim5-class-component.md` (previously deprecated by DR-024) are formally deleted.
 
 **Rationale:** The DR-024 definitions inverted the operational reality. In practice, SRE/ops teams deploy Systems — they run a deployment pipeline that produces a versioned System artifact. Individual Components are not independently deployed to production; they are assembled into a System and deployed together. What was called "Component" in DR-024 (a "significant architectural building block") was an imprecise description that could include anything from a payment processor class to a container image. The redefinition anchors both entities to concrete operational realities: Systems are what you deploy; Components are what you build and assemble into Systems.
 
@@ -146,7 +146,7 @@ These attributes are set independently. A GA Module may contain Alpha Capabiliti
 
 ### D11: Module → System relationship (one-to-many)
 
-**Decision:** A Module (Dim 8) is realized by one or more Systems (Dim 5). This relationship is architect-defined.
+**Decision:** A Module (Structural) is realized by one or more Systems (Technical). This relationship is architect-defined.
 
 **Rationale:** A Module is a functional unit; a System is an operational deployment grouping. They are independent decompositions. A simple Module may map to a single System; a complex Module may span multiple Systems. The many-to-one direction (multiple Systems serving one Module) is the common case. Architect-defined means this mapping is captured during the Technical Review phase of PSD authorship (D8), not by PMs.
 
@@ -154,7 +154,7 @@ These attributes are set independently. A GA Module may contain Alpha Capabiliti
 
 ### D12: Capability → System relationship (many-to-many)
 
-**Decision:** Architects map Capabilities (and their constituent Features) to Systems (Dim 5) in a many-to-many relationship.
+**Decision:** Architects map Capabilities (and their constituent Features) to Systems (Technical) in a many-to-many relationship.
 
 **Rationale:** A Capability may be implemented by components across multiple Systems (e.g., a Payment Initiation capability that spans an API Service System and a Processing System). A System may implement capabilities from multiple Modules (shared infrastructure). This many-to-many mapping is the architect's primary artifact in the Technical Review phase and is what enables Build Track work to be scoped to the correct Systems.
 
@@ -183,19 +183,19 @@ These attributes are set independently. A GA Module may contain Alpha Capabiliti
 
 **Decision:** The following vocabulary rule is established and must be consistently applied across all UPIM documentation:
 
-- **Module** = the functional unit in Dim 8 (what the product does, from a PM/business perspective)
-- **System** = the operational deployment grouping in Dim 5 (what engineers build and SRE/ops deploy)
+- **Module** = the functional unit in Structural (what the product does, from a PM/business perspective)
+- **System** = the operational deployment grouping in Technical (what engineers build and SRE/ops deploy)
 
-**Alternatives considered and rejected for Dim 5:**
-- "Deployment Module" — ambiguates bare "Module" (which must unambiguously refer to Dim 8)
+**Alternatives considered and rejected for Technical:**
+- "Deployment Module" — ambiguates bare "Module" (which must unambiguously refer to Structural)
 - "Cluster" — carries infrastructure/Kubernetes connotation unrelated to functional grouping
 - "Service Group" / "Deployment Unit" — functional but clinical; lose the intuitive "system" sense
 
-**Alternatives considered and rejected for Dim 8:**
+**Alternatives considered and rejected for Structural:**
 - "Domain" — too conceptual; loses the product-feature connotation
-- Using "Module" for Dim 5 — would create a naming collision with the established Dim 8 term
+- Using "Module" for Technical — would create a naming collision with the established Structural term
 
-**Rationale:** Naming collisions in a layered model are a high tax — every reference to "module" becomes ambiguous. The Module/System pairing preserves the established Dim 8 vocabulary while giving Dim 5's operational grouping a name that is intuitive (a "system" is naturally understood as a running thing), distinct, and free of infrastructure over-connotation.
+**Rationale:** Naming collisions in a layered model are a high tax — every reference to "module" becomes ambiguous. The Module/System pairing preserves the established Structural vocabulary while giving Technical's operational grouping a name that is intuitive (a "system" is naturally understood as a running thing), distinct, and free of infrastructure over-connotation.
 
 ---
 
@@ -223,7 +223,7 @@ Feature-level entitlement would require the Definition Model to track every comm
 **Positive:**
 - Module Functional Classification gives PMs, commercial teams, and buyers a common vocabulary for describing what modules do
 - PSD authorship split eliminates the ambiguity about who owns which sections and creates a clean Build Track entry gate
-- Dim 5 System/Component redefinition aligns the model with operational reality — Systems are deployed; Components are built
+- Technical System/Component redefinition aligns the model with operational reality — Systems are deployed; Components are built
 - Capability Maturity and Lifecycle Stage as independent attributes enable accurate modeling of capability state without artificial constraints
 - Module-level entitlement keeps the Definition Model at the right abstraction level
 - Vocabulary rule (Module = functional; System = operational) reduces documentation ambiguity across all UPIM artifacts
@@ -245,4 +245,4 @@ Feature-level entitlement would require the Definition Model to track every comm
 |---|---|
 | DR-024 | D3 (System definition) and D8 (Component definition) superseded by D10 of this record |
 | DR-021 | D6 (Client-Distributed Deployment Topology), Consequence #3, and D4 (archetype classification language) amended by this record |
-| DR-026 | Note added: "System Version" semantically maps to what should be called "Component Version" under the new Dim 5 model; rename deferred to DR-036 |
+| DR-026 | Note added: "System Version" semantically maps to what should be called "Component Version" under the new Technical model; rename deferred to DR-036 |

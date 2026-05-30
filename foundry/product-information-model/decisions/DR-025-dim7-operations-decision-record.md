@@ -5,22 +5,22 @@
 
 ## Context
 
-The Definition Model had two formal decision record entities — PDR (Dim 1, product strategy decisions) and ADR (Dim 5, architectural/technical decisions) — but no equivalent for operational and infrastructure decisions. Significant operational decisions (cloud provider selection, deployment strategy, data governance policies, DR/BCP configuration, tenancy isolation, compliance zone setup, data archival) were either captured ad-hoc in ADRs (where they don't naturally belong), or remained undocumented tribal knowledge.
+The Definition Model had two formal decision record entities — PDR (Strategy, product strategy decisions) and ADR (Technical, architectural/technical decisions) — but no equivalent for operational and infrastructure decisions. Significant operational decisions (cloud provider selection, deployment strategy, data governance policies, DR/BCP configuration, tenancy isolation, compliance zone setup, data archival) were either captured ad-hoc in ADRs (where they don't naturally belong), or remained undocumented tribal knowledge.
 
-Dim 7 (Operational Dimension) already had an Infrastructure Model (root entity), Deployment Environments, Operational Targets, and Operational Constraints — but no entity to record *why* these were configured as they are. The Infrastructure Model says "Multi-region AWS SaaS" but doesn't explain why AWS was chosen over GCP, or why active-passive DR was selected over active-active. ADR says "Adopt event-driven architecture with Kafka" but doesn't record "AWS MSK over self-managed Kafka in 3-AZ deployment" — that's an operational decision, not an architectural one.
+Operational already had an Infrastructure Model (root entity), Deployment Environments, Operational Targets, and Operational Constraints — but no entity to record *why* these were configured as they are. The Infrastructure Model says "Multi-region AWS SaaS" but doesn't explain why AWS was chosen over GCP, or why active-passive DR was selected over active-active. ADR says "Adopt event-driven architecture with Kafka" but doesn't record "AWS MSK over self-managed Kafka in 3-AZ deployment" — that's an operational decision, not an architectural one.
 
 The PDR → ADR → ODR trigger chain was identified: product decisions (PDR) cascade to architectural decisions (ADR) which cascade to operational decisions (ODR). Each level has different decision makers, different governance, and different consequences. The boundary is clean: ADR = how it's *built* (design-time), ODR = how it's *run* (runtime/operational).
 
-Additionally, operational data governance decisions (retention periods, archival policies, encryption requirements, access control models) needed a home. These are operational decisions about data — distinct from Dim 9 (Data Domain), which will capture the *structural* data view (what data exists, domains, ownership, schema). The split: Dim 9 = what data the product manages; Dim 7/ODR = how that data is governed operationally.
+Additionally, operational data governance decisions (retention periods, archival policies, encryption requirements, access control models) needed a home. These are operational decisions about data — distinct from Data, which will capture the *structural* data view (what data exists, domains, ownership, schema). The split: Data = what data the product manages; Operational/ODR = how that data is governed operationally.
 
 ## Decisions
 
-### D1: Introduce ODR as a Dim 7 entity, completing the PDR / ADR / ODR triad
+### D1: Introduce ODR as an Operational entity, completing the PDR / ADR / ODR triad
 
-Operations Decision Record (ODR) is a formal, referenceable record of a significant operational or infrastructure decision. It is the Dim 7 counterpart of PDR (Dim 1) and ADR (Dim 5), completing the decision record triad:
-- **PDR:** What should the product *do*? (Strategy & Intent, Dim 1)
-- **ADR:** How should the product be *built*? (Architecture & Engineering, Dim 5)
-- **ODR:** How should the product be *run*? (Operations & Infrastructure, Dim 7)
+Operations Decision Record (ODR) is a formal, referenceable record of a significant operational or infrastructure decision. It is the Operational counterpart of PDR (Strategy) and ADR (Technical), completing the decision record triad:
+- **PDR:** What should the product *do*? (Strategy & Intent, Strategy)
+- **ADR:** How should the product be *built*? (Architecture & Engineering, Technical)
+- **ODR:** How should the product be *run*? (Operations & Infrastructure, Operational)
 
 ### D2: ODR scope — ten categories of operational decisions
 
@@ -35,15 +35,15 @@ ODR covers: Cloud Provider & Services, Deployment Strategy, Tenancy & Isolation,
 
 ### D4: ODR has dual provenance — Discovery and Run
 
-ODRs can be produced by both the Discovery Track (Deliberation-driven — strategic infrastructure planning like cloud provider selection) and the Run Track (operationally-driven — decisions emerging from operational experience, Post-Incident Reviews, capacity reviews). Both paths produce the same Dim 7 entity.
+ODRs can be produced by both the Discovery Track (Deliberation-driven — strategic infrastructure planning like cloud provider selection) and the Run Track (operationally-driven — decisions emerging from operational experience, Post-Incident Reviews, capacity reviews). Both paths produce the same Operational entity.
 
-### D5: Data governance and archival as ODR scope, not Dim 9
+### D5: Data governance and archival as ODR scope, not Data dimension
 
-Operational aspects of data (retention, archival, encryption, access control, backup policies) belong in ODR (Dim 7). Dim 9 (Data & Information) will capture the structural/domain view of data — what data exists, domain boundaries, ownership, schema. This maintains the Build-vs-Run split consistent with ADR (how data is structured) vs. ODR (how data is governed).
+Operational aspects of data (retention, archival, encryption, access control, backup policies) belong in ODR (Operational). Data will capture the structural/domain view of data — what data exists, domain boundaries, ownership, schema. This maintains the Build-vs-Run split consistent with ADR (how data is structured) vs. ODR (how data is governed).
 
 ## Rationale
 
-**Why not extend ADR to cover operational decisions?** ADR and ODR have different audiences (architect vs. SRE), different governance (architecture review vs. operations review), different dimensions (Dim 5 vs. Dim 7), and different scopes (design-time vs. runtime). Forcing operational decisions into ADR would overload the entity and blur the architecture/operations boundary. The same reasoning that justified separating PDR from ADR applies to separating ADR from ODR.
+**Why not extend ADR to cover operational decisions?** ADR and ODR have different audiences (architect vs. SRE), different governance (architecture review vs. operations review), different dimensions (Technical vs. Operational), and different scopes (design-time vs. runtime). Forcing operational decisions into ADR would overload the entity and blur the architecture/operations boundary. The same reasoning that justified separating PDR from ADR applies to separating ADR from ODR.
 
 **Why not just use PDR?** PDR is for product-level decisions (strategy, market, feature). "Archive transaction data after 24 months" and "Use MSK over self-managed Kafka" are not product decisions — they're operational decisions. Forcing them into PDR would dilute PDR's strategic focus and change its governance model.
 
@@ -61,12 +61,12 @@ Operational aspects of data (retention, archival, encryption, access control, ba
 - Run Track gains decision-making capability parallel to Build Track's ADR production
 
 **Negative:**
-- Adds one more entity to Dim 7 (now 10 entities)
+- Adds one more entity to Operational (now 10 entities)
 - The ADR/ODR boundary requires judgment — some decisions (e.g., "use Kafka") span both architecture and operations
 - ODR dual provenance (Discovery + Run) adds complexity to the artifact production model
 
 **Mitigations:**
-- Entity count (10) is proportional to Dim 7's domain complexity
+- Entity count (10) is proportional to Operational's domain complexity
 - ADR/ODR boundary guidance: ADR captures "what technology and why" (design-time); ODR captures "how to provision, configure, and govern it" (runtime). When in doubt, the decision should live where its primary audience is
 - Run Track ODR production will be detailed incrementally (same approach as Build Track ADR production)
 

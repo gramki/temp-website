@@ -1,11 +1,11 @@
-# DR-012: Dimension 3 Comprehensiveness Refinements — Buying Committee, Pain, Barrier Types
+# DR-012: Customer Value Comprehensiveness Refinements — Buying Committee, Pain, Barrier Types
 
 **Status:** Accepted
 **Date:** 2026-02-15
 
 ## Context
 
-A critical review of Dimension 3 (The Customer Value Dimension) identified several gaps in the model's comprehensiveness:
+A critical review of Customer Value identified several gaps in the model's comprehensiveness:
 
 1. **Narrow buyer representation.** Only the Economic Buyer (budget holder) was modeled. In enterprise B2B, a buying committee with multiple roles evaluates the product — Technical Buyer (integration/security), User Buyer (usability/adoption), Coach/Champion (internal advocacy). Deals often stall at non-economic evaluations.
 
@@ -25,12 +25,12 @@ A critical review of Dimension 3 (The Customer Value Dimension) identified sever
 
 The entity now has a `Role Type` field: Economic Buyer, Technical Buyer, User Buyer, Coach/Champion. Each role has different evaluation criteria, key concerns, and Pains they care about. One entity with role types (rather than four separate entities) keeps the model compact.
 
-### 2. Introduce Pain as a Dim 3 entity
+### 2. Introduce Pain as a Customer Value entity
 
 Pain captures user-level suffering in the current workflow:
-- **Endured by** User Persona (Dim 4) — who experiences it
-- **Cared about by** Buying Persona (Dim 3) — who is motivated to solve it
-- **Relieved by** Value Proposition (Dim 3) — how the product addresses it
+- **Endured by** User Persona (User Experience) — who experiences it
+- **Cared about by** Buying Persona (Customer Value) — who is motivated to solve it
+- **Relieved by** Value Proposition (Customer Value) — how the product addresses it
 
 This completes the JTBD mapping: Business Outcome (buyer's job) + Pain (user's suffering) → Value Proposition (value delivered).
 
@@ -57,14 +57,14 @@ TCO is acknowledged as a gap. The anchoring point (Customer Segment? Customer Pr
 ## Consequences
 
 ### Positive
-- Complete JTBD mapping (Buyer's Job → Business Outcome, User's Pain → Pain, Value delivered → VP, User's Job → User Journey Dim 4)
+- Complete JTBD mapping (Buyer's Job → Business Outcome, User's Pain → Pain, Value delivered → VP, User's Job → User Journey in User Experience)
 - Buying committee visibility — Technical Buyer and User Buyer influence is now capturable
-- Pain entity connects Dim 3 (buying logic) to Dim 4 (user experience) through User Persona
+- Pain entity connects Customer Value (buying logic) to User Experience through User Persona
 - Barrier analysis is richer — 8 types + explicit challenge to Customer Promises
 - Clean Definition/Work boundary for metrics
 
 ### Negative
-- Dim 3 now has 7 entities (up from 6) — one more than before, though still well-scoped
+- Customer Value now has 7 entities (up from 6) — one more than before, though still well-scoped
 - Buying Persona with 4 role types requires more upfront modeling work per segment
 - Pain granularity needs governance — too granular becomes a feature list, too abstract loses sales value
 - TCO remains unresolved (parked)

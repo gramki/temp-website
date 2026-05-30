@@ -1,11 +1,11 @@
-# DR-013: Dimension 1 Comprehensiveness Refinements
+# DR-013: Strategy Comprehensiveness Refinements
 
 **Status:** Accepted
 **Date:** 2026-02-15
 
 ## Context
 
-A critical review of Dimension 1 (The Strategy Dimension) identified several gaps:
+A critical review of Strategy identified several gaps:
 
 1. **Signal statuses undefined.** All three Signal entities had `_To be refined._` for statuses — no lifecycle, no way to track Signal progression.
 2. **Idea and PDR fields empty.** Both entities were shells — statuses and fields marked `_To be refined._`.
@@ -47,7 +47,7 @@ Deliberation added as an evidence/decision source.
 
 ### 7. PSD Section 3 updated
 
-Renamed to "Customer Value Impact (Dimension 3)." Now references Buying Persona (with role types), Pain implications, Customer Promise implications, Customer Value Metric (Target + SLA Threshold), and Adoption Barrier impact.
+Renamed to "Customer Value Impact." Now references Buying Persona (with role types), Pain implications, Customer Promise implications, Customer Value Metric (Target + SLA Threshold), and Adoption Barrier impact.
 
 ### 8. External Constraints field added to Objective and Initiative
 
@@ -55,7 +55,7 @@ Structured list field for regulatory deadlines, partnership timelines, competiti
 
 ### 9. Strategic Theme entity introduced
 
-Persistent, cross-cutting strategic direction across planning horizons. Scope: Portfolio (shared across products) or Product (local). Pursued through Objectives. Influences Customer Segments (Dim 3) and Capabilities/Value Streams (Dim 8). Status: Proposed → Active → Dormant → Retired. Optional on Objectives.
+Persistent, cross-cutting strategic direction across planning horizons. Scope: Portfolio (shared across products) or Product (local). Pursued through Objectives. Influences Customer Segments (Customer Value) and Capabilities/Value Streams (Structural). Status: Proposed → Active → Dormant → Retired. Optional on Objectives.
 
 ### 10. Portfolio thin entity introduced
 
@@ -75,13 +75,13 @@ Local reference entity — not owned by the UPIM. Provides traceable origin for 
 ## Consequences
 
 ### Positive
-- Dim 1 entities are now fully specified — no remaining `_To be refined._` placeholders for core fields/statuses
+- Strategy entities are now fully specified — no remaining `_To be refined._` placeholders for core fields/statuses
 - Complete traceability: Theme → Objective → Initiative → Signal → Idea → PDR → Product Intent → PSD
 - Signal progression is visible and queryable
 - PDR is a comprehensive knowledge artifact with full evidence chain
 - Portfolio-level strategic coordination is expressible without a separate portfolio model
 
 ### Negative
-- Dim 1 now has 11 entities (up from 9): +Portfolio, +Strategic Theme
+- Strategy now has 11 entities (up from 9): +Portfolio, +Strategic Theme
 - Signal lifecycle has 7 statuses — teams need to maintain status transitions
 - PDR's expanded scope (multi-Idea, Idea-free) requires clear guidance on when to create a PDR vs. when it's overkill
