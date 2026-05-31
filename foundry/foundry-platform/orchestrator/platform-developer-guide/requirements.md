@@ -56,8 +56,8 @@ Module-specific concepts (internals):
          │                         │                         │
          ▼                         ▼                         ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│      Jira       │    │  Message Queue  │    │   Management    │
-│  (REST + Hooks) │    │ (Kafka/RabbitMQ)│    │ (Metadata Svc)  │
+│      Jira       │    │    Atropos      │    │   Management    │
+│  (REST + Hooks) │    │   (Atropos)     │    │ (Metadata Svc)  │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
                               │
                               ▼
@@ -70,16 +70,20 @@ Module-specific concepts (internals):
 
 ### State Store (Postgres)
 
-Primary state persistence for workflow execution:
+Primary state persistence for workflow execution. **Not event sourcing** — current state is read from Postgres; every transition is also published to Atropos (emit-on-write). See [orchestrator-rules.md](../../../foundry-work-plan/phase-1/orchestrator-rules.md).
 
 | Table | Purpose |
 |-------|---------|
-| `orchestration_items` | Current state of each orchestration item |
+| `orchestration_items` | Current state, pinned `workflowVersion`, containment IDs |
 | `workflow_stages` | Current stage and pending handlers per item |
 | `work_orders` | WO tracking with labels and groups |
 | `wo_groups` | WO Group membership and completion tracking |
 | `transition_history` | Audit log of all state transitions |
 | `dlq_items` | Dead Letter Queue for failed actions |
+
+**ORC-FR-0047:** The Orchestrator SHALL persist workflow state in Postgres as the authoritative read model.
+
+**ORC-FR-0048:** After each committed state transition, the Orchestrator SHALL publish the corresponding event to Atropos per [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
 
 Jira is the secondary store for work items; Orchestrator reads AND writes to Jira.
 
@@ -119,8 +123,9 @@ Executes workflow actions:
 
 | Action | Implementation |
 |--------|----------------|
-| `create-work-order` | Jira REST API: create issue |
+| `create-work-order` | Jira REST API: create issue; publish to Atropos |
 | `create-work-order-group` | Create multiple WOs atomically, track group |
+| `create-orchestration-item` | Create OI on target track; link traceability; start workflow — see [orchestrator-rules.md](../../../foundry-work-plan/phase-1/orchestrator-rules.md) |
 | `create-user-task` | Jira REST API: create issue (User Task type) |
 | `transition-orchestration-item` | Jira REST API: transition issue status |
 | `invoke-governance-scenario` | Create governance WO, await verdict |
@@ -132,22 +137,29 @@ Exposes Orchestrator functionality to web console and IDE extensions.
 
 ---
 
-## Jira Integration
+## Work Repository integration (Jira adapter)
+
+Contract field names in Orchestrator APIs and events use `workRepo*` (see [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md)). The Jira adapter maps these to issue keys, projects, and custom fields.
 
 ### Bidirectional Communication
 
 | Direction | Mechanism | Use |
 |-----------|-----------|-----|
-| Jira → Orchestrator | Webhooks | Event notification |
-| Orchestrator → Jira | REST API | Create/update issues |
+| Work Repository → Orchestrator | Webhooks | Event notification |
+| Orchestrator → Work Repository | REST API | Create/update work items |
 
-### Jira Attributes (Custom Fields)
+### `foundry-*` labels and attributes
 
-| Attribute | Purpose |
-|-----------|---------|
+| Label / attribute | Purpose |
+|-------------------|---------|
+| `foundry-tenant-{foundryId}` | Foundry scope on shared projects |
+| `foundry-workshop-{workshopId}` | Workshop scope |
+| `foundry-workbench-{workbenchId}` | Workbench filter on shared projects |
+| `foundry-track-{track}` | Track affinity (`discovery`, `build`, …) |
+| `foundry-kind-{kind}` | Entity kind (`work-order`, `task`, …) |
+| `foundry-id-{entityId}` | Platform entity ID (e.g. `DC-89`, `PI-456`) |
 | `foundry-scenario` | Scenario identifier for the WO |
 | `foundry-task-workspace` | Workspace Session instance ID |
-| `foundry-workbench` | Workbench ID |
 | `foundry-orchestration-item` | Parent orchestration item ID |
 | `foundry-parent-wo` | Parent WO ID (for delegated tasks) |
 | `foundry-wo-label` | WO label for workflow correlation |
@@ -187,6 +199,16 @@ Workflow authoring permissions:
 **ORC-FR-0011:** Workshop Admins SHALL be able to define Workshop-level workflows that override Foundry workflows.
 
 **ORC-FR-0012:** Workbench Admins SHALL be able to define Workbench-level workflows that override Workshop workflows.
+
+### Workflow version pinning
+
+**ORC-FR-0049:** At OI creation, the Orchestrator SHALL pin `workflowVersion` and resolved catalog source on `orchestration_items`.
+
+**ORC-FR-0050:** In-flight OIs SHALL continue using the pinned workflow version when catalog defaults change.
+
+**ORC-FR-0051:** New OIs SHALL resolve the current effective workflow from the Work Catalog hierarchy.
+
+See [orchestrator-rules.md](../../../foundry-work-plan/phase-1/orchestrator-rules.md) and [oi-workflow-schema.md](../../management/platform-developer-guide/work-catalog-management/oi-workflow-schema.md#workflow-version-pinning).
 
 ### Event Matching
 
@@ -279,8 +301,10 @@ def on_wo_completed(wo):
 | Status | Meaning |
 |--------|---------|
 | `completed` | All WOs completed successfully |
-| `partial` | Some completed, some failed/abandoned |
+| `partial` | Some completed, some failed/abandoned — no auto-retry; manual review |
 | `failed` | All WOs failed |
+
+**ORC-FR-0052:** When a WO group reaches `partial` status, the Orchestrator SHALL NOT automatically create replacement WOs; operators MUST review and resolve manually.
 
 ---
 
@@ -288,21 +312,27 @@ def on_wo_completed(wo):
 
 ### Retry Policy
 
+Technical failures on **any action** MAY be retried with exponential backoff. Work-completion outcomes MUST NOT be auto-retried. See [orchestrator-rules.md](../../../foundry-work-plan/phase-1/orchestrator-rules.md).
+
 **ORC-NFR-0001:** For Jira API timeouts, the Orchestrator SHALL retry with exponential backoff (1s, 2s, 4s, 8s, 16s).
 
 **ORC-NFR-0002:** For Jira API 5xx errors, the Orchestrator SHALL retry with exponential backoff and jitter.
 
 **ORC-FR-0023:** For Jira API 4xx errors, the Orchestrator SHALL NOT retry (client error).
 
-**ORC-NFR-0003:** For message queue and database failures, the Orchestrator SHALL retry with exponential backoff.
+**ORC-NFR-0003:** For Atropos delivery and database failures, the Orchestrator SHALL retry with exponential backoff.
+
+**ORC-FR-0053:** The Orchestrator SHALL NOT auto-retry or auto-re-execute based on WO completion status (`failed`), partial WO group outcomes, or governance rejection.
 
 | Failure Type | Retry Strategy |
 |--------------|----------------|
 | Jira API timeout | Exponential backoff: 1s, 2s, 4s, 8s, 16s |
 | Jira API 5xx | Exponential backoff with jitter |
-| Jira API 4xx | No retry (client error) |
-| Message queue failure | Retry with backoff |
+| Jira API 4xx | No retry (client error) → DLQ |
+| Atropos publish failure | Retry with backoff |
 | Database failure | Retry with backoff |
+| WO completed `status: failed` | No auto-retry — manual review |
+| WO group `partial` | No auto-retry — manual review |
 
 ### Dead Letter Queue (DLQ)
 
@@ -418,22 +448,15 @@ Release Intent is a separate orchestration item type:
 | Contains | List of tagged Product Intents |
 | Milestones | `product-specification-development-start`, `development-started`, etc. |
 
-### Milestone Events
+### Milestone initiation vs auto-tracking
 
-**ORC-FR-0036:** When a Release Intent milestone is set, the Orchestrator SHALL fire `release-intent-milestone-reached` for each tagged PI in `ready-for-specification` status.
+Phase 1 uses **manual milestone initiation** — the Program Manager sets Release Intent milestones explicitly. There is no scheduled/calendar automation. A PI enters `ready-for-specification` via manual draft approval (user task), not on a schedule.
 
-```python
-def on_release_intent_milestone(release_intent, milestone):
-    for pi in get_tagged_pis(release_intent):
-        if pi.status == 'ready-for-specification':
-            fire_event(
-                'release-intent-milestone-reached',
-                milestone=milestone,
-                orchestration_item=pi.id
-            )
-```
+**ORC-FR-0036:** When a Program Manager manually sets a Release Intent milestone, the Orchestrator SHALL fire `release-intent-milestone-reached` for each tagged PI in the matching wait stage (e.g. `ready-for-specification` for `product-specification-development-start`).
 
 ### Milestone Auto-Tracking
+
+The following milestones are **system-derived roll-ups** on the Release Intent when tagged PIs enter or complete stages — not scheduled triggers:
 
 **ORC-FR-0037:** The Orchestrator SHALL auto-set `development-started` when the first tagged PI enters Development.
 
@@ -503,9 +526,11 @@ def on_release_intent_milestone(release_intent, milestone):
 
 ### Orchestration Items
 
+Track-scoped routes (preferred for Web App): see [../../../foundry-work-plan/phase-1/api-surface.md](../../../foundry-work-plan/phase-1/api-surface.md).
+
 ```
 GET /api/v1/orchestration-items/{id}
-Response: { id, type, status, stage, workbench, created_at, updated_at }
+Response: { id, type, title, description, status, stage, workbench, workRepoKey, created_at, updated_at }
 
 GET /api/v1/orchestration-items/{id}/history
 Response: [ { timestamp, from_stage, to_stage, trigger, actor } ]
@@ -515,17 +540,17 @@ Body: { target_stage, justification }
 Response: { success, new_stage }
 
 GET /api/v1/orchestration-items?workbench={id}&status={status}
-Response: [ { id, type, status, stage, ... } ]
+Response: [ { id, type, title, description, status, stage, ... } ]
 ```
 
 ### Work Orders
 
 ```
 GET /api/v1/work-orders?orchestration-item={id}
-Response: [ { id, label, scenario, status, assignee, ... } ]
+Response: [ { id, label, title, description, scenario, status, assignee, ... } ]
 
 GET /api/v1/work-orders/{id}
-Response: { id, label, scenario, status, assignee, group, parent_wo, ... }
+Response: { id, label, title, description, scenario, status, assignee, workRepoKey, workRepoProject, group, parent_wo, ... }
 ```
 
 ### Workflows
@@ -569,13 +594,27 @@ Instance 2: Workbenches D, E, F
 Instance 3: Workbenches G, H, I
 ```
 
-### Message Queue Topics
+### Atropos event paths
 
-| Topic | Content |
-|-------|---------|
-| `orchestrator.events.{workbench}` | Inbound events for partition |
-| `orchestrator.wo-runtime` | Outbound to WO Runtime |
-| `orchestrator.dlq` | Dead letter items |
+Foundry events use [Atropos](https://atropos.olympus.tech/home/overview/) with tenant-first paths per [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md):
+
+```text
+/{foundry-id}/foundry.{module}.{event-semantic-name}
+```
+
+| Path (example) | Publisher | Consumer |
+|----------------|-----------|----------|
+| `/foundry-zeta/foundry.orchestrator.work-order-assigned` | Orchestrator | WO Runtime |
+| `/foundry-zeta/foundry.orchestrator.orchestration-item-created` | Orchestrator | Web App, Management |
+| `/foundry-zeta/foundry.orchestrator.governance-verdict-recorded` | Orchestrator | Web App, Management |
+| `/foundry-zeta/foundry.wo-runtime.work-order-completed` | WO Runtime | Orchestrator |
+| `/foundry-zeta/foundry.wo-runtime.work-order-failed` | WO Runtime | Orchestrator |
+| `/foundry-zeta/foundry.wo-runtime.task-blocked` | WO Runtime | Orchestrator |
+| `/foundry-zeta/foundry.session-management.session-activated` | Session Management | Orchestrator |
+
+Delivery is primarily **HTTP callbacks** registered with Atropos. Dead-letter items use path suffix `foundry.orchestrator.dlq-item` or platform DLQ policy.
+
+**Deprecated:** dot-notation topics `orchestrator.events.{workbench}`, `orchestrator.wo-runtime` — see migration table in event-contracts.md.
 
 ---
 
@@ -594,7 +633,7 @@ Instance 3: Workbenches G, H, I
 ### Logging
 
 Structured JSON logs with:
-- `correlation_id` — Traces across Orchestrator, Jira, WO Runtime
+- `correlationId` — Traces across Orchestrator, Work Repository adapter, WO Runtime (see [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md))
 - `orchestration_item_id`
 - `work_order_id`
 - `action`
@@ -636,7 +675,7 @@ Orchestrator coordinates with [Workspace Session Management](../../workspace-ses
 |------------|-------------|--------------|
 | Jira | REST API + Webhooks | Retry with backoff |
 | Management (Metadata Service) | REST API | Retry with backoff |
-| Message Queue | Kafka/RabbitMQ | Retry with backoff |
+| Atropos | HTTP publish + callbacks | Retry with backoff |
 | Postgres | Connection pool | Retry with backoff |
 | Session Management | REST API + events | Retry query; wait for session-activated on create |
 
@@ -645,7 +684,7 @@ Orchestrator coordinates with [Workspace Session Management](../../workspace-ses
 ## Open Implementation Questions
 
 - Exact Jira custom field IDs and project configuration
-- Message queue topic naming convention
+- Atropos callback registration and signature rotation procedure
 - Service account provisioning process
 - Webhook secret rotation procedure
 - Database migration strategy for schema changes
@@ -653,6 +692,8 @@ Orchestrator coordinates with [Workspace Session Management](../../workspace-ses
 
 ## Read Next
 
+- [../../../foundry-work-plan/phase-1/orchestrator-rules.md](../../../foundry-work-plan/phase-1/orchestrator-rules.md) — state store, retry, workflow versioning, cross-track handoff
+- [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md) — Work Item field contracts
 - [orchestration-item-workflow.md](orchestration-item-workflow.md) — Workflow YAML schema
 - [workflow.yaml](..//work-catalogues/platform-defaults/work-catalog/build/product-intent/workflow.yaml) — Complete PI workflow example
 - [product-intent-journey.md](product-intent-journey.md) — End-to-end PI walkthrough

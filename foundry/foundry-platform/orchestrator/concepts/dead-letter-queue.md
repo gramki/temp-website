@@ -12,7 +12,9 @@ DLQ items are visible in the Orchestration Console. Administrators can:
 - **Skip** — Move past the failed action with justification (continues to next action)
 - **Abort** — Cancel the orchestration item entirely
 
-The DLQ exists because some failures cannot be automatically recovered. A typo in a Scenario name, a misconfigured Jira project, or a network partition that outlasts retry budgets — these require human judgment to resolve.
+The DLQ exists because some failures cannot be automatically recovered. **Technical failures** (API timeout, Atropos unavailable, misconfiguration) may be retried from the DLQ after fixing the root cause. **Work-completion failures** (WO completed with `failed` status, partial WO group, governance rejection) require manual review — the Orchestrator does not auto-re-execute WOs for these outcomes.
+
+See [orchestrator-rules.md](../../../foundry-work-plan/phase-1/orchestrator-rules.md#retry-policy).
 
 DLQ items generate alerts to notify administrators. The goal is prompt resolution: an item in the DLQ represents stalled work.
 
@@ -47,10 +49,12 @@ DLQ items generate alerts to notify administrators. The goal is prompt resolutio
 |---------|---------------|------------|
 | Jira API 4xx (client error) | None (no retry) | Fix configuration, Retry |
 | Jira API 5xx (server error) | 5 retries with backoff | Wait for Jira, Retry |
+| Atropos publish failure | 5 retries with backoff | Wait for Atropos, Retry |
 | Scenario not found | None | Fix Scenario reference, Retry |
 | Invalid workflow definition | None | Fix workflow YAML, Retry |
-| Message queue unavailable | 5 retries | Wait for MQ, Retry |
 | Governance timeout | Configurable | Review governance WO, Retry or Skip |
+| WO completed `status: failed` | N/A (not retried) | Manual review — no auto WO re-execution |
+| WO group `partial` | N/A (not retried) | Manual review of failed members |
 
 ## Admin workflow
 

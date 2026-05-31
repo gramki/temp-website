@@ -6,7 +6,7 @@ The Action Executor is the component that executes workflow actions — creating
 
 When the Workflow Engine matches a handler, it passes the handler's `then` clause to the Action Executor. The Action Executor runs these actions **sequentially**, passing context from one action to the next. If any action fails, subsequent actions do not execute and the item enters the Dead Letter Queue.
 
-The Action Executor is the bridge between declarative workflow definitions and concrete system operations. It translates high-level actions like `create-work-order` into Jira API calls, database updates, and message queue publications.
+The Action Executor is the bridge between declarative workflow definitions and concrete system operations. It translates high-level actions like `create-work-order` into Work Repository adapter calls, database updates, and Atropos event publications.
 
 Each action type has specific validation rules and side effects:
 
@@ -20,14 +20,15 @@ Each action type has specific validation rules and side effects:
 |-----------|----------|
 | **Action Executor** | Orchestrator service |
 | **Action Results** | Postgres `work_orders`, `transition_history` tables |
-| **External Effects** | Jira (REST API), Message Queue |
+| **External Effects** | Jira (REST API), Atropos |
 
 ## Supported actions
 
 | Action | Purpose | External effects |
 |--------|---------|------------------|
-| `create-work-order` | Create a Work Order for a Scenario in a Workspace | Creates Jira issue, publishes to MQ for WO Runtime |
+| `create-work-order` | Create a Work Order for a Scenario in a Workspace | Creates Jira issue, publishes to Atropos for WO Runtime |
 | `create-work-order-group` | Create multiple parallel WOs atomically | Batch Jira creation, group tracking in Postgres |
+| `create-orchestration-item` | Create OI on target track (cross-track handoff) | Work Repository create, traceability link, start workflow |
 | `create-user-task` | Create a manual task for a human | Creates Jira issue (User Task type) |
 | `transition-orchestration-item` | Move OI to a new stage | Updates Postgres, Jira; executes `on-enter` |
 | `invoke-governance-scenario` | Call governance and await verdict | Creates governance WO, waits for completion |
@@ -41,7 +42,7 @@ Handler matched
     ├── For each action in handler.then:
     │       │
     │       ├── Validate action parameters
-    │       ├── Execute action (Jira call, MQ publish, etc.)
+    │       ├── Execute action (Jira call, Atropos publish, etc.)
     │       ├── Persist results to Postgres
     │       └── Update context with action outputs
     │
@@ -65,6 +66,19 @@ Handler matched
 |-----------|----------|-------------|
 | `group-label` | Yes | Correlation label for group completion |
 | `work-orders` | Yes | Array of WO definitions (each with `wo-label`, `workspace`, `scenario`) |
+
+### `create-orchestration-item`
+
+Common envelope for cross-track handoff. OI-specific seed fields are defined in track workflow docs.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `track` | Yes | Target track (`discovery`, `build`, `run`, `governance`) |
+| `orchestrationItem` | Yes | Target OI kind (e.g. `product-intent`) |
+| `title` | Yes | Title for the new OI |
+| `seedFrom` | No | Parent entity refs (`workRepoKey`, `entityRefs`) |
+
+See [orchestrator-rules.md](../../../foundry-work-plan/phase-1/orchestrator-rules.md#create-orchestration-item-cross-track-handoff).
 
 ### `invoke-governance-scenario`
 

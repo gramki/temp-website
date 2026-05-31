@@ -62,7 +62,7 @@ spec:
 |-------|------|----------|-------------|
 | `name` | string | Yes | Unique workflow identifier |
 | `orchestrationItem` | string | Yes | Type of OI (e.g., `product-intent`, `discovery-case`) |
-| `version` | string | No | Version for change tracking |
+| `version` | string | No | Semantic version for change tracking; pinned on OI at creation — see [Workflow version pinning](#workflow-version-pinning) |
 | `labels` | map | No | Key-value labels for filtering |
 
 ### Orchestration Item Types
@@ -75,6 +75,18 @@ spec:
 | `customer-release-intent` | Win | Customer-facing release |
 | `evolve-case` | Evolve | Improvement or modernization |
 | `governance-ritual` | Governance | Compliance or audit process |
+
+## Workflow version pinning
+
+When a workflow YAML changes at any catalog level:
+
+1. **At OI creation**, the Orchestrator stores `metadata.version` and the resolved catalog source on the OI record.
+2. **In-flight OIs** keep the pinned version until terminal stage — they do not pick up catalog changes mid-flight.
+3. **New OIs** resolve the current effective workflow from the hierarchy (User > Workbench > Workshop > Foundry > Platform).
+
+Authors SHOULD bump `metadata.version` on breaking workflow changes. Old versions MUST remain available while any in-flight OI references them.
+
+Normative rules: [orchestrator-rules.md](../../../../foundry-work-plan/phase-1/orchestrator-rules.md#workflow-versioning).
 
 ## Stage Definition
 
