@@ -2,6 +2,8 @@
 
 This document specifies detailed implementation requirements for the Work Order Runtime module.
 
+Contract schemas: [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md) (`agentType`, `workRepoItemKey`, `title`, `description`).
+
 ## Key Concepts
 
 This module implements several platform concepts. For definitions, see:
@@ -123,6 +125,8 @@ Module-specific concepts (internals):
 
 **WOR-FR-0006:** The Task Manager SHALL identify ready tasks (dependencies met) for scheduling.
 
+**WOR-FR-0059:** All attached Work Orders with ready tasks SHALL execute **in parallel** across the session. WO Runtime SHALL NOT impose FIFO or cross-WO priority ordering. Tasks wait only when blocked (unmet dependencies, `blocked` state, or session agent concurrency limits).
+
 | Aspect | Detail |
 |--------|--------|
 | Responsibility | Manage task tree, dependencies, state transitions |
@@ -147,14 +151,14 @@ Module-specific concepts (internals):
 
 **WOR-FR-0009:** The Completion Reporter SHALL notify the Orchestrator when WOs reach terminal state.
 
-**WOR-FR-0010:** The Completion Reporter SHALL send `work-order-completed`, `work-order-failed`, or `task-blocked` messages via message queue.
+**WOR-FR-0010:** The Completion Reporter SHALL publish `work-order-completed`, `work-order-failed`, or `task-blocked` events to Atropos at paths `/{foundry-id}/foundry.wo-runtime.{event-semantic-name}` per [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
 
 | Aspect | Detail |
 |--------|--------|
 | Responsibility | Notify Orchestrator when WOs complete |
 | Input | WO completion events |
-| Output | Messages to Orchestrator via message queue |
-| Dependencies | Message Queue (Kafka/RabbitMQ) |
+| Output | Atropos HTTP callback delivery to Orchestrator subscribers |
+| Dependencies | Atropos (Olympus event fabric) |
 
 ---
 
@@ -175,7 +179,9 @@ Module-specific concepts (internals):
 ```sql
 CREATE TABLE work_orders (
     id TEXT PRIMARY KEY,          -- WO-567
-    jira_key TEXT NOT NULL,
+    work_repo_item_key TEXT NOT NULL,   -- Canonical work repository item key (Jira issue key in current adapter)
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,    -- Markdown
     scenario TEXT NOT NULL,
     status TEXT NOT NULL,         -- in_progress, completed, failed
     orchestration_item TEXT,      -- PI-456
@@ -186,8 +192,11 @@ CREATE TABLE work_orders (
 CREATE TABLE tasks (
     id TEXT PRIMARY KEY,          -- TASK-890
     work_order_id TEXT NOT NULL REFERENCES work_orders(id),
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,    -- Markdown
     parent_task_id TEXT,
     scenario TEXT NOT NULL,
+    agent_type TEXT NOT NULL,     -- human | ai-agent
     state TEXT NOT NULL,          -- blocked, ready, in_progress, completed, failed, cancelled
     skilled_agent TEXT,
     dependencies TEXT,            -- JSON array of task IDs
@@ -255,7 +264,8 @@ CREATE INDEX idx_agents_task ON agents(task_id);
 | `customfield_10101` | `foundry-work-order` | Parent WO reference |
 | `customfield_10102` | `foundry-workspace` | Workspace type |
 | `customfield_10103` | `foundry-task-workspace` | Session instance ID |
-| `customfield_10104` | `dependencies` | Task dependency list |
+| `customfield_10104` | `foundry-dependencies` | Task dependency list |
+| `customfield_10105` | `foundry-agent-type` | Task executor contract (`human` or `ai-agent`) |
 
 ### Metadata Service Integration
 
@@ -296,16 +306,16 @@ CREATE INDEX idx_agents_task ON agents(task_id);
 
 | Aspect | Detail |
 |--------|--------|
-| Integration type | Message Queue |
+| Integration type | Atropos (HTTP callbacks to Orchestrator) |
 | Direction | Outbound only |
 
-**Messages:**
+**Atropos paths** (see [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md)):
 
-| Message | When |
-|---------|------|
-| `work-order-completed` | WO reaches terminal state |
-| `work-order-failed` | WO fails with no retry |
-| `task-blocked` | Task enters recoverable failure |
+| Event | Path suffix | When |
+|-------|-------------|------|
+| `work-order-completed` | `foundry.wo-runtime.work-order-completed` | WO reaches terminal state |
+| `work-order-failed` | `foundry.wo-runtime.work-order-failed` | WO fails with no retry |
+| `task-blocked` | `foundry.wo-runtime.task-blocked` | Task enters recoverable failure |
 
 ---
 
@@ -321,7 +331,9 @@ def attach_work_order(wo_id: str):
     # 2. Store in local state
     db.insert("work_orders", {
         "id": wo.id,
-        "jira_key": wo.key,
+        "work_repo_item_key": wo.key,
+        "title": wo.fields.summary,
+        "description": wo.fields.description,
         "scenario": wo.fields.foundry_scenario,
         "orchestration_item": wo.fields.foundry_orchestration_item,
         "status": "in_progress"
@@ -345,10 +357,13 @@ def build_task_tree(wo_id: str):
         db.upsert("tasks", {
             "id": task.key,
             "work_order_id": wo_id,
+            "title": task.fields.summary,
+            "description": task.fields.description,
             "parent_task_id": task.fields.parent,
             "scenario": task.fields.foundry_scenario,
+            "agent_type": task.fields.foundry_agent_type,
             "state": compute_state(task),
-            "dependencies": task.fields.dependencies
+            "dependencies": task.fields.foundry_dependencies
         })
 ```
 
@@ -423,7 +438,8 @@ def prepare_harness(task, skilled_agent, capable_agent, model) -> Harness:
         "FOUNDRY_WORK_ORDER": task.work_order_id,
         "FOUNDRY_TASK_KEY": task.id,
         "FOUNDRY_SCENARIO": task.scenario,
-        "FOUNDRY_AGENT_TYPE": capable_agent.id,
+        "FOUNDRY_TASK_AGENT_TYPE": task.agent_type,
+        "FOUNDRY_CAPABLE_AGENT": capable_agent.id,
         "FOUNDRY_AGENT_MODEL": model,
         "FOUNDRY_ACCESS_GATEWAY_URL": gateway_url
     }
@@ -566,7 +582,7 @@ Response: { work_orders: [{ id, scenario, status, tasks_count }] }
 
 # Get task tree
 GET /work-orders/{wo_id}/tasks
-Response: { tasks: [{ id, state, scenario, dependencies }] }
+Response: { tasks: [{ id, title, description, state, agentType, scenario, dependencies }] }
 
 # Manual task action
 POST /tasks/{task_id}/action
@@ -720,7 +736,7 @@ Module concepts: [Workspace-Local Tasks](../concepts/workspace-local-tasks.md), 
 | Panel scope | All employed agents in the session across all WOs |
 | Entry payload | WO ID, task ID, task title, skilled agent label, capable agent, model, duration, status snippet |
 
-**WOR-FR-0039:** WO Runtime SHALL provide the full task tree for a Work Order (including workspace-local tasks) to the IDE via the plugin protocol. Each node SHALL include: task ID, title, state, executor type (agent/human), agent summary (if any), duration, `sync_scope`, parent task ID, and dependency list. The IDE SHALL render parent-child as a folder-style tree; dependencies SHALL be shown inline on rows, not as graph edges.
+**WOR-FR-0039:** WO Runtime SHALL provide the full task tree for a Work Order (including workspace-local tasks) to the IDE via the plugin protocol. Each node SHALL include: task ID, title, markdown description, state, `agentType` (`human | ai-agent`), agent summary (if any), duration, `sync_scope`, parent task ID, and dependency list. The IDE SHALL render parent-child as a folder-style tree; dependencies SHALL be shown inline on rows, not as graph edges.
 
 **WOR-FR-0040:** WO Runtime SHALL stream agent I/O (chat messages or terminal output) to the IDE for Agent Output Tabs. Live sessions SHALL be interactive; completed sessions SHALL be served as read-only transcripts for the session lifetime.
 
@@ -796,6 +812,7 @@ Module concept: [Workspace Folder Structure](../../ide/concepts/workspace-folder
 
 ## Read Next
 
+- [../../../foundry-work-plan/phase-1/workspace-runtime-contracts.md](../../../foundry-work-plan/phase-1/workspace-runtime-contracts.md) — Phase 1 session ↔ WO and parallel scheduling SSOT
 - [../user-guide/work-order-lifecycle.md](../user-guide/work-order-lifecycle.md) — Full WO lifecycle walkthrough
 - [task-execution.md](task-execution.md) — Task tree and state machine
 - [agent-spawning.md](agent-spawning.md) — Harness preparation details

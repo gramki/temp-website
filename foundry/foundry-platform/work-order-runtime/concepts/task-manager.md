@@ -4,7 +4,7 @@ The Task Manager is the component that manages task trees, handles dependencies 
 
 ## What it is
 
-When a Work Order is attached to a session, the Task Manager builds its task tree by querying Jira for all tasks under that WO. It then tracks each task's state and dependencies, scheduling tasks for execution when their dependencies are met.
+When a Work Order is attached to a session, the Task Manager builds its task tree by querying Jira for all tasks under that WO. Ready tasks across **all attached WOs** schedule in parallel; WOs do not wait on each other — only individual tasks wait when blocked (dependencies, `blocked` state, or agent concurrency limits).
 
 The Task Manager implements:
 

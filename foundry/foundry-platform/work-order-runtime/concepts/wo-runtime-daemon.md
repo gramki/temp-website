@@ -8,11 +8,11 @@ Every Workspace Session runs a WO Runtime Daemon. The daemon is the execution co
 
 1. **Polling** — Querying Jira (via MCP) for Work Orders assigned to the session owner
 2. **Task tree management** — Building and maintaining the task tree for each attached WO
-3. **Scheduling** — Identifying ready tasks and starting their execution
+3. **Scheduling** — Identifying ready tasks across **all attached WOs in parallel**; tasks wait only when blocked (dependencies, `blocked` state, or agent concurrency limits)
 4. **Agent spawning** — Preparing harnesses and spawning Employed Agents for agent tasks
 5. **Human task surfacing** — Making tasks without Skilled Agents visible in the IDE
 6. **Completion tracking** — Detecting task completion and updating state
-7. **Notification** — Reporting WO completion to the Orchestrator via message queue
+7. **Notification** — Reporting WO completion to the Orchestrator via Atropos (`/{foundry-id}/foundry.wo-runtime.*`)
 
 The daemon runs continuously while the Workspace Session is active. It starts when the Coder workspace starts and stops when the workspace stops. Session state persists across workspace restarts via the Local State Store.
 

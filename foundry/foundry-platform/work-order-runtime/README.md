@@ -197,7 +197,7 @@ WO Runtime accesses Jira through **Jira MCP Server**.
 - **Agents are spun up per Scenario.** Not long-lived identities — each Scenario invocation gets its own agent.
 - **Context flows with the work.** Work Orders carry their context via the parent orchestration-item graph.
 - **Knowledge is hierarchical.** WO Runtime merges Workshop → Workbench → WO context for each agent invocation.
-- **Sessions are user-owned.** One person per Session; multiple WOs can be attached.
+- **Sessions are user-owned.** One person per Session; multiple WOs can be attached and execute **in parallel** (task-level blocking only).
 - **Session lifecycle is a control-plane concern.** Session Management owns lifecycle; WO Runtime is the in-session worker.
 - **Skills are installed at session launch.** Version resolution happens once; pinned versions recorded for reproducibility.
 
