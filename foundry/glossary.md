@@ -32,13 +32,36 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 
 **Scenario.** A well-defined situation a Workspace is set up to handle — the **ingress contract** that defines what work a Workspace accepts. A Scenario, when triggered, creates Tasks. Scenarios have a **scope** attribute: `workspace-ingress` (external contract invoked by the Orchestrator or cross-Workspace handoffs) or `workspace-internal` (invoked only by Tasks within the same Workspace). See [foundry-platform/work-catalogues/README.md](foundry-platform/work-catalogues/README.md) for full treatment.
 
-**Task.** A unit of work created by a Scenario, completed by the Workspace's Human–Agent Team.
+**Task.** A unit of work created by a Scenario, completed by the Workspace's Human–Agent Team. Contract field `agentType` is `human` or `ai-agent`. All tasks include `title` and markdown `description`.
+
+**Work Repository.** Operational store for Work Items (orchestration records, Work Orders, Tasks). Phase 1 adapter is Jira; APIs use vendor-neutral `workRepo*` fields (`workRepoKey`, `workRepoItemKey`, `workRepoProject`, `workRepoStatus`). See [foundry-work-plan/phase-1/repository-contracts.md](foundry-work-plan/phase-1/repository-contracts.md).
+
+**Work Artifact.** Git-backed content in the Intent Repository (and other repo types). Distinguished from Work Items. PDR is artifact-only.
+
+**Intent Repository.** Git-backed repository for Product Intent folders, PDRs, PSDs, and related artifacts. Prefer this term in new Foundry Platform prose. ACE code: **PIR** (Product Intent Repository).
+
+### PIR term overload {#pir-term-overload}
+
+| Context | Meaning | Preferred prose |
+|---------|---------|-----------------|
+| ACE repository code | **Product Intent Repository** | Intent Repository |
+| Run Track (UPIM) | **Post-Incident Review** | Post-Incident Review (spell out) |
+
+When writing platform docs, avoid bare **PIR** unless the context is unambiguous. See [ace/repositories.md](ace/repositories.md) for ACE repository codes.
+
+**workRepoKey / workRepoItemKey.** Canonical Work Repository binding fields replacing legacy `jiraKey` naming in API contracts.
+
+**agentType.** Task contract enum: `human` | `ai-agent`.
+
+**foundry-* labels.** Uniform label namespace on Work Repository items: `foundry-tenant-{foundryId}`, `foundry-workshop-{workshopId}`, `foundry-workbench-{workbenchId}`, `foundry-track-{track}`, `foundry-kind-{kind}`, `foundry-id-{entityId}`.
+
+**Artifact URI (Phase 1).** `artifact://{foundry-id}/{workshop-id}/{workbench-id}/{repo-type}/{artifact-type}/{artifact-id}@{revision}`
 
 **Repositories (ACE sense).** The collection of stores that workshops use and update. ACE names a conceptual repository set in [ace/ace-model.md](ace/ace-model.md). The canonical inventory — UPIM-aligned with codes (PIR, DKB, DAR, POR, CAR, QVS, OPR, PFR, PPR, WR, WFR, ESR, PEIR) — lives in [ace/repositories.md](ace/repositories.md). Some repositories are Foundry-scoped (e.g. WFR), others are Workshop-scoped; see [foundry/1.TODO](1.TODO) line 9.
 
-**Product Intent.** Hybrid bridge entity in the Product Intent Repository (PIR): **definition-bearing** (committed direction with decision provenance), **work-triggering** (arrival invokes Workspace Scenarios), and **ACE-routable** (moves through the Product Evolution Cycle). Build Track's primary orchestration item. Discovery and product decisions establish or update Product Intent; Discovery Cases may create Discovery Support Product Intent for evidence; PSDs refine Evolution Product Intent; Release renews intent for the next cycle. Source: [product-information-model/entities/definition-model/dim1-product-intent.md](product-information-model/entities/definition-model/dim1-product-intent.md), [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md), [ace/concepts.md](ace/concepts.md).
+**Product Intent.** Hybrid bridge entity in the Intent Repository: **definition-bearing** (committed direction with decision provenance), **work-triggering** (arrival invokes Workspace Scenarios), and **ACE-routable** (moves through the Product Evolution Cycle). Build Track's primary orchestration item. Also mirrored as a Work Item in the Work Repository during orchestration. Discovery and product decisions establish or update Product Intent; Discovery Cases may create Discovery Support Product Intent for evidence; PSDs refine Evolution Product Intent; Release renews intent for the next cycle. Source: [product-information-model/entities/definition-model/dim1-product-intent.md](product-information-model/entities/definition-model/dim1-product-intent.md), [ace/product-evolution-cycle.md](ace/product-evolution-cycle.md), [ace/concepts.md](ace/concepts.md).
 
-**Product Intent Repository (PIR).** The repository that stores strategy, vendor/customer context, Discovery flowing items, PSDs, and routable Product Intent entities. Not every PIR item is a Product Intent; Product Intent is the ACE-routable bridge item inside the broader repository.
+**Product Intent Repository (PIR).** ACE repository code for the Intent Repository — strategy, vendor/customer context, Discovery flowing items, PSDs, and routable Product Intent entities. Not every item in the Intent Repository is a Product Intent; Product Intent is the ACE-routable bridge entity inside the broader repository. In platform prose, prefer **Intent Repository**.
 
 **Discovery Case.** Discovery Track's primary orchestration item: a cross-functional, signal-optional case that organizes discovery work until a decision or routing outcome is reached. Source: [product-information-model/entities/work-model/track1-discovery-case.md](product-information-model/entities/work-model/track1-discovery-case.md).
 
@@ -147,6 +170,8 @@ If a term feels overloaded, first check whether it has multiple senses below (so
 **Propeller.** A parallel workstream of the Foundry engineering team — frameworks, libraries, and conventions used across Zeta tech stacks (Java 21, GraalVM, Spring Boot, distroless images, etc.). Sometimes called **Build Accelerators** in executive narrative; **Propeller** is the canonical name in [propeller/](propeller/README.md). Not a Foundry Platform module; consumed by Workspaces. Source: [propeller/propeller.TODO](propeller/propeller.TODO); [propeller/README.md](propeller/README.md).
 
 **Tenant Developer Tooling.** Tooling delivered to a tenant's developers when the Workshop is configured for tenant-side use. Source: [engagement-engineering/tenant-developer-tooling/](engagement-engineering/tenant-developer-tooling/README.md).
+
+**Atropos.** The Olympus event fabric used by the Foundry Platform for inter-module coordination. Events use tenant-first paths `/{foundry-id}/foundry.{module}.{event-semantic-name}` and a canonical JSON envelope (`foundryId`, `workshopId`, `workbenchId`, `correlationId`, `payload`). Delivery is primarily HTTP callbacks; all events are persisted (~7 day retention). Source: [foundry-work-plan/phase-1/event-contracts.md](foundry-work-plan/phase-1/event-contracts.md).
 
 ## Terminology conventions
 

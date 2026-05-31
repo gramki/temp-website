@@ -1,82 +1,62 @@
 # Foundry Work Plan — Phase 1
 
-This folder is the implementation-readiness workspace for **Phase 1 of the Foundry Platform**. It is for product and engineering teams building the platform, not for restating ACE theory.
+Implementation-readiness workspace for **Phase 1 of the Foundry Platform**. For product and engineering teams building the platform — not ACE theory.
 
-The goal is to turn ACE and UPIM into build contracts: module boundaries, event contracts, scenario catalogues, repository/API contracts, governance behavior, and UI-to-module responsibilities.
-
-## Phase 1 build question
-
-Phase 1 should answer:
+## Build question
 
 > Can Foundry take a product-relevant discovery question, form Product Intent, refine it into buildable work, execute Workspace Work Orders, govern transitions, and publish Product Delivery with traceability?
 
-## Phase 1 scope anchor
+## Documentation
 
-The working Phase 1 slice exercises:
+| Document | Status | Purpose |
+|----------|--------|---------|
+| [phase-1-scope.md](phase-1-scope.md) | **Draft** | Inclusions, exclusions, assumptions, success criteria |
+| [golden-path.md](golden-path.md) | **Draft** | End-to-end demo path step by step |
+| [module-boundaries.md](module-boundaries.md) | **Draft** | Which module owns which Phase 1 behavior |
+| [scenario-catalog.md](scenario-catalog.md) | **Draft** | Phase 1 scenarios mapped to platform defaults |
+| [governance-mvp.md](governance-mvp.md) | **Draft** | Transition gates and deferred governance scope |
+| [open-questions.md](open-questions.md) | Living | Remaining decisions not yet in build contracts |
+| [repository-contracts.md](repository-contracts.md) | **Authoritative** | Entity storage, `workRepo*` fields, labels, artifact URIs |
+| [api-surface.md](api-surface.md) | **Authoritative** | Repo-based vs track-based HTTP routes |
+| [event-contracts.md](event-contracts.md) | **Authoritative** | Atropos paths, event envelope, minimum gate events |
+| [orchestrator-rules.md](orchestrator-rules.md) | **Authoritative** | State store, retry, workflow versioning, cross-track handoff |
+| [workspace-runtime-contracts.md](workspace-runtime-contracts.md) | **Authoritative** | Session ↔ WO, parallel scheduling, context compilation, Git branches |
+
+### Still to write
+
+| Document | Purpose |
+|----------|---------|
+| `ui-module-contracts.md` | Console → API mapping |
+| `observability-and-audit.md` | Logs, metrics, audit trail for Phase 1 |
+
+Entity, API, event, orchestrator, and workspace runtime contracts are authoritative in `repository-contracts.md`, `api-surface.md`, `event-contracts.md`, `orchestrator-rules.md`, and `workspace-runtime-contracts.md`.
+
+## Scope anchor
+
+Phase 1 exercises Discovery → Build with transition governance:
 
 ```text
-Discovery Case
-  -> PDR
-  -> Product Intent
-  -> PSD refinement
-  -> Workspace Work Orders
-  -> QA / Release
-  -> Governance evidence
+Discovery Case → research → PDR → proceed-to-build
+  → Product Intent → specification → UX → development → QA → release
+  → governance evidence at each transition
 ```
 
-It should use the current ACE / UPIM concepts:
-
-- **Discovery Case** — Discovery Track orchestration item.
-- **Product Intent** — Build Track orchestration item.
-- **Workspace Work Order** — Scenario execution instance in a Workspace.
-- **Governance Ritual / Governance Enforcement** — governance orchestration items for rituals, policy assertion, evidence, findings, registers, and audit.
-- **Product Intent Repository (PIR)**, **Work Repository (WR)**, and evidence repositories as the durable stores.
-
-## Eventual documentation set
-
-The following docs should be created under this folder as decisions are answered.
-
-| Document | Purpose | Primary audience |
-|----------|---------|------------------|
-| `golden-path.md` | End-to-end happy path from Discovery Case to Product Delivery, step by step. | All builders |
-| `phase-1-scope.md` | Explicit Phase 1 inclusions, exclusions, assumptions, and deferred capabilities. | Product + engineering leads |
-| `module-boundaries.md` | Which platform module owns which behavior. | Tech leads |
-| `event-contracts.md` | Events emitted/consumed across modules. | Backend/platform engineers |
-| `orchestrator-rules.md` | Rules that create Work Orders from orchestration item state changes. | Orchestrator + Runtime teams |
-| `scenario-catalog.md` | Minimal Phase 1 scenarios by Track, Workspace, trigger, input, and output. | Scenario Authoring + Runtime teams |
-| `repository-contracts.md` | Minimal data ownership, storage, IDs, and API contracts for Phase 1 entities. | Management + repository service teams |
-| `api-surface.md` | API contracts exposed by modules and consumed by web/IDE/runtime. | Full-stack engineers |
-| `ui-module-contracts.md` | Which console/page calls which module APIs and with what state model. | Web App + platform teams |
-| `governance-mvp.md` | Required Phase 1 governance gates, evidence, verdicts, and rejection behavior. | Governance + Orchestrator teams |
-| `workspace-runtime-contracts.md` | Workspace Session, Work Order attachment, context assembly, task execution, and completion contracts. | Runtime + IDE teams |
-| `observability-and-audit.md` | Logs, traces, audit events, and operational dashboards needed for Phase 1. | Platform Ops + Governance |
-| `open-questions.md` | Current unanswered questions, organized by logical build area. | Product + engineering leads |
-
-## Recommended order for preparing the docs
-
-1. **`golden-path.md`** — define one concrete working path.
-2. **`phase-1-scope.md`** — freeze what is and is not included.
-3. **`module-boundaries.md`** — assign ownership.
-4. **`event-contracts.md`** and **`orchestrator-rules.md`** — make module integration possible.
-5. **`scenario-catalog.md`** — define executable work.
-6. **`repository-contracts.md`** and **`api-surface.md`** — define data and APIs.
-7. **`governance-mvp.md`** — define gates and evidence.
-8. **`ui-module-contracts.md`** and **`workspace-runtime-contracts.md`** — wire user flows to modules.
-9. **`observability-and-audit.md`** — make the system operable and auditable.
+Platform default workflows: [../../foundry-platform/work-catalogues/platform-defaults/work-catalog/discovery/discovery-case/](../../foundry-platform/work-catalogues/platform-defaults/work-catalog/discovery/discovery-case/), [../../foundry-platform/work-catalogues/platform-defaults/work-catalog/build/product-intent/](../../foundry-platform/work-catalogues/platform-defaults/work-catalog/build/product-intent/).
 
 ## Relationship to existing docs
 
-| Existing source | How Phase 1 docs should use it |
-|-----------------|--------------------------------|
-| [../../ace/](../../ace/README.md) | Source of ACE concepts and execution model. |
-| [../../ace/how-product-evolves/](../../ace/how-product-evolves/README.md) | Practitioner framing for Discovery, Build, and orchestration items. |
-| [../../product-information-model/](../../product-information-model/README.md) | Source of UPIM entities and lifecycles. |
-| [../orchestrator/](../orchestrator/README.md) | Coordination module concepts. |
-| [../work-order-runtime/](../work-order-runtime/README.md) | Execution module concepts. |
-| [../foundry-web-app/](../foundry-web-app/README.md) | Web app surfaces and personas. |
-| [../work-catalogues/](../work-catalogues/README.md) | Work Catalogs (OI Workflows + Scenarios). |
-| [../management/platform-developer-guide/work-catalog-management/](../management/platform-developer-guide/work-catalog-management/README.md) | Work Catalog schema, validation, and resolution. |
+| Source | Use for |
+|--------|---------|
+| [../../ace/](../../ace/README.md) | ACE concepts and execution model |
+| [../../ace/how-product-evolves/](../../ace/how-product-evolves/README.md) | Discovery and Build practitioner framing |
+| [../../product-information-model/](../../product-information-model/README.md) | UPIM entities and lifecycles |
+| [../../foundry-platform/](../../foundry-platform/README.md) | Module specs and platform concepts |
+| [../../foundry-platform/work-catalogues/](../../foundry-platform/work-catalogues/README.md) | Work Catalog definitions |
+| [../../tldr-faq.md](../../tldr-faq.md) | Platform design decisions |
 
-## Current status
+## Read next
 
-This folder currently contains the outline and open questions. It is not yet a build contract. Teams should use [open-questions.md](open-questions.md) to converge on the missing decisions before implementation begins.
+- [../people-plan.md](../people-plan.md) — team structure and streams
+- [../milestones.md](../milestones.md) — M0–M5 delivery sequence
+- [phase-1-scope.md](phase-1-scope.md) — start here for scope
+- [golden-path.md](golden-path.md) — the demo path
