@@ -39,7 +39,7 @@ Each metric count in the roster is clickable and opens a side panel:
 
 | Metric Clicked | Side Panel Contents | Drill-down Link |
 |----------------|---------------------|-----------------|
-| Active Sessions | List of member's active Workspace Sessions with Workspace type, started time, attached WOs | Each session links to Workspace Session Details page |
+| Active Sessions | List of member's active Workspace Sessions with Workspace type, started time, attached WOs | Each session links to canonical [Workspace Session Details](../workspaces/workspace-session-details.md) |
 | Work Orders | List of assigned Work Orders with title, status, Workspace type, due date | Each WO links to Orchestration Console at the specific Work Order |
 | Past Due | List of overdue Work Orders with title, days overdue, Workspace type | Each WO links to Orchestration Console at the specific Work Order |
 
@@ -207,7 +207,7 @@ The Team Member Workbench Profile page (`/workbenches/{workbenchId}/team/{member
 | Source | Context |
 |--------|---------|
 | Work Order details | Assigned member |
-| Session details | Session owner |
+| [Workspace Session Details](../workspaces/workspace-session-details.md) | Session owner |
 | Activity feeds | Actor in activity |
 | Risk items | Associated member |
 | Governance reports | Member under review |

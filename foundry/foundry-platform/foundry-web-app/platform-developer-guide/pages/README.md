@@ -50,7 +50,7 @@ See [consoles/README.md](consoles/README.md) for all console pages.
 |------|-------------|------------|
 | Orchestration Item Details | `/workbenches/{id}/orchestration/{type}/{itemId}` | [orchestration-console.md](consoles/work/orchestration-console.md) |
 | Team Member Workbench Profile | `/workbenches/{id}/team/{memberId}` | [team-console.md](consoles/workforce/team-console.md) |
-| Workspace Session Details | `/workbenches/{id}/sessions/{sessionId}` | [Workspace consoles](consoles/workspaces/) |
+| Workspace Session Details | `/workbenches/{id}/sessions/{sessionId}` | [workspace-session-details.md](consoles/workspaces/workspace-session-details.md) |
 
 ## Planned Pages (TBD)
 

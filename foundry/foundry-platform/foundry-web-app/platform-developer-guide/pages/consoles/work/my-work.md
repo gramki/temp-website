@@ -18,7 +18,7 @@ Today's focus:
 - Work Orders due today
 - Scheduled meetings/rituals
 - Blockers requiring attention
-- Active Workspace Sessions
+- Active Workspace Sessions (with View session drill-down)
 
 ### My Week
 
@@ -39,6 +39,7 @@ Monthly perspective:
 ### Quick Actions
 
 - Start Workspace Session
+- View session details
 - Pick up next Work Order
 - Update Work Order status
 - Log time
@@ -48,6 +49,7 @@ Monthly perspective:
 | Action | Description |
 |--------|-------------|
 | Start session | Launch new Workspace Session |
+| View session | Open canonical [Workspace Session Details](../workspaces/workspace-session-details.md) page |
 | View Work Order | Open Work Order detail |
 | Update status | Change Work Order status |
 | Mark complete | Complete a Work Order |

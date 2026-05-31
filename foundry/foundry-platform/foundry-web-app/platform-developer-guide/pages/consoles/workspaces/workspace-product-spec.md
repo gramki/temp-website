@@ -49,8 +49,10 @@ Recently completed Work Orders:
 | Pick up Work Order | Assign Work Order to self |
 | Start session | Launch Workspace Session |
 | View Work Order | Open Work Order detail |
-| View session | Open Workspace Session Details |
+| View session | Open canonical [Workspace Session Details](workspace-session-details.md) page |
 | Mark complete | Complete Work Order |
+
+Session detail contract source of truth: [workspace-session-details.md](workspace-session-details.md).
 
 ## URL
 

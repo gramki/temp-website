@@ -23,16 +23,12 @@ For guidance on when to use console groups — and when to add a new console ins
 
 | Console | File | Purpose |
 |---------|------|---------|
-| [Workspaces Overview](workspaces/workspaces-overview.md) | `workspaces/workspaces-overview.md` | Sessions, capacity, work distribution across workspaces |
-| [Product Specification](workspaces/workspace-product-spec.md) | `workspaces/workspace-product-spec.md` | Product Specification workspace work |
-| [UX Design](workspaces/workspace-ux-design.md) | `workspaces/workspace-ux-design.md` | UX Design workspace work |
-| [Development](workspaces/workspace-development.md) | `workspaces/workspace-development.md` | Development workspace work |
-| [QA](workspaces/workspace-qa.md) | `workspaces/workspace-qa.md` | QA workspace work |
-| [Release Workspace](workspaces/workspace-release.md) | `workspaces/workspace-release.md` | Release workspace work |
-| [Governance Workspace](workspaces/workspace-governance.md) | `workspaces/workspace-governance.md` | Transition validation work |
+| [Workspaces Overview](workspaces/workspaces-overview.md) | `workspaces/workspaces-overview.md` | Unified workspace-type cards and session visibility |
+| [Infrastructure](workspaces/workspace-infrastructure.md) | `workspaces/workspace-infrastructure.md` | Running pods, cluster placement, and resource totals |
+| [Agents](workspaces/workspace-agents.md) | `workspaces/workspace-agents.md` | Workbench-wide agent, skill, and token usage |
 
 **Sub-pages:**
-- **Workspace Session Details** — `/workbenches/{workbenchId}/sessions/{sessionId}` — Full session activity, work done, time tracking
+- **[Workspace Session Details](workspaces/workspace-session-details.md)** — `/workbenches/{workbenchId}/sessions/{sessionId}` — Canonical session contract (overview, linked WOs, coder pod, employed agents, token usage, activity)
 
 ### Build
 
@@ -96,12 +92,8 @@ Workbench Home
     │   └── My Work
     ├── Workspaces
     │   ├── Workspaces Overview
-    │   ├── Product Specification
-    │   ├── UX Design
-    │   ├── Development
-    │   ├── QA
-    │   ├── Release Workspace
-    │   └── Governance Workspace
+    │   ├── Infrastructure
+    │   └── Agents
     ├── Build
     │   ├── CI Console
     │   ├── Components Console

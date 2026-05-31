@@ -242,7 +242,7 @@ Some consoles have **detail pages** — standalone pages for deep inspection of 
 |-------------|----------------|-------------|
 | Orchestration Item Details | Orchestration | `/workbenches/{id}/orchestration/{type}/{itemId}` |
 | Team Member Workbench Profile | Team Console | `/workbenches/{id}/team/{memberId}` |
-| Workspace Session Details | Workspace consoles | `/workbenches/{id}/sessions/{sessionId}` |
+| [Workspace Session Details](workspaces/workspace-session-details.md) | Workspace consoles | `/workbenches/{id}/sessions/{sessionId}` |
 
 Detail pages are appropriate when:
 - The entity has enough content for a full page (history, metrics, actions).

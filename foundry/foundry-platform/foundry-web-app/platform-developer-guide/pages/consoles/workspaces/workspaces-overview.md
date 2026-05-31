@@ -1,6 +1,7 @@
 # Workspaces Overview Console
 
-The Workspaces Overview console provides a landing page for all 6 Workspace types, showing sessions, capacity, and work distribution.
+The Workspaces Overview console is the unified entry point for all workspace types.  
+It consolidates the prior per-track workspace queue consoles into a single surface.
 
 ## Type
 
@@ -12,42 +13,36 @@ Engineering Managers, Team Leads, Governance
 
 ## Sections
 
-### Workspace Summary Cards
+### Workspace Type Cards
 
-One card per Workspace type:
-- **Product Specification** — Spec work queue, active sessions
-- **UX Design** — Design work queue, active sessions
-- **Development** — Dev work queue, active sessions
-- **QA** — QA work queue, active sessions
-- **Release Workspace** — Release work queue, active sessions
-- **Governance Workspace** — Transition validation queue, active sessions
+One card per workspace type:
+- Product Specification
+- UX Design
+- Development
+- QA
+- Release
+- Governance
 
-Each card shows:
-- Active sessions count
-- Work Orders in queue
-- Work Orders in progress
-- Blocked items
+Each card lists active workspace sessions for that type:
+- Session ID and title
+- Status
+- Owner
 
-### Active Sessions
+### View Options Menu
 
-Cross-workspace session summary:
-- Total active sessions
-- Session distribution by workspace
-- Recent session activity
+The header includes a hamburger menu with:
+- `Show archived workspaces` toggle
 
-### Capacity Distribution
-
-- Work distribution across workspaces
-- Bottleneck indicators
-- Handoff queues between workspaces
+When enabled, archived/closed sessions are included in each workspace type card list.
 
 ## Actions
 
 | Action | Description |
 |--------|-------------|
-| Navigate to Workspace | Open specific Workspace console |
-| View session | Open Workspace Session Details |
-| Start session | Launch new session in a Workspace |
+| View session | Open canonical [Workspace Session Details](workspace-session-details.md) page |
+| Toggle archived visibility | Include/exclude archived workspace sessions |
+
+Session detail contract source of truth: [workspace-session-details.md](workspace-session-details.md).
 
 ## URL
 
