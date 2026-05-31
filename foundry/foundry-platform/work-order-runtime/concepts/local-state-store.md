@@ -11,7 +11,9 @@ Each Workspace Session runs its own SQLite database for local state persistence.
 - **Persistence** — State survives workspace restarts
 - **Offline capability** — Daemon can operate briefly during network partitions
 
-The Local State Store is the source of truth for the WO Runtime Daemon during execution. Jira remains the system of record for Work Orders and Tasks — the local store is a cached, enriched view optimized for runtime operations.
+The Local State Store is the source of truth for the WO Runtime Daemon during execution. The Work Repository remains the system of record for synced Work Orders and Tasks — the local store is a cached, enriched view optimized for runtime operations.
+
+Contract column names: `work_repo_item_key` (maps to `workRepoItemKey` in APIs). See [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md).
 
 ## Where it lives
 
@@ -30,7 +32,9 @@ Cached Work Order metadata and state:
 ```sql
 CREATE TABLE work_orders (
     id TEXT PRIMARY KEY,              -- WO-567 or PERSONAL-WORK
-    jira_key TEXT,                    -- NULL for local-only WOs
+    work_repo_item_key TEXT,          -- NULL for local-only WOs; Work Repository key when synced
+    title TEXT NOT NULL,
+    description TEXT,
     scenario TEXT,                    -- NULL for Personal Work
     status TEXT NOT NULL,             -- in_progress, completed, failed
     orchestration_item TEXT,          -- PI-456; NULL for Personal Work
@@ -41,7 +45,7 @@ CREATE TABLE work_orders (
 );
 ```
 
-Personal Work uses a single row per session with `is_personal_work = 1` and `sync_scope = 'local'`. Orchestrated WOs use `sync_scope = 'synced'` and a non-null `jira_key` when attached from Jira.
+Personal Work uses a single row per session with `is_personal_work = 1` and `sync_scope = 'local'`. Orchestrated WOs use `sync_scope = 'synced'` and a non-null `work_repo_item_key` when attached from the Work Repository.
 
 ### `tasks` table
 

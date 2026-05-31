@@ -25,6 +25,16 @@ Module-specific concepts (internals):
 | Integration Service | [../concepts/integration-service.md](../concepts/integration-service.md) |
 | Work Catalog Resolution | [../concepts/work-catalog-resolution.md](../concepts/work-catalog-resolution.md) |
 
+## Phase 1 contract alignment
+
+Management implements entity provisioning and Metadata Service IDs per [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md). HTTP routes for artifacts vs work items are defined in [../../../foundry-work-plan/phase-1/api-surface.md](../../../foundry-work-plan/phase-1/api-surface.md). Event transport uses Atropos per [../../../foundry-work-plan/phase-1/event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
+
+Key conventions:
+
+- All entity APIs expose `title` and markdown `description`.
+- Work Repository binding uses `workRepoProject`, `workRepoKey`, `workRepoItemKey`, `workRepoStatus` — not Jira-branded field names in contracts.
+- Shared Work Repository projects filter by `foundry-workbench-{workbenchId}` labels (see Workshop `integrations.yaml`).
+
 ## ACE alignment
 
 | ACE concept | How this module realizes it |
@@ -148,7 +158,7 @@ Workbench:
   status: provisioning | active | archived
   config:
     capable_agents: string[]
-    jira_project_key: string
+    workRepoProjectKey: string   # Canonical work repository project key (Jira-backed in current adapter)
     github_org: string
     github_repos: string[]
   integrations:
@@ -366,6 +376,10 @@ TeamMember:
 
 **MGT-FR-0026:** The Integration Service SHALL manage external tool integrations (GitHub, Jira, TestRail, Figma, Olympus Weave).
 
+**MGT-FR-0027:** Management module events (metadata changes, catalog sync, team lifecycle) SHALL publish to Atropos at paths `/{foundry-id}/foundry.management.{event-semantic-name}` using the canonical envelope defined in [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
+
+**MGT-FR-0028:** Foundry provisioning SHALL register Atropos tenant configuration (`integrations.atropos`) and callback authentication for the Foundry.
+
 Manages external tool integrations.
 
 #### Supported Integrations
@@ -390,16 +404,23 @@ Setup process:
 3. Management tags existing repos with Foundry metadata
 4. Webhooks configured for push events
 
-##### Jira Integration
+##### Work Repository integration (Jira adapter)
 
 ```yaml
-JiraIntegration:
-  type: jira
+WorkRepositoryIntegration:
+  type: jira                    # adapter identifier; contract fields remain workRepo*
   site_url: string
   project_keys:
-    work_orders: string
+    work_orders: string         # maps to workRepoProject for WOs
     operations: string
     feedback: string
+    work: string
+  label_prefix: foundry-         # canonical label namespace
+  custom_fields:                # adapter maps to foundry-* attributes
+    foundry-scenario: string
+    foundry-workbench: string
+    foundry-orchestration-item: string
+    foundry-wo-group: string
   oauth_token: string (encrypted)
   status: active | disconnected
 ```
@@ -407,7 +428,7 @@ JiraIntegration:
 Setup process:
 1. User authorizes Jira OAuth
 2. User selects/creates projects
-3. Management configures custom fields for Foundry attributes
+3. Management configures custom fields for `foundry-*` attributes and applies label filters (`foundry-workbench-{workbenchId}`)
 4. Webhooks configured for issue events
 
 ##### TestRail Integration
@@ -676,6 +697,18 @@ GET /health/ready    # Readiness probe (includes DB, GitHub, Jira connectivity)
 
 ---
 
+## External dependencies
+
+| Dependency | Integration | Failure mode |
+|------------|-------------|--------------|
+| GitHub | REST API + webhooks | Retry with backoff |
+| Jira | REST API + OAuth | Retry with backoff |
+| Atropos | HTTP publish + callbacks | Queue locally, retry with backoff |
+| PostgreSQL | Connection pool | Retry with backoff |
+| Redis | Cache | Bypass cache, query directly |
+
+---
+
 ## Open Implementation Questions
 
 - Workbench deletion vs archival — hard delete or soft delete with TTL?
@@ -686,6 +719,8 @@ GET /health/ready    # Readiness probe (includes DB, GitHub, Jira connectivity)
 
 ## Read Next
 
+- [../../../foundry-work-plan/phase-1/event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md) — Atropos event transport SSOT
+- [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md) — Phase 1 entity and label SSOT
 - [workbench-architecture.md](workbench-architecture.md) — Workbench repository storage model
 - [workshop-repository.md](workshop-repository.md) — Workshop Definition Repository structure
 - [../orchestrator/platform-developer-guide/requirements.md](..//orchestrator/platform-developer-guide/requirements.md) — Orchestrator requirements

@@ -4,7 +4,7 @@ An Orchestration Item is a Track-level coordination token — such as Product In
 
 ## What it is
 
-Orchestration Items are the coordination layer of Foundry. They represent the "what" that moves through the system — the intent, case, or request that multiple Workspaces will act upon. When Product Intent moves from Specification to Development, that's an Orchestration Item being routed. When a Discovery Case closes into Product Intent, that's cross-Track handoff.
+Orchestration Items are the coordination layer of Foundry. They represent the "what" that moves through the system — the intent, case, or request that multiple Workspaces will act upon.
 
 Each Track has a primary Orchestration Item:
 
@@ -17,7 +17,18 @@ Each Track has a primary Orchestration Item:
 | **Evolve** | Evolve Case | Process, model, or practice evolution |
 | **Governance** | Governance Ritual / Governance Enforcement | Rituals, policy assertion, evidence, approvals |
 
-Orchestration Items are **not** Work Orders. The distinction is critical:
+### Dual representation (Discovery Case, Product Intent)
+
+Discovery Case and Product Intent exist as both:
+
+- **Work Items** in the Work Repository (orchestration record, workflow stage, `workRepoKey`)
+- **Work Artifacts** in the Intent Repository (charter, PSDs, folder tree, `artifactUri`)
+
+PDR is **artifact-only** in the Intent Repository — not a Work Item.
+
+All orchestration APIs expose `title` and markdown `description`.
+
+Orchestration Items are **not** Work Orders:
 
 | | Orchestration Item | Work Order |
 |---|-------------------|------------|
@@ -27,31 +38,35 @@ Orchestration Items are **not** Work Orders. The distinction is critical:
 | **Lifecycle** | Routed, gated, linked across Workspaces | Created, executed, completed, failed, or cancelled |
 | **Owner** | Orchestrator | Work Order Runtime |
 
-Moving Product Intent from Specification to Development is orchestration. Instantiating a `refine-psd` Scenario in the Product Specification Workspace is creating a Work Order.
-
 ## Where it lives in Foundry
 
 | Module | Responsibility |
 |--------|----------------|
 | **Orchestrator** | Routes items through OI Workflows; creates Work Orders when items reach Workspaces |
 | **WO Runtime** | Executes the Work Orders that Orchestrator creates |
-| **Jira** | System of record for orchestration items (as Epics or custom issue types) |
+| **Work Repository** | Work Item mirror for dual entities |
+| **Intent Repository** | Git-backed artifacts for dual entities and PDR |
 | **Metadata Service** | Generates unique IDs (PI-123, DC-456, etc.) |
 
-The Orchestrator uses [OI Workflows](work-catalog.md) — YAML definitions that specify how orchestration items transition through stages and what Work Orders to create at each stage.
+Track-based APIs (Phase 1):
+
+- Discovery: `/workbenches/{workbenchId}/tracks/discovery/cases/{dcId}`
+- Build: `/workbenches/{workbenchId}/tracks/build/product-intents/{piId}`
+
+See [../../foundry-work-plan/phase-1/api-surface.md](../../foundry-work-plan/phase-1/api-surface.md).
 
 ## ACE/UPIM alignment
 
 | Orchestration Item | UPIM Entity | ACE Flow |
 |-------------------|-------------|----------|
-| Product Intent | Strategy & Intent (PIR) | Discovery → Product Specification → UX → Development → QA → Release |
-| Discovery Case | Work Model (Discovery) | Created from signals; closes into Product Intent or dismissal |
-| Run Case | Work Model (Run) | Created from incidents or changes; routed through Run Workspaces |
-| Win Case | Feedback (Win) | Created from FIRs; routed through support and resolution |
-| Evolve Case | Operating Model | Created for practice improvement; routed through definition and adoption |
-| Governance Ritual / Enforcement | Operating Model | Invoked at transitions; produces verdicts and register entries |
+| Product Intent | Strategy & Intent (Intent Repository) | Discovery → Product Specification → UX → Development → QA → Release |
+| Discovery Case | Work Model (Discovery) | Optional `sourceRefs[]`; closes into Product Intent or dismissal |
+| Run Case | Work Model (Run) | Created from incidents or changes |
+| Win Case | Feedback (Win) | Created from FIRs |
+| Evolve Case | Operating Model | Practice improvement |
+| Governance Ritual / Enforcement | Operating Model | Transition validation |
 
-Product Intent is the **hybrid bridge entity** that flows through Build workspaces. It is definition-bearing, work-triggering, and ACE-routable. Discovery and product decisions establish or update it; Release renews it for the next cycle.
+Product Intent is the **hybrid bridge entity** that flows through Build workspaces.
 
 ## Related concepts
 
@@ -62,7 +77,6 @@ Product Intent is the **hybrid bridge entity** that flows through Build workspac
 
 ## Further reading
 
+- [../../foundry-work-plan/phase-1/repository-contracts.md](../../foundry-work-plan/phase-1/repository-contracts.md) — entity storage model
 - [../orchestrator/README.md](../orchestrator/README.md) — OI routing and WO creation
-- [../orchestrator/user-guide/product-intent-journey.md](../orchestrator/user-guide/product-intent-journey.md) — End-to-end Product Intent walkthrough
 - [../../ace/product-evolution-cycle.md](../../ace/product-evolution-cycle.md) — How Product Intent moves
-- [../../ace/concepts.md#product-intent](../../ace/concepts.md#product-intent) — ACE definition

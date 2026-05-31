@@ -104,9 +104,13 @@ Example entries:
 
 | Project | Type | Label Filter | Description |
 |---------|------|--------------|-------------|
-| Operations | JSM | `workbench:{id}` | Problems, incidents |
-| Feedback | Jira | `workbench:{id}` | FIRs, bugs |
-| Work | Jira | `workbench:{id}` | Work items |
+| Operations | JSM | `foundry-workbench-{workbenchId}` | Problems, incidents |
+| Feedback | Jira | `foundry-workbench-{workbenchId}` | FIRs, bugs |
+| Work | Jira | `foundry-workbench-{workbenchId}` | Work items |
+
+Work Orders use a dedicated project (`workRepoProject`); not label-filtered.
+
+Contract reference: [../../../../../foundry-work-plan/phase-1/repository-contracts.md](../../../../../foundry-work-plan/phase-1/repository-contracts.md).
 
 ---
 

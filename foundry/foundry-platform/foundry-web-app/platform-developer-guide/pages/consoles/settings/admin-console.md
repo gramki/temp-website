@@ -51,11 +51,15 @@
 
 ### 5. Jira Label Configuration
 
+Canonical `foundry-*` labels per [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md):
+
 | Repository | Jira Project | Label Filter |
 |------------|--------------|--------------|
-| Operations | JSM-OPS | `workbench:WB-123` |
-| Feedback | JIRA-FB | `workbench:WB-123` |
-| Work | JIRA-WORK | `workbench:WB-123` |
+| Operations | JSM-OPS | `foundry-workbench-{workbenchId}` |
+| Feedback | JIRA-FB | `foundry-workbench-{workbenchId}` |
+| Work | JIRA-WORK | `foundry-workbench-{workbenchId}` |
+
+Example: `foundry-workbench-wb-checkout`
 
 ### 6. Notification Settings
 

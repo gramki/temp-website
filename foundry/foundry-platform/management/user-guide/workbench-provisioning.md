@@ -124,6 +124,9 @@ The platform configures GitHub resources:
 | **Create Intent repo** | Creates `{product_code}-intent` repository with scaffold |
 | **Create Design repo** | Creates `{product_code}-design` repository with scaffold |
 | **Configure webhooks** | Sets up webhooks for push and pull request events |
+| **Register Atropos tenant** | Registers Foundry with Olympus event fabric for module callbacks |
+
+**Event transport:** Module coordination uses Atropos HTTP callbacks at `/{foundry-id}/foundry.{module}.{event}`. See [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
 
 **Intent Repository scaffold:**
 
@@ -219,9 +222,11 @@ capable_agents:
   - copilot
 
 defaults:
-  jira_project: {PRODUCT_CODE}-WO
+  workRepoProject: {PRODUCT_CODE}-WO   # Work Repository project key (Jira adapter in Phase 1)
   github_org: {github_org}
 ```
+
+See [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md) for entity and label conventions.
 
 ### 8. Create the default team (Workshop Admin)
 

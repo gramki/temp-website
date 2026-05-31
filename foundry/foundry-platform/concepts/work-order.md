@@ -12,26 +12,22 @@ The relationship between Orchestration Items and Work Orders:
 |--------|-------------------|------------|
 | **Layer** | Coordination | Execution |
 | **Scope** | Track-level, spans Workspaces | Single Workspace |
+| **Storage** | Dual (OI) or Work Item only | Work Item only |
 | **Cardinality** | One creates many | Many belong to one |
 | **Owner** | Orchestrator | WO Runtime |
 
 When the Orchestrator's OI Workflow determines that an orchestration item has reached a Workspace, it creates a Work Order. That Work Order:
 
 1. References the Scenario to execute
-2. Carries context from the parent orchestration item
+2. Carries `title` and markdown `description` from the orchestration context
 3. Gets assigned to users based on skill matching
 4. Triggers [Workspace Session](workspace-session.md) activation
 5. Creates a [Task](task.md) tree when execution starts
 6. Reports completion back to Orchestrator
 
-Work Orders are stored in Jira as Epics within the Workbench project. This provides:
+Work Orders are **Work Items** in the Work Repository (Epics in the Jira adapter for Phase 1). Contract fields include `workRepoKey`, `workRepoProject`, and `workRepoStatus`.
 
-- Unified tracking alongside other work
-- Assignment and notification workflows
-- History and audit trail
-- Integration with existing team processes
-
-Multiple Work Orders can be attached to a single Workspace Session. A developer might have WOs for two different features active in the same session.
+Multiple Work Orders can be attached to a single Workspace Session.
 
 ## Where it lives in Foundry
 
@@ -39,33 +35,22 @@ Multiple Work Orders can be attached to a single Workspace Session. A developer 
 |--------|----------------|
 | **Orchestrator** | Creates Work Orders when OI reaches Workspace |
 | **WO Runtime** | Executes Work Orders, manages Task tree |
-| **Jira** | System of record (Epic issue type) |
+| **Work Repository** | System of record |
 | **Metadata Service** | Generates unique IDs (WO-1234) |
 | **Web App** | Displays WO status, assignment |
 | **IDE** | Work Orders panel shows active WOs |
 
-Work Order lifecycle:
-
-```
-Created (by Orchestrator)
-    → Assigned (by Orchestrator, based on skills/capacity)
-    → Session Activated (WO Runtime creates/attaches Session)
-    → In Progress (Tasks created, agents spawned)
-    → Completed / Failed / Cancelled
-    → Orchestrator Notified (for OI advancement)
-```
+Track-based API: `/workbenches/{workbenchId}/tracks/build/work-orders` — see [../../foundry-work-plan/phase-1/api-surface.md](../../foundry-work-plan/phase-1/api-surface.md).
 
 ## ACE/UPIM alignment
 
 | ACE Concept | Foundry Platform Realization |
 |-------------|------------------------------|
-| [Work Order](../../ace/concepts.md) | Jira Epic per (Track, Workspace, Scenario) |
+| [Work Order](../../ace/concepts.md) | Work Item per (Track, Workspace, Scenario) |
 | Scenario execution | WO Runtime reads Scenario, creates Tasks |
 | Workspace work | Multiple WOs can run in one Session |
 
 From Orchestrator README: "Do not conflate [Orchestration Items and Work Orders]. Moving Product Intent from Specification to Development is orchestration. Instantiating a `refine-psd` Scenario in Product Specification Workspace is a Workspace Work Order."
-
-Work Orders connect UPIM's abstract Work Model to concrete execution. UPIM defines what work exists; Work Orders are the instances of that work being performed.
 
 ## Related concepts
 
@@ -77,7 +62,6 @@ Work Orders connect UPIM's abstract Work Model to concrete execution. UPIM defin
 
 ## Further reading
 
+- [../../foundry-work-plan/phase-1/repository-contracts.md](../../foundry-work-plan/phase-1/repository-contracts.md) — Work Order schema
 - [../work-order-runtime/README.md](../work-order-runtime/README.md) — WO execution engine
 - [../orchestrator/README.md](../orchestrator/README.md) — WO creation and routing
-- [../orchestrator/user-guide/product-intent-journey.md](../orchestrator/user-guide/product-intent-journey.md) — End-to-end walkthrough
-- [../../ace/concepts.md](../../ace/concepts.md) — ACE definitions

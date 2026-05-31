@@ -4,6 +4,8 @@
 
 **Purpose:** Central dashboard for a Product's Workbench; primary landing page for day-to-day work.
 
+Entity data uses track-based APIs; Intent Repository content uses repo-based routes — see [../../../../foundry-work-plan/phase-1/api-surface.md](../../../../foundry-work-plan/phase-1/api-surface.md).
+
 ---
 
 ## Target Users

@@ -202,6 +202,21 @@ description: Whether to automatically fall back to alternative agents when prima
 
 External tool connections.
 
+### integrations.atropos
+
+```yaml
+key: integrations.atropos
+type: object
+schema:
+  base_url: { type: string, format: url }
+  tenant_id: { type: string }           # maps to foundry-id in event paths
+  callback_auth_ref: { type: string }   # secret for validating inbound callbacks
+default: null
+mutable: true
+cascade: no
+description: Atropos (Olympus event fabric) integration. Platform events use paths `/{foundry-id}/foundry.{module}.{event}`. See event-contracts.md.
+```
+
 ### integrations.github
 
 ```yaml
@@ -231,7 +246,7 @@ schema:
 default: null
 mutable: true
 cascade: no
-description: Jira Cloud/Server integration configuration
+description: Jira Cloud/Server integration configuration (Work Repository adapter). Shared projects filter by `foundry-workbench-{workbenchId}`; Work Orders use dedicated `workRepoProject`.
 ```
 
 ### integrations.figma

@@ -51,6 +51,11 @@ Clicking an item opens detail panel or navigates to detail page showing:
 
 **Orchestration Item Details** — `/workbenches/{workbenchId}/orchestration/{type}/{itemId}`
 
+Uses track-based APIs per [../../../../../foundry-work-plan/phase-1/api-surface.md](../../../../../foundry-work-plan/phase-1/api-surface.md):
+
+- Discovery Case: `/tracks/discovery/cases/{dcId}`
+- Product Intent: `/tracks/build/product-intents/{piId}`
+
 Full page view with:
 - Complete item information
 - All linked Work Orders

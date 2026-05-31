@@ -1,5 +1,7 @@
 # Foundry Repository Architecture -- Unified Product Information Model
 
+> **PIR disambiguation.** In this document, **PIR** means **Product Intent Repository** (ACE repository code). In UPIM Run Track, **PIR** also abbreviates **Post-Incident Review** — a different entity. Foundry Platform prose prefers **Intent Repository** for the repository; spell out Post-Incident Review in Run-track context. See [../glossary.md#pir-term-overload](../glossary.md#pir-term-overload).
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -767,6 +769,28 @@ artifact://<landscape>/<repo-type>/<repo-id>/<artifact-type>/<artifact-name>|<ar
   `artifact://eon/Workforce/workforce-core/agent/sre-john-doe@1`
 - Stakeholders Customer:
   `artifact://eon/Stakeholders/stakeholders-core/customer/globalpay-sa@1`
+
+### Foundry Platform Phase 1 URI mapping
+
+ACE landscape-scoped URIs (above) remain valid for enterprise topology. The **Foundry Platform Phase 1** implementation uses Foundry → Workshop → Workbench containment:
+
+```text
+artifact://{foundry-id}/{workshop-id}/{workbench-id}/{repo-type}/{artifact-type}/{artifact-id}@{revision}
+```
+
+| ACE landscape URI component | Phase 1 containment equivalent |
+|-----------------------------|--------------------------------|
+| `<landscape>` | `{foundry-id}` (and nested `{workshop-id}`, `{workbench-id}`) |
+| `<repo-type>` | `{repo-type}` (e.g. `intent`, `design`, `code`) |
+| `<repo-id>` | Omitted — workbench scopes the repo instance |
+| `<artifact-type>` / `<artifact-id>` | `{artifact-type}` / `{artifact-id}` |
+| `@<version>` | `@{revision}` (Git SHA or semver) |
+
+**Example (Phase 1):**
+
+`artifact://foundry-zeta/workshop-abc/wb-checkout/intent/product-intent/PI-456@a1b2c3d`
+
+Authoritative spec: [../foundry-work-plan/phase-1/repository-contracts.md](../foundry-work-plan/phase-1/repository-contracts.md).
 
 ### Evolution Lineage Record (fields)
 - from_uri, to_uri, relation (e.g., derives_from, verifies, implements, routes_to, originates_from)

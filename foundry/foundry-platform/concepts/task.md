@@ -15,17 +15,19 @@ Work Order (from Scenario)
     └── Sub-Task B
 ```
 
-Tasks have two primary types based on who executes them:
+Every Task carries contract fields `title` (short label) and `description` (markdown body).
 
-| Type | Executor | Surfaced In |
-|------|----------|-------------|
-| **Agent Task** | Employed Agent with Skills | Agent process in Session |
-| **Human Task** | Human practitioner | Web console, IDE panel |
+### `agentType` (contract field)
+
+| `agentType` | Executor | Surfaced In |
+|-------------|----------|-------------|
+| `ai-agent` | Employed Agent with Skills | Agent process in Session |
+| `human` | Human practitioner | Web console, IDE panel |
 
 The distinction matters for tooling and workflow:
 
-- **Agent Tasks** are picked up by spawned agents within a [Workspace Session](workspace-session.md). The agent has context, skills, and a delegation token.
-- **Human Tasks** are surfaced in the Foundry Web App and IDE for humans to claim and complete. These might be review tasks, approval tasks, or tasks requiring judgment beyond agent capability.
+- **`ai-agent`** tasks are picked up by spawned agents within a [Workspace Session](workspace-session.md). The agent has context, skills, and a delegation token.
+- **`human`** tasks are surfaced in the Foundry Web App and IDE for humans to claim and complete.
 
 Tasks maintain state through a lifecycle:
 
@@ -38,47 +40,40 @@ Tasks maintain state through a lifecycle:
 | `failed` | Execution failed |
 | `cancelled` | Explicitly cancelled |
 
-Tasks are stored in Jira as the system of record. Root Tasks are Stories under the Work Order Epic; Sub-Tasks are Jira Sub-tasks. This enables consistent tracking, reporting, and integration with existing workflows.
+Work Items (Tasks) are stored in the **Work Repository** as the system of record. In Phase 1 the adapter is Jira: root Tasks are Stories under the Work Order Epic; sub-tasks are Jira Sub-tasks. Contract field `workRepoItemKey` holds the adapter item key.
+
+Workspace-local and Personal Work tasks use `syncScope: local` and are not synced to the Work Repository.
 
 ## Where it lives in Foundry
 
 | Module | Responsibility |
 |--------|----------------|
 | **WO Runtime** | Creates task tree, manages dependencies, tracks state |
-| **Jira (MCP)** | System of record for Task storage |
+| **Work Repository** | System of record (`workRepoItemKey`) |
 | **Agent Fabric** | Provides Skills that agents use to complete Tasks |
 | **IDE** | Surfaces Human Tasks in Work Orders panel |
 | **Web App** | Shows Human Tasks in Work console |
 
-WO Runtime's Task Manager is the central component:
-
-```
-Scenario Definition → Task Tree Creation → Dependency Resolution → Agent Spawning/Human Surfacing → Completion Tracking → WO Completion
-```
+API routes: track-based `/workbenches/{workbenchId}/tracks/build/tasks/{taskId}` — see [../../foundry-work-plan/phase-1/api-surface.md](../../foundry-work-plan/phase-1/api-surface.md).
 
 ## ACE/UPIM alignment
 
 | ACE Concept | Foundry Platform Realization |
 |-------------|------------------------------|
-| [Task](../../ace/concepts.md#scenarios-and-tasks) | Task tree in Jira via WO Runtime |
-| Human–Agent Team | Both types execute Tasks within same Workspace |
+| [Task](../../ace/concepts.md#scenarios-and-tasks) | Task tree via WO Runtime + Work Repository |
+| Human–Agent Team | Both `agentType` values execute Tasks within same Workspace |
 | Task completion | Updates Work Repository; notifies Orchestrator |
-
-From ACE: "Tasks are the unit of work completed by the Human–Agent Team."
-
-UPIM's Work Model defines abstract work entities (Epic, Story, Task, Bug). The Foundry Platform maps these to Jira issue types, with WO Runtime managing the execution lifecycle.
 
 ## Related concepts
 
 - [Scenario](scenario.md) — What creates Tasks when it executes
 - [Work Order](work-order.md) — The container for a Task tree
 - [Workspace Session](workspace-session.md) — Where Tasks execute
-- [Agent Model](agent-model.md) — Who executes Agent Tasks
+- [Agent Model](agent-model.md) — Who executes `ai-agent` Tasks
 - [Delegation](delegation.md) — Authority that agents have to complete Tasks
 
 ## Further reading
 
+- [../../foundry-work-plan/phase-1/repository-contracts.md](../../foundry-work-plan/phase-1/repository-contracts.md) — Task schema and `agentType`
 - [../work-order-runtime/README.md](../work-order-runtime/README.md) — Task Manager and lifecycle
 - [../work-order-runtime/platform-developer-guide/requirements.md](../work-order-runtime/platform-developer-guide/requirements.md) — Task management requirements
-- [../../ace/concepts.md#scenarios-and-tasks](../../ace/concepts.md#scenarios-and-tasks) — ACE definition
-- [../../ace/repositories.md#work-repository](../../ace/repositories.md#work-repository) — Work Repository structure

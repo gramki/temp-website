@@ -86,13 +86,13 @@ A Workbench manages several types of repositories:
 
 | Repository | What it contains | Storage |
 |------------|------------------|---------|
-| **Intent** | Product Intents, PSDs, mockup links | GitHub (per Workbench) |
+| **Intent** | Product Intents, PDRs, PSDs | GitHub (Intent Repository) |
 | **Design** | Design artifacts, visual designs | GitHub (per Workbench) |
 | **Code** | Source code for Systems/Components | GitHub (multiple repos) |
 | **Quality Automation** | Test automation scripts | GitHub (per Workbench) |
-| **Work Orders** | Execution tracking | Jira (dedicated project) |
-| **Operations** | Incidents, problems | Jira (shared, filtered) |
-| **Feedback** | Bug reports, FIRs | Jira (shared, filtered) |
+| **Work Orders** | Execution tracking (Work Items) | Work Repository — dedicated `workRepoProject` |
+| **Operations** | Incidents, problems | Work Repository — shared project, `foundry-workbench-{workbenchId}` label |
+| **Feedback** | Bug reports, FIRs | Work Repository — shared project, `foundry-workbench-{workbenchId}` label |
 
 All GitHub repositories are tagged with Foundry, Workshop, and Workbench identifiers for traceability.
 
@@ -176,6 +176,6 @@ After understanding this architecture, you should be able to:
 |---------|--------------|------------|
 | Cannot see Workbench in UI | Permissions not granted | Contact Workshop Admin to verify team membership |
 | Repositories not appearing | GitHub App not installed | Verify Foundry GitHub App is installed on the org |
-| Jira issues not syncing | Label filter misconfigured | Check Jira label configuration in Admin Console |
+| Jira issues not syncing | Label filter misconfigured | Verify `foundry-workbench-{workbenchId}` labels in Admin Console |
 | Capable Agent not available | Disabled at higher level | Check Foundry/Workshop settings for agent configuration |
 | Cannot add Scenario Catalog | Not a Manager | Request Manager role from Workbench Admin |

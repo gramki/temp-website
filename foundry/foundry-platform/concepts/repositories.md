@@ -18,6 +18,8 @@ The 15 canonical repository types with UPIM alignment:
 | Repository | Code | UPIM Mapping | Scope |
 |------------|------|--------------|-------|
 | **Product Intent** | PIR | Strategy & Intent | Workshop |
+
+> **Naming:** In new Foundry Platform prose, prefer **Intent Repository**. The ACE code **PIR** means Product Intent Repository. **PIR** also abbreviates Post-Incident Review in Run Track — write that term in full in platform-facing docs. See [../../glossary.md](../../glossary.md#pir-term-overload).
 | **Domain** | DKB | Domain Knowledge | Workshop |
 | **Ontology** | POR | Structural Topology | Workbench |
 | **Design** | DAR | Technical, Ecosystem, Operational (definitions) | Workshop |
@@ -55,9 +57,10 @@ Storage locations vary by repository type:
 
 | Type | Storage |
 |------|---------|
-| **Git-backed** | Workshop/Foundry definition repos (Domain, Practices, Ontology) |
-| **Service-backed** | Dedicated services (Intent, Work, Evolution) |
-| **Hybrid** | Git for definitions, service for runtime (Code, Quality) |
+| **Git-backed** | Intent Repository, Design, Code repos (GitHub) |
+| **Work Repository** | Work Items (Jira adapter in Phase 1); vendor-neutral `workRepo*` contract fields |
+| **Service-backed** | Metadata Service, Ontology, Evolution |
+| **Hybrid** | Quality (TestRail + Git) |
 
 ## ACE/UPIM alignment
 
@@ -71,6 +74,14 @@ From ACE: "Repositories are how a Workshop persists what it knows, what it produ
 
 The four-theme clustering (Knowledge, Skills, Artifacts, History) is for presentation. The formal taxonomy with codes and UPIM mappings is authoritative.
 
+Phase 1 artifact URIs use Foundry containment scoping:
+
+```text
+artifact://{foundry-id}/{workshop-id}/{workbench-id}/{repo-type}/{artifact-type}/{artifact-id}@{revision}
+```
+
+See [../../foundry-work-plan/phase-1/repository-contracts.md](../../foundry-work-plan/phase-1/repository-contracts.md). ACE landscape-scoped URIs remain documented in [../../ace/repositories.md](../../ace/repositories.md).
+
 ## Related concepts
 
 - [Containment Hierarchy](containment-hierarchy.md) — Repository scope (Foundry, Workshop, Workbench)
@@ -80,6 +91,8 @@ The four-theme clustering (Knowledge, Skills, Artifacts, History) is for present
 
 ## Further reading
 
+- [../../foundry-work-plan/phase-1/repository-contracts.md](../../foundry-work-plan/phase-1/repository-contracts.md) — Phase 1 entity and URI SSOT
+- [../../foundry-work-plan/phase-1/api-surface.md](../../foundry-work-plan/phase-1/api-surface.md) — repo vs track API routes
 - [../../ace/repositories.md](../../ace/repositories.md) — Canonical repository taxonomy
 - [../management/platform-developer-guide/git-infrastructure.md](../management/platform-developer-guide/git-infrastructure.md) — Git repository provisioning
 - [../management/platform-developer-guide/workshop-repository.md](../management/platform-developer-guide/workshop-repository.md) — Workshop Definition Repository structure

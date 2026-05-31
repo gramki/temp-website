@@ -40,7 +40,7 @@ The data flow:
 
 - Consistent, validated configuration
 - Fast queries without Git overhead
-- Cache invalidation events
+- Cache invalidation via Atropos (`/{foundry-id}/foundry.management.metadata-changed`)
 - Central audit point
 
 ID generation supports multiple types:
@@ -54,6 +54,8 @@ ID generation supports multiple types:
 | `run-case` | RC | RC-45 |
 
 Sequences are scoped per Workbench, monotonically increasing.
+
+Artifact registration returns canonical `artifactUri` per [../../foundry-work-plan/phase-1/repository-contracts.md](../../foundry-work-plan/phase-1/repository-contracts.md).
 
 ## Where it lives in Foundry
 

@@ -87,8 +87,8 @@ Manages references to all source code repos:
 ```
 intent-repo/
 ├── PI-001/                    # Intent folder (PI ID from Metadata Service after Go/Pivot PDR)
-│   ├── README.md              # Intent overview
-│   ├── pdr.md                 # Authorizing Product Decision Record
+│   ├── README.md              # Intent overview (title + description)
+│   ├── pdr.md                 # Authorizing Product Decision Record (artifact-only)
 │   ├── psd-overview.md        # Product Specification Document refinement
 │   ├── psd-feature-a.md       # PSD refinement can span multiple files
 │   └── mockups/               # Mockups (or links to Figma)
@@ -97,6 +97,8 @@ intent-repo/
 │   └── ...
 └── (organized as product team sees fit)
 ```
+
+Artifact URIs follow Phase 1 containment form — see [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md).
 
 **Key behaviors:**
 
@@ -144,28 +146,20 @@ Similar structure to Intent:
 - Git stores automation code corresponding to test cases
 - Quality Service provides unified API regardless of underlying storage
 
-### Jira-based Repositories
+### Work Repository (Jira adapter in Phase 1)
 
-| Repository | Jira Product | Scope | Purpose |
-|------------|--------------|-------|---------|
-| **Operations** | JSM | Label-filtered (shared) | Problems, incidents requiring on-call |
-| **Feedback** | Jira | Label-filtered (shared) | FIRs, bug reports, relevant JSM problems |
-| **Work** | Jira | Label-filtered (shared) | Work Model entities |
-| **Work Orders** | Jira | **Dedicated project** | WO Runtime execution (one project per Workbench) |
+| Repository | Adapter | Scope | Purpose |
+|------------|---------|-------|---------|
+| **Operations** | JSM | `foundry-workbench-{workbenchId}` label | Problems, incidents requiring on-call |
+| **Feedback** | Jira | `foundry-workbench-{workbenchId}` label | FIRs, bug reports |
+| **Work** | Jira | `foundry-workbench-{workbenchId}` label | Work Model entities |
+| **Work Orders** | Jira | Dedicated `workRepoProject` | WO Runtime execution |
 
-**Configuration:**
+**Work Orders project:**
 
-- Operations, Feedback, Work: Jira projects **shared** with label filter
-- Work Orders: **Dedicated Jira project per Workbench** (e.g., `CHKOUT-WO`)
-- All linked at Workbench setup
-
-**Work Orders Jira Project:**
-
-- One dedicated project per Workbench (not shared)
-- Orchestrator creates Work Orders as Epics
-- WO Runtime creates Tasks as Stories/Sub-tasks under Epics
-- Custom fields: `scenario`, `dependencies`, `foundry-track`, `foundry-workspace`
-- See [../../work-order-runtime/platform-developer-guide/task-execution.md](../../work-order-runtime/platform-developer-guide/task-execution.md) for schema details
+- Orchestrator creates Work Orders with `title`, `description`, and `foundry-*` labels
+- WO Runtime creates Tasks with `agentType` (`human` | `ai-agent`)
+- Contract fields: `workRepoKey`, `workRepoItemKey`, `workRepoStatus` — see [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md)
 
 **JSM specifics (Operations):**
 
@@ -317,7 +311,6 @@ Workbenches reference these shared repositories; they don't own them.
 - Scenario Catalog storage and versioning
 - Workbench archival/deletion workflow
 - Cross-Workbench repository sharing within a Workshop
-- Jira label naming convention for Workbench filtering
 
 ---
 

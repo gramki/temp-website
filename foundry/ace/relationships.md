@@ -68,7 +68,7 @@ A small subset of the table (see [repositories.md](repositories.md) for the comp
 
 ACE specifies the repositories; UPIM specifies the entities and lifecycles that live in them.
 
-PIR stores strategy, Signals, Ideas, PDRs, PSDs, and routable Product Intent records. Not every PIR item is Product Intent: Product Intent is the ACE bridge entity inside the broader repository, while the other PIR contents provide context, provenance, decisions, and refinements.
+The **Intent Repository** (ACE code **PIR** — Product Intent Repository) stores strategy, Signals, Ideas, PDRs, PSDs, and routable Product Intent records. Not every item in the Intent Repository is Product Intent: Product Intent is the ACE bridge entity inside the broader repository. **PIR** also abbreviates Post-Incident Review in Run Track — see [../glossary.md#pir-term-overload](../glossary.md#pir-term-overload). Phase 1 artifact URIs: [../foundry-work-plan/phase-1/repository-contracts.md](../foundry-work-plan/phase-1/repository-contracts.md).
 
 ## ACE ↔ Foundry Platform: who owns what
 

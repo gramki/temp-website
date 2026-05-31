@@ -274,14 +274,16 @@ spec:
   jira:
     connected: true
     labels:
-      operations: "workbench:wb-checkout"
-      feedback: "workbench:wb-checkout"
-      work: "workbench:wb-checkout"
+      tenant: "foundry-tenant-foundry-zeta"
+      workshop: "foundry-workshop-workshop-abc"
+      operations: "foundry-workbench-wb-checkout"
+      feedback: "foundry-workbench-wb-checkout"
+      work: "foundry-workbench-wb-checkout"
     projects:
       operations: JSM-OPS
       feedback: JIRA-FB
       work: JIRA-WORK
-      workOrders: CHKOUT-WO     # Dedicated project for Work Orders (one per Workbench)
+      workRepoWorkOrders: CHKOUT-WO  # workRepoProject in contract; Jira project key in adapter
   weave:
     connected: true
     productCode: CHKOUT-001
@@ -294,7 +296,7 @@ spec:
       category: monitoring
 ```
 
-**Note:** The `workOrders` project is dedicated to this Workbench (not shared). Orchestrator creates Work Orders as Epics in this project; WO Runtime creates Tasks as Stories/Sub-tasks. See [../work-order-runtime/platform-developer-guide/task-execution.md](..//work-order-runtime/platform-developer-guide/task-execution.md) for Jira schema details.
+**Note:** Shared Jira projects filter by `foundry-workbench-{workbenchId}`. The dedicated `workRepoWorkOrders` project maps to contract field `workRepoProject`. See [../../../foundry-work-plan/phase-1/repository-contracts.md](../../../foundry-work-plan/phase-1/repository-contracts.md).
 
 ### `workbenches/{product-code}/team.yaml`
 
@@ -449,14 +451,19 @@ spec:
     - designRef: optional
   tasks:
     - name: analyze-requirements
-      type: agent
+      title: "Analyze Requirements"
+      description: "Analyze the incoming specification and identify implementation constraints."
+      agentType: ai-agent
       skill: requirements-analyst
     - name: generate-code
-      type: agent
+      title: "Generate Code"
+      description: "Implement the approved changes and produce code artifacts."
+      agentType: ai-agent
       skill: code-generator
     - name: human-review
-      type: human
-      description: "Review and refine generated code"
+      title: "Human Review"
+      description: "Review and refine generated code."
+      agentType: human
   outputs:
     - codeCommit
     - testCommit
