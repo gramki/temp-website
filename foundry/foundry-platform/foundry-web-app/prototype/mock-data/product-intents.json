@@ -1,0 +1,102 @@
+{
+  "productIntents": [
+    {
+      "id": "pi-2001",
+      "title": "General Ledger posting resilience and replay controls",
+      "domainDescription": "Kernel is a General Ledger System.",
+      "status": "in-progress",
+      "stage": "implementation-ready",
+      "sourceDiscoveryCaseId": "dc-1001",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-anika",
+      "createdAt": "2026-05-29T10:45:00Z",
+      "updatedAt": "2026-05-31T12:00:00Z"
+    },
+    {
+      "id": "pi-2002",
+      "title": "UPI PSP Wallet auto-retry and intent recovery",
+      "domainDescription": "UPI PSP Wallet is an NPCI UPI spec compliant UPI PSP service.",
+      "status": "approved",
+      "stage": "spec-approved",
+      "sourceDiscoveryCaseId": "dc-1002",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-upi-psp-wallet",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-rhea",
+      "createdAt": "2026-05-30T08:10:00Z",
+      "updatedAt": "2026-05-31T09:20:00Z"
+    },
+    {
+      "id": "pi-2003",
+      "title": "DDA account lifecycle and ledger reconciliation hardening",
+      "domainDescription": "DDA is a Demand Deposit Account management system.",
+      "status": "in-progress",
+      "stage": "spec-draft",
+      "sourceDiscoveryCaseId": "dc-1003",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-dda",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-mansi",
+      "createdAt": "2026-05-31T06:40:00Z",
+      "updatedAt": "2026-05-31T12:15:00Z"
+    },
+    {
+      "id": "pi-2004",
+      "title": "Credit account delinquency alerts and dispute workflow",
+      "domainDescription": "Credit is a Credit Card Account Management System.",
+      "status": "queued",
+      "stage": "intake",
+      "sourceDiscoveryCaseId": "dc-1004",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-credit",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-rhea",
+      "createdAt": "2026-05-31T05:25:00Z",
+      "updatedAt": "2026-05-31T05:25:00Z"
+    },
+    {
+      "id": "pi-2005",
+      "title": "Transaction Processing idempotency and dead-letter observability",
+      "domainDescription": "Transaction Processing manages high-volume payment transaction orchestration.",
+      "status": "in-progress",
+      "stage": "implementation-ready",
+      "sourceDiscoveryCaseId": "dc-1005",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-transaction-processing",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-ritika",
+      "createdAt": "2026-05-30T14:10:00Z",
+      "updatedAt": "2026-05-31T13:05:00Z"
+    },
+    {
+      "id": "pi-2006",
+      "title": "Card PSP Wallet premium card controls and rewards visibility",
+      "domainDescription": "Card PSP Wallet is an Apple Card like service.",
+      "status": "approved",
+      "stage": "development-ready",
+      "sourceDiscoveryCaseId": "dc-1006",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-card-psp-wallet",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-aparna",
+      "createdAt": "2026-05-30T10:20:00Z",
+      "updatedAt": "2026-05-31T09:45:00Z"
+    },
+    {
+      "id": "pi-2007",
+      "title": "Payment Gateway merchant onboarding and settlement visibility",
+      "domainDescription": "Payment Gateway is a Stripe like payment gateway service.",
+      "status": "in-progress",
+      "stage": "spec-approved",
+      "sourceDiscoveryCaseId": "dc-1007",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-ishaan",
+      "createdAt": "2026-05-30T16:30:00Z",
+      "updatedAt": "2026-05-31T11:25:00Z"
+    }
+  ]
+}

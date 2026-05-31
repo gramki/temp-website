@@ -1,0 +1,95 @@
+{
+  "discoveryCases": [
+    {
+      "id": "dc-1001",
+      "title": "Kernel ledger resiliency for high-volume cutover",
+      "status": "in-progress",
+      "stage": "research",
+      "decisionGate": "pending",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-anika",
+      "createdAt": "2026-05-28T09:30:00Z",
+      "updatedAt": "2026-05-31T14:10:00Z"
+    },
+    {
+      "id": "dc-1002",
+      "title": "UPI PSP Wallet onboarding friction reduction",
+      "status": "ready-for-decision",
+      "stage": "decision",
+      "decisionGate": "proceed-to-build",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-upi-psp-wallet",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-rhea",
+      "createdAt": "2026-05-24T11:00:00Z",
+      "updatedAt": "2026-05-30T18:25:00Z"
+    },
+    {
+      "id": "dc-1003",
+      "title": "DDA dormant account handling and statement integrity",
+      "status": "in-progress",
+      "stage": "synthesis",
+      "decisionGate": "pending",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-dda",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-mansi",
+      "createdAt": "2026-05-29T07:20:00Z",
+      "updatedAt": "2026-05-31T12:40:00Z"
+    },
+    {
+      "id": "dc-1004",
+      "title": "Credit dispute turnaround and delinquency interventions",
+      "status": "ready-for-decision",
+      "stage": "decision",
+      "decisionGate": "proceed-to-build",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-credit",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-rhea",
+      "createdAt": "2026-05-28T10:05:00Z",
+      "updatedAt": "2026-05-31T09:50:00Z"
+    },
+    {
+      "id": "dc-1005",
+      "title": "Transaction Processing duplicate prevention and retry strategy",
+      "status": "in-progress",
+      "stage": "research",
+      "decisionGate": "pending",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-transaction-processing",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-ritika",
+      "createdAt": "2026-05-30T05:45:00Z",
+      "updatedAt": "2026-05-31T13:20:00Z"
+    },
+    {
+      "id": "dc-1006",
+      "title": "Card PSP Wallet onboarding simplicity and rewards transparency",
+      "status": "completed",
+      "stage": "decision",
+      "decisionGate": "proceed-to-build",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-card-psp-wallet",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-aparna",
+      "createdAt": "2026-05-27T09:15:00Z",
+      "updatedAt": "2026-05-30T17:40:00Z"
+    },
+    {
+      "id": "dc-1007",
+      "title": "Payment Gateway merchant integration friction and settlement clarity",
+      "status": "completed",
+      "stage": "decision",
+      "decisionGate": "proceed-to-build",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "tenantId": "tenant-zeta",
+      "owner": "pm-ishaan",
+      "createdAt": "2026-05-27T11:30:00Z",
+      "updatedAt": "2026-05-30T18:05:00Z"
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "traceabilityLinks": [
+    {
+      "id": "tl-6001",
+      "type": "discovery-to-product-intent",
+      "sourceType": "discovery-case",
+      "sourceId": "dc-1001",
+      "targetType": "product-intent",
+      "targetId": "pi-2001"
+    },
+    {
+      "id": "tl-6002",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2001",
+      "targetType": "work-order",
+      "targetId": "wo-3001"
+    },
+    {
+      "id": "tl-6003",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2001",
+      "targetType": "work-order",
+      "targetId": "wo-3002"
+    },
+    {
+      "id": "tl-6004",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2001",
+      "targetType": "work-order",
+      "targetId": "wo-3003"
+    },
+    {
+      "id": "tl-6005",
+      "type": "product-intent-to-governance-verdict",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2001",
+      "targetType": "governance-verdict",
+      "targetId": "gv-5001"
+    },
+    {
+      "id": "tl-6006",
+      "type": "discovery-to-product-intent",
+      "sourceType": "discovery-case",
+      "sourceId": "dc-1002",
+      "targetType": "product-intent",
+      "targetId": "pi-2002"
+    },
+    {
+      "id": "tl-6007",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2002",
+      "targetType": "work-order",
+      "targetId": "wo-3004"
+    },
+    {
+      "id": "tl-6008",
+      "type": "product-intent-to-governance-verdict",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2002",
+      "targetType": "governance-verdict",
+      "targetId": "gv-5002"
+    },
+    {
+      "id": "tl-6009",
+      "type": "discovery-to-product-intent",
+      "sourceType": "discovery-case",
+      "sourceId": "dc-1003",
+      "targetType": "product-intent",
+      "targetId": "pi-2003"
+    },
+    {
+      "id": "tl-6010",
+      "type": "product-intent-to-governance-verdict",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2003",
+      "targetType": "governance-verdict",
+      "targetId": "gv-5003"
+    },
+    {
+      "id": "tl-6011",
+      "type": "discovery-to-product-intent",
+      "sourceType": "discovery-case",
+      "sourceId": "dc-1004",
+      "targetType": "product-intent",
+      "targetId": "pi-2004"
+    },
+    {
+      "id": "tl-6012",
+      "type": "product-intent-to-governance-verdict",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2004",
+      "targetType": "governance-verdict",
+      "targetId": "gv-5004"
+    },
+    {
+      "id": "tl-6013",
+      "type": "discovery-to-product-intent",
+      "sourceType": "discovery-case",
+      "sourceId": "dc-1005",
+      "targetType": "product-intent",
+      "targetId": "pi-2005"
+    },
+    {
+      "id": "tl-6014",
+      "type": "product-intent-to-governance-verdict",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2005",
+      "targetType": "governance-verdict",
+      "targetId": "gv-5005"
+    },
+    {
+      "id": "tl-6015",
+      "type": "discovery-to-governance-verdict",
+      "sourceType": "discovery-case",
+      "sourceId": "dc-1005",
+      "targetType": "governance-verdict",
+      "targetId": "gv-5008"
+    },
+    {
+      "id": "tl-6016",
+      "type": "discovery-to-product-intent",
+      "sourceType": "discovery-case",
+      "sourceId": "dc-1006",
+      "targetType": "product-intent",
+      "targetId": "pi-2006"
+    },
+    {
+      "id": "tl-6017",
+      "type": "product-intent-to-governance-verdict",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2006",
+      "targetType": "governance-verdict",
+      "targetId": "gv-5006"
+    },
+    {
+      "id": "tl-6018",
+      "type": "discovery-to-product-intent",
+      "sourceType": "discovery-case",
+      "sourceId": "dc-1007",
+      "targetType": "product-intent",
+      "targetId": "pi-2007"
+    },
+    {
+      "id": "tl-6019",
+      "type": "product-intent-to-governance-verdict",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2007",
+      "targetType": "governance-verdict",
+      "targetId": "gv-5007"
+    },
+    {
+      "id": "tl-6020",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2002",
+      "targetType": "work-order",
+      "targetId": "wo-3005"
+    },
+    {
+      "id": "tl-6021",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2003",
+      "targetType": "work-order",
+      "targetId": "wo-3006"
+    },
+    {
+      "id": "tl-6022",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2003",
+      "targetType": "work-order",
+      "targetId": "wo-3007"
+    },
+    {
+      "id": "tl-6023",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2004",
+      "targetType": "work-order",
+      "targetId": "wo-3008"
+    },
+    {
+      "id": "tl-6024",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2004",
+      "targetType": "work-order",
+      "targetId": "wo-3009"
+    },
+    {
+      "id": "tl-6025",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2005",
+      "targetType": "work-order",
+      "targetId": "wo-3010"
+    },
+    {
+      "id": "tl-6026",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2005",
+      "targetType": "work-order",
+      "targetId": "wo-3011"
+    },
+    {
+      "id": "tl-6027",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2006",
+      "targetType": "work-order",
+      "targetId": "wo-3012"
+    },
+    {
+      "id": "tl-6028",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2006",
+      "targetType": "work-order",
+      "targetId": "wo-3013"
+    },
+    {
+      "id": "tl-6029",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2007",
+      "targetType": "work-order",
+      "targetId": "wo-3014"
+    },
+    {
+      "id": "tl-6030",
+      "type": "product-intent-to-work-order",
+      "sourceType": "product-intent",
+      "sourceId": "pi-2007",
+      "targetType": "work-order",
+      "targetId": "wo-3015"
+    }
+  ]
+}

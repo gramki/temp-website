@@ -1,0 +1,14 @@
+{
+  "id": "happyPath",
+  "name": "Happy Path",
+  "tenantId": "tenant-zeta",
+  "defaultWorkshopId": "ws-photon",
+  "defaultWorkbenchId": "wb-photon-payment-gateway",
+  "selectedJourney": "build-track",
+  "selectedProductIntentId": "pi-2007",
+  "prioritizedWorkOrderIds": [
+    "wo-3014",
+    "wo-3015"
+  ],
+  "notes": "Primary starter scenario: Build Track first with two Work Orders."
+}

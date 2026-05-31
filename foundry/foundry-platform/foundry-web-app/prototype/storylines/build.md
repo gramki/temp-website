@@ -24,6 +24,7 @@ Order visibility and governance context.
 
 ## Demo scenarios
 
+- Build-first starter: two Work Orders on one Product Intent (`wo-3014`, `wo-3015`)
 - Happy path with sequential Work Orders
 - Parallel Work Orders with one delayed branch
 - Hard block at governance checkpoint

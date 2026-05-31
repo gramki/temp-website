@@ -1,0 +1,38 @@
+{
+  "tenant": {
+    "id": "tenant-zeta",
+    "name": "Zeta"
+  },
+  "workshops": [
+    {
+      "id": "ws-tachyon",
+      "slug": "tachyon",
+      "name": "Tachyon",
+      "tenantId": "tenant-zeta",
+      "workbenchIds": [
+        "wb-tachyon-kernel",
+        "wb-tachyon-credit",
+        "wb-tachyon-dda",
+        "wb-tachyon-transaction-processing"
+      ]
+    },
+    {
+      "id": "ws-photon",
+      "slug": "photon",
+      "name": "Photon",
+      "tenantId": "tenant-zeta",
+      "workbenchIds": [
+        "wb-photon-upi-psp-wallet",
+        "wb-photon-payment-gateway",
+        "wb-photon-card-psp-wallet"
+      ]
+    },
+    {
+      "id": "ws-electron",
+      "slug": "electron",
+      "name": "Electron",
+      "tenantId": "tenant-zeta",
+      "workbenchIds": []
+    }
+  ]
+}

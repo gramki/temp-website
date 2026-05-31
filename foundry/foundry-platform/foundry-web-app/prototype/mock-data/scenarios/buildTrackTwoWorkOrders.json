@@ -1,0 +1,14 @@
+{
+  "id": "buildTrackTwoWorkOrders",
+  "name": "Build Track - Two Work Orders",
+  "tenantId": "tenant-zeta",
+  "defaultWorkshopId": "ws-photon",
+  "defaultWorkbenchId": "wb-photon-payment-gateway",
+  "selectedJourney": "build-track",
+  "selectedProductIntentId": "pi-2007",
+  "prioritizedWorkOrderIds": [
+    "wo-3014",
+    "wo-3015"
+  ],
+  "notes": "Focus scenario for initial implementation: one completed WO and one blocked WO in Build Track."
+}

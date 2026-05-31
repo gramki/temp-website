@@ -1,0 +1,53 @@
+{
+  "workbenches": [
+    {
+      "id": "wb-tachyon-kernel",
+      "slug": "kernel",
+      "name": "Kernel",
+      "workshopId": "ws-tachyon",
+      "tenantId": "tenant-zeta"
+    },
+    {
+      "id": "wb-tachyon-credit",
+      "slug": "credit",
+      "name": "Credit",
+      "workshopId": "ws-tachyon",
+      "tenantId": "tenant-zeta"
+    },
+    {
+      "id": "wb-tachyon-dda",
+      "slug": "dda",
+      "name": "DDA",
+      "workshopId": "ws-tachyon",
+      "tenantId": "tenant-zeta"
+    },
+    {
+      "id": "wb-tachyon-transaction-processing",
+      "slug": "transaction-processing",
+      "name": "Transaction Processing",
+      "workshopId": "ws-tachyon",
+      "tenantId": "tenant-zeta"
+    },
+    {
+      "id": "wb-photon-upi-psp-wallet",
+      "slug": "upi-psp-wallet",
+      "name": "UPI PSP Wallet",
+      "workshopId": "ws-photon",
+      "tenantId": "tenant-zeta"
+    },
+    {
+      "id": "wb-photon-payment-gateway",
+      "slug": "payment-gateway",
+      "name": "Payment Gateway",
+      "workshopId": "ws-photon",
+      "tenantId": "tenant-zeta"
+    },
+    {
+      "id": "wb-photon-card-psp-wallet",
+      "slug": "card-psp-wallet",
+      "name": "Card PSP Wallet",
+      "workshopId": "ws-photon",
+      "tenantId": "tenant-zeta"
+    }
+  ]
+}

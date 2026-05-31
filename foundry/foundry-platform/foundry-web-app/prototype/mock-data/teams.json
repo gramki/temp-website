@@ -1,0 +1,495 @@
+{
+  "teamModelVersion": "v1",
+  "workshopSharedRoles": {
+    "ws-tachyon": {
+      "releaseManagers": [
+        {
+          "id": "person-tachyon-release-01",
+          "name": "Suresh Menon",
+          "role": "release-manager"
+        }
+      ],
+      "uxPeople": [
+        {
+          "id": "person-tachyon-ux-01",
+          "name": "Nisha Kapoor",
+          "role": "ux"
+        },
+        {
+          "id": "person-tachyon-ux-02",
+          "name": "Arjun Solanki",
+          "role": "ux"
+        }
+      ]
+    },
+    "ws-photon": {
+      "releaseManagers": [
+        {
+          "id": "person-photon-release-01",
+          "name": "Meera Balan",
+          "role": "release-manager"
+        }
+      ],
+      "uxPeople": [
+        {
+          "id": "person-photon-ux-01",
+          "name": "Ritika Sen",
+          "role": "ux"
+        },
+        {
+          "id": "person-photon-ux-02",
+          "name": "Kunal Anand",
+          "role": "ux"
+        }
+      ]
+    },
+    "ws-electron": {
+      "releaseManagers": [],
+      "uxPeople": []
+    }
+  },
+  "workbenchTeams": [
+    {
+      "workbenchId": "wb-tachyon-kernel",
+      "productManagers": [
+        {
+          "id": "person-kernel-pm-01",
+          "name": "Anika Rao",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-kernel-pm-02",
+          "name": "Vikram Iyer",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-kernel-pm-03",
+          "name": "Ishita Dey",
+          "role": "product-manager"
+        }
+      ],
+      "developers": [
+        {
+          "id": "person-kernel-dev-01",
+          "name": "Aarav Nair",
+          "role": "developer"
+        },
+        {
+          "id": "person-kernel-dev-02",
+          "name": "Rohan Khanna",
+          "role": "developer"
+        },
+        {
+          "id": "person-kernel-dev-03",
+          "name": "Sneha Pillai",
+          "role": "developer"
+        },
+        {
+          "id": "person-kernel-dev-04",
+          "name": "Pranav Desai",
+          "role": "developer"
+        },
+        {
+          "id": "person-kernel-dev-05",
+          "name": "Yashika Jain",
+          "role": "developer"
+        }
+      ],
+      "qaPeople": [
+        {
+          "id": "person-kernel-qa-01",
+          "name": "Diya Shah",
+          "role": "qa"
+        },
+        {
+          "id": "person-kernel-qa-02",
+          "name": "Nitin Ghosh",
+          "role": "qa"
+        }
+      ],
+      "releaseManagers": [
+        "person-tachyon-release-01"
+      ],
+      "uxPeople": [
+        "person-tachyon-ux-01",
+        "person-tachyon-ux-02"
+      ]
+    },
+    {
+      "workbenchId": "wb-tachyon-credit",
+      "productManagers": [
+        {
+          "id": "person-credit-pm-01",
+          "name": "Rhea Malhotra",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-credit-pm-02",
+          "name": "Harsh Vyas",
+          "role": "product-manager"
+        }
+      ],
+      "developers": [
+        {
+          "id": "person-credit-dev-01",
+          "name": "Kabir Chawla",
+          "role": "developer"
+        },
+        {
+          "id": "person-credit-dev-02",
+          "name": "Neel Bhat",
+          "role": "developer"
+        },
+        {
+          "id": "person-credit-dev-03",
+          "name": "Pooja Krishnan",
+          "role": "developer"
+        },
+        {
+          "id": "person-credit-dev-04",
+          "name": "Gaurav Sethi",
+          "role": "developer"
+        }
+      ],
+      "qaPeople": [
+        {
+          "id": "person-credit-qa-01",
+          "name": "Ananya Bose",
+          "role": "qa"
+        },
+        {
+          "id": "person-credit-qa-02",
+          "name": "Siddharth Kaul",
+          "role": "qa"
+        }
+      ],
+      "releaseManagers": [
+        "person-tachyon-release-01"
+      ],
+      "uxPeople": [
+        "person-tachyon-ux-01",
+        "person-tachyon-ux-02"
+      ]
+    },
+    {
+      "workbenchId": "wb-tachyon-dda",
+      "productManagers": [
+        {
+          "id": "person-dda-pm-01",
+          "name": "Mansi Tandon",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-dda-pm-02",
+          "name": "Rajat Suri",
+          "role": "product-manager"
+        }
+      ],
+      "developers": [
+        {
+          "id": "person-dda-dev-01",
+          "name": "Tanya Mehra",
+          "role": "developer"
+        },
+        {
+          "id": "person-dda-dev-02",
+          "name": "Varun Patil",
+          "role": "developer"
+        },
+        {
+          "id": "person-dda-dev-03",
+          "name": "Akshay Gupta",
+          "role": "developer"
+        },
+        {
+          "id": "person-dda-dev-04",
+          "name": "Neha Kulkarni",
+          "role": "developer"
+        },
+        {
+          "id": "person-dda-dev-05",
+          "name": "Ritesh Nanda",
+          "role": "developer"
+        },
+        {
+          "id": "person-dda-dev-06",
+          "name": "Priya Raghavan",
+          "role": "developer"
+        }
+      ],
+      "qaPeople": [
+        {
+          "id": "person-dda-qa-01",
+          "name": "Kavya Iqbal",
+          "role": "qa"
+        },
+        {
+          "id": "person-dda-qa-02",
+          "name": "Mohit Anand",
+          "role": "qa"
+        }
+      ],
+      "releaseManagers": [
+        "person-tachyon-release-01"
+      ],
+      "uxPeople": [
+        "person-tachyon-ux-01",
+        "person-tachyon-ux-02"
+      ]
+    },
+    {
+      "workbenchId": "wb-tachyon-transaction-processing",
+      "productManagers": [
+        {
+          "id": "person-tp-pm-01",
+          "name": "Ritika Nambiar",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-tp-pm-02",
+          "name": "Devansh Trivedi",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-tp-pm-03",
+          "name": "Shreya Lal",
+          "role": "product-manager"
+        }
+      ],
+      "developers": [
+        {
+          "id": "person-tp-dev-01",
+          "name": "Aditya Soman",
+          "role": "developer"
+        },
+        {
+          "id": "person-tp-dev-02",
+          "name": "Nakul Chopra",
+          "role": "developer"
+        },
+        {
+          "id": "person-tp-dev-03",
+          "name": "Ruchi Verma",
+          "role": "developer"
+        },
+        {
+          "id": "person-tp-dev-04",
+          "name": "Saurabh Raina",
+          "role": "developer"
+        },
+        {
+          "id": "person-tp-dev-05",
+          "name": "Manav Iqbal",
+          "role": "developer"
+        }
+      ],
+      "qaPeople": [
+        {
+          "id": "person-tp-qa-01",
+          "name": "Aditi Das",
+          "role": "qa"
+        },
+        {
+          "id": "person-tp-qa-02",
+          "name": "Karan Chitnis",
+          "role": "qa"
+        }
+      ],
+      "releaseManagers": [
+        "person-tachyon-release-01"
+      ],
+      "uxPeople": [
+        "person-tachyon-ux-01",
+        "person-tachyon-ux-02"
+      ]
+    },
+    {
+      "workbenchId": "wb-photon-upi-psp-wallet",
+      "productManagers": [
+        {
+          "id": "person-upi-pm-01",
+          "name": "Nidhi Prasad",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-upi-pm-02",
+          "name": "Rohan Arora",
+          "role": "product-manager"
+        }
+      ],
+      "developers": [
+        {
+          "id": "person-upi-dev-01",
+          "name": "Rahul Menon",
+          "role": "developer"
+        },
+        {
+          "id": "person-upi-dev-02",
+          "name": "Aisha Talwar",
+          "role": "developer"
+        },
+        {
+          "id": "person-upi-dev-03",
+          "name": "Naman Sood",
+          "role": "developer"
+        },
+        {
+          "id": "person-upi-dev-04",
+          "name": "Pallavi Roy",
+          "role": "developer"
+        },
+        {
+          "id": "person-upi-dev-05",
+          "name": "Irfan Kazi",
+          "role": "developer"
+        }
+      ],
+      "qaPeople": [
+        {
+          "id": "person-upi-qa-01",
+          "name": "Leena Prakash",
+          "role": "qa"
+        },
+        {
+          "id": "person-upi-qa-02",
+          "name": "Farhan Siddiqui",
+          "role": "qa"
+        }
+      ],
+      "releaseManagers": [
+        "person-photon-release-01"
+      ],
+      "uxPeople": [
+        "person-photon-ux-01",
+        "person-photon-ux-02"
+      ]
+    },
+    {
+      "workbenchId": "wb-photon-payment-gateway",
+      "productManagers": [
+        {
+          "id": "person-pg-pm-01",
+          "name": "Ishaan Kapur",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-pg-pm-02",
+          "name": "Maya Bedi",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-pg-pm-03",
+          "name": "Arpita Dutta",
+          "role": "product-manager"
+        }
+      ],
+      "developers": [
+        {
+          "id": "person-pg-dev-01",
+          "name": "Prithvi Rao",
+          "role": "developer"
+        },
+        {
+          "id": "person-pg-dev-02",
+          "name": "Sana Ali",
+          "role": "developer"
+        },
+        {
+          "id": "person-pg-dev-03",
+          "name": "Karthik Mani",
+          "role": "developer"
+        },
+        {
+          "id": "person-pg-dev-04",
+          "name": "Divya Sehgal",
+          "role": "developer"
+        },
+        {
+          "id": "person-pg-dev-05",
+          "name": "Ravi Teja",
+          "role": "developer"
+        },
+        {
+          "id": "person-pg-dev-06",
+          "name": "Nupur Agrawal",
+          "role": "developer"
+        }
+      ],
+      "qaPeople": [
+        {
+          "id": "person-pg-qa-01",
+          "name": "Shalini Nayak",
+          "role": "qa"
+        },
+        {
+          "id": "person-pg-qa-02",
+          "name": "Vivek Lohia",
+          "role": "qa"
+        }
+      ],
+      "releaseManagers": [
+        "person-photon-release-01"
+      ],
+      "uxPeople": [
+        "person-photon-ux-01",
+        "person-photon-ux-02"
+      ]
+    },
+    {
+      "workbenchId": "wb-photon-card-psp-wallet",
+      "productManagers": [
+        {
+          "id": "person-card-pm-01",
+          "name": "Aparna Iyer",
+          "role": "product-manager"
+        },
+        {
+          "id": "person-card-pm-02",
+          "name": "Keshav Sinha",
+          "role": "product-manager"
+        }
+      ],
+      "developers": [
+        {
+          "id": "person-card-dev-01",
+          "name": "Amol Bhatia",
+          "role": "developer"
+        },
+        {
+          "id": "person-card-dev-02",
+          "name": "Rekha Narain",
+          "role": "developer"
+        },
+        {
+          "id": "person-card-dev-03",
+          "name": "Zubin Patel",
+          "role": "developer"
+        },
+        {
+          "id": "person-card-dev-04",
+          "name": "Harini Raman",
+          "role": "developer"
+        }
+      ],
+      "qaPeople": [
+        {
+          "id": "person-card-qa-01",
+          "name": "Naveen Rao",
+          "role": "qa"
+        },
+        {
+          "id": "person-card-qa-02",
+          "name": "Ayesha Khan",
+          "role": "qa"
+        }
+      ],
+      "releaseManagers": [
+        "person-photon-release-01"
+      ],
+      "uxPeople": [
+        "person-photon-ux-01",
+        "person-photon-ux-02"
+      ]
+    }
+  ]
+}

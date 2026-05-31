@@ -1,0 +1,194 @@
+{
+  "tasks": [
+    {
+      "id": "task-4001",
+      "workOrderId": "wo-3001",
+      "title": "Compile current resilience failure patterns",
+      "kind": "human",
+      "status": "completed",
+      "assignee": "ux-nila",
+      "createdAt": "2026-05-30T07:00:00Z",
+      "updatedAt": "2026-05-30T08:15:00Z"
+    },
+    {
+      "id": "task-4002",
+      "workOrderId": "wo-3001",
+      "title": "Generate acceptance criteria draft",
+      "kind": "agent",
+      "status": "in-progress",
+      "assignee": "agent-spec-drafter",
+      "createdAt": "2026-05-31T12:10:00Z",
+      "updatedAt": "2026-05-31T12:45:00Z"
+    },
+    {
+      "id": "task-4003",
+      "workOrderId": "wo-3002",
+      "title": "Implement replay guard checks",
+      "kind": "human",
+      "status": "queued",
+      "assignee": "dev-aarav",
+      "createdAt": "2026-05-31T08:20:00Z",
+      "updatedAt": "2026-05-31T08:20:00Z"
+    },
+    {
+      "id": "task-4004",
+      "workOrderId": "wo-3003",
+      "title": "Create QA test matrix for replay flows",
+      "kind": "human",
+      "status": "queued",
+      "assignee": "qa-diya",
+      "createdAt": "2026-05-31T08:25:00Z",
+      "updatedAt": "2026-05-31T08:25:00Z"
+    },
+    {
+      "id": "task-4005",
+      "workOrderId": "wo-3004",
+      "title": "Validate UX copy and edge states",
+      "kind": "human",
+      "status": "completed",
+      "assignee": "ux-megha",
+      "createdAt": "2026-05-30T09:30:00Z",
+      "updatedAt": "2026-05-31T07:15:00Z"
+    },
+    {
+      "id": "task-4006",
+      "workOrderId": "wo-3005",
+      "title": "Implement intent retry timeout controls",
+      "kind": "human",
+      "status": "in-progress",
+      "assignee": "dev-rahul",
+      "createdAt": "2026-05-31T08:20:00Z",
+      "updatedAt": "2026-05-31T12:20:00Z"
+    },
+    {
+      "id": "task-4007",
+      "workOrderId": "wo-3005",
+      "title": "Run conformance checks for NPCI UPI retry semantics",
+      "kind": "agent",
+      "status": "queued",
+      "assignee": "agent-upi-conformance",
+      "createdAt": "2026-05-31T10:15:00Z",
+      "updatedAt": "2026-05-31T10:15:00Z"
+    },
+    {
+      "id": "task-4008",
+      "workOrderId": "wo-3006",
+      "title": "Draft dormant account reactivation rules",
+      "kind": "human",
+      "status": "completed",
+      "assignee": "pm-mansi",
+      "createdAt": "2026-05-31T07:30:00Z",
+      "updatedAt": "2026-05-31T10:00:00Z"
+    },
+    {
+      "id": "task-4009",
+      "workOrderId": "wo-3006",
+      "title": "Validate policy edge cases with compliance prompts",
+      "kind": "agent",
+      "status": "in-progress",
+      "assignee": "agent-policy-reviewer",
+      "createdAt": "2026-05-31T10:10:00Z",
+      "updatedAt": "2026-05-31T12:25:00Z"
+    },
+    {
+      "id": "task-4010",
+      "workOrderId": "wo-3007",
+      "title": "Build reconciliation mismatch detector",
+      "kind": "human",
+      "status": "queued",
+      "assignee": "dev-tanya",
+      "createdAt": "2026-05-31T09:10:00Z",
+      "updatedAt": "2026-05-31T09:10:00Z"
+    },
+    {
+      "id": "task-4011",
+      "workOrderId": "wo-3008",
+      "title": "Publish dispute SLA decision table",
+      "kind": "human",
+      "status": "completed",
+      "assignee": "pm-rhea",
+      "createdAt": "2026-05-31T05:50:00Z",
+      "updatedAt": "2026-05-31T08:30:00Z"
+    },
+    {
+      "id": "task-4012",
+      "workOrderId": "wo-3009",
+      "title": "Implement dispute queue prioritization",
+      "kind": "human",
+      "status": "in-progress",
+      "assignee": "dev-kabir",
+      "createdAt": "2026-05-31T09:00:00Z",
+      "updatedAt": "2026-05-31T12:00:00Z"
+    },
+    {
+      "id": "task-4013",
+      "workOrderId": "wo-3009",
+      "title": "Generate regression test plan for delinquency alerts",
+      "kind": "agent",
+      "status": "queued",
+      "assignee": "agent-test-planner",
+      "createdAt": "2026-05-31T09:30:00Z",
+      "updatedAt": "2026-05-31T09:30:00Z"
+    },
+    {
+      "id": "task-4014",
+      "workOrderId": "wo-3010",
+      "title": "Define idempotency key contract across services",
+      "kind": "human",
+      "status": "in-progress",
+      "assignee": "pm-ritika",
+      "createdAt": "2026-05-31T06:25:00Z",
+      "updatedAt": "2026-05-31T12:40:00Z"
+    },
+    {
+      "id": "task-4015",
+      "workOrderId": "wo-3011",
+      "title": "Implement dead-letter replay state machine",
+      "kind": "human",
+      "status": "queued",
+      "assignee": "dev-aditya",
+      "createdAt": "2026-05-31T10:15:00Z",
+      "updatedAt": "2026-05-31T10:15:00Z"
+    },
+    {
+      "id": "task-4016",
+      "workOrderId": "wo-3012",
+      "title": "Finalize rewards explainability UX copy",
+      "kind": "human",
+      "status": "completed",
+      "assignee": "ux-ritika",
+      "createdAt": "2026-05-30T11:20:00Z",
+      "updatedAt": "2026-05-31T08:10:00Z"
+    },
+    {
+      "id": "task-4017",
+      "workOrderId": "wo-3013",
+      "title": "Build card lock and spend-limit controls",
+      "kind": "human",
+      "status": "in-progress",
+      "assignee": "dev-amol",
+      "createdAt": "2026-05-31T08:50:00Z",
+      "updatedAt": "2026-05-31T12:35:00Z"
+    },
+    {
+      "id": "task-4018",
+      "workOrderId": "wo-3014",
+      "title": "Review onboarding policy states with legal checklist",
+      "kind": "human",
+      "status": "completed",
+      "assignee": "pm-ishaan",
+      "createdAt": "2026-05-30T16:50:00Z",
+      "updatedAt": "2026-05-31T08:55:00Z"
+    },
+    {
+      "id": "task-4019",
+      "workOrderId": "wo-3015",
+      "title": "Attach settlement evidence pack for governance review",
+      "kind": "human",
+      "status": "blocked",
+      "assignee": "dev-prithvi",
+      "createdAt": "2026-05-31T09:40:00Z",
+      "updatedAt": "2026-05-31T11:58:00Z"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "governanceVerdicts": [
+    {
+      "id": "gv-5001",
+      "orchestrationItemType": "product-intent",
+      "orchestrationItemId": "pi-2001",
+      "gate": "spec-readiness-review",
+      "verdict": "review",
+      "blockType": "soft",
+      "status": "pending-evidence",
+      "summary": "Resilience evidence needs explicit rollback criteria.",
+      "reviewer": "gov-ira",
+      "createdAt": "2026-05-31T11:15:00Z",
+      "updatedAt": "2026-05-31T11:35:00Z"
+    },
+    {
+      "id": "gv-5002",
+      "orchestrationItemType": "product-intent",
+      "orchestrationItemId": "pi-2002",
+      "gate": "ux-quality-review",
+      "verdict": "pass",
+      "blockType": "none",
+      "status": "closed",
+      "summary": "UX fallback and retry interaction criteria are complete.",
+      "reviewer": "gov-sana",
+      "createdAt": "2026-05-30T15:00:00Z",
+      "updatedAt": "2026-05-30T16:10:00Z"
+    },
+    {
+      "id": "gv-5003",
+      "orchestrationItemType": "product-intent",
+      "orchestrationItemId": "pi-2003",
+      "gate": "data-consistency-review",
+      "verdict": "review",
+      "blockType": "soft",
+      "status": "pending-evidence",
+      "summary": "DDA reconciliation rules need edge-case evidence for dormant reactivation.",
+      "reviewer": "gov-raghav",
+      "createdAt": "2026-05-31T12:20:00Z",
+      "updatedAt": "2026-05-31T12:55:00Z"
+    },
+    {
+      "id": "gv-5004",
+      "orchestrationItemType": "product-intent",
+      "orchestrationItemId": "pi-2004",
+      "gate": "risk-and-compliance-intake",
+      "verdict": "pass",
+      "blockType": "none",
+      "status": "closed",
+      "summary": "Credit dispute and alerting workflow aligns with compliance intake checklist.",
+      "reviewer": "gov-ira",
+      "createdAt": "2026-05-31T09:10:00Z",
+      "updatedAt": "2026-05-31T09:25:00Z"
+    },
+    {
+      "id": "gv-5005",
+      "orchestrationItemType": "product-intent",
+      "orchestrationItemId": "pi-2005",
+      "gate": "operational-readiness-review",
+      "verdict": "review",
+      "blockType": "soft",
+      "status": "pending-evidence",
+      "summary": "Idempotency controls are present; dead-letter replay runbook evidence is pending.",
+      "reviewer": "gov-mehul",
+      "createdAt": "2026-05-31T13:10:00Z",
+      "updatedAt": "2026-05-31T13:40:00Z"
+    },
+    {
+      "id": "gv-5006",
+      "orchestrationItemType": "product-intent",
+      "orchestrationItemId": "pi-2006",
+      "gate": "customer-experience-review",
+      "verdict": "pass",
+      "blockType": "none",
+      "status": "closed",
+      "summary": "Card onboarding and rewards disclosures meet UX and policy criteria.",
+      "reviewer": "gov-sana",
+      "createdAt": "2026-05-31T09:50:00Z",
+      "updatedAt": "2026-05-31T10:05:00Z"
+    },
+    {
+      "id": "gv-5007",
+      "orchestrationItemType": "product-intent",
+      "orchestrationItemId": "pi-2007",
+      "gate": "release-package-review",
+      "verdict": "fail",
+      "blockType": "hard",
+      "status": "blocked",
+      "summary": "Settlement reconciliation controls are incomplete; release package is hard-blocked.",
+      "reviewer": "gov-pritha",
+      "createdAt": "2026-05-31T11:30:00Z",
+      "updatedAt": "2026-05-31T11:55:00Z"
+    },
+    {
+      "id": "gv-5008",
+      "orchestrationItemType": "discovery-case",
+      "orchestrationItemId": "dc-1005",
+      "gate": "discovery-closure-review",
+      "verdict": "review",
+      "blockType": "soft",
+      "status": "pending-evidence",
+      "summary": "Transaction Processing discovery needs clearer dependency mapping before closure.",
+      "reviewer": "gov-raghav",
+      "createdAt": "2026-05-31T13:15:00Z",
+      "updatedAt": "2026-05-31T13:25:00Z"
+    }
+  ]
+}
