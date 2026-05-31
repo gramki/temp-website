@@ -11,6 +11,7 @@ The Foundry Web App is the primary web interface for Foundry members and Foundry
 | Document | Scope |
 |----------|-------|
 | [pages/README.md](pages/README.md) | Page index |
+| [../design-language/README.md](../design-language/README.md) | Shared UI language and governance rules |
 | [pages/foundry-home.md](pages/foundry-home.md) | Foundry-wide dashboard |
 | [pages/workshop-home.md](pages/workshop-home.md) | Workshop dashboard |
 | [pages/workbench-home.md](pages/workbench-home.md) | Workbench dashboard |

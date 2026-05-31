@@ -50,11 +50,15 @@ Phase 1 commits to four Tracks: Discovery, Build, Release, and Governance. The w
 | Concepts | Anyone | This README |
 | [User guide](user-guide/) | Admins, builders | Task-oriented usage |
 | [Foundry Platform developer guide](platform-developer-guide/) | Platform engineers | Implementation specs |
+| [Design language](design-language/) | Product, design, engineering | Cross-screen tokens, components, states, and writing rules |
+| [Prototype](prototype/) | Product, design, engineering | No-backend IA and journey validation scaffold |
 
 ## Read Next
 
 - [user-guide/personas/README.md](user-guide/personas/README.md) — persona index
 - [platform-developer-guide/pages/README.md](platform-developer-guide/pages/README.md) — page specifications
+- [design-language/README.md](design-language/README.md) — shared UI language and governance
+- [prototype/README.md](prototype/README.md) — prototype scope and storyline entrypoints
 - [../README.md](../README.md) — Foundry Platform overview
 - [../../ace/workspaces/](../../ace/workspaces/README.md) — Workspace definitions
 - [../../tldr.md](../../tldr.md) — One-page Foundry overview
