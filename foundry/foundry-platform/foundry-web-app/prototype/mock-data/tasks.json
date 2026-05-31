@@ -187,8 +187,69 @@
       "kind": "human",
       "status": "blocked",
       "assignee": "dev-prithvi",
+      "assigneePersonId": "person-pg-dev-01",
+      "workspace": "Governance",
       "createdAt": "2026-05-31T09:40:00Z",
       "updatedAt": "2026-05-31T11:58:00Z"
+    },
+    {
+      "id": "task-4020",
+      "workOrderId": "wo-3015",
+      "title": "Prepare reconciliation rollback dry-run logs",
+      "kind": "human",
+      "status": "in-progress",
+      "assignee": "dev-prithvi",
+      "assigneePersonId": "person-pg-dev-01",
+      "workspace": "Release",
+      "createdAt": "2026-05-31T10:20:00Z",
+      "updatedAt": "2026-05-31T13:14:00Z"
+    },
+    {
+      "id": "task-4021",
+      "workOrderId": "wo-3015",
+      "title": "Update release cut checklist with settlement controls",
+      "kind": "human",
+      "status": "in-progress",
+      "assignee": "pm-ishaan",
+      "assigneePersonId": "person-pg-pm-01",
+      "workspace": "Release",
+      "createdAt": "2026-05-31T10:32:00Z",
+      "updatedAt": "2026-05-31T13:10:00Z"
+    },
+    {
+      "id": "task-4022",
+      "workOrderId": "wo-3015",
+      "title": "Escalate evidence export SLA with platform team",
+      "kind": "human",
+      "status": "queued",
+      "assignee": "pm-arpita",
+      "assigneePersonId": "person-pg-pm-03",
+      "workspace": "Control Plane",
+      "createdAt": "2026-05-31T10:48:00Z",
+      "updatedAt": "2026-05-31T12:52:00Z"
+    },
+    {
+      "id": "task-4023",
+      "workOrderId": "wo-3015",
+      "title": "Run governance pre-check against latest artifact bundle",
+      "kind": "agent",
+      "status": "queued",
+      "assignee": "agent-governance-precheck",
+      "workspace": "Governance",
+      "createdAt": "2026-05-31T11:02:00Z",
+      "updatedAt": "2026-05-31T12:50:00Z"
+    },
+    {
+      "id": "task-4024",
+      "workOrderId": "wo-3015",
+      "title": "Validate settlement evidence metadata completeness",
+      "kind": "human",
+      "status": "queued",
+      "assignee": "person-photon-release-01",
+      "assigneePersonId": "person-photon-release-01",
+      "workspace": "Release",
+      "createdAt": "2026-05-31T11:12:00Z",
+      "updatedAt": "2026-05-31T12:42:00Z"
     }
   ]
 }

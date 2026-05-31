@@ -1,0 +1,31 @@
+{
+  "workshopMetadata": [
+    {
+      "workshopId": "ws-tachyon",
+      "description": "Core banking platform workshop covering ledger, credit, and transaction rails.",
+      "ownerPersonId": "person-kernel-pm-01",
+      "healthStatus": "attention",
+      "activeWorkOrderCount": 8,
+      "teamSize": 42,
+      "recentActivitySummary": "Kernel replay and transaction idempotency tracks are active."
+    },
+    {
+      "workshopId": "ws-photon",
+      "description": "Payments experience workshop for UPI, gateway, and card wallet products.",
+      "ownerPersonId": "person-pg-pm-01",
+      "healthStatus": "attention",
+      "activeWorkOrderCount": 5,
+      "teamSize": 36,
+      "recentActivitySummary": "Payment Gateway settlement controls are currently release-gated."
+    },
+    {
+      "workshopId": "ws-electron",
+      "description": "Incubation workshop reserved for upcoming platform initiatives.",
+      "ownerPersonId": "person-photon-release-01",
+      "healthStatus": "idle",
+      "activeWorkOrderCount": 0,
+      "teamSize": 0,
+      "recentActivitySummary": "No active workbenches configured yet."
+    }
+  ]
+}

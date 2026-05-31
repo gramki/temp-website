@@ -1,0 +1,67 @@
+{
+  "workbenchMetadata": [
+    {
+      "workbenchId": "wb-tachyon-kernel",
+      "description": "General Ledger kernel workbench focused on replay resilience and posting controls.",
+      "ownerPersonId": "person-kernel-pm-01",
+      "productCode": "KERNEL",
+      "healthStatus": "attention",
+      "deploymentStatus": "staging-candidate",
+      "recentActivitySummary": "Replay guard implementation and QA prep in progress."
+    },
+    {
+      "workbenchId": "wb-tachyon-credit",
+      "description": "Credit account management workbench for disputes and delinquency controls.",
+      "ownerPersonId": "person-credit-pm-01",
+      "productCode": "CREDIT",
+      "healthStatus": "stable",
+      "deploymentStatus": "active",
+      "recentActivitySummary": "Dispute queue orchestration hooks currently under development."
+    },
+    {
+      "workbenchId": "wb-tachyon-dda",
+      "description": "Demand Deposit Account workbench covering lifecycle and reconciliation policy.",
+      "ownerPersonId": "person-dda-pm-01",
+      "productCode": "DDA",
+      "healthStatus": "attention",
+      "deploymentStatus": "active",
+      "recentActivitySummary": "Dormant account reactivation policy refinement underway."
+    },
+    {
+      "workbenchId": "wb-tachyon-transaction-processing",
+      "description": "Transaction processing workbench for retry semantics and dead-letter reliability.",
+      "ownerPersonId": "person-tp-pm-01",
+      "productCode": "TXN-PROC",
+      "healthStatus": "attention",
+      "deploymentStatus": "active",
+      "recentActivitySummary": "Idempotency mapping and replay orchestration tasks are active."
+    },
+    {
+      "workbenchId": "wb-photon-upi-psp-wallet",
+      "description": "UPI PSP wallet workbench focused on onboarding and intent recovery.",
+      "ownerPersonId": "person-upi-pm-01",
+      "productCode": "UPI-PSP",
+      "healthStatus": "stable",
+      "deploymentStatus": "active",
+      "recentActivitySummary": "Retry hardening and conformance checks are in progress."
+    },
+    {
+      "workbenchId": "wb-photon-payment-gateway",
+      "description": "Payment Gateway workbench for merchant onboarding and settlement transparency.",
+      "ownerPersonId": "person-pg-pm-01",
+      "productCode": "PAY-GW",
+      "healthStatus": "blocked",
+      "deploymentStatus": "gated",
+      "recentActivitySummary": "Settlement reconciliation control evidence is blocking release."
+    },
+    {
+      "workbenchId": "wb-photon-card-psp-wallet",
+      "description": "Card wallet workbench for premium card controls and rewards visibility.",
+      "ownerPersonId": "person-card-pm-01",
+      "productCode": "CARD-WALLET",
+      "healthStatus": "stable",
+      "deploymentStatus": "active",
+      "recentActivitySummary": "Card controls implementation continues with healthy cadence."
+    }
+  ]
+}

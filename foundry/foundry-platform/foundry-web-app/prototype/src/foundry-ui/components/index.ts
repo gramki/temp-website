@@ -1,5 +1,10 @@
 export { AppShell } from "./AppShell";
+export { FoundryTopBar } from "./FoundryTopBar";
+export { ProfileMenu } from "./ProfileMenu";
 export { Button } from "./Button";
 export { FoundryDialog } from "./FoundryDialog";
 export { StatusBadge } from "./StatusBadge";
 export { FoundryTabs } from "./Tabs";
+export { WorkbenchShell } from "./WorkbenchShell";
+export { ConsoleShell } from "./ConsoleShell";
+export { ConsolePage, Breadcrumb } from "./ConsolePage";

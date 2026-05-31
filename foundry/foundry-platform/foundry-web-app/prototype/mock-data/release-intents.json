@@ -1,0 +1,46 @@
+{
+  "releaseIntents": [
+    {
+      "id": "ri-8101",
+      "title": "Payment Gateway settlement controls release candidate",
+      "status": "in-progress",
+      "stage": "evidence-review",
+      "riskLevel": "high",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "tenantId": "tenant-zeta",
+      "sourceProductIntentId": "pi-2007",
+      "owner": "person-photon-release-01",
+      "targetReleaseWindow": "2026-06-01T04:30:00Z",
+      "updatedAt": "2026-05-31T12:40:00Z"
+    },
+    {
+      "id": "ri-8102",
+      "title": "UPI PSP wallet auto-retry rollout",
+      "status": "planned",
+      "stage": "packaging",
+      "riskLevel": "medium",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-upi-psp-wallet",
+      "tenantId": "tenant-zeta",
+      "sourceProductIntentId": "pi-2002",
+      "owner": "person-photon-release-01",
+      "targetReleaseWindow": "2026-06-02T06:00:00Z",
+      "updatedAt": "2026-05-31T11:10:00Z"
+    },
+    {
+      "id": "ri-8103",
+      "title": "Kernel replay resilience hotfix bundle",
+      "status": "planned",
+      "stage": "candidate-prep",
+      "riskLevel": "low",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "tenantId": "tenant-zeta",
+      "sourceProductIntentId": "pi-2001",
+      "owner": "person-tachyon-release-01",
+      "targetReleaseWindow": "2026-06-03T07:00:00Z",
+      "updatedAt": "2026-05-31T10:20:00Z"
+    }
+  ]
+}

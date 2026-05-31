@@ -1,0 +1,9 @@
+{
+  "currentUser": {
+    "id": "person-pg-dev-01",
+    "name": "Prithvi Rao",
+    "email": "prithvi.rao@zeta.tech",
+    "role": "developer",
+    "avatarUrl": null
+  }
+}

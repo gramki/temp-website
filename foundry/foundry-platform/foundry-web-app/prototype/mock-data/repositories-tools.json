@@ -1,0 +1,89 @@
+{
+  "repositoriesTools": [
+    {
+      "workbenchId": "wb-photon-payment-gateway",
+      "repositories": [
+        {
+          "id": "repo-pg-intent",
+          "type": "intent",
+          "name": "payment-gateway-intent",
+          "provider": "github",
+          "url": "https://github.com/zeta-oss/payment-gateway-intent",
+          "recentCommit": "Add settlement evidence folder template",
+          "lastUpdatedAt": "2026-05-31T12:10:00Z"
+        },
+        {
+          "id": "repo-pg-design",
+          "type": "design",
+          "name": "payment-gateway-design",
+          "provider": "github",
+          "url": "https://github.com/zeta-oss/payment-gateway-design",
+          "recentCommit": "Document settlement rollback strategy",
+          "lastUpdatedAt": "2026-05-31T11:48:00Z"
+        },
+        {
+          "id": "repo-pg-core",
+          "type": "code",
+          "name": "payment-gateway-core",
+          "provider": "github",
+          "url": "https://github.com/zeta-oss/payment-gateway-core",
+          "recentCommit": "Refine reconciliation check pipeline",
+          "lastUpdatedAt": "2026-05-31T13:32:00Z"
+        },
+        {
+          "id": "repo-pg-settlement",
+          "type": "code",
+          "name": "payment-gateway-settlement",
+          "provider": "github",
+          "url": "https://github.com/zeta-oss/payment-gateway-settlement",
+          "recentCommit": "Split settlement evidence tasks",
+          "lastUpdatedAt": "2026-05-31T13:24:00Z"
+        }
+      ],
+      "integrations": [
+        {
+          "id": "tool-figma-pg",
+          "type": "figma",
+          "name": "Payment Gateway Figma Project",
+          "url": "https://www.figma.com/files/team/12345/payment-gateway",
+          "status": "connected"
+        },
+        {
+          "id": "tool-jira-pg",
+          "type": "jira",
+          "name": "Payment Gateway Jira Board",
+          "url": "https://jira.zeta.tech/projects/PG",
+          "status": "connected"
+        },
+        {
+          "id": "tool-testrail-pg",
+          "type": "testrail",
+          "name": "Payment Gateway QA Suite",
+          "url": "https://testrail.zeta.tech/index.php?/suites/view/71",
+          "status": "connected"
+        },
+        {
+          "id": "tool-weave-pg",
+          "type": "weave",
+          "name": "Payment Gateway Weave Console",
+          "url": "https://weave.zeta.tech/products/pay-gw",
+          "status": "connected"
+        }
+      ],
+      "jiraFilters": [
+        {
+          "project": "Operations",
+          "labelFilter": "foundry-workbench-wb-photon-payment-gateway"
+        },
+        {
+          "project": "Feedback",
+          "labelFilter": "foundry-workbench-wb-photon-payment-gateway"
+        },
+        {
+          "project": "Work",
+          "labelFilter": "foundry-workbench-wb-photon-payment-gateway"
+        }
+      ]
+    }
+  ]
+}

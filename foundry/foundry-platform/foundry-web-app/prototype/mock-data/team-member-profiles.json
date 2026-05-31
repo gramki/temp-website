@@ -1,0 +1,116 @@
+{
+  "teamMemberProfiles": [
+    {
+      "memberId": "person-pg-dev-01",
+      "avatarUrl": "https://i.pravatar.cc/96?img=12",
+      "headline": "Owns settlement checks and reconciliation reliability.",
+      "timezone": "Asia/Kolkata",
+      "location": "Bengaluru",
+      "capacityPercent": 92,
+      "skills": [
+        "settlement-workflows",
+        "control-evidence-automation",
+        "backend-platform"
+      ],
+      "focusAreas": [
+        "Close governance blockers for settlement controls",
+        "Reduce manual evidence preparation overhead"
+      ],
+      "activeSessionIds": [
+        "session-pg-release-001",
+        "session-pg-governance-001",
+        "session-pg-development-001"
+      ],
+      "openWorkOrderIds": [
+        "wo-3015"
+      ],
+      "recentActivityEventIds": [
+        "ae-5002",
+        "ae-5006"
+      ]
+    },
+    {
+      "memberId": "person-pg-pm-01",
+      "avatarUrl": "https://i.pravatar.cc/96?img=33",
+      "headline": "Drives release scope decisions for payment gateway workbench.",
+      "timezone": "Asia/Kolkata",
+      "location": "Pune",
+      "capacityPercent": 80,
+      "skills": [
+        "release-planning",
+        "policy-translation",
+        "stakeholder-alignment"
+      ],
+      "focusAreas": [
+        "Maintain release intent-to-work-order coherence",
+        "Escalate control gaps early in release cycle"
+      ],
+      "activeSessionIds": [
+        "session-pg-release-001",
+        "session-pg-product-spec-001"
+      ],
+      "openWorkOrderIds": [
+        "wo-3015"
+      ],
+      "recentActivityEventIds": [
+        "ae-5005"
+      ]
+    },
+    {
+      "memberId": "person-photon-release-01",
+      "avatarUrl": "https://i.pravatar.cc/96?img=47",
+      "headline": "Release manager coordinating governance-ready cutover.",
+      "timezone": "Asia/Kolkata",
+      "location": "Chennai",
+      "capacityPercent": 88,
+      "skills": [
+        "release-governance",
+        "cross-track-coordination",
+        "risk-mitigation"
+      ],
+      "focusAreas": [
+        "Keep release package complete and auditable",
+        "Coordinate cross-workbench release dependencies"
+      ],
+      "activeSessionIds": [
+        "session-pg-release-001",
+        "session-pg-governance-001",
+        "session-pg-ux-001",
+        "session-pg-qa-001"
+      ],
+      "openWorkOrderIds": [
+        "wo-3015"
+      ],
+      "recentActivityEventIds": [
+        "ae-5003",
+        "ae-5004",
+        "ae-5007"
+      ]
+    },
+    {
+      "memberId": "person-kernel-dev-01",
+      "avatarUrl": "https://i.pravatar.cc/96?img=21",
+      "headline": "Leads implementation for kernel replay controls.",
+      "timezone": "Asia/Kolkata",
+      "location": "Hyderabad",
+      "capacityPercent": 74,
+      "skills": [
+        "kernel-processing",
+        "idempotency-guards",
+        "resilience-patterns"
+      ],
+      "focusAreas": [
+        "Split replay guard implementation into merge-safe slices"
+      ],
+      "activeSessionIds": [
+        "session-kernel-dev-001"
+      ],
+      "openWorkOrderIds": [
+        "wo-3002"
+      ],
+      "recentActivityEventIds": [
+        "ae-5009"
+      ]
+    }
+  ]
+}

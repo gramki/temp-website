@@ -1,0 +1,894 @@
+{
+  "sessionTokenUsage": [
+    {
+      "sessionId": "session-pg-release-001",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 38840,
+        "outputTokens": 19810,
+        "cacheReadTokens": 6240,
+        "cacheWriteTokens": 1880,
+        "totalTokens": 66770,
+        "totalCostUsd": 7.63
+      },
+      "daily": [
+        {
+          "date": "2026-05-24T00:00:00.000Z",
+          "inputTokens": 5210,
+          "outputTokens": 2640,
+          "cacheReadTokens": 820,
+          "cacheWriteTokens": 230,
+          "totalTokens": 8900,
+          "totalCostUsd": 0.96
+        },
+        {
+          "date": "2026-05-25T00:00:00.000Z",
+          "inputTokens": 5840,
+          "outputTokens": 2930,
+          "cacheReadTokens": 910,
+          "cacheWriteTokens": 260,
+          "totalTokens": 9940,
+          "totalCostUsd": 1.08
+        },
+        {
+          "date": "2026-05-26T00:00:00.000Z",
+          "inputTokens": 4970,
+          "outputTokens": 2550,
+          "cacheReadTokens": 790,
+          "cacheWriteTokens": 240,
+          "totalTokens": 8550,
+          "totalCostUsd": 0.92
+        },
+        {
+          "date": "2026-05-27T00:00:00.000Z",
+          "inputTokens": 6030,
+          "outputTokens": 3110,
+          "cacheReadTokens": 980,
+          "cacheWriteTokens": 290,
+          "totalTokens": 10410,
+          "totalCostUsd": 1.18
+        },
+        {
+          "date": "2026-05-28T00:00:00.000Z",
+          "inputTokens": 5420,
+          "outputTokens": 2720,
+          "cacheReadTokens": 860,
+          "cacheWriteTokens": 250,
+          "totalTokens": 9250,
+          "totalCostUsd": 1.03
+        },
+        {
+          "date": "2026-05-29T00:00:00.000Z",
+          "inputTokens": 6250,
+          "outputTokens": 3260,
+          "cacheReadTokens": 1010,
+          "cacheWriteTokens": 310,
+          "totalTokens": 10830,
+          "totalCostUsd": 1.24
+        },
+        {
+          "date": "2026-05-30T00:00:00.000Z",
+          "inputTokens": 5120,
+          "outputTokens": 2600,
+          "cacheReadTokens": 870,
+          "cacheWriteTokens": 300,
+          "totalTokens": 8890,
+          "totalCostUsd": 1.22
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 21220,
+          "outputTokens": 11230,
+          "cacheReadTokens": 4010,
+          "cacheWriteTokens": 1210,
+          "totalCostUsd": 4.31
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 17620,
+          "outputTokens": 8580,
+          "cacheReadTokens": 2230,
+          "cacheWriteTokens": 670,
+          "totalCostUsd": 3.32
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-release-risk-copilot",
+          "invocationCount": 11,
+          "inputTokens": 21940,
+          "outputTokens": 11720,
+          "totalCostUsd": 4.05
+        },
+        {
+          "agentId": "agent-settlement-check-assistant",
+          "invocationCount": 9,
+          "inputTokens": 16900,
+          "outputTokens": 8090,
+          "totalCostUsd": 3.58
+        }
+      ]
+    },
+    {
+      "sessionId": "session-pg-governance-001",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 24110,
+        "outputTokens": 12440,
+        "cacheReadTokens": 3990,
+        "cacheWriteTokens": 1060,
+        "totalTokens": 41550,
+        "totalCostUsd": 4.66
+      },
+      "daily": [
+        {
+          "date": "2026-05-24T00:00:00.000Z",
+          "inputTokens": 3110,
+          "outputTokens": 1620,
+          "cacheReadTokens": 510,
+          "cacheWriteTokens": 130,
+          "totalTokens": 5370,
+          "totalCostUsd": 0.58
+        },
+        {
+          "date": "2026-05-25T00:00:00.000Z",
+          "inputTokens": 3470,
+          "outputTokens": 1790,
+          "cacheReadTokens": 570,
+          "cacheWriteTokens": 150,
+          "totalTokens": 5980,
+          "totalCostUsd": 0.66
+        },
+        {
+          "date": "2026-05-26T00:00:00.000Z",
+          "inputTokens": 2860,
+          "outputTokens": 1450,
+          "cacheReadTokens": 470,
+          "cacheWriteTokens": 120,
+          "totalTokens": 4900,
+          "totalCostUsd": 0.55
+        },
+        {
+          "date": "2026-05-27T00:00:00.000Z",
+          "inputTokens": 3690,
+          "outputTokens": 1880,
+          "cacheReadTokens": 610,
+          "cacheWriteTokens": 170,
+          "totalTokens": 6350,
+          "totalCostUsd": 0.71
+        },
+        {
+          "date": "2026-05-28T00:00:00.000Z",
+          "inputTokens": 3340,
+          "outputTokens": 1710,
+          "cacheReadTokens": 550,
+          "cacheWriteTokens": 150,
+          "totalTokens": 5750,
+          "totalCostUsd": 0.64
+        },
+        {
+          "date": "2026-05-29T00:00:00.000Z",
+          "inputTokens": 3980,
+          "outputTokens": 2060,
+          "cacheReadTokens": 660,
+          "cacheWriteTokens": 180,
+          "totalTokens": 6880,
+          "totalCostUsd": 0.79
+        },
+        {
+          "date": "2026-05-30T00:00:00.000Z",
+          "inputTokens": 3660,
+          "outputTokens": 1930,
+          "cacheReadTokens": 620,
+          "cacheWriteTokens": 160,
+          "totalTokens": 6370,
+          "totalCostUsd": 0.73
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 12820,
+          "outputTokens": 6510,
+          "cacheReadTokens": 2310,
+          "cacheWriteTokens": 620,
+          "totalCostUsd": 2.46
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 11290,
+          "outputTokens": 5930,
+          "cacheReadTokens": 1680,
+          "cacheWriteTokens": 440,
+          "totalCostUsd": 2.2
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-governance-evidence-auditor",
+          "invocationCount": 8,
+          "inputTokens": 15120,
+          "outputTokens": 7710,
+          "totalCostUsd": 2.86
+        },
+        {
+          "agentId": "agent-release-checkpoint-notary",
+          "invocationCount": 4,
+          "inputTokens": 8990,
+          "outputTokens": 4730,
+          "totalCostUsd": 1.8
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-dev-001",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 17380,
+        "outputTokens": 9480,
+        "cacheReadTokens": 2870,
+        "cacheWriteTokens": 740,
+        "totalTokens": 30470,
+        "totalCostUsd": 3.11
+      },
+      "daily": [
+        {
+          "date": "2026-05-24T00:00:00.000Z",
+          "inputTokens": 2190,
+          "outputTokens": 1200,
+          "cacheReadTokens": 360,
+          "cacheWriteTokens": 90,
+          "totalTokens": 3840,
+          "totalCostUsd": 0.39
+        },
+        {
+          "date": "2026-05-25T00:00:00.000Z",
+          "inputTokens": 2420,
+          "outputTokens": 1320,
+          "cacheReadTokens": 390,
+          "cacheWriteTokens": 100,
+          "totalTokens": 4230,
+          "totalCostUsd": 0.43
+        },
+        {
+          "date": "2026-05-26T00:00:00.000Z",
+          "inputTokens": 2060,
+          "outputTokens": 1140,
+          "cacheReadTokens": 330,
+          "cacheWriteTokens": 80,
+          "totalTokens": 3610,
+          "totalCostUsd": 0.36
+        },
+        {
+          "date": "2026-05-27T00:00:00.000Z",
+          "inputTokens": 2730,
+          "outputTokens": 1500,
+          "cacheReadTokens": 450,
+          "cacheWriteTokens": 120,
+          "totalTokens": 4800,
+          "totalCostUsd": 0.5
+        },
+        {
+          "date": "2026-05-28T00:00:00.000Z",
+          "inputTokens": 2480,
+          "outputTokens": 1320,
+          "cacheReadTokens": 410,
+          "cacheWriteTokens": 110,
+          "totalTokens": 4320,
+          "totalCostUsd": 0.44
+        },
+        {
+          "date": "2026-05-29T00:00:00.000Z",
+          "inputTokens": 2860,
+          "outputTokens": 1570,
+          "cacheReadTokens": 470,
+          "cacheWriteTokens": 120,
+          "totalTokens": 5020,
+          "totalCostUsd": 0.52
+        },
+        {
+          "date": "2026-05-30T00:00:00.000Z",
+          "inputTokens": 2640,
+          "outputTokens": 1430,
+          "cacheReadTokens": 460,
+          "cacheWriteTokens": 120,
+          "totalTokens": 4650,
+          "totalCostUsd": 0.47
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 9320,
+          "outputTokens": 4860,
+          "cacheReadTokens": 1700,
+          "cacheWriteTokens": 430,
+          "totalCostUsd": 1.68
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 8060,
+          "outputTokens": 4620,
+          "cacheReadTokens": 1170,
+          "cacheWriteTokens": 310,
+          "totalCostUsd": 1.43
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-replay-guard-copilot",
+          "invocationCount": 7,
+          "inputTokens": 12340,
+          "outputTokens": 6730,
+          "totalCostUsd": 2.08
+        },
+        {
+          "agentId": "agent-kernel-regression-advisor",
+          "invocationCount": 3,
+          "inputTokens": 5040,
+          "outputTokens": 2750,
+          "totalCostUsd": 1.03
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-product-spec-001",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 8120,
+        "outputTokens": 4380,
+        "cacheReadTokens": 1280,
+        "cacheWriteTokens": 340,
+        "totalTokens": 14120,
+        "totalCostUsd": 1.42
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 8120,
+          "outputTokens": 4380,
+          "cacheReadTokens": 1280,
+          "cacheWriteTokens": 340,
+          "totalTokens": 14120,
+          "totalCostUsd": 1.42
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 4520,
+          "outputTokens": 2420,
+          "cacheReadTokens": 760,
+          "cacheWriteTokens": 210,
+          "totalCostUsd": 0.81
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 3600,
+          "outputTokens": 1960,
+          "cacheReadTokens": 520,
+          "cacheWriteTokens": 130,
+          "totalCostUsd": 0.61
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-spec-scope-drafter",
+          "invocationCount": 6,
+          "inputTokens": 8120,
+          "outputTokens": 4380,
+          "totalCostUsd": 1.42
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-product-spec-002",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 7440,
+        "outputTokens": 4010,
+        "cacheReadTokens": 1150,
+        "cacheWriteTokens": 300,
+        "totalTokens": 12900,
+        "totalCostUsd": 1.29
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 7440,
+          "outputTokens": 4010,
+          "cacheReadTokens": 1150,
+          "cacheWriteTokens": 300,
+          "totalTokens": 12900,
+          "totalCostUsd": 1.29
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 4120,
+          "outputTokens": 2230,
+          "cacheReadTokens": 680,
+          "cacheWriteTokens": 170,
+          "totalCostUsd": 0.74
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 3320,
+          "outputTokens": 1780,
+          "cacheReadTokens": 470,
+          "cacheWriteTokens": 130,
+          "totalCostUsd": 0.55
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-spec-risk-notes",
+          "invocationCount": 5,
+          "inputTokens": 7440,
+          "outputTokens": 4010,
+          "totalCostUsd": 1.29
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-ux-001",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 9230,
+        "outputTokens": 5180,
+        "cacheReadTokens": 1450,
+        "cacheWriteTokens": 390,
+        "totalTokens": 16250,
+        "totalCostUsd": 1.61
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 9230,
+          "outputTokens": 5180,
+          "cacheReadTokens": 1450,
+          "cacheWriteTokens": 390,
+          "totalTokens": 16250,
+          "totalCostUsd": 1.61
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 5010,
+          "outputTokens": 2810,
+          "cacheReadTokens": 860,
+          "cacheWriteTokens": 230,
+          "totalCostUsd": 0.9
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 4220,
+          "outputTokens": 2370,
+          "cacheReadTokens": 590,
+          "cacheWriteTokens": 160,
+          "totalCostUsd": 0.71
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-ux-flow-optimizer",
+          "invocationCount": 7,
+          "inputTokens": 9230,
+          "outputTokens": 5180,
+          "totalCostUsd": 1.61
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-ux-002",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 8010,
+        "outputTokens": 4490,
+        "cacheReadTokens": 1260,
+        "cacheWriteTokens": 330,
+        "totalTokens": 14090,
+        "totalCostUsd": 1.39
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 8010,
+          "outputTokens": 4490,
+          "cacheReadTokens": 1260,
+          "cacheWriteTokens": 330,
+          "totalTokens": 14090,
+          "totalCostUsd": 1.39
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 4440,
+          "outputTokens": 2490,
+          "cacheReadTokens": 760,
+          "cacheWriteTokens": 200,
+          "totalCostUsd": 0.8
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 3570,
+          "outputTokens": 2000,
+          "cacheReadTokens": 500,
+          "cacheWriteTokens": 130,
+          "totalCostUsd": 0.59
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-ux-wireframe-critic",
+          "invocationCount": 6,
+          "inputTokens": 8010,
+          "outputTokens": 4490,
+          "totalCostUsd": 1.39
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-dev-002",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 18240,
+        "outputTokens": 10120,
+        "cacheReadTokens": 3010,
+        "cacheWriteTokens": 780,
+        "totalTokens": 32150,
+        "totalCostUsd": 3.28
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 18240,
+          "outputTokens": 10120,
+          "cacheReadTokens": 3010,
+          "cacheWriteTokens": 780,
+          "totalTokens": 32150,
+          "totalCostUsd": 3.28
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 10020,
+          "outputTokens": 5530,
+          "cacheReadTokens": 1790,
+          "cacheWriteTokens": 470,
+          "totalCostUsd": 1.77
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 8220,
+          "outputTokens": 4590,
+          "cacheReadTokens": 1220,
+          "cacheWriteTokens": 310,
+          "totalCostUsd": 1.51
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-replay-guard-copilot",
+          "invocationCount": 8,
+          "inputTokens": 12740,
+          "outputTokens": 7020,
+          "totalCostUsd": 2.23
+        },
+        {
+          "agentId": "agent-kernel-regression-advisor",
+          "invocationCount": 4,
+          "inputTokens": 5500,
+          "outputTokens": 3100,
+          "totalCostUsd": 1.05
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-qa-001",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 9530,
+        "outputTokens": 5120,
+        "cacheReadTokens": 1490,
+        "cacheWriteTokens": 380,
+        "totalTokens": 16520,
+        "totalCostUsd": 1.67
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 9530,
+          "outputTokens": 5120,
+          "cacheReadTokens": 1490,
+          "cacheWriteTokens": 380,
+          "totalTokens": 16520,
+          "totalCostUsd": 1.67
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 5310,
+          "outputTokens": 2860,
+          "cacheReadTokens": 860,
+          "cacheWriteTokens": 220,
+          "totalCostUsd": 0.92
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 4220,
+          "outputTokens": 2260,
+          "cacheReadTokens": 630,
+          "cacheWriteTokens": 160,
+          "totalCostUsd": 0.75
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-qa-regression-orchestrator",
+          "invocationCount": 6,
+          "inputTokens": 9530,
+          "outputTokens": 5120,
+          "totalCostUsd": 1.67
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-qa-002",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 7330,
+        "outputTokens": 4010,
+        "cacheReadTokens": 1110,
+        "cacheWriteTokens": 290,
+        "totalTokens": 12740,
+        "totalCostUsd": 1.28
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 7330,
+          "outputTokens": 4010,
+          "cacheReadTokens": 1110,
+          "cacheWriteTokens": 290,
+          "totalTokens": 12740,
+          "totalCostUsd": 1.28
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 4020,
+          "outputTokens": 2190,
+          "cacheReadTokens": 620,
+          "cacheWriteTokens": 160,
+          "totalCostUsd": 0.71
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 3310,
+          "outputTokens": 1820,
+          "cacheReadTokens": 490,
+          "cacheWriteTokens": 130,
+          "totalCostUsd": 0.57
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-qa-gate-checker",
+          "invocationCount": 5,
+          "inputTokens": 7330,
+          "outputTokens": 4010,
+          "totalCostUsd": 1.28
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-release-001",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 6840,
+        "outputTokens": 3710,
+        "cacheReadTokens": 1040,
+        "cacheWriteTokens": 260,
+        "totalTokens": 11850,
+        "totalCostUsd": 1.18
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 6840,
+          "outputTokens": 3710,
+          "cacheReadTokens": 1040,
+          "cacheWriteTokens": 260,
+          "totalTokens": 11850,
+          "totalCostUsd": 1.18
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 3740,
+          "outputTokens": 2050,
+          "cacheReadTokens": 590,
+          "cacheWriteTokens": 150,
+          "totalCostUsd": 0.66
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 3100,
+          "outputTokens": 1660,
+          "cacheReadTokens": 450,
+          "cacheWriteTokens": 110,
+          "totalCostUsd": 0.52
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-release-risk-copilot",
+          "invocationCount": 5,
+          "inputTokens": 6840,
+          "outputTokens": 3710,
+          "totalCostUsd": 1.18
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-release-002",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 5980,
+        "outputTokens": 3280,
+        "cacheReadTokens": 920,
+        "cacheWriteTokens": 240,
+        "totalTokens": 10420,
+        "totalCostUsd": 1.02
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 5980,
+          "outputTokens": 3280,
+          "cacheReadTokens": 920,
+          "cacheWriteTokens": 240,
+          "totalTokens": 10420,
+          "totalCostUsd": 1.02
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 3340,
+          "outputTokens": 1830,
+          "cacheReadTokens": 540,
+          "cacheWriteTokens": 140,
+          "totalCostUsd": 0.57
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 2640,
+          "outputTokens": 1450,
+          "cacheReadTokens": 380,
+          "cacheWriteTokens": 100,
+          "totalCostUsd": 0.45
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-release-checkpoint-notary",
+          "invocationCount": 4,
+          "inputTokens": 5980,
+          "outputTokens": 3280,
+          "totalCostUsd": 1.02
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-governance-001",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 6210,
+        "outputTokens": 3410,
+        "cacheReadTokens": 940,
+        "cacheWriteTokens": 250,
+        "totalTokens": 10810,
+        "totalCostUsd": 1.06
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 6210,
+          "outputTokens": 3410,
+          "cacheReadTokens": 940,
+          "cacheWriteTokens": 250,
+          "totalTokens": 10810,
+          "totalCostUsd": 1.06
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 3440,
+          "outputTokens": 1890,
+          "cacheReadTokens": 560,
+          "cacheWriteTokens": 150,
+          "totalCostUsd": 0.59
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 2770,
+          "outputTokens": 1520,
+          "cacheReadTokens": 380,
+          "cacheWriteTokens": 100,
+          "totalCostUsd": 0.47
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-governance-evidence-auditor",
+          "invocationCount": 5,
+          "inputTokens": 6210,
+          "outputTokens": 3410,
+          "totalCostUsd": 1.06
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-governance-002",
+      "currency": "USD",
+      "totals": {
+        "inputTokens": 5420,
+        "outputTokens": 3020,
+        "cacheReadTokens": 810,
+        "cacheWriteTokens": 210,
+        "totalTokens": 9460,
+        "totalCostUsd": 0.94
+      },
+      "daily": [
+        {
+          "date": "2026-05-31T00:00:00.000Z",
+          "inputTokens": 5420,
+          "outputTokens": 3020,
+          "cacheReadTokens": 810,
+          "cacheWriteTokens": 210,
+          "totalTokens": 9460,
+          "totalCostUsd": 0.94
+        }
+      ],
+      "models": [
+        {
+          "modelId": "gpt-5.5-medium",
+          "inputTokens": 3020,
+          "outputTokens": 1670,
+          "cacheReadTokens": 470,
+          "cacheWriteTokens": 120,
+          "totalCostUsd": 0.53
+        },
+        {
+          "modelId": "claude-4.6-sonnet-medium-thinking",
+          "inputTokens": 2400,
+          "outputTokens": 1350,
+          "cacheReadTokens": 340,
+          "cacheWriteTokens": 90,
+          "totalCostUsd": 0.41
+        }
+      ],
+      "agents": [
+        {
+          "agentId": "agent-governance-evidence-auditor",
+          "invocationCount": 4,
+          "inputTokens": 5420,
+          "outputTokens": 3020,
+          "totalCostUsd": 0.94
+        }
+      ]
+    }
+  ]
+}

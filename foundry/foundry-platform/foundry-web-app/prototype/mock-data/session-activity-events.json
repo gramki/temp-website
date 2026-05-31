@@ -1,0 +1,246 @@
+{
+  "eventTypes": [
+    {
+      "id": "task_created",
+      "label": "Task created",
+      "entityType": "task"
+    },
+    {
+      "id": "task_completed",
+      "label": "Task completed",
+      "entityType": "task"
+    },
+    {
+      "id": "work_order_assigned",
+      "label": "Work order assigned",
+      "entityType": "work-order"
+    },
+    {
+      "id": "work_order_status_changed",
+      "label": "Work order status changed",
+      "entityType": "work-order"
+    },
+    {
+      "id": "work_order_status_completed",
+      "label": "Work order status completed",
+      "entityType": "work-order"
+    },
+    {
+      "id": "repo_sync_started",
+      "label": "Repository sync started",
+      "entityType": "repository-sync"
+    },
+    {
+      "id": "repo_sync_completed",
+      "label": "Repository sync completed",
+      "entityType": "repository-sync"
+    }
+  ],
+  "sessionActivityEvents": [
+    {
+      "id": "sae-9001",
+      "sessionId": "session-pg-release-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "eventType": "work_order_assigned",
+      "summary": "Settlement reconciliation work order assigned for release checkpoint.",
+      "actorId": "person-photon-release-01",
+      "occurredAt": "2026-05-31T10:08:00Z"
+    },
+    {
+      "id": "sae-9002",
+      "sessionId": "session-pg-release-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "taskId": "task-4019",
+      "eventType": "task_created",
+      "summary": "Created artifact attachment task for governance evidence bundle.",
+      "actorId": "person-pg-dev-01",
+      "occurredAt": "2026-05-31T10:15:00Z"
+    },
+    {
+      "id": "sae-9003",
+      "sessionId": "session-pg-release-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "taskId": "task-4020",
+      "eventType": "task_created",
+      "summary": "Split control evidence tasks to parallelize owners.",
+      "actorId": "person-pg-pm-01",
+      "occurredAt": "2026-05-31T11:20:00Z"
+    },
+    {
+      "id": "sae-9004",
+      "sessionId": "session-pg-release-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3014",
+      "eventType": "work_order_status_completed",
+      "summary": "Merchant onboarding policy state definition marked complete.",
+      "actorId": "person-pg-pm-01",
+      "occurredAt": "2026-05-31T11:34:00Z"
+    },
+    {
+      "id": "sae-9005",
+      "sessionId": "session-pg-release-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "eventType": "repo_sync_started",
+      "summary": "Started repository sync for settlement reconciliation branch.",
+      "actorId": "person-pg-dev-01",
+      "occurredAt": "2026-05-31T12:06:00Z"
+    },
+    {
+      "id": "sae-9006",
+      "sessionId": "session-pg-release-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "eventType": "repo_sync_completed",
+      "summary": "Repository sync completed with deterministic manifest checksum.",
+      "actorId": "person-pg-dev-01",
+      "occurredAt": "2026-05-31T12:12:00Z"
+    },
+    {
+      "id": "sae-9007",
+      "sessionId": "session-pg-release-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "taskId": "task-4024",
+      "eventType": "task_completed",
+      "summary": "Settlement control log bundle regenerated and uploaded.",
+      "actorId": "person-pg-dev-01",
+      "occurredAt": "2026-05-31T13:52:00Z"
+    },
+    {
+      "id": "sae-9008",
+      "sessionId": "session-pg-governance-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "eventType": "work_order_status_changed",
+      "summary": "Work order moved into governance-check with hard block retained.",
+      "actorId": "person-pg-pm-03",
+      "occurredAt": "2026-05-31T11:05:00Z"
+    },
+    {
+      "id": "sae-9009",
+      "sessionId": "session-pg-governance-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "taskId": "task-4023",
+      "eventType": "task_created",
+      "summary": "Queued automated governance pre-check task for refreshed evidence.",
+      "actorId": "person-photon-release-01",
+      "occurredAt": "2026-05-31T11:18:00Z"
+    },
+    {
+      "id": "sae-9010",
+      "sessionId": "session-pg-governance-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "eventType": "repo_sync_started",
+      "summary": "Started sync for governance evidence metadata pipeline.",
+      "actorId": "person-pg-dev-01",
+      "occurredAt": "2026-05-31T11:32:00Z"
+    },
+    {
+      "id": "sae-9011",
+      "sessionId": "session-pg-governance-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "eventType": "repo_sync_completed",
+      "summary": "Governance evidence metadata sync completed.",
+      "actorId": "person-pg-dev-01",
+      "occurredAt": "2026-05-31T11:39:00Z"
+    },
+    {
+      "id": "sae-9012",
+      "sessionId": "session-pg-governance-001",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "workOrderId": "wo-3015",
+      "taskId": "task-4023",
+      "eventType": "task_completed",
+      "summary": "Governance pre-check task completed with manual follow-up required.",
+      "actorId": "person-photon-release-01",
+      "occurredAt": "2026-05-31T12:20:00Z"
+    },
+    {
+      "id": "sae-9013",
+      "sessionId": "session-kernel-dev-001",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "workOrderId": "wo-3002",
+      "eventType": "work_order_assigned",
+      "summary": "Kernel replay guard implementation work order assigned to dev owner.",
+      "actorId": "person-kernel-pm-01",
+      "occurredAt": "2026-05-31T13:06:00Z"
+    },
+    {
+      "id": "sae-9014",
+      "sessionId": "session-kernel-dev-001",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "workOrderId": "wo-3002",
+      "taskId": "task-4004",
+      "eventType": "task_created",
+      "summary": "Created failure matrix generation task for replay controls.",
+      "actorId": "person-kernel-pm-01",
+      "occurredAt": "2026-05-31T13:10:00Z"
+    },
+    {
+      "id": "sae-9015",
+      "sessionId": "session-kernel-dev-001",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "workOrderId": "wo-3002",
+      "eventType": "repo_sync_started",
+      "summary": "Started kernel replay guard branch sync before split commits.",
+      "actorId": "person-kernel-dev-01",
+      "occurredAt": "2026-05-31T13:12:00Z"
+    },
+    {
+      "id": "sae-9016",
+      "sessionId": "session-kernel-dev-001",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "workOrderId": "wo-3002",
+      "eventType": "repo_sync_completed",
+      "summary": "Kernel replay branch sync completed against latest base.",
+      "actorId": "person-kernel-dev-01",
+      "occurredAt": "2026-05-31T13:15:00Z"
+    },
+    {
+      "id": "sae-9017",
+      "sessionId": "session-kernel-dev-001",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "workOrderId": "wo-3001",
+      "eventType": "work_order_status_changed",
+      "summary": "Acceptance criteria work order moved into final review.",
+      "actorId": "person-kernel-pm-03",
+      "occurredAt": "2026-05-31T13:18:00Z"
+    },
+    {
+      "id": "sae-9018",
+      "sessionId": "session-kernel-dev-001",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "workOrderId": "wo-3003",
+      "taskId": "task-4008",
+      "eventType": "task_completed",
+      "summary": "QA prep checkpoint task completed and handed off to release manager.",
+      "actorId": "person-kernel-qa-01",
+      "occurredAt": "2026-05-31T13:20:00Z"
+    }
+  ]
+}

@@ -51,6 +51,12 @@ npm install
 npm run dev
 ```
 
+Open `/` and navigate: Foundry → Workshop → Workbench → Console.
+
+Default Build Track scenario workbench: Payment Gateway (`wb-photon-payment-gateway`).
+
+Route and console coverage matrix: [COVERAGE.md](COVERAGE.md).
+
 ## Current stack
 
 - React + TypeScript + Vite

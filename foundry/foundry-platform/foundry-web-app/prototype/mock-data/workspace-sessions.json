@@ -1,0 +1,347 @@
+{
+  "workspaceSessions": [
+    {
+      "id": "session-pg-release-001",
+      "title": "Meera Balan — Release Workspace Session",
+      "workspaceType": "release",
+      "status": "active",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "linkedProductIntentId": "pi-2007",
+      "ownerId": "person-photon-release-01",
+      "sessionUrl": "/foundry/photon/wb-photon-payment-gateway/consoles/workspaces/session/session-pg-release-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-pg-release-001",
+      "activeCoderPodId": "pod-pg-release-01",
+      "workOrderIds": [
+        "wo-3014",
+        "wo-3015"
+      ],
+      "startedAt": "2026-05-31T10:05:00Z",
+      "lastUpdatedAt": "2026-05-31T13:05:00Z"
+    },
+    {
+      "id": "session-pg-governance-001",
+      "title": "Meera Balan — Governance Workspace Session",
+      "workspaceType": "governance",
+      "status": "active",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "linkedProductIntentId": "pi-2007",
+      "ownerId": "person-photon-release-01",
+      "sessionUrl": "/foundry/photon/wb-photon-payment-gateway/consoles/workspaces/session/session-pg-governance-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-pg-governance-001",
+      "activeCoderPodId": "pod-pg-governance-01",
+      "workOrderIds": [
+        "wo-3015"
+      ],
+      "startedAt": "2026-05-31T11:00:00Z",
+      "lastUpdatedAt": "2026-05-31T12:35:00Z"
+    },
+    {
+      "id": "session-pg-product-spec-001",
+      "title": "Ishaan Kapur — Product Specification Session",
+      "workspaceType": "product-spec",
+      "status": "active",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "linkedProductIntentId": "pi-2007",
+      "ownerId": "person-pg-pm-01",
+      "sessionUrl": "/foundry/photon/wb-photon-payment-gateway/consoles/workspaces/session/session-pg-product-spec-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-pg-product-spec-001",
+      "activeCoderPodId": "pod-pg-product-spec-01",
+      "workOrderIds": [
+        "wo-3027"
+      ],
+      "startedAt": "2026-05-31T09:10:00Z",
+      "lastUpdatedAt": "2026-05-31T11:15:00Z"
+    },
+    {
+      "id": "session-pg-ux-001",
+      "title": "Meera Balan — UX Design Session",
+      "workspaceType": "ux-design",
+      "status": "active",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "linkedProductIntentId": "pi-2007",
+      "ownerId": "person-photon-release-01",
+      "sessionUrl": "/foundry/photon/wb-photon-payment-gateway/consoles/workspaces/session/session-pg-ux-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-pg-ux-001",
+      "activeCoderPodId": "pod-pg-ux-01",
+      "workOrderIds": [
+        "wo-3028"
+      ],
+      "startedAt": "2026-05-31T08:30:00Z",
+      "lastUpdatedAt": "2026-05-31T10:25:00Z"
+    },
+    {
+      "id": "session-pg-development-001",
+      "title": "Prithvi Rao — Development Session",
+      "workspaceType": "development",
+      "status": "active",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "linkedProductIntentId": "pi-2007",
+      "ownerId": "person-pg-dev-01",
+      "sessionUrl": "/foundry/photon/wb-photon-payment-gateway/consoles/workspaces/session/session-pg-development-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-pg-development-001",
+      "activeCoderPodId": "pod-pg-development-01",
+      "workOrderIds": [
+        "wo-3029"
+      ],
+      "startedAt": "2026-05-31T10:45:00Z",
+      "lastUpdatedAt": "2026-05-31T12:40:00Z"
+    },
+    {
+      "id": "session-pg-qa-001",
+      "title": "Meera Balan — QA Session",
+      "workspaceType": "qa",
+      "status": "active",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "linkedProductIntentId": "pi-2007",
+      "ownerId": "person-photon-release-01",
+      "sessionUrl": "/foundry/photon/wb-photon-payment-gateway/consoles/workspaces/session/session-pg-qa-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-pg-qa-001",
+      "activeCoderPodId": "pod-pg-qa-01",
+      "workOrderIds": [
+        "wo-3030"
+      ],
+      "startedAt": "2026-05-31T11:20:00Z",
+      "lastUpdatedAt": "2026-05-31T12:55:00Z"
+    },
+    {
+      "id": "session-kernel-dev-001",
+      "title": "Aarav Nair — Development Session",
+      "workspaceType": "development",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-kernel-dev-01",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-dev-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-dev-001",
+      "activeCoderPodId": "pod-kernel-dev-01",
+      "workOrderIds": [
+        "wo-3001",
+        "wo-3002",
+        "wo-3003"
+      ],
+      "startedAt": "2026-05-31T13:05:00Z",
+      "lastUpdatedAt": "2026-05-31T13:20:00Z"
+    },
+    {
+      "id": "session-kernel-product-spec-001",
+      "title": "Anika Rao — Product Specification Session",
+      "workspaceType": "product-spec",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-kernel-pm-01",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-product-spec-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-product-spec-001",
+      "activeCoderPodId": "pod-kernel-product-spec-01",
+      "workOrderIds": [
+        "wo-3016"
+      ],
+      "startedAt": "2026-05-31T10:05:00Z",
+      "lastUpdatedAt": "2026-05-31T11:25:00Z"
+    },
+    {
+      "id": "session-kernel-ux-001",
+      "title": "Nisha Kapoor — UX Design Session",
+      "workspaceType": "ux-design",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-tachyon-ux-01",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-ux-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-ux-001",
+      "activeCoderPodId": "pod-kernel-ux-01",
+      "workOrderIds": [
+        "wo-3018"
+      ],
+      "startedAt": "2026-05-31T09:40:00Z",
+      "lastUpdatedAt": "2026-05-31T10:55:00Z"
+    },
+    {
+      "id": "session-kernel-qa-001",
+      "title": "Diya Shah — QA Session",
+      "workspaceType": "qa",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-kernel-qa-01",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-qa-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-qa-001",
+      "activeCoderPodId": "pod-kernel-qa-01",
+      "workOrderIds": [
+        "wo-3020"
+      ],
+      "startedAt": "2026-05-31T11:10:00Z",
+      "lastUpdatedAt": "2026-05-31T12:15:00Z"
+    },
+    {
+      "id": "session-kernel-release-001",
+      "title": "Suresh Menon — Release Workspace Session",
+      "workspaceType": "release",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-tachyon-release-01",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-release-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-release-001",
+      "activeCoderPodId": "pod-kernel-release-01",
+      "workOrderIds": [
+        "wo-3022"
+      ],
+      "startedAt": "2026-05-31T12:05:00Z",
+      "lastUpdatedAt": "2026-05-31T13:00:00Z"
+    },
+    {
+      "id": "session-kernel-governance-001",
+      "title": "Vikram Iyer — Governance Workspace Session",
+      "workspaceType": "governance",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-kernel-pm-02",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-governance-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-governance-001",
+      "activeCoderPodId": "pod-kernel-governance-01",
+      "workOrderIds": [
+        "wo-3024"
+      ],
+      "startedAt": "2026-05-31T12:20:00Z",
+      "lastUpdatedAt": "2026-05-31T13:10:00Z"
+    },
+    {
+      "id": "session-kernel-product-spec-002",
+      "title": "Ishita Dey — Product Specification Session",
+      "workspaceType": "product-spec",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-kernel-pm-03",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-product-spec-002",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-product-spec-002",
+      "activeCoderPodId": "pod-kernel-product-spec-02",
+      "workOrderIds": [
+        "wo-3017"
+      ],
+      "startedAt": "2026-05-31T10:50:00Z",
+      "lastUpdatedAt": "2026-05-31T12:05:00Z"
+    },
+    {
+      "id": "session-kernel-ux-002",
+      "title": "Arjun Solanki — UX Design Session",
+      "workspaceType": "ux-design",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-tachyon-ux-02",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-ux-002",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-ux-002",
+      "activeCoderPodId": "pod-kernel-ux-02",
+      "workOrderIds": [
+        "wo-3019"
+      ],
+      "startedAt": "2026-05-31T10:15:00Z",
+      "lastUpdatedAt": "2026-05-31T11:40:00Z"
+    },
+    {
+      "id": "session-kernel-dev-002",
+      "title": "Rohan Khanna — Development Session",
+      "workspaceType": "development",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-kernel-dev-02",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-dev-002",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-dev-002",
+      "activeCoderPodId": "pod-kernel-dev-02",
+      "workOrderIds": [
+        "wo-3026"
+      ],
+      "startedAt": "2026-05-31T11:35:00Z",
+      "lastUpdatedAt": "2026-05-31T13:12:00Z"
+    },
+    {
+      "id": "session-kernel-qa-002",
+      "title": "Nitin Ghosh — QA Session",
+      "workspaceType": "qa",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-kernel-qa-02",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-qa-002",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-qa-002",
+      "activeCoderPodId": "pod-kernel-qa-02",
+      "workOrderIds": [
+        "wo-3021"
+      ],
+      "startedAt": "2026-05-31T11:45:00Z",
+      "lastUpdatedAt": "2026-05-31T12:58:00Z"
+    },
+    {
+      "id": "session-kernel-release-002",
+      "title": "Suresh Menon — Release Workspace Session (B)",
+      "workspaceType": "release",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-tachyon-release-01",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-release-002",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-release-002",
+      "activeCoderPodId": "pod-kernel-release-02",
+      "workOrderIds": [
+        "wo-3023"
+      ],
+      "startedAt": "2026-05-31T12:15:00Z",
+      "lastUpdatedAt": "2026-05-31T13:18:00Z"
+    },
+    {
+      "id": "session-kernel-governance-002",
+      "title": "Ishita Dey — Governance Workspace Session",
+      "workspaceType": "governance",
+      "status": "active",
+      "workshopId": "ws-tachyon",
+      "workbenchId": "wb-tachyon-kernel",
+      "linkedProductIntentId": "pi-2001",
+      "ownerId": "person-kernel-pm-03",
+      "sessionUrl": "/foundry/tachyon/wb-tachyon-kernel/consoles/workspaces/session/session-kernel-governance-002",
+      "remoteIdeUrl": "https://pods.foundry.local/session-kernel-governance-002",
+      "activeCoderPodId": "pod-kernel-governance-02",
+      "workOrderIds": [
+        "wo-3025"
+      ],
+      "startedAt": "2026-05-31T12:35:00Z",
+      "lastUpdatedAt": "2026-05-31T13:19:00Z"
+    },
+    {
+      "id": "session-pg-ux-archive-001",
+      "title": "Meera Balan — UX Design Session (Archived)",
+      "workspaceType": "ux-design",
+      "status": "closed",
+      "workshopId": "ws-photon",
+      "workbenchId": "wb-photon-payment-gateway",
+      "linkedProductIntentId": "pi-2007",
+      "ownerId": "person-photon-release-01",
+      "sessionUrl": "/foundry/photon/wb-photon-payment-gateway/consoles/workspaces/session/session-pg-ux-archive-001",
+      "remoteIdeUrl": "https://pods.foundry.local/session-pg-ux-archive-001",
+      "activeCoderPodId": "pod-pg-ux-archive-01",
+      "workOrderIds": [],
+      "startedAt": "2026-05-29T09:05:00Z",
+      "lastUpdatedAt": "2026-05-29T10:15:00Z"
+    }
+  ]
+}

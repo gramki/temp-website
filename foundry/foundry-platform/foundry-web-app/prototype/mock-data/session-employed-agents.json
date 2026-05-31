@@ -1,0 +1,806 @@
+{
+  "usageWindows": [
+    {
+      "id": "all",
+      "label": "All"
+    },
+    {
+      "id": "today",
+      "label": "Today"
+    },
+    {
+      "id": "last_24h",
+      "label": "Last 24h"
+    },
+    {
+      "id": "last_7d",
+      "label": "Last 7d"
+    }
+  ],
+  "sessionEmployedAgents": [
+    {
+      "sessionId": "session-pg-release-001",
+      "ownerId": "person-photon-release-01",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T10:05:00Z",
+          "to": "2026-05-31T13:05:00Z",
+          "agents": [
+            {
+              "agentId": "agent-release-risk-copilot",
+              "agentName": "Release Risk Copilot",
+              "invocationCount": 11,
+              "skills": [
+                {
+                  "skillId": "skill-risk-register-summarizer",
+                  "skillName": "Risk Register Summarizer",
+                  "invocationCount": 6
+                },
+                {
+                  "skillId": "skill-evidence-gap-analyzer",
+                  "skillName": "Evidence Gap Analyzer",
+                  "invocationCount": 5
+                }
+              ]
+            },
+            {
+              "agentId": "agent-settlement-check-assistant",
+              "agentName": "Settlement Check Assistant",
+              "invocationCount": 9,
+              "skills": [
+                {
+                  "skillId": "skill-control-checklist-author",
+                  "skillName": "Control Checklist Author",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-manifest-diff-reviewer",
+                  "skillName": "Manifest Diff Reviewer",
+                  "invocationCount": 5
+                }
+              ]
+            }
+          ]
+        },
+        "today": {
+          "from": "2026-05-31T00:00:00Z",
+          "to": "2026-05-31T13:05:00Z",
+          "agents": [
+            {
+              "agentId": "agent-release-risk-copilot",
+              "agentName": "Release Risk Copilot",
+              "invocationCount": 11,
+              "skills": [
+                {
+                  "skillId": "skill-risk-register-summarizer",
+                  "skillName": "Risk Register Summarizer",
+                  "invocationCount": 6
+                },
+                {
+                  "skillId": "skill-evidence-gap-analyzer",
+                  "skillName": "Evidence Gap Analyzer",
+                  "invocationCount": 5
+                }
+              ]
+            },
+            {
+              "agentId": "agent-settlement-check-assistant",
+              "agentName": "Settlement Check Assistant",
+              "invocationCount": 9,
+              "skills": [
+                {
+                  "skillId": "skill-control-checklist-author",
+                  "skillName": "Control Checklist Author",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-manifest-diff-reviewer",
+                  "skillName": "Manifest Diff Reviewer",
+                  "invocationCount": 5
+                }
+              ]
+            }
+          ]
+        },
+        "last_24h": {
+          "from": "2026-05-30T13:05:00Z",
+          "to": "2026-05-31T13:05:00Z",
+          "agents": [
+            {
+              "agentId": "agent-release-risk-copilot",
+              "agentName": "Release Risk Copilot",
+              "invocationCount": 11,
+              "skills": [
+                {
+                  "skillId": "skill-risk-register-summarizer",
+                  "skillName": "Risk Register Summarizer",
+                  "invocationCount": 6
+                },
+                {
+                  "skillId": "skill-evidence-gap-analyzer",
+                  "skillName": "Evidence Gap Analyzer",
+                  "invocationCount": 5
+                }
+              ]
+            },
+            {
+              "agentId": "agent-settlement-check-assistant",
+              "agentName": "Settlement Check Assistant",
+              "invocationCount": 9,
+              "skills": [
+                {
+                  "skillId": "skill-control-checklist-author",
+                  "skillName": "Control Checklist Author",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-manifest-diff-reviewer",
+                  "skillName": "Manifest Diff Reviewer",
+                  "invocationCount": 5
+                }
+              ]
+            }
+          ]
+        },
+        "last_7d": {
+          "from": "2026-05-24T13:05:00Z",
+          "to": "2026-05-31T13:05:00Z",
+          "agents": [
+            {
+              "agentId": "agent-release-risk-copilot",
+              "agentName": "Release Risk Copilot",
+              "invocationCount": 13,
+              "skills": [
+                {
+                  "skillId": "skill-risk-register-summarizer",
+                  "skillName": "Risk Register Summarizer",
+                  "invocationCount": 7
+                },
+                {
+                  "skillId": "skill-evidence-gap-analyzer",
+                  "skillName": "Evidence Gap Analyzer",
+                  "invocationCount": 6
+                }
+              ]
+            },
+            {
+              "agentId": "agent-settlement-check-assistant",
+              "agentName": "Settlement Check Assistant",
+              "invocationCount": 11,
+              "skills": [
+                {
+                  "skillId": "skill-control-checklist-author",
+                  "skillName": "Control Checklist Author",
+                  "invocationCount": 5
+                },
+                {
+                  "skillId": "skill-manifest-diff-reviewer",
+                  "skillName": "Manifest Diff Reviewer",
+                  "invocationCount": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-pg-governance-001",
+      "ownerId": "person-pg-pm-03",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T11:00:00Z",
+          "to": "2026-05-31T12:35:00Z",
+          "agents": [
+            {
+              "agentId": "agent-governance-evidence-auditor",
+              "agentName": "Governance Evidence Auditor",
+              "invocationCount": 8,
+              "skills": [
+                {
+                  "skillId": "skill-metadata-provenance-check",
+                  "skillName": "Metadata Provenance Check",
+                  "invocationCount": 5
+                },
+                {
+                  "skillId": "skill-artifact-coverage-map",
+                  "skillName": "Artifact Coverage Map",
+                  "invocationCount": 3
+                }
+              ]
+            },
+            {
+              "agentId": "agent-release-checkpoint-notary",
+              "agentName": "Release Checkpoint Notary",
+              "invocationCount": 4,
+              "skills": [
+                {
+                  "skillId": "skill-control-exception-tracker",
+                  "skillName": "Control Exception Tracker",
+                  "invocationCount": 4
+                }
+              ]
+            }
+          ]
+        },
+        "today": {
+          "from": "2026-05-31T00:00:00Z",
+          "to": "2026-05-31T12:35:00Z",
+          "agents": [
+            {
+              "agentId": "agent-governance-evidence-auditor",
+              "agentName": "Governance Evidence Auditor",
+              "invocationCount": 8,
+              "skills": [
+                {
+                  "skillId": "skill-metadata-provenance-check",
+                  "skillName": "Metadata Provenance Check",
+                  "invocationCount": 5
+                },
+                {
+                  "skillId": "skill-artifact-coverage-map",
+                  "skillName": "Artifact Coverage Map",
+                  "invocationCount": 3
+                }
+              ]
+            },
+            {
+              "agentId": "agent-release-checkpoint-notary",
+              "agentName": "Release Checkpoint Notary",
+              "invocationCount": 4,
+              "skills": [
+                {
+                  "skillId": "skill-control-exception-tracker",
+                  "skillName": "Control Exception Tracker",
+                  "invocationCount": 4
+                }
+              ]
+            }
+          ]
+        },
+        "last_24h": {
+          "from": "2026-05-30T12:35:00Z",
+          "to": "2026-05-31T12:35:00Z",
+          "agents": [
+            {
+              "agentId": "agent-governance-evidence-auditor",
+              "agentName": "Governance Evidence Auditor",
+              "invocationCount": 8,
+              "skills": [
+                {
+                  "skillId": "skill-metadata-provenance-check",
+                  "skillName": "Metadata Provenance Check",
+                  "invocationCount": 5
+                },
+                {
+                  "skillId": "skill-artifact-coverage-map",
+                  "skillName": "Artifact Coverage Map",
+                  "invocationCount": 3
+                }
+              ]
+            },
+            {
+              "agentId": "agent-release-checkpoint-notary",
+              "agentName": "Release Checkpoint Notary",
+              "invocationCount": 4,
+              "skills": [
+                {
+                  "skillId": "skill-control-exception-tracker",
+                  "skillName": "Control Exception Tracker",
+                  "invocationCount": 4
+                }
+              ]
+            }
+          ]
+        },
+        "last_7d": {
+          "from": "2026-05-24T12:35:00Z",
+          "to": "2026-05-31T12:35:00Z",
+          "agents": [
+            {
+              "agentId": "agent-governance-evidence-auditor",
+              "agentName": "Governance Evidence Auditor",
+              "invocationCount": 12,
+              "skills": [
+                {
+                  "skillId": "skill-metadata-provenance-check",
+                  "skillName": "Metadata Provenance Check",
+                  "invocationCount": 8
+                },
+                {
+                  "skillId": "skill-artifact-coverage-map",
+                  "skillName": "Artifact Coverage Map",
+                  "invocationCount": 4
+                }
+              ]
+            },
+            {
+              "agentId": "agent-release-checkpoint-notary",
+              "agentName": "Release Checkpoint Notary",
+              "invocationCount": 7,
+              "skills": [
+                {
+                  "skillId": "skill-control-exception-tracker",
+                  "skillName": "Control Exception Tracker",
+                  "invocationCount": 7
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-dev-001",
+      "ownerId": "person-kernel-dev-01",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T13:05:00Z",
+          "to": "2026-05-31T13:20:00Z",
+          "agents": [
+            {
+              "agentId": "agent-replay-guard-copilot",
+              "agentName": "Replay Guard Copilot",
+              "invocationCount": 7,
+              "skills": [
+                {
+                  "skillId": "skill-idempotency-checklist",
+                  "skillName": "Idempotency Checklist",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-failure-taxonomy-generator",
+                  "skillName": "Failure Taxonomy Generator",
+                  "invocationCount": 3
+                }
+              ]
+            },
+            {
+              "agentId": "agent-kernel-regression-advisor",
+              "agentName": "Kernel Regression Advisor",
+              "invocationCount": 3,
+              "skills": [
+                {
+                  "skillId": "skill-replay-regression-template",
+                  "skillName": "Replay Regression Template",
+                  "invocationCount": 3
+                }
+              ]
+            }
+          ]
+        },
+        "today": {
+          "from": "2026-05-31T00:00:00Z",
+          "to": "2026-05-31T13:20:00Z",
+          "agents": [
+            {
+              "agentId": "agent-replay-guard-copilot",
+              "agentName": "Replay Guard Copilot",
+              "invocationCount": 7,
+              "skills": [
+                {
+                  "skillId": "skill-idempotency-checklist",
+                  "skillName": "Idempotency Checklist",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-failure-taxonomy-generator",
+                  "skillName": "Failure Taxonomy Generator",
+                  "invocationCount": 3
+                }
+              ]
+            },
+            {
+              "agentId": "agent-kernel-regression-advisor",
+              "agentName": "Kernel Regression Advisor",
+              "invocationCount": 3,
+              "skills": [
+                {
+                  "skillId": "skill-replay-regression-template",
+                  "skillName": "Replay Regression Template",
+                  "invocationCount": 3
+                }
+              ]
+            }
+          ]
+        },
+        "last_24h": {
+          "from": "2026-05-30T13:20:00Z",
+          "to": "2026-05-31T13:20:00Z",
+          "agents": [
+            {
+              "agentId": "agent-replay-guard-copilot",
+              "agentName": "Replay Guard Copilot",
+              "invocationCount": 7,
+              "skills": [
+                {
+                  "skillId": "skill-idempotency-checklist",
+                  "skillName": "Idempotency Checklist",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-failure-taxonomy-generator",
+                  "skillName": "Failure Taxonomy Generator",
+                  "invocationCount": 3
+                }
+              ]
+            },
+            {
+              "agentId": "agent-kernel-regression-advisor",
+              "agentName": "Kernel Regression Advisor",
+              "invocationCount": 3,
+              "skills": [
+                {
+                  "skillId": "skill-replay-regression-template",
+                  "skillName": "Replay Regression Template",
+                  "invocationCount": 3
+                }
+              ]
+            }
+          ]
+        },
+        "last_7d": {
+          "from": "2026-05-24T13:20:00Z",
+          "to": "2026-05-31T13:20:00Z",
+          "agents": [
+            {
+              "agentId": "agent-replay-guard-copilot",
+              "agentName": "Replay Guard Copilot",
+              "invocationCount": 9,
+              "skills": [
+                {
+                  "skillId": "skill-idempotency-checklist",
+                  "skillName": "Idempotency Checklist",
+                  "invocationCount": 5
+                },
+                {
+                  "skillId": "skill-failure-taxonomy-generator",
+                  "skillName": "Failure Taxonomy Generator",
+                  "invocationCount": 4
+                }
+              ]
+            },
+            {
+              "agentId": "agent-kernel-regression-advisor",
+              "agentName": "Kernel Regression Advisor",
+              "invocationCount": 5,
+              "skills": [
+                {
+                  "skillId": "skill-replay-regression-template",
+                  "skillName": "Replay Regression Template",
+                  "invocationCount": 5
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-product-spec-001",
+      "ownerId": "person-kernel-pm-01",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T10:05:00Z",
+          "to": "2026-05-31T11:25:00Z",
+          "agents": [
+            {
+              "agentId": "agent-spec-scope-drafter",
+              "agentName": "Spec Scope Drafter",
+              "invocationCount": 6,
+              "skills": [
+                {
+                  "skillId": "skill-acceptance-criteria-author",
+                  "skillName": "Acceptance Criteria Author",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-constraint-summarizer",
+                  "skillName": "Constraint Summarizer",
+                  "invocationCount": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-product-spec-002",
+      "ownerId": "person-kernel-pm-03",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T10:50:00Z",
+          "to": "2026-05-31T12:05:00Z",
+          "agents": [
+            {
+              "agentId": "agent-spec-risk-notes",
+              "agentName": "Spec Risk Notes Assistant",
+              "invocationCount": 5,
+              "skills": [
+                {
+                  "skillId": "skill-risk-scenario-enumerator",
+                  "skillName": "Risk Scenario Enumerator",
+                  "invocationCount": 3
+                },
+                {
+                  "skillId": "skill-assumption-tracker",
+                  "skillName": "Assumption Tracker",
+                  "invocationCount": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-ux-001",
+      "ownerId": "person-tachyon-ux-01",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T09:40:00Z",
+          "to": "2026-05-31T10:55:00Z",
+          "agents": [
+            {
+              "agentId": "agent-ux-flow-optimizer",
+              "agentName": "UX Flow Optimizer",
+              "invocationCount": 7,
+              "skills": [
+                {
+                  "skillId": "skill-user-flow-checker",
+                  "skillName": "User Flow Checker",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-copy-tone-auditor",
+                  "skillName": "Copy Tone Auditor",
+                  "invocationCount": 3
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-ux-002",
+      "ownerId": "person-tachyon-ux-02",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T10:15:00Z",
+          "to": "2026-05-31T11:40:00Z",
+          "agents": [
+            {
+              "agentId": "agent-ux-wireframe-critic",
+              "agentName": "UX Wireframe Critic",
+              "invocationCount": 6,
+              "skills": [
+                {
+                  "skillId": "skill-heuristic-review",
+                  "skillName": "Heuristic Review",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-ux-edge-case-mapper",
+                  "skillName": "UX Edge Case Mapper",
+                  "invocationCount": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-dev-002",
+      "ownerId": "person-kernel-dev-02",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T11:35:00Z",
+          "to": "2026-05-31T13:12:00Z",
+          "agents": [
+            {
+              "agentId": "agent-replay-guard-copilot",
+              "agentName": "Replay Guard Copilot",
+              "invocationCount": 8,
+              "skills": [
+                {
+                  "skillId": "skill-idempotency-checklist",
+                  "skillName": "Idempotency Checklist",
+                  "invocationCount": 5
+                },
+                {
+                  "skillId": "skill-failure-taxonomy-generator",
+                  "skillName": "Failure Taxonomy Generator",
+                  "invocationCount": 3
+                }
+              ]
+            },
+            {
+              "agentId": "agent-kernel-regression-advisor",
+              "agentName": "Kernel Regression Advisor",
+              "invocationCount": 4,
+              "skills": [
+                {
+                  "skillId": "skill-replay-regression-template",
+                  "skillName": "Replay Regression Template",
+                  "invocationCount": 4
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-qa-001",
+      "ownerId": "person-kernel-qa-01",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T11:10:00Z",
+          "to": "2026-05-31T12:15:00Z",
+          "agents": [
+            {
+              "agentId": "agent-qa-regression-orchestrator",
+              "agentName": "QA Regression Orchestrator",
+              "invocationCount": 6,
+              "skills": [
+                {
+                  "skillId": "skill-test-matrix-author",
+                  "skillName": "Test Matrix Author",
+                  "invocationCount": 4
+                },
+                {
+                  "skillId": "skill-edge-case-fuzzer",
+                  "skillName": "Edge Case Fuzzer",
+                  "invocationCount": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-qa-002",
+      "ownerId": "person-kernel-qa-02",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T11:45:00Z",
+          "to": "2026-05-31T12:58:00Z",
+          "agents": [
+            {
+              "agentId": "agent-qa-gate-checker",
+              "agentName": "QA Gate Checker",
+              "invocationCount": 5,
+              "skills": [
+                {
+                  "skillId": "skill-defect-priority-auditor",
+                  "skillName": "Defect Priority Auditor",
+                  "invocationCount": 3
+                },
+                {
+                  "skillId": "skill-test-data-sanitizer",
+                  "skillName": "Test Data Sanitizer",
+                  "invocationCount": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-release-001",
+      "ownerId": "person-tachyon-release-01",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T12:05:00Z",
+          "to": "2026-05-31T13:00:00Z",
+          "agents": [
+            {
+              "agentId": "agent-release-risk-copilot",
+              "agentName": "Release Risk Copilot",
+              "invocationCount": 5,
+              "skills": [
+                {
+                  "skillId": "skill-risk-register-summarizer",
+                  "skillName": "Risk Register Summarizer",
+                  "invocationCount": 3
+                },
+                {
+                  "skillId": "skill-evidence-gap-analyzer",
+                  "skillName": "Evidence Gap Analyzer",
+                  "invocationCount": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-release-002",
+      "ownerId": "person-tachyon-release-01",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T12:15:00Z",
+          "to": "2026-05-31T13:18:00Z",
+          "agents": [
+            {
+              "agentId": "agent-release-checkpoint-notary",
+              "agentName": "Release Checkpoint Notary",
+              "invocationCount": 4,
+              "skills": [
+                {
+                  "skillId": "skill-control-exception-tracker",
+                  "skillName": "Control Exception Tracker",
+                  "invocationCount": 4
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-governance-001",
+      "ownerId": "person-kernel-pm-02",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T12:20:00Z",
+          "to": "2026-05-31T13:10:00Z",
+          "agents": [
+            {
+              "agentId": "agent-governance-evidence-auditor",
+              "agentName": "Governance Evidence Auditor",
+              "invocationCount": 5,
+              "skills": [
+                {
+                  "skillId": "skill-metadata-provenance-check",
+                  "skillName": "Metadata Provenance Check",
+                  "invocationCount": 3
+                },
+                {
+                  "skillId": "skill-artifact-coverage-map",
+                  "skillName": "Artifact Coverage Map",
+                  "invocationCount": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "session-kernel-governance-002",
+      "ownerId": "person-kernel-pm-03",
+      "windows": {
+        "all": {
+          "from": "2026-05-31T12:35:00Z",
+          "to": "2026-05-31T13:19:00Z",
+          "agents": [
+            {
+              "agentId": "agent-governance-evidence-auditor",
+              "agentName": "Governance Evidence Auditor",
+              "invocationCount": 4,
+              "skills": [
+                {
+                  "skillId": "skill-metadata-provenance-check",
+                  "skillName": "Metadata Provenance Check",
+                  "invocationCount": 2
+                },
+                {
+                  "skillId": "skill-artifact-coverage-map",
+                  "skillName": "Artifact Coverage Map",
+                  "invocationCount": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

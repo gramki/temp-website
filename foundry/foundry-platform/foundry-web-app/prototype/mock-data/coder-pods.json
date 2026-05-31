@@ -1,0 +1,540 @@
+{
+  "sessionCoderPods": [
+    {
+      "sessionId": "session-pg-release-001",
+      "activePodId": "pod-pg-release-01",
+      "activePod": {
+        "id": "pod-pg-release-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "wo/WO-3015",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-pg-release-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-pg-release-01",
+        "startedAt": "2026-05-31T10:06:00Z",
+        "lastHeartbeatAt": "2026-05-31T13:05:00Z",
+        "resources": {
+          "cpuCores": 8,
+          "memoryGiB": 16,
+          "ephemeralStorageGiB": 80
+        },
+        "health": {
+          "status": "degraded",
+          "score": 82,
+          "lastProbeAt": "2026-05-31T13:04:00Z",
+          "issues": [
+            "artifact-export-latency"
+          ]
+        }
+      },
+      "podHistory": [
+        {
+          "id": "pod-pg-release-00",
+          "status": "terminated",
+          "reason": "manual-restart-after-control-update",
+          "startedAt": "2026-05-31T09:20:00Z",
+          "endedAt": "2026-05-31T10:03:00Z"
+        }
+      ]
+    },
+    {
+      "sessionId": "session-pg-governance-001",
+      "activePodId": "pod-pg-governance-01",
+      "activePod": {
+        "id": "pod-pg-governance-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "wo/WO-3015",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-pg-governance-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-pg-governance-01",
+        "startedAt": "2026-05-31T11:01:00Z",
+        "lastHeartbeatAt": "2026-05-31T12:35:00Z",
+        "resources": {
+          "cpuCores": 4,
+          "memoryGiB": 8,
+          "ephemeralStorageGiB": 40
+        },
+        "health": {
+          "status": "healthy",
+          "score": 96,
+          "lastProbeAt": "2026-05-31T12:34:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": [
+        {
+          "id": "pod-pg-governance-00",
+          "status": "terminated",
+          "reason": "precheck-runtime-upgrade",
+          "startedAt": "2026-05-31T10:30:00Z",
+          "endedAt": "2026-05-31T10:58:00Z"
+        }
+      ]
+    },
+    {
+      "sessionId": "session-pg-product-spec-001",
+      "activePodId": "pod-pg-product-spec-01",
+      "activePod": {
+        "id": "pod-pg-product-spec-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "wo/WO-3014",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-pg-product-spec-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-pg-product-spec-01",
+        "startedAt": "2026-05-31T09:11:00Z",
+        "lastHeartbeatAt": "2026-05-31T11:15:00Z",
+        "resources": {
+          "cpuCores": 2,
+          "memoryGiB": 4,
+          "ephemeralStorageGiB": 20
+        },
+        "health": {
+          "status": "healthy",
+          "score": 97,
+          "lastProbeAt": "2026-05-31T11:14:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-pg-ux-001",
+      "activePodId": "pod-pg-ux-01",
+      "activePod": {
+        "id": "pod-pg-ux-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1b",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "design/checkout-error",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-pg-ux-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-pg-ux-01",
+        "startedAt": "2026-05-31T08:31:00Z",
+        "lastHeartbeatAt": "2026-05-31T10:25:00Z",
+        "resources": {
+          "cpuCores": 2,
+          "memoryGiB": 6,
+          "ephemeralStorageGiB": 24
+        },
+        "health": {
+          "status": "healthy",
+          "score": 95,
+          "lastProbeAt": "2026-05-31T10:24:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-pg-development-001",
+      "activePodId": "pod-pg-development-01",
+      "activePod": {
+        "id": "pod-pg-development-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "wo/WO-3014-replay-guard",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-pg-development-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-pg-development-01",
+        "startedAt": "2026-05-31T10:46:00Z",
+        "lastHeartbeatAt": "2026-05-31T12:40:00Z",
+        "resources": {
+          "cpuCores": 6,
+          "memoryGiB": 12,
+          "ephemeralStorageGiB": 48
+        },
+        "health": {
+          "status": "degraded",
+          "score": 84,
+          "lastProbeAt": "2026-05-31T12:39:00Z",
+          "issues": [
+            "api-flakiness-detected"
+          ]
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-pg-qa-001",
+      "activePodId": "pod-pg-qa-01",
+      "activePod": {
+        "id": "pod-pg-qa-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1b",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "qa/wo-3014-regression",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-pg-qa-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-pg-qa-01",
+        "startedAt": "2026-05-31T11:21:00Z",
+        "lastHeartbeatAt": "2026-05-31T12:55:00Z",
+        "resources": {
+          "cpuCores": 3,
+          "memoryGiB": 8,
+          "ephemeralStorageGiB": 36
+        },
+        "health": {
+          "status": "healthy",
+          "score": 96,
+          "lastProbeAt": "2026-05-31T12:54:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-dev-001",
+      "activePodId": "pod-kernel-dev-01",
+      "activePod": {
+        "id": "pod-kernel-dev-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1b",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "wo/WO-3002",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-dev-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-dev-01",
+        "startedAt": "2026-05-31T13:06:00Z",
+        "lastHeartbeatAt": "2026-05-31T13:20:00Z",
+        "resources": {
+          "cpuCores": 6,
+          "memoryGiB": 12,
+          "ephemeralStorageGiB": 64
+        },
+        "health": {
+          "status": "healthy",
+          "score": 98,
+          "lastProbeAt": "2026-05-31T13:19:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": [
+        {
+          "id": "pod-kernel-dev-00",
+          "status": "terminated",
+          "reason": "base-image-refresh",
+          "startedAt": "2026-05-31T12:35:00Z",
+          "endedAt": "2026-05-31T13:04:00Z"
+        }
+      ]
+    },
+    {
+      "sessionId": "session-kernel-product-spec-001",
+      "activePodId": "pod-kernel-product-spec-01",
+      "activePod": {
+        "id": "pod-kernel-product-spec-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "spec/pi-2001",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-product-spec-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-product-spec-01",
+        "startedAt": "2026-05-31T10:06:00Z",
+        "lastHeartbeatAt": "2026-05-31T11:25:00Z",
+        "resources": {
+          "cpuCores": 2,
+          "memoryGiB": 4,
+          "ephemeralStorageGiB": 20
+        },
+        "health": {
+          "status": "healthy",
+          "score": 96,
+          "lastProbeAt": "2026-05-31T11:24:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-ux-001",
+      "activePodId": "pod-kernel-ux-01",
+      "activePod": {
+        "id": "pod-kernel-ux-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1b",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "ux/replay-guard",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-ux-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-ux-01",
+        "startedAt": "2026-05-31T09:41:00Z",
+        "lastHeartbeatAt": "2026-05-31T10:55:00Z",
+        "resources": {
+          "cpuCores": 2,
+          "memoryGiB": 5,
+          "ephemeralStorageGiB": 22
+        },
+        "health": {
+          "status": "healthy",
+          "score": 95,
+          "lastProbeAt": "2026-05-31T10:54:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-qa-001",
+      "activePodId": "pod-kernel-qa-01",
+      "activePod": {
+        "id": "pod-kernel-qa-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1b",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "qa/replay-guard-regression",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-qa-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-qa-01",
+        "startedAt": "2026-05-31T11:11:00Z",
+        "lastHeartbeatAt": "2026-05-31T12:15:00Z",
+        "resources": {
+          "cpuCores": 3,
+          "memoryGiB": 8,
+          "ephemeralStorageGiB": 34
+        },
+        "health": {
+          "status": "healthy",
+          "score": 97,
+          "lastProbeAt": "2026-05-31T12:14:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-release-001",
+      "activePodId": "pod-kernel-release-01",
+      "activePod": {
+        "id": "pod-kernel-release-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "release/pi-2001",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-release-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-release-01",
+        "startedAt": "2026-05-31T12:06:00Z",
+        "lastHeartbeatAt": "2026-05-31T13:00:00Z",
+        "resources": {
+          "cpuCores": 4,
+          "memoryGiB": 10,
+          "ephemeralStorageGiB": 40
+        },
+        "health": {
+          "status": "degraded",
+          "score": 86,
+          "lastProbeAt": "2026-05-31T12:59:00Z",
+          "issues": [
+            "artifact-signing-latency"
+          ]
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-governance-001",
+      "activePodId": "pod-kernel-governance-01",
+      "activePod": {
+        "id": "pod-kernel-governance-01",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "governance/pi-2001",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-governance-01",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-governance-01",
+        "startedAt": "2026-05-31T12:21:00Z",
+        "lastHeartbeatAt": "2026-05-31T13:10:00Z",
+        "resources": {
+          "cpuCores": 3,
+          "memoryGiB": 8,
+          "ephemeralStorageGiB": 28
+        },
+        "health": {
+          "status": "healthy",
+          "score": 94,
+          "lastProbeAt": "2026-05-31T13:09:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-product-spec-002",
+      "activePodId": "pod-kernel-product-spec-02",
+      "activePod": {
+        "id": "pod-kernel-product-spec-02",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "spec/pi-2001-v2",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-product-spec-02",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-product-spec-02",
+        "startedAt": "2026-05-31T10:51:00Z",
+        "lastHeartbeatAt": "2026-05-31T12:05:00Z",
+        "resources": {
+          "cpuCores": 2,
+          "memoryGiB": 4,
+          "ephemeralStorageGiB": 20
+        },
+        "health": {
+          "status": "healthy",
+          "score": 95,
+          "lastProbeAt": "2026-05-31T12:04:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-ux-002",
+      "activePodId": "pod-kernel-ux-02",
+      "activePod": {
+        "id": "pod-kernel-ux-02",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1b",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "ux/replay-guard-v2",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-ux-02",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-ux-02",
+        "startedAt": "2026-05-31T10:16:00Z",
+        "lastHeartbeatAt": "2026-05-31T11:40:00Z",
+        "resources": {
+          "cpuCores": 2,
+          "memoryGiB": 5,
+          "ephemeralStorageGiB": 22
+        },
+        "health": {
+          "status": "healthy",
+          "score": 93,
+          "lastProbeAt": "2026-05-31T11:39:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-dev-002",
+      "activePodId": "pod-kernel-dev-02",
+      "activePod": {
+        "id": "pod-kernel-dev-02",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1b",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "wo/WO-3002-v2",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-dev-02",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-dev-02",
+        "startedAt": "2026-05-31T11:36:00Z",
+        "lastHeartbeatAt": "2026-05-31T13:12:00Z",
+        "resources": {
+          "cpuCores": 6,
+          "memoryGiB": 12,
+          "ephemeralStorageGiB": 60
+        },
+        "health": {
+          "status": "degraded",
+          "score": 83,
+          "lastProbeAt": "2026-05-31T13:11:00Z",
+          "issues": [
+            "gc-pause-spike"
+          ]
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-qa-002",
+      "activePodId": "pod-kernel-qa-02",
+      "activePod": {
+        "id": "pod-kernel-qa-02",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1b",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "qa/replay-guard-regression-v2",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-qa-02",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-qa-02",
+        "startedAt": "2026-05-31T11:46:00Z",
+        "lastHeartbeatAt": "2026-05-31T12:58:00Z",
+        "resources": {
+          "cpuCores": 3,
+          "memoryGiB": 8,
+          "ephemeralStorageGiB": 34
+        },
+        "health": {
+          "status": "healthy",
+          "score": 96,
+          "lastProbeAt": "2026-05-31T12:57:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-release-002",
+      "activePodId": "pod-kernel-release-02",
+      "activePod": {
+        "id": "pod-kernel-release-02",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "release/pi-2001-b",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-release-02",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-release-02",
+        "startedAt": "2026-05-31T12:16:00Z",
+        "lastHeartbeatAt": "2026-05-31T13:18:00Z",
+        "resources": {
+          "cpuCores": 4,
+          "memoryGiB": 10,
+          "ephemeralStorageGiB": 40
+        },
+        "health": {
+          "status": "healthy",
+          "score": 92,
+          "lastProbeAt": "2026-05-31T13:17:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    },
+    {
+      "sessionId": "session-kernel-governance-002",
+      "activePodId": "pod-kernel-governance-02",
+      "activePod": {
+        "id": "pod-kernel-governance-02",
+        "status": "running",
+        "provider": "eks",
+        "cluster": "ap-south-1a",
+        "namespace": "foundry-pods",
+        "workspaceBranch": "governance/pi-2001-b",
+        "monitoringUrl": "https://monitoring.foundry.local/pods/pod-kernel-governance-02",
+        "ideAttachUrl": "vscode://foundry/attach/pod-kernel-governance-02",
+        "startedAt": "2026-05-31T12:36:00Z",
+        "lastHeartbeatAt": "2026-05-31T13:19:00Z",
+        "resources": {
+          "cpuCores": 3,
+          "memoryGiB": 8,
+          "ephemeralStorageGiB": 28
+        },
+        "health": {
+          "status": "healthy",
+          "score": 94,
+          "lastProbeAt": "2026-05-31T13:18:00Z",
+          "issues": []
+        }
+      },
+      "podHistory": []
+    }
+  ]
+}
