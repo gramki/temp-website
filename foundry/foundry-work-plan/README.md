@@ -1,27 +1,66 @@
 # Foundry Work Plan
 
-This folder contains the **project plan** for building the Foundry Platform: people, milestones, budget, governance cadences, and value-realized verification checkpoints. It is the planning artifact that complements the engineering documentation in [../foundry-platform/](../foundry-platform/README.md).
+This folder contains the **project plan** for building the Foundry Platform: people, milestones, governance cadences, and value-realized verification checkpoints. It complements the engineering documentation in [../foundry-platform/](../foundry-platform/README.md).
 
-The current scope is captured in [work.TODO](work.TODO):
+**Phase 1 build contracts** (scope, golden path, module boundaries) live in [phase-1/](phase-1/README.md). This folder is the **when, who, and how**; `phase-1/` is the **what to build**.
 
-- **People Plan** — staffing for the Foundry engineering effort.
-- **Project Plan and Milestones** — sequenced delivery plan.
-- **Budget Plan** — financial allocation.
-- **Governance Structure and Cadences** — how the work is steered (cadences, decision rhythms, escalation paths).
-- **Value Realized and Value Added verification checkpoints** — how progress is measured against intended business value.
+## Documentation index
+
+| Document | Purpose |
+|----------|---------|
+| [people-plan.md](people-plan.md) | Program roles, five delivery streams, roster templates |
+| [milestones.md](milestones.md) | M0–M5 vertical slices and definition of done |
+| [governance-cadences.md](governance-cadences.md) | Project steering cadences (not ACE Governance Workspace) |
+| [value-checkpoints.md](value-checkpoints.md) | Phase 1 value verification against the build question |
+| [squad-charters/](squad-charters/) | Per-stream scope, deliverables, dependencies |
+| [integration/](integration/) | Dependency graph, contract gates, demo runbook |
+| [phase-1/](phase-1/README.md) | Technical build contracts for Phase 1 |
+
+### Squad charters
+
+| Stream | Charter |
+|--------|---------|
+| Control Plane | [squad-charters/control-plane.md](squad-charters/control-plane.md) |
+| Execution Plane | [squad-charters/execution-plane.md](squad-charters/execution-plane.md) |
+| Builder Experience | [squad-charters/builder-experience.md](squad-charters/builder-experience.md) |
+| Release Engineering | [squad-charters/release-engineering.md](squad-charters/release-engineering.md) |
+| Work Catalog Authoring | [squad-charters/work-catalog-authoring.md](squad-charters/work-catalog-authoring.md) |
+
+### Integration
+
+| Document | Purpose |
+|----------|---------|
+| [integration/dependency-graph.md](integration/dependency-graph.md) | Squad blocking relationships and critical path |
+| [integration/contract-gates.md](integration/contract-gates.md) | API/event gates between streams |
+| [integration/demo-runbook.md](integration/demo-runbook.md) | Golden-path demo operations |
+
+## Planning principle
+
+> Platform squads build the engine; track experts write the catalog; Release Engineering builds and owns CI pipelines.
+
+Organize **delivery** around golden-path milestones ([milestones.md](milestones.md)). Organize **ownership** around the five streams ([people-plan.md](people-plan.md)).
 
 ## Audience
 
-The primary readers are the **Foundry engineering leadership** (engineering managers, tech leads, program management, finance partners) and **executive stakeholders** who fund and oversee the work.
+Primary readers: Foundry engineering leadership (EMs, tech leads, program management) and executive stakeholders who fund and oversee the work.
 
 ## How this folder relates to the rest of the tree
 
-- The **what** of the platform lives in [../foundry-platform/](../foundry-platform/README.md). The **when, who, and how much** lives here.
-- Governance cadences described in this folder should not be confused with the **Governance Workspace** described in [../ace/governance.md](../ace/governance.md). The former is project-level governance over the build effort; the latter is product-level governance over Product Intent transitions inside any Workbench. They are different planes.
-- Value-realized checkpoints should reference UPIM entities where appropriate — Win Outcomes (Track 4), Win Reviews, Initiative Targets — so that "value" has a defined shape rather than a narrative one. See [../product-information-model/README.md](../product-information-model/README.md).
+- The **what** of the platform lives in [../foundry-platform/](../foundry-platform/README.md).
+- Governance cadences here are **project-level** steering — not the [Governance Workspace](../ace/governance.md) inside a Workbench.
+- Value checkpoints reference UPIM entities where appropriate. See [../product-information-model/](../product-information-model/README.md).
 
-## What this folder does not contain
+## Not in this folder
 
-- Module-level scope or design decisions — those live in [../foundry-platform/](../foundry-platform/README.md).
-- ACE conceptual content — that lives in [../ace/](../ace/README.md).
-- Customer-facing positioning — that lives in [../stakeholder-briefs/](../stakeholder-briefs/README.md).
+| Topic | Location |
+|-------|----------|
+| Module specs and design decisions | [../foundry-platform/](../foundry-platform/README.md) |
+| ACE conceptual content | [../ace/](../ace/README.md) |
+| Customer-facing positioning | [../stakeholder-briefs/](../stakeholder-briefs/README.md) |
+| **Budget plan** | TBD |
+
+## Read next
+
+- [people-plan.md](people-plan.md) — start here for team structure
+- [milestones.md](milestones.md) — delivery sequence
+- [phase-1/golden-path.md](phase-1/golden-path.md) — end-to-end demo path
