@@ -361,12 +361,14 @@ def on_catalog_sync(level: str, scope_id: str):
         for session in sessions:
             cache.invalidate_session(session.id)
     
-    # Emit event for subscribers
-    emit_event("catalog.updated", {
-        "level": level,
-        "scope_id": scope_id,
-        "timestamp": now()
-    })
+    # Publish to Atropos for subscribers
+    await publish_event(
+        event_type="catalog-updated",
+        foundry_id=scope.foundry_id,
+        workshop_id=scope.workshop_id,
+        workbench_id=scope.workbench_id,
+        data={"level": level, "scope_id": scope_id, "timestamp": now()}
+    )
 ```
 
 ## API Endpoints

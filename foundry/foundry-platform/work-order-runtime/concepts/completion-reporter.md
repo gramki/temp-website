@@ -4,7 +4,7 @@ The Completion Reporter is the component that notifies the Orchestrator when Wor
 
 ## What it is
 
-When a Work Order finishes, the Orchestrator needs to know so it can fire the appropriate workflow events and potentially transition the parent orchestration item. The Completion Reporter handles this notification by publishing messages to the message queue that the Orchestrator consumes.
+When a Work Order finishes, the Orchestrator needs to know so it can fire the appropriate workflow events and potentially transition the parent orchestration item. The Completion Reporter publishes events to **Atropos** at paths `/{foundry-id}/foundry.wo-runtime.{event-semantic-name}`. Orchestrator subscribes via HTTP callbacks.
 
 The Completion Reporter monitors Work Order state within the session and sends:
 
@@ -12,16 +12,16 @@ The Completion Reporter monitors Work Order state within the session and sends:
 - `work-order-failed` — WO failed with no retry available
 - `task-blocked` — A task entered recoverable failure (quota, agent disabled, etc.)
 
-These messages contain the WO label, status, and relevant metadata so the Orchestrator's Workflow Engine can match them to handlers.
+Events use the canonical Foundry envelope (see [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md)) with `entityRefs` and `workRepoKey` where applicable.
 
 ## Where it lives
 
 | Component | Location |
 |-----------|----------|
 | **Completion Reporter** | WO Runtime Daemon |
-| **Message queue** | Kafka or RabbitMQ (shared infrastructure) |
-| **Orchestrator consumer** | Orchestrator service |
-| **Local queue** | SQLite (for retry on MQ failure) |
+| **Atropos** | Olympus event fabric (HTTP callbacks to Orchestrator) |
+| **Orchestrator consumer** | Orchestrator callback endpoint |
+| **Local queue** | SQLite (for retry on Atropos delivery failure) |
 
 ## Completion flow
 
@@ -38,90 +38,79 @@ Task Manager detects all tasks complete
     │       │
     │       └── work_orders.status = 'completed' | 'failed'
     │
-    ├── Update Jira
+    ├── Update Work Repository (adapter)
     │       │
     │       └── Transition WO to Done | Failed status
     │
-    └── Publish to message queue
+    └── Publish to Atropos
             │
-            └── Message: work-order-completed
-                    {
-                      wo_id: "WO-567",
-                      wo_label: "dev-wo",
-                      status: "completed",
-                      orchestration_item: "PI-456",
-                      workbench: "product-abc",
-                      completed_at: "2026-05-30T10:30:00Z"
-                    }
+            └── Path: /foundry-zeta/foundry.wo-runtime.work-order-completed
+                    Envelope: { foundryId, workshopId, workbenchId, correlationId,
+                                 entityRefs: [{ entityId: "WO-567", workRepoKey: "…" }],
+                                 payload: { status: "completed", … } }
 ```
 
-## Message types
+## Event types
 
 ### `work-order-completed`
 
-Sent when a WO finishes (success or failure):
+Atropos path: `/{foundry-id}/foundry.wo-runtime.work-order-completed`
 
-| Field | Description |
-|-------|-------------|
-| `wo_id` | Work Order ID (WO-567) |
-| `wo_label` | Workflow correlation label (dev-wo) |
-| `status` | `completed` or `failed` |
-| `orchestration_item` | Parent OI ID (PI-456) |
-| `workbench` | Workbench ID |
-| `completed_at` | Completion timestamp |
+| Field | Location | Description |
+|-------|----------|-------------|
+| `entityRefs[].entityId` | envelope | Work Order ID (WO-567) |
+| `payload.status` | payload | `completed` or `failed` |
+| `entityRefs[].workRepoKey` | envelope | Work Repository item key |
+| `payload.outputs` | payload | Artifact URIs, PR links, etc. |
+| `correlationId` | envelope | End-to-end trace id |
 
 ### `work-order-failed`
 
-Sent when a WO fails with no recovery path:
+Atropos path: `/{foundry-id}/foundry.wo-runtime.work-order-failed`
 
-| Field | Description |
-|-------|-------------|
-| `wo_id` | Work Order ID |
-| `wo_label` | Workflow correlation label |
-| `failure_reason` | Why the WO failed |
-| `failed_tasks` | List of failed task IDs |
-| `orchestration_item` | Parent OI ID |
+| Field | Location | Description |
+|-------|----------|-------------|
+| `payload.failureReason` | payload | Why the WO failed |
+| `payload.failedTasks` | payload | List of failed task IDs |
 
 ### `task-blocked`
 
-Sent when a task enters recoverable failure:
+Atropos path: `/{foundry-id}/foundry.wo-runtime.task-blocked`
 
-| Field | Description |
-|-------|-------------|
-| `task_id` | Task ID (TASK-890) |
-| `wo_id` | Parent WO ID |
-| `blocked_reason` | `quota_exhausted`, `agent_disabled`, etc. |
-| `blocked_at` | When the block occurred |
+| Field | Location | Description |
+|-------|----------|-------------|
+| `payload.blockedReason` | payload | `quota_exhausted`, `agent_disabled`, etc. |
 
 This allows Orchestrator workflows to handle blocked tasks (escalate, reassign, etc.).
 
 ## Retry handling
 
-If the message queue is unavailable:
+If Atropos delivery is unavailable:
 
-1. Message is queued locally in SQLite
+1. Event is queued locally in SQLite
 2. Background job retries publication with exponential backoff
-3. After max retries, message enters local DLQ
+3. After max retries, event enters local DLQ
 4. Alert sent to session owner and Workbench admin
 
-The local queue ensures no completion notifications are lost even during MQ outages.
+The local queue ensures no completion notifications are lost even during Atropos outages.
 
-## Message queue topology
+## Atropos paths (Phase 1)
 
-| Topic | Content |
-|-------|---------|
-| `orchestrator.wo-runtime` | All completion messages from WO Runtime |
-| `orchestrator.events.{workbench}` | Partitioned by Workbench for scalability |
+| Path | Content |
+|------|---------|
+| `/{foundry-id}/foundry.wo-runtime.work-order-completed` | WO terminal success |
+| `/{foundry-id}/foundry.wo-runtime.work-order-failed` | WO terminal failure |
+| `/{foundry-id}/foundry.wo-runtime.task-blocked` | Recoverable task failure |
 
-The Orchestrator consumes these topics and routes messages to the Workflow Engine.
+Orchestrator registers HTTP callbacks for these paths. See [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
 
 ## Orchestrator handling
 
 When Orchestrator receives `work-order-completed`:
 
-1. Workflow Engine looks up the OI by `orchestration_item` ID
+1. Workflow Engine looks up the OI from `entityRefs` or `payload`
 2. Engine matches handlers in the current stage against the event
-3. If `wo-label` and `status` match a handler, actions execute
+3. If `foundry-wo-label` and `status` match a handler, actions execute
 4. Potential outcomes: transition to next stage, invoke governance, create next WO
 
 ## Related concepts
@@ -135,3 +124,4 @@ When Orchestrator receives `work-order-completed`:
 
 - [../platform-developer-guide/requirements.md](../platform-developer-guide/requirements.md) — Completion Reporter requirements (WOR-FR-0009, WOR-FR-0010)
 - [../../orchestrator/user-guide/orchestration-item-workflow.md](../../orchestrator/user-guide/orchestration-item-workflow.md) — How Orchestrator handles completion events
+- [../../../foundry-work-plan/phase-1/event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md) — Authoritative envelope and path spec

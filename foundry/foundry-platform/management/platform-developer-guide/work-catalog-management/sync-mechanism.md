@@ -4,7 +4,7 @@ This document specifies how Work Catalogs are synced from Git repositories to th
 
 ## Overview
 
-Work Catalogs are stored in Git repositories at multiple hierarchy levels. Changes to these repositories trigger sync to the Metadata Service, which serves as the runtime registry for OI Workflows and Scenarios.
+Work Catalogs are stored in Git repositories at multiple hierarchy levels. Changes to these repositories trigger sync to the Metadata Service, which serves as the runtime registry for OI Workflows and Scenarios. After successful sync, the Sync Service publishes **`catalog-synced`** events to Atropos at `/{foundry-id}/foundry.management.catalog-synced`. See [events-and-caching.md](events-and-caching.md) and [event-contracts.md](../../../../foundry-work-plan/phase-1/event-contracts.md).
 
 ```
 ┌─────────────────┐     webhook      ┌─────────────────┐     upsert      ┌─────────────────┐
@@ -202,14 +202,21 @@ async def process_sync_job(job: SyncJob):
     # 7. Invalidate caches
     await invalidate_caches(job)
     
-    # 8. Emit sync complete event
-    await emit_event("catalog.synced", {
-        "repo_type": job.repo_type,
-        "repo_id": job.repo_id,
-        "commit_sha": job.commit_sha,
-        "artifacts_synced": len(oi_workflows) + len(scenarios),
-        "artifacts_deleted": len(deleted_files)
-    })
+    # 8. Publish sync complete event to Atropos
+    await publish_event(
+        event_type="catalog-synced",
+        foundry_id=job.foundry_id,
+        workshop_id=job.workshop_id,
+        workbench_id=job.workbench_id,
+        data={
+            "repo_type": job.repo_type,
+            "repo_id": job.repo_id,
+            "commit_sha": job.commit_sha,
+            "artifacts_synced": len(oi_workflows) + len(scenarios),
+            "artifacts_deleted": len(deleted_files)
+        }
+    )
+    # Atropos path: /{foundry-id}/foundry.management.catalog-synced
 ```
 
 ### Metadata Service Upsert

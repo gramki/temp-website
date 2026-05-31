@@ -86,7 +86,7 @@ Terminal transitions for operational use: **Stopped** (pause/resume), **Archived
 
 ## Session events
 
-All state transitions emit events on the platform message queue with a shared envelope (session ID, foundry ID, user ID, workspace type, workbench ID, optional session URL, timestamp, metadata).
+All state transitions emit events on **Atropos** with the canonical Foundry envelope (`foundryId`, `workshopId`, `workbenchId`, `correlationId`, session fields in `payload`). Paths: `/{foundry-id}/foundry.session-management.{event}`. See [event-contracts.md](../../foundry-work-plan/phase-1/event-contracts.md).
 
 | Event | When emitted |
 |-------|----------------|

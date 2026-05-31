@@ -116,24 +116,32 @@ state: "stopping" | "stopped"
 
 ---
 
-## Session Management → consumers (message queue)
+## Session Management → consumers (Atropos)
 
-All session events share this envelope:
+All session events use the canonical envelope per [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md). Session-specific fields are included in `payload`:
 
 ```yaml
 event:
   type: "session-created" | "session-starting" | "session-activated" | "session-unhealthy" | "session-stopping" | "session-stopped" | "session-archived"
-  session_id: string
-  foundry_id: string
-  user_id: string
-  workspace_type: string
-  workbench_id: string
-  session_url: string | null   # populated from session-activated onward
   timestamp: ISO8601
+  correlationId: string
+  causationId: string | null
+  foundryId: string
+  workshopId: string
+  workbenchId: string
+  sourceModule: session-management
+  userId: string | null
+  entityRefs: []
+  payload:
+    sessionId: string
+    workspaceType: string
+    sessionUrl: string | null   # from session-activated onward
   metadata: object
 ```
 
-**Topic:** `foundry.sessions.{foundry_id}` (partition key: `session_id`)
+**Atropos path:** `/{foundryId}/foundry.session-management.{type}`  
+Example: `/foundry-zeta/foundry.session-management.session-activated`  
+Partition key: `sessionId` (in payload)
 
 **Consumers:**
 

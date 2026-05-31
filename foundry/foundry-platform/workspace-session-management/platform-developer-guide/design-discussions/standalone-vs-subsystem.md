@@ -16,7 +16,7 @@
 | **Latency** | Heartbeat + query must be fast (200ms target) | Management is less latency-sensitive |
 | **Data relationships** | FK references to Foundry/Workbench/User (Management tables) | Natural join; same DB |
 | **Operational surface** | +1 service to deploy and monitor | No additional deployment |
-| **Event publishing** | Own connection to message queue | Shared with Management events |
+| **Event publishing** | Own Atropos producer | Shared with Management events |
 | **Team ownership** | Can be separate team | Same team as Management |
 
 ## Factors favoring standalone
@@ -42,7 +42,7 @@ Session Management deploys as a **separate container** in the same Kubernetes na
 - **Same PostgreSQL instance**, dedicated schema (e.g. `session_management`)
 - **No foreign key constraints** to Management tables — `foundry_id`, `workbench_id`, and `user_id` stored as plain columns
 - **Logical coupling by convention** — callers (Orchestrator) supply valid IDs; Session Management does not call Management API on every request for validation
-- **Own message queue producer** for session events (outbox table in session schema recommended)
+- **Own Atropos producer** for session events (outbox table in session schema recommended)
 - **Independent horizontal scaling** based on heartbeat and query load
 
 Rationale: The heartbeat throughput argument (~67/s per 1000 sessions) and failure isolation outweigh the operational cost of one additional service. Management remains the configuration plane; Session Management is the session control plane.

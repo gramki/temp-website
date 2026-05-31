@@ -745,7 +745,7 @@ OpenTelemetry spans for:
 | Metadata Service | Internal service | Retry with backoff, use cache |
 | Redis | Caching | Bypass cache, query directly |
 | PostgreSQL | Schema/registry storage | Fail if unavailable |
-| Kafka | Events | Queue events locally, retry |
+| Atropos | Events | Queue events locally, retry |
 
 ---
 

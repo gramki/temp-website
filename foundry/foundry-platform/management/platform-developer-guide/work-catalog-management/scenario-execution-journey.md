@@ -305,21 +305,22 @@ Scenario is stored with full hierarchy context:
 }
 ```
 
-#### Step 3.4: Emit Event and Invalidate Caches
+#### Step 3.4: Publish Event and Invalidate Caches
 
 ```python
-# Emit event
-await emit_event("scenario.created", {
-    "name": "implement-feature",
-    "workspace": "development",
-    "scope": "workspace-ingress",
-    "catalog_level": "workbench",
-    "catalog_scope": {
-        "foundry_id": "acme",
-        "workshop_id": "ecommerce",
-        "workbench_id": "checkout"
+# Publish to Atropos: /{foundry-id}/foundry.management.scenario-created
+await publish_event(
+    event_type="scenario-created",
+    foundry_id="acme",
+    workshop_id="ecommerce",
+    workbench_id="checkout",
+    data={
+        "name": "implement-feature",
+        "workspace": "development",
+        "scope": "workspace-ingress",
+        "catalog_level": "workbench"
     }
-})
+)
 
 # Invalidate affected caches
 await cache.invalidate_pattern("effective-catalog:acme:ecommerce:checkout:*")

@@ -54,7 +54,7 @@ The primary beneficiaries are Program Managers (who see work flowing through the
                      │                         │                   │                   │
                      ▼                         ▼                   ▼                   ▼
             ┌─────────────────┐       ┌─────────────────┐  ┌─────────────┐    ┌─────────────┐
-            │  Jira (write)   │       │  Message Queue  │  │  Postgres   │    │  Metadata   │
+            │  Jira (write)   │       │    Atropos      │  │  Postgres   │    │  Metadata   │
             │  - Create WOs   │       │  - WO Runtime   │  │  - State    │    │   Service   │
             │  - Transitions  │       │  - Sessions     │  │  - History  │    │  - IDs      │
             └─────────────────┘       └─────────────────┘  └─────────────┘    └─────────────┘
@@ -64,7 +64,7 @@ The primary beneficiaries are Program Managers (who see work flowing through the
 1. Jira webhooks notify Orchestrator of orchestration item and WO events
 2. Workflow Engine matches events to handlers in the workflow YAML
 3. Action Executor creates WOs, transitions items, invokes governance
-4. State persisted to Postgres; Jira updated; WO Runtime notified via message queue
+4. State persisted to Postgres; Work Repository updated; WO Runtime notified via Atropos (`/{foundry-id}/foundry.orchestrator.work-order-assigned`)
 
 ## Key Components
 

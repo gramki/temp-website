@@ -28,7 +28,7 @@ Event arrives → Workflow Engine loads definition → Handler matching → Acti
 
 ### 1. Event Arrival
 
-Events enter the Orchestrator via webhooks from Jira or internal message queues:
+Events enter the Orchestrator via Work Repository adapter webhooks or **Atropos HTTP callbacks** (`/{foundry-id}/foundry.*`):
 
 - `orchestration-item-created` — a new Product Intent, Discovery Case, etc. was created
 - `work-order-completed` — a Work Order finished (success or failure)
@@ -65,7 +65,7 @@ Matched handlers execute their `then` actions **sequentially**:
 
 | Action | What happens |
 |--------|--------------|
-| `create-work-order` | Orchestrator creates a WO in Jira, notifies WO Runtime via message queue |
+| `create-work-order` | Orchestrator creates a WO in Work Repository, publishes `/{foundry-id}/foundry.orchestrator.work-order-assigned` via Atropos |
 | `create-work-order-group` | Creates multiple WOs atomically; tracks collective completion |
 | `create-user-task` | Creates a Jira task assigned to a user or queue |
 | `transition-orchestration-item` | Moves the OI to a new stage, executes `on-enter` actions |

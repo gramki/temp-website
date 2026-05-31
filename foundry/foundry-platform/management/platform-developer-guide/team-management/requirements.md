@@ -36,7 +36,7 @@ This document specifies detailed implementation requirements for the Team Manage
 **Interfaces:**
 - OAuth 2.0 callback endpoint (for JIT)
 - SCIM 2.0 API (for push sync)
-- Internal event bus (user created/updated/deleted events)
+- Atropos HTTP callbacks for user lifecycle events at `/{foundry-id}/foundry.management.user-{created|updated|deleted}` (see [event-contracts.md](../../../../foundry-work-plan/phase-1/event-contracts.md))
 
 ### 2. Team/Role CRUD APIs
 
@@ -220,8 +220,8 @@ def handle_oauth_callback(oauth_token, foundry_id):
         # 3. Assign default role
         assign_role(user.id, 'foundry-member', scope_type='foundry', scope_id=foundry_id)
         
-        # 4. Emit event
-        emit_event('user.created', user)
+        # 4. Publish to Atropos: /{foundry-id}/foundry.management.user-created
+        await publish_event('user-created', foundry_id, payload=user)
     else:
         # Update profile if changed
         update_user_from_cipher(user, cipher_user)

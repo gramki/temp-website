@@ -4,7 +4,7 @@ This guide contains implementation specifications for engineers building **Works
 
 ## Implementation overview
 
-Session Management is a standalone service (separate container, own schema) that shares a PostgreSQL instance with Management but does not use foreign key constraints to Management tables. It exposes a REST API for Orchestrator, WO Runtime, and admins; delegates provisioning to Session Infrastructure; and publishes session lifecycle events to the platform message queue.
+Session Management is a standalone service (separate container, own schema) that shares a PostgreSQL instance with Management but does not use foreign key constraints to Management tables. It exposes a REST API for Orchestrator, WO Runtime, and admins; delegates provisioning to Session Infrastructure; and publishes session lifecycle events to **Atropos** (HTTP callbacks to subscribers).
 
 **This service has no Work Order domain model.** Do not add WO tables, assignment logic, or Jira coupling here.
 

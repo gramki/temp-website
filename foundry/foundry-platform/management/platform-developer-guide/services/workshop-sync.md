@@ -136,6 +136,10 @@ Sync operations are idempotent:
 - Metadata Service uses upsert semantics
 - Sync ID prevents duplicate processing
 
+## Event publishing
+
+After a successful Workshop Definition sync, Workshop Sync publishes `workshop-definition-synced` to Atropos at `/{foundry-id}/foundry.management.workshop-definition-synced`. Work Catalog sync events are published by the Work Catalog Sync Service — see [sync-mechanism.md](../work-catalog-management/sync-mechanism.md). Envelope: [event-contracts.md](../../../../foundry-work-plan/phase-1/event-contracts.md).
+
 ## API
 
 ### Webhook Endpoint

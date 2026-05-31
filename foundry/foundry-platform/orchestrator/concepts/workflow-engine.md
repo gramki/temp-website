@@ -6,7 +6,7 @@ The Workflow Engine is the event-driven processor that evaluates OI Workflow def
 
 The Workflow Engine is the core of the Orchestrator. It implements an event-driven loop that processes orchestration item lifecycle events:
 
-1. **Event arrives** — Webhooks from Jira or internal message queues deliver events (item created, WO completed, governance verdict, etc.)
+1. **Event arrives** — Work Repository adapter webhooks or Atropos HTTP callbacks deliver events (item created, WO completed, governance verdict, etc.)
 2. **Workflow loaded** — The engine resolves the effective workflow from the Work Catalog hierarchy (User → Workbench → Workshop → Foundry → Platform)
 3. **Handlers matched** — Each handler in the current stage is evaluated against the incoming event
 4. **Actions executed** — Matched handlers invoke the Action Executor to run their `then` actions sequentially

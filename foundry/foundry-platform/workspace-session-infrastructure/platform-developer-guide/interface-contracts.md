@@ -86,9 +86,11 @@ node_name: string | null
 
 ---
 
-## Session Infrastructure → Session Management (events)
+## Session Infrastructure → Session Management (Atropos)
 
-Events are published to the message queue topic `foundry.session-infrastructure.{foundry_id}` (partition key: `session_id`).
+Events are published to Atropos paths `/{foundryId}/foundry.session-infrastructure.{event-semantic-name}` (partition key: `sessionId` in payload). See [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
+
+Example: `/foundry-zeta/foundry.session-infrastructure.pod-ready`
 
 ### Pod ready
 

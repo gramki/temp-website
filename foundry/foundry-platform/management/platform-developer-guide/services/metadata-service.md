@@ -173,18 +173,21 @@ Consumers (WO Runtime, Orchestrator) should cache locally:
 
 ### Cache Invalidation
 
-Metadata Service publishes change events:
+Metadata Service publishes change events to Atropos:
 
 ```
-Topic: metadata.changes
-Event: {
-  "type": "workspace.updated",
-  "workspace_id": "ws-123",
+Path: /{foundry-id}/foundry.management.metadata-changed
+Event envelope: {
+  "type": "metadata-changed",
+  "foundryId": "foundry-zeta",
+  "workshopId": "…",
+  "workbenchId": "…",
+  "payload": { "changeType": "workspace.updated", "workspaceId": "ws-123" },
   "timestamp": "2026-05-28T10:00:00Z"
 }
 ```
 
-Consumers can subscribe to invalidate local caches.
+Consumers subscribe via HTTP callbacks. See [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
 
 ## Data Model
 

@@ -137,8 +137,9 @@ Pending User Tasks:
 Matched handlers awaiting:
   - (none - no matching events)
 
-Recent events:
-  - work-order-progress: spec-wo at 80%
+Recent events (Atropos paths):
+  - /foundry-zeta/foundry.wo-runtime.work-order-progress (spec-wo at 80%)
+  - /foundry-zeta/foundry.orchestrator.work-order-assigned (spec-wo)
 ```
 
 ### Common Causes

@@ -100,7 +100,7 @@ Module-specific concepts:
 |--------|--------|
 | Events | `session-created`, `session-starting`, `session-activated`, `session-unhealthy`, `session-stopping`, `session-stopped`, `session-archived` |
 | Envelope | Shared schema per [interface-contracts.md](interface-contracts.md) |
-| Delivery | At-least-once via message queue; partition key `session_id` |
+| Delivery | At-least-once via Atropos HTTP callbacks; partition key `sessionId` |
 | Latency | See WSSM-NFR-0002 |
 
 ### Session query

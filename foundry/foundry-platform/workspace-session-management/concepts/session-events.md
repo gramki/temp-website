@@ -20,20 +20,26 @@ There is no `session-deleted` event in the standard stream: deletion is terminal
 
 ## Event envelope
 
-All session events share one envelope schema (see [../platform-developer-guide/interface-contracts.md](../platform-developer-guide/interface-contracts.md)):
+All session events share the canonical Foundry envelope (see [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md)). Session fields live in `payload`:
 
 ```yaml
 event:
-  type: string          # one of the types above
-  session_id: string
-  foundry_id: string
-  user_id: string
-  workspace_type: string
-  workbench_id: string
-  session_url: string | null   # from session-activated onward
+  type: string          # session-created | session-activated | …
   timestamp: ISO8601
-  metadata: object             # transition-specific (reason, error, policy)
+  correlationId: string
+  foundryId: string
+  workshopId: string
+  workbenchId: string
+  sourceModule: session-management
+  payload:
+    sessionId: string
+    userId: string
+    workspaceType: string
+    sessionUrl: string | null
+  metadata: object
 ```
+
+**Atropos path:** `/{foundryId}/foundry.session-management.{type}`
 
 **Metadata examples:**
 
@@ -73,7 +79,7 @@ Admin dashboards and metrics pipelines subscribe to the full event stream for se
 | **Cross-session ordering** | Not guaranteed |
 | **At-least-once delivery** | Yes; consumers must be idempotent |
 | **Latency** | Target under 500ms from state commit (WSSM-NFR-0002) |
-| **Durability** | Events written to the message queue after DB commit (outbox pattern recommended) |
+| **Durability** | Events published to Atropos after DB commit (outbox pattern recommended). Default retention 7 days. |
 
 Duplicate delivery may occur on retry. Consumers should key idempotency on `(session_id, type, timestamp)` or a monotonic `sequence` field if added to metadata.
 

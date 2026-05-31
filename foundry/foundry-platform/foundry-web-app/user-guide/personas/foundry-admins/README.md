@@ -344,6 +344,7 @@ Workbench ID is used as OAuth client ID for all integrations.
 *Platform-level integration setup:*
 - Configure OAuth app credentials for supported tools (GitHub, Figma, TestRail, Jira)
 - Set up platform-wide defaults and policies
+- Verify **Atropos** tenant registration (Olympus event fabric; paths `/{foundry-id}/foundry.{module}.{event}`)
 
 *Workbench-level integrations (handled by Workbench Managers):*
 - GitHub Org association (via GitHub App installation)

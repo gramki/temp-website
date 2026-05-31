@@ -198,7 +198,19 @@ Enter your MS Teams webhook URL and click **Test Notification** to verify delive
 
 Skip this step to configure notifications later.
 
-### 12. Review and complete setup (Foundry Admin)
+### 12. Verify Atropos event integration (Foundry Admin, automatic)
+
+During Foundry provisioning, the platform registers the Foundry with **Atropos** (Olympus event fabric). Platform modules communicate via HTTP callbacks on tenant-first paths:
+
+```
+/{foundry-id}/foundry.{module}.{event-semantic-name}
+```
+
+Example: `/fnd-abc123/foundry.orchestrator.work-order-assigned`
+
+No manual setup is required for Phase 1. Foundry Admins can verify connectivity in **Settings → Integrations → Atropos**. See [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md) for the canonical envelope and minimum event set.
+
+### 13. Review and complete setup (Foundry Admin)
 
 Review your configuration summary:
 
@@ -209,10 +221,11 @@ Review your configuration summary:
 | GitHub | Connected to {org} |
 | Jira | {Connected / Not configured} |
 | Notifications | {MS Teams configured / Not configured} |
+| Atropos | {Connected / Pending} |
 
 Click **Complete Setup** to finalize onboarding.
 
-### 13. Access the Foundry Admin Console (Foundry Admin)
+### 14. Access the Foundry Admin Console (Foundry Admin)
 
 After completion, you are redirected to the Admin Console with suggested next steps:
 
@@ -221,7 +234,7 @@ After completion, you are redirected to the Admin Console with suggested next st
 - Configure Capable Agents
 - Complete remaining integrations
 
-### 14. Verify completion notification (Platform Admin)
+### 15. Verify completion notification (Platform Admin)
 
 The Platform Admin receives a notification confirming onboarding completion:
 

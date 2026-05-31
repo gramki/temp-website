@@ -22,6 +22,7 @@ The Platform Settings page allows Platform Admins to configure global settings t
 │  │  Default Quotas                      │                                   │
 │  │  GitHub Integration                  │                                   │
 │  │  Olympus Cipher                      │                                   │
+│  │  Atropos                             │                                   │
 │  │  Regions                             │                                   │
 │  │  Audit & Compliance                  │                                   │
 │  └──────────────────────────────────────┘                                   │
@@ -184,6 +185,18 @@ Platform's identity provider configuration.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+### Atropos
+
+Platform-wide configuration for the Olympus event fabric. Each Foundry receives a tenant id used as the first path segment for all platform events.
+
+| Setting | Type | Description |
+|---------|------|-------------|
+| `atropos.base_url` | URL | Atropos service endpoint (default: `https://atropos.olympus.tech`) |
+| `atropos.platform_callback_secret_ref` | Secret ref | Shared secret for validating platform-level callbacks |
+| `atropos.default_retention_days` | Integer | Event retention (default: 7) |
+
+Foundry-level overrides (`integrations.atropos`) are configured during Foundry provisioning. Path convention: `/{foundry-id}/foundry.{module}.{event-semantic-name}`. See [event-contracts.md](../../../../foundry-work-plan/phase-1/event-contracts.md).
+
 ### Regions
 
 Available regions for Foundry deployment.
@@ -294,6 +307,11 @@ Response:
     admin_group: "foundry-platform-admin"
     oauth_client_id: "foundry-platform-admin-app"
     has_client_secret: true
+    connection_status: "connected"
+  atropos:
+    base_url: "https://atropos.olympus.tech"
+    default_retention_days: 7
+    has_platform_callback_secret: true
     connection_status: "connected"
   regions:
     - id: "us-east-1"

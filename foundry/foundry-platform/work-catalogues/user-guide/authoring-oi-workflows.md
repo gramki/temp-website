@@ -297,6 +297,24 @@ Validates:
 - Match `scenario` to workspace capabilities
 - Set appropriate `priority` based on OI urgency
 
+## Event transport (Atropos)
+
+Workflow handlers react to **semantic event names** (e.g. `work-order-completed`, `user-task-completed`). At runtime, modules publish these on **Atropos** at tenant-first paths:
+
+```
+/{foundry-id}/foundry.{module}.{event-semantic-name}
+```
+
+Examples:
+
+| Semantic event | Atropos path (example) | Publisher |
+|----------------|------------------------|-----------|
+| `orchestration-item-created` | `/foundry-zeta/foundry.orchestrator.orchestration-item-created` | Orchestrator (after Work Repository webhook) |
+| `work-order-completed` | `/foundry-zeta/foundry.wo-runtime.work-order-completed` | WO Runtime |
+| `user-task-completed` | Internal workflow event (from Jira webhook) | Orchestrator |
+
+Handler `when.event` values use the **semantic name**, not the full Atropos path. Envelope fields (`foundryId`, `workshopId`, `workbenchId`, `correlationId`) are defined in [event-contracts.md](../../../foundry-work-plan/phase-1/event-contracts.md).
+
 ## Example: Complete Product Intent Workflow
 
 See [platform-defaults/work-catalog/build/product-intent/workflow.yaml](../platform-defaults/work-catalog/build/product-intent/workflow.yaml) for a complete example demonstrating:

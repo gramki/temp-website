@@ -4,17 +4,17 @@ This document specifies the event system and caching strategy for Work Catalog M
 
 ## Overview
 
-Work Catalog Management uses events for coordination between services and caching for performance. Events notify consumers of changes; caches reduce latency for repeated queries.
+Work Catalog Management uses **Atropos** for coordination between services and caching for performance. Events notify consumers of changes; caches reduce latency for repeated queries. Path convention: [event-contracts.md](../../../../foundry-work-plan/phase-1/event-contracts.md).
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
 │                              Event Flow                                          │
 │                                                                                  │
-│  ┌─────────────┐     publish     ┌─────────────┐     consume    ┌─────────────┐ │
-│  │    Sync     │ ───────────────▶│   Message   │───────────────▶│ Orchestrator│ │
-│  │   Service   │                 │    Bus      │                │ WO Runtime  │ │
-│  └─────────────┘                 │  (Kafka)    │                │   IDE       │ │
-│        │                         └─────────────┘                └─────────────┘ │
+│  ┌─────────────┐     publish     ┌─────────────┐     callback   ┌─────────────┐ │
+│  │    Sync     │ ───────────────▶│   Atropos   │───────────────▶│ Orchestrator│ │
+│  │   Service   │                 │  (Olympus)  │                │ WO Runtime  │ │
+│  └─────────────┘                 └─────────────┘                │   IDE       │ │
+│        │                               │                         └─────────────┘ │
 │        │ invalidate                    │                                         │
 │        ▼                               │                                         │
 │  ┌─────────────┐                       │                                         │
@@ -31,157 +31,174 @@ Work Catalog Management uses events for coordination between services and cachin
 
 ### Event Types
 
-| Event | Description | Published By | Consumed By |
-|-------|-------------|--------------|-------------|
-| `catalog.synced` | Work Catalog repository synced | Sync Service | Cache, Orchestrator, WO Runtime |
-| `catalog.validation-failed` | Sync validation failed | Sync Service | Notifications |
-| `scenario.created` | New Scenario added | Sync Service | WO Runtime, IDE |
-| `scenario.updated` | Scenario modified | Sync Service | WO Runtime, IDE |
-| `scenario.deleted` | Scenario removed | Sync Service | WO Runtime, IDE |
-| `oi-workflow.created` | New OI Workflow added | Sync Service | Orchestrator |
-| `oi-workflow.updated` | OI Workflow modified | Sync Service | Orchestrator |
-| `oi-workflow.deleted` | OI Workflow removed | Sync Service | Orchestrator |
-| `user-catalog.activated` | User activated their catalog | Session Service | Cache |
-| `user-catalog.deactivated` | User deactivated their catalog | Session Service | Cache |
+Event `type` values use kebab-case and match the last segment of the Atropos path `/{foundry-id}/foundry.management.{type}`.
+
+| Event type | Description | Published By | Consumed By |
+|------------|-------------|--------------|-------------|
+| `catalog-synced` | Work Catalog repository synced | Sync Service | Cache, Orchestrator, WO Runtime |
+| `catalog-validation-failed` | Sync validation failed | Sync Service | Notifications |
+| `scenario-created` | New Scenario added | Sync Service | WO Runtime, IDE |
+| `scenario-updated` | Scenario modified | Sync Service | WO Runtime, IDE |
+| `scenario-deleted` | Scenario removed | Sync Service | WO Runtime, IDE |
+| `oi-workflow-created` | New OI Workflow added | Sync Service | Orchestrator |
+| `oi-workflow-updated` | OI Workflow modified | Sync Service | Orchestrator |
+| `oi-workflow-deleted` | OI Workflow removed | Sync Service | Orchestrator |
+| `user-catalog-activated` | User activated their catalog | Session Service | Cache |
+| `user-catalog-deactivated` | User deactivated their catalog | Session Service | Cache |
+| `metadata-changed` | Metadata Service entity changed | Metadata Service | Cache, consumers |
 
 ### Event Schemas
 
-#### catalog.synced
+All events use the [canonical envelope](../../../../foundry-work-plan/phase-1/event-contracts.md). Examples below show `payload` bodies; paths are `/{foundryId}/foundry.management.{type}`.
+
+#### catalog-synced
 
 ```json
 {
-  "event_type": "catalog.synced",
+  "type": "catalog-synced",
   "timestamp": "2026-05-28T10:30:00Z",
-  "source": "sync-service",
-  "data": {
-    "repo_type": "workshop",
-    "repo_id": "acme/ecommerce-workshop-definition",
-    "scope": {
-      "foundry_id": "acme",
-      "workshop_id": "ecommerce"
-    },
-    "commit_sha": "abc123",
+  "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+  "foundryId": "foundry-zeta",
+  "workshopId": "ecommerce",
+  "workbenchId": "checkout",
+  "sourceModule": "management",
+  "payload": {
+    "repoType": "workshop",
+    "repoId": "acme/ecommerce-workshop-definition",
+    "commitSha": "abc123",
     "artifacts": {
-      "oi_workflows_created": 0,
-      "oi_workflows_updated": 1,
-      "oi_workflows_deleted": 0,
-      "scenarios_created": 2,
-      "scenarios_updated": 0,
-      "scenarios_deleted": 1
+      "oiWorkflowsCreated": 0,
+      "oiWorkflowsUpdated": 1,
+      "oiWorkflowsDeleted": 0,
+      "scenariosCreated": 2,
+      "scenariosUpdated": 0,
+      "scenariosDeleted": 1
     }
-  }
+  },
+  "metadata": {}
 }
 ```
 
-#### scenario.created / scenario.updated
+#### scenario-created / scenario-updated
 
 ```json
 {
-  "event_type": "scenario.created",
+  "type": "scenario-created",
   "timestamp": "2026-05-28T10:30:00Z",
-  "source": "sync-service",
-  "data": {
+  "correlationId": "550e8400-e29b-41d4-a716-446655440001",
+  "foundryId": "foundry-zeta",
+  "workshopId": "ecommerce",
+  "workbenchId": "checkout",
+  "sourceModule": "management",
+  "payload": {
     "name": "implement-feature",
     "workspace": "development",
     "scope": "workspace-ingress",
-    "catalog_level": "workshop",
-    "catalog_scope": {
-      "foundry_id": "acme",
-      "workshop_id": "ecommerce"
-    },
+    "catalogLevel": "workshop",
     "source": {
       "repository": "acme/ecommerce-workshop-definition",
       "path": "work-catalog/build/product-intent/development/scenarios/implement-feature.yaml",
-      "commit_sha": "abc123"
+      "commitSha": "abc123"
     }
-  }
+  },
+  "metadata": {}
 }
 ```
 
-#### scenario.deleted
+#### scenario-deleted
 
 ```json
 {
-  "event_type": "scenario.deleted",
+  "type": "scenario-deleted",
   "timestamp": "2026-05-28T10:30:00Z",
-  "source": "sync-service",
-  "data": {
+  "correlationId": "550e8400-e29b-41d4-a716-446655440002",
+  "foundryId": "foundry-zeta",
+  "workshopId": "ecommerce",
+  "workbenchId": "checkout",
+  "sourceModule": "management",
+  "payload": {
     "name": "old-scenario",
     "workspace": "development",
-    "catalog_level": "workshop",
-    "catalog_scope": {
-      "foundry_id": "acme",
-      "workshop_id": "ecommerce"
-    },
+    "catalogLevel": "workshop",
     "reason": "file_deleted"
-  }
+  },
+  "metadata": {}
 }
 ```
 
-#### user-catalog.activated
+#### user-catalog-activated
 
 ```json
 {
-  "event_type": "user-catalog.activated",
+  "type": "user-catalog-activated",
   "timestamp": "2026-05-28T10:30:00Z",
-  "source": "session-service",
-  "data": {
-    "user_id": "alice",
-    "foundry_id": "acme",
-    "session_id": "session-123",
-    "activation_source": "session",
-    "expires_at": "2026-05-28T18:00:00Z"
-  }
+  "correlationId": "550e8400-e29b-41d4-a716-446655440003",
+  "foundryId": "foundry-zeta",
+  "workshopId": "ecommerce",
+  "workbenchId": "checkout",
+  "sourceModule": "management",
+  "payload": {
+    "userId": "alice",
+    "sessionId": "session-123",
+    "activationSource": "session",
+    "expiresAt": "2026-05-28T18:00:00Z"
+  },
+  "metadata": {}
 }
 ```
 
 ### Event Publishing
 
+Events publish to Atropos at `/{foundry-id}/foundry.management.{event-semantic-name}` using the canonical Foundry envelope (see [event-contracts.md](../../../../foundry-work-plan/phase-1/event-contracts.md)).
+
 ```python
-async def publish_event(event_type: str, data: dict):
-    """Publish event to message bus."""
+async def publish_event(event_type: str, foundry_id: str, workshop_id: str, workbench_id: str, data: dict):
+    """Publish event to Atropos."""
+    
+    path = f"/{foundry_id}/foundry.management.{event_type.replace('.', '-')}"
     
     event = {
-        "event_type": event_type,
+        "type": event_type.replace('.', '-'),
         "timestamp": datetime.utcnow().isoformat() + "Z",
-        "source": SERVICE_NAME,
-        "event_id": str(uuid.uuid4()),
-        "data": data
+        "correlationId": str(uuid.uuid4()),
+        "foundryId": foundry_id,
+        "workshopId": workshop_id,
+        "workbenchId": workbench_id,
+        "sourceModule": "management",
+        "payload": data,
+        "metadata": {}
     }
     
-    # Publish to Kafka topic
-    await kafka_producer.send(
-        topic="work-catalog-events",
-        key=f"{event_type}:{data.get('name', 'unknown')}",
-        value=json.dumps(event)
-    )
+    await atropos.publish(path=path, body=event)
     
     logger.info("Event published", extra={
-        "event_type": event_type,
-        "event_id": event["event_id"]
+        "path": path,
+        "correlationId": event["correlationId"]
     })
 ```
 
 ### Event Consumption
 
+Consumers register Atropos HTTP callbacks for path patterns such as `/{foundry-id}/foundry.management.*`.
+
 ```python
-@kafka_consumer.handler("work-catalog-events")
 async def handle_catalog_event(event: dict):
-    """Handle work catalog events."""
+    """Handle work catalog events from Atropos callback."""
     
-    event_type = event["event_type"]
+    event_type = event["type"]  # e.g. catalog-synced
+    payload = event["payload"]
     
-    if event_type == "catalog.synced":
-        await invalidate_caches_for_sync(event["data"])
+    if event_type == "catalog-synced":
+        await invalidate_caches_for_sync(payload)
     
-    elif event_type in ["scenario.created", "scenario.updated", "scenario.deleted"]:
-        await invalidate_scenario_caches(event["data"])
+    elif event_type in ["scenario-created", "scenario-updated", "scenario-deleted"]:
+        await invalidate_scenario_caches(payload)
     
-    elif event_type in ["oi-workflow.created", "oi-workflow.updated", "oi-workflow.deleted"]:
-        await invalidate_workflow_caches(event["data"])
+    elif event_type in ["oi-workflow-created", "oi-workflow-updated", "oi-workflow-deleted"]:
+        await invalidate_workflow_caches(payload)
     
-    elif event_type == "user-catalog.activated":
-        await invalidate_user_caches(event["data"])
+    elif event_type == "user-catalog-activated":
+        await invalidate_user_caches(payload)
 ```
 
 ---
