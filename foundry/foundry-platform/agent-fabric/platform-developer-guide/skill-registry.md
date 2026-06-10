@@ -4,7 +4,7 @@ The Skill Registry is a two-tier package distribution system for agent skills.
 
 ## Overview
 
-Skills are reusable capability packages that follow the [Agent Skills specification](https://agentic.ai/). They are published to registries and referenced by Skilled Agent manifests.
+Skills are reusable capability packages that follow the [Agent Skills specification](https://agentic.ai/). They are published to registries and referenced by Trained Agent manifests.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -26,7 +26,7 @@ Skills are reusable capability packages that follow the [Agent Skills specificat
                               │ reference (name + version)
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  Skilled Agent Manifest (in Workshop/Workbench repo)            │
+│  Trained Agent Manifest (in Workshop/Workbench repo)            │
 │  agent.yaml:                                                    │
 │    skills:                                                      │
 │      - name: code-generator                                     │
@@ -64,7 +64,7 @@ Skills are reusable capability packages that follow the [Agent Skills specificat
 
 ### Resolution Order
 
-When a Skilled Agent references a skill:
+When a Trained Agent references a skill:
 
 ```
 1. Check Foundry registry for exact name
@@ -112,7 +112,7 @@ dependencies:
   - name: test-writer
     version: ^1.5.0
 
-compatible-capable-agents:
+compatible-raw-agents:
   - cursor-agent
   - copilot
   - claude-code
@@ -177,7 +177,7 @@ gh foundry-skill publish --registry global
 # Install specific version
 gh foundry-skill install code-generator@2.1.3
 
-# Install from Skilled Agent manifest
+# Install from Trained Agent manifest
 gh foundry-skill install --from agent.yaml
 ```
 
@@ -196,7 +196,7 @@ gh foundry-skill list code-generator --versions
 
 ## Version Resolution
 
-Skills use semantic versioning. Skilled Agents can specify version constraints:
+Skills use semantic versioning. Trained Agents can specify version constraints:
 
 | Constraint | Meaning |
 |------------|---------|
@@ -210,7 +210,7 @@ Skills use semantic versioning. Skilled Agents can specify version constraints:
 
 When WO Runtime starts a task:
 
-1. Read Skilled Agent manifest
+1. Read Trained Agent manifest
 2. Resolve skill versions from constraints
 3. Record resolved versions in WO/task metadata
 4. Install resolved versions to Workspace Session
@@ -223,7 +223,7 @@ If skill versions change mid-WO, earlier tasks use their pinned versions; new ta
 At Workspace Session start:
 
 ```
-1. WO Runtime reads Skilled Agent manifests for enabled Scenarios
+1. WO Runtime reads Trained Agent manifests for enabled Scenarios
 2. Collects all skill references (name + version constraints)
 3. Resolves versions against registries
 4. Downloads skills not in local cache
@@ -276,7 +276,7 @@ gh foundry-skill publish --registry global --submit-review
 The Skill Registry provides a browsable catalog:
 
 - **By category** — Code generation, testing, documentation, review
-- **By capable agent** — Skills compatible with Cursor, Copilot, etc.
+- **By raw agent** — Skills compatible with Cursor, Copilot, etc.
 - **By workspace** — Skills for Development, QA, Release workspaces
 - **By popularity** — Download counts, ratings
 
@@ -286,7 +286,7 @@ Compare Scenarios to available skills:
 
 ```bash
 gh foundry-skill coverage --workshop workshop-abc
-# Scenarios without Skilled Agents:
+# Scenarios without Trained Agents:
 #   development/manual-deployment (no matching skill)
 #   qa/exploratory-testing (no matching skill)
 # 
@@ -316,6 +316,6 @@ gh foundry-skill coverage --workshop workshop-abc
 
 ## Read Next
 
-- [skilled-agents.md](skilled-agents.md) — How Skilled Agents reference skills
-- [capable-agents.md](capable-agents.md) — Compatible capable agent configuration
+- [trained-agents.md](trained-agents.md) — How Trained Agents reference skills
+- [raw-agents.md](raw-agents.md) — Compatible raw agent configuration
 - [../work-order-runtime/platform-developer-guide/agent-spawning.md](..//work-order-runtime/platform-developer-guide/agent-spawning.md) — Skill installation at runtime

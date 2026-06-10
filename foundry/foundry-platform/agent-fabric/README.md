@@ -1,20 +1,21 @@
 # Agent Fabric
 
-**Module scope:** Agent infrastructure — Skill Registry, Capable Agent management, quota enforcement, gateway policy, usage analytics.
+**Module scope:** Agent infrastructure — Raw Agent Registry, Swarm Registry, Skill Registry, quota enforcement, gateway policy, usage analytics.
 
 ## Purpose
 
-Agent Fabric provides the infrastructure layer that enables AI-powered automation at scale. It answers the questions: which agents are allowed? what skills do they have? how much can they cost? how do we track what they do?
+Agent Fabric provides the infrastructure layer that enables AI-powered automation at scale. It answers the questions: which agent systems are available? how are agents organized? what skills do they have? how much can they cost? how do we track what they do?
 
 Without Agent Fabric, each team would need to independently manage agent configurations, handle model access, track costs, and publish capabilities. This creates inconsistency, security risks, and cost overruns. Agent Fabric centralizes these concerns while allowing customization at Workshop and Workbench levels.
 
-The module follows the "provide policy, not operations" principle. It doesn't run LLM gateways — it configures them. It doesn't execute agents — it provides the Skills and configuration that WO Runtime uses to spawn them. This separation keeps the module focused on governance and enablement rather than execution.
+The module follows the "provide policy, not operations" principle. It doesn't run LLM gateways — it configures them. It doesn't execute agents — it provides the registries, skills, and configuration that WO Runtime uses to spawn them. This separation keeps the module focused on governance and enablement rather than execution.
 
 ## What this module does
 
+- **Raw Agent Registry** — OCI container catalog for agent systems; two-layer model (platform-shipped + tenant-added)
+- **Swarm Registry** — Organizational units for Trained Agents; scoped at Foundry, Workshop, Workbench, Workspace
 - **Skill Registry** — Global and Foundry-scoped registries for publishable skill packages
 - **Skill CLI Tooling** — `gh foundry-skill` extensions for build, package, publish, install
-- **Capable Agent Registry** — Whitelist and configure agent systems (Cursor, Copilot, Claude Code)
 - **Quota Management** — Configurable limits at Foundry, Workbench, and User levels
 - **Gateway Policy** — Configuration for OSS LLM gateway (quota enforcement, routing, audit)
 - **Usage Analytics** — Skill invocation metrics, cost attribution, automation coverage
@@ -30,43 +31,38 @@ The module follows the "provide policy, not operations" principle. It doesn't ru
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              Agent Fabric                                    │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────────┐ │
-│  │                        Skill Registry Service                          │ │
-│  │                                                                         │ │
-│  │   ┌─────────────────┐              ┌─────────────────┐                │ │
-│  │   │  Global Registry │              │ Foundry Registry │                │ │
-│  │   │    (public)      │              │   (private)      │                │ │
-│  │   └────────┬─────────┘              └────────┬─────────┘                │ │
-│  │            │                                 │                          │ │
-│  │            └────────────────┬────────────────┘                          │ │
-│  │                             │                                           │ │
-│  │                    ┌────────┴────────┐                                 │ │
-│  │                    │  gh foundry-skill │  ◀── CLI Tooling              │ │
-│  │                    │  (init/build/     │                                │ │
-│  │                    │   publish/install)│                                │ │
-│  │                    └─────────────────┘                                 │ │
-│  └────────────────────────────────────────────────────────────────────────┘ │
-│                                                                              │
-│  ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐ │
-│  │  Capable Agent      │  │  Quota Management   │  │   Usage Analytics   │ │
-│  │     Registry        │  │                     │  │                     │ │
-│  │                     │  │  Foundry │ Workbench│  │  Invocations        │ │
-│  │  • Cursor Agent     │  │  ────────┼──────────│  │  Cost attribution   │ │
-│  │  • Copilot          │  │  User limits        │  │  Automation coverage│ │
-│  │  • Claude Code      │  │  Effective = min()  │  │  Failure rates      │ │
-│  │  • Codex CLI        │  │                     │  │                     │ │
-│  └─────────────────────┘  └─────────────────────┘  └─────────────────────┘ │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────────┐ │
-│  │                       Gateway Policy Layer                              │ │
-│  │                                                                         │ │
-│  │    Quota enforcement │ Delegation tokens │ Credential injection │ Audit│ │
-│  │                                 │                                       │ │
-│  └─────────────────────────────────┼───────────────────────────────────────┘ │
-└────────────────────────────────────┼────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                               Agent Fabric                                    │
+│                                                                               │
+│  ┌──────────────────────────────┐  ┌──────────────────────────────────────┐  │
+│  │     Raw Agent Registry       │  │          Swarm Registry              │  │
+│  │                              │  │                                      │  │
+│  │  Platform-shipped:           │  │  Platform-shipped:                   │  │
+│  │  • Codex, Cursor Agent,     │  │  • Build, Review, Test,             │  │
+│  │    Claude Code               │  │    Documentation, Release,          │  │
+│  │                              │  │    Governance                        │  │
+│  │  Tenant-added:              │  │                                      │  │
+│  │  • Custom OCI agents        │  │  Tenant-added/extended:             │  │
+│  │                              │  │  • Custom Swarms + extensions       │  │
+│  └──────────────────────────────┘  └──────────────────────────────────────┘  │
+│                                                                               │
+│  ┌──────────────────────────────┐  ┌──────────────────────────────────────┐  │
+│  │      Skill Registry          │  │         Quota Management             │  │
+│  │                              │  │                                      │  │
+│  │  Global (public)             │  │  Foundry │ Workbench │ User limits  │  │
+│  │  Foundry (private)           │  │  Effective = min(all levels)        │  │
+│  │  CLI: gh foundry-skill       │  │                                      │  │
+│  └──────────────────────────────┘  └──────────────────────────────────────┘  │
+│                                                                               │
+│  ┌──────────────────────────────┐  ┌──────────────────────────────────────┐  │
+│  │      Usage Analytics         │  │       Gateway Policy Layer           │  │
+│  │                              │  │                                      │  │
+│  │  Invocations, cost,          │  │  Quota enforcement │ Delegation     │  │
+│  │  automation coverage,        │  │  Credential injection │ Audit       │  │
+│  │  failure rates               │  │                                      │  │
+│  └──────────────────────────────┘  └──────────────────────────────────────┘  │
+│                                                                               │
+└───────────────────────────────────────────────────────────────────────────────┘
                                      │
                                      ▼
                           ┌─────────────────────┐
@@ -80,8 +76,9 @@ The module follows the "provide policy, not operations" principle. It doesn't ru
 
 | Service | Role | Specification |
 |---------|------|---------------|
+| **Raw Agent Registry** | OCI container catalog with two-layer distribution (platform + tenant) | [raw-agent-registry.md](platform-developer-guide/raw-agent-registry.md) |
+| **Swarm Registry** | Trained Agent organizational units with scope hierarchy | [swarm-registry.md](platform-developer-guide/swarm-registry.md) |
 | **Skill Registry** | Global + Foundry-scoped registries for skill packages | [skill-registry.md](platform-developer-guide/skill-registry.md) |
-| **Capable Agent Registry** | Whitelist and configure agent systems (Cursor, Copilot, Claude Code) | [capable-agents.md](platform-developer-guide/capable-agents.md) |
 | **Quota Management** | Configurable limits at Foundry, Workbench, and User levels | [gateway-policy.md](platform-developer-guide/gateway-policy.md) |
 | **Gateway Policy** | Configuration for OSS LLM gateway (quota, routing, audit) | [gateway-policy.md](platform-developer-guide/gateway-policy.md) |
 | **Usage Analytics** | Skill invocation metrics, cost attribution, automation coverage | [requirements.md](platform-developer-guide/requirements.md) |
@@ -92,48 +89,93 @@ The module manages a three-tier agent model:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  Platform Layer                                                  │
-│  Capable Agent: Cursor Agent, Copilot, Claude Code, Codex CLI   │
-│  (Whitelisted agent systems with orchestration capabilities)    │
+│  Packaging Layer                                                 │
+│  Raw Agent: OCI container (Codex, Cursor Agent, Claude Code)    │
+│  URI: registry.foundry.io/raw-agents/{agent}:{version}          │
 └─────────────────────────────────────────────────────────────────┘
                               │
-                              │ configured in
+                              │ referenced by
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  Definition Layer                                                │
-│  Skilled Agent: Local manifest in Workshop/Workbench repo       │
-│  (References skills, guardrails, compatible capable agents)     │
+│  Configuration Layer                                             │
+│  Trained Agent: Manifest with skills, guardrails, Swarm member  │
+│  JID: {agent}@{swarm}.agents.{tenant}.foundry.io                │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               │ instantiated as
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │  Runtime Layer                                                   │
-│  Employed Agent: Running in Workspace Session                   │
+│  Employed Agent: Trained Agent + Delegation Token               │
 │  (Delegated authority, quota-bound, session-scoped)             │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 | Concept | What It Is | Where It Lives |
 |---------|------------|----------------|
+| **Raw Agent** | OCI container packaging an agent system | Raw Agent Registry |
+| **Trained Agent** | Manifest combining Raw Agent ref + skills + guardrails; belongs to a Swarm | `swarms/{swarm}/trained-agents/` |
+| **Employed Agent** | Runtime instance (Trained Agent + Delegation Token) | Workspace Session |
+| **Swarm** | Organizational unit for Trained Agents (like an OU) | Swarm Registry |
 | **Skill** | Reusable capability package | Skill Registry (published) |
-| **Capable Agent** | Whitelisted agent system | Agent Fabric registry |
-| **Skilled Agent** | Manifest combining skills + guardrails | Workshop/Workbench repo |
-| **Employed Agent** | Runtime instance | Workspace Session |
+
+## Swarm Organization
+
+Swarms are organizational units for Trained Agents — analogous to OUs for human users:
+
+```
+Organization
+├── Human OUs
+│   ├── Engineering Team
+│   ├── QA Team
+│   └── DevOps Team
+└── Agent Swarms
+    ├── Build Swarm (feature-implementer, code-refactorer, test-writer)
+    ├── Review Swarm (code-reviewer, security-reviewer)
+    ├── Test Swarm (test-executor, test-analyzer)
+    ├── Documentation Swarm (doc-writer, changelog-generator)
+    ├── Release Swarm (release-preparer, deployment-validator)
+    └── Governance Swarm (policy-reviewer, compliance-checker)
+```
+
+Swarm scopes form a visibility hierarchy:
+
+| Scope | Visible To | Managed By |
+|-------|------------|------------|
+| **Foundry Swarm** | All Workshops, Workbenches, Workspaces | Foundry Admin |
+| **Workshop Swarm** | Workshop and its Workbenches/Workspaces | Workshop Manager |
+| **Workbench Swarm** | That Workbench and its Workspaces | Workbench Manager |
+| **Workspace Swarm** | That Workspace only | Workspace Owner |
+
+## Two-Layer Distribution
+
+Both Raw Agents and Swarms follow a two-layer distribution model:
+
+| Layer | Raw Agents | Swarms |
+|-------|------------|--------|
+| **Platform-shipped** | `registry.foundry.io/raw-agents/codex:v2.4.1` | Build, Review, Test, Documentation, Release, Governance |
+| **Tenant-extended** | N/A | Add Trained Agents to platform Swarms |
+| **Tenant-added** | `registry.{tenant}.foundry.io/raw-agents/...` | Organization-specific at Foundry/Workshop/Workbench/Workspace scope |
 
 ## ACE Concepts Realized
 
 | Concept | How Agent Fabric realizes it |
 |---------|------------------------------|
-| **Agent** | Manages Capable Agent, Skilled Agent, Employed Agent hierarchy |
+| **Agent** | Manages Raw Agent, Trained Agent, Employed Agent hierarchy |
 | **Skill** | Packages capabilities following Agent Skills spec |
 | **Delegation** | Provides delegation token infrastructure for Employed Agents |
-| **Scenario** | Skilled Agents are defined per (Workspace, Scenario) |
+| **Scenario** | Scenarios reference Swarms; coordinator explicitly specified |
+| **Team** | Swarms organize agents analogously to human OUs |
 
 ## Key Design Decisions
 
-- **Skills are packages, Skilled Agents are manifests.** Skills are published to registries; Skilled Agents are local configuration that reference skills.
-- **Two-tier registry.** Global (public) + Foundry (private) mirrors npm/private registry pattern.
+- **Three-tier model.** Raw (packaging) → Trained (configuration) → Employed (runtime) separates concerns cleanly.
+- **Swarms as OUs.** No lifecycle states — Swarms are static groupings that organize Trained Agents by function.
+- **Single Swarm membership.** Each Trained Agent belongs to exactly one Swarm (hard constraint).
+- **Two registries.** Raw Agent Registry (OCI catalog) + Swarm Registry (organizational structure) are distinct services.
+- **Two-layer distribution.** Platform ships standard agents and Swarms; tenants extend or add their own.
+- **JID identity.** Trained Agents use Jabber JID notation: `{agent}@{swarm}.agents.{tenant}.foundry.io`.
+- **Skills are packages, Trained Agents are manifests.** Skills are published to registries; Trained Agents are configuration that reference skills.
 - **OSS gateway, not built.** Use LiteLLM or similar; module provides policy, not operations.
 - **Quota at three levels.** Foundry, Workbench, User intersections. Workshop level deferred.
 - **Auto-fallback enabled.** Model/agent fallback when preferred option unavailable.
@@ -155,10 +197,10 @@ These concepts are defined centrally and used across Foundry modules:
 
 | Concept | What Agent Fabric does with it |
 |---------|--------------------------------|
-| [Agent Model](../concepts/agent-model.md) | Manages the three-tier hierarchy (Capable → Skilled → Employed) |
+| [Agent Model](../concepts/agent-model.md) | Manages the three-tier hierarchy (Raw → Trained → Employed) |
 | [Skill](../concepts/skill.md) | Packages capabilities via Skill Registry |
 | [Delegation](../concepts/delegation.md) | Provides delegation token infrastructure |
-| [Scenario](../concepts/scenario.md) | Skilled Agents are defined per (Workspace, Scenario) |
+| [Scenario](../concepts/scenario.md) | Scenarios reference Swarms; coordinator agent explicitly specified |
 | [Governance](../concepts/governance.md) | Quota enforcement as governance over agent resources |
 
 ### Module-specific concepts
@@ -167,9 +209,10 @@ These concepts describe Agent Fabric internals:
 
 | Concept | Definition |
 |---------|------------|
-| [Capable Agent](concepts/capable-agent.md) | Whitelisted agent system (Cursor, Copilot, Claude Code) |
-| [Skilled Agent](concepts/skilled-agent.md) | Local manifest combining skills + guardrails |
-| [Employed Agent](concepts/employed-agent.md) | Runtime instance within a Workspace Session |
+| [Raw Agent](concepts/raw-agent.md) | OCI container packaging an agent system (Codex, Cursor Agent, Claude Code) |
+| [Trained Agent](concepts/trained-agent.md) | Manifest combining Raw Agent ref + skills + guardrails; belongs to a Swarm |
+| [Employed Agent](concepts/employed-agent.md) | Runtime instance (Trained Agent + Delegation Token) in a Workspace Session |
+| [Swarm](concepts/swarm.md) | Organizational unit for Trained Agents — scoped at Foundry/Workshop/Workbench/Workspace |
 | [Quota Management](concepts/quota-management.md) | Configurable limits at Foundry, Workbench, and User levels |
 | [Usage Analytics](concepts/usage-analytics.md) | Skill invocation metrics, cost attribution |
 

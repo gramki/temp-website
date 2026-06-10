@@ -4,15 +4,15 @@ This guide contains implementation specifications for engineers building the **A
 
 ## Implementation overview
 
-Agent Fabric provides agent infrastructure — Skill Registry, Capable Agent management, quota enforcement, gateway policy, and usage analytics. It provides policy and configuration; WO Runtime spawns and executes agents.
+Agent Fabric provides agent infrastructure — two core registries (Raw Agent Registry and Swarm Registry), Skill Registry, quota enforcement, gateway policy, and usage analytics. It provides policy, configuration, and organizational structure; WO Runtime spawns and executes agents.
 
 ## ACE alignment
 
 | ACE concept | How this module realizes it |
 |-------------|----------------------------|
-| [Agent](../../ace/concepts.md) | Manages Capable Agent, Skilled Agent, Employed Agent hierarchy |
+| [Agent](../../ace/concepts.md) | Manages Raw Agent, Trained Agent, Employed Agent hierarchy |
 | [Skill](../../ace/concepts.md) | Packages capabilities following Agent Skills spec |
-| [Scenario](../../ace/concepts.md) | Skilled Agents are defined per (Workspace, Scenario) |
+| [Scenario](../../ace/concepts.md) | Scenarios reference Swarms containing Trained Agents |
 
 ## Specification index
 
@@ -20,19 +20,22 @@ Agent Fabric provides agent infrastructure — Skill Registry, Capable Agent man
 |----------|-------|
 | [requirements.md](requirements.md) | Implementation requirements (APIs, database, observability) |
 | [skill-registry.md](skill-registry.md) | Skill distribution, packaging, and CLI tooling |
-| [capable-agents.md](capable-agents.md) | Capable Agent registry, fallback, credentials |
-| [employed-agents.md](employed-agents.md) | Runtime instantiation and delegation model |
+| [raw-agents.md](raw-agents.md) | Raw Agent OCI packaging, interfaces, and deployment modes |
+| [raw-agent-registry.md](raw-agent-registry.md) | Raw Agent Registry: two-layer model, discovery, versioning |
+| [trained-agents.md](trained-agents.md) | Trained Agent manifests, identity model, Swarm membership |
+| [swarm-registry.md](swarm-registry.md) | Swarm Registry: hierarchy, two-layer model, governance |
+| [employed-agents.md](employed-agents.md) | Runtime instantiation, JID + Delegation Token, attribution |
 | [gateway-policy.md](gateway-policy.md) | OSS gateway configuration and quota enforcement |
 
 ## Dependencies
 
 | Module / foundation | Integration |
 |---------------------|-------------|
-| [Work Order Runtime](..//work-order-runtime/platform-developer-guide/) | Spawns Employed Agents using Fabric configuration |
-| [Management](..//management/platform-developer-guide/) | Workbench provisioning; agent registry storage |
+| [Work Order Runtime](../../work-order-runtime/platform-developer-guide/) | Resolves Swarms, spawns Employed Agents using Fabric configuration |
+| [Management](../../management/platform-developer-guide/) | Workbench provisioning; registry storage |
 
 ## Related documentation
 
 - [Module concepts](../README.md) — scope, boundaries, and documentation index
-- [Agent Fabric user guide](../user-guide/) — agent lifecycle and Skilled Agents
+- [Agent Fabric user guide](../user-guide/) — agent lifecycle, Trained Agents, and Swarms
 - [Foundry Platform README](../../README.md) — platform-wide module map and spec authoring rules

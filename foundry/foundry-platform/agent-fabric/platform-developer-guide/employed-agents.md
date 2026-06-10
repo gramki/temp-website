@@ -1,25 +1,50 @@
 # Employed Agents
 
-Employed Agents are Skilled Agents instantiated in a Workspace Session to perform work on behalf of the session owner.
+Employed Agents are Trained Agents instantiated in a Workspace Session to perform work on behalf of the session owner, identified by JID (Service Principal) and authorized by a Delegation Token (OAuth Access Token).
 
 ## ACE alignment
 
 | ACE concept | How this module realizes it |
 |-------------|---------------------------|
-| **Agent** | Employed Agents are runtime instances bound to Workspace Session, Session Owner, and Work Order/Task |
-| **Delegation** | Session owner's authority captured in Delegation Token; all agent activity attributed to owner |
+| **Agent** | Employed Agents are runtime instances bound to JID, Delegation Token, Workspace Session, and Work Order/Task |
+| **Delegation** | Session owner's authority captured in OAuth Access Token; all agent activity attributed to owner via JID |
 | **Workspace** | Employment is scoped to Workspace Session; agent borrows session's tools, repos, and quota |
 | **Task** | Agent executes skills against assigned tasks; can create sub-tasks via Jira MCP |
 
 ## Definition
 
-An **Employed Agent** is the runtime instantiation of a Skilled Agent, bound to:
+An **Employed Agent** is the runtime instantiation of a Trained Agent, bound to:
 
+- A **JID** — Service Principal identity from the Trained Agent manifest
+- A **Delegation Token** — OAuth Access Token from the workspace owner
 - A **Workspace Session** — The execution environment
-- A **Session Owner** — The human whose authority is delegated
 - A **Work Order / Task** — The work being performed
 
 Employed Agents represent the "worker" — what an agent *is doing* right now.
+
+## Identity Model
+
+The Employed Agent's identity combines two elements:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Employed Agent Identity                                                     │
+│                                                                              │
+│  JID (Service Principal):                                                   │
+│    feature-implementer@build-swarm.agents.acme.foundry.io                  │
+│    ├── Persistent identity from Trained Agent manifest                      │
+│    ├── Used for audit trail, inter-agent addressing                        │
+│    └── Format: {agent}@{swarm}.agents.{tenant}.foundry.io                  │
+│                                                                              │
+│  Delegation Token (OAuth Access Token):                                     │
+│    ├── Issued at spawn time from workspace owner's authority                │
+│    ├── Scoped to: Workspace Session, Work Order, Task                      │
+│    ├── Grants: model access, tool access, repo access, Jira access         │
+│    └── Ephemeral: expires with session or task completion                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+The JID identifies *who* the agent is. The Delegation Token authorizes *what* the agent can do.
 
 ## Employment Model
 
@@ -30,17 +55,18 @@ Employment is scoped to a Workspace Session:
 │  Session Owner (Human)                                                       │
 │                                                                              │
 │  • Owns the Workspace Session                                               │
-│  • Provides Delegation Token                                                │
+│  • Issues Delegation Token (OAuth Access Token)                             │
 │  • Grants credits and quota                                                 │
 │  • All agent activity attributed to owner                                   │
 └─────────────────────────────────────────────────────────────────────────────┘
                           │
-                          │ Delegation Token
+                          │ Delegation Token (OAuth Access Token)
                           │ (grants: credits, quota, tool access)
                           ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │  Employed Agent                                                              │
 │                                                                              │
+│  • JID: feature-implementer@build-swarm.agents.acme.foundry.io             │
 │  • Peer or Assistant to session owner (based on skill autonomy)             │
 │  • Scoped to Workspace Session                                              │
 │  • Uses session owner's credits and quota                                   │
@@ -53,12 +79,14 @@ Employment is scoped to a Workspace Session:
 
 | Property | Value |
 |----------|-------|
+| **Identity** | JID (Service Principal) + Delegation Token (OAuth Access Token) |
+| **JID Format** | `{agent}@{swarm}.agents.{tenant}.foundry.io` |
 | **Scope** | One Employed Agent per Workspace Session |
 | **Role** | Peer or Assistant (based on skill autonomy level) |
-| **Authority** | Delegated from Session Owner |
-| **Credits/Quota** | Session Owner's allocation |
+| **Authority** | Delegated from Session Owner via OAuth Access Token |
+| **Credits/Quota** | Session Owner's allocation; enforced at Employed level, aggregated at higher scopes |
 | **Tools/Resources** | Borrowed from Workspace Session |
-| **Attribution** | All activity attributed to Session Owner |
+| **Attribution** | All activity attributed to Session Owner, recorded against JID |
 
 ## Peer vs Assistant Role
 
@@ -104,13 +132,14 @@ Employed Agents operate on delegated authority from the session owner:
 
 ### Delegation Token
 
-The session owner's authority is captured in a **Delegation Token**:
+The session owner's authority is captured in a **Delegation Token** (OAuth Access Token):
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  Delegation Token                                                            │
+│  Delegation Token (OAuth Access Token)                                       │
 │                                                                              │
 │  • Session owner identity                                                   │
+│  • Agent JID (Service Principal)                                            │
 │  • Session ID                                                               │
 │  • Workbench ID                                                             │
 │  • Workspace type                                                           │
@@ -120,7 +149,20 @@ The session owner's authority is captured in a **Delegation Token**:
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-The token is provided to the Employed Agent at spawn time and used for all external calls.
+The token is provided to the Employed Agent at spawn time and used for all external calls. The Gateway Policy Layer validates the JID + Delegation Token pair on every request.
+
+## Quota Enforcement
+
+Quotas are enforced at the Employed Agent level, with aggregate limits at higher scopes:
+
+| Level | Limit Type | Example |
+|-------|------------|---------|
+| **Employed Agent** | Per-instance quota | $50 per task, 100K tokens |
+| **Workbench** | Aggregate across Employed Agents | $2K/month total |
+| **Workshop** | Aggregate across Workbenches | $10K/month total |
+| **Foundry** | Tenant-wide aggregate | $50K/month total |
+
+Effective quota = minimum of all applicable limits.
 
 ## Session Context
 
@@ -139,17 +181,17 @@ Employed Agents have full awareness of their Workspace Session:
 
 ### Creation
 
-1. WO Runtime daemon detects a task needs an Employed Agent
-2. WO Runtime reads Skilled Agent definition from Scenario
-3. WO Runtime selects Capable Agent and Model
-4. WO Runtime prepares harness (environment, tools, MCP, skills)
-5. WO Runtime spawns agent process with harness
-6. Employed Agent receives Delegation Token
+1. WO Runtime detects task and resolves referenced Swarms
+2. Identifies coordinator agent from Scenario definition (`{swarm}/{agent}`)
+3. Loads Trained Agent manifest from `swarms/{swarm}/trained-agents/{agent}.yaml`
+4. Resolves Raw Agent from `raw-agent-ref`
+5. Prepares harness (environment, tools, MCP, skills)
+6. Spawns agent process with JID + Delegation Token (OAuth Access Token)
 
 ### Active
 
 - Employed Agent executes skills against tasks
-- All model calls route through Access Gateway
+- All model calls route through Access Gateway with JID + token validation
 - All tool calls (Jira, repos) use Delegation Token
 - Agent can create sub-tasks via Jira MCP
 - Agent notifies WO Runtime of task completion
@@ -184,15 +226,16 @@ If the Workspace Session is not running:
 
 ## Attribution and Audit
 
-All Employed Agent activity is attributed to the session owner:
+All Employed Agent activity is attributed to the session owner, with JID for agent identification:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │  Audit Record                                                                │
 │                                                                              │
 │  Session Owner: alice@example.com                                           │
+│  Agent JID: feature-implementer@build-swarm.agents.acme.foundry.io         │
 │  Session ID: ws-dev-12345                                                   │
-│  Employed Agent: feature-implementation-agent                               │
+│  Swarm: build-swarm                                                         │
 │  Work Order: WO-567                                                         │
 │  Task: TASK-890                                                             │
 │  Action: model-call                                                         │
@@ -208,7 +251,7 @@ All Employed Agent activity is attributed to the session owner:
 Within a single Workspace Session:
 
 - **One skill execution at a time** — Agent executes one skill per task
-- **Multiple tasks may spawn agents** — Each task with a Skilled Agent gets its own execution
+- **Multiple tasks may spawn agents** — Each task with a Trained Agent gets its own execution
 - **Sequential, not parallel** — Tasks execute based on dependency order
 
 ---
@@ -221,20 +264,22 @@ Agent Fabric and WO Runtime share responsibility for agent lifecycle. This secti
 
 | Responsibility | Description |
 |----------------|-------------|
-| **Skilled Agent manifests** | Defines agent capabilities, skills, compatible Capable Agents, and autonomy levels |
-| **Capable Agent registry** | Maintains the catalog of available Capable Agents and their spawn configurations |
+| **Trained Agent manifests** | Defines agent capabilities, skills, Raw Agent reference, and autonomy levels |
+| **Swarm Registry** | Maintains organizational structure and Trained Agent membership |
+| **Raw Agent Registry** | Maintains the catalog of available Raw Agents and their spawn configurations |
 | **Skill Registry** | Provides skill packages (content, rules, templates) for installation |
 | **Quota allocation** | Enforces token budgets, rate limits, and cost attribution per session owner |
-| **Access Gateway** | Routes model calls, validates Delegation Tokens, applies policy |
+| **Access Gateway** | Routes model calls, validates JID + Delegation Token, applies policy |
 | **Policy definition** | Specifies tool governance, approval thresholds, and allowed operations |
-| **Credential resolution** | Issues Delegation Tokens scoped to session owner's permissions |
+| **Credential resolution** | Issues Delegation Tokens (OAuth Access Tokens) scoped to session owner's permissions |
 
 ### WO Runtime Owns: When and How
 
 | Responsibility | Description |
 |----------------|-------------|
+| **Swarm resolution** | Resolves Swarms referenced by Scenario definitions |
 | **Spawning** | Spawns Employed Agent processes within Workspace Sessions |
-| **Harness assembly** | Prepares environment, MCP connectors, skills, knowledge, and token |
+| **Harness assembly** | Prepares environment, MCP connectors, skills, knowledge, JID, and token |
 | **Task scheduling** | Determines when tasks execute based on dependencies and readiness |
 | **Agent process lifecycle** | Starts, monitors, restarts, and terminates agent processes |
 | **Failure handling** | Detects failures, attempts fallback, manages recoverable states |
@@ -244,27 +289,29 @@ Agent Fabric and WO Runtime share responsibility for agent lifecycle. This secti
 
 ```
 Agent Fabric provides:
-├── Skilled Agent manifest (agent.yaml)
-├── Capable Agent registry (spawn configs per agent)
+├── Trained Agent manifest (in swarms/{swarm}/trained-agents/)
+├── Raw Agent Registry (OCI references and spawn configs)
+├── Swarm Registry (organizational structure)
 ├── Skill Registry (skill packages)
-├── Delegation Token generator
-├── Access Gateway (model routing, quota enforcement)
+├── Delegation Token generator (OAuth Access Tokens)
+├── Access Gateway (model routing, JID + token validation, quota enforcement)
 └── Policy definitions (tool governance)
 
 WO Runtime consumes:
-├── Reads Skilled Agent manifest for task assignment
-├── Queries Capable Agent registry for spawn config
+├── Resolves Swarms from Scenario definition
+├── Reads Trained Agent manifest for coordinator and participant agents
+├── Queries Raw Agent Registry for spawn config
 ├── Fetches skills from Skill Registry at session start
-├── Requests Delegation Token per session
+├── Requests Delegation Token per session (OAuth Access Token)
 ├── Routes model calls through Access Gateway
 └── Reports task completion and usage metrics
 ```
 
 ### Why This Separation
 
-- **Agent Fabric defines what**: Manifests, policies, and registries are declarative definitions
+- **Agent Fabric defines what**: Manifests, policies, registries, and organizational structure are declarative definitions
 - **WO Runtime implements how**: Spawning, scheduling, and process management are runtime operations
-- **Clear ownership**: Agent Fabric is authoritative for agent definitions; WO Runtime is authoritative for execution
+- **Clear ownership**: Agent Fabric is authoritative for agent definitions and identity; WO Runtime is authoritative for execution
 
 This separation enables:
 - Independent evolution of agent definitions and runtime implementation
@@ -273,7 +320,9 @@ This separation enables:
 
 ## Read Next
 
-- [skilled-agents.md](skilled-agents.md) — Skilled Agent definitions
-- [gateway-policy.md](gateway-policy.md) — How Delegation Tokens are used
-- [../work-order-runtime/platform-developer-guide/agent-spawning.md](..//work-order-runtime/platform-developer-guide/agent-spawning.md) — How Employed Agents are spawned
-- [../work-order-runtime/user-guide/work-order-lifecycle.md](..//work-order-runtime/user-guide/work-order-lifecycle.md) — Full execution flow
+- [trained-agents.md](trained-agents.md) — Trained Agent definitions and manifest schema
+- [raw-agents.md](raw-agents.md) — Raw Agent OCI packaging and registry
+- [swarm-registry.md](swarm-registry.md) — Swarm management and hierarchy
+- [gateway-policy.md](gateway-policy.md) — How JID + Delegation Token are validated
+- [../../work-order-runtime/platform-developer-guide/agent-spawning.md](../../work-order-runtime/platform-developer-guide/agent-spawning.md) — How Employed Agents are spawned
+- [../../work-order-runtime/user-guide/work-order-lifecycle.md](../../work-order-runtime/user-guide/work-order-lifecycle.md) — Full execution flow

@@ -8,14 +8,14 @@ Understand how agents are configured, enabled, and used in Foundry—from publis
 
 | Role | When to use this guide |
 |------|------------------------|
-| Foundry Admin | Configuring Capable Agents at Foundry level, managing quotas |
+| Foundry Admin | Configuring Raw Agents at Foundry level, managing Swarms and quotas |
 | Workshop Admin | Enabling/disabling agents at Workshop level, reviewing usage |
-| Workbench Manager | Configuring Skilled Agents for Workspaces, monitoring agent costs |
+| Workbench Manager | Configuring Trained Agents for Swarms, monitoring agent costs |
 
 ## Prerequisites
 
 - Access to the [Agent Console](../../foundry-web-app/platform-developer-guide/pages/consoles/workforce/agent-console.md) in the Foundry Web App
-- Understanding of [ACE Agent concepts](../../../ace/concepts.md) — Capable Agent, Skilled Agent, Employed Agent
+- Understanding of [ACE Agent concepts](../../../ace/concepts.md) — Raw Agent, Trained Agent, Employed Agent
 - Familiarity with Workspace Sessions and Work Orders
 
 ## Lifecycle overview
@@ -23,19 +23,20 @@ Understand how agents are configured, enabled, and used in Foundry—from publis
 ```mermaid
 flowchart LR
     subgraph Configure["🔧 Configure"]
-        A[Publish Skill] --> B[Register Capable Agent]
-        B --> C[Define Skilled Agent]
+        A[Publish Skill] --> B[Register Raw Agent]
+        B --> C[Define Swarm]
+        C --> D[Configure Trained Agent]
     end
     
     subgraph Enable["✓ Enable"]
-        C --> D[Set Quotas]
-        D --> E[Enable at Scope]
+        D --> E[Set Quotas]
+        E --> F[Enable at Scope]
     end
     
     subgraph Execute["▶ Execute"]
-        E --> F[WO Assigned]
-        F --> G[Agent Spawned]
-        G --> H[Task Completed]
+        F --> G[WO Assigned]
+        G --> H[Agent Spawned]
+        H --> I[Task Completed]
     end
     
     style Configure fill:#e3f2fd
@@ -44,7 +45,7 @@ flowchart LR
 ```
 
 The journey involves three modules:
-- **Agent Fabric** — Skills, Capable Agents, quotas, gateway policy
+- **Agent Fabric** — Skills, Raw Agents, Swarms, Trained Agents, quotas, gateway policy
 - **WO Runtime** — Agent spawning, task execution, session management
 - **Orchestrator** — WO creation, assignment, completion handling
 
@@ -96,25 +97,25 @@ gh foundry-skill publish --registry global
 
 The skill is now available as `code-review-skill@1.0.0` in the registry.
 
-## Phase 2: Skilled Agent Definition
+## Phase 2: Trained Agent Definition
 
-**Location:** Workshop Definition Repository  
+**Location:** Swarm definitions in `swarms/` directory  
 **Actor:** Workshop/Workbench Admin
 
-### Step 2.1: Define Skilled Agent Manifest
+### Step 2.1: Define Trained Agent Manifest
 
-In the Workbench's workspace scenarios folder:
+In the Swarm's trained-agents folder:
 
 ```yaml
-# workbenches/checkout/workspaces/development/skilled-agents/code-reviewer.yaml
+# swarms/review-swarm/trained-agents/code-reviewer.yaml
 
 name: code-reviewer
 description: Reviews code changes for quality and standards
+swarm: review-swarm
+raw-agent-ref: registry.foundry.io/raw-agents/cursor-agent:v1.2.0
 
-capable-agents:
-  - cursor-agent
-  - claude-code
-  fallback-order: [cursor-agent, claude-code]
+identity:
+  jid: code-reviewer@review-swarm.agents.acme.foundry.io
 
 skills:
   - name: code-review-skill
@@ -133,15 +134,17 @@ evaluation:
   required-checks: [lint, security-scan]
 ```
 
-### Step 2.2: Associate with Scenario
+### Step 2.2: Reference Swarm in Scenario
 
 ```yaml
-# workbenches/checkout/workspaces/development/scenarios/code-review.yaml
+# work-catalog/.../scenarios/code-review.yaml
 
 name: code-review
 description: Review pull request for code quality
 
-skilled-agent: code-reviewer
+swarms:
+  - review-swarm
+coordinator-agent: review-swarm/code-reviewer
 
 inputs:
   - pull-request-url
@@ -200,7 +203,7 @@ When the session activates:
 At session start:
 
 ```
-1. WO Runtime collects all Skilled Agent manifests for this Workspace
+1. WO Runtime collects Trained Agent manifests from Swarms referenced by Scenarios
 2. For each skill reference:
    - Check Foundry registry first
    - Fall back to Global registry
@@ -221,7 +224,8 @@ The daemon begins polling Jira for assigned WOs:
 │   1. Poll Jira (via MCP) for WOs           │
 │   2. Find WO-123 assigned to this user     │
 │   3. Load Scenario definition              │
-│   4. Prepare to spawn agent                │
+│   4. Resolve referenced Swarms             │
+│   5. Prepare to spawn agent                │
 └─────────────────────────────────────────────┘
 ```
 
@@ -230,16 +234,15 @@ The daemon begins polling Jira for assigned WOs:
 **Location:** WO Runtime (Workspace Session)  
 **Actor:** WO Runtime Daemon
 
-### Step 5.1: Resolve Capable Agent
+### Step 5.1: Resolve Swarm and Trained Agent
 
 ```
-1. Read Skilled Agent manifest (code-reviewer)
-2. Get fallback order: [cursor-agent, claude-code]
-3. Check Capable Agent registry:
-   - Is cursor-agent enabled at Foundry level? Yes
-   - Is cursor-agent enabled at Workbench level? Yes
-   - Are credentials available? Yes
-4. Select cursor-agent as the Capable Agent
+1. Read Scenario definition
+2. Resolve referenced Swarms (review-swarm)
+3. Identify coordinator agent (review-swarm/code-reviewer)
+4. Load Trained Agent manifest from swarms/review-swarm/trained-agents/code-reviewer.yaml
+5. Resolve Raw Agent from raw-agent-ref: registry.foundry.io/raw-agents/cursor-agent:v1.2.0
+6. Check Raw Agent availability and credentials
 ```
 
 ### Step 5.2: Check Quota
@@ -261,12 +264,16 @@ WO Runtime assembles the execution environment:
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Agent Harness                                 │
 │                                                                  │
+│  Identity:                                                       │
+│    FOUNDRY_AGENT_JID=code-reviewer@review-swarm.agents.acme...  │
+│    FOUNDRY_DELEGATION_TOKEN=eyJ...                              │
+│                                                                  │
 │  Environment Variables:                                          │
 │    FOUNDRY_WO_ID=WO-123                                         │
 │    FOUNDRY_SCENARIO=code-review                                 │
 │    FOUNDRY_WORKBENCH=checkout                                   │
+│    FOUNDRY_SWARM=review-swarm                                   │
 │    FOUNDRY_SKILLS_PATH=~/.foundry/skills                        │
-│    FOUNDRY_DELEGATION_TOKEN=eyJ...                              │
 │                                                                  │
 │  MCP Connectors:                                                 │
 │    - jira-mcp (for task management)                             │
@@ -286,9 +293,10 @@ WO Runtime assembles the execution environment:
 ### Step 5.4: Issue Delegation Token
 
 ```
-1. WO Runtime requests delegation token from Agent Fabric
+1. WO Runtime requests Delegation Token (OAuth Access Token) from Agent Fabric
 2. Token encodes:
    - Session owner identity
+   - Agent JID (Service Principal)
    - WO scope (WO-123)
    - Quota allocation
    - Expiry time
@@ -298,8 +306,9 @@ WO Runtime assembles the execution environment:
 ### Step 5.5: Spawn Agent Process
 
 ```bash
-# WO Runtime spawns Cursor Agent with harness
+# WO Runtime spawns Raw Agent with harness
 cursor-agent \
+  --jid code-reviewer@review-swarm.agents.acme.foundry.io \
   --scenario code-review \
   --skills-path ~/.foundry/skills \
   --delegation-token $FOUNDRY_DELEGATION_TOKEN \
@@ -343,10 +352,10 @@ All LLM calls go through the Gateway Policy Layer:
 ```
 Agent → Gateway Policy Layer → LiteLLM → Claude API
                 │
-                ├── Validate delegation token
+                ├── Validate JID + Delegation Token
                 ├── Check quota (decrement $0.15)
                 ├── Inject credentials
-                ├── Log for audit
+                ├── Log for audit (with JID attribution)
                 └── Return response
 ```
 
@@ -370,6 +379,7 @@ Agent completes and reports:
 ```json
 {
   "task_id": "TASK-789",
+  "agent_jid": "code-reviewer@review-swarm.agents.acme.foundry.io",
   "status": "completed",
   "outputs": {
     "review-comments": ["..."],
@@ -395,6 +405,8 @@ Agent completes and reports:
   "work_order": "WO-123",
   "verdict": "success",
   "completed_at": "2026-05-28T15:30:00Z",
+  "agent_jid": "code-reviewer@review-swarm.agents.acme.foundry.io",
+  "swarm": "review-swarm",
   "metrics": {
     "total_tasks": 3,
     "agent_tasks": 2,
@@ -417,6 +429,8 @@ Agent Fabric records:
 
 ```
 - Skill invocation: code-review-skill@1.0.3, 1 invocation
+- Agent JID: code-reviewer@review-swarm.agents.acme.foundry.io
+- Swarm: review-swarm
 - Cost attribution: Workbench=Checkout, User=alice, $0.45
 - Automation coverage: code-review scenario = automated
 ```
@@ -428,7 +442,7 @@ sequenceDiagram
     participant Author as Skill Author
     participant Registry as Skill Registry
     participant Admin as Workbench Admin
-    participant Workshop as Workshop Repo
+    participant Swarms as Swarm Registry
     participant Orch as Orchestrator
     participant Jira as Jira
     participant WOR as WO Runtime
@@ -438,8 +452,8 @@ sequenceDiagram
     Author->>Registry: gh foundry-skill publish
     Registry-->>Author: code-review-skill@1.0.0
 
-    Admin->>Workshop: Define Skilled Agent manifest
-    Admin->>Workshop: Associate with Scenario
+    Admin->>Swarms: Define Trained Agent in Swarm
+    Admin->>Swarms: Reference Swarm in Scenario
 
     Note over Orch: PI reaches Development stage
     Orch->>Jira: Create WO (code-review)
@@ -448,15 +462,17 @@ sequenceDiagram
     WOR->>Jira: Poll for assigned WOs
     Jira-->>WOR: WO-123 (code-review)
     
+    WOR->>Swarms: Resolve Swarm + Trained Agent
+    Swarms-->>WOR: code-reviewer manifest
+    
     WOR->>Registry: Resolve skills
     Registry-->>WOR: code-review-skill@1.0.3
     
-    WOR->>WOR: Prepare harness
-    WOR->>WOR: Issue delegation token
-    WOR->>Agent: Spawn with harness
+    WOR->>WOR: Prepare harness (JID + token)
+    WOR->>Agent: Spawn with JID + Delegation Token
 
-    Agent->>Gateway: Model call + token
-    Gateway->>Gateway: Validate token, check quota
+    Agent->>Gateway: Model call + JID + token
+    Gateway->>Gateway: Validate JID + token, check quota
     Gateway-->>Agent: Response
 
     Agent->>Jira: Create sub-task (via MCP)
@@ -478,13 +494,13 @@ sequenceDiagram
 5. Task resumes when quota replenishes (next billing cycle or manual top-up)
 ```
 
-### Capable Agent Unavailable
+### Raw Agent Unavailable
 
 ```
-1. WO Runtime checks cursor-agent → disabled at Workbench level
-2. Fallback to claude-code → enabled, credentials available
-3. Spawn with claude-code instead
-4. Task executes normally
+1. WO Runtime resolves Raw Agent from Trained Agent manifest
+2. Raw Agent image not available or not enabled at Workbench level
+3. Task fails with "raw-agent-unavailable" error
+4. Admin notified to check Raw Agent Registry configuration
 ```
 
 ### Skill Not Found
@@ -502,35 +518,37 @@ sequenceDiagram
 | Phase | Module | Service/Component |
 |-------|--------|-------------------|
 | Skill Publication | Agent Fabric | Skill Registry |
-| Skilled Agent Definition | Agent Fabric | Skilled Agent manifest |
+| Trained Agent Definition | Agent Fabric | Swarm Registry, Trained Agent manifest |
 | WO Assignment | Orchestrator | Workflow Engine |
 | Session Creation | WO Runtime | Session Manager |
 | Skill Installation | WO Runtime + Agent Fabric | Skill Registry |
-| Agent Spawning | WO Runtime | Agent Spawner |
-| Delegation Token | Agent Fabric | Gateway Policy |
-| Task Execution | WO Runtime | Employed Agent |
+| Agent Spawning | WO Runtime | Agent Spawner (Swarm resolution → Raw Agent) |
+| Delegation Token | Agent Fabric | Gateway Policy (OAuth Access Token) |
+| Task Execution | WO Runtime | Employed Agent (JID + token) |
 | Model Calls | Agent Fabric | Gateway Policy Layer |
 | Completion | WO Runtime → Orchestrator | Completion Reporter |
 
 ## Expected outcome
 
 After following this guide, you should understand:
-- How to configure Capable Agents at each hierarchy level
+- How to configure Raw Agents at each hierarchy level
 - Where to manage agent quotas and monitor costs
-- How to define Skilled Agents for Workspaces
+- How to define Trained Agents within Swarms
+- How Scenarios reference Swarms and coordinator agents
 - How to troubleshoot agent availability and quota issues
 
 ## Related
 
 ### Concepts
 
-- [Agent Model](../../concepts/agent-model.md) — Three-tier hierarchy (Capable → Skilled → Employed)
+- [Agent Model](../../concepts/agent-model.md) — Three-tier hierarchy (Raw → Trained → Employed)
 - [Skill](../../concepts/skill.md) — Reusable capability package for agents
-- [Delegation](../../concepts/delegation.md) — Authority transfer from human to agent via tokens
+- [Delegation](../../concepts/delegation.md) — Authority transfer from human to agent via OAuth Access Token
 - [Work Order](../../concepts/work-order.md) — Instantiation of a Scenario for execution
 - [Scenario](../../concepts/scenario.md) — Ingress contract defining what work a Workspace accepts
-- [Capable Agent](../concepts/capable-agent.md) — Whitelisted agent system (module-specific)
-- [Skilled Agent](../concepts/skilled-agent.md) — Local manifest combining skills + guardrails (module-specific)
+- [Raw Agent](../concepts/raw-agent.md) — OCI-packaged agent system (module-specific)
+- [Trained Agent](../concepts/trained-agent.md) — Manifest with identity, skills, and Swarm membership (module-specific)
+- [Swarm](../concepts/swarm.md) — Organizational unit for Trained Agents (module-specific)
 - [Quota Management](../concepts/quota-management.md) — Configurable limits (module-specific)
 
 ### Guides and Consoles
@@ -538,8 +556,9 @@ After following this guide, you should understand:
 - [Agent Console](../../foundry-web-app/platform-developer-guide/pages/consoles/workforce/agent-console.md) — Web App console for agent management
 - [Workforce Overview](../../foundry-web-app/platform-developer-guide/pages/consoles/workforce/workforce-overview.md) — Team and agent capacity summary
 - [Module README](../README.md) — Agent Fabric boundaries and architecture
-- [Skilled Agents spec](../platform-developer-guide/skilled-agents.md) — Implementation specs for Skilled Agents
-- [Capable Agents spec](../platform-developer-guide/capable-agents.md) — Capable Agent registry schema
+- [Trained Agents spec](../platform-developer-guide/trained-agents.md) — Implementation specs for Trained Agents
+- [Raw Agents spec](../platform-developer-guide/raw-agents.md) — Raw Agent OCI packaging and registry
+- [Swarm Registry spec](../platform-developer-guide/swarm-registry.md) — Swarm management and hierarchy
 - [Gateway Policy spec](../platform-developer-guide/gateway-policy.md) — Gateway configuration details
 - [Work Order lifecycle](../../work-order-runtime/user-guide/work-order-lifecycle.md) — How agents execute Work Orders
 - [Product Intent journey](../../orchestrator/user-guide/product-intent-journey.md) — How agents fit in the PI flow
@@ -548,8 +567,9 @@ After following this guide, you should understand:
 
 | Symptom | Likely cause | What to do |
 |---------|--------------|------------|
-| Agent not spawning | Capable Agent disabled at Workbench level | Check Agent Console > enable cascade status |
+| Agent not spawning | Raw Agent disabled at Workbench level | Check Agent Console > enable cascade status |
+| Swarm not found | Scenario references a Swarm not visible at current scope | Verify Swarm exists at Foundry/Workshop/Workbench level |
 | Quota exceeded mid-task | Usage hit limit before task completed | Task enters recoverable failure; resumes when quota refreshes |
-| Skill not found | Skill not published or version constraint unresolvable | Check Skill Registry; verify version constraints in Skilled Agent manifest |
-| Fallback not working | No alternative Capable Agent enabled | Enable fallback agents at appropriate scope level |
-| Agent cost unexpectedly high | Task using expensive model | Review model selection in Skilled Agent manifest; adjust cost caps |
+| Skill not found | Skill not published or version constraint unresolvable | Check Skill Registry; verify version constraints in Trained Agent manifest |
+| Raw Agent unavailable | Raw Agent image not in registry or not enabled | Check Raw Agent Registry; verify OCI URI in Trained Agent manifest |
+| Agent cost unexpectedly high | Task using expensive model | Review Raw Agent reference in Trained Agent manifest; adjust cost caps |

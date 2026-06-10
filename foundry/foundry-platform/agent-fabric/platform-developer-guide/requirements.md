@@ -17,8 +17,8 @@ Module-specific concepts (internals):
 
 | Concept | Link |
 |---------|------|
-| Capable Agent | [../concepts/capable-agent.md](../concepts/capable-agent.md) |
-| Skilled Agent | [../concepts/skilled-agent.md](../concepts/skilled-agent.md) |
+| Raw Agent | [../concepts/raw-agent.md](../concepts/raw-agent.md) |
+| Trained Agent | [../concepts/trained-agent.md](../concepts/trained-agent.md) |
 | Employed Agent | [../concepts/employed-agent.md](../concepts/employed-agent.md) |
 | Quota Management | [../concepts/quota-management.md](../concepts/quota-management.md) |
 | Usage Analytics | [../concepts/usage-analytics.md](../concepts/usage-analytics.md) |
@@ -27,7 +27,7 @@ Module-specific concepts (internals):
 
 | ACE concept | How this module realizes it |
 |-------------|---------------------------|
-| **Agent** | Manages the three-tier agent model: Capable Agent → Skilled Agent → Employed Agent |
+| **Agent** | Manages the three-tier agent model: Raw Agent → Trained Agent → Employed Agent |
 | **Skill** | Provides Skill Registry for publishing, versioning, and distributing skill packages |
 | **Delegation** | Issues Delegation Tokens via Gateway Policy Layer for scoped authority |
 | **Workspace** | Quota and policy enforcement scoped to Workbench and Workspace context |
@@ -81,11 +81,11 @@ Module-specific concepts (internals):
 | Output | Skill metadata, package downloads, search results |
 | Dependencies | Object storage (S3/GCS), PostgreSQL for metadata |
 
-### Capable Agent Registry
+### Raw Agent Registry
 
-**AGF-FR-0003:** The Capable Agent Registry SHALL manage the whitelist of agent systems and their credentials.
+**AGF-FR-0003:** The Raw Agent Registry SHALL manage the whitelist of agent systems and their credentials.
 
-**AGF-FR-0004:** The Capable Agent Registry SHALL compute effective agent config using Workbench > Workshop > Foundry precedence.
+**AGF-FR-0004:** The Raw Agent Registry SHALL compute effective agent config using Workbench > Workshop > Foundry precedence.
 
 | Aspect | Detail |
 |--------|--------|
@@ -122,7 +122,7 @@ Module-specific concepts (internals):
 | Responsibility | Validate tokens, enforce policy, inject credentials |
 | Input | Model requests with delegation tokens |
 | Output | Enriched requests to OSS gateway |
-| Dependencies | OSS LLM Gateway, Capable Agent Registry, Quota Manager |
+| Dependencies | OSS LLM Gateway, Raw Agent Registry, Quota Manager |
 
 ### Usage Analytics Service
 
@@ -176,18 +176,18 @@ CREATE INDEX idx_skills_registry ON skills(registry);
 CREATE INDEX idx_skill_versions_skill ON skill_versions(skill_id);
 ```
 
-### Capable Agent Registry Database
+### Raw Agent Registry Database
 
 | Table | Purpose |
 |-------|---------|
-| `capable_agents` | Agent definitions (system-level) |
+| `raw_agents` | Agent definitions (system-level) |
 | `agent_configs` | Per-level configurations (Foundry/Workshop/Workbench) |
 | `model_configs` | Per-model settings and credentials |
 
 **Key columns:**
 
 ```sql
-CREATE TABLE capable_agents (
+CREATE TABLE raw_agents (
     id TEXT PRIMARY KEY,  -- e.g., 'cursor-agent'
     type TEXT NOT NULL,   -- 'ide-agent', 'cli-agent'
     provider TEXT NOT NULL,
@@ -197,7 +197,7 @@ CREATE TABLE capable_agents (
 
 CREATE TABLE agent_configs (
     id UUID PRIMARY KEY,
-    agent_id TEXT REFERENCES capable_agents(id),
+    agent_id TEXT REFERENCES raw_agents(id),
     scope_type TEXT NOT NULL,  -- 'foundry', 'workshop', 'workbench'
     scope_id TEXT NOT NULL,
     enabled BOOLEAN DEFAULT TRUE,
@@ -254,8 +254,8 @@ CREATE TABLE usage_history (
     workbench_id TEXT NOT NULL,
     work_order TEXT,
     task TEXT,
-    skilled_agent TEXT,
-    capable_agent TEXT,
+    trained_agent TEXT,
+    raw_agent TEXT,
     model TEXT NOT NULL,
     input_tokens INT NOT NULL,
     output_tokens INT NOT NULL,
@@ -278,12 +278,12 @@ CREATE INDEX idx_usage_history_workbench ON usage_history(workbench_id, timestam
 |--------|--------|
 | Integration type | Event consumer |
 | Direction | Inbound (Workshop Sync → Agent Fabric) |
-| Events | `config.updated` with Capable Agent and quota configs |
+| Events | `config.updated` with Raw Agent and quota configs |
 
 When Workshop Sync writes config to Metadata Service, Agent Fabric refreshes:
-- Capable Agent configurations
+- Raw Agent configurations
 - Quota policies
-- Skilled Agent manifests (for reference validation)
+- Trained Agent manifests (for reference validation)
 
 ### OSS LLM Gateway Integration
 
@@ -310,7 +310,7 @@ Agent Request → Policy Layer → OSS Gateway → Provider
 |--------|--------|
 | Integration type | REST API |
 | Supported stores | HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager |
-| Usage | Retrieve credentials for Capable Agents |
+| Usage | Retrieve credentials for Raw Agents |
 
 ```
 credential_ref: "vault://foundry/anthropic-api-key"
@@ -473,7 +473,7 @@ Tasks encountering these errors enter recoverable failure state:
 | Workbench Admin | Workbench | Read all |
 | Developer | Session | Read all, install to session |
 
-### Capable Agent Permissions
+### Raw Agent Permissions
 
 **AGF-FR-0024:** Foundry Admins SHALL be able to enable/disable agents and manage credentials.
 
@@ -534,19 +534,19 @@ Body: { name, constraint, foundry_id }
 Response: { name, version, package_url }
 ```
 
-### Capable Agent API
+### Raw Agent API
 
 ```
 # List agents
-GET /api/v1/capable-agents?scope_type={type}&scope_id={id}
+GET /api/v1/raw-agents?scope_type={type}&scope_id={id}
 Response: { agents: [{ id, type, provider, enabled, models }] }
 
 # Get effective config
-GET /api/v1/capable-agents/{agent_id}/effective?workbench_id={id}
+GET /api/v1/raw-agents/{agent_id}/effective?workbench_id={id}
 Response: { agent_id, enabled, models: [{ model, enabled }] }
 
 # Update config (admin)
-PUT /api/v1/capable-agents/{agent_id}/config
+PUT /api/v1/raw-agents/{agent_id}/config
 Body: { scope_type, scope_id, enabled, models: [...] }
 Response: { success: true }
 ```
@@ -695,4 +695,4 @@ OpenTelemetry spans for:
 - [../user-guide/agent-lifecycle.md](../user-guide/agent-lifecycle.md) — End-to-end agent lifecycle
 - [skill-registry.md](skill-registry.md) — Skill distribution details
 - [gateway-policy.md](gateway-policy.md) — Gateway configuration
-- [capable-agents.md](capable-agents.md) — Agent registry details
+- [raw-agents.md](raw-agents.md) — Agent registry details

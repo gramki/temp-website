@@ -49,7 +49,7 @@ The module sits above the gateway, providing Foundry-specific policy.
 │                                                                 │
 │  • Validate delegation token                                   │
 │  • Enforce quota policy                                        │
-│  • Inject provider credentials from Capable Agent registry     │
+│  • Inject provider credentials from Raw Agent registry     │
 │  • Tag request with WO/Task metadata for cost attribution      │
 └─────────────────────────────────────────────────────────────────┘
                               │
@@ -183,7 +183,7 @@ Provider credentials are **never exposed** to agents. The Gateway Policy Layer i
 
 ```
 1. Agent requests model: claude-opus
-2. Policy layer looks up Capable Agent registry:
+2. Policy layer looks up Raw Agent registry:
    - Workbench credentials? Use those
    - Else Workshop credentials? Use those
    - Else Foundry credentials? Use those
@@ -203,8 +203,8 @@ Costs are attributed along multiple dimensions:
 | **Work Order** | Delegation Token |
 | **Task** | Delegation Token |
 | **Workbench** | Delegation Token |
-| **Skilled Agent** | Request metadata |
-| **Capable Agent** | Request metadata |
+| **Trained Agent** | Request metadata |
+| **Raw Agent** | Request metadata |
 | **Model** | Request/response |
 
 ### Attribution Data Flow
@@ -244,8 +244,8 @@ Every model call generates an audit record:
   "workbench_id": "checkout",
   "work_order": "WO-567",
   "task": "TASK-890",
-  "skilled_agent": "feature-implementation-agent",
-  "capable_agent": "cursor-agent",
+  "trained_agent": "feature-implementation-agent",
+  "raw_agent": "cursor-agent",
   "model": "claude-opus",
   "input_tokens": 5234,
   "output_tokens": 2341,
@@ -472,7 +472,7 @@ curl -X POST /api/v1/gateway/policy/simulate \
 
 ## Read Next
 
-- [capable-agents.md](capable-agents.md) — Credential resolution hierarchy
+- [raw-agents.md](raw-agents.md) — Credential resolution hierarchy
 - [employed-agents.md](employed-agents.md) — Delegation Token lifecycle
 - [skill-registry.md](skill-registry.md) — Skill usage tracking
 - [../work-order-runtime/platform-developer-guide/agent-spawning.md](..//work-order-runtime/platform-developer-guide/agent-spawning.md) — Token provisioning
