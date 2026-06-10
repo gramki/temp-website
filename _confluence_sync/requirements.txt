@@ -1,7 +1,0 @@
-requests>=2.31.0
-markdown>=3.4.0
-pyyaml>=6.0
-tabulate>=0.9.0
-# Legacy Mermaid renderer (PhantomJS); often produces blank PNGs for modern syntax.
-# Prefer Node: `npm i -g @mermaid-js/mermaid-cli` or `npx -y @mermaid-js/mermaid-cli` (see USER-GUIDE).
-mmdc>=0.4.0

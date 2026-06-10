@@ -1,0 +1,276 @@
+# confluence-sync.yml — zeta-ai-product-strategy
+# Managed by confluence-sync v0.1+
+# See: https://github.com/zeta-oss/confluence-sync
+#
+# NOTE: term-deposits-tda and zapp-incident-cto are in writing-work/.confluence-sync/
+# (they reference content outside this repo, so they live with writing-work).
+
+destinations:
+  - id: hub-docs
+    name: Olympus Hub Documentation
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: ~5570580ad15fced37e40a38c7171943fae763b
+      root_page_title: Olympus Hub Docs
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-hub-docs
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: test-why-seer
+    name: Test - Why Seer (Small)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: ~5570580ad15fced37e40a38c7171943fae763b
+      root_page_title: Test - Why Seer - 22 Jan 2026
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-seer-docs/why-seer
+          create_root_parent: true
+          title: Why Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: hub-proposal
+    name: Hub Proposal Documentation
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: ~5570580ad15fced37e40a38c7171943fae763b
+      root_page_title: Hub Proposal
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-hub-docs
+          create_root_parent: true
+          title: Olympus Hub
+        - path: olympus-seer-docs
+          create_root_parent: true
+          title: Olympus Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: hub-proposal-space
+    name: Hub Proposal Documentation
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: TEMPHP
+      root_page_title: Hub Proposal
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-hub-docs
+          create_root_parent: true
+          title: Olympus Hub
+        - path: olympus-seer-docs
+          create_root_parent: true
+          title: Olympus Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: test-why-seer-tempwsb
+    name: Test - Why Seer (TEMPWSB Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: TEMPWSB
+      root_page_title: Test - Why Seer - 22 Jan 2026
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-seer-docs/why-seer
+          create_root_parent: true
+          title: Why Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+
+  - id: hub-proposal-temphub
+    name: Hub Proposal (TEMPHUBX Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: TEMPHUBX
+      root_page_title: Hub Proposal
+      root_page_id: null
+    source:
+      folders:
+        - path: olympus-hub-docs
+          create_root_parent: true
+          title: Olympus Hub
+        - path: olympus-seer-docs
+          create_root_parent: true
+          title: Olympus Seer
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: ple-cto
+    name: Product Line Engineering (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Product Line Engineering
+      root_page_id: null
+    source:
+      folders:
+        - path: org-8.0/product-line-engineering
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: domain-products-with-ddd-cto
+    name: Domain Products with DDD (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Domain Products with DDD
+      root_page_id: null
+    source:
+      folders:
+        - path: org-8.0/domain-products-with-ddd
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: pontus-cto
+    name: Pontus (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Pontus
+      root_page_id: null
+    source:
+      folders:
+        - path: pontus
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: ace-academy-cto
+    name: ACE Academy (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: ACE Academy
+      root_page_id: null
+    source:
+      folders:
+        - path: ace-academy
+          create_root_parent: false
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: foundry-cto
+    name: Foundry (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Foundry
+      root_page_id: null
+    source:
+      folders:
+        - path: foundry
+          create_root_parent: false
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: corporate-payments-book-cto
+    name: Corporate Payments Book (CTO Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: CTO
+      root_page_title: Corporate Payments Book
+      root_page_id: null
+    source:
+      folders:
+        - path: us-bank-commercial-card/corporate-payments-book
+          create_root_parent: true
+          title: Corporate Payments Book
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+
+  - id: org-8
+    name: Org 8.0 (Z8 Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: Z8
+      root_page_title: Org 8.0
+      root_page_id: null
+    source:
+      folders:
+        - path: org-8.0
+          create_root_parent: true
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false

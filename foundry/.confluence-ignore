@@ -1,0 +1,12 @@
+# Ignore third-party dependencies and build artifacts
+**/node_modules/**
+node_modules/
+
+# Ignore build and distribution artifacts
+**/dist/**
+dist/
+**/build/**
+build/
+.cache/
+.tmp/
+.temp/
