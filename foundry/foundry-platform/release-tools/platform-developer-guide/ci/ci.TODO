@@ -51,13 +51,13 @@ Agent-powered quality evaluation and automated remediation.
 
 | Item | Description | Dependencies |
 |------|-------------|--------------|
-| **Agentic Quality Gates** | Skilled Agents evaluate changes against quality criteria | Agent Fabric, BQI |
+| **Agentic Quality Gates** | Trained Agents evaluate changes against quality criteria | Agent Fabric, BQI |
 | **Crowd-sourced Skills** | Community skills for specialized quality checks | Skill Registry |
 | **Project-Template-Specific Triggers** | Quality gates customized per project type | Work Catalog |
 
 ### Agentic Quality Gates
 
-Quality gates can invoke Skilled Agents for:
+Quality gates can invoke Trained Agents for:
 - Security vulnerability triage and fix suggestions
 - Test generation for uncovered code paths
 - Documentation validation

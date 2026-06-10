@@ -44,7 +44,7 @@ The Work Catalog is the **executable realization** of UPIM — it turns abstract
 │     - What skills are needed                                                │
 │     - What outputs to produce                                               │
 │                                                                             │
-│     Skilled Agent assigned based on scenario requirements                   │
+│     Trained Agent assigned based on scenario requirements                   │
 └─────────────────────────────────────┬───────────────────────────────────────┘
                                       │
                                       ▼
@@ -110,7 +110,7 @@ A **Scenario** is the **ingress contract** for a Workspace. It defines:
 - **What** outputs will be produced
 - **What** skills are needed to execute the work
 
-**Crucially:** A Scenario defines WHAT, not HOW. The Skilled Agent assigned to execute the scenario determines HOW.
+**Crucially:** A Scenario defines WHAT, not HOW. The Trained Agent assigned to execute the scenario determines HOW.
 
 ```yaml
 name: implement-feature
@@ -160,17 +160,17 @@ When an OI Workflow creates a Work Order, it specifies:
 - Input values for this specific work
 - Priority and assignment
 
-### Skilled Agent
+### Trained Agent
 
-A **Skilled Agent** defines HOW work gets done. It consists of:
+A **Trained Agent** defines HOW work gets done. It consists of:
 
-- **Capable Agent** — the base agent model (Claude, GPT-4, etc.)
+- **Raw Agent** — the base agent model (Claude, GPT-4, etc.)
 - **Skills** — reusable capability packages from the registry
 - **Guardrails** — constraints on what the agent can do
 
 The relationship:
 - **Scenario** = WHAT (the contract: accept these inputs, produce these outputs)
-- **Skilled Agent** = HOW (the implementation: use these skills, respect these guardrails)
+- **Trained Agent** = HOW (the implementation: use these skills, respect these guardrails)
 
 ### Skills and Tasks
 
@@ -213,7 +213,7 @@ The QA Workspace's `test-feature` scenario (with `scope: workspace-ingress`) acc
 2. **OI Workflow** governs the PI through draft review, specification, development, QA, release
 3. At each stage transition, **Work Orders** are created in the appropriate Workspace
 4. Each Work Order runs a **Scenario** that defines the work contract
-5. **Skilled Agents** execute the scenarios, working with humans on **Tasks**
+5. **Trained Agents** execute the scenarios, working with humans on **Tasks**
 6. **Skills** provide reusable capabilities; internal scenarios enable sub-task creation
 7. When a Work Order completes, the OI Workflow advances the PI to the next stage
 

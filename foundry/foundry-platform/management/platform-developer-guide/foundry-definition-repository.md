@@ -35,7 +35,7 @@ foundry-{id}/
 │   │   └── release-checklist-template.md
 │   └── governance/
 │       └── approval-workflows.md
-├── capable-agents.yaml              # Foundry-level Capable Agent config
+├── raw-agents.yaml              # Foundry-level Raw Agent config
 ├── work-catalog/                    # Foundry-level Work Catalog
 │   └── {track}/{oi-type}/...        # OI Workflows and Scenarios
 └── README.md
@@ -139,15 +139,15 @@ Content in `practices/{workspace-type}/` applies only to that workspace:
 
 ---
 
-## Capable Agents Configuration
+## Raw Agents Configuration
 
-Foundry-level Capable Agent configuration establishes organization-wide agent defaults.
+Foundry-level Raw Agent configuration establishes organization-wide agent defaults.
 
-### `capable-agents.yaml`
+### `raw-agents.yaml`
 
 ```yaml
 apiVersion: foundry/v1
-kind: CapableAgentsConfig
+kind: RawAgentsConfig
 metadata:
   foundry: foundry-zeta
 spec:
@@ -182,12 +182,12 @@ spec:
 
 ### Inheritance
 
-Capable Agent configuration cascades down:
+Raw Agent configuration cascades down:
 - **Foundry** → Workshop → Workbench
 - Disabled at Foundry = disabled everywhere
 - Credentials resolve upward (Workbench → Workshop → Foundry)
 
-See [../agent-fabric/platform-developer-guide/capable-agents.md](..//agent-fabric/platform-developer-guide/capable-agents.md) for full configuration details.
+See [../agent-fabric/platform-developer-guide/raw-agents.md](..//agent-fabric/platform-developer-guide/raw-agents.md) for full configuration details.
 
 ---
 
@@ -248,7 +248,7 @@ Metadata Service ◄──── queries ──── All platform consumers
 | `work-catalog/**` | OI Workflows and Scenarios synced to Work Catalog registry |
 | `domain/**` | Indexed for agent context assembly |
 | `practices/**` | Indexed for agent context assembly |
-| `capable-agents.yaml` | Parsed and stored; cascades to Workshops/Workbenches |
+| `raw-agents.yaml` | Parsed and stored; cascades to Workshops/Workbenches |
 
 ---
 

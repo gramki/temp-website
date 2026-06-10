@@ -24,7 +24,7 @@ The primary beneficiaries are Program Managers (who see work flowing through the
 ## What this module does NOT do
 
 - **Does not execute Work Orders** — WO Runtime executes work; Orchestrator only creates and tracks WOs
-- **Does not manage agents** — Agent Fabric manages Capable Agents, Skills, and quotas
+- **Does not manage agents** — Agent Fabric manages Raw Agents, Skills, and quotas
 - **Does not spawn agents** — WO Runtime spawns Employed Agents within Workspace Sessions
 - **Does not store artifacts** — Repositories store code, designs, specs; Orchestrator only links to them
 - **Does not define Scenarios** — Work Catalog Management (in Management module) defines schema; Work Catalogues module contains definitions

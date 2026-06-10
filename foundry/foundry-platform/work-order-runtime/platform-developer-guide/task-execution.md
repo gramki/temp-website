@@ -8,7 +8,7 @@ This document describes how WO Runtime manages task trees, handles dependencies,
 |-------------|---------------------------|
 | **Task** | Models tasks as DAG with dependencies; manages state machine (Blocked → Ready → In-Progress → Completed/Failed) |
 | **Work Order** | Work Order is the root task; completion of root = completion of WO |
-| **Scenario** | Each task has a Scenario that determines its Skilled Agent and execution path |
+| **Scenario** | Each task has a Scenario that determines its Trained Agent and execution path |
 | **Agent** | Agent execution path spawns Employed Agents; Human execution path surfaces tasks in UI |
 
 ## Task Tree Model
@@ -31,7 +31,7 @@ Work Order (Root Task)
 Every Work Order is itself the root task. The root task:
 
 - Has the Work Order's Scenario
-- May have a Skilled Agent (if Scenario defines one)
+- May have a Trained Agent (if Scenario defines one)
 - Completion of root task = completion of Work Order
 
 ### Sub-Tasks
@@ -217,7 +217,7 @@ For each ready task:
 
 ```
 1. Check Scenario definition
-2. Look for Skilled Agent
+2. Look for Trained Agent
    ├── Found → Agent execution path
    └── Not found → Human execution path
 ```
@@ -225,8 +225,8 @@ For each ready task:
 ### Agent Execution Path
 
 ```
-1. WO Runtime reads Skilled Agent definition
-2. WO Runtime selects Capable Agent and Model
+1. WO Runtime reads Trained Agent definition
+2. WO Runtime selects Raw Agent and Model
 3. WO Runtime prepares harness
 4. WO Runtime spawns Employed Agent
 5. Agent executes skill
@@ -288,7 +288,7 @@ jira_create_issue(
 ### Task Creation Rules
 
 - Sub-tasks are created under the current task
-- Scenario is specified for Skilled Agent lookup
+- Scenario is specified for Trained Agent lookup
 - Dependencies can reference sibling tasks or external tasks
 - WO Runtime tracks all created tasks for the task tree
 
@@ -344,4 +344,4 @@ Options:
 - [agent-spawning.md](agent-spawning.md) — How agents are spawned for tasks
 - [ide-integration.md](ide-integration.md) — How tasks appear in the IDE
 - [../user-guide/work-order-lifecycle.md](../user-guide/work-order-lifecycle.md) — Full WO lifecycle
-- [../agent-fabric/user-guide/skilled-agents.md](..//agent-fabric/user-guide/skilled-agents.md) — Skilled Agent definitions
+- [../agent-fabric/user-guide/trained-agents.md](..//agent-fabric/user-guide/trained-agents.md) — Trained Agent definitions

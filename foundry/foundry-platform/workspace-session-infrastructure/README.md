@@ -6,7 +6,7 @@
 
 Workspace Session Infrastructure provisions and manages the Kubernetes runtime for [Workspace Sessions](../concepts/workspace-session.md). When Session Management requests a session, this module spawns a pod on a Foundry-admin-provided cluster, applies workspace content layers, generates an accessible session URL, and reports readiness back to the control plane.
 
-Each session pod runs a single container supervised by a process manager. Inside that container: Coder Code Server (IDE), WO Runtime (execution daemon), Capable Agent binaries, and platform IDE extensions. Init containers apply Workshop/Workbench workspace content and Foundry admin overlays before the main container starts.
+Each session pod runs a single container supervised by a process manager. Inside that container: Coder Code Server (IDE), WO Runtime (execution daemon), Raw Agent binaries, and platform IDE extensions. Init containers apply Workshop/Workbench workspace content and Foundry admin overlays before the main container starts.
 
 Primary beneficiaries are Foundry admins (cluster configuration, image customization) and platform engineers (provisioning implementation). Builders experience the result as a browser-accessible IDE at a deterministic session URL.
 
@@ -45,7 +45,7 @@ Workspace content is applied in three layers at different times:
 
 | Layer | When applied | Source | Contents |
 |-------|--------------|--------|----------|
-| **1 — Platform base image** | Image build time | Platform release pipeline | Coder Code Server, WO Runtime binary, Capable Agent binaries, platform IDE extensions |
+| **1 — Platform base image** | Image build time | Platform release pipeline | Coder Code Server, WO Runtime binary, Raw Agent binaries, platform IDE extensions |
 | **2 — Workshop/Workbench specifics** | Session start (init container) | Workshop Definition Repo | `.devcontainer/` config, Scenarios, Skills |
 | **3 — Foundry admin additions** | Session start (overlay mount) | Foundry Definition Repo | `workspace-infrastructure/<workspace>/` custom tools, extensions, runtimes |
 
@@ -92,7 +92,7 @@ See [ACE overview](../../ace/README.md) for the full model.
 | [Work Order Runtime](../work-order-runtime/) | Runs inside session pod; exposes `/health` for readiness probes |
 | [Management](../management/) | Foundry settings include `workspace_infrastructure` cluster config |
 | [IDE](../ide/) | Extensions packaged into platform base image (Layer 1) |
-| [Agent Fabric](../agent-fabric/) | Capable Agent binaries included in base image |
+| [Agent Fabric](../agent-fabric/) | Raw Agent binaries included in base image |
 | Coder | Workspace provisioner and session URL proxy |
 
 ## Key Concepts
@@ -102,7 +102,7 @@ See [ACE overview](../../ace/README.md) for the full model.
 | Concept | What Session Infrastructure does with it |
 |---------|------------------------------------------|
 | [Workspace Session](../concepts/workspace-session.md) | Provisions the K8s pod, URL, and storage that constitute a session |
-| [Agent Model](../concepts/agent-model.md) | Ships Capable Agent binaries in the base image |
+| [Agent Model](../concepts/agent-model.md) | Ships Raw Agent binaries in the base image |
 | [Delegation](../concepts/delegation.md) | Session pod network policy allows egress to platform APIs for token exchange |
 
 ### Module-specific concepts

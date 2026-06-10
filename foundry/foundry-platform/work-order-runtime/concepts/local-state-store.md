@@ -62,7 +62,7 @@ CREATE TABLE tasks (
     executor_type TEXT NOT NULL,      -- agent | human
     sync_scope TEXT NOT NULL DEFAULT 'synced',  -- synced | local
     state TEXT NOT NULL,              -- blocked, ready, in_progress, completed, failed, cancelled
-    skilled_agent TEXT,
+    trained_agent TEXT,
     dependencies TEXT,                -- JSON array of task IDs
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     started_at DATETIME,
@@ -83,7 +83,7 @@ Running agent processes:
 CREATE TABLE agents (
     id TEXT PRIMARY KEY,              -- UUID
     task_id TEXT NOT NULL REFERENCES tasks(id),
-    capable_agent TEXT NOT NULL,
+    raw_agent TEXT NOT NULL,
     model TEXT NOT NULL,
     pid INTEGER,
     status TEXT NOT NULL,             -- starting, running, completed, failed

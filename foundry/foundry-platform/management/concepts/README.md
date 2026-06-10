@@ -23,7 +23,7 @@ This folder contains module-specific concept definitions for Foundry Management.
 | Concept | Definition |
 |---------|------------|
 | [Work Catalog Resolution](work-catalog-resolution.md) | Hierarchy resolution algorithm (Platform → Foundry → Workshop → Workbench → User) |
-| [Agent Recommender](agent-recommender.md) | Skilled Agent matching based on Scenario skill requirements |
+| [Agent Recommender](agent-recommender.md) | Trained Agent matching based on Scenario skill requirements |
 
 ### Integrations
 

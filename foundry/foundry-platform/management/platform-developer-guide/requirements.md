@@ -108,7 +108,7 @@ Workshop:
   foundry_id: string (fk)
   status: active | archived
   config:
-    default_capable_agents: string[]
+    default_raw_agents: string[]
     default_integrations: Integration[]
   created_at: timestamp
   updated_at: timestamp
@@ -157,7 +157,7 @@ Workbench:
   workshop_id: string (fk)
   status: provisioning | active | archived
   config:
-    capable_agents: string[]
+    raw_agents: string[]
     workRepoProjectKey: string   # Canonical work repository project key (Jira-backed in current adapter)
     github_org: string
     github_repos: string[]

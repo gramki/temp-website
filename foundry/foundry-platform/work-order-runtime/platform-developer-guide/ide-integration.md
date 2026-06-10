@@ -126,7 +126,7 @@ wo-runtime:
 
 ### Agent Capability Matrix
 
-| Capable Agent | Chat | Terminal |
+| Raw Agent | Chat | Terminal |
 |---------------|------|----------|
 | Cursor Agent | ✓ | ✓ |
 | Copilot | ✓ | ✓ |
@@ -196,8 +196,8 @@ Example payload:
   "workOrderId": "WO-1234",
   "taskId": "TASK-892",
   "taskTitle": "Implement auth service",
-  "skilledAgent": "foundry-dev-agent",
-  "capableAgent": "cursor-agent",
+  "trainedAgent": "foundry-dev-agent",
+  "rawAgent": "cursor-agent",
   "model": "claude-4",
   "status": "waiting_for_input",
   "statusSnippet": "Approve PR?",
@@ -236,7 +236,7 @@ Opening from Employed Agents Panel or task tree uses the same tab type keyed by 
 When the builder starts an agent without task context (WOR-FR-0037):
 
 ```
-IDE → POST /agent-sessions/start { capableAgentHint? }
+IDE → POST /agent-sessions/start { rawAgentHint? }
 WO Runtime → { requiresAssociation: true, choices: [ { taskId, title, woId }, ... , { personalWork: true } ] }
 IDE → shows picker
 Builder selects → POST /agent-sessions/{id}/associate { taskId | personalWork: true }
@@ -289,7 +289,7 @@ WO Runtime → {
     { type: "external", label: "Jira", url: "https://..." }
   ],
   settings: {
-    defaultCapableAgent: "cursor-agent",
+    defaultRawAgent: "cursor-agent",
     workContextSyncIntervalSeconds: 60,
     approvalPolicy: "inline"
   }
@@ -319,7 +319,7 @@ IDE → POST /catalog/scenarios/scaffold
   }
 WO Runtime → {
   folderPath: "user-work-catalog/work-catalog/build/feature/development/scenarios/my-feature-flow/",
-  files: ["scenario.yaml", "skilled-agent.yaml", "agent-skill.md"]
+  files: ["scenario.yaml", "trained-agent.yaml", "agent-skill.md"]
 }
 ```
 

@@ -1,6 +1,6 @@
 # Scenario Authoring
 
-Scenario Authoring is the IDE journey for scaffolding new Scenario definitions in the builder's **user work catalog** — including ingress and internal trigger types, optional parent/override relationships, and starter files for the skilled agent.
+Scenario Authoring is the IDE journey for scaffolding new Scenario definitions in the builder's **user work catalog** — including ingress and internal trigger types, optional parent/override relationships, and starter files for the trained agent.
 
 ## What it is
 
@@ -34,7 +34,7 @@ The **Create Scenario** command creates a directory under:
 ```
 user-work-catalog/work-catalog/{track}/{oi-type}/{workspace}/scenarios/{scenario-name}/
 ├── scenario.yaml        # Scenario definition (ingress or internal)
-├── skilled-agent.yaml   # Skilled Agent manifest draft
+├── trained-agent.yaml   # Trained Agent manifest draft
 └── agent-skill.md       # Agent skill instructions draft
 ```
 

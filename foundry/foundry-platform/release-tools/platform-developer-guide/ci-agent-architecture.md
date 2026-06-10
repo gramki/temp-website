@@ -34,7 +34,7 @@ Pipeline Trigger (commit, PR, schedule, manual)
     │   ├── Clone/checkout workspace
     │   │
     │   ├── Resolve agent configuration
-    │   │   ├── Capable Agent (from Workbench CI config)
+    │   │   ├── Raw Agent (from Workbench CI config)
     │   │   ├── Skills (from Workbench CI config)
     │   │   └── Model (from Workbench CI config)
     │   │
@@ -63,7 +63,7 @@ CI agents consume Agent Fabric definitions but bypass WO Runtime:
 │  Agent Fabric                                                                │
 │                                                                              │
 │  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────────┐    │
-│  │  Capable Agents    │  │  Skill Registry    │  │  Access Gateway    │    │
+│  │  Raw Agents        │  │  Skill Registry    │  │  Access Gateway    │    │
 │  │  Registry          │  │                    │  │  (quota, routing)  │    │
 │  └─────────┬──────────┘  └─────────┬──────────┘  └─────────┬──────────┘    │
 └────────────┼──────────────────────┼──────────────────────────┼──────────────┘
@@ -78,7 +78,7 @@ CI agents consume Agent Fabric definitions but bypass WO Runtime:
 │  │  CI Agent Spawner                                                   │    │
 │  │                                                                     │    │
 │  │  • Reads Workbench CI config for agent settings                    │    │
-│  │  • Fetches Capable Agent spawn config from registry                │    │
+│  │  • Fetches Raw Agent spawn config from registry                    │    │
 │  │  • Fetches skills from Skill Registry                              │    │
 │  │  • Requests CI-scoped Delegation Token                             │    │
 │  │  • Spawns ephemeral agent process                                  │    │
@@ -101,7 +101,7 @@ Not involved:
 
 | Component | CI Usage |
 |-----------|----------|
-| **Capable Agent Registry** | Spawn configuration for agent processes |
+| **Raw Agent Registry** | Spawn configuration for agent processes |
 | **Skill Registry** | Skill packages (content, rules, templates) for injection |
 | **Access Gateway** | Model routing with quota enforcement |
 | **Delegation Token** | CI-scoped token for pipeline identity |
@@ -110,7 +110,7 @@ Not involved:
 
 | Component | Why Not |
 |-----------|---------|
-| **Skilled Agent manifests** | CI uses Workbench CI config, not WO-assigned agents |
+| **Trained Agent manifests** | CI uses Workbench CI config, not WO-assigned agents |
 | **Jira MCP** | CI does not interact with Jira WOs (separate concern) |
 | **Session-scoped credentials** | CI uses pipeline identity, not human delegation |
 
@@ -122,7 +122,7 @@ CI agent settings are defined in Workbench configuration:
 # workbench.yaml (excerpt)
 ci:
   agent:
-    capable_agent: cursor-agent    # Which agent to spawn
+    raw_agent: cursor-agent    # Which agent to spawn
     model: claude-sonnet           # Model for CI tasks
     skills:                        # Skills for CI agent
       - code-reviewer
@@ -238,7 +238,7 @@ pipeline_step:
 
 Both CI and WO Runtime agents share:
 
-- **Capable Agent Registry** — Same spawn configurations
+- **Raw Agent Registry** — Same spawn configurations
 - **Skill Registry** — Same skill packages (but CI uses subset)
 - **Access Gateway** — Same model routing and quota enforcement
 - **Delegation Token format** — Same format, different scopes
@@ -272,6 +272,6 @@ Despite architectural separation, implementation can share:
 ## Read Next
 
 - [ci/README.md](ci/README.md) — CI module overview
-- [../agent-fabric/platform-developer-guide/capable-agents.md](../../agent-fabric/platform-developer-guide/capable-agents.md) — Capable Agent registry
+- [../agent-fabric/platform-developer-guide/raw-agents.md](../../agent-fabric/platform-developer-guide/raw-agents.md) — Raw Agent registry
 - [../agent-fabric/platform-developer-guide/skill-registry.md](../../agent-fabric/platform-developer-guide/skill-registry.md) — Skill Registry
 - [../work-order-runtime/platform-developer-guide/agent-spawning.md](../../work-order-runtime/platform-developer-guide/agent-spawning.md) — WO Runtime spawning (for comparison)

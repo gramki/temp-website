@@ -1109,7 +1109,7 @@ This section consolidates unresolved decisions for the Foundry Platform team.
 
 2. **Should Foundry maintain a single harness or support multiple harnesses?**
    - Single harness simplifies implementation but limits flexibility
-   - Multiple harnesses match different Capable Agent interfaces but add maintenance burden
+   - Multiple harnesses match different Raw Agent interfaces but add maintenance burden
 
 3. **What is the minimum harness capability tier Foundry will support?**
    - Tier 1 only (app-server / agent-server) for full governance
@@ -1135,7 +1135,7 @@ This section consolidates unresolved decisions for the Foundry Platform team.
 
 ### Priority and Timeline
 
-7. **What is the priority order for Capable Agent adapter development?**
+7. **What is the priority order for Raw Agent adapter development?**
    - Suggested P0: Codex (Symphony compatibility), OpenHands (strongest open architecture)
    - Suggested P1: Cline (SDK embedding), Claude Code (Anthropic models)
    - Suggested P2: Goose (MCP-centric), Aider (terminal productivity)
@@ -1145,8 +1145,8 @@ This section consolidates unresolved decisions for the Foundry Platform team.
    - Forks allow faster iteration but create divergence risk
 
 9. **What is the target timeline for first harness integration?**
-   - Phase 1: Single harness proof-of-concept with one Capable Agent
-   - Phase 2: Adapter layer for second Capable Agent
+   - Phase 1: Single harness proof-of-concept with one Raw Agent
+   - Phase 2: Adapter layer for second Raw Agent
    - Phase 3: Full multi-harness support with fallback
 
 ### Ecosystem Dependencies

@@ -313,7 +313,7 @@ GET /api/v1/scenarios/{scenario_id}/recommendations
 {
   "recommendations": [
     {
-      "skilled_agent_id": "sa-full-stack-dev",
+      "trained_agent_id": "sa-full-stack-dev",
       "score": 0.95,
       "reasons": [
         "Skill coverage: 100%",
@@ -324,7 +324,7 @@ GET /api/v1/scenarios/{scenario_id}/recommendations
       "skills_missing": []
     },
     {
-      "skilled_agent_id": "sa-backend-dev",
+      "trained_agent_id": "sa-backend-dev",
       "score": 0.72,
       "reasons": [
         "Skill coverage: 67%",
@@ -442,7 +442,7 @@ GET /api/v1/scenarios/effective
   "scenario": {
     "name": "implement-feature",
     "spec": { ... },
-    "skilled_agent": { "ref": "sa-full-stack-dev", "fallback": "auto" }
+    "trained_agent": { "ref": "sa-full-stack-dev", "fallback": "auto" }
   },
   "source": "user",
   "source_id": "alice"

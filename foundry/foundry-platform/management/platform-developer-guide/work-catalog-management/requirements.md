@@ -9,7 +9,7 @@ This document specifies detailed implementation requirements for the Work Catalo
 | **Scenario** | Schema Service defines and validates Scenario YAML; Resolution Engine computes effective Scenarios |
 | **Track** | OI Workflows are Track-specific; schema includes `orchestration-item` field for Track binding |
 | **Workspace** | Scenarios are scoped to Workspace types; scope attribute (`workspace-ingress`/`workspace-internal`) controls invocability |
-| **Agent** | Agent Recommender matches Scenarios to suitable Skilled Agents |
+| **Agent** | Agent Recommender matches Scenarios to suitable Trained Agents |
 
 ## Architecture Overview
 
@@ -94,16 +94,16 @@ This document specifies detailed implementation requirements for the Work Catalo
 
 ### Agent Recommender
 
-**WCM-FR-0009:** The Agent Recommender SHALL recommend Skilled Agents for Scenario execution based on skill matching.
+**WCM-FR-0009:** The Agent Recommender SHALL recommend Trained Agents for Scenario execution based on skill matching.
 
 **WCM-FR-0010:** The Agent Recommender SHALL return a ranked list of agents with scores, skills matched, and skills missing.
 
 | Aspect | Detail |
 |--------|--------|
-| Responsibility | Recommend Skilled Agents for Scenario execution |
-| Input | Scenario definition, available Skilled Agents |
+| Responsibility | Recommend Trained Agents for Scenario execution |
+| Input | Scenario definition, available Trained Agents |
 | Output | Ranked list of recommended agents with scores |
-| Dependencies | Metadata Service (Skilled Agent definitions), Usage Analytics |
+| Dependencies | Metadata Service (Trained Agent definitions), Usage Analytics |
 
 ---
 
@@ -344,7 +344,7 @@ PR opened with work catalog change
 |-----------|-----------|---------|
 | Store OI Workflow | → Metadata | After sync |
 | Store Scenario | → Metadata | After sync |
-| Query Skilled Agents | ← Metadata | For recommendations |
+| Query Trained Agents | ← Metadata | For recommendations |
 | Query effective catalog | ← Metadata | For resolution |
 
 ---
@@ -446,7 +446,7 @@ def validate_workflow_references(workflow: dict, context: ValidationContext) -> 
 
 **WCM-FR-0017:** Scenario validation SHALL verify all skill references exist in the Skill Registry.
 
-**WCM-FR-0018:** Scenario validation SHALL verify referenced Skilled Agents exist for the specified workspace type.
+**WCM-FR-0018:** Scenario validation SHALL verify referenced Trained Agents exist for the specified workspace type.
 
 **WCM-FR-0019:** Scenario validation SHALL reject Orchestrator triggers for `workspace-internal` scope Scenarios.
 
@@ -465,12 +465,12 @@ def validate_scenario_references(scenario: dict, context: ValidationContext) -> 
                 if not skill_registry.skill_exists(skill_ref):
                     errors.append(f"Unknown skill reference: {skill_ref}")
     
-    # Validate Skilled Agent reference
-    skilled_agent_ref = scenario.get("spec", {}).get("skilled_agent", {}).get("ref")
-    if skilled_agent_ref:
+    # Validate Trained Agent reference
+    trained_agent_ref = scenario.get("spec", {}).get("trained_agent", {}).get("ref")
+    if trained_agent_ref:
         workspace_type = scenario.get("metadata", {}).get("workspace")
-        if not metadata_service.skilled_agent_exists(skilled_agent_ref, workspace_type):
-            errors.append(f"Unknown Skilled Agent: {skilled_agent_ref}")
+        if not metadata_service.trained_agent_exists(trained_agent_ref, workspace_type):
+            errors.append(f"Unknown Trained Agent: {trained_agent_ref}")
     
     # Validate scope constraints
     scope = scenario.get("metadata", {}).get("scope")
@@ -547,16 +547,16 @@ def get_recommendations(scenario_id: str, workspace_id: str) -> list[Recommendat
     # 2. Extract required skills
     required_skills = extract_required_skills(scenario)
     
-    # 3. Get available Skilled Agents for this workspace
-    skilled_agents = metadata_service.get_skilled_agents(workspace_id)
+    # 3. Get available Trained Agents for this workspace
+    trained_agents = metadata_service.get_trained_agents(workspace_id)
     
     # 4. Score each agent
     recommendations = []
-    for agent in skilled_agents:
+    for agent in trained_agents:
         score, reasons = score_agent(agent, required_skills, scenario)
         if score > 0:
             recommendations.append(Recommendation(
-                skilled_agent_id=agent.id,
+                trained_agent_id=agent.id,
                 score=score,
                 reasons=reasons,
                 skills_matched=list(set(required_skills) & set(agent.skills)),

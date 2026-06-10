@@ -36,6 +36,10 @@ outputs:
   - name: test_coverage_percentage
     type: number
 
+swarms:
+  - build-swarm
+coordinator-agent: build-swarm/feature-implementer
+
 required-skills:
   - code-generation
   - test-writing
@@ -105,6 +109,8 @@ The editor provides:
 | `scope` | Yes | `workspace-ingress` or `workspace-internal` |
 | `inputs` | No | Input parameters the scenario accepts |
 | `outputs` | No | Output values the scenario produces |
+| `swarms` | No | Swarms referenced by this scenario |
+| `coordinator-agent` | If swarms | Coordinator agent in `{swarm}/{agent}` notation |
 | `required-skills` | No | Skills needed to execute this scenario |
 | `tasks` | No | Task definitions (can be generated from skills) |
 
@@ -186,7 +192,7 @@ required-skills:
   - jira-integration     # Optional: update tickets
 ```
 
-The Agent Recommender uses this to suggest appropriate Skilled Agents.
+The Agent Recommender uses this to suggest appropriate Trained Agents from referenced Swarms.
 
 Browse available skills:
 - **Web App:** Resources > Skill Registry
@@ -212,8 +218,8 @@ tasks:
     depends-on: [implement]
 ```
 
-**Option B: Let the Skilled Agent determine tasks**
-Omit the `tasks` section; the assigned Skilled Agent creates tasks based on its skills and the inputs provided.
+**Option B: Let the Trained Agent determine tasks**
+Omit the `tasks` section; the assigned Trained Agent creates tasks based on its skills and the inputs provided.
 
 **Option C: Hybrid**
 Define key milestones as tasks; let the agent fill in details.

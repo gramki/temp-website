@@ -59,7 +59,7 @@ The module treats infrastructure as configuration. A Workbench is not just a dat
 | **Repositories** | Provisions and connects the 15 canonical repositories |
 | **Workforce** | Manages teams, roles, permissions |
 | **Scenario** | Schema, validation, storage via Work Catalog Management |
-| **Capable Agent** | Stores registry configuration (Agent Fabric uses it) |
+| **Raw Agent** | Stores registry configuration (Agent Fabric uses it) |
 
 ## Key Design Decisions
 

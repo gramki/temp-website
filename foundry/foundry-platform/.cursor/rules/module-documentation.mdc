@@ -340,7 +340,7 @@ Each decision should be:
 - **Followed by rationale** — why this choice over alternatives
 
 Example:
-- **Skills are packages, Skilled Agents are manifests.** Skills are published to registries for reuse; Skilled Agents are local configuration that reference skills, enabling customization without forking.
+- **Skills are packages, Trained Agents are manifests.** Skills are published to registries for reuse; Trained Agents are local configuration that reference skills, enabling customization without forking.
 
 ## Example Modules
 

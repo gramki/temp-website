@@ -32,7 +32,7 @@ Work Order Runtime is the execution engine — context compilation, agent spawni
 | Module / foundation | Integration |
 |---------------------|-------------|
 | [Orchestrator](..//orchestrator/platform-developer-guide/) | Creates Work Orders; receives completion notifications |
-| [Agent Fabric](..//agent-fabric/platform-developer-guide/) | Skills, Capable Agents, gateway policy |
+| [Agent Fabric](..//agent-fabric/platform-developer-guide/) | Skills, Raw Agents, gateway policy |
 | [Management](..//management/platform-developer-guide/) | Workbench provisioning; Scenario resolution |
 
 ## Related documentation

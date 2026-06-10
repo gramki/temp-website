@@ -106,7 +106,7 @@ knowledge_context:
     - related-prs.md
 ```
 
-How this context reaches the agent depends on the Capable Agent:
+How this context reaches the agent depends on the Raw Agent:
 
 | Agent | Injection method |
 |-------|------------------|

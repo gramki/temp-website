@@ -83,7 +83,7 @@ Fill in the Workbench creation form:
 | `product_code` | Yes | Unique identifier within the Workshop (e.g., "checkout") |
 | `description` | Yes | Brief description of the product |
 | `github_org` | Yes | GitHub organization (existing or new) |
-| `capable_agents` | No | Capable Agents to enable (defaults inherited from Workshop) |
+| `raw_agents` | No | Raw Agents to enable (defaults inherited from Workshop) |
 
 Example request payload:
 
@@ -94,7 +94,7 @@ Example request payload:
   "product_code": "checkout",
   "description": "Customer checkout and payment processing",
   "config": {
-    "capable_agents": ["cursor-agent", "copilot"],
+    "raw_agents": ["cursor-agent", "copilot"],
     "github_org": "acme-retail"
   }
 }
@@ -201,7 +201,7 @@ workshop-{workshop-slug}/
         │   │   ├── .devcontainer/
         │   │   ├── scenarios/
         │   │   │   └── catalog.yaml
-        │   │   └── skilled-agents/
+        │   │   └── trained-agents/
         │   ├── ux-design/
         │   ├── development/
         │   ├── qa/
@@ -217,7 +217,7 @@ name: {Workbench name}
 product_code: {product_code}
 description: {description}
 
-capable_agents:
+raw_agents:
   - cursor-agent
   - copilot
 
@@ -312,7 +312,7 @@ Once active, the Workbench Admin can:
 1. **Add code repositories** — Link existing repos to the Workbench
 2. **Configure additional integrations** — Add Figma, TestRail, etc.
 3. **Define Scenarios** — Create scenario definitions in workspace folders
-4. **Define Skilled Agents** — Create agent manifests for scenarios
+4. **Define Trained Agents** — Create agent manifests for scenarios
 5. **Create first Product Intent** — Start the product evolution cycle
 
 ---

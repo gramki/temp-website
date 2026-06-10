@@ -25,7 +25,7 @@ Pipeline step starts
     ├── Clone/checkout workspace
     │
     ├── Resolve agent configuration
-    │   ├── Capable Agent (from Workbench CI config)
+    │   ├── Raw Agent (from Workbench CI config)
     │   ├── Skills (from Workbench CI config)
     │   └── Model (from Workbench CI config)
     │
@@ -47,7 +47,7 @@ The harness consumes Agent Fabric components but bypasses WO Runtime entirely:
 
 | Agent Fabric Component | CI Usage |
 |------------------------|----------|
-| **Capable Agent Registry** | Spawn configuration for agent processes |
+| **Raw Agent Registry** | Spawn configuration for agent processes |
 | **Skill Registry** | Skill packages for injection (CI-appropriate subset) |
 | **Access Gateway** | Model routing with quota enforcement |
 | **Delegation Token Service** | CI-scoped tokens for pipeline identity |
@@ -68,14 +68,14 @@ What the harness does **not** use:
 | **Release Tools** | Owns the CI Agent Harness; spawns and manages CI agents |
 | **Agent Fabric** | Provides registries and gateway consumed by harness |
 | **WO Runtime** | Not involved — independent lifecycle |
-| **Workbench config** | Defines CI agent settings (capable agent, skills, model) |
+| **Workbench config** | Defines CI agent settings (raw agent, skills, model) |
 
 CI agent configuration in Workbench:
 
 ```yaml
 ci:
   agent:
-    capable_agent: cursor-agent
+    raw_agent: cursor-agent
     model: claude-sonnet
     skills:
       - code-reviewer
@@ -87,7 +87,7 @@ ci:
 
 | ACE Concept | Foundry Platform Realization |
 |-------------|------------------------------|
-| [Agent Model](../../concepts/agent-model.md) | CI spawns Capable Agents with injected Skills |
+| [Agent Model](../../concepts/agent-model.md) | CI spawns Raw Agents with injected Skills |
 | Build Track | CI pipelines serve the Build Track |
 | [Release Workspace](../../ace/workspaces/release.md) | CI executes in Release context |
 

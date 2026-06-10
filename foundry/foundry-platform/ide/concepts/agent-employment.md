@@ -10,7 +10,7 @@ Agent employment is **not** configured when creating a manual task. The Create T
 
 1. **From a Human Task tab** — `[+ Employ Agent]` spawns an agent pre-associated with that task. The agent inherits task and WO context from the [Knowledge Hierarchy](../../concepts/knowledge-hierarchy.md) (Foundry → Workshop → Workbench → WO → task instructions).
 
-2. **From anywhere in the IDE** — Starting a general agent session (command palette, Capable Agent CLI, etc.) triggers the **task association prompt**: "Associate this agent session with:" listing in-progress Human Tasks and **Personal Work**. The system never auto-assigns to a pending Human Task.
+2. **From anywhere in the IDE** — Starting a general agent session (command palette, Raw Agent CLI, etc.) triggers the **task association prompt**: "Associate this agent session with:" listing in-progress Human Tasks and **Personal Work**. The system never auto-assigns to a pending Human Task.
 
 The builder may always choose **Personal Work** for unstructured exploration. That routes the session to the [Personal Work](../../concepts/personal-work.md) WO (workspace-local, not synced to Jira).
 
@@ -18,7 +18,7 @@ The builder may always choose **Personal Work** for unstructured exploration. Th
 
 There is no formal sequential/parallel orchestration at the platform level. A builder may employ multiple agents on one Human Task over time; WO Runtime tracks each session independently (and may record each as a workspace-local child task for graph uniformity). Coordination is the builder's workflow.
 
-Context provision (free text, files, code references) depends on what the employed **Capable Agent** supports — not a fixed IDE form at employment time.
+Context provision (free text, files, code references) depends on what the employed **Raw Agent** supports — not a fixed IDE form at employment time.
 
 ### Quota and delegation
 
@@ -30,7 +30,7 @@ All employed agents use the builder's [Delegation](../../concepts/delegation.md)
 |--------|----------------|
 | **IDE** | `[+ Employ Agent]`, association prompt UI, opens Agent Output Tabs |
 | **WO Runtime** | Spawns agents, associates sessions, records local tasks (WOR-FR-0036, WOR-FR-0037) |
-| **Agent Fabric** | Skilled Agent resolution at spawn time (from task Scenario or default for Personal Work) |
+| **Agent Fabric** | Trained Agent resolution at spawn time (from task Scenario or default for Personal Work) |
 
 ## ACE/UPIM alignment
 

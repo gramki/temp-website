@@ -13,7 +13,7 @@ Core sections:
 | **Workspace Info** | Workspace name, ID, type (e.g. Development, Product Specification), environment (dev / staging / prod) |
 | **Workbench Info** | Workbench name, team membership summary, product scope |
 | **Quick Links** | Related Git repos (Intent, Design, Code), external links (Jira, Confluence, dashboards) — open in browser or reveal in Explorer |
-| **WO Runtime Settings** | Session-scoped options: default capable agent, quota display, approval policies, work-context sync interval |
+| **WO Runtime Settings** | Session-scoped options: default raw agent, quota display, approval policies, work-context sync interval |
 
 The panel is **collapsible** in the sidebar (expand/collapse chevron). Default placement is above the Work Orders Panel so workspace context is visible before task navigation.
 

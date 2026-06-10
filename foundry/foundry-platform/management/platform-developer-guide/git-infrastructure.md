@@ -19,7 +19,7 @@ Configuration repositories managed by the Foundry Platform for declarative infra
 
 | Repository | Scope | Provisioned By | Provisioned When | Purpose |
 |------------|-------|----------------|------------------|---------|
-| `foundry-{id}/` | Foundry | Platform Admin | Foundry creation | Foundry metadata, Domain, Practices, Capable Agents, Work Catalog |
+| `foundry-{id}/` | Foundry | Platform Admin | Foundry creation | Foundry metadata, Domain, Practices, Raw Agents, Work Catalog |
 | `workshop-{id}/` | Workshop | Foundry Admin | Workshop creation | Workshop + Workbench config, Domain, Practices, Ontology, Workspaces, Work Catalog |
 
 ### User Work Catalog Repositories
@@ -64,7 +64,7 @@ GitHub Organization (one per Workshop or Foundry)
 │   │           ├── workflow.yaml        #         OI Workflow
 │   │           └── {workspace}/         #         Workspace-level
 │   │               └── scenarios/       #           Scenarios
-│   └── capable-agents.yaml              #   Foundry-level agent config
+│   └── raw-agents.yaml              #   Foundry-level agent config
 │
 ├── workshop-payments/                   # Workshop Definition Repository
 │   ├── workshop.yaml                    #   Workshop metadata
@@ -121,7 +121,7 @@ Foundry Definition Repo created with:
   - foundry.yaml (metadata)
   - domain/universal/ (empty)
   - practices/universal/ (empty)
-  - capable-agents.yaml (defaults)
+  - raw-agents.yaml (defaults)
   - README.md
 ```
 

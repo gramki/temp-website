@@ -185,7 +185,7 @@ The PM sees `spec-wo` in their Work Orders panel:
 1. **Claim WO:** PM accepts the assignment (or auto-assigned)
 2. **Session activation:** Orchestrator activates PM's Workspace Session (if configured)
 3. **WO Runtime starts:** Loads scenario `create-product-specification`
-4. **Agent spawns:** Skilled Agent with spec-writing capabilities
+4. **Agent spawns:** Trained Agent with spec-writing capabilities
 
 #### Step 4.2: Author Product Specification Document (PSD)
 

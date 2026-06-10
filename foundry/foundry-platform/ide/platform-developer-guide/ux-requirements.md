@@ -44,7 +44,7 @@ This document captures UX decisions and mockup requirements for the Foundry IDE,
   - Status badge: WAITING FOR INPUT (amber/pulsing) / WORKING (green) / COMPLETED (checkmark) / FAILED (red) / QUEUED (gray)
   - WO ID > Task ID (breadcrumb)
   - Task title
-  - Skilled Agent name (Capable Agent / Model)
+  - Trained Agent name (Raw Agent / Model)
   - Duration
   - For WAITING state: snippet of what the agent is waiting on
 - **IDE-UX-020:** A clear visual indicator SHALL distinguish agents waiting for user input from agents that are working autonomously.
@@ -74,7 +74,7 @@ This document captures UX decisions and mockup requirements for the Foundry IDE,
 ## Agent Output Tabs — Live (Chat Mode)
 
 - **IDE-UX-033:** Live agent output SHALL open as an editor tab with: task header bar + full chat transcript + input field.
-- **IDE-UX-034:** Task header bar SHALL show: Task ID, title, status badge, WO breadcrumb, Skilled Agent (Capable Agent / Model), skills used, start time, dependencies, and action buttons ([Back to Graph] [Pause] [Cancel]).
+- **IDE-UX-034:** Task header bar SHALL show: Task ID, title, status badge, WO breadcrumb, Trained Agent (Raw Agent / Model), skills used, start time, dependencies, and action buttons ([Back to Graph] [Pause] [Cancel]).
 - **IDE-UX-035:** Live chat tabs SHALL have a green left-border or banner: "LIVE — you can send messages".
 - **IDE-UX-036:** Chat transcript SHALL show chronological messages with sender label, timestamp, and message content.
 - **IDE-UX-037:** Agent approval prompts SHALL render inline with action buttons (e.g., [Approve] [Reject] [Ask question]).
@@ -113,7 +113,7 @@ This document captures UX decisions and mockup requirements for the Foundry IDE,
   - Depends on (multi-select from existing tasks in the WO)
 - **IDE-UX-054:** Manual tasks can be placed anywhere in the tree, including under Scenario-generated tasks. The parent-child placement is a structural relationship, not a dependency.
 - **IDE-UX-055:** Agent selection, model override, and I/O mode SHALL NOT be part of the task creation dialog. Agents are employed during task execution, not at creation time.
-- **IDE-UX-056:** A "Description" field SHALL accept free-text task instructions. The method of providing richer context (file attachments, code references, drag-drop) depends on the Capable Agent employed later.
+- **IDE-UX-056:** A "Description" field SHALL accept free-text task instructions. The method of providing richer context (file attachments, code references, drag-drop) depends on the Raw Agent employed later.
 - **IDE-UX-057:** Two submit actions: [Create] (adds to graph as pending) and [Create & Start] (adds to graph AND immediately transitions to In-Progress — builder is picking it up now).
 - **IDE-UX-058:** "Create & Start" SHALL work even with partially completed dependencies. Manual Human Tasks are not blocked by unmet dependencies — the builder takes responsibility for coordination.
 
@@ -161,7 +161,7 @@ Module concept: [Foundry Workspace Panel](../concepts/foundry-workspace-panel.md
 - **IDE-UX-079:** The panel SHALL display workspace metadata: name, ID, workspace type, and environment (dev / staging / prod).
 - **IDE-UX-080:** The panel SHALL display workbench metadata: workbench name, team summary, and product scope.
 - **IDE-UX-081:** A **Quick Links** subsection SHALL list related Git repositories and external links (Jira, Confluence, dashboards). Clicking a repo link SHALL reveal the path in Explorer or open the repo root; external links SHALL open in the browser.
-- **IDE-UX-082:** A **WO Runtime Settings** subsection SHALL expose session-scoped settings (default capable agent, quota summary, approval policies, work-context sync interval). Writable settings SHALL persist via WO Runtime for the active session.
+- **IDE-UX-082:** A **WO Runtime Settings** subsection SHALL expose session-scoped settings (default raw agent, quota summary, approval policies, work-context sync interval). Writable settings SHALL persist via WO Runtime for the active session.
 - **IDE-UX-083:** Collapse/expand state for the Foundry Workspace section SHALL persist for the builder across sessions (local IDE preference).
 - **IDE-UX-084:** When WO Runtime metadata is unavailable (degraded mode), the panel SHALL show a clear placeholder and retry affordance without blocking the Work Orders Panel.
 
@@ -181,7 +181,7 @@ Module concept: [Scenario Authoring](../concepts/scenario-authoring.md).
 - **IDE-UX-091:** Builders SHALL create scenarios via: (a) Command Palette — "Foundry: Create Scenario", (b) context menu on `user-work-catalog/` in Explorer — "Create Scenario".
 - **IDE-UX-092:** Create Scenario SHALL open a modal with fields: Scenario name (required), trigger type (Ingress / Internal), optional parent scenario (searchable catalog picker).
 - **IDE-UX-093:** Ingress SHALL map to `scope: workspace-ingress`; Internal SHALL map to `scope: workspace-internal`.
-- **IDE-UX-094:** On submit, the IDE SHALL scaffold `scenario.yaml`, `skilled-agent.yaml`, and `agent-skill.md` under `user-work-catalog/work-catalog/{track}/{oi-type}/{workspace}/scenarios/{name}/`.
+- **IDE-UX-094:** On submit, the IDE SHALL scaffold `scenario.yaml`, `trained-agent.yaml`, and `agent-skill.md` under `user-work-catalog/work-catalog/{track}/{oi-type}/{workspace}/scenarios/{name}/`.
 - **IDE-UX-095:** After scaffold, the IDE SHALL open `scenario.yaml` in the Scenario Editor and reveal the new folder in Explorer.
 - **IDE-UX-096:** Parent scenario selection SHALL be optional; when set, the scaffold SHALL include an `extends:` reference and copy applicable defaults without modifying the parent file.
 - **IDE-UX-097:** Create Scenario SHALL NOT require an active Work Order or Orchestration Item context.

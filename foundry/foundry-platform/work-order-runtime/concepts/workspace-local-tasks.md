@@ -34,7 +34,7 @@ Builders create manual tasks from the IDE:
 
 - **"+ Add Task"** in the task graph view, or **right-click WO → Create Task** in the sidebar.
 - Fields: title, description, parent task (anywhere in the tree), optional dependencies.
-- **No agent configuration at creation** — Skilled Agent, model, and I/O mode are chosen when the builder employs agents during execution.
+- **No agent configuration at creation** — Trained Agent, model, and I/O mode are chosen when the builder employs agents during execution.
 - **[Create]** — Adds task as pending/blocked per dependencies.
 - **[Create & Start]** — Adds task and transitions to In-Progress immediately; **manual Human Tasks may start with partially completed dependencies** — the builder assumes coordination responsibility.
 

@@ -29,7 +29,7 @@ workshop-{id}/
 │   ├── domain.yaml                   # Domain repo config
 │   ├── practices.yaml                # Practices repo config
 │   └── stakeholders.yaml             # Stakeholders registry config
-├── capable-agents.yaml               # Workshop-level Capable Agent overrides (optional)
+├── raw-agents.yaml               # Workshop-level Raw Agent overrides (optional)
 ├── workspaces/                       # Workshop-level workspaces (BASE - all 6 required)
 │   ├── product-specification/
 │   │   ├── workspace.yaml
@@ -38,9 +38,9 @@ workshop-{id}/
 │   │   ├── scenarios/
 │   │   │   ├── catalog.yaml
 │   │   │   ├── {scenario}.yaml
-│   │   │   └── {scenario}/           # Optional Skilled Agent for scenario
-│   │   │       └── skilled-agent/
-│   │   │           ├── agent.yaml    # Skilled Agent definition
+│   │   │   └── {scenario}/           # Optional Trained Agent for scenario
+│   │   │       └── trained-agent/
+│   │   │           ├── agent.yaml    # Trained Agent definition
 │   │   │           └── skills/       # Skills this agent uses
 │   │   ├── skills/
 │   │   │   ├── skills.yaml
@@ -57,7 +57,7 @@ workshop-{id}/
 │       ├── repositories.yaml         # Repo links (Intent, Design, Code)
 │       ├── integrations.yaml         # External tools (includes Jira WO project)
 │       ├── team.yaml                 # Team references
-│       ├── capable-agents.yaml       # Workbench-level Capable Agent overrides (optional)
+│       ├── raw-agents.yaml       # Workbench-level Raw Agent overrides (optional)
 │       ├── ontology/                 # Product structure, capabilities, features
 │       │   ├── capabilities.yaml
 │       │   ├── features.yaml
@@ -74,8 +74,8 @@ workshop-{id}/
 │           ├── development/
 │           │   ├── scenarios/
 │           │   │   ├── custom-scenario.yaml   # Added scenario
-│           │   │   └── custom-scenario/       # Skilled Agent for custom scenario
-│           │   │       └── skilled-agent/
+│           │   │   └── custom-scenario/       # Trained Agent for custom scenario
+│           │   │       └── trained-agent/
 │           │   │           └── agent.yaml
 │           │   └── skills/
 │           │       └── product-specific-skill/  # Added skill
@@ -573,24 +573,24 @@ Changes to `workbench.yaml`, `integrations.yaml`, etc. are reflected in the Foun
 
 ---
 
-## Capable Agents Configuration
+## Raw Agents Configuration
 
-Capable Agents are configured at three levels with inheritance (see [../agent-fabric/platform-developer-guide/capable-agents.md](..//agent-fabric/platform-developer-guide/capable-agents.md)):
+Raw Agents are configured at three levels with inheritance (see [../agent-fabric/platform-developer-guide/raw-agents.md](..//agent-fabric/platform-developer-guide/raw-agents.md)):
 
 ### Hierarchy
 
 ```
 Foundry (org-level) ← foundry.yaml
     │
-    └── Workshop (team-level) ← capable-agents.yaml
+    └── Workshop (team-level) ← raw-agents.yaml
             │
-            └── Workbench (product-level) ← capable-agents.yaml
+            └── Workbench (product-level) ← raw-agents.yaml
 ```
 
-### Workshop Level (`capable-agents.yaml`)
+### Workshop Level (`raw-agents.yaml`)
 
 ```yaml
-capable-agents:
+raw-agents:
   cursor-agent:
     enabled: true
     models:
@@ -602,10 +602,10 @@ capable-agents:
     enabled: false  # Disabled for this Workshop
 ```
 
-### Workbench Level (`workbenches/{product-code}/capable-agents.yaml`)
+### Workbench Level (`workbenches/{product-code}/raw-agents.yaml`)
 
 ```yaml
-capable-agents:
+raw-agents:
   cursor-agent:
     models:
       claude-opus:
@@ -620,17 +620,17 @@ capable-agents:
 
 ---
 
-## Skilled Agents
+## Trained Agents
 
-Skilled Agents are defined per (Workspace, Scenario). See [../agent-fabric/user-guide/skilled-agents.md](..//agent-fabric/user-guide/skilled-agents.md).
+Trained Agents are defined per (Workspace, Scenario). See [../agent-fabric/user-guide/trained-agents.md](..//agent-fabric/user-guide/trained-agents.md).
 
 ### Folder Structure
 
 ```
 workspaces/{workspace}/scenarios/{scenario}/
 ├── {scenario}.yaml           # Scenario definition
-└── skilled-agent/            # Optional - if scenario has agent automation
-    ├── agent.yaml            # Skilled Agent definition
+└── trained-agent/            # Optional - if scenario has agent automation
+    ├── agent.yaml            # Trained Agent definition
     └── skills/               # Skills this agent uses
         ├── skill-a/
         │   ├── SKILL.md
@@ -644,7 +644,7 @@ workspaces/{workspace}/scenarios/{scenario}/
 name: feature-implementation-agent
 description: Implements features based on specifications
 
-compatible-capable-agents:
+compatible-raw-agents:
   - agent: cursor-agent
     models:
       - claude-opus
@@ -659,7 +659,7 @@ guardrails:
   - require-tests-for-new-code
 ```
 
-If a Scenario does not have a `skilled-agent/` folder, tasks for that Scenario are queued for human completion.
+If a Scenario does not have a `trained-agent/` folder, tasks for that Scenario are queued for human completion.
 
 ---
 

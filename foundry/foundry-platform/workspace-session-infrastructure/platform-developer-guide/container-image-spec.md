@@ -15,7 +15,7 @@ Session Infrastructure ships a **single base image + workspace-type activation**
 |-----------|----------------|---------------|
 | Coder Code Server | `/usr/bin/code-server` | Platform release |
 | WO Runtime | `/opt/foundry/wo-runtime` | Work Order Runtime |
-| Capable Agent binaries | `/opt/foundry/agents/` | Agent Fabric |
+| Raw Agent binaries | `/opt/foundry/agents/` | Agent Fabric |
 | Platform IDE extensions | `/opt/foundry/extensions/` | IDE |
 | Process supervisor | `/usr/bin/supervisord` | Platform release |
 | Activation scripts | `/opt/foundry/activate-{type}.sh` | Session Infrastructure |
@@ -113,7 +113,7 @@ priority=20
 startsecs=5
 ```
 
-Capable Agent processes are spawned on demand by WO Runtime via supervisor API — not pre-started.
+Raw Agent processes are spawned on demand by WO Runtime via supervisor API — not pre-started.
 
 ## Health endpoint
 

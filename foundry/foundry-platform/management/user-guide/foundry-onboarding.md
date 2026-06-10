@@ -231,7 +231,7 @@ After completion, you are redirected to the Admin Console with suggested next st
 
 - Create your first Workshop
 - Invite team members
-- Configure Capable Agents
+- Configure Raw Agents
 - Complete remaining integrations
 
 ### 15. Verify completion notification (Platform Admin)

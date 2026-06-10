@@ -24,7 +24,7 @@ sequenceDiagram
     end
     WOR->>J: Poll for assigned WOs (via MCP)
     J-->>WOR: WO with root task
-    WOR->>WOR: Check Scenario for Skilled Agent
+    WOR->>WOR: Check Scenario for Trained Agent
     WOR->>EA: Spawn with harness
     EA->>J: Create sub-tasks (via MCP)
     EA->>AG: Model calls (HTTPS)
@@ -130,7 +130,7 @@ For each ready task:
 
 ```
 1. Read task's Scenario
-2. Check if Scenario has Skilled Agent
+2. Check if Scenario has Trained Agent
    ├── Yes → Spawn Employed Agent
    └── No → Surface in UI for human pickup
 3. If agent spawned:
@@ -142,16 +142,16 @@ For each ready task:
 5. Repeat until task tree complete
 ```
 
-### Skilled Agent Check
+### Trained Agent Check
 
-The WO Runtime checks for a Skilled Agent:
+The WO Runtime checks for a Trained Agent:
 
 ```
-Location: workspaces/{workspace-type}/scenarios/{scenario}/skilled-agent/agent.yaml
+Location: workspaces/{workspace-type}/scenarios/{scenario}/trained-agent/agent.yaml
 
 If exists:
   - Parse agent.yaml
-  - Select Capable Agent (first available)
+  - Select Raw Agent (first available)
   - Prepare harness
   - Spawn Employed Agent
   
@@ -223,7 +223,7 @@ After TASK-891 completes:
 
 ### Human Task Handoff
 
-Tasks without Skilled Agents:
+Tasks without Trained Agents:
 
 1. Task appears in web console work queue
 2. Task appears in IDE Work Orders Panel
@@ -329,7 +329,7 @@ Finds WO-567
 
 ```
 WO-567 root task (Scenario: implement-feature)
-├── Skilled Agent exists: feature-implementation-agent
+├── Trained Agent exists: feature-implementation-agent
 ├── WO Runtime prepares harness
 ├── WO Runtime spawns Cursor Agent with claude-opus
 └── Employed Agent starts execution
@@ -344,7 +344,7 @@ Skill creates sub-tasks via Jira MCP:
 ├── TASK-891: Implement backend API (scenario: implement-api)
 ├── TASK-892: Implement frontend component (scenario: implement-component)
 ├── TASK-893: Write tests (scenario: write-tests, depends: 891, 892)
-└── TASK-894: Update documentation (scenario: update-docs, no skilled agent)
+└── TASK-894: Update documentation (scenario: update-docs, no trained agent)
 ```
 
 ### Step 6: Sub-Task Execution
@@ -352,10 +352,10 @@ Skill creates sub-tasks via Jira MCP:
 ```
 WO Runtime processes ready tasks:
 
-TASK-891: Has Skilled Agent → Spawn agent → Execute → Complete
-TASK-892: Has Skilled Agent → Spawn agent → Execute → Complete
+TASK-891: Has Trained Agent → Spawn agent → Execute → Complete
+TASK-892: Has Trained Agent → Spawn agent → Execute → Complete
 TASK-893: Now ready → Spawn agent → Execute → Complete
-TASK-894: No Skilled Agent → Surface in UI
+TASK-894: No Trained Agent → Surface in UI
 
 Alice picks up TASK-894:
 ├── Opens documentation file
@@ -427,7 +427,7 @@ Access Gateway returns 429 (quota exceeded):
 - [Task](../../concepts/task.md) — Unit of work completed by human-agent teams
 - [Scenario](../../concepts/scenario.md) — Ingress contract defining what work a Workspace accepts
 - [Workspace Session](../../concepts/workspace-session.md) — Ephemeral development environment
-- [Agent Model](../../concepts/agent-model.md) — Three-tier hierarchy (Capable → Skilled → Employed)
+- [Agent Model](../../concepts/agent-model.md) — Three-tier hierarchy (Raw → Trained → Employed)
 - [Delegation](../../concepts/delegation.md) — Authority transfer from human to agent
 - [WO Runtime Daemon](../concepts/wo-runtime-daemon.md) — Coordinates WO execution (module-specific)
 - [Task Manager](../concepts/task-manager.md) — Manages task trees (module-specific)

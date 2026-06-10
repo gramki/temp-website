@@ -10,7 +10,7 @@ Every Workspace Session runs from a single platform-maintained base image. The i
 |-----------|---------|
 | **Coder Code Server** | Browser-accessible VS Code IDE |
 | **WO Runtime binary** | In-session execution daemon |
-| **Capable Agent binaries** | All platform-supported agent runtimes |
+| **Raw Agent binaries** | All platform-supported agent runtimes |
 | **Platform IDE extensions** | Foundry Work Orders panel, agent chat, terminal integration |
 | **Process supervisor** | supervisord managing Code Server, WO Runtime, and agent processes |
 | **Activation scripts** | Workspace-type-specific tooling invoked at session start |
@@ -68,7 +68,7 @@ Session start
 |--------|----------------|
 | **Session Infrastructure** | Defines image contents, build pipeline, activation scripts |
 | **IDE** | Specifies extensions packaged into Layer 1 |
-| **Agent Fabric** | Specifies Capable Agent binaries included |
+| **Agent Fabric** | Specifies Raw Agent binaries included |
 | **Work Order Runtime** | Specifies WO Runtime binary version and health endpoint |
 | **Release Tools** | Builds and publishes the image as part of platform release |
 

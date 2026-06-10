@@ -15,7 +15,7 @@ Each entry is a multi-line ("fat") row:
 | Status badge | `WAITING FOR INPUT`, `WORKING`, `COMPLETED`, `FAILED`, `QUEUED` |
 | WO > Task breadcrumb | e.g. `WO-1234 › TASK-892` or Personal Work |
 | Task title | Human-readable task name |
-| Skilled Agent | Label from manifest (Capable Agent / model) |
+| Trained Agent | Label from manifest (Raw Agent / model) |
 | Duration | Elapsed time |
 | Status snippet | For waiting agents — e.g. "Approve PR?" |
 
@@ -35,7 +35,7 @@ Clicking an entry opens the agent's **Agent Output Tab** in the main editor (liv
 |--------|----------------|
 | **IDE** | Renders the panel; handles search/sort/filter UX |
 | **WO Runtime** | Pushes `AgentSessionEvent` updates (WOR-FR-0038) |
-| **Agent Fabric** | Skilled Agent labels and Capable Agent metadata |
+| **Agent Fabric** | Trained Agent labels and Raw Agent metadata |
 
 ## ACE/UPIM alignment
 

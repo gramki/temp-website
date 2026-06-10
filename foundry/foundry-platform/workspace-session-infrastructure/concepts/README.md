@@ -22,7 +22,7 @@ This folder contains module-specific concept definitions for Workspace Session I
 | Platform Concept | Session Infrastructure Specialization |
 |------------------|---------------------------------------|
 | [Workspace Session](../../concepts/workspace-session.md) | Session Pod + URL + PVC = the session runtime |
-| [Agent Model](../../concepts/agent-model.md) | Capable Agent binaries ship in Platform Base Image |
+| [Agent Model](../../concepts/agent-model.md) | Raw Agent binaries ship in Platform Base Image |
 | [Workspace](../../ace/concepts.md#workspace) | Workspace type drives activation layer and resource defaults |
 
 ## Three-layer model

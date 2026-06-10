@@ -18,7 +18,7 @@ Foundry Settings (defaults)
 | Category | Purpose |
 |----------|---------|
 | `identity` | Authentication and user provisioning |
-| `agents` | Capable Agent configuration |
+| `agents` | Raw Agent configuration |
 | `integrations` | External tool connections |
 | `notifications` | Alert and notification channels |
 | `governance` | Compliance and audit settings |
@@ -113,7 +113,7 @@ description: Default role assigned to newly provisioned users
 
 ---
 
-## Capable Agent Settings
+## Raw Agent Settings
 
 Configuration for AI agents available in the Foundry.
 
@@ -137,7 +137,7 @@ schema_example:
 default: []
 mutable: true
 cascade: override
-description: List of Capable Agents enabled for this Foundry
+description: List of Raw Agents enabled for this Foundry
 ```
 
 ### agents.{agent_id}.api_key_ref
@@ -182,7 +182,7 @@ default:
   hourly_limit_requests: 0
 mutable: true
 cascade: sum  # Child quotas cannot exceed parent
-description: Usage quotas for this Capable Agent
+description: Usage quotas for this Raw Agent
 ```
 
 ### agents.default_fallback
@@ -634,7 +634,7 @@ This section maps settings categories to the Foundry Web App pages where they ar
 |-------------------|--------------|-------------|-------|
 | Work Catalog policy | [Foundry Work Catalogs Settings](../../foundry-web-app/platform-developer-guide/pages/foundry-settings/work-catalogs.md) | `/foundries/{foundryId}/settings/work-catalogs` | User catalog policy, Platform version |
 | Identity | TBD | `/foundries/{foundryId}/settings/identity` | Page spec pending |
-| Capable Agents | TBD | `/foundries/{foundryId}/settings/agents` | Page spec pending |
+| Raw Agents | TBD | `/foundries/{foundryId}/settings/agents` | Page spec pending |
 | Integrations | TBD | `/foundries/{foundryId}/settings/integrations` | Page spec pending |
 | Notifications | TBD | `/foundries/{foundryId}/settings/notifications` | Page spec pending |
 | Governance | TBD | `/foundries/{foundryId}/settings/governance` | Page spec pending |

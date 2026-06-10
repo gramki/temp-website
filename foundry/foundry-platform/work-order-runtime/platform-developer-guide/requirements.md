@@ -38,7 +38,7 @@ Module-specific concepts (internals):
 | **Workspace** | Runs within Workspace Sessions (Coder/K8s environments); does not create sessions |
 | **Work Order** | Attaches, schedules, and executes WOs within sessions |
 | **Task** | Manages task trees with dependencies and state transitions |
-| **Agent** | Spawns Employed Agents (runtime instances of Skilled Agents) |
+| **Agent** | Spawns Employed Agents (runtime instances of Trained Agents) |
 | **Scenario** | Reads Scenario definitions to determine task execution and agent assignment |
 | **Delegation** | Generates and provides Delegation Tokens to Employed Agents |
 
@@ -138,12 +138,12 @@ Module-specific concepts (internals):
 
 **WOR-FR-0007:** The Agent Spawner SHALL prepare harness and spawn Employed Agents for ready tasks.
 
-**WOR-FR-0008:** The Agent Spawner SHALL select a Capable Agent with fallback support.
+**WOR-FR-0008:** The Agent Spawner SHALL select a Raw Agent with fallback support.
 
 | Aspect | Detail |
 |--------|--------|
 | Responsibility | Prepare harness and spawn Employed Agents |
-| Input | Ready tasks with Skilled Agent definitions |
+| Input | Ready tasks with Trained Agent definitions |
 | Output | Running agent processes |
 | Dependencies | Skill Registry, Metadata Service, Gateway Policy |
 
@@ -198,7 +198,7 @@ CREATE TABLE tasks (
     scenario TEXT NOT NULL,
     agent_type TEXT NOT NULL,     -- human | ai-agent
     state TEXT NOT NULL,          -- blocked, ready, in_progress, completed, failed, cancelled
-    skilled_agent TEXT,
+    trained_agent TEXT,
     dependencies TEXT,            -- JSON array of task IDs
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     started_at DATETIME,
@@ -208,7 +208,7 @@ CREATE TABLE tasks (
 CREATE TABLE agents (
     id TEXT PRIMARY KEY,          -- UUID
     task_id TEXT NOT NULL REFERENCES tasks(id),
-    capable_agent TEXT NOT NULL,
+    raw_agent TEXT NOT NULL,
     model TEXT NOT NULL,
     pid INTEGER,
     status TEXT NOT NULL,         -- starting, running, completed, failed
@@ -285,7 +285,7 @@ CREATE INDEX idx_agents_task ON agents(task_id);
 |-------|-----------|
 | Get Scenario definition | Once per unique scenario per session |
 | Get Workspace configuration | Once at session start |
-| Get effective Skilled Agents | Once per unique scenario |
+| Get effective Trained Agents | Once per unique scenario |
 
 ### Agent Fabric Integration
 
@@ -391,29 +391,29 @@ def can_start_task(task) -> bool:
 
 ```python
 def start_task(task: Task):
-    # 1. Get Skilled Agent definition
+    # 1. Get Trained Agent definition
     scenario = metadata_service.get_scenario(task.scenario)
-    skilled_agent = scenario.skilled_agent
+    trained_agent = scenario.trained_agent
     
-    if not skilled_agent:
+    if not trained_agent:
         # Human task - mark ready in Jira, show in UI
         mark_human_task_ready(task)
         return
     
-    # 2. Select Capable Agent (with fallback)
-    capable_agent, model = select_capable_agent(skilled_agent)
+    # 2. Select Raw Agent (with fallback)
+    raw_agent, model = select_raw_agent(trained_agent)
     
     # 3. Prepare harness
-    harness = prepare_harness(task, skilled_agent, capable_agent, model)
+    harness = prepare_harness(task, trained_agent, raw_agent, model)
     
     # 4. Spawn agent process
-    pid = spawn_agent(capable_agent, harness)
+    pid = spawn_agent(raw_agent, harness)
     
     # 5. Record in local state
     db.insert("agents", {
         "id": uuid(),
         "task_id": task.id,
-        "capable_agent": capable_agent.id,
+        "raw_agent": raw_agent.id,
         "model": model,
         "pid": pid,
         "status": "running",
@@ -428,7 +428,7 @@ def start_task(task: Task):
 ### Harness Preparation
 
 ```python
-def prepare_harness(task, skilled_agent, capable_agent, model) -> Harness:
+def prepare_harness(task, trained_agent, raw_agent, model) -> Harness:
     # Environment variables
     env = {
         "FOUNDRY_WORKBENCH_ID": session.workbench_id,
@@ -439,7 +439,7 @@ def prepare_harness(task, skilled_agent, capable_agent, model) -> Harness:
         "FOUNDRY_TASK_KEY": task.id,
         "FOUNDRY_SCENARIO": task.scenario,
         "FOUNDRY_TASK_AGENT_TYPE": task.agent_type,
-        "FOUNDRY_CAPABLE_AGENT": capable_agent.id,
+        "FOUNDRY_RAW_AGENT": raw_agent.id,
         "FOUNDRY_AGENT_MODEL": model,
         "FOUNDRY_ACCESS_GATEWAY_URL": gateway_url
     }
@@ -448,7 +448,7 @@ def prepare_harness(task, skilled_agent, capable_agent, model) -> Harness:
     mcps = configure_mcps(task, session)
     
     # Skills (already installed at session start)
-    skills = get_installed_skills(skilled_agent.skills)
+    skills = get_installed_skills(trained_agent.skills)
     
     # Knowledge context
     context = merge_knowledge_context(
@@ -599,7 +599,7 @@ Response: { work_orders: [...], grouped_by_status: {...} }
 
 # Get agent chat tabs
 GET /api/panel/agents
-Response: { agents: [{ id, task, status, capable_agent }] }
+Response: { agents: [{ id, task, status, raw_agent }] }
 
 # Start task manually
 POST /api/tasks/{task_id}/start
@@ -734,7 +734,7 @@ Module concepts: [Workspace-Local Tasks](../concepts/workspace-local-tasks.md), 
 | Aspect | Detail |
 |--------|--------|
 | Panel scope | All employed agents in the session across all WOs |
-| Entry payload | WO ID, task ID, task title, skilled agent label, capable agent, model, duration, status snippet |
+| Entry payload | WO ID, task ID, task title, trained agent label, raw agent, model, duration, status snippet |
 
 **WOR-FR-0039:** WO Runtime SHALL provide the full task tree for a Work Order (including workspace-local tasks) to the IDE via the plugin protocol. Each node SHALL include: task ID, title, markdown description, state, `agentType` (`human | ai-agent`), agent summary (if any), duration, `sync_scope`, parent task ID, and dependency list. The IDE SHALL render parent-child as a folder-style tree; dependencies SHALL be shown inline on rows, not as graph edges.
 

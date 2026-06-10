@@ -99,8 +99,8 @@ spec:
       dependencies:
         - analyze-requirements
   
-  skilled_agent:
-    ref: sa-checkout-dev             # Team-specific Skilled Agent
+  trained_agent:
+    ref: sa-checkout-dev             # Team-specific Trained Agent
     fallback: auto
 ```
 
@@ -181,7 +181,7 @@ Work Catalog Management validates:
 │     • code-implementation ───────────────────────────────── ✓ Exists│
 │     • test-writing ──────────────────────────────────────── ✓ Exists│
 │     • checkout-domain-knowledge ─────────────────────────── ✓ Exists│
-│  7. Check Skilled Agent reference:                                  │
+│  7. Check Trained Agent reference:                                  │
 │     • sa-checkout-dev ───────────────────────────────────── ✓ Exists│
 │  8. Check task dependencies (no cycles) ─────────────────── ✓ Pass  │
 │                                                                      │
@@ -516,7 +516,7 @@ GET /api/v1/scenarios/scenario-uuid-123/recommendations?workspace_id=checkout-de
 
 #### Step 7.2: Score Available Agents
 
-Work Catalog Management evaluates Skilled Agents:
+Work Catalog Management evaluates Trained Agents:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -557,7 +557,7 @@ WO Runtime spawns the recommended agent:
 
 ```
 Selected: sa-checkout-dev
-Capable Agent: cursor-agent
+Raw Agent: cursor-agent
 Model: claude-opus
 
 Harness prepared:

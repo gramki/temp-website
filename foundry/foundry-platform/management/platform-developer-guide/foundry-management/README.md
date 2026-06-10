@@ -97,7 +97,7 @@ The Foundry Definition Repo stores organization-wide configuration:
 | `foundry.yaml` | Foundry metadata |
 | `domain/` | Foundry-level domain knowledge (universal + workspace-specific) |
 | `practices/` | Foundry-level practices (universal + workspace-specific) |
-| `capable-agents.yaml` | Foundry-level Capable Agent configuration |
+| `raw-agents.yaml` | Foundry-level Raw Agent configuration |
 
 Domain and Practices at Foundry level provide the base knowledge layer that cascades to all Workshops and Workbenches.
 
@@ -145,11 +145,11 @@ Foundry Admins configure their Foundry through settings. Settings cascade to Wor
 
 Foundry connects to **Olympus Cipher** via OAuth 2.0 or SAML federation.
 
-### Capable Agents
+### Raw Agents
 
 | Setting | Description |
 |---------|-------------|
-| `agents.enabled` | List of enabled Capable Agents |
+| `agents.enabled` | List of enabled Raw Agents |
 | `agents.{agent}.api_key_ref` | Reference to credential in secrets store |
 | `agents.{agent}.models` | Enabled models for this agent |
 | `agents.default_fallback` | Default fallback behavior |
@@ -201,7 +201,7 @@ The Foundry Admin Console is a section of the Foundry Web App accessible to Foun
 | **Dashboard** | Foundry health, usage metrics, alerts |
 | **Workshops** | List, create, configure Workshops |
 | **Teams** | Manage teams, roles, permissions (via Team Management) |
-| **Capable Agents** | Enable/disable agents, configure credentials |
+| **Raw Agents** | Enable/disable agents, configure credentials |
 | **Integrations** | Connect external tools (GitHub, Jira, etc.) |
 | **Quotas** | View quotas, current usage |
 | **Settings** | All Foundry-level settings |
@@ -215,7 +215,7 @@ The Foundry Admin Console is a section of the Foundry Web App accessible to Foun
 | `foundry.settings.write` | Modify Foundry settings |
 | `foundry.workshops.create` | Create Workshops |
 | `foundry.teams.manage` | Manage teams and roles |
-| `foundry.agents.configure` | Configure Capable Agents |
+| `foundry.agents.configure` | Configure Raw Agents |
 | `foundry.integrations.manage` | Manage external integrations |
 | `foundry.audit.read` | View audit logs |
 

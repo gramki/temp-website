@@ -4,16 +4,16 @@ This document captures open questions and implementation details needed for a se
 
 ## 1. Data Model / Schemas
 
-### Capable Agent Registration Schema
+### Raw Agent Registration Schema
 
 **Questions:**
-- What is the exact YAML schema for `capable-agents.yaml` at each level (Foundry/Workshop/Workbench)?
+- What is the exact YAML schema for `raw-agents.yaml` at each level (Foundry/Workshop/Workbench)?
 - How are credential references validated at parse time?
 - How is the enabled/disabled cascade computed and cached?
 
-**Deliverable:** JSON Schema or TypeScript types for Capable Agent configuration.
+**Deliverable:** JSON Schema or TypeScript types for Raw Agent configuration.
 
-### Skilled Agent Definition Schema
+### Trained Agent Definition Schema
 
 **Questions:**
 - What is the exact schema for `agent.yaml`?
@@ -129,7 +129,7 @@ This document captures open questions and implementation details needed for a se
 
 ---
 
-## 3. Capable-Agent-Specific Spawning
+## 3. Raw-Agent-Specific Spawning
 
 ### Cursor Agent
 
@@ -526,7 +526,7 @@ This document captures open questions and implementation details needed for a se
 
 ### Medium Priority (Required for production)
 
-6. All Capable Agent spawn specifications
+6. All Raw Agent spawn specifications
 7. Access Gateway API
 8. Error handling policies
 9. Observability metrics

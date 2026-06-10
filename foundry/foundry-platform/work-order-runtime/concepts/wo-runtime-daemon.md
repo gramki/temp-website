@@ -10,7 +10,7 @@ Every Workspace Session runs a WO Runtime Daemon. The daemon is the execution co
 2. **Task tree management** — Building and maintaining the task tree for each attached WO
 3. **Scheduling** — Identifying ready tasks across **all attached WOs in parallel**; tasks wait only when blocked (dependencies, `blocked` state, or agent concurrency limits)
 4. **Agent spawning** — Preparing harnesses and spawning Employed Agents for agent tasks
-5. **Human task surfacing** — Making tasks without Skilled Agents visible in the IDE
+5. **Human task surfacing** — Making tasks without Trained Agents visible in the IDE
 6. **Completion tracking** — Detecting task completion and updating state
 7. **Notification** — Reporting WO completion to the Orchestrator via Atropos (`/{foundry-id}/foundry.wo-runtime.*`)
 

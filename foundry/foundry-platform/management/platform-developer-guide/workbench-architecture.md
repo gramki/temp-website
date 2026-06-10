@@ -244,9 +244,9 @@ For unsupported tools:
 
 ---
 
-## Capable Agents Configuration
+## Raw Agents Configuration
 
-Capable Agents (whitelisted frontier models/agent systems) are managed hierarchically. See [../../agent-fabric/platform-developer-guide/capable-agents.md](../../agent-fabric/platform-developer-guide/capable-agents.md).
+Raw Agents (whitelisted frontier models/agent systems) are managed hierarchically. See [../../agent-fabric/platform-developer-guide/raw-agents.md](../../agent-fabric/platform-developer-guide/raw-agents.md).
 
 ### Hierarchy
 
@@ -264,14 +264,14 @@ Foundry (org-level defaults)
 |------|----------|
 | **Enable/disable** | Disabled at higher level = disabled for all lower levels |
 | **Credentials** | Resolved upward: Workbench → Workshop → Foundry (first found) |
-| **Models** | Configured per Capable Agent at each level |
+| **Models** | Configured per Raw Agent at each level |
 
 ### Workbench Configuration
 
-In `workbenches/{product-code}/capable-agents.yaml`:
+In `workbenches/{product-code}/raw-agents.yaml`:
 
 ```yaml
-capable-agents:
+raw-agents:
   cursor-agent:
     models:
       claude-opus:
@@ -279,7 +279,7 @@ capable-agents:
           api-key: ${PROJECT_ANTHROPIC_API_KEY}
 ```
 
-### Available Capable Agents (Examples)
+### Available Raw Agents (Examples)
 
 | Agent | Type | Provider |
 |-------|------|----------|
@@ -320,4 +320,4 @@ Workbenches reference these shared repositories; they don't own them.
 - [../user-guide/workbench-provisioning.md](../user-guide/workbench-provisioning.md) — Provisioning guide
 - [workshop-repository.md](workshop-repository.md) — Workshop Definition Repository structure
 - [services/metadata-service.md](services/metadata-service.md) — Metadata Service specification
-- [../../agent-fabric/platform-developer-guide/capable-agents.md](../../agent-fabric/platform-developer-guide/capable-agents.md) — Capable Agents configuration
+- [../../agent-fabric/platform-developer-guide/raw-agents.md](../../agent-fabric/platform-developer-guide/raw-agents.md) — Raw Agents configuration

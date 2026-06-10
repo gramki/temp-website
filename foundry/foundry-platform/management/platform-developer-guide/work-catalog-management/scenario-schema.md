@@ -65,9 +65,11 @@ spec:
       outputs:                       # Task-specific outputs
         - <output-mapping>
   
-  skilled_agent:                     # Optional: preferred Skilled Agent
-    ref: <skilled-agent-id>
-    fallback: auto                   # auto | fail | specific-agent
+  swarms:                            # Optional: referenced Swarms
+    - <swarm-name>
+  
+  coordinator_agent:                 # Required if swarms specified
+    ref: <swarm>/<agent>             # Always explicit: {swarm}/{trained-agent}
   
   guardrails:                        # Optional: execution constraints
     max_duration: <duration>
@@ -168,12 +170,21 @@ Reference types:
 | `inputs` | array | No | Input mappings for this task |
 | `outputs` | array | No | Output mappings from this task |
 
-### spec.skilled_agent
+### spec.swarms
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `ref` | string | No | Preferred Skilled Agent ID |
-| `fallback` | string | No | `auto` (recommend), `fail`, or specific agent ID |
+| `swarms` | array | No | List of Swarm names referenced by this Scenario |
+
+Swarms are organizational units containing Trained Agents. Scenarios reference Swarms rather than individual agents. See [Swarm concept](../../../agent-fabric/concepts/swarm.md).
+
+### spec.coordinator_agent
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `ref` | string | If swarms specified | Coordinator agent in `{swarm}/{trained-agent}` notation; always explicit |
+
+The coordinator agent is always explicitly specified — it is not recommended or elected at runtime.
 
 ### spec.guardrails
 
@@ -262,9 +273,12 @@ spec:
       dependencies:
         - create-pr
   
-  skilled_agent:
-    ref: sa-full-stack-dev
-    fallback: auto
+  swarms:
+    - build-swarm
+    - review-swarm
+  
+  coordinator_agent:
+    ref: build-swarm/feature-implementer
   
   guardrails:
     max_duration: 8h
@@ -409,7 +423,9 @@ spec:
 | `tasks` must have at least one | "Scenario must have at least one task" |
 | Task `dependencies` must reference existing tasks | "Unknown task dependency: {name}" |
 | Agent tasks must have `skills` | "Agent task missing skills: {name}" |
-| `skilled_agent.ref` must exist if specified | "Unknown Skilled Agent: {ref}" |
+| `swarms` entries must reference visible Swarms | "Unknown Swarm: {name}" |
+| `coordinator_agent.ref` must be a valid `{swarm}/{agent}` in a referenced Swarm | "Unknown coordinator agent: {ref}" |
+| `coordinator_agent` required if `swarms` specified | "Coordinator agent required when swarms are referenced" |
 | No circular dependencies in tasks | "Circular dependency detected: {path}" |
 
 → See [validation-rules.md](validation-rules.md) for comprehensive validation specification.

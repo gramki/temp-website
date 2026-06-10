@@ -11,7 +11,7 @@ The Work Catalog defines what work a Foundry can execute and how it flows throug
 
 Without standardized schemas and consistent validation, each Foundry would invent its own formats, making cross-Workspace coordination impossible and agent recommendations unreliable.
 
-Work Catalog Management ensures that every OI Workflow and Scenario in the platform follows a standard structure. When an admin creates either artifact, this subsystem validates that it's well-formed, that referenced scenarios and skills exist, and that the definition can actually be executed. When WO Runtime needs to spawn an agent, this subsystem recommends which Skilled Agent is best suited for the job.
+Work Catalog Management ensures that every OI Workflow and Scenario in the platform follows a standard structure. When an admin creates either artifact, this subsystem validates that it's well-formed, that referenced scenarios and skills exist, and that the definition can actually be executed. When WO Runtime needs to spawn an agent, this subsystem recommends which Trained Agent is best suited for the job.
 
 Primary beneficiaries are:
 - **Platform/Foundry Admins** (who define OI Workflows with confidence)
@@ -25,7 +25,7 @@ Primary beneficiaries are:
 - **Schema Definition** — Define and version canonical YAML schemas for OI Workflows and Scenarios
 - **Validation Logic** — Validate content against schemas and cross-references (OI→Scenario linkage, skill references)
 - **Hierarchy Resolution** — Compute effective Work Catalog at any scope (Platform → Foundry → Workshop → Workbench → User)
-- **Agent Recommendations** — Match Scenarios to suitable Skilled Agents based on skill requirements
+- **Agent Recommendations** — Match Scenarios to suitable Trained Agents based on skill requirements
 - **User Catalog Activation** — Manage user-level catalog activation (session flag, user profile setting)
 - **Sync Coordination** — Coordinate Git sync to Metadata Service registry
 
@@ -142,13 +142,13 @@ Response: {
 
 ### Agent Recommender
 
-Suggests Skilled Agents for Scenario execution based on required skills:
+Suggests Trained Agents for Scenario execution based on required skills:
 
 ```
 GET /api/v1/scenarios/{id}/recommendations
 Response: {
   "recommendations": [
-    { "skilled_agent_id": "sa-code-impl", "score": 0.95, "reason": "Has required skills" }
+    { "trained_agent_id": "sa-code-impl", "score": 0.95, "reason": "Has required skills" }
   ]
 }
 ```
@@ -181,7 +181,7 @@ Scenarios have a `scope` field that determines their visibility and invocation c
 | **Skill** | Validates skill references; uses skills for agent matching |
 | **Workspace** | Scenario schema scopes scenarios to Workspace types |
 | **Task** | Schema defines task types (agent, human) and structure |
-| **Skilled Agent** | Recommends Skilled Agents based on Scenario requirements |
+| **Trained Agent** | Recommends Trained Agents based on Scenario requirements |
 | **Work Catalog** | Manages the full hierarchy and resolution algorithm |
 
 ## Key Design Decisions
@@ -230,4 +230,4 @@ Scenarios have a `scope` field that determines their visibility and invocation c
 - [../services/workshop-sync.md](../services/workshop-sync.md) — How artifacts are synced to Metadata Service
 - [../../orchestrator/README.md](../../../orchestrator/README.md) — How Orchestrator consumes OI Workflows
 - [../../work-order-runtime/README.md](../../../work-order-runtime/README.md) — How WO Runtime consumes Scenarios
-- [../../agent-fabric/user-guide/skilled-agents.md](../../../agent-fabric/user-guide/skilled-agents.md) — Skilled Agent definitions
+- [../../agent-fabric/user-guide/trained-agents.md](../../../agent-fabric/user-guide/trained-agents.md) — Trained Agent definitions

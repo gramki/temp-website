@@ -120,8 +120,8 @@ Both stages apply the same rules; PR validation prevents most issues before they
 | Rule ID | Rule | Severity | Message |
 |---------|------|----------|---------|
 | SC-030 | Skill references exist in Skill Registry | Error | "Unknown skill: {skill}" |
-| SC-031 | `skilled_agent.ref` exists in Skilled Agent registry | Error | "Unknown Skilled Agent: {ref}" |
-| SC-032 | `skilled_agent.ref` has required skills | Warning | "Skilled Agent '{ref}' missing skill: {skill}" |
+| SC-031 | `trained_agent.ref` exists in Trained Agent registry | Error | "Unknown Trained Agent: {ref}" |
+| SC-032 | `trained_agent.ref` has required skills | Warning | "Trained Agent '{ref}' missing skill: {skill}" |
 | SC-033 | Input `type: reference` uses valid reference type | Warning | "Unknown reference type: {type}" |
 
 ### Guardrail Rules

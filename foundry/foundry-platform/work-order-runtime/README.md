@@ -13,10 +13,10 @@ Primary beneficiaries are builders who work in Workspace Sessions (developers, P
 ## What this module does
 
 - **Context compilation** — resolve and assemble the context a Work Order needs from the knowledge hierarchy
-- **Agent spawning** — spawn Employed Agents from Skilled Agent definitions with full harness (environment, tools, skills, knowledge, delegation)
+- **Agent spawning** — spawn Employed Agents from Trained Agent definitions with full harness (environment, tools, skills, knowledge, delegation)
 - **Task tree management** — manage task trees with dependencies, state transitions, and completion tracking
 - **Jira integration** — use Jira as the system of record for Work Orders and Tasks via MCP
-- **Human-task surfacing** — identify Tasks without Skilled Agents, surface them in the web console and IDE
+- **Human-task surfacing** — identify Tasks without Trained Agents, surface them in the web console and IDE
 - **Session-local execution** — execute tasks, spawn agents, and manage work inside a provisioned session pod
 - **Management-plane agent** — acknowledge liveness, send heartbeats, and honor stop/drain commands from Session Management
 - **IDE integration** — VS Code plugin for Work Orders Panel, agent chat tabs, and terminal windows
@@ -27,7 +27,7 @@ Primary beneficiaries are builders who work in Workspace Sessions (developers, P
 - **Does not route orchestration items** — Orchestrator routes items across Workspaces
 - **Does not enforce cross-Workspace gates** — Orchestrator evaluates gate conditions
 - **Does not decide what Work Order to create next** — Orchestrator's workflow engine handles this
-- **Does not manage Capable Agents or Skills** — Agent Fabric provides the registry and policy
+- **Does not manage Raw Agents or Skills** — Agent Fabric provides the registry and policy
 - **Does not provision Workbenches** — Management module handles provisioning
 - **Does not create or lifecycle-manage sessions** — [Workspace Session Management](../workspace-session-management/README.md) owns session lifecycle; [Workspace Session Infrastructure](../workspace-session-infrastructure/README.md) provisions pods
 
@@ -159,8 +159,8 @@ WO Runtime builds agent context by merging knowledge from multiple levels:
 
 | Concept | WO Runtime Role |
 |---------|-----------------|
-| **Capable Agent** | Selected based on Skilled Agent definition, with auto-fallback |
-| **Skilled Agent** | Read from Scenario definition (local manifest) |
+| **Raw Agent** | Selected based on Trained Agent definition, with auto-fallback |
+| **Trained Agent** | Read from Scenario definition (local manifest) |
 | **Skills** | Installed from [Skill Registry](../agent-fabric/platform-developer-guide/skill-registry.md) at session start |
 | **Employed Agent** | Spawned by WO Runtime with delegation token |
 | **Gateway Policy** | All model calls routed through configured LLM gateway |
@@ -208,7 +208,7 @@ WO Runtime accesses Jira through **Jira MCP Server**.
 | [Workspace Session Management](../workspace-session-management/README.md) | WO Runtime acks liveness, sends heartbeats, receives stop/drain |
 | [Workspace Session Infrastructure](../workspace-session-infrastructure/README.md) | Pod and image that WO Runtime runs inside |
 | [Orchestrator](../orchestrator/README.md) | Assigns WOs; receives completion notifications |
-| [Agent Fabric](../agent-fabric/README.md) | Skills, Capable Agents, delegation policy |
+| [Agent Fabric](../agent-fabric/README.md) | Skills, Raw Agents, delegation policy |
 
 ## Open Questions
 
@@ -218,7 +218,7 @@ WO Runtime accesses Jira through **Jira MCP Server**.
 - Knowledge caching — how often to refresh from Workshop Definition Repo
 - **Control plane strategy** — Build custom vs. extend Symphony vs. extend OpenHands?
 - **Agent adapter architecture** — Per-agent adapters vs. unified protocol?
-- **Priority Capable Agents** — Which agents to support first?
+- **Priority Raw Agents** — Which agents to support first?
 
 → See [platform-developer-guide/design-discussions/control-plane-and-agent-interfaces.md](platform-developer-guide/design-discussions/control-plane-and-agent-interfaces.md) for options and trade-offs
 
@@ -268,7 +268,7 @@ These concepts describe WO Runtime internals:
 - [../workspace-session-management/README.md](../workspace-session-management/README.md) — session lifecycle control plane
 - [../workspace-session-infrastructure/README.md](../workspace-session-infrastructure/README.md) — session pod provisioning
 - [../orchestrator/README.md](../orchestrator/README.md) — WO creation and routing
-- [../agent-fabric/README.md](../agent-fabric/README.md) — Agent infrastructure (Skills, Capable Agents)
+- [../agent-fabric/README.md](../agent-fabric/README.md) — Agent infrastructure (Skills, Raw Agents)
 - [../management/README.md](../management/README.md) — Workbench provisioning
 - [../management/platform-developer-guide/workshop-repository.md](../management/platform-developer-guide/workshop-repository.md) — Workshop Definition Repository structure
 - [../../ace/concepts.md](../../ace/concepts.md) — Work Order, Scenario, Task, Agent definitions

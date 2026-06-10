@@ -53,7 +53,7 @@ Triggered when `POST /agent-sessions/start` returns `requiresAssociation: true`.
 
 ### Create Task dialog
 
-Fields only: title, description, parent task, dependencies. Buttons: Cancel, Create, Create & Start. No Skilled Agent or model fields — see [Agent Employment](../concepts/agent-employment.md).
+Fields only: title, description, parent task, dependencies. Buttons: Cancel, Create, Create & Start. No Trained Agent or model fields — see [Agent Employment](../concepts/agent-employment.md).
 
 ## Extension packaging
 
@@ -189,7 +189,7 @@ foundry catalog dry-run my-scenario.yaml
     │   └── Agent calls are recorded, not executed
     └── Report:
         ├── Resolved task tree
-        ├── Skill → Capable Agent bindings
+        ├── Skill → Raw Agent bindings
         └── Estimated execution path
 ```
 

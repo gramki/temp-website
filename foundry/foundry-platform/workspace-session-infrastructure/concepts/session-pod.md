@@ -22,7 +22,7 @@ When Session Management requests provisioning, Session Infrastructure creates a 
 │  │  workspace (single container)                                        │ │
 │  │  supervisord → code-server (8080)                                    │ │
 │  │              → wo-runtime (9090)                                     │ │
-│  │              → capable-agent processes (on demand)                   │ │
+│  │              → raw-agent processes (on demand)                       │ │
 │  └─────────────────────────────────────────────────────────────────────┘ │
 │                                                                           │
 │  volumes:                                                                 │
@@ -75,7 +75,7 @@ The single `workspace` container runs supervisord as PID 1:
 |---------|------|----------------|
 | `code-server` | 8080 | autorestart=true |
 | `wo-runtime` | 9090 | autorestart=true |
-| `capable-agent-*` | — | on-demand, managed by WO Runtime via supervisor API |
+| `raw-agent-*` | — | on-demand, managed by WO Runtime via supervisor API |
 
 A WO Runtime crash restarts only that process — Code Server continues serving the IDE. Container-level OOM kills both; K8s restarts the pod with PVC intact.
 

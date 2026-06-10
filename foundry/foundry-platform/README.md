@@ -12,7 +12,7 @@ Engineering documentation for the **Foundry Platform** — the implementation th
 |--------|--------|-------|
 | **Foundry Management** | [management/](management/README.md) | Admin plane — Validation, configuration services, Work Catalog Management, Workbenches, repositories, teams, tenancy |
 | **Foundry IDE** | [ide/](ide/README.md) | Builder-facing interface — workspace-specific views |
-| **Agent Fabric** | [agent-fabric/](agent-fabric/README.md) | Agent infrastructure — Skill Registry, Capable Agents, quota, gateway policy |
+| **Agent Fabric** | [agent-fabric/](agent-fabric/README.md) | Agent infrastructure — Skill Registry, Raw Agents, quota, gateway policy |
 | **Work Order Runtime** | [work-order-runtime/](work-order-runtime/README.md) | In-session execution — task management, agent spawning, management-plane agent |
 | **Foundry Orchestrator** | [orchestrator/](orchestrator/README.md) | Coordination — route orchestration items per Track, create Workspace Work Orders, invoke Governance Scenarios, enforce gates |
 | **Workspace Session Infrastructure** | [workspace-session-infrastructure/](workspace-session-infrastructure/README.md) | Session runtime infra — K8s pod provisioning, container images, Coder integration, networking, multi-tenant isolation |

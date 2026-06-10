@@ -24,9 +24,9 @@ This document explains what a Workbench is, how it is structured, and how it sup
 
 A Foundry Workbench is like a physical workbench in a repair shop: a dedicated surface where skilled workers (human or agent) perform specialized tasks using the right tools for the job.
 
-Just as a bike repair workbench has dedicated workspaces — one for precision wheel truing, another for hydraulic work, a third for drivetrain cleaning — a Foundry Workbench has six standard Workspaces: Product Specification, UX Design, Development, QA, Release, and Governance. Each Workspace has its own tools (Scenarios), its own specialists (Skilled Agents), and its own part of the product to focus on.
+Just as a bike repair workbench has dedicated workspaces — one for precision wheel truing, another for hydraulic work, a third for drivetrain cleaning — a Foundry Workbench has six standard Workspaces: Product Specification, UX Design, Development, QA, Release, and Governance. Each Workspace has its own tools (Scenarios), its own specialists (Trained Agents), and its own part of the product to focus on.
 
-The Workbench itself provides the shared infrastructure: the bench surface (repositories), the tool storage (Capable Agents), the parts catalog (Ontology), and the work tracking system (Jira integration). Workers move between Workspaces as needed, but each Workspace maintains its specialized focus.
+The Workbench itself provides the shared infrastructure: the bench surface (repositories), the tool storage (Raw Agents), the parts catalog (Ontology), and the work tracking system (Jira integration). Workers move between Workspaces as needed, but each Workspace maintains its specialized focus.
 
 ---
 
@@ -57,7 +57,7 @@ A Workbench contains these key components:
 | **GitHub Organization** | Code storage with Intent, Design, and Code repositories |
 | **Jira Integration** | Work Orders, Operations, Feedback tracking |
 | **Olympus Weave** | Deployment publishing and tracking |
-| **Capable Agents** | AI agents available for automation |
+| **Raw Agents** | AI agents available for automation |
 | **Standard Workspaces** | Six specialized areas for product work |
 | **Team** | Managers and Members with defined permissions |
 
@@ -111,9 +111,9 @@ Both Managers and Members receive **repo-level** GitHub access. Organization-lev
 
 ---
 
-## Capable Agents
+## Raw Agents
 
-Capable Agents are AI systems (IDE agents, CLI agents) that can perform automated work in Scenarios. They are configured hierarchically:
+Raw Agents are AI systems (IDE agents, CLI agents) that can perform automated work in Scenarios. They are configured hierarchically:
 
 ```
 Foundry (organization defaults)
@@ -155,7 +155,7 @@ After understanding this architecture, you should be able to:
 - Describe how Workspaces organize different types of work
 - Identify which repositories store what content
 - Understand the team permission model
-- Configure Capable Agents appropriately for your product
+- Configure Raw Agents appropriately for your product
 
 ---
 
@@ -165,7 +165,7 @@ After understanding this architecture, you should be able to:
 - [foundry-settings.md](foundry-settings.md) — Settings that cascade to Workbenches
 - [../platform-developer-guide/workbench-architecture.md](../platform-developer-guide/workbench-architecture.md) — Implementation details
 - [../platform-developer-guide/workshop-repository.md](../platform-developer-guide/workshop-repository.md) — Workshop Definition Repository structure
-- [../../agent-fabric/user-guide/skilled-agents.md](../../agent-fabric/user-guide/skilled-agents.md) — Skilled Agents conceptual overview
+- [../../agent-fabric/user-guide/trained-agents.md](../../agent-fabric/user-guide/trained-agents.md) — Trained Agents conceptual overview
 - [README.md](README.md) — Foundry Management user guide overview
 
 ---
@@ -177,5 +177,5 @@ After understanding this architecture, you should be able to:
 | Cannot see Workbench in UI | Permissions not granted | Contact Workshop Admin to verify team membership |
 | Repositories not appearing | GitHub App not installed | Verify Foundry GitHub App is installed on the org |
 | Jira issues not syncing | Label filter misconfigured | Verify `foundry-workbench-{workbenchId}` labels in Admin Console |
-| Capable Agent not available | Disabled at higher level | Check Foundry/Workshop settings for agent configuration |
+| Raw Agent not available | Disabled at higher level | Check Foundry/Workshop settings for agent configuration |
 | Cannot add Scenario Catalog | Not a Manager | Request Manager role from Workbench Admin |

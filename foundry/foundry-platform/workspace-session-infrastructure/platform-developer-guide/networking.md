@@ -95,7 +95,7 @@ Ports and exposure boundaries:
 |------|---------|-------------------|
 | **8080** | Code Server | Yes — via session URL |
 | **9090** | WO Runtime API | No — pod-internal and cluster-internal only |
-| **—** | Capable Agent processes | No — localhost only |
+| **—** | Raw Agent processes | No — localhost only |
 
 WO Runtime reaches the management plane (Session Management, Orchestrator events) via **cluster-external HTTPS endpoints** — not through the session URL.
 

@@ -4,14 +4,14 @@
 >
 > This document presents design options for evaluation and discussion. No option is prescribed. Decisions captured here remain open until explicitly resolved and documented in implementation specifications.
 
-This document presents design options for WO Runtime's control plane architecture and Capable Agent integration patterns. It does not prescribe solutions — it calls for decisions.
+This document presents design options for WO Runtime's control plane architecture and Raw Agent integration patterns. It does not prescribe solutions — it calls for decisions.
 
 ## Context
 
-WO Runtime must orchestrate Capable Agents to execute Work Orders. This requires:
+WO Runtime must orchestrate Raw Agents to execute Work Orders. This requires:
 
 1. **A control plane** — manages Jira polling, workspace lifecycle, tool governance, agent spawning, and completion reporting
-2. **Agent interfaces** — protocols for communicating with diverse Capable Agents (Codex, OpenHands, Goose, Cline, Aider, etc.)
+2. **Agent interfaces** — protocols for communicating with diverse Raw Agents (Codex, OpenHands, Goose, Cline, Aider, etc.)
 
 Multiple open-source projects solve parts of this problem. The question is whether to build, adopt, or extend.
 
@@ -21,7 +21,7 @@ Multiple open-source projects solve parts of this problem. The question is wheth
 |-------------|-----------|
 | Jira integration | Poll for WOs, manage task state, report completion |
 | Workspace lifecycle | Create/manage Coder-based Workspace Sessions |
-| Agent spawning | Start Capable Agents with harness (env, tools, skills, knowledge, delegation) |
+| Agent spawning | Start Raw Agents with harness (env, tools, skills, knowledge, delegation) |
 | Tool governance | Bound what agents can do; approval workflows |
 | Multi-agent support | Different agents have different interfaces (app-server, SDK, API, CLI) |
 | Fallback | When preferred agent unavailable, try alternatives |
@@ -95,7 +95,7 @@ Reference: [Symphony Overview](https://openai.com/index/open-source-codex-orches
 - Symphony's architecture may not match Foundry's module boundaries exactly
 - External dependency on OpenAI's open-source maintenance
 
-**Key question:** Can Symphony's session/tool/event contracts be generalized to other Capable Agents?
+**Key question:** Can Symphony's session/tool/event contracts be generalized to other Raw Agents?
 
 The Symphony documentation suggests this is expected:
 > "OpenCode or Claude Code would need an adapter that preserves the same session, tool, sandbox, and event contracts."
@@ -168,7 +168,7 @@ Combine elements from multiple sources:
 
 ## Agent Interface Patterns
 
-Capable Agents expose different interfaces. WO Runtime must support multiple patterns.
+Raw Agents expose different interfaces. WO Runtime must support multiple patterns.
 
 ### Interface Types
 
@@ -183,7 +183,7 @@ Capable Agents expose different interfaces. WO Runtime must support multiple pat
 
 ### Interface Preference
 
-When a Capable Agent supports multiple interfaces, which should WO Runtime use?
+When a Raw Agent supports multiple interfaces, which should WO Runtime use?
 
 **Preference order (richest control first):**
 
@@ -201,7 +201,7 @@ When a Capable Agent supports multiple interfaces, which should WO Runtime use?
 
 ### Option 1: Per-Agent Adapter Pattern
 
-Each Capable Agent gets a dedicated adapter implementing a common interface:
+Each Raw Agent gets a dedicated adapter implementing a common interface:
 
 ```
 WO Runtime Control Plane
@@ -259,7 +259,7 @@ Foundry Agent Protocol (FAP)
 └── Status: health, progress, errors
 ```
 
-Each Capable Agent gets a "FAP wrapper" that translates:
+Each Raw Agent gets a "FAP wrapper" that translates:
 
 ```
 WO Runtime
@@ -333,9 +333,9 @@ else:
 
 ---
 
-## Capable Agent Candidate Matrix
+## Raw Agent Candidate Matrix
 
-| Capable Agent | Provider | Primary Interface | Other Interfaces | Model Neutrality | Open Source | Production Ready |
+| Raw Agent | Provider | Primary Interface | Other Interfaces | Model Neutrality | Open Source | Production Ready |
 |---------------|----------|-------------------|------------------|------------------|-------------|------------------|
 | **Codex** | OpenAI | App-server (JSON-RPC) | CLI | OpenAI-only | Partial (CLI) | Yes |
 | **OpenHands** | OpenHands | Agent Server (REST/WS) | SDK, CLI | High | Yes | Yes |
@@ -357,7 +357,7 @@ else:
 
 ## Fallback Considerations
 
-When the preferred Capable Agent is unavailable, WO Runtime falls back to alternatives. With heterogeneous interfaces, fallback has additional complexity:
+When the preferred Raw Agent is unavailable, WO Runtime falls back to alternatives. With heterogeneous interfaces, fallback has additional complexity:
 
 ### Same-Interface Fallback
 
@@ -414,7 +414,7 @@ This section consolidates all unresolved decisions and open questions from this 
    | C: Extend OpenHands | Medium | Shared/forked | Good (workspace abstraction) |
    | D: Hybrid | Medium-High | Complex | Depends on choices |
 
-2. **Can Symphony's session/tool/event contracts be generalized to other Capable Agents?**
+2. **Can Symphony's session/tool/event contracts be generalized to other Raw Agents?**
    - Symphony documentation suggests adapters for OpenCode or Claude Code are expected
    - Requires investigation of actual interface boundaries
 
@@ -436,9 +436,9 @@ This section consolidates all unresolved decisions and open questions from this 
    - Tier 1 only (app-server/agent-server) maximizes control
    - Including Tier 2/3 (SDK/CLI) expands agent coverage but complicates governance
 
-### Priority Capable Agents
+### Priority Raw Agents
 
-6. **What is the priority order for Capable Agent support?**
+6. **What is the priority order for Raw Agent support?**
 
    | Suggested Priority | Agent | Rationale |
    |----------|-------|-----------|
@@ -462,7 +462,7 @@ This section consolidates all unresolved decisions and open questions from this 
 8. **What fallback strategy should WO Runtime implement?**
    - Interface-preserving: Only fall back within same interface tier
    - Capability-degrading: Fall back to any available agent
-   - Configurable: Let Skilled Agent manifest specify fallback rules
+   - Configurable: Let Trained Agent manifest specify fallback rules
 
 9. **Should fallback preserve interface tier or prioritize availability?**
    - Interface-preserving: consistent UX but may exhaust options faster
@@ -494,6 +494,6 @@ This section consolidates all unresolved decisions and open questions from this 
 
 ## Read Next
 
-- [capable-agents.md](..//agent-fabric/platform-developer-guide/capable-agents.md) — Capable Agent registry and expanded candidate set
+- [raw-agents.md](..//agent-fabric/platform-developer-guide/raw-agents.md) — Raw Agent registry and expanded candidate set
 - [agent-spawning.md](agent-spawning.md) — Current spawning architecture
 - [requirements.md](requirements.md) — WO Runtime implementation requirements

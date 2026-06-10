@@ -50,7 +50,7 @@ Does WO Runtime run as a sidecar container alongside Code Server, or as a proces
 
 ### **DECIDED: Single container with process supervision**
 
-Code Server, WO Runtime, and Capable Agent processes run in one container managed by supervisord. WO Runtime and agents need direct access to the same workspace files; shared filesystem is the natural model. Supervisord handles independent process restarts (`autorestart=true`) without killing Code Server.
+Code Server, WO Runtime, and Raw Agent processes run in one container managed by supervisord. WO Runtime and agents need direct access to the same workspace files; shared filesystem is the natural model. Supervisord handles independent process restarts (`autorestart=true`) without killing Code Server.
 
 **Rationale:** Simpler pod spec and networking. One container, one set of resource limits, one image. Process-level crashes handled by supervisor; container-level OOM handled by K8s pod restart with PVC intact.
 

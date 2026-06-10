@@ -84,7 +84,7 @@ foundry workspace tasks logs TASK-890 [--follow]
 
 ### agent
 
-Spawn and manage Capable Agents.
+Spawn and manage Raw Agents.
 
 ```
 foundry workspace agent spawn --task TASK-890 [--agent codex] [--skill skill-name]
