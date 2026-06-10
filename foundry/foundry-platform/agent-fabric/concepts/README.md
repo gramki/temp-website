@@ -14,9 +14,16 @@ This folder contains module-specific concept definitions for Agent Fabric. These
 
 | Concept | Definition |
 |---------|------------|
-| [Capable Agent](capable-agent.md) | Platform-layer agent system with orchestration capabilities |
-| [Skilled Agent](skilled-agent.md) | Declarative manifest binding skills and guardrails to a Capable Agent |
+| [Raw Agent](raw-agent.md) | Platform-layer agent system with orchestration capabilities |
+| [Trained Agent](trained-agent.md) | Declarative manifest binding skills and guardrails to a Raw Agent |
 | [Employed Agent](employed-agent.md) | Runtime instance spawned in a Workspace Session with delegated authority |
+
+### Organizational Model
+
+| Concept | Definition |
+|---------|------------|
+| [Swarm Terminology](swarm-terminology.md) | Terminology standard and architectural position for Swarms, Teams, Workforce, and execution topologies |
+| [Swarm Discussion Transcript](swarm-terminology-discussion-transcript.md) | Full verbatim ChatGPT discussion that produced the Swarm terminology paper |
 
 ### Infrastructure
 
@@ -31,9 +38,9 @@ These module concepts elaborate on concepts defined in [../concepts/](../../conc
 
 | Platform Concept | Module Elaborations |
 |------------------|---------------------|
-| [Agent Model](../../concepts/agent-model.md) | [Capable Agent](capable-agent.md), [Skilled Agent](skilled-agent.md), [Employed Agent](employed-agent.md) |
+| [Agent Model](../../concepts/agent-model.md) | [Raw Agent](raw-agent.md), [Trained Agent](trained-agent.md), [Employed Agent](employed-agent.md) |
 | [Delegation](../../concepts/delegation.md) | Token handling in [Employed Agent](employed-agent.md) |
-| [Skill](../../concepts/skill.md) | Skill references in [Skilled Agent](skilled-agent.md) |
+| [Skill](../../concepts/skill.md) | Skill references in [Trained Agent](trained-agent.md) |
 
 ## Read Next
 

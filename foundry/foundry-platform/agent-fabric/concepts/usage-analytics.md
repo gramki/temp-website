@@ -14,8 +14,8 @@ Every model call from an Employed Agent generates a usage event that flows throu
 | **Work Order** | Delegation Token | Which orchestration item |
 | **Task** | Delegation Token | Which specific work |
 | **Workbench** | Delegation Token | Which product |
-| **Skilled Agent** | Request metadata | Which agent definition |
-| **Capable Agent** | Request metadata | Which agent system |
+| **Trained Agent** | Request metadata | Which agent definition |
+| **Raw Agent** | Request metadata | Which agent system |
 | **Model** | Request/response | Which LLM |
 | **Tokens** | Response | Input/output token counts |
 | **Cost** | Computed | USD based on model pricing |
