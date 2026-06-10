@@ -66,7 +66,7 @@ Artifact registration returns canonical `artifactUri` per [../../foundry-work-pl
 | **Orchestrator** | Queries for OI Workflows, Workbench config |
 | **WO Runtime** | Queries for Scenarios, Skills, Workspace config |
 | **Web App** | Queries for display and user actions |
-| **Agent Fabric** | Queries for Capable Agent, Skill registry config |
+| **Agent Fabric** | Queries for Raw Agent, Skill registry config |
 
 Architecture:
 

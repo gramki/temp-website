@@ -9,7 +9,7 @@ Scenarios are not free-form prompts. They are defined entities that specify:
 - **Inputs** — What data the Scenario receives (parent item, artifacts, context)
 - **Outputs** — What artifacts and state changes the Scenario produces
 - **Triggers** — What events can invoke the Scenario
-- **Skilled Agent** — What agent capabilities are required
+- **Swarms** — Which agent Swarms are referenced, and the coordinator agent
 - **Tasks** — What work structure gets created
 
 When a Scenario triggers, it creates one or more [Tasks](task.md). Tasks are the unit of work completed by the Human–Agent Team. An agent doesn't just "run" — it executes a Scenario that creates Tasks, with clear boundaries on what it can do and produce.
@@ -58,7 +58,8 @@ Scenarios are ACE Workspace definitions. They are not UPIM entities; UPIM suppli
 - [Task](task.md) — What Scenarios create when they execute
 - [Work Order](work-order.md) — Instantiation of a Scenario for execution
 - [Work Catalog](work-catalog.md) — Where Scenarios are stored and resolved
-- [Agent Model](agent-model.md) — Skilled Agents referenced in Scenario definitions
+- [Agent Model](agent-model.md) — Raw, Trained, and Employed Agents referenced via Swarms
+- [Swarm](../agent-fabric/concepts/swarm.md) — Organizational units referenced in Scenario definitions
 - [Skill](skill.md) — Capabilities required by Scenarios
 
 ## Further reading

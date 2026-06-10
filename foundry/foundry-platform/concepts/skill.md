@@ -1,6 +1,6 @@
 # Skill
 
-A Skill is a reusable capability package for agents — a published bundle of tools, prompts, and behaviors that can be installed into Workspace Sessions and referenced by Skilled Agent definitions.
+A Skill is a reusable capability package for agents — a published bundle of tools, prompts, and behaviors that can be installed into Workspace Sessions and referenced by Trained Agent definitions.
 
 ## What it is
 
@@ -27,14 +27,14 @@ Skills exist in a two-tier registry:
 
 This mirrors the npm public/private registry pattern. Teams can use public skills while developing proprietary capabilities internally.
 
-Skills are **not** Skilled Agents. The distinction:
+Skills are **not** Trained Agents. The distinction:
 
 | Concept | What It Is | Where It Lives |
 |---------|------------|----------------|
 | **Skill** | Reusable capability package | Skill Registry (published) |
-| **Skilled Agent** | Manifest combining skills + guardrails | Workshop/Workbench repo |
+| **Trained Agent** | Manifest combining Raw Agent ref + skills + guardrails; belongs to a Swarm | `swarms/{swarm}/trained-agents/` |
 
-A Skilled Agent definition references skills: "This agent needs the `code-review`, `test-writing`, and `jira-integration` skills."
+A Trained Agent definition references skills: "This agent needs the `code-review`, `test-writing`, and `jira-integration` skills."
 
 ## Where it lives in Foundry
 
@@ -70,7 +70,7 @@ Skills are not UPIM entities — they are platform artifacts that enable agents 
 
 ## Related concepts
 
-- [Agent Model](agent-model.md) — Skilled Agents reference Skills
+- [Agent Model](agent-model.md) — Trained Agents reference Skills
 - [Scenario](scenario.md) — Defines required Skills
 - [Workspace Session](workspace-session.md) — Where Skills are installed
 - [Repositories](repositories.md) — Skill Repository in the taxonomy
