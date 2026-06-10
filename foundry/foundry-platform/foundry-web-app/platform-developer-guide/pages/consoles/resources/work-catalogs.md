@@ -40,7 +40,7 @@ The primary view shows the **effective catalog** — the merged result of all ca
 | **Scenario ID** | Unique identifier |
 | **Workspace** | Target Workspace type |
 | **Scope** | `workspace-ingress` (external contract) or `workspace-internal` |
-| **Skilled Agent** | Recommended Skilled Agent |
+| **Trained Agent** | Recommended Trained Agent |
 | **Source** | Repository level |
 | **Actions** | View, Compare to parent |
 

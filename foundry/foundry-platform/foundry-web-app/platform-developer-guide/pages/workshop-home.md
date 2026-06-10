@@ -53,21 +53,35 @@ Workshop-level shared repositories:
 | Governance events | Gate approvals, rejections |
 | Time range | Configurable |
 
-### 5. Workshop Health
+### 5. Agent Fabric Summary
+
+| Element | Description |
+|---------|-------------|
+| **Workshop Swarms** | Swarms defined at the Workshop scope |
+| **Inherited Foundry Swarms** | Platform + Foundry-level Swarms inherited by this Workshop |
+| **Active Employed Agents** | Currently running agents across Workshop Workbenches |
+| **Token usage (today)** | Aggregate input/output tokens across all Employed Agents |
+| **Cost (today)** | USD cost for today across Workshop |
+| **Top Swarms** | Most active Swarms in this Workshop |
+| **Quick link** | Navigate to Agent Fabric console in any Workbench |
+
+### 6. Workshop Health
 
 | Element | Description |
 |---------|-------------|
 | Workbench health | Per-Workbench status indicators |
 | Deployment overview | Version distribution across Workbenches |
+| Agent Fabric health | Per-Swarm utilization indicators |
 | EoS/Deprecation alerts | Flagged from Weave |
 
-### 6. Quick Actions (Manager)
+### 7. Quick Actions (Manager)
 
 | Action | Description |
 |--------|-------------|
 | Create Workbench | Launch Workbench creation wizard |
 | Manage Domain | Navigate to Domain repository |
 | Manage Practices | Navigate to Practices repository |
+| Manage Workshop Swarms | Navigate to Swarm Console (Workshop scope) |
 | Workshop Settings | Navigate to Workshop settings |
 
 ---

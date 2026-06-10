@@ -41,20 +41,33 @@
 | Scope | Aggregated across all Workshops |
 | Time range | Configurable (today, week, month) |
 
-### 4. Foundry Health
+### 4. Agent Fabric Summary
 
 | Element | Description |
 |---------|-------------|
-| Agent utilization | Active agents, queue depth |
+| **Total Swarms** | Foundry-level Swarms (platform-shipped + tenant-added) |
+| **Total Trained Agents** | Aggregate Trained Agents across Foundry Swarms |
+| **Active Employed Agents** | Currently running Employed Agent instances (Foundry-wide) |
+| **Swarm utilization** | Invocations, token usage, cost (today/week) |
+| **Top Swarms** | Most active Swarms by invocation count |
+| **Quick link** | Navigate to [Agent Fabric console](consoles/agent-fabric/agent-fabric-overview.md) |
+
+### 5. Foundry Health
+
+| Element | Description |
+|---------|-------------|
+| Agent utilization | Active Employed Agents, queue depth |
+| Swarm health | Per-Swarm status indicators |
 | Integration status | GitHub, Jira, TestRail, Figma, Weave connection health |
 | Alerts | Any system-level warnings |
 
-### 5. Quick Actions (Admin)
+### 6. Quick Actions (Admin)
 
 | Action | Description |
 |--------|-------------|
 | Create Workshop | Launch Workshop creation wizard |
 | Manage Teams | Navigate to team management |
+| Manage Agent Fabric | Navigate to [Foundry Settings > Agent Fabric](foundry-settings/agent-fabric.md) |
 | Platform Settings | Navigate to Foundry-level settings |
 
 ---

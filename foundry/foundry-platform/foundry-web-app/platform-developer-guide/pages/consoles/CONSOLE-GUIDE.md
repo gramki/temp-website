@@ -9,7 +9,8 @@ This guide helps Foundry Platform product, design, and engineering teams decide 
 | **Work** | What orchestration items exist? What's their progress? What rituals drive the work? |
 | **Workspaces** | What's happening in each Workspace? Who's working where? What sessions are active? |
 | **Build** | What is the engineering/build/release state of artifacts and systems? |
-| **Workforce** | Who or what is doing the work, with what capacity, contribution, and recognition? |
+| **Agent Fabric** | What agents are available, how are they organized into Swarms, and how are they performing? |
+| **Workforce** | Who is doing the work (people and teams), with what capacity, contribution, and recognition? |
 | **Governance** | Is the work healthy, controlled, evidenced, authorized, efficient, compliant, and improving? |
 | **Resources** | Where are repositories, tools, and external systems? |
 | **Settings** | How is the Workbench configured? |
@@ -60,29 +61,51 @@ Examples:
 
 Each of the 6 ACE Workspace types has its own console for focused execution view. Workspaces Overview provides the cross-workspace landing.
 
+## Agent Fabric consoles
+
+Use Agent Fabric consoles when the primary object is agents (Raw, Trained, Employed), Swarms, agent configuration, agent runtime activity, or agent usage analytics.
+
+Belongs here:
+
+- Raw Agent registry and discovery;
+- Swarm organization and management;
+- Trained Agent configuration and membership;
+- Employed Agent runtime activity and performance;
+- agent token consumption, cost, and usage analytics;
+- agent skill invocation and success rates;
+- delegation and delegator analytics.
+
+Examples:
+
+- Agent Fabric Overview
+- Raw Agent Registry
+- Swarm Console
+- Trained Agents
+- Employed Agents
+
+Swarm management is operational (like Team management), not admin. Managers at each scope manage their own Swarms; Foundry-level Swarm management is in Foundry Settings. Agent Fabric Overview provides a landing page with cross-entity summary.
+
 ## Workforce consoles
 
-Use Workforce consoles when the primary object is people, teams, agents, roles, capacity, contribution, or recognition.
+Use Workforce consoles when the primary object is people, teams, roles, capacity, contribution, or recognition.
 
 Belongs here:
 
 - human contributors;
-- agents;
 - teams;
 - roles;
 - capacity and workload;
 - contribution and effectiveness;
 - availability;
 - Kudos / Recognition entries;
-- agent/human task split.
+- human/agent task split (summary view).
 
 Examples:
 
 - Workforce Overview
 - Team Console
-- Agent Console
 
-Kudos / Recognition belongs here because the system of record is the Workforce Repository. Workforce Overview provides a landing page with combined team and agent summary.
+Kudos / Recognition belongs here because the system of record is the Workforce Repository. Workforce Overview provides a landing page with combined team and agent summary. Agent-specific analytics are in Agent Fabric.
 
 ## Governance consoles
 
@@ -221,9 +244,13 @@ Console types describe the interaction pattern, independent of which group (Work
 | Build      | **Findings Console**        | Queue, Analytics          |
 | Build      | **Quality Status**          | Analytics                 |
 | Build      | **Release Artifacts**       | List + Detail, Workflow   |
+| Agent Fabric | **Agent Fabric Overview** | Landing                   |
+| Agent Fabric | **Raw Agent Registry**    | List + Detail             |
+| Agent Fabric | **Swarm Console**         | List + Detail             |
+| Agent Fabric | **Trained Agents**        | List + Detail             |
+| Agent Fabric | **Employed Agents**       | List + Detail, Analytics  |
 | Workforce  | **Workforce Overview**      | Landing                   |
 | Workforce  | **Team Console**            | List + Detail, Analytics  |
-| Workforce  | **Agent Console**           | List + Detail, Analytics  |
 | Governance | **Governance Overview**     | Landing                   |
 | Governance | **Rituals**                 | Workflow                  |
 | Governance | **Controls & Enforcement**  | List + Detail, Workflow   |
@@ -243,6 +270,10 @@ Some consoles have **detail pages** — standalone pages for deep inspection of 
 | Orchestration Item Details | Orchestration | `/workbenches/{id}/orchestration/{type}/{itemId}` |
 | Team Member Workbench Profile | Team Console | `/workbenches/{id}/team/{memberId}` |
 | [Workspace Session Details](workspaces/workspace-session-details.md) | Workspace consoles | `/workbenches/{id}/sessions/{sessionId}` |
+| [Swarm Details](agent-fabric/swarm-details.md) | Swarm Console | `/workbenches/{id}/swarms/{swarmId}` |
+| [Raw Agent Details](agent-fabric/raw-agent-details.md) | Raw Agent Registry | `/workbenches/{id}/agents/raw/{rawAgentId}` |
+| [Trained Agent Details](agent-fabric/trained-agent-details.md) | Trained Agents | `/workbenches/{id}/agents/trained/{trainedAgentJid}` |
+| [Employed Agent Details](agent-fabric/employed-agent-details.md) | Employed Agents | `/workbenches/{id}/agents/employed/{employedAgentId}` |
 
 Detail pages are appropriate when:
 - The entity has enough content for a full page (history, metrics, actions).

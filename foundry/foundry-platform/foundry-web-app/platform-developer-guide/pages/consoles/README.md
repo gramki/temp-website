@@ -40,13 +40,28 @@ For guidance on when to use console groups — and when to add a new console ins
 | [Quality Status](build/quality-status.md) | `build/quality-status.md` | Test results, coverage |
 | [Release Artifacts](build/release-artifacts.md) | `build/release-artifacts.md` | Versions, deployments, Weave integration |
 
+### Agent Fabric
+
+| Console | File | Purpose |
+|---------|------|---------|
+| [Agent Fabric Overview](agent-fabric/agent-fabric-overview.md) | `agent-fabric/agent-fabric-overview.md` | Raw Agents, Swarms, Employed Agents summary |
+| [Raw Agent Registry](agent-fabric/raw-agent-registry.md) | `agent-fabric/raw-agent-registry.md` | Browse platform + tenant Raw Agents |
+| [Swarm Console](agent-fabric/swarm-console.md) | `agent-fabric/swarm-console.md` | View/manage Swarms at visible scope |
+| [Trained Agents](agent-fabric/trained-agents.md) | `agent-fabric/trained-agents.md` | Trained Agents within Swarms |
+| [Employed Agents](agent-fabric/employed-agents.md) | `agent-fabric/employed-agents.md` | Runtime agent activity, analytics |
+
+**Sub-pages:**
+- **[Swarm Details](agent-fabric/swarm-details.md)** — `/workbenches/{id}/swarms/{swarmId}` — Swarm profile + aggregated usage analytics
+- **[Raw Agent Details](agent-fabric/raw-agent-details.md)** — `/workbenches/{id}/agents/raw/{rawAgentId}` — Raw Agent profile + usage
+- **[Trained Agent Details](agent-fabric/trained-agent-details.md)** — `/workbenches/{id}/agents/trained/{trainedAgentJid}` — Trained Agent profile + usage
+- **[Employed Agent Details](agent-fabric/employed-agent-details.md)** — `/workbenches/{id}/agents/employed/{employedAgentId}` — Employed Agent session + usage
+
 ### Workforce
 
 | Console | File | Purpose |
 |---------|------|---------|
 | [Workforce Overview](workforce/workforce-overview.md) | `workforce/workforce-overview.md` | Team + Agent summary, capacity |
 | [Team Console](workforce/team-console.md) | `workforce/team-console.md` | People, roles, kudos, capacity |
-| [Agent Console](workforce/agent-console.md) | `workforce/agent-console.md` | Agents, metrics, performance |
 
 **Sub-pages:**
 - **Team Member Workbench Profile** — `/workbenches/{workbenchId}/team/{memberId}` — Full activity history and metrics (see [Team Console](workforce/team-console.md))
@@ -100,10 +115,15 @@ Workbench Home
     │   ├── Findings Console
     │   ├── Quality Status
     │   └── Release Artifacts
+    ├── Agent Fabric
+    │   ├── Agent Fabric Overview
+    │   ├── Raw Agent Registry
+    │   ├── Swarm Console
+    │   ├── Trained Agents
+    │   └── Employed Agents
     ├── Workforce
     │   ├── Workforce Overview
-    │   ├── Team Console
-    │   └── Agent Console
+    │   └── Team Console
     ├── Governance
     │   ├── Governance Overview
     │   ├── Rituals

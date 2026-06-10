@@ -21,10 +21,12 @@ Engineering Managers, Team Leads, Governance
 
 ### Agent Summary
 
-- Total active agents
-- Agent utilization
-- Tasks by agent type
-- Cost summary
+> Agent-specific analytics have moved to the [Agent Fabric](../agent-fabric/agent-fabric-overview.md) console group. This section shows a summary view; drill into Agent Fabric for full Swarm, Trained Agent, and Employed Agent details.
+
+- Total active Employed Agents (from [Agent Fabric](../agent-fabric/employed-agents.md))
+- Agent utilization (summary)
+- Tasks by Swarm
+- Cost summary (link to [Employed Agents analytics](../agent-fabric/employed-agents.md))
 
 ### Capacity Overview
 
@@ -45,7 +47,7 @@ Recent Kudos and recognition:
 | Action | Description |
 |--------|-------------|
 | View Team | Navigate to Team Console |
-| View Agents | Navigate to Agent Console |
+| View Agent Fabric | Navigate to [Agent Fabric Overview](../agent-fabric/agent-fabric-overview.md) |
 | Give Kudos | Open Kudos form |
 | View capacity details | Drill into capacity analytics |
 

@@ -1,8 +1,12 @@
-# Agent Console
+# Agent Console (Deprecated)
 
-**URL pattern:** `/workbenches/{workbenchId}/consoles/agent`
+> **Deprecated:** This console has been superseded by the **[Agent Fabric](../agent-fabric/agent-fabric-overview.md)** console group. Agent activity, utilization, performance, and task execution analytics are now in the [Employed Agents](../agent-fabric/employed-agents.md) console within Agent Fabric.
+>
+> The Agent Fabric group provides richer analytics with Swarm-aware views, per-Trained-Agent breakdowns, token/cost analytics, and human delegator filtering. See [Agent Fabric Overview](../agent-fabric/agent-fabric-overview.md) for the full console group.
 
-**Group:** Workforce
+**URL pattern:** `/workbenches/{workbenchId}/consoles/agent` (redirects to `/workbenches/{workbenchId}/consoles/employed-agents`)
+
+**Group:** ~~Workforce~~ → Agent Fabric
 
 **Purpose:** Agent activity analytics — utilization, performance, task execution.
 

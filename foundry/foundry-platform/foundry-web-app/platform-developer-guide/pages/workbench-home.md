@@ -30,7 +30,9 @@ Entity data uses track-based APIs; Intent Repository content uses repo-based rou
 │             │  - Persona-specific summary                           │
 │  Work       │  - Due Today                                          │
 │  Build      │  - Chronological updates                              │
-│  Resources  │  - Upcoming Deadlines                                 │
+│  Agent      │  - Upcoming Deadlines                                 │
+│   Fabric    │                                                       │
+│  Resources  │                                                       │
 │  Workforce  │                                                       │
 │  Governance │                                                       │
 │  Settings   │                                                       │
@@ -121,6 +123,16 @@ Grouped consoles for focused views.
 | **Quality Status** | Test pass/fail rates, coverage, automation health |
 | **Release Console** | Deployment status, release history, Weave integration |
 
+### Agent Fabric
+
+| Console | Purpose |
+|---------|---------|
+| **Agent Fabric Overview** | Raw Agents, Swarms, Employed Agents summary |
+| **Raw Agent Registry** | Browse platform + tenant Raw Agents |
+| **Swarm Console** | View/manage Swarms at visible scope |
+| **Trained Agents** | Trained Agents within Swarms |
+| **Employed Agents** | Runtime agent activity, analytics |
+
 ### Resources
 
 | Console | Purpose |
@@ -132,7 +144,6 @@ Grouped consoles for focused views.
 | Console | Purpose |
 |---------|---------|
 | **Team Console** | Team analytics — contributions, workload |
-| **Agent Console** | Agent activity analytics — utilization, performance |
 
 ### Governance
 
