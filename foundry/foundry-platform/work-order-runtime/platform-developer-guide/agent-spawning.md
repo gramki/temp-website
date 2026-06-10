@@ -1,6 +1,6 @@
 # Agent Spawning
 
-This document describes how WO Runtime prepares the execution harness and spawns Employed Agents for task execution.
+This document describes how WO Runtime resolves Swarms, loads Trained Agent manifests, selects Raw Agents, prepares the execution harness, and spawns Employed Agents for task execution.
 
 ## ACE alignment
 
@@ -10,6 +10,7 @@ This document describes how WO Runtime prepares the execution harness and spawns
 | **Skill** | Installs skills from Skill Registry and injects them into agent harness |
 | **Delegation** | Generates Delegation Tokens granting session owner's authority to agents |
 | **Workspace** | Prepares workspace context (knowledge, repos, tools) for agent execution |
+| **Team** | Resolves agents from Swarms — organizational units for Trained Agents |
 
 ## WO Runtime Daemon
 
@@ -25,7 +26,7 @@ The WO Runtime runs as a daemon within each Workspace Session:
 │  │  • Starts with workspace                                               ││
 │  │  • Runs continuously while workspace active                            ││
 │  │  • Polls Jira for assigned WOs                                         ││
-│  │  • Spawns agents for tasks                                             ││
+│  │  • Resolves Swarms and spawns agents for tasks                         ││
 │  │  • Manages task lifecycle                                              ││
 │  └─────────────────────────────────────────────────────────────────────────┘│
 │                                                                              │
@@ -45,13 +46,54 @@ The WO Runtime runs as a daemon within each Workspace Session:
 2. **Authentication** — Daemon authenticates to Jira MCP
 3. **Polling** — Daemon polls for WOs assigned to session owner
 4. **Scheduling** — Daemon schedules ready tasks for execution
-5. **Spawning** — Daemon spawns agents as needed
-6. **Monitoring** — Daemon monitors task completion
-7. **Shutdown** — Daemon stops when workspace stops
+5. **Swarm Resolution** — Daemon resolves Swarms referenced by Scenarios
+6. **Spawning** — Daemon spawns agents as needed
+7. **Monitoring** — Daemon monitors task completion
+8. **Shutdown** — Daemon stops when workspace stops
+
+## Swarm Resolution
+
+Before spawning an agent, WO Runtime resolves the Scenario's Swarm references:
+
+### Resolution Flow
+
+```
+Scenario trigger
+    │
+    ├── 1. Read Scenario definition
+    │       └── swarms: [build-swarm, review-swarm]
+    │       └── coordinator-agent: build-swarm/feature-implementer
+    │
+    ├── 2. Resolve Swarm visibility
+    │       │
+    │       ├── Check Workspace-scope swarms/
+    │       ├── Check Workbench-scope swarms/
+    │       ├── Check Workshop-scope swarms/
+    │       └── Check Foundry-scope swarms/
+    │
+    ├── 3. Load Trained Agent manifest
+    │       └── swarms/{swarm}/trained-agents/{agent}.yaml
+    │
+    └── 4. Extract Raw Agent reference
+            └── raw-agent-ref: registry.foundry.io/raw-agents/codex:v2.4.1
+```
+
+### Swarm Scope Resolution Order
+
+The daemon checks for Swarm definitions from narrowest to broadest scope:
+
+| Priority | Scope | Location |
+|----------|-------|----------|
+| 1 (highest) | Workspace | `workbench-{id}/workspaces/{type}/swarms/` |
+| 2 | Workbench | `workbench-{id}/swarms/` |
+| 3 | Workshop | `workshop-{id}/swarms/` |
+| 4 (lowest) | Foundry | `foundry-{id}/swarms/` |
+
+Platform-shipped Swarms are resolved at the Foundry scope. Tenant extensions to platform Swarms are merged — the effective member list includes both platform and tenant-added Trained Agents.
 
 ## Harness Preparation
 
-Before spawning an agent, WO Runtime prepares the execution harness:
+After Swarm resolution, WO Runtime prepares the execution harness:
 
 ### Harness Components
 
@@ -66,15 +108,16 @@ Before spawning an agent, WO Runtime prepares the execution harness:
 ### Harness Preparation Flow
 
 ```
-1. Read Skilled Agent definition (agent.yaml)
-2. Select Capable Agent (from compatible list)
-3. Prepare environment variables
-4. Configure MCP connectors
-5. Copy skills to workspace
-6. Merge knowledge context
-7. Generate Delegation Token
-8. Spawn agent process
-9. Inject harness into agent
+1. Resolve Swarms referenced by Scenario
+2. Load Trained Agent manifest from Swarm
+3. Resolve Raw Agent from manifest's raw-agent-ref
+4. Prepare environment variables (including FOUNDRY_AGENT_JID)
+5. Configure MCP connectors
+6. Copy skills to workspace
+7. Merge knowledge context
+8. Generate Delegation Token
+9. Spawn Raw Agent process
+10. Inject harness into agent
 ```
 
 ## Environment Variables
@@ -93,10 +136,12 @@ FOUNDRY_WORK_ORDER=WO-567
 FOUNDRY_TASK_KEY=TASK-890
 FOUNDRY_SCENARIO=implement-feature
 
-# Agent context
-FOUNDRY_AGENT_TYPE=cursor-agent
-FOUNDRY_AGENT_MODEL=claude-opus
-FOUNDRY_SKILLED_AGENT=feature-implementation-agent
+# Agent context (Swarm-aware)
+FOUNDRY_AGENT_JID=feature-implementer@build-swarm.agents.acme.foundry.io
+FOUNDRY_AGENT_SWARM=build-swarm
+FOUNDRY_RAW_AGENT=codex
+FOUNDRY_RAW_AGENT_VERSION=v2.4.1
+FOUNDRY_TRAINED_AGENT=feature-implementer
 
 # Access
 FOUNDRY_ACCESS_GATEWAY_URL=https://gateway.foundry.example.com
@@ -154,14 +199,14 @@ Agent calls jira_create_issue
 
 ## Skills Loading
 
-Skills are fetched from the [Skill Registry](..//agent-fabric/platform-developer-guide/skill-registry.md) and installed to the workspace at session start.
+Skills are fetched from the [Skill Registry](../../agent-fabric/platform-developer-guide/skill-registry.md) and installed to the workspace at session start.
 
 ### Skill Installation (Session Start)
 
 At Workspace Session start, before any tasks execute:
 
 ```
-1. WO Runtime reads Skilled Agent manifests for all enabled Scenarios
+1. WO Runtime reads Trained Agent manifests for all Scenarios' referenced Swarms
 2. Collects skill references: name + version constraint + registry
 3. Resolves versions:
    - Check Foundry registry first
@@ -196,7 +241,9 @@ When a task starts, WO Runtime records the resolved skill versions in task metad
 ```yaml
 task_metadata:
   task_key: TASK-890
-  skilled_agent: feature-implementation-agent
+  trained_agent_jid: feature-implementer@build-swarm.agents.acme.foundry.io
+  swarm: build-swarm
+  raw_agent_ref: registry.foundry.io/raw-agents/codex:v2.4.1
   resolved_skills:
     - name: code-generator
       version: 2.1.3
@@ -216,7 +263,7 @@ This ensures:
 Skills are injected into agent context:
 
 ```
-Capable Agent: Cursor Agent
+Raw Agent: Codex (via OCI container)
     │
     ├── System prompt includes SKILL.md content
     ├── Rules from skills/rules/ added to agent rules
@@ -276,6 +323,7 @@ WO Runtime generates token:
     ├── Session ID
     ├── Workbench ID
     ├── Workspace type
+    ├── Agent JID (Trained Agent identity)
     ├── Granted scopes (tools, models)
     ├── Quota allocation
     ├── Expiry time (session-scoped)
@@ -291,19 +339,39 @@ WO Runtime generates token:
 4. Access Gateway validates token on each call
 ```
 
-See [gateway-policy.md](..//agent-fabric/platform-developer-guide/gateway-policy.md) for token flow details.
+See [../../agent-fabric/platform-developer-guide/gateway-policy.md](../../agent-fabric/platform-developer-guide/gateway-policy.md) for token flow details.
 
 ## Agent Spawning
 
-### Capable-Agent-Specific Spawning
+### Raw-Agent-Specific Spawning
 
-Each Capable Agent has a specific spawn mechanism:
+Each Raw Agent has a specific spawn mechanism:
+
+#### Codex
+
+```yaml
+spawn:
+  type: codex
+  raw-agent-ref: registry.foundry.io/raw-agents/codex:v2.4.1
+  command: codex
+  args:
+    - --workspace
+    - ${WORKSPACE_PATH}
+    - --task
+    - ${FOUNDRY_TASK_KEY}
+  environment:
+    FOUNDRY_AGENT_JID: ${AGENT_JID}
+    FOUNDRY_SKILLS_PATH: ${SKILL_PATH}
+  io:
+    mode: terminal
+```
 
 #### Cursor Agent
 
 ```yaml
 spawn:
   type: cursor-agent
+  raw-agent-ref: registry.foundry.io/raw-agents/cursor-agent:v1.2.0
   command: cursor-agent
   args:
     - --workspace
@@ -317,26 +385,12 @@ spawn:
     mode: vscode-panel  # or terminal
 ```
 
-#### Copilot
-
-```yaml
-spawn:
-  type: copilot
-  command: gh copilot
-  args:
-    - --workspace
-    - ${WORKSPACE_PATH}
-  environment:
-    GITHUB_TOKEN: ${GITHUB_TOKEN}
-  io:
-    mode: terminal
-```
-
 #### Claude Code
 
 ```yaml
 spawn:
   type: claude-code
+  raw-agent-ref: registry.foundry.io/raw-agents/claude-code:v3.1.0
   command: claude-code
   args:
     - --project
@@ -349,29 +403,14 @@ spawn:
     mode: terminal
 ```
 
-#### Codex CLI
-
-```yaml
-spawn:
-  type: codex-cli
-  command: codex
-  args:
-    - --workspace
-    - ${WORKSPACE_PATH}
-  environment:
-    OPENAI_API_KEY: via-gateway
-  io:
-    mode: terminal
-```
-
 ### Generic Spawn Interface
 
 WO Runtime provides a generic spawn interface:
 
 ```python
 def spawn_agent(
-    capable_agent: str,
-    model: str,
+    trained_agent_jid: str,
+    raw_agent_ref: str,
     task_key: str,
     harness: Harness
 ) -> AgentProcess:
@@ -379,15 +418,15 @@ def spawn_agent(
     Spawn an Employed Agent for a task.
     
     Args:
-        capable_agent: Capable Agent identifier
-        model: Model to use
+        trained_agent_jid: Trained Agent JID from Swarm
+        raw_agent_ref: Raw Agent OCI URI from Trained Agent manifest
         task_key: Jira task key
         harness: Prepared harness (env, mcp, skills, knowledge, token)
     
     Returns:
         AgentProcess handle for monitoring
     """
-    spawn_config = get_spawn_config(capable_agent)
+    spawn_config = get_spawn_config_for_raw_agent(raw_agent_ref)
     
     process = subprocess.Popen(
         spawn_config.command,
@@ -396,7 +435,7 @@ def spawn_agent(
         cwd=workspace_path
     )
     
-    return AgentProcess(process, task_key, harness)
+    return AgentProcess(process, task_key, trained_agent_jid, harness)
 ```
 
 ## Agent I/O
@@ -420,7 +459,7 @@ Agent Output: Agent → VS Code WO Runtime Chat Panel → User
 The I/O mode is determined by:
 
 1. User preference (configured in settings)
-2. Capable Agent support (some agents terminal-only)
+2. Raw Agent support (some agents terminal-only)
 3. Skill recommendation (some skills work better in chat)
 
 ## Task Completion Notification
@@ -448,8 +487,8 @@ Certain failures pause task execution without failing the task permanently. Task
 | Failure | Trigger | Resolution | Resume Behavior |
 |---------|---------|------------|-----------------|
 | **Quota Exhausted** | 429 from Gateway | Quota refreshes or increased | Automatic resume |
-| **Capable Agent Disabled** | Agent disabled mid-task | Admin re-enables agent | Automatic resume |
-| **All Fallbacks Exhausted** | All compatible agents unavailable | Any agent restored | Automatic resume |
+| **Raw Agent Disabled** | Agent disabled mid-task | Admin re-enables agent | Automatic resume |
+| **All Fallbacks Exhausted** | Raw Agent unavailable | Agent restored in registry | Automatic resume |
 | **Model Rate Limited** | Temporary 429 from provider | Wait + retry | Automatic after backoff |
 | **Credential Expired** | Token refresh needed | Session re-authentication | Automatic after refresh |
 
@@ -460,19 +499,18 @@ Task executing
     │
     ├── Failure detected (quota, agent disabled, etc.)
     │
-    ├── WO Runtime attempts fallback (if configured)
-    │   └── Try next capable agent/model in preference order
+    ├── WO Runtime attempts fallback (if configured in gateway policy)
     │
     ├── If all fallbacks fail:
     │   ├── Task state → Blocked (recoverable)
     │   ├── Jira status → "Blocked"
-    │   ├── Record: blocked_reason, blocked_at
+    │   ├── Record: blocked_reason, blocked_at, agent_jid
     │   └── Notify session owner via IDE panel
     │
     └── When condition resolves:
         ├── WO Runtime detects resolution (polling)
         ├── Task state → Ready
-        └── Task resumes (possibly with different agent)
+        └── Task resumes (possibly with different Raw Agent version)
 ```
 
 ### Task Metadata for Blocked Tasks
@@ -481,15 +519,14 @@ Task executing
 task_metadata:
   task_key: TASK-890
   status: blocked
+  trained_agent_jid: feature-implementer@build-swarm.agents.acme.foundry.io
+  swarm: build-swarm
   blocked_reason: quota_exhausted
   blocked_at: 2026-05-28T03:00:00Z
   last_attempt:
-    capable_agent: cursor-agent
-    model: claude-opus
+    raw_agent_ref: registry.foundry.io/raw-agents/codex:v2.4.1
+    model: codex-3
     error: "429: Monthly quota exceeded"
-  fallbacks_tried:
-    - cursor-agent/claude-sonnet (failed: quota)
-    - copilot/gpt-5-thinking (failed: agent disabled)
 ```
 
 ### IDE Notification
@@ -511,18 +548,20 @@ WO Runtime and Agent Fabric share responsibility for agent lifecycle. This secti
 
 | Responsibility | Description |
 |----------------|-------------|
+| **Swarm resolution** | WO Runtime resolves Swarms from Scenario references at the appropriate scope |
 | **Spawning** | WO Runtime spawns Employed Agent processes within Workspace Sessions |
 | **Harness preparation** | WO Runtime assembles environment, MCP connectors, skills, knowledge, and Delegation Token |
 | **Task lifecycle** | WO Runtime manages task scheduling, execution, completion detection, and failure handling |
 | **Agent process management** | WO Runtime monitors, restarts, and terminates agent processes |
-| **Capable Agent selection** | WO Runtime selects from compatible Capable Agents based on Skilled Agent manifest and fallback rules |
+| **Raw Agent selection** | WO Runtime resolves Raw Agent from Trained Agent manifest's `raw-agent-ref` |
 
 ### Agent Fabric Owns: What
 
 | Responsibility | Description |
 |----------------|-------------|
-| **Skilled Agent manifests** | Agent Fabric defines Skilled Agent capabilities, skills, and compatible Capable Agents |
-| **Capable Agent registry** | Agent Fabric maintains the registry of available Capable Agents |
+| **Raw Agent Registry** | Agent Fabric maintains the OCI catalog of available Raw Agents |
+| **Swarm Registry** | Agent Fabric defines Swarm structure, membership, and visibility rules |
+| **Trained Agent manifests** | Agent Fabric defines Trained Agent capabilities, skills, and Raw Agent references |
 | **Quota allocation** | Agent Fabric (via Access Gateway) enforces token budgets and rate limits |
 | **Policy enforcement** | Agent Fabric defines tool governance and approval policies |
 | **Credential resolution** | Agent Fabric (via Delegation Token) provides scoped access to external services |
@@ -531,35 +570,39 @@ WO Runtime and Agent Fabric share responsibility for agent lifecycle. This secti
 
 ```
 Agent Fabric provides:
-├── Skilled Agent manifest (agent.yaml)
-│   ├── Skill references (name, version constraint)
-│   ├── Compatible Capable Agents
-│   ├── Model preferences
-│   └── Autonomy level
-├── Capable Agent registry
+├── Swarm Registry
+│   ├── Swarm definitions (swarm.yaml)
+│   ├── Trained Agent manifests (trained-agents/{agent}.yaml)
+│   ├── Membership and visibility rules
+│   └── Scope hierarchy enforcement
+├── Raw Agent Registry
+│   ├── OCI image references and metadata
 │   └── Per-agent spawn configuration
 ├── Delegation Token generator
 └── Access Gateway endpoint
 
 WO Runtime consumes:
-├── Reads Skilled Agent manifest
-├── Queries Capable Agent registry
-├── Requests Delegation Token
+├── Resolves Swarms from Scenario references
+├── Loads Trained Agent manifest from Swarm
+├── Resolves Raw Agent from manifest's raw-agent-ref
+├── Requests Delegation Token (with agent JID)
 ├── Routes model calls through Access Gateway
-└── Reports usage metrics
+└── Reports usage metrics (attributed to agent JID)
 ```
 
 ### Coordination Points
 
-1. **Skill installation** — WO Runtime fetches skills from Agent Fabric's Skill Registry at session start
-2. **Agent selection** — WO Runtime reads compatible agents from manifest; Agent Fabric determines availability
-3. **Quota enforcement** — WO Runtime detects quota exhaustion (429 from Gateway); Agent Fabric manages allocation
-4. **Fallback** — WO Runtime implements fallback; Agent Fabric defines fallback policy in manifest
+1. **Swarm resolution** — WO Runtime resolves Swarms from Agent Fabric's Swarm Registry at task time
+2. **Skill installation** — WO Runtime fetches skills from Agent Fabric's Skill Registry at session start
+3. **Raw Agent resolution** — WO Runtime resolves Raw Agent from Trained Agent manifest; Agent Fabric determines availability
+4. **Quota enforcement** — WO Runtime detects quota exhaustion (429 from Gateway); Agent Fabric manages allocation
+5. **Identity attribution** — All actions attributed to the Trained Agent's JID for audit trail
 
 ## Read Next
 
 - [ide-integration.md](ide-integration.md) — VS Code plugin for agent I/O
 - [task-execution.md](task-execution.md) — Task tree and dependencies
-- [../agent-fabric/platform-developer-guide/employed-agents.md](..//agent-fabric/platform-developer-guide/employed-agents.md) — Employed Agent lifecycle
-- [../agent-fabric/platform-developer-guide/gateway-policy.md](..//agent-fabric/platform-developer-guide/gateway-policy.md) — Quota and token policies
-- [../agent-fabric/platform-developer-guide/capable-agents.md](..//agent-fabric/platform-developer-guide/capable-agents.md) — Auto-fallback configuration
+- [../../agent-fabric/platform-developer-guide/employed-agents.md](../../agent-fabric/platform-developer-guide/employed-agents.md) — Employed Agent lifecycle
+- [../../agent-fabric/platform-developer-guide/gateway-policy.md](../../agent-fabric/platform-developer-guide/gateway-policy.md) — Quota and token policies
+- [../../agent-fabric/platform-developer-guide/raw-agents.md](../../agent-fabric/platform-developer-guide/raw-agents.md) — Raw Agent OCI specification
+- [../../agent-fabric/platform-developer-guide/swarm-registry.md](../../agent-fabric/platform-developer-guide/swarm-registry.md) — Swarm Registry API

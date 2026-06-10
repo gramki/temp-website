@@ -1,20 +1,21 @@
 # Agent Spawner
 
-The Agent Spawner is the component that prepares execution harnesses and spawns Employed Agents for ready tasks — assembling environment, tools, skills, knowledge, and delegation into a complete agent runtime.
+The Agent Spawner is the component that prepares execution harnesses and spawns Employed Agents for ready tasks — resolving Swarms, loading Trained Agent manifests, selecting Raw Agents, and assembling environment, tools, skills, knowledge, and delegation into a complete agent runtime.
 
 ## What it is
 
-When the Task Manager identifies a ready task with a Skilled Agent, it passes the task to the Agent Spawner. The Agent Spawner's job is to turn a Skilled Agent definition into a running Employed Agent process.
+When the Task Manager identifies a ready task with a coordinator or designated Trained Agent, it passes the task to the Agent Spawner. The Agent Spawner's job is to turn a Trained Agent definition into a running Employed Agent process.
 
 This involves:
 
-1. **Reading the Skilled Agent manifest** — Capabilities, compatible agents, skill references
-2. **Selecting a Capable Agent** — Choosing from compatible agents with fallback support
-3. **Preparing the harness** — Environment variables, MCP connectors, skills, knowledge, delegation token
-4. **Spawning the process** — Starting the agent with harness injected
-5. **Monitoring** — Tracking agent status and handling failures
+1. **Resolving the Swarm** — Locating the referenced Swarm at the appropriate scope
+2. **Loading the Trained Agent manifest** — From `swarms/{swarm}/trained-agents/{agent}.yaml`
+3. **Resolving the Raw Agent** — Pulling the OCI container reference from the manifest's `raw-agent-ref`
+4. **Preparing the harness** — Environment variables, MCP connectors, skills, knowledge, delegation token
+5. **Spawning the process** — Starting the agent with harness injected
+6. **Monitoring** — Tracking agent status and handling failures
 
-The Agent Spawner is the boundary between "what work needs to be done" (Task Manager) and "who does it and how" (agent runtime). It abstracts the diversity of Capable Agents (Cursor, Copilot, Claude Code, Codex) behind a consistent spawn interface.
+The Agent Spawner is the boundary between "what work needs to be done" (Task Manager) and "who does it and how" (agent runtime). It abstracts the diversity of Raw Agents (Codex, Cursor Agent, Claude Code) behind a consistent spawn interface.
 
 ## Where it lives
 
@@ -40,72 +41,83 @@ The harness is everything an Employed Agent needs to execute:
 ## Harness preparation flow
 
 ```
-Task ready (with Skilled Agent)
+Scenario trigger (with Swarm references)
     │
-    ├── 1. Read Skilled Agent definition (agent.yaml)
-    │
-    ├── 2. Select Capable Agent
+    ├── 1. Resolve referenced Swarms
     │       │
-    │       ├── Check compatible agents in manifest
-    │       ├── Check availability/quota
-    │       └── Select highest-priority available
+    │       ├── Check Swarm visibility at current scope
+    │       └── Load Swarm manifest from swarms/{swarm}/swarm.yaml
     │
-    ├── 3. Prepare environment variables
+    ├── 2. Get coordinator/designated agent from Swarm
     │       │
-    │       └── FOUNDRY_WORKBENCH_ID, FOUNDRY_TASK_KEY, etc.
+    │       └── From Scenario's coordinator-agent: {swarm}/{agent}
     │
-    ├── 4. Configure MCP connectors
+    ├── 3. Load Trained Agent manifest
+    │       │
+    │       └── From swarms/{swarm}/trained-agents/{agent}.yaml
+    │
+    ├── 4. Resolve Raw Agent from Trained Agent
+    │       │
+    │       ├── raw-agent-ref: registry.foundry.io/raw-agents/codex:v2.4.1
+    │       ├── Check availability in Raw Agent Registry
+    │       └── Pull OCI image if needed
+    │
+    ├── 5. Prepare environment variables
+    │       │
+    │       └── FOUNDRY_WORKBENCH_ID, FOUNDRY_TASK_KEY, FOUNDRY_AGENT_JID, etc.
+    │
+    ├── 6. Configure MCP connectors
     │       │
     │       ├── Jira MCP (always)
     │       ├── GitHub MCP (if repo linked)
     │       └── Foundry MCP (always)
     │
-    ├── 5. Resolve installed skills
+    ├── 7. Resolve installed skills
     │       │
     │       └── Skills installed at session start → ~/.foundry/skills/
     │
-    ├── 6. Merge knowledge context
+    ├── 8. Merge knowledge context
     │       │
     │       └── Workshop + Workbench + Scenario + WO context
     │
-    ├── 7. Generate Delegation Token
+    ├── 9. Generate Delegation Token
     │       │
     │       └── Session owner identity + scoped permissions + quota
     │
-    └── 8. Spawn agent process
+    └── 10. Spawn agent process
             │
-            └── Execute spawn command with harness injected
+            └── Execute Raw Agent spawn command with harness injected
 ```
 
-## Capable Agent selection
+## Raw Agent selection
 
-The Agent Spawner selects a Capable Agent from the Skilled Agent's compatibility list:
+The Agent Spawner resolves a Raw Agent from the Trained Agent's manifest:
 
 ```yaml
-# Skilled Agent manifest
-compatible_agents:
-  - cursor-agent  # preferred
-  - copilot
-  - claude-code
+# Trained Agent manifest
+name: feature-implementer
+swarm: build-swarm
+raw-agent-ref: registry.foundry.io/raw-agents/codex:v2.4.1
+identity:
+  jid: feature-implementer@build-swarm.agents.acme.foundry.io
 ```
 
 Selection considers:
-- **Availability** — Is the agent enabled for this Workbench?
-- **Quota** — Does the session have remaining quota for this agent?
-- **Priority** — Higher in the list = preferred
+- **Availability** — Is the Raw Agent available in the registry (platform or tenant)?
+- **Quota** — Does the session have remaining quota for this agent type?
+- **Version** — Does the resolved version meet the manifest constraint?
 
-If the primary agent fails (quota exhausted, disabled, error), the spawner tries the next compatible agent (auto-fallback).
+If the primary Raw Agent fails (quota exhausted, disabled, error), the spawner applies fallback rules defined in gateway policy.
 
-## Capable Agent spawn configurations
+## Raw Agent spawn configurations
 
-Each Capable Agent has a specific spawn configuration:
+Each Raw Agent has a specific spawn configuration:
 
 | Agent | Command | I/O Mode |
 |-------|---------|----------|
+| Codex | `codex --workspace $PATH` | Terminal |
 | Cursor Agent | `cursor-agent --workspace $PATH` | VS Code panel or terminal |
-| Copilot | `gh copilot --workspace $PATH` | Terminal |
 | Claude Code | `claude-code --project $PATH` | Terminal |
-| Codex CLI | `codex --workspace $PATH` | Terminal |
 
 ## Recoverable failures
 
@@ -114,7 +126,7 @@ Some spawn failures pause the task without permanent failure:
 | Failure | Recovery |
 |---------|----------|
 | Quota exhausted | Auto-resume when quota refreshes |
-| Agent disabled | Auto-resume when admin re-enables |
+| Raw Agent disabled | Auto-resume when admin re-enables |
 | All fallbacks fail | Auto-resume when any option restored |
 | Model rate limited | Auto-resume after backoff |
 
@@ -134,12 +146,14 @@ The task enters `blocked` state with `blocked_reason` recorded. The daemon monit
 - [Task Manager](task-manager.md) — Sends ready tasks to Agent Spawner
 - [Context Compilation](context-compilation.md) — How knowledge is assembled
 - [WO Runtime Daemon](wo-runtime-daemon.md) — Hosts the Agent Spawner
-- [Agent Model](../../concepts/agent-model.md) — Capable → Skilled → Employed
+- [Agent Model](../../concepts/agent-model.md) — Raw → Trained → Employed
 - [Skill](../../concepts/skill.md) — Capabilities installed into harness
 - [Delegation](../../concepts/delegation.md) — Tokens granting agent authority
+- [Swarm](../../agent-fabric/concepts/swarm.md) — Organizational unit resolved during spawning
 
 ## Further reading
 
 - [../platform-developer-guide/agent-spawning.md](../platform-developer-guide/agent-spawning.md) — Detailed spawn specification
 - [../platform-developer-guide/requirements.md](../platform-developer-guide/requirements.md) — Spawner requirements (WOR-FR-0007, WOR-FR-0008)
-- [../../agent-fabric/platform-developer-guide/capable-agents.md](../../agent-fabric/platform-developer-guide/capable-agents.md) — Capable Agent registry
+- [../../agent-fabric/platform-developer-guide/raw-agents.md](../../agent-fabric/platform-developer-guide/raw-agents.md) — Raw Agent OCI specification
+- [../../agent-fabric/platform-developer-guide/swarm-registry.md](../../agent-fabric/platform-developer-guide/swarm-registry.md) — Swarm Registry API
