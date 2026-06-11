@@ -4,29 +4,16 @@
 
 ---
 
-## Engagement Readiness Council (ERC)
+## Governance Bodies
 
-The **Engagement Readiness Council** governs the Engagement pipeline and provides the ingredients of success:
+Two councils govern the Engagement and Product Line ecosystem:
 
-- **Composition:** Engineering leadership, Architecture leadership, Delivery/Program leadership, Account Management leadership; exact membership varies per organizational structure
-- **Assignment authority:** ERC assigns all Engagement-level roles: Client Partner, EO, EPM, EA, AVA. See [Engagement Formation](engagement-formation.md) for the full assignment model.
-- **Portfolio Program Manager (PPM):** Maintains the cross-Engagement portfolio view; prioritizes across Engagements; **owns capacity coordination** — consolidates staffing demand from all Engagements, presents a unified demand view to Product Line Squad leads, and coordinates supply commitments so that ELs do not independently approach PL Squad leads
-- **Provides ingredients of success:** Assigns Engagement-level leadership (Client Partner, EO, EPM, EA, AVA), provides framework guidance and archetype references, and governs the Exploration pipeline
-- **Governs EPM activities:** EPM reports to ERC on Engagement progress, risks, and commercial alignment
-- **Security reviews:** Shared security team operates under ERC; performs VA/PT and reviews periodic or on-demand
+| Council | Governs | Charter |
+|---------|---------|---------|
+| **ERC (Engagement Readiness Council)** | Engagement pipeline, role assignment, capacity coordination, EPM governance | [ERC Charter](engagement-readiness-council.md) |
+| **PAC (Platform Architecture Council)** | Architecture standards, practice sharing, pattern extraction, variability | [PAC Charter](../product-line-engineering/governance/council-charter.md) |
 
----
-
-## Platform Architecture Council (PAC)
-
-The **PAC** governs architecture and practice across the product line:
-
-- **Practice Mode (monthly):** Knowledge sharing, case reviews, pattern extraction, best-practice development
-- **Governance Mode (ad-hoc):** Architectural disputes, standards changes, variability governance
-
-ERC and PAC coexist: **ERC governs delivery readiness and the Engagement pipeline; PAC governs architecture and engineering practice.** They are complementary, not competing.
-
-See [council-charter.md](../product-line-engineering/governance/council-charter.md) for the full PAC charter.
+**ERC governs delivery readiness and the Engagement pipeline; PAC governs architecture and engineering practice.** They are complementary, not competing.
 
 ---
 
@@ -94,4 +81,4 @@ The AVA holds independent authority to block any release when assembly quality c
 
 ---
 
-[← Previous: Verification and Certification](verification-and-certification.md) | [→ Next: Metrics and Feedback](metrics-and-feedback.md)
+[← Previous: Engagement Readiness Council (ERC)](engagement-readiness-council.md) | [→ Next: Metrics and Feedback](metrics-and-feedback.md)

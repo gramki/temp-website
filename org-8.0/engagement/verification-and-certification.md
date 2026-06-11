@@ -191,4 +191,4 @@ The full verification module is a deliverable. At Transfer:
 
 ---
 
-[← Previous: Architecture and Archetypes](architecture-and-archetypes.md) | [→ Next: Governance and Escalation](governance.md)
+[← Previous: Architecture and Archetypes](architecture-and-archetypes.md) | [→ Next: Engagement Readiness Council (ERC)](engagement-readiness-council.md)

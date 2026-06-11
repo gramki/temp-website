@@ -87,11 +87,12 @@ Exploration ──► Engagement ───────────────�
 | 6 | [Squad Model and Staffing](squad-model.md) | Squad types, composition, staffing summary, rotation, migration squads; see Engagement Formation for full formation model |
 | 7 | [Architecture and Archetypes](architecture-and-archetypes.md) | Archetype-driven assembly, gap analysis, inner source, EA assessment |
 | 8 | [Verification and Certification](verification-and-certification.md) | Verification module, system-under-test boundary, EA-AVA model, continuous verification, increment certification, Verification Squad, handover |
-| 9 | [Governance and Escalation](governance.md) | ERC, PAC, scope change, commercial alignment, escalation model |
-| 10 | [Metrics and Feedback](metrics-and-feedback.md) | Metrics, knowledge capture, feedback loops, inner source debt |
-| 11 | [Completion and Termination](completion-and-termination.md) | Successful completion, early termination, scope reduction, handover artifacts |
-| 12 | [Career Paths](career-paths.md) | Function-role model; functional tracks (Engineering, Architecture, Product, Delivery, SRE, Account Management); cross-track jumps to Architecture; role assignment by Engagement complexity; dual-axis career tracking; recognition mechanisms |
-| 13 | [Open Items](open-items.md) | What this guide does not yet cover, organized by stakeholder perspective |
+| 9 | [Engagement Readiness Council (ERC)](engagement-readiness-council.md) | ERC charter: purpose, composition, role assignment, capacity coordination (PPM), framework guidance, EPM governance |
+| 10 | [Governance and Escalation](governance.md) | Governance bodies overview, scope change, commercial alignment, escalation model, decision-point governance |
+| 11 | [Metrics and Feedback](metrics-and-feedback.md) | Metrics, knowledge capture, feedback loops, inner source debt |
+| 12 | [Completion and Termination](completion-and-termination.md) | Successful completion, early termination, scope reduction, handover artifacts |
+| 13 | [Career Paths](career-paths.md) | Function-role model; functional tracks (Engineering, Architecture, Product, Delivery, SRE, Account Management); cross-track jumps to Architecture; role assignment by Engagement complexity; dual-axis career tracking; recognition mechanisms |
+| 14 | [Open Items](open-items.md) | What this guide does not yet cover, organized by stakeholder perspective |
 
 ---
 
@@ -127,10 +128,12 @@ The PLE guide owns structural ingredients that the Engagement Operating Model us
 
 | Term | Definition |
 |------|-----------|
+| **Assembly Construct** | The construct-type label for Engagement — emphasizing that what we produce is an assembled artifact, not a service. |
 | **Client Partner** | The senior-most per-client role; owns the strategic client relationship. May span multiple Engagements with the same client. EO reports to Client Partner. Assigned by ERC. |
 | **Client Partner Associate (CPA)** | Generalist support for the Client Partner: governance prep, stakeholder coordination, commercial tracking, cross-Engagement alignment. Reports to Client Partner; at least one per Client Partner. |
 | **Engagement** | The complete collection of software artifacts (configurations, extensions, integrations, studio-built components, verification artifacts) that together constitute a customer-specific product instantiation derived from Product Lines. An Assembly Construct. |
 | **Engagement Engineering** | The discipline of designing and assembling customer-specific product instantiations by leveraging Product Lines and studio-built components. |
 | **Engagement Success** | The function responsible for ensuring an Engagement is successfully deployed and adopted — readiness, adoption, value delivery. Owned by EPM. |
+| **ERC (Engagement Readiness Council)** | Governs the Engagement pipeline; assigns Engagement-level roles (Client Partner, EO, EPM, EA, AVA); houses the Portfolio Program Manager (PPM) function for capacity coordination; provides framework guidance and archetype references. See [ERC Charter](engagement-readiness-council.md). |
 | **Exploration** | Pre-commitment work of discovering customer needs, assessing feasibility, and qualifying whether an Engagement should be initiated. |
-| **Assembly Construct** | The construct-type label for Engagement — emphasizing that what we produce is an assembled artifact, not a service. |
+| **PAC (Platform Architecture Council)** | Governs architecture standards, practice sharing, pattern extraction, and variability across Product Lines. Operates in Practice Mode (monthly, advisory) and Governance Mode (ad-hoc, decision authority). See [PAC Charter](../product-line-engineering/governance/council-charter.md). |

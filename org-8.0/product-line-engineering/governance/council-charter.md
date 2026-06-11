@@ -104,7 +104,7 @@ The Platform Architecture Council (PAC — this Council) and the Engagement Read
 
 PAC sets the technical rules; ERC ensures Engagements start with the right people and ingredients. Both feed into each other: PAC patterns improve archetype quality that ERC uses for readiness; ERC delivery learnings feed PAC practice reviews.
 
-See the [Engagement Operating Model Guide](../../engagement/README.md) for ERC details.
+See the [ERC Charter](../../engagement/engagement-readiness-council.md) for ERC details.
 
 ---
 
@@ -114,4 +114,5 @@ See the [Engagement Operating Model Guide](../../engagement/README.md) for ERC d
 - [Variability Management](../framework/variability-management.md)
 - [Inner Source Guidelines](inner-source-guidelines.md)
 - [Engagement Architect Role](../roles/engagement-architect.md)
-- [Engagement Operating Model Guide](../../engagement/README.md) — ERC, role structure
+- [Engagement Operating Model Guide](../../engagement/README.md) — role structure, lifecycle
+- [ERC Charter](../../engagement/engagement-readiness-council.md) — Engagement Readiness Council
