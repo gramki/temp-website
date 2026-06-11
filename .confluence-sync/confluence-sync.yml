@@ -274,3 +274,24 @@ destinations:
       add_git_metadata: true
       github_repo_override: null
       dry_run: false
+
+  - id: what-we-sell-s2026
+    name: What We Sell (S2026 Space)
+    confluence:
+      url: https://zeta-tm.atlassian.net
+      space_key: S2026
+      root_page_title: What We Sell
+      root_page_id: null
+    source:
+      folders:
+        - path: org-8.0/what-we-sell
+          create_root_parent: false
+    credentials:
+      username: ramki@zeta.tech
+      token_env_var: CONFLUENCE_TOKEN
+    options:
+      add_git_metadata: true
+      github_repo_override: null
+      dry_run: false
+      parallel_threads: 12
+

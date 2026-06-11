@@ -1,0 +1,103 @@
+# Chapter 03: Opportunity Sizing
+
+---
+
+**Key Question**: How large is the market for an enterprise solution, and how do you model it credibly?
+
+> *This chapter provides the structural approach to opportunity sizing for enterprise solutions businesses. Detailed financial modeling methodologies and market-specific data sources are beyond its scope.*
+
+---
+
+## Why TAM/SAM/SOM Doesn't Work Directly
+
+The standard SaaS market-sizing methodology runs as follows: count the number of potential users, multiply by price per seat per month, annualize, and present the result as the Total Addressable Market. Segment by geography, company size, or industry vertical to derive the Serviceable Addressable Market. Apply a market share assumption to produce the Serviceable Obtainable Market. The exercise takes an afternoon and produces a slide with three concentric circles and a large number.
+
+This methodology produces misleading numbers for enterprise solutions businesses, for three structural reasons.
+
+**The unit of purchase is wrong.** Enterprise solutions are not purchased by users. They are purchased by institutions. A core banking platform does not have "seats." A bank with 5,000 employees does not buy 5,000 licenses. It buys one platform, configured and deployed across its operations, priced against the value of the transformation — not the headcount of the organization. Counting potential users and multiplying by a per-seat price produces a number that has no relationship to how the market actually spends.
+
+**The buyer's budget is not a line item.** SaaS purchases come from departmental operating budgets — predictable, recurring, and sized relative to the tool's direct utility. Enterprise solution purchases come from transformation budgets — large, episodic, and sized relative to the strategic importance of the initiative. A bank's core modernization budget is not "$50 per user per month." It is "$80 million over five years for an institutional transformation." These budgets are approved at board level, funded through capital allocation, and structured as multi-year programs. The per-seat model cannot capture this spending pattern.
+
+**The market is episodic, not continuous.** SaaS markets have relatively stable annual demand — businesses need CRM tools every year, and the market grows steadily as new businesses form and existing ones adopt. Enterprise solution markets are driven by transformation windows — periods when enterprises are actively modernizing, triggered by regulation, technology obsolescence, competitive pressure, or leadership change. A bank that completed its core modernization in 2022 is not in the market again in 2023. The demand is real but lumpy, concentrated in waves rather than distributed smoothly across time.
+
+When enterprise solutions companies use SaaS sizing methodology, they produce one of two errors. They dramatically oversize the market by counting every enterprise as a potential annual buyer (when in reality, only a fraction are in an active transformation window at any given time). Or they dramatically undersize it by applying per-seat pricing to a market where the actual transaction values are orders of magnitude larger. Neither error produces a number that a sophisticated investor, board member, or strategic planner can use.
+
+---
+
+## The Enterprise Sizing Framework
+
+Enterprise solutions markets must be sized from the demand side — starting with the problem, not the product. The framework has three steps, each requiring different data and different analytical methods.
+
+### Step 1: Map the Universe of Affected Enterprises
+
+The first question is not "how many users could buy our product?" but "how many enterprises have this problem?" This requires defining the problem precisely and counting the institutions that exhibit it.
+
+For a core banking modernization platform, the universe is: banks running legacy core systems that are approaching or have passed their viable operational lifespan. This is not "all banks." It is banks whose core infrastructure was deployed before a certain era, banks that have failed at least one modernization attempt, banks facing regulatory mandates that their current systems cannot satisfy, or banks whose competitive position is eroding because their infrastructure cannot support modern products.
+
+The sizing exercise requires segmentation by institution type (Tier 1 global banks, Tier 2 regional banks, Tier 3 community and challenger banks), by geography (regulatory environments drive different modernization timelines), and by modernization readiness (banks in active evaluation, banks in planning, banks not yet mobilized). Each segment has different spending patterns, different solution requirements, and different competitive dynamics.
+
+Sources for this mapping include industry analyst reports (Celent, Forrester, IDC), regulatory filings, industry conference intelligence, and — most valuable — the enterprise solutions company's own diagnostic conversations with prospective customers. The best market maps are built from the ground up through direct engagement, not from the top down through analyst reports.
+
+### Step 2: Estimate Transformation Budgets Per Enterprise
+
+The second question is: how much does each enterprise spend on solving this problem? This is not a price the vendor sets — it is a budget the enterprise allocates based on the scope and urgency of the transformation.
+
+Transformation budgets vary dramatically by enterprise segment. A Tier 1 global bank modernizing its core systems may allocate $150–500 million over five to seven years. A Tier 2 regional bank may allocate $30–80 million. A Tier 3 challenger bank building on a modern platform from inception may spend $5–15 million. These budgets include not just the platform license but implementation services, data migration, integration, testing, change management, and parallel operations during the transition.
+
+The vendor's addressable share of the total transformation budget is a critical variable. In a $200 million core banking modernization program, the platform vendor may capture $40–80 million (20–40%) through platform licensing and implementation services. The remainder goes to systems integrators, internal IT teams, change management consultants, and other vendors in the delivery ecosystem. Sizing the market as if the platform vendor captures 100% of the transformation budget overstates the opportunity by a factor of three to five.
+
+### Step 3: Model Deal Sizes, Win Rates, and Market Share
+
+The third question converts market potential into revenue projections. This requires modeling three variables:
+
+**Average deal size.** Based on actual and projected contract values by enterprise segment. Deal size is not a single number — it is a distribution that varies by segment, geography, and scope. The model should distinguish between platform licensing revenue (recurring), implementation services revenue (one-time), and ongoing support revenue (recurring).
+
+**Win rate.** The percentage of qualified opportunities that convert to signed contracts. Enterprise solutions win rates are typically 15–30% for competitive deals — significantly lower than SaaS conversion rates, reflecting the length and complexity of enterprise evaluation processes. Win rates improve with reference customers, domain expertise, and delivery track record.
+
+**Market timing.** The percentage of the total enterprise universe that is actively in a transformation window in any given year. If there are 500 Tier 2 banks globally with legacy core systems, and the average modernization cycle spans fifteen years, approximately 30–35 banks enter the modernization window each year. This is the annual addressable cohort — not the total universe.
+
+The enterprise sizing formula, stated simply:
+
+**Annual addressable revenue = enterprises in active transformation windows × average deal size × win rate**
+
+This produces smaller numbers than SaaS-style TAM calculations — but they are credible numbers that reflect how money actually flows in enterprise markets. A board member who sees "TAM: $50 billion" based on user-count math will be skeptical. A board member who sees "annual addressable revenue: $400 million based on 35 banks in modernization windows × $35 million average deal size × 33% win rate" will recognize analytical rigor.
+
+---
+
+## The Four-Archetype Contrast
+
+| Dimension | Consumer Product | B2B SaaS | Enterprise Solutions | SI/Consulting |
+|---|---|---|---|---|
+| **Unit of measurement** | Individual users. TAM = total potential users × revenue per user (ads, subscription, transaction fees). The atom is the person. | Business seats or accounts. TAM = potential business users × price per seat per year. The atom is the team or department. | Enterprises with the problem. TAM = affected institutions × transformation budget × addressable vendor share. The atom is the institution and its transformation program. | Billable hours or FTEs. TAM = enterprises needing services × average engagement size × consulting spend share. The atom is the project and its staffing. |
+| **Sizing methodology** | Top-down demographic analysis. "There are 3 billion smartphone users; if 5% adopt at $5/month, the TAM is $9 billion." Large numbers, probabilistic adoption assumptions. | Bottom-up account mapping plus top-down industry analysis. "There are 500,000 mid-market companies; the workflow problem affects 60%; at $200/seat/year with average 50 seats, SAM is $3 billion." | Demand-side problem mapping. "There are 400 banks in modernization windows over the next decade; average transformation budget is $100M; the platform vendor captures 25%; total addressable is $10 billion over a decade, or approximately $1 billion annually." | Capacity-based projection. "We can staff 200 consultants against this practice area at $300K revenue per consultant, yielding $60M annually." Market size is bounded by the firm's ability to hire and deploy. |
+| **Key variable** | Adoption rate. The critical assumption is what percentage of the addressable population will actually adopt. Small changes in adoption rate produce enormous swings in the projection. | Conversion rate and expansion revenue. The critical assumptions are what percentage of free/trial users convert to paid, and how much existing accounts expand through upsell. | Transformation window timing and deal size. The critical assumptions are how many enterprises are actively modernizing in a given period, and how large those engagements are. | Utilization rate and billing rate. The critical assumptions are how many consultants can be deployed and at what rate. Market size is secondary to staffing capacity. |
+| **Typical error** | Overstating adoption. "If just 1% of China's population uses our app..." — the 1% assumption does the work and is rarely examined. | Overstating conversion and understating churn. Projections assume higher conversion than benchmarks support and lower churn than the category experiences. | Conflating total universe with active buyers. Counting all enterprises with legacy systems as "the market" ignores that only a fraction are in active transformation windows at any time. The market is real but episodic. | Ignoring margin compression. Revenue projections assume premium billing rates, but competitive pressure and offshoring continuously compress the rate structure. |
+
+---
+
+## In Banking
+
+The core banking modernization market is frequently cited as a "$30–50 billion opportunity." This number appears in analyst reports, investor presentations, and vendor pitch decks. It is derived from estimates of total global bank IT spending on core systems — a number that includes everything from mainframe maintenance contracts to custom development to vendor licensing. As a TAM figure, it is approximately correct and operationally useless.
+
+The enterprise sizing framework produces a more actionable picture.
+
+**Step 1: Map the universe.** There are approximately 25,000 banks globally. Of these, roughly 5,000 are large enough (by assets, transaction volume, or regulatory complexity) to require a modern core banking platform rather than a simplified digital banking layer. Among these 5,000, an estimated 3,000–3,500 are running legacy core systems that will require modernization within the next ten to fifteen years.
+
+**Step 2: Estimate transformation budgets.** Transformation budgets vary by tier:
+- **Tier 1 banks** (top 100 global): $150–500M per modernization program
+- **Tier 2 banks** (next 500 regional): $30–100M per program
+- **Tier 3 banks** (remaining ~2,500–3,000): $5–30M per program
+
+The platform vendor's addressable share — the portion of the transformation budget that goes to the core platform vendor for licensing and vendor-led implementation — is typically 20–35% of the total program cost. The remainder funds systems integration, internal IT, data migration, testing, and change management.
+
+**Step 3: Model the annual addressable market.** If the average modernization cycle is twelve to fifteen years and 3,000 banks require modernization, approximately 200–250 banks enter the modernization window each year. Applying segment-weighted average deal sizes (platform vendor share only) of roughly $8–12M per bank across all tiers, and a market-level win rate of 25–30% for any individual vendor:
+
+**A leading core banking platform vendor can credibly target $500M–$900M in annual new deal bookings** — a meaningful but dramatically different number from "$50 billion TAM."
+
+This number is smaller but defensible. It reflects how banks actually spend, how transformation windows actually open, and how competitive dynamics actually play out. It also reveals where the leverage lies: not in expanding the total market (which is driven by forces beyond the vendor's control) but in increasing deal sizes through broader solution scope, improving win rates through reference customers and delivery track record, and accelerating the pipeline by identifying banks approaching their modernization window earlier than competitors do.
+
+The SaaS instinct — "price per seat, multiply by all banks, declare a $50 billion market" — produces a slide that impresses in a pitch meeting and collapses under diligence. The enterprise sizing framework produces a number that survives scrutiny from CFOs, board members, and institutional investors — because it is built from the same logic those audiences use to evaluate any capital allocation decision.
+
+---
+
+*Market sizing in enterprise solutions is not an exercise in optimism. It is a discipline of precision — counting the enterprises that have the problem, estimating what they will spend to solve it, and modeling what share you can credibly capture. The number is always smaller than the SaaS-style TAM. It is also always real.*
