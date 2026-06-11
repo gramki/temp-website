@@ -1,4 +1,4 @@
-# Chapter 03.02.03: Cloud Fabric — Product Note
+# Chapter 03.01.03: Cloud Fabric — Product Note
 
 **An integrated cloud operations fabric — spanning infrastructure management, customer-centric observability, and agentic site operations — purpose-built for banks running distributed cloud-native workloads.**
 

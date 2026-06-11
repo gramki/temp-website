@@ -1,4 +1,4 @@
-# Chapter 03.02.01: Trust Fabric — Product Note
+# Chapter 03.01.01: Trust Fabric — Product Note
 
 **An enterprise trust layer that unifies identity, authentication, consent, and privacy into a single architectural surface.**
 

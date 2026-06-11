@@ -1,4 +1,4 @@
-# Chapter 03.02.02: Truth Fabric — Product Note
+# Chapter 03.01.02: Truth Fabric — Product Note
 
 **An enterprise semantic layer that makes truth explicit, authority-aware, and traceable — so that systems, teams, and AI can build on shared meaning instead of re-arguing it.**
 

@@ -10,10 +10,10 @@ A **Channel** is not a screen or widget. It is a system embodying identity, auth
 
 | Aspect | What a Channel Embodies |
 |--------|-------------------------|
-| **Identity** | Who is participating — human user, AI agent, or system |
-| **Authentication** | How participants prove identity — SSO, API keys, SPIFFE, OAuth |
-| **Access control** | What participants are authorized to do — RBAC, entity/action permissions |
-| **Interaction model** | How participants engage — task-oriented, conversational, programmatic, AI-native |
+| **Identity** | Who is participating — human user, delegated AI agent, or system. Interactions can be human-to-hub, agent-to-hub, or agent-to-agent (a customer's sovereign agent interacting with the hub's operational swarms) |
+| **Authentication** | How participants prove identity — SSO, API keys, SPIFFE, OAuth delegation tokens |
+| **Access control** | What participants are authorized to do — RBAC, entity/action permissions, and delegated authority boundaries |
+| **Interaction model** | How participants engage — task-oriented, conversational, programmatic, AI-native, or agent-to-agent protocol |
 
 A REST API is a Channel. A voice telephony integration is a Channel. An Agent Desk is a Channel. Each is a full collaboration surface with governance, not a thin UI layer.
 
@@ -43,8 +43,8 @@ Channels vary by interaction paradigm. The choice of Channel type affects how pa
 | **Web applications (desks, consoles)** | Persona-specific, task-oriented interfaces | Structured workflows, forms, queues, dashboards | Agent Desk for dispute resolution, Supervisor Desk for queue management, Customer Portal for self-serve account management |
 | **Chat and collaboration platforms (MS Teams)** | Conversational, embedded in work contexts | Natural language, quick actions, in-flow collaboration | Me_Bot for agents checking tasks between meetings, Ask_Bot for business users querying servicing |
 | **Voice and telephony** | Quasi-digital, real-time, human-centric | Spoken interaction, IVR, screen-pop for reps | Contact center inbound calls, IVR for balance inquiry, agent-assisted voice for complex disputes |
-| **API channels (REST)** | System-to-system, programmatic | Request-response, batch, webhooks | Partner payment submission, merchant onboarding integration, regulatory filing submission |
-| **AI agent channels (MCP)** | AI-native interaction via Model Context Protocol | Tool invocation, context retrieval, real-time updates | AI assistant resolving account inquiries, co-pilot surfacing context for agents, customer's personal AI transacting on their behalf |
+| **API channels (REST)** | System-to-system, programmatic, and Bring-Your-Own-Agent (BYOA) integration | Request-response, batch, webhooks, or delegated agent API queries | Partner payment submission, merchant onboarding integration, regulatory filing submission, or secure DPA (Delegated Payer Agent) queries |
+| **AI agent channels (MCP)** | AI-native interaction via Model Context Protocol and native plugins | Tool invocation, context retrieval, real-time updates | AI assistant resolving account inquiries, co-pilot surfacing context for agents, customer's personal AI or bank-provided plugins (Siri, ChatGPT Actions) transacting on their behalf |
 | **CLI** | Developer-oriented | Command-line invocation, scripting | SRE operations, developer tooling, administrative tasks |
 
 Different personas use different Channel types. An agent may use a Web Console (Agent Desk) for deep work and MS Teams (Me_Bot) for quick checks. A customer may use a web portal for self-serve and voice for complex issues. A partner system uses REST APIs exclusively. Model each Channel type with its interaction paradigm in mind.
@@ -113,16 +113,16 @@ Each Channel has a security posture. Human and AI participants require different
 
 Human participants authenticate once and access Hub through persona-appropriate Channels. Permissions are scoped to Workbench (Hub) and Persona.
 
-### AI Agent IAM
+### AI Agent & Delegated Agent IAM
 
 | Aspect | Description |
 |--------|-------------|
-| **Identity** | SPIFFE-based deployment identity — proves "this request is from this specific agent deployment" |
-| **Authentication** | SPIFFE SVID for infrastructure; OAuth tokens for business-layer authorization |
-| **Access control** | Fine-grained entity/action permissions; Agent Persona determines scope |
-| **Tool authorization** | OAuth-like consent for agent tool access — user grants authority via Channel; agent receives request-scoped token |
+| **Identity** | SPIFFE-based deployment identity for internal/platform agents, or cryptographically verified client keys for Bring-Your-Own-Agents (BYOAs) |
+| **Authentication** | SPIFFE SVID for internal infrastructure; OAuth delegation tokens or mTLS for external customer/merchant agents (BYOAs) |
+| **Access control** | Fine-grained entity/action permissions; Agent Persona determines scope. External agents are constrained by explicit customer-delegated rights (e.g., read-only, transfer under $100 limits) |
+| **Tool authorization** | OAuth-like consent or cryptographic key signatures for agent tool access — user grants authority via Channel; agent receives request-scoped delegation token |
 
-AI agents have two-layer identity: Deployment Identity (SPIFFE) for infrastructure authentication, and Agent Persona for business authorization. When an agent needs to act on behalf of a user, the Channel presents consent UI and captures delegation; the agent receives a Delegation Access Token bound to the request and the agent's SPIFFE ID.
+AI agents have distinct identity structures depending on origin: internal platform swarms have a two-layer identity—Deployment Identity (SPIFFE) for infrastructure authentication, and Agent Persona for business authorization. When an agent (whether internal or an external BYOA) needs to act on behalf of a customer, the Channel authenticates the delegation. For external BYOAs, this uses a Delegated Payer Agent (DPA) token—a cryptographically signed token that enforces the customer's exact, bounded rights and transaction limits directly at the Channel gate.
 
 ### Channel-Specific Security Posture
 
@@ -216,14 +216,34 @@ This is not API aggregation. It is genuine recomposition for least friction and 
 | **Represents** | One domain's view of collaboration | Composite experience across domains |
 | **Composition** | Composed from paradigm-specific components for one domain | Recomposed from multiple Hubs' components for the persona's organizational context |
 | **Modeling** | Part of Hub modeling | Neutrino concern |
-| **Example** | Payments Hub REST API; Servicing Hub Agent Desk | Customer mobile app; agent unified desktop |
+| **Example** | Payments Hub REST API; Servicing Hub Agent Desk | Customer mobile app; agent unified desktop; Bring-Your-Own-Agent (BYOA) Plugin/Intent Connector |
 | **Ownership** | Domain experts model Hub Channels | Product/UX design Channel Products |
 
 When modeling a Hub, focus on Channels — what surfaces does this domain expose for which personas, and what composable components serve them? When designing experiences that span domains, focus on Channel Products — how do we recompose those components into a cohesive experience for the organization-scoped persona?
 
+### Agentic Channel Products
+
+In the modern AI-first landscape, Channel Products are not restricted to visual screens. A **Bring-Your-Own-Agent (BYOA)** plugin is an organization-scoped **Channel Product**. 
+
+For example, a customer's personal Apple Intelligence or ChatGPT agent transacts across multiple domains (e.g., checking credit card limits, making a peer-to-peer payment, and filing a dispute). The bank publishes a unified **BYOA Plugin/Connector Product** (via the Engagement Fabric). This Channel Product recomposes components from the Payments, Cards, and Servicing Hubs, wrapping them in an LLM-friendly schema (such as tool-calling schemas or Model Context Protocol schemas) and providing direct cryptographic validation of the agent's delegation tokens. This allows the customer's sovereign agent to securely interact with the bank's operational substrate under precise, user-defined bounds.
+
 ---
 
-## 8. Channel Anti-Patterns
+## 8. Closed-Loop Telemetry and Attribution
+
+To measure the business efficacy of digital interactions, Channel Products and Hub Scenarios must establish a deterministic feedback loop. This is achieved by combining the **Engagement Fabric**'s telemetry capabilities with external attribution endpoints.
+
+The execution flow for closed-loop telemetry and attribution operates as follows:
+
+1. **Token Insertion:** When a Hub Scenario initiates an outbound or interactive communication (such as an email, SMS, push notification, or deep-link within a mobile Channel Product), it embeds a cryptographically signed **Correlation Token** generated by the Engagement Fabric. This token encapsulates the metadata representing the originating Hub, Scenario ID, and Session ID.
+2. **Delivery & Interaction:** The Engagement Fabric dispatches the **Interaction Unit (IU)** to the customer's Channel Product. As the customer interacts with the IU (progressing from *Dispatched* to *Delivered*, *Viewed*, and finally *Engaged/Clicked*), the Channel Product emits real-time telemetry back to the Engagement Fabric.
+3. **External Attribution Callbacks:** If the interaction takes place in a third-party app environment or results in an app install/launch, mobile measurement platforms (MMPs) like **AppsFlyer** or **Branch** capture the launch intent and extract the Correlation Token from the deep link. The MMP then fires a webhook postback callback containing the token to the Engagement Fabric's Action Attribution Gateway.
+4. **Attribution State Reconciliation:** The Action Attribution Gateway verifies the signature of the Correlation Token, extracts the metadata, and routes the validated attribution event directly back to the active Hub Scenario.
+5. **Scenario Goal Resolution:** The Hub Scenario processes the attribution event, matches it against its active goal criteria (e.g., "completed credit card application" or "activated term deposit"), and successfully resolves the scenario state, closing the loop.
+
+---
+
+## 9. Channel Anti-Patterns
 
 ### The Monolith Channel
 
@@ -270,7 +290,7 @@ A Channel that exists but is not used by any Scenario is overhead with no value.
 
 ---
 
-## 9. Channel Heuristics
+## 10. Channel Heuristics
 
 | Heuristic | Application |
 |-----------|-------------|

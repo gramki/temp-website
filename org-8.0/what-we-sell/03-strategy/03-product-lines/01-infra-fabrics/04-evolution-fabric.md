@@ -1,4 +1,4 @@
-# Chapter 03.02.04: Evolution Fabric — Product Note
+# Chapter 03.01.04: Evolution Fabric — Product Note
 
 **An operational layer for banking domains — making work explicit, governed, and evolvable by any combination of humans and AI — so that changes in actors, systems, channels, and regulations do not require re-engineering.**
 
@@ -25,17 +25,16 @@ The result: the bank's architecture punishes evolution. The more systems it has,
 
 ## What Evolution Fabric Is
 
-Evolution Fabric is the operational layer for banking domains — an integrated platform comprising two systems that together make work explicit, governed, and evolvable:
+Evolution Fabric is the operational layer for banking domains — Hub makes work explicit, governed, and evolvable.
 
-- **Hub** provides the operational substrate — bounded business domains (Hubs), each with an explicit model of its commitments (Streams), internal discipline (Loops), interaction surfaces (Channels), collaborators (Teams), and system capabilities (Machines). All work resolves through goal-oriented Scenarios — not procedures — using whatever combination of humans and AI is appropriate.
-- **Seer** provides the AI agent control plane and runtime — agent lifecycle management, identity and authority, context assembly, guardrails, and governance. Seer agents operate within Hub's operational context: Hub defines what needs to be resolved; Seer governs how AI agents participate in the resolution.
+Hub provides the operational substrate: bounded business domains (Hubs), each with an explicit model of its commitments (Streams), internal discipline (Loops), interaction surfaces (Channels), collaborators (Teams), and system capabilities (Machines). All work resolves through goal-oriented Scenarios — not procedures — using whatever combination of humans and AI is appropriate.
 
-Together, these two systems provide a single operational fabric where:
+This operational layer delivers:
 
 - Work is modeled as **situations that need resolution** — not as tasks to execute or procedures to follow.
 - The model of work is **independent of who does it**. The same Scenario can be resolved by humans today, AI agents tomorrow, and a different vendor next quarter — without changing the model.
 - Each domain's operational intelligence is **explicit and declarative** — visible, governable, and portable across changes in systems, people, and organization.
-- Human-AI collaboration is **structural** — governed by the same model, the same accountability, and the same audit surface — not bolted on as an afterthought.
+- Human-AI collaboration has a **structural foundation** — the same model accommodates any point on the resolution spectrum, from pure human to pure automation.
 - Each investment **compounds on the model** rather than adding to the maintenance burden. A new capability plugs into the domain model through a tool contract; the integration surface does not grow.
 
 ---
@@ -120,38 +119,23 @@ Existing systems registered as capability providers — with declared tool contr
 | Tool contracts | Each Machine declares its capabilities as Tools — Prediction Applications (observe/predict), Decision Applications (decide), and Commands/Actuators (act). The contract is the stable interface between the domain model and the system landscape |
 | System-agnostic modeling | The domain model references Tool contracts, not specific systems. Replacing a Machine — swapping a fraud engine, upgrading a core banking system, moving to a new vendor — does not change Streams, Loops, Teams, or Channels. The Tool contract is honored by the replacement |
 | Native and third-party parity | Zeta product lines and third-party systems are equally valid Machines. The integration model is the same regardless of vendor. A domain is not locked to a specific technology provider |
-| Hub Applications | Orchestration logic for how Scenarios are resolved — invoking Tools from Machines, coordinating Team activities, managing state. When the runtime is Seer, the Application is an AI Agent: simultaneously orchestrating and participating |
+| Hub Applications | Orchestration logic for how Scenarios are resolved — invoking Tools from Machines, coordinating Team activities, managing state. When an AI agent resolves the Scenario, it operates through the same Application model — orchestrating and participating within the governance provided by Agent Fabric |
 
 The tool contract is what makes evolution possible at the system level. When the bank replaces a system, it replaces the Machine — not the domain model. The new Machine honors the same tool contracts; the Scenarios that use those tools continue without modification.
-
-### 7. AI Agent Governance
-
-Enterprise-grade governance for AI agents participating in domain operations — lifecycle, identity, authority, guardrails, and memory — so that AI deployment is governed by design, not constrained by fear.
-
-| Capability | What It Delivers |
-|---|---|
-| Agent lifecycle management | Three-stage lifecycle — Raw (base model capability), Trained (domain-specialized), Employed (assigned to a specific role and context in a Hub). Each stage carries different authority levels and governance requirements |
-| Agent identity | Two-layer identity model — Business Identity (the agent's persona, role, and domain context) and Deployment Identity (the technical runtime identity). The business identity persists across deployment changes |
-| Authority and delegation | Explicit delegation from a human or role to an agent, with inherited permissions and clear boundaries. Agent authority is always derived, never self-asserted. Every action traces back to an accountable human |
-| Context assembly | Structured context compilation for each agent invocation — assembling the right domain knowledge, entity relationships, applicable rules, and tool contracts from the Hub's operational model. Agents operate with full domain context, not generic prompts |
-| Guardrails | Input validation, output filtering, behavioral boundaries, and policy enforcement — applied consistently across all agent interactions. Guardrails are structural properties of the agent's employment, not per-invocation configurations |
-| OPD governance | Every agent is assessed across three dimensions: Observability (can we see what it's doing?), Predictability (does it behave within expected bounds?), and Directability (can we steer or stop it?). All three must be satisfied for enterprise deployment |
-| Memory governance | Agent memory classified by type — Episodic (what happened), Semantic (what things mean), Procedural (how to do things), Preference (what's preferred) — with lifecycle management, retention policies, and governance appropriate to each type |
-
-Seer answers the question the CIO asks before deploying AI at scale: "How do I know this agent is doing what it should, only what it should, and that someone is accountable?" The answer is structural — identity, delegation, guardrails, and audit are built into the agent's employment, not layered on after deployment.
 
 ---
 
 ## Architectural Position
 
-Evolution Fabric occupies two layers in the banking technology stack:
+Evolution Fabric occupies the **operational substrate layer** in the banking technology stack.
 
 | Layer | Evolution Fabric Role |
 |---|---|
 | **Operational Substrate** | Hub provides the explicit, governed model for each business domain — Hubs, Streams, Loops, Scenarios, Teams, Channels, Machines — making operational intelligence declarative and portable rather than locked in code. This is the stable layer on which everything else can change |
-| **Agent Control Plane** | Seer provides the governance infrastructure for AI agents operating within Hub's domains — lifecycle, identity, authority, context, guardrails, and memory. This is what makes human-AI collaboration governed by design rather than constrained by caution |
 
-These two layers have historically been addressed — when they've been addressed at all — by separate categories of tooling: BPM and workflow engines for process execution, case management systems for unstructured resolution, integration middleware for system coordination, and custom AI deployments for each use case. Each has its own model, its own data, and its own governance surface. Evolution Fabric replaces this fragmentation with a single operational layer organized around the bank's business domains.
+This layer has historically been addressed — when it's been addressed at all — by separate categories of tooling: BPM and workflow engines for process execution, case management systems for unstructured resolution, and integration middleware for system coordination. Each has its own model, its own data, and its own governance surface. Evolution Fabric replaces this fragmentation with a single operational layer organized around the bank's business domains.
+
+AI agents participate in Hub's operational model through the resolution spectrum — from pure human to pure automation — but agent lifecycle, identity, authority, and governance are handled by **Agent Fabric**, which provides the control plane for AI agents operating within Hub's domains.
 
 ---
 
@@ -161,9 +145,10 @@ Evolution Fabric consumes and depends on the other fabrics in the product family
 
 | Fabric | Relationship |
 |---|---|
-| **Trust Fabric** | Provides the identity, authentication, consent, and delegation infrastructure that Evolution Fabric requires for both human and AI agent participation. Agent identity in Seer is governed through Trust Fabric's identity model |
+| **Trust Fabric** | Provides the identity, authentication, consent, and delegation infrastructure that Evolution Fabric requires for human and AI agent participation in domain operations |
 | **Truth Fabric** | Provides the semantic layer that grounds Evolution Fabric's domain models in shared, authority-aware definitions. When a Scenario references "available credit" or "dispute resolution," Truth Fabric ensures everyone — human and AI — means the same thing |
-| **Cognitive Audit Fabric** | Provides the auditability layer for decisions made within Evolution Fabric's Scenarios. Every judgment call — by human or AI — is reconstructable, explainable, and defensible through CAF's decision memory |
+| **Agent Fabric** | Provides the AI agent control plane — lifecycle, identity, authority, guardrails, and governance — for agents operating within Hub's domains. Evolution Fabric defines what needs to be resolved; Agent Fabric governs how AI agents participate |
+| **Memory Fabric** | Provides the auditability and institutional memory layer for decisions made within Evolution Fabric's Scenarios. Every judgment call — by human or AI — is reconstructable and explainable |
 | **Cloud Fabric** | Provides the infrastructure on which Evolution Fabric runs — managed estate, customer-centric observability, and agentic site operations. Evolution Fabric's operational health is monitored through Cloud Fabric's outside-in observability model |
 
 The fabrics are complementary, not competitive. Each governs a distinct concern. Together, they provide the full enterprise infrastructure for a bank that wants to evolve its operations domain by domain — with trust, truth, accountability, and operational reliability built in.
@@ -173,7 +158,6 @@ The fabrics are complementary, not competitive. Each governs a distinct concern.
 ## References
 
 - [Olympus Hub Documentation](../../../../../olympus-hub-docs/README.md) — The operational substrate for information-centric work
-- [Olympus Seer Documentation](../../../../../olympus-seer-docs/README.md) — Enterprise AI agent platform: control plane and runtime
 - [The Hub Way](../../../02-the-thesis/07-the-hub-way/README.md) — The framework for modeling work in enterprise banking domains
 - [The Thesis](../../../02-the-thesis/README.md) — The structural argument: problems, systems gap, governing principles, and benefits
 - [Finding the Fabric for Hub](../../01-finding-the-fabric-for-hub.md) — The naming deliberation that led to "Evolution Fabric"
