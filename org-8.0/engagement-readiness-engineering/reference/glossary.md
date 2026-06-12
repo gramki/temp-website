@@ -18,6 +18,8 @@ Terms and acronyms used throughout the Engagement Readiness Engineering document
 | **Knowledge Engineer** | Role that owns the knowledge base system, taxonomy, quality standards, and curation workflows. Not responsible for content creation — that comes from across the organization. |
 | **Domain Steward** | Rotating SME role that validates and enriches domain-specific knowledge content. |
 | **Pattern Curator Agent** | AI agent that scans artifacts for patterns, identifies duplicates, flags gaps, and proposes taxonomy updates. |
+| **ERE Delivery Swarms** | The Agent Swarms ERE operates within Engagement delivery: the Discovery Swarm, Induction Analysis Swarm, and Verification Swarm. |
+| **Work Model Library** | The named, compounding repository of structural patterns from every Engagement's Work Model — scenario shapes, Tool Contract templates, governance structures, regulatory mappings. Structure compounds; each bank's operational intelligence remains that bank's property. |
 | **Progressive Enforcement** | Governance model where tools evolve from Guidance → Assistance → Mandatory Gate based on adoption maturity and tooling reliability. |
 
 ---
@@ -50,6 +52,11 @@ Terms and acronyms used throughout the Engagement Readiness Engineering document
 | **Engagement Success** | Function responsible for ensuring an Engagement is successfully deployed and adopted — readiness, adoption, value delivery. Owned by EPM. |
 | **Knowledge Gate** | Checkpoint requiring specific knowledge artifacts before phase transition proceeds. |
 | **Delivery Gate** | Checkpoint requiring delivery criteria before lifecycle phase transition. |
+| **Work Model** | The declarative model of a domain's work: Streams (external commitments), Loops (internal disciplines), Scenarios, Teams, Machines, Channels. Defined by The Hub Way. |
+| **Induction** | Enrollment of an existing system into a Work Model: wrapped in a Tool Contract, registered as a Machine, operational intelligence extracted into declarative specifications. Enrolled, not replaced. Defined by The Hub Way. |
+| **Machine** | A system enrolled in a Work Model and callable by the domain's work, registered via a Tool Contract. Defined by The Hub Way. |
+| **Tool Contract** | The contract through which an existing system is wrapped and enrolled into a Work Model as a Machine. Defined by The Hub Way. |
+| **Workforce artifacts** | One of the artifact groups an Engagement produces: agent definitions, training and evaluation records, authority grants, and guardrail configurations. |
 
 ---
 
@@ -72,6 +79,7 @@ Terms and acronyms used throughout the Engagement Readiness Engineering document
 
 | Term | Definition |
 |------|------------|
+| **Agent Swarm** | A governed team of AI agents trained on a domain's Work Model, employed with verified identities, delegated authority from accountable humans, and explicit guardrails. |
 | **Assistive** | AI autonomy level where agents draft, suggest, and flag — humans review and approve. |
 | **Automative** | AI autonomy level where agents execute routine actions autonomously, with human escalation for exceptions. |
 | **Agent Accuracy** | Percentage of agent outputs accepted without modification. |

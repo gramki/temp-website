@@ -92,6 +92,6 @@ Influence Fabric serves as a core Banking Fabric that relies heavily on our Infr
 
 ## References
 
-- [Engagement Fabric](../../01-infra-fabrics/09-engagement-fabric.md) — Multi-channel interaction infrastructure
+- [Engagement Fabric](../01-infra-fabrics/09-engagement-fabric.md) — Multi-channel interaction infrastructure
 - [Modeling Channels](../../../../02-the-thesis/07-the-hub-way/03-enablement/05-modeling-channels.md) — Closed-loop telemetry and attribution
 - [The Thesis](../../../../02-the-thesis/README.md) — Architectural principles and structural argument

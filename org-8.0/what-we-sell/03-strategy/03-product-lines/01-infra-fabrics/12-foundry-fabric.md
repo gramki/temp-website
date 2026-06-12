@@ -82,6 +82,7 @@ The authoritative administrative plane that manages Tenancy, Work Catalogues, an
 | **Schema Validator** | Performs automated validation of bank-authored fabric, hub, and scenario declarations, checking syntactic completeness and verifying compliance rules. |
 | **Catalog Manager** | Governs the publishing, versioning, and distribution of Work Catalogues, allowing banks to roll out new or refined Streams, Loops, and Scenarios. |
 | **Workbench Provisioner** | Coordinates the provisioning of new Workbenches and links them to their corresponding product configurations. |
+| **Induction Toolkit** | Executes Induction of the bank's existing estate: authors Tool Contracts over existing bank and third-party systems, registers them as Machines available to Hub Work Models, and scaffolds the declarative specifications that capture the operational intelligence accumulated around them. |
 
 ### 2. Workspace Session Infrastructure
 

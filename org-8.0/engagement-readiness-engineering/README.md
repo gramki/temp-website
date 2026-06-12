@@ -2,7 +2,7 @@
 
 Engagement Readiness Engineering (ERE) is the function within ERC responsible for building and operating the systems, tools, and applications that make the Engagement lifecycle efficient, reliable, and consistent.
 
-This function is distinct from **Engagement Engineering** (the discipline of assembling customer-specific product instantiations). ERE builds the infrastructure that enables Engagement Engineering to be practiced at scale — the tools, platforms, and automation that prepare teams and customers for successful Engagements.
+This function is distinct from **Engagement Engineering** (the discipline of assembling customer-specific product instantiations). ERE builds the infrastructure that enables Engagement Engineering to be practiced at scale — the tools, platforms, and automation that prepare teams and customers for successful Engagements. ERE also operates the [ERE Delivery Swarms](03-ai-architecture/agents.md) that work alongside engagement teams in discovery, induction analysis, and verification, and stewards the [Work Model Library](04-knowledge-engineering/README.md) that compounds structural patterns across Engagements.
 
 ---
 

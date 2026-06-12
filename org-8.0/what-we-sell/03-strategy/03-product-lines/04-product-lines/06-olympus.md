@@ -1,12 +1,12 @@
 # Chapter 03.04.06: Olympus — Enterprise Developer and Runtime Platform
 
-**The cloud-native, agentic operating system for modern banking — providing the security, data, reasoning, hosting, and compilation environments through which all Zeta application frameworks run.**
+**The cloud-native runtime and developer platform for modern banking — providing the security, data, reasoning, hosting, and compilation environments through which all Zeta application frameworks run.**
 
 ---
 
 ## 1. Product Family Overview
 
-Olympus is Zeta's enterprise-grade infrastructure and developer runtime platform. Functioning as a non-GTM cost-center asset, Olympus is not sold as a standalone retail or commercial product. Instead, it serves as the foundational operating system and technical substrate that gives Zeta's banking product lines (Tachyon, Photon, Electron, Neutrino, Quark) their structural safety, low latency, and cognitive capabilities.
+Olympus is Zeta's enterprise-grade infrastructure and developer runtime platform. Functioning as a non-GTM cost-center asset, Olympus is not sold as a standalone retail or commercial product. Instead, it serves as the foundational runtime platform and technical substrate that gives Zeta's banking product lines (Tachyon, Photon, Electron, Neutrino, Quark) their structural safety, low latency, and cognitive capabilities.
 
 Olympus is delivered across five distinct product lines (brands), each managing a specific domain of infrastructure and runtime capabilities:
 
@@ -15,7 +15,7 @@ Olympus is delivered across five distinct product lines (brands), each managing 
 | **Cipher** | Identity & Security | Unifies enterprise authentication, fine-grained access control, digital consent, and Delegated Payer Agent (DPA) IAM. | **Trust Fabric (01)** |
 | **LakeStack** | Data & Intelligence | Powers authority-aware data semantic models, real-time/batch analytical pipelines, and immutable cognitive audit trails. | **Truth Fabric (02)**, **Memory Fabric (06)**, **Intelligence Fabric (09)** |
 | **Hub** | Reasoning & Evolution | Governs runtime goal-oriented AI reasoning, cognitive planning, and the orchestrating scenario execution engines. | **Evolution Fabric (04)**, **Cognition Fabric (07)** |
-| **Estate** | Cloud & Agent Runtime | Orchestrates secure multi-cloud compute, transaction replication, and sandboxed AI agent runtimes with runtime token controls. | **Cloud Fabric (03)**, **Agent Fabric (05)** |
+| **Estate** | Cloud & Agent Runtime | A comprehensive system to provision, manage, and operate cloud infrastructure and the software estate running on it — driven by a robust collection of agent swarms. | **Cloud Fabric (03)**, **Agent Fabric (05)** |
 | **Foundry** | Meta-Development | Serves as the enterprise workspace compilation, authoring, and development pipeline for custom extensions. | **Foundry Fabric (11)** |
 
 ---
@@ -36,10 +36,10 @@ Hub provides the cognitive processing and state-management runtime for the bank'
 - Using **Cognition Fabric**, it executes model-neutral inference runs, goal-seeking reasoning cycles, and exception-handling scenarios.
 - Using **Evolution Fabric**, it compiles declarative Scenarios, coordinates synchronous/asynchronous Streams and Loops, and manages live zero-downtime platform and schema migrations.
 
-### IV. Estate (The Multi-Cloud Hosting Environment)
-Estate handles the physical operations and hosting of both microservices and AI workloads.
-- Using **Cloud Fabric**, it provides platform-level infrastructure automation, active-active regional replication, edge caching, SRE monitoring metrics, and software publisher delivery pipelines.
-- Using **Agent Fabric**, it hosts specialized AI Agent Swarms inside isolated, memory-secure, token-quota-limited runtimes, ensuring that autonomous cognitive labor cannot run rogue or exceed resource boundaries.
+### IV. Estate (The Cloud and Agentic Operations System)
+Estate is a comprehensive system to provision, manage, and operate cloud infrastructure and the software estate running on it, operated by a robust collection of agent swarms. It is domain-neutral — it hosts and operates any software estate, not only Zeta's frameworks.
+- Using **Cloud Fabric**, it provides platform-level infrastructure automation, active-active regional replication, edge caching, SRE monitoring metrics, and software publisher delivery pipelines to govern the active software estate.
+- Using **Agent Fabric**, it hosts and operates specialized AI Agent Swarms inside isolated, memory-secure, token-quota-limited runtimes, ensuring that autonomous cognitive labor cannot run rogue or exceed resource boundaries.
 
 ### V. Foundry (The Meta-Compilation Environment)
 Foundry is the meta-compilation and extension engine. It provides the SDKs, platform compilers, and workspace authoring tools that enable banks to design, test, and compile custom capabilities. 

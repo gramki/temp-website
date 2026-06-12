@@ -165,7 +165,7 @@ Truth Fabric provides the semantic foundation that other enterprise fabrics depe
 
 | Fabric | Relationship |
 |---|---|
-| **[Cognitive Audit Fabric](05-cognitive-audit-fabric.md)** | CAF governs *what was decided* — decisions, evidence, outcomes, overrides. Truth Fabric governs *what was true* — the enterprise-accepted facts those decisions were based on. CAF decision records reference Truth Fabric semantics for stable, auditable inputs. Each stands alone; together they close the loop from truth through decision to accountability |
+| **[Memory Fabric](07-memory-fabric.md)** | Memory Fabric governs *what was decided* — decisions, evidence, outcomes, overrides. Truth Fabric governs *what was true* — the enterprise-accepted facts those decisions were based on. Memory Fabric decision records reference Truth Fabric semantics for stable, auditable inputs. Each stands alone; together they close the loop from truth through decision to accountability |
 | **[Trust Fabric](01-trust-fabric.md)** | Trust Fabric governs *who is trusted* — identity, authentication, consent, privacy. Truth Fabric governs *what is true* — enterprise semantics and authority. Trust Fabric establishes the identity of actors and agents; Truth Fabric establishes the meaning of the data they act on |
 
 ---

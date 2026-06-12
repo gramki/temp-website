@@ -2,11 +2,11 @@
 
 [← Back to AI-Native Architecture](README.md) | [← Back to ERE](../README.md)
 
-ERE deploys two categories of AI agents: a **customer-facing Engagement Concierge** and **internal Specialized Drafting Agents** for specific domains.
+ERE deploys AI in two forms. The first is **assistive agents** — a customer-facing Engagement Concierge and internal Specialized Drafting Agents for specific domains, each a single-purpose agent that drafts, suggests, or answers for human review. The second is **ERE Delivery Swarms** — governed teams of agents that participate in delivering Engagements as working teams, not drafting tools.
 
 ---
 
-## Customer-Facing: Engagement Concierge
+## Assistive, Customer-Facing: Engagement Concierge
 
 The Customer Portal is paired with an **Engagement Concierge** — an AI agent that serves as the customer's intelligent interface to their Engagement.
 
@@ -37,7 +37,7 @@ See [Agent Governance](agent-governance.md) for full progression criteria.
 
 ---
 
-## Internal: Specialized Drafting Agents
+## Assistive, Internal: Specialized Drafting Agents
 
 Every drafting use case is supported by **skill-specific agents** fine-tuned for that domain. These agents share a common knowledge layer (Proposal Repository, Pattern Library, Case Studies) and are governed by the same progressive enforcement model.
 
@@ -86,6 +86,28 @@ All agents access and contribute to:
 
 ---
 
+## ERE Delivery Swarms
+
+Where assistive agents produce drafts for a human to review, **ERE Delivery Swarms** participate in delivering Engagements as working teams. Each is an **Agent Swarm** in the full sense defined by The Hub Way — a governed team of AI agents trained on the work at hand, employed with verified identities, delegated authority from accountable humans, and explicit guardrails — working alongside the engagement team through a phase of the Engagement.
+
+### Swarm Inventory
+
+| Swarm | Works Alongside | What It Does |
+|-------|-----------------|--------------|
+| **Discovery Swarm** | Engagement team during Discover | Works the domain's work inventory with the engagement team: enumerates external commitments, internal disciplines, and scenarios; surfaces seam work from customer documents and system inventories |
+| **Induction Analysis Swarm** | EA and engagement team | Analyzes the bank's existing systems for enrollment into the Work Model: proposes candidate Tool Contracts, identifies intelligence-extraction targets, grades effort for the induction map |
+| **Verification Swarm** | Verification Squad, directed by the AVA | Exercises Scenario tests, guardrail tests, and escalation rehearsals against the assembled Engagement |
+
+### Governance and Evolution
+
+| Aspect | How It Works |
+|--------|--------------|
+| **Same governance** | Delivery Swarms operate under the same controls as every ERE agent — autonomy levels, escalation triggers, audit trail, ERC review. The Assistive → Automative progression applies to each agent within a Swarm. See [Agent Governance](agent-governance.md) |
+| **Evolution per Engagement** | Swarm definitions improve through the knowledge engineering loop: every Engagement served sharpens agent definitions, evaluation suites, and escalation rules. A Delivery Swarm evolves with every Engagement it serves |
+| **First customer of every Swarm** | These are the same Swarm infrastructure and governance that Engagements ship to customer banks. Zeta is the first customer of every Swarm it ships — a bank evaluating an agent workforce can examine ours, operating Zeta's own delivery |
+
+---
+
 ## Agent-to-Tool Mapping
 
 Each agent is embedded in specific ERE tools:
@@ -99,6 +121,9 @@ Each agent is embedded in specific ERE tools:
 | **Estimation Agent** | Estimation Workbench, Estimation & Planning Suite |
 | **Governance Agent** | Governance Prep Suite |
 | **Retrospective Agent** | Retrospective Synthesizer, Case Study Generator |
+| **Discovery Swarm** | Delivery Toolkit, Work Model Library |
+| **Induction Analysis Swarm** | Delivery Toolkit, Engagement Registry |
+| **Verification Swarm** | Delivery Toolkit, Governance Prep Suite |
 
 ---
 

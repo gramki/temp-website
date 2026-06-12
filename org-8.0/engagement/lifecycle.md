@@ -62,6 +62,8 @@ The lifecycle begins at customer commitment. For the pre-Engagement phase, see [
 
 - Detailed requirements document
 - Solution architecture document
+- Work Model v1 and declarative specifications (EA, with EPO) — refined from the Exploration first cut
+- Induction map (EA) — which existing customer systems enroll under Tool Contracts as Machines, at what effort
 - Staffing plan with named individuals and rotation dates
 - Gap analysis and inner source plan
 - Test strategy (AVA)
@@ -81,7 +83,10 @@ The lifecycle begins at customer commitment. For the pre-Engagement phase, see [
 - Configuration per archetype and customer
 - Extension development within platform boundaries
 - Integration development (customer systems, data, etc.)
+- Induction execution per the induction map — existing customer systems wrapped in Tool Contracts and registered as Machines in the Work Model
 - Studio Component development (UIs, workflows, applications)
+- Composition and creation against the Work Model — gaps filled from Product Lines where capability exists, built where it does not
+- Agent Swarm training and evaluation against the Work Model (agent definitions, authority grants, guardrail configurations)
 - Inner source contributions — consult Product Line Maintainers, implement, submit PRs
 - AVA certifies the assembly at every increment; the Verification Squad builds and maintains the verification module (IaC environment definitions, test suites, test data preparation, CI orchestration)
 - Variability documentation (EA)
@@ -95,6 +100,7 @@ The lifecycle begins at customer commitment. For the pre-Engagement phase, see [
 **Outputs:**
 
 - Configured and integrated assembly (Customer Product + Studio Components)
+- Trained and evaluated Agent Swarm (agent definitions, evaluation records, authority grants, guardrail configurations)
 - Variability documentation
 - Test results and AVA certification
 - Operational readiness artifacts (runbooks, escalation matrix, monitoring config)
@@ -115,6 +121,7 @@ The lifecycle begins at customer commitment. For the pre-Engagement phase, see [
   - **Co-Managed:** to Zeta run team and customer per contract; responsibility matrix
   - **Customer-Operated:** to customer with documentation, runbooks, escalation path
 - EPO owns customer training and enablement
+- Transfer of **command of the workforce** (EPO leads enablement; EA supports) — the customer's team trained to operate the Agent Swarm, author its guardrails, hold dial authority, and design escalations. Regulators require the customer to govern its own agents without the vendor; this applies across operating models — under Fully Managed, Zeta operates the Swarm, but the customer still holds guardrail and dial authority
 - AVA hands over the verification module (test suites, environment definitions, test data tooling, CI orchestration, certification records) to run team or customer
 - SRE Lead ensures operational readiness criteria are met
 - EA finalizes variability documentation and proposes archetype updates

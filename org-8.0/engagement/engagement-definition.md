@@ -28,13 +28,14 @@ This guide provides:
 
 ## 2.1 Engagement (Assembly Construct)
 
-> **Engagement** is the complete collection of software artifacts — configurations, extensions, integrations, and studio-built components — that together constitute a customer-specific product instantiation derived from Product Lines.
+> **Engagement** is the complete collection of software artifacts — configurations, extensions, integrations, and studio-built components — that together constitute a customer-specific product instantiation derived from Product Lines. More completely, an Engagement is the **governed transformation of one banking domain**: the domain's work discovered as a **Work Model**, the customer's existing estate **inducted** into it (wrapped in Tool Contracts and registered as Machines — see The Hub Way's Modeling Machines chapter), the gaps composed from Product Lines and fabrics, and an **Agent Swarm** employed as part of the deliverable.
 
-An Engagement is not a contract, a relationship, or a form of activity. It is a **thing**: the set of artifacts that, taken together, make up what a specific customer receives. These artifacts derive from Product Lines; they are not bespoke builds. There is no formal packaging mechanism today (no manifest or bill of materials) that binds these artifacts into a single deployable unit — the Engagement is the logical container that groups them.
+An Engagement is not a contract, a relationship, or a form of activity. It is a **thing**: the set of artifacts that, taken together, make up what a specific customer receives. These artifacts derive from Product Lines; they are not bespoke builds. The collection spans more than software in the narrow sense: it includes the Work Model that makes the domain's work explicit, the Tool Contracts and declarative specifications through which the customer's existing systems are enrolled rather than replaced, and the definitions, evaluation records, authority grants, and guardrail configurations of the employed Agent Swarm. There is no formal packaging mechanism today (no manifest or bill of materials) that binds these artifacts into a single deployable unit — the Engagement is the logical container that groups them.
 
 **What it represents:**
 
 * A **bounded artifact collection** derived from Product Lines
+* A **governed domain transformation** — the domain's work made visible as a Work Model, its estate inducted, and an Agent Swarm employed to resolve work alongside the customer's people
 * A **unit of delivery accountability** — who is responsible for assembling and delivering these artifacts
 * A **pipeline element** (plan, sequence, prioritize across the portfolio)
 * A **governed lifecycle** (Initiate → Discover → Build → Transfer → Complete) that controls how the collection is assembled and delivered
@@ -102,13 +103,15 @@ Engagement Success is why the EPM role extends beyond traditional program manage
 
 ## 4.1 Artifact Groups
 
-An Engagement contains three artifact groups:
+An Engagement contains five artifact groups:
 
+* **Work Model artifacts** — the domain's Work Model (Streams, Loops, Scenarios, Teams, Machines, Channels), the Tool Contracts under which existing customer systems are inducted as Machines, and the declarative specifications extracted from the estate's operational intelligence (see The Hub Way's Modeling Machines chapter)
+* **Workforce artifacts** — agent definitions for the employed Agent Swarm, training and evaluation records, authority grants delegated from accountable humans, and guardrail configurations
 * **Customer Product artifacts** — Product Line configurations, extensions, platform integrations, and customer-specific business logic
 * **Studio Component artifacts** — integration adapters, orchestration flows, custom experiences (UIs, workflows, applications), and operational artifacts (runbooks, escalation matrices, monitoring configurations)
 * **Verification artifacts** — test environment definitions (IaC), assembly-level test suites, test data preparation tooling, CI orchestration configurations, and certification records. These are codified engineering — version-controlled and maintained with the same rigor as functional code. See [Verification and Certification](verification-and-certification.md).
 
-Together, these artifacts make up the assembled product instantiation for a specific customer. Verification artifacts are deliverables — they are handed over at Transfer.
+Together, these artifacts make up the assembled product instantiation for a specific customer. Verification and Workforce artifacts are deliverables — they are handed over at Transfer.
 
 ## 4.2 Lifecycle Phases
 
@@ -308,7 +311,7 @@ See the [Engagement Operating Model Guide](README.md) for full role descriptions
  CP Sq A   CP Sq B
 ```
 
-Three artifact groups make up the Engagement Assembly: **Customer Product artifacts**, **Studio Component artifacts**, and **Verification artifacts** (see [Section 4.1](#41-artifact-groups)). Squads assemble these artifacts; the Engagement is what they produce. CP and Studio squads are led by an **Engineering Lead (EL)**; the Verification Squad is directed by the **AVA**.
+Five artifact groups make up the Engagement Assembly: **Work Model artifacts**, **Workforce artifacts**, **Customer Product artifacts**, **Studio Component artifacts**, and **Verification artifacts** (see [Section 4.1](#41-artifact-groups)). Squads assemble these artifacts; the Engagement is what they produce. CP and Studio squads are led by an **Engineering Lead (EL)**; the Verification Squad is directed by the **AVA**.
 
 ### Customer Product Squads
 
@@ -425,7 +428,7 @@ When a customer commitment triggers the delivery lifecycle. The Exploration-to-E
 Through structured review and inner source. Customer Product Squads contribute reusable patterns, extensions, and platform enhancements back to Product Line Squads via inner source contributions. Engagement retrospectives and knowledge capture feed into Product Line roadmap decisions.
 
 **Q9: What artifacts make up an Engagement?**
-Three groups: (1) Customer Product artifacts — Product Line configurations, extensions, platform integrations, and customer-specific business logic; (2) Studio Component artifacts — integration adapters, orchestration flows, custom experiences, and operational artifacts (runbooks, escalation matrices, monitoring configurations); (3) Verification artifacts — IaC environment definitions, assembly-level test suites, test data preparation tooling, CI orchestration configurations, and certification records. See [Section 4.1](#41-artifact-groups).
+Five groups: (1) Work Model artifacts — the domain's Work Model, Tool Contracts for inducted systems, and declarative specifications; (2) Workforce artifacts — agent definitions, training and evaluation records, authority grants, and guardrail configurations; (3) Customer Product artifacts — Product Line configurations, extensions, platform integrations, and customer-specific business logic; (4) Studio Component artifacts — integration adapters, orchestration flows, custom experiences, and operational artifacts (runbooks, escalation matrices, monitoring configurations); (5) Verification artifacts — IaC environment definitions, assembly-level test suites, test data preparation tooling, CI orchestration configurations, and certification records. See [Section 4.1](#41-artifact-groups).
 
 **Q10: What changed with the role structure?**
 The Customer Product Delivery Lead (CPDL) role has been retired. Its responsibilities are now distributed across specialized roles: Client Partner (senior-most per-client role; EO reports to Client Partner), Client Partner Associate (CPA) for generalist support to the Client Partner, Engineering Lead (EL) for squad delivery, Engagement Program Manager (EPM) for customer-facing coordination and Engagement Success, Engagement Product Owner (EPO) for requirements and training, Assembly Verification Architect (AVA) for assembly certification, Engagement Owner (EO) for overall Engagement accountability, and SRE Lead for operational readiness. See the [Engagement Operating Model Guide](README.md).
@@ -439,7 +442,7 @@ We do not execute services.
 
 > We deliver **Engagements** through **Engagement Engineering**, and the EPM ensures customer outcomes through **Engagement Success**.
 >
-> An Engagement is software, not a service.
+> An Engagement is software and an employed workforce, not a service.
 
 ---
 

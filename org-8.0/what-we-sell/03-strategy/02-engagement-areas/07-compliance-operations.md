@@ -10,7 +10,7 @@ The competitive landscape is fragmented across 32+ vendors in seven categories -
 
 The highest-urgency buyer segment is US banks under active consent orders -- TD Bank, Citibank, Wells Fargo, Capital One, USAA -- with combined remediation investments exceeding $2 billion over 2025-2028. Tier 2 US banks ($10-100B assets) represent the near-term addressable market, where enforcement anxiety is high and incumbent lock-in is weaker. India (RBI-driven KYC modernization) and EU (AMLA establishment, single AML rulebook by July 2027, EU AI Act by August 2026) are secondary markets with regulatory forcing functions.
 
-**Zeta's position is a category-creation bet, not a market-entry play.** Four fabrics -- Evolution Fabric (operational orchestration), Cognitive Audit Fabric (decision auditability), Trust Fabric (identity lifecycle), and Truth Fabric (semantic consistency) -- are architecturally aligned to the five gaps no vendor fills. But Zeta has no production deployments in compliance, no compliance domain team, no analyst coverage, and no CCO/BSA Officer buyer relationships. The recommended strategy is to pursue compliance operations orchestration for US Tier 2 banks as the primary play, with compliance AI governance (leveraging CAF) as the differentiator, and KYC lifecycle orchestration as the entry point. AML detection, regulatory reporting, G-SIB compliance, and India compliance should be deferred.
+**Zeta's position is a category-creation bet, not a market-entry play.** Four fabrics -- Evolution Fabric (operational orchestration), Memory Fabric (decision auditability), Trust Fabric (identity lifecycle), and Truth Fabric (semantic consistency) -- are architecturally aligned to the five gaps no vendor fills. But Zeta has no production deployments in compliance, no compliance domain team, no analyst coverage, and no CCO/BSA Officer buyer relationships. The recommended strategy is to pursue compliance operations orchestration for US Tier 2 banks as the primary play, with compliance AI governance (leveraging Memory Fabric) as the differentiator, and KYC lifecycle orchestration as the entry point. AML detection, regulatory reporting, G-SIB compliance, and India compliance should be deferred.
 
 ---
 
@@ -218,7 +218,7 @@ Four fabrics in Zeta's architecture map to the compliance operations gap identif
 
 **Evolution Fabric** provides the operational substrate -- bounded business domains (Hubs), explicit work classification (Streams and Loops), goal-oriented resolution (Scenarios), and human-AI collaboration governance. A compliance domain modeled as a Hub would make every compliance workflow explicit: AML alert triage as a Stream, periodic sanctions list refresh as a Loop, investigation as a Case-Based Scenario. The resolution spectrum -- from Pure Human through Human-AI Teaming to AI-Autonomous -- provides the governance model for progressive AI adoption in compliance without requiring the compliance program to be redesigned for each change in automation level.
 
-**Cognitive Audit Fabric (CAF)** provides the decision auditability layer -- decision records, evidence bundles, override governance, explanation generation, and federated memory architecture. This maps directly to the "unified decision audit trail" gap identified in the competitive landscape. CAF's design principle -- "memory lives close to action, governance lives centrally" -- is precisely what a multi-vendor compliance environment requires: each compliance tool captures its own decisions; CAF provides the cross-domain discovery, replay, and explanation layer.
+**Memory Fabric** provides the decision auditability layer -- decision records, evidence bundles, override governance, explanation generation, and federated memory architecture. This maps directly to the "unified decision audit trail" gap identified in the competitive landscape. Memory Fabric's design principle -- "memory lives close to action, governance lives centrally" -- is precisely what a multi-vendor compliance environment requires: each compliance tool captures its own decisions; Memory Fabric provides the cross-domain discovery, replay, and explanation layer.
 
 **Trust Fabric** provides the identity infrastructure for compliance operations -- unified customer identity across channels, identity risk scoring, and AI agent identity with delegated authority. The KYC/CDD lifecycle is fundamentally an identity lifecycle; Trust Fabric's model of identity as a continuously-assessed state (not a point-in-time verification) maps to the perpetual KYC (pKYC) shift.
 
@@ -241,12 +241,12 @@ The fabrics provide infrastructure. They do not provide compliance domain capabi
 | Structural Shift | Fabric Alignment | Readiness |
 |---|---|---|
 | Enforcement remediation (operational complexity) | Evolution Fabric: makes remediation work explicit and trackable | Architecture ready; compliance domain models not built |
-| AI governance in compliance | CAF: federated AI audit trail + explanation generation | Architecture ready; compliance-specific governance templates not built |
+| AI governance in compliance | Memory Fabric: federated AI audit trail + explanation generation | Architecture ready; compliance-specific governance templates not built |
 | Cross-domain integration | Evolution Fabric: cross-Hub coordination; Truth Fabric: semantic consistency | Architecture ready; compliance tool integrations not built |
-| Continuous examination readiness | CAF: evidence assembly at moment of decision | Architecture ready; exam-specific evidence models not built |
+| Continuous examination readiness | Memory Fabric: evidence assembly at moment of decision | Architecture ready; exam-specific evidence models not built |
 | Perpetual KYC | Trust Fabric: continuous identity risk assessment | Architecture ready; KYC-specific lifecycle not built |
 | Compliance staffing automation | Evolution Fabric: Scenario resolution spectrum enables progressive AI | Architecture ready; compliance-specific Scenarios not built |
-| Compliance-on-compliance (AI regulation) | CAF: cognitive system registry + risk classification | Architecture ready; EU AI Act compliance templates not built |
+| Compliance-on-compliance (AI regulation) | Memory Fabric: cognitive system registry + risk classification | Architecture ready; EU AI Act compliance templates not built |
 
 **Summary:** Seven for seven on architectural alignment. Zero for seven on compliance domain readiness. The gap is not architecture -- it is domain expertise, integrations, regulatory content, and market credibility.
 
@@ -258,7 +258,7 @@ The fabrics provide infrastructure. They do not provide compliance domain capabi
 | AML transaction monitoring | Strong (large market) | Weak (32+ established vendors) | **Do not pursue** -- competing on AML detection against NICE Actimize and SAS with no compliance domain expertise is not credible |
 | Regulatory reporting | Strong (growing) | Very Weak (AxiomSL: 90% G-SIB penetration) | **Do not pursue** -- AxiomSL's dominance is structural |
 | KYC/CDD workflow orchestration (Tier 2 US) | Strong | Medium (Trust Fabric alignment) | **Pursue as secondary** -- KYC lifecycle is a natural entry point. Must differentiate from Alloy and Pega CLM on lifecycle management, not verification |
-| Compliance AI governance (EU AI Act) | Strong (regulatory deadline) | Medium-Strong (CAF ahead of all vendors on AI audit) | **Pursue as differentiator** -- CAF provides genuine advantage. EU AI Act deadline (August 2026) creates time-bound buying event |
+| Compliance AI governance (EU AI Act) | Strong (regulatory deadline) | Medium-Strong (Memory Fabric ahead of all vendors on AI audit) | **Pursue as differentiator** -- Memory Fabric provides genuine advantage. EU AI Act deadline (August 2026) creates time-bound buying event |
 | Examination readiness platform | Medium (nascent) | Medium (no competitor, but demand immature) | **Monitor and prepare** -- build capability within orchestration platform |
 | India compliance modernization | Medium (smaller budgets) | Weak (no compliance presence) | **Defer** -- revisit after US market entry |
 | G-SIB compliance operations | Strong (largest spend) | Very Weak (build in-house or deeply embedded incumbents) | **Do not pursue** -- not addressable for a new entrant |
@@ -266,7 +266,7 @@ The fabrics provide infrastructure. They do not provide compliance domain capabi
 ### What to pursue
 
 1. **Primary:** Compliance operations orchestration for US Tier 2 banks ($10-100B assets) -- the layer above existing compliance tools that makes them work together with unified governance and audit.
-2. **Differentiator:** Compliance AI governance leveraging CAF -- position as the governance platform for banks deploying AI across their compliance operations.
+2. **Differentiator:** Compliance AI governance leveraging Memory Fabric -- position as the governance platform for banks deploying AI across their compliance operations.
 3. **Entry point:** KYC/CDD lifecycle orchestration -- a narrower initial engagement that demonstrates platform value before expanding to full compliance operations.
 
 ### What to defer
@@ -310,7 +310,7 @@ The fabrics provide infrastructure. They do not provide compliance domain capabi
 
 2. **Build a Compliance Operations Hub prototype.** Model the AML alert-to-resolution lifecycle as an Evolution Fabric Hub with Streams (alert triage, investigation, SAR filing), Loops (periodic sanctions list refresh, compliance training monitoring, exam preparation), and Scenarios (investigation as Case-Based, alert triage as Queue-Based). Demonstrate the orchestration capability with a connected demo using simulated integrations to NICE Actimize (alerts), Alloy (KYC data), and FinCEN (SAR filing).
 
-3. **Position CAF for compliance AI governance.** The EU AI Act deadline (August 2026) creates an immediate opportunity. CAF's cognitive system registry, decision records, explanation generation, and override governance map directly to Article 9 (risk management), Article 13 (transparency), Article 14 (human oversight), and Article 29 (obligations of deployers). Publish a technical paper mapping CAF capabilities to EU AI Act requirements for compliance AI.
+3. **Position Memory Fabric for compliance AI governance.** The EU AI Act deadline (August 2026) creates an immediate opportunity. Memory Fabric's cognitive system registry, decision records, explanation generation, and override governance map directly to Article 9 (risk management), Article 13 (transparency), Article 14 (human oversight), and Article 29 (obligations of deployers). Publish a technical paper mapping Memory Fabric capabilities to EU AI Act requirements for compliance AI.
 
 4. **Engage Celent and ACAMS.** Analyst coverage in compliance technology requires a credible product demonstration. Target Celent's compliance technology practice for a vendor evaluation. Sponsor or present at ACAMS conferences to build visibility in the compliance buyer community.
 
@@ -318,11 +318,11 @@ The fabrics provide infrastructure. They do not provide compliance domain capabi
 
 ### Medium-term (2-5 years)
 
-6. **Expand from orchestration to full Compliance Operations Center.** Once the orchestration layer is established, extend to continuous examination readiness (leveraging CAF evidence assembly), cross-domain regulatory change propagation, and compliance operations analytics.
+6. **Expand from orchestration to full Compliance Operations Center.** Once the orchestration layer is established, extend to continuous examination readiness (leveraging Memory Fabric evidence assembly), cross-domain regulatory change propagation, and compliance operations analytics.
 
 7. **Build compliance tool integrations.** Start with the highest-priority: NICE Actimize ActOne (case management), Alloy (KYC/identity), AxiomSL (regulatory reporting), and one GRC platform (IBM OpenPages or Archer). Each integration validates the Machine/Tool contract model and adds distribution through vendor partnerships.
 
-8. **Pursue compliance AI governance as a standalone capability.** If the EU AI Act creates genuine demand, position CAF as the compliance AI governance platform that sits above all compliance vendors' AI capabilities -- providing the unified model inventory, performance monitoring, and examiner-ready documentation that no vendor provides individually.
+8. **Pursue compliance AI governance as a standalone capability.** If the EU AI Act creates genuine demand, position Memory Fabric as the compliance AI governance platform that sits above all compliance vendors' AI capabilities -- providing the unified model inventory, performance monitoring, and examiner-ready documentation that no vendor provides individually.
 
 ---
 

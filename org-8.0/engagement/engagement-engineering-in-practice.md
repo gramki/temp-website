@@ -24,15 +24,17 @@ This ownership boundary is fundamental. Every decision — where to build, how t
 
 ---
 
-## What We Produce — Three Artifact Groups
+## What We Produce — Five Artifact Groups
 
-An Engagement produces three groups of artifacts that together constitute the assembled product:
+An Engagement produces five groups of artifacts that together constitute the assembled product:
 
+- **Work Model artifacts** — the domain's Work Model, the Tool Contracts under which existing customer systems are inducted as Machines, and the declarative specifications extracted from the estate (see The Hub Way's Modeling Machines chapter).
+- **Workforce artifacts** — agent definitions for the employed Agent Swarm, training and evaluation records, authority grants, and guardrail configurations.
 - **Customer Product artifacts** — Product Line configurations, extensions, platform integrations, and customer-specific business logic. These are the core of what the customer receives.
 - **Studio Component artifacts** — integration adapters, orchestration flows, custom experiences (UIs, workflows, applications), and operational artifacts (runbooks, escalation matrices, monitoring configurations). Studio work stays anchored to the Customer Product and Product Lines.
 - **Verification artifacts** — IaC environment definitions, assembly-level test suites, test data preparation tooling, CI orchestration configurations, and certification records. These are codified engineering — version-controlled and maintained with the same rigor as functional code. See [Verification and Certification](verification-and-certification.md).
 
-All three are deliverables. At Transfer, the verification module is handed over alongside the functional product.
+All five are deliverables. At Transfer, the verification module and the Workforce artifacts are handed over alongside the functional product.
 
 ---
 

@@ -1,6 +1,6 @@
 # Chapter 06: What Changes — And Why Each Change Is Achievable
 
-The [thesis](05-thesis.md) distills the [structural problem](01-problems.md) and the [enterprise AI adoption challenge](04-enterprise-ai-adoption.md) into four core concerns and seven governing principles. What follows is what concretely gets better when those principles are applied — and why each benefit is achievable, not aspirational.
+The [thesis](05-thesis.md) distills the [structural problem](01-problems.md) and the [enterprise AI adoption challenge](04-enterprise-ai-adoption.md) into four core concerns and eight governing principles. What follows is what concretely gets better when those principles are applied — and why each benefit is achievable, not aspirational.
 
 ## What Changes for the Problems Banks Live With
 

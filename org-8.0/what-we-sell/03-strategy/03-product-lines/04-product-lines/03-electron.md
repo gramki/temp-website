@@ -65,7 +65,7 @@ graph TD
 | **Evolution Fabric** | Electron product lines register as Machines in commercial card domain Hubs. Policy exceptions are processed as high-priority Streams, and corporate billing cycles and credit sweeps are driven by weekly/monthly Loops. |
 | **Trust Fabric** | Secures corporate hierarchies, manages programmatic consent, and implements role-based access control (RBAC) for company administrators, finance teams, and cardholders. |
 | **Truth Fabric** | Enforces consistent financial definitions across company hierarchies — matching employee expense codes, tax categories, and merchant ID metadata. |
-| **Cognitive Audit Fabric** | Logs and certifies all administrative changes to employee limits, corporate policy overrides, and program fee calculations. |
+| **Memory Fabric** | Logs and certifies all administrative changes to employee limits, corporate policy overrides, and program fee calculations. |
 | **Cloud Fabric** | Scales policy-matching memory caches dynamically to support multi-tenant corporate accounts during peak travel and retail hours. |
 
 ---

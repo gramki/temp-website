@@ -6,7 +6,7 @@ The vendor-addressable market for banking identity and trust infrastructure exce
 
 The market remains fragmented across six sub-segments — CIAM, identity verification, authentication, consent management, fraud analytics, and non-human identity — with no single vendor spanning all six in a banking-grade platform. Private equity has deployed over USD 13 billion assembling identity portfolios (Thoma Bravo, Permira), signaling that convergence is inevitable but not yet achieved. This fragmentation creates a structural opening for a platform vendor that treats identity, authentication, consent, privacy, and AI agent governance as a single architectural surface.
 
-Zeta's position is distinctive but incomplete. Trust Fabric's architecture directly addresses the convergence gap — identity, authentication, consent, and privacy as a unified layer, with first-class AI agent identity via Seer. Quark Customer Lifecycle provides the domain model for customer identity lifecycle governance. These capabilities are architecturally differentiated and, in the case of AI agent identity, ahead of all surveyed competitors. The principal gaps are in identity verification depth (document verification, biometric liveness, deepfake detection), behavioral biometrics, and geographic regulatory specificity — particularly for India's Aadhaar-based infrastructure and the EU's eIDAS 2.0 wallet mandate.
+Zeta's position is distinctive but incomplete. Trust Fabric's architecture directly addresses the convergence gap — identity, authentication, consent, and privacy as a unified layer, with first-class AI agent identity via Agent Fabric. Quark Customer Lifecycle provides the domain model for customer identity lifecycle governance. These capabilities are architecturally differentiated and, in the case of AI agent identity, ahead of all surveyed competitors. The principal gaps are in identity verification depth (document verification, biometric liveness, deepfake detection), behavioral biometrics, and geographic regulatory specificity — particularly for India's Aadhaar-based infrastructure and the EU's eIDAS 2.0 wallet mandate.
 
 The recommended strategy is to pursue Tier 2 US banks as the beachhead segment (highest buy propensity, lowest competitive entrenchment), lead with AI agent identity governance as the wedge capability no incumbent offers, and defer direct competition in mature identity verification and behavioral biometrics sub-segments where entrenched specialists dominate.
 
@@ -180,9 +180,9 @@ Zeta's product architecture maps to the digital identity and trust opportunity t
 
 **Quark Customer Lifecycle** provides the domain-specific work model for customer identity — onboarding through active relationship to dormancy and exit — operating on Evolution Fabric's infrastructure. It instantiates the operational patterns (identity risk workflows, behavioral risk loops, lifecycle governance) that Trust Fabric's infrastructure layer enables.
 
-**Evolution Fabric / Seer** governs AI agent participation in identity workflows. Seer provides agent lifecycle management, identity and authority, context assembly, and guardrails. When an AI agent resolves a dispute, processes an application, or executes a compliance check, Seer governs its identity — who authorized it, what it may access, which human is accountable. This directly addresses Shift 7's governance gap, and no surveyed competitor — including CyberArk, Microsoft Entra Workload ID, and Astrix — offers equivalent agent-level accountability infrastructure for banking workflows.
+**Agent Fabric** governs AI agent participation in identity workflows. Agent Fabric provides agent lifecycle management, identity and authority, context assembly, and guardrails. When an AI agent resolves a dispute, processes an application, or executes a compliance check, Agent Fabric governs its identity — who authorized it, what it may access, which human is accountable. This directly addresses Shift 7's governance gap, and no surveyed competitor — including CyberArk, Microsoft Entra Workload ID, and Astrix — offers equivalent agent-level accountability infrastructure for banking workflows.
 
-**Cognitive Audit Fabric** provides decision auditability for identity decisions, particularly for AI agents — reconstructable audit trails that satisfy the EU AI Act's deployer obligations under Article 26.
+**Memory Fabric** provides decision auditability for identity decisions, particularly for AI agents — reconstructable audit trails that satisfy the EU AI Act's deployer obligations under Article 26.
 
 **Honest assessment of gaps:**
 
@@ -196,7 +196,7 @@ Zeta's product architecture maps to the digital identity and trust opportunity t
 **Pursue — Near-term (0–2 years):**
 
 - **Tier 2 US banks (USD 10–100 billion in assets).** Highest buy propensity, lowest competitive entrenchment. Ping Identity dominates Tier 1; Tier 2 banks are assembling multi-vendor identity stacks with active vendor consolidation appetite. Lead with unified trust layer positioning.
-- **AI agent identity governance — all tiers.** No competitor has a production-grade offering. The EU AI Act's August 2026 deadline creates urgency for EU-operating banks. Trust Fabric + Seer's agent identity and delegation model is architecturally differentiated. This is the wedge capability.
+- **AI agent identity governance — all tiers.** No competitor has a production-grade offering. The EU AI Act's August 2026 deadline creates urgency for EU-operating banks. Trust Fabric + Agent Fabric's agent identity and delegation model is architecturally differentiated. This is the wedge capability.
 - **Consent and privacy as infrastructure — Tier 2 US and EU banks.** The 20-state US privacy patchwork and GDPR/DPDP convergence create demand for consent-as-architecture. Trust Fabric's consent domain addresses a capability that CIAM vendors (Okta, Ping) do not offer and privacy vendors (OneTrust) deliver without identity context.
 
 **Pursue — Medium-term (2–5 years):**
@@ -236,7 +236,7 @@ Zeta's product architecture maps to the digital identity and trust opportunity t
 
 **Near-term (0–2 years):**
 
-1. **Ship AI agent identity governance as the first general-availability capability.** The EU AI Act August 2026 deadline creates a hard buying window. No competitor has production-grade agent identity for banking. Trust Fabric + Seer's delegation model, human accountability chain, and Cognitive Audit Fabric's decision auditability directly address Articles 16/26. Target: EU-operating Tier 1–2 banks preparing for high-risk AI compliance.
+1. **Ship AI agent identity governance as the first general-availability capability.** The EU AI Act August 2026 deadline creates a hard buying window. No competitor has production-grade agent identity for banking. Trust Fabric + Agent Fabric's delegation model, human accountability chain, and Memory Fabric's decision auditability directly address Articles 16/26. Target: EU-operating Tier 1–2 banks preparing for high-risk AI compliance.
 
 2. **Establish 2–3 Tier 2 US bank deployments** of Trust Fabric's unified CIAM + consent + authentication layer. Focus on banks actively consolidating identity vendors (89 percent desire consolidation). Demonstrate measurable vendor count reduction and compliance cost reduction. Named targets: banks in the USD 10–100 billion range that have recently adopted point solutions (similar profiles to IncredibleBank, Heritage Bank) and face the 20-state privacy patchwork compliance burden.
 

@@ -40,6 +40,8 @@ The agent:
 - Proposes candidate patterns with supporting evidence
 - Routes candidates to appropriate Domain Steward
 
+For Work Model artifacts, the same flow validates candidates into the [Work Model Library](README.md): the Pattern Curator and Domain Stewards check that proposals from engagement teams and the Discovery Swarm capture structure only — scenario shapes, Tool Contract templates, governance structures, regulatory mappings — and that no bank-specific operational intelligence crosses the confidentiality boundary.
+
 ### Duplicate Detection
 
 | Detection Type | Action |

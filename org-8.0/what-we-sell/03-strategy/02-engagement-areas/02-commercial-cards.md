@@ -265,7 +265,7 @@ Banks are closing this gap through acquisition and partnership rather than inter
 | Real-time policy enforcement (3) | Trust Fabric (hierarchy auth) + Truth Fabric (policy definitions) | **Architectural advantage** — declarative policy enforcement is a thesis-level differentiator if implemented |
 | Benefits cards as platform (4) | Electron Benefits | **Strong** — production-proven via Pluxee India (11,000+ corporates, 3.5M+ consumers); IDFC FIRST and RBL bank partnerships |
 | Embedded card programs (5) | Electron + Cloud Fabric (multi-tenant) | **Medium** — cloud-native architecture supports embedded model; no BaaS-specific packaging for commercial cards |
-| AI-native expense intelligence (6) | Cognitive Audit Fabric + Evolution Fabric (Seer) | **Differentiated** — no competitor combines card infrastructure with explicit operational AI governance |
+| AI-native expense intelligence (6) | Memory Fabric + Evolution Fabric + Agent Fabric | **Differentiated** — no competitor combines card infrastructure with explicit operational AI governance |
 | Regulatory forcing functions (7) | Across Electron + Truth Fabric | **Strong in India** — five separate tax rule engines, RBI PPI compliance, GST ITC reconciliation. **Weak in US/EU** — HSA/FSA IIAS compliance and CSRD mapping not built |
 
 **Honest gaps.** Electron Benefits is production-proven. Electron Expense Cards and Purchase Cards are described in product-line files but marked "to be expanded" — no production deployment exists. Quark Commercial Cards is a placeholder. The gap between "production-proven benefits" and "unvalidated expense/purchase" is the single most important internal question for commercial card strategy.

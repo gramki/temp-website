@@ -40,7 +40,7 @@ Each Quark package delivers a fully configured Work Model composed of six archit
 2. **Pre-Modeled Loops (Internal Discipline)**: Schedule-triggered or pattern-triggered cycles of continuous feedback that maintain the domain's risk posture and operational hygiene (e.g., daily ledger reconciliation, fraud transaction sweeps, portfolio utilization reviews).
 3. **Adaptive Scenarios (Atomic Execution)**: Goal-oriented declarations of *what* must be achieved. Because they focus on goals rather than hard-coded paths, Scenarios dynamically adapt to exceptions, allowing human operators and AI agents to collaborate in real-time.
 4. **Pre-Configured Teams (The Unified Workforce)**: Templates that organize human specialized operators and AI Agent Swarms into collaborative, permissioned groups.
-5. **Pre-Integrated Machines (System Capabilities)**: Physical and logical systems (such as Tachyon, Photon, or legacy systems) that are registered via stable **Tool Contracts** (using the Model Context Protocol, or MCP).
+5. **Pre-Integrated Machines (System Capabilities)**: Physical and logical systems (such as Tachyon, Photon, or legacy systems) that are registered via stable **Tool Contracts** (using the Model Context Protocol, or MCP). The bank's existing and third-party systems enter the Work Model through **Induction** — wrapped in Tool Contracts and registered as Machines, with the operational intelligence around them extracted into declarative specifications.
 6. **Built-in Channels (Interaction Surfaces)**: Pre-packaged user interfaces (like human SRE Workbenches, client messaging surfaces, and voice portals) tailored to the domain's roles.
 
 ---
@@ -86,7 +86,7 @@ Quark acts as the orchestrator over Zeta's core system capabilities, enforcing s
 Quark runs natively on and is deeply coupled with **all of Zeta's Infra Fabrics** (Trust, Truth, Cloud, Evolution, Agent, Memory, Cognition, Engagement, Intelligence, Experimentation, Foundry). These form the secure, unalterable technical substrate, and **cannot** be substituted with customer-authored fabrics. They represent the non-negotiable core capability layer of the bank.
 
 ### II. Banking Fabrics are Substitutable & Integratable
-Unlike Infra Fabrics, the underlying core transactional or banking fabrics (such as custom general ledgers, core credit databases, card processors, or third-party CRM fabrics) **are substitutable**. Banks can easily integrate, swap, or extend these systems, exposing them to Quark Hubs as **Machines** via secure MCP Tool Contracts without disrupting the Hub's Work Model.
+Unlike Infra Fabrics, the underlying core transactional or banking fabrics (such as custom general ledgers, core credit databases, card processors, or third-party CRM fabrics) **are substitutable**. Banks can easily integrate, swap, or extend these systems: existing systems are **inducted** — wrapped in Tool Contracts and registered as **Machines** — exposing them to Quark Hubs via secure MCP without disrupting the Hub's Work Model. Inducted systems are enrolled, not replaced, and can be substituted later, one contract at a time (see [Modeling Machines](../../../02-the-thesis/07-the-hub-way/03-enablement/07-modeling-machines.md) for the defining treatment of Induction).
 
 ---
 

@@ -285,8 +285,8 @@ Cloud Fabric — comprising Estate, Watch, and Swarms — addresses all five ope
 ### Adjacent Zeta Assets Relevant to the Advisory
 
 - **Trust Fabric** provides AI agent identity, delegation, and accountability — relevant to governing agentic operations (Shift 4). No horizontal vendor offers this capability.
-- **Cognitive Audit Fabric (CAF)** provides federated governance for cognitive systems — relevant to DORA-grade audit trails for operational AI decisions.
-- **Evolution Fabric** provides the AI agent control plane (Seer) and domain-level operational modeling (Hub) — relevant to the governance architecture for agentic operations at enterprise scale.
+- **Memory Fabric** provides federated governance for cognitive systems — relevant to DORA-grade audit trails for operational AI decisions.
+- **Evolution Fabric** provides domain-level operational modeling (Hub), and **Agent Fabric** provides the AI agent control plane — relevant to the governance architecture for agentic operations at enterprise scale.
 
 ---
 
@@ -366,7 +366,7 @@ Cloud Fabric — comprising Estate, Watch, and Swarms — addresses all five ope
 
 7. **Extend Cloud Fabric multi-cloud validation.** Deploy across at least three hyperscalers (AWS, Azure, GCP) in production for external bank customers. Multi-cloud governance is a banking infrastructure requirement; Cloud Fabric must demonstrate it.
 
-8. **Develop regulatory agent governance.** Using Trust Fabric's agent identity and CAF's audit capabilities, build the governance surface that regulators will eventually require for autonomous operational AI. First-mover advantage in agent governance could become a structural moat.
+8. **Develop regulatory agent governance.** Using Trust Fabric's agent identity and Memory Fabric's audit capabilities, build the governance surface that regulators will eventually require for autonomous operational AI. First-mover advantage in agent governance could become a structural moat.
 
 9. **Approach Tier 1 banks.** With production references, multi-cloud breadth, OTel integration, and DORA compliance tooling in place, begin conversations with Tier 1 institutions for specific domain entry (e.g., customer-centric observability for PRA business service mapping, or multi-cloud governance for DORA compliance).
 

@@ -41,6 +41,7 @@ The **Engagement Readiness Council (ERC)** provides the ingredients required for
 ## Activities
 
 - Customer discovery and needs assessment
+- Work Model discovery (first cut) and induction feasibility assessment (EA-led)
 - Technical feasibility evaluation
 - POC design and execution (when warranted)
 - Solution fit assessment against available archetypes
@@ -76,6 +77,8 @@ When an Exploration does not qualify as an Engagement:
 ## Artifacts Produced
 
 - Scope outline
+- Work Model v1 (first cut of the domain's work: commitments, disciplines, scenarios, who resolves what)
+- Induction feasibility assessment
 - Archetype fit assessment
 - Preliminary architecture
 - Commercial terms (or draft)
@@ -85,7 +88,7 @@ When an Exploration does not qualify as an Engagement:
 
 ## Boundary: Exploration → Engagement
 
-An Exploration becomes an Engagement when a **customer commitment** triggers the delivery lifecycle. Until that commitment, the work is an Exploration — not an Engagement. The Initiate phase begins at commitment.
+An Exploration becomes an Engagement when a **customer commitment** triggers the delivery lifecycle. Until that commitment, the work is an Exploration — not an Engagement. The Initiate phase begins at commitment. Exploration artifacts carry forward into the Engagement — the Work Model v1 discovered here becomes the starting point for Discover; nothing is discarded.
 
 ---
 

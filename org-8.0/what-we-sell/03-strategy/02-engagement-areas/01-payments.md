@@ -375,14 +375,14 @@ Zeta's existing payments assets (Photon product lines) map to the structural shi
 | Card issuance modernization | Photon Card Management | **Strong** — card lifecycle, PIN management, card-level controls. Direct competitor to Marqeta, i2c for mid-market |
 | Acquiring diversification | Photon Acquiring | **Strong** — POS, QR, online, payment facilitation, merchant management, terminal management |
 | Private payment networks | Photon Payment Network | **Strong** — private-labeled instruments, proprietary rails, clearing, settlement, disputes |
-| AI in payments operations | Evolution Fabric (Hub + Seer) | **Differentiated** — no competitor combines payments infrastructure with an explicit operational model and AI agent governance. This is the unique positioning |
+| AI in payments operations | Evolution Fabric (Hub) + Agent Fabric | **Differentiated** — no competitor combines payments infrastructure with an explicit operational model and AI agent governance. This is the unique positioning |
 | Cross-border | Photon Payments Hub | **Weak** — limited rail coverage for cross-border. No ISO 20022 migration tooling. No FX-as-a-service |
 | Regulatory infrastructure | Across Photon | **Varies by market** — India regulatory compliance is strong. US and EU regulatory readiness needs assessment |
 | Embedded payments/BaaS | Photon + Cloud Fabric | **Architectural advantage** — cloud-native, multi-tenant by design. But no BaaS-specific product packaging or regulatory wrapper |
 
 ### The differentiator hypothesis
 
-If Zeta can deliver **integrated payments + operational model** — where card programs, acquiring, tokenization, and payment operations are governed through explicit domain models (Hubs, Streams, Loops, Scenarios) with AI agent participation (Seer) — this is a positioning that no competitor occupies.
+If Zeta can deliver **integrated payments + operational model** — where card programs, acquiring, tokenization, and payment operations are governed through explicit domain models (Hubs, Streams, Loops, Scenarios) with AI agent participation (Agent Fabric) — this is a positioning that no competitor occupies.
 
 - Legacy vendors (FIS, Fiserv) offer payments processing. They do not offer an operational substrate.
 - Modern challengers (Marqeta, Stripe) offer APIs. They do not offer domain modeling or AI governance.
@@ -390,7 +390,7 @@ If Zeta can deliver **integrated payments + operational model** — where card p
 
 The bet: that banks need not just a payments platform, but an **operational layer for their payments domain** — making work explicit, governed, and AI-ready. Evolution Fabric is that layer.
 
-This hypothesis is partially validated: Photon's US production deployments (three credit card programs, multiple DDA programs) prove the payments infrastructure layer works at scale. The operational model layer (Evolution Fabric + Seer governing payments operations) remains a product thesis — no bank has adopted the full integrated positioning yet. The evidence gap is specifically about the governance layer, not the payments platform.
+This hypothesis is partially validated: Photon's US production deployments (three credit card programs, multiple DDA programs) prove the payments infrastructure layer works at scale. The operational model layer (Evolution Fabric + Agent Fabric governing payments operations) remains a product thesis — no bank has adopted the full integrated positioning yet. The evidence gap is specifically about the governance layer, not the payments platform.
 
 ---
 
@@ -406,7 +406,7 @@ Using the [Right to Play / Right to Win framework](../04-distillation/02-how-to.
 | **Private payment networks** | **Medium.** Emerging category. 45% of US retailers have closed-loop cards. Interchange caps through 2030 accelerating interest | **Medium.** Photon Payment Network is a differentiated product line. But: market demand is nascent, sales cycles are enterprise-grade | **Selective pursuit.** Target opportunities where the customer brings the use case. Do not invest in demand generation for this category yet |
 | **Payment hub orchestration (Tier 1)** | **Strong.** Large market. 87% of FIs plan modernization | **Weak.** Volante is the Gartner Leader. ACI has incumbency. Tier 1 banks require established hub vendor relationships. Zeta's US production experience is in card/DDA payments, not hub orchestration | **Do not pursue as primary.** Consider partnership with hub vendors rather than head-on competition |
 | **Cross-border / ISO 20022** | **Weak.** Specialist domain. Limited Photon rail coverage. No FX capability | **Weak.** Volante, ACI, Finastra own this space. SWIFT connectivity is table stakes. No corridor advantage | **Do not pursue.** This is a distraction from stronger opportunities |
-| **AI in payments operations** | **Strong.** 98% of orgs use AI in fraud/AML. $98.5M average annual losses from payment inefficiencies. Banks trailing PayTechs in GenAI adoption | **Strong.** Evolution Fabric + Seer is a structural differentiator. No competitor combines payments infrastructure with operational AI governance | **Pursue as long-term differentiator.** This is not the entry sale — it is the expansion sale after establishing the payments platform relationship |
+| **AI in payments operations** | **Strong.** 98% of orgs use AI in fraud/AML. $98.5M average annual losses from payment inefficiencies. Banks trailing PayTechs in GenAI adoption | **Strong.** Evolution Fabric + Agent Fabric is a structural differentiator. No competitor combines payments infrastructure with operational AI governance | **Pursue as long-term differentiator.** This is not the entry sale — it is the expansion sale after establishing the payments platform relationship |
 | **Embedded payments / BaaS (Tier 2 US)** | **Strong.** 80%+ of $185B TAM unpenetrated. Regulatory tightening favors bank partners | **Medium.** Cloud-native, multi-tenant architecture is an advantage. But: no BaaS product packaging, no regulatory wrapper. Photon's US production evidence (card/DDA payments) provides platform credibility but BaaS-specific packaging is not yet developed | **Build toward.** Develop BaaS-specific packaging. Position after establishing card issuance and acquiring references |
 
 ---

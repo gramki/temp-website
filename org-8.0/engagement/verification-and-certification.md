@@ -8,13 +8,17 @@
 
 The Engagement Assembly is a logical container — there is no single release version, no single deployable artifact. But verifying the assembly produces concrete, executable engineering artifacts: test environment definitions, test suites, test data preparation tooling, CI orchestration configurations. These are code. They are version-controlled, reviewed, and maintained with the same engineering rigor as any other component of the assembly.
 
-The Engagement Assembly has **three artifact groups**:
+The Engagement Assembly has **five artifact groups**:
 
-1. **Customer Product artifacts** — Product Line configurations, extensions, integrations, business logic
-2. **Studio Component artifacts** — integration adapters, orchestration flows, UIs, workflows, operational artifacts
-3. **Verification artifacts** — IaC environment definitions, assembly-level test suites, test data preparation, CI orchestration, certification records
+1. **Work Model artifacts** — the domain's Work Model, Tool Contracts for inducted systems, declarative specifications
+2. **Workforce artifacts** — agent definitions, training and evaluation records, authority grants, guardrail configurations
+3. **Customer Product artifacts** — Product Line configurations, extensions, integrations, business logic
+4. **Studio Component artifacts** — integration adapters, orchestration flows, UIs, workflows, operational artifacts
+5. **Verification artifacts** — IaC environment definitions, assembly-level test suites, test data preparation, CI orchestration, certification records
 
 The verification module is a first-class artifact group. It is a deliverable — handed over to the run team or customer at Transfer.
+
+Verification also covers the **Workforce artifacts**: agent evaluation records, guardrail tests, and escalation rehearsals are certifiable deliverables, produced with the same rigor as the rest of the verification module and certified by the AVA alongside the assembly.
 
 ---
 

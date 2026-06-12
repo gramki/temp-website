@@ -119,6 +119,7 @@ Zeta's core application frameworks, financial ledgers, and enterprise developer 
 |---|----------|
 | 05.01 | [Chapter 05.01: What We Sell and Why It Matters](05-narrative-for-customer/01-business-model-narrative.md) |
 | 05.02 | [Chapter 05.02: The Bank You Are Becoming — A Narrative for the CEO](05-narrative-for-customer/02-ceo-narrative.md) |
+| 05.03 | [Chapter 05.03: The Agentic Bank — Imagining the Future, and the Pragmatic Path to It](05-narrative-for-customer/03-agentic-bank-pragmatic-path.md) |
 
 ---
 

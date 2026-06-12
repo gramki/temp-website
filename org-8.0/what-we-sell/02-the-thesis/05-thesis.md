@@ -68,7 +68,7 @@ The compound problem is self-reinforcing. Left alone, it gets worse.
 
 ## The Thesis
 
-There is an alternative. Not an incremental improvement to the current approach, but a different set of structural choices that address the four concerns directly. These choices can be expressed as seven governing principles:
+There is an alternative. Not an incremental improvement to the current approach, but a different set of structural choices that address the four concerns directly. These choices can be expressed as eight governing principles:
 
 ### Work, not systems, is the stable abstraction
 
@@ -82,7 +82,7 @@ The bank's accumulated operational knowledge — orchestration rules, business l
 
 Specifications can be examined by people. They can be reused across similar work. They can be evolved without disrupting the systems they reference. They can be interpreted and executed by agents — human or AI. Imperative integration code can do none of these things. It is opaque, non-reusable, fused to specific systems, and comprehensible only to the engineers who wrote it.
 
-The shift from imperative to declarative is not a rewrite. It is a gradual *unbuilding* — replacing bespoke integration code, one piece at a time, with declarative specifications that express the same operational intelligence in a form that is portable, auditable, and agent-interpretable. The existing plumbing serves as fallback until confidence is established.
+The shift from imperative to declarative is not a rewrite. It is a gradual *unbuilding* — replacing bespoke integration code, one piece at a time, with declarative specifications that express the same operational intelligence in a form that is portable, auditable, and agent-interpretable. The first move of that unbuilding is **Induction**: the existing system is enrolled under a tool contract as a capability the work can call on, and the intelligence accumulated around it is extracted into specifications — the system itself is not replaced. Replacement, if it comes at all, comes later, one contract at a time, on the bank's schedule. The existing plumbing serves as fallback until confidence is established.
 
 ### The model must survive when the "who" changes
 
@@ -120,11 +120,19 @@ Beyond surfacing the invisible, AI can hypothesize what's missing — particular
 
 This means the modeling effort is not a one-time heavy lift. You model what you know. AI helps uncover what's in the seams. The model grows organically. Each cycle — model, discover, hypothesize, refine — makes the domain more complete and more intelligent. The bootstrapping problem dissolves.
 
+### The model must be consumable by counterparties, not just collaborators
+
+AI changes who resolves the bank's work. It also changes who arrives at the bank's door. Customers increasingly delegate to agents of their own — assistants that compare rates, move balances, file disputes, and act under delegated authority. Partners embed the bank's capabilities into their own surfaces. Regulators move toward machine-verifiable supervision. For a growing share of interactions, the bank's counterparty will be a machine.
+
+The same model that lets the bank's own teams — human and AI — resolve work governably is what makes the bank safely consumable from the outside. A product an external agent can read and act on requires explicit, declared product terms. A delegation the bank can honor requires modeled authority: whose agent, within what boundaries, with what accountability. An interaction the bank can defend — to the customer and to the regulator — requires the same decision records and governance that internal resolution requires. None of this can be bolted onto a bank whose work, products, and permissions exist only implicitly in code and convention.
+
+This principle points the model outward. The first seven make the bank's work visible, governable, and evolvable for those who resolve it. The eighth makes the same model the bank's interface to a world that is itself becoming agentic — so that serving the customer's agent, embedding into a partner's platform, or answering a supervisor's automated query are projections of one model, not three new integration programs.
+
 ## From Thesis to Framework
 
-These seven principles define *what* is needed. They do not yet define *how*. Translating them into a concrete, implementable model — with defined constructs, clear terminology, and practical guidance — is the work of a framework.
+These eight principles define *what* is needed. They do not yet define *how*. Translating them into a concrete, implementable model — with defined constructs, clear terminology, and practical guidance — is the work of a framework.
 
-[The Hub Way](./07-the-hub-way/README.md) is the operationalization of this thesis. It translates the seven principles into a model that can be applied to any banking domain: a way to enumerate the work, classify it, identify who resolves it, register the tools available, define the collaboration surfaces, and progressively move the dial from human to AI resolution — with each investment compounding on the last and AI participating in the domain's ongoing discovery and improvement.
+[The Hub Way](./07-the-hub-way/README.md) is the operationalization of this thesis. It translates the eight principles into a model that can be applied to any banking domain: a way to enumerate the work, classify it, identify who resolves it, register the tools available, define the collaboration surfaces, and progressively move the dial from human to AI resolution — with each investment compounding on the last and AI participating in the domain's ongoing discovery and improvement.
 
 The principles came first. The framework makes them actionable.
 

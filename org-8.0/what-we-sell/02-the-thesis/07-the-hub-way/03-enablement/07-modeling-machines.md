@@ -1,6 +1,6 @@
 # Chapter 07.03.07: Modeling Machines
 
-Machines are the deployed compute systems that provide capabilities to the Hub. This document guides product managers, domain architects, and engineers in identifying, registering, and modeling Machines — with emphasis on the Tools they expose and how agents use those Tools to resolve Scenarios. It covers Tool types aligned to the OPD cycle, the Application orchestration layer, Machine scope and registration, system-agnostic integration, Machine behavior in Streams and Loops, the Hub-as-Machine pattern, anti-patterns, and heuristics. Audience: product managers, domain architects, engineers.
+Machines are the deployed compute systems that provide capabilities to the Hub. This document guides product managers, domain architects, and engineers in identifying, registering, and modeling Machines — with emphasis on the Tools they expose and how agents use those Tools to resolve Scenarios. It covers Tool types aligned to the OPD cycle, the Application orchestration layer, Machine scope and registration, system-agnostic integration, Induction of existing estate systems, Machine behavior in Streams and Loops, the Hub-as-Machine pattern, anti-patterns, and heuristics. Audience: product managers, domain architects, engineers.
 
 ---
 
@@ -128,7 +128,34 @@ This is a deliberate design choice. Banking institutions operate heterogeneous t
 
 ---
 
-## 6. Machines in Streams and Loops
+## 6. Induction — Enrolling the Existing Estate
+
+Sections 4 and 5 describe the mechanics: registration declares which Machines a Hub needs, and the Tool contract is the stable interface the Hub depends on. Applied to a bank's existing systems, this act has a name. **Induction** is the deliberate enrollment of an existing system into a domain's Work Model: the system is wrapped in a Tool Contract and registered as a **Machine** the domain's work can call on, and the operational intelligence accumulated around it — orchestration rules, edge-case handling, compensating routines — is extracted into declarative specifications. Inducted systems are not replaced; they are enrolled — and can be replaced later, one contract at a time, on the bank's schedule.
+
+Induction has two inseparable halves:
+
+| Half | What It Does | What It Produces |
+|------|--------------|------------------|
+| **Enrollment** | Wrap the system in a Tool Contract and register it as a Machine at the appropriate scope (System, Tenant, or Workbench) | A governed, auditable, swappable Machine registration |
+| **Extraction** | Extract the operational intelligence accumulated around the system — orchestration rules, edge-case handling, compensating routines — into declarative specifications | Specifications the bank can read, evolve, and hand to agents — instead of knowledge fused to vendor-specific code or carried in engineers' heads |
+
+Both halves are required. A contract without the extracted knowledge is hollow; extracted knowledge without a contract stays fused to the old plumbing. The Induction anti-patterns in Section 9 cover the failure modes.
+
+### The Maturity Path
+
+Induction is the entry point of a progression, not its end state. An inducted system progressively acquires fabric properties:
+
+| Stage | What It Means |
+|-------|---------------|
+| **Inducted** | Enrolled under a Tool Contract, registered as a Machine, operational intelligence extracted into specifications |
+| **Contract-hardened** | The contract is exercised and trusted in production: error semantics verified, SLAs observed, swap path proven |
+| **Fabric-grade** | The system exhibits fabric properties: single concern, contract-exposed, authoritative |
+
+Nothing in this path obliges replacement. A contract-hardened Machine can serve indefinitely; the maturity path measures how cleanly the system participates in the model, not how soon it leaves the estate.
+
+---
+
+## 7. Machines in Streams and Loops
 
 ### Stream Scenarios
 
@@ -155,7 +182,7 @@ Fully automated Loops are entirely Machine-driven. The Application invokes Tools
 
 ---
 
-## 7. Hub as Machine
+## 8. Hub as Machine
 
 A Hub can be exposed as a Machine to other Hubs. This is the **Workbench-as-Machine** pattern in Olympus Hub. The provider Hub exposes selected Tools through its Machine interface; the consumer Hub registers the provider as a Machine and invokes those Tools like any other.
 
@@ -189,7 +216,7 @@ From the consumer Hub's perspective, the provider Hub is just another Machine �
 
 ---
 
-## 8. Anti-Patterns
+## 9. Anti-Patterns
 
 ### The Invisible Machine
 
@@ -239,9 +266,33 @@ From the consumer Hub's perspective, the provider Hub is just another Machine �
 
 **Remedy:** Split into logical Machine registrations that align with capability domains. A core banking system may be registered as separate Machines for account management, transaction processing, and reporting — each with its own Tool set and governance profile.
 
+### The Rebuilt Machine
+
+**Problem:** A working system is rebuilt or replaced when Induction would do. The capability already exists and performs; the modernization program discards it anyway, rebuilding the function — and re-learning its accumulated edge cases — from scratch.
+
+| Sign | What It Indicates |
+|------|-------------------|
+| Replacement justified by architecture style rather than capability gap | System identity coupling, not capability reasoning |
+| Rebuild scope includes functions the existing system already performs well | Induction was never evaluated |
+| Migration plan has no parallel-run period against the incumbent | Operational intelligence being discarded, not preserved |
+
+**Remedy:** Default to Induction. Wrap the working system in a Tool Contract, register it as a Machine, and extract the intelligence around it into specifications. Replacement remains available later — one contract at a time, on the bank's schedule — and becomes safer precisely because the system was inducted first.
+
+### The Hollow Contract
+
+**Problem:** A system is wrapped in a Tool Contract without extracting the operational intelligence around it — a contract without the knowledge. The Machine is registered, but the orchestration rules, edge-case handling, and compensating routines remain in bespoke middleware and experienced heads.
+
+| Sign | What It Indicates |
+|------|-------------------|
+| Machine registered, but legacy glue code still decides when and how its Tools are invoked | Extraction skipped — the intelligence is still imperative |
+| Specifications restate the API surface but capture no orchestration or exception behavior | Wrapper, not Induction |
+| Swapping the Machine would still require reverse-engineering the surrounding integration code | The fusion the contract was meant to break is intact |
+
+**Remedy:** Treat extraction as half of Induction, not an optional follow-up. For each inducted Machine, capture the surrounding orchestration rules, edge-case handling, and compensating routines as declarative specifications bound to the Work Model — so the knowledge survives vendor changes and is interpretable by agents.
+
 ---
 
-## 9. Heuristics
+## 10. Heuristics
 
 | Heuristic | Application |
 |-----------|-------------|
@@ -268,7 +319,7 @@ Machines and Tool contracts are where the thesis principle "operational intellig
 
 ## Summary
 
-Machines are the deployed compute systems registered in a Hub to provide Tools — the capabilities agents use to resolve Scenarios. Tools align to the OPD cycle: Prediction Applications (Observe/Predict), Decision Applications (Decide), and Commands/Actuators (Act). The Hub Application orchestrates Tool invocation — through workflow engines, batch processors, custom microservices, or Seer Case Orchestration Agents where the Application-Agent convergence means the orchestrator is itself a Tool-wielding Team member. Machine registration follows System → Tenant → Workbench scope inheritance. The Hub is system-agnostic: the Tool contract is the stable interface, and Machines can be swapped without changing the model. Stream Scenarios use Tools to fulfill commitments; Loop Scenarios use Tools for discipline, often in fully automated configurations. A Hub can itself be a Machine to other Hubs via the Workbench-as-Machine pattern. Avoid the Invisible Machine, Over-Connected Hub, Unbound Scenario, and Monolith Machine anti-patterns. Design around Tool contracts, enumerate Tools per Scenario, and consolidate shared Machines into Shared Services Hubs.
+Machines are the deployed compute systems registered in a Hub to provide Tools — the capabilities agents use to resolve Scenarios. Tools align to the OPD cycle: Prediction Applications (Observe/Predict), Decision Applications (Decide), and Commands/Actuators (Act). The Hub Application orchestrates Tool invocation — through workflow engines, batch processors, custom microservices, or Seer Case Orchestration Agents where the Application-Agent convergence means the orchestrator is itself a Tool-wielding Team member. Machine registration follows System → Tenant → Workbench scope inheritance. The Hub is system-agnostic: the Tool contract is the stable interface, and Machines can be swapped without changing the model. Existing estate systems enter the model through Induction — enrolled under Tool Contracts as Machines, with the operational intelligence around them extracted into declarative specifications — and mature from inducted to contract-hardened to fabric-grade. Stream Scenarios use Tools to fulfill commitments; Loop Scenarios use Tools for discipline, often in fully automated configurations. A Hub can itself be a Machine to other Hubs via the Workbench-as-Machine pattern. Avoid the Invisible Machine, Over-Connected Hub, Unbound Scenario, Monolith Machine, Rebuilt Machine, and Hollow Contract anti-patterns. Design around Tool contracts, enumerate Tools per Scenario, and consolidate shared Machines into Shared Services Hubs.
 
 ---
 

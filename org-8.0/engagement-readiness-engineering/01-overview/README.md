@@ -33,6 +33,8 @@ ERE is responsible for:
 - **Customer Portal** — Self-service portal enabling customers to participate in and observe their Engagement
 - **Content Bridge** — Tools bridging Git (Markdown) and Office (SharePoint) ecosystems
 - **AI Agents** — Specialized agents for drafting, governance, and customer interaction
+- **ERE Delivery Swarms** — Discovery, Induction Analysis, and Verification Swarms that work alongside engagement teams in delivering Engagements
+- **Work Model Library** — Stewardship of the compounding repository of structural Work Model patterns from every Engagement
 
 ERE is **not** responsible for:
 

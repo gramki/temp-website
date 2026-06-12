@@ -79,7 +79,7 @@ Exploration ──► Engagement ───────────────�
 
 | # | Document | What It Covers |
 |---|----------|---------------|
-| 1 | [Engagement Engineering in Practice](engagement-engineering-in-practice.md) | Ownership boundary, three artifact groups, PL Squad relationship, inner source for squads, behavioral guardrails |
+| 1 | [Engagement Engineering in Practice](engagement-engineering-in-practice.md) | Ownership boundary, five artifact groups, PL Squad relationship, inner source for squads, behavioral guardrails |
 | 2 | [Exploration](exploration.md) | Pre-Engagement: triggers, Exploration Lead, qualification gate, artifacts |
 | 3 | [Roles and Responsibilities](roles.md) | Client Partner, CPA, EO, EPM, EA, AVA, EPO, SRE Lead, EL, Squad PM, Scrum Master, Security; dual-axis reporting model |
 | 4 | [Lifecycle](lifecycle.md) | Phase-by-phase: Initiate → Discover → Build → Transfer → Complete |

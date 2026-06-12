@@ -1,6 +1,6 @@
 # Chapter 04: The Enterprise AI Problem — Why Project-by-Project Won't Get There
 
-The [preceding analysis](03-beyond-systems.md) establishes that closing the systems gap through capability acquisition alone is necessary but not sufficient — the bank needs both the capabilities and a model of the work that gives them context, coherence, and composability. AI is the capability that proves this argument most urgently. It is not just another system to integrate. It is the first technology wave that changes *who resolves the work itself* — and it cannot deliver enterprise value without the structural model that the systems-first approach never produces.
+The [preceding analysis](03-beyond-systems.md) establishes that closing the systems gap through capability acquisition alone is necessary but not sufficient — the bank needs both the capabilities and a model of the work that gives them context, coherence, and composability. AI is the capability that proves this argument most urgently. It is not just another system to integrate. It is the first technology wave that changes *who resolves the work itself* — and the first that changes *who the bank's counterparty is*. It cannot deliver enterprise value without the structural model that the systems-first approach never produces.
 
 AI is the most significant technology wave in a generation. Every bank is under pressure to show results. And the results most banks are producing — while real at project level — will not add up to the operational transformation their boards expect.
 
@@ -81,6 +81,20 @@ AI is different. It is a **work execution innovation**. It changes *who resolves
 **Composability determines whether AI investments compound.** If each agent reuses the same model of the work, the same tool contracts, the same governance framework, then the 50th agent is genuinely cheaper than the 1st. The platform effect is real. If each agent is a standalone project, there is no compounding — only accumulation.
 
 This is the first technology wave where "add it to the plumbing" genuinely does not work. The structural model that was optional for internet, mobile, and cloud is mandatory for AI.
+
+## The Other Side of the Counter — AI Is Also a Counterparty Innovation
+
+Everything above describes AI on the bank's side of the counter — who resolves the bank's work. There is a second movement, absent from most banks' AI strategies: the customer is acquiring AI too.
+
+Customers will increasingly arrive at the bank through agents of their own — assistants acting under delegated authority that compare deposit rates continuously, file the dispute the moment a charge posts, move idle balances the day a better yield appears, refinance when conditions cross a threshold, and evaluate product fit with perfect patience and zero loyalty. Corporate treasuries are building the same capability for business banking. Agentic commerce protocols are standardizing how these agents transact. For a growing share of interactions, the bank's counterparty will be a machine with delegated authority, not a person.
+
+Two consequences follow, and neither belongs to any existing project portfolio.
+
+**The first is margin erosion.** A substantial share of retail banking profit has always rested on customer inertia: deposits that don't chase rates, balances that don't refinance, product holdings that are close enough, fees that go unexamined. None of that inertia survives contact with a competent agent. The erosion will not arrive as an event — it will arrive as a deposit beta that won't come down, an attrition rate that won't stay put, a back book that reprices one agent-assisted customer at a time. Because it has no compliance deadline and no vendor category, no one in the bank owns it.
+
+**The second is a new service surface.** Serving machine counterparties is not a channel project. It requires capabilities no previous wave demanded: verifying an agent's identity and the authority delegated to it, bounding what a delegation permits, publishing products in terms a machine can read and act on, and producing decision records that make every agent interaction defensible — to the customer, and to the regulator. It also forces a strategic choice: compete for the relationship by meeting the customer's agent with proactive agents of the bank's own, or deliberately become the best manufacturing and balance-sheet utility behind other interfaces. Both are legitimate strategies; drifting from the first into the second by being too slow to compete is not.
+
+And here the argument of this chapter closes on itself. The bank cannot expose to external agents what it has never made explicit. Machine-readable products require declared product terms. Honorable delegation requires modeled authority. Defensible interactions require the same governance and decision records that internal AI resolution requires. The structural model that enterprise AI needs on the inside is the same artifact the agentic customer demands from the outside. One prerequisite, both sides of the counter — and the bank that builds it for either reason acquires the means to handle both.
 
 ## The Outcomes That Are Invisible — And Why
 

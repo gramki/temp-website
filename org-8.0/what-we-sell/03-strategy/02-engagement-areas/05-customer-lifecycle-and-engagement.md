@@ -10,9 +10,9 @@ Customer data remains fragmented: only 8 percent of financial services leaders e
 
 No vendor in the current landscape covers the full customer lifecycle. Banks assemble five to eight solutions across CRM, customer data platforms, next-best-action engines, loyalty platforms, contact center systems, and origination tools. The result is an integration-heavy, operationally fragile architecture where the work model connecting these systems exists in bespoke code, manual procedures, and institutional memory.
 
-Zeta's position in this market is architectural rather than categorical. Quark domain hubs — Origination, Customer Lifecycle, CLM, and Customer Servicing — deliver pre-modeled operational domains that run on Evolution Fabric. Combined with Seer (AI agent runtime), Cognitive Audit (decision auditability), and Trust and Truth Fabrics, this combination addresses the operational-model gap that no incumbent vendor occupies: how the bank operates across the customer lifecycle, not just what tools it uses. The gaps are real — no standalone CDP, no broad CRM, no contact center platform, and Quark hub maturity requires investment — but the positioning is unoccupied and the demand signals are strong.
+Zeta's position in this market is architectural rather than categorical. Quark domain hubs — Origination, Customer Lifecycle, CLM, and Customer Servicing — deliver pre-modeled operational domains that run on Evolution Fabric. Combined with Agent Fabric (AI agent runtime), Memory Fabric (decision auditability), and Trust and Truth Fabrics, this combination addresses the operational-model gap that no incumbent vendor occupies: how the bank operates across the customer lifecycle, not just what tools it uses. The gaps are real — no standalone CDP, no broad CRM, no contact center platform, and Quark hub maturity requires investment — but the positioning is unoccupied and the demand signals are strong.
 
-Recommended actions: prioritize Tier 2 US banks with active modernization signals (origination-to-relationship and engagement orchestration), establish Quark CLM and Quark Customer Lifecycle as the lead entry hubs, defer contact center competition, and invest in Cognitive Audit as the regulatory-compliance differentiator that banks increasingly require but few vendors deliver.
+Recommended actions: prioritize Tier 2 US banks with active modernization signals (origination-to-relationship and engagement orchestration), establish Quark CLM and Quark Customer Lifecycle as the lead entry hubs, defer contact center competition, and invest in Memory Fabric as the regulatory-compliance differentiator that banks increasingly require but few vendors deliver.
 
 ---
 
@@ -188,7 +188,7 @@ Zeta's product architecture maps to the customer lifecycle opportunity through f
 
 **Evolution Fabric** (Hubs, Streams, Loops, Scenarios) provides the operational model layer — the explicit, governed definition of how the bank operates across lifecycle stages. No competitor offers this. Salesforce sells a platform; Pega sells decisioning; NICE sells a contact center; Personetics sells engagement insights. None sells how the bank operates across the customer lifecycle as an explicit, governed, evolvable model.
 
-**Seer** (AI agent runtime) operates AI within governed Scenarios rather than as standalone tools. Combined with **Cognitive Audit** (decision auditability), this addresses the governance gap that CFPB's "no technology exception" mandate and FCA's Consumer Duty create. Only Pega's Wells Fargo deployment (32 billion decision records monthly with explainability) offers comparable governed AI at scale.
+**Agent Fabric** (AI agent runtime) operates AI within governed Scenarios rather than as standalone tools. Combined with **Memory Fabric** (decision auditability), this addresses the governance gap that CFPB's "no technology exception" mandate and FCA's Consumer Duty create. Only Pega's Wells Fargo deployment (32 billion decision records monthly with explainability) offers comparable governed AI at scale.
 
 **Trust Fabric** and **Truth Fabric** provide identity governance and semantic grounding — infrastructure capabilities without established market categories. Their value is architectural rather than competitive.
 
@@ -202,7 +202,7 @@ Zeta's product architecture maps to the customer lifecycle opportunity through f
 
 **Lead with Quark CLM and Quark Customer Lifecycle.** These hubs address the two highest-evidence structural shifts (campaign-to-lifecycle engagement and data fragmentation) and compete in segments where Zeta's operational-model differentiation is most relevant. The personalization/decisioning sub-segment ($2.7 billion, 15.3 percent CAGR) and the lifecycle-engagement slice of CRM represent the entry addressable market.
 
-**Enter India through HDFC, ICICI, and SBI engagement layer opportunities.** All three have made major CRM investments (BUSINESSNEXT, HCLSoftware) but lack the operational-model layer that connects engagement to servicing and origination. India's regulatory environment (DPDP Act, Account Aggregator) creates consent and governance requirements that Cognitive Audit and Trust Fabric directly address.
+**Enter India through HDFC, ICICI, and SBI engagement layer opportunities.** All three have made major CRM investments (BUSINESSNEXT, HCLSoftware) but lack the operational-model layer that connects engagement to servicing and origination. India's regulatory environment (DPDP Act, Account Aggregator) creates consent and governance requirements that Memory Fabric and Trust Fabric directly address.
 
 **Position Quark Customer Servicing as a complement to NICE and Genesys, not a replacement.** The servicing work model — governed scenarios for resolution, escalation governance, full relationship context — sits above the contact center platform. Integrate with NICE/Genesys as Machines. Do not attempt to compete in the $11.5 billion BFSI contact center segment.
 
@@ -220,11 +220,11 @@ Zeta's product architecture maps to the customer lifecycle opportunity through f
 
 **No US installed base.** Competing for US Tier 2 bank contracts without reference deployments requires proof-of-concept deals with measurable outcomes. The 28-institution target list identifies banks with active signals, but first deals require relationship access and a willingness to adopt an unproven platform.
 
-**Salesforce and Pega are expanding into the governance gap.** Salesforce's Trust Layer and Pega's explainability features signal that platform incumbents recognize the governance opportunity. If Cognitive Audit and Seer do not establish differentiation before incumbents close the gap, the positioning erodes.
+**Salesforce and Pega are expanding into the governance gap.** Salesforce's Trust Layer and Pega's explainability features signal that platform incumbents recognize the governance opportunity. If Memory Fabric and Agent Fabric do not establish differentiation before incumbents close the gap, the positioning erodes.
 
 **Regulatory uncertainty.** CFPB 1033 is enjoined. The CFPB's enforcement posture has shifted under the current administration. FCA Consumer Duty enforcement precedents are nascent (no Consumer Duty-specific enforcement action has been brought). If regulatory pressure softens, the compliance-driven urgency for governed engagement infrastructure diminishes.
 
-**AI commoditization.** Banks are increasingly building their own AI capabilities — BofA Erica, Wells Fargo Fargo, JPMorgan's AI organization. If in-house AI reduces demand for vendor-provided engagement AI, the market for Seer narrows to banks without internal AI capacity (primarily Tier 2 and Tier 3).
+**AI commoditization.** Banks are increasingly building their own AI capabilities — BofA Erica, Wells Fargo Fargo, JPMorgan's AI organization. If in-house AI reduces demand for vendor-provided engagement AI, the market for Agent Fabric narrows to banks without internal AI capacity (primarily Tier 2 and Tier 3).
 
 ---
 
@@ -236,9 +236,9 @@ Zeta's product architecture maps to the customer lifecycle opportunity through f
 
 2. **Secure two to three Tier 2 US proof-of-concept deployments.** Target banks with active engagement modernization signals and no deep incumbent lock-in. Huntington (already on Personetics), KeyBank (cloud-migrated contact center, Personetics adopted), and PNC (building new app) are candidates — each has demonstrated willingness to adopt new engagement technology.
 
-3. **Position Cognitive Audit as the regulatory differentiator.** Banks need CFPB-compliant, Consumer Duty-compliant AI audit trails. No vendor offers this as a standalone governed-AI audit capability. Cognitive Audit can lead the sales conversation even before Quark hubs are fully mature — "govern what you have before you add what you need."
+3. **Position Memory Fabric as the regulatory differentiator.** Banks need CFPB-compliant, Consumer Duty-compliant AI audit trails. No vendor offers this as a standalone governed-AI audit capability. Memory Fabric can lead the sales conversation even before Quark hubs are fully mature — "govern what you have before you add what you need."
 
-4. **Establish India entry through engagement-layer partnerships with existing HDFC/ICICI CRM deployments.** These banks have invested in BUSINESSNEXT for CRM but lack the operational-model layer for lifecycle governance and governed AI. DPDP Act compliance creates a near-term governance requirement that Trust Fabric and Cognitive Audit address.
+4. **Establish India entry through engagement-layer partnerships with existing HDFC/ICICI CRM deployments.** These banks have invested in BUSINESSNEXT for CRM but lack the operational-model layer for lifecycle governance and governed AI. DPDP Act compliance creates a near-term governance requirement that Trust Fabric and Memory Fabric address.
 
 ### Medium-Term (2–5 years)
 

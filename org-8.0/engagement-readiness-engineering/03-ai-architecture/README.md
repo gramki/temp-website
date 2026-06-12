@@ -73,7 +73,7 @@ Agents progress from Assistive to Automative based on accuracy metrics, user fee
 
 | Document | Description |
 |----------|-------------|
-| [Agents](agents.md) | All AI agents: Engagement Concierge (customer-facing) and Specialized Drafting Agents (internal) |
+| [Agents](agents.md) | All AI agents: assistive agents (Engagement Concierge, Specialized Drafting Agents) and ERE Delivery Swarms |
 | [Agent Governance](agent-governance.md) | Autonomy levels, progression criteria, audit requirements, and ERC oversight |
 
 ## Relationship to Other Sections

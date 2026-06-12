@@ -274,6 +274,7 @@ Channels are implementation concepts that enable multi-surface interaction. The 
 | **Channel Product** | Organization-scoped composite. Neutrino, above Hub. |
 | **Team** | Agent Pools, Task Queues, HAT (Execution Layer). Elevates agent organization as modeling concern. |
 | **Machine** | Machine Registry, Tool Registry (Automation Layer). Elevates tool availability as modeling concern. |
+| **Induction** | The enrollment of an existing system into a domain's Work Model — wrapped in a Tool Contract, registered as a Machine (Automation Layer), its operational intelligence extracted into declarative specifications. Defined in [Modeling Machines](07-modeling-machines.md). |
 | **Application** | Hub Application on Runtime (Automation Layer). When Seer, Application = AI Agent. |
 
 ---

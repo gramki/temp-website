@@ -11,11 +11,14 @@
 | **Delivery** | Delivery velocity (Initiate to production) | EPM |
 | **Reuse** | Product Line reuse ratio | EA |
 | **Inner source** | Inner source contribution rate | EA, ELs |
+| **Work Model** | Work Model pattern contributions per Engagement (feeding the cross-Engagement library) | EA |
 | **Quality** | Assembly certification pass rate | AVA |
 | **Verification** | Verification module coverage (criteria testable vs. total) | AVA |
 | **Verification** | Continuous verification pass rate | AVA |
 | **Customer** | Customer satisfaction / adoption | EPM (Engagement Success) |
+| **Workforce** | Share of domain work resolved by the employed Agent Swarm at Complete | EPM (Engagement Success) |
 | **Handover** | Handover quality | EPM, SRE Lead |
+| **Handover** | Post-Transfer dial movements executed by the customer without Zeta involvement | EPM, SRE Lead |
 | **Architecture** | Archetype coverage | EA |
 | **Commercial** | Revenue, margin, contract value | Account Management, EPM |
 

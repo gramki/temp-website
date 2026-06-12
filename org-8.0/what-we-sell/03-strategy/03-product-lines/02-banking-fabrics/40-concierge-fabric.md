@@ -90,7 +90,7 @@ Monitors servicing response times and escalation paths.
 | Adjacent Fabric | Relationship |
 |---|---|
 | **Customer Record Fabric** | Customer Record owns the core customer identity (Party_ID) and contact details; Concierge Fabric links RMs and tasks to the Party_ID. |
-| **Cognitive Audit Fabric** | Cognitive Audit Fabric provides the tamper-proof audit trail for sensitive servicing actions and note access. |
+| **Memory Fabric** | Memory Fabric provides the tamper-proof audit trail for sensitive servicing actions and note access. |
 | **Engagement Fabric** | Concierge Fabric coordinates with Engagement Fabric to deliver notifications, follow-up messages, and task status updates to customers. |
 | **Branch and Institution Fabric** | Branch and Institution Fabric logs in-branch interactions and handoffs to RMs, which are captured in the Concierge interaction log. |
 | **Influence Fabric** | Concierge Fabric queries Influence Fabric for active customer benefits and rewards to assist RMs in relationship-building. |
@@ -101,5 +101,5 @@ Monitors servicing response times and escalation paths.
 
 - [Customer Record Fabric](02-customer-record-fabric.md) — Customer master data and identity
 - [Branch and Institution Fabric](33-branch-and-institution-fabric.md) — Branch operations and teller functions
-- [Engagement Fabric](../../01-infra-fabrics/09-engagement-fabric.md) — Multi-channel interaction infrastructure
-- [Cognitive Audit Fabric](../../01-infra-fabrics/08-cognition-fabric.md) — Tamper-proof interaction audit trail
+- [Engagement Fabric](../01-infra-fabrics/09-engagement-fabric.md) — Multi-channel interaction infrastructure
+- [Memory Fabric](../01-infra-fabrics/07-memory-fabric.md) — Tamper-proof interaction audit trail

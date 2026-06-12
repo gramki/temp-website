@@ -25,6 +25,33 @@ Work Product → AI Extraction → Human Review → Knowledge Base → Reuse
      └──────────────── Feedback Loop ───────────────┘
 ```
 
+## The Work Model Library
+
+The centerpiece of the knowledge base is the **Work Model Library** — the named, compounding repository of structural patterns drawn from every Engagement's Work Model. While each bank's domain is its own, the *structure* of banking work recurs across institutions, and that structure is what the library captures:
+
+| Pattern Type | What It Captures |
+|--------------|------------------|
+| **Scenario shapes** | How work of a given class is typically resolved — steps, decision points, exceptions |
+| **Tool Contract templates** | Recurring contract shapes for enrolling common system classes as Machines |
+| **Governance structures** | Approval chains, escalation designs, and dial configurations that have proven workable |
+| **Regulatory mappings** | How regulatory obligations map onto Streams, Loops, and Scenarios for a domain class |
+
+### Curation Flow
+
+```
+Engagement Teams + Discovery Swarm → Propose → Pattern Curator Agent + Domain Stewards → Validate → Work Model Library → Next Exploration / Discover Phase
+```
+
+Engagement teams and the [Discovery Swarm](../03-ai-architecture/agents.md) propose candidate patterns from each Engagement's Work Model; the [Pattern Curator Agent](pattern-curator.md) and Domain Stewards validate them; the library then feeds the next Exploration and the next Engagement's Discover phase.
+
+### Confidentiality Boundary
+
+Each bank's operational intelligence — its specific rules, thresholds, and data — remains that bank's property and stays in its Engagement. What compounds in the library is **structure**, never a bank's content.
+
+### Why It Compounds
+
+Successive discoveries of the same domain class start from the library, not from scratch: the tenth disputes domain is not discovered from scratch; it is confirmed against the ninth. Every Work Model discovered makes the next discovery faster and sharper.
+
 ## In This Section
 
 | Document | Description |

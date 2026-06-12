@@ -88,7 +88,7 @@ graph TD
 | **Evolution Fabric** | Tachyon product lines register as Machines in domain Hubs — declaring their capabilities as Tools (commands, predictions, decisions) that Scenarios invoke. Account operations modeled as Streams and Loops within Evolution Fabric's domain model. |
 | **Trust Fabric** | Secures customer identities, authorization permissions, credential validation, and encryption-at-rest keys for account records. |
 | **Truth Fabric** | Establishes the authoritative semantic definitions for account balances, limits, transaction statuses, and posting schemas to maintain absolute reconciliation consistency. |
-| **Cognitive Audit Fabric** | Tracks and certifies every automated ledger adjustment, credit approval, limit increase, and risk grade change. |
+| **Memory Fabric** | Tracks and certifies every automated ledger adjustment, credit approval, limit increase, and risk grade change. |
 | **Cloud Fabric** | Orchestrates compute nodes, database clusters, transaction replication pipelines, and high-availability targets for Tachyon ledger databases. |
 
 ---

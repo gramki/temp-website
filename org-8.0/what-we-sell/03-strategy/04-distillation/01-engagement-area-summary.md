@@ -31,10 +31,10 @@ This document places all eleven engagement areas on a common decision surface �
 | 1      | [Payments](../02-engagement-areas/01-payments.md) | $60–85B      | 12–15%     | [Photon](../03-product-lines/04-product-lines/02-photon.md) | **Yes.** 3 credit card programs, multiple DDA programs in US production            | CTO                      | Strong          | Medium-Strong                 | Strong                            | **Pursue**                                    |
 | 1      | [Account Products](../02-engagement-areas/03-account-products-and-banking.md) | $25–40B      | 9–14%      | [Tachyon](../03-product-lines/04-product-lines/01-tachyon.md) | **Yes.** 3 credit card programs, multiple DDA programs (Optum, loyalty) in US      | CTO                      | Strong          | Medium-Strong                 | Medium                            | **Pursue**                                    |
 | 1      | [Commercial Cards](../02-engagement-areas/02-commercial-cards.md) | $28–30B      | 15–20%     | [Electron](../03-product-lines/04-product-lines/03-electron.md) | **Partial.** Benefits proven at scale (Pluxee India, 11K+ corporates). Expense/Purchase unvalidated | Corporate Banking        | Strong          | Partial                       | Strong                            | **Pursue with investment**                    |
-| 1      | [Lending and Credit](../02-engagement-areas/04-lending-and-credit.md) | $25–30B      | 14–18%     | [Tachyon](../03-product-lines/04-product-lines/01-tachyon.md) Loans + [CAF](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) | **No.** Tachyon Loans = "To be expanded." AI governance (CAF) is architecturally ready | CRO / CCO                | Strong          | Weak (platform) / Unique (governance) | Medium                       | **Pursue governance; delay platform**         |
+| 1      | [Lending and Credit](../02-engagement-areas/04-lending-and-credit.md) | $25–30B      | 14–18%     | [Tachyon](../03-product-lines/04-product-lines/01-tachyon.md) Loans + [Memory Fabric](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) | **No.** Tachyon Loans = "To be expanded." AI governance (Memory Fabric) is architecturally ready | CRO / CCO                | Strong          | Weak (platform) / Unique (governance) | Medium                       | **Pursue governance; delay platform**         |
 | 2      | [Banking Operations](../02-engagement-areas/06-banking-operations.md) | $19–27B      | 12–15%     | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) | **No.** Architecture maps; no external deployment                                  | COO                      | Strong          | Medium (category creation)      | Medium                            | **Build-then-pursue**                         |
-| 2      | [Compliance Operations](../02-engagement-areas/07-compliance-operations.md) | $11–15B      | 16–19%     | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) + [CAF](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) | **No.** Greenfield. Zero compliance domain presence                                | CCO / BSA Officer        | Strong          | Medium (no incumbent in orchestration) | Weak                        | **Build-then-pursue**                         |
-| 2      | [Agentic Banking](../02-engagement-areas/11-agentic-banking.md) | $5–6B (2030) | 25–45%     | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) (Hub + Seer) | **No.** No reference deployments. No conversational AI capability             | CTO / Head of Digital    | Strong          | Medium (operational model gap is real) | Medium                      | **Build-then-pursue**                         |
+| 2      | [Compliance Operations](../02-engagement-areas/07-compliance-operations.md) | $11–15B      | 16–19%     | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) + [Memory Fabric](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) | **No.** Greenfield. Zero compliance domain presence                                | CCO / BSA Officer        | Strong          | Medium (no incumbent in orchestration) | Weak                        | **Build-then-pursue**                         |
+| 2      | [Agentic Banking](../02-engagement-areas/11-agentic-banking.md) | $5–6B (2030) | 25–45%     | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) (Hub) + [Agent Fabric](../03-product-lines/01-infra-fabrics/06-agent-fabric.md) | **No.** No reference deployments. No conversational AI capability             | CTO / Head of Digital    | Strong          | Medium (operational model gap is real) | Medium                      | **Build-then-pursue**                         |
 | 3      | [Cloud and Platform Ops](../02-engagement-areas/10-cloud-and-platform-operations.md) | $8–10B       | 12–15%     | [Cloud Fabric](../03-product-lines/01-infra-fabrics/03-cloud-fabric.md) | **Internal only.** Runs Zeta's own banking estate                                  | CIO                      | Strong          | Medium                         | Medium (managed services barrier) | **Requires deliberation**                     |
 | 3      | [Digital Identity and Trust](../02-engagement-areas/08-digital-identity-and-trust.md) | $30B+        | 14–15%     | [Trust Fabric](../03-product-lines/01-infra-fabrics/01-trust-fabric.md) | **No.** Architectural alignment only                                               | CISO                     | Strong          | Medium                         | Weak (Aadhaar integration needed)  | **Requires deliberation**                     |
 | 3      | [Customer Lifecycle](../02-engagement-areas/05-customer-lifecycle-and-engagement.md) | $26–33B      | 13–17%     | [Quark](../03-product-lines/04-product-lines/05-quark.md) CLM | **No.** Quark hubs = "to be expanded"                                              | CMO / CX Head            | Strong          | Medium                         | Medium                            | **Requires deliberation**                     |
@@ -53,7 +53,7 @@ This document places all eleven engagement areas on a common decision surface �
 | [Payments](../02-engagement-areas/01-payments.md) | [Photon](../03-product-lines/04-product-lines/02-photon.md) | In production (US) – card payment processing for 3 credit card programs and multiple DDA programs           |
 | [Account Products](../02-engagement-areas/03-account-products-and-banking.md) | [Tachyon](../03-product-lines/04-product-lines/01-tachyon.md) (Credit Cards + DDA) | In production (US) – 3 credit card programs, DDA programs (Optum health benefits, loyalty/rewards)          |
 | [Commercial Cards](../02-engagement-areas/02-commercial-cards.md) | [Electron](../03-product-lines/04-product-lines/03-electron.md) (on Tachyon) | Benefits: proven at scale (Pluxee India, 11K+ corporates, 3.5M+ consumers). Expense/Purchase: unvalidated   |
-| [Lending and Credit](../02-engagement-areas/04-lending-and-credit.md) | [Tachyon](../03-product-lines/04-product-lines/01-tachyon.md) Loans + [CAF](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) | Governance: architecturally ready. Lending products: early-stage ("To be expanded")                        |
+| [Lending and Credit](../02-engagement-areas/04-lending-and-credit.md) | [Tachyon](../03-product-lines/04-product-lines/01-tachyon.md) Loans + [Memory Fabric](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) | Governance: architecturally ready. Lending products: early-stage ("To be expanded")                        |
 
 ### [Payments](../02-engagement-areas/01-payments.md)
 
@@ -113,13 +113,13 @@ This document places all eleven engagement areas on a common decision surface �
 
 | Segment                        | R2P    | R2W     | Key Evidence                                                   | Key Gap                                         |
 |---------------------------------|--------|---------|----------------------------------------------------------------|--------------------------------------------------|
-| AI governance in lending (all tiers) | Strong | Unique  | Evolution Fabric + CAF = only integrated AI governance platform for lending | Not a lending product sale – governance overlay on existing infrastructure |
+| AI governance in lending (all tiers) | Strong | Unique  | Evolution Fabric + Memory Fabric = only integrated AI governance platform for lending | Not a lending product sale – governance overlay on existing infrastructure |
 | Consumer origination (India)    | Strong | Medium  | Active banking relationships; 31.5% CAGR                       | Tachyon Loans = "To be expanded"                 |
 | Consumer origination (US)       | Strong | Weak    | $18–22B market                                                | No US lending references; no demonstrated capability |
 | Commercial lending              | Strong | Weak    | 41% of banks use spreadsheets                                  | nCino has 2,700+ customers                       |
 | Mortgage                        | Strong | Very Weak | ICE ~50% LOS share                                             | Permanent exclusion                              |
 
-**Production evidence.** None for lending products. Tachyon Loans and Quark Lending are declared but not deployed. The AI governance position (Evolution Fabric + CAF) is architecturally ready and unique in the market — but governance without a lending platform is a consulting sale, not a product sale.
+**Production evidence.** None for lending products. Tachyon Loans and Quark Lending are declared but not deployed. The AI governance position (Evolution Fabric + Memory Fabric) is architecturally ready and unique in the market — but governance without a lending platform is a consulting sale, not a product sale.
 
 **Highest-risk competitor.** nCino — 2,700+ customers including recent enterprise wins, expanding from commercial into consumer lending with AI.
 
@@ -140,9 +140,9 @@ This document places all eleven engagement areas on a common decision surface �
 
 | Area               | Primary Fabric                                         | Category Status                  |
 |--------------------|-------------------------------------------------------|----------------------------------|
-| [Banking Operations](../02-engagement-areas/06-banking-operations.md) | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) (Hub + Seer), [CAF](../03-product-lines/01-infra-fabrics/07-memory-fabric.md), [Truth Fabric](../03-product-lines/01-infra-fabrics/02-truth-fabric.md) | No established vendor category |
-| [Compliance Operations](../02-engagement-areas/07-compliance-operations.md) | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) + [CAF](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) + [Trust Fabric](../03-product-lines/01-infra-fabrics/01-trust-fabric.md) + [Truth Fabric](../03-product-lines/01-infra-fabrics/02-truth-fabric.md) | No established vendor category |
-| [Agentic Banking](../02-engagement-areas/11-agentic-banking.md) | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) (Hub + Seer), [CAF](../03-product-lines/01-infra-fabrics/07-memory-fabric.md), [Trust Fabric](../03-product-lines/01-infra-fabrics/01-trust-fabric.md) | Nascent, pre-category |
+| [Banking Operations](../02-engagement-areas/06-banking-operations.md) | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) (Hub) + [Agent Fabric](../03-product-lines/01-infra-fabrics/06-agent-fabric.md), [Memory Fabric](../03-product-lines/01-infra-fabrics/07-memory-fabric.md), [Truth Fabric](../03-product-lines/01-infra-fabrics/02-truth-fabric.md) | No established vendor category |
+| [Compliance Operations](../02-engagement-areas/07-compliance-operations.md) | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) + [Memory Fabric](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) + [Trust Fabric](../03-product-lines/01-infra-fabrics/01-trust-fabric.md) + [Truth Fabric](../03-product-lines/01-infra-fabrics/02-truth-fabric.md) | No established vendor category |
+| [Agentic Banking](../02-engagement-areas/11-agentic-banking.md) | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) (Hub) + [Agent Fabric](../03-product-lines/01-infra-fabrics/06-agent-fabric.md), [Memory Fabric](../03-product-lines/01-infra-fabrics/07-memory-fabric.md), [Trust Fabric](../03-product-lines/01-infra-fabrics/01-trust-fabric.md) | Nascent, pre-category |
 
 ### [Banking Operations](../02-engagement-areas/06-banking-operations.md)
 
@@ -161,7 +161,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Category creation investment.** Quark Operations hub must be built from scratch (compliance, fraud, collections, reconciliation, regulatory reporting sub-domains). No pre-built domain hubs exist. Requires deep domain expertise hire — compliance, reconciliation, collections operations practitioners.
 
-**Verdict: Build-then-pursue.** Start with compliance operations workflow and reconciliation at Tier 2 US banks. Secure one India production reference (RBI enforcement creates receptive conditions). Position CAF as a standalone compliance audit layer alongside existing detection engines (NICE, SAS) as the market entry wedge.
+**Verdict: Build-then-pursue.** Start with compliance operations workflow and reconciliation at Tier 2 US banks. Secure one India production reference (RBI enforcement creates receptive conditions). Position Memory Fabric as a standalone compliance audit layer alongside existing detection engines (NICE, SAS) as the market entry wedge.
 
 ### [Compliance Operations](../02-engagement-areas/07-compliance-operations.md)
 
@@ -173,7 +173,7 @@ This document places all eleven engagement areas on a common decision surface �
 |---------------------------------------------|--------|----------------|---------------------------------------------|
 | Compliance ops orchestration (Tier 2 US)    | Strong | Medium         | **Pursue as primary**                       |
 | KYC/CDD workflow orchestration (Tier 2 US)  | Strong | Medium         | **Pursue as secondary** (Trust Fabric alignment) |
-| Compliance AI governance (EU AI Act)        | Strong | Medium-Strong  | **Pursue as differentiator** (CAF advantage)|
+| Compliance AI governance (EU AI Act)        | Strong | Medium-Strong  | **Pursue as differentiator** (Memory Fabric advantage)|
 | AML transaction monitoring                  | Strong | Weak           | Do not pursue (32+ established vendors)     |
 | Regulatory reporting                        | Strong | Very Weak      | Do not pursue (AxiomSL dominance)           |
 | G-SIB compliance                            | Strong | Very Weak      | Do not pursue                               |
@@ -231,7 +231,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Opportunity.** $30B+ market at 14–15% CAGR across CIAM, identity verification, authentication, consent management, fraud analytics, and non-human identity. PE has deployed $13B+ assembling identity portfolios (Thoma Bravo, Permira). Convergence is inevitable but not yet achieved. AI agent identity is an emerging sub-segment no vendor addresses.
 
-**Standalone vs. enabler.** Trust Fabric's AI agent identity governance (Trust Fabric + Seer) is the wedge capability no competitor offers — directly relevant to EU AI Act compliance. Consent-as-infrastructure addresses the 20-state US privacy patchwork. These capabilities are also enabling layers for Compliance Operations (KYC lifecycle), Agentic Banking (agent identity), and Payments (authentication). Can Trust Fabric generate $2M+ standalone identity engagements, or is it most valuable as a component of larger platform deals?
+**Standalone vs. enabler.** Trust Fabric's AI agent identity governance (Trust Fabric + Agent Fabric) is the wedge capability no competitor offers — directly relevant to EU AI Act compliance. Consent-as-infrastructure addresses the 20-state US privacy patchwork. These capabilities are also enabling layers for Compliance Operations (KYC lifecycle), Agentic Banking (agent identity), and Payments (authentication). Can Trust Fabric generate $2M+ standalone identity engagements, or is it most valuable as a component of larger platform deals?
 
 **Verdict: Requires deliberation.** AI agent identity governance has a time-bounded window (EU AI Act August 2026) that argues for near-term standalone pursuit. Broader identity capabilities may be better positioned as components within Pillar 1 and 2 engagements.
 
@@ -247,7 +247,7 @@ This document places all eleven engagement areas on a common decision surface �
 
 **Opportunity.** $27–30B vendor revenue, 13–18% CAGR. Embedded finance beyond payments projected to grow 5.5x ($2B to $11B by 2026). $185B broader embedded finance TAM at only 17% penetration. Post-Synapse regulatory enforcement reshaping the market toward bank-owned infrastructure.
 
-**Standalone vs. enabler.** BaaS is architecturally a multi-product platform play — Tachyon (accounts) + Photon (payments) + Electron (cards) + Trust Fabric (identity) + CAF (compliance). Tachyon and Photon are production-proven in the US, giving BaaS a stronger R2W foundation than other Pillar 3 areas. India BaaS (Federal Bank, Yes Bank, SBM Bank India) has the strongest combined R2P + R2W of any Pillar 3 segment. US BaaS faces a cold-start problem (no reference deployment).
+**Standalone vs. enabler.** BaaS is architecturally a multi-product platform play — Tachyon (accounts) + Photon (payments) + Electron (cards) + Trust Fabric (identity) + Memory Fabric (compliance). Tachyon and Photon are production-proven in the US, giving BaaS a stronger R2W foundation than other Pillar 3 areas. India BaaS (Federal Bank, Yes Bank, SBM Bank India) has the strongest combined R2P + R2W of any Pillar 3 segment. US BaaS faces a cold-start problem (no reference deployment).
 
 | Segment                         | R2P    | R2W     | Recommendation                       |
 |----------------------------------|--------|---------|--------------------------------------|
@@ -272,14 +272,14 @@ This document places all eleven engagement areas on a common decision surface �
 
 ### Product line leverage
 
-Evolution Fabric appears across all of Pillar 2, most of Pillar 3, and portions of Pillar 1. Investment in Evolution Fabric pays dividends across 6–8 engagement areas simultaneously. Tachyon spans all of Pillar 1 and BaaS. Photon spans Payments, Account Products, and BaaS. CAF appears in 7 of 11 areas. This concentration implies that platform investment priority should weight fabrics by cross-area leverage, not by individual engagement area attractiveness.
+Evolution Fabric appears across all of Pillar 2, most of Pillar 3, and portions of Pillar 1. Investment in Evolution Fabric pays dividends across 6–8 engagement areas simultaneously. Tachyon spans all of Pillar 1 and BaaS. Photon spans Payments, Account Products, and BaaS. Memory Fabric appears in 7 of 11 areas. This concentration implies that platform investment priority should weight fabrics by cross-area leverage, not by individual engagement area attractiveness.
 
 | Product/Fabric    | Pillar 1 Areas                                | Pillar 2 Areas     | Pillar 3 Areas             | Total |
 |-------------------|-----------------------------------------------|--------------------|----------------------------|-------|
 | [Evolution Fabric](../03-product-lines/01-infra-fabrics/04-evolution-fabric.md) | 1 (Lending governance)                        | 3 (all)            | 2 (Customer Lifecycle, BaaS) | 6     |
 | [Tachyon](../03-product-lines/04-product-lines/01-tachyon.md) | 3 (Payments, Account Products, Commercial Cards) | 0                  | 1 (BaaS)                  | 4     |
 | [Photon](../03-product-lines/04-product-lines/02-photon.md) | 1 (Payments)                                  | 0                  | 1 (BaaS)                  | 2     |
-| [CAF](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) | 1 (Lending governance)                        | 3 (all)            | 3 (Cloud, Identity, Customer Lifecycle) | 7     |
+| [Memory Fabric](../03-product-lines/01-infra-fabrics/07-memory-fabric.md) | 1 (Lending governance)                        | 3 (all)            | 3 (Cloud, Identity, Customer Lifecycle) | 7     |
 | [Trust Fabric](../03-product-lines/01-infra-fabrics/01-trust-fabric.md) | 0                                             | 2 (Compliance, Agentic) | 2 (Identity, BaaS)      | 4     |
 
 ### Buyer concentration

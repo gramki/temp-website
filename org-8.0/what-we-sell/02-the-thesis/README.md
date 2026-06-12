@@ -14,9 +14,9 @@ The documents below form a deliberate sequence — each builds on the last, movi
 
 3. **[Chapter 03: Beyond Systems — Why Capabilities Are Necessary But Not Sufficient](03-beyond-systems.md)** — Why closing the gap system-by-system is necessary but not sufficient. The absorption model is unsustainably expensive, capabilities without a work model don't produce coherence, and customer-centricity becomes a matrix problem rather than a structural property.
 
-4. **[Chapter 04: The Enterprise AI Problem — Why Project-by-Project Won't Get There](04-enterprise-ai-adoption.md)** — AI is the most consequential capability arriving at banks, and the one that most urgently proves the beyond-systems argument. Project-by-project AI produces tools and islands, not transformation. Enterprise AI leverage requires structural prerequisites that the systems-first approach never produces.
+4. **[Chapter 04: The Enterprise AI Problem — Why Project-by-Project Won't Get There](04-enterprise-ai-adoption.md)** — AI is the most consequential capability arriving at banks, and the one that most urgently proves the beyond-systems argument. Project-by-project AI produces tools and islands, not transformation. And AI arrives on both sides of the counter: it changes who resolves the bank's work — and who the bank's counterparty is. Enterprise AI leverage requires structural prerequisites that the systems-first approach never produces.
 
-5. **[Chapter 05: The Structural Diagnosis and an Alternative Thesis](05-thesis.md)** — Four core structural concerns distilled from the preceding analysis, and seven governing principles that define an alternative way of thinking about the problem. This is the intellectual foundation for everything that follows.
+5. **[Chapter 05: The Structural Diagnosis and an Alternative Thesis](05-thesis.md)** — Four core structural concerns distilled from the preceding analysis, and eight governing principles that define an alternative way of thinking about the problem. This is the intellectual foundation for everything that follows.
 
 6. **[Chapter 06: What Changes — And Why Each Change Is Achievable](06-benefits.md)** — A comprehensive mapping of every felt problem and cost to tangible benefits realized under the thesis principles, with rationale for how each benefit is achieved.
 
@@ -26,6 +26,6 @@ The documents below form a deliberate sequence — each builds on the last, movi
 
 ## What Comes Next
 
-The thesis defines *what* is needed. It does not define *how*. Translating the seven principles into a concrete, implementable model — with defined constructs, clear terminology, and practical guidance — is the work of a framework.
+The thesis defines *what* is needed. It does not define *how*. Translating the eight principles into a concrete, implementable model — with defined constructs, clear terminology, and practical guidance — is the work of a framework.
 
-[The Hub Way](./07-the-hub-way/) is the operationalization of this thesis. It translates the seven principles into a model that can be applied to any banking domain.
+[The Hub Way](./07-the-hub-way/) is the operationalization of this thesis. It translates the eight principles into a model that can be applied to any banking domain.

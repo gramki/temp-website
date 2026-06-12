@@ -85,7 +85,7 @@ graph TD
 | **Evolution Fabric** | Photon product lines register as Machines in payment domain Hubs. Real-time transaction flows are modeled as high-throughput Streams, while end-of-day clearing, card fees, and settlement runs are driven by Evolution Loops. |
 | **Trust Fabric** | Secures merchant credentials, cardholder PCI data, network authentication keys, and transaction message signatures. |
 | **Truth Fabric** | Standardizes payment schemas, merchant categories, currency exchange rates, and transaction state semantics to maintain perfect inter-system reconciliation. |
-| **Cognitive Audit Fabric** | Logs and validates routing choices, exception overrides, fraud block overrides, and dispute resolutions. |
+| **Memory Fabric** | Logs and validates routing choices, exception overrides, fraud block overrides, and dispute resolutions. |
 | **Cloud Fabric** | Provides low-latency, active-active database and network routing replication to ensure 99.999% uptime for transaction authorizations. |
 
 ---

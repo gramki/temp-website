@@ -110,6 +110,32 @@ User request → Agent response → Human review → Correction (if needed)
 | **Systematic error (pattern)** | Autonomy review triggered; may downgrade to Assistive |
 | **Customer-impacting error** | Immediate escalation; incident review; autonomy paused |
 
+### Bidirectional Improvement Loop for Shipped Swarms
+
+The feedback loop above governs agents operating inside ERE. For Agent Swarms shipped to customer banks through Engagements, the loop runs in both directions:
+
+```
+        Shared agent definitions, guardrail patterns, evaluation suites
+                                      │
+                 Outbound (under each bank's change governance)
+                                      ▼
+                     Employed Swarms at customer banks
+                                      │
+                 Inbound (engineering lessons, never bank data)
+                                      ▼
+        Escalation patterns, failure modes, evaluation gaps
+                                      │
+                                      ▼
+                    Hardened shared agent definitions
+```
+
+| Direction | What Flows | Governance |
+|-----------|------------|------------|
+| **Outbound** | Improved agent definitions, guardrail patterns, and evaluation suites released to every employed Swarm | Released under each bank's change governance — banks control when and how updates land |
+| **Inbound** | Operational lessons: escalation patterns, failure modes, evaluation gaps | Harden the shared agent definitions every other Swarm runs on |
+
+**Confidentiality rule:** engineering lessons travel, bank data never does. What flows back is the structure of what was learned — an escalation pattern, a failure mode, an evaluation gap — never a bank's records, rules, or operational data.
+
 ---
 
 ## ERC Oversight

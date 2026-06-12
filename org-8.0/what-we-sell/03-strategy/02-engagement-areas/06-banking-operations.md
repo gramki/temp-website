@@ -211,9 +211,9 @@ Evolution Fabric's architecture maps directly to the banking operations opportun
 
 **Evolution Fabric — Hub** provides the operational substrate the market lacks. Hub's domain modeling — bounded Hubs, Streams (external commitments), Loops (internal discipline), Scenarios (goal-oriented resolution) — maps structurally to banking operations domains. Reconciliation, compliance verification, and fraud detection are Loops: internal discipline triggered by operational rhythms. Dispute resolution, SAR assembly, and collections escalation are Streams: external commitments that progress through Scenarios and resolve. The work pattern vocabulary — queue-based, case-based, event-driven, artifact-centric, review-based — describes the actual work patterns of banking operations with more precision than the workflow-first models of ServiceNow, Pegasystems, or Appian. This is an architectural differentiator: no incumbent models operations as situations that need resolution rather than tasks to execute.
 
-**Evolution Fabric — Seer** provides the AI agent governance that the market needs and no competitor offers. As AI moves from detection tools to autonomous agents in compliance, fraud, and reconciliation (Shift 6), the question every CIO asks is: "How do I know this agent is doing what it should, only what it should, and that someone is accountable?" Seer's answer — agent lifecycle management, delegated authority with mandatory human accountability, context assembly from the Hub's operational model, OPD governance (Observability, Predictability, Directability) — is structural. Competitors either have no agent governance (most), or treat it as a feature of the detection engine (NICE Actimize, SAS) rather than an infrastructure-level concern.
+**Agent Fabric** provides the AI agent governance that the market needs and no competitor offers. As AI moves from detection tools to autonomous agents in compliance, fraud, and reconciliation (Shift 6), the question every CIO asks is: "How do I know this agent is doing what it should, only what it should, and that someone is accountable?" Agent Fabric's answer — agent lifecycle management, delegated authority with mandatory human accountability, context assembly from the Hub's operational model, OPD governance (Observability, Predictability, Directability) — is structural. Competitors either have no agent governance (most), or treat it as a feature of the detection engine (NICE Actimize, SAS) rather than an infrastructure-level concern.
 
-**Cognitive Audit Fabric** addresses the auditability gap that Shift 8 creates. No incumbent provides cross-domain decision memory, evidence bundles, explanation generation, override governance, and audit discovery from a single fabric. CAF's federated memory architecture — memory lives close to action, governance lives centrally — matches the operational reality of banking operations: decisions happen in domain systems (fraud case management, compliance monitoring, reconciliation platforms), but auditability must span all of them. The regulatory alignment is direct: EU AI Act, SR 11-7, GDPR Article 22, SEC/FINRA recordkeeping, and fair lending requirements all map to capabilities already present in CAF.
+**Memory Fabric** addresses the auditability gap that Shift 8 creates. No incumbent provides cross-domain decision memory, evidence bundles, explanation generation, override governance, and audit discovery from a single fabric. Memory Fabric's federated memory architecture — memory lives close to action, governance lives centrally — matches the operational reality of banking operations: decisions happen in domain systems (fraud case management, compliance monitoring, reconciliation platforms), but auditability must span all of them. The regulatory alignment is direct: EU AI Act, SR 11-7, GDPR Article 22, SEC/FINRA recordkeeping, and fair lending requirements all map to capabilities already present in Memory Fabric.
 
 **Trust Fabric** contributes agent identity and delegation governance — critical for Shift 6 as AI agents participate in compliance, fraud, and collections operations. Trust Fabric's KYC/identity capabilities also align with compliance operations onboarding workflows. The contribution is focused rather than central.
 
@@ -225,7 +225,7 @@ Evolution Fabric's architecture maps directly to the banking operations opportun
 
 **Pursue — near-term (0–2 years).**
 
-*Compliance operations workflow at Tier 2 US banks.* The combination of Hub's domain modeling, Seer's agent governance, and CAF's decision auditability addresses the gap between detection engines (NICE, SAS) and horizontal workflow platforms (ServiceNow, Pega). Banks under regulatory pressure — or banks that have observed TD Bank's $3.09 billion penalty — need compliance operations that are explicit, governed, and auditable. Tier 2 banks are less locked into incumbent compliance platforms than Tier 1.
+*Compliance operations workflow at Tier 2 US banks.* The combination of Hub's domain modeling, Agent Fabric's agent governance, and Memory Fabric's decision auditability addresses the gap between detection engines (NICE, SAS) and horizontal workflow platforms (ServiceNow, Pega). Banks under regulatory pressure — or banks that have observed TD Bank's $3.09 billion penalty — need compliance operations that are explicit, governed, and auditable. Tier 2 banks are less locked into incumbent compliance platforms than Tier 1.
 
 *Reconciliation platform modernization with Truth Fabric.* Truth Fabric's semantic reconciliation model — assertions, authority, reconciliation, state — is an architectural match for bank reconciliation operations. Position against SmartStream and Duco on semantic depth and cross-domain truth, not on reconciliation feature parity.
 
@@ -235,7 +235,7 @@ Evolution Fabric's architecture maps directly to the banking operations opportun
 
 *Operations model modernization.* As Shift 4 (knowledge concentration) and Shift 7 (legacy constraint) compound, banks will need to make operations explicit and evolvable — the core value proposition of Evolution Fabric. Position for the "operations model" engagement type identified in the Engagement Landscape. This is a strategic sell to operations and technology leadership, not a transactional vendor replacement.
 
-*AI-agent-governed operations.* As agentic AI matures from pilots to production (Verafin leading), Seer's governance model becomes a differentiator. Position as the operations infrastructure for banks moving from "AI as tool" to "AI as participant."
+*AI-agent-governed operations.* As agentic AI matures from pilots to production (Verafin leading), Agent Fabric's governance model becomes a differentiator. Position as the operations infrastructure for banks moving from "AI as tool" to "AI as participant."
 
 **Delay or do not pursue.**
 
@@ -250,7 +250,7 @@ Evolution Fabric's architecture maps directly to the banking operations opportun
 **What must be true for this opportunity to materialize:**
 
 1. Banks must value an explicit, governed operations model over point-solution replacement. If the market continues to buy best-of-breed detection (NICE for AML) and best-of-breed reporting (AxiomSL for RegTech) without connecting them, the "unified operations model" value proposition does not land.
-2. Regulatory expectations for AI auditability must crystallize. CAF's value depends on regulators requiring decision memory, explanation generation, and override governance for AI agents in operations. The EU AI Act points in this direction; US and India regulatory positions are less defined.
+2. Regulatory expectations for AI auditability must crystallize. Memory Fabric's value depends on regulators requiring decision memory, explanation generation, and override governance for AI agents in operations. The EU AI Act points in this direction; US and India regulatory positions are less defined.
 3. Zeta must build operations-specific domain models. The architecture maps; the domain implementation does not exist. Quark hubs for Compliance, Fraud, Collections, Reconciliation, and Regulatory Reporting must be built before the opportunity can be addressed with a complete offering.
 
 **Window risks:**
@@ -259,7 +259,7 @@ Evolution Fabric's architecture maps directly to the banking operations opportun
 
 *Regulatory change.* FinCEN whistleblower program, EU AML Package, RBI enforcement intensity — all create urgency. If enforcement pressure eases (a change in US administration, regulatory forbearance), investment urgency declines.
 
-*AI governance standards.* If regulators adopt narrow, vendor-specific AI governance requirements (e.g., mandating NICE Actimize's embedded governance), Seer's infrastructure-level approach becomes harder to position.
+*AI governance standards.* If regulators adopt narrow, vendor-specific AI governance requirements (e.g., mandating NICE Actimize's embedded governance), Agent Fabric's infrastructure-level approach becomes harder to position.
 
 **Capability gaps:**
 
@@ -273,11 +273,11 @@ Evolution Fabric's architecture maps directly to the banking operations opportun
 
 **Near-term (0–2 years).**
 
-1. **Build a Quark Operations hub** — starting with compliance operations (AML case management, SAR assembly, sanctions screening workflow) as the first domain. Use Hub's Loops and Scenarios to model AML operations workflows; use Seer for agent governance in alert triage and case assembly; use CAF for decision auditability. This is the minimum viable domain implementation needed to enter the market.
+1. **Build a Quark Operations hub** — starting with compliance operations (AML case management, SAR assembly, sanctions screening workflow) as the first domain. Use Hub's Loops and Scenarios to model AML operations workflows; use Agent Fabric for agent governance in alert triage and case assembly; use Memory Fabric for decision auditability. This is the minimum viable domain implementation needed to enter the market.
 
-2. **Secure one production reference in India.** RBI enforcement intensity, HDFC Bank's penalties, and SBI's EASE 9.0 modernization create receptive conditions. A Tier 1 or large Tier 2 Indian bank deploying Hub + Seer for compliance operations — even at narrow scope — provides the production proof point that no amount of architectural argumentation can substitute.
+2. **Secure one production reference in India.** RBI enforcement intensity, HDFC Bank's penalties, and SBI's EASE 9.0 modernization create receptive conditions. A Tier 1 or large Tier 2 Indian bank deploying Hub + Agent Fabric for compliance operations — even at narrow scope — provides the production proof point that no amount of architectural argumentation can substitute.
 
-3. **Position CAF as a standalone compliance offering.** Decision auditability is a capability gap across the entire competitive landscape. CAF can be deployed alongside existing compliance engines (NICE Actimize, SAS, Oracle) as the governance and audit layer — without requiring displacement of the detection platform. This creates a wedge into operations budgets without demanding a rip-and-replace.
+3. **Position Memory Fabric as a standalone compliance offering.** Decision auditability is a capability gap across the entire competitive landscape. Memory Fabric can be deployed alongside existing compliance engines (NICE Actimize, SAS, Oracle) as the governance and audit layer — without requiring displacement of the detection platform. This creates a wedge into operations budgets without demanding a rip-and-replace.
 
 4. **Build a Truth Fabric reconciliation pilot.** Identify a Tier 2 bank with reconciliation pain (multiple core systems, real-time payments integration, manual exception handling). Deploy Truth Fabric's assertion → authority → reconciliation model for a single reconciliation domain (nostro, interbank, or payment-channel reconciliation). Demonstrate semantic reconciliation as an alternative to spreadsheet-and-exception-queue approaches.
 
@@ -285,15 +285,15 @@ Evolution Fabric's architecture maps directly to the banking operations opportun
 
 5. **Expand Quark Operations** to fraud case management, collections workflow, and regulatory reporting assembly. Each sub-domain adds to the "unified operations surface" value proposition that no competitor offers.
 
-6. **Position for "AI-agent-governed operations"** as the strategic differentiator. As Seer's agent governance matures and agentic AI moves from pilots to production in banking operations, Zeta's infrastructure-level agent governance (identity, delegation, guardrails, OPD) becomes the architectural standard for how banks deploy AI in operations — rather than each detection vendor building its own governance layer.
+6. **Position for "AI-agent-governed operations"** as the strategic differentiator. As Agent Fabric's agent governance matures and agentic AI moves from pilots to production in banking operations, Zeta's infrastructure-level agent governance (identity, delegation, guardrails, OPD) becomes the architectural standard for how banks deploy AI in operations — rather than each detection vendor building its own governance layer.
 
-7. **Target Tier 2 US banks under regulatory pressure** — those that have experienced or observed enforcement actions and need to demonstrate compliance operations modernization. The combination of Hub (explicit operations model), Seer (agent governance), and CAF (decision auditability) addresses the "how do we prove to the regulator that our operations are governed?" question that horizontal workflow platforms and point solutions cannot fully answer.
+7. **Target Tier 2 US banks under regulatory pressure** — those that have experienced or observed enforcement actions and need to demonstrate compliance operations modernization. The combination of Hub (explicit operations model), Agent Fabric (agent governance), and Memory Fabric (decision auditability) addresses the "how do we prove to the regulator that our operations are governed?" question that horizontal workflow platforms and point solutions cannot fully answer.
 
 ---
 
 # Appendix — Agent Capability Map
 
-The following catalogue details the AI agent capabilities that Evolution Fabric (Hub + Seer), Cognitive Audit Fabric, Trust Fabric, and Truth Fabric enable across each banking operations domain. Each capability assumes the operational model described in Part II — Streams, Loops, Scenarios, governed delegation, and decision auditability.
+The following catalogue details the AI agent capabilities that Evolution Fabric (Hub), Agent Fabric, Memory Fabric, Trust Fabric, and Truth Fabric enable across each banking operations domain. Each capability assumes the operational model described in Part II — Streams, Loops, Scenarios, governed delegation, and decision auditability.
 
 ## Reconciliation and Settlement Operations
 
@@ -313,7 +313,7 @@ The following catalogue details the AI agent capabilities that Evolution Fabric 
 | Policy enforcement agents | Agents that apply regulatory rules to operational activities — AML screening, sanctions checks, transaction monitoring thresholds — with structured exception handling for edge cases |
 | Regulatory documentation agents | Agents that produce compliance documentation from operational data — suspicious activity reports, regulatory filings, audit evidence packages — in required formats without manual assembly |
 | Change impact assessment agents | When regulations change, agents that assess the impact across the bank's operations — which Scenarios are affected, which policies need updating, which processes need review |
-| Audit preparation agents | Agents that assemble audit evidence packages — decision records, compliance check results, exception logs, resolution trails — from Cognitive Audit Fabric without requiring manual collection |
+| Audit preparation agents | Agents that assemble audit evidence packages — decision records, compliance check results, exception logs, resolution trails — from Memory Fabric without requiring manual collection |
 
 ## Fraud and Risk Operations
 
@@ -322,7 +322,7 @@ The following catalogue details the AI agent capabilities that Evolution Fabric 
 | Alert triage agents | Agents that evaluate fraud alerts — gathering contextual evidence, scoring risk, and prioritizing for human investigation. Reducing the false-positive burden that overwhelms investigation teams |
 | Investigation support agents | Agents that assemble investigation packages — transaction histories, behavioral patterns, network analysis, related cases — so that human investigators start with evidence, not data collection |
 | Pattern recognition agents | Agents that identify fraud patterns across transactions, accounts, and networks — surfacing connections that manual investigation would miss at scale |
-| Risk scoring agents | Agents that continuously assess account and transaction risk — applying models, evaluating behavioral signals, and flagging anomalies — with explanations traceable through CAF |
+| Risk scoring agents | Agents that continuously assess account and transaction risk — applying models, evaluating behavioral signals, and flagging anomalies — with explanations traceable through Memory Fabric |
 | Case file preparation agents | Agents that compile formal case documentation — evidence summaries, timeline reconstructions, policy references — ready for regulatory submission or law enforcement referral |
 
 ## Collections Operations
