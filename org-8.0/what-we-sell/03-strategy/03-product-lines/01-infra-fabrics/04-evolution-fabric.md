@@ -160,6 +160,6 @@ The fabrics are complementary, not competitive. Each governs a distinct concern.
 - [Olympus Hub Documentation](../../../../../olympus-hub-docs/README.md) — The operational substrate for information-centric work
 - [The Hub Way](../../../02-the-thesis/07-the-hub-way/README.md) — The framework for modeling work in enterprise banking domains
 - [The Thesis](../../../02-the-thesis/README.md) — The structural argument: problems, systems gap, governing principles, and benefits
-- [Finding the Fabric for Hub](../../01-finding-the-fabric-for-hub.md) — The naming deliberation that led to "Evolution Fabric"
+- [Finding the Fabric for Hub](../../../../_draft-work/01-finding-the-fabric-for-hub.md) — The naming deliberation that led to "Evolution Fabric"
 
 > **Evolution Fabric makes the bank's operational model the stable layer — so that everything else can change.**

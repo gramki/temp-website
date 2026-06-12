@@ -8,14 +8,13 @@ Where Zeta plays, what Zeta offers, and how to engage.
 
 | Chapter | Document |
 |---------|----------|
-| 01 | [Chapter 01: Finding the Fabric for Hub](01-finding-the-fabric-for-hub.md) |
 | 02 | Engagement Areas — [02-engagement-areas/](02-engagement-areas/) (11 domains) |
 | 03.01 | Infra Fabrics — [03-product-lines/01-infra-fabrics/](03-product-lines/01-infra-fabrics/) (11 fabrics) |
 | 03.02 | Banking Fabrics — [03-product-lines/02-banking-fabrics/](03-product-lines/02-banking-fabrics/) (41 fabrics) |
-| 03.03 | The Hubs of Enterprise Banking — [03-product-lines/03-hubs/](03-product-lines/03-hubs/) (5 hub classes) |
+| 03.03 | The Hubs of Enterprise Banking — [03-product-lines/03-hubs/](03-product-lines/03-hubs/) (6 hub classes) |
 | 03.04 | Zeta Product Families — [03-product-lines/04-product-lines/](03-product-lines/04-product-lines/) (6 product families) |
 | 04 | Distillation — [04-distillation/](04-distillation/) |
-| 05 | [Chapter 05.01: What We Sell and Why It Matters](05-narrative-for-customer/01-business-model-narrative.md) |
+| 05 | Narrative for Customer — [05-narrative-for-customer/](05-narrative-for-customer/) |
 
 ---
 
@@ -80,6 +79,7 @@ Bounded business domains running natively on **Evolution Fabric**, organizing pe
 
 | # | Document | Description |
 |---|----------|-------------|
+| 03.03.00 | [Customer Hub](03-product-lines/03-hubs/README.md#3-the-6-hub-classes) | Party governance and lifecycle; manages customer onboarding, identity verification transitions, and KYC refresh loops. *(Dedicated chapter pending.)* |
 | 03.03.01 | [Chapter 03.03.01: Product Hub](03-product-lines/03-hubs/01-product-hub.md) | The bank's commercial brain; manages product blueprints, bundle definitions, rewards/discounts, and dispatches campaigns downstream. |
 | 03.03.02 | [Chapter 03.03.02: Distribution Hub](03-product-lines/03-hubs/02-distribution-hub.md) | Frontline gateway; manages lead ingestion, application capture, identity/risk underwriting, and physical/digital issuance. |
 | 03.03.03 | [Chapter 03.03.03: Relationship Hub](03-product-lines/03-hubs/03-relationship-hub.md) | Servicing engine; coordinates active accounts, transaction enrichments, statement delivery, and context-aware loyalty campaigns. |
@@ -107,6 +107,18 @@ Zeta's core application frameworks, financial ledgers, and enterprise developer 
 |---|----------|
 | 04.01 | [Chapter 04.01: Engagement Area Portfolio Summary](04-distillation/01-engagement-area-summary.md) |
 | 04.02 | [Chapter 04.02: RTP-RTW](04-distillation/02-how-to.md) |
+| 04.03 | [Chapter 04.03: The CEO Motion — Distillation for a CEO-Focused Go-to-Market](04-distillation/03-ceo-gtm.md) |
+| 04.04 | [Chapter 04.04: The Domain Transformation Scorecard](04-distillation/04-transformation-scorecard.md) |
+| 04.05 | [Chapter 04.05: Decision Log](04-distillation/05-decisions.md) |
+
+---
+
+## Chapter 05 — Narrative for Customer
+
+| # | Document |
+|---|----------|
+| 05.01 | [Chapter 05.01: What We Sell and Why It Matters](05-narrative-for-customer/01-business-model-narrative.md) |
+| 05.02 | [Chapter 05.02: The Bank You Are Becoming — A Narrative for the CEO](05-narrative-for-customer/02-ceo-narrative.md) |
 
 ---
 

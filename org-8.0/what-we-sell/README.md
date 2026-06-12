@@ -49,7 +49,6 @@ See [03 — Strategy](03-strategy/README.md) for engagement areas, product lines
 
 | Chapter | Document |
 |---------|----------|
-| 01 | [Chapter 01: Finding the Fabric for Hub](03-strategy/01-finding-the-fabric-for-hub.md) |
 | 02 | [Engagement Areas](03-strategy/02-engagement-areas/) — 11 market domains (Chapters 02.01–02.11) |
 | 03 | [Product Lines](03-strategy/03-product-lines/) — banking and infra (Chapters 03.01–03.02) |
 | 04 | [Distillation](03-strategy/04-distillation/) — Chapters 04.01–04.02 |
