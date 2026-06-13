@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeta — Org Transformation: Redesign Around Work</title>
+<meta name="description" content="How can you change work with AI rather than have AI help employees do the old work? Redesign your organization around domains, not departments.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0d13;--bg2:#0e1219;--panel:#121723;--line:rgba(255,255,255,.08);--ink:#e9ecf3;--muted:#9aa3b5;--dim:#6b7487;--accent:#8b93ff;--accent2:#5ee0c2;--warn:#e4b363;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,system-ui,sans-serif;--mono:"Spline Sans Mono",ui-monospace,monospace;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(139,147,255,.35)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  a{color:var(--accent);text-decoration:none}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1120px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:.16em;color:var(--ink)}
+  .logo span{color:var(--accent)}
+  .nav-back{color:var(--muted);font-size:13.5px;font-weight:500;letter-spacing:.02em;transition:color .2s}
+  .nav-back:hover{color:var(--ink)}
+  section{padding:110px 0;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent2);margin-bottom:22px}
+  .kicker b{color:var(--dim);font-weight:400;margin-right:14px}
+  h2{font-size:clamp(30px,4vw,44px);line-height:1.15;max-width:21em;margin-bottom:26px}
+  .lede{font-size:19px;color:var(--muted);max-width:46em}
+  .lede strong{color:var(--ink);font-weight:500}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;margin-top:56px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:30px 28px;transition:border-color .25s}
+  .card h3{font-size:21px;margin-bottom:12px}
+  .card p{font-size:15.5px;color:var(--muted)}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  header{padding:190px 0 120px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;top:-300px;right:-200px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(139,147,255,.14),transparent 65%);pointer-events:none}
+  h1{font-size:clamp(40px,5.6vw,68px);line-height:1.08;max-width:17em;margin-bottom:32px}
+  h1 .hlit{color:var(--accent)}
+  .h-sub{font-size:20px;color:var(--muted);max-width:38em;margin-bottom:44px}
+  .h-sub strong{color:var(--ink);font-weight:500}
+  .btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{display:inline-block;border-radius:99px;padding:14px 30px;font-weight:600;font-size:15.5px;transition:all .2s}
+  .btn-solid{background:var(--accent);color:#0a0d13}
+  .btn-solid:hover{background:#a3aaff}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .split{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:start}
+  @media(max-width:920px){.split{grid-template-columns:1fr}}
+  .comparison{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:44px}
+  .comp-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+  .comp-row:last-child{border-bottom:none}
+  .comp-cell{padding:24px 26px;display:flex;flex-direction:column;justify-content:center}
+  .comp-row:first-child .comp-cell{background:var(--bg2);font-weight:600;color:var(--accent2);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .comp-row:nth-child(odd):not(:first-child) .comp-cell{background:rgba(255,255,255,.02)}
+  .comp-left h3{color:var(--warn);font-size:16px;margin-bottom:8px;font-family:var(--sans)}
+  .comp-right h3{color:var(--accent2);font-size:16px;margin-bottom:8px;font-family:var(--sans)}
+  .comp-cell p{font-size:15px;color:var(--muted);line-height:1.6}
+  .tiers{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+  .tier{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:34px 30px}
+  .tier h3{font-size:22px;margin-bottom:12px;color:var(--ink)}
+  .tier .subtitle{font-size:14px;color:var(--dim);margin-bottom:18px;font-family:var(--mono);letter-spacing:.08em}
+  .tier ul{list-style:none;margin-top:20px}
+  .tier li{font-size:15px;color:var(--muted);padding:10px 0 10px 24px;border-top:1px solid var(--line);position:relative}
+  .tier li:first-child{border-top:none;padding-top:0}
+  .tier li::before{content:"—";position:absolute;left:0;color:var(--accent2)}
+  .section-close{margin-top:48px;font-size:17px;color:var(--muted);max-width:46em}
+  .section-close strong{color:var(--ink);font-weight:500}
+  .cta-section{padding:130px 0;text-align:center;border-bottom:none;position:relative;overflow:hidden}
+  .cta-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 110%,rgba(139,147,255,.16),transparent)}
+  .cta-section h2{margin:0 auto 22px;max-width:18em}
+  .cta-section .lede{margin:0 auto 44px}
+  footer{padding:42px 0;color:var(--dim);font-size:13.5px;border-top:1px solid var(--line)}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="logo">ZETA<span>.</span></div>
+    <a href="index.html" class="nav-back">← All perspectives</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <h1>How can you <span class="hlit">change work</span> with AI rather than have AI <span class="hlit">help employees</span> do the old work?</h1>
+    <p class="h-sub">The old org chart maps to the constraint it was designed around: the scarcity of human attention. When that constraint lifts, the design inverts. <strong>Work stops moving between resolvers. Resolution assembles around the work.</strong> This is an org transformation, not a tool deployment.</p>
+    <div class="btns">
+      <a class="btn btn-solid" href="#models">The two models</a>
+      <a class="btn btn-ghost" href="#path">How it unfolds</a>
+    </div>
+  </div>
+</header>
+
+<section id="trap">
+  <div class="wrap">
+    <div class="kicker"><b>01</b>The old redesign trap</div>
+    <h2>You can optimize every person and still have an inefficient organization.</h2>
+    <p class="lede">Copilots make each analyst 20% faster at their step. But the analyst is one node in a workflow. The cost of your disputes, onboarding, credit decisions lives in the edges: the queues between teams, the handoffs that shed context, the reconciliations between systems that disagree. <strong>Optimize the nodes and the edges stay frozen.</strong> You get a faster institution doing the same thing.</p>
+    <p class="lede" style="margin-top:18px">Real org transformation requires a different question: <em>"What if we designed the organization around the work itself, not around the people resolving it?"</em> Departments, queues, and handoffs exist because no person could hold a complex domain's work whole. When AI handles complexity, the design can invert.</p>
+  </div>
+</section>
+
+<section id="models">
+  <div class="wrap">
+    <div class="kicker"><b>02</b>Two models compared</div>
+    <h2>The person-centric org vs. the work-centric org.</h2>
+
+    <div class="comparison reveal">
+      <div class="comp-row">
+        <div class="comp-cell"><strong>Today's org</strong><br>(person-centric, built around scarcity)</div>
+        <div class="comp-cell"><strong>Tomorrow's org</strong><br>(work-centric, built around domains)</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">
+          <div class="comp-left"><h3>Structure</h3></div>
+          <p>Org chart: Intake team, Fraud team, Investigation team, Reconciliation team. Work moves <em>between</em> teams.</p>
+        </div>
+        <div class="comp-cell">
+          <div class="comp-right"><h3>Structure</h3></div>
+          <p>Hubs: Each Hub owns a complete Stream end-to-end. Work is resolved <em>inside</em> the Hub. People + agents as one team.</p>
+        </div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">
+          <div class="comp-left"><h3>Coordination</h3></div>
+          <p>Queues between teams. Handoffs. Context shed at every boundary. Status meetings to know where things stand.</p>
+        </div>
+        <div class="comp-cell">
+          <div class="comp-right"><h3>Coordination</h3></div>
+          <p>Built into the Work Model. The Swarm resolves the work end-to-end. No queues, no handoffs. Context never leaves.</p>
+        </div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">
+          <div class="comp-left"><h3>Headcount planning</h3></div>
+          <p>Predict volume, allocate bodies to each team. Changing the mix requires org re-shuffling.</p>
+        </div>
+        <div class="comp-cell">
+          <div class="comp-right"><h3>Headcount planning</h3></div>
+          <p>Dial positions per work unit. Explicit decisions about which work people hold, which agents resolve. Moves in configuration, not headcount.</p>
+        </div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">
+          <div class="comp-left"><h3>Change cost</h3></div>
+          <p>New product, new regulation, new system = re-engineering. Takes months. Requires re-integration across all teams.</p>
+        </div>
+        <div class="comp-cell">
+          <div class="comp-right"><h3>Change cost</h3></div>
+          <p>Changes land on a Work Model. Re-mapping takes days, not months. The topology is stable; the contents change.</p>
+        </div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">
+          <div class="comp-left"><h3>What's measured</h3></div>
+          <p>Team throughput. Individual productivity. Cost per person. Utilization rates. Not the end-to-end cost of a Stream.</p>
+        </div>
+        <div class="comp-cell">
+          <div class="comp-right"><h3>What's measured</h3></div>
+          <p>The domain's work (denominator), who resolves it (dial), the cost per resolution, whether it's getting cheaper.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-close" style="margin-top:48px">The person-centric org is optimized for what you already do. The work-centric org is designed for what you could become. <strong>The transformation is not incremental.</strong></p>
+  </div>
+</section>
+
+<section id="happens">
+  <div class="wrap">
+    <div class="kicker"><b>03</b>What changes in the org structure</div>
+    <h2>Four shifts that ripple through the institution.</h2>
+    <div class="tiers reveal">
+      <div class="tier">
+        <h3>1. From teams to Hubs</h3>
+        <div class="subtitle">The organizing principle</div>
+        <p>Intake, Fraud, Investigation were never three jobs. They were one Stream divided among people who couldn't hold it whole. A Hub owns the Stream end-to-end. The Swarm + your best people work inside it. No handoffs between silos.</p>
+      </div>
+      <div class="tier">
+        <h3>2. From headcount to dial positions</h3>
+        <div class="subtitle">How you plan capacity</div>
+        <p>Instead of "we need 5 intake people and 8 fraud analysts," you ask: which work units are resolved by people (H), which by people with tools (H+), which by agents (A/H, A)? Your headcount plan becomes a set of explicit dial positions.</p>
+      </div>
+      <div class="tier">
+        <h3>3. From project-based change to domain-based evolution</h3>
+        <div class="subtitle">How change flows</div>
+        <p>New regulation used to mean a project across teams. Now it maps to Scenarios in the Work Model. Change lands on the model, not on the org chart. The Swarm adapts in days. Your people aren't disrupted by re-engineering every 18 months.</p>
+      </div>
+      <div class="tier">
+        <h3>4. From utilization to absorption</h3>
+        <div class="subtitle">What success means</div>
+        <p>Utilization — how busy your people are — is replaced by absorption: what percentage of the domain's work is resolved by the Swarm (A/H, A, M)? This is the only metric that matters for transformation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="path">
+  <div class="wrap">
+    <div class="kicker"><b>04</b>How the transformation unfolds</div>
+    <h2>It's not top-down or bottom-up. It's domain-by-domain.</h2>
+    <p class="lede">You pick one domain that matters (disputes, onboarding, servicing). You discover its Work Model. You induct your existing systems. You employ a Swarm. Your team learns to operate it. Then you repeat with the next domain. No big-bang re-org. No org chart redrawn all at once. The new structure emerges domain by domain.</p>
+    <p class="lede" style="margin-top:18px"><strong>The first domain is the hardest.</strong> You're learning new language (Work Model, Induction, Dial), new governance (who can move the dial, under what guardrails), new accountability (the Swarm is a colleague, not a tool). The second domain is measurably cheaper because it reuses the first's patterns, contracts, and governance. By the third domain, the curve inverts: each domain costs less than the last.</p>
+    <p class="lede" style="margin-top:18px">After three to four domains, your org has restructured itself. Not through an org-change initiative. Through the cumulative choice to resolve work at domain scale instead of at department scale.</p>
+  </div>
+</section>
+
+<section id="roles">
+  <div class="wrap">
+    <div class="kicker"><b>05</b>What each leader holds</div>
+    <h2>The executive roles don't disappear. They evolve.</h2>
+    <div class="tiers reveal">
+      <div class="tier">
+        <h3>The CEO</h3>
+        <div class="subtitle">Trajectory, not throughput</div>
+        <ul>
+          <li>Owns the sequencing: which domains to transform, in what order, to unlock franchise value?</li>
+          <li>Reads the board scorecard: denominator (work inventory), absorption (dial), outcomes (apps retired, cost per resolution)</li>
+          <li>Answers: where is the compounding? Is each domain cheaper than the last?</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <h3>The CIO</h3>
+        <div class="subtitle">The architecture and integration</div>
+        <ul>
+          <li>Governs the Work Model and the induction of existing systems (nothing forced out, everything replaceable on schedule)</li>
+          <li>Owns the Hubs and the Swarms: their architecture, governance, integration with bank systems</li>
+          <li>Answers: is the existing estate enrolled or orphaned? Can we change one thing without breaking ten?</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <h3>The CTO</h3>
+        <div class="subtitle">The platform and composition</div>
+        <ul>
+          <li>Builds the platform (Fabrics) that Hubs and Swarms run on</li>
+          <li>Owns the contract structure: how does one domain call on another's capability without tight coupling?</li>
+          <li>Answers: do we have single concern? Are we getting composability? Does the 50th agent cost less than the 1st?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap">
+    <h2>Ready to transform how your org works?</h2>
+    <p class="lede">Start with one domain. Discover its Work Model. Learn the new structure. Then repeat.</p>
+    <div class="btns" style="justify-content:center;gap:16px">
+      <a class="btn btn-solid" href="mailto:hello@zeta.tech?subject=Org%20Transformation%20Discussion">Start the conversation</a>
+      <a class="btn btn-ghost" href="index.html">Compare all perspectives</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div>© Zeta. Banking technology for the agentic era.</div>
+    <div><a href="index.html" style="color:var(--accent)">← All perspectives</a></div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
