@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ibuki for Individuals — The Personal Concierge You Were Never Profitable Enough to Get</title>
+<meta name="description" content="Most people never get a relationship manager. Mira is the personal financial concierge that remembers what you forget, catches what you'd miss, and never raises a problem without a path to fix it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0d0b0a;--bg2:#15110e;--panel:#1a1512;--line:rgba(255,255,255,.08);--ink:#f2ece5;--muted:#b5a99c;--dim:#7d7268;--accent:#ff9a76;--accent2:#ffd09a;--calm:#8fd4c2;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,system-ui,sans-serif;--mono:"Spline Sans Mono",ui-monospace,monospace;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(255,154,118,.32)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  a{color:var(--accent);text-decoration:none}
+  em{font-style:italic}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(13,11,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1120px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--serif);font-weight:600;font-size:21px;letter-spacing:.02em;color:var(--ink)}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:22px;align-items:center}
+  .nav-links a{color:var(--muted);font-size:13.5px;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .seg-nav{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--accent2)}
+  @media(max-width:780px){.nav-links a:not(.nav-back){display:none}}
+  section{padding:106px 0;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  .kicker b{color:var(--dim);font-weight:400;margin-right:14px}
+  h2{font-size:clamp(28px,3.6vw,40px);line-height:1.16;max-width:21em;margin-bottom:26px}
+  .lede{font-size:19px;color:var(--muted);max-width:46em}
+  .lede strong{color:var(--ink);font-weight:500}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  header{padding:176px 0 110px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;top:-260px;right:-150px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(255,154,118,.15),transparent 64%);pointer-events:none}
+  .breadcrumb{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:26px}
+  .breadcrumb a{color:var(--accent)}
+  h1{font-size:clamp(38px,5.2vw,62px);line-height:1.1;max-width:15em;margin-bottom:30px}
+  h1 .hlit{color:var(--accent)}
+  .h-sub{font-size:20px;color:var(--muted);max-width:39em;margin-bottom:44px}
+  .h-sub strong{color:var(--ink);font-weight:500}
+  .btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{display:inline-block;border-radius:99px;padding:14px 30px;font-weight:600;font-size:15.5px;transition:all .2s}
+  .btn-solid{background:var(--accent);color:#1a0f08}
+  .btn-solid:hover{background:#ffb499}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .moments{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:54px}
+  .moment{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:30px 28px}
+  .moment .q{font-family:var(--serif);font-size:19px;color:var(--ink);font-style:italic;margin-bottom:14px;line-height:1.4}
+  .moment p{font-size:15px;color:var(--muted)}
+  .moment p b{color:var(--accent2);font-weight:500}
+  .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:54px}
+  .role{border-top:2px solid var(--accent);background:var(--panel);border-radius:0 0 12px 12px;padding:26px 24px}
+  .role h3{font-size:18px;margin-bottom:10px;color:var(--ink)}
+  .role p{font-size:14.5px;color:var(--muted)}
+  .principle-strip{margin-top:50px;border-left:2px solid var(--calm);padding:8px 0 8px 26px;max-width:48em}
+  .principle-strip p{font-family:var(--serif);font-size:22px;color:var(--ink);line-height:1.4}
+  .principle-strip .d{font-family:var(--sans);font-size:15px;color:var(--muted);margin-top:12px}
+  .bankrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:50px}
+  .bx{border-left:2px solid var(--accent);padding-left:18px}
+  .bx .n{font-family:var(--serif);font-size:30px;color:var(--ink)}
+  .bx p{font-size:14px;color:var(--muted);margin-top:6px}
+  .cta{padding:124px 0;text-align:center;border-bottom:none;position:relative;overflow:hidden}
+  .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 112%,rgba(255,154,118,.16),transparent)}
+  .cta h2{margin:0 auto 22px;max-width:18em}
+  .cta .lede{margin:0 auto 42px}
+  footer{padding:42px 0;color:var(--dim);font-size:13.5px}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="logo">Ibuki<span>.</span></div>
+    <div class="nav-links">
+      <span class="seg-nav">Individual</span>
+      <a href="ibuki-family.html">Family</a>
+      <a href="ibuki-smb.html">Business</a>
+      <a href="ibuki.html" class="nav-back">← Ibuki overview</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="breadcrumb"><a href="ibuki.html">Ibuki</a> / Individual</div>
+    <h1>The personal concierge you were <span class="hlit">never profitable enough</span> to be given.</h1>
+    <p class="h-sub">A private-banking client gets a person who remembers their goals, watches their accounts, and calls before there’s a problem. Everyone else gets an app and a 1-800 number. <strong>Mira is that person — for every customer the bank could never afford to assign one to.</strong></p>
+    <div class="btns">
+      <a class="btn btn-solid" href="#moments">A day with Mira</a>
+      <a class="btn btn-ghost" href="ibuki-customer.html">See the customer view</a>
+    </div>
+  </div>
+</header>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="kicker"><b>01</b>The individual relationship</div>
+    <h2>One person’s financial life is more coordination than most people can carry.</h2>
+    <p class="lede">Renewals lapse. Fees creep. A subscription doubles and no one notices. A windfall sits idle in checking. A bill and a paycheck miss each other by two days and an overdraft follows. None of this is hard — it is just <em>relentless</em>, and humans are forgetful by design. The relationship the customer needs is not more features to navigate. It is someone who holds the whole picture so they don’t have to.</p>
+  </div>
+</section>
+
+<section id="moments">
+  <div class="wrap">
+    <div class="kicker"><b>02</b>What Mira does</div>
+    <h2>Not a screen to open. A presence that anticipates.</h2>
+    <div class="moments reveal">
+      <div class="moment">
+        <div class="q">“Your home insurance renews Tuesday — 18% higher than last year.”</div>
+        <p>Mira remembers the renewal, notices the jump, and <b>arrives with options, not just an alert</b> — three comparable quotes, or a one-tap “remind me to call them.”</p>
+      </div>
+      <div class="moment">
+        <div class="q">“You’ve got $9,400 sitting in checking earning nothing.”</div>
+        <p>Idle cash, caught. <b>A suitability-checked nudge</b> toward a high-yield option you already qualify for — your decision, executed in one confirmation, reversible.</p>
+      </div>
+      <div class="moment">
+        <div class="q">“This payment and your paycheck will cross. Want me to shift the date?”</div>
+        <p>The overdraft that never happens. Mira sees the timing collision days ahead and <b>offers the fix before the fee</b>.</p>
+      </div>
+      <div class="moment">
+        <div class="q">“That subscription just went from $9 to $19. Keep it?”</div>
+        <p>The quiet creep that drains accounts, surfaced. Cancel, keep, or negotiate — <b>Mira can do any of the three on your say-so</b>.</p>
+      </div>
+      <div class="moment">
+        <div class="q">“Your card was declined abroad. I’ve lifted the travel block — try again.”</div>
+        <p>A problem that arrives <b>already resolved</b>, never as a dead end. Every rejection comes with the path through it.</p>
+      </div>
+      <div class="moment">
+        <div class="q">“Nice month — you spent less on dining and hit your savings goal.”</div>
+        <p>Mira notices the good, too. <b>Relationship, not surveillance</b> — the small acknowledgments a good RM would give.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="channels">
+  <div class="wrap">
+    <div class="kicker"><b>03</b>Wherever the customer already is</div>
+    <h2>Mira meets them in the channel they already use — not one more app to check.</h2>
+    <div class="roles reveal">
+      <div class="role"><h3>The bank’s app</h3><p>Embedded where they already bank — proactive, conversational, not buried under sixty menu items.</p></div>
+      <div class="role"><h3>SMS &amp; email</h3><p>The channels people actually read. A nudge, a question, a one-tap confirmation.</p></div>
+      <div class="role"><h3>Voice</h3><p>Siri, Alexa, Google — “ask my bank” becomes a real answer, in context.</p></div>
+      <div class="role"><h3>Their own agent</h3><p>When the customer brings ChatGPT or Apple Intelligence, Mira meets it agent-to-agent, under the customer’s delegation.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="principle">
+  <div class="wrap">
+    <div class="kicker"><b>04</b>The rule that governs everything</div>
+    <div class="principle-strip reveal">
+      <p>“Solve for the user and the relationship before you solve for the bank.”</p>
+      <div class="d">Mira will tell a customer to cancel a product the bank sells if it’s wrong for them. That is not a bug in the model — it is the entire point. Trust earned this way is what makes every later recommendation land, and what makes the customer consolidate their life with the one bank that acts in their interest.</div>
+    </div>
+  </div>
+</section>
+
+<section id="bank">
+  <div class="wrap">
+    <div class="kicker"><b>05</b>Why the bank wins</div>
+    <h2>Serve the individual first, and the relationship deepens on its own.</h2>
+    <p class="lede">A customer who trusts Mira brings more of their life to the bank — not because they were cross-sold, but because the bank became the place that holds the whole picture. The commercial result follows the trust:</p>
+    <div class="bankrow reveal">
+      <div class="bx"><div class="n">Deposits</div><p>Idle and outside balances migrate to the bank that notices and advises.</p></div>
+      <div class="bx"><div class="n">Breadth</div><p>Products grow per customer because Mira surfaces only what genuinely fits.</p></div>
+      <div class="bx"><div class="n">Churn</div><p>Leaving means leaving the relationship — not uninstalling an app.</p></div>
+      <div class="bx"><div class="n">Cost to serve</div><p>High-frequency questions resolved by Mira never reach the call center.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Give every customer the concierge only your best clients ever had.</h2>
+    <div class="btns" style="justify-content:center;gap:16px">
+      <a class="btn btn-solid" href="mailto:hello@zeta.tech?subject=Ibuki%20for%20Individuals">Start the conversation</a>
+      <a class="btn btn-ghost" href="ibuki.html">Back to Ibuki</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div>© Zeta. Ibuki — the relationship core for banking.</div>
+    <div><a href="ibuki.html" style="color:var(--accent)">← Ibuki overview</a> · <a href="index.html" style="color:var(--accent)">All perspectives</a></div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

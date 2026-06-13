@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet Mira — Banking that knows you, looks out for you, and never lets you forget</title>
+<meta name="description" content="Mira is your bank's relationship manager — for you, your family, and your business. She remembers what you forget, catches what you'd miss, and always brings a way forward.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf6f0; --bg2:#f3ece1; --panel:#ffffff; --line:rgba(60,46,34,.12);
+    --ink:#2b2218; --muted:#6f6354; --dim:#9a8e7d;
+    --accent:#d9694a; --accent2:#3f8d7e; --warm:#e8a94f;
+    --serif:"Fraunces",Georgia,serif; --sans:"Inter",-apple-system,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(217,105,74,.22)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  a{color:var(--accent);text-decoration:none}
+  em{font-style:italic}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.012em}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,240,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:66px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--serif);font-weight:600;font-size:22px;color:var(--ink)}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:24px;align-items:center}
+  .nav-links a{color:var(--muted);font-size:14px;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-exec{font-size:13px;color:var(--dim)}
+  @media(max-width:780px){.nav-links a:not(.nav-exec){display:none}}
+  section{padding:104px 0;border-bottom:1px solid var(--line)}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  header{padding:188px 0 116px;position:relative;overflow:hidden;text-align:center}
+  header::before{content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(232,169,79,.18),transparent 62%);pointer-events:none}
+  .h-mark{font-family:var(--serif);font-size:15px;letter-spacing:.04em;color:var(--accent2);margin-bottom:26px;position:relative}
+  h1{font-size:clamp(40px,5.6vw,68px);line-height:1.08;max-width:15em;margin:0 auto 28px;position:relative}
+  h1 .hlit{color:var(--accent);font-style:italic}
+  .h-sub{font-size:21px;color:var(--muted);max-width:33em;margin:0 auto 42px;position:relative}
+  .h-sub strong{color:var(--ink);font-weight:500}
+  .btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;position:relative}
+  .btn{display:inline-block;border-radius:99px;padding:15px 32px;font-weight:600;font-size:16px;transition:all .2s}
+  .btn-solid{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(217,105,74,.28)}
+  .btn-solid:hover{background:#c75a3d;transform:translateY(-1px)}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .center{text-align:center}
+  .kicker{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  h2{font-size:clamp(30px,4vw,42px);line-height:1.16;margin-bottom:24px}
+  .center h2{max-width:18em;margin-left:auto;margin-right:auto}
+  .lede{font-size:20px;color:var(--muted);max-width:40em}
+  .center .lede{margin-left:auto;margin-right:auto}
+  .lede strong{color:var(--ink);font-weight:500}
+  .chat{max-width:560px;margin:56px auto 0;display:flex;flex-direction:column;gap:16px}
+  .bubble{padding:18px 22px;border-radius:20px;font-size:16.5px;line-height:1.55;max-width:84%;position:relative}
+  .bubble.mira{background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:6px;align-self:flex-start;box-shadow:0 2px 14px rgba(60,46,34,.05)}
+  .bubble.you{background:var(--accent2);color:#fff;border-bottom-right-radius:6px;align-self:flex-end}
+  .bubble .from{font-size:12px;font-weight:600;letter-spacing:.04em;margin-bottom:5px;opacity:.7}
+  .bubble.mira .from{color:var(--accent)}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+  @media(max-width:860px){.three{grid-template-columns:1fr}}
+  .who{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:36px 30px;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(60,46,34,.04)}
+  .who .em{font-size:30px;margin-bottom:16px}
+  .who h3{font-size:24px;margin-bottom:12px}
+  .who p{font-size:15.5px;color:var(--muted);margin-bottom:22px}
+  .who ul{list-style:none;margin-top:auto}
+  .who li{font-size:15px;color:var(--ink);padding:11px 0 11px 28px;border-top:1px solid var(--line);position:relative}
+  .who li:first-child{border-top:none}
+  .who li::before{content:"✓";position:absolute;left:0;color:var(--accent2);font-weight:700}
+  .promises{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:54px}
+  .promise{padding:0 0 0 22px;border-left:3px solid var(--warm)}
+  .promise h3{font-size:21px;margin-bottom:8px;font-style:italic}
+  .promise p{font-size:15.5px;color:var(--muted)}
+  .trust{background:var(--bg2);border-radius:24px;padding:52px 44px;margin-top:8px}
+  .trust h2{margin-bottom:18px}
+  .trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:28px;margin-top:34px}
+  .trust-item h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+  .trust-item p{font-size:14.5px;color:var(--muted)}
+  .cta{padding:120px 0;text-align:center;border-bottom:none;position:relative;overflow:hidden}
+  .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 110%,rgba(232,169,79,.2),transparent)}
+  .cta h2{margin:0 auto 20px;max-width:16em;position:relative}
+  .cta .lede{margin:0 auto 40px;position:relative}
+  footer{padding:44px 0;color:var(--dim);font-size:13.5px}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot-in a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="logo">Mira<span>.</span></div>
+    <div class="nav-links">
+      <a href="#you">For you</a>
+      <a href="#family">For your family</a>
+      <a href="#business">For your business</a>
+      <a href="ibuki.html" class="nav-exec">For banks →</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="h-mark">Meet Mira</div>
+    <h1>Banking that knows you, looks out for you, and <span class="hlit">never lets you forget.</span></h1>
+    <p class="h-sub">Not another app to check. Mira is your bank’s relationship manager — remembering what you forget, catching what you’d miss, and <strong>always arriving with a way forward, never just a problem.</strong></p>
+    <div class="btns">
+      <a class="btn btn-solid" href="#you">See how it feels</a>
+      <a class="btn btn-ghost" href="#trust">Is it safe?</a>
+    </div>
+  </div>
+</header>
+
+<section id="you">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker">For you</div>
+      <h2>The kind of attention only the wealthiest customers used to get.</h2>
+      <p class="lede">A private-banking client has someone who watches their money and calls before there’s a problem. Now you do too.</p>
+    </div>
+    <div class="chat reveal">
+      <div class="bubble mira"><div class="from">Mira</div>Heads up — your home insurance renews Tuesday, and it’s gone up 18%. Want me to pull a few comparable quotes before it does?</div>
+      <div class="bubble you"><div class="from">You</div>Yes please</div>
+      <div class="bubble mira"><div class="from">Mira</div>Done — three options, all similar cover, two cheaper than your current rate. And one more thing: you’ve got $9,400 sitting in checking earning nothing. Want me to move some into your savings at 4.2%?</div>
+      <div class="bubble you"><div class="from">You</div>Move $7k</div>
+      <div class="bubble mira"><div class="from">Mira</div>On its way. You can undo it anytime. Nice month, by the way — you came in under on dining and hit your savings goal. 🎉</div>
+    </div>
+  </div>
+</section>
+
+<section id="family" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker">For your family</div>
+      <h2>One place that finally sees your whole household.</h2>
+      <p class="lede">Shared goals, the kids’ allowances, an aging parent’s account to keep an eye on, and a clear answer to “who paid for what” — held together, with everyone’s privacy respected.</p>
+    </div>
+    <div class="three reveal">
+      <div class="who">
+        <div class="em">🎯</div>
+        <h3>Shared goals</h3>
+        <p>The summer trip, the down payment, the college fund — tracked across everyone who chips in.</p>
+        <ul>
+          <li>See progress at a glance</li>
+          <li>Mira nudges when you drift off pace</li>
+          <li>Everyone contributes their way</li>
+        </ul>
+      </div>
+      <div class="who">
+        <div class="em">🧒</div>
+        <h3>Kids &amp; allowances</h3>
+        <p>Pocket money that arrives on time, with gentle saving habits built in and limits you set.</p>
+        <ul>
+          <li>You decide what they can do</li>
+          <li>They learn to save and budget</li>
+          <li>Mira coaches, you stay in control</li>
+        </ul>
+      </div>
+      <div class="who">
+        <div class="em">🤝</div>
+        <h3>Caring for parents</h3>
+        <p>Keep an eye on a parent’s account — only what they’ve allowed you to see — and catch anything off.</p>
+        <ul>
+          <li>Scoped, consent-based access</li>
+          <li>Alerts for unusual charges</li>
+          <li>Help without taking over</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="business">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker">For your business</div>
+      <h2>The CFO your business could never afford to hire.</h2>
+      <p class="lede">Whether you run a practice, sell on a platform, or operate a local shop — Mira runs the money, so you can run the business.</p>
+    </div>
+    <div class="chat reveal">
+      <div class="bubble mira"><div class="from">Mira</div>You can make payroll Friday — but it’ll be tight. Two invoices are 9 days overdue. Want me to send polite reminders?</div>
+      <div class="bubble you"><div class="from">You</div>Go for it</div>
+      <div class="bubble mira"><div class="from">Mira</div>Sent. Also — paying the Reyes vendor 10 days early gets you a 2% discount, about $1,800. You’ll have the cash after Friday. Worth it?</div>
+      <div class="bubble you"><div class="from">You</div>Do it. And set aside taxes?</div>
+      <div class="bubble mira"><div class="from">Mira</div>Already on it — I’ve reserved $4,200 for your quarterly estimate so it won’t catch you out. You’re in good shape this month.</div>
+    </div>
+  </div>
+</section>
+
+<section id="promises" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker">What Mira promises</div>
+      <h2>The way a good relationship is supposed to feel.</h2>
+    </div>
+    <div class="promises reveal">
+      <div class="promise">
+        <h3>“I’ll remember, so you don’t have to.”</h3>
+        <p>Renewals, bills, goals, the things that slip — Mira holds them so they never become a problem.</p>
+      </div>
+      <div class="promise">
+        <h3>“I’ll never leave you stuck.”</h3>
+        <p>A declined card, a shortfall, a missed payment — every problem arrives with a way through it, not a dead end.</p>
+      </div>
+      <div class="promise">
+        <h3>“I work for you first.”</h3>
+        <p>Mira will tell you to cancel something your bank sells if it’s wrong for you. Your interest comes first — always.</p>
+      </div>
+      <div class="promise">
+        <h3>“You’re always in control.”</h3>
+        <p>Mira suggests and, with your okay, acts. Every action is yours to approve, and yours to undo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trust">
+  <div class="wrap">
+    <div class="trust reveal">
+      <div class="kicker">Your money, your rules</div>
+      <h2>Powerful help, with you in charge of all of it.</h2>
+      <p class="lede">Mira can do a lot on your behalf — which is exactly why you decide what she can do, and can change your mind anytime.</p>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <h3>You grant, you revoke</h3>
+          <p>Decide what Mira and any family member can see or do. Change it, or take it back, in a tap.</p>
+        </div>
+        <div class="trust-item">
+          <h3>Nothing happens without you</h3>
+          <p>Mira asks before she acts on anything that matters, and everything she does can be undone.</p>
+        </div>
+        <div class="trust-item">
+          <h3>Privacy by default</h3>
+          <p>Your family shares what you choose to share — and nothing you don’t. A child never sees a parent’s salary.</p>
+        </div>
+        <div class="trust-item">
+          <h3>A real person, always</h3>
+          <p>Whenever you want a human, the path is one step away. Mira never traps you in a loop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Banking that finally feels like it’s on your side.</h2>
+    <p class="lede">Ask your bank about Mira — or, if you run one, see what it takes to offer her.</p>
+    <div class="btns">
+      <a class="btn btn-solid" href="mailto:hello@zeta.tech?subject=Tell%20me%20about%20Mira">Ask about Mira</a>
+      <a class="btn btn-ghost" href="ibuki.html">I run a bank →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div>© Zeta. Mira is powered by Ibuki, the relationship core for banking.</div>
+    <div><a href="ibuki.html">For banks: Ibuki overview</a> · <a href="index.html">All perspectives</a></div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

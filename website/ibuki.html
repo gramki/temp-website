@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ibuki — The Relationship Core for Banking</title>
+<meta name="description" content="The Relationship Manager layer. Every customer needs one. Banks could never afford to staff it. Ibuki is the agent-native relationship core that makes relationship banking viable for everyone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0b0a; --bg2:#15110e; --panel:#1a1512; --line:rgba(255,255,255,.08);
+    --ink:#f2ece5; --muted:#b5a99c; --dim:#7d7268;
+    --accent:#ff9a76; --accent2:#ffd09a; --calm:#8fd4c2;
+    --serif:"Fraunces",Georgia,serif; --sans:"Inter",-apple-system,system-ui,sans-serif; --mono:"Spline Sans Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(255,154,118,.32)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  a{color:var(--accent);text-decoration:none}
+  em{font-style:italic}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(13,11,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1120px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--serif);font-weight:600;font-size:21px;letter-spacing:.02em;color:var(--ink)}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:24px;align-items:center}
+  .nav-links a{color:var(--muted);font-size:13.5px;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  @media(max-width:780px){.nav-links a:not(.nav-back){display:none}}
+  section{padding:108px 0;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  .kicker b{color:var(--dim);font-weight:400;margin-right:14px}
+  h2{font-size:clamp(30px,4vw,44px);line-height:1.15;max-width:21em;margin-bottom:26px}
+  .lede{font-size:19px;color:var(--muted);max-width:46em}
+  .lede strong{color:var(--ink);font-weight:500}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  header{padding:180px 0 116px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;top:-280px;right:-160px;width:740px;height:740px;border-radius:50%;background:radial-gradient(circle,rgba(255,154,118,.16),transparent 64%);pointer-events:none}
+  header::after{content:"";position:absolute;bottom:-340px;left:-180px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(143,212,194,.07),transparent 64%);pointer-events:none}
+  .h-mark{font-family:var(--serif);font-size:15px;letter-spacing:.04em;color:var(--accent2);margin-bottom:28px}
+  .h-mark span{color:var(--dim)}
+  h1{font-size:clamp(40px,5.6vw,66px);line-height:1.09;max-width:15em;margin-bottom:30px}
+  h1 .hlit{color:var(--accent)}
+  .h-sub{font-size:20px;color:var(--muted);max-width:39em;margin-bottom:44px}
+  .h-sub strong{color:var(--ink);font-weight:500}
+  .btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{display:inline-block;border-radius:99px;padding:14px 30px;font-weight:600;font-size:15.5px;transition:all .2s}
+  .btn-solid{background:var(--accent);color:#1a0f08}
+  .btn-solid:hover{background:#ffb499}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .h-foot{margin-top:60px;display:flex;gap:40px;flex-wrap:wrap;font-size:13.5px;color:var(--dim)}
+  .h-foot div b{display:block;color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  @media(max-width:900px){.split{grid-template-columns:1fr;gap:40px}}
+  .is-isnot{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:52px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  @media(max-width:760px){.is-isnot{grid-template-columns:1fr}}
+  .col-is,.col-isnot{padding:36px 32px}
+  .col-is{background:rgba(143,212,194,.05);border-right:1px solid var(--line)}
+  .col-isnot{background:rgba(255,154,118,.04)}
+  .col-head{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px}
+  .col-is .col-head{color:var(--calm)}
+  .col-isnot .col-head{color:var(--accent)}
+  .col-is ul,.col-isnot ul{list-style:none}
+  .col-is li,.col-isnot li{font-size:15.5px;color:var(--muted);padding:11px 0 11px 26px;border-top:1px solid var(--line);position:relative;line-height:1.5}
+  .col-is li:first-child,.col-isnot li:first-child{border-top:none}
+  .col-is li strong,.col-isnot li strong{color:var(--ink);font-weight:600}
+  .col-is li::before{content:"+";position:absolute;left:0;color:var(--calm);font-weight:bold}
+  .col-isnot li::before{content:"–";position:absolute;left:0;color:var(--accent);font-weight:bold}
+  .seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+  @media(max-width:860px){.seg-grid{grid-template-columns:1fr}}
+  .seg{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 30px;display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+  .seg:hover{border-color:rgba(255,154,118,.4);transform:translateY(-2px)}
+  .seg .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  .seg h3{font-size:24px;margin-bottom:6px}
+  .seg .scope{font-size:13.5px;color:var(--dim);margin-bottom:18px;font-style:italic;font-family:var(--serif)}
+  .seg p{font-size:15px;color:var(--muted);margin-bottom:22px}
+  .seg .rm{font-size:14.5px;color:var(--ink);border-top:1px dashed var(--line);padding-top:16px;margin-bottom:22px}
+  .seg .rm b{color:var(--accent2);font-weight:500}
+  .seg .go{margin-top:auto;font-weight:600;font-size:14.5px;color:var(--accent)}
+  .principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:52px}
+  .principle{border-left:2px solid var(--accent);padding:4px 0 4px 22px}
+  .principle .p{font-family:var(--serif);font-size:19px;color:var(--ink);line-height:1.4}
+  .principle .d{font-size:14px;color:var(--dim);margin-top:8px}
+  .layers{margin-top:52px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .layer{display:grid;grid-template-columns:180px 1fr;border-top:1px solid var(--line)}
+  .layer:first-child{border-top:none}
+  .layer .k{padding:24px 26px;background:var(--bg2);font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--accent2);display:flex;align-items:center}
+  .layer .v{padding:24px 26px;font-size:15px;color:var(--muted)}
+  .layer .v b{color:var(--ink);font-weight:500}
+  @media(max-width:720px){.layer{grid-template-columns:1fr}.layer .k{padding-bottom:6px}}
+  .cta{padding:128px 0;text-align:center;border-bottom:none;position:relative;overflow:hidden}
+  .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 112%,rgba(255,154,118,.16),transparent)}
+  .cta h2{margin:0 auto 22px;max-width:18em}
+  .cta .lede{margin:0 auto 42px}
+  footer{padding:42px 0;color:var(--dim);font-size:13.5px}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="logo">Ibuki<span>.</span></div>
+    <div class="nav-links">
+      <a href="#isnot">What it is</a>
+      <a href="#segments">Three relationships</a>
+      <a href="#principles">Principles</a>
+      <a href="ibuki-customer.html">Meet Mira</a>
+      <a href="index.html" class="nav-back">← All perspectives</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="h-mark">息吹 <span>— Ibuki, “the breath of life”</span></div>
+    <h1>The Relationship Manager layer. Every customer needs one. <span class="hlit">Banks could never afford to staff it.</span></h1>
+    <p class="h-sub">Relationship banking — an advisor who knows you, anticipates, coordinates, protects — has always been the premium tier, profitably staffed for the top few percent. Everyone else gets product silos and a call center. <strong>Ibuki is the agent-native relationship core that makes relationship banking viable for every household and every business.</strong></p>
+    <div class="btns">
+      <a class="btn btn-solid" href="#segments">Three relationships, one core</a>
+      <a class="btn btn-ghost" href="ibuki-customer.html">See what the customer sees</a>
+    </div>
+    <div class="h-foot">
+      <div><b>What it is</b>A relationship core — sits alongside your systems, doesn’t replace them</div>
+      <div><b>Runs on</b>Eon, the agent-native family/relationship operating fabric</div>
+      <div><b>For</b>CEOs, CIOs, and heads of consumer &amp; business banking</div>
+    </div>
+  </div>
+</header>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="kicker"><b>01</b>The relationship gap</div>
+    <h2>Banks serve customers as a bundle of products. Customers live as relationships.</h2>
+    <div class="split">
+      <div>
+        <p class="lede">A family is not a checking account, a mortgage, two cards, and a 529 held by four people. It is one economic unit with shared goals and constant coordination. A professional practice is not a business checking account plus a personal one — it is an integrated financial life where the owner’s draw, the practice’s cash flow, and the retirement plan are the same question.</p>
+      </div>
+      <div>
+        <p class="lede">Banks know this. They solve it the only way they historically could: a human relationship manager, for the customers profitable enough to justify one. <strong>The RM is the most valuable role in banking — and the least scalable.</strong> Ibuki makes the role programmable: an agent-native relationship manager that every customer gets, governed and consent-bound, at software economics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="isnot">
+  <div class="wrap">
+    <div class="kicker"><b>02</b>What Ibuki is — and is not</div>
+    <h2>A relationship core is a new category. The fastest way to understand it is by what it refuses to be.</h2>
+    <div class="is-isnot reveal">
+      <div class="col-is">
+        <div class="col-head">Ibuki is</div>
+        <ul>
+          <li><strong>A relationship core</strong> — it hosts the relationship, aggregates its products, and orchestrates every interaction between the bank and the relationship’s participants</li>
+          <li><strong>A system of record for the relationship</strong> — goals, obligations, consents, the household or business graph, the memory of what was said and promised</li>
+          <li><strong>An agent layer</strong> — an ensemble of specialized agents behind one trusted face (Mira), acting with policy-bounded, reversible autonomy</li>
+          <li><strong>Channel-agnostic</strong> — present in your app, over SMS and email, by voice, and through the customer’s own agent</li>
+        </ul>
+      </div>
+      <div class="col-isnot">
+        <div class="col-head">Ibuki is not</div>
+        <ul>
+          <li><strong>Not a CRM</strong> (Salesforce) — a CRM serves the bank’s salespeople; Ibuki serves the relationship, and solves for the customer first</li>
+          <li><strong>Not servicing</strong> (ServiceNow) — it is proactive relationship management, not a ticket queue</li>
+          <li><strong>Not a core banking suite</strong> — it sits alongside the cores and orchestrates them; it does not hold the ledger</li>
+          <li><strong>Not digital marketing</strong> (Adobe) — it influences through trusted guidance, not campaigns, and never at the relationship’s expense</li>
+          <li><strong>Not KYC / AML / risk</strong> (Alloy) — those remain the bank’s, by design; Ibuki consumes their verdicts, it does not make them</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="segments">
+  <div class="wrap">
+    <div class="kicker"><b>03</b>One idea, three relationships</div>
+    <h2>The same relationship core, instantiated at the scope of a person, a household, or a business.</h2>
+    <p class="lede">Ibuki is fractal. The thesis is identical in each segment — elevate the relationship to a first-class entity and give it the manager it could never afford. Only the scope and the guardrails change.</p>
+    <div class="seg-grid reveal">
+      <div class="seg">
+        <div class="tag">Individual</div>
+        <h3>Ibuki for You</h3>
+        <div class="scope">the relationship is a person + their obligations, goals, institutions</div>
+        <p>Most people will never be assigned a relationship manager. Mira is the personal financial concierge they were never profitable enough to receive — remembering what they forget, catching what they’d miss, never raising a problem without a path to fix it.</p>
+        <div class="rm">The RM role becomes: <b>your always-on personal financial concierge</b></div>
+        <a class="go" href="ibuki-individual.html">Ibuki for Individuals →</a>
+      </div>
+      <div class="seg">
+        <div class="tag">Family · runs on Eon</div>
+        <h3>Ibuki for Families</h3>
+        <div class="scope">the household, elevated to a first-class financial entity</div>
+        <p>Powered by <strong>Eon</strong>, the Family Financial Operating System, Ibuki treats the household as the unit: shared goals, delegated authority, pocket money and parental controls, and a clear answer to “who paid for what” — across members and across institutions.</p>
+        <div class="rm">The RM role becomes: <b>the household coordinator</b></div>
+        <a class="go" href="ibuki-family.html">Ibuki for Families (Eon) →</a>
+      </div>
+      <div class="seg">
+        <div class="tag">SMB</div>
+        <h3>Ibuki for Business</h3>
+        <div class="scope">the business + owner + cash cycle, integrated</div>
+        <p>Professionals, platform earners, and local operators can’t afford a CFO. Mira becomes one: receivables and payables, cash-flow forecasting, business-personal integration, and credit readiness — solving scenarios, not handing over tools.</p>
+        <div class="rm">The RM role becomes: <b>the AI CFO</b></div>
+        <a class="go" href="ibuki-smb.html">Ibuki for Business →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <div class="kicker"><b>04</b>How it is built</div>
+    <h2>One trusted face. An ensemble of agents. A bank-resident operating fabric beneath.</h2>
+    <div class="layers reveal">
+      <div class="layer">
+        <div class="k">The face</div>
+        <div class="v"><b>Mira</b> — a single, trusted persona the customer talks to. One relationship, one voice, across every channel. The customer never sees the machinery.</div>
+      </div>
+      <div class="layer">
+        <div class="k">The ensemble</div>
+        <div class="v"><b>Specialized relationship agents</b> — cash-flow planner, affordability advisor, dues and fee minder, collections assistant, wealth advisor, and more. Each deep in its domain; all coordinating behind Mira.</div>
+      </div>
+      <div class="layer">
+        <div class="k">The autonomy</div>
+        <div class="v"><b>Policy-bounded and reversible</b> — agents suggest, confirm, and execute within explicit limits. Suitability-checked nudges, a human escalation path always open, every action recorded and revocable.</div>
+      </div>
+      <div class="layer">
+        <div class="k">The fabric</div>
+        <div class="v"><b>Eon</b> — the bank-resident, agent-native operating fabric: identity and consent, the relationship graph and memory, guardrails and policy. The household is a first-class entity here.</div>
+      </div>
+      <div class="layer">
+        <div class="k">The boundary</div>
+        <div class="v"><b>The bank keeps the bank’s job</b> — KYC, AML, risk, and the product ledgers stay where they are. Ibuki orchestrates around them; it never takes them over.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="principles">
+  <div class="wrap">
+    <div class="kicker"><b>05</b>How Mira behaves</div>
+    <h2>The operating principles. This is the difference between a relationship and a feature.</h2>
+    <div class="principles reveal">
+      <div class="principle">
+        <div class="p">“Solve for the user and the relationship before you solve for the bank.”</div>
+        <div class="d">Trust is the asset. It compounds only when the customer’s interest comes first — and it is the only thing that makes the bank’s value follow.</div>
+      </div>
+      <div class="principle">
+        <div class="p">“Humans are inherently forgetful. Be the solution for it.”</div>
+        <div class="d">Remember and exercise what the customer can’t hold in their head — dues, renewals, promises, goals.</div>
+      </div>
+      <div class="principle">
+        <div class="p">“Never convey a problem or rejection without a path to resolution.”</div>
+        <div class="d">A declined application, a missed payment, a shortfall — every one arrives with a next step, not just a verdict.</div>
+      </div>
+      <div class="principle">
+        <div class="p">“Don’t aim to solve everything. Be really good at what you can.”</div>
+        <div class="d">Start with high-frequency, high-accuracy jobs to earn trust. Acknowledge limits honestly rather than overreach.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bank-value">
+  <div class="wrap">
+    <div class="kicker"><b>06</b>Why the bank wins by serving the customer first</div>
+    <h2>Relationship depth is the business model. Trust is the moat.</h2>
+    <p class="lede">When the relationship is hosted, served, and remembered, the commercial outcomes follow without being chased: deposits consolidate toward the bank that coordinates the whole picture; product breadth rises as Mira surfaces what genuinely fits; and churn collapses because leaving means leaving the relationship, not switching an app. The economics are a consequence of the principle, not a workaround of it — Ibuki is paid as relationships deepen, which only happens when the customer is served first.</p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Give every customer the manager only a few ever had.</h2>
+    <p class="lede">Start with one relationship segment. Deploy the core. Let trust compound.</p>
+    <div class="btns" style="justify-content:center;gap:16px">
+      <a class="btn btn-solid" href="mailto:hello@zeta.tech?subject=Ibuki%20Relationship%20Core">Start the conversation</a>
+      <a class="btn btn-ghost" href="ibuki-customer.html">Meet Mira</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div>© Zeta. Ibuki — the relationship core for banking.</div>
+    <div><a href="index.html" style="color:var(--accent)">← All perspectives</a></div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
