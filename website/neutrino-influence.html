@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeta — Neutrino: Relationship & Influence at Every Surface</title>
+<meta name="description" content="Your customer experiences 50+ surfaces daily. You're only present in your banking app. Neutrino extends your relationship and influence everywhere they make financial decisions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0d13;--bg2:#0e1219;--panel:#121723;--line:rgba(255,255,255,.08);--ink:#e9ecf3;--muted:#9aa3b5;--dim:#6b7487;--accent:#d4a5ff;--accent2:#ffd54f;--warn:#e4b363;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,system-ui,sans-serif;--mono:"Spline Sans Mono",ui-monospace,monospace;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(212,165,255,.35)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  a{color:var(--accent);text-decoration:none}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1120px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:.16em;color:var(--ink)}
+  .logo span{color:var(--accent)}
+  .nav-back{color:var(--muted);font-size:13.5px;font-weight:500;letter-spacing:.02em;transition:color .2s}
+  .nav-back:hover{color:var(--ink)}
+  section{padding:110px 0;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  .kicker b{color:var(--dim);font-weight:400;margin-right:14px}
+  h2{font-size:clamp(30px,4vw,44px);line-height:1.15;max-width:21em;margin-bottom:26px}
+  .lede{font-size:19px;color:var(--muted);max-width:46em}
+  .lede strong{color:var(--ink);font-weight:500}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  header{padding:190px 0 120px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;top:-300px;right:-200px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(212,165,255,.14),transparent 65%);pointer-events:none}
+  h1{font-size:clamp(40px,5.6vw,68px);line-height:1.08;max-width:18em;margin-bottom:32px}
+  h1 .hlit{color:var(--accent)}
+  .h-sub{font-size:20px;color:var(--muted);max-width:38em;margin-bottom:44px}
+  .h-sub strong{color:var(--ink);font-weight:500}
+  .btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{display:inline-block;border-radius:99px;padding:14px 30px;font-weight:600;font-size:15.5px;transition:all .2s}
+  .btn-solid{background:var(--accent);color:#0a0d13}
+  .btn-solid:hover{background:#e6c7ff}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .surfaces-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:56px}
+  .surface{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 16px;text-align:center;transition:border-color .25s}
+  .surface:hover{border-color:var(--accent)}
+  .surface .icon{font-size:24px;margin-bottom:8px}
+  .surface .name{font-size:14px;color:var(--ink);font-weight:600;margin-bottom:4px}
+  .surface .type{font-size:12px;color:var(--dim);font-family:var(--mono);letter-spacing:.06em}
+  .relationships{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:56px}
+  .relationship{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:34px 30px;border-top:2px solid var(--accent)}
+  .relationship h3{font-size:22px;margin-bottom:12px}
+  .relationship .subtitle{font-size:14px;color:var(--dim);margin-bottom:18px;font-family:var(--mono);letter-spacing:.08em}
+  .relationship ul{list-style:none;margin-top:20px}
+  .relationship li{font-size:15px;color:var(--muted);padding:10px 0 10px 24px;border-top:1px solid var(--line);position:relative}
+  .relationship li:first-child{border-top:none;padding-top:0}
+  .relationship li::before{content:"◆";position:absolute;left:0;color:var(--accent)}
+  .channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:56px}
+  .channel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:30px}
+  .channel h3{font-size:20px;margin-bottom:12px;color:var(--ink)}
+  .channel .category{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  .channel p{font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+  .channel ul{list-style:none;margin-top:14px}
+  .channel li{font-size:14px;color:var(--muted);padding:6px 0 6px 18px;position:relative}
+  .channel li::before{content:"→";position:absolute;left:0;color:var(--dim)}
+  .governance{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:40px 34px;margin-top:56px}
+  .governance h3{font-size:22px;margin-bottom:24px;color:var(--ink)}
+  .gov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .gov-item{border-left:2px solid var(--accent);padding-left:20px}
+  .gov-item .label{font-family:var(--serif);font-size:18px;color:var(--ink);margin-bottom:8px}
+  .gov-item p{font-size:14.5px;color:var(--muted)}
+  .personas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:56px}
+  .pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:30px}
+  .pcard .role{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  .pcard h3{font-size:20px;margin-bottom:14px;color:var(--ink)}
+  .pcard p{font-size:15px;color:var(--muted);line-height:1.6}
+  .cta-section{padding:130px 0;text-align:center;border-bottom:none;position:relative;overflow:hidden}
+  .cta-section::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 110%,rgba(212,165,255,.16),transparent)}
+  .cta-section h2{margin:0 auto 22px;max-width:18em}
+  .cta-section .lede{margin:0 auto 44px}
+  footer{padding:42px 0;color:var(--dim);font-size:13.5px;border-top:1px solid var(--line)}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="logo">ZETA<span>.</span></div>
+    <a href="index.html" class="nav-back">← All perspectives</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <h1>Your customer experiences <span class="hlit">50+ surfaces daily.</span> You're only present in your banking app.</h1>
+    <p class="h-sub"><strong>Neutrino extends your relationship and influence everywhere the customer makes financial decisions</strong> — embedded in partner apps, visible in ad networks, coordinated through their agents, orchestrated by one Influence strategy. Not a banking app. Banking infrastructure.</p>
+    <div class="btns">
+      <a class="btn btn-solid" href="#surfaces">The surfaces</a>
+      <a class="btn btn-ghost" href="#influence">Influence strategy</a>
+    </div>
+  </div>
+</header>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="kicker"><b>01</b>The fragmentation problem</div>
+    <h2>You're optimizing one surface while customers make decisions on 50 others.</h2>
+    <p class="lede">Today's banking strategy is app-centric: build a great mobile banking app, optimize it, measure it. But your customer lives in 50+ surfaces: shopping apps, fintech platforms, their agent (Apple Intelligence, ChatGPT), ad feeds, email, SMS, RM interactions, partner platforms, embedded banking in corporate systems. <strong>You show up in maybe one of them.</strong></p>
+    <p class="lede" style="margin-top:18px">Every surface is optimized separately — different campaigns, different offers, no unified relationship model. Your concierge doesn't know what the app showed. Your RM doesn't coordinate with the ad network. Your agent can't participate in household decisions. <strong>The customer sees fragmentation. You see missed influence opportunities.</strong></p>
+  </div>
+</section>
+
+<section id="surfaces">
+  <div class="wrap">
+    <div class="kicker"><b>02</b>The surfaces where banking happens</div>
+    <h2>Not in your app. Everywhere else.</h2>
+
+    <div class="surfaces-grid reveal">
+      <div class="surface">
+        <div class="icon">📱</div>
+        <div class="name">Shopping Apps</div>
+        <div class="type">Embedded</div>
+      </div>
+      <div class="surface">
+        <div class="icon">🤖</div>
+        <div class="name">Customer's Agent</div>
+        <div class="type">Agent-Native</div>
+      </div>
+      <div class="surface">
+        <div class="icon">📊</div>
+        <div class="name">Fintech Platforms</div>
+        <div class="type">Embedded</div>
+      </div>
+      <div class="surface">
+        <div class="icon">💬</div>
+        <div class="name">Ad Networks</div>
+        <div class="type">Programmatic</div>
+      </div>
+      <div class="surface">
+        <div class="icon">👥</div>
+        <div class="name">RM Console</div>
+        <div class="type">Staff</div>
+      </div>
+      <div class="surface">
+        <div class="icon">🏢</div>
+        <div class="name">Corporate Platform</div>
+        <div class="type">Embedded</div>
+      </div>
+      <div class="surface">
+        <div class="icon">💳</div>
+        <div class="name">Card Network</div>
+        <div class="type">Embedded</div>
+      </div>
+      <div class="surface">
+        <div class="icon">📢</div>
+        <div class="name">Social / Email</div>
+        <div class="type">Owned</div>
+      </div>
+      <div class="surface">
+        <div class="icon">🎯</div>
+        <div class="name">Concierge</div>
+        <div class="type">Agent-Native</div>
+      </div>
+      <div class="surface">
+        <div class="icon">👨‍👩‍👧‍👦</div>
+        <div class="name">Family Banking</div>
+        <div class="type">Direct</div>
+      </div>
+      <div class="surface">
+        <div class="icon">🔄</div>
+        <div class="name">Partner APIs</div>
+        <div class="type">Embedded</div>
+      </div>
+      <div class="surface">
+        <div class="icon">💻</div>
+        <div class="name">Web / Mobile App</div>
+        <div class="type">Direct</div>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top:56px;max-width:48em"><strong>Neutrino reaches across all of them</strong> — not by building 12 separate experiences, but by composing one relationship model across 12 surfaces. The customer sees consistency. You see unified influence.</p>
+  </div>
+</section>
+
+<section id="relationships">
+  <div class="wrap">
+    <div class="kicker"><b>03</b>Three new relationship models</div>
+    <h2>From individual to household to agent-native participation.</h2>
+
+    <div class="relationships reveal">
+      <div class="relationship">
+        <h3>Individual Relationships</h3>
+        <div class="subtitle">The core relationship</div>
+        <ul>
+          <li>Person with verified identity, account access, product holdings</li>
+          <li>Deposits, credit, cards held individually</li>
+          <li>Influence reaches them through their preferred channels: app, email, agent, ad feed</li>
+          <li>RM engages them through the RM console</li>
+        </ul>
+      </div>
+      <div class="relationship">
+        <h3>Household Relationships (Eon)</h3>
+        <div class="subtitle">The family financial operating system</div>
+        <ul>
+          <li>Multi-member household with delegated authority (parent, spouse, adult child)</li>
+          <li>Shared goals, household budgets, individual pocket money, family banking</li>
+          <li>Parents see children's accounts; children see parental controls; spouses coordinate</li>
+          <li>One household profile across all surfaces — influence reaches the right person for the decision</li>
+        </ul>
+      </div>
+      <div class="relationship">
+        <h3>Agent-Native Relationships (BYOA)</h3>
+        <div class="subtitle">The customer's agent, your concierge, RM all coordinating</div>
+        <ul>
+          <li>Customer's agent (Apple, ChatGPT, corporate treasury AI) integrated as a delegated agent</li>
+          <li>Your concierge (Ibuki) proactively managing on the customer's behalf</li>
+          <li>RM coordinating across both, seeing agent activity and concierge engagement</li>
+          <li>Fine-grained delegation: agent X can see accounts, concierge can initiate transfers under $10k</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="influence">
+  <div class="wrap">
+    <div class="kicker"><b>04</b>Influence — the central pillar</div>
+    <h2>One relationship model. One influence strategy. Twelve surfaces.</h2>
+    <p class="lede">The <strong>Influence Fabric</strong> is not a campaign tool. It is the operating principle for how the bank reaches and engages customers across every surface they inhabit.</p>
+
+    <div class="governance reveal">
+      <h3>What Influence Fabric orchestrates</h3>
+      <div class="gov-grid">
+        <div class="gov-item">
+          <div class="label">Campaigns</div>
+          <p>One customer relationship model. Many surfaces. One influence strategy coordinates what the customer sees where — email, app push, ad network, RM outreach, agent nudge.</p>
+        </div>
+        <div class="gov-item">
+          <div class="label">Offers & incentives</div>
+          <p>Coordinated by household state, delegation status, product holdings, relationship tier. The right offer reaches the right decision-maker through their channel.</p>
+        </div>
+        <div class="gov-item">
+          <div class="label">Relationship nudges</div>
+          <p>Proactive engagement: "You're shopping at Merchant X; here's your cashback rate." "Your household's credit utilization is 80%; here's a balance transfer." "Your agent recommends rebalancing your portfolio."</p>
+        </div>
+        <div class="gov-item">
+          <div class="label">Attribution & measurement</div>
+          <p>Which surface converted? Was it the ad, the app notification, the concierge email, the agent suggestion, or the embedded offer? One measurement plane across all surfaces.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top:56px;max-width:48em"><strong>The business outcome:</strong> You're no longer competing on "who has the best app." You're competing on "who reaches the customer with the right offer at the moment they're most receptive — across all the surfaces they inhabit."</p>
+  </div>
+</section>
+
+<section id="channels">
+  <div class="wrap">
+    <div class="kicker"><b>05</b>The channel landscape</div>
+    <h2>Five categories of surfaces. One unified relationship.</h2>
+
+    <div class="channels reveal">
+      <div class="channel">
+        <div class="category">Direct Channels</div>
+        <h3>You own and operate</h3>
+        <p>Web, mobile, conversational banking, agent-native platform.</p>
+        <ul>
+          <li>Traditional banking interfaces (account view, transfer, payment)</li>
+          <li>Conversational (chatbot, Alexa, Google Home banking)</li>
+          <li>Family banking (Eon household coordination)</li>
+          <li>Proactive concierge engagement (Ibuki)</li>
+        </ul>
+      </div>
+      <div class="channel">
+        <div class="category">Staff Channels</div>
+        <h3>Bank operations</h3>
+        <p>RM console, concierge desk, supervisor dashboard.</p>
+        <ul>
+          <li>RM sees individual, household, and agent relationship context</li>
+          <li>Concierge desk orchestrates proactive engagement</li>
+          <li>Supervisors monitor delegation, authority, and escalations</li>
+          <li>All fed by the same Influence Fabric and Relationship Fabrics</li>
+        </ul>
+      </div>
+      <div class="channel">
+        <div class="category">Embedded Channels</div>
+        <h3>Partner platforms (BaaS)</h3>
+        <p>Banking runs inside their UI, your influence in their context.</p>
+        <ul>
+          <li>Shopping apps (cashback, financing at checkout)</li>
+          <li>Fintech platforms (Zeta-powered credit, accounts)</li>
+          <li>Corporate platforms (SMB accounting, treasury, payroll)</li>
+          <li>Card networks (issuer offers, rewards)</li>
+        </ul>
+      </div>
+      <div class="channel">
+        <div class="category">Ad Networks</div>
+        <h3>Programmatic reach</h3>
+        <p>Your offers show where your customer makes decisions.</p>
+        <ul>
+          <li>Display advertising (targeted by household state, product holdings)</li>
+          <li>Sponsored content (trusted partner networks)</li>
+          <li>Social & messaging (organic + paid reach)</li>
+          <li>SMS/email (owned-channel coordination)</li>
+        </ul>
+      </div>
+      <div class="channel">
+        <div class="category">Agent Channels</div>
+        <h3>Agentic reach</h3>
+        <p>Your influence through agents, not interfaces.</p>
+        <ul>
+          <li>Customer's agents (Apple Intelligence, ChatGPT, corporate treasury AI)</li>
+          <li>Your concierge agents (Ibuki proactive engagement)</li>
+          <li>Partner agents (fintech, embedded finance integrations)</li>
+          <li>RM-assisted agents (RM uses AI to coordinate at scale)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="governance">
+  <div class="wrap">
+    <div class="kicker"><b>06</b>Delegation & governance</div>
+    <h2>Customer controls who influences them and what each agent can do.</h2>
+    <p class="lede">Influence is powerful. It must be governed. <strong>Fine-grained delegation</strong> ensures every agent (yours, theirs, household) operates only within the customer's explicit authorization.</p>
+
+    <div class="governance reveal">
+      <h3>How delegation works</h3>
+      <div class="gov-grid">
+        <div class="gov-item">
+          <div class="label">Agent authentication</div>
+          <p>Every agent (person, Ibuki concierge, customer's Apple agent, fintech partner agent) has a verified identity. The system knows exactly who is acting on the customer's behalf.</p>
+        </div>
+        <div class="gov-item">
+          <div class="label">Granular authority</div>
+          <p>Customer grants: "My agent can see checking account balance," "Concierge can initiate transfers under $10k," "RM can view credit utilization," "Partner agent can see product eligibility." Not all-or-nothing delegation.</p>
+        </div>
+        <div class="gov-item">
+          <div class="label">Audit trail</div>
+          <p>Every delegation decision (grant, modify, revoke) is timestamped and attributed. Customer can see who has what authority and when it was granted.</p>
+        </div>
+        <div class="gov-item">
+          <div class="label">Instant revocation</div>
+          <p>Customer removes agent access in real-time. No delegation lingers; no agent has persistent authority. Revocation takes effect immediately.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="leadership">
+  <div class="wrap">
+    <div class="kicker"><b>07</b>What each leader owns</div>
+    <h2>CEO, CIO, CTO — the roles that govern unified influence.</h2>
+
+    <div class="personas reveal">
+      <div class="pcard">
+        <div class="role">Chief Executive Officer</div>
+        <h3>Relationship & revenue strategy</h3>
+        <p>How do we move from customer acquisition to household/agent-relationship depth? Which surfaces are highest-ROI for reach? How does Influence become the competitive advantage — the ability to reach customers at the moment they make decisions?</p>
+      </div>
+      <div class="pcard">
+        <div class="role">Chief Information Officer</div>
+        <h3>Unified relationship architecture</h3>
+        <p>How do we unify relationship data (individual, household, agent delegation, RM context) across 12 surfaces while respecting privacy and delegation? Which fabrics (Relationship, Family, Concierge, Influence) power each surface?</p>
+      </div>
+      <div class="pcard">
+        <div class="role">Chief Technology Officer</div>
+        <h3>Composition & orchestration</h3>
+        <p>How do we compose unified Channel Products across Hubs and surfaces? How do we architect agent authentication and delegated authority at scale? How do we make Influence Fabric composable across all 12 surfaces?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap">
+    <h2>Stop building apps. Start building influence infrastructure.</h2>
+    <p class="lede">Neutrino is how banking becomes omnipresent — unified relationship, every surface, one influence strategy.</p>
+    <div class="btns" style="justify-content:center;gap:16px">
+      <a class="btn btn-solid" href="mailto:hello@zeta.tech?subject=Neutrino%20Influence%20Strategy">Discuss your reach</a>
+      <a class="btn btn-ghost" href="index.html">Compare all perspectives</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div>© Zeta. Banking technology for the agentic era.</div>
+    <div><a href="index.html" style="color:var(--accent)">← All perspectives</a></div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
