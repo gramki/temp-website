@@ -95,7 +95,7 @@ Zeta's core application frameworks, financial ledgers, and enterprise developer 
 | 03.04.01 | [Chapter 03.04.01: Tachyon — Account Products](03-product-lines/04-product-lines/01-tachyon.md) |
 | 03.04.02 | [Chapter 03.04.02: Photon — Payments and Money Movement](03-product-lines/04-product-lines/02-photon.md) |
 | 03.04.03 | [Chapter 03.04.03: Electron — Commercial Cards and Payment Products](03-product-lines/04-product-lines/03-electron.md) |
-| 03.04.04 | [Chapter 03.04.04: Neutrino — Channels and Channel Products](03-product-lines/04-product-lines/04-neutrino.md) |
+| 03.04.04 | [Chapter 03.04.04: Neutrino — Retail Relationship and Influence Platform](03-product-lines/04-product-lines/04-neutrino.md) |
 | 03.04.05 | [Chapter 03.04.05: Quark — Domain Hubs for Banking](03-product-lines/04-product-lines/05-quark.md) |
 | 03.04.06 | [Chapter 03.04.06: Olympus — Enterprise Developer and Runtime Platform](03-product-lines/04-product-lines/06-olympus.md) |
 

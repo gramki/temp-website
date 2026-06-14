@@ -1,12 +1,12 @@
-# Chapter 03.04.04: Neutrino — Retail Transformation Substrate
+# Chapter 03.04.04: Neutrino — Retail Relationship and Influence Platform
 
-**The experience, relationship, and distribution substrate for retail banking innovation — providing the interaction surfaces, relationship models, and distribution networks through which customers, agents, and banks collaborate.**
+**The customer influence and relationship platform for retail banking innovation — designed to secure lifetime primary bank status through deep relational capital, activated by high-utility daily experiences and reciprocal rewards.**
 
 ---
 
 ## Product Family
 
-Neutrino is Zeta's retail transformation substrate. Rather than serving as a passive set of front-end channels, Neutrino is the active experience, relationship, and distribution engine for retail banking innovation. It provides the infrastructure for building, composing, and operating the interaction surfaces and relationship boundaries through which banking work is accessed — by customers, bank staff, and AI agents.
+Neutrino is Zeta's retail relationship and influence platform. Rather than serving as a passive set of front-end channels, Neutrino is the active customer engagement and influence engine for retail banking innovation. It provides the infrastructure for building, composing, and operating the interaction surfaces and relationship boundaries through which banking work is accessed — by customers, bank staff, and AI agents.
 
 In Hub Way terms, Neutrino delivers **Channels** — the collaboration surfaces through which humans and agents participate in a Hub's Scenarios — and **Channel Products** — organization-scoped experiences that recompose components from multiple Hubs into cohesive customer journeys.
 
