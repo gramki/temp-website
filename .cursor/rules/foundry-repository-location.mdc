@@ -1,0 +1,15 @@
+---
+description: Specifies the correct repository location for all Foundry platform development and documentation
+alwaysApply: true
+---
+# Foundry Repository Location Invariant
+
+CRITICAL: The official and active repository for all Foundry Platform source code, web applications, and documentation has diverged from the `zeta-ai-product-strategy` repository.
+
+- **Active Foundry Repository Path:** `/Users/ramki/Git/foundry/`
+- **Active Foundry Web App Prototype Path:** `/Users/ramki/Git/foundry/foundry-platform/foundry-web-app/prototype/`
+
+## Rules for Code Changes and Documentation
+1. **NEVER** modify any files under `zeta-ai-product-strategy/foundry/` except the redirect `foundry/README.md`. That folder no longer contains Foundry source documentation.
+2. **ALWAYS** perform all reads, writes, edits, and terminal commands (such as `npm run dev` or `npm run build`) within the active repository at `/Users/ramki/Git/foundry/`.
+3. If the user asks to modify "foundry documentation" or "foundry web app", immediately target `/Users/ramki/Git/foundry/` as the source of truth.

@@ -21,7 +21,6 @@ zeta-ai-product-strategy/
 ├── tachyon/                  # CLM and servicing
 ├── neutrino/                 # Customer interaction channels
 ├── cipher/                   # Identity and access management
-├── foundry/                  # Development infrastructure
 │
 ├── gtm-strategy/             # Go-to-market themes
 ├── market-study/             # Market research and analysis
@@ -274,6 +273,19 @@ Signal → Trigger → Request → Scenario → Hub Application → Activities �
 
 ---
 
+## Foundry (moved)
+
+Foundry — the platform for agent-driven software delivery — no longer lives in this repository.
+
+| | |
+|---|---|
+| **Repository** | [Zeta-Enterprise/zeta-ai-product-strategy-foundry](https://github.com/Zeta-Enterprise/zeta-ai-product-strategy-foundry) |
+| **Local clone** | `/Users/ramki/Git/foundry/` |
+
+See [foundry/README.md](./foundry/README.md) for clone instructions and what moved.
+
+---
+
 ## 🚀 Quick Start
 
 1. **Understand the foundation** — Read [AOSM Overview](./aosm-meta-model/agent-oriented-system.md)
@@ -292,4 +304,4 @@ Signal → Trigger → Request → Scenario → Hub Application → Activities �
 
 ---
 
-*Last updated: January 2026*
+*Last updated: June 2026*

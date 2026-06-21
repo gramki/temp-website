@@ -1,9 +1,0 @@
-# Console groups moved under platform-developer-guide/pages/consoles/
-folders:
-  build: "Build (Developer Guide)"
-  work: "Work (Developer Guide)"
-  workforce: "Workforce (Developer Guide)"
-  resources: "Resources (Developer Guide)"
-  settings: "Settings (Developer Guide)"
-  workspaces: "Workspace Consoles (Developer Guide)"
-  governance: "Governance Consoles (Developer Guide)"
